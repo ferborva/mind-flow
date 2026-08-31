@@ -11,7 +11,7 @@ books/<book-slug>/
 ```
 
 `outline.md` comes first and matters most. It is the honest state of the book:
-which chapters exist, which are stubs, and — most usefully — which gaps in the
+which chapters exist, which are stubs, and (most usefully) which gaps in the
 argument still need a conversation with Fer to fill. A book outline is the
 strongest generator of good backlog questions in this repo.
 

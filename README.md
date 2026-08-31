@@ -2,7 +2,7 @@
 
 A place to slowly empty my head.
 
-Years of work experience live as instinct — things I know how to do but have
+Years of work experience live as instinct: things I know how to do but have
 never written down. This repository is an attempt to get them out, in the only
 way that seems likely to actually happen: by talking, in whatever random moment
 I have, and letting Claude do the writing.
@@ -16,7 +16,7 @@ them. As the collection grows, pieces that belong together get gathered into
 longer things. Books, eventually. We'll see.
 
 The prose is Claude's. The substance is mine. Nothing in here is allowed to be
-an opinion I never expressed — every finished piece traces back to a recorded
+an opinion I never expressed. Every finished piece traces back to a recorded
 conversation.
 
 ## Layout
@@ -31,9 +31,9 @@ conversation.
 | `books/` | Longer collections, once enough posts cluster. |
 | `meta/` | Index, themes, backlog of open questions, templates. |
 
-`CLAUDE.md` is the operating manual — how Claude works this repository between
+`CLAUDE.md` is the operating manual: how Claude works this repository between
 conversations.
 
 ## Where to start reading
 
-`meta/index.md` — the map of everything currently here.
+`meta/index.md`: the map of everything currently here.

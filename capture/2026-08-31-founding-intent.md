@@ -12,7 +12,7 @@ updated: 2026-08-31
 
 **Context.** The first conversation. Fer opened an empty repository and
 described what he wanted it to become. Captured from his own words in that
-message — the founding statement of intent.
+message. The founding statement of intent.
 
 ---
 
@@ -37,7 +37,7 @@ a project with a deadline or a finished shape in mind.
 around. The conversations are unscheduled and short; the work of turning them
 into writing is scheduled and happens without him.
 
-"Close to word for word" — his instruction on capture fidelity, stated before
+"Close to word for word": his instruction on capture fidelity, stated before
 anything was built.
 
 ## Where it goes
@@ -46,7 +46,7 @@ anything was built.
 > collection grows would build a book or several of them hehehe let's see how we
 > go.
 
-<!-- NOTE: "hehehe let's see how we go" — the books are a real ambition held
+<!-- NOTE: "hehehe let's see how we go". The books are a real ambition held
      lightly. Worth remembering when the pipeline is tempted to declare a book
      too early. The lightness is the instruction. -->
 
@@ -64,4 +64,4 @@ These were promised in this conversation but not yet provided.
 - The three foundation documents have not arrived yet.
 - No sense yet of which years or roles the "work experience" covers.
 - No sense yet of who the reader is.
-- "Publish" was used but not defined — inside the repo, or out to the world?
+- "Publish" was used but not defined: inside the repo, or out to the world?

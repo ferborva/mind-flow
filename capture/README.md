@@ -6,7 +6,7 @@ One file per conversation: `YYYY-MM-DD-slug.md`.
 
 **Fidelity over polish.** Filler words go, sentences get closed, obvious
 transcription noise gets cleaned. Nothing else. Phrasing stays his, metaphors
-stay his, tangents stay in — the tangents are frequently where the actual
+stay his, tangents stay in, because the tangents are frequently where the actual
 insight is hiding. If something was said half-formed, it stays half-formed and
 gets marked, because half-formed is where the real thinking shows.
 

@@ -17,7 +17,7 @@ mine to make.
 
 ## Active themes
 
-_(none yet — needs conversations first)_
+_(none yet, needs conversations first)_
 
 ## Watching
 

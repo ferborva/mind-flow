@@ -16,7 +16,7 @@ One or two sentences. What he actually argues, in his words as far as possible.
 ## In his words
 
 > The quotes that carry this idea. Verbatim, with the capture id after each.
-> — 2026-08-31-slug
+> from: 2026-08-31-slug
 
 ## Stories and evidence
 

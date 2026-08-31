@@ -21,7 +21,7 @@ Near-verbatim. His phrasing, his metaphors, his structure. Filler removed,
 sentences closed, nothing else touched.
 
 > Direct quotes for anything especially well put. If a sentence is already the
-> sentence, keep it exactly and mark it — it goes into the finished piece
+> sentence, keep it exactly and mark it: it goes into the finished piece
 > unchanged.
 
 ## [Second topic]

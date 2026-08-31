@@ -18,13 +18,16 @@ scheduled runs.
 | Posts | 0 |
 | Books | 0 |
 
-Foundation documents: **0 of 3 provided** — constitution, communication style
-and soul representation are all still placeholders. Until they land, nothing
-should be written in Fer's voice.
+Foundation documents: **3 of 3 in place.** Constitution, communication style and
+soul, taken from the "Writing style and agent soul" email of 2026-07-28 and
+installed 2026-08-31. `editorial-guide.md` derived from them the same day.
+
+Writing in Fer's voice is unblocked. What the repo is short of now is material:
+it needs conversations before it can produce anything.
 
 ## Captures
 
-- `2026-08-31-founding-intent` — What this repository is for. **raw**
+- `2026-08-31-founding-intent`, what this repository is for. **raw**
 
 ## Seeds
 

@@ -4,7 +4,7 @@ One idea per file. The unit of thought between a conversation and a piece.
 
 A seed is a single claim, plus everything attached to it: the stories that
 illustrate it, the caveats, the counter-examples, the direct quotes worth
-keeping intact. It gathers material from across captures — a seed opened in
+keeping intact. It gathers material from across captures: a seed opened in
 March can keep growing in November when the same idea comes up again.
 
 A seed is not a draft. It has no shape, no opening, no argument. It is a pile
