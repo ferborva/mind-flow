@@ -26,8 +26,13 @@ pyramid, no em dashes). Some of it does not (`:rocket:` in a chapter opener,
 
 Where the profile is silent on long-form, I extrapolate from the underlying
 temperament rather than transplanting Slack mechanics. Every such extrapolation
-is marked **[extrapolated]** below. Those are the lines most likely to be wrong,
-and the first ones to correct once he reacts to a real draft.
+is marked **[extrapolated]** below. Those are the lines most likely to be wrong.
+
+**An essay profile is coming.** As of 2026-08-31 Fer has an agent extracting a
+long-form style profile from his past blog posts. When it lands, it goes into
+`foundation/` next to the others and every `[extrapolated]` line here gets
+rewritten against real evidence, tags dropped. Until then these are educated
+guesses, and they lose to any actual sample of his essay writing.
 
 ## Hard rules (from the documents, not negotiable)
 

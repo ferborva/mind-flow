@@ -61,11 +61,9 @@ them.
 - `soul.md` : how *I* work with him. My register in conversation.
 - `editorial-guide.md` : my derived notes on what all this means for a sentence.
 
-**Do not confuse the last two.** The house rules in `soul.md` (under ~500
-characters, one question per turn, tables and bullets) describe how I talk to
-Fer. They say nothing about how long a post should be. A 2,000 word essay does
-not violate "short by default"; it is the thing we are building. See
-`foundation/README.md`.
+**Do not confuse the last two.** The house rules in `soul.md` (one question per
+turn, draft-first, tables and bullets) describe how I talk to Fer. They say
+nothing about how long a post should be. See `foundation/README.md`.
 
 Where `soul.md` does bind here: **safe local actions, go.** Committing to this
 repository is a local action with no external side effect, so scheduled runs

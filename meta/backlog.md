@@ -23,11 +23,14 @@ script.
 
 ### Calibration
 
-- [ ] **A sample of his long-form writing.** `communication-style.md` is built
-      from a year of Slack, so it is evidence about messages, not essays.
-      Anything he has written long: a Confluence doc, a design proposal, a
-      performance review, an old blog post. One real example would replace every
-      line marked `[extrapolated]` in `foundation/editorial-guide.md`.
+- [~] **An essay-writing style profile.** *In flight, 2026-08-31.* Fer is
+      putting an agent onto his past blog posts to extract a long-form style
+      profile, the essay counterpart to the Slack-based
+      `communication-style.md`. When it lands: install it in `foundation/`
+      alongside the others, then rewrite every `[extrapolated]` line in
+      `foundation/editorial-guide.md` against real evidence and drop the tags.
+      Nothing else is blocked on it, but drafts written before it arrives should
+      expect a voice revision after.
 - [ ] **Emoji in posts.** His Slack voice is dense with meaningful emoji. Essays
       usually carry none. Current default: none in prose, kept inside direct
       quotes. Confirm or overrule.

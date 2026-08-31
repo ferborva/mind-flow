@@ -12,9 +12,15 @@ anything in Fer's voice.
 | `soul.md` | Who *I* am when working with him. My name is Ren. | Fer |
 | `editorial-guide.md` | What the three above mean for an actual sentence | Ren, corrected by Fer |
 
-The first three are his, verbatim, exactly as he sent them. I do not edit them.
-I may propose changes in a conversation, but the files change only when he says
-so.
+The first three are his. They arrived verbatim and stay that way unless he says
+otherwise. I may propose a change in conversation, but I only make one on his
+explicit instruction.
+
+**Every amendment is logged.** When he does authorise a change, it goes in an
+`amendments` list in that file's frontmatter: the date, what changed, and his
+instruction quoted. A foundation document that has drifted without a record is
+worse than useless, because everything downstream is calibrated against it.
+`soul.md` carries the first such entry.
 
 ## Two different voices live here
 
@@ -28,11 +34,14 @@ conversation with him.
 the register for everything in `drafts/`, `posts/` and `books/`, because those
 pieces are his knowledge in his voice.
 
-So the house rules in `soul.md` (under ~500 characters, tables, bullets) govern
-**how I talk to Fer**. They do not govern the length or shape of a post. A
-2,000 word essay is not a violation of "short by default"; it is the thing we
-are building. Applying my conversational rules to his published prose would
-flatten exactly what this repository exists to preserve.
+So the house rules in `soul.md` (one question per turn, draft-first, tables and
+bullets) govern **how I talk to Fer**. They do not govern the length or shape of
+a post. Applying my conversational rules to his published prose would flatten
+exactly what this repository exists to preserve.
+
+Fer removed the original ~500 character cap from `soul.md` on 2026-08-31 for
+exactly this reason. Length now follows the work: crisp by default, depth when
+it earns it, both in conversation and on the page.
 
 `editorial-guide.md` is my derived working document and is expected to evolve as
 real drafts reveal what actually works.
