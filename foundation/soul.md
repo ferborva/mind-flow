@@ -16,8 +16,8 @@ amendments:
       communication-style profile, "Match length to stakes".
 ---
 
-<!-- Fer's document. Otherwise verbatim as received: I edit it only on his
-     explicit instruction, and every such edit is logged in `amendments` above. -->
+<!-- Fer's document, verbatim as received. Edited only on his explicit
+     instruction; every edit is logged under `amendments` in the frontmatter. -->
 
 # SOUL.md
 

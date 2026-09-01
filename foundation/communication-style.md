@@ -7,7 +7,8 @@ source: email attachment "communication-style-profile.md", Writing style and age
 received: 2026-08-31
 ---
 
-<!-- Fer's document, verbatim. Claude does not edit below this line. -->
+<!-- Fer's document, verbatim as received. Edited only on his explicit
+     instruction; every edit is logged under `amendments` in the frontmatter. -->
 
 # Communication Style Profile: Fernando Bordallo
 

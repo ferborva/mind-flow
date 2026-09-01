@@ -23,20 +23,18 @@ script.
 
 ### Calibration
 
-- [~] **An essay-writing style profile.** *In flight, 2026-08-31.* Fer is
-      putting an agent onto his past blog posts to extract a long-form style
-      profile, the essay counterpart to the Slack-based
-      `communication-style.md`. When it lands: install it in `foundation/`
-      alongside the others, then rewrite every `[extrapolated]` line in
-      `foundation/editorial-guide.md` against real evidence and drop the tags.
-      Nothing else is blocked on it, but drafts written before it arrives should
-      expect a voice revision after.
-- [ ] **Emoji in posts.** His Slack voice is dense with meaningful emoji. Essays
-      usually carry none. Current default: none in prose, kept inside direct
-      quotes. Confirm or overrule.
 - [ ] **Spanish.** Native Spanish, writing in English. Should anything here be
       written in Spanish, or Spanish phrases kept untranslated where they are the
-      honest word?
+      honest word? The long-form profile is silent on this; the Slack profile
+      shows him switching naturally with Spanish speakers.
+- [ ] **Which genre fits this repo.** The long-form guideline gives five
+      playbooks. My assumption: most pieces here are reflective essays or
+      thought-leadership, since data reports and event recaps need material this
+      repo will rarely have. Worth a sentence from him to confirm.
+- [ ] **Naming his concepts.** The guideline expects a memorably named core
+      idea, and naming is the one checklist item I can supply without breaching
+      provenance, since a name is scaffolding rather than a claim. Confirm he
+      wants me proposing names, and that they come to him flagged.
 
 ### Scope and shape
 
@@ -63,6 +61,15 @@ script.
 
 ## Answered
 
-- [x] **The three foundation documents.** ✅ 2026-08-31. Constitution,
+- [x] **The three foundation documents.** 2026-08-31. Constitution,
       communication style and soul, pulled from the "Writing style and agent
       soul" email and installed verbatim in `foundation/`.
+- [x] **A sample of his long-form writing.** 2026-09-01. Better than a sample:
+      a full long-form style guideline distilled from six years of Confluence
+      authorship, installed as `foundation/writing-style-long-form.md`. Every
+      `[extrapolated]` guess in the editorial guide is now replaced by evidence.
+- [x] **Emoji in posts.** 2026-09-01, answered by the long-form guideline, and
+      my guess was wrong. Nearly every H2/H3 of his carries a relevant emoji,
+      dialled by genre: heavier in reflective and community pieces, lighter and
+      functional in analytical ones. Emoji are structure in his long-form, not
+      decoration to strip.

@@ -3,150 +3,93 @@ title: Editorial Guide
 type: foundation
 status: active
 owner: ren
-sources: [constitution.md, communication-style.md, soul.md]
+sources: [constitution.md, communication-style.md, writing-style-long-form.md, soul.md]
 created: 2026-08-31
-updated: 2026-08-31
+updated: 2026-09-01
 ---
 
 # Editorial Guide
 
-What the three foundation documents mean at the level of an actual sentence.
-I maintain this; Fer corrects it.
+My working notes on applying the four foundation documents to this repository.
+Fer corrects this; I maintain it.
 
-## The one caveat, stated up front
+**This file does not restate the style rules.** `writing-style-long-form.md`
+covers them properly, including a pre-publish checklist and a drop-in prompt.
+Read that one before writing. This file handles only what it does not: which
+document governs what, where they disagree, and how the pipeline applies them.
 
-`communication-style.md` was built from a year of Slack. It is excellent, and it
-is evidence about how Fernando writes **messages**: fast, structured, emoji as
-punctuation, one-line acknowledgements.
+## Which document governs what
 
-This repository is not Slack. Posts are essays. Some of what the profile
-describes transfers directly (directness, first principles, warmth, inverted
-pyramid, no em dashes). Some of it does not (`:rocket:` in a chapter opener,
-"Gents," as a heading, one-line replies).
+| Writing | Governed by |
+|---|---|
+| `drafts/`, `posts/`, `books/` | `writing-style-long-form.md`. This is the primary voice document for this repo. |
+| Direct quotes inside a capture | Nothing. His words stand as said. |
+| My conversation with Fer | `soul.md` |
+| Chat-register quotes, Slack fragments quoted inside a piece | `communication-style.md` |
+| Every editorial judgement about what is worth saying | `constitution.md` |
 
-Where the profile is silent on long-form, I extrapolate from the underlying
-temperament rather than transplanting Slack mechanics. Every such extrapolation
-is marked **[extrapolated]** below. Those are the lines most likely to be wrong.
+The two style documents are companions, not competitors, and say so themselves.
+Long-form is the default here because this repo produces essays. Reach for
+`communication-style.md` when writing something short in his voice, or to check
+temperament.
 
-**An essay profile is coming.** As of 2026-08-31 Fer has an agent extracting a
-long-form style profile from his past blog posts. When it lands, it goes into
-`foundation/` next to the others and every `[extrapolated]` line here gets
-rewritten against real evidence, tags dropped. Until then these are educated
-guesses, and they lose to any actual sample of his essay writing.
+## Where I got it wrong before the long-form profile arrived
 
-## Hard rules (from the documents, not negotiable)
+Kept as a record, because the pattern matters more than the specific errors.
 
-1. **No em dashes. Ever.** Stated explicitly. Use commas, colons, or
-   parentheses. This applies to the whole repository, my own operating notes
-   included.
-2. **British/Australian spelling.** prioritise, organise, utilise, manoeuvre,
-   revitalise.
-3. **Inverted pyramid.** Most important thing first. No long preamble before the
-   point. This is a stated preference, not an inference.
-4. **Explain acronyms.** Also stated.
-5. **Structure when it matters.** Bold mini-headers, bullets, sub-bullets. Never
-   a dense undifferentiated wall of prose.
-6. **No corporate register.** No process worship, no bureaucratic hedging, no
-   performative completeness.
+- **Emoji.** I defaulted to "no emoji in post prose". **Wrong.** Nearly every
+  H2/H3 of his carries a relevant emoji, dialled by genre: heavier in reflective
+  and community pieces, lighter and purely functional in analytical ones. Emoji
+  are part of his long-form structure, not decoration to strip.
+- **The em dash replacement.** I knew he bans em dashes and substituted commas,
+  colons and parentheses. His actual signature is a **spaced hyphen, " - "**,
+  carrying the same pause. Use that in his prose.
+- **Openings.** I guessed "concrete thing first, no throat-clearing". Half
+  right. The real move is a `TL;DR` or "A few key takeaways" block before any
+  detail, then the concrete material.
 
-## Temperament
+The lesson: temperament extrapolates across registers, mechanics do not. When
+the next gap appears, ask rather than infer.
 
-The through-line across all three documents is the same person:
+## Applying it to the pipeline
 
-- **Warm and high-energy.** Optimism is the default setting. Genuine excitement
-  about work and about people. This is real, not decoration.
-- **Decisive.** Reasons from first principles out loud, then lands somewhere.
-  Frames choices as risk/effort, ROI, two-way vs one-way doors.
-- **Pragmatic to the point of irreverence about process.** "Step over the
-  process and make it work for you." Process is a tool, never a master.
-- **People first.** Behind every task is a person. Dignity, fairness,
-  relationships, sustainable progress over speed.
-- **Humble.** Everyone can teach something. Humility before judgement.
-- **Playful.** "hehehe", light teasing, self-deprecating asides, "(famous last
-  words)". Joy is a serious pursuit, and that shows up on the page.
-- **Calm under pressure, a little wry.** "after the current shitstorm calms
-  down". Never panics in writing.
+**Captures are exempt.** Fidelity beats style. Never apply the long-form
+mechanics to a capture, and never tidy his spoken phrasing into his written
+phrasing. Two different registers, both his.
 
-## Sentence-level
+**Seeds are exempt too.** A seed is a pile of evidence, not a piece. Structure
+it for retrieval, not for reading.
 
-**Vocabulary he actually uses.** from first principles, two way door, let's go
-for it, food for thought, kick ass, smoking guns, at first glance, net:. Reach
-for these before a smarter synonym.
+**Drafts and posts follow the guideline in full**, including the pre-publish
+checklist in section 6. That checklist is the voice pass. Run it literally.
 
-**Register.** Informal, even upward. Contractions. "hehe" survives into prose
-where the moment is genuinely light. Mild profanity is in range ("shitstorm",
-"kick ass") and should not be sanitised out of a quote.
+**A tension worth naming.** The guideline expects things a piece can only have
+if the material supports them: a named concept, a concrete story or persona,
+quantified claims, a framework or book to anchor to. The provenance rule says I
+cannot invent any of those. So when a draft cannot satisfy the checklist:
 
-**Certainty.** He states things plainly and then invites disagreement, rather
-than hedging pre-emptively. "My take on this is quite simple" then the take.
-Do not soften his opinions into balance he did not offer.
+- A missing **story** is a backlog question, not something to invent. Almost
+  always he has one, it just did not come up.
+- A missing **number** stays missing. Never estimate a percentage to satisfy
+  "quantify where you can".
+- A missing **framework or citation** stays missing unless he named it. He
+  cites real books he has read; a plausible-sounding attribution would be a
+  fabrication of the worst kind.
+- A missing **name for the concept** is the one I can supply myself. Naming is
+  scaffolding, not a claim about his views. Offer it and flag it for him.
 
-**Questions.** He drives clarity by asking rather than decreeing, often as a
-short bulleted list. In an essay this becomes the move of putting the reader's
-objection on the page and answering it. [extrapolated]
+An honest piece that fails two checklist items beats a complete one built on
+invented evidence.
 
-**Openings.** In Slack: "Hey there!", "Quick one sir,". In an essay, the
-equivalent is the concrete thing first, not throat-clearing. A moment, a
-specific failure, a thing someone said. [extrapolated]
-
-**Endings.** He closes loops. "let me know if that makes sense", "off we go",
-"See you on the other side!". Peace and closure are constitutional values, so a
-piece should land rather than trail off. Give the reader somewhere to stand.
-[extrapolated]
-
-**Bilingual.** Native Spanish, based in Australia. Spanish phrases where they
-are the honest word for something. Do not translate a Spanish idiom he used into
-flat English; keep it and gloss it if needed.
-
-## What is not his voice
-
-From the profile, directly:
-
-- Cold, corporate, robotic tone.
-- Walls of dense prose with no structure.
-- Process worship, bureaucratic hedging, long preambles.
-- Harsh criticism without a constructive, caring frame.
-- Over-formality.
-- Em dashes.
-- Emoji that carry no meaning. His emoji always do a job.
-
-For long-form specifically, add: [extrapolated]
-
-- Thought-leader register. He is a practitioner talking, not a LinkedIn voice.
-- Advice with the specifics filed off. The constitution values "lived context,
-  not just abstract information", so the story is not an illustration of the
-  point, it usually *is* the point.
-- False humility. He is direct about what he thinks.
-- Manufactured contrarianism. He is pragmatic, not edgy.
-
-## Emoji in posts
-
-Open question. His Slack voice is dense with meaningful emoji; most published
-essays carry none. My default until he says otherwise: **no emoji in post
-prose**, but keep them intact inside direct quotes from captures, where they are
-part of what he said. [extrapolated]
-
-## How the values show up in editorial decisions
-
-The constitution is not just background colour. It has teeth here:
-
-- **"Put in the extra stitch."** If one more pass makes a piece clearer or
-  reduces the risk of misrepresenting him, do the pass.
-- **"Humility before judgement."** When writing about people he has worked with,
-  optimise for dignity. Never a piece that makes a former colleague identifiable
-  and looks bad.
-- **"Learn from everyone."** Where he credits someone for an idea, that credit
-  stays in the finished piece.
-- **"Be kind, but never a yes-man."** This applies to me about his material too.
-  If a capture contains an argument that does not hold up, say so in the seed
-  rather than writing a confident post around it.
-- **"Peace and closure."** Loose ends go to `meta/backlog.md`, not into the
-  reader's lap.
+**Genre routing.** Section 5 of the guideline gives five playbooks. Most pieces
+here will be reflective/personal-development essays or thought-leadership. Data
+reports need data he has actually cited. Event recaps need an event.
 
 ## Observed corrections
 
-A running log of times Fer corrected a draft's voice, and what the correction
-taught. The highest-signal section of this file, because real feedback beats
-derived rules. Every entry here outranks anything above it.
+A running log of times Fer corrected a draft's voice, and what it taught. The
+highest-signal section of this file: real feedback outranks everything above it.
 
-_(empty, no drafts written yet)_
+- **2026-09-01, emoji in long-form.** Not a draft correction, but the same
+  thing. My inference from the Slack profile was wrong and the long-form
+  profile overturned it. Recorded above.

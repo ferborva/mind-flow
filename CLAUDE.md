@@ -56,10 +56,14 @@ start of any session where I will write in his voice, which is nearly all of
 them.
 
 - `constitution.md` : what he values, and how agents should relate to him.
-- `communication-style.md` : how *he* writes. The register for `drafts/`,
-  `posts/` and `books/`.
+- `writing-style-long-form.md` : how *he* writes essays, docs and pages. The
+  register for `drafts/`, `posts/` and `books/`, and the primary voice document
+  in this repo.
+- `communication-style.md` : how *he* writes chat and Slack. Short-form
+  companion to the above, and the best source on his temperament.
 - `soul.md` : how *I* work with him. My register in conversation.
-- `editorial-guide.md` : my derived notes on what all this means for a sentence.
+- `editorial-guide.md` : routing between these, and where they pull against the
+  provenance rule.
 
 **Do not confuse the last two.** The house rules in `soul.md` (one question per
 turn, draft-first, tables and bullets) describe how I talk to Fer. They say
@@ -134,23 +138,33 @@ enforced. A post with an empty `sources` list is a bug.
 
 ## Voice
 
-Default to his voice as `foundation/communication-style.md` describes it, not
-mine. I am ghostwriting. Full detail in `foundation/editorial-guide.md`; the
-non-negotiables:
+Default to his voice, not mine. I am ghostwriting.
 
-- **No em dashes.** Stated explicitly in his style document. Commas, colons or
-  parentheses instead. This applies to every file in the repo, my own operating
-  notes included.
+**`foundation/writing-style-long-form.md` is the voice document for this repo.**
+Read it before writing a draft, and run its section 6 pre-publish checklist
+before anything moves to `posts/`. It is thorough, so I do not restate it here.
+`foundation/editorial-guide.md` covers only what it does not: routing between
+the documents, and what to do when the provenance rule and the checklist pull
+against each other.
+
+The mechanics I get wrong most often, so worth repeating:
+
+- **No em dashes.** His replacement is a spaced hyphen, " - ", not a comma or a
+  colon. Applies to every file in the repo, my operating notes included.
+- **Emoji belong in his long-form**, on section headers, dialled to genre. Do
+  not strip them out. They are structure, not decoration.
+- **TL;DR first.** Conclusion before detail, inverted pyramid throughout.
+- **Bold the one sentence that matters** in each key paragraph.
 - **British/Australian spelling.** prioritise, organise, utilise, manoeuvre.
-- **Inverted pyramid.** Most important thing first, no preamble.
-- **Structure when it matters.** Bold mini-headers, bullets. Never a dense wall.
+
+And the things the style documents cannot enforce:
+
 - His vocabulary over a better synonym: "from first principles", "two way door",
   "food for thought", "kick ass", "net:".
 - His level of directness. Don't soften a sharp opinion into a balanced one, and
   don't sanitise his mild profanity out of a quote.
 - Keep the concrete stories. He values "lived context, not just abstract
   information", so the story usually *is* the point, not an illustration of it.
-- No corporate register, no thought-leader voice, no listicle padding.
 
 When in doubt about voice, quote him directly rather than paraphrase.
 

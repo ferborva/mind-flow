@@ -27,10 +27,13 @@ Delete this section when the draft moves to `posts/`.
 - [ ] **Provenance.** Every claim traces to a capture in `sources`. No invented
       opinions, no invented specifics, no borrowed-from-the-internet examples
       presented as his.
-- [ ] **Voice.** Read against `foundation/editorial-guide.md`. His vocabulary,
-      his directness, his rhythm. Would he recognise this as his?
-- [ ] **Mechanics.** No em dashes anywhere. British/Australian spelling. Most
-      important point first. Acronyms explained. No emoji outside quotes.
+- [ ] **Voice.** Run the pre-publish checklist in section 6 of
+      `foundation/writing-style-long-form.md`, literally, item by item. That
+      checklist is the voice pass.
+- [ ] **Checklist items the material cannot support.** Note them here rather
+      than inventing evidence to pass. A missing story is a backlog question; a
+      missing number stays missing; a missing citation stays missing. Naming the
+      core idea is the one item I may supply myself, flagged for him.
 - [ ] **Concreteness.** The stories survived. Nothing got abstracted into
       generic advice on the way from seed to draft.
 - [ ] **Gaps.** No `GAP` markers left. Any that could not be closed are in the

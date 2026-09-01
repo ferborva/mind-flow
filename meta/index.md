@@ -18,12 +18,20 @@ scheduled runs.
 | Posts | 0 |
 | Books | 0 |
 
-Foundation documents: **3 of 3 in place.** Constitution, communication style and
-soul, taken from the "Writing style and agent soul" email of 2026-07-28 and
-installed 2026-08-31. `editorial-guide.md` derived from them the same day.
+Foundation documents: **4 of 4 in place.**
 
-Writing in Fer's voice is unblocked. What the repo is short of now is material:
-it needs conversations before it can produce anything.
+| Document | Source | Installed |
+|---|---|---|
+| `constitution.md` | "Writing style and agent soul", 2026-07-28 | 2026-08-31 |
+| `communication-style.md` | same email | 2026-08-31 |
+| `soul.md` | same email | 2026-08-31 |
+| `writing-style-long-form.md` | "Long-content form writing style", 2026-09-01 | 2026-09-01 |
+
+`editorial-guide.md` rewritten against the long-form guideline on 2026-09-01.
+Calibration is done: nothing about how to write here rests on a guess any more.
+
+What the repo is short of now is material. It needs conversations before it can
+produce anything.
 
 ## Captures
 
