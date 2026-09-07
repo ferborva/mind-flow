@@ -34,12 +34,24 @@ His, verified:
   - "the enterprises must choose", now superseded by his own metric
 
 Mine, proposed for his approval:
-  - the five-phase structure and every phase name
+  - the five-phase structure, every phase name, and the readiness gates
+  - the phase dates, which are scenarios rather than forecasts
   - the ADKAR mapping and the cohort-desynchronisation argument
   - the government/business interaction arc
   - the "binding if may migrate from money to permission" hypothesis
+  - the household access margin and the five-part access test
+  - the communication contract, and the five questions every update must answer
   - the dashboard, its triggers, and the five hard crossings
+  - the pre-committed response attached to each crossing
   - the movement forecasts
+  - the actor-by-actor preparation in "What to do on Monday". This is
+    prescriptive advice to households and communities, written in his voice,
+    that he has never given. The most provenance-sensitive section in the file.
+
+Keep this list in step with the body. A manifest that has fallen behind is worse
+than no manifest: it reads as authoritative while under-declaring, and that is
+exactly how undeclared proposal content reaches posts/. If a section is added and
+not listed here, that is a bug.
 
 Do not promote this to posts/ until he has been through the marked sections.
 -->
@@ -572,6 +584,14 @@ NEEDS HIS DECISION:
 5. Phase 5 entrenchment and its legal form. The draft now makes durability the
    test and leaves constitutional or treaty-level protection as local options,
    but that remains a political position he has never stated.
+6. The household access margin and the five-part access test, which replace the
+   single transmission ratio. Mine. It is a better instrument, and it is still a
+   measurement design he has not seen.
+7. The communication contract, including "never announce abundance beside an
+   unprotected loss". Mine, and it reads as a rule he is laying down.
+8. The actor-by-actor preparation under "What to do on Monday". Prescriptive
+   advice to households and communities in his voice. He should read this one
+   line by line before it goes anywhere.
 
 VERIFIED AND SAFE:
 - Engels' Pause figures (Allen): +46%/+12% then +90%/+123%, profit rate doubled.
