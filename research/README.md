@@ -37,6 +37,9 @@ its attribution with it.
 | `2026-09-07-abundance-figures.md` | Verifies or corrects the quantitative claims in the abundance rant |
 | `2026-09-07-decent-life-thresholds.md` | What a decent life costs, and what capital funds it for a life and the next generation |
 | `2026-09-07-red-team-moonshot.md` | The strongest counter-arguments to his thesis, argued from the actual published positions of the people he wants to persuade |
+| `2026-09-07-labour-supply-and-cost-disease.md` | Reservation wages, human-required work and why the zero-cost count needs two columns |
+| `2026-09-07-transition-precedents-and-adkar.md` | Engels' Pause, what ended it and the limits of stretching ADKAR over a civilisation |
+| `2026-09-07-transition-control-system.md` | A second red team that turns the transition proposal into gates, triggers, communications and early action |
 
 ## Naming
 

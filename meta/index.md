@@ -17,7 +17,7 @@ scheduled runs.
 | Drafts | 2 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 5 |
+| Research notes | 6 |
 
 Foundation documents: **4 of 4 in place.**
 
@@ -55,7 +55,7 @@ Foundation documents: **4 of 4 in place.**
 
 ## Drafts
 
-- `from-if-to-when`, long, **review**, ~3,000 words. The transition design he
+- `from-if-to-when`, long, **review**, ~4,500 words. The transition design he
   commissioned. **Different provenance class:** a commissioned proposal, not his
   substance. Most of the structure is mine and needs his sign-off section by
   section. See the provenance warning at the top of the file.
@@ -74,6 +74,7 @@ Foundation documents: **4 of 4 in place.**
 | `2026-09-07-labour-supply-and-cost-disease` | Reservation wage, backward-bending labour supply, Baumol's cost disease, and why his two new ideas pull against each other |
 | `2026-09-07-transition-precedents-and-adkar` | ADKAR's five stages, Engels' Pause (1780-1840, output +46% vs wages +12%), and what ended it |
 | `2026-09-07-red-team-moonshot` | Five counter-arguments from the Moonshot regulars' own published frameworks, and which parts of the piece survive |
+| `2026-09-07-transition-control-system` | Red team of the transition design: access margin, readiness gates, communications, crisis triggers and preparation by actor |
 
 ## Posts
 

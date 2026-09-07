@@ -7,7 +7,7 @@ status: review
 size: long
 themes: [abundance]
 sources: [2026-09-01-abundance-is-conditional, 2026-09-07-deflation-metric-and-labour-paradox, 2026-09-07-endorsing-the-red-team]
-research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026-09-07-red-team-moonshot, 2026-09-07-labour-supply-and-cost-disease, 2026-09-07-transition-precedents-and-adkar]
+research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026-09-07-red-team-moonshot, 2026-09-07-labour-supply-and-cost-disease, 2026-09-07-transition-precedents-and-adkar, 2026-09-07-transition-control-system]
 provenance: commissioned-proposal
 audience: the Moonshot Mates
 created: 2026-09-07
@@ -37,8 +37,8 @@ Mine, proposed for his approval:
   - the five-phase structure and every phase name
   - the ADKAR mapping and the cohort-desynchronisation argument
   - the government/business interaction arc
-  - the "binding if migrates from money to permission" claim
-  - the dashboard, its triggers, and the four hard crossings
+  - the "binding if may migrate from money to permission" hypothesis
+  - the dashboard, its triggers, and the five hard crossings
   - the movement forecasts
 
 Do not promote this to posts/ until he has been through the marked sections.
@@ -57,12 +57,14 @@ Do not promote this to posts/ until he has been through the marked sections.
   Pause.**
 - Then it inverted. 1840 to 1900: output up 90%, **real wages up 123%.** The
   catch-up was real. It arrived a lifetime late.
-- **There is exactly one falsifiable claim in this whole debate**, and nobody is
-  testing it: reinvestment only works if **prices fall faster than wages
-  disappear.** Both rates are already measured. Nobody has put them side by side.
-- I am proposing a five-phase transition, a dashboard of signals, and four social
-  crossings I think we can forecast. **The single most important thing is that
-  the binding if migrates: it starts as money and ends as permission.**
+- **There is one falsifiable claim at the centre of this debate:** reinvestment
+  works only when the gains reach households faster than automation removes
+  their access. Prices and wages are two channels, but transfers, capital income
+  and public provision count too.
+- I am proposing a five-phase transition, observable gates, a dashboard of
+  signals, and five social crossings we can prepare for. **The most important
+  hypothesis is that the binding if may migrate: it starts as money and may end
+  as permission.**
 - This is a proposal, not a conviction. Shred it.
 
 ---
@@ -132,25 +134,28 @@ That is a direct rebuke to my own last argument, and a direct endorsement of wha
 I want to propose now. **Set the measures, change the relative prices, and the
 allocation follows.** Nobody has to be virtuous.
 
-## 🔬 The one claim we could actually test
+## 🔬 The claim we could actually test
 
 If you take nothing else from this piece, take this.
 
-Money reaches people through exactly two channels. **Wages** and **prices**. You
-either earn more or things cost less.
+Productivity gains reach most households through two market channels: **income**
+and **prices**. You either have more resources or things cost less. Governments
+add two more channels, transfers and public provision, and capital income matters
+for people who own assets.
 
-Automation deliberately severs the first. And the same capital investment is
-supposed to deliver the second. So:
+Automation can weaken labour income. The same investment is supposed to lower
+prices, grow other income, or fund the public response. So:
 
-> **Reinvestment is a complete answer only if prices fall faster than wages
-> disappear. That is a testable claim, and nobody is testing it.**
+> **Reinvestment is a complete answer only if the gains reach exposed households
+> faster than their access disappears. That is a testable claim, and we are not
+> testing it well enough.**
 
-Both rates are already in national statistics. Price indices exist. Labour share
-of income exists. **Nobody has put them side by side and called it the
-scoreboard.**
+The ingredients already exist. Price indices, reference budgets, labour income,
+transfers and public services are all measured. **What is missing is the
+scoreboard at the level that matters: can this household still reach the floor?**
 
-Engels' Pause is that test, run once, at full scale. The answer was no, for fifty
-years.
+Engels' Pause is a warning from one full-scale run. The answer was no, for fifty
+years. It is not a timer for this transition.
 
 ## 🔄 Why ADKAR, and where it breaks
 
@@ -182,23 +187,54 @@ between Awareness and Desire. A UBI pilot reads as security to one and as a
 buyout to the other. **That desynchronisation is the transition's central design
 problem**, and it is why this has to be sequenced rather than announced.
 
+## 📣 The communication contract
+
+That makes communication part of the infrastructure, not the press release at
+the end. **Never announce abundance beside an unprotected loss.** If somebody's
+job has disappeared, asking them to celebrate the productivity number is not
+Awareness. It is evidence that the people running the transition cannot see them.
+
+Every update should answer five things, in this order:
+
+1. **What changed?** Use observed facts, not a capability demo.
+2. **Who is affected now?** Name the occupation, place and uncertainty range.
+3. **What protection has triggered?** Announce the response with the warning.
+4. **What can I do this week?** Give one reachable action and one place for help.
+5. **When is the next update?** Keep a fixed cadence, including when the answer
+   is "we do not know yet".
+
+The message has to change by cohort while the evidence stays common. People who
+are not yet exposed need the baseline and the rules. People still employed need
+options before panic. People displaced need income, housing and healthcare
+continuity before retraining advice. Essential workers need a new bargain, not a
+speech about purpose.
+
+**The trust test is brutally simple: publish the red lights as readily as the
+green ones, and let affected communities shape the response before it is needed.**
+That is what turns Awareness into agency rather than fear.
+
 ## 🗺 The five phases
 
-Overlapping, not clean. Dates are deliberately loose, and I would rather be
-argued out of them than pretend to precision.
+Overlapping, not clean. The dates are scenarios, not forecasts. **Each phase has
+an observable gate because a calendar cannot tell us whether society is ready.**
+I would rather be argued out of the dates than let them become promises.
 
 ### Phase 1 · Awareness · *now to ~2030*
 
 **The job: make the transition legible.** Nothing else works until people can see
 what is happening to them, in their own sector, with numbers.
 
+**Gate:** sector baselines exist, exposed cohorts are named, and every warning
+has an owner and a pre-committed response.
+
 - **Government:** reactive and fragmented. Rules written per-incident. No
   measurement worth the name.
 - **Business:** lobbying for latitude, promising jobs, disclosing nothing.
 - **The relationship:** adversarial, low information on both sides.
-- **What should happen instead:** mandatory disclosure. Not of models or
-  capability, but of **cost curves**. What does your service cost to deliver
-  end to end, and how fast is that falling.
+- **What should happen instead:** standardised disclosure to an independent
+  body. Not of model weights or trade secrets, but of **auditable cost and access
+  curves.** What does the service cost end to end, who receives it, and how fast
+  are both changing?
 
 ### Phase 2 · Desire · *~2028 to 2038* · **the dangerous one**
 
@@ -206,33 +242,45 @@ what is happening to them, in their own sector, with numbers.
 lives. Displacement is visible; price relief is not yet. Every social crossing
 in this piece happens here.
 
-- **Government:** reaches for tax and transfers, because that is the instrument
-  it has. It will not be enough, and failing publicly costs it the mandate to
-  try anything else.
+**Gate:** the access floor holds for exposed cohorts through two consecutive
+reporting periods, not only for the national average.
+
+- **Government:** reaches for tax and transfers, because they can protect access
+  quickly. They can bridge a shock but cannot manufacture cheap housing, care or
+  energy on their own. Promising more than the delivery system can carry costs
+  the mandate to try anything else.
 - **Business:** offers retraining and new-job narratives faster than either can
   actually be delivered.
 - **The relationship:** bargaining, under pressure, in bad faith on both sides.
 - **What should happen instead:** the bargain worth striking is **regulatory
-  certainty in exchange for the measures.** Business gets a stable rulebook and
-  public procurement. Government gets published cost curves, the transmission
-  ratio, and a floor commitment. Neither side has to trust the other, which is
-  the point.
+  certainty in exchange for auditable access.** Business gets a stable rulebook
+  and a path to public procurement. Government gets cost and access curves,
+  worker-transition plans and a floor commitment. Neither side has to trust the
+  other, which is the point.
 
 ### Phase 3 · Knowledge · *~2035 to 2045*
 
 **The job: learn how to actually take things to zero.** The mechanisms get built
 and tested here.
 
-- **Government:** becomes a **buyer of last resort for zero-cost provision.** We
-  already know this instrument works. Advance market commitments pulled vaccines
-  into existence by guaranteeing demand. Do the same for taking a diagnostic, a
-  course, a legal service to zero marginal cost for everyone.
+**Gate:** at least one essential service has proven end-to-end access at quality,
+with an independent audit and a route that works for the least-served cohort.
+
+- **Government:** becomes a **buyer of last resort for verified access.** Advance
+  market commitments show how guaranteed demand can pull supply into existence,
+  and COVAX also shows that procurement does not solve last-mile delivery or
+  equity by itself. Borrow the useful mechanism and contract for the whole access
+  stack: a diagnostic, course or legal service that reaches the least-served
+  cohort at the agreed quality and consumer cost.
 - **Business:** competes on the zero-cost count, because that is what is bought.
 - **The relationship:** co-design. Still self-interested, now aligned.
 
 ### Phase 4 · Ability · *~2042 to 2055*
 
 **The job: the floor actually holds at scale.**
+
+**Gate:** the access guarantee survives a recession, a provider failure and a
+change of government without dropping the people it was built for.
 
 - **Government:** shifts from redistributing income to **guaranteeing access.**
   These are different jobs with different instruments.
@@ -245,8 +293,13 @@ and tested here.
 **The job: make it irreversible.** Everything in ADKAR reverts without this, and
 a floor that can be withdrawn in a downturn is not a floor.
 
-- Entrench the guarantees. Constitutional, treaty-level, or structurally hard to
-  unwind.
+**Gate:** rights, funding, delivery and appeals are durable enough that access no
+longer depends on one administration or one provider.
+
+- Entrench the guarantees through durable funding, enforceable rights and appeals.
+  Constitutional or treaty-level protection may fit some countries. The test is
+  whether the floor survives political and economic stress, not which legal form
+  sounds strongest.
 - **This is the phase where my "conditions are national" argument bites
   hardest**, because the entrenchment happens country by country, and the
   divergence becomes permanent.
@@ -267,128 +320,208 @@ started.
 | **Age** | Moderate | Tightens, especially for AI-delivered services | Binding, and contested |
 | **Certification** | Moderate | Tightens. Who may use the AI doctor | **Binding.** The new scarcity |
 
-Read the bottom-right corner. **The binding if migrates from money to
-permission.**
+Read the bottom-right corner. **My hypothesis is that the binding if migrates
+from money to permission for many services.**
 
-That is my central claim in this piece. We spend all our time arguing about
-whether people will be able to afford things, and I think that is the Phase 2
-problem. **The Phase 4 problem is whether they are allowed.** Who is licensed to
-receive an autonomous diagnosis. Which jurisdiction recognises which
-qualification. What your passport permits you to be treated with.
+We spend most of our time arguing about whether people will be able to afford
+things, and I think that is the Phase 2 problem. **The Phase 4 problem may be
+whether they are allowed.** Who is licensed to receive an autonomous diagnosis.
+Which jurisdiction recognises which qualification. What your passport permits
+you to be treated with.
 
-If that is right, then a great deal of the effort currently going into the money
-question is being spent on a condition that resolves itself, while the condition
-that will actually bind is barely discussed.
+If that is right, then we are underinvesting in the condition that may bind next.
+But this will not be universal. Housing, land, energy, compute and human care can
+remain scarce after a digital service becomes cheap. **The dashboard should tell
+us which if is binding, by basket, cohort and country, rather than asking one
+forecast to settle it.**
 
 ## 📊 The dashboard
 
-Signals, what they tell you, and the reading that means you are in trouble. This
-is what I want businesses to target and countries to publish.
+I started with a transmission ratio: price decline divided by labour-share
+decline. The instinct was right and the unit was wrong. A national income share
+and a household basket move differently, and dividing them hides the people we
+most need to see.
 
-| Signal | What it tells you | Trouble reading |
+**The unit of success is a household that can still reach the floor.** For each
+household type, place and exposed cohort:
+
+> **Access margin = disposable resources + usable public provision - local cost
+> of the decent-living basket.**
+
+Wages, self-employment income, capital income and transfers all belong on the
+resource side. Housing, food, energy, transport, healthcare, care, education and
+connectivity belong in the local basket. Public provision counts only when the
+household can actually use it.
+
+And zero cost is not enough on its own:
+
+> **Access = availability × affordability × eligibility × quality ×
+> delivery. If any factor is zero, access is zero.**
+
+That gives us a control system rather than a collection of interesting numbers:
+
+| Signal | Early-warning pattern | Response agreed before the breach |
 |---|---|---|
-| **Zero-cost count**, end to end, by decent-living category | How many needs are actually met at zero, production *and* distribution | Flat while capability rises |
-| **Deflation rate** by basket | How fast cost is collapsing | Slower than labour-share decline |
-| **The transmission ratio**: price decline ÷ labour-share decline | **The single number that matters.** Are prices outrunning wage loss | Below 1 for more than a few years |
-| **Labour share of income** | The Engels indicator | Sustained fall |
-| **Profit share / profit rate** | The other Engels indicator | Doubling, as it did 1780-1840 |
-| **The Baumol gap** | Price index of automatable vs human-required baskets | Widening with no policy response |
-| **Decent-living coverage** | Share of the basic basket at ~zero to a median household | Rising slower than displacement |
-| **Displacement vs exposure gap** | Keeps the panic honest | Converging, meaning exposure is becoming real loss |
-| **Participation rate** | Proxy for the reservation-wage problem | Falling in essential human-required work |
-| **Cross-country variance** in all of the above | How unequally this is landing | Widening |
+| **Access coverage**, share with margin ≥ 0 | Falls for an exposed cohort while productivity rises | Bridge income or in-kind access activates automatically |
+| **Transition speed**, gross displacement, re-employment time, replacement earnings | Loss accelerates and recovery slows | Wage insurance, portable benefits, hiring-linked training |
+| **Essential basket pressure**, split by automatable and human-required items | Human-required basket outruns household resources | Capacity plan, pay review, credential or migration reform |
+| **Zero-cost access count**, passing all five access tests | Capability rises while verified access stays flat | Outcome-based procurement and access obligations |
+| **Concentration**, across compute, energy and service capacity | Concentration rises while access falls | Interoperability, procurement diversification, competition review |
+| **Preparedness**, registry coverage, delivery time, appeals and pre-funded response | Support cannot reach people inside the promised time | Fund and rehearse the delivery rail before more displacement |
+| **Trust and consent**, by cohort | Fairness and confidence fall ahead of economic triggers | Publish uncertainty, open two-way forums, use trusted local messengers |
+| **Cross-country access gap** | Eligibility and coverage diverge for an essential service | Mutual recognition, pooled procurement, portable eligibility |
+
+The exact triggers need to be public, local and set **before** they are breached.
+Two consecutive reporting periods is a sensible anti-noise default, not a law.
+Every signal needs an owner, a response and a rehearsal date.
 
 Two notes on this.
 
 **A national average can pass while the displaced cohort fails.** That is
 precisely what happened during Engels' Pause. Every one of these needs a cohort
-cut, not just a headline.
+and regional cut, not just a headline.
 
-**It cannot be one happy number.** The Baumol gap moves the wrong way by design:
-as everything automatable deflates, the human-required residue gets relatively
-*more* expensive. That is not a flaw in the dashboard. The gap between those two
-columns is the most diagnostic thing on it, because it shows you exactly where
-the remaining scarcity is concentrating.
+**It cannot be one happy number.** As everything automatable deflates, the
+human-required residue can get relatively *more* expensive. The gap is not a
+defect. It shows where scarcity and bargaining power are concentrating.
 
-## ⚡ Four crossings I think we can forecast
+## ⚡ Five crossings we can prepare for
 
-He asked which social transitions will be hard to endure. Here is my best guess,
-with the movements I think form around each.
+He asked which social transitions will be hard to endure. Dates would be theatre,
+but conditions can be monitored. Here is my best guess at the five crossings,
+what warns us, and what must already be waiting on the other side.
 
-### 1. The Pause · *Phase 2, the big one*
+### 1. The credibility break
 
-Displacement is visible. Price relief has not arrived. The profit share is
-rising and everyone can see it.
+Capability and productivity rise while the household access margin stays flat.
+People are told abundance is arriving and experience the opposite.
 
-**Movements:** displaced-labour politics, sectoral strikes with unusual leverage,
-"tax the models" campaigns, a genuine neo-Luddite strand that is more coherent
-than the caricature.
+**Movements:** rejection of abundance language, distrust of official measures,
+and fertile ground for anyone who can name a villain.
 
-**Navigation.** Make the pause **visible and bounded.** Publish the transmission
-ratio and admit when it is below 1. Sequence deliberately so that price relief
-lands in a sector *before* displacement does, not after. An unmeasured pause of
-unknown length is unendurable. A measured one with a floor is merely hard.
+**Early warning:** trust falls while cost-of-living pressure remains high in the
+same cohorts receiving the strongest transition message.
 
-### 2. The essential-work crisis · *Phase 3-4*
+**Navigation:** publish the baseline, the uncertainty and the activation rules.
+Replace capability theatre with household evidence. **Never announce a warning
+without the protection it activates.**
 
-My own labour paradox. When everything you need is free, the salary stops
-motivating, and the work that still genuinely needs a human has nobody willing
-to do it.
+### 2. The local displacement cascade
+
+Losses cluster in an occupation or town. Re-employment slows and replacement
+earnings fall, even while national employment still looks healthy.
+
+**Movements:** displaced-labour politics, sectoral strikes, coherent resistance
+to automation and geographic decline hidden by national averages.
+
+**Early warning:** rising gross displacement, re-employment time and earnings
+loss in the same sector or region for two reporting periods.
+
+**Navigation:** make the pause **visible and bounded.** Trigger portable benefits
+and wage insurance. Fund training where employers commit to interviews or jobs.
+Protect income, housing and healthcare continuity before asking people to
+reinvent themselves.
+
+### 3. The legitimacy break
+
+Access coverage falls while profits, mark-ups or infrastructure concentration
+rise. This is the moment politics turns, and it turned last time.
+
+**Movements:** anti-concentration politics, windfall taxes, nationalisation
+proposals and direct action against the compute or energy holders.
+
+**Early warning:** concentration and profit share rise in the same market where
+access coverage falls.
+
+**Navigation:** **transparency before the resentment, not after.** Set access
+obligations, independent audit and a public return for public subsidy while
+conditions are still good. The same bargain extracted in a crisis looks like an
+admission of guilt.
+
+### 4. The essential-work squeeze
+
+Some needs still require humans. As the floor improves, those workers have more
+choice, while demand for their care, judgement or physical presence remains.
 
 **Movements:** care and trade workers discovering enormous leverage, and using
-it. Expect the highest-status, best-paid work of the 2040s to be the work that
-resisted automation, which inverts the current hierarchy entirely.
+it. The status hierarchy may invert as stubbornly human work becomes scarce.
 
-**Navigation.** Stop pretending everything deflates. **Let the human-required
-residue get expensive**, because that is the market clearing, and Baumol says it
-will happen anyway. Pay it properly and stop calling it unskilled. Where money
-has lost its grip, the remaining levers are status, meaning, rotation and
-obligation, and we should be honest that we understand those far less well.
+**Early warning:** vacancy duration, exits and service queues rise together in a
+human-required sector.
 
-### 3. The legitimacy crisis · *Phase 2-3*
+**Navigation:** **let the human-required residue get expensive.** Improve pay,
+status, autonomy and staffing before coercive options enter the debate. Build
+credential portability and reserve capacity. Money will still matter for scarce
+wants, and status, meaning, rotation and obligation matter too.
 
-The profit rate doubles, visibly, while wages stagnate. This is the moment
-politics turns, and it turned last time.
+### 5. The permission and border split
 
-**Movements:** anti-concentration politics, windfall taxes, serious
-nationalisation proposals, and a real constituency for breaking up the compute
-holders.
+An essential service becomes technically cheap while access varies sharply by
+identity, jurisdiction, language or certification.
 
-**Navigation.** **Transparency before the resentment, not after.** A published
-transmission ratio and a floor commitment made while things are still going well
-is a completely different political object from the same concession extracted
-under pressure. Companies that move first here will look prescient. The rest
-will look caught.
+**Movements:** migration pressure, digital sovereignty blocs, black markets and
+politics around who deserves access.
 
-### 4. National divergence · *Phase 4-5*
+**Early warning:** cross-country variance widens after cost stops being the main
+constraint.
 
-Countries cross at different speeds. Some entrench a floor; some do not. The
-conditions were always national and now they are permanent.
-
-**Movements:** migration politics of an intensity we have not seen, digital
-sovereignty blocs, and competition to attract or retain the people who still
-produce.
-
-**Navigation.** Honestly, this is the one I have least to offer on. **The
-mechanisms that work inside a country have no equivalent between them**, and I do
-not think "beat China" is a strategy for it. If anyone has a serious answer here
-I would rather hear it than pretend I have one.
+**Navigation:** negotiate mutual recognition, pooled procurement and portable
+eligibility before the service reaches scale. **Keep local choice above the
+floor, and make the floor interoperable across borders.** It is not a world
+government. It is a minimum access compact.
 
 ## 🎯 What to do on Monday
 
-Concrete, in order, and none of it requires anyone to be virtuous.
+Concrete, by actor, and none of it requires anyone to be virtuous.
 
-1. **Publish your cost curve.** If you run a business at the frontier, disclose
-   what your service costs to deliver end to end and how fast that is falling.
-   One number, one chart, every quarter.
-2. **Compute the transmission ratio** for one sector. Price decline over
-   labour-share decline. Somebody should be able to say whether it is above or
-   below 1 by Christmas.
-3. **Pick one thing and take it to zero.** End to end, production and
-   distribution, for everyone, everywhere. Not a free tier. Zero.
-4. **Governments: run one advance market commitment** for zero-cost provision of
-   something in the decent-living basket. We know the instrument works.
-5. **Publish the dashboard**, with cohort cuts, and let it embarrass you.
+### If you are an individual or household
+
+1. **Map concentration risk.** How dependent are your income, benefits and
+   qualifications on one employer, occupation or place?
+2. **Make your evidence portable.** Keep qualifications and work records in a
+   form another employer or country can verify.
+3. **Know the support route before you need it.** Benefits, appeals, training and
+   local mutual aid are much harder to discover during a shock.
+
+This is resilience, not blame. **No household can diversify away a system-wide
+shock**, and the transition burden cannot be quietly transferred to individuals.
+
+### If you represent workers or a community
+
+1. **Map the local system.** Exposed employers, essential services, trusted
+   messengers and gaps in delivery.
+2. **Negotiate before redundancies.** Data access, notice, portable benefits and
+   the trigger for a transition response.
+3. **Test the national numbers against lived access.** Publish the gap when the
+   average is green and your cohort is red.
+
+### If you run a business
+
+1. **Publish your cost and access curves.** Include distribution, eligibility,
+   quality and who remains excluded, not just marginal production cost.
+2. **File a worker-transition plan** before a material automation deployment.
+3. **Pick one essential service and prove access.** Not a free tier. Pass all
+   five tests for the least-served cohort, under independent audit.
+
+### If you govern a country
+
+1. **Build the delivery rail now.** Registry, payments, casework, appeals,
+   privacy protection and pre-positioned finance.
+2. **Publish one local access basket** and its household margin, with cohort and
+   regional cuts.
+3. **Legislate the triggers.** Every red signal gets an owner, an automatic first
+   response and a budget before it is needed.
+4. **Run one outcome-based procurement** for verified access to an essential
+   service, borrowing the useful part of an advance market commitment.
+5. **Rehearse a concentrated displacement shock** and publish what failed.
+
+### If you work across countries
+
+1. **Standardise the access measures and audit rules.** Comparison comes before
+   coordination.
+2. **Pool procurement and transition finance** where national capacity is weak.
+3. **Start with one minimum access compact:** mutual recognition, portable
+   eligibility and a floor that travels.
 
 ## 👉 What I want shredded
 
@@ -397,14 +530,14 @@ Same as last time. Not rhetorical.
 1. **Is the Engels analogy load-bearing or decorative?** Industrial machinery
    complemented labour even as it destroyed crafts. If AI substitutes rather than
    complements, the precedent is optimistic and I am understating this badly.
-2. **Is the transmission ratio actually computable**, or does it dissolve into
-   basket-choice arguments the moment anyone tries?
+2. **Is the household access margin computable without hiding quality, unpaid
+   care or public provision inside arbitrary valuations?**
 3. **Does the binding if really migrate to permission?** Or am I over-reading a
    regulatory moment that passes?
 4. **What ends the pause this time?** Last time it was capital saturation plus
    institutional reform. Neither obviously applies the same way.
-5. **What do we do about national divergence?** I have nothing good. Genuinely
-   asking.
+5. **Can a minimum access compact survive national politics?** Or does portable
+   eligibility create the very backlash it is meant to prevent?
 
 The last piece argued we should stop asking what governments should do and start
 asking what businesses should do. I now think that was half right and framed
@@ -425,18 +558,20 @@ NEEDS HIS DECISION:
 1. The whole phase structure and the dates. Mine. The dates especially are
    defensible but arbitrary, and he may want them removed entirely rather than
    argued about.
-2. "The binding if migrates from money to permission." This is the strongest
-   claim in the piece and it is mine, not his. It extends his
-   conditions-are-national seed but goes well beyond it. If he does not believe
-   it, the whole middle section comes out.
+2. "The binding if may migrate from money to permission." This is the strongest
+   hypothesis in the piece and it is mine, not his. It extends his
+   conditions-are-national seed but goes well beyond it. It is now framed as a
+   question for the dashboard rather than a settled forecast.
 3. The public correction of his own last piece. I wrote it in because it is
    honest, it pre-empts the obvious attack, and his style guideline is explicit
    that only-upsides reads as propaganda. But publicly reversing his own argument
    is his call, not mine.
-4. The four crossings and the movement forecasts. Mine, and speculative. They are
-   the least evidenced part of the piece.
-5. Phase 5 entrenchment: "constitutional, treaty-level". That is a political
-   position he has never stated.
+4. The five crossings and the movement forecasts. Mine, and speculative. They
+   are now expressed as observable conditions with early warnings and
+   pre-committed responses, but Fer still needs to endorse the set.
+5. Phase 5 entrenchment and its legal form. The draft now makes durability the
+   test and leaves constitutional or treaty-level protection as local options,
+   but that remains a political position he has never stated.
 
 VERIFIED AND SAFE:
 - Engels' Pause figures (Allen): +46%/+12% then +90%/+123%, profit rate doubled.
