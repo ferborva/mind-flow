@@ -18,6 +18,7 @@ scheduled runs.
 | Posts | 0 |
 | Books | 0 |
 | Research notes | 5 |
+| Dashboard snapshots | 1 |
 
 Foundation documents: **4 of 4 in place.**
 
@@ -74,6 +75,18 @@ Foundation documents: **4 of 4 in place.**
 | `2026-09-07-labour-supply-and-cost-disease` | Reservation wage, backward-bending labour supply, Baumol's cost disease, and why his two new ideas pull against each other |
 | `2026-09-07-transition-precedents-and-adkar` | ADKAR's five stages, Engels' Pause (1780-1840, output +46% vs wages +12%), and what ended it |
 | `2026-09-07-red-team-moonshot` | Five counter-arguments from the Moonshot regulars' own published frameworks, and which parts of the piece survive |
+
+## Dashboard
+
+**Seldon Observatory** · https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
+
+Snapshot `2026-09-07`, schema 1.0.0. Nine signals, six measured from open
+registries, one derived, two deliberately empty because no registry publishes
+them. Headline: the transmission test reads **-2.84pp for the World in 2025**,
+meaning prices are not compensating for what labour is losing.
+
+Refresh with `dashboard/tools/fetch_snapshot.py`, rebuild, republish to the same
+URL. See `dashboard/README.md`.
 
 ## Posts
 

@@ -61,6 +61,12 @@ Nothing skips a stage without a note in the file saying why.
 sourced facts, with a source link and date on every figure, feeding drafts
 without ever becoming his substance.
 
+`dashboard/` is the instrument built on top of `research/`: a fetcher that pulls
+open-registry data into dated snapshots, and a page that renders them. The page
+never calls a data provider, so a snapshot stays a quotable object rather than a
+number that shifts under an argument. Refresh, rebuild, republish is a natural
+scheduled-run job. See `dashboard/README.md`.
+
 ## Foundation documents
 
 `foundation/` holds the documents that calibrate everything. Read them at the

@@ -82,6 +82,25 @@ script.
 - [ ] **Belgium/Spain healthcare details.** Unverified. Fine as a mechanism
       illustration, worth a hedge for a European audience.
 
+### From the dashboard build, 2026-09-07
+
+- [ ] **Audience for the observatory.** Asked and not yet answered: is it a
+      shareable page for the Moonshot crew (argument-first) or a working
+      instrument he checks and refines? Changes what gets built next.
+- [ ] **Define the zero-cost count so it can exist.** Three decisions block it:
+      which basket, where "close to zero" is drawn, and whether
+      free-to-consumer-but-advertiser-funded counts. Until he rules, the panel
+      stays a visible void.
+- [ ] **Which CPI components count as automatable?** Needed for the Baumol gap.
+      The data exists; the split is a judgement call and it is his to make.
+- [ ] **Cohort cuts.** The most important missing thing. A national average can
+      pass while the displaced cohort fails, which is exactly what happened
+      during Engels' Pause. Needs a source with cohort granularity.
+- [ ] **Is headline CPI good enough?** It is currently standing in for a
+      decent-living basket and it changes the transmission answer.
+- [ ] **Asset ownership as a third transmission channel.** Excluded for now.
+      Deliberate, or an omission?
+
 ### Blocking the transition piece, from-if-to-when
 
 It is a **commissioned proposal**, so it needs sign-off section by section, not
