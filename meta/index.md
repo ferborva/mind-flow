@@ -17,6 +17,7 @@ scheduled runs.
 | Drafts | 1 |
 | Posts | 0 |
 | Books | 0 |
+| Research notes | 3 |
 
 Foundation documents: **4 of 4 in place.**
 
@@ -47,9 +48,19 @@ Foundation documents: **4 of 4 in place.**
 
 ## Drafts
 
-- `abundance-has-an-if`, medium, **review**. Draws on the first four seeds and
-  touches the other two. Waiting on three of Fer's calls before it can move to
-  `posts/`: the concept name, the revenue figures, and the Musk attributions.
+- `abundance-has-an-if`, long, **review**. Draws on the first four seeds and
+  touches the other two. Figures and Musk quotes now verified and folded in, and
+  the distribution data added. One substantive call left for Fer: the remedy
+  section needs new reasoning, because redistribution is short by a factor of
+  twenty. See the draft's review notes.
+
+## Research
+
+| Note | What it covers |
+|---|---|
+| `2026-09-01-abundance-figures` | Fact-check of the rant. Company profits, Musk quotes, displacement vs exposure, global income distribution |
+| `2026-09-01-decent-life-thresholds` | Decent Living Standards thresholds, what a decent life costs, capital needed for a life and the next generation |
+| `2026-09-01-red-team-moonshot` | Five counter-arguments from the Moonshot regulars' own published frameworks, and which parts of the piece survive |
 
 ## Posts
 

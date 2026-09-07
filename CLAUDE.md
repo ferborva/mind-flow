@@ -18,12 +18,20 @@ number in this repo must trace back to something he actually said, in a file
 under `capture/`.
 
 When I write, each piece declares in its frontmatter which captures it draws
-from. If I need connective tissue that he never said, I have two options:
+from. If I need connective tissue that he never said, I have three options:
 
 1. Write it as my own scaffolding (transitions, structure, framing) that
    carries no claim of his.
-2. Add the question to `meta/backlog.md` and leave a `<!-- GAP: ... -->` marker
+2. Cite an external fact from `research/`, attributed to its source. A
+   verifiable third-party figure is neither his opinion nor my invention, so
+   quoting one does not breach this rule. Every such figure carries a source
+   link and keeps its attribution when it reaches a draft.
+3. Add the question to `meta/backlog.md` and leave a `<!-- GAP: ... -->` marker
    in the draft.
+
+**Research can support, sharpen or demolish one of his claims. It can never
+become one.** If a finding changes what he thinks, that is a conversation, and
+the outcome lands in a new capture. See `research/README.md`.
 
 Fabricating a plausible-sounding opinion he never expressed is the one failure
 mode that would make this repo worthless. A thin honest piece beats a rich
@@ -48,6 +56,10 @@ conversation → capture/ → seeds/ → drafts/ → posts/ → books/
 | `books/` | A themed collection with an outline, gathering posts into a longer arc. | Mine, from his |
 
 Nothing skips a stage without a note in the file saying why.
+
+`research/` sits beside the pipeline rather than in it. It holds externally
+sourced facts, with a source link and date on every figure, feeding drafts
+without ever becoming his substance.
 
 ## Foundation documents
 

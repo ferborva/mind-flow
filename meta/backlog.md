@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-08-31
+updated: 2026-09-01
 ---
 
 # Backlog
@@ -54,26 +54,37 @@ script.
 
 ### Blocking the abundance draft
 
-Three calls only he can make, all quick:
-
-- [ ] **The concept name.** I called the pattern **"the missing if"**. Mine, not
-      his. Keep, change, or drop the naming entirely?
-- [ ] **The revenue figures.** He said "a billion a day, like Nvidia, two billion
-      a day, like Google", mid-rant. I could not verify them, so the draft says
-      "profits measured in billions" and names nobody. If he wants the punchier
-      line we check the numbers first.
-- [ ] **The Musk attributions.** "Money won't matter", "high basic income",
-      "working will be optional" are his characterisation of Musk, not sourced
-      quotes. Pin them to something real before a public piece names him.
-- [ ] **The sexual services item.** Listed flatly among future human services.
-      Verbatim in the capture, held out of the public draft. His call.
+- [x] **The revenue figures.** Resolved 2026-09-01 by research. His numbers were
+      ~2x high; the verified version is better. Nvidia $120.1bn and Alphabet
+      $132.2bn net profit, about a third of a billion a day each.
+- [x] **The Musk attributions.** Resolved 2026-09-01. All three verified and now
+      quoted properly. Musk distinguishes universal HIGH income from universal
+      BASIC income, which supports rather than undercuts Fer's anti-UBI line.
+- [ ] **The remedy needs new reasoning.** *Now the big one.* The combined profit
+      of Nvidia and Alphabet, spread across humanity, is 8.3 cents per person per
+      day. Lifting everyone below $30/day to $30/day costs ~62% of global GDP.
+      Redistribution is short by a factor of twenty. His conclusion (free
+      services, cost to zero) survives and may be the only thing that can work,
+      but the route to it has to change: not "companies should be generous" but
+      "redistribution is impossible, so cost has to collapse". His call, because
+      it changes his argument.
+- [ ] **The concept name.** Still open. "The missing if" is mine.
+- [ ] **The Baumol paragraph.** Demonetisation has worked for manufactured and
+      digital goods and failed completely for housing, healthcare and education.
+      "The smartphone got free, the rent did not." Would turn his weakest flank
+      into his strongest. Does he want it in?
+- [ ] **The sexual services item.** Still held out of the public draft.
+- [ ] **Belgium/Spain healthcare details.** Unverified. Fine as a mechanism
+      illustration, worth a hedge for a European audience.
 
 ### Follow-ups from the abundance rant
 
-- [ ] **His own threshold number.** He says he can picture the point at which he
-      would never need to work again, but never says it. That number, or the
-      reasoning he'd use to reach it, would turn the strongest idea in the piece
-      from a question into an argument. Highest-value follow-up here.
+- [ ] **His own threshold number.** Research now brackets it: a self-sustaining
+      dynastic endowment at a comfortable $70/day needs ~$730k-850k invested,
+      plus a home, so roughly **$1.1m**. That is almost exactly the millionaire
+      line, and there are 57.5m of them, 0.69% of humanity. Does his own figure
+      land near that? If it does, his "expand the count" idea has a measurable
+      target and becomes the strongest thing he has said.
 - [ ] **The pooled S&P 500 profits.** He raises putting the collective profits of
       the top companies on the table, then moves on. What does he actually want
       done with that number?

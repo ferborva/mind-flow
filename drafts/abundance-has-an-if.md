@@ -6,6 +6,7 @@ status: review
 size: long
 themes: [abundance]
 sources: [2026-09-01-abundance-is-conditional]
+research: [2026-09-01-abundance-figures, 2026-09-01-decent-life-thresholds, 2026-09-01-red-team-moonshot]
 audience: the Moonshot podcast crew, and anyone arguing about abundance
 created: 2026-09-01
 updated: 2026-09-01
@@ -88,9 +89,14 @@ discussing the future, we are just admiring it.
 
 ## 💰 The biggest if is money
 
-The standard answer at this point is that money won't matter. In the future
-economy money won't matter, we will reset it somehow, everyone will have a high
-basic income, and working will be optional.
+The standard answer at this point is that money won't matter. Musk has been
+explicit about it, and he is careful about which term he uses:
+
+> "There will be universal high income - and not universal basic income -
+> universal high income. There'll be no shortage of goods or services."
+
+He has put a date on it too, telling The Economist money won't matter by 2036,
+and saying that in a benign scenario probably none of us will have a job.
 
 If that were true it would remove the single biggest conditional we run our
 lives on. Right now, we can do things **if** we have the financial resources to
@@ -114,6 +120,17 @@ renamed it.
 
 So let us work under the assumption that money is still around, because I think
 it is the honest one.
+
+And notice who the condition already excludes. Not a minority:
+
+| Living on less than | Share of humanity, 2026 |
+|---|---|
+| $8.30 a day, the World Bank's upper-middle-income line | **44.4%** |
+| $30 a day, roughly a developed-world floor | **80.0%** |
+
+**Four in five people alive today are on the wrong side of the money condition
+before we start.** When we say "you will be able to", we are, almost entirely,
+talking to the other fifth.
 
 ## 🌍 The second if is your passport
 
@@ -156,8 +173,13 @@ Which gives us the concentration everyone is afraid of. Very few people
 harnessing a vast majority of the world's economic power. And if they hold the
 money, the question is unavoidable: **how does it flow back to everyone else?**
 
-Picture 20, 30, 40% of the population losing productive value over a few years,
-measured against technology that does the same work faster, cheaper and better.
+Picture a serious slice of the population losing productive value over a few
+years, measured against technology that does the same work faster, cheaper and
+better. The IMF puts about 40% of global employment as **exposed** to AI, 60% in
+advanced economies. Actual displacement estimates are far lower, Goldman Sachs
+says 6-7%, and exposure is not the same as replacement. **But my argument does
+not need mass unemployment. It only needs enough displacement that the money
+condition bites for a lot of people who did nothing wrong.**
 There is plenty those people could do. Expand the services we offer each other:
 group training and personal trainers, humans training humans, theatre, music,
 companionship, all the arts that produce physical and emotional well-being.
@@ -191,8 +213,10 @@ that reference of contrast matters more than we give it credit for.
 
 ## 🎯 The question I actually want us arguing about
 
-Take a business at the very top of the market, with profits measured in
-billions. Let's grant that the cost of running its services has to be sustained,
+Take the two most profitable companies on the planet. Nvidia cleared $120.1bn
+in net profit in FY2026, Alphabet $132.2bn in 2025. That is **about a third of a
+billion dollars a day each, $691m a day between them.** Let's grant that the cost
+of running their services has to be sustained,
 because those services are the foundation of the abundance we are aiming at. So
 strip that out, and the employees, and look only at what is left.
 
@@ -301,26 +325,41 @@ Food for thought. Tell me where I have got this wrong.
 
 <!-- REVIEW NOTES, delete before this moves to posts/
 
-Provenance: every claim traces to 2026-09-01-abundance-is-conditional. Nothing
-added. Three editorial decisions need Fer's call:
+RESOLVED 2026-09-01 by research/2026-09-01-abundance-figures.md:
 
-1. NAMING. "The missing if" is mine, not his. Per the editorial guide, naming is
-   scaffolding rather than a claim, so I supplied it and flagged it. Overrule
-   freely.
-2. FIGURES. He said "a billion a day, like Nvidia, two billion a day, like
-   Google". Said fast, mid-rant, and I could not verify them, so the draft says
-   "profits measured in billions" instead of naming companies and numbers. If he
-   wants the punchier line, we check the figures first.
-3. MUSK. The positions attributed to Musk are Fer's characterisation, not
-   sourced quotes. The draft attributes loosely ("when Musk says working will be
-   optional"). Worth pinning to a real quote before this goes public.
+- FIGURES. His "a billion a day, like Nvidia, two billion a day, like Google"
+  was roughly 2x high as revenue and far too high as profit. Replaced with the
+  verified and more striking version: Nvidia $120.1bn and Alphabet $132.2bn net
+  profit, about a third of a billion a day each, $691m a day combined.
+- MUSK. All three positions verified and now quoted properly. The universal
+  HIGH income vs universal BASIC income distinction is his own and it helps the
+  piece, because Fer argues against UBI and so does Musk.
+- ADDED. The 44.4% / 80.0% distribution table. Strongest empirical support in
+  the piece and it was not there before.
+- CORRECTED. "20, 30, 40% lose productive value" conflated IMF exposure (~40%
+  global, ~60% advanced) with displacement (Goldman 6-7%). A hostile reader
+  would have killed the argument on that. Now separated, with an explicit note
+  that the argument does not need mass unemployment.
 
-Also held back: the sexual services item from his list of future human services.
-Kept verbatim in the capture, left out here pending his call.
+STILL FOR FER, and the first one is now the big one:
 
-Checklist items I could not satisfy from the material:
-- No named law, framework or book to anchor to. He did not cite one, and I will
-  not invent an attribution. Maslow gets a passing mention and that is it.
-- No hard numbers. He gave none that survive verification.
-Both are honest gaps rather than failures of the draft.
+1. THE REMEDY NEEDS NEW REASONING. Nvidia and Alphabet's combined profit, spread
+   across humanity, is 8.3 cents per person per day. Lifting the 6.64bn people
+   below $30/day up to $30/day costs ~62% of global GDP. Redistribution is short
+   by a factor of twenty. His CONCLUSION (free services, cost to zero) survives
+   and is arguably the only thing that can work, but the argument that gets him
+   there has to change: not "companies should be generous" but "redistribution
+   is arithmetically impossible, so the cost has to collapse instead". That is a
+   substantive change to his argument and therefore his call, not mine.
+2. NAMING. "The missing if" is still mine, not his.
+3. THE BAUMOL CARD, unplayed. Demonetisation is real for manufactured and
+   digital goods and has failed completely for housing, healthcare and
+   education. "The smartphone got free, the rent did not." One paragraph turns
+   his weakest flank into his strongest. See the red team.
+4. Sexual services item still held out of the public draft pending his call.
+5. Belgium/Spain healthcare details unverified. Fine as a mechanism
+   illustration, worth a hedge if this reaches a European audience.
+
+See research/2026-09-01-red-team-moonshot.md for the five counter-arguments and
+which parts of the piece do not survive them.
 -->
