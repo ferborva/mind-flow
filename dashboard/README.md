@@ -71,9 +71,14 @@ the contract is broken and that is a bug in the page.
 
 ## What is in the first snapshot
 
+Audience: **the Moonshot crew, argument-first.** The page leads with the claim,
+states what would falsify it, and ends by asking them to push on four specific
+things.
+
 | Signal | Status | Source |
 |---|---|---|
-| The transmission test | derived | Computed from labour share and inflation |
+| The Engels divergence | derived | Output vs labour income per capita, both indexed |
+| The transmission gap | derived | Annual growth difference, in percentage points |
 | Labour share of GDP | measured | OWID / ILOSTAT, SDG 10.4.1 |
 | GDP per capita | measured | World Bank, NY.GDP.PCAP.KD |
 | Consumer price inflation | measured | World Bank, FP.CPI.TOTL.ZG |
@@ -102,6 +107,21 @@ sources and dates. The derived signal states its method and its caveats in the
 snapshot, and the page renders both. Nothing here becomes an opinion of Fer's
 unless he says it in a capture.
 
+## The v1.0.0 correction
+
+v1.0.0 shipped a "transmission test" that added consumer price inflation to the
+change in labour share. Different units, and on the data the labour term
+contributed under 8%: **the headline was inflation in a costume, and it rendered
+FAILING in red against a comparison the data did not support.**
+
+Replaced with the Engels comparison, which is dimensionally consistent and is the
+test history actually ran. The answer changed: World 2004-2025 shows output per
+capita +44.3% against labour income per capita +40.8%, a 3.5 index-point gap.
+**Britain's was roughly ten times that. This is not an Engels' Pause.**
+
+The correction is stated on the page, not just here. See
+`research/2026-09-07-red-team-the-observatory.md`.
+
 ## Known limits
 
 - **No cohort cuts.** A national average can pass while a displaced cohort
@@ -112,3 +132,10 @@ unless he says it in a capture.
 - **Labour share reports with a long lag**, so recent years are thin and the
   most recent transmission reading rests on fewer countries than it looks.
 - **Asset ownership is arguably a third transmission channel** and is not here.
+- **No uncertainty on anything.** Every point renders as a fact with no interval.
+  The largest remaining weakness.
+- **No forecast.** Nothing extends past today, which is a fair hit on anything
+  calling itself an observatory.
+- **No concentration series.** Compute, market share, capital ownership. A hole,
+  given the parent argument is about concentration.
+- **The seven entities need a stated rationale** or a proper panel.

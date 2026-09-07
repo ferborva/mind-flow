@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.0.0
+fetch_snapshot.py 1.1.0
 
 Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.0.0).
+conforming to dashboard/schema/snapshot.schema.json (v1.1.0).
 
     python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
     python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
@@ -18,8 +18,8 @@ Design rules, enforced here so the contract holds:
 
 import argparse, csv, io, json, sys, urllib.request, datetime, os
 
-GENERATOR = "fetch_snapshot.py@1.0.0"
-SCHEMA_VERSION = "1.0.0"
+GENERATOR = "fetch_snapshot.py@1.1.0"
+SCHEMA_VERSION = "1.1.0"
 TIMEOUT = 60
 
 # Entities we pull. World first; the rest give cross-country variance.
@@ -130,6 +130,9 @@ SIGNAL_DEFS = [
         question="How many people are on the wrong side of the money condition?",
         why_it_matters="Roughly a developed-world floor. The single clearest measure of who the abundance promise currently excludes.",
         trouble_reading="Flat, while capability and output rise.",
+        caveats=["The most recent years are modelled nowcasts, not survey estimates. Treat the "
+                 "tail of this series as a projection.",
+                 "Rests on PPP conversion, which is itself contested for cross-country comparison."],
         source=dict(name="Our World in Data / World Bank PIP",
                     url="https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day",
                     note="2021 international prices"),
@@ -141,6 +144,9 @@ SIGNAL_DEFS = [
         question="How many are below the upper-middle-income line?",
         why_it_matters="The World Bank's upper-middle-income poverty line, revised upward in June 2025.",
         trouble_reading="Stalling. The last mile is the hardest and the most expensive.",
+        caveats=["The most recent years are modelled nowcasts, not survey estimates.",
+                 "The World Bank raised this line in June 2025; the series is not comparable "
+                 "across that revision without care."],
         source=dict(name="Our World in Data / World Bank PIP",
                     url="https://ourworldindata.org/grapher/share-living-with-less-than-upper-middle-income-poverty-line",
                     note="$8.30/day, 2021 international prices"),
@@ -163,9 +169,12 @@ SIGNAL_DEFS = [
         id="inflation", name="Consumer price inflation", family="prices",
         unit="percent", precision=1, direction="down_is_good",
         question="Are prices actually falling?",
-        why_it_matters="The price channel of the transmission test. Abundance requires this to go negative for real baskets, not merely to slow.",
+        why_it_matters="The price channel. Abundance requires this to go negative for real baskets, not merely to slow.",
         trouble_reading="Persistently positive. Deflation of goods is not showing up in what households actually buy.",
-        caveats=["Headline CPI, not a decent-living basket. The basket question is unresolved."],
+        caveats=["Headline CPI, not a decent-living basket. The basket question is unresolved.",
+                 "CPI may be structurally incapable of showing demonetisation: it weights what "
+                 "households currently buy, so a good whose price collapses loses weight or leaves "
+                 "the basket. The strongest objection to using it here, and it is unresolved."],
         source=dict(name="World Bank Open Data",
                     url="https://api.worldbank.org/v2/country/WLD/indicator/FP.CPI.TOTL.ZG",
                     note="FP.CPI.TOTL.ZG, annual %"),
@@ -232,8 +241,8 @@ def build(snapshot_id, retrieved):
         signals.append(sig)
         log.append(f"  by design  {sig['id']:20} not_measured")
 
-    # Derived: the transmission test. Components only, deliberately.
-    signals.append(derive_transmission(signals, retrieved, log))
+    # Derived: the Engels comparison, in both its cumulative and annual forms.
+    signals.extend(derive_engels(signals, retrieved, log))
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -250,56 +259,98 @@ def build(snapshot_id, retrieved):
     }, log
 
 
-def derive_transmission(signals, retrieved, log):
+def derive_engels(signals, retrieved, log):
     """
-    The transmission test: are prices falling faster than labour share?
-    Reported as an annual difference in percentage points, not a ratio, because
-    a ratio explodes when the denominator approaches zero.
+    The Engels test, done properly.
+
+    v1.0.0 shipped a "transmission test" that added consumer price inflation (a
+    rate) to the change in labour share (a percentage-point change). Those are
+    different units, and on the data the labour term contributed 0-8% of the
+    result: the headline was inflation wearing a costume, and it produced a false
+    alarm. Replaced.
+
+    The right comparison is the one history actually ran. Britain 1780-1840:
+    output per worker +46%, real wages +12%. So:
+
+        real labour income per capita = labour share x real GDP per capita
+        gap = growth(labour income pc) - growth(GDP pc), in percentage points
+
+    Both sides are real, per capita, and growth rates. Dimensionally consistent,
+    and it is literally the Engels comparison.
     """
     by_id = {s["id"]: s for s in signals}
-    infl = {e["entity"]: dict(e["points"]) for e in by_id["inflation"].get("series", [])}
     lab = {e["entity"]: dict(e["points"]) for e in by_id["labour-share"].get("series", [])}
+    gdp = {e["entity"]: dict(e["points"]) for e in by_id["gdp-per-capita"].get("series", [])}
 
-    series = []
-    for ent in sorted(set(infl) & set(lab)):
+    div_series, gap_series = [], []
+    for ent in sorted(set(lab) & set(gdp)):
+        years = sorted(set(lab[ent]) & set(gdp[ent]))
+        if len(years) < 3:
+            continue
+        base = years[0]
+        g0 = gdp[ent][base]
+        l0 = lab[ent][base] / 100 * gdp[ent][base]
+        div_series.append({"entity": ent, "measure": "Output per capita",
+                           "points": [[y, round(gdp[ent][y] / g0 * 100, 2)] for y in years]})
+        div_series.append({"entity": ent, "measure": "Labour income per capita",
+                           "points": [[y, round((lab[ent][y] / 100 * gdp[ent][y]) / l0 * 100, 2)]
+                                      for y in years]})
         pts = []
-        years = sorted(set(lab[ent]) & set(infl[ent]))
-        for y in years:
-            if (y - 1) not in lab[ent]:
+        for y in years[1:]:
+            if (y - 1) not in lab[ent] or (y - 1) not in gdp[ent]:
                 continue
-            d_lab = lab[ent][y] - lab[ent][y - 1]      # pp change in labour share
-            price_relief = -infl[ent][y]                # negative inflation = relief
-            pts.append([y, round(price_relief + d_lab, 3)])
+            g = gdp[ent][y] / gdp[ent][y - 1] - 1
+            li = ((lab[ent][y] / 100 * gdp[ent][y]) /
+                  (lab[ent][y - 1] / 100 * gdp[ent][y - 1])) - 1
+            pts.append([y, round((li - g) * 100, 3)])
         if pts:
-            series.append({"entity": ent, "points": pts})
+            gap_series.append({"entity": ent, "points": pts})
 
-    sig = dict(
-        id="transmission-test", name="The transmission test", family="transmission",
-        status="derived", unit="percent", precision=2, direction="up_is_good",
-        question="Are prices falling faster than wages are disappearing?",
-        why_it_matters=("Money reaches people through wages or through prices. Automation severs the "
-                        "first using the same capital meant to deliver the second. This is the only "
-                        "falsifiable claim in the whole abundance argument."),
-        trouble_reading="Below zero. Prices are not compensating for what labour is losing.",
-        method=("Annual price relief plus the annual change in labour share, in percentage points. "
-                "Price relief is the negative of consumer price inflation, so falling prices score "
-                "positive. Above zero means the price channel is outrunning the wage channel. "
-                "Reported as a difference rather than a ratio because a ratio explodes as the "
-                "denominator approaches zero."),
-        caveats=["Provisional. Headline CPI is a poor stand-in for a decent-living basket.",
-                 "A national average can pass while a displaced cohort fails. Needs cohort cuts.",
-                 "Labour share is reported with a long lag, so recent years are thin.",
-                 "Excludes asset ownership, which is arguably a third transmission channel."],
-        source=dict(name="Derived from labour-share and inflation signals",
+    common = dict(
+        family="engels", status="derived", direction="up_is_good",
+        source=dict(name="Derived from labour-share and GDP per capita",
                     url="", retrieved=retrieved,
-                    note="Computed by fetch_snapshot.py, not published anywhere"),
-        series=series,
-    )
-    world = next((e["points"] for e in series if e["entity"] == "OWID_WRL"), None)
-    if world:
-        sig["latest"] = {"entity": "OWID_WRL", "year": world[-1][0], "value": world[-1][1]}
-    log.append(f"  derived    {sig['id']:20} {len(series)} entities")
-    return sig
+                    note="Computed by fetch_snapshot.py. Not published anywhere."),
+        caveats=[
+            "Labour income here is labour SHARE times output, so it includes an imputation for "
+            "the self-employed. It is not a wage series.",
+            "A national average can pass while a displaced cohort fails. That is exactly what "
+            "happened during Engels' Pause, and there are no cohort cuts here.",
+            "Labour share is reported with a long lag, so the most recent years rest on fewer "
+            "countries than the chart implies.",
+            "Excludes asset ownership, arguably a third channel, and the one that actually "
+            "carried the wealthy through the last transition.",
+        ])
+
+    div = dict(common, id="engels-divergence", name="The Engels divergence",
+        unit="index", precision=1,
+        question="Are output and labour income still moving together?",
+        why_it_matters=("Britain 1780-1840: output per worker rose 46%, real wages 12%. That gap "
+                        "is what a technological transition looks like from underneath. Both lines "
+                        "indexed to 100 at the base year: if they separate, the pause is here."),
+        trouble_reading="The lines separating and staying separated.",
+        method=("Real GDP per capita and real labour income per capita (labour share x real GDP "
+                "per capita), each indexed to 100 at the first year both series cover."),
+        series=div_series)
+
+    gap = dict(common, id="transmission-gap", name="The transmission gap",
+        unit="pp", precision=2,
+        question="Is labour income growing as fast as output?",
+        why_it_matters=("The annual version of the divergence, and the falsifiable form of the "
+                        "claim. Negative means output is outrunning what reaches people as labour "
+                        "income. Sustained negative is an Engels' Pause."),
+        trouble_reading="Persistently below zero.",
+        method=("Growth in real labour income per capita minus growth in real GDP per capita, in "
+                "percentage points. Both sides are real, per capita growth rates, so they are "
+                "comparable. Replaces the v1.0.0 transmission test, which was not."),
+        series=gap_series)
+    w = next((e["points"] for e in gap_series if e["entity"] == "OWID_WRL"), None)
+    if w:
+        gap["latest"] = {"entity": "OWID_WRL", "year": w[-1][0], "value": w[-1][1]}
+
+    log.append(f"  derived    {'engels-divergence':20} {len(div_series)//2} entities x 2 measures")
+    log.append(f"  derived    {'transmission-gap':20} {len(gap_series)} entities")
+    return [div, gap]
 
 
 def main():

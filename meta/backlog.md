@@ -84,9 +84,15 @@ script.
 
 ### From the dashboard build, 2026-09-07
 
-- [ ] **Audience for the observatory.** Asked and not yet answered: is it a
-      shareable page for the Moonshot crew (argument-first) or a working
-      instrument he checks and refines? Changes what gets built next.
+- [x] **Audience for the observatory.** Answered 2026-09-07: the Moonshot crew,
+      argument-first. Page restructured accordingly.
+- [ ] **Uncertainty on every signal.** The biggest remaining weakness. Every
+      point currently renders as a fact with no interval or revision history.
+- [ ] **At least one forecast that can be scored wrong.** A psychohistory page
+      with no forward line is a museum. Wissner-Gross's objection, unanswered.
+- [ ] **A concentration series.** Compute, market share or capital ownership.
+      Conspicuous by absence given the parent argument.
+- [ ] **A stated rationale for the seven entities**, or a real panel.
 - [ ] **Define the zero-cost count so it can exist.** Three decisions block it:
       which basket, where "close to zero" is drawn, and whether
       free-to-consumer-but-advertiser-funded counts. Until he rules, the panel
