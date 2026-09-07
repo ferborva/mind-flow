@@ -6,7 +6,7 @@ status: review
 size: long
 themes: [abundance]
 sources: [2026-09-01-abundance-is-conditional]
-research: [2026-09-01-abundance-figures, 2026-09-01-decent-life-thresholds, 2026-09-01-red-team-moonshot]
+research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026-09-07-red-team-moonshot]
 audience: the Moonshot podcast crew, and anyone arguing about abundance
 created: 2026-09-01
 updated: 2026-09-01
@@ -325,7 +325,7 @@ Food for thought. Tell me where I have got this wrong.
 
 <!-- REVIEW NOTES, delete before this moves to posts/
 
-RESOLVED 2026-09-01 by research/2026-09-01-abundance-figures.md:
+RESOLVED 2026-09-07 by research/2026-09-07-abundance-figures.md:
 
 - FIGURES. His "a billion a day, like Nvidia, two billion a day, like Google"
   was roughly 2x high as revenue and far too high as profit. Replaced with the
@@ -360,6 +360,6 @@ STILL FOR FER, and the first one is now the big one:
 5. Belgium/Spain healthcare details unverified. Fine as a mechanism
    illustration, worth a hedge if this reaches a European audience.
 
-See research/2026-09-01-red-team-moonshot.md for the five counter-arguments and
+See research/2026-09-07-red-team-moonshot.md for the five counter-arguments and
 which parts of the piece do not survive them.
 -->

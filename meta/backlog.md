@@ -54,13 +54,18 @@ script.
 
 ### Blocking the abundance draft
 
-- [x] **The revenue figures.** Resolved 2026-09-01 by research. His numbers were
+- [x] **The revenue figures.** Resolved 2026-09-07 by research. His numbers were
       ~2x high; the verified version is better. Nvidia $120.1bn and Alphabet
       $132.2bn net profit, about a third of a billion a day each.
-- [x] **The Musk attributions.** Resolved 2026-09-01. All three verified and now
+- [x] **The Musk attributions.** Resolved 2026-09-07. All three verified and now
       quoted properly. Musk distinguishes universal HIGH income from universal
       BASIC income, which supports rather than undercuts Fer's anti-UBI line.
-- [ ] **The remedy needs new reasoning.** *Now the big one.* The combined profit
+- [~] **The remedy needs new reasoning.** *He solved this himself on 2026-09-07.*
+      The zero-cost count and deflation rate replace "companies should be
+      generous" with two numbers businesses can target and countries can track.
+      Remaining decision is whether he wants that swapped into the draft's
+      closing section, which is a rewrite of the last third.
+      Original framing of the problem: The combined profit
       of Nvidia and Alphabet, spread across humanity, is 8.3 cents per person per
       day. Lifting everyone below $30/day to $30/day costs ~62% of global GDP.
       Redistribution is short by a factor of twenty. His conclusion (free
@@ -77,7 +82,28 @@ script.
 - [ ] **Belgium/Spain healthcare details.** Unverified. Fine as a mechanism
       illustration, worth a hedge for a European audience.
 
-### Follow-ups from the abundance rant
+### From the second rant, 2026-09-07
+
+- [ ] **Does the labour paradox have a way out, or is it a dead end?** He names
+      it and stops. The piece needs him to say which, because "here is an
+      unsolved problem" and "here is why this cannot work" are different essays.
+- [ ] **Which products does he mean that "require human labour"?** A concrete
+      list would sharpen it enormously. Care work, trades, judgement roles?
+- [ ] **Has he noticed his two ideas pull against each other?** Baumol predicts
+      the human-required residue gets relatively *more* expensive as everything
+      else deflates. So the zero-cost count rises while the residue's price
+      rises too. My read is that this makes the metric diagnostic rather than
+      broken, and it should be reported as two numbers with the gap between them
+      as the interesting one. His idea, his call.
+- [ ] **What basket does the deflation rate measure against, and who picks it?**
+      A country cannot track it without one.
+- [ ] **Does free-to-consumer but paid-by-advertiser count as zero cost?** If
+      yes the number is already large and meaningless. Needs a line drawn.
+- [ ] **Is anyone already tracking something like the zero-cost count?** I found
+      no named index in three searches. Worth a deeper look before claiming
+      novelty.
+
+### Follow-ups from the first abundance rant
 
 - [ ] **His own threshold number.** Research now brackets it: a self-sustaining
       dynastic endowment at a comfortable $70/day needs ~$730k-850k invested,

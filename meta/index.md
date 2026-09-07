@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-01
+updated: 2026-09-07
 ---
 
 # Index
@@ -12,12 +12,12 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 2 |
-| Seeds | 6 |
+| Captures | 3 |
+| Seeds | 8 |
 | Drafts | 1 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 3 |
+| Research notes | 4 |
 
 Foundation documents: **4 of 4 in place.**
 
@@ -30,6 +30,8 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
+- `2026-09-07-deflation-metric-and-labour-paradox`, a metric for abundance and
+  the labour paradox underneath it. **processed**, 2 seeds.
 - `2026-09-01-abundance-is-conditional`, abundance is conditional and nobody is
   talking about the conditions. **processed**, 6 seeds. Verbatim transcript kept
   at `capture/raw/`.
@@ -45,6 +47,8 @@ Foundation documents: **4 of 4 in place.**
 | `the-choice-belongs-to-enterprises` | ripe | abundance |
 | `how-much-is-enough` | growing | abundance |
 | `everything-is-limited` | growing | abundance |
+| `the-zero-cost-count` | ripe | abundance |
+| `the-free-labour-paradox` | ripe | abundance |
 
 ## Drafts
 
@@ -58,9 +62,10 @@ Foundation documents: **4 of 4 in place.**
 
 | Note | What it covers |
 |---|---|
-| `2026-09-01-abundance-figures` | Fact-check of the rant. Company profits, Musk quotes, displacement vs exposure, global income distribution |
-| `2026-09-01-decent-life-thresholds` | Decent Living Standards thresholds, what a decent life costs, capital needed for a life and the next generation |
-| `2026-09-01-red-team-moonshot` | Five counter-arguments from the Moonshot regulars' own published frameworks, and which parts of the piece survive |
+| `2026-09-07-abundance-figures` | Fact-check of the rant. Company profits, Musk quotes, displacement vs exposure, global income distribution |
+| `2026-09-07-decent-life-thresholds` | Decent Living Standards thresholds, what a decent life costs, capital needed for a life and the next generation |
+| `2026-09-07-labour-supply-and-cost-disease` | Reservation wage, backward-bending labour supply, Baumol's cost disease, and why his two new ideas pull against each other |
+| `2026-09-07-red-team-moonshot` | Five counter-arguments from the Moonshot regulars' own published frameworks, and which parts of the piece survive |
 
 ## Posts
 

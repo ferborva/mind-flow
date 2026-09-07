@@ -1,6 +1,6 @@
 ---
 title: Themes
-updated: 2026-09-01
+updated: 2026-09-07
 ---
 
 # Themes
@@ -23,24 +23,27 @@ _(none yet)_
 
 Ideas that have come up twice and might become themes.
 
-_(none yet)_
+### abundance
+**Abundance is conditional, and the conditions are the argument.** Every promise
+of the form "you will be able to X" hides an "if" that decides who it applies
+to. Money and nationality are the two biggest. The second capture turns it from
+critique into proposal: measure the cost collapse, and notice that the residue
+still needing humans has nobody willing to do it.
+First seen: 2026-09-01-abundance-is-conditional
+Also in: 2026-09-07-deflation-metric-and-labour-paradox
+Seeds: abundance-has-an-if, conditions-are-national, money-does-not-disappear,
+the-choice-belongs-to-enterprises, how-much-is-enough, everything-is-limited,
+the-zero-cost-count, the-free-labour-paradox
+
+<!-- NOTE: eight seeds across two captures. One more sighting and it is active,
+     at which point it is plainly book-shaped. Holding the rule anyway. -->
 
 ## Below threshold
 
 Candidates from a single capture. Recorded so the next sighting is recognised,
 not promoted early.
 
-### abundance
-**Abundance is conditional, and the conditions are the argument.** Every promise
-of the form "you will be able to X" hides an "if" that decides who it applies
-to. Money and nationality are the two biggest.
-First seen: 2026-09-01-abundance-is-conditional
-Seeds: abundance-has-an-if, conditions-are-national, money-does-not-disappear,
-the-choice-belongs-to-enterprises, how-much-is-enough, everything-is-limited
-
-<!-- NOTE: six seeds from one capture is unusual and it would be easy to call
-     this a theme already. Holding to the three-capture rule. If abundance comes
-     up again it moves to Watching, and on a third sighting it is active. -->
+_(none yet)_
 
 ---
 

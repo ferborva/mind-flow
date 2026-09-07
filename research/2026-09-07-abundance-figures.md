@@ -1,17 +1,17 @@
 ---
-id: 2026-09-01-abundance-figures
+id: 2026-09-07-abundance-figures
 title: Fact-check and figures for the abundance rant
 type: research
 status: active
 themes: [abundance]
 supports: [2026-09-01-abundance-is-conditional, abundance-has-an-if]
-retrieved: 2026-09-01
+retrieved: 2026-09-07
 ---
 
 # Fact-check and figures for the abundance rant
 
 Everything the draft needed and could not assert. Sources and dates on every
-line. Retrieved 2026-09-01.
+line. Retrieved 2026-09-07.
 
 ## 🦅 TL;DR
 

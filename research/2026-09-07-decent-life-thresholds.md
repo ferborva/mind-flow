@@ -1,11 +1,11 @@
 ---
-id: 2026-09-01-decent-life-thresholds
+id: 2026-09-07-decent-life-thresholds
 title: What a decent life costs, and how much is enough to fund one forever
 type: research
 status: active
 themes: [abundance]
 supports: [how-much-is-enough, everything-is-limited]
-retrieved: 2026-09-01
+retrieved: 2026-09-07
 ---
 
 # What a decent life costs, and how much is enough to fund one forever

@@ -1,11 +1,11 @@
 ---
-id: 2026-09-01-red-team-moonshot
+id: 2026-09-07-red-team-moonshot
 title: Red team, the abundance argument shredded from five directions
 type: research
 status: active
 themes: [abundance]
 supports: [abundance-has-an-if, the-choice-belongs-to-enterprises, money-does-not-disappear]
-retrieved: 2026-09-01
+retrieved: 2026-09-07
 ---
 
 # Red team: the abundance argument shredded from five directions
@@ -21,7 +21,7 @@ guess at what they would say.
 - **Three of these land hard.** Wissner-Gross's, Diamandis's, and Mostaque's.
 - **Two are survivable** but need a sentence of pre-emption in the piece.
 - **The most dangerous one is not on this list.** It is the arithmetic in
-  `2026-09-01-abundance-figures.md`: the profits he wants redistributed amount
+  `2026-09-07-abundance-figures.md`: the profits he wants redistributed amount
   to eight cents per person per day. Fix that before anything else.
 - The single best defensive move is to **stop arguing that companies should be
   generous and start arguing that they are the only actor with the right cost

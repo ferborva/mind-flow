@@ -34,9 +34,9 @@ its attribution with it.
 
 | File | What it does |
 |---|---|
-| `2026-09-01-abundance-figures.md` | Verifies or corrects the quantitative claims in the abundance rant |
-| `2026-09-01-decent-life-thresholds.md` | What a decent life costs, and what capital funds it for a life and the next generation |
-| `2026-09-01-red-team-moonshot.md` | The strongest counter-arguments to his thesis, argued from the actual published positions of the people he wants to persuade |
+| `2026-09-07-abundance-figures.md` | Verifies or corrects the quantitative claims in the abundance rant |
+| `2026-09-07-decent-life-thresholds.md` | What a decent life costs, and what capital funds it for a life and the next generation |
+| `2026-09-07-red-team-moonshot.md` | The strongest counter-arguments to his thesis, argued from the actual published positions of the people he wants to persuade |
 
 ## Naming
 
