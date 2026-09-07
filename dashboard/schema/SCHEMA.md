@@ -1,6 +1,6 @@
 # The snapshot contract
 
-**Version 1.0.0**
+**Version 1.2.0**
 
 One rule governs this whole directory: **the website never talks to a data
 provider.** It renders a snapshot. That is the entire architecture, and every
@@ -61,14 +61,16 @@ than rendering something misleading.
 
 ```jsonc
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.2.0",
   "snapshot_id": "2026-09-07",         // YYYY-MM-DD, unique, sortable
   "generated_at": "2026-09-07T10:00:00Z",
-  "generator": "fetch_snapshot.py@1.0.0",
+  "generator": "fetch_snapshot.py@1.2.0",
   "title": "Signals toward the transition",
   "notes": "Free text. Anything a reader needs to know about this run.",
   "entities": [ /* see below */ ],
-  "signals": [ /* see below */ ]
+  "signals": [ /* see below */ ],
+  "crises": [ /* optional crisis-control contracts */ ],
+  "playbooks": { /* optional actor-phase action contracts */ }
 }
 ```
 
@@ -151,3 +153,31 @@ is empty, and the page says why.
 
 If step 3 required touching the page, the contract is broken and that is a bug
 in the page, not in the snapshot.
+
+## Crisis contracts
+
+Schema 1.2 adds optional crisis contracts. Their state remains `unscored` until
+the required signals and defensible activation thresholds exist. The interface
+may show instrumentation coverage, but it must not turn coverage into risk.
+
+```jsonc
+{
+  "id": "credibility-break",
+  "name": "The credibility break",
+  "status": "unscored",                 // unscored | watch | activated
+  "condition": "Capability rises while access falls.",
+  "why_it_matters": "…",
+  "movement": "…",
+  "communication": "…",
+  "leading_signals": ["inflation", "access-margin"],
+  "actions": { "prepare": "…", "protect": "…", "recover": "…" }
+}
+```
+
+## Actor playbooks
+
+`playbooks` is keyed by actor. Each entry has a public label, a governing
+principle, and non-empty action lists for `now`, `warning`, and `crisis`.
+
+The human-readable contract is complemented by `snapshot.schema.json`, which is
+the machine-checkable source for types and required fields.
