@@ -52,12 +52,45 @@ script.
 - [ ] **Cadence.** How often should scheduled runs fire? Daily is too eager for
       a repo fed by occasional conversations. Weekly is my recommendation.
 
+### Blocking the abundance draft
+
+Three calls only he can make, all quick:
+
+- [ ] **The concept name.** I called the pattern **"the missing if"**. Mine, not
+      his. Keep, change, or drop the naming entirely?
+- [ ] **The revenue figures.** He said "a billion a day, like Nvidia, two billion
+      a day, like Google", mid-rant. I could not verify them, so the draft says
+      "profits measured in billions" and names nobody. If he wants the punchier
+      line we check the numbers first.
+- [ ] **The Musk attributions.** "Money won't matter", "high basic income",
+      "working will be optional" are his characterisation of Musk, not sourced
+      quotes. Pin them to something real before a public piece names him.
+- [ ] **The sexual services item.** Listed flatly among future human services.
+      Verbatim in the capture, held out of the public draft. His call.
+
+### Follow-ups from the abundance rant
+
+- [ ] **His own threshold number.** He says he can picture the point at which he
+      would never need to work again, but never says it. That number, or the
+      reasoning he'd use to reach it, would turn the strongest idea in the piece
+      from a question into an argument. Highest-value follow-up here.
+- [ ] **The pooled S&P 500 profits.** He raises putting the collective profits of
+      the top companies on the table, then moves on. What does he actually want
+      done with that number?
+- [ ] **Exodus from Earth.** New countries on the moon or Mars, carrying the same
+      if conditions. Said half-formed and dropped. Possibly its own piece.
+- [ ] **The floor.** He says defining a base quality of life for humanity is
+      close to impossible, but his own argument says conditions are national.
+      Should the floor be defined per country?
+- [ ] **Who are the Moonshot crew?** Names, format, and what he wants from them:
+      a reply, an episode, an argument?
+
 ### First material
 
-- [ ] **The first real conversation.** The repo has one capture and it is about
-      the repo itself. It needs actual knowledge in it before any of the
-      machinery matters. Any topic he can talk about for ten minutes without
-      preparing works.
+- [x] **The first real conversation.** 2026-09-01, the abundance rant. Six seeds
+      and a draft out of one sitting. The machinery works.
+- [ ] **The second one.** Anything at all. A theme needs three separate captures
+      before it is real, and abundance currently has one.
 
 ## Answered
 

@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-08-31
+updated: 2026-09-01
 ---
 
 # Index
@@ -12,9 +12,9 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 1 |
-| Seeds | 0 |
-| Drafts | 0 |
+| Captures | 2 |
+| Seeds | 6 |
+| Drafts | 1 |
 | Posts | 0 |
 | Books | 0 |
 
@@ -27,23 +27,29 @@ Foundation documents: **4 of 4 in place.**
 | `soul.md` | same email | 2026-08-31 |
 | `writing-style-long-form.md` | "Long-content form writing style", 2026-09-01 | 2026-09-01 |
 
-`editorial-guide.md` rewritten against the long-form guideline on 2026-09-01.
-Calibration is done: nothing about how to write here rests on a guess any more.
-
-What the repo is short of now is material. It needs conversations before it can
-produce anything.
-
 ## Captures
 
+- `2026-09-01-abundance-is-conditional`, abundance is conditional and nobody is
+  talking about the conditions. **processed**, 6 seeds. Verbatim transcript kept
+  at `capture/raw/`.
 - `2026-08-31-founding-intent`, what this repository is for. **raw**
 
 ## Seeds
 
-_(none yet)_
+| Seed | Status | Theme |
+|---|---|---|
+| `abundance-has-an-if` | ripe | abundance |
+| `conditions-are-national` | ripe | abundance |
+| `money-does-not-disappear` | ripe | abundance |
+| `the-choice-belongs-to-enterprises` | ripe | abundance |
+| `how-much-is-enough` | growing | abundance |
+| `everything-is-limited` | growing | abundance |
 
 ## Drafts
 
-_(none yet)_
+- `abundance-has-an-if`, medium, **review**. Draws on the first four seeds and
+  touches the other two. Waiting on three of Fer's calls before it can move to
+  `posts/`: the concept name, the revenue figures, and the Musk attributions.
 
 ## Posts
 
