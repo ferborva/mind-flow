@@ -3,7 +3,9 @@
 **Seldon Observatory.** Instrumentation for the transition. A portal for arguing
 about the signals rather than the slogans.
 
-Live: https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
+Original v1 artifact: https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
+
+The current v2 build is `web/index.html` in this repository.
 
 ## The one architectural decision
 
@@ -29,22 +31,21 @@ Three reasons, in order.
 | Path | What it is |
 |---|---|
 | `schema/SCHEMA.md` | The contract. Read this first. |
+| `schema/snapshot.schema.json` | Machine-readable JSON Schema |
 | `tools/fetch_snapshot.py` | Pulls the signals, writes a dated snapshot |
+| `tools/build.mjs` | Safely embeds one snapshot into the template |
 | `snapshots/` | Dated snapshots plus `index.json` |
 | `web/index.template.html` | The page, with a `__SNAPSHOT__` placeholder |
 | `web/index.html` | Built page with a snapshot baked in. **Generated, do not edit.** |
+| `tests/dashboard.test.mjs` | Contract and self-contained-build tests |
 
 ## Refreshing
 
 ```bash
 python3 dashboard/tools/fetch_snapshot.py          # today's snapshot
-python3 - <<'PY'                                    # rebuild the page
-import json
-tpl=open("dashboard/web/index.template.html",encoding="utf-8").read()
-d=json.dumps(json.load(open("dashboard/snapshots/2026-09-07.json",encoding="utf-8")),
-             separators=(",",":")).replace("</","<\\/")
-open("dashboard/web/index.html","w",encoding="utf-8").write(tpl.replace("__SNAPSHOT__",d))
-PY
+node dashboard/tools/build.mjs \
+  dashboard/snapshots/2026-09-07.json dashboard/web/index.html
+node --test dashboard/tests/dashboard.test.mjs
 ```
 
 Then republish `web/index.html` to the same artifact URL. **This is a natural
@@ -71,9 +72,9 @@ the contract is broken and that is a bug in the page.
 
 ## What is in the first snapshot
 
-Audience: **the Moonshot crew, argument-first.** The page leads with the claim,
-states what would falsify it, and ends by asking them to push on four specific
-things.
+Audience: **people with agency over the crossing.** The page moves from the
+observed trajectory to five foreseeable crisis points, phase-specific playbooks,
+a transparent scenario lab, and the underlying evidence.
 
 | Signal | Status | Source |
 |---|---|---|
@@ -87,11 +88,17 @@ things.
 | Labour force participation | measured | World Bank / ILO |
 | **Zero-cost count** | **not measured** | **No registry publishes this** |
 | **The Baumol gap** | **not measured** | Constructible, not yet constructed |
+| **Household access margin** | **not measured** | Requires joined local budgets and resources |
+| **Transition speed** | **not measured** | Requires cohort worker-flow data |
+| **Productive-power concentration** | **not measured** | No joined capacity registry |
+| **Response readiness** | **not measured** | Requires delivery stress tests |
+| **Trust and consent** | **not measured** | Requires repeated cohort measures |
+| **Cross-border access variance** | **not measured** | Requires comparable service-level rules |
 
-## The two empty panels are the point
+## The empty panels are the point
 
-`zero-cost-count` and `baumol-gap` render as visible voids with the reason
-attached. They are not omissions.
+Every `not_measured` signal renders as a visible void with the reason attached.
+These are not omissions. Together they are an instrumentation backlog.
 
 The zero-cost count is the metric this whole argument turns on, and nobody
 publishes it. **A dashboard that quietly dropped its own blind spot would be
@@ -134,8 +141,8 @@ The correction is stated on the page, not just here. See
 - **Asset ownership is arguably a third transmission channel** and is not here.
 - **No uncertainty on anything.** Every point renders as a fact with no interval.
   The largest remaining weakness.
-- **No forecast.** Nothing extends past today, which is a fair hit on anything
-  calling itself an observatory.
+- **No empirical forecast.** The scenario lab projects user-supplied rates. It
+  is intentionally labelled as a scenario and carries no probability.
 - **No concentration series.** Compute, market share, capital ownership. A hole,
   given the parent argument is about concentration.
 - **The seven entities need a stated rationale** or a proper panel.

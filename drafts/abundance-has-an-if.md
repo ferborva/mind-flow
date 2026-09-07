@@ -14,6 +14,11 @@ updated: 2026-09-01
 
 # Abundance Has an If
 
+> **Reading note:** This is the originating argument and remains in review. The
+> red team broke its corporate-discretion remedy. [From If to When](from-if-to-when.md)
+> keeps the diagnosis and rebuilds the transition around measures, incentives
+> and pre-committed action. This draft stays intact so the evolution is visible.
+
 ## 🦅 TL;DR
 
 - Every abundance claim I hear has the same shape: **verb + fill in the blank.**
