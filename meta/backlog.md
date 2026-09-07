@@ -82,6 +82,30 @@ script.
 - [ ] **Belgium/Spain healthcare details.** Unverified. Fine as a mechanism
       illustration, worth a hedge for a European audience.
 
+### Blocking the transition piece, from-if-to-when
+
+It is a **commissioned proposal**, so it needs sign-off section by section, not
+a read-through. The big ones:
+
+- [ ] **Which of his own points does he now consider weak?** He said the red
+      team made him reflect on them and never named them. This is the single
+      most useful answer available, and it would sharpen the public-correction
+      section of the new piece.
+- [ ] **"The binding if migrates from money to permission."** Strongest claim in
+      the piece and it is mine, not his. Extends his conditions-are-national
+      seed well beyond anything he has said. If he does not believe it, the
+      middle section comes out.
+- [ ] **The public correction of his own first piece.** I wrote it in because it
+      is honest and pre-empts the obvious attack, and his own guideline says
+      only-upsides reads as propaganda. But publicly reversing his own argument
+      is his call.
+- [ ] **The five phases and the dates.** Mine, and the dates are defensible but
+      arbitrary. Does he want them argued or removed?
+- [ ] **The four crossings and the movement forecasts.** Mine, speculative, and
+      the least evidenced part of the piece.
+- [ ] **Phase 5 entrenchment, "constitutional or treaty-level".** A political
+      position he has never stated.
+
 ### From the second rant, 2026-09-07
 
 - [ ] **Does the labour paradox have a way out, or is it a dead end?** He names

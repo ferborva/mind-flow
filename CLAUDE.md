@@ -140,6 +140,8 @@ status: raw | processed | drafting | review | ready | published
 size: short | medium | long   # drafts and posts only
 themes: [theme-slug]          # see meta/themes.md
 sources: [capture-id, ...]    # required for seed, draft, post
+research: [research-id, ...]  # optional, external facts the piece cites
+provenance: commissioned-proposal   # only when it is NOT his substance
 created: 2026-08-31
 updated: 2026-08-31
 ---
@@ -147,6 +149,14 @@ updated: 2026-08-31
 
 `sources` is not optional and not decorative. It is how the provenance rule is
 enforced. A post with an empty `sources` list is a bug.
+
+`provenance: commissioned-proposal` marks the exception. Sometimes he asks for a
+piece that argues something he has not said yet, because he wants to react to a
+concrete proposal rather than a blank page. That is legitimate and it is not
+fabrication, **as long as it is declared.** Such a file carries a provenance
+warning at the top listing what is his and what is mine, and it does not move to
+`posts/` until he has signed off section by section. The default is no
+`provenance` field at all, meaning the piece is his substance, ghostwritten.
 
 ## Voice
 
