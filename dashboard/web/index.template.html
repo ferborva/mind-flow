@@ -1,0 +1,718 @@
+<title>Seldon Observatory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+/* ---------------------------------------------------------------- tokens */
+:root{
+  color-scheme: light;
+  --plane:#eef1f5; --surface:#fbfcfd; --surface-2:#f3f6f9;
+  --ink:#0d1520; --ink-2:#4a5768; --ink-3:#77869a;
+  --grid:#e2e7ee; --axis:#c8d1dc; --rule:rgba(13,21,32,.12);
+  --accent:#1d63b8; --accent-soft:rgba(42,120,214,.10);
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --shadow:0 1px 2px rgba(13,21,32,.06), 0 8px 24px -16px rgba(13,21,32,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --plane:#0b1017; --surface:#111823; --surface-2:#161f2c;
+    --ink:#e6edf6; --ink-2:#93a3b8; --ink-3:#6b7c90;
+    --grid:#1c2733; --axis:#2a3846; --rule:rgba(230,237,246,.13);
+    --accent:#4d9bf0; --accent-soft:rgba(57,135,229,.14);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+    --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --plane:#0b1017; --surface:#111823; --surface-2:#161f2c;
+  --ink:#e6edf6; --ink-2:#93a3b8; --ink-3:#6b7c90;
+  --grid:#1c2733; --axis:#2a3846; --rule:rgba(230,237,246,.13);
+  --accent:#4d9bf0; --accent-soft:rgba(57,135,229,.14);
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px -18px rgba(0,0,0,.9);
+}
+
+/* ---------------------------------------------------------------- base */
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--plane); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 96px}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+  text-wrap:balance;margin:0;letter-spacing:-.01em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.tnum{font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------------------------------------------------------------- masthead */
+.masthead{border-bottom:1px solid var(--rule);background:var(--surface);margin-bottom:36px}
+.masthead .wrap{padding-top:26px;padding-bottom:0}
+.brandline{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+h1{font-size:clamp(30px,4.6vw,46px);font-weight:700;line-height:1.02}
+.brandline .sub{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.standfirst{max-width:64ch;color:var(--ink-2);margin:14px 0 0;font-size:16px}
+.readout{
+  display:flex;gap:0;flex-wrap:wrap;margin:22px 0 0;
+  border-top:1px solid var(--rule);
+}
+.readout div{
+  padding:11px 22px 13px 0;margin-right:22px;
+  border-right:1px solid var(--rule);
+}
+.readout div:last-child{border-right:0}
+.readout dt{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin:0 0 3px}
+.readout dd{margin:0;font-size:13px}
+
+/* ---------------------------------------------------------------- verdict */
+.verdict{
+  background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  box-shadow:var(--shadow);overflow:hidden;margin-bottom:40px;
+  display:grid;grid-template-columns:minmax(260px,340px) 1fr;
+}
+@media (max-width:800px){.verdict{grid-template-columns:1fr}}
+.verdict-left{padding:26px 28px;border-right:1px solid var(--rule)}
+@media (max-width:800px){.verdict-left{border-right:0;border-bottom:1px solid var(--rule)}}
+.eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.bignum{font-size:clamp(46px,7vw,66px);line-height:.95;font-weight:600;
+  font-family:"IBM Plex Mono",monospace;letter-spacing:-.03em}
+.bigunit{font-size:15px;color:var(--ink-2);margin-top:8px}
+.verdict-right{padding:26px 28px}
+.verdict-right h2{font-size:21px;font-weight:600;margin-bottom:8px}
+.verdict-right p{margin:0 0 12px;color:var(--ink-2);max-width:58ch}
+.verdict-right p:last-child{margin-bottom:0}
+
+/* status */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:2px;border:1px solid currentColor;
+}
+.chip.critical{color:var(--critical)} .chip.warning{color:var(--warning)}
+.chip.good{color:var(--good)} .chip.neutral{color:var(--ink-3)}
+.chip.void{color:var(--ink-3);border-style:dashed}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+
+/* ---------------------------------------------------------------- controls */
+.controls{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  padding:12px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:32px;
+}
+.controls .lbl{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+button.ctl,label.ctl{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  background:var(--surface);color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:2px;padding:5px 11px;cursor:pointer;
+}
+button.ctl:hover,label.ctl:hover{color:var(--ink);border-color:var(--axis)}
+button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.spacer{flex:1}
+
+/* ---------------------------------------------------------------- panels */
+.famhead{display:flex;align-items:baseline;gap:12px;margin:8px 0 16px}
+.famhead h2{font-size:13px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--ink-2)}
+.famhead .hr{flex:1;height:1px;background:var(--rule)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:18px;margin-bottom:38px}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+.panel{
+  background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:20px 20px 16px;display:flex;flex-direction:column;gap:12px;
+}
+.panel.void{background:none;border-style:dashed}
+.panel-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.panel h3{font-size:17px;font-weight:600;line-height:1.25}
+.panel .q{font-size:13px;color:var(--ink-3);margin-top:3px}
+.val{text-align:right;flex:none}
+.val .n{font-family:"IBM Plex Mono",monospace;font-size:26px;font-weight:500;line-height:1;letter-spacing:-.02em}
+.val .y{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);margin-top:4px}
+.panel p.why{margin:0;font-size:13.5px;color:var(--ink-2);max-width:60ch}
+.meta{border-top:1px solid var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.meta .row{display:flex;gap:8px;font-size:11.5px;line-height:1.45}
+.meta .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3);flex:none;width:64px;padding-top:2px}
+.meta .v{color:var(--ink-2)}
+.meta a{word-break:break-word}
+details.caveats summary{font-size:11.5px;color:var(--ink-3);cursor:pointer;font-family:"IBM Plex Mono",monospace}
+details.caveats ul{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}
+details.caveats li{margin-bottom:4px}
+
+/* ---------------------------------------------------------------- chart */
+.chartbox{position:relative}
+svg.chart{display:block;width:100%;height:auto;overflow:visible}
+svg.chart text{font-family:"IBM Plex Mono",monospace;fill:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:2px}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11px;
+  font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+.legend i{width:14px;height:2px;border-radius:1px;flex:none}
+.tip{
+  position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--surface-2);border:1px solid var(--axis);border-radius:3px;
+  padding:7px 10px;font-size:12px;box-shadow:var(--shadow);z-index:5;min-width:112px;
+}
+.tip .ty{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin-bottom:4px}
+.tip .tr{display:flex;align-items:center;gap:6px;justify-content:space-between;white-space:nowrap}
+.tip .tr b{font-family:"IBM Plex Mono",monospace;font-weight:500;font-variant-numeric:tabular-nums}
+.tip .sw{width:8px;height:8px;border-radius:2px;flex:none}
+
+/* table view */
+table.data{width:100%;border-collapse:collapse;font-size:12px;
+  font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+table.data th,table.data td{padding:4px 8px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data thead th{color:var(--ink-3);font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.tablewrap{overflow-x:auto;max-height:280px;overflow-y:auto}
+
+/* void panel */
+.voidbox{
+  border:1px dashed var(--axis);border-radius:3px;padding:22px 18px;text-align:center;
+  color:var(--ink-3);background:repeating-linear-gradient(-45deg,transparent,transparent 7px,var(--accent-soft) 7px,var(--accent-soft) 8px);
+}
+.voidbox .big{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:15px;color:var(--ink-2);font-weight:600}
+.voidbox .small{font-size:12px;margin-top:5px}
+
+/* ---------------------------------------------------------------- api */
+.api{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:26px 28px;margin-top:12px}
+.api h2{font-size:20px;font-weight:600;margin-bottom:6px}
+.api p{color:var(--ink-2);max-width:66ch}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px}
+.flow b{background:var(--surface-2);border:1px solid var(--rule);border-radius:2px;
+  padding:6px 11px;font-weight:500;color:var(--ink-2)}
+.flow i{color:var(--ink-3);font-style:normal}
+pre{background:var(--surface-2);border:1px solid var(--rule);border-radius:3px;
+  padding:14px 16px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;
+  font-size:12px;line-height:1.55;color:var(--ink-2);margin:0}
+.warnbar{border-left:2px solid var(--warning);padding:8px 0 8px 14px;margin:16px 0;
+  font-size:13px;color:var(--ink-2)}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);
+  font-size:12px;color:var(--ink-3);max-width:70ch}
+footer p{margin:0 0 8px}
+</style>
+
+<div class="masthead"><div class="wrap">
+  <div class="brandline">
+    <h1>Seldon Observatory</h1>
+    <span class="sub" id="m-schema">schema —</span>
+  </div>
+  <p class="standfirst">
+    <strong>Every promise of the form <em>you will be able to</em> hides an
+    <em>if</em>.</strong> Abundance is not a destination we argue about, it is a
+    crossing we can instrument. These are the signals that say whether the ifs
+    are coming down, how fast, and for whom. Built to be argued with.
+  </p>
+  <dl class="readout">
+    <div><dt>Snapshot</dt><dd class="mono" id="m-id">—</dd></div>
+    <div><dt>Generated</dt><dd class="mono" id="m-gen">—</dd></div>
+    <div><dt>Signals</dt><dd class="mono" id="m-count">—</dd></div>
+    <div><dt>Entities</dt><dd class="mono" id="m-ents">—</dd></div>
+  </dl>
+</div></div>
+
+<div class="wrap">
+  <section class="verdict" id="verdict"></section>
+
+  <div class="controls">
+    <span class="lbl">Entity</span>
+    <span id="entity-buttons" style="display:flex;gap:6px;flex-wrap:wrap"></span>
+    <span class="spacer"></span>
+    <button class="ctl" id="toggle-table" aria-pressed="false">Table view</button>
+    <label class="ctl" for="load-snap">Load snapshot…</label>
+    <input type="file" id="load-snap" accept="application/json,.json" hidden>
+  </div>
+
+  <main id="families"></main>
+
+  <section class="api" style="margin-bottom:18px">
+    <h2>What would change my mind</h2>
+    <p>
+      A dashboard that cannot be wrong is not an instrument, it is a poster. So,
+      explicitly: here is what would falsify the case these signals are built to test.
+    </p>
+    <ul style="max-width:66ch;color:var(--ink-2);padding-left:20px">
+      <li><strong>The Engels gap stays near zero for a decade while output accelerates.</strong>
+        Then labour income is keeping up, the pause is not coming, and the worry was misplaced.</li>
+      <li><strong>Someone builds the zero-cost count and it climbs steeply.</strong> If the
+        share of a decent-living basket available at near-zero marginal cost is rising fast,
+        the money condition is dissolving without redistribution and the argument is answered.</li>
+      <li><strong>The share below $30 a day falls sharply.</strong> Four in five people is the
+        premise. Break the premise and the rest follows.</li>
+      <li><strong>Someone shows CPI can detect demonetisation.</strong> The price channel here
+        rests on an index that reweights away from anything whose price collapses. If that is
+        wrong, the weakest part of this becomes the strongest.</li>
+    </ul>
+  </section>
+
+  <section class="api" style="margin-bottom:18px">
+    <h2>Where I need you to push</h2>
+    <p>Not rhetorical. The instrument is more useful once these are settled.</p>
+    <ul style="max-width:66ch;color:var(--ink-2);padding-left:20px">
+      <li><strong>Define the zero-cost count.</strong> Which basket, where "close to zero" sits,
+        and whether advertiser-funded-but-free-to-consumer counts. Three rulings and it exists.</li>
+      <li><strong>Which CPI components are automatable?</strong> That split is the Baumol gap.
+        The data is there; the judgement is not.</li>
+      <li><strong>Cohort cuts.</strong> A national average can pass while the displaced cohort
+        fails. That is precisely what happened during Engels' Pause and it is the biggest hole here.</li>
+      <li><strong>Is asset ownership a third transmission channel?</strong> It is excluded. It is
+        also the one that carried the wealthy through the last transition.</li>
+    </ul>
+  </section>
+
+  <section class="api">
+    <h2>The snapshot contract</h2>
+    <p>
+      This page never talks to a data provider. It renders a <strong>snapshot</strong>:
+      a dated, versioned JSON file pulled from open registries by a separate fetcher.
+      That separation is deliberate, and it is what makes any future snapshot render
+      here without touching this page.
+    </p>
+    <div class="flow">
+      <b>open registries</b><i>→</i><b>fetch_snapshot.py</b><i>→</i>
+      <b>snapshots/YYYY-MM-DD.json</b><i>→</i><b>this page</b>
+    </div>
+    <p>
+      The page reads whatever is in the <code class="mono">signals</code> array. Add a
+      signal to a future snapshot and it appears here. Remove one and it vanishes.
+      No rebuild. Use <strong>Load snapshot…</strong> above to render any file that
+      validates against schema <span class="mono" id="api-accepts">1.x</span>.
+    </p>
+    <div class="warnbar">
+      <strong>Why snapshots and not a live feed.</strong> A live dashboard silently
+      changes underneath an argument that cited it. A snapshot is dated, checkable and
+      quotable: if someone disputes a number, they can be handed the exact file the
+      claim was written against.
+    </div>
+    <pre id="api-shape"></pre>
+  </section>
+
+  <footer>
+    <p>
+      <strong>Prototype.</strong> Measured series come straight from open registries with
+      no interpolation and no carry-forward. Derived signals state their method and their
+      caveats. Two signals are deliberately empty because nobody publishes them yet, and
+      hiding that would be dishonest.
+    </p>
+    <p>
+      A national average can pass while a displaced cohort fails. That is exactly what
+      happened during Engels' Pause, and none of these series is cut by cohort yet.
+    </p>
+    <p id="sourceline"></p>
+  </footer>
+</div>
+
+<script id="snapshot-data" type="application/json">__SNAPSHOT__</script>
+<script>
+(function(){
+"use strict";
+var ACCEPTS = 1;                       // major schema version this build renders
+var SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
+var snap = JSON.parse(document.getElementById("snapshot-data").textContent);
+var entity = "OWID_WRL", tableMode = false;
+
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function el(t,c,txt){ var e=document.createElement(t); if(c)e.className=c; if(txt!=null)e.textContent=txt; return e; }
+function fmt(v,p){ if(v==null||isNaN(v)) return "—";
+  return Number(v).toLocaleString(undefined,{minimumFractionDigits:p,maximumFractionDigits:p}); }
+function entName(code){ var e=(snap.entities||[]).find(function(x){return x.code===code}); return e?e.name:code; }
+/* Colour follows the entity, never its rank within a panel. Built once from the
+   snapshot's entity order so a series keeps its colour across every chart. */
+var SLOT={};
+(function(){ (snap.entities||[]).forEach(function(e,i){ SLOT[e.code]=SERIES[i%8]; }); })();
+function colFor(code){ return css(SLOT[code]||SERIES[0]); }
+
+/* which entities does this snapshot actually carry data for */
+function activeEntities(){
+  var seen = {};
+  (snap.signals||[]).forEach(function(s){ (s.series||[]).forEach(function(se){ seen[se.entity]=1; }); });
+  return (snap.entities||[]).filter(function(e){ return seen[e.code]; });
+}
+
+/* state of a signal against its trouble reading */
+function state(sig){
+  if(sig.status==="not_measured") return "void";
+  if(sig.status==="unavailable")  return "void";
+  var l=sig.latest; if(!l) return "neutral";
+  if(sig.id==="transmission-test") return l.value<0?"critical":"good";
+  if(sig.direction==="up_is_good")   return l.value>0?"neutral":"warning";
+  if(sig.direction==="down_is_good") return "neutral";
+  return "neutral";
+}
+function stateLabel(sig){
+  var s=state(sig);
+  if(s==="void") return sig.status==="not_measured"?"not measured":"unavailable";
+  if(sig.id==="transmission-test") return s==="critical"?"failing":"passing";
+  return sig.status==="derived"?"derived":"measured";
+}
+
+/* ------------------------------------------------------------------ chart */
+function pick(sig){
+  var series=(sig.series||[]).filter(function(s){return s.points&&s.points.length});
+  if(!series.length) return null;
+  var hasM = series.some(function(s){return s.measure});
+  var show, labelOf, colOf, multi=false;
+  if(hasM){
+    var ent = entity==="ALL" ? "OWID_WRL" : entity;
+    show = series.filter(function(s){return s.entity===ent});
+    if(!show.length) show = series.filter(function(s){return s.entity==="OWID_WRL"});
+    if(!show.length) show = series.slice(0,2);
+    var ms = show.map(function(s){return s.measure});
+    labelOf=function(s){return s.measure||entName(s.entity)};
+    colOf=function(s){return css(SERIES[ms.indexOf(s.measure)%8])};
+  } else if(entity==="ALL"){
+    show = series.slice(0,8); multi=true;
+    labelOf=function(s){return entName(s.entity)};
+    colOf=function(s){return colFor(s.entity)};
+  } else {
+    show = series.filter(function(s){return s.entity===entity});
+    if(!show.length) show = series.filter(function(s){return s.entity==="OWID_WRL"});
+    if(!show.length) show = [series[0]];
+    labelOf=function(s){return entName(s.entity)};
+    colOf=function(s){return colFor(s.entity)};
+  }
+  return {show:show, labelOf:labelOf, colOf:colOf, multi:multi};
+}
+
+function chart(sig, box){
+  var sel=pick(sig); if(!sel) return null;
+  var show=sel.show, labelOf=sel.labelOf, colOf=sel.colOf, multi=sel.multi;
+
+  var W=560,H=190, m={t:14,r:62,b:26,l:48};
+  var xs=[],ys=[];
+  show.forEach(function(s){ s.points.forEach(function(p){ xs.push(p[0]); ys.push(p[1]); }); });
+  var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+  var y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
+  if(y0===y1){ y0-=1; y1+=1; }
+  var pad=(y1-y0)*0.12; y0-=pad; y1+=pad;
+  if(y0>0 && y0<(y1-y0)) y0=0;
+  if(y0<0 && y1<0) y1=0;
+  var px=function(v){ return m.l+(x1===x0?0:(v-x0)/(x1-x0))*(W-m.l-m.r); };
+  var py=function(v){ return m.t+(1-(v-y0)/(y1-y0))*(H-m.t-m.b); };
+
+  var NS="http://www.w3.org/2000/svg";
+  var svg=document.createElementNS(NS,"svg");
+  svg.setAttribute("class","chart");
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  svg.setAttribute("role","img");
+  svg.setAttribute("aria-label",sig.name+", "+show.map(labelOf).join(", "));
+  function mk(t,a){ var e=document.createElementNS(NS,t); for(var k in a) e.setAttribute(k,a[k]); return e; }
+
+  var ticks=4;
+  for(var i=0;i<=ticks;i++){
+    var v=y0+(y1-y0)*i/ticks, y=py(v);
+    svg.appendChild(mk("line",{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:css("--grid"),"stroke-width":1}));
+    var t=mk("text",{x:m.l-8,y:y+3.5,"text-anchor":"end","font-size":10});
+    t.textContent=fmt(v,sig.precision>1?1:sig.precision); svg.appendChild(t);
+  }
+  if(y0<0&&y1>0){
+    svg.appendChild(mk("line",{x1:m.l,x2:W-m.r,y1:py(0),y2:py(0),
+      stroke:css("--axis"),"stroke-width":1.5,"stroke-dasharray":"3 3"}));
+  }
+  [x0,Math.round((x0+x1)/2),x1].forEach(function(v,i){
+    var t=mk("text",{x:px(v),y:H-8,"text-anchor":i===0?"start":i===2?"end":"middle","font-size":10});
+    t.textContent=v; svg.appendChild(t);
+  });
+  svg.appendChild(mk("line",{x1:m.l,x2:W-m.r,y1:H-m.b,y2:H-m.b,stroke:css("--axis"),"stroke-width":1}));
+
+  show.forEach(function(s){
+    var col=colOf(s);
+    var d=s.points.map(function(p,j){ return (j?"L":"M")+px(p[0]).toFixed(1)+" "+py(p[1]).toFixed(1); }).join(" ");
+    svg.appendChild(mk("path",{d:d,fill:"none",stroke:col,"stroke-width":2,
+      "stroke-linejoin":"round","stroke-linecap":"round"}));
+    var last=s.points[s.points.length-1];
+    svg.appendChild(mk("circle",{cx:px(last[0]),cy:py(last[1]),r:3.5,fill:col,
+      stroke:css("--surface"),"stroke-width":2}));
+    var lab=mk("text",{x:px(last[0])+8,y:py(last[1])+3.5,"font-size":10,"font-weight":500});
+    lab.setAttribute("fill",css("--ink-2"));
+    lab.textContent = multi ? entName(s.entity).slice(0,7) : fmt(last[1],sig.precision);
+    svg.appendChild(lab);
+  });
+
+  var cross=mk("line",{y1:m.t,y2:H-m.b,stroke:css("--axis"),"stroke-width":1,opacity:0});
+  svg.appendChild(cross);
+  var tip=el("div","tip"); box.appendChild(tip);
+  svg.appendChild(mk("rect",{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:"transparent"}));
+  svg.addEventListener("mousemove",function(ev){
+    var r=svg.getBoundingClientRect(), sx=(ev.clientX-r.left)/r.width*W;
+    if(sx<m.l||sx>W-m.r){ tip.style.opacity=0; cross.setAttribute("opacity",0); return; }
+    var yy=Math.round(x0+(sx-m.l)/(W-m.l-m.r)*(x1-x0));
+    cross.setAttribute("x1",px(yy)); cross.setAttribute("x2",px(yy)); cross.setAttribute("opacity",1);
+    tip.innerHTML=""; tip.appendChild(el("div","ty",String(yy)));
+    var any=false;
+    show.forEach(function(s){
+      var p=s.points.find(function(q){return q[0]===yy}); if(!p) return; any=true;
+      var row=el("div","tr");
+      var lft=el("span"); lft.style.cssText="display:inline-flex;align-items:center;gap:6px";
+      var sw=el("span","sw"); sw.style.background=colOf(s);
+      lft.appendChild(sw); lft.appendChild(el("span",null,labelOf(s)));
+      row.appendChild(lft); row.appendChild(el("b",null,fmt(p[1],sig.precision)));
+      tip.appendChild(row);
+    });
+    if(!any){ tip.style.opacity=0; return; }
+    tip.style.opacity=1;
+    var bx=box.getBoundingClientRect();
+    var lx=ev.clientX-bx.left+14;
+    if(lx+tip.offsetWidth>bx.width) lx=ev.clientX-bx.left-tip.offsetWidth-14;
+    tip.style.left=Math.max(0,lx)+"px";
+    tip.style.top=Math.max(0,ev.clientY-bx.top-tip.offsetHeight-10)+"px";
+  });
+  svg.addEventListener("mouseleave",function(){ tip.style.opacity=0; cross.setAttribute("opacity",0); });
+
+  var frag=document.createDocumentFragment();
+  frag.appendChild(svg);
+  if(show.length>1){
+    var lg=el("div","legend");
+    show.forEach(function(s){
+      var sp=el("span"); var i2=el("i"); i2.style.background=colOf(s);
+      sp.appendChild(i2); sp.appendChild(el("span",null,labelOf(s))); lg.appendChild(sp);
+    });
+    frag.appendChild(lg);
+  }
+  return frag;
+}
+
+function table(sig){
+  var sel=pick(sig); if(!sel) return null;
+  var show=sel.show, labelOf=sel.labelOf;
+  var years={}; show.forEach(function(s){s.points.forEach(function(p){years[p[0]]=1})});
+  var ys=Object.keys(years).map(Number).sort(function(a,b){return b-a});
+  var wrap=el("div","tablewrap"), t=el("table","data");
+  var thead=el("thead"), hr=el("tr"); hr.appendChild(el("th",null,"Year"));
+  show.forEach(function(s){ hr.appendChild(el("th",null,labelOf(s))); });
+  thead.appendChild(hr); t.appendChild(thead);
+  var tb=el("tbody");
+  ys.forEach(function(y){
+    var tr=el("tr"); tr.appendChild(el("td",null,String(y)));
+    show.forEach(function(s){
+      var p=s.points.find(function(q){return q[0]===y});
+      tr.appendChild(el("td",null,p?fmt(p[1],sig.precision):"—"));
+    });
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb); wrap.appendChild(t); return wrap;
+}
+
+/* ------------------------------------------------------------------ panels */
+function panel(sig){
+  var p=el("div","panel"+(sig.status==="not_measured"||sig.status==="unavailable"?" void":""));
+  var top=el("div","panel-top");
+  var lft=el("div");
+  lft.appendChild(el("h3",null,sig.name));
+  if(sig.question) lft.appendChild(el("div","q",sig.question));
+  top.appendChild(lft);
+
+  var right=el("div","val");
+  if(sig.latest){
+    var n=el("div","n tnum",fmt(sig.latest.value,sig.precision)+(sig.unit==="percent"?"%":sig.unit==="pp"?"pp":""));
+    if(sig.id==="transmission-test") n.style.color = sig.latest.value<0?css("--critical"):css("--good");
+    right.appendChild(n);
+    right.appendChild(el("div","y",sig.latest.year+" · "+entName(sig.latest.entity)));
+  } else {
+    var ch=el("span","chip "+state(sig));
+    ch.appendChild(el("span","dot")); ch.appendChild(el("span",null,stateLabel(sig)));
+    right.appendChild(ch);
+  }
+  top.appendChild(right);
+  p.appendChild(top);
+
+  if(sig.status==="not_measured"||sig.status==="unavailable"){
+    var vb=el("div","voidbox");
+    vb.appendChild(el("div","big", sig.status==="not_measured"
+      ? "No registry publishes this." : "Fetch failed for this snapshot."));
+    vb.appendChild(el("div","small", sig.method || "Kept visible on purpose. A dashboard that hid its own blind spot would be lying by composition."));
+    p.appendChild(vb);
+  } else {
+    var box=el("div","chartbox");
+    var c = tableMode ? table(sig) : chart(sig,box);
+    if(c) box.appendChild(c);
+    p.appendChild(box);
+  }
+
+  if(sig.why_it_matters) p.appendChild(el("p","why",sig.why_it_matters));
+
+  var meta=el("div","meta");
+  function row(k,v,href){
+    var r=el("div","row"); r.appendChild(el("div","k",k));
+    var d=el("div","v");
+    if(href){ var a=el("a",null,v); a.href=href; a.target="_blank"; a.rel="noopener"; d.appendChild(a); }
+    else d.textContent=v;
+    r.appendChild(d); meta.appendChild(r);
+  }
+  if(sig.trouble_reading) row("Trouble", sig.trouble_reading);
+  if(sig.method && sig.status==="derived") row("Method", sig.method);
+  if(sig.source) row("Source", sig.source.name + (sig.source.retrieved?" · "+sig.source.retrieved:""),
+                     sig.source.url||null);
+  if(sig.caveats && sig.caveats.length){
+    var d=el("details","caveats");
+    d.appendChild(el("summary",null,sig.caveats.length+" caveat"+(sig.caveats.length>1?"s":"")));
+    var ul=el("ul"); sig.caveats.forEach(function(c){ ul.appendChild(el("li",null,c)); }); d.appendChild(ul);
+    meta.appendChild(d);
+  }
+  p.appendChild(meta);
+  return p;
+}
+
+/* ------------------------------------------------------------------ render */
+var FAMILY = {
+  engels:{t:"The Engels test", d:"Output against what reaches people as labour income. Britain ran this from 1780 to 1840: output per worker +46%, real wages +12%. Fifty years."},
+  conditions:{t:"The money condition", d:"How many people are on the wrong side of the if, before we start."},
+  prices:{t:"The price channel", d:"Whether cost is actually collapsing where households feel it. The weakest instrumentation here, and the argument turns on it."},
+  labour:{t:"The labour channel", d:"Whether people are still choosing to work, and can."}
+};
+var ORDER=["engels","prices","conditions","labour"];
+
+function renderVerdict(){
+  var v=document.getElementById("verdict"); v.innerHTML="";
+  var d=(snap.signals||[]).find(function(x){return x.id==="engels-divergence"});
+  var g=(snap.signals||[]).find(function(x){return x.id==="transmission-gap"});
+  var lft=el("div","verdict-left"), rt=el("div","verdict-right");
+
+  // cumulative divergence over the whole window, for the entity in view
+  var ent = entity==="ALL"?"OWID_WRL":entity, gap=null, span=null;
+  if(d){
+    var out=(d.series||[]).find(function(x){return x.entity===ent&&/Output/.test(x.measure)});
+    var lab=(d.series||[]).find(function(x){return x.entity===ent&&/Labour/.test(x.measure)});
+    if(!out||!lab){
+      out=(d.series||[]).find(function(x){return x.entity==="OWID_WRL"&&/Output/.test(x.measure)});
+      lab=(d.series||[]).find(function(x){return x.entity==="OWID_WRL"&&/Labour/.test(x.measure)});
+      ent="OWID_WRL";
+    }
+    if(out&&lab){
+      gap = lab.points[lab.points.length-1][1] - out.points[out.points.length-1][1];
+      span = out.points[0][0]+"–"+out.points[out.points.length-1][0];
+    }
+  }
+
+  if(gap===null){
+    lft.appendChild(el("div","eyebrow","Engels test"));
+    lft.appendChild(el("div","bigunit","Not available in this snapshot."));
+    rt.appendChild(el("h2",null,"No headline signal in this snapshot."));
+    v.appendChild(lft); v.appendChild(rt); return;
+  }
+
+  var severe = gap < -10;               // Britain 1780-1840 was about -34
+  lft.appendChild(el("div","eyebrow","Engels gap · "+entName(ent)+" · "+span));
+  var n=el("div","bignum tnum",(gap>0?"+":"")+fmt(gap,1));
+  n.style.color = severe?css("--critical"):css("--ink");
+  lft.appendChild(n);
+  lft.appendChild(el("div","bigunit","index points, labour income against output"));
+  var ch=el("span","chip "+(severe?"critical":"neutral")); ch.style.marginTop="14px";
+  ch.appendChild(el("span","dot"));
+  ch.appendChild(el("span",null,severe?"diverging":"tracking"));
+  lft.appendChild(ch);
+
+  rt.appendChild(el("h2",null, severe
+    ? "Output and labour income have come apart."
+    : "Output and labour income are still tracking. This is not yet an Engels' Pause."));
+  rt.appendChild(el("p",null,
+    "Britain 1780 to 1840: output per worker rose 46%, real wages 12%, and the profit rate "+
+    "doubled. Fifty years in which the people producing the growth did not see it. Then 1840 to "+
+    "1900 it inverted: output +90%, real wages +123%. The catch-up came a lifetime late."));
+  rt.appendChild(el("p",null, severe
+    ? "That is the pattern this reading is starting to resemble. The argument is no longer hypothetical."
+    : "So the honest reading is: the pause has not started. That is not reassurance, it is a baseline. "+
+      "This dashboard exists so that if it does start, we notice in the first few years rather than the fortieth."));
+  var warn=el("p",null,
+    "Correction: an earlier build of this page reported a \"transmission test\" that added price "+
+    "inflation to the change in labour share. Those are different units, the labour term "+
+    "contributed under 8%, and the headline was inflation in a costume. It read FAILING when the "+
+    "underlying comparison did not support that. Replaced with the measure above.");
+  warn.style.cssText="font-size:12.5px;color:var(--ink-3);border-left:2px solid var(--warning);padding-left:12px;margin-top:16px";
+  rt.appendChild(warn);
+  v.appendChild(lft); v.appendChild(rt);
+}
+
+function renderFamilies(){
+  var host=document.getElementById("families"); host.innerHTML="";
+  var fams={};
+  (snap.signals||[]).forEach(function(s){ (fams[s.family||"other"]=fams[s.family||"other"]||[]).push(s); });
+  var keys=ORDER.filter(function(k){return fams[k]}).concat(
+    Object.keys(fams).filter(function(k){return ORDER.indexOf(k)<0}));
+  keys.forEach(function(k){
+    var meta=FAMILY[k]||{t:k,d:""};
+    var h=el("div","famhead");
+    h.appendChild(el("h2",null,meta.t)); h.appendChild(el("div","hr"));
+    host.appendChild(h);
+    if(meta.d){ var p=el("p",null,meta.d); p.style.cssText="margin:-8px 0 16px;color:var(--ink-3);font-size:13.5px;max-width:70ch"; host.appendChild(p); }
+    var g=el("div","grid");
+    fams[k].forEach(function(s){ g.appendChild(panel(s)); });
+    host.appendChild(g);
+  });
+}
+
+function renderEntityButtons(){
+  var host=document.getElementById("entity-buttons"); host.innerHTML="";
+  var ents=activeEntities();
+  var opts=[{code:"OWID_WRL",name:"World"}]
+    .concat(ents.filter(function(e){return e.code!=="OWID_WRL"}))
+    .concat([{code:"ALL",name:"Compare all"}]);
+  opts.forEach(function(o){
+    var b=el("button","ctl",o.name); b.setAttribute("aria-pressed",String(o.code===entity));
+    b.onclick=function(){ entity=o.code; renderEntityButtons(); renderFamilies(); };
+    host.appendChild(b);
+  });
+}
+
+function renderMeta(){
+  document.getElementById("m-id").textContent=snap.snapshot_id||"—";
+  document.getElementById("m-gen").textContent=(snap.generated_at||"—").replace("T"," ").replace("Z"," UTC");
+  document.getElementById("m-count").textContent=(snap.signals||[]).length+
+    " ("+(snap.signals||[]).filter(function(s){return s.status==="measured"}).length+" measured)";
+  document.getElementById("m-ents").textContent=activeEntities().length;
+  document.getElementById("m-schema").textContent="schema "+(snap.schema_version||"?");
+  document.getElementById("api-accepts").textContent=ACCEPTS+".x";
+  var srcs={}; (snap.signals||[]).forEach(function(s){ if(s.source&&s.source.name&&s.source.url) srcs[s.source.name]=1; });
+  document.getElementById("sourceline").textContent="Sources: "+Object.keys(srcs).join(" · ")+".";
+  document.getElementById("api-shape").textContent=JSON.stringify({
+    schema_version:snap.schema_version, snapshot_id:snap.snapshot_id,
+    generated_at:snap.generated_at, generator:snap.generator,
+    entities:[{code:"OWID_WRL",name:"World",kind:"aggregate"}],
+    signals:[{id:"labour-share",name:"Labour share of GDP",family:"engels",
+      status:"measured",unit:"percent",precision:1,direction:"up_is_good",
+      question:"Who is getting the gains?",why_it_matters:"…",trouble_reading:"…",
+      source:{name:"…",url:"…",retrieved:snap.snapshot_id},
+      series:[{entity:"OWID_WRL",points:[[2024,52.4],[2025,52.6]]}],
+      latest:{entity:"OWID_WRL",year:2025,value:52.6}}]
+  },null,1);
+}
+
+function renderAll(){ renderMeta(); renderVerdict(); renderEntityButtons(); renderFamilies(); }
+
+document.getElementById("toggle-table").onclick=function(){
+  tableMode=!tableMode; this.setAttribute("aria-pressed",String(tableMode)); renderFamilies();
+};
+document.getElementById("load-snap").onchange=function(ev){
+  var f=ev.target.files&&ev.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var next=JSON.parse(r.result);
+      var maj=parseInt(String(next.schema_version||"0").split(".")[0],10);
+      if(maj!==ACCEPTS){
+        alert("This build renders schema "+ACCEPTS+".x. That file declares "+
+              (next.schema_version||"nothing")+", so it is not rendered rather than "+
+              "shown misleadingly.");
+        return;
+      }
+      snap=next; entity="OWID_WRL";
+      SLOT={}; (snap.entities||[]).forEach(function(e,i){ SLOT[e.code]=SERIES[i%8]; });
+      renderAll();
+    }catch(e){ alert("Could not parse that file as JSON: "+e.message); }
+  };
+  r.readAsText(f);
+};
+window.addEventListener("resize",function(){ clearTimeout(window.__rt);
+  window.__rt=setTimeout(renderFamilies,180); });
+
+renderAll();
+})();
+</script>

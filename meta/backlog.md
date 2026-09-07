@@ -82,6 +82,31 @@ script.
 - [ ] **Belgium/Spain healthcare details.** Unverified. Fine as a mechanism
       illustration, worth a hedge for a European audience.
 
+### From the dashboard build, 2026-09-07
+
+- [x] **Audience for the observatory.** Answered 2026-09-07: the Moonshot crew,
+      argument-first. Page restructured accordingly.
+- [ ] **Uncertainty on every signal.** The biggest remaining weakness. Every
+      point currently renders as a fact with no interval or revision history.
+- [ ] **At least one forecast that can be scored wrong.** A psychohistory page
+      with no forward line is a museum. Wissner-Gross's objection, unanswered.
+- [ ] **A concentration series.** Compute, market share or capital ownership.
+      Conspicuous by absence given the parent argument.
+- [ ] **A stated rationale for the seven entities**, or a real panel.
+- [ ] **Define the zero-cost count so it can exist.** Three decisions block it:
+      which basket, where "close to zero" is drawn, and whether
+      free-to-consumer-but-advertiser-funded counts. Until he rules, the panel
+      stays a visible void.
+- [ ] **Which CPI components count as automatable?** Needed for the Baumol gap.
+      The data exists; the split is a judgement call and it is his to make.
+- [ ] **Cohort cuts.** The most important missing thing. A national average can
+      pass while the displaced cohort fails, which is exactly what happened
+      during Engels' Pause. Needs a source with cohort granularity.
+- [ ] **Is headline CPI good enough?** It is currently standing in for a
+      decent-living basket and it changes the transmission answer.
+- [ ] **Asset ownership as a third transmission channel.** Excluded for now.
+      Deliberate, or an omission?
+
 ### Blocking the transition piece, from-if-to-when
 
 It is a **commissioned proposal**, so it needs sign-off section by section, not
