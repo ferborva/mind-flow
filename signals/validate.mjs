@@ -8,7 +8,7 @@ import addFormats from "ajv-formats";
 const DEFAULT_SCHEMA_BYTES = readFileSync(
   new URL("./schema/signal-registry.schema.json", import.meta.url),
 );
-const DEFAULT_SCHEMA_SHA256 = "fa51c938f0bc1428a931fddc8a818d2d3bbdcfc20674e58266299ebade074d1e";
+const DEFAULT_SCHEMA_SHA256 = "5586bcdaeaa9b95a7727e071b2a43d85f223335d2eacb3b870f5fa30e4a3e599";
 const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
 if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
   throw new Error("signal-registry schema bytes do not match the validator's pinned contract digest");
@@ -24,6 +24,24 @@ const ROLES = [
   "intervention-exposure",
   "information-harm",
 ];
+const METRIC_HASH_DOMAIN = "mind-flow:signal-registry:metric-contract:v1";
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+export function computeMetricContractChecksum(metric) {
+  const material = structuredClone(metric);
+  delete material.metric_checksum;
+  return `sha256:${createHash("sha256")
+    .update(`${METRIC_HASH_DOMAIN}\n${canonicalJson(material)}`, "utf8")
+    .digest("hex")}`;
+}
 
 function issue(code, path, message, keyword = "integrity") {
   return { code, path, message, keyword };
@@ -153,6 +171,11 @@ export function validateSignalRegistry(registry) {
   ]));
 
   if (registry.schema_version === "1.1.0") {
+    errors.push(...duplicateIssues(
+      registry.signals.map(({ metric_contract: contract }) => contract).filter(Boolean),
+      "metric_id",
+      "signals/metric_contracts",
+    ));
     for (const [bindingIndex, binding] of registry.condition_bindings.entries()) {
       if (binding.binding_status !== "locally-verified-complete" ||
           binding.condition_definition_ref?.condition_id !== binding.condition_id) {
@@ -165,6 +188,33 @@ export function validateSignalRegistry(registry) {
     }
     const executableRefs = new Set();
     for (const [signalIndex, signal] of registry.signals.entries()) {
+      const metric = signal.metric_contract;
+      const expectedProcesses = [...new Set(signal.source_refs.map((sourceId) =>
+        sourceById.get(sourceId)?.collection_process_id).filter(Boolean))].sort();
+      const metricProcesses = [...new Set(metric?.collection_process_ids || [])].sort();
+      const expectedSourceRefs = [...new Set(signal.source_refs)].sort();
+      const metricSourceRefs = [...new Set(metric?.source_refs || [])].sort();
+      if (!metric || metric.metric_checksum !== computeMetricContractChecksum(metric)) {
+        errors.push(issue(
+          "METRIC_CONTRACT_HASH_MISMATCH",
+          `/signals/${signalIndex}/metric_contract`,
+          "a v1.1 metric contract must be present and hash-bind its complete measurement rule",
+        ));
+      } else if (metric.measure !== signal.estimand.quantity ||
+          metric.unit !== signal.estimand.unit ||
+          metric.denominator !== signal.estimand.denominator ||
+          metric.population !== signal.estimand.population ||
+          metric.geography !== signal.estimand.geography ||
+          metric.period !== signal.estimand.period ||
+          metric.aggregation !== signal.estimand.aggregation_level ||
+          !isDeepStrictEqual(metricProcesses, expectedProcesses) ||
+          !isDeepStrictEqual(metricSourceRefs, expectedSourceRefs)) {
+        errors.push(issue(
+          "METRIC_ESTIMAND_MISMATCH",
+          `/signals/${signalIndex}/metric_contract`,
+          "the canonical metric must reproduce the signal estimand and source lineage exactly",
+        ));
+      }
       const binding = signal.executable_binding;
       const supplemental = signal.supplemental_binding;
       const refKey = binding

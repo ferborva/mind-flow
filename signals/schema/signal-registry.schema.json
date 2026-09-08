@@ -263,6 +263,35 @@
         "truth_expression_effect": { "const": "none" }
       }
     },
+    "metricContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id", "measure", "unit", "denominator", "population",
+        "geography", "period", "aggregation", "collection_process_ids",
+        "source_refs", "evaluation_rule", "metric_checksum"
+      ],
+      "properties": {
+        "metric_id": { "$ref": "#/$defs/id" },
+        "measure": { "$ref": "#/$defs/nonEmpty" },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "denominator": { "$ref": "#/$defs/nonEmpty" },
+        "population": { "$ref": "#/$defs/nonEmpty" },
+        "geography": { "$ref": "#/$defs/nonEmpty" },
+        "period": { "$ref": "#/$defs/nonEmpty" },
+        "aggregation": { "$ref": "#/$defs/nonEmpty" },
+        "collection_process_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "source_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "evaluation_rule": { "$ref": "#/$defs/nonEmpty" },
+        "metric_checksum": { "$ref": "#/$defs/sha256" }
+      }
+    },
     "conditionLink": {
       "type": "object",
       "additionalProperties": false,
@@ -433,6 +462,7 @@
             "operational_effect": { "type": "boolean" }
           }
         },
+        "metric_contract": { "$ref": "#/$defs/metricContract" },
         "executable_binding": { "$ref": "#/$defs/executableSignalBinding" },
         "supplemental_binding": { "$ref": "#/$defs/supplementalSignalBinding" }
       }

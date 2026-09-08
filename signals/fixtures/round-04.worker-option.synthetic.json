@@ -157,6 +157,24 @@
         "predicate_ids": [
           "option-coverage"
         ]
+      },
+      "metric_contract": {
+        "metric_id": "metric.option.coverage",
+        "measure": "Share of affected workers with a credible alternative",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "collection_process_ids": [
+          "process.synthetic-employer-worker-panel"
+        ],
+        "source_refs": [
+          "source.synthetic-employer-worker-panel"
+        ],
+        "evaluation_rule": "Apply the immutable executable predicate to exact-scope observations. Preserve missing, stale and conflicted states.",
+        "metric_checksum": "sha256:856a1b887e8bee10a8bdf82e5a9aa61fa2467caf61c1f59aa8a0f5413df8d902"
       }
     },
     {
@@ -266,6 +284,24 @@
         "predicate_ids": [
           "human-review"
         ]
+      },
+      "metric_contract": {
+        "metric_id": "metric.human-review.available",
+        "measure": "Whether an accessible human review route exists",
+        "unit": "boolean",
+        "denominator": "all eligible scope cells in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "All eligible scope cells report the same Boolean state",
+        "collection_process_ids": [
+          "process.synthetic-employer-worker-panel"
+        ],
+        "source_refs": [
+          "source.synthetic-employer-worker-panel"
+        ],
+        "evaluation_rule": "Apply the immutable executable predicate to exact-scope observations. Preserve missing, stale and conflicted states.",
+        "metric_checksum": "sha256:f23b8c2b25cf35f3998dbbc2b57c69b4ca99630fd9dab6c7bbd60bdf92239071"
       }
     },
     {
@@ -360,6 +396,24 @@
         "causal_claim": false,
         "individual_inference": false,
         "operational_effect": false
+      },
+      "metric_contract": {
+        "metric_id": "metric.worker-option.counter.synthetic",
+        "measure": "share reporting lower real earnings or worse essential conditions",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "collection_process_ids": [
+          "process.synthetic-employer-worker-panel"
+        ],
+        "source_refs": [
+          "source.synthetic-employer-worker-panel"
+        ],
+        "evaluation_rule": "Measure the registered counter construct independently. Missing observations remain unknown and this metric never changes executable truth.",
+        "metric_checksum": "sha256:e5913de7acd3b6ebd1b0c29162386737f5bb2644cfaed0f407be9d67a17086d9"
       },
       "supplemental_binding": {
         "kind": "supplemental-observation",
@@ -464,6 +518,24 @@
         "causal_claim": false,
         "individual_inference": false,
         "operational_effect": false
+      },
+      "metric_contract": {
+        "metric_id": "metric.worker-option.information-harm.synthetic",
+        "measure": "share reporting reduced clarity after transition communication",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "collection_process_ids": [
+          "process.synthetic-employer-worker-panel"
+        ],
+        "source_refs": [
+          "source.synthetic-employer-worker-panel"
+        ],
+        "evaluation_rule": "Measure the registered information-harm construct independently. Missing observations remain unknown and this metric never changes executable truth.",
+        "metric_checksum": "sha256:4acf65e20ddc27b9105a443705ad8e7ca327afbe7222196c71842b9353934e14"
       },
       "supplemental_binding": {
         "kind": "supplemental-observation",

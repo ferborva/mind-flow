@@ -4,7 +4,7 @@ import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { validateSignalRegistry } from "../validate.mjs";
+import { computeMetricContractChecksum, validateSignalRegistry } from "../validate.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
@@ -54,6 +54,22 @@ function locallyBoundRegistry() {
     next_binding: null,
   };
   for (const [index, signal] of document.signals.entries()) {
+    signal.metric_contract = {
+      metric_id: `metric.${signal.signal_id.slice("signal.".length)}`,
+      measure: signal.estimand.quantity,
+      unit: signal.estimand.unit,
+      denominator: signal.estimand.denominator,
+      population: signal.estimand.population,
+      geography: signal.estimand.geography,
+      period: signal.estimand.period,
+      aggregation: signal.estimand.aggregation_level,
+      collection_process_ids: signal.source_refs.map((sourceId) =>
+        document.sources.find(({ source_id: id }) => id === sourceId).collection_process_id),
+      source_refs: structuredClone(signal.source_refs),
+      evaluation_rule: "Apply the registered measurement rule without post-hoc exclusions.",
+      metric_checksum: "",
+    };
+    signal.metric_contract.metric_checksum = computeMetricContractChecksum(signal.metric_contract);
     signal.executable_binding = {
       kind: "executable-predicate",
       signal_definition_ref: {
@@ -87,6 +103,30 @@ test("condition producer and complete history tip are independent anchors", () =
 
   const result = validate(document);
   assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+});
+
+test("v1.1 owns a self-checking metric contract for every signal", () => {
+  const document = locallyBoundRegistry();
+  const result = validate(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  for (const signal of document.signals) {
+    assert.equal(
+      signal.metric_contract.metric_checksum,
+      computeMetricContractChecksum(signal.metric_contract),
+    );
+  }
+});
+
+test("hostile: a metric cannot drift from either its checksum or signal estimand", () => {
+  const unsealed = locallyBoundRegistry();
+  unsealed.signals[0].metric_contract.denominator = "selected favourable cases only";
+  assert.ok(hasCode(validate(unsealed), "METRIC_CONTRACT_HASH_MISMATCH"));
+
+  const resealed = locallyBoundRegistry();
+  resealed.signals[0].metric_contract.measure = "a different quantity";
+  resealed.signals[0].metric_contract.metric_checksum =
+    computeMetricContractChecksum(resealed.signals[0].metric_contract);
+  assert.ok(hasCode(validate(resealed), "METRIC_ESTIMAND_MISMATCH"));
 });
 
 test("the Round 4 executable signal registry is valid and reproducible", () => {
@@ -143,6 +183,8 @@ test("v1.1 distinguishes supplemental observations from executable predicate evi
     condition_definition_ref: conditionDefinitionRef,
     truth_expression_effect: "none",
   };
+  signal.metric_contract.metric_id = "metric.supplemental-counter";
+  signal.metric_contract.metric_checksum = computeMetricContractChecksum(signal.metric_contract);
   document.signals.push(signal);
 
   const result = validate(document);
@@ -168,6 +210,8 @@ test("hostile: supplemental evidence cannot masquerade as a predicate or another
       condition_definition_ref: conditionDefinitionRef,
       truth_expression_effect: "none",
     };
+    signal.metric_contract.metric_id = "metric.supplemental-counter";
+    signal.metric_contract.metric_checksum = computeMetricContractChecksum(signal.metric_contract);
     document.signals.push(signal);
     mutate(signal);
 

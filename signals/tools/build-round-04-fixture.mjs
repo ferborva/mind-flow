@@ -5,7 +5,11 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { computeEvidenceStateHash } from "../../contracts/executable-if/validate.mjs";
-import { renderPublicClaimCeiling, validateSignalRegistry } from "../validate.mjs";
+import {
+  computeMetricContractChecksum,
+  renderPublicClaimCeiling,
+  validateSignalRegistry,
+} from "../validate.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../..");
@@ -126,6 +130,21 @@ function signal(source, predicateId, role, epistemicClass, statisticalUnit, deno
       predicate_ids: [predicateId],
     },
   };
+  item.metric_contract = {
+    metric_id: `metric.${source.signal_id.slice("signal.".length)}`,
+    measure: item.estimand.quantity,
+    unit: item.estimand.unit,
+    denominator: item.estimand.denominator,
+    population: item.estimand.population,
+    geography: item.estimand.geography,
+    period: item.estimand.period,
+    aggregation: item.estimand.aggregation_level,
+    collection_process_ids: ["process.synthetic-employer-worker-panel"],
+    source_refs: [sourceId],
+    evaluation_rule: "Apply the immutable executable predicate to exact-scope observations. Preserve missing, stale and conflicted states.",
+    metric_checksum: "",
+  };
+  item.metric_contract.metric_checksum = computeMetricContractChecksum(item.metric_contract);
   item.public_claim_ceiling = renderPublicClaimCeiling(item);
   return item;
 }
@@ -159,6 +178,14 @@ function supplementalSignal({ signalId, label, role, definition, quantity }) {
     definition,
   };
   item.estimand.quantity = quantity;
+  item.metric_contract = {
+    ...item.metric_contract,
+    metric_id: `metric.${signalId.slice("signal.".length)}`,
+    measure: quantity,
+    evaluation_rule: `Measure the registered ${role} construct independently. Missing observations remain unknown and this metric never changes executable truth.`,
+    metric_checksum: "",
+  };
+  item.metric_contract.metric_checksum = computeMetricContractChecksum(item.metric_contract);
   item.condition_links[0] = {
     ...item.condition_links[0],
     evidence_role: role,
