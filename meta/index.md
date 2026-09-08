@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-07
+updated: 2026-09-08
 ---
 
 # Index
@@ -12,8 +12,8 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 4 |
-| Seeds | 9 |
+| Captures | 5 |
+| Seeds | 15 |
 | Drafts | 2 |
 | Posts | 0 |
 | Books | 0 |
@@ -31,6 +31,11 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
+- `2026-09-08-abundance-frame-conversation`, taking the if frame further and the
+  two sides of the exchange. **processed**, 6 seeds. Full transcript of a spoken
+  session, kept verbatim at `capture/raw/`. **Read its provenance warnings:**
+  roughly half the good lines are the other Claude's, and long stretches are
+  Claude speaking in character as named living people.
 - `2026-09-07-endorsing-the-red-team`, endorsing the red team and commissioning a
   transition design. **processed**, 1 seed.
 - `2026-09-07-deflation-metric-and-labour-paradox`, a metric for abundance and
@@ -53,11 +58,24 @@ Foundation documents: **4 of 4 in place.**
 | `the-zero-cost-count` | ripe | abundance |
 | `the-free-labour-paradox` | ripe | abundance |
 | `the-transmission-test` | ripe | abundance |
+| `tell-me-your-conditions` | ripe | abundance |
+| `run-the-frame-on-the-supplier` | ripe | abundance |
+| `if-is-demand-when-is-supply` | ripe | abundance |
+| `conditions-have-owners` | ripe | abundance |
+| `agency-is-the-goal-conditions-are-the-signals` | ripe | abundance |
+| `you-cannot-sequence-the-conditions` | growing | abundance |
 
 ## Drafts
 
+**Not yet opened:** the short piece he specified on 2026-09-08. The frame as an
+instrument, ~1,500 words, no remedy and no crisis layer, for the Moonshot crew
+and anyone who would use it. Blocked only on him saying go. Six new seeds feed
+it.
+
 - `from-if-to-when`, long, **review**, ~4,500 words. The transition design he
-  commissioned. **Different provenance class:** a commissioned proposal, not his
+  commissioned. **New tension as of 2026-09-08:** he says the order conditions
+  fall in cannot be planned, and this draft runs on five dated phases. See
+  `seeds/you-cannot-sequence-the-conditions.md`. **Different provenance class:** a commissioned proposal, not his
   substance. Most of the structure is mine and needs his sign-off section by
   section. See the provenance warning at the top of the file.
 - `abundance-has-an-if`, long, **review**. Draws on the first four seeds and
