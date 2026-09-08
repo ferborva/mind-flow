@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/replacement-lineage.json",
+  "attack": "Bind a replacement edge to a review of the replacement instead of the replaced claim.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/replacement_lineage/0/review_ref",
+      "value": "review.scenario-new"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Collapse epistemic class, provenance role, support state and publication disposition into one label.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/epistemic_class",
+      "value": "source-observation|primary-source|supported|candidate-for-review"
+    }
+  ]
+}

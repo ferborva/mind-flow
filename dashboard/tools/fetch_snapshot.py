@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.8.0
+fetch_snapshot.py 1.8.0, retained verifier and retired live writer
 
-Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.8.0).
+The manifest-verification path remains available for frozen evidence tests.
+Live emission is retired because its v1.8 output cannot satisfy the v2.0 timing,
+acquisition and record-identity contract.
 
-    python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
-    python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
+    python3 dashboard/tools/fetch_snapshot.py --verify-input-manifest MANIFEST
 
 Design rules, enforced here so the contract holds:
   - never invent a data point, never interpolate, never carry forward
@@ -927,42 +927,9 @@ def main():
         sys.stdout.write("\n")
         return 0
 
-    utc_today = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
-    if args.id != utc_today:
-        raise RuntimeError(
-            f"snapshot id {args.id} must equal the UTC as_of date {utc_today} for a live fetch"
-        )
-    print(f"building snapshot {args.id}")
-    retrieved_on = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
-    snap, log = build(args.id, retrieved_on)
-    print("\n".join(log))
-
-    os.makedirs(args.out, exist_ok=True)
-    path = os.path.join(args.out, f"{args.id}.json")
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(snap, f, indent=1, ensure_ascii=False)
-
-    # refresh the index so the site can list available snapshots
-    ids = sorted(f[:-5] for f in os.listdir(args.out)
-                 if f.endswith(".json") and f != "index.json")
-    entries = []
-    for identifier in ids:
-        snapshot_path = os.path.join(args.out, f"{identifier}.json")
-        with open(snapshot_path, "rb") as snapshot_handle:
-            snapshot_sha = hashlib.sha256(snapshot_handle.read()).hexdigest()
-        entries.append({
-            "id": identifier,
-            "path": f"{identifier}.json",
-            "sha256": f"sha256:{snapshot_sha}",
-        })
-    with open(os.path.join(args.out, "index.json"), "w", encoding="utf-8") as f:
-        json.dump({"schema_version": SCHEMA_VERSION, "latest": ids[-1],
-                   "snapshots": entries},
-                  f, indent=1)
-
-    kb = os.path.getsize(path) / 1024
-    available = sum(1 for s in snap["signals"] if s["status"] == "available")
-    print(f"\nwrote {path} ({kb:.0f} KB), {len(snap['signals'])} signals, {available} available")
+    raise RuntimeError(
+        "Live snapshot emission is retired until a fetch adapter satisfies the 2.0 timing and acquisition contract"
+    )
 
 
 if __name__ == "__main__":

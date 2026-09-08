@@ -1,0 +1,11 @@
+{
+  "id": "hostile.safeguard-fails-open",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/1/decision_dependencies/0/handling",
+      "value": "bounded_experiment"
+    }
+  ],
+  "expected_codes": ["SAFEGUARD_NOT_FAIL_CLOSED"]
+}

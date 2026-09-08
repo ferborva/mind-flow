@@ -1,0 +1,16 @@
+{
+  "id": "hostile.multiple-current-versions",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/1/assumption_id",
+      "value": "assumption.evidence-controls-detect-material-corruption"
+    },
+    {
+      "op": "replace",
+      "path": "/assumptions/1/version",
+      "value": "2.0.0"
+    }
+  ],
+  "expected_codes": ["MULTIPLE_CURRENT_VERSIONS", "ASSUMPTION_CLASS_DRIFT"]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "hostile.schema-truth-overclaim",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/0/public_disposition/plain_language",
+      "value": "Hypothesis: this schema-conformant record is proven true."
+    }
+  ],
+  "expected_codes": ["PUBLIC_TRUTH_OVERCLAIM"]
+}

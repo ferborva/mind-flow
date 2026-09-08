@@ -31,7 +31,8 @@ compresses. The worker domain then splits into three incompatible estimands:
 
 1. exact replication of the repository arithmetic;
 2. production income allocation;
-3. worker purchasing power, earnings distribution and work autonomy;
+3. worker outcomes, separated into aggregate compensation, earnings
+   distribution and work autonomy; and
 4. household agency.
 
 Each estimand needs its own denominator, panel, price concept, uncertainty,
@@ -168,6 +169,8 @@ social contributions and declared self-employment imputation, `H` total hours,
 components share scope:
 
 ```text
+change(x; a, b) = x_b - x_a
+
 D
 = change(log(NGDP / (P_Y * H)))
   - change(log(COMP / (P_C * H)))
@@ -175,13 +178,20 @@ D
   + change(log(P_C / P_Y))
 ```
 
+Store annual `delta_1` and endpoint `delta_[a,b]` as different result IDs.
+`delta_1(x,t) = change(x; t-1, t)`. `delta_[a,b](x) = change(x; a, b)`.
+Neither an annual rate nor a multi-year endpoint change may inherit the other's
+label, uncertainty or decision threshold.
+
 This identity applies only to compatible aggregate compensation. Gross
 compensation is an employer-cost accounting measure. Household-price deflation
 does not make employer contributions or imputations disposable worker
 purchasing power. The identity does not apply to median survey earnings.
 
 For a registered cross-country aggregate, first compute each `D_i` from
-local-currency growth indexes, then use fixed base-period employment weights:
+local-currency growth indexes, then use fixed base-period employment weights.
+The result is a **fixed-base employment-weighted mean of country-level per-hour
+log-change differences**, not a directly observed World worker, job or hour:
 
 ```text
 D_world = SUM_i(w_i,0 * D_i)
@@ -190,6 +200,11 @@ w_i,0 = covered_employment_i,0 / SUM_k(covered_employment_k,0)
 
 Do not aggregate cross-country compensation or output levels unless a separate
 currency-conversion or PPP estimand is registered.
+
+The weighting unit is the employed person counted in the frozen base-period
+employment source. The outcome unit is an aggregate log change per paid hour
+within each country. Job counts, worker counts and hours are not interchangeable;
+alternative weighting units are separate sensitivity estimands.
 
 #### E2b. Median and distributional earnings
 
@@ -221,15 +236,6 @@ agency or an AI effect.
 **Question:** Can named people in named places reliably obtain important
 outcomes while retaining meaningful choice, refusal, time, privacy and appeal?
 
-**Resource measures:**
-
-```text
-cash_access_margin(h)
-= equivalised(disposable cash resources(h), registered_scale)
-  - equivalised(required cash basket cost(h), same registered_scale)
-  - equivalised(debt-service due(h), same registered_scale)
-```
-
 Report delivered in-kind basket coverage separately, matching each service to
 one required basket component for the same unit and period. State the valuation
 basis, quality, eligibility and actual usability. Never add the value of a
@@ -237,24 +243,46 @@ service while also subtracting its full cash price. Report debt stock and liquid
 buffers as separate resilience measures, not income flows. Household production
 and unpaid care remain separate time and burden accounts.
 
-For household or person `h` and each required in-kind component `j`:
+Freeze one registered analysis unit `u` before joining records. It is either a
+household or a person, never the phrase "household or person" resolved during
+analysis. For each required in-kind component `j`, pool every user cash charge
+before testing affordability:
 
 ```text
-cash_pass(h) = cash_margin(h) >= 0
+cash_co_payment_total(u)
+= SUM_j(copayment(u, j) + mandatory_complement_cash_cost(u, j))
 
-in_kind_pass(h, j)
-= available(h, j)
-  AND eligible(h, j)
-  AND total_money_time_and_complement_cost(h, j) <= registered_limit(j)
-  AND delivered(h, j)
-  AND quality(h, j) >= registered_threshold(j)
+cash_access_margin(u)
+= equivalised(disposable cash resources(u), registered_scale)
+  - equivalised(required cash basket cost excluding covered components(u), same scale)
+  - equivalised(cash_co_payment_total(u), same scale)
+  - equivalised(debt-service due(u), same scale)
 
-continuity_floor_met(h)
-= cash_pass(h)
+cash_pass(u) = cash_access_margin(u) >= 0
+
+in_kind_pass(u, j)
+= available(u, j)
+  AND eligible(u, j)
+  AND cash_charge_recorded_in_pool(u, j)
+  AND travel_time(u, j) <= registered_travel_time_limit(j)
+  AND wait_time(u, j) <= registered_wait_time_limit(j)
+  AND complement_available(u, j)
+  AND delivered(u, j)
+  AND quality(u, j) >= registered_quality_threshold(j)
+
+continuity_floor_met(u)
+= cash_pass(u)
   AND ALL required in-kind components pass
 ```
 
-Every component must use the same person or household, place and period.
+Money, travel time, wait time, complement availability and quality remain
+separate typed fields with separate thresholds. They must never be added into a
+scalar. Pooling cash charges prevents several individually small copayments from
+evading the household cash floor. The required cash basket excludes only the
+component actually replaced by delivered provision, which prevents double
+counting in either direction.
+
+Every component must use the same registered unit, place and period.
 Missing evidence remains `unknown`, never false or satisfied. Report loss at
 each access stage rather than multiplying unlike rates into one score. A
 positive cash margin cannot offset a missing required service.
@@ -265,11 +293,27 @@ only when the admissible interval lies wholly inside the passing region,
 it crosses a boundary or evidence is missing. Mixed equivalisation scales or
 mixed monetary periods must fail validation.
 
+If `u` is a person, shared household costs require a preregistered allocation
+rule before they can enter that person's cash margin. The rule must name the
+household unit `h`, the linked persons, the economic rationale, uncertainty and
+sensitivity alternatives. Allocation shares across the registered household
+must sum to one for each cost and period, and one cost cannot be charged to
+several people in full. A person-level result must report how it changes under
+reasonable alternative allocations. If those allocations change the threshold
+state, the result is `unknown`, not a convenient pass or failure.
+
+If `u` is a household, write `u = h` and keep the result at household level.
+Each member's agency, control and experienced burden remains a separate
+person-level record `p` linked to `h`. A household surplus cannot be allocated
+to a member without evidence of that member's actual command over it.
+
 The cash margin and in-kind coverage are necessary but not sufficient. Report
 direct agency measures alongside them, including ability to choose, refuse,
 change provider, challenge a decision, preserve privacy and control time.
 Measure individual outcomes where household aggregation could hide unequal
-control or harm.
+control or harm. Person-level agency cannot be inferred from a household-level
+cash margin. Each member `p` needs a separate person-level outcome record and a
+declared link to household unit `h`.
 
 **Primary outputs:** The component-level pass and unknown states, cash shortfall,
 movement across the conjunctive continuity floor and direct agency outcomes by
@@ -559,7 +603,7 @@ Forecast skill and causal identification remain orthogonal.
 | Compatible aggregate compensation and price data | `household-price-deflated gross compensation per hour changed for the covered accounting scope` |
 | Cohort distribution | `the named cohort's distribution changed` |
 | Matched household resources and basket for the same unit and period | `the named cohort's measured access margin changed` |
-| Construct-valid, invariant direct agency measures with missingness controls and affected-party acceptance | `the named cohort's measured agency outcome changed` |
+| Construct-valid, invariant direct agency measures with missingness controls and a complete affected-party governance disposition | `the named cohort's measured agency outcome changed` |
 | Credible causal design | `the named adoption contributed to the outcome` |
 | Adequate prospective resolved sample, frozen holdout, declared naive and reference baselines, calibration, discrimination and utility gates | `the model demonstrated bounded predictive skill within the registered domain` |
 

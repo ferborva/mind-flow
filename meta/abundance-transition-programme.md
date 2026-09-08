@@ -34,6 +34,8 @@ updated: 2026-09-08
 - Work advances through evidence, adversarial, affected-party, methods,
   comprehension and operational review. Iteration is required when it changes
   the result, not to manufacture activity.
+- The dependency-ordered execution and claim firewall are maintained in the
+  [Round 03 deep plan](round-03-deep-plan.md).
 
 ---
 
@@ -121,6 +123,13 @@ true. In particular:
 10. **Corrections stay visible.** Forecasts, definitions and artefacts are
     versioned rather than overwritten.
 
+For the Australian feasibility candidate, competing causal graphs must include
+technology-push, macro-demand, sector-composition, measurement-and-
+reclassification, policy-and-ownership, and no-material-change explanations.
+No graph receives default status from its position in the narrative. See the
+[Australia pilot source triage](../research/2026-09-08-australia-pilot-source-triage.md)
+for current primary-source claim ceilings.
+
 ## 🔁 The challenge loop
 
 Every material artefact passes these rounds. A failed round sends it back to
@@ -149,7 +158,10 @@ The target is not a fixed number of iterations. The target is convergence:
 
 Build and maintain:
 
-- a claim ledger with epistemic class, provenance and disposition;
+- an [atomic claim firewall](../evidence/claims/README.md) with independent
+  epistemic class, provenance role, support state and publication disposition;
+- an [assumption registry](../evidence/assumptions/README.md) separating bounded
+  hypotheses, hard safeguards, legitimate value decisions and explicit unknowns;
 - a source registry with licences, vintages, queries and checksums;
 - a unit and comparability review for every derived measure;
 - explicit uncertainty for sampling, modelling, revision, definition,
@@ -250,8 +262,13 @@ The public sequence is:
 7. Personal options, collective action and institutional duties.
 8. Evidence, corrections, forecasts and prior performance.
 9. Participation, appeals and visible dissent.
-10. The positive horizon: time, health, learning, security, creativity,
-    connection, choice and the ability to leave bad systems.
+10. Plural horizons: capability expansion, redistribution, reduction,
+    no-deployment and refusal, including time, health, learning, security,
+    creativity, connection, choice and the ability to leave bad systems.
+
+Positive-horizon language is a declared value choice, not an empirical finding
+or pressure to endorse deployment. Affected people may prefer redistribution,
+reduction, no-deployment or refusal without being coded as anti-progress.
 
 **Gate:** readers correctly distinguish capability, access and agency; identify
 the scope and uncertainty; find the owner and appeal route; and state what would

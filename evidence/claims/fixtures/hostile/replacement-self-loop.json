@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/replacement-lineage.json",
+  "attack": "Make a claim replace itself.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/replacement_lineage/0/replacement_claim_id",
+      "value": "claim.forecast-old"
+    }
+  ]
+}

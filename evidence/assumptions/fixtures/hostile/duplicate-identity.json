@@ -1,0 +1,11 @@
+{
+  "id": "hostile.duplicate-identity",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/1/assumption_id",
+      "value": "assumption.evidence-controls-detect-material-corruption"
+    }
+  ],
+  "expected_codes": ["DUPLICATE_ASSUMPTION_VERSION"]
+}

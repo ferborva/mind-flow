@@ -13,10 +13,12 @@ import addFormats from "ajv-formats";
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const templatePath = join(dashboard, "web", "index.template.html");
-const snapshotPath = join(dashboard, "snapshots", "2026-09-08.json");
+const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
+const predecessorSnapshotPath = join(dashboard, "snapshots", "2026-09-08.json");
 const legacySnapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
 const snapshotIndexPath = join(dashboard, "snapshots", "index.json");
 const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
+const timingSchemaPath = join(dashboard, "schema", "source-timing.schema.json");
 const schemaReadmePath = join(dashboard, "schema", "SCHEMA.md");
 const dashboardReadmePath = join(dashboard, "README.md");
 const buildPath = join(dashboard, "tools", "build.mjs");
@@ -30,7 +32,7 @@ const template = readFileSync(templatePath, "utf8");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 const evidencePolicy = JSON.parse(readFileSync(evidencePolicyPath, "utf8"));
 
-test("the corrected snapshot supersedes an immutable, honestly unverified snapshot", () => {
+test("the corrected record preserves immutable, honestly unverified predecessors", () => {
   const legacyBytes = readFileSync(legacySnapshotPath);
   const legacy = JSON.parse(legacyBytes);
   const index = JSON.parse(readFileSync(snapshotIndexPath, "utf8"));
@@ -41,12 +43,17 @@ test("the corrected snapshot supersedes an immutable, honestly unverified snapsh
   );
   assert.equal(legacy.reproducibility.raw_input_status, "not_pinned");
   assert.equal(legacy.reproducibility.snapshot_rebuild_status, "not_verified");
-  assert.equal(snapshot.correction?.supersedes_snapshot_id, legacy.snapshot_id);
+  assert.equal(snapshot.correction?.supersedes_record_id, "2026-09-08.r1");
+  assert.equal(snapshot.correction?.supersedes_snapshot_id, snapshot.snapshot_id);
+  assert.equal(
+    snapshot.correction?.supersedes_snapshot_sha256,
+    `sha256:${createHash("sha256").update(readFileSync(predecessorSnapshotPath)).digest("hex")}`,
+  );
   assert.equal(snapshot.correction?.source_values_changed, false);
-  assert.equal(index.latest, snapshot.snapshot_id);
-  assert.deepEqual(index.snapshots.map(({ id }) => id), [legacy.snapshot_id, snapshot.snapshot_id]);
+  assert.equal(index.latest, snapshot.record_id);
+  assert.deepEqual(index.snapshots.map(({ id }) => id), ["2026-09-07.r1", "2026-09-08.r1", snapshot.record_id]);
   assert.match(template, /id=["']snapshot-correction["']/);
-  assert.match(template, /supersedes_snapshot_id/);
+  assert.match(template, /supersedes_record_id/);
 });
 
 function assertBuildRejects(value, inputPath, outputPath, expected) {
@@ -236,7 +243,7 @@ test("entity selection never silently falls back to another geography", () => {
 });
 
 test("snapshot reserves only typed possible-path references", () => {
-  assert.match(snapshot.schema_version, /^1\.8\./);
+  assert.match(snapshot.schema_version, /^2\.0\./);
   assert.deepEqual(snapshot.possible_path_refs, []);
   assert.equal(Object.hasOwn(snapshot, "crises"), false);
   assert.equal(Object.hasOwn(snapshot, "playbooks"), false);
@@ -339,7 +346,7 @@ test("availability is separate from point-level epistemic class", () => {
 
   assert.match(template, /function epistemicLabel\(/);
   assert.match(template, /selectedLatest\.year\+" "\+pointEpistemicLabel\(/);
-  assert.match(template, /pointEpistemicLabel\(sig,p\)/);
+  assert.match(template, /pointEpistemicLabel\(sig,p,/);
   assert.equal(snapshot.reproducibility.raw_input_status, "not_pinned");
   assert.equal(snapshot.reproducibility.snapshot_rebuild_status, "not_verified");
   assert.match(snapshot.reproducibility.residual_gap, /bit-for-bit rebuild.*not passed/i);
@@ -522,24 +529,76 @@ test("derived series preserve input classes and are recomputed with the public a
   assertBuildRejects(falsePublicArithmetic, inputPath, outputPath, /public.update.*arithmetic/i);
 });
 
-test("retrieval dating and every export surface retain epistemic class", () => {
+test("retained-input timing and every export surface retain epistemic class", () => {
   assert.doesNotMatch(fetcherText, /build\(args\.id,\s*args\.id\)/);
-  assert.match(fetcherText, /retrieved_on\s*=.*datetime/i);
+  assert.match(fetcherText, /["']retrieved_at["']\s*:.*datetime/is);
+  assert.match(fetcherText, /live snapshot emission is retired.*2\.0 timing.*acquisition/is);
+  assert.doesNotMatch(fetcherText, /retrieved_on\s*=/i);
   assert.match(template, /function pointEpistemicLabel\(/);
-  assert.match(template, /lab\.textContent\s*=.*pointEpistemicLabel\(sig,last\)/s);
+  assert.match(template, /function chartPointLabel\(/);
+  assert.match(template, /lab\.textContent\s*=.*chartPointLabel\(last\)/s);
   assert.match(template, /id=["']copy-evidence["']/);
   assert.match(template, /id=["']export-evidence["']/);
   assert.match(template, /function currentEvidenceExport\(/);
+  assert.match(template, /artifact_kind:["']selection_only["']/);
+  assert.match(template, /reference_closure:["']external_record_binding["']/);
+  assert.match(template, /source_assessment_bundle/);
+  assert.match(template, /public_update:["']omitted_from_selection_export["']/);
   assert.match(template, /navigator\.clipboard\.writeText/);
   assert.match(template, /URL\.createObjectURL/);
   assert.match(template, /JSON\.stringify\(\(snap\.signals\|\|\[\]\)\[0\]/);
   assert.doesNotMatch(template, /epistemic_rules:\[\{epistemic_class:"modelled_estimate"\}\]/);
 });
 
+test("compact mobile labels cannot expand the page to the full evidence contract width", () => {
+  const stateBlock = template.match(/function stateLabel\(sig\)\{([\s\S]*?)\n\}/)?.[1] || "";
+  assert.doesNotMatch(stateBlock, /pointEpistemicLabel/);
+  assert.match(stateBlock, /epistemicLabel/);
+  assert.match(template, /\.authority-pill\{[^}]*flex:\s*0 0 auto[^}]*max-width:\s*100%/s);
+  assert.match(template, /\.val\{[^}]*min-width:\s*0[^}]*max-width:/s);
+  assert.match(template, /\.val \.y\{[^}]*overflow-wrap:\s*anywhere/s);
+});
+
+test("the aggregate baseline keeps full timing evidence expandable rather than dominant", () => {
+  const verdictBlock = template.match(/function renderVerdict\(\)\{([\s\S]*?)\n\}\n\nfunction renderFamilies/)?.[1] || "";
+  assert.match(verdictBlock, /compactTimingLabel\(d,\[verdictYear\],ent,null,verdictContext\)/);
+  assert.match(verdictBlock, /el\("details","caveats"\)/);
+  assert.match(verdictBlock, /timingLabel\(d,\[verdictYear\],ent,null,verdictContext\)/);
+  assert.doesNotMatch(verdictBlock, /el\("div","bigunit",[^\n]*verdictTiming/);
+});
+
+test("compare-all never borrows the World result for multi-measure signals", () => {
+  const pickBlock = template.match(/function pick\(sig\)\{([\s\S]*?)\n\}/)?.[1] || "";
+  const verdictBlock = template.match(/function renderVerdict\(\)\{([\s\S]*?)\n\}\n\nfunction renderFamilies/)?.[1] || "";
+  const ratesBlock = template.match(/function baselineRates\(\)\{([\s\S]*?)\n\}/)?.[1] || "";
+  assert.match(pickBlock, /if\(hasM&&entity==="ALL"\)/);
+  assert.doesNotMatch(pickBlock, /entity==="ALL"\s*\?\s*"OWID_WRL"/);
+  assert.match(verdictBlock, /var ent\s*=\s*entity/);
+  assert.match(ratesBlock, /if\(entity==="ALL"\) return null/);
+  assert.match(template, /effective_entities:/);
+});
+
+test("every visible numeric reading carries its complete display unit", () => {
+  assert.match(template, /function displayUnit\(sig\)/);
+  assert.match(template, /function formattedReading\(sig,value\)/);
+  assert.match(template, /formattedReading\(sig,selectedLatest\.value\)/);
+  assert.match(template, /formattedReading\(sig,last\[1\]\)/);
+  assert.match(template, /axisUnit\.textContent=displayUnit\(sig\)/);
+});
+
+test("the first public claim exposes release and publication state without opening details", () => {
+  assert.match(template, /function compactPublicTimingState\(/);
+  const renderNowBlock = template.match(/function renderNow\(\)\{([\s\S]*?)\n\}\n\nfunction renderAll/)?.[1] || "";
+  assert.match(renderNowBlock, /visibleTimingState/);
+  assert.match(renderNowBlock, /observed\.summary\+" \["\+visibleTimingState/);
+});
+
 test("the JSON schema actually validates the current snapshot contract", () => {
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
+  const timingSchema = JSON.parse(readFileSync(timingSchemaPath, "utf8"));
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
+  ajv.addSchema(timingSchema);
   const validate = ajv.compile(schema);
 
   assert.equal(validate(snapshot), true, ajv.errorsText(validate.errors));
@@ -562,7 +621,7 @@ test("the JSON schema actually validates the current snapshot contract", () => {
     assert.equal(
       validate(unsupportedOperationalClaim),
       false,
-      `schema 1.7 cannot import an unverified ${authorizationState} action claim`,
+      `schema 2.0 cannot import an unverified ${authorizationState} action claim`,
     );
   }
 
@@ -746,16 +805,37 @@ test("the build produces a self-contained page with parseable application code",
   );
 });
 
-test("operator documentation matches the governed 1.8 snapshot build", () => {
+test("operator documentation matches the governed 2.0 timing build", () => {
   const readme = readFileSync(dashboardReadmePath, "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
   assert.match(readme, /build-time.*validation/i);
   assert.match(readme, /Australia evidence room/i);
   assert.match(readme, /release.*blocked/i);
+  assert.match(readme, /record_id/);
+  assert.match(readme, /reference\s+period.*publisher\s+vintage.*publisher\s+release.*retrieval.*byte\s+acquisition.*record\s+generation/is);
+  assert.match(readme, /reported.*unverified.*retrieval/is);
+  assert.match(readme, /internal.*clock.*unknown.*retained.*execution/is);
+  assert.match(readme, /selection-only.*external\s+record binding/is);
+  assert.match(readme, /timing-assessment-set\.schema\.json/);
+  assert.match(readme, /snapshot-schema-registry\.json/);
+  assert.match(readme, /live.*retired.*2\.0 timing.*acquisition/is);
+  assert.match(readme, /migrate-timing-contract\.mjs/);
+  assert.match(readme, /schema\/archive\/snapshot-1\.8\.schema\.json/);
   assert.doesNotMatch(readme, /Load snapshot/i);
   assert.doesNotMatch(readme, /current v2/i);
-  assert.match(schemaReadme, /Version 1\.8\.0/);
+  assert.doesNotMatch(readme, /python3 dashboard\/tools\/fetch_snapshot\.py\s*$/m);
+  assert.match(schemaReadme, /Version 2\.0\.0/);
+  assert.match(schemaReadme, /record_id/);
+  assert.match(schemaReadme, /exact selected point lineage/i);
+  assert.match(schemaReadme, /unknown.*must not.*fresh/is);
+  assert.match(schemaReadme, /assessment execution.*structural lineage.*input timing readiness.*evidence readiness.*publication eligibility/is);
+  assert.match(schemaReadme, /IANA.*civil-date interval/is);
+  assert.match(schemaReadme, /reported.*unverified.*retrieval/is);
+  assert.match(schemaReadme, /internal.*clock.*unknown.*retained.*execution/is);
+  assert.match(schemaReadme, /content-addressed.*schema-registry|content-addressed.*schema registry/is);
+  assert.match(schemaReadme, /selection-only.*external\s+record binding/is);
+  assert.match(schemaReadme, /snapshot-1\.8\.schema\.json/);
   assert.match(schemaReadme, /seven-part public update/i);
   assert.match(schemaReadme, /semantic validation/i);
   assert.doesNotMatch(schemaReadme, /No page rebuild required/i);

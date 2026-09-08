@@ -1,0 +1,18 @@
+{
+  "$base": "../valid/replacement-lineage.json",
+  "attack": "Add a reverse replacement edge that creates a cycle.",
+  "mutations": [
+    {
+      "operation": "append",
+      "path": "/replacement_lineage",
+      "value": {
+        "replacement_id": "replacement.scenario-to-forecast",
+        "replaced_claim_id": "claim.scenario-new",
+        "replacement_claim_id": "claim.forecast-old",
+        "reason": "Hostile reversal of immutable replacement lineage.",
+        "recorded_at": "2026-09-08T11:16:00Z",
+        "review_ref": "review.scenario-new"
+      }
+    }
+  ]
+}

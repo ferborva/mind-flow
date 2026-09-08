@@ -28,18 +28,28 @@ because no trusted external authority-verification boundary exists yet.
 
 ## Architecture
 
-The page never fetches live evidence. It renders a dated snapshot:
+The page never fetches live evidence. It renders one content-addressed record:
 
 ```text
-source registries -> fetch_snapshot.py -> validated snapshot -> built HTML
+retained response bytes + adapter extraction
+-> governed snapshot record
+-> build-time validation and timing assessment
+-> self-contained HTML
 ```
 
 This preserves the evidence envelope used for a claim. `tools/build.mjs` performs
 build-time JSON Schema and semantic validation before embedding a snapshot. It
-verifies a separately hash-pinned adapter and classification policy, the current
-snapshot index id/path/SHA, complete raw-input coverage for local-hash claims,
-byte-to-series equivalence, derived arithmetic, freshness and the seven-part
-update. It also rejects missing signal references and false authority claims.
+verifies a separately hash-pinned adapter and classification policy, every
+record-index identity/path/digest and correction link, complete raw-input coverage for local-hash claims,
+byte-to-series equivalence, derived arithmetic, timing and the seven-part
+update. The default public build accepts only the latest indexed record. It also
+rejects missing signal references and false authority claims.
+
+`snapshot_id` names the evidence cut-off date. `record_id` names an immutable
+revision of that dated claim record. This distinction permits a same-day
+correction such as `2026-09-08.r2` without overwriting `2026-09-08.r1`. A later
+correction keeps the original evidence-date identity while `generated_at` and
+`correction.issued_on` record when the correction was actually produced.
 
 The current snapshot is explicitly `research_draft_unverified`: its transformed
 values are frozen, but its upstream response bytes were not retained. Every
@@ -50,16 +60,44 @@ not publisher authenticity. `--mode=publishable` always fails with
 system exists. Captured inputs must also carry 2xx HTTP and matching media
 metadata.
 
-Freshness limits are policy-governed and evaluated against snapshot `as_of`, not
-the build machine clock. A value outside its limit is labelled `STALE` beside
-the value and in its export.
+There is no single truthful freshness clock. Schema 2.0 keeps **reference
+period**, **publisher vintage**, **publisher release**, **retrieval**, **byte
+acquisition**, **derived computation** and **record generation** separate.
+Build-time assessments use exact selected point lineage. An unknown clock stays
+unknown and must not make a value look fresh. A recent retrieval cannot freshen
+an old reference period, and a derived result cannot borrow the newest point in
+a source it did not use. External observations are assessed separately for each
+entity, measure and year. Derived lineage marks baseline, comparator and endpoint
+roles, so an intentionally historical baseline cannot make a current endpoint
+look stale. Unbound derived points say `TIMING NOT ASSESSED FOR THIS POINT`.
+Legacy calendar retrieval dates are **reported and unverified retrieval
+metadata**, not verified byte acquisition. Local publisher dates become bounded
+civil-date intervals using recognised IANA timezones. Non-existent local dates
+fail validation. Internal computation and assessment clocks remain unknown
+until retained execution artifacts and a governed producer registry exist.
+Caller assertions cannot promote them.
+
+Assessment output separates assessment execution, structural lineage, input
+timing readiness, evidence readiness and publication eligibility. A successful
+assessment therefore does not imply ready evidence or permission to publish.
+Each generated bundle is validated against
+`schema/timing-assessment-set.schema.json`, names and hashes its evaluator, has
+a canonical content address, and binds the record bytes, policy bytes, evidence
+cut-off and record generation time. Historical records are validated through
+the content-addressed `schema/snapshot-schema-registry.json`, not the latest
+schema alone.
+
+`tools/fetch_snapshot.py` is now a verifier for frozen v1.8 raw-input fixtures.
+Its live writer is retired until a replacement satisfies the 2.0 timing and
+acquisition contract. This means the current global record is a migration of a
+frozen predecessor, not a new source fetch.
 
 The browser cannot load arbitrary local snapshots. A changed snapshot must go
 through the build and test path.
 
 ## Seven-part public update
 
-Schema 1.8 requires one bounded `public_update` and exact source/derived-point
+Schema 2.0 requires one bounded `public_update` and exact source/derived-point
 lineage:
 
 1. **Observed:** the source-native or derived result and its uncertainty.
@@ -85,8 +123,17 @@ unknown, so the registered decision is `no_decision`.
 |---|---|
 | `schema/SCHEMA.md` | Human-readable snapshot contract |
 | `schema/snapshot.schema.json` | Machine-readable contract |
+| `schema/source-timing.schema.json` | External, derived and instrument-gap clock contract |
+| `schema/timing-assessment-set.schema.json` | Closed build-time assessment output contract |
+| `schema/snapshot-schema-registry.json` | Content-addressed historical schema registry |
+| `schema/snapshot-index.schema.json` | Immutable record-index contract |
+| `schema/archive/snapshot-1.5.schema.json` | Frozen first public prototype schema |
+| `schema/archive/snapshot-1.8.schema.json` | Frozen predecessor schema, retained for migration audit |
 | `evidence/adapter-classification-policy.json` | Pinned source, selector and evidence-class policy |
-| `tools/fetch_snapshot.py` | Builds a dated global snapshot from source registries |
+| `evidence/archive/adapter-classification-policy-1.2.json` | Frozen predecessor policy |
+| `timing/validation.mjs` | Clock, evidence-binding and exact-lineage assessment kernel |
+| `tools/fetch_snapshot.py` | Verifies frozen raw-input manifests; live writing is retired |
+| `tools/migrate-timing-contract.mjs` | Deterministically creates the 2.0 correction and record index |
 | `tools/build.mjs` | Validates and embeds one global snapshot |
 | `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
 | `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
@@ -98,17 +145,20 @@ unknown, so the registered decision is `no_decision`.
 ## Build and test
 
 ```bash
-python3 dashboard/tools/fetch_snapshot.py
+node dashboard/tools/migrate-timing-contract.mjs
 node dashboard/tools/build.mjs \
-  dashboard/snapshots/2026-09-08.json dashboard/web/index.html
+  dashboard/snapshots/2026-09-08.r2.json dashboard/web/index.html
 node dashboard/tools/build-australia-pilot.mjs \
   pilots/australia/data/nero-clerical-2026-08.json \
   pilots/australia/web/index.html
 npm test
 ```
 
-The fetcher touches external registries. Building and testing use frozen local
-evidence.
+The migration command is deterministic and pins the predecessor bytes. The
+build and tests use frozen local evidence. To verify a retained legacy fixture,
+run `python3 dashboard/tools/fetch_snapshot.py --verify-input-manifest PATH`.
+Running the fetcher without that flag fails closed and cannot rewrite the 2.0
+record index.
 
 ## What the global snapshot can say
 
@@ -138,6 +188,13 @@ is an instrumentation backlog, not a neutral or safe state.
   resolve and validate their typed artifacts end to end.
 - A public signal cannot become an operational action without a separate owner,
   authority, review, expiry, help route and appeal path.
+
+The atlas download is deliberately a **selection-only artifact with external
+record binding**. It contains only the selected series and their point timing
+assessments, while preserving the source record, policy, evaluator and
+assessment-bundle identities. It omits the seven-part public update because
+that update is a separate claim graph whose dependencies may extend beyond the
+current atlas selection.
 
 ## Australian evidence boundary
 

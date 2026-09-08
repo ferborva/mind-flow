@@ -99,6 +99,67 @@ Schema 1.5 now rejects `authorised`, `active`, `paused` and `ended` action
 states even when the supplied metadata appears complete. That is a containment
 control, not proof of a future external authority boundary.
 
+## Timing and record attacks
+
+The first timing implementation passed its focused suite and still failed a
+second hostile reading. A green build had hidden signal-wide assessment reuse,
+an impossible publisher-metadata path, fail-open derivation chronology, nested
+point substitution and a mutable record index. The tranche was reopened.
+
+| ID | Finding | Counterexample | Current containment | Status |
+|---|---|---|---|---|
+| `I03-TM-01` | One signal assessment was reused for every point | Australia 2020 poverty inherited the World 2026 nowcast coverage | Assess every external `(signal, entity, measure, year)` separately; unbound derived points say not assessed | internally contained |
+| `I03-TM-02` | Known publisher metadata had no production path | Every known vintage failed because the build supplied no extraction | Recompute registered JSON-pointer fields from retained response bytes | internally contained |
+| `I03-TM-03` | Exact derivation accepted unknown input readiness | An exact output time passed while its dependency retrieval was unknown | Exact computation fails when any dependency-ready interval is unresolved | internally contained |
+| `I03-TM-04` | Nested derivation borrowed another target | `B/AUS/2020` inherited `A/World/2025` | Nested references must equal the dependency's governed point target | internally contained |
+| `I03-TM-05` | Historical anchors poisoned endpoint currentness | Engels' intentional 2004 baseline made its 2025 endpoint look stale | Label baseline, comparator and endpoint operands; report role coverage separately | internally contained |
+| `I03-TM-06` | Annual gap omitted operands | The 2025 gap used four `t` and `t-1` inputs but declared only two 2025 points | The governed binding and lineage now require all four operands | internally contained |
+| `I03-TM-07` | Record identity and manifest could drift | A 2099 record date, false latest pointer and duplicate ID passed | Bind record date to evidence date; validate the complete index, correction chain, paths and bytes | internally contained |
+| `I03-TM-08` | Local publisher timezone accepted fiction | `Mars/Olympus` passed the schema | Semantic validation requires `unspecified` or a recognised IANA timezone | internally contained |
+| `I03-TM-09` | Calendar dates could take a dead conversion branch | A skipped `Pacific/Apia` civil date produced a plausible interval | Convert recognised IANA civil dates to strict bounded intervals and reject skipped dates | internally contained |
+| `I03-TM-10` | Reported retrieval masqueraded as verified acquisition | A migrated date made dependencies appear ready without retained retrieval evidence | Label calendar retrieval as reported and unverified; never use it to establish dependency readiness | internally contained |
+| `I03-TM-11` | Internal exact clocks were caller assertions | A supplied computation timestamp looked execution-backed without an artifact | Reject exact internal clocks until retained execution artifacts and a governed producer registry exist | internally contained |
+| `I03-TM-12` | Correction chronology was incomplete | A later revision could claim a generation time no later than its predecessor | Require strict generation ordering and validate every record against its content-addressed historical schema | internally contained |
+| `I03-TM-13` | Nested release basis was lost | A derived dependency could hide the source release basis one level down | Flatten and preserve every inherited release basis and role assessment | internally contained |
+| `I03-TM-14` | One readiness label collapsed unlike claims | A successful assessment looked equivalent to ready evidence and publishability | Separate execution, structural lineage, input timing, evidence readiness and publication eligibility | internally contained |
+| `I03-TM-15` | Assessment output had no governed identity | Embedded timing output could change without a schema, evaluator digest or bundle digest | Validate a closed assessment schema and bind evaluator code, inputs and canonical bundle bytes | internally contained |
+| `I03-TM-16` | Atlas exports contained a dangling update graph | A filtered selection exported a hard-coded update assessment with missing dependencies | Make exports selection-only, bind them to the external frozen record and assessment bundle, and omit the public update | internally contained |
+| `I03-TM-17` | The interface hid exact clock readings | A compact label concealed whether a date was declared, reported or acquired | Keep visible labels compact; expose complete readings in panel contracts, update disclosures and accessible chart descriptions | internally contained |
+| `I03-TM-18` | Point acquisition could borrow signal-wide bytes | A signal with multiple raw inputs had no unique point-to-byte binding | Treat zero or multiple candidate raw inputs as unknown until an exact point binding exists | internally contained |
+
+Generated timing assessments now bind the exact snapshot digest, evidence-policy
+digest, evidence cut-off and revision time. Publisher release basis is distinct
+from release recency, so an unknown cadence cannot be displayed as an unknown
+release. A correction may be produced after its evidence date; the immutable
+record keeps the evidence-date identity while revision and issue clocks record
+when the correction occurred.
+
+These are internal containments, not closure. External reviewers should attack
+point joins, role swaps, omitted operands, record forks, symlinks, malformed
+metadata pointers, unknown clocks and scoped exports against the frozen tag.
+
+## Combined public-boundary attacks
+
+A later read-only hostile pass found no P0 and eight P1 defects across the
+combined work. The fixes below are internal containments only.
+
+| ID | Finding | Counterexample | Current containment | Status |
+|---|---|---|---|---|
+| `I03-PB-01` | A selection export lost its trust boundary | Raw-input status survived while the reproduction envelope, omitted claim graphs and agent-review state disappeared | Export now declares selection-only scope, external record binding, incomplete raw-input closure, proposal status, no authority and every omitted claim graph | internally contained |
+| `I03-PB-02` | `Compare all` silently became World | Multi-measure signals and the baseline substituted `OWID_WRL` while the export still said `ALL` | Multi-measure comparison now withholds the view, names the reason and exports exact effective entities | internally contained |
+| `I03-PB-03` | Displayed values dropped material units | GDP appeared as a bare number without its constant-price basis | Cards, chart descriptions, tooltips, tables and chart axes now carry a complete display unit; external review must test every signal | internally contained |
+| `I03-PB-04` | Critical timing states were hidden on touch screens | Publisher-release and publication-eligibility states required opening details | The seven-part observed claim now exposes the deduplicated release, evidence and publication states; full clocks remain expandable | internally contained |
+| `I03-PB-05` | IF evolution existed only as prose | Current state could be rewritten without preserving the condition's prior wording, evidence or author | Programme and public language now require typed append-only history; executable fold and mutation attacks are in progress | in progress |
+| `I03-PB-06` | Person and household units contradicted each other | A person-level margin could absorb shared costs without allocation while later text assumed `u` was a household | Person and household units now separate `p`, `h` and `u`; shared costs require preregistered shares summing to one and sensitivity analysis | internally contained |
+| `I03-PB-07` | The Australian join rule omitted decisive incompatibilities | Business, worker and resident-region data matched five labels yet still differed in statistical unit and denominator | Join conditions now include statistical unit, keys, denominators, weights, revisions and ecological-inference controls; NERO residence geography and minimum-count treatment are explicit | internally contained |
+| `I03-PB-08` | Non-priming language required false balance | A weak plausible story could receive the same weight as a strongly evidenced rival | Alternatives now need mechanisms and discriminating observations; prominence is predeclared and evidence-proportional, with high-consequence omissions retained | internally contained |
+
+External review should parse an actual downloaded export, select `Compare all`,
+inspect every unit, use the evidence atlas at 320 pixels with touch and keyboard,
+mutate a condition history, allocate shared household costs under rival rules,
+attempt the cross-level Australian join and test an asymmetric-evidence public
+comparison. Static string tests are not sufficient closure evidence.
+
 ## External-review challenge pack
 
 The frozen Round 03 pack should include, at minimum:

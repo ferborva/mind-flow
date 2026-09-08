@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,16 +8,31 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import {
+  assessTimingGraph,
+  compareRecordIds,
+  extractTimingMetadata,
+  validateSnapshotIndex,
+  validateTimingGraph,
+  validateTimingRule,
+} from "../timing/validation.mjs";
+
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
-const snapshotPath = resolve(process.argv[2] || resolve(dashboard, "snapshots", "2026-09-08.json"));
+const snapshotPath = resolve(process.argv[2] || resolve(dashboard, "snapshots", "2026-09-08.r2.json"));
 const outputPath = resolve(process.argv[3] || resolve(dashboard, "web", "index.html"));
 const templatePath = resolve(dashboard, "web", "index.template.html");
 const schemaPath = resolve(dashboard, "schema", "snapshot.schema.json");
+const timingSchemaPath = resolve(dashboard, "schema", "source-timing.schema.json");
+const snapshotIndexSchemaPath = resolve(dashboard, "schema", "snapshot-index.schema.json");
+const timingAssessmentSchemaPath = resolve(dashboard, "schema", "timing-assessment-set.schema.json");
+const snapshotSchemaRegistryPath = resolve(dashboard, "schema", "snapshot-schema-registry.json");
+const schemaDirectory = resolve(dashboard, "schema");
 const policyPath = resolve(dashboard, "evidence", "adapter-classification-policy.json");
 const snapshotIndexPath = resolve(dashboard, "snapshots", "index.json");
 const snapshotDirectory = resolve(dashboard, "snapshots");
-const POLICY_SHA256 = "780ad6a23adfca588049841ab648d159a2c95e3e19e848bddfb82b784b56474f";
+const timingEvaluatorPath = resolve(dashboard, "timing", "validation.mjs");
+const POLICY_SHA256 = "2848f3309c570dd56d6c6c4d1ec49d499c5791e387b0923461cd4f4989e2f29e";
 const GLOBAL_SOURCE_HOSTS = new Set(["api.worldbank.org", "ourworldindata.org", "ec.europa.eu"]);
 
 const ENTITY_CODES = new Set(["OWID_WRL", "USA", "DEU", "ESP", "AUS", "CHN", "IND"]);
@@ -26,12 +41,57 @@ const WORLD_BANK_CODES = new Map([
   ["AUS", "AUS"], ["CHN", "CHN"], ["IND", "IND"],
 ]);
 
+function canonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 function same(left, right) {
-  return JSON.stringify(left) === JSON.stringify(right);
+  return canonicalJson(left) === canonicalJson(right);
 }
 
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function loadSnapshotSchemaRegistry() {
+  const registry = JSON.parse(readFileSync(snapshotSchemaRegistryPath, "utf8"));
+  if (registry.schema_version !== "1.0.0" || !Array.isArray(registry.schemas) ||
+      registry.schemas.length === 0) {
+    throw new Error("snapshot schema registry must be a non-empty version 1.0 record");
+  }
+  const realSchemaDirectory = realpathSync(schemaDirectory);
+  const versions = new Set();
+  const loaded = {};
+  const load = (entry, label) => {
+    if (!entry || typeof entry.path !== "string" ||
+        !/^(?:archive\/)?[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(entry.path) ||
+        !/^sha256:[a-f0-9]{64}$/.test(entry.sha256 || "")) {
+      throw new Error(`${label} has an invalid closed path or digest`);
+    }
+    const candidate = realpathSync(resolve(schemaDirectory, entry.path));
+    if (!candidate.startsWith(`${realSchemaDirectory}/`) || sha256(readFileSync(candidate)) !== entry.sha256) {
+      throw new Error(`${label} path or checksum is not registry-bound`);
+    }
+    return JSON.parse(readFileSync(candidate, "utf8"));
+  };
+  for (const entry of registry.schemas) {
+    if (typeof entry.snapshot_schema_version !== "string" ||
+        versions.has(entry.snapshot_schema_version) || !Array.isArray(entry.dependencies)) {
+      throw new Error("snapshot schema registry versions must be unique and dependency-closed");
+    }
+    versions.add(entry.snapshot_schema_version);
+    loaded[entry.snapshot_schema_version] = {
+      schema: load(entry, `snapshot schema ${entry.snapshot_schema_version}`),
+      dependencies: entry.dependencies.map((dependency, index) =>
+        load(dependency, `snapshot schema ${entry.snapshot_schema_version} dependency ${index}`)),
+    };
+  }
+  return loaded;
 }
 
 function allowedHttpsUrl(value, allowedHosts) {
@@ -281,7 +341,7 @@ function expectedPublicArithmetic(divergence, entity) {
   };
 }
 
-function pointReference(signalId, entity, series, point) {
+function pointReference(signalId, entity, series, point, role) {
   const reference = {
     signal_id: signalId,
     entity,
@@ -291,6 +351,7 @@ function pointReference(signalId, entity, series, point) {
     year: point[0],
     value: point[1],
     epistemic_class: point[2],
+    role,
   });
   if (point[3]) reference.input_epistemic_classes = point[3];
   return reference;
@@ -313,7 +374,8 @@ function expectedPublicLineage(signals, update) {
     const series = signal?.series?.find((candidate) => candidate.entity === entity);
     for (const year of [fromYear, throughYear]) {
       const point = series?.points?.find((candidate) => candidate[0] === year);
-      if (point) sourcePoints.push(pointReference(signalId, entity, series, point));
+      const role = year === fromYear && year !== throughYear ? "baseline" : "endpoint";
+      if (point) sourcePoints.push(pointReference(signalId, entity, series, point, role));
     }
     rawInputIds.push(...(signal?.source?.raw_input_ids || []));
   }
@@ -321,7 +383,10 @@ function expectedPublicLineage(signals, update) {
   for (const series of [output, labourIncome]) {
     for (const year of [fromYear, throughYear]) {
       const point = series.points.find((candidate) => candidate[0] === year);
-      if (point) derivedPoints.push(pointReference("engels-divergence", entity, series, point));
+      const role = year === fromYear && year !== throughYear ? "baseline" : "endpoint";
+      if (point) derivedPoints.push(pointReference(
+        "engels-divergence", entity, series, point, role,
+      ));
     }
   }
   return {
@@ -361,7 +426,7 @@ function correctionContext(snapshot) {
   } catch (error) {
     return { errors: [`correction predecessor index cannot be read: ${error.message}`], predecessor: null };
   }
-  const entry = index.snapshots?.find(({ id }) => id === snapshot.correction.supersedes_snapshot_id);
+  const entry = index.snapshots?.find(({ id }) => id === snapshot.correction.supersedes_record_id);
   if (!entry) return { errors: ["correction predecessor id is absent from the snapshot index"], predecessor: null };
   const predecessorPath = resolve(snapshotDirectory, entry.path || "");
   if (!predecessorPath.startsWith(`${snapshotDirectory}/`)) {
@@ -383,8 +448,15 @@ function correctionContext(snapshot) {
   } catch (error) {
     errors.push(`correction predecessor JSON is invalid: ${error.message}`);
   }
-  if (predecessor && predecessor.snapshot_id >= snapshot.snapshot_id) {
-    errors.push("correction predecessor must be strictly earlier than the corrected snapshot");
+  if (predecessor && (
+    predecessor.snapshot_id > snapshot.snapshot_id ||
+    (predecessor.snapshot_id === snapshot.snapshot_id &&
+     compareRecordIds(entry.id, snapshot.record_id) >= 0)
+  )) {
+    errors.push("correction predecessor record must be strictly earlier than the corrected record");
+  }
+  if (predecessor && predecessor.snapshot_id !== snapshot.correction.supersedes_snapshot_id) {
+    errors.push("correction predecessor record and snapshot identities disagree");
   }
   return { errors, predecessor };
 }
@@ -396,24 +468,71 @@ function indexedSnapshotBinding(snapshot, snapshotBytes) {
   } catch (error) {
     return [`current snapshot index cannot be read: ${error.message}`];
   }
-  const entry = index.snapshots?.find(({ id }) => id === snapshot.snapshot_id);
-  if (!entry) return ["snapshot is not registered in the snapshot index"];
-  const expectedPath = `${snapshot.snapshot_id}.json`;
-  if (!entry || entry.path !== expectedPath) {
-    return ["current snapshot must match indexed id, path and SHA"];
-  }
-  const canonicalPath = resolve(snapshotDirectory, entry.path);
-  let canonicalBytes;
   try {
-    canonicalBytes = readFileSync(canonicalPath);
-  } catch {
-    return ["current snapshot must match indexed id, path and SHA"];
+    const indexSchema = JSON.parse(readFileSync(snapshotIndexSchemaPath, "utf8"));
+    const ajv = new Ajv2020({ allErrors: true, strict: true });
+    addFormats(ajv);
+    const validateIndex = ajv.compile(indexSchema);
+    if (!validateIndex(index)) {
+      return [`snapshot index schema validation failed: ${ajv.errorsText(validateIndex.errors)}`];
+    }
+  } catch (error) {
+    return [`snapshot index schema cannot be applied: ${error.message}`];
   }
-  const indexedDigest = sha256(canonicalBytes);
-  if (entry.sha256 !== indexedDigest || sha256(snapshotBytes) !== entry.sha256) {
-    return ["current snapshot must match indexed id, path and SHA"];
+  const records = [];
+  const pathErrors = [];
+  const realSnapshotDirectory = realpathSync(snapshotDirectory);
+  for (const entry of index.snapshots || []) {
+    if (!entry?.path) {
+      pathErrors.push(`indexed record ${entry?.id || "unknown"} has no path`);
+      continue;
+    }
+    const canonicalPath = resolve(snapshotDirectory, entry.path);
+    if (!canonicalPath.startsWith(`${snapshotDirectory}/`)) {
+      pathErrors.push(`indexed record ${entry.id} path escapes the snapshot directory`);
+      continue;
+    }
+    try {
+      const realCanonicalPath = realpathSync(canonicalPath);
+      if (!realCanonicalPath.startsWith(`${realSnapshotDirectory}/`)) {
+        pathErrors.push(`indexed record ${entry.id} resolves outside the snapshot directory`);
+        continue;
+      }
+      records.push({ entry, bytes: readFileSync(realCanonicalPath) });
+    } catch (error) {
+      pathErrors.push(`indexed record ${entry.id} cannot be read: ${error.message}`);
+    }
   }
-  return [];
+  let schemas = {};
+  try {
+    schemas = loadSnapshotSchemaRegistry();
+  } catch (error) {
+    pathErrors.push(`snapshot schema registry cannot be applied: ${error.message}`);
+  }
+  const indexResult = validateSnapshotIndex(index, records, schemas);
+  const errors = [
+    ...pathErrors,
+    ...indexResult.errors.map(({ code, path, message }) =>
+      `snapshot index ${code} at ${path}: ${message}`),
+  ];
+  const entries = (index.snapshots || []).filter(({ id }) => id === snapshot.record_id);
+  if (snapshot.record_id !== index.latest) {
+    errors.push("default public build requires the latest indexed record");
+  }
+  if (entries.length !== 1) {
+    errors.push(entries.length === 0
+      ? "snapshot is not registered in the snapshot index"
+      : "snapshot must be registered exactly once in the snapshot index");
+    return errors;
+  }
+  const entry = entries[0];
+  if (entry.snapshot_id !== snapshot.snapshot_id || entry.schema_version !== snapshot.schema_version) {
+    errors.push("current snapshot record metadata must match indexed identity and schema");
+  }
+  if (sha256(snapshotBytes) !== entry.sha256) {
+    errors.push("current snapshot must match indexed id, path and SHA");
+  }
+  return errors;
 }
 
 function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correction) {
@@ -425,6 +544,7 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   const rawInputs = snapshot.reproducibility?.raw_inputs || [];
   const rawInputIds = new Set(rawInputs.map(({ id }) => id));
   const rawInputById = new Map(rawInputs.map((rawInput) => [rawInput.id, rawInput]));
+  const extractedMetadata = [];
   const referencedRawInputIds = new Set();
   const policySignals = policy.signals || {};
   if (entityIds.size !== entities.length) errors.push("entity identifiers must be unique");
@@ -434,11 +554,10 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     errors.push("entity contract must match the pinned evidence policy");
   }
   if (snapshot.correction && (
-    snapshot.correction.supersedes_snapshot_id === snapshot.snapshot_id ||
-    snapshot.correction.issued_on !== snapshot.snapshot_id ||
+    snapshot.correction.supersedes_record_id === snapshot.record_id ||
     snapshot.generated_at.slice(0, 10) !== snapshot.correction.issued_on
   )) {
-    errors.push("corrected revision must name an earlier snapshot and align its issue date");
+    errors.push("corrected revision must name an earlier record and align issuance with revision time");
   }
   errors.push(...correction.errors);
   if (snapshot.correction && correction.predecessor) {
@@ -459,8 +578,8 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   if (snapshot.as_of?.slice(0, 10) !== snapshot.snapshot_id) {
     errors.push("snapshot_id must equal the UTC date of as_of");
   }
-  if (snapshot.generated_at?.slice(0, 10) !== snapshot.snapshot_id) {
-    errors.push("generated_at UTC date must equal snapshot_id");
+  if (snapshot.record_id?.split(".r", 1)[0] !== snapshot.snapshot_id) {
+    errors.push("record_id date must equal snapshot_id");
   }
   if (!Number.isFinite(asOf) || !Number.isFinite(generatedAt) || generatedAt < asOf) {
     errors.push("generated_at must be at or after as_of");
@@ -497,8 +616,17 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
       errors.push(`raw input ${rawInput.id} media_type must match response content_type`);
     }
     const retrievedAt = Date.parse(rawInput.retrieved_at);
+    const acquiredAt = Date.parse(rawInput.acquired_at);
     if (!Number.isFinite(retrievedAt) || retrievedAt > asOf || retrievedAt > generatedAt) {
       errors.push(`raw input ${rawInput.id} retrieval must not follow as_of or generated_at`);
+    }
+    if (!Number.isFinite(acquiredAt) || acquiredAt < retrievedAt || acquiredAt > asOf || acquiredAt > generatedAt) {
+      errors.push(`raw input ${rawInput.id} acquisition must follow retrieval and not follow as_of or generated_at`);
+    }
+    try {
+      extractedMetadata.push(...extractTimingMetadata(rawInput, rawBytesById.get(rawInput.id)));
+    } catch (error) {
+      errors.push(`raw input ${rawInput.id} timing metadata extraction failed: ${error.message}`);
     }
   }
 
@@ -511,9 +639,15 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     if (policySignal && displayContractChecksum(signal) !== policySignal.display_contract_sha256) {
       errors.push(`signal ${signal.id} display contract contradicts the pinned evidence policy`);
     }
-    const sourceRetrieved = Date.parse(`${signal.source?.retrieved}T00:00:00Z`);
-    if (!Number.isFinite(sourceRetrieved) || sourceRetrieved > asOf || sourceRetrieved > generatedAt) {
-      errors.push(`signal ${signal.id} retrieval date must not follow as_of or generated_at`);
+    if (signal.source?.timing?.kind === "external_dataset" && signal.source.retrieved) {
+      const sourceRetrieved = Date.parse(`${signal.source.retrieved}T00:00:00Z`);
+      if (!Number.isFinite(sourceRetrieved) || sourceRetrieved > asOf || sourceRetrieved > generatedAt) {
+        errors.push(`signal ${signal.id} legacy retrieval date must not follow as_of or generated_at`);
+      }
+      if (signal.source.timing.retrieval?.kind === "calendar_date" &&
+          signal.source.timing.retrieval.on !== signal.source.retrieved) {
+        errors.push(`signal ${signal.id} legacy retrieval alias must match the timing contract`);
+      }
     }
     const hasPoints = (signal.series || []).some(({ points }) => points.length);
     if (signal.status === "available" && !hasPoints) {
@@ -635,12 +769,31 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     }
   }
 
-  const freshnessLimits = policy.freshness_policy?.signal_max_age_years || {};
-  for (const signal of signals.filter(({ status }) => status === "available")) {
-    if (!Number.isInteger(freshnessLimits[signal.id]) || freshnessLimits[signal.id] < 0) {
-      errors.push(`signal ${signal.id} requires a policy-governed freshness limit`);
+  const timingRules = policy.freshness_policy?.signal_rules || {};
+  for (const signal of signals) {
+    const rule = timingRules[signal.id];
+    const expectedKind = signal.source?.timing?.kind === "instrument_gap"
+      ? "not_applicable"
+      : signal.source?.timing?.kind;
+    if (!rule || rule.kind !== expectedKind) {
+      errors.push(`signal ${signal.id} timing rule must match its source timing kind`);
+      continue;
     }
+    const ruleResult = validateTimingRule(rule);
+    errors.push(...ruleResult.errors.map(({ code, message }) =>
+      `signal ${signal.id} timing rule ${code}: ${message}`));
   }
+  const timingGraph = validateTimingGraph(signals, {
+    asOf: snapshot.as_of,
+    generatedAt: snapshot.generated_at,
+    rawInputs,
+    extractedMetadata,
+    availabilityReceipts: snapshot.reproducibility?.availability_receipts || [],
+    rules: timingRules,
+    publicUpdate: snapshot.public_update,
+  });
+  errors.push(...timingGraph.errors.map(({ code, path, message }) =>
+    `timing contract ${code} at ${path}: ${message}`));
 
   for (const rawInputId of rawInputIds) {
     if (!referencedRawInputIds.has(rawInputId)) {
@@ -695,9 +848,9 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   }
 
   const update = snapshot.public_update;
-  if (update && (update.observed.vintage !== snapshot.snapshot_id ||
-                 !update.update_id.endsWith(snapshot.snapshot_id))) {
-    errors.push("public_update identity and vintage must match the snapshot revision");
+  if (update && (update.observed.record_id !== snapshot.record_id ||
+                 !update.update_id.endsWith(snapshot.record_id))) {
+    errors.push("public_update identity and observed record_id must match the record identity");
   }
   if (update && !entityIds.has(update.scope.entity)) {
     errors.push(`public_update.scope.entity ${update.scope.entity} is not declared`);
@@ -725,7 +878,7 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     summary: publicArithmetic.summary,
     measure: publicContract.observed_measure,
     source_signal_ids: publicContract.observed_source_signal_ids,
-    vintage: snapshot.snapshot_id,
+    record_id: snapshot.record_id,
     uncertainty: publicContract.observed_uncertainty,
     epistemic_class: publicContract.observed_epistemic_class,
   };
@@ -805,10 +958,15 @@ try {
   if (freshnessPlaceholderCount !== 1) {
     throw new Error(`Expected one __FRESHNESS_POLICY__ placeholder, found ${freshnessPlaceholderCount}`);
   }
+  const timingPlaceholderCount = template.split("__TIMING_ASSESSMENTS__").length - 1;
+  if (timingPlaceholderCount !== 1) {
+    throw new Error(`Expected one __TIMING_ASSESSMENTS__ placeholder, found ${timingPlaceholderCount}`);
+  }
 
   const snapshotBytes = readFileSync(snapshotPath);
   const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
+  const timingSchema = JSON.parse(readFileSync(timingSchemaPath, "utf8"));
   const policyBytes = readFileSync(policyPath);
   const policyDigest = createHash("sha256").update(policyBytes).digest("hex");
   if (policyDigest !== POLICY_SHA256) {
@@ -817,6 +975,7 @@ try {
   const policy = JSON.parse(policyBytes.toString("utf8"));
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
+  ajv.addSchema(timingSchema);
   const validate = ajv.compile(schema);
   if (!validate(snapshot)) {
     throw new Error(`snapshot schema validation failed: ${ajv.errorsText(validate.errors)}`);
@@ -849,9 +1008,49 @@ try {
   }
   const serialised = JSON.stringify(snapshot).replaceAll("</", "<\\/");
   const freshnessPolicy = JSON.stringify(policy.freshness_policy).replaceAll("</", "<\\/");
+  const assessmentPayload = {
+    assessment_schema_version: "1.0.0",
+    evaluator: {
+      id: "timing-assessment-kernel",
+      version: "1.0.0",
+      code_sha256: sha256(readFileSync(timingEvaluatorPath)),
+    },
+    record_binding: {
+      record_id: snapshot.record_id,
+      snapshot_sha256: sha256(snapshotBytes),
+      evidence_policy_sha256: `sha256:${policyDigest}`,
+      evidence_cutoff: snapshot.as_of,
+      record_generated_at: snapshot.generated_at,
+    },
+    signals: assessTimingGraph(snapshot.signals, {
+      asOf: snapshot.as_of,
+      generatedAt: snapshot.generated_at,
+      rawInputs: snapshot.reproducibility?.raw_inputs || [],
+      rules: policy.freshness_policy.signal_rules,
+      publicUpdate: snapshot.public_update,
+    }),
+  };
+  const timingAssessmentBundle = {
+    ...assessmentPayload,
+    assessment_id: sha256(Buffer.from(canonicalJson(assessmentPayload))),
+  };
+  const timingAssessmentSchema = JSON.parse(readFileSync(timingAssessmentSchemaPath, "utf8"));
+  const assessmentAjv = new Ajv2020({ allErrors: true, strict: true, strictRequired: false });
+  addFormats(assessmentAjv);
+  assessmentAjv.addSchema(timingSchema);
+  const validateTimingAssessments = assessmentAjv.compile(timingAssessmentSchema);
+  if (!validateTimingAssessments(timingAssessmentBundle)) {
+    throw new Error(
+      `timing assessment schema validation failed: ${assessmentAjv.errorsText(validateTimingAssessments.errors)}`,
+    );
+  }
+  const timingAssessments = JSON.stringify(timingAssessmentBundle).replaceAll("</", "<\\/");
   writeFileSync(
     outputPath,
-    template.replace("__SNAPSHOT__", serialised).replace("__FRESHNESS_POLICY__", freshnessPolicy),
+    template
+      .replace("__SNAPSHOT__", serialised)
+      .replace("__FRESHNESS_POLICY__", freshnessPolicy)
+      .replace("__TIMING_ASSESSMENTS__", timingAssessments),
     "utf8",
   );
   process.stdout.write(`Built ${outputPath} from ${snapshotPath}\n`);

@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const workflow = readFileSync(resolve(root, ".github", "workflows", "integrity.yml"), "utf8");
+const packageJson = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
 const snapshotIndex = JSON.parse(readFileSync(
   resolve(root, "dashboard", "snapshots", "index.json"),
   "utf8",
@@ -18,6 +19,7 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
   assert.match(workflow, /fetch-depth:\s*0/);
   assert.match(workflow, /npm ci/);
   assert.match(workflow, /npm test/);
+  assert.match(workflow, /node dashboard\/tools\/migrate-timing-contract\.mjs/);
   assert.match(workflow, /node dashboard\/tools\/build\.mjs/);
   assert.match(
     workflow,
@@ -26,4 +28,10 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
   );
   assert.match(workflow, /node dashboard\/tools\/build-australia-pilot\.mjs/);
   assert.match(workflow, /git diff --exit-code/);
+});
+
+test("the complete test contract includes claim and assumption governance", () => {
+  assert.match(packageJson.scripts.test, /npm run test:evidence/);
+  assert.match(packageJson.scripts["test:evidence"], /evidence\/claims\/tests\/\*\.test\.mjs/);
+  assert.match(packageJson.scripts["test:evidence"], /evidence\/assumptions\/tests\/\*\.test\.mjs/);
 });

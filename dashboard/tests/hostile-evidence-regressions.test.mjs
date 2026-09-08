@@ -14,7 +14,8 @@ const dashboard = resolve(here, "..");
 const root = resolve(dashboard, "..");
 const buildPath = join(dashboard, "tools", "build.mjs");
 const fetchPath = join(dashboard, "tools", "fetch_snapshot.py");
-const snapshotPath = join(dashboard, "snapshots", "2026-09-08.json");
+const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
+const predecessorPath = join(dashboard, "snapshots", "2026-09-08.json");
 const legacyPath = join(dashboard, "snapshots", "2026-09-07.json");
 const indexPath = join(dashboard, "snapshots", "index.json");
 const policyPath = join(dashboard, "evidence", "adapter-classification-policy.json");
@@ -51,9 +52,13 @@ test("local hashes never become publisher authentication wording", () => {
   assert.match(template, /LOCAL HASH CONSISTENCY ONLY/);
   assert.doesNotMatch(template, /\bVERIFIED SOURCE BYTES\b/);
   for (const field of [
-    "publication_status", "as_of", "generated_at", "correction", "reproducibility",
-    "evidence_policy", "provenance", "source_bytes_status", "currentness",
+    "publication_status", "record_id", "as_of", "generated_at", "correction", "reproducibility",
+    "evidence_policy", "provenance", "source_bytes_status", "timing_assessments",
   ]) assert.match(template, new RegExp(`${field}:`), `export omits ${field}`);
+  assert.match(template, /governance_state:\{/);
+  assert.match(template, /if_path:"omitted_from_selection_export"/);
+  assert.match(template, /possible_path_refs:"omitted_from_selection_export"/);
+  assert.match(template, /action_authority:"none_in_selection_export"/);
   for (const epistemicClass of [
     "observed", "published_statistic", "published_estimate", "modelled_estimate",
     "nowcast", "forecast", "derived", "not_measured", "unavailable",
@@ -115,13 +120,15 @@ test("the public update carries a fully derived point and raw-input lineage", ()
 test("a correction is bound to predecessor bytes and its changed fields are derived", () => {
   const index = JSON.parse(readFileSync(indexPath, "utf8"));
   const legacyDigest = `sha256:${createHash("sha256").update(readFileSync(legacyPath)).digest("hex")}`;
-  const legacyEntry = index.snapshots.find(({ id }) => id === "2026-09-07");
+  const predecessorDigest = `sha256:${createHash("sha256").update(readFileSync(predecessorPath)).digest("hex")}`;
+  const legacyEntry = index.snapshots.find(({ id }) => id === "2026-09-07.r1");
   assert.equal(legacyEntry.sha256, legacyDigest);
   for (const entry of index.snapshots) {
     const bytes = readFileSync(join(dashboard, "snapshots", entry.path));
     assert.equal(entry.sha256, `sha256:${createHash("sha256").update(bytes).digest("hex")}`);
   }
-  assert.equal(snapshot.correction.supersedes_snapshot_sha256, legacyDigest);
+  assert.equal(snapshot.correction.supersedes_snapshot_sha256, predecessorDigest);
+  assert.equal(snapshot.correction.supersedes_record_id, "2026-09-08.r1");
   assert.ok(snapshot.correction.changed_fields.length > 0);
 
   const falseFlag = structuredClone(snapshot);
@@ -133,15 +140,8 @@ test("a correction is bound to predecessor bytes and its changed fields are deri
   rejectsBuild(falseFields, /correction changed.fields.*predecessor/i);
 
   const backwards = structuredClone(snapshot);
-  backwards.snapshot_id = "2026-09-07";
-  backwards.as_of = "2026-09-07T00:41:31Z";
-  backwards.generated_at = "2026-09-07T00:41:31Z";
-  backwards.correction.issued_on = "2026-09-07";
-  backwards.correction.supersedes_snapshot_id = "2026-09-08";
-  backwards.correction.supersedes_snapshot_sha256 = index.snapshots.find(({ id }) => id === "2026-09-08").sha256;
-  backwards.public_update.observed.vintage = "2026-09-07";
-  backwards.public_update.update_id = "world-aggregate-transmission-2026-09-07";
-  rejectsBuild(backwards, /correction predecessor must be strictly earlier/i);
+  backwards.correction.supersedes_record_id = "2026-09-08.r9";
+  rejectsBuild(backwards, /correction predecessor.*absent|strictly earlier/i);
 });
 
 test("every buildable snapshot is registered and bound to its canonical path and bytes", () => {
@@ -151,21 +151,23 @@ test("every buildable snapshot is registered and bound to its canonical path and
 
   const unregistered = structuredClone(snapshot);
   unregistered.snapshot_id = "2026-09-09";
+  unregistered.record_id = "2026-09-09.r1";
   unregistered.as_of = "2026-09-09T00:41:31Z";
   unregistered.generated_at = "2026-09-09T00:41:31Z";
   delete unregistered.correction;
-  unregistered.public_update.observed.vintage = "2026-09-09";
-  unregistered.public_update.update_id = "world-aggregate-transmission-2026-09-09";
+  unregistered.public_update.observed.record_id = "2026-09-09.r1";
+  unregistered.public_update.update_id = "world-aggregate-transmission-2026-09-09.r1";
   rejectsBuild(unregistered, /snapshot is not registered in the snapshot index/i);
 });
 
-test("freshness is policy-governed from snapshot as_of and exposed beside values", () => {
+test("timing is policy-governed from exact lineage and exposed beside values", () => {
   const policy = JSON.parse(readFileSync(policyPath, "utf8"));
-  assert.equal(policy.freshness_policy.basis, "snapshot_as_of");
-  assert.ok(policy.freshness_policy.signal_max_age_years.inflation >= 0);
+  assert.equal(policy.freshness_policy.basis, "exact_selected_lineage");
+  assert.equal(policy.freshness_policy.signal_rules.inflation.kind, "external_dataset");
   const template = readFileSync(templatePath, "utf8");
-  assert.match(template, /function currentnessFor\(/);
-  assert.match(template, /STALE AS OF/);
+  assert.match(template, /function timingLabel\(/);
+  assert.match(template, /FROZEN ASSESSMENT, NOT LIVE/);
+  assert.doesNotMatch(template, /CURRENT AS OF|currentnessFor/);
   assert.match(template, /pointEpistemicLabel\(sig,/);
 });
 

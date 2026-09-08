@@ -135,9 +135,9 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .panel-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
 .panel h3{font-size:17px;font-weight:600;line-height:1.25}
 .panel .q{font-size:13px;color:var(--ink-3);margin-top:3px}
-.val{text-align:right;flex:none}
+.val{text-align:right;flex:0 1 58%;min-width:0;max-width:58%;overflow-wrap:anywhere}
 .val .n{font-family:"IBM Plex Mono",monospace;font-size:26px;font-weight:500;line-height:1;letter-spacing:-.02em}
-.val .y{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);margin-top:4px}
+.val .y{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);margin-top:4px;overflow-wrap:anywhere}
 .panel p.why{margin:0;font-size:13.5px;color:var(--ink-2);max-width:60ch}
 .meta{border-top:1px solid var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:6px}
 .meta .row{display:flex;gap:8px;font-size:11.5px;line-height:1.45}
@@ -146,12 +146,13 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .meta .v{color:var(--ink-2)}
 .meta a{word-break:break-word}
 details.caveats summary{font-size:11.5px;color:var(--ink-3);cursor:pointer;font-family:"IBM Plex Mono",monospace}
+details.caveats p{margin:8px 0 0;font-size:11px;color:var(--ink-3);overflow-wrap:anywhere}
 details.caveats ul{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}
 details.caveats li{margin-bottom:4px}
 
 /* ---------------------------------------------------------------- chart */
 .chartbox{position:relative}
-svg.chart{display:block;width:100%;height:auto;overflow:visible}
+svg.chart{display:block;width:100%;height:auto;overflow:hidden}
 svg.chart text{font-family:"IBM Plex Mono",monospace;fill:var(--ink-3)}
 .legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:2px}
 .legend span{display:inline-flex;align-items:center;gap:5px;font-size:11px;
@@ -329,7 +330,7 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .method-stack pre{max-height:320px;max-width:100%}
 .authority-strip{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 20px}
 .authority-pill{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase;
-  border:1px solid var(--warning);color:var(--ink);background:color-mix(in srgb,var(--warning) 12%,transparent);padding:5px 8px;border-radius:3px}
+  border:1px solid var(--warning);color:var(--ink);background:color-mix(in srgb,var(--warning) 12%,transparent);padding:5px 8px;border-radius:3px;flex:0 0 auto;max-width:100%}
 .authority-pill.blocked{border-color:var(--critical);background:color-mix(in srgb,var(--critical) 10%,transparent)}
 .public-update{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0 0;padding-bottom:24px}
 .update-cell{background:var(--surface-2);border:1px solid var(--rule);border-radius:7px;padding:13px 14px;min-height:104px}
@@ -393,18 +394,21 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   </div>
   <div class="brandline">
     <div class="brandmark"><span class="sigil" aria-hidden="true"></span><h1>Abundance Transition Observatory</h1></div>
-    <span class="sub" id="m-schema">schema —</span>
+    <span class="sub" id="m-schema">schema not set</span>
   </div>
   <p class="standfirst"><strong>Complete the promise.<br>Make every IF visible.</strong></p>
   <p class="lead-copy"><strong>Capability is not access.</strong> This is a proposed public instrument for testing
     whether new capability becomes agency, where conditions may fail, and what people can prepare without pretending certainty.</p>
   <p class="plain-warning"><strong>No psychohistory. No inevitable future.</strong> The mathematical language describes
     evidence, assumptions and conditional paths. It does not confer predictive authority.</p>
+  <p class="plain-warning"><strong>FROZEN ASSESSMENT, NOT LIVE.</strong> Reference periods, publisher vintage, publisher release,
+    retrieval, byte acquisition and record generation are separate clocks. Unknown timing remains unknown.</p>
   <dl class="readout">
-    <div><dt>Snapshot</dt><dd class="mono" id="m-id">—</dd></div>
-    <div><dt>Generated</dt><dd class="mono" id="m-gen">—</dd></div>
-    <div><dt>Signals</dt><dd class="mono" id="m-count">—</dd></div>
-    <div><dt>Entities</dt><dd class="mono" id="m-ents">—</dd></div>
+    <div><dt>Record</dt><dd class="mono" id="m-id">Not set</dd></div>
+    <div><dt>Evidence cut-off</dt><dd class="mono" id="m-cutoff">Not set</dd></div>
+    <div><dt>Record revised</dt><dd class="mono" id="m-gen">Not set</dd></div>
+    <div><dt>Signals</dt><dd class="mono" id="m-count">Not set</dd></div>
+    <div><dt>Entities</dt><dd class="mono" id="m-ents">Not set</dd></div>
   </dl>
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
@@ -431,7 +435,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <main>
     <section class="section" id="trajectory">
       <div class="section-head">
-        <div><div class="section-kicker">01 · Current evidence</div><h2>What can the aggregate baseline actually say?</h2></div>
+        <div><div class="section-kicker">01 · Frozen evidence</div><h2>What can the aggregate baseline actually say?</h2></div>
         <p>It can expose a question about transmission. It cannot diagnose an individual, predict a crisis,
           attribute change to AI, or establish whether abundance is reaching a particular community.</p>
       </div>
@@ -491,10 +495,10 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
       </div>
       <div class="scenario-shell"><div class="scenario-grid">
         <div class="scenario-controls">
-          <div><span class="scenario-class" id="scenario-class">SCENARIO, NOT A FORECAST</span><p class="scenario-result" id="scenario-result">—</p><p class="scenario-sub" id="scenario-sub">—</p></div>
-          <div class="range-row"><label for="output-growth">Output growth <output id="output-growth-value">—</output></label><input id="output-growth" type="range" min="-2" max="8" step="0.1" value="2"></div>
-          <div class="range-row"><label for="income-growth">Labour-income growth <output id="income-growth-value">—</output></label><input id="income-growth" type="range" min="-2" max="8" step="0.1" value="2"></div>
-          <div class="range-row"><label for="horizon">Horizon <output id="horizon-value">—</output></label><input id="horizon" type="range" min="3" max="20" step="1" value="10"></div>
+          <div><span class="scenario-class" id="scenario-class">SCENARIO, NOT A FORECAST</span><p class="scenario-result" id="scenario-result">Not set</p><p class="scenario-sub" id="scenario-sub">Not set</p></div>
+          <div class="range-row"><label for="output-growth">Output growth <output id="output-growth-value">Not set</output></label><input id="output-growth" type="range" min="-2" max="8" step="0.1" value="2"></div>
+          <div class="range-row"><label for="income-growth">Labour-income growth <output id="income-growth-value">Not set</output></label><input id="income-growth" type="range" min="-2" max="8" step="0.1" value="2"></div>
+          <div class="range-row"><label for="horizon">Horizon <output id="horizon-value">Not set</output></label><input id="horizon" type="range" min="3" max="20" step="1" value="10"></div>
           <button class="ctl" id="scenario-reset" type="button">Use aggregate baseline rates</button>
           <p class="scenario-seed" id="scenario-seed">Example assumptions: 2.0% output and 2.0% labour-income growth. User-adjustable and not sourced from the snapshot.</p>
         </div>
@@ -552,7 +556,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
           <p>This page renders a dated, versioned JSON snapshot collected from named sources by a separate fetcher. Snapshots keep an argument reproducible when upstream data changes.</p>
           <div class="flow"><b>named sources</b><i>→</i><b>fetch_snapshot.py</b><i>→</i><b>dated snapshot</b><i>→</i><b>validated build</b></div>
           <p><strong>Local snapshot loading is disabled in this public prototype.</strong> Schema-major checking alone was insufficient. Re-enable only after full schema validation, provenance checks and an unmistakable local-data watermark.</p>
-          <div class="warnbar"><strong>Current limit.</strong> The snapshot schema validates structure, not whether a source is correct, a method is appropriate or a conclusion is justified.</div>
+          <div class="warnbar"><strong>Present limit.</strong> The snapshot schema validates structure, not whether a source is correct, a method is appropriate or a conclusion is justified.</div>
           <p class="small-note">One complete signal from the embedded, build-validated snapshot.</p>
           <pre id="api-shape"></pre>
         </section>
@@ -562,26 +566,37 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 
   <footer>
     <p><strong>Prototype and agent proposal.</strong> Available source series retain their named sources. Derived signals state their methods and caveats. Missing fields indicate absent evidence in this snapshot, not proof that no source exists.</p>
-    <p>National aggregates may conceal divergent outcomes. No current series establishes effects for a particular cohort, attributes change to AI, or authorises intervention.</p>
+    <p>National aggregates may conceal divergent outcomes. No included series establishes effects for a particular cohort, attributes change to AI, or authorises intervention.</p>
     <p id="sourceline"></p>
   </footer>
 </div>
 
 <script id="snapshot-data" type="application/json">__SNAPSHOT__</script>
+<script id="timing-assessment-data" type="application/json">__TIMING_ASSESSMENTS__</script>
 <script>
 (function(){
 "use strict";
-var ACCEPTS = 1;                       // major schema version this build renders
+var ACCEPTS = 2;                       // major schema version this build renders
 var SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 var snap = JSON.parse(document.getElementById("snapshot-data").textContent);
-var freshnessPolicy = __FRESHNESS_POLICY__;
+var timingAssessmentBundle = JSON.parse(document.getElementById("timing-assessment-data").textContent);
+var timingAssessments = timingAssessmentBundle.signals||{};
+var timingPolicy = __FRESHNESS_POLICY__;
 var entity = "OWID_WRL", tableMode = false, familyFilter = "ALL";
 var scenarioSeededFor = "example";
 
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
 function el(t,c,txt){ var e=document.createElement(t); if(c)e.className=c; if(txt!=null)e.textContent=txt; return e; }
-function fmt(v,p){ if(v==null||isNaN(v)) return "—";
+function fmt(v,p){ if(v==null||isNaN(v)) return "Not available";
   return Number(v).toLocaleString(undefined,{minimumFractionDigits:p,maximumFractionDigits:p}); }
+function displayUnit(sig){
+  if(sig.id==="gdp-per-capita") return "constant 2015 US$ per person";
+  if(sig.id==="engels-divergence") return "index points (2004 = 100)";
+  var labels={percent:"per cent",pp:"percentage points",usd:"US$ (price basis unspecified)",
+    count:"count",months:"months",days:"days",index:"index points"};
+  return labels[sig.unit]||String(sig.unit||"unit unspecified");
+}
+function formattedReading(sig,value){return fmt(value,sig.precision)+" "+displayUnit(sig);}
 function entName(code){ var e=(snap.entities||[]).find(function(x){return x.code===code}); return e?e.name:code; }
 /* Colour follows the entity, never its rank within a panel. Built once from the
    snapshot's entity order so a series keeps its colour across every chart. */
@@ -605,14 +620,15 @@ function state(sig){
 function stateLabel(sig){
   var s=state(sig);
   if(s==="void") return sig.status==="not_measured"?"not measured":"unavailable";
-  if(sig.latest) return pointEpistemicLabel(sig,[
-    sig.latest.year,sig.latest.value,sig.latest.epistemic_class,sig.latest.input_epistemic_classes
-  ]);
+  if(sig.latest) return epistemicLabel(sig.latest.epistemic_class)+" · "+sig.latest.year;
   var classes=[];
   (sig.series||[]).forEach(function(series){series.points.forEach(function(point){
-    var label=pointEpistemicLabel(sig,point);if(classes.indexOf(label)<0)classes.push(label);
+    var label=epistemicLabel(point&&point[2]);
+    if(point&&point[2]==="derived"&&point[3]&&point[3].length)
+      label+=" from "+point[3].map(epistemicLabel).join(" + ");
+    if(classes.indexOf(label)<0)classes.push(label);
   });});
-  return classes.length?classes.join(" + "):"available";
+  return classes.length?classes.join(" + ")+" · select one place":"available";
 }
 function epistemicLabel(value){
   return String(value||"unknown").replaceAll("_"," ");
@@ -621,24 +637,133 @@ function sourceBytesLabel(){
   return snap.reproducibility&&snap.reproducibility.raw_input_status==="captured_local_hash_consistent"
     ? "LOCAL HASH CONSISTENCY ONLY · PUBLISHER ORIGIN UNVERIFIED" : "UNVERIFIED SOURCE BYTES";
 }
-function latestReferenceYear(sig){
-  var years=[];(sig.series||[]).forEach(function(series){(series.points||[]).forEach(function(point){years.push(point[0]);});});
-  return years.length?Math.max.apply(null,years):null;
+function timingValue(value){return String(value||"unknown").replaceAll("_"," ").toUpperCase();}
+function clockReading(clock){
+  if(!clock)return "UNKNOWN";
+  if(clock.status==="known")return "KNOWN "+clock.id;
+  if(clock.status==="unknown")return "UNKNOWN ("+clock.reason+")";
+  if(clock.kind==="publisher_declared_instant")return "DECLARED INSTANT "+clock.at;
+  if(clock.kind==="publisher_declared_date")return "DECLARED DATE "+clock.on+" "+clock.timezone;
+  if(clock.kind==="publisher_declared_local_date")return "DECLARED LOCAL DATE "+clock.on+" "+clock.timezone;
+  if(clock.kind==="observed_availability")return "OBSERVED AVAILABILITY "+
+    (clock.not_seen?"NOT SEEN "+clock.not_seen.at+" · ":"")+"FIRST SEEN "+clock.first_seen.at;
+  if(clock.kind==="exact")return "EXACT "+clock.at+" · INPUT "+(clock.raw_input_id||"UNBOUND");
+  if(clock.kind==="calendar_date")return "REPORTED DATE "+clock.on+" "+clock.timezone+
+    " · BASIS "+clock.basis+" · UNVERIFIED";
+  if(clock.kind==="unknown")return "UNKNOWN ("+clock.reason+")";
+  return timingValue(clock.kind||"unknown");
 }
-function currentnessFor(sig){
-  var limit=freshnessPolicy.signal_max_age_years[sig.id],latest=latestReferenceYear(sig);
-  var asOfYear=Number(String(snap.as_of||"").slice(0,4));
-  if(!Number.isInteger(limit)||latest==null||!Number.isInteger(asOfYear))return "CURRENTNESS UNAVAILABLE";
-  return asOfYear-latest>limit
-    ? "STALE AS OF "+snap.as_of.slice(0,10)
-    : "CURRENT AS OF "+snap.as_of.slice(0,10);
+function acquisitionReading(assessed){
+  var records=assessed&&assessed.acquisition_records||[];
+  if(!records.length)return "UNKNOWN · "+timingValue(assessed&&assessed.point_raw_input_binding);
+  return records.map(function(record){return record.raw_input_id+" @ "+(record.acquired_at||"UNKNOWN");}).join(" + ");
 }
-function pointEpistemicLabel(sig,point){
+function timingAssessmentFor(sig,point,pointEntity,pointMeasure,context){
+  var root=timingAssessments[sig.id]||null;if(!root)return null;
+  if(context==="public_update"&&root.assessment_target&&
+      root.assessment_target.kind==="public_update")return root;
+  if(!point||!Number.isInteger(point[0])||!pointEntity)return null;
+  var matches=(root.point_assessments||[]).filter(function(candidate){
+    var target=candidate.target||{};
+    return target.kind==="point"&&target.signal_id===sig.id&&
+      target.entity===pointEntity&&target.year===point[0]&&
+      (target.measure||null)===(pointMeasure||null);
+  });
+  return matches.length===1?matches[0]:null;
+}
+function timingLabel(sig,point,pointEntity,pointMeasure,context){
+  var assessed=timingAssessmentFor(sig,point,pointEntity,pointMeasure,context);
+  var period=point&&Number.isInteger(point[0])?"PERIOD "+point[0]:"PERIOD UNKNOWN";
+  if(context==="public_update"&&assessed&&assessed.reference_span){
+    period="WINDOW "+assessed.reference_span.from_year+"→"+assessed.reference_span.through_year;
+  }else if(assessed&&assessed.reference_span&&
+      assessed.reference_span.from_year!==assessed.reference_span.through_year){
+    period="CHANGE "+assessed.reference_span.from_year+"→"+assessed.reference_span.through_year;
+  }
+  if(!assessed){
+    return period+" · "+(sig.source&&sig.source.timing&&sig.source.timing.kind==="derived"
+      ?"DERIVED TIMING NOT ASSESSED FOR THIS POINT":"TIMING NOT ASSESSED FOR THIS POINT");
+  }
+  var parts=[period];
+  parts.push("TIMING EVIDENCE "+timingValue(assessed.evidence_readiness));
+  parts.push("PUBLICATION "+timingValue(assessed.publication_eligibility));
+  parts.push("ASSESSMENT "+timingValue(assessed.assessment_execution));
+  parts.push("STRUCTURE "+timingValue(assessed.structural_lineage));
+  if(assessed.endpoint_coverage){
+    parts.push("ENDPOINT "+timingValue(assessed.endpoint_coverage));
+    if(assessed.baseline_coverage&&assessed.baseline_coverage!=="unknown")
+      parts.push("BASELINE "+timingValue(assessed.baseline_coverage));
+    if(assessed.comparator_coverage&&assessed.comparator_coverage!=="unknown")
+      parts.push("COMPARATOR "+timingValue(assessed.comparator_coverage));
+  }else parts.push("COVERAGE "+timingValue(assessed.reference_coverage));
+  var vintage="VINTAGE "+timingValue(assessed.vintage_alignment||assessed.publisher_vintage);
+  if(assessed.publisher_vintage_record&&assessed.publisher_vintage_record.status==="known")
+    vintage+=" ["+assessed.publisher_vintage_record.id+"]";
+  else if(assessed.publisher_vintage_ids&&assessed.publisher_vintage_ids.length)
+    vintage+=" ["+assessed.publisher_vintage_ids.join(" + ")+"]";
+  parts.push(vintage);
+  if(assessed.publisher_vintage_record)parts.push("VINTAGE READING "+clockReading(assessed.publisher_vintage_record));
+  parts.push("RELEASE BASIS "+timingValue(
+    assessed.publisher_release_basis||(assessed.publisher_release_bases||[]).join(" + ")));
+  if(assessed.publisher_release)parts.push("RELEASE READING "+clockReading(assessed.publisher_release));
+  parts.push("RELEASE RECENCY "+timingValue(assessed.release_recency));
+  parts.push("RETRIEVAL "+timingValue(assessed.retrieval_recency));
+  if(assessed.retrieval)parts.push("RETRIEVAL READING "+clockReading(assessed.retrieval));
+  parts.push("ACQUISITION "+timingValue(assessed.byte_acquisition));
+  parts.push("ACQUISITION READING "+acquisitionReading(assessed));
+  parts.push("AVAILABILITY "+timingValue(assessed.availability_order));
+  if(assessed.computation)parts.push("COMPUTATION "+clockReading(assessed.computation));
+  if(assessed.role_assessments){
+    ["baseline","comparator","endpoint"].forEach(function(role){
+      (assessed.role_assessments[role]||[]).forEach(function(roleAssessment){
+        var target=roleAssessment.target||{};
+        parts.push(role.toUpperCase()+" "+(target.signal_id||"UNKNOWN")+"/"+
+          (target.year==null?"UNKNOWN":target.year)+" · VINTAGE "+clockReading(roleAssessment.publisher_vintage)+
+          " · RELEASE "+clockReading(roleAssessment.publisher_release)+
+          " · RETRIEVAL "+clockReading(roleAssessment.retrieval)+
+          " · ACQUISITION "+acquisitionReading(roleAssessment));
+      });
+    });
+  }
+  parts.push("RECORD GENERATED "+timingValue(assessed.record_generated_at));
+  return parts.join(" · ");
+}
+function compactTimingLabel(sig,point,pointEntity,pointMeasure,context){
+  var assessed=timingAssessmentFor(sig,point,pointEntity,pointMeasure,context);
+  var period=point&&Number.isInteger(point[0])?String(point[0]):"PERIOD UNKNOWN";
+  if(assessed&&assessed.reference_span&&assessed.reference_span.from_year!==assessed.reference_span.through_year)
+    period="CHANGE "+assessed.reference_span.from_year+"→"+assessed.reference_span.through_year;
+  return assessed
+    ? period+" · TIMING "+timingValue(assessed.evidence_readiness)+" · DETAILS"
+    : period+" · TIMING NOT ASSESSED";
+}
+function compactPublicTimingState(sig,pointEntity){
+  var assessed=timingAssessmentFor(sig,null,pointEntity,null,"public_update");
+  if(!assessed)return "PUBLISHER RELEASE UNKNOWN · PUBLICATION INELIGIBLE";
+  var bases=assessed.publisher_release_bases||
+    (assessed.publisher_release_basis?[assessed.publisher_release_basis]:[]);
+  var release=bases.length&&bases.every(function(value){return value==="unknown";})
+    ? "PUBLISHER RELEASE UNKNOWN"
+    : "PUBLISHER RELEASE "+timingValue(bases.join(" + ")||"unknown");
+  return release+" · PUBLICATION "+timingValue(assessed.publication_eligibility)+
+    " · EVIDENCE "+timingValue(assessed.evidence_readiness);
+}
+function pointEpistemicLabel(sig,point,pointEntity,pointMeasure,context){
   var label=epistemicLabel(point&&point[2]);
   if(point&&point[2]==="derived"&&point[3]&&point[3].length){
     label+=" from "+point[3].map(epistemicLabel).join(" + ");
   }
-  return label+" · "+sourceBytesLabel()+" · "+currentnessFor(sig);
+  return label+" · "+compactTimingLabel(sig,point,pointEntity,pointMeasure,context);
+}
+function fullPointEvidenceLabel(sig,point,pointEntity,pointMeasure,context){
+  var label=epistemicLabel(point&&point[2]);
+  if(point&&point[2]==="derived"&&point[3]&&point[3].length)
+    label+=" from "+point[3].map(epistemicLabel).join(" + ");
+  return label+" · "+sourceBytesLabel()+" · "+
+    timingLabel(sig,point,pointEntity,pointMeasure,context);
+}
+function chartPointLabel(point){
+  return epistemicLabel(point&&point[2]);
 }
 function epistemicRuleFor(sig,year){
   var rules=(sig.source&&sig.source.adapter&&sig.source.adapter.epistemic_rules)||[];
@@ -655,8 +780,14 @@ function pick(sig){
   if(!series.length) return null;
   var hasM = series.some(function(s){return s.measure});
   var show, labelOf, colOf, multi=false;
-  if(hasM){
-    var ent = entity==="ALL" ? "OWID_WRL" : entity;
+  if(hasM&&entity==="ALL"){
+    show=[]; multi=true;
+    labelOf=function(s){return (s.measure||"Measure")+" · "+entName(s.entity)};
+    colOf=function(s){return colFor(s.entity)};
+    return {show:show,labelOf:labelOf,colOf:colOf,multi:multi,
+      unavailableReason:"Compare all is unavailable for multi-measure signals. Choose one place; no World series is substituted."};
+  } else if(hasM){
+    var ent = entity;
     show = series.filter(function(s){return s.entity===ent});
     var ms = show.map(function(s){return s.measure});
     labelOf=function(s){return s.measure||entName(s.entity)};
@@ -679,7 +810,7 @@ function latestForSelection(sig){
   if(!sel||sel.show.length!==1) return null;
   var series=sel.show[0], point=series.points[series.points.length-1];
   return point ? {value:point[1],year:point[0],epistemic_class:point[2],
-    input_epistemic_classes:point[3],entity:series.entity} : null;
+    input_epistemic_classes:point[3],entity:series.entity,measure:series.measure||null} : null;
 }
 
 function chart(sig, box){
@@ -703,8 +834,17 @@ function chart(sig, box){
   svg.setAttribute("class","chart");
   svg.setAttribute("viewBox","0 0 "+W+" "+H);
   svg.setAttribute("role","img");
-  svg.setAttribute("aria-label",sig.name+", "+show.map(labelOf).join(", "));
+  svg.setAttribute("aria-label",sig.name+", "+displayUnit(sig)+", "+show.map(labelOf).join(", "));
+  var desc=document.createElementNS(NS,"desc");
+  desc.textContent="Latest visible point evidence. "+show.map(function(s){
+    var last=s.points[s.points.length-1];
+    return labelOf(s)+": "+formattedReading(sig,last[1])+". "+
+      fullPointEvidenceLabel(sig,last,s.entity,s.measure||null);
+  }).join(" ");
+  svg.appendChild(desc);
   function mk(t,a){ var e=document.createElementNS(NS,t); for(var k in a) e.setAttribute(k,a[k]); return e; }
+  var axisUnit=mk("text",{x:W-m.r,y:m.t+2,"text-anchor":"end","font-size":9});
+  axisUnit.textContent=displayUnit(sig); svg.appendChild(axisUnit);
 
   var ticks=4;
   for(var i=0;i<=ticks;i++){
@@ -733,7 +873,8 @@ function chart(sig, box){
       stroke:css("--surface"),"stroke-width":2}));
     var lab=mk("text",{x:px(last[0])+8,y:py(last[1])+3.5,"font-size":10,"font-weight":500});
     lab.setAttribute("fill",css("--ink-2"));
-    lab.textContent = (multi ? entName(s.entity).slice(0,7) : fmt(last[1],sig.precision))+" · "+pointEpistemicLabel(sig,last);
+    lab.textContent = (multi ? entName(s.entity).slice(0,7) : fmt(last[1],sig.precision))+" · "+
+      chartPointLabel(last);
     svg.appendChild(lab);
   });
 
@@ -754,7 +895,8 @@ function chart(sig, box){
       var lft=el("span"); lft.style.cssText="display:inline-flex;align-items:center;gap:6px";
       var sw=el("span","sw"); sw.style.background=colOf(s);
       lft.appendChild(sw); lft.appendChild(el("span",null,labelOf(s)));
-      row.appendChild(lft); row.appendChild(el("b",null,fmt(p[1],sig.precision)+" · "+pointEpistemicLabel(sig,p)));
+      row.appendChild(lft); row.appendChild(el("b",null,formattedReading(sig,p[1])+" · "+
+        pointEpistemicLabel(sig,p,s.entity,s.measure||null)));
       tip.appendChild(row);
     });
     if(!any){ tip.style.opacity=0; return; }
@@ -794,7 +936,8 @@ function table(sig){
     var tr=el("tr"); tr.appendChild(el("td",null,String(y)));
     show.forEach(function(s){
       var p=s.points.find(function(q){return q[0]===y});
-      tr.appendChild(el("td",null,p?fmt(p[1],sig.precision)+" · "+pointEpistemicLabel(sig,p):"—"));
+      tr.appendChild(el("td",null,p?formattedReading(sig,p[1])+" · "+
+        pointEpistemicLabel(sig,p,s.entity,s.measure||null):"Not available"));
     });
     tb.appendChild(tr);
   });
@@ -840,7 +983,8 @@ function renderConditionMap(){
 }
 
 function baselineRates(){
-  var d=signalById("engels-divergence"), ent=entity==="ALL"?"OWID_WRL":entity;
+  if(entity==="ALL") return null;
+  var d=signalById("engels-divergence"), ent=entity;
   if(!d) return null;
   function get(re){return (d.series||[]).find(function(s){return s.entity===ent&&re.test(s.measure||"")});}
   function rate(s){if(!s||s.points.length<2)return null;var pts=s.points, start=pts[Math.max(0,pts.length-11)],end=pts[pts.length-1];
@@ -894,11 +1038,11 @@ function panel(sig){
   var right=el("div","val");
   var selectedLatest=latestForSelection(sig);
   if(selectedLatest){
-    var n=el("div","n tnum",fmt(selectedLatest.value,sig.precision)+(sig.unit==="percent"?"%":sig.unit==="pp"?"pp":""));
+    var n=el("div","n tnum",formattedReading(sig,selectedLatest.value));
     right.appendChild(n);
     right.appendChild(el("div","y",selectedLatest.year+" "+pointEpistemicLabel(sig,[
       selectedLatest.year,selectedLatest.value,selectedLatest.epistemic_class,selectedLatest.input_epistemic_classes
-    ])+" · "+entName(selectedLatest.entity)));
+    ],selectedLatest.entity,selectedLatest.measure)+" · "+entName(selectedLatest.entity)));
   } else {
     var ch=el("span","chip "+state(sig));
     ch.appendChild(el("span","dot")); ch.appendChild(el("span",null,stateLabel(sig)));
@@ -912,7 +1056,7 @@ function panel(sig){
 
   if(sig.status==="not_measured"||sig.status==="unavailable"||noSelectedData){
     var vb=el("div","voidbox");
-    vb.appendChild(el("div","big", noSelectedData ? "No data for this signal in "+entName(entity)+"."
+    vb.appendChild(el("div","big", noSelectedData ? (selected.unavailableReason||"No data for this signal in "+entName(entity)+".")
       : sig.status==="not_measured" ? "No evidence is included for this signal." : "Fetch failed for this snapshot."));
     vb.appendChild(el("div","small", noSelectedData
       ? "The Observatory will not substitute another place. Choose a different geography or inspect the source coverage."
@@ -938,9 +1082,9 @@ function panel(sig){
   if(sig.trouble_reading) row("Trouble", sig.trouble_reading);
   if(sig.method && sig.status==="available") row("Method", sig.method);
   var selectedRule=selectedLatest?epistemicRuleFor(sig,selectedLatest.year):null;
-  if(selectedRule) row("Evidence", pointEpistemicLabel(sig,[
+  if(selectedRule) row("Evidence", fullPointEvidenceLabel(sig,[
     selectedLatest.year,selectedLatest.value,selectedLatest.epistemic_class,selectedLatest.input_epistemic_classes
-  ])+" · "+selectedRule.source_vintage+
+  ],selectedLatest.entity,selectedLatest.measure)+" · "+selectedRule.source_vintage+
     " · "+selectedRule.uncertainty+" · "+selectedRule.resolution_rule);
   if(sig.source) row("Source", sig.source.name + (sig.source.retrieved?" · "+sig.source.retrieved:""),
                      sig.source.url||null);
@@ -974,7 +1118,7 @@ function renderVerdict(){
   var lft=el("div","verdict-left"), rt=el("div","verdict-right");
 
   // cumulative divergence over the whole window, for the entity in view
-  var ent = entity==="ALL"?"OWID_WRL":entity, gap=null, span=null;
+  var ent = entity, gap=null, span=null;
   if(d){
     var out=(d.series||[]).find(function(x){return x.entity===ent&&/Output/.test(x.measure)});
     var lab=(d.series||[]).find(function(x){return x.entity===ent&&/Labour/.test(x.measure)});
@@ -995,11 +1139,20 @@ function renderVerdict(){
   var n=el("div","bignum tnum",(gap>0?"+":"")+fmt(gap,1));
   n.style.color = css("--ink");
   lft.appendChild(n);
-  lft.appendChild(el("div","bigunit","index points, labour income against output · "+sourceBytesLabel()+" · "+currentnessFor(g)));
+  var verdictYear=Number(span.split("–").at(-1));
+  var verdictContext=snap.public_update&&snap.public_update.scope.entity===ent?"public_update":null;
+  var compactVerdictTiming=compactTimingLabel(d,[verdictYear],ent,null,verdictContext);
+  var verdictTiming=timingLabel(d,[verdictYear],ent,null,verdictContext);
+  lft.appendChild(el("div","bigunit","index points, labour income against output · "+
+    epistemicLabel("derived")+" · "+compactVerdictTiming));
   var ch=el("span","chip neutral"); ch.style.marginTop="14px";
   ch.appendChild(el("span","dot"));
-  ch.appendChild(el("span",null,"derived baseline comparison · "+sourceBytesLabel()+" · "+currentnessFor(g)));
+  ch.appendChild(el("span",null,"descriptive comparison only"));
   lft.appendChild(ch);
+  var evidenceDetails=el("details","caveats"); evidenceDetails.style.marginTop="14px";
+  evidenceDetails.appendChild(el("summary",null,"Full evidence and timing contract"));
+  evidenceDetails.appendChild(el("p",null,sourceBytesLabel()+" · "+verdictTiming));
+  lft.appendChild(evidenceDetails);
 
   rt.appendChild(el("h2",null, gap<0
     ? "Constructed labour income grew "+fmt(Math.abs(gap),1)+" index points less than output in this aggregate baseline."
@@ -1064,6 +1217,20 @@ function renderFamilyFilter(){
 }
 
 var evidenceExportUrl=null;
+function exportedPointAssessments(signal,seriesList){
+  var results=[];
+  (seriesList||[]).forEach(function(series){
+    (series.points||[]).forEach(function(point){
+      var assessed=timingAssessmentFor(signal,point,series.entity,series.measure||null,null);
+      results.push(assessed||{
+        target:{kind:"point",signal_id:signal.id,entity:series.entity,
+          measure:series.measure||null,year:point[0]},
+        status:"not_assessed",reason:"TIMING_POINT_BINDING_ABSENT"
+      });
+    });
+  });
+  return results;
+}
 function currentEvidenceExport(){
   var signals=(snap.signals||[]).filter(function(signal){
     return familyFilter==="ALL"||signal.family===familyFilter;
@@ -1073,18 +1240,50 @@ function currentEvidenceExport(){
       id:signal.id,name:signal.name,family:signal.family,status:signal.status,
       unit:signal.unit,precision:signal.precision,source:signal.source,
       source_bytes_status:snap.reproducibility.raw_input_status,
-      currentness:currentnessFor(signal),
+      effective_entities:Array.from(new Set((selected?selected.show:[]).map(function(series){return series.entity;}))),
+      selection_note:selected&&selected.unavailableReason||null,
+      timing_assessments:exportedPointAssessments(signal,selected?selected.show:[]),
       series:selected?selected.show:[]
     };
   });
+  var selectedAssessments={};
+  signals.forEach(function(signal){selectedAssessments[signal.id]=signal.timing_assessments;});
   return {
-    schema_version:snap.schema_version,snapshot_id:snap.snapshot_id,
+    artifact_kind:"selection_only",
+    reference_closure:"external_record_binding",
+    schema_version:snap.schema_version,record_id:snap.record_id,snapshot_id:snap.snapshot_id,
     publication_status:snap.publication_status,as_of:snap.as_of,generated_at:snap.generated_at,
     source_bytes_status:snap.reproducibility.raw_input_status,
-    evidence_policy:snap.evidence_policy,correction:snap.correction||null,
-    reproducibility:snap.reproducibility,
-    provenance:{generator:snap.generator,public_update:snap.public_update&&snap.public_update.provenance},
-    public_update:snap.public_update,selection:{entity:entity,family:familyFilter},signals:signals
+    reproducibility:{
+      scope:"external_record_binding",
+      raw_input_status:snap.reproducibility.raw_input_status,
+      record_ref:{record_id:snap.record_id,schema_version:snap.schema_version},
+      note:"This selection does not carry the complete raw-input closure. Resolve the frozen record before attempting reproduction."
+    },
+    evidence_policy:snap.evidence_policy,timing_policy:timingPolicy,
+    governance_state:{
+      authorship:"agent_proposal",
+      review_state:"requires_fernando_and_independent_review",
+      publication_status:snap.publication_status,
+      operational_authority:"none"
+    },
+    source_assessment_bundle:{
+      assessment_schema_version:timingAssessmentBundle.assessment_schema_version,
+      assessment_id:timingAssessmentBundle.assessment_id,
+      evaluator:timingAssessmentBundle.evaluator,
+      record_binding:timingAssessmentBundle.record_binding,
+      selected_point_assessments:selectedAssessments
+    },
+    correction:snap.correction||null,
+    provenance:{generator:snap.generator},
+    omissions:{
+      public_update:"omitted_from_selection_export",
+      if_path:"omitted_from_selection_export",
+      possible_path_refs:"omitted_from_selection_export",
+      action_authority:"none_in_selection_export",
+      reason:"The public update, IF graph and possible-path records are separate claim and authority graphs. This export contains only the current atlas selection and externally binds to the frozen record and assessment bundle."
+    },
+    selection:{entity:entity,family:familyFilter},signals:signals
   };
 }
 function refreshEvidenceExport(){
@@ -1096,8 +1295,9 @@ function refreshEvidenceExport(){
 }
 
 function renderMeta(){
-  document.getElementById("m-id").textContent=snap.snapshot_id||"—";
-  document.getElementById("m-gen").textContent=(snap.generated_at||"—").replace("T"," ").replace("Z"," UTC");
+  document.getElementById("m-id").textContent=snap.record_id||snap.snapshot_id||"Not set";
+  document.getElementById("m-cutoff").textContent=(snap.as_of||"Not set").replace("T"," ").replace("Z"," UTC");
+  document.getElementById("m-gen").textContent=(snap.generated_at||"Not set").replace("T"," ").replace("Z"," UTC");
   var available=(snap.signals||[]).filter(function(s){return s.status==="available"}).length;
   document.getElementById("m-count").textContent=(snap.signals||[]).length+" ("+available+" with data; point classes shown beside values)";
   document.getElementById("m-ents").textContent=activeEntities().length;
@@ -1105,7 +1305,7 @@ function renderMeta(){
     (snap.publication_status||"publication status unknown")+" · "+sourceBytesLabel();
   var correction=snap.correction,correctionHost=document.getElementById("snapshot-correction");
   correctionHost.textContent=correction
-    ? "Snapshot "+snap.snapshot_id+" supersedes "+correction.supersedes_snapshot_id+". "+correction.summary+
+    ? "Record "+snap.record_id+" supersedes "+correction.supersedes_record_id+". "+correction.summary+
       " Source values changed: "+(correction.source_values_changed?"yes":"no")+"."
     : "This snapshot is not marked as a corrected revision.";
   var srcs={}; (snap.signals||[]).forEach(function(s){ if(s.source&&s.source.name&&s.source.url) srcs[s.source.name]=1; });
@@ -1129,10 +1329,25 @@ function renderNow(){
   var condition=update.condition_change,action=update.action,falsifier=update.falsifier,next=update.next_check;
   var sources=observed.source_signal_ids.map(function(id){var signal=signalById(id);return signal&&signal.source?signal.source.name:id;});
   var updateSignals=observed.source_signal_ids.map(signalById).filter(Boolean);
-  var updateCurrentness=updateSignals.some(function(signal){return currentnessFor(signal).indexOf("STALE AS OF")===0;})
-    ? "STALE AS OF "+snap.as_of.slice(0,10) : "CURRENT AS OF "+snap.as_of.slice(0,10);
-  cell("now-observed",observed.summary+" ["+sourceBytesLabel()+" · "+updateCurrentness+"]",
-    "Class: "+observed.epistemic_class+"\nMeasure: "+observed.measure+"\nScope: "+scope.population+" / "+scope.place+" / "+scope.period+"\nVintage: "+observed.vintage+"\nUncertainty: "+observed.uncertainty+"\nSources: "+sources.join("; "));
+  var visibleTimingState=Array.from(new Set(updateSignals.map(function(signal){
+    return compactPublicTimingState(signal,scope.entity);
+  }))).join("; ");
+  var timingSummary=updateSignals.map(function(signal){
+    if(signal.source&&signal.source.timing&&signal.source.timing.kind==="derived"){
+      return signal.id+": "+timingLabel(signal,null,scope.entity,null,"public_update");
+    }
+    var references=(update.lineage.source_points||[]).filter(function(point){
+      return point.signal_id===signal.id;
+    });
+    return references.map(function(reference){
+      var role=String(reference.role||"point").toUpperCase();
+      var roleContext=reference.role==="baseline"?" · ANCHOR, NOT A CURRENTNESS TEST":"";
+      return signal.id+"/"+role+" "+reference.year+roleContext+": "+timingLabel(
+        signal,[reference.year],reference.entity,reference.measure||null);
+    }).join("; ");
+  }).join("; ");
+  cell("now-observed",observed.summary+" ["+visibleTimingState+" · "+sourceBytesLabel()+" · FROZEN RECORD "+snap.record_id+"]",
+    "Class: "+observed.epistemic_class+"\nMeasure: "+observed.measure+"\nScope: "+scope.population+" / "+scope.place+" / "+scope.period+"\nRecord: "+observed.record_id+"\nPublisher release and retrieval: "+timingSummary+"\nUncertainty: "+observed.uncertainty+"\nSources: "+sources.join("; "));
   cell("now-affected",affected.status.toUpperCase()+". "+affected.summary,
     "Excluded or unresolved: "+affected.excluded_or_unresolved.join("; "));
   cell("now-inferred",inferred.summary,

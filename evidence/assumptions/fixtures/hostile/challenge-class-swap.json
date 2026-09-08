@@ -1,0 +1,16 @@
+{
+  "id": "hostile.challenge-class-swap",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/0/challenge",
+      "value": {
+        "kind": "review_mechanism",
+        "review_question": "Does the owner still like this claim?",
+        "process": "Ask only the owner.",
+        "decision_rule": "Keep it if the owner agrees."
+      }
+    }
+  ],
+  "expected_codes": ["SCHEMA_NONCONFORMANT"]
+}

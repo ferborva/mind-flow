@@ -1,0 +1,360 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/evidence/claims/claim-ledger/2-0-0",
+  "title": "Mind Flow atomic claim ledger v2",
+  "description": "A closed structural contract for binding source sentences to independently classified atomic claims. Schema validity does not establish truth, evidential adequacy, reviewer legitimacy, authority or publishability.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ledger_id",
+    "created_at",
+    "policy_ref",
+    "validation_scope",
+    "sentences",
+    "claims",
+    "evidence",
+    "authorities",
+    "reviews",
+    "replacement_lineage"
+  ],
+  "properties": {
+    "schema_version": { "const": "2.0.0" },
+    "ledger_id": { "$ref": "#/$defs/id" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "policy_ref": { "$ref": "#/$defs/policyReference" },
+    "validation_scope": {
+      "type": "object",
+      "required": ["machine_checks", "truth", "publishability"],
+      "properties": {
+        "machine_checks": { "const": "schema-hashes-references-expiry-and-lineage-only" },
+        "truth": { "const": "not-determined-by-machine-validity" },
+        "publishability": { "const": "not-determined-by-machine-validity" }
+      },
+      "additionalProperties": false
+    },
+    "sentences": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sentence" }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/atomicClaim" }
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRecord" }
+    },
+    "authorities": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/authorityRecord" }
+    },
+    "reviews": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/reviewRecord" }
+    },
+    "replacement_lineage": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/replacementEdge" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "policyReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "2.0.0" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "sentence": {
+      "type": "object",
+      "required": ["sentence_id", "statement", "statement_hash", "atomic_claim_ids"],
+      "properties": {
+        "sentence_id": { "$ref": "#/$defs/id" },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "statement_hash": { "$ref": "#/$defs/checksum" },
+        "atomic_claim_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceSpan": {
+      "type": "object",
+      "required": ["start_codepoint", "end_codepoint_exclusive"],
+      "properties": {
+        "start_codepoint": { "type": "integer", "minimum": 0 },
+        "end_codepoint_exclusive": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "evidenceLink": {
+      "type": "object",
+      "required": ["evidence_id", "relation"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "relation": { "enum": ["supports", "contradicts", "context", "falsifier-input"] }
+      },
+      "additionalProperties": false
+    },
+    "challengeStatement": {
+      "type": "object",
+      "required": ["statement", "statement_hash", "evidence_refs"],
+      "properties": {
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "statement_hash": { "$ref": "#/$defs/checksum" },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceLink" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "falsifier": {
+      "type": "object",
+      "required": ["kind", "statement", "statement_hash", "evidence_refs"],
+      "properties": {
+        "kind": { "enum": ["empirical-test", "governance-revision-condition", "not-applicable"] },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "statement_hash": { "$ref": "#/$defs/checksum" },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceLink" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "challenge": {
+      "type": "object",
+      "required": ["counterclaim", "falsifier"],
+      "properties": {
+        "counterclaim": { "$ref": "#/$defs/challengeStatement" },
+        "falsifier": { "$ref": "#/$defs/falsifier" }
+      },
+      "additionalProperties": false
+    },
+    "atomicClaim": {
+      "type": "object",
+      "required": [
+        "claim_id",
+        "sentence_id",
+        "source_span",
+        "statement",
+        "statement_hash",
+        "epistemic_class",
+        "provenance_role",
+        "support_state",
+        "publication_disposition",
+        "publication_authority_refs",
+        "evidence_refs",
+        "challenge",
+        "expires_at",
+        "review_refs"
+      ],
+      "properties": {
+        "claim_id": { "$ref": "#/$defs/id" },
+        "sentence_id": { "$ref": "#/$defs/id" },
+        "source_span": { "$ref": "#/$defs/sourceSpan" },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "statement_hash": { "$ref": "#/$defs/checksum" },
+        "epistemic_class": {
+          "enum": [
+            "value-choice",
+            "mission",
+            "definition",
+            "source-observation",
+            "derived-result",
+            "modelled-estimate",
+            "causal-hypothesis",
+            "forecast",
+            "scenario",
+            "option",
+            "commitment",
+            "unknown"
+          ]
+        },
+        "provenance_role": {
+          "enum": [
+            "primary-source",
+            "secondary-source",
+            "publisher-model-output",
+            "project-derived",
+            "participant-testimony",
+            "expert-judgement",
+            "author-value",
+            "author-proposal",
+            "institutional-commitment",
+            "unknown-origin"
+          ]
+        },
+        "support_state": {
+          "enum": [
+            "not-assessed",
+            "supported",
+            "partially-supported",
+            "unsupported",
+            "conflicted",
+            "insufficient-evidence",
+            "not-evidence-applicable"
+          ]
+        },
+        "publication_disposition": {
+          "enum": [
+            "internal-draft",
+            "blocked",
+            "candidate-for-review",
+            "approved-by-governance-record",
+            "withdrawn",
+            "superseded"
+          ]
+        },
+        "publication_authority_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceLink" }
+        },
+        "challenge": { "$ref": "#/$defs/challenge" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "review_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "publication_disposition": { "const": "approved-by-governance-record" }
+            },
+            "required": ["publication_disposition"]
+          },
+          "then": {
+            "properties": {
+              "publication_authority_refs": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "support_state": {
+                "enum": ["supported", "partially-supported", "conflicted"]
+              }
+            },
+            "required": ["support_state"]
+          },
+          "then": {
+            "properties": {
+              "evidence_refs": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "evidenceRecord": {
+      "type": "object",
+      "required": ["evidence_id", "kind", "uri", "checksum", "captured_at"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "enum": [
+            "source-artifact",
+            "derived-result",
+            "model-output",
+            "testimony",
+            "review-finding",
+            "authority-record"
+          ]
+        },
+        "uri": { "type": "string", "format": "uri-reference", "minLength": 1 },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "captured_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "authorityRecord": {
+      "type": "object",
+      "required": ["authority_id", "kind", "issuer", "scope", "valid_from", "valid_through", "record_uri", "checksum"],
+      "properties": {
+        "authority_id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["publication", "operational", "review"] },
+        "issuer": { "$ref": "#/$defs/nonEmptyString" },
+        "scope": { "$ref": "#/$defs/nonEmptyString" },
+        "valid_from": { "type": "string", "format": "date-time" },
+        "valid_through": { "type": "string", "format": "date-time" },
+        "record_uri": { "type": "string", "format": "uri-reference", "minLength": 1 },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "reviewRecord": {
+      "type": "object",
+      "required": ["review_id", "claim_id", "reviewer", "disposition", "reviewed_at", "valid_through", "rationale"],
+      "properties": {
+        "review_id": { "$ref": "#/$defs/id" },
+        "claim_id": { "$ref": "#/$defs/id" },
+        "reviewer": {
+          "type": "object",
+          "required": ["identity", "role"],
+          "properties": {
+            "identity": { "$ref": "#/$defs/nonEmptyString" },
+            "role": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "disposition": {
+          "enum": ["pending", "accepted", "accepted-with-conditions", "challenged", "rejected", "deferred", "superseded"]
+        },
+        "reviewed_at": { "type": "string", "format": "date-time" },
+        "valid_through": { "type": "string", "format": "date-time" },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "replacementEdge": {
+      "type": "object",
+      "required": ["replacement_id", "replaced_claim_id", "replacement_claim_id", "reason", "recorded_at", "review_ref"],
+      "properties": {
+        "replacement_id": { "$ref": "#/$defs/id" },
+        "replaced_claim_id": { "$ref": "#/$defs/id" },
+        "replacement_claim_id": { "$ref": "#/$defs/id" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "recorded_at": { "type": "string", "format": "date-time" },
+        "review_ref": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

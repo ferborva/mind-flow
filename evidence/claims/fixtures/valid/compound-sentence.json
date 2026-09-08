@@ -1,0 +1,208 @@
+{
+  "schema_version": "2.0.0",
+  "ledger_id": "claim-ledger.compound-example",
+  "created_at": "2026-09-08T10:00:00Z",
+  "policy_ref": {
+    "id": "claim-firewall-policy-v2",
+    "version": "2.0.0",
+    "checksum": "sha256:4371deb7d0b3e5a643ae42b6f26071d817eb9d39d2f80e1df076b526021ed673"
+  },
+  "validation_scope": {
+    "machine_checks": "schema-hashes-references-expiry-and-lineage-only",
+    "truth": "not-determined-by-machine-validity",
+    "publishability": "not-determined-by-machine-validity"
+  },
+  "sentences": [
+    {
+      "sentence_id": "sentence.compound-001",
+      "statement": "Employment fell, showing AI harmed workers, so government must intervene.",
+      "statement_hash": "sha256:6244e578e4c76c07a0ef92b684e976c9e17780dafcedae0b4dd94e5ac37be70e",
+      "atomic_claim_ids": [
+        "claim.employment-fell",
+        "claim.ai-harmed-workers",
+        "claim.government-intervention"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim.employment-fell",
+      "sentence_id": "sentence.compound-001",
+      "source_span": {
+        "start_codepoint": 0,
+        "end_codepoint_exclusive": 15
+      },
+      "statement": "Employment fell",
+      "statement_hash": "sha256:7204bedc3c999ed0308cc4a15d25a14b04a9db19942e78d25f32bed6ff6b5ff5",
+      "epistemic_class": "source-observation",
+      "provenance_role": "primary-source",
+      "support_state": "supported",
+      "publication_disposition": "candidate-for-review",
+      "publication_authority_refs": [],
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.labour-release",
+          "relation": "supports"
+        }
+      ],
+      "challenge": {
+        "counterclaim": {
+          "statement": "Employment did not fall in the registered cohort and period.",
+          "statement_hash": "sha256:acf7d51d8812f44a0e4257d1d348b88c501cd307b8a85549d3812082439bc8ef",
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence.labour-release",
+              "relation": "contradicts"
+            }
+          ]
+        },
+        "falsifier": {
+          "kind": "empirical-test",
+          "statement": "The frozen source reports no decline after correction and revision.",
+          "statement_hash": "sha256:f9fce82672ed40c451086323108438c3cb93e052935330cb84e027ee07f2aa43",
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence.labour-release",
+              "relation": "falsifier-input"
+            }
+          ]
+        }
+      },
+      "expires_at": "2026-12-31T23:59:59Z",
+      "review_refs": ["review.employment-fell"]
+    },
+    {
+      "claim_id": "claim.ai-harmed-workers",
+      "sentence_id": "sentence.compound-001",
+      "source_span": {
+        "start_codepoint": 25,
+        "end_codepoint_exclusive": 42
+      },
+      "statement": "AI harmed workers",
+      "statement_hash": "sha256:108a373ee06be8a10069d48ae9df47bfdba08f038912e5d8dfa05a43193285ed",
+      "epistemic_class": "causal-hypothesis",
+      "provenance_role": "project-derived",
+      "support_state": "insufficient-evidence",
+      "publication_disposition": "blocked",
+      "publication_authority_refs": [],
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.labour-release",
+          "relation": "context"
+        }
+      ],
+      "challenge": {
+        "counterclaim": {
+          "statement": "A non-AI macroeconomic shock caused the observed employment change.",
+          "statement_hash": "sha256:8a796b81ea68401d034a2b7e95a4f5e12323fc9ae016b838b0936dc7031cad59",
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence.causal-review",
+              "relation": "contradicts"
+            }
+          ]
+        },
+        "falsifier": {
+          "kind": "empirical-test",
+          "statement": "A credible design attributes the change to non-AI causes with no material AI contribution.",
+          "statement_hash": "sha256:d586b929b1bbddb1a6dfe80c1ba5a782fabbbb286dd510a30dffa1a130ac396d",
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence.causal-review",
+              "relation": "falsifier-input"
+            }
+          ]
+        }
+      },
+      "expires_at": "2026-12-31T23:59:59Z",
+      "review_refs": ["review.ai-harmed-workers"]
+    },
+    {
+      "claim_id": "claim.government-intervention",
+      "sentence_id": "sentence.compound-001",
+      "source_span": {
+        "start_codepoint": 47,
+        "end_codepoint_exclusive": 72
+      },
+      "statement": "government must intervene",
+      "statement_hash": "sha256:bb4000b14fb0626b277b2899abc0f17c5b588e45d9c69ac795f4e6aed4b4812b",
+      "epistemic_class": "option",
+      "provenance_role": "author-proposal",
+      "support_state": "not-assessed",
+      "publication_disposition": "internal-draft",
+      "publication_authority_refs": [],
+      "evidence_refs": [],
+      "challenge": {
+        "counterclaim": {
+          "statement": "Government intervention would create greater harm than monitored inaction.",
+          "statement_hash": "sha256:91f3d610682bfd0227653a690de7c90f7ab98966fcd7a02dddff30b2a955bf50",
+          "evidence_refs": []
+        },
+        "falsifier": {
+          "kind": "governance-revision-condition",
+          "statement": "The option fails its registered rights, effectiveness or proportionality test.",
+          "statement_hash": "sha256:a5e0322185317eed6a45040aa376a5e5e86065cfed0ba71d320e6396dc553f78",
+          "evidence_refs": []
+        }
+      },
+      "expires_at": "2026-12-31T23:59:59Z",
+      "review_refs": ["review.government-intervention"]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence.labour-release",
+      "kind": "source-artifact",
+      "uri": "evidence://labour-release/2026-09",
+      "checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "captured_at": "2026-09-08T09:00:00Z"
+    },
+    {
+      "evidence_id": "evidence.causal-review",
+      "kind": "review-finding",
+      "uri": "evidence://causal-review/001",
+      "checksum": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "captured_at": "2026-09-08T09:30:00Z"
+    }
+  ],
+  "authorities": [],
+  "reviews": [
+    {
+      "review_id": "review.employment-fell",
+      "claim_id": "claim.employment-fell",
+      "reviewer": {
+        "identity": "reviewer:statistical-methods-01",
+        "role": "methods reviewer"
+      },
+      "disposition": "accepted-with-conditions",
+      "reviewed_at": "2026-09-08T10:30:00Z",
+      "valid_through": "2026-12-31T23:59:59Z",
+      "rationale": "Accept only as a report about the frozen source and registered cohort."
+    },
+    {
+      "review_id": "review.ai-harmed-workers",
+      "claim_id": "claim.ai-harmed-workers",
+      "reviewer": {
+        "identity": "reviewer:causal-methods-01",
+        "role": "causal methods reviewer"
+      },
+      "disposition": "rejected",
+      "reviewed_at": "2026-09-08T10:35:00Z",
+      "valid_through": "2026-12-31T23:59:59Z",
+      "rationale": "The source does not identify an AI effect."
+    },
+    {
+      "review_id": "review.government-intervention",
+      "claim_id": "claim.government-intervention",
+      "reviewer": {
+        "identity": "reviewer:governance-01",
+        "role": "governance reviewer"
+      },
+      "disposition": "pending",
+      "reviewed_at": "2026-09-08T10:40:00Z",
+      "valid_through": "2026-12-31T23:59:59Z",
+      "rationale": "No authority, proportionality or intervention evidence has been established."
+    }
+  ],
+  "replacement_lineage": []
+}

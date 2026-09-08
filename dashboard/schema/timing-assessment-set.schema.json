@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/dashboard/timing-assessment-set.schema.json",
+  "title": "Observatory timing assessment set",
+  "type": "object",
+  "required": ["assessment_schema_version", "assessment_id", "evaluator", "record_binding", "signals"],
+  "properties": {
+    "assessment_schema_version": { "const": "1.0.0" },
+    "assessment_id": { "$ref": "#/$defs/checksum" },
+    "evaluator": { "$ref": "#/$defs/evaluator" },
+    "record_binding": { "$ref": "#/$defs/recordBinding" },
+    "signals": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/nonEmptyString" },
+      "additionalProperties": { "$ref": "#/$defs/signalAssessment" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "exactUtc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "evaluator": {
+      "type": "object",
+      "required": ["id", "version", "code_sha256"],
+      "properties": {
+        "id": { "const": "timing-assessment-kernel" },
+        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "code_sha256": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "recordBinding": {
+      "type": "object",
+      "required": ["record_id", "snapshot_sha256", "evidence_policy_sha256", "evidence_cutoff", "record_generated_at"],
+      "properties": {
+        "record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
+        "snapshot_sha256": { "$ref": "#/$defs/checksum" },
+        "evidence_policy_sha256": { "$ref": "#/$defs/checksum" },
+        "evidence_cutoff": { "$ref": "#/$defs/exactUtc" },
+        "record_generated_at": { "$ref": "#/$defs/exactUtc" }
+      },
+      "additionalProperties": false
+    },
+    "assessmentTarget": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "signal_id"],
+          "properties": {
+            "kind": { "const": "signal" },
+            "signal_id": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "signal_id", "entity", "measure", "year"],
+          "properties": {
+            "kind": { "const": "point" },
+            "signal_id": { "$ref": "#/$defs/nonEmptyString" },
+            "entity": { "type": ["string", "null"] },
+            "measure": { "type": ["string", "null"] },
+            "year": { "type": ["integer", "null"] }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "update_id", "signal_id", "entity", "from_year", "through_year"],
+          "properties": {
+            "kind": { "const": "public_update" },
+            "update_id": { "type": ["string", "null"] },
+            "signal_id": { "$ref": "#/$defs/nonEmptyString" },
+            "entity": { "type": ["string", "null"] },
+            "from_year": { "type": ["integer", "null"] },
+            "through_year": { "type": ["integer", "null"] }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "lineagePoint": {
+      "type": "object",
+      "required": ["signal_id", "entity", "year", "role"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/nonEmptyString" },
+        "entity": { "$ref": "#/$defs/nonEmptyString" },
+        "measure": { "$ref": "#/$defs/nonEmptyString" },
+        "year": { "type": "integer" },
+        "role": { "enum": ["baseline", "comparator", "endpoint"] }
+      },
+      "additionalProperties": false
+    },
+    "assessmentBinding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": { "kind": { "const": "public_update_source_points" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "inputs"],
+          "properties": {
+            "kind": { "const": "latest_point_inputs" },
+            "inputs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["signal_id", "year_offset", "role"],
+                "properties": {
+                  "signal_id": { "$ref": "#/$defs/nonEmptyString" },
+                  "year_offset": { "type": "integer" },
+                  "measure": { "$ref": "#/$defs/nonEmptyString" },
+                  "role": { "enum": ["baseline", "comparator", "endpoint"] }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "acquisitionRecord": {
+      "type": "object",
+      "required": ["raw_input_id", "acquired_at"],
+      "properties": {
+        "raw_input_id": { "$ref": "#/$defs/checksum" },
+        "acquired_at": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "roleAssessment": {
+      "type": "object",
+      "required": ["target", "status", "source_kind", "reference_coverage", "publisher_vintage", "publisher_release", "retrieval", "release_recency", "retrieval_recency", "publisher_release_cutoff_order", "retrieval_cutoff_order", "availability_order", "byte_acquisition", "evidence_readiness", "point_raw_input_binding", "raw_input_ids", "acquisition_records", "nested_role_assessments"],
+      "properties": {
+        "target": { "anyOf": [{ "$ref": "#/$defs/assessmentTarget" }, { "type": "null" }] },
+        "status": { "enum": ["assessed", "not_assessed"] },
+        "source_kind": { "enum": ["external_dataset", "derived", "unknown"] },
+        "reference_coverage": { "$ref": "#/$defs/nonEmptyString" },
+        "publisher_vintage": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/publisherVintage" },
+        "publisher_release": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/publisherRelease" },
+        "retrieval": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/retrieval" },
+        "release_recency": { "$ref": "#/$defs/nonEmptyString" },
+        "retrieval_recency": { "$ref": "#/$defs/nonEmptyString" },
+        "publisher_release_cutoff_order": { "$ref": "#/$defs/nonEmptyString" },
+        "retrieval_cutoff_order": { "$ref": "#/$defs/nonEmptyString" },
+        "availability_order": { "$ref": "#/$defs/nonEmptyString" },
+        "byte_acquisition": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_readiness": { "$ref": "#/$defs/readiness" },
+        "point_raw_input_binding": { "$ref": "#/$defs/nonEmptyString" },
+        "raw_input_ids": { "type": "array", "items": { "$ref": "#/$defs/checksum" } },
+        "acquisition_records": { "type": "array", "items": { "$ref": "#/$defs/acquisitionRecord" } },
+        "nested_role_assessments": { "$ref": "#/$defs/roleAssessments" }
+      },
+      "additionalProperties": false
+    },
+    "roleAssessments": {
+      "type": "object",
+      "required": ["baseline", "comparator", "endpoint"],
+      "properties": {
+        "baseline": { "type": "array", "items": { "$ref": "#/$defs/roleAssessment" } },
+        "comparator": { "type": "array", "items": { "$ref": "#/$defs/roleAssessment" } },
+        "endpoint": { "type": "array", "items": { "$ref": "#/$defs/roleAssessment" } }
+      },
+      "additionalProperties": false
+    },
+    "readiness": { "enum": ["ready", "unknown", "invalid", "stale", "provisional"] },
+    "assessmentFields": {
+      "type": "object",
+      "required": ["assessment_kind", "status", "assessment_execution", "structural_lineage", "evidence_readiness", "publication_eligibility", "record_generated_at"],
+      "properties": {
+        "target": { "$ref": "#/$defs/assessmentTarget" },
+        "assessment_kind": { "enum": ["external_dataset", "derived", "instrument_gap", "unclassified"] },
+        "status": { "enum": ["assessed", "not_assessed"] },
+        "assessment_execution": { "enum": ["completed", "not_completed"] },
+        "structural_lineage": { "enum": ["complete", "incomplete", "not_applicable"] },
+        "input_timing_readiness": { "$ref": "#/$defs/readiness" },
+        "evidence_readiness": { "$ref": "#/$defs/readiness" },
+        "publication_eligibility": { "enum": ["ineligible", "not_determined_by_timing"] },
+        "reference_coverage": { "$ref": "#/$defs/nonEmptyString" },
+        "publisher_vintage": { "$ref": "#/$defs/nonEmptyString" },
+        "publisher_vintage_record": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/publisherVintage" },
+        "publisher_vintage_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+        "vintage_alignment": { "enum": ["unknown", "aligned", "mixed"] },
+        "publisher_release_basis": { "$ref": "#/$defs/nonEmptyString" },
+        "publisher_release_bases": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+        "publisher_release": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/publisherRelease" },
+        "publisher_release_cutoff_order": { "$ref": "#/$defs/nonEmptyString" },
+        "release_recency": { "$ref": "#/$defs/nonEmptyString" },
+        "retrieval": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/retrieval" },
+        "retrieval_cutoff_order": { "$ref": "#/$defs/nonEmptyString" },
+        "retrieval_recency": { "$ref": "#/$defs/nonEmptyString" },
+        "availability_order": { "$ref": "#/$defs/nonEmptyString" },
+        "byte_acquisition": { "$ref": "#/$defs/nonEmptyString" },
+        "point_raw_input_binding": { "$ref": "#/$defs/nonEmptyString" },
+        "raw_input_ids": { "type": "array", "items": { "$ref": "#/$defs/checksum" } },
+        "acquisition_records": { "type": "array", "items": { "$ref": "#/$defs/acquisitionRecord" } },
+        "endpoint_coverage": { "$ref": "#/$defs/nonEmptyString" },
+        "baseline_coverage": { "$ref": "#/$defs/nonEmptyString" },
+        "comparator_coverage": { "$ref": "#/$defs/nonEmptyString" },
+        "reference_span": {
+          "type": "object",
+          "required": ["from_year", "through_year"],
+          "properties": { "from_year": { "type": ["integer", "null"] }, "through_year": { "type": ["integer", "null"] } },
+          "additionalProperties": false
+        },
+        "lineage_completeness": { "enum": ["complete", "incomplete"] },
+        "assessment_lineage": { "type": "array", "items": { "$ref": "#/$defs/lineagePoint" } },
+        "assessment_binding": { "$ref": "#/$defs/assessmentBinding" },
+        "computation": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json#/$defs/assessmentTime" },
+        "role_assessments": { "$ref": "#/$defs/roleAssessments" },
+        "record_generated_at": { "anyOf": [{ "$ref": "#/$defs/exactUtc" }, { "const": "unknown" }] }
+      }
+    },
+    "pointAssessment": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/assessmentFields" },
+        { "type": "object", "required": ["target"] }
+      ],
+      "not": {
+        "anyOf": [
+          { "required": ["assessment_target"] },
+          { "required": ["point_assessments"] }
+        ]
+      },
+      "unevaluatedProperties": false
+    },
+    "signalAssessment": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/assessmentFields" },
+        {
+          "type": "object",
+          "required": ["assessment_target", "point_assessments"],
+          "properties": {
+            "assessment_target": { "$ref": "#/$defs/assessmentTarget" },
+            "point_assessments": { "type": "array", "items": { "$ref": "#/$defs/pointAssessment" } },
+            "inherited_from_signal_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          }
+        }
+      ],
+      "not": { "required": ["target"] },
+      "unevaluatedProperties": false
+    }
+  }
+}

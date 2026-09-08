@@ -1,0 +1,17 @@
+{
+  "schema_version": "2.0.0",
+  "policy_id": "claim-firewall-policy-v2",
+  "version": "2.0.0",
+  "purpose": "Bind exact public-language atoms to explicit epistemic, provenance, support, review and publication records without treating structural validity as truth or authority.",
+  "hash_contract": "sha256 over the exact UTF-8 bytes of each statement with no whitespace or Unicode normalisation",
+  "closed_expiry_dispositions": [
+    "blocked",
+    "withdrawn",
+    "superseded"
+  ],
+  "publication_rule": "approved-by-governance-record is a recorded disposition only; a machine-valid ledger does not authenticate the authority record or determine publishability",
+  "truth_rule": "support_state records an assessment; it does not establish truth",
+  "atomicity_rule": "each atomic claim has one epistemic_class, one provenance_role, one support_state and one publication_disposition; a source sentence may reference multiple atomic claims",
+  "challenge_rule": "every atomic claim binds a counterclaim and a falsifier or explicit governance revision condition",
+  "lineage_rule": "replacement edges are directed, acyclic, review-bound and preserve both immutable claims"
+}

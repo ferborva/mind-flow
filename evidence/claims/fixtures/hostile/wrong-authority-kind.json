@@ -1,0 +1,30 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Use an operational authority record as if it granted publication authority.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/publication_disposition",
+      "value": "approved-by-governance-record"
+    },
+    {
+      "operation": "append",
+      "path": "/claims/0/publication_authority_refs",
+      "value": "authority.operations-only"
+    },
+    {
+      "operation": "append",
+      "path": "/authorities",
+      "value": {
+        "authority_id": "authority.operations-only",
+        "kind": "operational",
+        "issuer": "Example delivery body",
+        "scope": "Operate a shadow rehearsal only",
+        "valid_from": "2026-09-01T00:00:00Z",
+        "valid_through": "2026-12-31T23:59:59Z",
+        "record_uri": "authority://operations-only/001",
+        "checksum": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    }
+  ]
+}

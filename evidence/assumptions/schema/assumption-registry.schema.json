@@ -1,0 +1,388 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/evidence/assumptions/registry/1-0-0",
+  "title": "Mind Flow assumption registry",
+  "description": "A closed record of decision-relevant assumptions. Schema conformance establishes shape only and does not establish that any statement is true.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "registry_id",
+    "registry_version",
+    "as_of",
+    "truth_assessment",
+    "assumptions"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "registry_id": { "$ref": "#/$defs/id" },
+    "registry_version": { "$ref": "#/$defs/semver" },
+    "as_of": { "$ref": "#/$defs/date" },
+    "truth_assessment": { "const": "not_performed_by_contract_validation" },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/assumption" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "findingId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "nullableDate": {
+      "oneOf": [
+        { "$ref": "#/$defs/date" },
+        { "type": "null" }
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "jurisdictions",
+        "populations",
+        "systems",
+        "valid_from",
+        "valid_until",
+        "exclusions"
+      ],
+      "properties": {
+        "jurisdictions": { "$ref": "#/$defs/stringArray" },
+        "populations": { "$ref": "#/$defs/stringArray" },
+        "systems": { "$ref": "#/$defs/stringArray" },
+        "valid_from": { "$ref": "#/$defs/date" },
+        "valid_until": { "$ref": "#/$defs/nullableDate" },
+        "exclusions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "stewardship": {
+      "type": "object",
+      "required": ["owner_ref", "owner_type", "status", "accountability"],
+      "properties": {
+        "owner_ref": { "$ref": "#/$defs/id" },
+        "owner_type": {
+          "enum": ["named_person", "role", "institution", "unassigned"]
+        },
+        "status": {
+          "enum": ["proposed", "active", "under_review", "expired", "replaced", "retired"]
+        },
+        "accountability": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "party": {
+      "type": "object",
+      "required": ["party_id", "description", "representation_state"],
+      "properties": {
+        "party_id": { "$ref": "#/$defs/id" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "representation_state": {
+          "enum": [
+            "directly_consulted",
+            "representative_consulted",
+            "not_consulted",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "partyArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/party" }
+    },
+    "parties": {
+      "type": "object",
+      "required": ["affected", "benefited", "burdened"],
+      "properties": {
+        "affected": { "$ref": "#/$defs/partyArray" },
+        "benefited": { "$ref": "#/$defs/partyArray" },
+        "burdened": { "$ref": "#/$defs/partyArray" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceReference": {
+      "type": "object",
+      "required": ["ref_id", "kind", "locator", "verification_state", "relevance"],
+      "properties": {
+        "ref_id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "enum": [
+            "repository_artifact",
+            "internal_review",
+            "external_source",
+            "dataset",
+            "analysis_record",
+            "decision_record",
+            "affected_party_testimony"
+          ]
+        },
+        "locator": { "$ref": "#/$defs/nonEmptyString" },
+        "verification_state": {
+          "enum": ["unverified", "repository_local", "content_verified", "externally_reproduced"]
+        },
+        "relevance": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceReferences": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceReference" }
+    },
+    "falsifier": {
+      "type": "object",
+      "required": [
+        "kind",
+        "testable_prediction",
+        "observation_that_would_falsify",
+        "test_method"
+      ],
+      "properties": {
+        "kind": { "const": "falsifier" },
+        "testable_prediction": { "$ref": "#/$defs/nonEmptyString" },
+        "observation_that_would_falsify": { "$ref": "#/$defs/nonEmptyString" },
+        "test_method": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "reviewMechanism": {
+      "type": "object",
+      "required": ["kind", "review_question", "process", "decision_rule"],
+      "properties": {
+        "kind": { "const": "review_mechanism" },
+        "review_question": { "$ref": "#/$defs/nonEmptyString" },
+        "process": { "$ref": "#/$defs/nonEmptyString" },
+        "decision_rule": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "decisionDependency": {
+      "type": "object",
+      "required": ["decision_id", "relationship", "consequence_if_wrong", "handling"],
+      "properties": {
+        "decision_id": { "$ref": "#/$defs/id" },
+        "relationship": {
+          "enum": ["may_inform", "blocks_until_resolved", "constrains"]
+        },
+        "consequence_if_wrong": { "$ref": "#/$defs/nonEmptyString" },
+        "handling": {
+          "enum": ["fail_closed", "bounded_experiment", "explicit_deliberation"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "timebox": {
+      "type": "object",
+      "required": ["expires_on", "next_review_on"],
+      "properties": {
+        "expires_on": { "$ref": "#/$defs/nullableDate" },
+        "next_review_on": { "$ref": "#/$defs/date" }
+      },
+      "additionalProperties": false
+    },
+    "versionedAssumptionReference": {
+      "type": "object",
+      "required": ["assumption_id", "version"],
+      "properties": {
+        "assumption_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" }
+      },
+      "additionalProperties": false
+    },
+    "replacements": {
+      "type": "object",
+      "required": ["replaces", "replaced_by"],
+      "properties": {
+        "replaces": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/versionedAssumptionReference" }
+        },
+        "replaced_by": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/versionedAssumptionReference" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "publicDisposition": {
+      "type": "object",
+      "required": ["state", "plain_language", "rationale"],
+      "properties": {
+        "state": {
+          "enum": [
+            "publish_as_hypothesis",
+            "publish_as_safeguard",
+            "publish_as_value_choice",
+            "publish_as_unknown",
+            "withhold",
+            "retired"
+          ]
+        },
+        "plain_language": { "$ref": "#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "assumption": {
+      "type": "object",
+      "required": [
+        "assumption_id",
+        "version",
+        "exact_statement",
+        "class",
+        "scope",
+        "stewardship",
+        "parties",
+        "evidence_refs",
+        "counterevidence_refs",
+        "challenge",
+        "decision_dependencies",
+        "timebox",
+        "replacements",
+        "public_disposition",
+        "source_findings"
+      ],
+      "properties": {
+        "assumption_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "exact_statement": {
+          "type": "string",
+          "minLength": 12
+        },
+        "class": {
+          "enum": [
+            "bounded_hypothesis",
+            "hard_safeguard",
+            "legitimate_value_decision",
+            "explicit_unknown"
+          ]
+        },
+        "scope": { "$ref": "#/$defs/scope" },
+        "stewardship": { "$ref": "#/$defs/stewardship" },
+        "parties": { "$ref": "#/$defs/parties" },
+        "evidence_refs": { "$ref": "#/$defs/evidenceReferences" },
+        "counterevidence_refs": { "$ref": "#/$defs/evidenceReferences" },
+        "challenge": {
+          "oneOf": [
+            { "$ref": "#/$defs/falsifier" },
+            { "$ref": "#/$defs/reviewMechanism" }
+          ]
+        },
+        "decision_dependencies": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/decisionDependency" }
+        },
+        "timebox": { "$ref": "#/$defs/timebox" },
+        "replacements": { "$ref": "#/$defs/replacements" },
+        "public_disposition": { "$ref": "#/$defs/publicDisposition" },
+        "source_findings": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/findingId" }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "class": { "const": "bounded_hypothesis" } },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "challenge": { "$ref": "#/$defs/falsifier" },
+              "public_disposition": {
+                "type": "object",
+                "properties": {
+                  "state": { "enum": ["publish_as_hypothesis", "withhold", "retired"] }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "class": { "const": "hard_safeguard" } },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "challenge": { "$ref": "#/$defs/reviewMechanism" },
+              "public_disposition": {
+                "type": "object",
+                "properties": {
+                  "state": { "enum": ["publish_as_safeguard", "withhold", "retired"] }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "class": { "const": "legitimate_value_decision" } },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "challenge": { "$ref": "#/$defs/reviewMechanism" },
+              "public_disposition": {
+                "type": "object",
+                "properties": {
+                  "state": { "enum": ["publish_as_value_choice", "withhold", "retired"] }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "class": { "const": "explicit_unknown" } },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "challenge": { "$ref": "#/$defs/reviewMechanism" },
+              "public_disposition": {
+                "type": "object",
+                "properties": {
+                  "state": { "enum": ["publish_as_unknown", "withhold", "retired"] }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

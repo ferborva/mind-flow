@@ -1,0 +1,14 @@
+{
+  "id": "hostile.self-replacement",
+  "operations": [
+    {
+      "op": "add",
+      "path": "/assumptions/0/replacements/replaces/0",
+      "value": {
+        "assumption_id": "assumption.evidence-controls-detect-material-corruption",
+        "version": "1.0.0"
+      }
+    }
+  ],
+  "expected_codes": ["SELF_REPLACEMENT"]
+}

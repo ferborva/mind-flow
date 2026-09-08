@@ -33,10 +33,13 @@ jobs:
       - name: Run the complete test contract
         run: npm test
 
+      - name: Reproduce the timing-contract migration
+        run: node dashboard/tools/migrate-timing-contract.mjs
+
       - name: Rebuild the global Observatory
         run: >-
           node dashboard/tools/build.mjs
-          dashboard/snapshots/2026-09-08.json
+          dashboard/snapshots/2026-09-08.r2.json
           dashboard/web/index.html
 
       - name: Rebuild the Australia pilot

@@ -85,11 +85,19 @@ Foundation documents: **4 of 4 in place.**
 
 - `meta/abundance-transition-programme.md`: challenge loops, workstreams,
   quality gates, pilot, release sequence and decisions reserved for Fernando.
+- `meta/round-03-deep-plan.md`: dependency-ordered execution plan, claim
+  firewall, expanded IF sentence types, validation gates and hostile assumptions.
 - `governance/public-charter.md`: proposed purpose, evidence contract,
   anti-technocracy safeguards, dissent and release gates.
 - `governance/if-protocol.md`: the proposed public grammar and condition graph.
 - `evidence/claim-ledger-2026-09-08.json`: machine-readable dispositions,
   counter-hypotheses, falsifiers and source records for 17 claims.
+- `evidence/claims/`: atomic claim firewall v2 with independent epistemic,
+  provenance, support and publication axes. Machine-valid does not mean true or
+  publishable.
+- `evidence/assumptions/`: versioned hypotheses, safeguards, value choices and
+  unknowns with affected parties, challenges, decision exposure and review
+  clocks.
 - `communications/`: labels, public update templates and adversarial
   comprehension tests.
 - `forecasts/`: immutable binary forecast contracts, baseline comparison and
