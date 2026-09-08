@@ -7,7 +7,7 @@ provenance: commissioned-agent-proposal
 author: Ren
 reviewer: Fernando Bordallo
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 authority: none
 ---
 
@@ -69,11 +69,17 @@ The fixture contains no acquired source bytes and no locally verified condition
 ledger. Those absences are represented as `not-acquired` and
 `external-unverified`, with a next acquisition. Placeholder hashes are not used.
 
-Version 1 intentionally has no schema path for a locally verified condition
-binding. Decision-linked and public portfolio modes therefore fail closed even
-though their vocabulary is reserved. A later version must import and validate a
-complete [condition evolution ledger](../contracts/evolution/README.md), not
-accept a caller's `verified` label.
+Version 1.1 adds a locally verified path, but not a caller's `verified` label.
+It binds the exact active executable definition, source event, evolution
+manifest and evidence-state tip. Each executable predicate signal also binds
+its kernel definition hash and predicate IDs. Integration then compares its
+label, construct, population, estimand, aggregation and unit with the retained
+kernel bytes. A same-name signal with different meaning fails.
+
+Executable predicate membership remains separate from portfolio use. For
+example, an observation may participate in a Boolean IF while operational
+readiness remains unresolved. This prevents one measure from being relabelled
+as leading, confirming or readiness evidence merely because it is convenient.
 
 The validator follows source dependencies transitively. NERO depends on the
 ABS Labour Force Survey family, so an LFS-family comparison may test coherence
@@ -104,3 +110,10 @@ node --test signals/tests/*.test.mjs
 The tests attack unresolved references, role laundering, scope substitution,
 dependent corroboration, inadequate decision lead time, forbidden claim
 permissions, caller-controlled schema forks and source-lineage cycles.
+
+Regenerate or verify the Round 4 synthetic registry with:
+
+```sh
+node signals/tools/build-round-04-fixture.mjs
+node signals/tools/build-round-04-fixture.mjs --check
+```

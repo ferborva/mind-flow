@@ -1,0 +1,336 @@
+{
+  "schema_version": "1.1.0",
+  "registry_id": "registry.round-04.worker-option.synthetic",
+  "status": "agent-proposal",
+  "authority": "none",
+  "operational_effect": false,
+  "as_of": "2026-09-09T00:00:00Z",
+  "condition_bindings": [
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+      "binding_status": "locally-verified-complete",
+      "ledger_manifest_hash": "sha256:fd258eecb21ecdc57f157f3b4b7f4b9db85f548bab52398b2c1e063eb753c7c2",
+      "ledger_tip_event_id": "event.worker-option.merge",
+      "ledger_tip_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      },
+      "source_event_ref": {
+        "sequence": 5,
+        "event_id": "event.worker-option.merge",
+        "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+      },
+      "evidence_state_ref": {
+        "kernel_id": "kernel.worker-option.synthetic",
+        "kernel_manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+        "evidence_event_count": 11,
+        "evidence_tip_event_id": "evidence-event.august-review.added",
+        "evidence_tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+        "evidence_state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+      },
+      "next_binding": null
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "source.synthetic-employer-worker-panel",
+      "label": "Synthetic employer-worker panel",
+      "publisher": "Mind Flow contract fixture",
+      "collection_process_id": "process.synthetic-employer-worker-panel",
+      "depends_on_source_ids": [],
+      "evidence_ref": "synthetic://mind-flow/round-04/employer-worker-panel",
+      "artifact_binding": {
+        "status": "acquired-external-bytes",
+        "checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "byte_length": 1,
+        "retrieved_at": "2026-09-03T00:00:00Z",
+        "next_acquisition": null
+      }
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "signal.option.coverage",
+      "label": "Credible option coverage",
+      "status": "candidate",
+      "construct": {
+        "construct_id": "construct.option.coverage",
+        "name": "Credible option coverage",
+        "definition": "Share of affected workers with a credible alternative",
+        "statistical_unit": "affected worker"
+      },
+      "estimand": {
+        "quantity": "Share of affected workers with a credible alternative",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "aggregation_level": "Eligible-worker weighted ratio"
+      },
+      "epistemic_class": "participant-report",
+      "source_refs": [
+        "source.synthetic-employer-worker-panel"
+      ],
+      "condition_links": [
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+          "evidence_role": "confirming",
+          "edge_type": "necessary",
+          "scope": {
+            "construct_id": "construct.option.coverage",
+            "population": "Affected workers inside the complete registered observation scope",
+            "geography": "New South Wales, Australia",
+            "statistical_unit": "affected worker",
+            "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+            "unit": "ratio",
+            "denominator": "eligible affected workers in the exact registered scope",
+            "aggregation_level": "Eligible-worker weighted ratio"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly synthetic observation window",
+        "publication_lag_max_days": 2,
+        "prospective_decision_lead_min_days": 30,
+        "revision_behaviour": "Corrections, challenges, withdrawals and expiry remain in the executable evidence chain."
+      },
+      "uncertainty": {
+        "representation": "Synthetic contract fixture; no population uncertainty is estimated.",
+        "interval_available": false,
+        "known_limits": [
+          "Invented observations cannot establish real-world prevalence or service accessibility."
+        ]
+      },
+      "missingness": {
+        "mechanism": "Synthetic source cells may be absent, incomplete, stale, challenged or withdrawn.",
+        "reporting_rule": "Preserve unknown, stale and conflicted states. Never coerce them to false or zero."
+      },
+      "exclusions": [
+        "real-world causal inference",
+        "individual entitlement or eligibility"
+      ],
+      "confounders": [
+        "selection into the synthetic panel",
+        "unverified source independence"
+      ],
+      "negative_controls": [
+        "a held-out synthetic scope cell with no registered intervention"
+      ],
+      "gaming": {
+        "risks": [
+          "reporting only favourable cells",
+          "renaming one source as multiple independent sources"
+        ],
+        "detection": "Compare exact source IDs, artifact hashes, scope cells and evidence lifecycle events.",
+        "suspension_rule": "Suspend interpretation when any source, scope or evidence-state binding drifts."
+      },
+      "reflexivity": {
+        "risk": "A favourable indicator may be mistaken for a promise or entitlement.",
+        "monitor": "Test comprehension of computed state, empirical truth and authority as separate concepts."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Tests whether an exact predicate signal can move through the programme without changing meaning.",
+        "next_observation": "Replace synthetic observations with approved, scope-compatible and independently auditable evidence."
+      },
+      "public_claim_ceiling": "Credible option coverage may be described only as participant-report evidence about Share of affected workers with a credible alternative for Affected workers inside the complete registered observation scope, New South Wales, Australia, during 2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z. It does not establish causality, individual outcomes or action authority.",
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      },
+      "executable_binding": {
+        "kind": "executable-predicate",
+        "signal_definition_ref": {
+          "signal_id": "signal.option.coverage",
+          "definition_version": "1.0.0",
+          "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "predicate_ids": [
+          "option-coverage"
+        ]
+      }
+    },
+    {
+      "signal_id": "signal.human-review.available",
+      "label": "Human review available",
+      "status": "candidate",
+      "construct": {
+        "construct_id": "construct.human-review.available",
+        "name": "Human review available",
+        "definition": "Whether an accessible human review route exists",
+        "statistical_unit": "eligible scope cell"
+      },
+      "estimand": {
+        "quantity": "Whether an accessible human review route exists",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "unit": "boolean",
+        "denominator": "all eligible scope cells in the exact registered scope",
+        "aggregation_level": "All eligible scope cells report the same Boolean state"
+      },
+      "epistemic_class": "source-observation",
+      "source_refs": [
+        "source.synthetic-employer-worker-panel"
+      ],
+      "condition_links": [
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+          "evidence_role": "readiness",
+          "edge_type": "necessary",
+          "scope": {
+            "construct_id": "construct.human-review.available",
+            "population": "Affected workers inside the complete registered observation scope",
+            "geography": "New South Wales, Australia",
+            "statistical_unit": "eligible scope cell",
+            "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+            "unit": "boolean",
+            "denominator": "all eligible scope cells in the exact registered scope",
+            "aggregation_level": "All eligible scope cells report the same Boolean state"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly synthetic observation window",
+        "publication_lag_max_days": 2,
+        "prospective_decision_lead_min_days": 30,
+        "revision_behaviour": "Corrections, challenges, withdrawals and expiry remain in the executable evidence chain."
+      },
+      "uncertainty": {
+        "representation": "Synthetic contract fixture; no population uncertainty is estimated.",
+        "interval_available": false,
+        "known_limits": [
+          "Invented observations cannot establish real-world prevalence or service accessibility."
+        ]
+      },
+      "missingness": {
+        "mechanism": "Synthetic source cells may be absent, incomplete, stale, challenged or withdrawn.",
+        "reporting_rule": "Preserve unknown, stale and conflicted states. Never coerce them to false or zero."
+      },
+      "exclusions": [
+        "real-world causal inference",
+        "individual entitlement or eligibility"
+      ],
+      "confounders": [
+        "selection into the synthetic panel",
+        "unverified source independence"
+      ],
+      "negative_controls": [
+        "a held-out synthetic scope cell with no registered intervention"
+      ],
+      "gaming": {
+        "risks": [
+          "reporting only favourable cells",
+          "renaming one source as multiple independent sources"
+        ],
+        "detection": "Compare exact source IDs, artifact hashes, scope cells and evidence lifecycle events.",
+        "suspension_rule": "Suspend interpretation when any source, scope or evidence-state binding drifts."
+      },
+      "reflexivity": {
+        "risk": "A favourable indicator may be mistaken for a promise or entitlement.",
+        "monitor": "Test comprehension of computed state, empirical truth and authority as separate concepts."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Tests whether an exact predicate signal can move through the programme without changing meaning.",
+        "next_observation": "Replace synthetic observations with approved, scope-compatible and independently auditable evidence."
+      },
+      "public_claim_ceiling": "Human review available may be described only as source-observation evidence about Whether an accessible human review route exists for Affected workers inside the complete registered observation scope, New South Wales, Australia, during 2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z. It does not establish causality, individual outcomes or action authority.",
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      },
+      "executable_binding": {
+        "kind": "executable-predicate",
+        "signal_definition_ref": {
+          "signal_id": "signal.human-review.available",
+          "definition_version": "1.0.0",
+          "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "predicate_ids": [
+          "human-review"
+        ]
+      }
+    }
+  ],
+  "portfolios": [
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+      "scope": {
+        "construct_id": "construct.option.coverage",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "statistical_unit": "affected worker",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "aggregation_level": "Eligible-worker weighted ratio"
+      },
+      "decision_context": {
+        "use": "research-only",
+        "owner_ref": null,
+        "minimum_useful_lead_days": 0
+      },
+      "role_assignments": [
+        {
+          "role": "confirming",
+          "signal_ids": [
+            "signal.option.coverage"
+          ]
+        }
+      ],
+      "unresolved_roles": [
+        {
+          "role": "leading",
+          "reason": "No validated pre-threshold precursor is registered.",
+          "next_acquisition": "Acquire a scope-compatible leading signal before decision-linked or public use."
+        },
+        {
+          "role": "counter",
+          "reason": "No independent adverse-outcome measure is registered.",
+          "next_acquisition": "Acquire a scope-compatible counter signal before decision-linked or public use."
+        },
+        {
+          "role": "outcome",
+          "reason": "The protected human outcome is not yet measured independently.",
+          "next_acquisition": "Acquire a scope-compatible outcome signal before decision-linked or public use."
+        },
+        {
+          "role": "readiness",
+          "reason": "Human-review availability is executable evidence, but operational capacity is not validated.",
+          "next_acquisition": "Acquire a scope-compatible readiness signal before decision-linked or public use."
+        },
+        {
+          "role": "intervention-exposure",
+          "reason": "No governed programme exposure record is registered.",
+          "next_acquisition": "Acquire a scope-compatible intervention-exposure signal before decision-linked or public use."
+        },
+        {
+          "role": "information-harm",
+          "reason": "No communication-harm measure is registered.",
+          "next_acquisition": "Acquire a scope-compatible information-harm signal before decision-linked or public use."
+        }
+      ],
+      "public_disposition": "methods-only"
+    }
+  ]
+}

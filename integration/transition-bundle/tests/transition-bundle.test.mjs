@@ -57,13 +57,19 @@ function round4Attempt() {
   const kernel = JSON.parse(kernelBytes.toString("utf8"));
   const evolutionPath = "contracts/evolution/fixtures/round-04.worker-option.synthetic.json";
   const evolutionBytes = readFileSync(resolve(root, evolutionPath));
+  const signalsPath = "signals/fixtures/round-04.worker-option.synthetic.json";
+  const signalsBytes = readFileSync(resolve(root, signalsPath));
   attempted.schema_version = "1.2.0";
   attempted.bundle_id = "bundle.round-04.kernel-bound-incoherent";
   attempted.bundle_stage = "pre-projection-core";
   attempted.canonical.condition_ids = ["condition.worker-option.nsw"];
   attempted.canonical.executable_if_ref = executableIfRef(kernel);
   attempted.artifacts = attempted.artifacts
-    .filter(({ role }) => !["dashboard-snapshot", "evolution-ledger"].includes(role));
+    .filter(({ role }) => ![
+      "dashboard-snapshot",
+      "evolution-ledger",
+      "signal-registry",
+    ].includes(role));
   attempted.artifacts.push({
     role: "evolution-ledger",
     path: evolutionPath,
@@ -72,6 +78,10 @@ function round4Attempt() {
     role: "executable-if-kernel",
     path: kernelPath,
     sha256: sha256(kernelBytes),
+  }, {
+    role: "signal-registry",
+    path: signalsPath,
+    sha256: sha256(signalsBytes),
   });
   return { attempted, kernel };
 }
@@ -128,12 +138,36 @@ test("a Round 4 pre-projection core validates the kernel but rejects unrelated i
   ]);
   assert.equal(result.issues.some(({ code }) => code === "ACTIVE_DEFINITION_REF_MISMATCH"), false);
   assert.equal(result.issues.some(({ code }) => code === "DEFINITION_HISTORY_MISMATCH"), false);
+  assert.equal(result.issues.some(({ code }) => code === "EXECUTABLE_SIGNAL_REF_MISMATCH"), false);
   assert.ok(result.issues.some(
     ({ code, artifact_role: role }) =>
       code === "CONDITION_SET_MISMATCH" && role === "agency-map",
   ));
   assert.equal(result.gates.truth, false);
   assert.equal(result.gates.authority, false);
+});
+
+test("hostile: a registered signal cannot borrow an executable definition hash", () => {
+  const { attempted } = round4Attempt();
+  const signalRef = attempted.artifacts.find(({ role }) => role === "signal-registry");
+  const registry = JSON.parse(readFileSync(resolve(root, signalRef.path), "utf8"));
+  registry.signals[0].executable_binding.signal_definition_ref.signal_definition_hash =
+    `sha256:${"0".repeat(64)}`;
+  const hostilePath = resolve(root,
+    "integration/transition-bundle/fixtures/signal-definition-drift.test.json");
+  const bytes = Buffer.from(`${JSON.stringify(registry, null, 2)}\n`);
+  writeFileSync(hostilePath, bytes);
+  try {
+    signalRef.path = "integration/transition-bundle/fixtures/signal-definition-drift.test.json";
+    signalRef.sha256 = sha256(bytes);
+    const result = assessTransitionBundle(attempted, { rootDir: root });
+    assert.equal(result.components_valid, true);
+    assert.equal(result.machine_valid, false);
+    assert.ok(result.issues.some(({ code }) => code === "EXECUTABLE_SIGNAL_REF_MISMATCH"));
+    assert.equal(result.gates.evidence, false);
+  } finally {
+    unlinkSync(hostilePath);
+  }
 });
 
 test("hostile: the canonical executable IF reference cannot drift from kernel bytes", () => {

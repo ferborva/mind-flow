@@ -19,6 +19,96 @@ function hasCode(result, code) {
   return result.errors.some((item) => item.code === code);
 }
 
+const hash = (character) => `sha256:${character.repeat(64)}`;
+
+function locallyBoundRegistry() {
+  const document = structuredClone(fixture);
+  const conditionId = document.condition_bindings[0].condition_id;
+  const conditionDefinitionRef = {
+    condition_id: conditionId,
+    definition_version: "1.0.0",
+    definition_hash: hash("a"),
+  };
+  document.schema_version = "1.1.0";
+  document.condition_bindings[0] = {
+    condition_id: conditionId,
+    ledger_ref: document.condition_bindings[0].ledger_ref,
+    binding_status: "locally-verified-complete",
+    ledger_manifest_hash: hash("b"),
+    ledger_tip_event_id: "event.worker-option.merge",
+    ledger_tip_hash: hash("c"),
+    condition_definition_ref: conditionDefinitionRef,
+    source_event_ref: {
+      sequence: 5,
+      event_id: "event.worker-option.merge",
+      event_hash: hash("c"),
+    },
+    evidence_state_ref: {
+      kernel_id: "kernel.worker-option.synthetic",
+      kernel_manifest_hash: hash("d"),
+      evidence_event_count: 2,
+      evidence_tip_event_id: "evidence-event.worker-option.latest",
+      evidence_tip_event_hash: hash("e"),
+      evidence_state_hash: hash("f"),
+    },
+    next_binding: null,
+  };
+  for (const [index, signal] of document.signals.entries()) {
+    signal.executable_binding = {
+      kind: "executable-predicate",
+      signal_definition_ref: {
+        signal_id: signal.signal_id,
+        definition_version: "1.0.0",
+        signal_definition_hash: hash(String(index + 1)),
+      },
+      condition_definition_ref: conditionDefinitionRef,
+      predicate_ids: [`predicate.${index + 1}`],
+    };
+  }
+  return document;
+}
+
+test("v1.1 can bind exact local condition, evidence and executable signal identities", () => {
+  const document = locallyBoundRegistry();
+  const result = validate(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(document.condition_bindings[0].binding_status, "locally-verified-complete");
+  assert.ok(document.signals.every(({ executable_binding: binding, signal_id: signalId }) =>
+    binding.signal_definition_ref.signal_id === signalId));
+});
+
+test("the Round 4 executable signal registry is valid and reproducible", () => {
+  const document = JSON.parse(readFileSync(
+    resolve(root, "fixtures", "round-04.worker-option.synthetic.json"),
+    "utf8",
+  ));
+  const result = validate(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  assert.deepEqual(
+    document.signals.map(({ executable_binding: binding }) =>
+      binding.signal_definition_ref.signal_id),
+    ["signal.option.coverage", "signal.human-review.available"],
+  );
+});
+
+test("hostile: executable bindings cannot borrow another signal or condition identity", () => {
+  for (const mutate of [
+    (document) => {
+      document.signals[0].executable_binding.signal_definition_ref.signal_id = "signal.borrowed";
+    },
+    (document) => {
+      document.signals[0].executable_binding.condition_definition_ref.condition_id =
+        "condition.borrowed";
+    },
+  ]) {
+    const document = locallyBoundRegistry();
+    mutate(document);
+    const result = validate(document);
+    assert.equal(result.integrity_valid, false);
+    assert.ok(hasCode(result, "EXECUTABLE_SIGNAL_BINDING_MISMATCH"));
+  }
+});
+
 test("a bounded Australian candidate is structurally valid but proves no truth, cause or authority", () => {
   const result = validate(fixture);
 

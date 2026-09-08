@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { isDeepStrictEqual } from "node:util";
 
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -7,7 +8,7 @@ import addFormats from "ajv-formats";
 const DEFAULT_SCHEMA_BYTES = readFileSync(
   new URL("./schema/signal-registry.schema.json", import.meta.url),
 );
-const DEFAULT_SCHEMA_SHA256 = "99618128ad667fd0c16db73a22e0a46d0685b86284f0303c5aba4dd7cfe99b1a";
+const DEFAULT_SCHEMA_SHA256 = "2d40e8133672e0fd3616e30c049a5ce49d31d1e0afc5f4635c2d60cccd83c384";
 const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
 if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
   throw new Error("signal-registry schema bytes do not match the validator's pinned contract digest");
@@ -150,6 +151,44 @@ export function validateSignalRegistry(registry) {
     binding.condition_id,
     binding,
   ]));
+
+  if (registry.schema_version === "1.1.0") {
+    for (const [bindingIndex, binding] of registry.condition_bindings.entries()) {
+      if (binding.binding_status !== "locally-verified-complete" ||
+          binding.condition_definition_ref?.condition_id !== binding.condition_id ||
+          binding.source_event_ref?.event_id !== binding.ledger_tip_event_id ||
+          binding.source_event_ref?.event_hash !== binding.ledger_tip_hash) {
+        errors.push(issue(
+          "LOCAL_CONDITION_BINDING_MISMATCH",
+          `/condition_bindings/${bindingIndex}`,
+          "v1.1 condition bindings must preserve one exact definition, ledger tip and evidence state",
+        ));
+      }
+    }
+    const executableRefs = new Set();
+    for (const [signalIndex, signal] of registry.signals.entries()) {
+      const binding = signal.executable_binding;
+      const refKey = binding
+        ? `${binding.signal_definition_ref?.signal_id}@${binding.signal_definition_ref?.definition_version}`
+        : null;
+      const linkedConditionIds = new Set(signal.condition_links.map(({ condition_id: id }) => id));
+      if (!binding || binding.signal_definition_ref?.signal_id !== signal.signal_id ||
+          binding.condition_definition_ref?.condition_id === undefined ||
+          !linkedConditionIds.has(binding.condition_definition_ref.condition_id) ||
+          !conditionById.has(binding.condition_definition_ref.condition_id) ||
+          !isDeepStrictEqual(
+            conditionById.get(binding.condition_definition_ref.condition_id)?.condition_definition_ref,
+            binding.condition_definition_ref,
+          ) || executableRefs.has(refKey)) {
+        errors.push(issue(
+          "EXECUTABLE_SIGNAL_BINDING_MISMATCH",
+          `/signals/${signalIndex}/executable_binding`,
+          "an executable signal must bind its own immutable definition and one exact registered condition",
+        ));
+      }
+      if (refKey) executableRefs.add(refKey);
+    }
+  }
 
   for (const [sourceIndex, source] of registry.sources.entries()) {
     for (const dependencyId of source.depends_on_source_ids) {

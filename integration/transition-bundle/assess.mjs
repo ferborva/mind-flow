@@ -225,6 +225,70 @@ function intersection(sets) {
   return [...sets[0]].filter((value) => sets.slice(1).every((set) => set.has(value))).sort();
 }
 
+function executableSignalProjection(kernel, activeDefinitionRefs) {
+  const signalByKey = new Map((kernel?.signals || []).map((signal) => [
+    `${signal.signal_id}@${signal.definition_version}`,
+    signal,
+  ]));
+  const activeRefKeys = new Set(activeDefinitionRefs.map((reference) =>
+    `${reference.condition_id}@${reference.definition_version}`));
+  const definitions = (kernel?.events || [])
+    .flatMap(({ introduced_definitions: values }) => values)
+    .filter((definition) => activeRefKeys.has(
+      `${definition.condition_id}@${definition.definition_version}`));
+  const grouped = new Map();
+  for (const definition of definitions) {
+    for (const [predicateId, predicate] of Object.entries(definition.predicates)) {
+      const key = `${predicate.signal_ref.signal_id}@${predicate.signal_ref.definition_version}`;
+      const signal = signalByKey.get(key);
+      const current = grouped.get(key) || {
+        signal_definition_ref: structuredClone(predicate.signal_ref),
+        condition_definition_ref: {
+          condition_id: definition.condition_id,
+          definition_version: definition.definition_version,
+          definition_hash: definition.definition_hash,
+        },
+        predicate_ids: [],
+        semantics: signal ? {
+          label: signal.label,
+          construct: signal.construct,
+          population: signal.population,
+          estimand: signal.estimand,
+          aggregation: signal.aggregation,
+          unit: signal.unit,
+        } : null,
+      };
+      current.predicate_ids.push(predicateId);
+      grouped.set(key, current);
+    }
+  }
+  return [...grouped.values()]
+    .map((entry) => ({ ...entry, predicate_ids: entry.predicate_ids.sort() }))
+    .sort((left, right) => left.signal_definition_ref.signal_id
+      .localeCompare(right.signal_definition_ref.signal_id));
+}
+
+function registeredExecutableSignals(registry) {
+  return (registry?.signals || []).map((signal) => ({
+    signal_definition_ref: structuredClone(
+      signal.executable_binding?.signal_definition_ref,
+    ),
+    condition_definition_ref: structuredClone(
+      signal.executable_binding?.condition_definition_ref,
+    ),
+    predicate_ids: [...(signal.executable_binding?.predicate_ids || [])].sort(),
+    semantics: {
+      label: signal.label,
+      construct: signal.construct?.definition,
+      population: signal.estimand?.population,
+      estimand: signal.estimand?.quantity,
+      aggregation: signal.estimand?.aggregation_level,
+      unit: signal.estimand?.unit,
+    },
+  })).sort((left, right) => (left.signal_definition_ref?.signal_id || "")
+    .localeCompare(right.signal_definition_ref?.signal_id || ""));
+}
+
 function canonicalScopeFromAgency(agency) {
   const scope = agency?.outcome_scope || {};
   return {
@@ -368,6 +432,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   const executableIfRequired = bundle?.schema_version === "1.2.0";
   let executableIfReferenceValid = !executableIfRequired;
   const governedEvaluations = [];
+  let executableSignalReferenceValid = !executableIfRequired;
   if (executableIfRequired) {
     const kernel = documents.get("executable-if-kernel");
     const declared = bundle?.canonical?.executable_if_ref;
@@ -431,6 +496,54 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
           "evolution active definitions must equal the kernel active definitions exactly",
         ));
       }
+    }
+
+    const registry = documents.get("signal-registry");
+    const expectedSignals = executableSignalProjection(kernel, activeDefinitionRefs);
+    const registeredSignals = registeredExecutableSignals(registry);
+    executableSignalReferenceValid = same(registeredSignals, expectedSignals);
+    if (!executableSignalReferenceValid) {
+      referenceIntegrity = false;
+      issues.push(issue(
+        "EXECUTABLE_SIGNAL_REF_MISMATCH",
+        "signal-registry",
+        "registered predicate signals must preserve exact kernel refs, condition edges and measurement semantics",
+      ));
+    }
+    const evolutionManifest = evolution?.manifest_hash;
+    const expectedConditionAnchors = activeDefinitionRefs.map((reference) => {
+      const producer = kernel?.events?.find((event) => event.new_states.some((state) =>
+        state.lifecycle === "active" && same(state.condition_definition_ref, reference)));
+      return {
+        condition_id: reference.condition_id,
+        ledger_manifest_hash: evolutionManifest,
+        ledger_tip_event_id: producer?.event_id,
+        ledger_tip_hash: producer?.event_hash,
+        condition_definition_ref: reference,
+        source_event_ref: producer ? {
+          sequence: producer.sequence,
+          event_id: producer.event_id,
+          event_hash: producer.event_hash,
+        } : null,
+        evidence_state_ref: expectedEvidenceStateRef,
+      };
+    }).sort((left, right) => left.condition_id.localeCompare(right.condition_id));
+    const registeredConditionAnchors = (registry?.condition_bindings || []).map((binding) => ({
+      condition_id: binding.condition_id,
+      ledger_manifest_hash: binding.ledger_manifest_hash,
+      ledger_tip_event_id: binding.ledger_tip_event_id,
+      ledger_tip_hash: binding.ledger_tip_hash,
+      condition_definition_ref: binding.condition_definition_ref,
+      source_event_ref: binding.source_event_ref,
+      evidence_state_ref: binding.evidence_state_ref,
+    })).sort((left, right) => left.condition_id.localeCompare(right.condition_id));
+    if (!same(registeredConditionAnchors, expectedConditionAnchors)) {
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SIGNAL_CONDITION_ANCHOR_MISMATCH",
+        "signal-registry",
+        "signal registry condition anchors must bind the exact evolution manifest, kernel producer and evidence state",
+      ));
     }
   }
   const canonicalIds = bundle?.canonical?.condition_ids || [];
@@ -676,7 +789,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     history: bundleCoherent && identityReady && Boolean(componentResults["evolution-ledger"]?.history_complete),
     truth: false,
     freshness: false,
-    evidence: bundleCoherent && identityReady,
+    evidence: bundleCoherent && identityReady && executableSignalReferenceValid,
     forecast: bundleCoherent && !issueCodes.has("FORECAST_TARGET_UNBOUND"),
     preparation: bundleCoherent && identityReady,
     authority: false,
@@ -705,6 +818,9 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       valid: executableIfReferenceValid,
       declared_ref: bundle?.canonical?.executable_if_ref || null,
       governed_evaluations: governedEvaluations,
+    },
+    executable_signals: {
+      valid: executableSignalReferenceValid,
     },
     scope_binding: {
       valid: scopeBindingValid,
