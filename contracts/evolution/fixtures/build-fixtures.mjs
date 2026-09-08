@@ -1,5 +1,6 @@
 import {
   computeChallengeHash,
+  computeConditionDefinitionRef,
   computeEventHash,
   computeManifestHash,
   computePublicProjection,
@@ -56,6 +57,7 @@ const state = (id, version, status = "open", options = {}) => {
     unresolved_challenge_ids: copy(options.unresolved_challenge_ids || []),
     assessment: copy(options.assessment || null),
   };
+  value.condition_definition_ref = computeConditionDefinitionRef(value);
   value.rendered_if = renderConditionIf(value);
   return value;
 };
@@ -151,6 +153,7 @@ function buildComplete() {
       ...newChallengeIds,
     ])].sort(compareId);
     if (Object.hasOwn(options, "assessment")) after.assessment = copy(options.assessment);
+    after.condition_definition_ref = computeConditionDefinitionRef(after);
     after.rendered_if = renderConditionIf(after);
     return append({
       operation,
@@ -321,7 +324,7 @@ function buildComplete() {
   const currentStates = [...current.values()]
     .sort((left, right) => compareId(left.condition_id, right.condition_id));
   const ledger = {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     canonicalisation: {
       profile: "mind-flow-canonical-json-v1",
       hash_algorithm: "sha-256",
@@ -383,7 +386,7 @@ function buildCrop(complete) {
   const last = events.at(-1);
   const baseConditions = [{ state: baseState, producer: producer(baseEvent) }];
   const ledger = {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     canonicalisation: copy(complete.canonicalisation),
     ledger_id: "ledger.round-03.disclosed-crop",
     generated_at: "2026-09-08T01:00:00Z",

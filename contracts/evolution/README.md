@@ -83,6 +83,19 @@ statement hash and time with `redacted-hash-only`, or marks details
 `omitted-unverified` when the event is outside the disclosed history. Resolution
 statements and resolver identities follow the same hash-only default.
 
+Every state also carries `condition_definition_ref`. Its `condition_id` must
+equal the state identity, and its `definition_hash` is recomputed from the exact
+condition ID, proposition wording and structured scope. Status, evidence and
+assessment changes retain that definition reference. Narrowing, splitting or
+merging creates a new condition-definition hash when identity or scope changes.
+Resealing an event chain cannot hide a mismatched definition reference.
+
+Despite its name, this reference binds the ledger's condition proposition. It
+is **not an executable predicate definition** and does not replace
+`contracts/schema/condition-contract.schema.json`, its thresholds, windows,
+evidence rules or evaluator identity. A downstream system must bind both before
+it may claim that history resolves to an executable IF.
+
 `satisfied` and `failed` states also bind an assessment ID, version, checksum,
 evaluator, method, threshold, evaluation time and the exact evidence identities
 used. These are audit bindings, not endorsements of the assessor or method.
@@ -101,9 +114,10 @@ The profile is `mind-flow-canonical-json-v1`:
 6. bytes are UTF-8 and prefixed with
    `mind-flow:condition-evolution:v1:<kind>\n` before SHA-256.
 
-Kinds are `event`, `base-state`, `challenge-statement` and `ledger-manifest`.
-The event hash removes only `event_hash`. Challenge hashes cover the exact raw
-statement after the domain prefix, without JSON quoting.
+Kinds are `event`, `base-state`, `challenge-statement`,
+`condition-definition` and `ledger-manifest`. The event hash removes only
+`event_hash`. Challenge hashes cover the exact raw statement after the domain
+prefix, without JSON quoting.
 
 The top-level `manifest_hash` removes only itself, then commits to everything
 else: ledger identity, schema and canonicalisation profile, generation time,

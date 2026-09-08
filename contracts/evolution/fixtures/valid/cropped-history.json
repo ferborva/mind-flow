@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "canonicalisation": {
     "profile": "mind-flow-canonical-json-v1",
     "hash_algorithm": "sha-256",
@@ -26,10 +26,10 @@
       "after_sequence": 2,
       "after_event_id": "event.02.challenged",
       "after_event_version": "1.0.0",
-      "tip_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d",
+      "tip_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8",
       "tip_effective_at": "2026-09-08T00:02:00Z",
       "tip_recorded_at": "2026-09-08T00:02:00Z",
-      "state_hash": "sha256:ab06d772209ac149ab93f304393d036482f1f663510e77323ea86e8a5ce544ae",
+      "state_hash": "sha256:f6b386086fd1e3bcffcd0c898f8ecf7b1c75e872ea7901b6324299e29c3cdd3e",
       "conditions": [
         {
           "state": {
@@ -64,12 +64,16 @@
               "challenge.alpha.composition"
             ],
             "assessment": null,
+            "condition_definition_ref": {
+              "condition_id": "condition.alpha",
+              "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+            },
             "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
           },
           "producer": {
             "event_id": "event.02.challenged",
             "event_version": "1.0.0",
-            "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d",
+            "event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8",
             "sequence": 2,
             "effective_at": "2026-09-08T00:02:00Z",
             "recorded_at": "2026-09-08T00:02:00Z"
@@ -88,7 +92,7 @@
         {
           "event_id": "event.02.challenged",
           "event_version": "1.0.0",
-          "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+          "event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8"
         }
       ],
       "previous_states": [
@@ -124,6 +128,10 @@
             "challenge.alpha.composition"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -161,6 +169,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -217,10 +229,10 @@
       "chain_predecessor": {
         "event_id": "event.02.challenged",
         "event_version": "1.0.0",
-        "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+        "event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8"
       },
-      "previous_event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d",
-      "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+      "previous_event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8",
+      "event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4"
     },
     {
       "sequence": 4,
@@ -231,7 +243,7 @@
         {
           "event_id": "event.03.disputed",
           "event_version": "1.0.0",
-          "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+          "event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4"
         }
       ],
       "previous_states": [
@@ -268,6 +280,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -304,6 +320,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -345,10 +365,10 @@
       "chain_predecessor": {
         "event_id": "event.03.disputed",
         "event_version": "1.0.0",
-        "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+        "event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4"
       },
-      "previous_event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57",
-      "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+      "previous_event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4",
+      "event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e"
     },
     {
       "sequence": 5,
@@ -359,7 +379,7 @@
         {
           "event_id": "event.04.narrowed",
           "event_version": "1.0.0",
-          "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+          "event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e"
         }
       ],
       "previous_states": [
@@ -395,6 +415,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -438,6 +462,10 @@
             "evidence_ids": [
               "evidence.alpha"
             ]
+          },
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
           },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         }
@@ -511,16 +539,16 @@
       "chain_predecessor": {
         "event_id": "event.04.narrowed",
         "event_version": "1.0.0",
-        "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+        "event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e"
       },
-      "previous_event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6",
-      "event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6"
+      "previous_event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e",
+      "event_hash": "sha256:3af6d73d85d98282318f9fa293fb0182c7b893fb40b53cb472cdb9097ade93a5"
     }
   ],
   "current_state": {
     "as_of_sequence": 5,
     "as_of_event_id": "event.05.satisfied",
-    "as_of_event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6",
+    "as_of_event_hash": "sha256:3af6d73d85d98282318f9fa293fb0182c7b893fb40b53cb472cdb9097ade93a5",
     "conditions": [
       {
         "condition_id": "condition.alpha",
@@ -562,6 +590,10 @@
             "evidence.alpha"
           ]
         },
+        "condition_definition_ref": {
+          "condition_id": "condition.alpha",
+          "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+        },
         "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
       }
     ]
@@ -572,7 +604,7 @@
     "event_count": 5,
     "tip_event_id": "event.05.satisfied",
     "tip_event_version": "1.0.0",
-    "tip_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6"
+    "tip_hash": "sha256:3af6d73d85d98282318f9fa293fb0182c7b893fb40b53cb472cdb9097ade93a5"
   },
   "public_projection": {
     "history": {
@@ -703,6 +735,10 @@
       {
         "condition_id": "condition.alpha",
         "condition_version": 5,
+        "condition_definition_ref": {
+          "condition_id": "condition.alpha",
+          "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+        },
         "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]",
         "status": "satisfied",
         "status_label": "Satisfaction recorded; truth not established by this ledger",
@@ -717,7 +753,7 @@
       }
     ]
   },
-  "manifest_hash": "sha256:e7e83304039411bbe83bba2c26a3373adb25266330f3ee04c291eed4abf0d424",
+  "manifest_hash": "sha256:6c9e80d39ec68103ef1a6a5fd9e86b8b2ddbacfa2fab265f3b04447583c2b593",
   "contract_boundary": {
     "history_validity_effect": "structural-and-integrity-only",
     "condition_truth_effect": "none",

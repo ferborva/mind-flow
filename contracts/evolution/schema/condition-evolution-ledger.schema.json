@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/contracts/evolution/condition-evolution-ledger/1-0-0",
+  "$id": "https://mind-flow.org/contracts/evolution/condition-evolution-ledger/1-1-0",
   "title": "Seldon Observatory condition evolution ledger",
   "description": "A closed, append-only event chain whose current condition state is deterministically foldable. Structural validity has no truth or authority effect.",
   "type": "object",
@@ -18,7 +18,7 @@
     "contract_boundary"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^1\\.1\\.[0-9]+$" },
     "canonicalisation": { "$ref": "#/$defs/canonicalisation" },
     "ledger_id": { "$ref": "#/$defs/id" },
     "generated_at": { "$ref": "#/$defs/instant" },
@@ -150,11 +150,21 @@
       },
       "additionalProperties": false
     },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
     "conditionState": {
       "type": "object",
       "required": [
         "condition_id",
         "condition_version",
+        "condition_definition_ref",
         "wording",
         "rendered_if",
         "scope",
@@ -166,6 +176,7 @@
       "properties": {
         "condition_id": { "$ref": "#/$defs/id" },
         "condition_version": { "$ref": "#/$defs/safePositiveInteger" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
         "wording": { "$ref": "#/$defs/nonEmptyString" },
         "rendered_if": { "$ref": "#/$defs/nonEmptyString" },
         "scope": { "$ref": "#/$defs/scope" },
@@ -751,6 +762,7 @@
       "required": [
         "condition_id",
         "condition_version",
+        "condition_definition_ref",
         "rendered_if",
         "status",
         "status_label",
@@ -760,6 +772,7 @@
       "properties": {
         "condition_id": { "$ref": "#/$defs/id" },
         "condition_version": { "$ref": "#/$defs/safePositiveInteger" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
         "rendered_if": { "$ref": "#/$defs/nonEmptyString" },
         "status": { "$ref": "#/$defs/nonEmptyString" },
         "status_label": { "$ref": "#/$defs/nonEmptyString" },

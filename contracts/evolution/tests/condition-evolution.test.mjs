@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import {
   computeChallengeHash,
+  computeConditionDefinitionRef,
   computeEventHash,
   computeManifestHash,
   computePublicProjection,
@@ -30,6 +31,20 @@ const canonicalisationVectors = JSON.parse(readFileSync(
 function hasCode(result, code) {
   return result.errors.some((error) => error.code === code);
 }
+
+test("every current and event condition state carries an immutable definition reference", () => {
+  const schema = JSON.parse(readFileSync(
+    resolve(root, "schema/condition-evolution-ledger.schema.json"),
+    "utf8",
+  ));
+  const state = schema.$defs.conditionState;
+  assert.equal(schema.properties.schema_version.pattern, "^1\\.1\\.[0-9]+$");
+  assert.ok(state.required.includes("condition_definition_ref"));
+  assert.deepEqual(
+    schema.$defs.conditionDefinitionRef.required,
+    ["condition_id", "definition_hash"],
+  );
+});
 
 function resealFrom(ledger, startIndex = 0) {
   let previous = startIndex === 0
@@ -209,6 +224,28 @@ test("hostile: changing historical wording without its original event hash is mu
   assert.ok(hasCode(result, "EVENT_HASH_MISMATCH"));
 });
 
+test("hostile: resealed condition-definition reference drift still fails", () => {
+  for (const mutate of [
+    (ref) => { ref.condition_id = "condition.unrelated"; },
+    (ref) => { ref.definition_hash = `sha256:${"0".repeat(64)}`; },
+  ]) {
+    const ledger = fixture("valid/all-operations.json");
+    const eventIndex = ledger.events.findIndex(({ operation }) => operation === "merged");
+    const created = ledger.events[eventIndex].new_states.find(
+      ({ condition_id: id }) => id === "condition.merge-c",
+    );
+    mutate(created.condition_definition_ref);
+    resealGraphFrom(ledger, eventIndex);
+    refreshDerived(ledger);
+
+    const result = validateConditionEvolutionLedger(ledger);
+    assert.ok(hasCode(result, "CONDITION_DEFINITION_REF_MISMATCH"));
+    assert.equal(result.condition_truth_assessed, false);
+    assert.equal(result.authority_granted, false);
+    assert.equal(result.action_authorised, false);
+  }
+});
+
 test("hostile: event chain, parent and challenge hashes each fail independently", () => {
   const attacks = [
     [(event) => { event.chain_predecessor.event_version = "9.9.9"; }, "EVENT_CHAIN_PREDECESSOR_MISMATCH"],
@@ -330,6 +367,7 @@ test("effective time may precede unrelated records only with a public correction
   added.recorded_at = "2026-09-08T00:40:00Z";
   added.new_states[0].condition_id = "condition.retroactive-unrelated";
   added.new_states[0].wording = "a separately scoped condition was effective before this record";
+  added.new_states[0].condition_definition_ref = computeConditionDefinitionRef(added.new_states[0]);
   added.new_states[0].rendered_if = renderConditionIf(added.new_states[0]);
   added.retroactivity = {
     status: "retrospective-correction",
@@ -574,6 +612,9 @@ test("the README states the append-only and authority boundaries", () => {
   assert.match(readme, /known then.*recorded now/is);
   assert.match(readme, /identity-consolidation-only/);
   assert.match(readme, /public_projection/);
+  assert.match(readme, /condition_definition_ref/);
+  assert.match(readme, /condition-definition/);
+  assert.match(readme, /not an executable predicate definition/i);
   assert.match(readme, /node --test contracts\/evolution\/tests\/\*\.test\.mjs/);
 });
 
@@ -643,6 +684,7 @@ test("a split may expose partial, overlapping coverage only when both are declar
   const event = ledger.events.at(-1);
   const victoria = event.new_states.find(({ condition_id: id }) => id === "condition.source.vic");
   victoria.scope.geographies = ["New South Wales"];
+  victoria.condition_definition_ref = computeConditionDefinitionRef(victoria);
   victoria.rendered_if = renderConditionIf(victoria);
   Object.assign(event.identity_change, {
     coverage_mode: "intentionally-partial",
@@ -789,6 +831,12 @@ test("canonical hashes use a versioned domain and exact safe-integer vector", ()
     challengeVector.expected_hash,
   );
   const ledger = fixture("valid/all-operations.json");
+  const definitionVector = canonicalisationVectors.vectors.find(({ kind }) =>
+    kind === "condition-definition");
+  assert.equal(
+    computeConditionDefinitionRef(ledger.events[0].new_states[0]).definition_hash,
+    definitionVector.expected_hash,
+  );
   const eventVector = canonicalisationVectors.vectors.find(({ kind }) => kind === "event");
   const manifestVector = canonicalisationVectors.vectors.find(({ kind }) =>
     kind === "ledger-manifest");

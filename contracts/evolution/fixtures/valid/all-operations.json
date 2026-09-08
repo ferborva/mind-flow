@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "canonicalisation": {
     "profile": "mind-flow-canonical-json-v1",
     "hash_algorithm": "sha-256",
@@ -57,6 +57,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -97,7 +101,7 @@
       },
       "chain_predecessor": null,
       "previous_event_hash": null,
-      "event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540"
+      "event_hash": "sha256:3fd3975ef731e34c189323dd5c6abc1a8725e122ce158058cfe606a680841fda"
     },
     {
       "sequence": 2,
@@ -108,7 +112,7 @@
         {
           "event_id": "event.01.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540"
+          "event_hash": "sha256:3fd3975ef731e34c189323dd5c6abc1a8725e122ce158058cfe606a680841fda"
         }
       ],
       "previous_states": [
@@ -135,6 +139,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -171,6 +179,10 @@
             "challenge.alpha.composition"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -227,10 +239,10 @@
       "chain_predecessor": {
         "event_id": "event.01.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540"
+        "event_hash": "sha256:3fd3975ef731e34c189323dd5c6abc1a8725e122ce158058cfe606a680841fda"
       },
-      "previous_event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540",
-      "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+      "previous_event_hash": "sha256:3fd3975ef731e34c189323dd5c6abc1a8725e122ce158058cfe606a680841fda",
+      "event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8"
     },
     {
       "sequence": 3,
@@ -241,7 +253,7 @@
         {
           "event_id": "event.02.challenged",
           "event_version": "1.0.0",
-          "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+          "event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8"
         }
       ],
       "previous_states": [
@@ -277,6 +289,10 @@
             "challenge.alpha.composition"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -314,6 +330,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -370,10 +390,10 @@
       "chain_predecessor": {
         "event_id": "event.02.challenged",
         "event_version": "1.0.0",
-        "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+        "event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8"
       },
-      "previous_event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d",
-      "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+      "previous_event_hash": "sha256:e88bc6bdce2bb9b8b06c14ab81d09dda503e29b043df183e1e30d52c64ea6ea8",
+      "event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4"
     },
     {
       "sequence": 4,
@@ -384,7 +404,7 @@
         {
           "event_id": "event.03.disputed",
           "event_version": "1.0.0",
-          "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+          "event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4"
         }
       ],
       "previous_states": [
@@ -421,6 +441,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -457,6 +481,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -498,10 +526,10 @@
       "chain_predecessor": {
         "event_id": "event.03.disputed",
         "event_version": "1.0.0",
-        "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+        "event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4"
       },
-      "previous_event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57",
-      "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+      "previous_event_hash": "sha256:e8ef3bba05184b31d5177f3358dbf2c59e14a9f1ef800023e0dcc7dbf155dbf4",
+      "event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e"
     },
     {
       "sequence": 5,
@@ -512,7 +540,7 @@
         {
           "event_id": "event.04.narrowed",
           "event_version": "1.0.0",
-          "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+          "event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e"
         }
       ],
       "previous_states": [
@@ -548,6 +576,10 @@
             "challenge.alpha.scope"
           ],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+          },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -591,6 +623,10 @@
             "evidence_ids": [
               "evidence.alpha"
             ]
+          },
+          "condition_definition_ref": {
+            "condition_id": "condition.alpha",
+            "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
           },
           "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         }
@@ -664,10 +700,10 @@
       "chain_predecessor": {
         "event_id": "event.04.narrowed",
         "event_version": "1.0.0",
-        "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+        "event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e"
       },
-      "previous_event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6",
-      "event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6"
+      "previous_event_hash": "sha256:eb735c75cdbac953fe2c3becef23408607e14b65b2a722db0510eaf697a56d9e",
+      "event_hash": "sha256:3af6d73d85d98282318f9fa293fb0182c7b893fb40b53cb472cdb9097ade93a5"
     },
     {
       "sequence": 6,
@@ -699,6 +735,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.beta",
+            "definition_hash": "sha256:b5f2d8378a1c8251ebb4b0c0168ef0b9cb46425300cbd9c7678f921d33cfce06"
+          },
           "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -740,10 +780,10 @@
       "chain_predecessor": {
         "event_id": "event.05.satisfied",
         "event_version": "1.0.0",
-        "event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6"
+        "event_hash": "sha256:3af6d73d85d98282318f9fa293fb0182c7b893fb40b53cb472cdb9097ade93a5"
       },
-      "previous_event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6",
-      "event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e"
+      "previous_event_hash": "sha256:3af6d73d85d98282318f9fa293fb0182c7b893fb40b53cb472cdb9097ade93a5",
+      "event_hash": "sha256:54e8fa37a00cf1905a49e77f44dde4776358b3afbcdc817791cdcb761b2dc64e"
     },
     {
       "sequence": 7,
@@ -754,7 +794,7 @@
         {
           "event_id": "event.06.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e"
+          "event_hash": "sha256:54e8fa37a00cf1905a49e77f44dde4776358b3afbcdc817791cdcb761b2dc64e"
         }
       ],
       "previous_states": [
@@ -780,6 +820,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.beta",
+            "definition_hash": "sha256:b5f2d8378a1c8251ebb4b0c0168ef0b9cb46425300cbd9c7678f921d33cfce06"
+          },
           "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -824,6 +868,10 @@
               "evidence.beta"
             ]
           },
+          "condition_definition_ref": {
+            "condition_id": "condition.beta",
+            "definition_hash": "sha256:b5f2d8378a1c8251ebb4b0c0168ef0b9cb46425300cbd9c7678f921d33cfce06"
+          },
           "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -865,10 +913,10 @@
       "chain_predecessor": {
         "event_id": "event.06.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e"
+        "event_hash": "sha256:54e8fa37a00cf1905a49e77f44dde4776358b3afbcdc817791cdcb761b2dc64e"
       },
-      "previous_event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e",
-      "event_hash": "sha256:36094dcaa55300dd152682ac37c2e61e0a380589010af0c122037d33833f23c7"
+      "previous_event_hash": "sha256:54e8fa37a00cf1905a49e77f44dde4776358b3afbcdc817791cdcb761b2dc64e",
+      "event_hash": "sha256:07f76959eddda2d5d088bea8d41c40d1a4b12a2d27cf382a0d13b3752a9432d2"
     },
     {
       "sequence": 8,
@@ -900,6 +948,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.gamma",
+            "definition_hash": "sha256:704a65452f31bbc7afca478dabcae203a52efac9e4882570b8a96bc95414a1e1"
+          },
           "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -941,10 +993,10 @@
       "chain_predecessor": {
         "event_id": "event.07.failed",
         "event_version": "1.0.0",
-        "event_hash": "sha256:36094dcaa55300dd152682ac37c2e61e0a380589010af0c122037d33833f23c7"
+        "event_hash": "sha256:07f76959eddda2d5d088bea8d41c40d1a4b12a2d27cf382a0d13b3752a9432d2"
       },
-      "previous_event_hash": "sha256:36094dcaa55300dd152682ac37c2e61e0a380589010af0c122037d33833f23c7",
-      "event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c"
+      "previous_event_hash": "sha256:07f76959eddda2d5d088bea8d41c40d1a4b12a2d27cf382a0d13b3752a9432d2",
+      "event_hash": "sha256:8820516f720e0598e59c48faf5d3fd8d17d890ecee1d9523804e5ce0e4268c1b"
     },
     {
       "sequence": 9,
@@ -955,7 +1007,7 @@
         {
           "event_id": "event.08.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c"
+          "event_hash": "sha256:8820516f720e0598e59c48faf5d3fd8d17d890ecee1d9523804e5ce0e4268c1b"
         }
       ],
       "previous_states": [
@@ -981,6 +1033,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.gamma",
+            "definition_hash": "sha256:704a65452f31bbc7afca478dabcae203a52efac9e4882570b8a96bc95414a1e1"
+          },
           "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1007,6 +1063,10 @@
           "status": "expired",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.gamma",
+            "definition_hash": "sha256:704a65452f31bbc7afca478dabcae203a52efac9e4882570b8a96bc95414a1e1"
+          },
           "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1048,10 +1108,10 @@
       "chain_predecessor": {
         "event_id": "event.08.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c"
+        "event_hash": "sha256:8820516f720e0598e59c48faf5d3fd8d17d890ecee1d9523804e5ce0e4268c1b"
       },
-      "previous_event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c",
-      "event_hash": "sha256:7391b11148d67569c75d5e863ed483061268b99f0f8e2e6c274ae8f3bf84d637"
+      "previous_event_hash": "sha256:8820516f720e0598e59c48faf5d3fd8d17d890ecee1d9523804e5ce0e4268c1b",
+      "event_hash": "sha256:9ee81f2eca0b60f6fc9f1031f76bb703a7837a879d2d5ed1bb36370b81ce8d16"
     },
     {
       "sequence": 10,
@@ -1083,6 +1143,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.delta",
+            "definition_hash": "sha256:62f37a9cd6ea21ab24828b63e972621f19a70b5d51db04c4addef66690d00aac"
+          },
           "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1124,10 +1188,10 @@
       "chain_predecessor": {
         "event_id": "event.09.expired",
         "event_version": "1.0.0",
-        "event_hash": "sha256:7391b11148d67569c75d5e863ed483061268b99f0f8e2e6c274ae8f3bf84d637"
+        "event_hash": "sha256:9ee81f2eca0b60f6fc9f1031f76bb703a7837a879d2d5ed1bb36370b81ce8d16"
       },
-      "previous_event_hash": "sha256:7391b11148d67569c75d5e863ed483061268b99f0f8e2e6c274ae8f3bf84d637",
-      "event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a"
+      "previous_event_hash": "sha256:9ee81f2eca0b60f6fc9f1031f76bb703a7837a879d2d5ed1bb36370b81ce8d16",
+      "event_hash": "sha256:da79d1336d27151a77b67e9d16c2a2257e23aeb5bb14314b74d1b8efafc6e9ac"
     },
     {
       "sequence": 11,
@@ -1138,7 +1202,7 @@
         {
           "event_id": "event.10.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a"
+          "event_hash": "sha256:da79d1336d27151a77b67e9d16c2a2257e23aeb5bb14314b74d1b8efafc6e9ac"
         }
       ],
       "previous_states": [
@@ -1164,6 +1228,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.delta",
+            "definition_hash": "sha256:62f37a9cd6ea21ab24828b63e972621f19a70b5d51db04c4addef66690d00aac"
+          },
           "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1190,6 +1258,10 @@
           "status": "withdrawn",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.delta",
+            "definition_hash": "sha256:62f37a9cd6ea21ab24828b63e972621f19a70b5d51db04c4addef66690d00aac"
+          },
           "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1231,10 +1303,10 @@
       "chain_predecessor": {
         "event_id": "event.10.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a"
+        "event_hash": "sha256:da79d1336d27151a77b67e9d16c2a2257e23aeb5bb14314b74d1b8efafc6e9ac"
       },
-      "previous_event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a",
-      "event_hash": "sha256:5873ed5414ae126f4f36b43e28caa56ea5311db11b38ce472e241caf7d0d5b1a"
+      "previous_event_hash": "sha256:da79d1336d27151a77b67e9d16c2a2257e23aeb5bb14314b74d1b8efafc6e9ac",
+      "event_hash": "sha256:49a7d8ae4e6823e9801ccca9ca2f4367899c4332dd3a2a5fe8f2b33b448596ce"
     },
     {
       "sequence": 12,
@@ -1266,6 +1338,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.epsilon",
+            "definition_hash": "sha256:6e658d7af30031f76e5993df30955922e390597a92d367196cd52078597e99a5"
+          },
           "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1307,10 +1383,10 @@
       "chain_predecessor": {
         "event_id": "event.11.withdrawn",
         "event_version": "1.0.0",
-        "event_hash": "sha256:5873ed5414ae126f4f36b43e28caa56ea5311db11b38ce472e241caf7d0d5b1a"
+        "event_hash": "sha256:49a7d8ae4e6823e9801ccca9ca2f4367899c4332dd3a2a5fe8f2b33b448596ce"
       },
-      "previous_event_hash": "sha256:5873ed5414ae126f4f36b43e28caa56ea5311db11b38ce472e241caf7d0d5b1a",
-      "event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a"
+      "previous_event_hash": "sha256:49a7d8ae4e6823e9801ccca9ca2f4367899c4332dd3a2a5fe8f2b33b448596ce",
+      "event_hash": "sha256:ff58fe727a4965c9c6b8739d2930e12c9e37e9da4f41e488fdfc673465c0e0d8"
     },
     {
       "sequence": 13,
@@ -1321,7 +1397,7 @@
         {
           "event_id": "event.12.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a"
+          "event_hash": "sha256:ff58fe727a4965c9c6b8739d2930e12c9e37e9da4f41e488fdfc673465c0e0d8"
         }
       ],
       "previous_states": [
@@ -1347,6 +1423,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.epsilon",
+            "definition_hash": "sha256:6e658d7af30031f76e5993df30955922e390597a92d367196cd52078597e99a5"
+          },
           "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1373,6 +1453,10 @@
           "status": "superseded",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.epsilon",
+            "definition_hash": "sha256:6e658d7af30031f76e5993df30955922e390597a92d367196cd52078597e99a5"
+          },
           "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1414,10 +1498,10 @@
       "chain_predecessor": {
         "event_id": "event.12.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a"
+        "event_hash": "sha256:ff58fe727a4965c9c6b8739d2930e12c9e37e9da4f41e488fdfc673465c0e0d8"
       },
-      "previous_event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a",
-      "event_hash": "sha256:9b82b09a9126d24f7f44f8a2b3b4640ca077d6b15928db835c67f85c21424c07"
+      "previous_event_hash": "sha256:ff58fe727a4965c9c6b8739d2930e12c9e37e9da4f41e488fdfc673465c0e0d8",
+      "event_hash": "sha256:aae2b04a153e598daa07c726c3661825a8beaf3f83fa3c9f3f17c1727855b6bd"
     },
     {
       "sequence": 14,
@@ -1450,6 +1534,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.source",
+            "definition_hash": "sha256:9e5dddbf9c3c10bafd2fe64235c55d619f2f1cb4376f4fe102b1b37539b7bdce"
+          },
           "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1491,10 +1579,10 @@
       "chain_predecessor": {
         "event_id": "event.13.superseded",
         "event_version": "1.0.0",
-        "event_hash": "sha256:9b82b09a9126d24f7f44f8a2b3b4640ca077d6b15928db835c67f85c21424c07"
+        "event_hash": "sha256:aae2b04a153e598daa07c726c3661825a8beaf3f83fa3c9f3f17c1727855b6bd"
       },
-      "previous_event_hash": "sha256:9b82b09a9126d24f7f44f8a2b3b4640ca077d6b15928db835c67f85c21424c07",
-      "event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479"
+      "previous_event_hash": "sha256:aae2b04a153e598daa07c726c3661825a8beaf3f83fa3c9f3f17c1727855b6bd",
+      "event_hash": "sha256:84a81e787beaed00d4ef6f88225757201bcc32b72d9b241f7f0045dffdde77e3"
     },
     {
       "sequence": 15,
@@ -1505,7 +1593,7 @@
         {
           "event_id": "event.14.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479"
+          "event_hash": "sha256:84a81e787beaed00d4ef6f88225757201bcc32b72d9b241f7f0045dffdde77e3"
         }
       ],
       "previous_states": [
@@ -1532,6 +1620,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.source",
+            "definition_hash": "sha256:9e5dddbf9c3c10bafd2fe64235c55d619f2f1cb4376f4fe102b1b37539b7bdce"
+          },
           "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1559,6 +1651,10 @@
           "status": "superseded",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.source",
+            "definition_hash": "sha256:9e5dddbf9c3c10bafd2fe64235c55d619f2f1cb4376f4fe102b1b37539b7bdce"
+          },
           "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
         },
         {
@@ -1583,6 +1679,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.source.nsw",
+            "definition_hash": "sha256:c55b3274c63c48138cd43111bbfa6b58e74624ccbb0c6c4e0d17cfefdcd8b067"
+          },
           "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
         },
         {
@@ -1607,6 +1707,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.source.vic",
+            "definition_hash": "sha256:f2255c528292986155f34ac8836fca3e9c944c85a2dcb7236fc5cb8b5aa493df"
+          },
           "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: Victoria; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1663,10 +1767,10 @@
       "chain_predecessor": {
         "event_id": "event.14.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479"
+        "event_hash": "sha256:84a81e787beaed00d4ef6f88225757201bcc32b72d9b241f7f0045dffdde77e3"
       },
-      "previous_event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479",
-      "event_hash": "sha256:f47c85471dd72b334a7cb7db238ff4a00762513f9ae6fd35090e288df79ccd6f"
+      "previous_event_hash": "sha256:84a81e787beaed00d4ef6f88225757201bcc32b72d9b241f7f0045dffdde77e3",
+      "event_hash": "sha256:2b6f393c64fed76f56a112241d53edb74dd4f18e485bc536803e804e3f511c49"
     },
     {
       "sequence": 16,
@@ -1705,6 +1809,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-a",
+            "definition_hash": "sha256:f7c856b7e58cdb2ef9bdac9b977063574cd7f8fa8813c957faca2a0f2f101460"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1746,10 +1854,10 @@
       "chain_predecessor": {
         "event_id": "event.15.split",
         "event_version": "1.0.0",
-        "event_hash": "sha256:f47c85471dd72b334a7cb7db238ff4a00762513f9ae6fd35090e288df79ccd6f"
+        "event_hash": "sha256:2b6f393c64fed76f56a112241d53edb74dd4f18e485bc536803e804e3f511c49"
       },
-      "previous_event_hash": "sha256:f47c85471dd72b334a7cb7db238ff4a00762513f9ae6fd35090e288df79ccd6f",
-      "event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea"
+      "previous_event_hash": "sha256:2b6f393c64fed76f56a112241d53edb74dd4f18e485bc536803e804e3f511c49",
+      "event_hash": "sha256:bd8c9c94d17d1a3050c021232b51ec9106a3a4e59b18f74b4bc622ae352c4a79"
     },
     {
       "sequence": 17,
@@ -1788,6 +1896,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-b",
+            "definition_hash": "sha256:b73eaca8db3fffe74b48707fd8c9c7cc76553f81412a4d41c1a40b46e702f49f"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1829,10 +1941,10 @@
       "chain_predecessor": {
         "event_id": "event.16.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea"
+        "event_hash": "sha256:bd8c9c94d17d1a3050c021232b51ec9106a3a4e59b18f74b4bc622ae352c4a79"
       },
-      "previous_event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea",
-      "event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102"
+      "previous_event_hash": "sha256:bd8c9c94d17d1a3050c021232b51ec9106a3a4e59b18f74b4bc622ae352c4a79",
+      "event_hash": "sha256:0f169ed41068cdcb3ee65c5df671a2bb38a9d65a807a7b9020f1249eff4bfdb3"
     },
     {
       "sequence": 18,
@@ -1843,12 +1955,12 @@
         {
           "event_id": "event.16.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea"
+          "event_hash": "sha256:bd8c9c94d17d1a3050c021232b51ec9106a3a4e59b18f74b4bc622ae352c4a79"
         },
         {
           "event_id": "event.17.added",
           "event_version": "1.0.0",
-          "event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102"
+          "event_hash": "sha256:0f169ed41068cdcb3ee65c5df671a2bb38a9d65a807a7b9020f1249eff4bfdb3"
         }
       ],
       "previous_states": [
@@ -1881,6 +1993,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-a",
+            "definition_hash": "sha256:f7c856b7e58cdb2ef9bdac9b977063574cd7f8fa8813c957faca2a0f2f101460"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         },
         {
@@ -1912,6 +2028,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-b",
+            "definition_hash": "sha256:b73eaca8db3fffe74b48707fd8c9c7cc76553f81412a4d41c1a40b46e702f49f"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -1945,6 +2065,10 @@
           "status": "superseded",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-a",
+            "definition_hash": "sha256:f7c856b7e58cdb2ef9bdac9b977063574cd7f8fa8813c957faca2a0f2f101460"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         },
         {
@@ -1976,6 +2100,10 @@
           "status": "superseded",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-b",
+            "definition_hash": "sha256:b73eaca8db3fffe74b48707fd8c9c7cc76553f81412a4d41c1a40b46e702f49f"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         },
         {
@@ -2013,6 +2141,10 @@
           "status": "open",
           "unresolved_challenge_ids": [],
           "assessment": null,
+          "condition_definition_ref": {
+            "condition_id": "condition.merge-c",
+            "definition_hash": "sha256:a8f895a837d68074e9790c5ff302ed03971895f9711489b35f4526b55c645132"
+          },
           "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
         }
       ],
@@ -2065,16 +2197,16 @@
       "chain_predecessor": {
         "event_id": "event.17.added",
         "event_version": "1.0.0",
-        "event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102"
+        "event_hash": "sha256:0f169ed41068cdcb3ee65c5df671a2bb38a9d65a807a7b9020f1249eff4bfdb3"
       },
-      "previous_event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102",
-      "event_hash": "sha256:14357616e3ee314bdfd8c859f673afe26c0e9e8f24c1c1afc16a91bda8f0aa18"
+      "previous_event_hash": "sha256:0f169ed41068cdcb3ee65c5df671a2bb38a9d65a807a7b9020f1249eff4bfdb3",
+      "event_hash": "sha256:7b738f33c5d75c81b1116383922f3370f14d332c48e371af3bc7d435743a217a"
     }
   ],
   "current_state": {
     "as_of_sequence": 18,
     "as_of_event_id": "event.18.merged",
-    "as_of_event_hash": "sha256:14357616e3ee314bdfd8c859f673afe26c0e9e8f24c1c1afc16a91bda8f0aa18",
+    "as_of_event_hash": "sha256:7b738f33c5d75c81b1116383922f3370f14d332c48e371af3bc7d435743a217a",
     "conditions": [
       {
         "condition_id": "condition.alpha",
@@ -2115,6 +2247,10 @@
           "evidence_ids": [
             "evidence.alpha"
           ]
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.alpha",
+          "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
         },
         "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
       },
@@ -2158,6 +2294,10 @@
             "evidence.beta"
           ]
         },
+        "condition_definition_ref": {
+          "condition_id": "condition.beta",
+          "definition_hash": "sha256:b5f2d8378a1c8251ebb4b0c0168ef0b9cb46425300cbd9c7678f921d33cfce06"
+        },
         "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2182,6 +2322,10 @@
         "status": "withdrawn",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.delta",
+          "definition_hash": "sha256:62f37a9cd6ea21ab24828b63e972621f19a70b5d51db04c4addef66690d00aac"
+        },
         "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2206,6 +2350,10 @@
         "status": "superseded",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.epsilon",
+          "definition_hash": "sha256:6e658d7af30031f76e5993df30955922e390597a92d367196cd52078597e99a5"
+        },
         "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2230,6 +2378,10 @@
         "status": "expired",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.gamma",
+          "definition_hash": "sha256:704a65452f31bbc7afca478dabcae203a52efac9e4882570b8a96bc95414a1e1"
+        },
         "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2261,6 +2413,10 @@
         "status": "superseded",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.merge-a",
+          "definition_hash": "sha256:f7c856b7e58cdb2ef9bdac9b977063574cd7f8fa8813c957faca2a0f2f101460"
+        },
         "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2292,6 +2448,10 @@
         "status": "superseded",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.merge-b",
+          "definition_hash": "sha256:b73eaca8db3fffe74b48707fd8c9c7cc76553f81412a4d41c1a40b46e702f49f"
+        },
         "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2329,6 +2489,10 @@
         "status": "open",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.merge-c",
+          "definition_hash": "sha256:a8f895a837d68074e9790c5ff302ed03971895f9711489b35f4526b55c645132"
+        },
         "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2354,6 +2518,10 @@
         "status": "superseded",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.source",
+          "definition_hash": "sha256:9e5dddbf9c3c10bafd2fe64235c55d619f2f1cb4376f4fe102b1b37539b7bdce"
+        },
         "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2378,6 +2546,10 @@
         "status": "open",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.source.nsw",
+          "definition_hash": "sha256:c55b3274c63c48138cd43111bbfa6b58e74624ccbb0c6c4e0d17cfefdcd8b067"
+        },
         "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
       },
       {
@@ -2402,6 +2574,10 @@
         "status": "open",
         "unresolved_challenge_ids": [],
         "assessment": null,
+        "condition_definition_ref": {
+          "condition_id": "condition.source.vic",
+          "definition_hash": "sha256:f2255c528292986155f34ac8836fca3e9c944c85a2dcb7236fc5cb8b5aa493df"
+        },
         "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: Victoria; cohorts: working-age people; services: income transition support]"
       }
     ]
@@ -2412,7 +2588,7 @@
     "event_count": 18,
     "tip_event_id": "event.18.merged",
     "tip_event_version": "1.0.0",
-    "tip_hash": "sha256:14357616e3ee314bdfd8c859f673afe26c0e9e8f24c1c1afc16a91bda8f0aa18"
+    "tip_hash": "sha256:7b738f33c5d75c81b1116383922f3370f14d332c48e371af3bc7d435743a217a"
   },
   "public_projection": {
     "history": {
@@ -3002,6 +3178,10 @@
       {
         "condition_id": "condition.alpha",
         "condition_version": 5,
+        "condition_definition_ref": {
+          "condition_id": "condition.alpha",
+          "definition_hash": "sha256:6d89629073053a01544ba4111a19ebfe7e18857200fd5563e8479081a0ab4bc8"
+        },
         "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]",
         "status": "satisfied",
         "status_label": "Satisfaction recorded; truth not established by this ledger",
@@ -3017,6 +3197,10 @@
       {
         "condition_id": "condition.beta",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.beta",
+          "definition_hash": "sha256:b5f2d8378a1c8251ebb4b0c0168ef0b9cb46425300cbd9c7678f921d33cfce06"
+        },
         "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "failed",
         "status_label": "Failure recorded; causal explanation not established by this ledger",
@@ -3032,6 +3216,10 @@
       {
         "condition_id": "condition.delta",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.delta",
+          "definition_hash": "sha256:62f37a9cd6ea21ab24828b63e972621f19a70b5d51db04c4addef66690d00aac"
+        },
         "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "withdrawn",
         "status_label": "Withdrawn; unresolved challenges remain visible",
@@ -3047,6 +3235,10 @@
       {
         "condition_id": "condition.epsilon",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.epsilon",
+          "definition_hash": "sha256:6e658d7af30031f76e5993df30955922e390597a92d367196cd52078597e99a5"
+        },
         "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "superseded",
         "status_label": "Superseded; inspect its named successors or replacement record",
@@ -3062,6 +3254,10 @@
       {
         "condition_id": "condition.gamma",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.gamma",
+          "definition_hash": "sha256:704a65452f31bbc7afca478dabcae203a52efac9e4882570b8a96bc95414a1e1"
+        },
         "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "expired",
         "status_label": "Expired; unresolved challenges remain visible",
@@ -3077,6 +3273,10 @@
       {
         "condition_id": "condition.merge-a",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.merge-a",
+          "definition_hash": "sha256:f7c856b7e58cdb2ef9bdac9b977063574cd7f8fa8813c957faca2a0f2f101460"
+        },
         "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "superseded",
         "status_label": "Superseded; inspect its named successors or replacement record",
@@ -3092,6 +3292,10 @@
       {
         "condition_id": "condition.merge-b",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.merge-b",
+          "definition_hash": "sha256:b73eaca8db3fffe74b48707fd8c9c7cc76553f81412a4d41c1a40b46e702f49f"
+        },
         "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "superseded",
         "status_label": "Superseded; inspect its named successors or replacement record",
@@ -3107,6 +3311,10 @@
       {
         "condition_id": "condition.merge-c",
         "condition_version": 1,
+        "condition_definition_ref": {
+          "condition_id": "condition.merge-c",
+          "definition_hash": "sha256:a8f895a837d68074e9790c5ff302ed03971895f9711489b35f4526b55c645132"
+        },
         "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
         "status": "open",
         "status_label": "Open; not evaluated",
@@ -3122,6 +3330,10 @@
       {
         "condition_id": "condition.source",
         "condition_version": 2,
+        "condition_definition_ref": {
+          "condition_id": "condition.source",
+          "definition_hash": "sha256:9e5dddbf9c3c10bafd2fe64235c55d619f2f1cb4376f4fe102b1b37539b7bdce"
+        },
         "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]",
         "status": "superseded",
         "status_label": "Superseded; inspect its named successors or replacement record",
@@ -3137,6 +3349,10 @@
       {
         "condition_id": "condition.source.nsw",
         "condition_version": 1,
+        "condition_definition_ref": {
+          "condition_id": "condition.source.nsw",
+          "definition_hash": "sha256:c55b3274c63c48138cd43111bbfa6b58e74624ccbb0c6c4e0d17cfefdcd8b067"
+        },
         "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]",
         "status": "open",
         "status_label": "Open; not evaluated",
@@ -3152,6 +3368,10 @@
       {
         "condition_id": "condition.source.vic",
         "condition_version": 1,
+        "condition_definition_ref": {
+          "condition_id": "condition.source.vic",
+          "definition_hash": "sha256:f2255c528292986155f34ac8836fca3e9c944c85a2dcb7236fc5cb8b5aa493df"
+        },
         "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: Victoria; cohorts: working-age people; services: income transition support]",
         "status": "open",
         "status_label": "Open; not evaluated",
@@ -3166,7 +3386,7 @@
       }
     ]
   },
-  "manifest_hash": "sha256:21b8f5daed5328b152a6f8477d87b1f26f576a05f640e1aadb449fa44411bcef",
+  "manifest_hash": "sha256:2e98a50089fe0c0e4693f0ef941acfebb6cd6c97464d5d84f34a0afade398841",
   "contract_boundary": {
     "history_validity_effect": "structural-and-integrity-only",
     "condition_truth_effect": "none",

@@ -52,6 +52,17 @@ export function computeChallengeHash(statement) {
   return checksumDomain("challenge-statement", statement);
 }
 
+export function computeConditionDefinitionRef(state) {
+  return {
+    condition_id: state?.condition_id,
+    definition_hash: checksumDomain("condition-definition", canonicalJson({
+      condition_id: state?.condition_id,
+      wording: state?.wording,
+      scope: state?.scope,
+    })),
+  };
+}
+
 export function renderConditionIf(state) {
   const scope = SCOPE_DIMENSIONS
     .map((dimension) => `${dimension}: ${(state?.scope?.[dimension] || []).join(", ")}`)
@@ -177,6 +188,7 @@ export function computePublicProjection(ledger) {
     .map(({ state: condition }) => ({
       condition_id: condition.condition_id,
       condition_version: condition.condition_version,
+      condition_definition_ref: structuredClone(condition.condition_definition_ref),
       rendered_if: condition.rendered_if,
       status: condition.status,
       status_label: STATUS_LABELS[condition.status] || "Unknown status",
@@ -347,6 +359,16 @@ function assessmentValid(event, state) {
 function conditionStateSemanticErrors(candidate, path, recordedAt) {
   const errors = [];
   const unresolvedIds = candidate?.unresolved_challenge_ids || [];
+  if (!isDeepStrictEqual(
+    candidate?.condition_definition_ref,
+    computeConditionDefinitionRef(candidate),
+  )) {
+    errors.push(problem(
+      "CONDITION_DEFINITION_REF_MISMATCH",
+      `${path}.condition_definition_ref`,
+      "Condition definition reference must bind the exact condition identity, wording and structured scope.",
+    ));
+  }
   if (candidate?.rendered_if !== renderConditionIf(candidate)) {
     errors.push(problem(
       "RENDERED_IF_MISMATCH",
@@ -509,6 +531,7 @@ function stateTransitionErrors(event, state, eventIndex) {
     const childSemanticsInvalid = children.some((child) => !sameExcept(source || {}, child, [
       "condition_id",
       "condition_version",
+      "condition_definition_ref",
       "scope",
       "rendered_if",
     ]));
