@@ -32,6 +32,7 @@ updated: 2026-09-08
 |---|---|---|---|---|
 | **Observed** | Directly reported measurement | Source, unit, population, place, period, vintage, uncertainty | measured, reported, was, changed | caused, proves, will |
 | **Derived** | Calculation from observations | Formula, inputs, transformation, propagated uncertainty | calculated, indexed, estimated from | observed directly |
+| **Modelled estimate** | A source or model estimates a current or past value rather than observing it directly | Model, inputs, validation, vintage, revision policy and uncertainty | model estimates, nowcasts | measured directly, exact, predicts the future |
 | **Hypothesis** | Testable proposed explanation | Mechanism, alternatives, falsifier, evidence grade | may, could, hypothesis | shows, explains, will |
 | **Forecast** | Probabilistic future claim | Probability, event, horizon, model or reference class, interval, scoring rule | X% chance by date | expected without probability |
 | **Scenario** | Conditional illustration with no probability | Assumptions and `Not a forecast` | if assumptions hold, then | likely, expected, projected risk |
@@ -46,6 +47,8 @@ updated: 2026-09-08
 
 - `Measured` does not mean causal.
 - `Derived` does not mean less useful, but its method is part of the claim.
+- `Modelled estimate` must remain visible at the point value, especially when a
+  smoothed nowcast could miss a new break.
 - `Forecast` is invalid without a horizon and resolution record.
 - `Scenario` never receives a probability-looking colour or percentage.
 - `Value choice` cannot inherit authority from an adjacent chart.

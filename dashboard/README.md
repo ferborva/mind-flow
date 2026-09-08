@@ -34,10 +34,12 @@ Three reasons, in order.
 | `schema/snapshot.schema.json` | Machine-readable JSON Schema |
 | `tools/fetch_snapshot.py` | Pulls the signals, writes a dated snapshot |
 | `tools/build.mjs` | Safely embeds one snapshot into the template |
+| `tools/build-nero-baseline.mjs` | Streams an official NERO ZIP into separate, frozen occupation-region series |
 | `snapshots/` | Dated snapshots plus `index.json` |
 | `web/index.template.html` | The page, with a `__SNAPSHOT__` placeholder |
 | `web/index.html` | Built page with a snapshot baked in. **Generated, do not edit.** |
 | `tests/dashboard.test.mjs` | Contract and self-contained-build tests |
+| `tests/nero-baseline.test.mjs` | CSV, semantics, provenance and frozen NERO-baseline tests |
 
 ## Refreshing
 

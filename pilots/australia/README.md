@@ -17,7 +17,7 @@ The pilot should therefore make two products distinct:
 1. **A factual observation layer:** source-native measures, vintages, uncertainty and revisions.
 2. **An explicitly conditional reasoning layer:** IF statements that describe what evidence would change a forecast or action, without presenting those conditions as facts.
 
-The machine-readable [source manifest](source-manifest.json), [scorecard](pilot-scorecard.json) and [IF register](if-register.json) are normative companions to this note.
+The machine-readable [source manifest](source-manifest.json), [scorecard](pilot-scorecard.json) and [IF register](if-register.json) are normative companions to this note. A [frozen August 2026 NERO baseline](data/README.md) now proves that one public source can be reduced reproducibly without aggregating occupations or regions.
 
 ## Pilot question
 
@@ -239,6 +239,9 @@ At minimum, test and disclose:
 3. Ingest the five NERO series separately, recording vintage, revisions and suppressed values.
 4. Reproduce each public floor indicator directly from its published table before any transformation.
 5. Build a denominator and concordance test suite. Fail the pipeline on occupation-version, geography, unit or time-window mismatch.
+
+The public NERO extraction is the first completed component of this phase. It
+does not satisfy the restricted-data, household-floor, agency or causal gates.
 
 ### Phase 2: explanatory prototype, weeks 7-10
 
