@@ -6,8 +6,10 @@
 **TL;DR: register who must be included before forecasts are issued. Seal every
 eligible issued record before observation begins. Freeze the question,
 publication boundary, two mechanical baselines, scoring plan and any declared
-utility assumptions. Then show every resolution, overdue record and adjudicated
-void. Scores describe registered predictive performance only.**
+utility assumptions. Retain the exact resolution bytes and freeze the versioned
+resolver that derives the binary outcome. Then show every resolution, withheld
+score, overdue record and adjudicated void. Scores describe registered
+predictive performance only.**
 
 The registry makes a future claim capable of being wrong in public. It does not
 authenticate institutions, verify source contents, establish causal value or
@@ -24,7 +26,8 @@ authorise action.
    evaluation plan together. The manifest IDs must exactly equal the evaluation
    cohort IDs.
 4. Store issue-record, plan, registry-manifest, baseline-calculation and evidence
-   SHA-256 values. A checksum proves byte identity, not truth.
+   SHA-256 values. Retain the exact resolution bytes used by the frozen resolver.
+   A checksum proves byte identity, not truth or publisher identity.
 5. Reject input vintages retrieved after issue. Resolution evidence must declare
    a publication time at or after the frozen publication boundary and be
    retrieved no later than resolution.
@@ -34,10 +37,13 @@ authorise action.
    `resolve_by` as `overdue_unresolved`.
 8. Keep every void in the registered denominator. A void needs reason evidence
    and a separately evidenced, claimed-independent adjudication.
-9. Score every resolved forecast, including misses. Never convert a void or
-   overdue record into an outcome.
-10. Withhold reliability rates below both record and claimed-independent-cluster
-    floors. Passing these floors still produces a descriptive diagnostic, not a
+9. Derive every scored outcome from retained bytes with the issue-time resolver.
+   If the bytes are unavailable, keep the record resolved but withhold its score.
+   Never convert a void or overdue record into an outcome.
+10. Map each resolution event to exactly one claimed independence cluster.
+    Aggregate scores and reliability by event, then by cluster. Withhold
+    reliability rates below both event and claimed-independent-cluster floors.
+    Passing these floors still produces a descriptive diagnostic, not a
     calibration claim.
 11. Keep predictive scores separate from declared utility arithmetic and from
     any action decision.
@@ -98,8 +104,10 @@ The evaluator reports:
 
 - `lifecycle_complete`: no record remains pending or overdue;
 - `performance_evaluable`: lifecycle is complete and at least one registered
-  record resolved;
-- `score_coverage`: resolved records divided by all registered records;
+  record has a byte-reconstructed outcome;
+- `score_coverage`: scored records divided by all registered records;
+- `withheld_unreconstructed`: resolved records whose exact bytes were not
+  available for deterministic reconstruction;
 - `void_rate`: voids divided by all registered records.
 
 The plan freezes a minimum score coverage of at least 80 percent. A cohort below
@@ -111,10 +119,16 @@ status remains unverified.
 
 ## Reliability and dependence
 
-The plan freezes probability-bin edges and four floors: total records, records
-per bin, claimed-independent clusters and claimed-independent clusters per bin.
-Thirty copied forecasts of one event remain one cluster and cannot unlock a
-rate. Even after every floor passes, output is
+The plan freezes probability-bin edges and four floors. The legacy plan field
+names `minimum_resolved_forecasts` and `minimum_forecasts_per_bin` are applied to
+registered resolution events, alongside claimed-independent clusters and
+claimed-independent clusters per bin. One resolution event cannot be assigned
+to multiple clusters. Duplicate forecasts of one event count as one event.
+
+Scores first average forecast losses within each registered event, then average
+events within each claimed cluster, then weight clusters equally. Reliability
+uses the same event and cluster units. Thirty distinct events assigned to one
+cluster still cannot unlock a rate. Even after every floor passes, output is
 `descriptive_diagnostic_only_claimed_clusters`, with
 `independence_verified: false`; formal inference, uncertainty intervals and
 external verification of cluster assignments are not implemented.
@@ -140,7 +154,8 @@ one billion to keep subtraction, aggregation and JSON output finite.
 A public summary must show, beside any score:
 
 - resolved, overdue, void and total counts;
-- score coverage and void rate;
+- scored and byte-unreconstructed counts, score coverage and void rate;
+- scored event and claimed-cluster counts plus the aggregation unit;
 - both baseline identities and verification status;
 - reliability status and cluster counts;
 - `action_authorised: false` and `causal_truth_established: false`;
@@ -151,11 +166,13 @@ Do not describe descriptive reliability bins as calibration.
 
 ## Known trust boundary
 
-This code validates structure, chronology, internal hashes and arithmetic. It
-does not fetch evidence bytes, verify a Git commit or trusted timestamp, prove
-manifest completeness, reproduce baseline calculations, authenticate people,
-verify cluster independence, adjudicate a source change or recover affected
-party preferences. Those are external review obligations, not hidden passes.
+This code validates structure, chronology, retained-byte hashes, deterministic
+outcome reconstruction and arithmetic. It does not fetch missing evidence,
+authenticate the external publisher of retained bytes, verify a Git commit or
+trusted timestamp, prove manifest completeness, reproduce baseline
+calculations, authenticate people, verify cluster independence, adjudicate a
+source change or recover affected-party preferences. Those are external review
+obligations, not hidden passes.
 
 ## Fixtures and test
 

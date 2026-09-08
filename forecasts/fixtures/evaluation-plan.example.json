@@ -39,7 +39,7 @@
   "cohort": [
     {
       "forecast_id": "forecast.au-clerical-adoption.example.2027-q2.v1",
-      "issued_record_checksum": "sha256:e51028e81691f224f44ea4695d3a0ee1dabf78e2989d71d461125fa33279a598"
+      "issued_record_checksum": "sha256:3aa7274a1f142a6f0d34e05ef0ee3e7913b09412f3cd777592be050b0c543f7a"
     }
   ],
   "scoring": {
@@ -65,5 +65,5 @@
     "comparator": "declared_no_model_policy",
     "aggregation": "stratify_by_utility_scale_consultation_and_adherence"
   },
-  "registered_plan_checksum": "sha256:edf8ddc2ec7ca42b657a5796b99d539b2783b9bae616c58be50c5c80068d21a2"
+  "registered_plan_checksum": "sha256:0a19f5c988fcc5e5ad6ed6438aa10f77bc7a681526d6a01ffb371882d24fefb5"
 }

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -35,6 +36,23 @@ const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateForecast = ajv.compile(forecastSchema);
 const validatePlan = ajv.compile(evaluationSchema);
+
+function resealResolution(record, value) {
+  const payload = {
+    schema_version: "1.0.0",
+    resolution_event_id: record.target.resolution_event_id,
+    measure: record.target.resolver.measure,
+    unit: record.target.resolver.observation_unit,
+    scope: record.target.scope,
+    observation_window_start: record.target.observation_window_start,
+    observation_window_end: record.target.observation_window_end,
+    value,
+  };
+  const bytes = Buffer.from(JSON.stringify(payload), "utf8");
+  record.resolution.evidence.retained_bytes_base64 = bytes.toString("base64");
+  record.resolution.evidence.checksum =
+    `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
 
 function evaluationPlan(records, overrides = {}) {
   const ids = records.map((record) => record.id);
@@ -121,6 +139,7 @@ function resolvedSeries(count) {
     record.probability = (index % 10 + 0.5) / 10;
     record.baseline.probability = 0.5;
     record.resolution.outcome = index % 3 === 0 ? 1 : 0;
+    resealResolution(record, record.resolution.outcome === 1 ? 20 : 19);
     return record;
   });
 }

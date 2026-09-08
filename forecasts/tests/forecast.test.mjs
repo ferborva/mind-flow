@@ -190,7 +190,20 @@ test("binary scores reward honest probability and compare with the baseline", ()
   assert.equal(brierSkillScore(0.04, 0.25), 0.84);
 
   const score = scoreBinaryForecast(resolved);
-  assert.deepEqual(score, {
+  assert.deepEqual(score.resolution_reconstruction, {
+    status: "reconstructed",
+    reason: null,
+    outcome: 1,
+    observed_value: 20,
+    resolver_id: "mind-flow.binary-threshold-json",
+    resolver_version: "1.0.0",
+    evidence_checksum: resolved.resolution.evidence.checksum,
+    byte_integrity_verified: true,
+    publisher_identity_verified: false,
+    publisher_identity_verification_status: "unverified_external_review_required",
+  });
+  const { resolution_reconstruction: _reconstruction, ...properScores } = score;
+  assert.deepEqual(properScores, {
     outcome: 1,
     brier: 0.09,
     reference_class_baseline_brier: 0.25,

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -19,6 +20,23 @@ const readJson = (name) => JSON.parse(readFileSync(join(root, "fixtures", name),
 const issued = readJson("binary.issued.json");
 const resolved = readJson("binary.resolved.json");
 const decisionResolved = readJson("decision-linked.resolved.json");
+
+function resealResolution(record, value = 20) {
+  const payload = {
+    schema_version: "1.0.0",
+    resolution_event_id: record.target.resolution_event_id,
+    measure: record.target.resolver.measure,
+    unit: record.target.resolver.observation_unit,
+    scope: record.target.scope,
+    observation_window_start: record.target.observation_window_start,
+    observation_window_end: record.target.observation_window_end,
+    value,
+  };
+  const bytes = Buffer.from(JSON.stringify(payload), "utf8");
+  record.resolution.evidence.retained_bytes_base64 = bytes.toString("base64");
+  record.resolution.evidence.checksum =
+    `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
 
 function hardenedPlan(records) {
   const ids = records.map((record) => record.id);
@@ -202,6 +220,8 @@ test("thirty copies of one resolution cluster do not unlock reliability rates", 
   const copies = Array.from({ length: 30 }, (_, index) => {
     const record = structuredClone(resolved);
     record.id = `forecast.hostile-copy.${index}.v1`;
+    record.target.resolution_event_id = `event.hostile-copy.${index}`;
+    resealResolution(record);
     return record;
   });
   const report = evaluateForecastCohort(hardenedPlan(copies), copies, {
@@ -229,6 +249,7 @@ test("baseline policy is pre-issue, dual, campaign-level and explicitly unverifi
   second.id = "forecast.hostile-second.v1";
   second.target.resolution_event_id = "event.hostile-second";
   second.target.independence_cluster_id = "cluster.hostile-second";
+  resealResolution(second);
   second.baseline.family_id = "opportunistic-family";
   const plan = hardenedPlan([resolved, second]);
   assert.throws(

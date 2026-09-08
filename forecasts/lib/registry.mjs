@@ -1,5 +1,10 @@
 import { isDeepStrictEqual } from "node:util";
 
+import {
+  assertFrozenResolutionResolver,
+  assertResolutionOutcome,
+} from "./resolution.mjs";
+
 export const IMMUTABLE_ISSUE_FIELDS = [
   "schema_version",
   "id",
@@ -382,6 +387,7 @@ export function assertForecastSemantics(forecast) {
       throw new TypeError(`target.${field} must be present`);
     }
   }
+  assertFrozenResolutionResolver(forecast.target);
 
   const referenceBaseline = mechanicalBaseline(forecast.baseline, "reference-class baseline", issuedAt);
   const naiveBaseline = mechanicalBaseline(forecast.naive_baseline, "naive baseline", issuedAt);
@@ -467,6 +473,7 @@ export function assertForecastSemantics(forecast) {
     if (resolutionEvidence.retrievedAt > resolvedAt) {
       throw new Error("resolution evidence retrieved_at cannot follow resolved_at");
     }
+    assertResolutionOutcome(forecast);
     if (historyTimes.at(-1) !== resolvedAt) {
       throw new Error("forecast history resolved event must match resolution.resolved_at");
     }

@@ -107,6 +107,7 @@
         "resolution_source",
         "resolution_event_id",
         "independence_cluster_id",
+        "resolver",
         "observation_window_start",
         "observation_window_end",
         "outcome_publication_not_before"
@@ -119,9 +120,30 @@
         "resolution_source": { "type": "string", "format": "uri" },
         "resolution_event_id": { "type": "string", "minLength": 1 },
         "independence_cluster_id": { "type": "string", "minLength": 1 },
+        "resolver": { "$ref": "#/$defs/resolver" },
         "observation_window_start": { "type": "string", "format": "date-time" },
         "observation_window_end": { "type": "string", "format": "date-time" },
         "outcome_publication_not_before": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "resolver": {
+      "type": "object",
+      "required": [
+        "resolver_id",
+        "resolver_version",
+        "measure",
+        "observation_unit",
+        "operator",
+        "threshold"
+      ],
+      "properties": {
+        "resolver_id": { "const": "mind-flow.binary-threshold-json" },
+        "resolver_version": { "const": "1.0.0" },
+        "measure": { "type": "string", "minLength": 1 },
+        "observation_unit": { "type": "string", "minLength": 1 },
+        "operator": { "enum": ["gt", "gte", "lt", "lte", "eq"] },
+        "threshold": { "type": "number" }
       },
       "additionalProperties": false
     },
@@ -192,7 +214,21 @@
         "retrieved_at": { "type": "string", "format": "date-time" },
         "published_at": { "type": "string", "format": "date-time" },
         "vintage": { "type": "string", "minLength": 1 },
-        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "retained_media_type": { "const": "application/json" },
+        "retained_bytes_base64": {
+          "type": "string",
+          "minLength": 4,
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "publisher_identity_verification_status": {
+          "const": "unverified_external_review_required"
+        }
+      },
+      "dependentRequired": {
+        "retained_media_type": ["retained_bytes_base64", "publisher_identity_verification_status"],
+        "retained_bytes_base64": ["retained_media_type", "publisher_identity_verification_status"],
+        "publisher_identity_verification_status": ["retained_media_type", "retained_bytes_base64"]
       },
       "additionalProperties": false
     },

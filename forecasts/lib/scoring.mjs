@@ -1,4 +1,5 @@
 import { assertForecastSemantics } from "./registry.mjs";
+import { requireReconstructedResolution } from "./resolution.mjs";
 
 function probability(value, label) {
   if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) {
@@ -53,12 +54,14 @@ export function scoreBinaryForecast(forecast) {
   }
   assertForecastSemantics(forecast);
 
-  const y = outcome(forecast.resolution.outcome);
+  const resolutionReconstruction = requireReconstructedResolution(forecast);
+  const y = outcome(resolutionReconstruction.outcome);
   const score = brierScore(forecast.probability, y);
   const baseline = brierScore(forecast.baseline?.probability, y);
   const naiveBaseline = brierScore(forecast.naive_baseline?.probability, y);
 
   return {
+    resolution_reconstruction: resolutionReconstruction,
     outcome: y,
     brier: score,
     reference_class_baseline_brier: baseline,

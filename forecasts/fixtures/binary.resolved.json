@@ -22,6 +22,14 @@
     "resolution_source": "https://example.org/fictional-transition-survey",
     "resolution_event_id": "event.synthetic-adoption.2027-q2",
     "independence_cluster_id": "cluster.synthetic-adoption.2027-q2",
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.0.0",
+      "measure": "fictional-pilot-adoption",
+      "observation_unit": "percent",
+      "operator": "gte",
+      "threshold": 20
+    },
     "observation_window_start": "2027-04-01T00:00:00Z",
     "observation_window_end": "2027-06-30T23:59:59Z",
     "outcome_publication_not_before": "2027-07-01T00:00:00Z"
@@ -111,7 +119,10 @@
       "published_at": "2027-08-15T00:00:00Z",
       "retrieved_at": "2027-08-15T00:00:00Z",
       "vintage": "fictional-2027-q2",
-      "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      "checksum": "sha256:d0cd83f0ba080523670cd9625074d662ccbfd533c6e7d5387ad68cc415c8acd6",
+      "retained_media_type": "application/json",
+      "retained_bytes_base64": "eyJzY2hlbWFfdmVyc2lvbiI6IjEuMC4wIiwicmVzb2x1dGlvbl9ldmVudF9pZCI6ImV2ZW50LnN5bnRoZXRpYy1hZG9wdGlvbi4yMDI3LXEyIiwibWVhc3VyZSI6ImZpY3Rpb25hbC1waWxvdC1hZG9wdGlvbiIsInVuaXQiOiJwZXJjZW50Iiwic2NvcGUiOnsiZ2VvZ3JhcGhpZXMiOlsiQXVzdHJhbGlhIl0sImNvaG9ydHMiOlsiRmljdGlvbmFsIGNsZXJpY2FsLXdvcmtlciBwaWxvdCBjb2hvcnQiXSwic2VydmljZXMiOlsiV29yay10cmFuc2l0aW9uIG1lYXN1cmVtZW50Il19LCJvYnNlcnZhdGlvbl93aW5kb3dfc3RhcnQiOiIyMDI3LTA0LTAxVDAwOjAwOjAwWiIsIm9ic2VydmF0aW9uX3dpbmRvd19lbmQiOiIyMDI3LTA2LTMwVDIzOjU5OjU5WiIsInZhbHVlIjoyMH0=",
+      "publisher_identity_verification_status": "unverified_external_review_required"
     },
     "notes": "Synthetic positive outcome for scoring tests."
   },

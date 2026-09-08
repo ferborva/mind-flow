@@ -22,6 +22,14 @@
     "resolution_source": "https://example.org/fictional-continuity-survey",
     "resolution_event_id": "event.synthetic-continuity.2027-q2",
     "independence_cluster_id": "cluster.synthetic-continuity.2027-q2",
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.0.0",
+      "measure": "fictional-continuity",
+      "observation_unit": "percent",
+      "operator": "lt",
+      "threshold": 75
+    },
     "observation_window_start": "2027-04-01T00:00:00Z",
     "observation_window_end": "2027-06-30T23:59:59Z",
     "outcome_publication_not_before": "2027-07-01T00:00:00Z"
