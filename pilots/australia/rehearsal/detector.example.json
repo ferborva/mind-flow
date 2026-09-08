@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "id": "annual-run-review",
+  "version": "1.0.0",
+  "mode": "no-consequence-review",
+  "lookback_months": 12,
+  "run_months": 3,
+  "annual_change_at_or_below_percent": -10
+}
