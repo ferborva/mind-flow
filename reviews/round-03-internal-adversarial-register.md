@@ -149,7 +149,7 @@ combined work. The fixes below are internal containments only.
 | `I03-PB-02` | `Compare all` silently became World | Multi-measure signals and the baseline substituted `OWID_WRL` while the export still said `ALL` | Multi-measure comparison now withholds the view, names the reason and exports exact effective entities | internally contained |
 | `I03-PB-03` | Displayed values dropped material units | GDP appeared as a bare number without its constant-price basis | Cards, chart descriptions, tooltips, tables and chart axes now carry a complete display unit; external review must test every signal | internally contained |
 | `I03-PB-04` | Critical timing states were hidden on touch screens | Publisher-release and publication-eligibility states required opening details | The seven-part observed claim now exposes the deduplicated release, evidence and publication states; full clocks remain expandable | internally contained |
-| `I03-PB-05` | IF evolution existed only as prose | Current state could be rewritten without preserving the condition's prior wording, evidence or author | Programme and public language now require typed append-only history; executable fold and mutation attacks are in progress | in progress |
+| `I03-PB-05` | IF evolution existed only as prose | Current state could be rewritten without preserving the condition's prior wording, evidence or author | A typed ledger now binds the event chain, exact prior and new states, deterministic public projection and current-state fold; independent checkpoint authentication is still absent | internally contained |
 | `I03-PB-06` | Person and household units contradicted each other | A person-level margin could absorb shared costs without allocation while later text assumed `u` was a household | Person and household units now separate `p`, `h` and `u`; shared costs require preregistered shares summing to one and sensitivity analysis | internally contained |
 | `I03-PB-07` | The Australian join rule omitted decisive incompatibilities | Business, worker and resident-region data matched five labels yet still differed in statistical unit and denominator | Join conditions now include statistical unit, keys, denominators, weights, revisions and ecological-inference controls; NERO residence geography and minimum-count treatment are explicit | internally contained |
 | `I03-PB-08` | Non-priming language required false balance | A weak plausible story could receive the same weight as a strongly evidenced rival | Alternatives now need mechanisms and discriminating observations; prominence is predeclared and evidence-proportional, with high-consequence omissions retained | internally contained |
@@ -159,6 +159,98 @@ inspect every unit, use the evidence atlas at 320 pixels with touch and keyboard
 mutate a condition history, allocate shared household costs under rival rules,
 attempt the cross-level Australian join and test an asymmetric-evidence public
 comparison. Static string tests are not sufficient closure evidence.
+
+## Condition-evolution hostile round
+
+The first executable ledger passed its own 28 tests and still permitted
+meaning-changing merges, incomplete splits, unresolved challenges moving to
+`satisfied`, scope claims contradicting rendered language, forged public folds
+and unsafe integer inputs. A second hostile pass reopened it.
+
+| ID | Finding | Current containment | External residual | Status |
+|---|---|---|---|---|
+| `I03-CE-01` | Merge could launder a different claim | Merge is identity consolidation only and requires identical proposition and scope | Identical text and scope do not prove identical estimands or real-world meaning | internally contained |
+| `I03-CE-02` | Dispute could disappear into a satisfied state | Challenges persist until an evidence-bound resolution; satisfied and failed states require a typed assessment | Assessor identity, method quality and resolution legitimacy remain unverified | internally contained |
+| `I03-CE-03` | Split could duplicate or abandon groups silently | One partition dimension, declared coverage and explicit overlap are required | Flat labels do not prove ontology membership or complete representation | internally contained |
+| `I03-CE-04` | Displayed IF text could contradict structured scope | Public IF text and projection are deterministic outputs of proposition and scope | A public comprehension test must confirm readers notice scope changes | internally contained |
+| `I03-CE-05` | Ledger and public anchor could be relabelled after resealing | The manifest hash binds ledger identity, events, state, projection and checkpoint metadata | A coordinated actor can reseal the local chain until an independent transparency log signs a prior manifest | internally contained |
+| `I03-CE-06` | A valid cropped suffix looked like a valid whole ledger | Crops now report whole-ledger invalidity while preserving separately named suffix validity | Omitted history and external base remain deliberately unverified locally | internally contained |
+
+All 44 current evolution tests pass internally. This is tamper-evident
+structure, not external append-only proof, condition truth or authority.
+
+## Possible-path hostile round
+
+The first path design risked making a persuasive causal story look like a
+forecast. The executable contract now treats every path as an open-world,
+unscored hypothesis and binds its transitions to the exact IF scope.
+
+| ID | Finding | Current containment | External residual | Status |
+|---|---|---|---|---|
+| `I03-PH-01` | A path could survive a changed population, standard or IF sentence | The complete people, verb, object, standard, place, period and plain-language IF scope is hashed and repeated at every consequential edge | Local resealing cannot prove the scope or condition ledger is authentic | internally contained |
+| `I03-PH-02` | Condition evolution could leave stale edges active | Every bound condition carries the closed eleven-operation matrix; all material changes stop and require re-registration | The validator cannot fetch or authenticate the external event used for a claimed no-effect decision | internally contained |
+| `I03-PH-03` | Unknown or failed IFs could be interpreted as permission to continue | Every consequential edge has explicit true, false and unknown branches; false and unknown always block traversal | Human decision-makers may still act outside this repository and need separate accountability | internally contained |
+| `I03-PH-04` | One favoured story could masquerade as an exhaustive future | A strongest known competitor, discriminating observations and an abandonment rule are mandatory; forecast, probability and crisis language is rejected | The contract cannot discover omitted paths or prove that the named competitor is strongest | internally contained |
+| `I03-PH-05` | Reused measurements could simulate convergent evidence | Seven signal roles are explicit and one signal cannot fill multiple roles | Source independence, measurement quality and real-world truth remain external | internally contained |
+| `I03-PH-06` | A valid graph could hide burdened people or create authority | Affected and omitted populations stay visible; truth, probability, crisis, authority and automatic action remain fixed false | Participation, consent, legal authority and completeness of representation require real institutions | internally contained |
+
+All 15 current possible-path tests pass internally. The synthetic Australian
+fixture is a discussion surface only, not evidence that the path exists or is
+likely.
+
+## Preparation hostile round
+
+The first preparation register passed 11 tests but still accepted caller-set IF
+results, fabricated emergency readiness, action outside an actor's capability,
+an internally contradictory inaction comparator, weak recovery reservation and
+affected-party records not bound to the named parties.
+
+| ID | Finding | Current containment | External residual | Status |
+|---|---|---|---|---|
+| `I03-PR-01` | IF results were free assertions | Clause states are recomputed from typed observations, declared operators, thresholds, time windows and evidence bundles | Source truth and source independence remain unverified | internally contained |
+| `I03-PR-02` | Emergency readiness could be fabricated | Containment is limited to three verbs and seven days; current funding, capacity, committed dependencies, executable start and stop gates, safeguards and later review are required | Legal necessity, authority, delivery and reviewer independence remain external | internally contained |
+| `I03-PR-03` | Actor prose exceeded structured authority scope | Verb, object class, jurisdiction, geography and service must fit one declared actor capability | Identity and actual mandate remain caller assertions | internally contained |
+| `I03-PR-04` | Acting and waiting used inconsistent comparisons | One evidence-bound interval system and harm scale now derive the comparison headline for both paths | Inputs do not establish causal intervention effects or affected-party values | internally contained |
+| `I03-PR-05` | Affected-party coverage could be laundered | Every scoped party needs one disposition, party-bound testimony, visible objections and the same challenge route | Participation, representation and consent still require real review | internally contained |
+| `I03-PR-06` | Preparation invented a parallel condition history | Every IF expression pins a canonical evolution-ledger tip; decision use fails while that binding is externally unverified | A production importer and authenticated checkpoint do not yet exist | internally contained |
+
+All 20 current preparation tests pass internally. The fixture remains synthetic
+and structurally publishable only as a proposal. It cannot authorise action.
+
+## Forecast hostile round
+
+The initial prospective evaluator passed 22 tests but could still select its
+cohort after issue, score already-known outcomes, crash against a perfect
+baseline, call an all-void campaign complete, award apparent decision value
+when the forecast was not consulted, and inflate sample size with dependent
+copies.
+
+| ID | Finding | Current containment | External residual | Status |
+|---|---|---|---|---|
+| `I03-FC-01` | Post-issue selection could improve apparent skill | A pre-issue campaign rule and sealed pre-observation eligible-record manifest must match the scored cohort exactly | Code cannot prove the external manifest contains every eligible issued record | internally contained |
+| `I03-FC-02` | Known outcomes could enter the prospective cohort | Observation windows and earliest publication times must follow issue and plan sealing | Timestamps and source publication claims are not independently authenticated | internally contained |
+| `I03-FC-03` | Baseline and void handling overstated performance | Two campaign-level mechanical baselines, explicit perfect-baseline states, visible voids and an 80 percent minimum score-coverage rule now fail closed | Baseline computations and void adjudicator independence need external reproduction | internally contained |
+| `I03-FC-04` | Declared utility looked causal | Output is now bounded, stratified `declared_utility_arithmetic` under the same realised outcome | No counterfactual decision effect or intervention effect is identified | internally contained |
+| `I03-FC-05` | Duplicate events defeated the sample floor | Reliability uses claimed independent clusters and withholds rates below record and cluster floors | Cluster independence remains a caller assertion | internally contained |
+
+All 33 current forecast tests pass internally. Predictive skill remains
+unestablished until a frozen prospective campaign beats both declared
+baselines with enough independent clusters.
+
+## Source re-acquisition and reproduction round
+
+The registered August 2026 NERO archive was re-acquired from the official JSA
+URL on 8 September 2026. Its 48,613,300-byte length and SHA-256 digest exactly
+matched the prior local capture. The frozen recipe reproduced all derived
+fields across 440 separate occupation-region series after excluding two
+declared non-derived metadata fields.
+
+This supports capture continuity and deterministic extraction. It does not
+authenticate publisher origin independently, prove exact release availability,
+turn a modelled nowcast into direct observation, establish a condition, support
+AI attribution or authorise decision use. The archive was not committed and
+must be acquired again for future reproduction. External review should repeat
+the download, hash, archive-member inspection and clean rebuild.
 
 ## External-review challenge pack
 

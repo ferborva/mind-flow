@@ -107,6 +107,17 @@ test("the public dashboard has a complete accessible HTML shell and print basics
   assert.match(template, /<\/body>\s*<\/html>\s*$/i);
 });
 
+test("long first-screen status labels can wrap inside a 320px viewport", () => {
+  assert.match(
+    template,
+    /\.authority-pill\{[^}]*max-width:100%[^}]*white-space:normal[^}]*overflow-wrap:anywhere/s,
+  );
+  assert.match(
+    template,
+    /\.brandline \.sub\{[^}]*max-width:100%[^}]*overflow-wrap:anywhere/s,
+  );
+});
+
 test("small secondary text tokens meet WCAG AA contrast on their surfaces", () => {
   const rootBlocks = [...template.matchAll(/:root\{([^}]*)\}/gs)];
   const dark = rootBlocks.at(-1)?.[1];
@@ -142,6 +153,11 @@ test("the observatory leads with status, public meaning, IFs, paths, action and 
   assert.match(template, /aria-live=["']polite["']/);
   assert.match(template, /id=["']if-claim["']/);
   assert.match(template, /id=["']condition-decision["']/);
+  assert.match(template, /id=["']condition-history-status["']/);
+  assert.match(template, /condition history is not bound to this snapshot/i);
+  assert.match(template, /current state does not prove how the wording, scope or evidence changed/i);
+  assert.match(template, /registered route requires five layers.*may still omit others/i);
+  assert.doesNotMatch(template, /promise holds only if five layers hold/i);
   assert.match(template, /function renderConditionMap\(/);
 });
 

@@ -183,7 +183,17 @@ Formalise:
   ambiguous executable `UNLESS`;
 - lifecycle, binding state and evidence grade as separate axes;
 - condition migration and feedback;
-- watch, act, pause, reverse, recover and graduate rules.
+- `watch_if`, `prepare_if`, `act_if`, `pause_if`, `reverse_if`, `recover_if`
+  and `graduate_if` rules.
+
+The current executable prototype is the
+[condition evolution ledger](../contracts/evolution/README.md). Its valid
+history does not determine truth or authority.
+
+The [possible-path contract](../paths/README.md) binds each consequential edge
+to that history, the complete outcome scope, distinct signal roles, competing
+paths and explicit false and unknown branches. A valid path is still an
+unscored hypothesis, not a finding, forecast or mandate.
 
 **Gate:** independent reviewers can encode the same ten real-world claims with
 acceptable agreement and can explain every disagreement.
@@ -232,6 +242,11 @@ Score binary events with Brier and log scores, continuous forecasts with proper
 distributional or quantile scores, and publish calibration separately from
 decision usefulness.
 
+The current executable prototype is the
+[forecast registry and scoring contract](../forecasts/README.md). It separates
+research-only and decision-linked records and withholds calibration language
+below a preregistered information floor.
+
 **Gate:** candidate forecasts beat declared naive baselines in rolling
 historical evaluation. Otherwise they remain hypotheses or scenarios.
 
@@ -245,6 +260,10 @@ For every candidate crossing, distinguish:
 - `reverse_if`: the action is worsening the protected outcome;
 - `recover_if`: the condition has relieved but support must continue;
 - `graduate_if`: the temporary compact can end or become normal provision.
+
+The current executable prototype is the
+[early-action preparation contract](../preparation/README.md). Its fixtures are
+synthetic and cannot create authority, capacity, consent or funding.
 
 **Gate:** owner, authority, funding, service level, affected participants,
 safeguards, appeal, override, review and exit are all real and rehearsed.

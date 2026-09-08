@@ -1,0 +1,5 @@
+{
+  "id": "attack.recovery-unfunded",
+  "operations": [{ "op": "replace", "path": "/actions/0/recovery_path/funding_reserved", "value": false }],
+  "expected_codes": ["RECOVERY_NOT_RESERVED"]
+}

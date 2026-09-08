@@ -98,10 +98,20 @@ Foundation documents: **4 of 4 in place.**
 - `evidence/assumptions/`: versioned hypotheses, safeguards, value choices and
   unknowns with affected parties, challenges, decision exposure and review
   clocks.
-- `communications/`: labels, public update templates and adversarial
-  comprehension tests.
+- `communications/`: public field guide, labels, update templates and
+  adversarial comprehension tests.
+- `contracts/evolution/`: append-only condition-event history, deterministic
+  fold and explicit cropped-history disclosure.
+- `signals/`: estimand and seven-role condition portfolios with source
+  dependence, scope, lead-time and public-claim ceilings.
+- `paths/`: scoped, unscored possible-path hypotheses whose edges bind complete
+  IF scope, condition history, competing explanations and blocking branches.
+- `preparation/`: reversible early-action proposals across individual,
+  community, institution and country scales, with symmetrical inaction review.
 - `forecasts/`: immutable binary forecast contracts, baseline comparison and
-  proper scoring.
+  prospective proper scoring, including a separate decision-linked stratum.
+- `experiments/observatory-comparison/`: a proposed three-arm public-instrument
+  trial with dangerous-understanding and affected-group stop lines.
 
 These are Ren or agent-authored commissioned proposals. They are not
 Fernando's settled views.

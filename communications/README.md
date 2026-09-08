@@ -39,6 +39,7 @@ updated: 2026-09-08
 
 | File | Purpose |
 |---|---|
+| [The Future Has Conditions](transition-field-guide.md) | Public entry point to the thesis, condition evolution, signal roles and early preparation |
 | [Labels and headline rules](labels-and-headlines.md) | Public vocabulary, provenance, epistemic classes and headline tests |
 | [Public update templates](templates.md) | Baseline, warning, correction, uncertainty, forecast resolution, action activation and recovery |
 | [Comprehension and adversarial test](comprehension-test.md) | Facilitator script, scoring and measurable release gates |

@@ -182,6 +182,9 @@ is an instrumentation backlog, not a neutral or safe state.
   It is not seeded silently from observations and is not a forecast.
 - The current World snapshot has no registered typed possible-path assessment.
   It therefore displays no crisis path, forecast, option or action card.
+- The current snapshot does not bind a complete condition-evolution ledger.
+  The interface says so beside the IF map. Its current state cannot prove how
+  wording, scope or evidence changed, so no history-based decision is eligible.
 - Free-text failure modes and actor playbooks were removed because labels alone
   could not bind hypotheses, discriminators, condition gates or authority.
 - Non-empty possible-path references fail the build until the dashboard can

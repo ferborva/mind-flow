@@ -1,0 +1,5 @@
+{
+  "id": "attack.inaction-omitted",
+  "operations": [{ "op": "remove", "path": "/actions/0/inaction_comparator" }],
+  "expected_codes": ["SCHEMA_NONCONFORMANT"]
+}

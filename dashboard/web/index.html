@@ -248,7 +248,7 @@ body:before{
 .sigil:before,.sigil:after{content:"";position:absolute;border:1px solid var(--accent);border-radius:50%;inset:7px}
 .sigil:after{inset:14px;background:var(--accent);box-shadow:0 0 22px var(--accent)}
 h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,4vw,40px);font-weight:600;letter-spacing:.01em}
-.brandline .sub{color:var(--accent);letter-spacing:.21em}
+.brandline .sub{color:var(--accent);letter-spacing:.21em;max-width:100%;overflow-wrap:anywhere}
 .standfirst{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(30px,5.2vw,66px);line-height:1.01;
   max-width:15ch;margin:52px 0 24px;color:var(--ink);letter-spacing:-.025em}
 .standfirst strong{font-weight:600}
@@ -330,7 +330,7 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .method-stack pre{max-height:320px;max-width:100%}
 .authority-strip{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 20px}
 .authority-pill{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase;
-  border:1px solid var(--warning);color:var(--ink);background:color-mix(in srgb,var(--warning) 12%,transparent);padding:5px 8px;border-radius:3px;flex:0 0 auto;max-width:100%}
+  border:1px solid var(--warning);color:var(--ink);background:color-mix(in srgb,var(--warning) 12%,transparent);padding:5px 8px;border-radius:3px;flex:0 0 auto;max-width:100%;white-space:normal;overflow-wrap:anywhere}
 .authority-pill.blocked{border-color:var(--critical);background:color-mix(in srgb,var(--critical) 10%,transparent)}
 .public-update{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0 0;padding-bottom:24px}
 .update-cell{background:var(--surface-2);border:1px solid var(--rule);border-radius:7px;padding:13px 14px;min-height:104px}
@@ -460,11 +460,12 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 
     <section class="section" id="condition-map">
       <div class="section-head">
-        <div><div class="section-kicker">02 · IF map</div><h2>The promise holds only if five layers hold.</h2></div>
+        <div><div class="section-kicker">02 · IF map</div><h2>The registered route requires five layers. It may still omit others.</h2></div>
         <p>The condition chain is the unit of public reasoning. A capability announcement is an input,
           not evidence that people received a durable, fair increase in agency.</p>
       </div>
       <p class="if-claim" id="if-claim" aria-live="polite">Loading the registered claim and scope…</p>
+      <p class="plain-warning" id="condition-history-status" aria-live="polite"><strong>Condition history is not bound to this snapshot.</strong> The current state does not prove how the wording, scope or evidence changed. No history-based decision is eligible.</p>
       <div class="condition-grid" id="condition-grid"></div>
       <p class="condition-decision" id="condition-decision" aria-live="polite">Loading the registered decision…</p>
     </section>

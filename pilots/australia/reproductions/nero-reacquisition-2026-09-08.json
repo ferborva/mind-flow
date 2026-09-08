@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "nero-reacquisition-2026-09-08t134833z",
+  "record_type": "temporary-source-reacquisition-observation",
+  "provenance": "commissioned-agent-observation",
+  "recorder": "Ren",
+  "source": {
+    "publisher": "Jobs and Skills Australia",
+    "title": "Nowcast of Employment by Region and Occupation, ANZSCO 4 Digit Occupations and SA4 Regions, August 2026",
+    "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+    "archive_name": "2026-08_nero.zip",
+    "release_period": "2026-08",
+    "publisher_release_date": "2026-09-02",
+    "publisher_page_reported_byte_length": 48613300,
+    "licence": "CC BY 4.0"
+  },
+  "observation": {
+    "retrieved_at_utc": "2026-09-08T13:48:33Z",
+    "retrieval_method": "HTTPS GET from the archive URL on the official publisher host",
+    "http_result": "success",
+    "byte_length": 48613300,
+    "sha256": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+    "archive_member_count": 2,
+    "archive_members": [
+      {
+        "path": "2026-08_nero/2026-08_shiny_df.csv",
+        "uncompressed_byte_length": 372698746
+      },
+      {
+        "path": "2026-08_nero/2026-08_shiny_df.rds",
+        "uncompressed_byte_length": 16419664
+      }
+    ],
+    "retained_in_repository": false,
+    "retention_reason": "The 48 MB archive and 372 MB uncompressed CSV are not required for repository review. Re-acquisition from the registered source is reproducible, but the archive must be acquired again for a fresh computation.",
+    "exact_publisher_release_time_utc": null,
+    "prospective_chronology_established": false
+  },
+  "comparison": {
+    "prior_capture_record": "pilots/australia/data/nero-clerical-2026-08.json",
+    "prior_capture_sha256": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+    "hash_match": true,
+    "byte_length_matches_publisher_page": true
+  },
+  "reproduction": {
+    "builder": "dashboard/tools/build-nero-baseline.mjs",
+    "builder_arguments_match_frozen_recipe": true,
+    "rebuilt_output_sha256": "sha256:41776f47f7dc8e81a888d8bd1731eb3d609afad5a610edc6cadbab1476640faa",
+    "frozen_output_sha256": "sha256:440c566123d3146cc2b00eef267139fc1a13dbd653c7ec9ec3c40012d857fa70",
+    "byte_equal": false,
+    "excluded_metadata_fields": [
+      "source.archive_name",
+      "source.release_availability.evidence"
+    ],
+    "derived_values_deep_equal": true,
+    "series_count": 440,
+    "explanation": "The generated file differs only in the local temporary archive filename, release-availability explanation and JSON key order. After removing those non-derived metadata fields, deep structural comparison matched every remaining field and all 440 series."
+  },
+  "assurance": {
+    "transport": "https-official-host",
+    "publisher_signature_verified": false,
+    "independent_witness_verified": false,
+    "content_recomputed_in_this_event": true,
+    "statement": "HTTPS retrieval from the registered official host, a matching archive digest and a deep-equal rebuild provide source continuity and deterministic extraction evidence. They do not provide a publisher signature or an independent witness to the bytes."
+  },
+  "disposition": {
+    "source_continuity": "supported-for-this-retrieval",
+    "condition_truth": "not-determined",
+    "causality": "not-determined",
+    "decision_use": "prohibited",
+    "maximum_claim": "A temporary retrieval from the registered official URL produced a bit-for-bit match to the archive captured earlier on 2026-09-08, and the frozen recipe reproduced all 440 derived series after excluding two declared non-derived metadata fields. This does not authenticate publisher origin independently, establish prospective availability, validate NERO as direct observation, establish any condition as true, or authorise decision use."
+  }
+}

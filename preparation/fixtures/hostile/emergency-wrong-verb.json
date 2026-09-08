@@ -1,0 +1,8 @@
+{
+  "id": "attack.emergency-wrong-verb",
+  "operations": [
+    { "op": "replace", "path": "/actions/3/verb", "value": "pilot" },
+    { "op": "replace", "path": "/actions/3/public_sentence", "value": "Proposal: pilot a failing automated payment channel while maintaining a manual rights-preserving route IF authenticated service telemetry and two independent checks show an imminent nationwide payment-integrity failure while the rights-preserving route remains available. This record does not authorise action." }
+  ],
+  "expected_codes": ["EMERGENCY_VERB_NOT_ALLOWED"]
+}

@@ -1,0 +1,441 @@
+{
+  "schema_version": "1.0",
+  "path_id": "path.synthetic.au-clerical-supported-transition",
+  "classification": "synthetic-example-not-a-finding",
+  "title": "A supported transition path for an Australian clerical cohort",
+  "hypothesis_summary": "One revisable path in which a narrowly defined clerical cohort moves through preparation, negotiation and supported transition without treating the path as expected or exhaustive.",
+  "epistemic_contract": {
+    "kind": "possible-path-hypothesis",
+    "world_model": "open-world",
+    "quantification": "unscored",
+    "selection_status": "one-revisable-path-among-unnamed-possibilities",
+    "truth_status": "not-assessed"
+  },
+  "outcome_scope": {
+    "who": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+    "verb": "transition",
+    "object": "to comparable or preferred paid work",
+    "standard": "no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition",
+    "place": "Australia",
+    "period": "2027-01-01 through 2029-12-31",
+    "if_conditions": [
+      {
+        "condition_id": "condition.synthetic.worker-option",
+        "public_condition": "each affected worker has a funded, accessible and genuinely rejectable transition option before role change"
+      },
+      {
+        "condition_id": "condition.synthetic.delivery-capacity",
+        "public_condition": "named institutions have verified funding, delivery capacity, appeal routes and recovery plans for the scoped cohort and period"
+      }
+    ],
+    "scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010"
+  },
+  "condition_anchors": [
+    {
+      "condition_id": "condition.synthetic.worker-option",
+      "ledger_ref": "https://example.invalid/mind-flow/synthetic/worker-option-ledger.json",
+      "ledger_manifest_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "condition_version": 1,
+      "as_of_sequence": 1,
+      "as_of_event_id": "event.synthetic.worker-option-added",
+      "as_of_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "rendered_if": "IF each affected worker has a funded, accessible and genuinely rejectable transition option before role change",
+      "verification": "external-unverified-anchor"
+    },
+    {
+      "condition_id": "condition.synthetic.delivery-capacity",
+      "ledger_ref": "https://example.invalid/mind-flow/synthetic/delivery-capacity-ledger.json",
+      "ledger_manifest_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "condition_version": 1,
+      "as_of_sequence": 1,
+      "as_of_event_id": "event.synthetic.delivery-capacity-added",
+      "as_of_event_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "rendered_if": "IF named institutions have verified funding, delivery capacity, appeal routes and recovery plans for the scoped cohort and period",
+      "verification": "external-unverified-anchor"
+    }
+  ],
+  "graph": {
+    "entry_node_id": "node.baseline",
+    "nodes": [
+      {
+        "node_id": "node.baseline",
+        "kind": "context",
+        "label": "Scoped workers, households and participating employers remain at the registered baseline",
+        "affected_population_ids": ["population.clerical-workers", "population.households", "population.participating-employers"]
+      },
+      {
+        "node_id": "node.preparation-decision",
+        "kind": "decision",
+        "label": "A human owner considers whether preparation may begin",
+        "affected_population_ids": ["population.clerical-workers", "population.households", "population.participating-employers"]
+      },
+      {
+        "node_id": "node.negotiated-option",
+        "kind": "negotiation",
+        "label": "Workers can inspect, contest and reject a funded transition option",
+        "affected_population_ids": ["population.clerical-workers", "population.households", "population.participating-employers"]
+      },
+      {
+        "node_id": "node.scoped-outcome",
+        "kind": "outcome",
+        "label": "The scoped transition standard is measured for the registered cohort and period",
+        "affected_population_ids": ["population.clerical-workers", "population.households"]
+      },
+      {
+        "node_id": "node.abandon",
+        "kind": "abandonment",
+        "label": "This path stops while its record and unresolved conditions remain visible",
+        "affected_population_ids": ["population.clerical-workers", "population.households", "population.participating-employers"]
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "edge.prepare",
+        "from_node_id": "node.baseline",
+        "to_node_id": "node.preparation-decision",
+        "kind": "consequential-decision",
+        "label": "Consider preparation only against the registered worker-option condition",
+        "condition_bindings": [
+          {
+            "condition_id": "condition.synthetic.worker-option",
+            "ledger_ref": "https://example.invalid/mind-flow/synthetic/worker-option-ledger.json",
+            "ledger_manifest_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "condition_version": 1,
+            "as_of_sequence": 1,
+            "as_of_event_id": "event.synthetic.worker-option-added",
+            "as_of_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "outcome_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010"
+          }
+        ],
+        "branches": {
+          "if_true": {
+            "target_node_id": "node.preparation-decision",
+            "action": "human-decision-required",
+            "public_explanation": "A recorded true result permits human consideration, not automatic movement."
+          },
+          "if_false": {
+            "target_node_id": "node.abandon",
+            "action": "block-edge-traversal",
+            "public_explanation": "A false result blocks this edge and sends the path to its stop state."
+          },
+          "if_unknown": {
+            "target_node_id": "node.abandon",
+            "action": "block-edge-traversal",
+            "public_explanation": "Unknown does not mean safe; it blocks this edge until a newly registered review."
+          }
+        }
+      },
+      {
+        "edge_id": "edge.negotiate",
+        "from_node_id": "node.preparation-decision",
+        "to_node_id": "node.negotiated-option",
+        "kind": "negotiation",
+        "label": "Consider a rejectable offer only when worker option and delivery capacity are established",
+        "condition_bindings": [
+          {
+            "condition_id": "condition.synthetic.worker-option",
+            "ledger_ref": "https://example.invalid/mind-flow/synthetic/worker-option-ledger.json",
+            "ledger_manifest_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "condition_version": 1,
+            "as_of_sequence": 1,
+            "as_of_event_id": "event.synthetic.worker-option-added",
+            "as_of_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "outcome_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010"
+          },
+          {
+            "condition_id": "condition.synthetic.delivery-capacity",
+            "ledger_ref": "https://example.invalid/mind-flow/synthetic/delivery-capacity-ledger.json",
+            "ledger_manifest_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+            "condition_version": 1,
+            "as_of_sequence": 1,
+            "as_of_event_id": "event.synthetic.delivery-capacity-added",
+            "as_of_event_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+            "outcome_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010"
+          }
+        ],
+        "branches": {
+          "if_true": {
+            "target_node_id": "node.negotiated-option",
+            "action": "human-decision-required",
+            "public_explanation": "A recorded true result opens a human-led negotiation with refusal and appeal intact."
+          },
+          "if_false": {
+            "target_node_id": "node.abandon",
+            "action": "block-edge-traversal",
+            "public_explanation": "A false result blocks this offer path and preserves the prior position."
+          },
+          "if_unknown": {
+            "target_node_id": "node.abandon",
+            "action": "block-edge-traversal",
+            "public_explanation": "An unresolved condition blocks this offer path; absence of evidence is not consent."
+          }
+        }
+      },
+      {
+        "edge_id": "edge.transition",
+        "from_node_id": "node.negotiated-option",
+        "to_node_id": "node.scoped-outcome",
+        "kind": "transition",
+        "label": "Consider the scoped transition while both registered conditions remain established",
+        "condition_bindings": [
+          {
+            "condition_id": "condition.synthetic.worker-option",
+            "ledger_ref": "https://example.invalid/mind-flow/synthetic/worker-option-ledger.json",
+            "ledger_manifest_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "condition_version": 1,
+            "as_of_sequence": 1,
+            "as_of_event_id": "event.synthetic.worker-option-added",
+            "as_of_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "outcome_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010"
+          },
+          {
+            "condition_id": "condition.synthetic.delivery-capacity",
+            "ledger_ref": "https://example.invalid/mind-flow/synthetic/delivery-capacity-ledger.json",
+            "ledger_manifest_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+            "condition_version": 1,
+            "as_of_sequence": 1,
+            "as_of_event_id": "event.synthetic.delivery-capacity-added",
+            "as_of_event_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+            "outcome_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010"
+          }
+        ],
+        "branches": {
+          "if_true": {
+            "target_node_id": "node.scoped-outcome",
+            "action": "human-decision-required",
+            "public_explanation": "A recorded true result still requires a human decision and continuing worker choice."
+          },
+          "if_false": {
+            "target_node_id": "node.abandon",
+            "action": "block-edge-traversal",
+            "public_explanation": "A false result stops this transition path and retains the adverse result for review."
+          },
+          "if_unknown": {
+            "target_node_id": "node.abandon",
+            "action": "block-edge-traversal",
+            "public_explanation": "Unknown blocks transition; it cannot be converted into permission by urgency."
+          }
+        }
+      }
+    ]
+  },
+  "condition_evolution_policies": [
+    {
+      "condition_id": "condition.synthetic.worker-option",
+      "ledger_ref": "https://example.invalid/mind-flow/synthetic/worker-option-ledger.json",
+      "ledger_manifest_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "anchor_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "history_requirement": "complete-append-only-hash-bound",
+      "on_event": [
+        {
+          "operation": "added",
+          "disposition": "no-effect",
+          "reason": "A new condition outside this bound identity and scope does not change this path.",
+          "next_action": "none-after-proof",
+          "out_of_scope_proof": {
+            "proof_type": "condition-id-and-scope-nonintersection",
+            "event_condition_id_rule": "must-not-equal-bound-condition-id",
+            "scope_intersection_rule": "must-be-empty",
+            "evidence_required": "complete-hash-bound-event-state",
+            "reason": "The complete new state must prove a different identity and no overlap with the registered outcome scope."
+          }
+        },
+        { "operation": "narrowed", "disposition": "fail-closed", "reason": "Narrowing changes who or what the IF covers.", "next_action": "re-register-and-review" },
+        { "operation": "split", "disposition": "fail-closed", "reason": "A split may strand or overlap affected people.", "next_action": "re-register-and-review" },
+        { "operation": "merged", "disposition": "fail-closed", "reason": "A merge may change identity or conceal incompatible scope.", "next_action": "re-register-and-review" },
+        { "operation": "challenged", "disposition": "fail-closed", "reason": "An unresolved challenge defeats reliance on this IF.", "next_action": "re-register-and-review" },
+        { "operation": "satisfied", "disposition": "fail-closed", "reason": "A satisfaction record must be reviewed against this edge and does not carry authority.", "next_action": "re-register-and-review" },
+        { "operation": "failed", "disposition": "fail-closed", "reason": "A failed condition blocks the possible path.", "next_action": "re-register-and-review" },
+        { "operation": "expired", "disposition": "fail-closed", "reason": "An expired condition cannot support a current edge.", "next_action": "re-register-and-review" },
+        { "operation": "superseded", "disposition": "fail-closed", "reason": "A replacement condition needs a new explicit binding.", "next_action": "re-register-and-review" },
+        { "operation": "disputed", "disposition": "fail-closed", "reason": "A disputed condition remains unresolved and cannot be treated as satisfied.", "next_action": "re-register-and-review" },
+        { "operation": "withdrawn", "disposition": "fail-closed", "reason": "A withdrawn condition no longer supports the path.", "next_action": "re-register-and-review" }
+      ]
+    },
+    {
+      "condition_id": "condition.synthetic.delivery-capacity",
+      "ledger_ref": "https://example.invalid/mind-flow/synthetic/delivery-capacity-ledger.json",
+      "ledger_manifest_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "anchor_event_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "history_requirement": "complete-append-only-hash-bound",
+      "on_event": [
+        {
+          "operation": "added",
+          "disposition": "no-effect",
+          "reason": "A new condition outside this bound identity and scope does not change this path.",
+          "next_action": "none-after-proof",
+          "out_of_scope_proof": {
+            "proof_type": "condition-id-and-scope-nonintersection",
+            "event_condition_id_rule": "must-not-equal-bound-condition-id",
+            "scope_intersection_rule": "must-be-empty",
+            "evidence_required": "complete-hash-bound-event-state",
+            "reason": "The complete new state must prove a different identity and no overlap with the registered outcome scope."
+          }
+        },
+        { "operation": "narrowed", "disposition": "fail-closed", "reason": "Narrowing changes who or what the IF covers.", "next_action": "re-register-and-review" },
+        { "operation": "split", "disposition": "fail-closed", "reason": "A split may strand or overlap affected people.", "next_action": "re-register-and-review" },
+        { "operation": "merged", "disposition": "fail-closed", "reason": "A merge may change identity or conceal incompatible scope.", "next_action": "re-register-and-review" },
+        { "operation": "challenged", "disposition": "fail-closed", "reason": "An unresolved challenge defeats reliance on this IF.", "next_action": "re-register-and-review" },
+        { "operation": "satisfied", "disposition": "fail-closed", "reason": "A satisfaction record must be reviewed against this edge and does not carry authority.", "next_action": "re-register-and-review" },
+        { "operation": "failed", "disposition": "fail-closed", "reason": "A failed condition blocks the possible path.", "next_action": "re-register-and-review" },
+        { "operation": "expired", "disposition": "fail-closed", "reason": "An expired condition cannot support a current edge.", "next_action": "re-register-and-review" },
+        { "operation": "superseded", "disposition": "fail-closed", "reason": "A replacement condition needs a new explicit binding.", "next_action": "re-register-and-review" },
+        { "operation": "disputed", "disposition": "fail-closed", "reason": "A disputed condition remains unresolved and cannot be treated as satisfied.", "next_action": "re-register-and-review" },
+        { "operation": "withdrawn", "disposition": "fail-closed", "reason": "A withdrawn condition no longer supports the path.", "next_action": "re-register-and-review" }
+      ]
+    }
+  ],
+  "strongest_competing_path": {
+    "path_id": "path.synthetic.au-clerical-work-redesign",
+    "label": "Clerical work is redesigned in place rather than requiring occupational transition",
+    "selection_reason": "It explains stable employment and earnings through task change inside existing roles, which directly competes with transition as the mechanism.",
+    "incompatible_claim": "Most measured adaptation occurs within retained clerical roles, so transition support is not the main route to the scoped standard.",
+    "discriminating_observations": [
+      {
+        "observation_id": "observation.synthetic.role-retention",
+        "construct": "Worker-level role retention and task redesign, separated from occupational transition",
+        "possible_path_pattern": "Scoped workers use rejectable transition options and enter different paid roles.",
+        "competing_path_pattern": "Scoped workers remain in clerical roles while task mix and tools change.",
+        "period": "Prospectively registered quarterly observations during 2027-01-01 through 2029-12-31",
+        "source_plan": "Acquire consented worker-level longitudinal observations and independently audited employer task records; no source is acquired in this fixture.",
+        "status": "unresolved"
+      },
+      {
+        "observation_id": "observation.synthetic.standard-mechanism",
+        "construct": "Real hourly earnings and essential conditions by retained-role or transitioned-role mechanism",
+        "possible_path_pattern": "The scoped standard is observed among workers who voluntarily use the transition option.",
+        "competing_path_pattern": "The scoped standard is observed mainly among workers whose clerical role is retained and redesigned.",
+        "period": "Prospectively registered baseline and follow-up windows during 2027-01-01 through 2029-12-31",
+        "source_plan": "Pre-register linked measurement and an affected-party audit before collection; no source is acquired in this fixture.",
+        "status": "unresolved"
+      }
+    ]
+  },
+  "signal_portfolio": {
+    "condition_ids": [
+      "condition.synthetic.worker-option",
+      "condition.synthetic.delivery-capacity"
+    ],
+    "portfolio_status": "research-only-unverified",
+    "roles": [
+      { "role": "leading", "status": "assigned", "signal_ids": ["signal.synthetic.option-offer-audit"] },
+      { "role": "confirming", "status": "unresolved", "unresolved_reason": "No independent process or acquired source has been registered." },
+      { "role": "counter", "status": "unresolved", "unresolved_reason": "The competing in-role redesign measure has not been acquired or validated." },
+      { "role": "outcome", "status": "unresolved", "unresolved_reason": "No consented worker-level outcome observations exist in this synthetic fixture." },
+      { "role": "readiness", "status": "unresolved", "unresolved_reason": "Funding, delivery capacity, appeals and recovery capability are not verified." },
+      { "role": "intervention-exposure", "status": "unresolved", "unresolved_reason": "The intervention has not started and no person-level exposure record exists." },
+      { "role": "information-harm", "status": "unresolved", "unresolved_reason": "No affected-party evidence about anxiety, stigma, coercion or false certainty has been collected." }
+    ]
+  },
+  "population_accounting": {
+    "affected_populations": [
+      {
+        "population_id": "population.clerical-workers",
+        "label": "Employees in the registered Australian clerical cohort",
+        "effect_channel": "Employment role, earnings, conditions, choice, training burden and information harm",
+        "voice_status": "not-consulted"
+      },
+      {
+        "population_id": "population.households",
+        "label": "Households that depend on earnings from the registered worker cohort",
+        "effect_channel": "Income stability, caring load and geographic mobility burden",
+        "voice_status": "not-consulted"
+      },
+      {
+        "population_id": "population.participating-employers",
+        "label": "Participating employers and frontline managers",
+        "effect_channel": "Delivery obligations, staffing, negotiation and recovery capacity",
+        "voice_status": "not-consulted"
+      }
+    ],
+    "omissions": {
+      "status": "identified",
+      "entries": [
+        {
+          "population_id": "population.omitted.temporary-visa-workers",
+          "label": "Temporary visa holders in clerical roles",
+          "omission_reason": "The synthetic scope does not yet represent visa-linked bargaining and mobility constraints separately.",
+          "consequence": "A path that appears rejectable for the aggregate cohort may not be genuinely rejectable for this population.",
+          "remedy": "Co-design a separate scope and refusal test with affected workers and qualified migration-law reviewers before any use.",
+          "public_notice": "Temporary visa holders are not adequately represented by this synthetic example."
+        },
+        {
+          "population_id": "population.omitted.unpaid-carers",
+          "label": "Unpaid carers affected by training schedules or relocation",
+          "omission_reason": "Household effects are named but caring constraints are not separately modelled.",
+          "consequence": "Delivery feasibility and worker choice may be overstated.",
+          "remedy": "Add affected-carer participation and measurable schedule, transport and substitute-care conditions.",
+          "public_notice": "Unpaid carers are named as an unresolved omitted population."
+        }
+      ],
+      "search_method": "Synthetic desk enumeration across worker, household, employer, service-delivery and legal-status channels.",
+      "search_limitations": "No affected-party consultation or representative sampling has occurred; further omitted populations are expected."
+    }
+  },
+  "gaming_and_reflexivity": [
+    {
+      "risk_id": "risk.synthetic.offer-relabeling",
+      "mechanism": "An employer could relabel redeployment as worker choice while constraining refusal through schedules, performance processes or redundancy pressure.",
+      "early_observation": "Audit refusal outcomes, appeal use and adverse employment events by affected population before interpreting offer counts.",
+      "response": "Pause the path, preserve records and require an independent worker-accessible review.",
+      "residual_unknown": "Informal coercion may remain hidden even when formal refusal is recorded."
+    },
+    {
+      "risk_id": "risk.synthetic.metric-targeting",
+      "mechanism": "Publishing an offer-volume measure could reward low-quality offers rather than viable worker options.",
+      "early_observation": "Compare offer volume with independent accessibility, uptake, refusal, appeal and sustained-outcome observations.",
+      "response": "Retire the measure from the leading role if quality or harm observations diverge.",
+      "residual_unknown": "Measurement itself may alter negotiation behaviour before divergence is observable."
+    }
+  ],
+  "intervention_state": {
+    "state": "proposed-not-started",
+    "exposure_status": "none",
+    "evidence_status": "synthetic-unverified",
+    "last_checked_at": "2026-09-08T00:00:00Z"
+  },
+  "expiry": {
+    "expires_at": "2026-12-31T23:59:59Z",
+    "disposition": "abandon-unless-reregistered",
+    "reason": "Institutional capacity, worker options and competing mechanisms can change before the proposed observation period."
+  },
+  "abandonment": {
+    "default": "stop-and-retain-history",
+    "triggers": [
+      {
+        "trigger_id": "trigger.condition-false-or-unknown",
+        "condition": "Any edge condition is false, unknown, challenged, disputed or otherwise changed from its bound anchor.",
+        "disposition": "abandon-path-and-retain-record",
+        "reason": "A consequential edge cannot inherit assurance from a stale or unresolved IF."
+      },
+      {
+        "trigger_id": "trigger.unrepresented-harm",
+        "condition": "An affected or omitted population reports material harm that the registered scope and remedies do not cover.",
+        "disposition": "abandon-path-and-retain-record",
+        "reason": "Aggregate progress cannot silently trade away an unrepresented population."
+      },
+      {
+        "trigger_id": "trigger.expiry",
+        "condition": "The path reaches its expiry without complete re-registration.",
+        "disposition": "abandon-path-and-retain-record",
+        "reason": "Old conditions cannot be presumed current."
+      }
+    ],
+    "public_notice": "Abandoning this path does not establish the competing path; it records why this candidate stopped."
+  },
+  "governance": {
+    "auto_action": false,
+    "authority_status": "externally-unverified",
+    "action_authorised": false,
+    "human_decision_required": true,
+    "owner_ref": null,
+    "authority_next_check": "Name and independently verify a lawful human or institutional owner before any decision-linked use."
+  },
+  "provenance": {
+    "author_class": "commissioned-agent-proposal",
+    "evidence_status": "synthetic-unverified",
+    "created_at": "2026-09-08T00:00:00Z",
+    "updated_at": "2026-09-08T00:00:00Z"
+  },
+  "public_claim_ceiling": "Synthetic possible path, not a finding: Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces may transition to comparable or preferred paid work at no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition, in Australia, during 2027-01-01 through 2029-12-31, only if each affected worker has a funded, accessible and genuinely rejectable transition option before role change; and if named institutions have verified funding, delivery capacity, appeal routes and recovery plans for the scoped cohort and period. This open-world hypothesis is unscored and grants no action authority."
+}

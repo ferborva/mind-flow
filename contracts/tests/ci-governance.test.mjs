@@ -35,3 +35,34 @@ test("the complete test contract includes claim and assumption governance", () =
   assert.match(packageJson.scripts["test:evidence"], /evidence\/claims\/tests\/\*\.test\.mjs/);
   assert.match(packageJson.scripts["test:evidence"], /evidence\/assumptions\/tests\/\*\.test\.mjs/);
 });
+
+test("the complete test contract includes the public-instrument experiment", () => {
+  assert.match(packageJson.scripts.test, /npm run test:experience/);
+  assert.match(
+    packageJson.scripts["test:experience"],
+    /experiments\/observatory-comparison\/tests\/\*\.test\.mjs/,
+  );
+});
+
+test("the complete test contract includes evolution, path, preparation and signal governance", () => {
+  assert.match(packageJson.scripts.test, /npm run test:evolution/);
+  assert.match(packageJson.scripts.test, /npm run test:paths/);
+  assert.match(packageJson.scripts.test, /npm run test:preparation/);
+  assert.match(packageJson.scripts.test, /npm run test:signals/);
+  assert.match(
+    packageJson.scripts["test:evolution"],
+    /contracts\/evolution\/tests\/\*\.test\.mjs/,
+  );
+  assert.match(
+    packageJson.scripts["test:paths"],
+    /paths\/tests\/\*\.test\.mjs/,
+  );
+  assert.match(
+    packageJson.scripts["test:preparation"],
+    /preparation\/tests\/\*\.test\.mjs/,
+  );
+  assert.match(
+    packageJson.scripts["test:signals"],
+    /signals\/tests\/\*\.test\.mjs/,
+  );
+});

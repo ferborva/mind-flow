@@ -1,0 +1,5 @@
+{
+  "id": "attack.party-evidence-unresolved",
+  "operations": [{ "op": "replace", "path": "/actions/2/affected_party_dispositions/0/evidence_ref", "value": "evidence.unresolved-consent" }],
+  "expected_codes": ["PARTY_EVIDENCE_UNRESOLVED"]
+}

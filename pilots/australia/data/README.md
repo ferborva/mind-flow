@@ -40,6 +40,16 @@ locally captured archive but does not authenticate publisher origin. The public
 record remains `research_draft_unverified` and `not_retained_unverified`. A new
 source release creates a new dated file rather than overwriting this vintage.
 
+The archive was [temporarily re-acquired on 8 September 2026](../reproductions/nero-reacquisition-2026-09-08.json).
+Its byte length and SHA-256 digest matched the earlier local capture exactly.
+The frozen build recipe also reproduced every derived field across all 440
+series. Its output differed only in the temporary archive filename,
+release-availability explanation and JSON key order. The archive was not
+committed or retained, no publisher signature or independent witness was
+available, and its exact release time remains unknown. This supports capture
+continuity and deterministic extraction only. It does not upgrade the evidence
+for condition truth, causal inference, prospective chronology or decision use.
+
 `source.released_at` is the publisher's descriptive calendar date. It is not a
 UTC availability timestamp and cannot prove that a detector ran before the
 release. Before this file can enter a prospective rehearsal, attach either a

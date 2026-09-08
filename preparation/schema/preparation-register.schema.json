@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/preparation/preparation-register/1-0-0",
+  "title": "Early-action preparation register",
+  "description": "Content-bound IF expressions, evaluations, evidence and proposals. This register records preparedness; it cannot authorise or execute an action.",
+  "type": "object",
+  "required": ["schema_version", "register_id", "as_of", "authorisation_effect", "evidence_truth_assessed", "if_expressions", "if_evaluations", "evidence_bundles", "actions"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "register_id": { "$ref": "#/$defs/id" },
+    "as_of": { "type": "string", "format": "date-time" },
+    "authorisation_effect": { "const": "none" },
+    "evidence_truth_assessed": { "const": false },
+    "if_expressions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expressionEnvelope" } },
+    "if_evaluations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evaluationEnvelope" } },
+    "evidence_bundles": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceEnvelope" } },
+    "actions": { "type": "array", "minItems": 1, "items": { "$ref": "https://mind-flow.org/preparation/preparation-action/1-0-0" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "semver": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "nonEmpty": { "type": "string", "minLength": 1 },
+    "scale": { "enum": ["individual", "community", "institution", "country"] },
+    "pinnedRef": {
+      "type": "object", "required": ["id", "version", "checksum"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "$ref": "#/$defs/semver" }, "checksum": { "$ref": "#/$defs/checksum" } },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object", "required": ["jurisdictions", "geographies", "cohorts", "services", "affected_party_ids", "exclusions"],
+      "properties": {
+        "jurisdictions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "geographies": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "cohorts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "services": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "affected_party_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "exclusions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } }
+      }, "additionalProperties": false
+    },
+    "logic": {
+      "oneOf": [
+        { "type": "object", "required": ["clause_ref"], "properties": { "clause_ref": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+        { "type": "object", "required": ["all"], "properties": { "all": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/logic" } } }, "additionalProperties": false },
+        { "type": "object", "required": ["any"], "properties": { "any": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/logic" } } }, "additionalProperties": false },
+        { "type": "object", "required": ["not"], "properties": { "not": { "$ref": "#/$defs/logic" } }, "additionalProperties": false },
+        { "type": "object", "required": ["veto_if"], "properties": { "veto_if": { "type": "object", "required": ["condition", "blocker"], "properties": { "condition": { "$ref": "#/$defs/logic" }, "blocker": { "$ref": "#/$defs/logic" } }, "additionalProperties": false } }, "additionalProperties": false }
+      ]
+    },
+    "expressionEnvelope": {
+      "type": "object", "required": ["id", "version", "checksum", "content"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "version": { "$ref": "#/$defs/semver" }, "checksum": { "$ref": "#/$defs/checksum" },
+        "content": {
+          "type": "object", "required": ["plain_language", "scope", "clauses", "logic", "condition_binding"],
+          "properties": {
+            "plain_language": { "$ref": "#/$defs/nonEmpty" }, "scope": { "$ref": "#/$defs/scope" },
+            "clauses": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clause" } },
+            "logic": { "$ref": "#/$defs/logic" },
+            "condition_binding": { "$ref": "#/$defs/conditionBinding" }
+          }, "additionalProperties": false
+        }
+      }, "additionalProperties": false
+    },
+    "clause": {
+      "type": "object", "required": ["clause_id", "statement", "measure", "operator", "threshold", "window", "evidence_requirement", "minimum_independent_sources"],
+      "properties": {
+        "clause_id": { "$ref": "#/$defs/id" }, "statement": { "$ref": "#/$defs/nonEmpty" }, "measure": { "$ref": "#/$defs/id" },
+        "operator": { "enum": ["gt", "gte", "lt", "lte", "eq", "change_gt", "change_gte", "change_lt", "change_lte"] },
+        "threshold": { "type": "object", "required": ["value", "unit"], "properties": { "value": { "type": "number" }, "unit": { "$ref": "#/$defs/nonEmpty" } }, "additionalProperties": false },
+        "window": { "type": "object", "required": ["value", "unit", "minimum_observations"], "properties": { "value": { "type": "integer", "minimum": 1 }, "unit": { "enum": ["day", "week", "month", "quarter", "year"] }, "minimum_observations": { "type": "integer", "minimum": 1 } }, "additionalProperties": false },
+        "evidence_requirement": { "enum": ["exploratory", "provisional", "validated"] },
+        "minimum_independent_sources": { "type": "integer", "minimum": 1 }
+      }, "additionalProperties": false
+    },
+    "evaluationEnvelope": {
+      "type": "object", "required": ["id", "version", "checksum", "content"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "version": { "$ref": "#/$defs/semver" }, "checksum": { "$ref": "#/$defs/checksum" },
+        "content": {
+          "type": "object", "required": ["expression_ref", "evidence_bundle_ref", "scope", "evaluated_at", "valid_until", "result", "clause_results", "uncertainty", "evaluator", "external_verification", "authorisation_effect"],
+          "properties": {
+            "expression_ref": { "$ref": "#/$defs/pinnedRef" }, "evidence_bundle_ref": { "$ref": "#/$defs/pinnedRef" }, "scope": { "$ref": "#/$defs/scope" },
+            "evaluated_at": { "type": "string", "format": "date-time" }, "valid_until": { "type": "string", "format": "date-time" },
+            "result": { "enum": ["true", "false", "unknown", "conflicted"] },
+            "clause_results": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["clause_ref", "result", "evidence_refs"], "properties": { "clause_ref": { "$ref": "#/$defs/id" }, "result": { "enum": ["true", "false", "unknown", "conflicted"] }, "evidence_refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } } }, "additionalProperties": false } },
+            "uncertainty": { "$ref": "#/$defs/nonEmpty" }, "evaluator": { "$ref": "#/$defs/nonEmpty" },
+            "external_verification": { "const": "not-performed" }, "authorisation_effect": { "const": "none" }
+          }, "additionalProperties": false
+        }
+      }, "additionalProperties": false
+    },
+    "evidenceEnvelope": {
+      "type": "object", "required": ["id", "version", "checksum", "content"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "version": { "$ref": "#/$defs/semver" }, "checksum": { "$ref": "#/$defs/checksum" },
+        "content": {
+          "type": "object", "required": ["quality", "as_of", "sources", "limitations", "uncertainty", "external_verification"],
+          "properties": {
+            "quality": { "enum": ["exploratory", "provisional", "validated"] }, "as_of": { "type": "string", "format": "date-time" },
+            "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceSource" } },
+            "limitations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmpty" } }, "uncertainty": { "$ref": "#/$defs/nonEmpty" },
+            "external_verification": { "const": "not-performed" }
+          }, "additionalProperties": false
+        }
+      }, "additionalProperties": false
+    },
+    "conditionBinding": {
+      "type": "object",
+      "required": ["ledger_ref", "ledger_tip_event_id", "ledger_tip_hash", "verification_state", "verified_at", "verification_tool"],
+      "properties": {
+        "ledger_ref": { "type": "string", "format": "uri" },
+        "ledger_tip_event_id": { "$ref": "#/$defs/id" },
+        "ledger_tip_hash": { "$ref": "#/$defs/checksum" },
+        "verification_state": { "const": "external-unverified" },
+        "verified_at": { "type": "null" },
+        "verification_tool": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "required": ["observation_id", "measure", "value", "unit", "observed_at", "valid_until"],
+      "properties": {
+        "observation_id": { "$ref": "#/$defs/id" },
+        "measure": { "$ref": "#/$defs/id" },
+        "value": { "type": "number" },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "observed_at": { "type": "string", "format": "date-time" },
+        "valid_until": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceSource": {
+      "type": "object",
+      "required": ["evidence_id", "role", "trust_state", "independence_group", "artifact_state", "artifact_ref", "artifact_checksum", "party_ids", "observations", "outcome_estimates", "harm_estimates", "finding", "limitation"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "role": { "enum": ["observation", "modelled-estimate", "affected-party-testimony", "administrative-record", "evaluation"] },
+        "trust_state": { "enum": ["unverified", "source-authenticated", "independently-reproduced"] },
+        "independence_group": { "$ref": "#/$defs/id" },
+        "artifact_state": { "enum": ["synthetic-fixture", "acquired-external-bytes"] },
+        "artifact_ref": { "type": "string", "format": "uri" },
+        "artifact_checksum": { "$ref": "#/$defs/checksum" },
+        "party_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "observations": { "type": "array", "items": { "$ref": "#/$defs/observation" } },
+        "outcome_estimates": { "type": "array", "items": { "$ref": "#/$defs/outcomeEstimateEvidence" } },
+        "harm_estimates": { "type": "array", "items": { "$ref": "#/$defs/harmEstimateEvidence" } },
+        "finding": { "$ref": "#/$defs/nonEmpty" },
+        "limitation": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
+    },
+    "outcomeEstimateEvidence": {
+      "type": "object",
+      "required": ["measure", "unit", "arm", "estimate", "lower", "upper"],
+      "properties": {
+        "measure": { "$ref": "#/$defs/id" },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "arm": { "enum": ["with-action", "without-action"] },
+        "estimate": { "type": "number" },
+        "lower": { "type": "number" },
+        "upper": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "harmEstimateEvidence": {
+      "type": "object",
+      "required": ["harm_id", "party_id", "arm", "severity_weight", "likelihood"],
+      "properties": {
+        "harm_id": { "$ref": "#/$defs/id" },
+        "party_id": { "$ref": "#/$defs/id" },
+        "arm": { "enum": ["action", "inaction"] },
+        "severity_weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "likelihood": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

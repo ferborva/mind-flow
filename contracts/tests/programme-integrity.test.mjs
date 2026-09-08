@@ -11,6 +11,10 @@ const pilotSources = readFileSync(resolve(
   root,
   "research/2026-09-08-australia-pilot-source-triage.md",
 ), "utf8");
+const affectedPartyAmendments = readFileSync(resolve(
+  root,
+  "reviews/round-03-affected-party-amendments.md",
+), "utf8");
 
 test("household access keeps units, pooled cash costs and persons explicit", () => {
   assert.match(protocol, /registered analysis unit `u`/i);
@@ -75,6 +79,19 @@ test("condition evolution is a first-class append-only programme object", () => 
   assert.match(plan, /current state.*history/is);
 });
 
+test("the programme binds possible paths and the complete seven-step action ladder", () => {
+  assert.match(programme, /paths\/README\.md/);
+  for (const gate of [
+    "watch_if",
+    "prepare_if",
+    "act_if",
+    "pause_if",
+    "reverse_if",
+    "recover_if",
+    "graduate_if",
+  ]) assert.match(programme, new RegExp(gate));
+});
+
 test("the Australia pilot starts from primary-source claim ceilings, not a stitched causal story", () => {
   for (const source of [
     "Jobs and Skills Australia",
@@ -91,4 +108,13 @@ test("the Australia pilot starts from primary-source claim ceilings, not a stitc
   assert.match(pilotSources, /statistical unit.*denominator compatibility.*ecological-inference/is);
   assert.match(pilotSources, /location of residence.*not.*location of business/is);
   assert.match(pilotSources, /minimum of 10/i);
+});
+
+test("affected-party coverage floors cannot masquerade as a confirmatory sample calculation", () => {
+  assert.match(affectedPartyAmendments, /representational coverage floor/i);
+  assert.match(affectedPartyAmendments, /not a\s+confirmatory sample-size calculation/i);
+  assert.match(
+    affectedPartyAmendments,
+    /power or precision requirement.*primary estimand.*harm.*multiplicity.*attrition/is,
+  );
 });

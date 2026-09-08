@@ -1,0 +1,5 @@
+{
+  "id": "attack.emergency-resources-not-ready",
+  "operations": [{ "op": "replace", "path": "/actions/3/resources/capacity/status", "value": "conditional" }],
+  "expected_codes": ["EMERGENCY_RESOURCES_NOT_READY"]
+}

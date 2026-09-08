@@ -1,0 +1,5 @@
+{
+  "id": "attack.emergency-overrun",
+  "operations": [{ "op": "replace", "path": "/actions/3/emergency_exception/ends_at", "value": "2026-09-16T00:00:00Z" }],
+  "expected_codes": ["EMERGENCY_TIMEBOX_TOO_LONG"]
+}

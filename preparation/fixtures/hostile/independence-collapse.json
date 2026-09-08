@@ -1,0 +1,5 @@
+{
+  "id": "attack.independence-collapse",
+  "operations": [{ "op": "replace", "path": "/evidence_bundles/0/content/sources/2/independence_group", "value": "group.synthetic-provider-register" }],
+  "expected_codes": ["IF_SOURCE_INDEPENDENCE_UNMET"]
+}

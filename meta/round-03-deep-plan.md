@@ -206,6 +206,11 @@ The current state is a reproducible fold over that history. A dashboard crop,
 negotiation brief or decision packet must expose both current state and history,
 or declare the history omitted and bind the complete ledger.
 
+The executable prototype is the
+[condition evolution ledger](../contracts/evolution/README.md). It validates
+history structure and integrity only. It does not assess whether a condition is
+true or authorise an action.
+
 **Exit:** two independent encoders classify ten real examples consistently.
 Hidden-subject, authority-switch, omitted-scope and necessary-versus-sufficient
 attacks fail. Undeclared condition rewrites and broken history folds fail.
@@ -264,6 +269,12 @@ They must be able to contest:
 - who is absent or unable to participate; and
 - what dissent remains unresolved.
 
+The prior recruitment, ethics, dissent and release gates remain frozen in the
+[Round 02 affected-party protocol](../reviews/public-comprehension-affected-party-protocol-round-04.md).
+The [Round 03 amendments](../reviews/round-03-affected-party-amendments.md)
+clarify that numeric coverage floors do not substitute for a prospective power
+or precision calculation.
+
 **Exit:** constructs and no-offset harms have named decision ownership. Every
 review has a typed governance disposition containing mandate, represented and
 missing groups, method, evidence considered, agreement, dissent, conditions,
@@ -274,6 +285,11 @@ bounded study. Participation by one group never authorises another.
 ---
 
 ## 📐 Phase 4: Estimands and signal architecture
+
+The executable prototype is the
+[signal portfolio contract](../signals/README.md). Its Australian fixture is a
+methods-only feasibility candidate with unacquired source bytes and an
+externally unverified condition binding.
 
 Every signal contract includes:
 
@@ -360,6 +376,11 @@ causal, crisis or national claim is emitted.
 
 ## 🛤️ Phase 6: Possible paths as hypotheses
 
+The executable prototype is the
+[possible-path contract](../paths/README.md). It treats a machine-valid path as
+an unscored hypothesis and grants no truth, probability, crisis or action
+authority.
+
 A possible path stores:
 
 ```text
@@ -391,6 +412,10 @@ word `crisis` remains blocked until its definition passes review.
 ---
 
 ## 🧰 Phase 7: Design preparation before forecasting
+
+The executable prototype is the
+[early-action preparation contract](../preparation/README.md). Its four-scale
+fixture is synthetic and grants no authority.
 
 Forecast only events for which earlier knowledge could alter a legitimate
 decision. Each candidate action records the protected outcome, alternatives,
@@ -432,6 +457,9 @@ plan never invents powers. No option renders as an instruction.
 ---
 
 ## 🔭 Phase 8: Forecast and crisis-point validation
+
+The prospective machinery is maintained in the
+[forecast registry and scoring contract](../forecasts/README.md).
 
 Use a maturity ladder:
 
@@ -505,6 +533,15 @@ adaptation never changes facts, uncertainty, forecast or authority state.
 ---
 
 ## 🧪 Phase 10: Test the instrument itself
+
+The proposed public entry point is
+[The Future Has Conditions](../communications/transition-field-guide.md). It
+turns the IF grammar, condition history, seven signal roles and preparation
+ladder into a reader-facing field guide. Its claims remain bounded by the
+underlying contracts, and its framing must be tested rather than assumed clear.
+
+The proposed design is maintained in the
+[Observatory public-instrument comparison](../experiments/observatory-comparison/README.md).
 
 Compare three arms:
 
