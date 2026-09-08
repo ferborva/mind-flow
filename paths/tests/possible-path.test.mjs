@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import test from "node:test";
 
 import {
   computeOutcomeScopeHash,
+  computeCanonicalBindingHash,
   renderPublicClaimCeiling,
   validatePossiblePath,
 } from "../validate.mjs";
@@ -16,6 +19,33 @@ const fixture = JSON.parse(readFileSync(
   new URL("../fixtures/australian-clerical-transition.synthetic.json", import.meta.url),
   "utf8",
 ));
+const repositoryRoot = resolve(import.meta.dirname, "../..");
+
+function fileSource(path) {
+  const bytes = readFileSync(resolve(repositoryRoot, path));
+  return {
+    document: JSON.parse(bytes.toString("utf8")),
+    path,
+    sha256: `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+  };
+}
+
+function round4Sources() {
+  return {
+    sourceKernel: fileSource("contracts/executable-if/fixtures/kernel.synthetic.json"),
+    sourceEvolution: fileSource("contracts/evolution/fixtures/round-04.worker-option.synthetic.json"),
+    sourceSignalRegistry: fileSource("signals/fixtures/round-04.worker-option.synthetic.json"),
+    sourceAgencyMap: fileSource("contracts/agency-map/fixtures/round-04.worker-option.synthetic.json"),
+  };
+}
+
+function round4Fixture() {
+  return fileSource("paths/fixtures/round-04.worker-option.synthetic.json").document;
+}
+
+function validateRound4(document) {
+  return validatePossiblePath(document, round4Sources());
+}
 
 function clone(value = fixture) {
   return structuredClone(value);
@@ -30,6 +60,72 @@ function expectError(value, code) {
   assert.equal(result.machine_valid, false, JSON.stringify(result, null, 2));
   assert.ok(result.errors.some((error) => error.code === code), JSON.stringify(result.errors, null, 2));
 }
+
+test("Round 4 path binds one exact five-state IF receipt and resolvable signals", () => {
+  const document = round4Fixture();
+  const result = validateRound4(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(result.source_bindings_verified, true);
+  assert.deepEqual(Object.keys(document.graph.edges[0].branches), [
+    "if_true", "if_false", "if_unknown", "if_stale", "if_conflicted",
+  ]);
+  assert.equal(
+    document.condition_anchors[0].canonical_binding.evaluation_ref.computed_rule_state.state,
+    "true",
+  );
+  assert.deepEqual(
+    Object.values(document.graph.edges[0].branches).map(({ recovery }) => recovery),
+    [
+      "human-review",
+      "repair-or-alternate",
+      "acquire-missing-evidence",
+      "refresh-and-re-evaluate",
+      "adjudicate-conflict",
+    ],
+  );
+  assert.match(document.public_claim_ceiling, /to the following standard:/i);
+});
+
+test("hostile: each non-true IF state must remain explicit and fail closed", () => {
+  for (const branchName of ["if_false", "if_unknown", "if_stale", "if_conflicted"]) {
+    const document = round4Fixture();
+    delete document.graph.edges[0].branches[branchName];
+    const result = validateRound4(document);
+    assert.ok(
+      result.errors.some(({ code }) =>
+        ["PATH_FIVE_STATE_BRANCHES_INCOMPLETE", "SCHEMA_INVALID"].includes(code)),
+      branchName,
+    );
+  }
+});
+
+test("hostile: path receipt, scope and metric substitutions fail closed", () => {
+  for (const [code, mutate] of [
+    ["PATH_EVALUATION_RECEIPT_MISMATCH", (document) => {
+      document.condition_anchors[0].canonical_binding.evaluation_ref.computed_rule_state.state =
+        "unknown";
+      document.condition_anchors[0].canonical_binding_hash =
+        computeCanonicalBindingHash(document.condition_anchors[0].canonical_binding);
+    }],
+    ["PATH_SIGNAL_REF_MISMATCH", (document) => {
+      const assigned = document.signal_portfolio.roles.find(({ role }) => role === "confirming");
+      assigned.registered_signal_refs[0].metric_checksum = `sha256:${"0".repeat(64)}`;
+    }],
+    ["PATH_SCOPE_MISMATCH", (document) => {
+      document.outcome_scope.who = "A different population";
+      document.outcome_scope.scope_hash = computeOutcomeScopeHash(document.outcome_scope);
+      document.public_claim_ceiling = renderPublicClaimCeiling(document);
+      for (const binding of document.graph.edges[0].condition_bindings) {
+        binding.outcome_scope_hash = document.outcome_scope.scope_hash;
+      }
+    }],
+  ]) {
+    const document = round4Fixture();
+    mutate(document);
+    const result = validateRound4(document);
+    assert.ok(result.errors.some(({ code: actual }) => actual === code), code);
+  }
+});
 
 test("the Australian clerical fixture is an unscored synthetic path, not a finding", () => {
   const result = validate(fixture);

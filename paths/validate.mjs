@@ -5,17 +5,22 @@ import { isDeepStrictEqual } from "node:util";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import {
+  computeEvidenceStateHash,
+  evaluateKernelCondition,
+} from "../contracts/executable-if/validate.mjs";
+
 const DEFAULT_SCHEMA_BYTES = readFileSync(
   new URL("./schema/possible-path.schema.json", import.meta.url),
 );
-const DEFAULT_SCHEMA_SHA256 = "48349beaaf2b33e3d423bff6112c9f250a50041acdc8d25fd44ae16f89abb27a";
+const DEFAULT_SCHEMA_SHA256 = "ff90c81d4f67bc922564c682c02b83e95546bfcd64f52c379e6b3e2b60928a5c";
 const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
 if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
   throw new Error("possible-path schema bytes do not match the validator's pinned contract digest");
 }
 const DEFAULT_SCHEMA = JSON.parse(DEFAULT_SCHEMA_BYTES.toString("utf8"));
 
-const OPERATIONS = [
+const OPERATIONS_V1 = [
   "added",
   "narrowed",
   "split",
@@ -28,8 +33,23 @@ const OPERATIONS = [
   "disputed",
   "withdrawn",
 ];
+const OPERATIONS_V2 = [
+  "added",
+  "narrowed",
+  "definition-revised",
+  "split",
+  "merge",
+  "challenged",
+  "satisfied",
+  "failed",
+  "expired",
+  "superseded",
+  "disputed",
+  "withdrawn",
+];
 
-const MATERIAL_CHANGES = new Set(OPERATIONS.filter((operation) => operation !== "added"));
+const MATERIAL_CHANGES = new Set([...OPERATIONS_V1, ...OPERATIONS_V2]
+  .filter((operation) => operation !== "added"));
 const SIGNAL_ROLES = [
   "leading",
   "confirming",
@@ -63,6 +83,10 @@ export function computeOutcomeScopeHash(scope) {
   return hash(`mind-flow:possible-path:v1:outcome-scope\n${canonicalJson(value)}`);
 }
 
+export function computeCanonicalBindingHash(binding) {
+  return hash(`mind-flow:possible-path:v1:canonical-binding\n${canonicalJson(binding)}`);
+}
+
 export function renderPublicClaimCeiling(path) {
   const scope = path.outcome_scope;
   const conditions = scope.if_conditions
@@ -75,7 +99,10 @@ export function renderPublicClaimCeiling(path) {
     ? path.population_accounting.omissions.entries.map(({ public_notice }) => public_notice).join(" ")
     : `No omitted population was identified by this limited search: ${path.population_accounting.omissions.search_limitations}`;
   const competitors = path.competing_paths.map(({ label }) => label).join("; ");
-  return `Synthetic possible path, not a finding: ${scope.who} may ${scope.verb} ${scope.object} at ${scope.standard}, in ${scope.place}, during ${scope.period}, only if ${conditions}. Affected populations: ${affected}. Scope omissions: ${omissions} Named competing paths: ${competitors}. This open-world hypothesis is unscored and grants no action authority.`;
+  const outcome = path.schema_version === "1.2"
+    ? `${scope.who} may ${scope.verb} ${scope.object} to the following standard: ${scope.standard}`
+    : `${scope.who} may ${scope.verb} ${scope.object} at ${scope.standard}`;
+  return `Synthetic possible path, not a finding: ${outcome}, in ${scope.place}, during ${scope.period}, only if ${conditions}. Affected populations: ${affected}. Scope omissions: ${omissions} Named competing paths: ${competitors}. This open-world hypothesis is unscored and grants no action authority.`;
 }
 
 function duplicateIssues(items, key, path) {
@@ -97,7 +124,7 @@ function exactSet(values, expected) {
 }
 
 function anchorBinding(anchor, outcomeScopeHash) {
-  return {
+  const binding = {
     condition_id: anchor.condition_id,
     ledger_ref: anchor.ledger_ref,
     ledger_manifest_hash: anchor.ledger_manifest_hash,
@@ -107,6 +134,10 @@ function anchorBinding(anchor, outcomeScopeHash) {
     as_of_event_hash: anchor.as_of_event_hash,
     outcome_scope_hash: outcomeScopeHash,
   };
+  if (anchor.canonical_binding_hash) {
+    binding.canonical_binding_hash = anchor.canonical_binding_hash;
+  }
+  return binding;
 }
 
 function publicNarrativeStrings(path) {
@@ -127,6 +158,8 @@ function publicNarrativeStrings(path) {
       edge.branches?.if_true?.public_explanation,
       edge.branches?.if_false?.public_explanation,
       edge.branches?.if_unknown?.public_explanation,
+      edge.branches?.if_stale?.public_explanation,
+      edge.branches?.if_conflicted?.public_explanation,
     ]),
     ...(path.competing_paths || []).flatMap((competitor) => [
       competitor.label,
@@ -171,8 +204,13 @@ function graphIntegrityIssues(path, conditionIds, nodeById) {
   }
 
   for (const [edgeIndex, edge] of path.graph.edges.entries()) {
-    for (const branchName of ["if_false", "if_unknown"]) {
-      const target = nodeById.get(edge.branches[branchName].target_node_id);
+    const blockedBranches = path.schema_version === "1.2"
+      ? ["if_false", "if_unknown", "if_stale", "if_conflicted"]
+      : ["if_false", "if_unknown"];
+    for (const branchName of blockedBranches) {
+      const branch = edge.branches[branchName];
+      if (!branch) continue;
+      const target = nodeById.get(branch.target_node_id);
       if (target && (target.kind !== "abandonment" || outgoing.get(target.node_id).length > 0)) {
         errors.push(issue(
           "BLOCKED_BRANCH_NOT_TERMINAL",
@@ -241,7 +279,230 @@ function graphIntegrityIssues(path, conditionIds, nodeById) {
   return errors;
 }
 
-export function validatePossiblePath(path) {
+function exactEvidenceStateRef(kernel) {
+  const tip = kernel.evidence_events.at(-1);
+  return {
+    kernel_id: kernel.kernel_id,
+    kernel_manifest_hash: kernel.manifest_hash,
+    event_count: kernel.evidence_events.length,
+    tip_event_id: tip.evidence_event_id,
+    tip_event_hash: tip.evidence_event_hash,
+    state_hash: computeEvidenceStateHash(kernel.current_evidence_state),
+  };
+}
+
+function evaluationProjection(evaluation) {
+  return {
+    evaluated_at: evaluation.evaluated_at,
+    evaluator_ref: evaluation.evaluator_ref,
+    condition_definition_ref: evaluation.condition_definition_ref,
+    observation_hashes: evaluation.observation_hashes,
+    mechanically_valid_for_evaluation: evaluation.mechanically_valid_for_evaluation,
+    computed_rule_state: evaluation.computed_rule_state,
+    empirical_truth_established: false,
+    authority_effect: "none",
+    action_authorised: false,
+    kernel_manifest_hash: evaluation.kernel_manifest_hash,
+    evidence_state_hash: evaluation.evidence_state_hash,
+    evaluation_hash: evaluation.evaluation_hash,
+  };
+}
+
+function exactSourceRefs({ sourceKernel, sourceEvolution, sourceSignalRegistry, sourceAgencyMap }) {
+  return {
+    kernel: {
+      id: sourceKernel.document.kernel_id,
+      artifact_path: sourceKernel.path,
+      artifact_sha256: sourceKernel.sha256,
+      manifest_hash: sourceKernel.document.manifest_hash,
+    },
+    evolution: {
+      id: sourceEvolution.document.ledger_id,
+      artifact_path: sourceEvolution.path,
+      artifact_sha256: sourceEvolution.sha256,
+      manifest_hash: sourceEvolution.document.manifest_hash,
+    },
+    signal_registry: {
+      id: sourceSignalRegistry.document.registry_id,
+      artifact_path: sourceSignalRegistry.path,
+      artifact_sha256: sourceSignalRegistry.sha256,
+    },
+    agency_map: {
+      id: sourceAgencyMap.document.id,
+      artifact_path: sourceAgencyMap.path,
+      artifact_sha256: sourceAgencyMap.sha256,
+      outcome_scope_hash: sourceAgencyMap.document.outcome_scope.scope_hash,
+    },
+  };
+}
+
+function sourceBindingIntegrity(path, sources) {
+  const errors = [];
+  const sourceValues = [
+    sources.sourceKernel,
+    sources.sourceEvolution,
+    sources.sourceSignalRegistry,
+    sources.sourceAgencyMap,
+  ];
+  if (sourceValues.some((source) => !source?.document || !source?.path || !source?.sha256)) {
+    return [issue(
+      "PATH_SOURCE_BINDINGS_REQUIRED",
+      "/source_refs",
+      "v1.2 validation requires retained kernel, evolution, signal-registry and agency-map sources",
+    )];
+  }
+
+  const kernel = sources.sourceKernel.document;
+  const evolution = sources.sourceEvolution.document;
+  const registry = sources.sourceSignalRegistry.document;
+  const agency = sources.sourceAgencyMap.document;
+  if (!isDeepStrictEqual(path.source_refs, exactSourceRefs(sources))) {
+    errors.push(issue(
+      "PATH_SOURCE_REF_MISMATCH",
+      "/source_refs",
+      "the path must bind the exact retained source artifact identities and bytes",
+    ));
+  }
+
+  const expectedOutcome = {
+    who: agency.outcome_scope.people,
+    verb: agency.outcome_scope.verb,
+    object: agency.outcome_scope.object,
+    standard: agency.outcome_scope.standard,
+    place: agency.outcome_scope.place,
+    period: agency.outcome_scope.period,
+    if_conditions: agency.conditions.map((condition) => ({
+      condition_id: condition.condition_id,
+      public_condition: condition.public_if_clause,
+    })),
+  };
+  const pathOutcome = structuredClone(path.outcome_scope);
+  delete pathOutcome.scope_hash;
+  if (!isDeepStrictEqual(pathOutcome, expectedOutcome)) {
+    errors.push(issue(
+      "PATH_SCOPE_MISMATCH",
+      "/outcome_scope",
+      "the path must reproduce the complete agency WHO VERB OBJECT STANDARD PLACE PERIOD IF scope",
+    ));
+  }
+
+  const kernelDefinitions = kernel.events.flatMap(({ introduced_definitions: values }) => values);
+  const evolutionById = new Map(evolution.current_state.conditions.map((condition) => [
+    condition.condition_definition_ref.condition_id,
+    condition,
+  ]));
+  const registryById = new Map(registry.condition_bindings.map((binding) => [
+    binding.condition_id,
+    binding,
+  ]));
+  const evidenceState = exactEvidenceStateRef(kernel);
+  const historyTip = {
+    sequence: evolution.source_history_ref.tip_sequence,
+    event_id: evolution.source_history_ref.tip_event_id,
+    event_hash: evolution.source_history_ref.tip_event_hash,
+  };
+
+  for (const [anchorIndex, anchor] of path.condition_anchors.entries()) {
+    const canonical = anchor.canonical_binding;
+    const active = kernel.current_state.find(({ lifecycle, condition_definition_ref: reference }) =>
+      lifecycle === "active" && reference.condition_id === anchor.condition_id);
+    const definition = kernelDefinitions.find(({ definition_hash: value }) =>
+      value === active?.condition_definition_ref.definition_hash);
+    const evolutionCondition = evolutionById.get(anchor.condition_id);
+    const registryCondition = registryById.get(anchor.condition_id);
+    if (!active || !definition || !evolutionCondition || !registryCondition || !canonical ||
+        !isDeepStrictEqual(canonical.condition_definition_ref, active.condition_definition_ref) ||
+        !isDeepStrictEqual(evolutionCondition.condition_definition_ref, active.condition_definition_ref) ||
+        !isDeepStrictEqual(registryCondition.condition_definition_ref, active.condition_definition_ref)) {
+      errors.push(issue(
+        "PATH_CONDITION_REF_MISMATCH",
+        `/condition_anchors/${anchorIndex}/canonical_binding/condition_definition_ref`,
+        "the path must bind one exact active executable condition definition",
+      ));
+      continue;
+    }
+    if (canonical.evolution_manifest_hash !== evolution.manifest_hash ||
+        !isDeepStrictEqual(canonical.history_tip_ref, historyTip) ||
+        !isDeepStrictEqual(canonical.condition_source_event_ref, evolutionCondition.source_event_ref)) {
+      errors.push(issue(
+        "PATH_EVOLUTION_REF_MISMATCH",
+        `/condition_anchors/${anchorIndex}/canonical_binding`,
+        "history tip, condition producer and evolution manifest must remain exact and distinct",
+      ));
+    }
+    if (!isDeepStrictEqual(canonical.evidence_state_ref, evidenceState)) {
+      errors.push(issue(
+        "PATH_EVIDENCE_STATE_MISMATCH",
+        `/condition_anchors/${anchorIndex}/canonical_binding/evidence_state_ref`,
+        "the path must preserve the exact executable evidence checkpoint",
+      ));
+    }
+    const computed = evaluationProjection(evaluateKernelCondition(kernel, anchor.condition_id, {
+      evaluatedAt: canonical.evaluation_ref?.evaluated_at,
+    }));
+    if (!isDeepStrictEqual(canonical.evaluation_ref, computed)) {
+      errors.push(issue(
+        "PATH_EVALUATION_RECEIPT_MISMATCH",
+        `/condition_anchors/${anchorIndex}/canonical_binding/evaluation_ref`,
+        "the visible five-state result must equal a fresh executable-kernel evaluation receipt",
+      ));
+    }
+    if (anchor.canonical_binding_hash !== computeCanonicalBindingHash(canonical)) {
+      errors.push(issue(
+        "PATH_CANONICAL_BINDING_HASH_MISMATCH",
+        `/condition_anchors/${anchorIndex}/canonical_binding_hash`,
+        "the complete condition, history, evidence and evaluation binding must be resealed together",
+      ));
+    }
+  }
+
+  const registrySignals = new Map(registry.signals.map((signal) => [signal.signal_id, signal]));
+  const agencySignals = new Map(agency.signals.map((signal) => [signal.signal_ref, signal]));
+  for (const [roleIndex, role] of path.signal_portfolio.roles.entries()) {
+    if (role.status === "unresolved") {
+      if (role.registered_signal_refs) {
+        errors.push(issue(
+          "PATH_SIGNAL_REF_MISMATCH",
+          `/signal_portfolio/roles/${roleIndex}`,
+          "an unresolved role cannot carry registered signal claims",
+        ));
+      }
+      continue;
+    }
+    const refs = role.registered_signal_refs || [];
+    const refIds = refs.map(({ signal_id: signalId }) => signalId);
+    if (!exactSet(refIds, role.signal_ids)) {
+      errors.push(issue(
+        "PATH_SIGNAL_REF_MISMATCH",
+        `/signal_portfolio/roles/${roleIndex}`,
+        "every assigned signal ID must have one exact canonical metric reference",
+      ));
+      continue;
+    }
+    for (const reference of refs) {
+      const registered = registrySignals.get(reference.signal_id);
+      const agencySignal = agencySignals.get(reference.signal_id);
+      const bindingKind = registered?.executable_binding?.kind ||
+        registered?.supplemental_binding?.kind;
+      const matchingRole = registered?.condition_links.some(({ condition_id: conditionId, evidence_role: evidenceRole }) =>
+        path.signal_portfolio.condition_ids.includes(conditionId) && evidenceRole === role.role);
+      if (!registered || !agencySignal || !matchingRole ||
+          reference.metric_id !== registered.metric_contract?.metric_id ||
+          reference.metric_checksum !== registered.metric_contract?.metric_checksum ||
+          reference.metric_checksum !== agencySignal.registered_metric_ref?.metric_checksum ||
+          reference.binding_kind !== bindingKind) {
+        errors.push(issue(
+          "PATH_SIGNAL_REF_MISMATCH",
+          `/signal_portfolio/roles/${roleIndex}/registered_signal_refs`,
+          "path signals must resolve to the exact registered role, binding kind and metric contract",
+        ));
+      }
+    }
+  }
+  return errors;
+}
+
+export function validatePossiblePath(path, sources = {}) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
   const validateSchema = ajv.compile(DEFAULT_SCHEMA);
@@ -411,12 +672,26 @@ export function validatePossiblePath(path) {
         ));
       }
     }
-    for (const [branchName, requiredAction] of [
-      ["if_true", "human-decision-required"],
-      ["if_false", "block-edge-traversal"],
-      ["if_unknown", "block-edge-traversal"],
-    ]) {
+    const requiredBranches = [
+      ["if_true", "human-decision-required", "human-review"],
+      ["if_false", "block-edge-traversal", "repair-or-alternate"],
+      ["if_unknown", "block-edge-traversal", "acquire-missing-evidence"],
+      ...(path.schema_version === "1.2" ? [
+        ["if_stale", "block-edge-traversal", "refresh-and-re-evaluate"],
+        ["if_conflicted", "block-edge-traversal", "adjudicate-conflict"],
+      ] : []),
+    ];
+    if (path.schema_version === "1.2" &&
+        !exactSet(Object.keys(edge.branches), requiredBranches.map(([name]) => name))) {
+      errors.push(issue(
+        "PATH_FIVE_STATE_BRANCHES_INCOMPLETE",
+        `/graph/edges/${edgeIndex}/branches`,
+        "true, false, unknown, stale and conflicted must each remain explicit",
+      ));
+    }
+    for (const [branchName, requiredAction, requiredRecovery] of requiredBranches) {
       const branch = edge.branches[branchName];
+      if (!branch) continue;
       if (!nodeById.has(branch.target_node_id)) {
         errors.push(issue(
           "UNRESOLVED_BRANCH_NODE",
@@ -431,6 +706,13 @@ export function validatePossiblePath(path) {
           `${branchName} must use ${requiredAction}`,
         ));
       }
+      if (path.schema_version === "1.2" && branch.recovery !== requiredRecovery) {
+        errors.push(issue(
+          "PATH_STATE_RECOVERY_MISMATCH",
+          `/graph/edges/${edgeIndex}/branches/${branchName}/recovery`,
+          `${branchName} must preserve its distinct ${requiredRecovery} recovery path`,
+        ));
+      }
     }
     if (edge.branches.if_true.target_node_id !== edge.to_node_id) {
       errors.push(issue(
@@ -439,8 +721,8 @@ export function validatePossiblePath(path) {
         "the explicit true branch must name the proposed edge destination",
       ));
     }
-    for (const branchName of ["if_false", "if_unknown"]) {
-      if (edge.branches[branchName].target_node_id === edge.to_node_id) {
+    for (const branchName of requiredBranches.slice(1).map(([name]) => name)) {
+      if (edge.branches[branchName]?.target_node_id === edge.to_node_id) {
         errors.push(issue(
           "BLOCKED_BRANCH_TARGET_MISMATCH",
           `/graph/edges/${edgeIndex}/branches/${branchName}/target_node_id`,
@@ -474,7 +756,8 @@ export function validatePossiblePath(path) {
       ));
     }
     const operations = policy.on_event.map(({ operation }) => operation);
-    if (!exactSet(operations, OPERATIONS)) {
+    const expectedOperations = path.schema_version === "1.2" ? OPERATIONS_V2 : OPERATIONS_V1;
+    if (!exactSet(operations, expectedOperations)) {
       errors.push(issue(
         "EVOLUTION_MATRIX_INCOMPLETE",
         `/condition_evolution_policies/${policyIndex}/on_event`,
@@ -521,6 +804,14 @@ export function validatePossiblePath(path) {
         "SIGNAL_ROLE_STATUS_CONTRADICTION",
         "/signal_portfolio/roles",
         `${role.role} cannot be unresolved while assigning signals`,
+      ));
+    }
+    if (path.schema_version === "1.2" && role.status === "assigned" &&
+        !role.registered_signal_refs) {
+      errors.push(issue(
+        "PATH_SIGNAL_REF_MISMATCH",
+        "/signal_portfolio/roles",
+        `${role.role} must bind exact registered signal and metric identities`,
       ));
     }
     for (const signalId of role.signal_ids || []) {
@@ -582,11 +873,28 @@ export function validatePossiblePath(path) {
     ));
   }
 
+  if (path.schema_version === "1.2") {
+    errors.push(...sourceBindingIntegrity(path, sources));
+  }
+
   const integrityValid = errors.length === 0;
+  const sourceBindingsVerified = path.schema_version === "1.2" &&
+    !errors.some(({ code }) => code.startsWith("PATH_") && [
+      "PATH_SOURCE_BINDINGS_REQUIRED",
+      "PATH_SOURCE_REF_MISMATCH",
+      "PATH_SCOPE_MISMATCH",
+      "PATH_CONDITION_REF_MISMATCH",
+      "PATH_EVOLUTION_REF_MISMATCH",
+      "PATH_EVIDENCE_STATE_MISMATCH",
+      "PATH_EVALUATION_RECEIPT_MISMATCH",
+      "PATH_CANONICAL_BINDING_HASH_MISMATCH",
+      "PATH_SIGNAL_REF_MISMATCH",
+    ].includes(code));
   return {
     machine_valid: schemaValid && integrityValid,
     schema_valid: schemaValid,
     integrity_valid: integrityValid,
+    source_bindings_verified: sourceBindingsVerified,
     boundaries,
     public_claim_ceiling: expectedCeiling,
     public_narrative: {

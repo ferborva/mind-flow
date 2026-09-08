@@ -28,7 +28,7 @@
     "public_claim_ceiling"
   ],
   "properties": {
-    "schema_version": { "const": "1.1" },
+    "schema_version": { "enum": ["1.1", "1.2"] },
     "path_id": { "$ref": "#/$defs/id" },
     "classification": { "const": "synthetic-example-not-a-finding" },
     "title": { "$ref": "#/$defs/nonEmpty" },
@@ -174,13 +174,123 @@
         "updated_at": { "$ref": "#/$defs/dateTime" }
       }
     },
-    "public_claim_ceiling": { "$ref": "#/$defs/nonEmpty" }
+    "public_claim_ceiling": { "$ref": "#/$defs/nonEmpty" },
+    "source_refs": { "$ref": "#/$defs/sourceRefs" }
   },
   "$defs": {
     "nonEmpty": { "type": "string", "minLength": 1 },
     "id": { "type": "string", "pattern": "^[a-z][a-z0-9._-]+$" },
     "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "dateTime": { "type": "string", "format": "date-time" },
+    "conditionDefinitionRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "definition_hash": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "eventRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "event_id", "event_hash"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "event_id": { "$ref": "#/$defs/id" },
+        "event_hash": { "$ref": "#/$defs/hash" },
+        "operation": { "enum": ["added", "narrowed", "definition-revised", "split", "merge"] }
+      }
+    },
+    "evidenceStateRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kernel_id", "kernel_manifest_hash", "event_count", "tip_event_id", "tip_event_hash", "state_hash"],
+      "properties": {
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "kernel_manifest_hash": { "$ref": "#/$defs/hash" },
+        "event_count": { "type": "integer", "minimum": 1 },
+        "tip_event_id": { "$ref": "#/$defs/id" },
+        "tip_event_hash": { "$ref": "#/$defs/hash" },
+        "state_hash": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "evaluationRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evaluated_at", "evaluator_ref", "condition_definition_ref", "observation_hashes", "mechanically_valid_for_evaluation", "computed_rule_state", "empirical_truth_established", "authority_effect", "action_authorised", "kernel_manifest_hash", "evidence_state_hash", "evaluation_hash"],
+      "properties": {
+        "evaluated_at": { "$ref": "#/$defs/dateTime" },
+        "evaluator_ref": {
+          "type": "object", "additionalProperties": false,
+          "required": ["id", "version", "digest", "implementation_digest", "conformance_vectors_digest"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+            "digest": { "$ref": "#/$defs/hash" },
+            "implementation_digest": { "$ref": "#/$defs/hash" },
+            "conformance_vectors_digest": { "$ref": "#/$defs/hash" }
+          }
+        },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "observation_hashes": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/hash" } },
+        "mechanically_valid_for_evaluation": { "type": "boolean" },
+        "computed_rule_state": {
+          "type": "object", "additionalProperties": false,
+          "required": ["axis", "state"],
+          "properties": {
+            "axis": { "const": "computed_rule_state" },
+            "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] }
+          }
+        },
+        "empirical_truth_established": { "const": false },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "kernel_manifest_hash": { "$ref": "#/$defs/hash" },
+        "evidence_state_hash": { "$ref": "#/$defs/hash" },
+        "evaluation_hash": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "canonicalBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_definition_ref", "evolution_manifest_hash", "history_tip_ref", "condition_source_event_ref", "evidence_state_ref", "evaluation_ref"],
+      "properties": {
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "evolution_manifest_hash": { "$ref": "#/$defs/hash" },
+        "history_tip_ref": { "$ref": "#/$defs/eventRef" },
+        "condition_source_event_ref": { "$ref": "#/$defs/eventRef" },
+        "evidence_state_ref": { "$ref": "#/$defs/evidenceStateRef" },
+        "evaluation_ref": { "$ref": "#/$defs/evaluationRef" }
+      }
+    },
+    "sourceArtifactRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "artifact_path", "artifact_sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "artifact_path": { "$ref": "#/$defs/nonEmpty" },
+        "artifact_sha256": { "$ref": "#/$defs/hash" },
+        "manifest_hash": { "$ref": "#/$defs/hash" },
+        "outcome_scope_hash": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "sourceRefs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kernel", "evolution", "signal_registry", "agency_map"],
+      "properties": {
+        "kernel": { "$ref": "#/$defs/sourceArtifactRef" },
+        "evolution": { "$ref": "#/$defs/sourceArtifactRef" },
+        "signal_registry": { "$ref": "#/$defs/sourceArtifactRef" },
+        "agency_map": { "$ref": "#/$defs/sourceArtifactRef" }
+      }
+    },
+    "registeredSignalRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["signal_id", "metric_id", "metric_checksum", "binding_kind"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/id" },
+        "metric_id": { "$ref": "#/$defs/id" },
+        "metric_checksum": { "$ref": "#/$defs/hash" },
+        "binding_kind": { "enum": ["executable-predicate", "supplemental-observation"] }
+      }
+    },
     "outcomeScope": {
       "type": "object",
       "additionalProperties": false,
@@ -231,7 +341,9 @@
         "as_of_event_id": { "$ref": "#/$defs/id" },
         "as_of_event_hash": { "$ref": "#/$defs/hash" },
         "rendered_if": { "type": "string", "pattern": "^IF " },
-        "verification": { "const": "external-unverified-anchor" }
+        "verification": { "const": "external-unverified-anchor" },
+        "canonical_binding": { "$ref": "#/$defs/canonicalBinding" },
+        "canonical_binding_hash": { "$ref": "#/$defs/hash" }
       }
     },
     "edgeConditionBinding": {
@@ -255,7 +367,8 @@
         "as_of_sequence": { "type": "integer", "minimum": 1 },
         "as_of_event_id": { "$ref": "#/$defs/id" },
         "as_of_event_hash": { "$ref": "#/$defs/hash" },
-        "outcome_scope_hash": { "$ref": "#/$defs/hash" }
+        "outcome_scope_hash": { "$ref": "#/$defs/hash" },
+        "canonical_binding_hash": { "$ref": "#/$defs/hash" }
       }
     },
     "node": {
@@ -281,7 +394,10 @@
       "properties": {
         "target_node_id": { "$ref": "#/$defs/id" },
         "action": { "enum": ["block-edge-traversal", "human-decision-required"] },
-        "public_explanation": { "$ref": "#/$defs/nonEmpty" }
+        "public_explanation": { "$ref": "#/$defs/nonEmpty" },
+        "recovery": {
+          "enum": ["human-review", "repair-or-alternate", "acquire-missing-evidence", "refresh-and-re-evaluate", "adjudicate-conflict"]
+        }
       }
     },
     "edge": {
@@ -306,7 +422,9 @@
           "properties": {
             "if_true": { "$ref": "#/$defs/branch" },
             "if_false": { "$ref": "#/$defs/branch" },
-            "if_unknown": { "$ref": "#/$defs/branch" }
+            "if_unknown": { "$ref": "#/$defs/branch" },
+            "if_stale": { "$ref": "#/$defs/branch" },
+            "if_conflicted": { "$ref": "#/$defs/branch" }
           }
         }
       }
@@ -324,13 +442,13 @@
         "on_event": {
           "type": "array",
           "minItems": 11,
-          "maxItems": 11,
+          "maxItems": 12,
           "items": {
             "type": "object",
             "additionalProperties": false,
             "required": ["operation", "disposition", "reason", "next_action"],
             "properties": {
-              "operation": { "enum": ["added", "narrowed", "split", "merged", "challenged", "satisfied", "failed", "expired", "superseded", "disputed", "withdrawn"] },
+              "operation": { "enum": ["added", "narrowed", "definition-revised", "split", "merge", "merged", "challenged", "satisfied", "failed", "expired", "superseded", "disputed", "withdrawn"] },
               "disposition": { "enum": ["fail-closed", "no-effect"] },
               "reason": { "$ref": "#/$defs/nonEmpty" },
               "next_action": { "enum": ["re-register-and-review", "none-after-proof"] },
@@ -424,6 +542,10 @@
                 "minItems": 1,
                 "uniqueItems": true,
                 "items": { "$ref": "#/$defs/id" }
+              },
+              "registered_signal_refs": {
+                "type": "array", "minItems": 1, "uniqueItems": true,
+                "items": { "$ref": "#/$defs/registeredSignalRef" }
               },
               "unresolved_reason": { "$ref": "#/$defs/nonEmpty" }
             },

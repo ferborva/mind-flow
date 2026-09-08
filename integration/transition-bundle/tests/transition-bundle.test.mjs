@@ -161,6 +161,23 @@ test("Round 4 agency source bindings resolve through retained core artifacts", (
   assert.equal(result.condition_identity.by_role["agency-map"][0], "condition.worker-option.nsw");
 });
 
+test("Round 4 path resolves five-state receipts, scope and metrics through the core", () => {
+  const { attempted } = round4Attempt();
+  for (const [role, path] of [
+    ["agency-map", "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json"],
+    ["possible-path", "paths/fixtures/round-04.worker-option.synthetic.json"],
+  ]) {
+    const bytes = readFileSync(resolve(root, path));
+    const reference = attempted.artifacts.find(({ role: candidate }) => candidate === role);
+    reference.path = path;
+    reference.sha256 = sha256(bytes);
+  }
+
+  const result = assessTransitionBundle(attempted, { rootDir: root });
+  assert.equal(result.components_valid, true, JSON.stringify(result.issues, null, 2));
+  assert.equal(result.component_results["possible-path"].source_bindings_verified, true);
+});
+
 test("hostile: a registered signal cannot borrow an executable definition hash", () => {
   const { attempted } = round4Attempt();
   const signalRef = attempted.artifacts.find(({ role }) => role === "signal-registry");

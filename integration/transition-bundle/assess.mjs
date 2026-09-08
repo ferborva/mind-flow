@@ -179,7 +179,20 @@ function validateComponent(role, document, artifactPath, evaluatedAt, context = 
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
     if (role === "possible-path") {
-      const result = validatePossiblePath(document);
+      const source = (sourceRole) => {
+        const reference = context.refs?.find(({ role: candidate }) => candidate === sourceRole);
+        return {
+          document: context.documents?.get(sourceRole),
+          path: reference?.path,
+          sha256: reference?.sha256,
+        };
+      };
+      const result = validatePossiblePath(document, {
+        sourceKernel: source("executable-if-kernel"),
+        sourceEvolution: source("evolution-ledger"),
+        sourceSignalRegistry: source("signal-registry"),
+        sourceAgencyMap: source("agency-map"),
+      });
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
     if (role === "preparation-register") {
