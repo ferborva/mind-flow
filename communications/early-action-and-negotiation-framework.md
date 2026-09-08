@@ -65,22 +65,25 @@ Every predicate used by a gate is one of:
 - `false`: fails under the current evidence rule;
 - `unknown`: not enough valid evidence;
 - `conflicted`: credible evidence supports incompatible evaluations;
-- `stale`: evidence is older than its declared maximum age;
-- `not_applicable`: excluded by the option's declared scope.
+- `stale`: evidence is older than its declared maximum age.
 
 `Unknown`, `conflicted` and `stale` are information states, not risk scores.
+Applicability is a separate scope axis. `out_of_scope` must stop evaluation for
+that entity; it must not enter `NOT`, `ALL` or `ANY` as if it were evidence truth.
 
 ### Precedence and parallel duties
 
-1. A true `reverse_if` blocks new action and starts reversal and remedy review.
-2. A true hard-safeguard `pause_if` blocks new action. If the safeguard state is unknown, conflicted or stale, irreversible or coercive action also pauses.
+1. A true `reverse_if` blocks new action and creates a reversal and remedy candidate for the authorised owner.
+2. A true hard-safeguard `pause_if` blocks new action and creates a pause candidate. In a stateless evaluation, an unknown, conflicted, stale or invalid hard safeguard creates a lifecycle-neutral `precautionary_hold`. Only the stateful layer may convert that hold into a precautionary-pause proposal for preparing, active or recovering work. Inactive and watching options simply hold.
 3. `recover_if` may operate alongside pause or reversal. Repair does not wait for blame or causal certainty when an authorised no-fault remedy applies.
 4. `act_if` can pass only when every required authority, consent, funding, delivery and safeguard predicate is true and current.
 5. `prepare_if` may permit only low-regret, reversible preparation. It cannot be used to smuggle in the material action.
 6. `watch_if` is the default when evidence is relevant but no higher gate passes.
-7. `graduate_if` is evaluated last. It cannot cancel unresolved individual claims, appeals, remedies or rights.
+7. `graduate_if` is evaluated last. It cannot cancel unresolved individual claims, appeals, remedies or rights. `act_if` and `graduate_if` true together, or `recover_if` and `graduate_if` true together, is a transition conflict and fails closed.
 
-No gate may infer urgency, causation or authority from data coverage.
+No gate may infer urgency, causation or authority from data coverage. Gate truth produces eligibility only on the candidate-phase, concurrent-duty or exit-candidate axis. It cannot approve or perform a transition.
+
+The deterministic result keeps four concerns separate: safety control (`reverse > pause > precautionary_hold`), candidate phase (`act > prepare > watch > idle`), concurrent watch or recovery duties, and a graduation candidate. Each non-safety axis records its own eligibility, so recover-only and graduate-only results remain meaningful. A prior lifecycle is required before proposing a transition. The evaluation record persists the versioned proposal, its prior and proposed lifecycle, duties and conflicts. Every transition proposal has no authority effect, performs no automatic transition and cannot automatically withdraw support. Reversal and graduation cannot silently reactivate; a paused option needs a fresh, safe `act_if` result before an authorised owner may resume it.
 
 ## Required option record
 
@@ -93,8 +96,9 @@ approval_state: not-authorised
 proposer: Ren, Codex agent
 protected_outcome: <what must remain possible for whom>
 actor_class: <individual | household-community | worker-union | enterprise | local | national | cross-border>
+actor_ref: <versioned named actor and role; never inferred from the verb>
 verb: <one observable action>
-object: <one bounded object>
+object: <one bounded object with explicit people, place, service and period scope>
 scope:
   people: <included and excluded>
   place: <jurisdiction or community>
@@ -120,6 +124,8 @@ expiry: <calendar time and automatic consequence>
 coordination_dependencies: <other actors, commitments, hand-offs and failure treatment>
 public_wording: <approved public text, if approval ever occurs>
 ```
+
+The compiler binds `actor_ref + verb + bounded object and scope + gate_ref + condition checksum`. Before a separately verified commitment and owner event exist, it must render only `[PROPOSED, NOT AUTHORISED] [actor] could consider [verb] [object] if [condition]`. An axis-specific eligibility value is evidence eligibility, not permission. A bare phrase such as `Protect income IF...` is invalid because it omits the actor and silently implies authority.
 
 An option with `Unknown` authority, consent, funding, service level, help or appeal may be shown only as a research proposal. It cannot use `will`, `must`, `activates`, `available now` or other commitment language.
 

@@ -3,8 +3,8 @@
   "id": "observation.earnings-restored.2026q2.c1",
   "condition_definition": {
     "id": "condition.au-clerical-access-margin",
-    "version": "1.0.0",
-    "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452"
+    "version": "2.0.0",
+    "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
   },
   "predicate_ref": "earnings-restored",
   "state": "true",

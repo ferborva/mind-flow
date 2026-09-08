@@ -1,3 +1,6 @@
+import { createHash } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
+
 /**
  * Pure evaluator for condition-contract expressions.
  *
@@ -5,6 +8,8 @@
  * with thresholds and deciding whether evidence is stale belong to a separate
  * layer. This module only combines those states without erasing uncertainty.
  */
+
+export const EVALUATOR_VERSION = "2.0.0";
 
 export const PREDICATE_TRUTH_STATES = Object.freeze([
   "true",
@@ -22,6 +27,7 @@ export const GATE_TRUTH_STATES = PREDICATE_TRUTH_STATES;
 
 export const GATES = Object.freeze([
   "watch",
+  "prepare",
   "act",
   "pause",
   "reverse",
@@ -457,16 +463,144 @@ export function evaluateExpression(expression, predicateStates, options = {}) {
 
 const HARD_SAFEGUARD_PRIORITY = Object.freeze(["reverse", "pause"]);
 const isUnresolvedState = (state) => state !== "true" && state !== "false";
+const CANDIDATE_PHASE_PRIORITY = Object.freeze(["act", "prepare", "watch"]);
+const CONCURRENT_DUTY_ORDER = Object.freeze(["watch", "recover"]);
+const LIFECYCLES = new Set([
+  "inactive",
+  "watching",
+  "preparing",
+  "active",
+  "paused",
+  "reversing",
+  "recovering",
+  "graduated",
+]);
+const LIFECYCLE_VOCABULARY = "condition-transition-lifecycle/1.0.0";
+const RECORD_TRUST_STATES = new Set(["unverified-external"]);
+const OWNER_EVENT_TRANSITIONS = new Set([
+  "activate:inactive:active",
+  "activate:watching:active",
+  "activate:preparing:active",
+  "resume:paused:active",
+  "pause:preparing:paused",
+  "pause:active:paused",
+  "pause:recovering:paused",
+  "reverse:preparing:reversing",
+  "reverse:active:reversing",
+  "reverse:paused:reversing",
+  "reverse:recovering:reversing",
+  "begin-recovery:inactive:recovering",
+  "begin-recovery:watching:recovering",
+  "begin-recovery:preparing:recovering",
+  "begin-recovery:active:recovering",
+  "begin-recovery:paused:recovering",
+  "recovery-exit:recovering:active",
+  "recovery-exit:recovering:graduated",
+  "graduate:active:graduated",
+  "graduate:paused:graduated",
+]);
+
+function canonicalise(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalise).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonicalise(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function recordChecksum(record) {
+  return `sha256:${createHash("sha256").update(canonicalise(record)).digest("hex")}`;
+}
+
+function priorStateReference(priorState) {
+  return {
+    artifact_type: "lifecycle-state",
+    id: priorState.id,
+    version: priorState.schema_version,
+    checksum: recordChecksum(priorState),
+    lifecycle: priorState.lifecycle,
+    trust_state: priorState.trust_state,
+  };
+}
+
+function ownerEventReference(ownerEvent) {
+  if (!ownerEvent) return null;
+  return {
+    artifact_type: "owner-transition-event",
+    id: ownerEvent.id,
+    version: ownerEvent.schema_version,
+    checksum: recordChecksum(ownerEvent),
+    event_type: ownerEvent.event_type,
+    from_lifecycle: ownerEvent.from_lifecycle,
+    to_lifecycle: ownerEvent.to_lifecycle,
+    trust_state: ownerEvent.trust_state,
+  };
+}
+
+function validatePriorState(priorState) {
+  if (
+    !priorState ||
+    priorState.schema_version !== "1.0.0" ||
+    priorState.artifact_type !== "lifecycle-state" ||
+    typeof priorState.id !== "string" ||
+    priorState.lifecycle_vocabulary !== LIFECYCLE_VOCABULARY ||
+    !LIFECYCLES.has(priorState.lifecycle) ||
+    !RECORD_TRUST_STATES.has(priorState.trust_state)
+  ) {
+    throw new TypeError("A valid condition-transition lifecycle-state record is required.");
+  }
+}
+
+function validateOwnerEvent(ownerEvent, priorState) {
+  if (ownerEvent === null || ownerEvent === undefined) return;
+  if (
+    ownerEvent.schema_version !== "1.0.0" ||
+    ownerEvent.artifact_type !== "owner-transition-event" ||
+    typeof ownerEvent.id !== "string" ||
+    ownerEvent.lifecycle_mapping_version !== "1.0.0" ||
+    !LIFECYCLES.has(ownerEvent.from_lifecycle) ||
+    !LIFECYCLES.has(ownerEvent.to_lifecycle) ||
+    !RECORD_TRUST_STATES.has(ownerEvent.trust_state) ||
+    !OWNER_EVENT_TRANSITIONS.has(
+      `${ownerEvent.event_type}:${ownerEvent.from_lifecycle}:${ownerEvent.to_lifecycle}`,
+    ) ||
+    ownerEvent.evaluation_run_ref?.artifact_type !== "evaluation-run" ||
+    typeof ownerEvent.evaluation_run_ref?.id !== "string" ||
+    ownerEvent.evaluation_run_ref?.version !== "2.0.0" ||
+    !/^sha256:[a-f0-9]{64}$/.test(ownerEvent.evaluation_run_ref?.checksum || "") ||
+    !isDeepStrictEqual(ownerEvent.prior_state_ref, priorStateReference(priorState))
+  ) {
+    throw new TypeError("The owner event is invalid or is not bound to the prior state.");
+  }
+}
+
+function validatedResolution(evaluation) {
+  if (
+    !evaluation ||
+    typeof evaluation !== "object" ||
+    !Array.isArray(evaluation.errors) ||
+    evaluation.errors.length > 0 ||
+    !GATES.every((gate) => GATE_TRUTH_STATES.includes(evaluation.gates?.[gate]?.state))
+  ) {
+    throw new TypeError("A complete, error-free seven-gate evaluation is required.");
+  }
+  const recomputed = resolveCondition(evaluation);
+  if (!isDeepStrictEqual(evaluation.condition_resolution, recomputed)) {
+    throw new TypeError("The recorded condition resolution does not match gate recomputation.");
+  }
+  return recomputed;
+}
 
 /**
- * Resolve whether a newly active action is safe from complete gate-truth output.
- * Recovery and graduation remain visible in eligible_gates but cannot override
- * a hard reverse or pause safeguard.
+ * Resolve gate truth into orthogonal, non-authorising condition outputs.
+ * This records safety precedence and conditional eligibility only. It neither
+ * grants authority nor changes an action lifecycle.
  */
-export function resolveAction(evaluation) {
+export function resolveCondition(evaluation) {
   const gates = evaluation?.gates || evaluation || {};
   const gateState = (gate) => gates?.[gate]?.state ?? null;
-  const eligibleGates = GATES.filter((gate) => gateState(gate) === "true");
+  const trueGates = GATES.filter((gate) => gateState(gate) === "true");
   const trueSafeguards = HARD_SAFEGUARD_PRIORITY.filter(
     (gate) => gateState(gate) === "true",
   );
@@ -474,48 +608,294 @@ export function resolveAction(evaluation) {
     (gate) => isUnresolvedState(gateState(gate)),
   );
 
-  if (trueSafeguards.length > 0) {
-    return {
-      input_state_axis: "gate_truth",
-      decision: trueSafeguards[0],
-      activation_allowed: false,
-      eligible_gates: eligibleGates,
-      blocking_gates: [...trueSafeguards, ...unresolvedHardSafeguards],
-      unresolved_hard_safeguards: unresolvedHardSafeguards,
-    };
+  const safetyControl = gateState("reverse") === "true"
+    ? "reverse"
+    : gateState("pause") === "true"
+      ? "pause"
+      : unresolvedHardSafeguards.length > 0
+        ? "precautionary_hold"
+        : "none";
+  const candidatePhase = CANDIDATE_PHASE_PRIORITY.find(
+    (gate) => gateState(gate) === "true",
+  ) || "idle";
+  const concurrentDuties = CONCURRENT_DUTY_ORDER.filter(
+    (gate) => gateState(gate) === "true",
+  );
+  const exitCandidate = gateState("graduate") === "true" ? "graduate" : "none";
+  const transitionConflicts = [];
+  if (gateState("act") === "true" && gateState("graduate") === "true") {
+    transitionConflicts.push("act_and_graduate");
   }
-
-  if (unresolvedHardSafeguards.length > 0) {
-    return {
-      input_state_axis: "gate_truth",
-      decision: "no_action",
-      activation_allowed: false,
-      eligible_gates: eligibleGates,
-      blocking_gates: unresolvedHardSafeguards,
-      unresolved_hard_safeguards: unresolvedHardSafeguards,
-    };
+  if (gateState("recover") === "true" && gateState("graduate") === "true") {
+    transitionConflicts.push("recover_and_graduate");
   }
+  const actAndGraduate = transitionConflicts.includes("act_and_graduate");
+  const recoverAndGraduate = transitionConflicts.includes("recover_and_graduate");
+  const blockingGates = safetyControl === "reverse"
+    ? [...trueSafeguards, ...unresolvedHardSafeguards]
+    : safetyControl === "pause"
+      ? [...trueSafeguards, ...unresolvedHardSafeguards]
+      : safetyControl === "precautionary_hold"
+        ? unresolvedHardSafeguards
+        : [];
 
-  if (gateState("act") === "true") {
-    return {
-      input_state_axis: "gate_truth",
-      decision: "act",
-      activation_allowed: true,
-      eligible_gates: eligibleGates,
-      blocking_gates: [],
-      unresolved_hard_safeguards: [],
-    };
-  }
-
-  const actUnresolved = isUnresolvedState(gateState("act"));
   return {
     input_state_axis: "gate_truth",
-    decision: "no_action",
-    activation_allowed: false,
-    eligible_gates: eligibleGates,
-    blocking_gates: actUnresolved ? ["act"] : [],
-    unresolved_hard_safeguards: [],
+    safety_control: safetyControl,
+    candidate_phase: candidatePhase,
+    concurrent_duties: concurrentDuties,
+    exit_candidate: exitCandidate,
+    candidate_phase_eligible:
+      safetyControl === "none" &&
+      candidatePhase !== "idle" &&
+      transitionConflicts.length === 0,
+    concurrent_duties_eligible: {
+      watch: concurrentDuties.includes("watch"),
+      recover: concurrentDuties.includes("recover") && !recoverAndGraduate,
+    },
+    exit_candidate_eligible:
+      exitCandidate === "graduate" &&
+      safetyControl === "none" &&
+      !actAndGraduate &&
+      !recoverAndGraduate,
+    true_gates: trueGates,
+    blocking_gates: blockingGates,
+    unresolved_hard_safeguards: unresolvedHardSafeguards,
+    transition_conflicts: transitionConflicts,
   };
+}
+
+function transitionRecord(
+  resolution,
+  priorState,
+  ownerEvent,
+  proposal,
+  proposedLifecycle,
+  conflicts = [],
+) {
+  return {
+    proposal_version: "1.0.0",
+    lifecycle_mapping_version: "1.0.0",
+    prior_state_ref: priorStateReference(priorState),
+    owner_event_ref: ownerEventReference(ownerEvent),
+    proposal,
+    proposed_lifecycle: proposedLifecycle,
+    authority_effect: "none",
+    automatic_transition: false,
+    automatic_support_withdrawal: false,
+    concurrent_duties: [...resolution.concurrent_duties],
+    transition_conflicts: [...resolution.transition_conflicts, ...conflicts],
+  };
+}
+
+/**
+ * Propose, but never perform or authorise, a lifecycle transition.
+ * Prior lifecycle prevents a fresh gate evaluation from silently reactivating
+ * a reversed or graduated option, or withdrawing an already active support.
+ */
+export function proposeTransition(evaluation, priorState, ownerEvent = null) {
+  validatePriorState(priorState);
+  validateOwnerEvent(ownerEvent, priorState);
+  const priorLifecycle = priorState.lifecycle;
+  const resolution = validatedResolution(evaluation);
+
+  if (priorLifecycle === "graduated") {
+    return transitionRecord(
+      resolution,
+      priorState,
+      ownerEvent,
+      "hold_for_new_contract",
+      priorLifecycle,
+    );
+  }
+
+  if (resolution.safety_control === "reverse") {
+    if (priorLifecycle === "reversing") {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "continue_reversal",
+        "reversing",
+      );
+    }
+    if (["preparing", "active", "paused", "recovering"].includes(priorLifecycle)) {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "consider_reversal",
+        "reversing",
+      );
+    }
+    return transitionRecord(resolution, priorState, ownerEvent, "hold", priorLifecycle);
+  }
+
+  if (priorLifecycle === "reversing") {
+    return transitionRecord(
+      resolution,
+      priorState,
+      ownerEvent,
+      "hold_for_new_contract",
+      "reversing",
+    );
+  }
+
+  if (["pause", "precautionary_hold"].includes(resolution.safety_control)) {
+    if (["preparing", "active", "recovering"].includes(priorLifecycle)) {
+      const proposal = resolution.safety_control === "pause"
+        ? "consider_pause"
+        : "consider_precautionary_pause";
+      return transitionRecord(resolution, priorState, ownerEvent, proposal, "paused");
+    }
+    return transitionRecord(resolution, priorState, ownerEvent, "hold", priorLifecycle);
+  }
+
+  if (resolution.transition_conflicts.length > 0) {
+    return transitionRecord(
+      resolution,
+      priorState,
+      ownerEvent,
+      "hold_for_review",
+      priorLifecycle,
+    );
+  }
+
+  if (priorLifecycle === "recovering") {
+    if (
+      resolution.concurrent_duties.includes("recover") &&
+      resolution.concurrent_duties_eligible.recover
+    ) {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "continue_recovery",
+        "recovering",
+      );
+    }
+    const recoveryExit = ownerEvent?.event_type === "recovery-exit" &&
+      ownerEvent.from_lifecycle === "recovering";
+    const targetEligible = ownerEvent?.to_lifecycle === "active"
+      ? resolution.candidate_phase === "act" && resolution.candidate_phase_eligible
+      : ownerEvent?.to_lifecycle === "graduated"
+        ? resolution.exit_candidate === "graduate" && resolution.exit_candidate_eligible
+        : false;
+    if (recoveryExit && targetEligible) {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "consider_recovery_exit",
+        ownerEvent.to_lifecycle,
+      );
+    }
+    return transitionRecord(
+      resolution,
+      priorState,
+      ownerEvent,
+      "await_recovery_exit_event",
+      "recovering",
+      recoveryExit ? ["owner_event_condition_mismatch"] : [],
+    );
+  }
+
+  if (resolution.exit_candidate === "graduate" && resolution.exit_candidate_eligible) {
+    if (["active", "paused", "recovering"].includes(priorLifecycle)) {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "consider_graduation",
+        "graduated",
+      );
+    }
+    return transitionRecord(
+      resolution,
+      priorState,
+      ownerEvent,
+      "hold_for_review",
+      priorLifecycle,
+      ["graduate_without_existing_action"],
+    );
+  }
+
+  if (
+    resolution.concurrent_duties.includes("recover") &&
+    resolution.concurrent_duties_eligible.recover
+  ) {
+    if (priorLifecycle === "active") {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "continue_with_recovery",
+        "active",
+      );
+    }
+    return transitionRecord(
+      resolution,
+      priorState,
+      ownerEvent,
+      "consider_recovery",
+      "recovering",
+    );
+  }
+
+  if (resolution.candidate_phase === "act" && resolution.candidate_phase_eligible) {
+    if (priorLifecycle === "paused") {
+      return transitionRecord(resolution, priorState, ownerEvent, "consider_resume", "active");
+    }
+    if (["inactive", "watching", "preparing"].includes(priorLifecycle)) {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "consider_activation",
+        "active",
+      );
+    }
+    return transitionRecord(resolution, priorState, ownerEvent, "continue_active", "active");
+  }
+
+  if (resolution.candidate_phase === "prepare" && resolution.candidate_phase_eligible) {
+    if (["inactive", "watching"].includes(priorLifecycle)) {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "consider_preparation",
+        "preparing",
+      );
+    }
+    if (priorLifecycle === "preparing") {
+      return transitionRecord(
+        resolution,
+        priorState,
+        ownerEvent,
+        "continue_preparation",
+        "preparing",
+      );
+    }
+  }
+
+  if (priorLifecycle === "active") {
+    return transitionRecord(resolution, priorState, ownerEvent, "continue_active", "active");
+  }
+  if (priorLifecycle === "paused") {
+    return transitionRecord(resolution, priorState, ownerEvent, "hold", "paused");
+  }
+  if (priorLifecycle === "preparing") {
+    return transitionRecord(resolution, priorState, ownerEvent, "hold", "preparing");
+  }
+  if (
+    resolution.candidate_phase === "watch" &&
+    resolution.candidate_phase_eligible &&
+    resolution.concurrent_duties_eligible.watch
+  ) {
+    return transitionRecord(resolution, priorState, ownerEvent, "consider_watching", "watching");
+  }
+  return transitionRecord(resolution, priorState, ownerEvent, "hold", priorLifecycle);
 }
 
 /** Evaluate every required lifecycle gate independently. */
@@ -545,7 +925,7 @@ export function evaluateGates(contract, predicateStates) {
 
   return {
     gates,
-    action_resolution: resolveAction({ gates, errors }),
+    condition_resolution: resolveCondition({ gates, errors }),
     errors,
   };
 }

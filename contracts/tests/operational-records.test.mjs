@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -11,6 +12,7 @@ import {
   checksumJson,
   validateCorrectionChain,
   validateEvaluationAttempt,
+  validateEvaluationBundle,
 } from "../semantic-validation.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -27,6 +29,7 @@ const partialAttempt = fixture("evaluation-attempt.partial.valid.json");
 const failedAttempt = fixture("evaluation-attempt.failed.valid.json");
 const correctedObservation = fixture("observation.earnings-restored.corrected.json");
 const correction = fixture("correction-record.valid.json");
+const evaluatorRegistry = readJson(join(contracts, "evaluator-registry.json"));
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
@@ -34,13 +37,49 @@ const validateAttemptSchema = ajv.compile(schema("evaluation-attempt.schema.json
 const validateCorrectionSchema = ajv.compile(schema("correction-record.schema.json"));
 const validateCompletedRunSchema = ajv.compile(schema("evaluation-run.schema.json"));
 const validateObservationSchema = ajv.compile(schema("predicate-observation.schema.json"));
+const validateEvaluatorRegistrySchema = ajv.compile(schema("evaluator-registry.schema.json"));
+
+test("evaluation provenance is pinned to the evaluator registry", () => {
+  assert.equal(
+    validateEvaluatorRegistrySchema(evaluatorRegistry),
+    true,
+    ajv.errorsText(validateEvaluatorRegistrySchema.errors),
+  );
+  const digest = `sha256:${createHash("sha256")
+    .update(readFileSync(join(contracts, "evaluator.mjs")))
+    .digest("hex")}`;
+  const registered = evaluatorRegistry.evaluators.find(
+    (entry) => entry.id === completedRun.provenance.evaluator.id &&
+      entry.version === completedRun.provenance.evaluator.version,
+  );
+  assert.equal(registered.digest, digest);
+  assert.deepEqual(completedRun.provenance.evaluator, registered);
+
+  const forgedRun = clone(completedRun);
+  forgedRun.provenance.evaluator = {
+    id: "condition-evaluator.forged",
+    version: "99.0.0",
+    digest: `sha256:${"0".repeat(64)}`,
+  };
+  assert.ok(validateEvaluationBundle(condition, observations, forgedRun).errors.some(
+    (error) => error.code === "EVALUATOR_NOT_REGISTERED",
+  ));
+
+  const forgedAttempt = clone(partialAttempt);
+  forgedAttempt.provenance.evaluator.digest = `sha256:${"0".repeat(64)}`;
+  assert.ok(validateEvaluationAttempt(condition, observations, forgedAttempt).errors.some(
+    (error) => error.code === "EVALUATOR_NOT_REGISTERED",
+  ));
+});
 
 test("partial and failed attempts remain distinct from certified completed runs", () => {
   assert.equal(validateAttemptSchema(partialAttempt), true, ajv.errorsText(validateAttemptSchema.errors));
   assert.equal(validateAttemptSchema(failedAttempt), true, ajv.errorsText(validateAttemptSchema.errors));
   assert.equal(partialAttempt.attempt_status, "partial");
+  assert.equal(partialAttempt.schema_version, "2.0.0");
+  assert.equal(failedAttempt.schema_version, "2.0.0");
   assert.ok(Object.keys(partialAttempt.gate_results).length > 0);
-  assert.ok(Object.keys(partialAttempt.gate_results).length < 6);
+  assert.ok(Object.keys(partialAttempt.gate_results).length < 7);
   assert.equal(failedAttempt.attempt_status, "failed");
   assert.deepEqual(failedAttempt.gate_results, {});
   assert.equal(validateCompletedRunSchema(partialAttempt), false);

@@ -59,6 +59,7 @@ test("the immutable reference definition exercises the complete IF grammar", () 
     "act",
     "graduate",
     "pause",
+    "prepare",
     "recover",
     "reverse",
     "watch",
@@ -68,9 +69,13 @@ test("the immutable reference definition exercises the complete IF grammar", () 
   for (const operator of ['"all"', '"any"', '"not"', '"veto_if"']) {
     assert.match(serialised, new RegExp(operator), `fixture does not exercise ${operator}`);
   }
-  assert.match(condition.schema_version, /^2\.0\./);
+  assert.match(condition.schema_version, /^3\.0\./);
   assert.equal(Object.hasOwn(condition, "evaluation"), false);
   assert.equal(Object.hasOwn(condition, "evidence_catalog"), false);
+
+  const withoutPrepare = clone(condition);
+  delete withoutPrepare.gates.prepare;
+  expectInvalid(validateCondition, withoutPrepare, "prepare is a required first-class gate");
 });
 
 test("the grammar separates equivalent alternatives from veto blockers", () => {
@@ -97,14 +102,25 @@ test("schemas name predicate truth and gate truth axes explicitly", () => {
   const observationSchema = readJson(join(contracts, "schema", "predicate-observation.schema.json"));
   const runSchema = readJson(join(contracts, "schema", "evaluation-run.schema.json"));
   const attemptSchema = readJson(join(contracts, "schema", "evaluation-attempt.schema.json"));
+  const evaluatorRegistrySchema = readJson(join(contracts, "schema", "evaluator-registry.schema.json"));
 
   assert.ok(observationSchema.$defs.predicateTruthState);
   assert.ok(runSchema.$defs.predicateTruthState);
   assert.ok(runSchema.$defs.gateTruthState);
   assert.ok(attemptSchema.$defs.predicateTruthState);
   assert.ok(attemptSchema.$defs.gateTruthState);
+  assert.equal(conditionSchema.$id, "https://mind-flow.org/contracts/condition-definition/3-0-0");
+  assert.equal(actionSchema.$id, "https://mind-flow.org/contracts/action-contract/3-0-0");
+  assert.equal(runSchema.$id, "https://mind-flow.org/contracts/evaluation-run/2-0-0");
+  assert.equal(attemptSchema.$id, "https://mind-flow.org/contracts/evaluation-attempt/2-0-0");
+  assert.equal(evaluatorRegistrySchema.$id, "https://mind-flow.org/contracts/evaluator-registry/1-0-0");
   assert.equal(action.required_gate_truth_state, "true");
+  assert.equal(action.lifecycle_mapping_version, "1.0.0");
   assert.equal(Object.hasOwn(action, "required_condition_state"), false);
+  assert.ok(runSchema.required.includes("condition_resolution"));
+  assert.ok(runSchema.required.includes("transition_proposal"));
+  assert.ok(runSchema.required.includes("lifecycle_context"));
+  assert.equal(runSchema.required.includes("action_resolution"), false);
 });
 
 test("condition validation rejects unsafe or ambiguous contracts", () => {
@@ -159,6 +175,19 @@ test("the reference action binds an IF gate to owned, reversible delivery", () =
   for (const gate of Object.values(action.reversibility)) {
     assert.ok(condition.gates[gate], `reversibility references missing gate ${gate}`);
   }
+
+  const preparation = clone(action);
+  preparation.gate = "prepare";
+  preparation.verb = "rehearse";
+  assert.equal(validateAction(preparation), true, ajv.errorsText(validateAction.errors));
+
+  const withoutLifecycleMapping = clone(action);
+  delete withoutLifecycleMapping.lifecycle_mapping_version;
+  expectInvalid(
+    validateAction,
+    withoutLifecycleMapping,
+    "action lifecycle imports require the versioned strict mapping",
+  );
 });
 
 test("action validation rejects unowned or unfunded commitments", () => {

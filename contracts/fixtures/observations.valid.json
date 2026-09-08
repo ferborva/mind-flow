@@ -2,7 +2,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.access-falling.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "access-falling",
     "state": "true",
     "state_probability": 0.86,
@@ -17,7 +17,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.output-rising.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "output-rising",
     "state": "true",
     "reason": "Revision-aware real output per capita increased across the two-quarter window.",
@@ -31,7 +31,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.harm-material.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "harm-material",
     "state": "conflicted",
     "reason": "The primary assessment is below the harm threshold, while the independent review is above it; neither dominates under the declared method.",
@@ -48,7 +48,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.authority-suspended.20260907",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "authority-suspended",
     "state": "false",
     "reason": "The synthetic authority register contains no suspension notice at the observation cut-off.",
@@ -61,8 +61,22 @@
   },
   {
     "schema_version": "1.0.0",
+    "id": "observation.preparation-low-regret.202608",
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
+    "predicate_ref": "preparation-low-regret",
+    "state": "true",
+    "reason": "The readiness rehearsal remained below the declared cost and reversibility risk ceiling and produced no material service effect.",
+    "period": { "start": "2026-08-01T00:00:00Z", "end": "2026-08-31T23:59:59Z" },
+    "recorded_at": "2026-09-07T01:17:00Z",
+    "coverage": { "expected": 1, "observed": 1, "unit": "preparation-review", "explanation": "The proposed preparation package received the required reversibility review." },
+    "uncertainty": { "status": "quantified", "rationale": "The review scored residual preparation risk against the declared synthetic scale.", "method": "preparation-risk-review-v1", "lower": 0.4, "upper": 1.6, "confidence": 0.95 },
+    "evidence": [{ "source_id": "evidence.readiness", "url": "https://example.org/evidence/preparation-review-202608", "retrieved_at": "2026-09-06T00:18:00Z", "vintage": "2026-08 synthetic preparation review", "checksum": "sha256:7777777777777777777777777777777777777777777777777777777777777777", "quality": "validated", "licence": "Synthetic fixture only" }],
+    "provenance": { "producer": { "organisation": "Seldon Observatory pilot", "role": "shadow analyst" }, "method_version": "predicate-assessment-1.0.0", "software_checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111" }
+  },
+  {
+    "schema_version": "1.0.0",
     "id": "observation.delivery-slow.202608",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "delivery-slow",
     "state": "false",
     "reason": "Both delivery-rail tests completed within the seven-day threshold.",
@@ -76,7 +90,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.access-restored.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "access-restored",
     "state": "true",
     "state_probability": 0.83,
@@ -91,7 +105,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.earnings-restored.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "earnings-restored",
     "state": "unknown",
     "reason": "No revision-stable replacement-earnings observations are available for either required quarter.",
@@ -105,7 +119,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.appeals-low.2026q1",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
     "predicate_ref": "appeals-low",
     "state": "stale",
     "reason": "The last complete four-quarter appeal series is older than the one-quarter maximum age.",

@@ -6,10 +6,17 @@ tested.
 
 ## Artifact separation
 
-Version 2 intentionally breaks the original condition contract. The repository
-is pre-release, and preserving a 1.x shape that mixed policy with mutable state
-would imply safety that it did not provide. There is no automatic 1.x
-compatibility claim.
+Version 3 of the condition and action schemas intentionally breaks version 2 by
+requiring the first-class `prepare` gate and making every eligibility axis
+explicitly non-authorising. Evaluation runs and attempts move to schema version
+2, and the evaluator moves to version 2. The reference condition definition and
+action also move to major version 2 because their gate and binding semantics
+changed. Earlier evaluation-run version 1 records used `activation_allowed`,
+`action_resolution` and only six gates. They must not be relabelled as version 2
+output. Version 1 also accepted free-form evaluator provenance. Migration means
+creating new versioned definitions, observations and evaluations with new
+checksums while preserving old artifacts. There is no automatic compatibility
+claim.
 
 The protocol now separates operational concerns:
 
@@ -21,19 +28,21 @@ The protocol now separates operational concerns:
    provenance. Observations are append-only facts about an assessment, not
    fields to update inside a definition.
 3. `evaluation-run.schema.json` pins the exact condition definition and
-   observations used, then records deterministic outputs and traces for all six
-   gates. Only this completed, reproducible artifact is decision-ready.
+   observations used, then records deterministic outputs and traces for all
+   seven gates plus a versioned transition proposal. Only this completed,
+   reproducible artifact is decision-ready.
 4. `evaluation-attempt.schema.json` preserves partial and failed work without
    allowing it to masquerade as a completed run. A partial attempt has one to
-   five reproducible gate outputs and at least one operational error. A failed
+   six reproducible gate outputs and at least one operational error. A failed
    attempt has errors but no successful gate output.
 5. `correction-record.schema.json` links a checksum-pinned artifact to a new
    replacement, preserves the old artifact and declares known downstream
    artifacts that must be invalidated.
 
-The action contract also pins the definition ID, version and checksum. The
-reference action is a fictional shadow proposal with conditional funding, no
-approval and no claim of government authority.
+The action contract also pins the definition ID, version and checksum and uses
+the closed `condition-transition-lifecycle/1.0.0` mapping. The reference action
+is a fictional shadow proposal with conditional funding, no approval and no
+claim of government authority.
 
 ## Condition grammar
 
@@ -57,9 +66,10 @@ compatibility, while schema definitions and action requirements name the axis.
 Migration of dashboard and pilot state vocabularies is outside this contract
 repair and remains incomplete.
 
-Every contract carries six gates:
+Every contract carries seven gates:
 
 - `watch`
+- `prepare`
 - `act`
 - `pause`
 - `reverse`
@@ -71,7 +81,7 @@ also say when it pauses, reverses, recovers and ends.
 
 ### Opportunity and agency paths
 
-The six gates are a safety lifecycle, not a crisis taxonomy. They therefore
+The seven gates are a safety lifecycle, not a crisis taxonomy. They therefore
 stay fixed in this version. An opportunity definition can use positive
 predicates and bind an action with a verb such as `advance`, `enable` or `scale`
 to the `act` gate. Its `verification.success` states the abundance or agency
@@ -85,13 +95,21 @@ different transition semantics that action verbs and outcomes cannot express.
 
 ## Action contract
 
-`action-contract.schema.json` binds one condition gate to a verb and object. It
-requires an accountable owner, authority, funding state, response SLA, appeal
-route, verification outcome, communications and expiry. Approved or active
+`action-contract.schema.json` binds one condition gate to a verb and object. A
+`prepare` binding is distinct from both observation and material action, and
+must describe only bounded, low-regret and reversible readiness work. The
+contract requires an accountable owner, authority, funding state, response SLA,
+appeal route, verification outcome, communications and expiry. Approved or active
 actions must have at least one approver and secured funding. An active action
-also requires a complete gate evaluation. Its gate-truth state must be `true`,
-and an action bound to `act` remains blocked unless the deterministic safety
-resolution permits activation.
+record is supplied by its accountable owner; the evaluator cannot create it.
+Importing an operational lifecycle requires a semantically valid completed
+evaluation bundle and a checksum-bound owner event. The event's trust is labelled
+`unverified-external` because this repository does not verify external
+signatures or authority. The pinned gate-truth state must be `true`, and its
+orthogonal eligibility must also pass: phase eligibility for `prepare` or `act`,
+duty eligibility for `watch` or `recover`, exit eligibility for `graduate`, and
+winning safety precedence for `pause` or `reverse`. These fields permit
+consideration only. They are not approval, authority, activation or a command.
 
 The fixtures are synthetic test contracts, not policy proposals and not evidence
 that the example thresholds are valid. Their thresholds explicitly remain in
@@ -104,7 +122,12 @@ the relationships that Schema cannot establish alone: definition references,
 gate and observation references, checksums, date order, evidence timing,
 coverage minimums, source and quality policy, uncertainty bounds, probability
 policy, action lifetime and funding lifetime. It also re-evaluates every gate
-and requires the stored state, trace and action resolution to match exactly.
+and requires the stored state, trace, condition resolution and transition
+proposal to match exactly.
+
+Completed runs and attempts pin a registered evaluator ID, version and source
+digest from `evaluator-registry.json`. The registry is repository-local and has
+`authority_effect: none`; it establishes reproducibility, not external trust.
 
 `validateEvaluationAttempt` applies the same definition, observation, date and
 deterministic-output checks to the subset an attempt claims to have completed.
@@ -129,7 +152,7 @@ npm run test:contracts
 npm test
 ```
 
-Tests compile all six schemas with Ajv's JSON Schema 2020-12 implementation,
+Tests compile all versioned schemas with Ajv's JSON Schema 2020-12 implementation,
 pass the valid fixtures, and prove that invalid state, scope, evidence, dates,
 references, traces, reversibility, appeals, SLAs and funding fail visibly.
 
@@ -193,17 +216,50 @@ Rows are the primary `condition`. Columns are the `alternative` or `blocker`.
 | S | F | S | U | S | U |
 | C | F | C | U | U | C |
 
-### Deterministic action safety
+### Deterministic condition resolution
 
-`evaluateGates` also emits `action_resolution` from the gate-truth outputs:
+`evaluateGates` emits a `condition_resolution` record whose fields are deliberately
+non-authorising and orthogonal:
 
-1. `reverse=true` selects reverse and blocks activation.
-2. Otherwise, `pause=true` selects pause and blocks activation.
-3. Otherwise, any `unknown`, `stale`, `conflicted` or invalid hard safeguard
-   blocks activation with `no_action`.
-4. Only `act=true` with both hard safeguards false permits activation.
-5. Recovery and graduation remain visible as eligible gates, but cannot
-   override a hard safeguard.
+1. `safety_control` is `reverse`, then `pause`, then lifecycle-neutral
+   `precautionary_hold` when a hard safeguard is unresolved, otherwise `none`.
+2. `candidate_phase` is the highest true phase in `act`, `prepare`, `watch`
+   order. It remains visible even when safety blocks it.
+3. `concurrent_duties` keeps true `watch` and `recover` duties visible. Recovery
+   may therefore continue beside pause or reversal.
+4. `exit_candidate` records a true graduation condition without treating it as
+   an executed exit.
+5. `transition_conflicts` records `act_and_graduate` or
+   `recover_and_graduate`. Either conflict fails closed.
+6. `candidate_phase_eligible`, `concurrent_duties_eligible` and
+   `exit_candidate_eligible` state eligibility on their own axes. This keeps a
+   recover-only or graduate-only result meaningful, and lets recovery remain
+   eligible during pause or reversal. No eligibility field changes authority.
+
+`proposeTransition` then combines that immutable resolution with a closed,
+checksum-bound prior-state record. Without external signature verification its
+trust is honestly labelled `unverified-external`. Consequential proposals
+require all seven valid gate results, no evaluation errors, exact recomputation
+of the stored resolution and eligibility on the relevant axis. Evaluation-run
+version 2 persists the result as a closed `transition_proposal` record with
+`proposal_version`, lifecycle mapping version, prior-state and owner-event
+references, proposed lifecycle, conflicts and concurrent duties. An unresolved
+safeguard proposes a precautionary pause only from a
+preparing, active or recovering lifecycle; inactive and watching states merely
+hold. Active support is not withdrawn merely because `act` later becomes false.
+Paused work can only be proposed for resumption when `act` is true and the hard
+safeguards are current and false. Reversing and graduated records never
+reactivate from a new gate evaluation. A recovering lifecycle remains recovering
+until a valid checksum-bound `recovery-exit` owner event is supplied, even when
+`act` or `graduate` is true. Every proposal has
+`authority_effect: none`, `automatic_transition: false` and
+`automatic_support_withdrawal: false`; a separately verified owner event must
+perform any lifecycle change.
+
+The public compiler must bind `actor reference + verb + bounded object and
+scope + gate reference + condition checksum`. Without a verified commitment it
+renders a conditional proposition such as `[PROPOSED, NOT AUTHORISED] The named
+actor could consider [verb] [object]`. It never emits a subjectless imperative.
 
 ## Known limits before operational use
 

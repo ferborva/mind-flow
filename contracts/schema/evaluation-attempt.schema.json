@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/contracts/evaluation-attempt/1-0-0",
+  "$id": "https://mind-flow.org/contracts/evaluation-attempt/2-0-0",
   "title": "Seldon Observatory incomplete evaluation attempt",
   "description": "An append-only operational record for a partial or failed evaluation. It is not a certified evaluation run and cannot authorize action.",
   "type": "object",
@@ -17,7 +17,7 @@
     "provenance"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^2\\.0\\.[0-9]+$" },
     "id": { "$ref": "#/$defs/id" },
     "attempt_status": { "enum": ["partial", "failed"] },
     "condition_definition": { "$ref": "#/$defs/definitionReference" },
@@ -50,7 +50,7 @@
       "then": {
         "properties": {
           "predicate_results": { "type": "object", "minProperties": 1 },
-          "gate_results": { "type": "object", "minProperties": 1, "maxProperties": 5 }
+          "gate_results": { "type": "object", "minProperties": 1, "maxProperties": 6 }
         }
       },
       "else": {
@@ -71,7 +71,7 @@
       "description": "Truth state produced by combining predicate-truth inputs for one gate.",
       "enum": ["true", "false", "unknown", "stale", "conflicted"]
     },
-    "gate": { "enum": ["watch", "act", "pause", "reverse", "recover", "graduate"] },
+    "gate": { "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"] },
     "definitionReference": {
       "type": "object",
       "required": ["id", "version", "checksum"],
@@ -128,7 +128,7 @@
     },
     "provenance": {
       "type": "object",
-      "required": ["producer", "engine", "engine_version", "engine_checksum"],
+      "required": ["producer", "evaluator"],
       "properties": {
         "producer": {
           "type": "object",
@@ -139,9 +139,16 @@
           },
           "additionalProperties": false
         },
-        "engine": { "$ref": "#/$defs/nonEmptyString" },
-        "engine_version": { "$ref": "#/$defs/nonEmptyString" },
-        "engine_checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        "evaluator": {
+          "type": "object",
+          "required": ["id", "version", "digest"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+            "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     }

@@ -1,10 +1,10 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "3.0.0",
   "id": "condition.au-clerical-access-margin",
-  "definition_version": "1.0.0",
+  "definition_version": "2.0.0",
   "created_at": "2026-09-08T00:00:00Z",
   "title": "Clerical worker access-margin protection",
-  "summary": "Watch, act and recover when productivity gains stop reaching an exposed cohort as lived access.",
+  "summary": "Watch, prepare, act and recover when productivity gains stop reaching an exposed cohort as lived access.",
   "provenance": {
     "classification": "commissioned-proposal",
     "authors": ["Ren"],
@@ -117,6 +117,28 @@
         "require_uncertainty": false
       }
     },
+    "preparation-low-regret": {
+      "signal_id": "preparation-reversibility-risk",
+      "operator": "lte",
+      "threshold": {
+        "value": 2,
+        "unit": "risk-index-points",
+        "rationale": "Preparation must remain low-cost, reversible and unable to create the material action by another name."
+      },
+      "window": {
+        "lookback": 1,
+        "unit": "month",
+        "minimum_observations": 1,
+        "persistence": 1,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.readiness"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true
+      }
+    },
     "delivery-slow": {
       "signal_id": "response-delivery-time",
       "operator": "gt",
@@ -212,6 +234,13 @@
     "watch": {
       "all": [
         { "predicate_ref": "access-falling" },
+        { "not": { "predicate_ref": "authority-suspended" } }
+      ]
+    },
+    "prepare": {
+      "all": [
+        { "predicate_ref": "access-falling" },
+        { "predicate_ref": "preparation-low-regret" },
         { "not": { "predicate_ref": "authority-suspended" } }
       ]
     },

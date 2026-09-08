@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/contracts/action-contract/2-0-0",
+  "$id": "https://mind-flow.org/contracts/action-contract/3-0-0",
   "title": "Seldon Observatory action contract",
-  "description": "A reversible, funded and appealable action bound to one gate of a condition contract.",
+  "description": "A reversible, funded and appealable action record supplied by an accountable owner and bound to one gate of a condition contract. Gate truth and axis-specific eligibility do not create authority or activate the action.",
   "type": "object",
   "required": [
     "schema_version",
@@ -15,6 +15,7 @@
     "object",
     "rationale",
     "lifecycle",
+    "lifecycle_mapping_version",
     "owner",
     "authority",
     "funding",
@@ -28,19 +29,26 @@
     "expires_at"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^2\\.0\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^3\\.0\\.[0-9]+$" },
     "id": { "$ref": "#/$defs/id" },
     "action_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
     "condition_definition": { "$ref": "#/$defs/definitionReference" },
-    "gate": { "$ref": "#/$defs/gate" },
+    "gate": {
+      "allOf": [{ "$ref": "#/$defs/gate" }],
+      "description": "The evidence gate bound to this action. A true gate plus eligibility on its orthogonal resolution axis is necessary but never sufficient authority to execute the action."
+    },
     "required_gate_truth_state": {
-      "description": "Required value on the gate-truth axis. It is not a lifecycle or binding state.",
+      "description": "Required value on the gate-truth axis. It is an evidence condition only; the matching resolution axis must also be eligible. Neither result is authority, approval, activation, lifecycle or a command.",
       "const": "true"
     },
     "verb": { "type": "string", "pattern": "^[a-z]+(?:-[a-z]+)*$" },
     "object": { "$ref": "#/$defs/nonEmptyString" },
     "rationale": { "$ref": "#/$defs/nonEmptyString" },
     "lifecycle": { "enum": ["draft", "shadow", "approved", "active", "paused", "completed", "retired"] },
+    "lifecycle_mapping_version": {
+      "const": "1.0.0",
+      "description": "Pins the exhaustive action-contract to condition-transition lifecycle mapping used by semantic validation."
+    },
     "owner": { "$ref": "#/$defs/owner" },
     "authority": {
       "type": "object",
@@ -174,7 +182,7 @@
       },
       "additionalProperties": false
     },
-    "gate": { "enum": ["watch", "act", "pause", "reverse", "recover", "graduate"] },
+    "gate": { "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"] },
     "owner": {
       "type": "object",
       "required": ["organisation", "role"],

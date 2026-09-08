@@ -1,14 +1,56 @@
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { isDeepStrictEqual } from "node:util";
 
 import {
   GATES,
-  GATE_TRUTH_STATES,
   evaluateGates,
-  resolveAction,
+  proposeTransition,
 } from "./evaluator.mjs";
 
 const QUALITY = Object.freeze({ exploratory: 0, provisional: 1, validated: 2 });
+const EVALUATOR_REGISTRY = JSON.parse(readFileSync(
+  new URL("./evaluator-registry.json", import.meta.url),
+  "utf8",
+));
+const ACTION_LIFECYCLE_MAPPING_VERSION = "1.0.0";
+const ACTION_TO_TRANSITION_LIFECYCLE = Object.freeze({
+  draft: "inactive",
+  shadow: "inactive",
+  approved: "inactive",
+  active: "active",
+  paused: "paused",
+  completed: "graduated",
+  retired: "graduated",
+});
+const OPERATIONAL_ACTION_LIFECYCLES = new Set([
+  "active",
+  "paused",
+  "completed",
+  "retired",
+]);
+const OWNER_EVENT_TRANSITIONS = new Set([
+  "activate:inactive:active",
+  "activate:watching:active",
+  "activate:preparing:active",
+  "resume:paused:active",
+  "pause:preparing:paused",
+  "pause:active:paused",
+  "pause:recovering:paused",
+  "reverse:preparing:reversing",
+  "reverse:active:reversing",
+  "reverse:paused:reversing",
+  "reverse:recovering:reversing",
+  "begin-recovery:inactive:recovering",
+  "begin-recovery:watching:recovering",
+  "begin-recovery:preparing:recovering",
+  "begin-recovery:active:recovering",
+  "begin-recovery:paused:recovering",
+  "recovery-exit:recovering:active",
+  "recovery-exit:recovering:graduated",
+  "graduate:active:graduated",
+  "graduate:paused:graduated",
+]);
 
 function canonicalise(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalise).join(",")}]`;
@@ -27,9 +69,100 @@ function problem(code, path, message) {
   return { code, path, message };
 }
 
+function evaluatorRegistryErrors(record, path) {
+  const supplied = record?.provenance?.evaluator;
+  const registered = EVALUATOR_REGISTRY.evaluators.find(
+    (entry) => entry.id === supplied?.id && entry.version === supplied?.version,
+  );
+  if (!registered || !isDeepStrictEqual(registered, supplied)) {
+    return [problem(
+      "EVALUATOR_NOT_REGISTERED",
+      `${path}.provenance.evaluator`,
+      "Evaluator id, version and digest must exactly match the repository registry. Registration grants no authority.",
+    )];
+  }
+  return [];
+}
+
+function evaluationRunReference(run) {
+  return {
+    artifact_type: "evaluation-run",
+    id: run.id,
+    version: run.schema_version,
+    checksum: checksumJson(run),
+  };
+}
+
+function ownerEventErrors(ownerEvent, run, targetLifecycle) {
+  const errors = [];
+  if (!ownerEvent || typeof ownerEvent !== "object" || Array.isArray(ownerEvent)) {
+    return [problem(
+      "OPERATIONAL_LIFECYCLE_OWNER_EVENT_REQUIRED",
+      "$.lifecycle_evidence.owner_event",
+      "An operational lifecycle import requires a checksum-bound owner transition event.",
+    )];
+  }
+  if (!isDeepStrictEqual(ownerEvent.evaluation_run_ref, evaluationRunReference(run))) {
+    errors.push(problem(
+      "OWNER_EVENT_EVALUATION_MISMATCH",
+      "$.lifecycle_evidence.owner_event.evaluation_run_ref",
+      "The owner event must pin the completed evaluation run by id, version and checksum.",
+    ));
+  }
+  if (!isDeepStrictEqual(ownerEvent.prior_state_ref, run.transition_proposal?.prior_state_ref)) {
+    errors.push(problem(
+      "OWNER_EVENT_PRIOR_STATE_MISMATCH",
+      "$.lifecycle_evidence.owner_event.prior_state_ref",
+      "The owner event must pin the proposal prior state.",
+    ));
+  }
+  const priorLifecycle = run.lifecycle_context?.prior_state?.lifecycle;
+  if (
+    ownerEvent.lifecycle_mapping_version !== ACTION_LIFECYCLE_MAPPING_VERSION ||
+    ownerEvent.from_lifecycle !== priorLifecycle ||
+    ownerEvent.to_lifecycle !== targetLifecycle ||
+    run.transition_proposal?.proposed_lifecycle !== targetLifecycle ||
+    !OWNER_EVENT_TRANSITIONS.has(
+      `${ownerEvent.event_type}:${ownerEvent.from_lifecycle}:${ownerEvent.to_lifecycle}`,
+    )
+  ) {
+    errors.push(problem(
+      "OWNER_EVENT_LIFECYCLE_MISMATCH",
+      "$.lifecycle_evidence.owner_event",
+      "The owner event, proposal and strict lifecycle mapping must identify one supported transition.",
+    ));
+  }
+  if (ownerEvent.trust_state !== "unverified-external") {
+    errors.push(problem(
+      "OWNER_EVENT_TRUST_INVALID",
+      "$.lifecycle_evidence.owner_event.trust_state",
+      "External verification is unavailable; the owner event must remain labelled unverified-external.",
+    ));
+  }
+  const eventAt = instant(ownerEvent.recorded_at);
+  const evaluatedAt = instant(run.evaluated_at);
+  if (eventAt === null || evaluatedAt === null || eventAt < evaluatedAt) {
+    errors.push(problem(
+      "OWNER_EVENT_TIME_INVALID",
+      "$.lifecycle_evidence.owner_event.recorded_at",
+      "The owner event must be recorded at or after its completed evaluation run.",
+    ));
+  }
+  return errors;
+}
+
 function instant(value) {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+function gateConditionEligible(resolution, gate) {
+  if (gate === "watch") return resolution.concurrent_duties_eligible.watch;
+  if (gate === "recover") return resolution.concurrent_duties_eligible.recover;
+  if (gate === "graduate") return resolution.exit_candidate_eligible;
+  if (gate === "pause") return resolution.safety_control === "pause";
+  if (gate === "reverse") return resolution.safety_control === "reverse";
+  return resolution.candidate_phase_eligible;
 }
 
 function validateOrder(errors, earlier, later, code, earlierPath, laterPath) {
@@ -360,6 +493,7 @@ function validateObservationSemantics(definition, observation, index) {
 
 export function validateEvaluationBundle(definition, observations, run) {
   const errors = validateDefinitionSemantics(definition);
+  errors.push(...evaluatorRegistryErrors(run, "$.run"));
   const definitionChecksum = checksumJson(definition);
   errors.push(...definitionReferenceErrors(
     definition,
@@ -456,11 +590,32 @@ export function validateEvaluationBundle(definition, observations, run) {
         ));
       }
     }
-    if (!isDeepStrictEqual(evaluated.action_resolution, run.action_resolution)) {
+    if (!isDeepStrictEqual(evaluated.condition_resolution, run.condition_resolution)) {
       errors.push(problem(
-        "ACTION_RESOLUTION_MISMATCH",
-        "$.run.action_resolution",
-        "Recorded action resolution does not match deterministic safety precedence.",
+        "CONDITION_RESOLUTION_MISMATCH",
+        "$.run.condition_resolution",
+        "Recorded condition resolution does not match deterministic safety precedence.",
+      ));
+    }
+    let transitionProposal = null;
+    try {
+      transitionProposal = proposeTransition(
+        evaluated,
+        run.lifecycle_context?.prior_state,
+        run.lifecycle_context?.owner_event,
+      );
+    } catch (cause) {
+      errors.push(problem(
+        "TRANSITION_PROPOSAL_INVALID",
+        "$.run.transition_proposal",
+        cause instanceof Error ? cause.message : "The transition proposal is invalid.",
+      ));
+    }
+    if (transitionProposal && !isDeepStrictEqual(transitionProposal, run.transition_proposal)) {
+      errors.push(problem(
+        "TRANSITION_PROPOSAL_MISMATCH",
+        "$.run.transition_proposal",
+        "Recorded transition proposal does not match the resolution and prior lifecycle.",
       ));
     }
   }
@@ -468,7 +623,7 @@ export function validateEvaluationBundle(definition, observations, run) {
   return { valid: errors.length === 0, errors };
 }
 
-export function validateActionBinding(definition, action, evaluation) {
+export function validateActionBinding(definition, action, lifecycleEvidence) {
   const errors = [
     ...validateDefinitionSemantics(definition),
     ...definitionReferenceErrors(
@@ -527,41 +682,59 @@ export function validateActionBinding(definition, action, evaluation) {
       "$.action.funding.valid_through",
     );
   }
-  if (action.lifecycle === "active") {
-    if (!evaluation) {
+  if (action.lifecycle_mapping_version !== ACTION_LIFECYCLE_MAPPING_VERSION) {
+    errors.push(problem(
+      "ACTION_LIFECYCLE_MAPPING_INVALID",
+      "$.action.lifecycle_mapping_version",
+      "The action must pin lifecycle mapping version 1.0.0.",
+    ));
+  }
+  if (OPERATIONAL_ACTION_LIFECYCLES.has(action.lifecycle)) {
+    const observations = lifecycleEvidence?.observations;
+    const run = lifecycleEvidence?.evaluation_run;
+    if (!Array.isArray(observations) || !run || run.run_status !== "completed") {
       errors.push(problem(
-        "ACTION_ACTIVATION_EVALUATION_REQUIRED",
+        "OPERATIONAL_LIFECYCLE_BUNDLE_REQUIRED",
         "$.action.lifecycle",
-        "An active action requires a complete deterministic gate evaluation.",
+        "An operational lifecycle import requires a completed evaluation bundle. The repository does not authorise the imported state.",
       ));
     } else {
-      const evaluationComplete =
-        Array.isArray(evaluation.errors) &&
-        evaluation.errors.length === 0 &&
-        GATES.every((gate) =>
-          GATE_TRUTH_STATES.includes(evaluation.gates?.[gate]?.state));
-      if (!evaluationComplete) {
+      const bundle = validateEvaluationBundle(definition, observations, run);
+      if (!bundle.valid) {
         errors.push(problem(
-          "ACTION_ACTIVATION_EVALUATION_INVALID",
-          "$.evaluation",
-          "An active action requires successful outputs for every gate.",
+          "OPERATIONAL_LIFECYCLE_BUNDLE_INVALID",
+          "$.lifecycle_evidence.evaluation_run",
+          `The completed evaluation bundle is invalid: ${bundle.errors
+            .map((entry) => entry.code)
+            .join(", ")}.`,
         ));
       }
-      const gateState = evaluation.gates?.[action.gate]?.state ?? null;
-      if (gateState !== "true") {
-        errors.push(problem(
-          "ACTION_GATE_NOT_TRUE",
-          `$.evaluation.gates.${action.gate}`,
-          `Action gate ${String(action.gate)} must have gate-truth state true before activation.`,
-        ));
-      }
-      const resolution = resolveAction(evaluation);
-      if (action.gate === "act" && !resolution.activation_allowed) {
-        errors.push(problem(
-          "ACTION_ACTIVATION_BLOCKED",
-          "$.evaluation.action_resolution",
-          `Action activation is blocked by ${resolution.blocking_gates.join(", ") || "gate precedence"}.`,
-        ));
+      const targetLifecycle = ACTION_TO_TRANSITION_LIFECYCLE[action.lifecycle];
+      errors.push(...ownerEventErrors(
+        lifecycleEvidence.owner_event,
+        run,
+        targetLifecycle,
+      ));
+      if (action.lifecycle === "active") {
+        const gateState = run.gate_results?.[action.gate]?.state ?? null;
+        if (gateState !== "true") {
+          errors.push(problem(
+            "ACTION_GATE_NOT_TRUE",
+            `$.lifecycle_evidence.evaluation_run.gate_results.${action.gate}`,
+            `Action gate ${String(action.gate)} must have gate-truth state true before an active lifecycle can be imported.`,
+          ));
+        }
+        const resolution = run.condition_resolution;
+        if (!gateConditionEligible(resolution, action.gate)) {
+          errors.push(problem(
+            "ACTION_CONDITION_BLOCKED",
+            "$.lifecycle_evidence.evaluation_run.condition_resolution",
+            `The ${String(action.gate)} condition is blocked by ${[
+              ...resolution.blocking_gates,
+              ...resolution.transition_conflicts,
+            ].join(", ") || "gate precedence"}. This result grants no authority.`,
+          ));
+        }
       }
     }
   }
@@ -571,6 +744,7 @@ export function validateActionBinding(definition, action, evaluation) {
 export function validateEvaluationAttempt(definition, observations, attempt) {
   const errors = [
     ...validateDefinitionSemantics(definition),
+    ...evaluatorRegistryErrors(attempt, "$.attempt"),
     ...definitionReferenceErrors(
       definition,
       attempt.condition_definition,

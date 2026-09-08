@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "authority_effect": "none",
+  "evaluators": [
+    {
+      "id": "mind-flow.condition-evaluator",
+      "version": "2.0.0",
+      "digest": "sha256:66d8e67b6095f466ed12490a311d536123e265995caae94dbf1d2a1266912d57"
+    }
+  ]
+}
