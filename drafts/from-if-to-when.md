@@ -40,12 +40,12 @@ Mine, proposed for his approval:
   - the government/business interaction arc
   - the "binding if may migrate from money to permission" hypothesis
   - the household access margin and the five-part access test
-  - the communication contract, and the five questions every update must answer
-  - the dashboard, its triggers, and the five hard crossings
-  - the pre-committed response attached to each crossing
-  - the movement forecasts
-  - the actor-by-actor preparation in "What to do on Monday". This is
-    prescriptive advice to households and communities, written in his voice,
+  - the seven-part communication contract
+  - the dashboard, its candidate review conditions, and five unscored crossings
+  - the unauthorised response options attached to each crossing
+  - the possible public-response hypotheses, which are not forecasts
+  - the actor-by-actor preparation in "Options to evaluate on Monday". These are
+    unauthorised proposals to households and communities, written in his voice,
     that he has never given. The most provenance-sensitive section in the file.
 
 Keep this list in step with the body. A manifest that has fallen behind is worse
@@ -68,20 +68,20 @@ Do not promote this to posts/ until he has been through the marked sections.
 - My last piece argued that every abundance promise hides an **if**. This one
   tries to answer the obvious next question: **how do the ifs actually come
   down, in what order, and over how long?**
-- **We have run this experiment once already.** Britain, 1780 to 1840. Output per
+- **History offers one warning analogue, not a forecast.** Britain, 1780 to 1840. Output per
   worker rose 46%. Real wages rose 12%. The profit rate doubled. That is fifty
-  years of exactly the gap we are worried about, and it has a name: **Engels'
+  years of a gap related to the one we are worried about, and it has a name: **Engels'
   Pause.**
 - Then it inverted. 1840 to 1900: output up 90%, **real wages up 123%.** The
   catch-up was real. It arrived a lifetime late.
 - **There is one falsifiable claim at the centre of this debate:** reinvestment
-  works only when the gains reach households faster than automation removes
-  their access. Prices and wages are two channels, but transfers, capital income
-  and public provision count too.
-- I am proposing a five-phase transition, observable gates, a dashboard of
-  signals, and five social crossings we can prepare for. **The most important
-  hypothesis is that the binding if may migrate: it starts as money and may end
-  as permission.**
+  is a complete answer only when gains reach exposed households faster than
+  access disappears. Prices and wages are two channels, but transfers, capital
+  income and public provision count too.
+- I am proposing a five-phase scenario, observable gates, a dashboard of
+  signals, and five unscored social crossings we can prepare to investigate.
+  **The most important hypothesis is that the binding if may migrate: it often
+  starts as money and may become permission for some services.**
 - This is a proposal, not a conviction. Shred it.
 
 ---
@@ -196,23 +196,24 @@ the plan is.
 
 Look at what that says about the current conversation.
 
-**We are broadcasting Knowledge to people who have not been given Awareness and
-have no Desire.** We explain how the future works to someone who has not been
-told this is happening to them specifically, and who has been given no reason to
-want it. That is a textbook ADKAR failure and it predicts precisely the
-resistance we are seeing.
+**We may be broadcasting Knowledge before people have received specific notice,
+a meaningful choice, or a reason to trust the process.** That is one plausible
+ADKAR diagnosis, not an explanation for dissent. Resistance may instead be a
+rational response to a bad bargain, an excluded value, weak evidence or missing
+remedy. The model earns its place only if it helps us distinguish those accounts
+and changes what we do.
 
 Now the honest caveat. **ADKAR is an individual model and I am stretching it over
 a civilisation.** The useful version is not "society moves through five stages".
 It is this:
 
-> **At any moment, different cohorts are at completely different stages, and
-> policy written for one actively damages another.**
+> **At any moment, different cohorts may be at different stages, and policy
+> written for one can actively damage another.**
 
 The retrained 28 year old is at Ability. The displaced 54 year old is stuck
 between Awareness and Desire. A UBI pilot reads as security to one and as a
 buyout to the other. **That desynchronisation is the transition's central design
-problem**, and it is why this has to be sequenced rather than announced.
+problem to test**, and it is why this has to be sequenced rather than announced.
 
 ## 📣 The communication contract
 
@@ -221,14 +222,22 @@ the end. **Never announce abundance beside an unprotected loss.** If somebody's
 job has disappeared, asking them to celebrate the productivity number is not
 Awareness. It is evidence that the people running the transition cannot see them.
 
-Every update should answer five things, in this order:
+Every update should answer seven things, in this order:
 
-1. **What changed?** Use observed facts, not a capability demo.
-2. **Who is affected now?** Name the occupation, place and uncertainty range.
-3. **What protection has triggered?** Announce the response with the warning.
-4. **What can I do this week?** Give one reachable action and one place for help.
-5. **When is the next update?** Keep a fixed cadence, including when the answer
-   is "we do not know yet".
+1. **What was observed?** Name the measure, population, place, period, source,
+   vintage and uncertainty. A capability demo is not an outcome.
+2. **Who does this cover?** Name affected and excluded groups, or say that the
+   evidence cannot identify them.
+3. **What is inferred?** Separate interpretation from observation and name the
+   strongest competing explanation.
+4. **Which IF changed?** Give the scoped condition, previous state, current
+   state and evidence grade. If none changed, say so.
+5. **What happens now?** Name the authorised action, owner, authority, help and
+   appeal. If none exists, do not simulate one.
+6. **What would change this reading?** State the falsifier and what would be
+   narrowed, reversed or withdrawn.
+7. **When will we check again?** Name the date, owner and failure rule. An
+   unscheduled check stays unscheduled.
 
 The message has to change by cohort while the evidence stays common. People who
 are not yet exposed need the baseline and the rules. People still employed need
@@ -236,8 +245,9 @@ options before panic. People displaced need income, housing and healthcare
 continuity before retraining advice. Essential workers need a new bargain, not a
 speech about purpose.
 
-**The trust test is brutally simple: publish the red lights as readily as the
-green ones, and let affected communities shape the response before it is needed.**
+**The trust test is brutally simple: publish adverse and favourable evidence by
+the same rules, and let affected communities shape the response before it is
+needed.**
 That is what turns Awareness into agency rather than fear.
 
 ## 🗺 The five phases
@@ -263,7 +273,7 @@ has an owner and a pre-committed response.
   curves.** What does the service cost end to end, who receives it, and how fast
   are both changing?
 
-### Phase 2 · Desire · *~2028 to 2038* · **the dangerous one**
+### Phase 2 · Desire · *~2028 to 2038* · **the high-risk crossing**
 
 **The job: give people a reason to want this.** This is where Engels' Pause
 lives. Displacement is visible; price relief is not yet. Every social crossing
@@ -278,7 +288,8 @@ reporting periods, not only for the national average.
   the mandate to try anything else.
 - **Business:** offers retraining and new-job narratives faster than either can
   actually be delivered.
-- **The relationship:** bargaining, under pressure, in bad faith on both sides.
+- **The relationship:** bargaining under pressure, asymmetric information and
+  contested interests.
 - **What should happen instead:** the bargain worth striking is **regulatory
   certainty in exchange for auditable access.** Business gets a stable rulebook
   and a path to public procurement. Government gets cost and access curves,
@@ -299,7 +310,8 @@ with an independent audit and a route that works for the least-served cohort.
   equity by itself. Borrow the useful mechanism and contract for the whole access
   stack: a diagnostic, course or legal service that reaches the least-served
   cohort at the agreed quality and consumer cost.
-- **Business:** competes on the zero-cost count, because that is what is bought.
+- **Business:** competes on verified effective access and total social cost.
+  Near-zero consumer cost is one candidate indicator, not the outcome itself.
 - **The relationship:** co-design. Still self-interested, now aligned.
 
 ### Phase 4 · Ability · *~2042 to 2055*
@@ -317,8 +329,9 @@ change of government without dropping the people it was built for.
 
 ### Phase 5 · Reinforcement · *2050 onward*
 
-**The job: make it irreversible.** Everything in ADKAR reverts without this, and
-a floor that can be withdrawn in a downturn is not a floor.
+**The job: make the floor durable and its governance correctable.** A floor that
+disappears in a downturn is not a floor. A policy that cannot be challenged,
+reversed when harmful or changed democratically is not durable agency either.
 
 **Gate:** rights, funding, delivery and appeals are durable enough that access no
 longer depends on one administration or one provider.
@@ -336,16 +349,18 @@ longer depends on one administration or one provider.
 This is the part I find most interesting, and it is not what I expected when I
 started.
 
-**The conditions do not dissolve together. They re-order.**
+**My hypothesis is that conditions do not dissolve together. They re-order by
+service, cohort, place and time.** The table below is a set of priors to test,
+not an observation, forecast or universal sequence.
 
 | The if | Now | Phase 2-3 | Phase 4-5 |
 |---|---|---|---|
-| **Money** | The binding one for almost everything | Weakens fast for anything digitally delivered | Weak for services, still hard for atoms and positional goods |
-| **Stock / supply** | Binding for physical goods | Eases as production localises | Binding only for genuinely scarce inputs |
-| **Proximity / logistics** | Binding for atoms | Dissolves for information, persists for matter | Persistent, and geographic |
-| **Legality** | Moderate | **Tightens.** Capability invites regulation | **Binding.** The primary gate |
-| **Age** | Moderate | Tightens, especially for AI-delivered services | Binding, and contested |
-| **Certification** | Moderate | Tightens. Who may use the AI doctor | **Binding.** The new scarcity |
+| **Money** | Often binding, but not established as dominant | May weaken for some digitally delivered services | May remain hard for atoms, care and positional goods |
+| **Stock / supply** | Often binding for physical goods | May ease where production expands or localises | Persists for genuinely scarce inputs and constrained capacity |
+| **Proximity / logistics** | Binding for many physical services | May weaken for information and persist for matter | Remains service-specific and geographic |
+| **Legality** | Material in regulated settings | May tighten as capability changes the risk | Could become a primary gate in some jurisdictions |
+| **Age** | Material for protected services | May tighten for AI-delivered services | Remains a contested choice condition |
+| **Certification** | Material where quality or safety is licensed | May tighten or harmonise | Could become a new scarcity or an interoperable route |
 
 Read the bottom-right corner. **My hypothesis is that the binding if migrates
 from money to permission for many services.**
@@ -361,6 +376,29 @@ But this will not be universal. Housing, land, energy, compute and human care ca
 remain scarce after a digital service becomes cheap. **The dashboard should tell
 us which if is binding, by basket, cohort and country, rather than asking one
 forecast to settle it.**
+
+### How an IF is allowed to move
+
+An IF does not move because a chart moved. It moves only inside a registered
+claim:
+
+> **[WHO] can [VERB] [OUTCOME], to [STANDARD], in [PLACE], for [PERIOD], IF
+> [CONDITIONS].**
+
+For each condition, record the definition, previous state, current state,
+evidence grade, dependencies, strongest competing explanation, uncertainty,
+falsifier and next observation. Keep three axes separate:
+
+- **Lifecycle:** hypothesised, defined, instrumented, baselined or ready for a
+  governed decision.
+- **Binding state:** unknown, not binding, emerging, binding, relieved or
+  displaced by another condition.
+- **Evidence strength:** what supports the relationship, not how alarming the
+  state looks.
+
+Then pre-register the transitions that matter: `watch_if`, `act_if`, `pause_if`,
+`reverse_if`, `recover_if` and `graduate_if`. A changed condition can make an
+option eligible for human decision. It cannot authorise the option by itself.
 
 ## 📊 The dashboard
 
@@ -392,20 +430,23 @@ it inside one composite.
 
 That gives us a control system rather than a collection of interesting numbers:
 
-| Signal | Early-warning pattern | Response agreed before the breach |
+| Signal | Candidate review condition | Agent-proposed response option, not authorised |
 |---|---|---|
-| **Access coverage**, share with margin ≥ 0 | Falls for an exposed cohort while productivity rises | Bridge income or in-kind access activates automatically |
-| **Transition speed**, gross displacement, re-employment time, replacement earnings | Loss accelerates and recovery slows | Wage insurance, portable benefits, hiring-linked training |
-| **Essential basket pressure**, split by automatable and human-required items | Human-required basket outruns household resources | Capacity plan, pay review, credential or migration reform |
-| **Zero-cost access count**, passing all five access tests | Capability rises while verified access stays flat | Outcome-based procurement and access obligations |
-| **Concentration**, across compute, energy and service capacity | Concentration rises while access falls | Interoperability, procurement diversification, competition review |
-| **Preparedness**, registry coverage, delivery time, appeals and pre-funded response | Support cannot reach people inside the promised time | Fund and rehearse the delivery rail before more displacement |
-| **Trust and consent**, by cohort | Fairness and confidence fall ahead of economic triggers | Publish uncertainty, open two-way forums, use trusted local messengers |
-| **Cross-country access gap** | Eligibility and coverage diverge for an essential service | Mutual recognition, pooled procurement, portable eligibility |
+| **Access coverage**, share with margin ≥ 0 | Falls for an exposed cohort while productivity rises | Evaluate a reversible bridge for income or in-kind access |
+| **Transition speed**, gross displacement, re-employment time, replacement earnings | Loss accelerates and recovery slows | Evaluate wage insurance, portable benefits and hiring-linked training |
+| **Essential basket pressure**, split by automatable and human-required items | Human-required basket outruns household resources | Evaluate a capacity plan, pay review, credential or migration reform |
+| **Zero-cost access count**, passing all five access tests | Capability rises while verified access stays flat | Evaluate outcome-based procurement and access obligations |
+| **Concentration**, across compute, energy and service capacity | Concentration rises while access falls | Evaluate interoperability, procurement diversification and competition review |
+| **Preparedness**, registry coverage, delivery time, appeals and pre-funded response | Support cannot reach people inside the promised time | Evaluate funding and rehearsal of the delivery rail before more displacement |
+| **Trust and consent**, by cohort | Fairness and confidence fall ahead of economic triggers | Evaluate uncertainty disclosure, two-way forums and trusted local messengers |
+| **Cross-country access gap** | Eligibility and coverage diverge for an essential service | Evaluate mutual recognition, pooled procurement and portable eligibility |
 
-The exact triggers need to be public, local and set **before** they are breached.
-Two consecutive reporting periods is a sensible anti-noise default, not a law.
-Every signal needs an owner, a response and a rehearsal date.
+The exact review conditions need to be public, local and frozen **before** they
+are evaluated. Two consecutive reporting periods is an illustration, not a
+validated anti-noise rule. Thresholds need historical vintages, independent
+outcomes, uncertainty, false-positive and false-negative costs, alert-capacity
+limits and a rehearsal. Every candidate action separately needs authority,
+funding, safeguards, help, appeal, review, expiry and a stop rule.
 
 Two notes on this.
 
@@ -418,92 +459,101 @@ defect. It shows where scarcity and bargaining power are concentrating.
 
 ## ⚡ Five crossings we can prepare for
 
-He asked which social transitions will be hard to endure. Dates would be theatre,
-but conditions can be monitored. Here is my best guess at the five crossings,
-what warns us, and what must already be waiting on the other side.
+He asked which social transitions could be hard to endure. Dates would be
+theatre. These five crossings are an incomplete, unscored scenario taxonomy,
+not diagnoses, probabilities or predictions of public behaviour. Each needs a
+registered target, evidence and alternatives before it becomes a review signal.
 
 ### 1. The credibility break
 
 Capability and productivity rise while the household access margin stays flat.
 People are told abundance is arriving and experience the opposite.
 
-**Movements:** rejection of abundance language, distrust of official measures,
-and fertile ground for anyone who can name a villain.
+**Possible public responses, not predictions:** rejection of abundance
+language, distrust of official measures, demands for explanation, organising,
+withdrawal or continued support despite the gap.
 
-**Early warning:** trust falls while cost-of-living pressure remains high in the
+**Candidate review condition:** trust falls while cost-of-living pressure remains high in the
 same cohorts receiving the strongest transition message.
 
-**Navigation:** publish the baseline, the uncertainty and the activation rules.
-Replace capability theatre with household evidence. **Never announce a warning
-without the protection it activates.**
+**Preparation option:** publish the baseline, uncertainty and proposed rules for
+challenge before any activation is possible. Replace capability theatre with
+household evidence. Do not announce a public warning until the condition and a
+real protection contract have both passed their separate gates.
 
 ### 2. The local displacement cascade
 
 Losses cluster in an occupation or town. Re-employment slows and replacement
 earnings fall, even while national employment still looks healthy.
 
-**Movements:** displaced-labour politics, sectoral strikes, coherent resistance
-to automation and geographic decline hidden by national averages.
+**Possible public responses, not predictions:** displaced-worker organising,
+sectoral bargaining or strikes, mutual aid, migration, support for automation,
+or demands for a different local bargain.
 
-**Early warning:** rising gross displacement, re-employment time and earnings
+**Candidate review condition:** rising gross displacement, re-employment time and earnings
 loss in the same sector or region for two reporting periods.
 
-**Navigation:** make the pause **visible and bounded.** Trigger portable benefits
-and wage insurance. Fund training where employers commit to interviews or jobs.
-Protect income, housing and healthcare continuity before asking people to
-reinvent themselves.
+**Preparation option:** make the deterioration visible and bounded. Evaluate
+portable benefits, wage insurance and training linked to credible employment
+offers. Require a real continuity, help and appeal contract before asking people
+to reinvent themselves.
 
 ### 3. The legitimacy break
 
 Access coverage falls while profits, mark-ups or infrastructure concentration
-rise. This is the moment politics turns, and it turned last time.
+rise. This combination could intensify distributional conflict. Historical
+analogy does not establish which response follows now.
 
-**Movements:** anti-concentration politics, windfall taxes, nationalisation
-proposals and direct action against the compute or energy holders.
+**Possible public responses, not predictions:** anti-concentration politics,
+windfall-tax or public-ownership proposals, direct action, negotiated access
+obligations, or defence of current ownership and investment rules.
 
-**Early warning:** concentration and profit share rise in the same market where
+**Candidate review condition:** concentration and profit share rise in the same market where
 access coverage falls.
 
-**Navigation:** **transparency before the resentment, not after.** Set access
-obligations, independent audit and a public return for public subsidy while
-conditions are still good. The same bargain extracted in a crisis looks like an
-admission of guilt.
+**Preparation option:** evaluate access obligations, independent audit and a
+public return for public subsidy while conditions permit open negotiation. Test
+whether the same evidence supports competition, ownership, procurement or
+capacity explanations before choosing an instrument.
 
 ### 4. The essential-work squeeze
 
 Some needs still require humans. As the floor improves, those workers have more
 choice, while demand for their care, judgement or physical presence remains.
 
-**Movements:** care and trade workers discovering enormous leverage, and using
-it. The status hierarchy may invert as stubbornly human work becomes scarce.
+**Possible public responses, not predictions:** care and trade workers may use
+greater bargaining power, leave, organise, seek migration reform, or reject the
+claim that scarcity should determine their social value.
 
-**Early warning:** vacancy duration, exits and service queues rise together in a
+**Candidate review condition:** vacancy duration, exits and service queues rise together in a
 human-required sector.
 
-**Navigation:** **let the human-required residue get expensive.** Improve pay,
-status, autonomy and staffing before coercive options enter the debate. Build
-credential portability and reserve capacity. Money will still matter for scarce
-wants, and status, meaning, rotation and obligation matter too.
+**Preparation option:** evaluate pay, status, autonomy, staffing, credential
+portability and reserve capacity before coercive options enter the debate.
+Measure worker choice and service access together, because higher pay can be a
+fair correction while constrained capacity can still harm users.
 
 ### 5. The permission and border split
 
 An essential service becomes technically cheap while access varies sharply by
 identity, jurisdiction, language or certification.
 
-**Movements:** migration pressure, digital sovereignty blocs, black markets and
-politics around who deserves access.
+**Possible public responses, not predictions:** migration pressure, digital
+sovereignty blocs, informal access routes, mutual-recognition efforts, stricter
+borders, or politics around who qualifies.
 
-**Early warning:** cross-country variance widens after cost stops being the main
+**Candidate review condition:** cross-country variance widens after cost stops being the main
 constraint.
 
-**Navigation:** negotiate mutual recognition, pooled procurement and portable
+**Preparation option:** evaluate mutual recognition, pooled procurement and portable
 eligibility before the service reaches scale. **Keep local choice above the
 floor, and make the floor interoperable across borders.** It is not a world
 government. It is a minimum access compact.
 
-## 🎯 What to do on Monday
+## 🎯 Options to evaluate on Monday
 
-Concrete, by actor, and none of it requires anyone to be virtuous.
+Concrete, by actor. These are agent-proposed preparation options, not personal,
+legal or policy instructions. None is activated, funded or authorised here.
 
 ### If you are an individual or household
 
@@ -511,8 +561,8 @@ Concrete, by actor, and none of it requires anyone to be virtuous.
    qualifications on one employer, occupation or place?
 2. **Make your evidence portable.** Keep qualifications and work records in a
    form another employer or country can verify.
-3. **Know the support route before you need it.** Benefits, appeals, training and
-   local mutual aid are much harder to discover during a shock.
+3. **Verify whether a real support route exists before you need it.** Do not
+   infer a benefit, appeal, training or mutual-aid service from this draft.
 
 This is resilience, not blame. **No household can diversify away a system-wide
 shock**, and the transition burden cannot be quietly transferred to individuals.
@@ -540,8 +590,9 @@ shock**, and the transition burden cannot be quietly transferred to individuals.
    privacy protection and pre-positioned finance.
 2. **Publish one local access basket** and its household margin, with cohort and
    regional cuts.
-3. **Legislate the triggers.** Every red signal gets an owner, an automatic first
-   response and a budget before it is needed.
+3. **Legislate or otherwise authorise bounded responses.** Every validated
+   trigger needs an owner, budget, first response, safeguard, appeal and expiry
+   before it can activate.
 4. **Run one outcome-based procurement** for verified access to an essential
    service, borrowing the useful part of an advance market commitment.
 5. **Rehearse a concentrated displacement shock** and publish what failed.
@@ -597,20 +648,20 @@ NEEDS HIS DECISION:
    honest, it pre-empts the obvious attack, and his style guideline is explicit
    that only-upsides reads as propaganda. But publicly reversing his own argument
    is his call, not mine.
-4. The five crossings and the movement forecasts. Mine, and speculative. They
-   are now expressed as observable conditions with early warnings and
-   pre-committed responses, but Fer still needs to endorse the set.
+4. The five crossings and possible public responses. Mine, speculative and now
+   explicitly unscored rather than movement forecasts. Candidate review
+   conditions and response options still need validation and Fer's endorsement.
 5. Phase 5 entrenchment and its legal form. The draft now makes durability the
    test and leaves constitutional or treaty-level protection as local options,
    but that remains a political position he has never stated.
 6. The household access margin and the five-part access test, which replace the
    single transmission ratio. Mine. It is a better instrument, and it is still a
    measurement design he has not seen.
-7. The communication contract, including "never announce abundance beside an
-   unprotected loss". Mine, and it reads as a rule he is laying down.
-8. The actor-by-actor preparation under "What to do on Monday". Prescriptive
-   advice to households and communities in his voice. He should read this one
-   line by line before it goes anywhere.
+7. The seven-part communication contract, including "never announce abundance
+   beside an unprotected loss". Mine, and it reads as a rule he is laying down.
+8. The actor-by-actor preparation under "Options to evaluate on Monday".
+   Unauthorised proposals to households and communities in his voice. He should
+   read this one line by line before it goes anywhere.
 
 VERIFIED OR BOUNDED:
 - Engels' Pause figures (Allen): +46%/+12% then +90%/+123%, profit rate doubled.
