@@ -9,9 +9,13 @@ const protocol = readFileSync(resolve(root, "README.md"), "utf8");
 test("the instrument competes against simpler explanations, not a straw baseline", () => {
   assert.match(protocol, /conventional statistical release/i);
   assert.match(protocol, /release plus facilitated deliberation/i);
+  assert.match(protocol, /Observatory, self-serve/i);
   assert.match(protocol, /Observatory plus identical deliberation/i);
   assert.match(protocol, /same facts.*uncertainty.*scope.*source.*decision context/is);
   assert.match(protocol, /Observatory may\s+lose/i);
+  assert.match(protocol, /2×2 randomised comparison/i);
+  assert.match(protocol, /two preregistered primary contrasts/i);
+  assert.match(protocol, /Do not describe a\s+self-serve effect from a facilitated contrast/i);
 });
 
 test("the comparison registers causal estimands and limits before exposure", () => {

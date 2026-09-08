@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "script_id": "script.observatory-comparison.synthetic-v1",
+  "classification": "synthetic-research-material",
+  "review_state": "not-independently-reviewed",
+  "facilitator_prompts": [
+    "What is directly observed, and what remains an inference, scenario or forecast?",
+    "Who and what are inside the stated scope?",
+    "Which IF is unresolved, and what observation could change its state?",
+    "What can each named actor lawfully choose, and what remains outside their authority?",
+    "Which beneficial, adverse, refusal and recovery paths remain open?"
+  ],
+  "prohibited_prompts": [
+    "Do not ask participants to endorse the transition thesis.",
+    "Do not imply that a real warning, service, recommendation or authority exists.",
+    "Do not add facts, urgency, emotional framing or examples not present in the shared fact pack."
+  ]
+}

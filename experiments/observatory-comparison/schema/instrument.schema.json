@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/instrument/1-0-0",
+  "title": "Synthetic comparison instrument specification",
+  "type": "object",
+  "required": ["schema_version", "instrument_id", "instrument_kind", "classification", "fact_pack_ref", "render_contract"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "instrument_id": { "$ref": "#/$defs/id" },
+    "instrument_kind": { "enum": ["conventional-release", "release-plus-deliberation", "observatory-self-serve", "observatory-plus-deliberation"] },
+    "classification": { "const": "synthetic-unrendered-specification" },
+    "fact_pack_ref": { "$ref": "#/$defs/factPackRef" },
+    "render_contract": {
+      "type": "object",
+      "required": ["claim_ids", "condition_ids", "boundary_ids", "may_add_facts", "may_add_urgency", "may_hide_unknowns", "output_capture_required"],
+      "properties": {
+        "claim_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "condition_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "boundary_ids": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": { "enum": ["no-real-service", "no-real-warning", "no-action-authority", "uncertainty", "strongest-challenge", "correction-route"] }
+        },
+        "may_add_facts": { "const": false },
+        "may_add_urgency": { "const": false },
+        "may_hide_unknowns": { "const": false },
+        "output_capture_required": { "const": true }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "factPackRef": {
+      "type": "object",
+      "required": ["fact_pack_id", "path", "sha256"],
+      "properties": {
+        "fact_pack_id": { "$ref": "#/$defs/id" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "outcome_contract_id": "outcomes.observatory-comparison.synthetic-v1",
+  "classification": "synthetic-unvalidated-research-proposal",
+  "estimand_id": "estimand.complete-boundary-reconstruction-risk-difference",
+  "primary_estimand": "Intention-to-treat risk difference in complete unaided boundary reconstruction on a held-out fictional vignette.",
+  "dangerous_understanding_errors": [
+    "aggregate-to-person-inference",
+    "scenario-as-forecast",
+    "option-as-commitment",
+    "inaction-as-safe",
+    "crisis-as-established",
+    "exposure-as-adoption-or-causation",
+    "checksum-as-publisher-authentication",
+    "proposal-as-legal-or-democratic-authority"
+  ],
+  "validation_state": "not-validated",
+  "analysis_state": "not-preregistered",
+  "contract_boundary": {
+    "effect": "proposal-only"
+  }
+}

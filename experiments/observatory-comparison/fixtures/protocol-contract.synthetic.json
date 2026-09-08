@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_id": "protocol.observatory-comparison.v1",
+  "status": "proposed-not-preregistered-or-approved",
+  "design": {
+    "kind": "two-by-two-interface-by-deliberation-randomised-comparison",
+    "allocation_unit": "participant",
+    "allocation_method": "random-stratified",
+    "allocation_ratio_by_instrument": {
+      "conventional-release": 1,
+      "release-plus-deliberation": 1,
+      "observatory-self-serve": 1,
+      "observatory-plus-deliberation": 1
+    },
+    "allocation_concealment": "until-participant-begins-assigned-instrument",
+    "strata": [
+      "directly-affected",
+      "low-numeracy-or-digital-confidence",
+      "limited-english",
+      "assistive-technology"
+    ],
+    "assignment_implementation_state": "not-implemented"
+  },
+  "analysis": {
+    "outcome_contract_id": "outcomes.observatory-comparison.synthetic-v1",
+    "estimand_id": "estimand.complete-boundary-reconstruction-risk-difference",
+    "intention_to_treat": true,
+    "smallest_effect_worth_detecting": null,
+    "power_plan": "not-specified",
+    "multiplicity_plan": "not-specified",
+    "missingness_plan": "not-specified",
+    "attrition_allowance": null,
+    "contamination_plan": "not-specified",
+    "preregistration_state": "not-preregistered"
+  },
+  "contract_boundary": {
+    "truth_effect": "none",
+    "causal_effect": "none-before-completed-analysis",
+    "ethics_effect": "none",
+    "recruitment_effect": "none"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/outcome-contract/1-0-0",
+  "title": "Unvalidated experiment outcome contract",
+  "type": "object",
+  "required": ["schema_version", "outcome_contract_id", "classification", "estimand_id", "primary_estimand", "dangerous_understanding_errors", "validation_state", "analysis_state", "contract_boundary"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "outcome_contract_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "synthetic-unvalidated-research-proposal" },
+    "estimand_id": { "const": "estimand.complete-boundary-reconstruction-risk-difference" },
+    "primary_estimand": { "$ref": "#/$defs/nonEmpty" },
+    "dangerous_understanding_errors": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "aggregate-to-person-inference",
+          "scenario-as-forecast",
+          "option-as-commitment",
+          "inaction-as-safe",
+          "crisis-as-established",
+          "exposure-as-adoption-or-causation",
+          "checksum-as-publisher-authentication",
+          "proposal-as-legal-or-democratic-authority"
+        ]
+      }
+    },
+    "validation_state": { "const": "not-validated" },
+    "analysis_state": { "const": "not-preregistered" },
+    "contract_boundary": {
+      "type": "object",
+      "required": ["effect"],
+      "properties": { "effect": { "const": "proposal-only" } },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "nonEmpty": { "type": "string", "pattern": ".*\\S.*" }
+  }
+}

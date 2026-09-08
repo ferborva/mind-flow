@@ -26,12 +26,14 @@ statistical release. It should earn a bounded role only if it helps people
 understand uncertainty, conditions, authority and choices without increasing
 dangerous inference, anxiety, stigma or false reassurance.
 
-Run a randomised comparison of three honest instruments:
+Run a balanced 2×2 randomised comparison of interface and facilitation:
 
-1. **Conventional statistical release:** a concise table and explanatory note.
-2. **Release plus facilitated deliberation:** the same release followed by a
+1. **Conventional statistical release, self-serve:** a concise table and explanatory note.
+2. **Conventional release plus facilitated deliberation:** the same release followed by a
    neutral, scripted discussion.
-3. **Observatory plus identical deliberation:** the same facts rendered through
+3. **Observatory, self-serve:** the same facts rendered through the IF, path,
+   action-boundary and evidence views without facilitation.
+4. **Observatory plus identical deliberation:** the same facts rendered through
    the IF, path, action-boundary and evidence views, followed by the identical
    discussion used in arm 2.
 
@@ -42,6 +44,43 @@ lose. If facilitated deliberation provides the benefit without the interface,
 prefer the simpler instrument or narrow the Observatory to provenance and
 forecast memory.
 
+The two preregistered primary contrasts should be Observatory versus
+conventional release within self-serve use, and Observatory versus conventional
+release within facilitated use. Secondary contrasts estimate facilitation
+within each interface. The interface-by-facilitation interaction tests whether
+the Observatory helps only when a trained person explains it. Do not describe a
+self-serve effect from a facilitated contrast.
+
+## Executable proposal boundary
+
+`fixtures/manifest.synthetic.json` binds all four proposed arms to the same
+content-addressed fact pack and outcome contract. Each arm binds a typed
+instrument specification. The two deliberation arms also bind the same typed
+script bytes. `validate.mjs` checks inner artifact types and IDs, the balanced
+2×2 allocation, exact claim and condition coverage, source JSON pointers,
+retained bytes, the comparator set and all six complete safety stop lines.
+
+This proves only **declared input binding**. It does not prove that a renderer,
+facilitator or deployed interface presented the inputs faithfully. Rendered
+fact parity requires captured outputs and an independent comparison that this
+prototype does not perform.
+
+The manifest also pins a seven-artifact transition core and runs its independent
+coherence assessor. The current Round 03 core is intentionally incoherent, so
+the manifest's own contracts pass while `source_core_eligible` and
+`manifest_valid` remain false. Copied IDs and matching fake hashes cannot make a
+broken source eligible.
+
+The version 1 manifest is deliberately unable to approve recruitment. Its
+schema fixes ethics and privacy review to `pending`, participant data collection
+to `disabled`, recruitment to `blocked`, and every authority or truth effect to
+`none`. A later operational protocol needs a separately reviewed schema and an
+external approval verifier. Editing this manifest cannot create that authority.
+The structured protocol also records that power, smallest worthwhile effect,
+multiplicity, missingness, attrition, contamination and assignment
+implementation are not yet specified. Until those become independently
+reviewed, `analysis_ready` remains false.
+
 ## Instrument hypotheses
 
 ### H1: conditional comprehension
@@ -50,10 +89,10 @@ forecast memory.
 > boundary visible without adding cognitive overload, THEN participants should
 > more often reconstruct the claim's scope and identify what would change it.**
 
-The discriminating observation is the preregistered between-arm difference in
-complete, unaided reconstruction of a held-out public claim. Failure to beat
-both simpler arms within the declared interval means retire or narrow the
-public condition-map claim.
+The discriminating observations are the two preregistered within-facilitation
+contrasts in complete, unaided reconstruction of a held-out public claim.
+Failure in self-serve use means retire or narrow the public condition-map claim
+for self-serve use, even if the facilitated version performs better.
 
 ### H2: decision-boundary comprehension
 

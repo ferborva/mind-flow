@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/deliberation-script/1-0-0",
+  "title": "Fixed neutral deliberation script",
+  "type": "object",
+  "required": ["schema_version", "script_id", "classification", "review_state", "facilitator_prompts", "prohibited_prompts"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "script_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "synthetic-research-material" },
+    "review_state": { "const": "not-independently-reviewed" },
+    "facilitator_prompts": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+    "prohibited_prompts": { "type": "array", "minItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "nonEmpty": { "type": "string", "pattern": ".*\\S.*" }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/fact-pack/1-0-0",
+  "title": "Shared synthetic study fact pack",
+  "description": "The exact bounded facts and caveats declared as shared input across study arms. It is not evidence that each renderer represented them faithfully.",
+  "type": "object",
+  "required": ["schema_version", "fact_pack_id", "classification", "source_transition_bundle_id", "canonical", "decision_context", "claims", "if_conditions", "correction_route", "contract_boundary"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "fact_pack_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "synthetic-fictional-study-material" },
+    "source_transition_bundle_id": { "$ref": "#/$defs/id" },
+    "canonical": {
+      "type": "object",
+      "required": ["condition_ids", "outcome_logic_ref", "scope_manifest_ref"],
+      "properties": {
+        "condition_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "outcome_logic_ref": { "$ref": "#/$defs/outcomeLogicRef" },
+        "scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" }
+      },
+      "additionalProperties": false
+    },
+    "decision_context": {
+      "type": "object",
+      "required": ["scope", "no_real_service", "no_real_warning", "no_action_authority"],
+      "properties": {
+        "scope": { "$ref": "#/$defs/nonEmpty" },
+        "no_real_service": { "const": true },
+        "no_real_warning": { "const": true },
+        "no_action_authority": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "text", "epistemic_status", "scope", "uncertainty", "source_refs"],
+        "properties": {
+          "claim_id": { "$ref": "#/$defs/id" },
+          "text": { "$ref": "#/$defs/nonEmpty" },
+          "epistemic_status": { "enum": ["observation", "inference", "scenario", "forecast"] },
+          "scope": { "$ref": "#/$defs/nonEmpty" },
+          "uncertainty": { "$ref": "#/$defs/nonEmpty" },
+          "source_refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/sourceRef" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "if_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+          "required": ["condition_id", "question", "state", "state_basis", "assessment_ref", "strongest_challenge", "next_observation"],
+        "properties": {
+          "condition_id": { "$ref": "#/$defs/id" },
+          "question": { "$ref": "#/$defs/nonEmpty" },
+          "state": { "const": "unknown" },
+          "state_basis": { "const": "synthetic-unassessed" },
+          "assessment_ref": { "type": "null" },
+          "strongest_challenge": { "$ref": "#/$defs/nonEmpty" },
+          "next_observation": { "$ref": "#/$defs/nonEmpty" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "correction_route": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "contract_boundary": {
+      "type": "object",
+      "required": ["truth_effect", "forecast_effect", "authority_effect"],
+      "properties": {
+        "truth_effect": { "const": "none" },
+        "forecast_effect": { "const": "none" },
+        "authority_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "nonEmpty": { "type": "string", "pattern": ".*\\S.*" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "outcomeLogicRef": {
+      "type": "object",
+      "required": ["artifact_role", "json_pointer", "sha256"],
+      "properties": {
+        "artifact_role": { "const": "agency-map" },
+        "json_pointer": { "const": "/outcome_scope/condition_logic" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "scopeManifestRef": {
+      "type": "object",
+      "required": ["scope_manifest_id", "path", "sha256"],
+      "properties": {
+        "scope_manifest_id": { "$ref": "#/$defs/id" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "sourceRef": {
+      "type": "object",
+      "required": ["artifact_role", "path", "sha256", "json_pointer"],
+      "properties": {
+        "artifact_role": { "enum": ["transition-bundle", "agency-map", "evolution-ledger", "signal-registry", "possible-path", "preparation-register", "dashboard-snapshot", "forecast"] },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "json_pointer": { "type": "string", "pattern": "^/(?:[^~/]|~0|~1)+(?:/(?:[^~/]|~0|~1)+)*$" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

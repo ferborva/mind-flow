@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+  "classification": "synthetic-fictional-study-material",
+  "source_transition_bundle_id": "bundle.round-03.current",
+  "canonical": {
+    "condition_ids": [
+      "condition.transition-option-ready",
+      "condition.employment-offer-exists",
+      "condition.protection-capacity-ready"
+    ],
+    "outcome_logic_ref": {
+      "artifact_role": "agency-map",
+      "json_pointer": "/outcome_scope/condition_logic",
+      "sha256": "sha256:080df08c385987f05ed0964d0398d53792642014dcf7f4f29cb50a950cc89290"
+    },
+    "scope_manifest_ref": {
+      "scope_manifest_id": "scope-manifest.round-03.current",
+      "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+      "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+    }
+  },
+  "decision_context": {
+    "scope": "A fictional Australian clerical-work transition scenario used only to test comprehension of evidence and decision boundaries.",
+    "no_real_service": true,
+    "no_real_warning": true,
+    "no_action_authority": true
+  },
+  "claims": [
+    {
+      "claim_id": "claim.synthetic-condition-set",
+      "text": "The retained source bundle names three linked conditions for a fictional Australian clerical-work transition.",
+      "epistemic_status": "observation",
+      "scope": "The exact retained synthetic bundle bytes and named condition identities only.",
+      "uncertainty": "Structural presence does not show that a condition is true, complete, useful or authorised.",
+      "source_refs": [
+        {
+          "artifact_role": "transition-bundle",
+          "path": "integration/transition-bundle/fixtures/round-03.current.json",
+        "sha256": "sha256:96a2d0c9c54c26b5dba7380cc063f6151c70c53c7135948b6bdffffe2b528656",
+          "json_pointer": "/canonical/condition_ids"
+        }
+      ]
+    },
+    {
+      "claim_id": "claim.synthetic-transition-path",
+      "text": "Several beneficial, adverse, refusal and recovery paths remain possible in the fictional scenario.",
+      "epistemic_status": "scenario",
+      "scope": "Exploration of named possibilities, not a probability distribution or forecast.",
+      "uncertainty": "The paths are incomplete and their likelihoods are not estimated.",
+      "source_refs": [
+        {
+          "artifact_role": "possible-path",
+          "path": "paths/fixtures/australian-clerical-transition.synthetic.json",
+          "sha256": "sha256:d75f32fef703e0a20f25e6af47a0ba45e69906a9fdecf3c0b8da63ed8bb45530",
+          "json_pointer": "/competing_paths"
+        }
+      ]
+    }
+  ],
+  "if_conditions": [
+    {
+      "condition_id": "condition.transition-option-ready",
+      "question": "IF a transition option is independently shown to be ready, accessible, voluntary and recoverable, may it remain available for consideration?",
+      "state": "unknown",
+      "state_basis": "synthetic-unassessed",
+      "assessment_ref": null,
+      "strongest_challenge": "A nominally available option may conceal access failures, pressure, weak recovery or information harm.",
+      "next_observation": "Run the registered capacity, accessibility, refusal, appeal and recovery tests with affected participants."
+    },
+    {
+      "condition_id": "condition.employment-offer-exists",
+      "question": "IF independently quality-reviewed offers exist for the scoped cohort, may they be treated as real options rather than promises?",
+      "state": "unknown",
+      "state_basis": "synthetic-unassessed",
+      "assessment_ref": null,
+      "strongest_challenge": "Offer counts can hide withdrawals, poor terms, coercion or mismatch with the affected cohort.",
+      "next_observation": "Audit signed offer terms, withdrawals, cohort eligibility and affected-party experience against the registered quality floor."
+    },
+    {
+      "condition_id": "condition.protection-capacity-ready",
+      "question": "IF funded protection, appeal and recovery capacity is verified through the full period, may the transition proposal proceed to separate review?",
+      "state": "unknown",
+      "state_basis": "synthetic-unassessed",
+      "assessment_ref": null,
+      "strongest_challenge": "A policy promise can exist without reserved funding, operational capacity, independent appeal or recovery coverage.",
+      "next_observation": "Verify committed funds, staffed capacity, appeal independence and recovery reserves through the declared end date."
+    }
+  ],
+  "correction_route": "https://example.org/fictional-observatory-study/corrections",
+  "contract_boundary": {
+    "truth_effect": "none",
+    "forecast_effect": "none",
+    "authority_effect": "none"
+  }
+}

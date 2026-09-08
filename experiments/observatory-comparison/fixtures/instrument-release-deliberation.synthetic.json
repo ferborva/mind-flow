@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "instrument_id": "instrument.release-plus-deliberation.synthetic-v1",
+  "instrument_kind": "release-plus-deliberation",
+  "classification": "synthetic-unrendered-specification",
+  "fact_pack_ref": {
+    "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+    "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
+    "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+  },
+  "render_contract": {
+    "claim_ids": [
+      "claim.synthetic-condition-set",
+      "claim.synthetic-transition-path"
+    ],
+    "condition_ids": [
+      "condition.transition-option-ready",
+      "condition.employment-offer-exists",
+      "condition.protection-capacity-ready"
+    ],
+    "boundary_ids": [
+      "no-real-service",
+      "no-real-warning",
+      "no-action-authority",
+      "uncertainty",
+      "strongest-challenge",
+      "correction-route"
+    ],
+    "may_add_facts": false,
+    "may_add_urgency": false,
+    "may_hide_unknowns": false,
+    "output_capture_required": true
+  }
+}
