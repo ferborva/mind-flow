@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "bundle.round-03.current",
+  "classification": "research-draft",
+  "as_of": "2026-09-09T00:00:00Z",
+  "evaluation_clock": {
+    "evaluated_at": "2026-09-09T00:00:00Z",
+    "source": "operator-supplied",
+    "trusted": false
+  },
+  "authority_effect": "none",
+  "publication_approved": false,
+  "action_authorised": false,
+  "canonical": {
+    "scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615",
+    "condition_ids": [
+      "condition.transition-option-ready",
+      "condition.employment-offer-exists",
+      "condition.protection-capacity-ready"
+    ],
+    "if_logic_hash": "sha256:080df08c385987f05ed0964d0398d53792642014dcf7f4f29cb50a950cc89290",
+    "root_role": "agency-map"
+  },
+  "artifacts": [
+    {
+      "role": "agency-map",
+      "path": "contracts/agency-map/fixtures/australian-clerical-agency.synthetic.json",
+      "sha256": "sha256:b1b088e9d09c14467ccc3baf23faa4de61eec621d93af33acc354a935121a322"
+    },
+    {
+      "role": "evolution-ledger",
+      "path": "contracts/evolution/fixtures/valid/all-operations.json",
+      "sha256": "sha256:e82e8db87022fda705b379a0890a67d05a043c854030e0ffab7ffacbe78c8494"
+    },
+    {
+      "role": "signal-registry",
+      "path": "signals/fixtures/australia-feasibility.json",
+      "sha256": "sha256:203f8149cc345dcb2dec9d8f7dd97260eaded8465353954e7550528792910a54"
+    },
+    {
+      "role": "possible-path",
+      "path": "paths/fixtures/australian-clerical-transition.synthetic.json",
+      "sha256": "sha256:d75f32fef703e0a20f25e6af47a0ba45e69906a9fdecf3c0b8da63ed8bb45530"
+    },
+    {
+      "role": "preparation-register",
+      "path": "preparation/fixtures/valid/round-03.register.json",
+      "sha256": "sha256:3907c7de2cc0f35249d6fa2f8e983110c77899d3e3c537677f1aae485e7c2674"
+    },
+    {
+      "role": "dashboard-snapshot",
+      "path": "dashboard/snapshots/2026-09-08.r2.json",
+      "sha256": "sha256:80cdae407821c49df33dc4fd1e5e630fc23d269f543cacc512c4705cd11bfb1f"
+    },
+    {
+      "role": "forecast",
+      "path": "forecasts/fixtures/decision-linked.issued.json",
+      "sha256": "sha256:bdcfd86d7221f87a08111332e0213b580e2534ec6d2671b37f8cb0fefc58b7a8"
+    }
+  ]
+}
