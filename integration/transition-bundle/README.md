@@ -58,6 +58,12 @@ mean its individual artifacts are invalid. Run the contract tests with:
 npm run test:integration
 ```
 
+The schema permits only an operator-supplied, untrusted manifest clock. A
+verifier-controlled clock or separately validated attestation is required
+before freshness can open. Likewise, an experiment artifact stays invalid
+until a fixed repository validator can prove fact-pack parity, arm binding and
+safety. Content addressing by itself proves neither claim.
+
 ## Migration rule
 
 Do not make the current fixture pass by weakening the cross-checks. Build one
@@ -65,3 +71,13 @@ new bounded synthetic transition from the canonical agency map, then derive or
 bind every other artifact to it. A passing synthetic bundle must remain
 `research-draft`, with truth, authority, action and publication gates false
 until evidence and real institutions close them outside this repository.
+
+The exact cross-system changes are specified in [MIGRATION.md](MIGRATION.md).
+They are also encoded as an intentionally failing acceptance suite:
+
+```sh
+npm run test:integration:migration
+```
+
+Keep that suite red until the component contracts expose the required typed
+bindings. It must not be made green by weakening the integration checks.

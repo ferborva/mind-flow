@@ -6,6 +6,7 @@
     "test:contracts": "node --test contracts/tests/*.test.mjs",
     "test:agency-map": "node --test contracts/agency-map/tests/*.test.mjs",
     "test:integration": "node --test integration/transition-bundle/tests/*.test.mjs",
+    "test:integration:migration": "node --test integration/transition-bundle/tests/pending/*.acceptance.mjs",
     "test:evolution": "node --test contracts/evolution/tests/*.test.mjs",
     "test:evidence": "node --test evidence/claims/tests/*.test.mjs evidence/assumptions/tests/*.test.mjs",
     "test:signals": "node --test signals/tests/*.test.mjs",

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { mkdtempSync, readFileSync, symlinkSync, unlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -82,4 +83,34 @@ test("condition identity must resolve through the evolution root before downstre
   assert.deepEqual(identities.shared_by_all, []);
   assert.equal(assessment.gates.history, false);
   assert.equal(assessment.gates.preparation, false);
+});
+
+test("a caller cannot self-certify the evaluation clock", () => {
+  const claimed = clone(fixture);
+  claimed.evaluation_clock = {
+    evaluated_at: claimed.evaluation_clock.evaluated_at,
+    source: "verified-time-authority",
+    trusted: true,
+  };
+
+  const assessment = assessTransitionBundle(claimed, { rootDir: root });
+  assert.equal(assessment.machine_valid, false);
+  assert.equal(assessment.gates.freshness, false);
+  assert.ok(assessment.issues.some(({ code }) => code === "BUNDLE_SCHEMA_INVALID"));
+});
+
+test("content addressing alone cannot make an experiment fact pack valid", () => {
+  const attempted = clone(fixture);
+  const factPackPath = "integration/transition-bundle/fixtures/unvalidated-experiment-fact-pack.json";
+  const bytes = readFileSync(resolve(root, factPackPath));
+  attempted.artifacts.push({
+    role: "experiment-fact-pack",
+    path: factPackPath,
+    sha256: `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+  });
+
+  const assessment = assessTransitionBundle(attempted, { rootDir: root });
+  assert.equal(assessment.components_valid, false);
+  assert.equal(assessment.gates.experiment, false);
+  assert.ok(assessment.issues.some(({ code }) => code === "EXPERIMENT_VALIDATOR_UNAVAILABLE"));
 });

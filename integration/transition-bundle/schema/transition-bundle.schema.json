@@ -26,8 +26,8 @@
       "required": ["evaluated_at", "source", "trusted"],
       "properties": {
         "evaluated_at": { "type": "string", "format": "date-time" },
-        "source": { "enum": ["operator-supplied", "verified-time-authority"] },
-        "trusted": { "type": "boolean" }
+        "source": { "const": "operator-supplied" },
+        "trusted": { "const": false }
       },
       "additionalProperties": false
     },

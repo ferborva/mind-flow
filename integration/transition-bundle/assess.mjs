@@ -139,7 +139,14 @@ function validateComponent(role, document, artifactPath, evaluatedAt) {
       return { valid: true, result: { schema_valid: true, semantic_valid: true } };
     }
     if (role === "experiment-fact-pack") {
-      return { valid: true, result: { content_addressed_only: true, semantic_validator_available: false } };
+      return {
+        valid: false,
+        result: {
+          content_addressed_only: true,
+          semantic_validator_available: false,
+          errors: ["no fixed experiment manifest and fact-pack validator is available"],
+        },
+      };
     }
     return { valid: false, result: { errors: ["role has no fixed validator"] } };
   } catch (error) {
@@ -232,6 +239,23 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       issues.push(issue("COMPONENT_VALIDATION_FAILED", role, "the fixed repository validator rejected this artifact"));
     }
   }
+  if (documents.has("experiment-fact-pack")) {
+    const result = validateComponent(
+      "experiment-fact-pack",
+      documents.get("experiment-fact-pack"),
+      paths.get("experiment-fact-pack"),
+      bundle?.evaluation_clock?.evaluated_at,
+    );
+    componentResults["experiment-fact-pack"] = result.result;
+    if (!result.valid) {
+      componentsValid = false;
+      issues.push(issue(
+        "COMPONENT_VALIDATION_FAILED",
+        "experiment-fact-pack",
+        "no fixed repository validator can establish experiment fact parity and safety",
+      ));
+    }
+  }
 
   const canonicalIds = bundle?.canonical?.condition_ids || [];
   const identityByRole = {};
@@ -287,18 +311,22 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       "dashboard has no resolved positive, adverse, refusal or recovery path references",
     ));
   }
-  if (!bundle?.evaluation_clock?.trusted || bundle?.evaluation_clock?.source !== "verified-time-authority") {
-    issues.push(issue(
-      "EVALUATION_TIME_UNTRUSTED",
-      "bundle",
-      "a caller-supplied clock cannot establish cross-artifact freshness",
-    ));
-  }
+  issues.push(issue(
+    "EVALUATION_TIME_UNTRUSTED",
+    "bundle",
+    "the integration has no independent time-authority verifier, so manifest time cannot establish freshness",
+  ));
   if (!documents.has("experiment-fact-pack")) {
     issues.push(issue(
       "EXPERIMENT_FACT_PACK_MISSING",
       "experiment-fact-pack",
       "experiment arms are not bound to one immutable fact pack",
+    ));
+  } else {
+    issues.push(issue(
+      "EXPERIMENT_VALIDATOR_UNAVAILABLE",
+      "experiment-fact-pack",
+      "content addressing cannot establish fact parity, arm binding or safety without a fixed validator",
     ));
   }
 
@@ -313,13 +341,13 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     scope: bundleCoherent && scopeReady,
     history: bundleCoherent && identityReady && Boolean(componentResults["evolution-ledger"]?.history_complete),
     truth: false,
-    freshness: bundleCoherent && Boolean(bundle?.evaluation_clock?.trusted),
+    freshness: false,
     evidence: bundleCoherent && identityReady,
     forecast: bundleCoherent && !issueCodes.has("FORECAST_TARGET_UNBOUND"),
     preparation: bundleCoherent && identityReady,
     authority: false,
     publication: false,
-    experiment: bundleCoherent && documents.has("experiment-fact-pack"),
+    experiment: false,
   };
 
   return {
