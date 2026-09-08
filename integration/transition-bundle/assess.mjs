@@ -141,6 +141,16 @@ function validateDashboard(path) {
   }
 }
 
+function sourceArtifact(context, sourceRole) {
+  const reference = context.refs?.find(({ role: candidate }) => candidate === sourceRole);
+  return {
+    bytes: context.bytes?.get(sourceRole),
+    document: context.documents?.get(sourceRole),
+    path: reference?.path,
+    sha256: reference?.sha256,
+  };
+}
+
 function validateComponent(role, document, artifactPath, evaluatedAt, context = {}) {
   try {
     if (role === "agency-map") {
@@ -179,25 +189,26 @@ function validateComponent(role, document, artifactPath, evaluatedAt, context = 
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
     if (role === "possible-path") {
-      const source = (sourceRole) => {
-        const reference = context.refs?.find(({ role: candidate }) => candidate === sourceRole);
-        return {
-          document: context.documents?.get(sourceRole),
-          path: reference?.path,
-          sha256: reference?.sha256,
-        };
-      };
       const result = validatePossiblePath(document, {
-        sourceKernel: source("executable-if-kernel"),
-        sourceEvolution: source("evolution-ledger"),
-        sourceSignalRegistry: source("signal-registry"),
-        sourceAgencyMap: source("agency-map"),
+        sourceKernel: sourceArtifact(context, "executable-if-kernel"),
+        sourceEvolution: sourceArtifact(context, "evolution-ledger"),
+        sourceSignalRegistry: sourceArtifact(context, "signal-registry"),
+        sourceAgencyMap: sourceArtifact(context, "agency-map"),
       });
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
     if (role === "preparation-register") {
-      const result = assessPreparationRegister(document);
-      return { valid: result.schema_conformant && result.register_consistent, result };
+      const sources = document?.schema_version === "1.2.0" ? {
+        sourceKernel: sourceArtifact(context, "executable-if-kernel"),
+        sourceEvolution: sourceArtifact(context, "evolution-ledger"),
+      } : {};
+      const result = assessPreparationRegister(document, sources);
+      const externalBindingsValid = document?.schema_version !== "1.2.0" ||
+        result.external_bindings_verified === true;
+      return {
+        valid: result.schema_conformant && result.register_consistent && externalBindingsValid,
+        result,
+      };
     }
     if (role === "dashboard-snapshot") {
       const result = validateDashboard(artifactPath);
@@ -227,6 +238,11 @@ function conditionIds(role, document, componentResult) {
   if (role === "signal-registry") return (document.condition_bindings || []).map(({ condition_id: id }) => id);
   if (role === "possible-path") return (document.outcome_scope?.if_conditions || []).map(({ condition_id: id }) => id);
   if (role === "preparation-register") {
+    if (document.schema_version === "1.2.0") {
+      return (document.condition_bindings || [])
+        .map(({ content }) => content?.condition_id)
+        .filter(Boolean);
+    }
     return (document.if_expressions || []).flatMap(({ content }) =>
       content?.condition_binding?.condition_id ? [content.condition_binding.condition_id] : []);
   }
@@ -366,6 +382,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   }
 
   const documents = new Map();
+  const bytes = new Map();
   const paths = new Map();
   const componentResults = {};
   let artifactIntegrity = true;
@@ -378,6 +395,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
         continue;
       }
       documents.set(ref.role, loaded.document);
+      bytes.set(ref.role, loaded.bytes);
       paths.set(ref.role, loaded.path);
     } catch (error) {
       artifactIntegrity = false;
@@ -444,7 +462,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       documents.get(role),
       paths.get(role),
       bundle?.evaluation_clock?.evaluated_at,
-      { documents, refs },
+      { bytes, documents, refs },
     );
     componentResults[role] = result.result;
     if (!result.valid) {
@@ -806,6 +824,9 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   const scopeReady = ![...issueCodes].some((code) => code.includes("SCOPE"));
   const identityReady = !issueCodes.has("CONDITION_SET_MISMATCH") &&
     !issueCodes.has("PREPARATION_CONDITION_ID_MISSING");
+  const preparation = documents.get("preparation-register");
+  const preparationBindingsReady = preparation?.schema_version !== "1.2.0" ||
+    componentResults["preparation-register"]?.external_bindings_verified === true;
   const gates = {
     integrity: bundleCoherent,
     scope: bundleCoherent && scopeReady,
@@ -814,7 +835,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     freshness: false,
     evidence: bundleCoherent && identityReady && executableSignalReferenceValid,
     forecast: bundleCoherent && !issueCodes.has("FORECAST_TARGET_UNBOUND"),
-    preparation: bundleCoherent && identityReady,
+    preparation: bundleCoherent && identityReady && preparationBindingsReady,
     authority: false,
     publication: false,
   };

@@ -11,6 +11,7 @@ const repositoryRoot = resolve(import.meta.dirname, "../..");
 function fileSource(path) {
   const bytes = readFileSync(resolve(repositoryRoot, path));
   return {
+    bytes,
     document: JSON.parse(bytes.toString("utf8")),
     path,
     sha256: `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
@@ -124,6 +125,17 @@ test("hostile: exact source artifacts, history tip and condition producer cannot
   const sourceDrift = sources();
   sourceDrift.sourceKernel.sha256 = `sha256:${"4".repeat(64)}`;
   assert.equal(assessWith(fixture(), sourceDrift).external_bindings_verified, false);
+});
+
+test("hostile: a matching claimed digest cannot replace retained source bytes", () => {
+  const document = fixture();
+  const falseDigest = `sha256:${"7".repeat(64)}`;
+  document.condition_bindings[0].content.kernel.artifact_ref.artifact_sha256 = falseDigest;
+  reseal(document.condition_bindings[0]);
+  const sourceKernel = { ...sources().sourceKernel, sha256: falseDigest };
+  const result = assessWith(document, { sourceKernel });
+  assert.equal(result.external_bindings_verified, false);
+  assert.ok(hasCode(result, "SOURCE_BYTES_MISMATCH"));
 });
 
 test("hostile: receipts cannot be replayed, partially projected or treated as fresh unknown", () => {

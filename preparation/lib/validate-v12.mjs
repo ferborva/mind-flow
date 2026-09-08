@@ -52,6 +52,18 @@ function same(left, right) {
   return canonicalise(left) === canonicalise(right);
 }
 
+function retainedSourceBytesMatch(source) {
+  if (!(source?.bytes instanceof Uint8Array)) return false;
+  const bytes = Buffer.from(source.bytes);
+  const sha256 = `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+  if (sha256 !== source.sha256) return false;
+  try {
+    return same(JSON.parse(bytes.toString("utf8")), source.document);
+  } catch {
+    return false;
+  }
+}
+
 function problem(code, path, message) {
   return { code, path, message };
 }
@@ -259,6 +271,14 @@ function verifyExternalBindings(register, sources, problems) {
   const { sourceKernel, sourceEvolution } = sources;
   if (!sourceKernel?.document || !sourceEvolution?.document) {
     problems.push(problem("SOURCE_BINDING_MISMATCH", "/condition_bindings", "exact retained kernel and evolution sources are required"));
+    return false;
+  }
+  if (!retainedSourceBytesMatch(sourceKernel) || !retainedSourceBytesMatch(sourceEvolution)) {
+    problems.push(problem(
+      "SOURCE_BYTES_MISMATCH",
+      "/condition_bindings",
+      "source documents and claimed digests must reproduce the retained kernel and evolution bytes",
+    ));
     return false;
   }
   const kernelValidation = validateExecutableIfKernel(sourceKernel.document);

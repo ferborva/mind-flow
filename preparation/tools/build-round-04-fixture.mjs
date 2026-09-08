@@ -17,6 +17,7 @@ const asOf = "2026-09-09T00:00:00Z";
 function fileSource(path) {
   const bytes = readFileSync(resolve(repositoryRoot, path));
   return {
+    bytes,
     document: JSON.parse(bytes.toString("utf8")),
     path,
     sha256: `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
