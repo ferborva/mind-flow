@@ -152,7 +152,7 @@ function validateSources(record, errors, effectiveTime) {
   return current;
 }
 
-export function assessPublicRelease(record) {
+export function assessReleaseReadiness(record) {
   const errors = [];
   const blockingGates = new Set();
   const assessmentTime = instant(record.assessed_at);
@@ -419,42 +419,53 @@ export function assessPublicRelease(record) {
 
   const valid = errors.length === 0;
   const publicStage = PUBLIC_STAGES.has(record.release_stage);
-  const stageAllowed = publicStage
+  const requestedStageStructurallyConsistent = publicStage
     ? valid && record.decision?.status === "approved" && blockingGates.size === 0
     : valid;
-  const publicReleaseAllowed = publicStage && stageAllowed;
+  const structurallyEligibleForExternalAuthorityReview =
+    publicStage && requestedStageStructurallyConsistent;
   return {
     valid,
-    stage_allowed: stageAllowed,
-    public_release_allowed: publicReleaseAllowed,
-    operational_action_allowed:
-      publicReleaseAllowed && record.release_stage === "operational-action",
+    requested_stage_structurally_consistent: requestedStageStructurallyConsistent,
+    structurally_eligible_for_external_authority_review:
+      structurallyEligibleForExternalAuthorityReview,
+    external_authority_required: publicStage,
+    public_release_authorized: false,
+    operational_action_authorized: false,
     blocking_gates: [...blockingGates].sort(),
     errors,
   };
 }
 
-export class PublicReleaseBlockedError extends Error {
+export class ReleaseReadinessBlockedError extends Error {
   constructor(assessment) {
-    super("Public release is blocked by governance validation.");
-    this.name = "PublicReleaseBlockedError";
+    super("The record is not structurally eligible for external authority review.");
+    this.name = "ReleaseReadinessBlockedError";
     this.assessment = assessment;
   }
 }
 
-export function issuePublicRelease(record) {
-  const assessment = assessPublicRelease(record);
-  if (!assessment.public_release_allowed) {
-    throw new PublicReleaseBlockedError(assessment);
+export function prepareExternalAuthorityReview(record) {
+  const assessment = assessReleaseReadiness(record);
+  if (!assessment.structurally_eligible_for_external_authority_review) {
+    throw new ReleaseReadinessBlockedError(assessment);
   }
   return {
     schema_version: "1.0.0",
+    status: "awaiting-external-authority-review",
     release_record_id: record.id,
     release_record_checksum: checksumJson(record),
-    release_stage: record.release_stage,
+    requested_release_stage: record.release_stage,
     artifact: structuredClone(record.artifact),
     operational_effect: record.operational_effect,
-    authorised_at: record.decision.decided_at,
-    approved_by: structuredClone(record.decision.approved_by),
+    public_release_authorized: false,
+    required_external_controls: [
+      "authenticated identity",
+      "scoped authority",
+      "signature verification",
+      "evidence-byte verification",
+      "expiry and revocation",
+      "deployment enforcement",
+    ],
   };
 }

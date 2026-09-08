@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -8,10 +9,12 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import {
-  assessPublicRelease,
-  issuePublicRelease,
-} from "../../governance/public-release-validation.mjs";
+import * as releaseValidation from "../../governance/public-release-validation.mjs";
+
+const {
+  assessReleaseReadiness,
+  prepareExternalAuthorityReview,
+} = releaseValidation;
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
@@ -25,8 +28,15 @@ const roundTwoRecordPath = join(
 );
 const schema = readJson(join(root, "governance", "schema", "public-release.schema.json"));
 const clone = (value) => structuredClone(value);
-const checksumFile = (path) =>
-  `sha256:${createHash("sha256").update(readFileSync(path)).digest("hex")}`;
+const checksumFrozenFile = (path) => {
+  const relativePath = path.slice(`${root}/`.length);
+  const bytes = execFileSync("git", ["show", `review/round-02:${relativePath}`], {
+    cwd: root,
+    encoding: "buffer",
+    maxBuffer: 20 * 1024 * 1024,
+  });
+  return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+};
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
@@ -69,12 +79,17 @@ function approveForConformance(record) {
 
 test("the honest shadow record is valid but cannot become a public release", () => {
   assert.equal(validateSchema(fixture), true, ajv.errorsText(validateSchema.errors));
-  const assessment = assessPublicRelease(fixture);
+  const assessment = assessReleaseReadiness(fixture);
   assert.equal(assessment.valid, true);
-  assert.equal(assessment.stage_allowed, true);
-  assert.equal(assessment.public_release_allowed, false);
-  assert.equal(assessment.operational_action_allowed, false);
-  assert.throws(() => issuePublicRelease(fixture), { name: "PublicReleaseBlockedError" });
+  assert.equal(assessment.requested_stage_structurally_consistent, true);
+  assert.equal(assessment.structurally_eligible_for_external_authority_review, false);
+  assert.equal(assessment.public_release_authorized, false);
+  assert.equal(assessment.operational_action_authorized, false);
+  assert.equal(assessment.external_authority_required, false);
+  assert.throws(
+    () => prepareExternalAuthorityReview(fixture),
+    { name: "ReleaseReadinessBlockedError" },
+  );
   assert.deepEqual(fixture.decision.approved_by, []);
 });
 
@@ -83,72 +98,84 @@ test("the round-two Observatory record pins real files and remains blocked", () 
   assert.equal(validateSchema(record), true, ajv.errorsText(validateSchema.errors));
   assert.equal(
     record.artifact.checksum,
-    checksumFile(join(root, "dashboard", "web", "index.html")),
+    checksumFrozenFile(join(root, "dashboard", "web", "index.html")),
   );
   assert.equal(
     record.sources[0].checksum,
-    checksumFile(join(root, "dashboard", "snapshots", "2026-09-07.json")),
+    checksumFrozenFile(join(root, "dashboard", "snapshots", "2026-09-07.json")),
   );
   assert.equal(
     record.evidence_register[0].checksum,
-    checksumFile(join(
+    checksumFrozenFile(join(
       root,
       "reviews",
       "public-comprehension-affected-party-protocol-round-04.md",
     )),
   );
 
-  const assessment = assessPublicRelease(record);
+  const assessment = assessReleaseReadiness(record);
   assert.equal(assessment.valid, true);
-  assert.equal(assessment.stage_allowed, true);
-  assert.equal(assessment.public_release_allowed, false);
+  assert.equal(assessment.requested_stage_structurally_consistent, true);
+  assert.equal(assessment.public_release_authorized, false);
   assert.deepEqual(assessment.blocking_gates, [...GATES].sort());
-  assert.throws(() => issuePublicRelease(record), { name: "PublicReleaseBlockedError" });
+  assert.throws(
+    () => prepareExternalAuthorityReview(record),
+    { name: "ReleaseReadinessBlockedError" },
+  );
 });
 
-test("a limited public signal requires every release gate and has no operational effect", () => {
+test("a syntactically complete public record is only eligible for external authority review", () => {
   const releasable = approveForConformance(fixture);
   assert.equal(validateSchema(releasable), true, ajv.errorsText(validateSchema.errors));
-  const assessment = assessPublicRelease(releasable);
+  const assessment = assessReleaseReadiness(releasable);
   assert.deepEqual(assessment, {
     valid: true,
-    stage_allowed: true,
-    public_release_allowed: true,
-    operational_action_allowed: false,
+    requested_stage_structurally_consistent: true,
+    structurally_eligible_for_external_authority_review: true,
+    external_authority_required: true,
+    public_release_authorized: false,
+    operational_action_authorized: false,
     blocking_gates: [],
     errors: [],
   });
-  const authorization = issuePublicRelease(releasable);
-  assert.equal(authorization.release_stage, "limited-public-signal");
-  assert.equal(authorization.operational_effect, false);
+  const packet = prepareExternalAuthorityReview(releasable);
+  assert.equal(packet.status, "awaiting-external-authority-review");
+  assert.equal(packet.requested_release_stage, "limited-public-signal");
+  assert.equal(packet.public_release_authorized, false);
+  assert.equal("authorised_at" in packet, false);
+  assert.equal("approved_by" in packet, false);
+  assert.equal("issuePublicRelease" in releaseValidation, false);
 
   const approvalWithoutApprover = clone(releasable);
   approvalWithoutApprover.decision.approved_by = [];
   assert.equal(validateSchema(approvalWithoutApprover), false);
-  assert.ok(assessPublicRelease(approvalWithoutApprover).errors.some(
+  assert.ok(assessReleaseReadiness(approvalWithoutApprover).errors.some(
     (error) => error.code === "PUBLICATION_APPROVER_MISSING",
   ));
   assert.throws(
-    () => issuePublicRelease(approvalWithoutApprover),
-    { name: "PublicReleaseBlockedError" },
+    () => prepareExternalAuthorityReview(approvalWithoutApprover),
+    { name: "ReleaseReadinessBlockedError" },
   );
 
   const missingGate = clone(releasable);
   delete missingGate.gates.challenge;
-  assert.ok(assessPublicRelease(missingGate).errors.some(
+  assert.ok(assessReleaseReadiness(missingGate).errors.some(
     (error) => error.code === "RELEASE_GATE_MISSING",
   ));
-  assert.throws(() => issuePublicRelease(missingGate), { name: "PublicReleaseBlockedError" });
+  assert.throws(
+    () => prepareExternalAuthorityReview(missingGate),
+    { name: "ReleaseReadinessBlockedError" },
+  );
 
   const noSources = clone(releasable);
   noSources.sources = [];
-  assert.ok(assessPublicRelease(noSources).errors.some(
+  assert.ok(assessReleaseReadiness(noSources).errors.some(
     (error) => error.code === "SOURCE_REGISTER_EMPTY",
   ));
 
   const hiddenGap = clone(releasable);
   hiddenGap.gates.uncertainty.gaps = ["A complete gate cannot hide this gap."];
-  assert.ok(assessPublicRelease(hiddenGap).errors.some(
+  assert.ok(assessReleaseReadiness(hiddenGap).errors.some(
     (error) => error.code === "COMPLETE_GATE_HAS_GAPS",
   ));
 
@@ -156,10 +183,17 @@ test("a limited public signal requires every release gate and has no operational
     const blocked = clone(releasable);
     blocked.gates[gateName].status = "incomplete";
     blocked.gates[gateName].gaps = ["Deliberately incomplete in this test."];
-    const result = assessPublicRelease(blocked);
-    assert.equal(result.public_release_allowed, false, `${gateName} did not block release`);
+    const result = assessReleaseReadiness(blocked);
+    assert.equal(
+      result.structurally_eligible_for_external_authority_review,
+      false,
+      `${gateName} did not block structural review readiness`,
+    );
     assert.ok(result.blocking_gates.includes(gateName));
-    assert.throws(() => issuePublicRelease(blocked), { name: "PublicReleaseBlockedError" });
+    assert.throws(
+      () => prepareExternalAuthorityReview(blocked),
+      { name: "ReleaseReadinessBlockedError" },
+    );
   }
 });
 
@@ -168,22 +202,22 @@ test("passing labels do not override pending, expired or stale evidence", () => 
   pendingChallenge.evidence_register.find(
     (item) => item.id === "review.challenge-mechanism",
   ).outcome = "pending";
-  assert.ok(assessPublicRelease(pendingChallenge).blocking_gates.includes("challenge"));
+  assert.ok(assessReleaseReadiness(pendingChallenge).blocking_gates.includes("challenge"));
 
   const expiredAuthority = approveForConformance(fixture);
   expiredAuthority.evidence_register.find(
     (item) => item.id === "review.publication-authority",
   ).valid_through = "2026-09-07T23:59:59Z";
-  assert.ok(assessPublicRelease(expiredAuthority).blocking_gates.includes("authority"));
+  assert.ok(assessReleaseReadiness(expiredAuthority).blocking_gates.includes("authority"));
 
   const staleSource = approveForConformance(fixture);
   staleSource.sources[0].vintage_date = "2026-01-01";
-  assert.ok(assessPublicRelease(staleSource).blocking_gates.includes("source_vintage"));
+  assert.ok(assessReleaseReadiness(staleSource).blocking_gates.includes("source_vintage"));
 
   const staleBeforeDelayedApproval = approveForConformance(fixture);
   staleBeforeDelayedApproval.decision.decided_at = "2026-10-02T01:00:00Z";
   assert.ok(
-    assessPublicRelease(staleBeforeDelayedApproval).blocking_gates.includes("source_vintage"),
+    assessReleaseReadiness(staleBeforeDelayedApproval).blocking_gates.includes("source_vintage"),
   );
 
   const incompleteAccessibilityReview = approveForConformance(fixture);
@@ -191,7 +225,7 @@ test("passing labels do not override pending, expired or stale evidence", () => 
     (item) => item.id === "review.accessibility",
   ).coverage = ["plain-language", "disability-access", "translation", "numeracy"];
   assert.ok(
-    assessPublicRelease(incompleteAccessibilityReview).blocking_gates.includes("accessibility"),
+    assessReleaseReadiness(incompleteAccessibilityReview).blocking_gates.includes("accessibility"),
   );
 });
 
@@ -206,29 +240,31 @@ test("an operational action needs separate action authority and a pinned action 
     version: "1.0.0",
     checksum: `sha256:${"6".repeat(64)}`,
   };
-  const assessment = assessPublicRelease(operational);
-  assert.equal(assessment.public_release_allowed, true);
-  assert.equal(assessment.operational_action_allowed, true);
+  const assessment = assessReleaseReadiness(operational);
+  assert.equal(assessment.structurally_eligible_for_external_authority_review, true);
+  assert.equal(assessment.public_release_authorized, false);
+  assert.equal(assessment.operational_action_authorized, false);
+  assert.equal(assessment.external_authority_required, true);
 
   const noActionAuthority = clone(operational);
   noActionAuthority.gates.authority.evidence_refs = ["review.publication-authority"];
-  assert.ok(assessPublicRelease(noActionAuthority).blocking_gates.includes("authority"));
+  assert.ok(assessReleaseReadiness(noActionAuthority).blocking_gates.includes("authority"));
 
   const noContract = clone(operational);
   delete noContract.action_contract;
-  assert.equal(assessPublicRelease(noContract).operational_action_allowed, false);
-  assert.ok(assessPublicRelease(noContract).errors.some(
+  assert.equal(assessReleaseReadiness(noContract).operational_action_authorized, false);
+  assert.ok(assessReleaseReadiness(noContract).errors.some(
     (error) => error.code === "OPERATIONAL_ACTION_CONTRACT_MISSING",
   ));
 
   const unpinnedContract = clone(operational);
   unpinnedContract.action_contract.checksum = "sha256:unverified";
-  assert.ok(assessPublicRelease(unpinnedContract).errors.some(
+  assert.ok(assessReleaseReadiness(unpinnedContract).errors.some(
     (error) => error.code === "ACTION_CONTRACT_REFERENCE_INVALID",
   ));
   assert.throws(
-    () => issuePublicRelease(unpinnedContract),
-    { name: "PublicReleaseBlockedError" },
+    () => prepareExternalAuthorityReview(unpinnedContract),
+    { name: "ReleaseReadinessBlockedError" },
   );
 });
 
@@ -237,49 +273,49 @@ test("release stage, circulation, decision and effect cannot contradict each oth
   internalApproval.release_stage = "internal-prototype";
   internalApproval.circulation = "internal";
   internalApproval.decision = approveForConformance(fixture).decision;
-  assert.ok(assessPublicRelease(internalApproval).errors.some(
+  assert.ok(assessReleaseReadiness(internalApproval).errors.some(
     (error) => error.code === "NONPUBLIC_STAGE_CANNOT_BE_APPROVED_FOR_PUBLICATION",
   ));
 
   const publicButRestricted = approveForConformance(fixture);
   publicButRestricted.circulation = "restricted";
-  assert.ok(assessPublicRelease(publicButRestricted).errors.some(
+  assert.ok(assessReleaseReadiness(publicButRestricted).errors.some(
     (error) => error.code === "RELEASE_STAGE_CIRCULATION_MISMATCH",
   ));
 
   const signalWithEffect = approveForConformance(fixture);
   signalWithEffect.operational_effect = true;
-  assert.ok(assessPublicRelease(signalWithEffect).errors.some(
+  assert.ok(assessReleaseReadiness(signalWithEffect).errors.some(
     (error) => error.code === "LIMITED_SIGNAL_CANNOT_HAVE_OPERATIONAL_EFFECT",
   ));
 
   const unpinnedArtifact = approveForConformance(fixture);
   unpinnedArtifact.artifact.checksum = "sha256:missing";
-  assert.ok(assessPublicRelease(unpinnedArtifact).errors.some(
+  assert.ok(assessReleaseReadiness(unpinnedArtifact).errors.some(
     (error) => error.code === "RELEASE_ARTIFACT_REFERENCE_INVALID",
   ));
   assert.throws(
-    () => issuePublicRelease(unpinnedArtifact),
-    { name: "PublicReleaseBlockedError" },
+    () => prepareExternalAuthorityReview(unpinnedArtifact),
+    { name: "ReleaseReadinessBlockedError" },
   );
 });
 
 test("semantic release validation rejects normalised and timezone-ambiguous dates", () => {
   const impossibleAssessment = clone(fixture);
   impossibleAssessment.assessed_at = "2026-02-30T00:30:00Z";
-  assert.ok(assessPublicRelease(impossibleAssessment).errors.some(
+  assert.ok(assessReleaseReadiness(impossibleAssessment).errors.some(
     (error) => error.code === "RELEASE_DATE_INVALID",
   ));
 
   const localTimeAssessment = clone(fixture);
   localTimeAssessment.assessed_at = "2026-09-08T00:30:00";
-  assert.ok(assessPublicRelease(localTimeAssessment).errors.some(
+  assert.ok(assessReleaseReadiness(localTimeAssessment).errors.some(
     (error) => error.code === "RELEASE_DATE_INVALID",
   ));
 
   const impossibleVintage = clone(fixture);
   impossibleVintage.sources[0].vintage_date = "2026-02-30";
-  const impossibleVintageResult = assessPublicRelease(impossibleVintage);
+  const impossibleVintageResult = assessReleaseReadiness(impossibleVintage);
   assert.ok(impossibleVintageResult.errors.some(
     (error) => error.code === "SOURCE_DATE_ORDER_INVALID",
   ));
@@ -287,7 +323,7 @@ test("semantic release validation rejects normalised and timezone-ambiguous date
 
   const impossibleEvidenceDate = approveForConformance(fixture);
   impossibleEvidenceDate.evidence_register[0].reviewed_at = "2026-02-30T00:00:00Z";
-  const impossibleEvidenceResult = assessPublicRelease(impossibleEvidenceDate);
+  const impossibleEvidenceResult = assessReleaseReadiness(impossibleEvidenceDate);
   assert.ok(impossibleEvidenceResult.blocking_gates.includes("authority"));
   assert.ok(impossibleEvidenceResult.errors.some(
     (error) => error.code === "REVIEW_EVIDENCE_DATE_INVALID",
