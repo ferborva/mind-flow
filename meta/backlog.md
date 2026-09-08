@@ -31,11 +31,10 @@ The three at the top are the ones that block writing. The rest can wait.
       scenarios and the dashboard does the diagnosis, but he said both things
       twenty minutes apart and never noticed. **The single most consequential
       open question in the repo.**
-- [ ] **Are the five condition categories his?** Price, permission, proximity,
-      availability, capability, plus the discretion split. They are mine. He
-      liked them and repeated them back with one name changed, which is adoption
-      and not authorship. Either he names his own set or he says use these, and
-      until then they cannot appear in his voice as his invention.
+- [x] **Are the five condition categories his?** Resolved 2026-09-08: "keep them
+      as mine now". Price, permission, proximity, availability, capability, with
+      discretion split out. They appear in his voice from here. Chain recorded
+      in `seeds/abundance-has-an-if.md`.
 - [x] **Piece one.** Drafted 2026-09-08 as `drafts/name-the-if.md`, round two as
       `drafts/every-if-is-somebodys-when.md`, outreach as
       `drafts/message-to-the-moonshot-mates.md`. Now needs his read.
@@ -71,6 +70,18 @@ The three at the top are the ones that block writing. The rest can wait.
       anything, called the answer a sermon, and moved on. Worth asking once,
       properly, because it decides how much of this is for him and how much is
       for them.
+
+### From the benchmark shrug, 2026-09-08
+
+- [ ] **Which measurements are worth announcing?** One step past his own point.
+      If a benchmark gain is a condition moving in a space nobody's life
+      sentence is written in, then the interesting question is which numbers
+      *would* land, and whether the industry could report those instead. It
+      would go down hard and well with that audience. His to make or drop.
+- [ ] **Does he want the reverse case in?** Some announcements really do move a
+      condition and still get shrugged at, because the person had no sentence
+      either way. That makes the frame prescriptive, not just diagnostic: go and
+      write your sentence first. Currently implied in the draft, not stated.
 
 ### From the three drafts, 2026-09-08
 

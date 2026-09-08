@@ -20,25 +20,27 @@ mine to make.
 ### abundance
 **Abundance is conditional, and the conditions are the argument.** Every promise
 of the form "you will be able to X" hides an "if" that decides who it applies
-to. Four captures in, it has moved from critique to proposal to transition
+to. Five captures in, it has moved from critique to proposal to transition
 design and now to method: name the conditions, measure the cost collapse, test
 whether prices fall faster than wages disappear, and run the same frame on
 whoever has to supply the thing.
 First seen: 2026-09-01-abundance-is-conditional
 Also in: 2026-09-07-deflation-metric-and-labour-paradox,
-2026-09-07-endorsing-the-red-team, 2026-09-08-abundance-frame-conversation
+2026-09-07-endorsing-the-red-team, 2026-09-08-abundance-frame-conversation,
+2026-09-08-the-benchmark-shrug
 Seeds: abundance-has-an-if, conditions-are-national, money-does-not-disappear,
 the-choice-belongs-to-enterprises, how-much-is-enough, everything-is-limited,
 the-zero-cost-count, the-free-labour-paradox, the-transmission-test,
 tell-me-your-conditions, run-the-frame-on-the-supplier,
 if-is-demand-when-is-supply, conditions-have-owners,
-agency-is-the-goal-conditions-are-the-signals, you-cannot-sequence-the-conditions
+agency-is-the-goal-conditions-are-the-signals, you-cannot-sequence-the-conditions,
+nobody-has-that-sentence
 Pieces: name-the-if (draft), every-if-is-somebodys-when (draft),
 abundance-has-an-if (draft), from-if-to-when (draft),
 message-to-the-moonshot-mates (correspondence)
 
-<!-- NOTE: active on the third capture, per the rule. Fifteen seeds and two long
-     drafts. This is plainly book-shaped, but the book rule wants 5+ POSTS and
+<!-- NOTE: active on the third capture, per the rule. Sixteen seeds, two long
+     drafts, two medium ones and a piece of correspondence. This is plainly book-shaped, but the book rule wants 5+ POSTS and
      there are zero. Holding. The shape to watch: critique, then metric, then
      transition, then method, which is a four-part arc and the last part is the
      one he now wants to publish first. -->
