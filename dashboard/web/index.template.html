@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abundance Transition Observatory</title>
 
 <style>
@@ -5,7 +10,7 @@
 :root{
   color-scheme: light;
   --plane:#eef1f5; --surface:#fbfcfd; --surface-2:#f3f6f9;
-  --ink:#0d1520; --ink-2:#4a5768; --ink-3:#77869a;
+  --ink:#0d1520; --ink-2:#4a5768; --ink-3:#5b6878;
   --grid:#e2e7ee; --axis:#c8d1dc; --rule:rgba(13,21,32,.12);
   --accent:#1d63b8; --accent-soft:rgba(42,120,214,.10);
   --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
@@ -17,7 +22,7 @@
   :root:not([data-theme="light"]){
     color-scheme: dark;
     --plane:#0b1017; --surface:#111823; --surface-2:#161f2c;
-    --ink:#e6edf6; --ink-2:#93a3b8; --ink-3:#6b7c90;
+    --ink:#e6edf6; --ink-2:#93a3b8; --ink-3:#758aa3;
     --grid:#1c2733; --axis:#2a3846; --rule:rgba(230,237,246,.13);
     --accent:#4d9bf0; --accent-soft:rgba(57,135,229,.14);
     --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
@@ -28,7 +33,7 @@
 :root[data-theme="dark"]{
   color-scheme: dark;
   --plane:#0b1017; --surface:#111823; --surface-2:#161f2c;
-  --ink:#e6edf6; --ink-2:#93a3b8; --ink-3:#6b7c90;
+  --ink:#e6edf6; --ink-2:#93a3b8; --ink-3:#758aa3;
   --grid:#1c2733; --axis:#2a3846; --rule:rgba(230,237,246,.13);
   --accent:#4d9bf0; --accent-soft:rgba(57,135,229,.14);
   --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
@@ -200,7 +205,7 @@ footer p{margin:0 0 8px}
 :root{
   color-scheme:dark;
   --plane:#050812;--surface:rgba(12,19,34,.88);--surface-2:rgba(18,29,49,.9);
-  --ink:#eef6ff;--ink-2:#a6b7c9;--ink-3:#70839a;
+  --ink:#eef6ff;--ink-2:#a6b7c9;--ink-3:#758aa3;
   --grid:rgba(125,162,195,.11);--axis:rgba(135,178,213,.25);--rule:rgba(148,188,220,.16);
   --accent:#67e8d2;--accent-soft:rgba(103,232,210,.11);
   --good:#67e8d2;--warning:#e9bd71;--serious:#f49372;--critical:#ff6b7a;
@@ -211,7 +216,7 @@ footer p{margin:0 0 8px}
 :root[data-theme="light"]{
   color-scheme:light;
   --plane:#eaf0f4;--surface:rgba(250,252,253,.94);--surface-2:#f1f6f8;
-  --ink:#0a1823;--ink-2:#40566a;--ink-3:#6b8194;
+  --ink:#0a1823;--ink-2:#40566a;--ink-3:#53697c;
   --grid:rgba(39,83,112,.10);--axis:rgba(39,83,112,.25);--rule:rgba(25,65,92,.16);
   --accent:#087f79;--accent-soft:rgba(8,127,121,.09);
   --good:#087f79;--warning:#996414;--serious:#b54b2c;--critical:#bd3043;
@@ -403,7 +408,24 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 @media(max-width:760px){.account-grid{grid-template-columns:1fr}}
 footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media print{
+  :root,:root[data-theme="light"],:root[data-theme="dark"]{
+    color-scheme:light;
+    --plane:#fff;--surface:#fff;--surface-2:#fff;
+    --ink:#000;--ink-2:#222;--ink-3:#444;--rule:#777;--shadow:none;
+  }
+  body{background:#fff}
+  .nav-shell,#theme-toggle,.controls{display:none!important}
+  .wrap{max-width:none;padding-left:0;padding-right:0}
+  .panel,.verdict,.path-card,.crisis-detail,.action-column,.condition-card,.account-card,.api{
+    box-shadow:none;break-inside:avoid;page-break-inside:avoid;
+  }
+  details:not([open]) > :not(summary){display:block!important}
+  a[href]::after{content:" (" attr(href) ")";overflow-wrap:anywhere}
+}
 </style>
+</head>
+<body>
 
 <header class="masthead"><div class="wrap">
   <div class="authority-strip" aria-label="Publication status">
@@ -1199,3 +1221,5 @@ window.addEventListener("resize",function(){ clearTimeout(window.__rt);
 renderAll();
 })();
 </script>
+</body>
+</html>

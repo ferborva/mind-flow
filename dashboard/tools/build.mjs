@@ -16,8 +16,65 @@ const schemaPath = resolve(dashboard, "schema", "snapshot.schema.json");
 
 function validateSemantics(snapshot) {
   const errors = [];
-  const entityIds = new Set((snapshot.entities || []).map(({ code }) => code));
-  const signalIds = new Set((snapshot.signals || []).map(({ id }) => id));
+  const entities = snapshot.entities || [];
+  const signals = snapshot.signals || [];
+  const entityIds = new Set(entities.map(({ code }) => code));
+  const signalIds = new Set(signals.map(({ id }) => id));
+  if (entityIds.size !== entities.length) errors.push("entity identifiers must be unique");
+  if (signalIds.size !== signals.length) errors.push("signal identifiers must be unique");
+
+  for (const signal of signals) {
+    for (const [seriesIndex, series] of (signal.series || []).entries()) {
+      if (!entityIds.has(series.entity)) {
+        errors.push(`signal ${signal.id} series ${seriesIndex} entity ${series.entity} is not declared`);
+      }
+      for (let pointIndex = 1; pointIndex < series.points.length; pointIndex += 1) {
+        if (series.points[pointIndex][0] <= series.points[pointIndex - 1][0]) {
+          errors.push(`signal ${signal.id} series ${seriesIndex} point years must be strictly increasing`);
+          break;
+        }
+      }
+    }
+
+    if (signal.latest) {
+      if (!entityIds.has(signal.latest.entity)) {
+        errors.push(`signal ${signal.id} latest entity ${signal.latest.entity} is not declared`);
+      }
+      const matchingSeries = (signal.series || []).filter(({ entity }) => entity === signal.latest.entity);
+      if (matchingSeries.length !== 1) {
+        errors.push(`signal ${signal.id} latest must identify exactly one series`);
+      } else {
+        const lastPoint = matchingSeries[0].points.at(-1);
+        if (!lastPoint || lastPoint[0] !== signal.latest.year || lastPoint[1] !== signal.latest.value) {
+          errors.push(`signal ${signal.id} latest must match its series last point`);
+        }
+      }
+    }
+  }
+
+  const headline = signals.find(({ id }) => id === "engels-divergence");
+  if (headline) {
+    const byEntity = new Map();
+    for (const series of headline.series || []) {
+      if (!byEntity.has(series.entity)) byEntity.set(series.entity, []);
+      byEntity.get(series.entity).push(series);
+    }
+    for (const [entity, series] of byEntity) {
+      const output = series.filter(({ measure }) => measure === "Output per capita");
+      const labour = series.filter(({ measure }) => measure === "Labour income per capita");
+      if (output.length !== 1 || labour.length !== 1) {
+        errors.push(`headline paired series for ${entity} must contain one output and one labour-income measure`);
+        continue;
+      }
+      const outputYears = output[0].points.map(([year]) => year);
+      const labourYears = labour[0].points.map(([year]) => year);
+      if (outputYears.length !== labourYears.length ||
+          outputYears.some((year, index) => year !== labourYears[index])) {
+        errors.push(`headline paired series for ${entity} must have aligned years`);
+      }
+    }
+  }
+
   const update = snapshot.public_update;
   if (update && !entityIds.has(update.scope.entity)) {
     errors.push(`public_update.scope.entity ${update.scope.entity} is not declared`);
@@ -57,6 +114,12 @@ function validateSemantics(snapshot) {
   if (update?.action?.authorization_state === "none" &&
       (update.action.owner || update.action.authority || update.action.help_route || update.action.appeal_route)) {
     errors.push("an unauthorised public update cannot claim an owner, authority, help route or appeal route");
+  }
+  if (["authorised", "active"].includes(update?.action?.authorization_state) &&
+      ["owner", "authority", "help_route", "appeal_route"].some((field) => !update.action[field])) {
+    errors.push(
+      "an authorised or active public update requires complete owner, authority, help route and appeal route metadata",
+    );
   }
   if (update?.next_check?.related_to_inference && (!update.next_check.on || !update.next_check.owner)) {
     errors.push("a next check linked to the inference requires a date and owner");

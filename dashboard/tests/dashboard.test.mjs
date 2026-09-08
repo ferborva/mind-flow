@@ -21,6 +21,75 @@ const buildPath = join(dashboard, "tools", "build.mjs");
 const template = readFileSync(templatePath, "utf8");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 
+function assertBuildRejects(value, inputPath, outputPath, expected) {
+  writeFileSync(inputPath, JSON.stringify(value));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, inputPath, outputPath], { stdio: "pipe" }),
+    expected,
+  );
+}
+
+function relativeLuminance(rgb) {
+  const channels = rgb.map((channel) => channel / 255);
+  const [red, green, blue] = channels.map((channel) =>
+    channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+  );
+  return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+}
+
+function contrast(foreground, background) {
+  const values = [relativeLuminance(foreground), relativeLuminance(background)].sort((a, b) => b - a);
+  return (values[0] + 0.05) / (values[1] + 0.05);
+}
+
+function cssValue(block, token) {
+  return block.match(new RegExp(`${token}:([^;]+)`, "i"))?.[1].trim();
+}
+
+function cssColour(value, backdrop = [255, 255, 255]) {
+  const hex = /^#([a-f0-9]{6})$/i.exec(value);
+  if (hex) return hex[1].match(/../g).map((channel) => parseInt(channel, 16));
+  const rgba = /^rgba\((\d+),(\d+),(\d+),([\d.]+)\)$/i.exec(value);
+  assert.ok(rgba, `unsupported CSS colour ${value}`);
+  const alpha = Number(rgba[4]);
+  return rgba.slice(1, 4).map((channel, index) =>
+    (Number(channel) * alpha) + (backdrop[index] * (1 - alpha))
+  );
+}
+
+test("the public dashboard has a complete accessible HTML shell and print basics", () => {
+  assert.match(template, /^<!doctype html>/i);
+  assert.match(template, /<html lang=["']en["']>/i);
+  assert.match(template, /<head>/i);
+  assert.match(template, /<meta charset=["']utf-8["']>/i);
+  assert.match(
+    template,
+    /<meta name=["']viewport["'] content=["']width=device-width, initial-scale=1["']>/i,
+  );
+  assert.match(template, /<body>/i);
+  assert.match(template, /@media print/i);
+  assert.match(template, /break-inside:\s*avoid/i);
+  assert.match(template, /<\/body>\s*<\/html>\s*$/i);
+});
+
+test("small secondary text tokens meet WCAG AA contrast on their surfaces", () => {
+  const rootBlocks = [...template.matchAll(/:root\{([^}]*)\}/gs)];
+  const dark = rootBlocks.at(-1)?.[1];
+  const light = [...template.matchAll(/:root\[data-theme="light"\]\{([^}]*)\}/gs)].at(-1)?.[1];
+  assert.ok(light && dark, "theme token blocks must be present");
+  for (const theme of [light, dark]) {
+    const plane = cssColour(cssValue(theme, "--plane"));
+    const foreground = cssColour(cssValue(theme, "--ink-3"), plane);
+    for (const surface of ["--plane", "--surface", "--surface-2"]) {
+      const background = cssColour(cssValue(theme, surface), plane);
+      assert.ok(
+        contrast(foreground, background) >= 4.5,
+        `${surface} secondary-text contrast must be at least 4.5:1`,
+      );
+    }
+  }
+});
+
 test("the observatory leads with status, public meaning, IFs, paths, action and evidence", () => {
   for (const id of [
     "now",
@@ -219,6 +288,75 @@ test("the JSON schema actually validates the current snapshot contract", () => {
   const malformed = structuredClone(snapshot);
   malformed.signals[0].status = "looks-good";
   assert.equal(validate(malformed), false, "invalid signal state must fail validation");
+
+  const unknownRootField = structuredClone(snapshot);
+  unknownRootField.internal_cohort_records = [{ name: "must not become public" }];
+  assert.equal(validate(unknownRootField), false, "unknown root fields must fail validation");
+
+  for (const unsafeUrl of ["http://example.test/source", "javascript:alert(1)"]) {
+    const unsafeSource = structuredClone(snapshot);
+    unsafeSource.signals[0].source.url = unsafeUrl;
+    assert.equal(validate(unsafeSource), false, `unsafe source URL must fail validation: ${unsafeUrl}`);
+  }
+});
+
+test("the build enforces series, headline, latest and action-authority semantics", () => {
+  const outDir = mkdtempSync(join(tmpdir(), "seldon-observatory-semantics-"));
+  const inputPath = join(outDir, "snapshot.json");
+  const outputPath = join(outDir, "index.html");
+
+  const unordered = structuredClone(snapshot);
+  unordered.signals[0].series[0].points.reverse();
+  assertBuildRejects(unordered, inputPath, outputPath, /semantic validation failed.*strictly increasing/i);
+
+  const duplicatePoint = structuredClone(snapshot);
+  duplicatePoint.signals[0].series[0].points.splice(
+    1,
+    0,
+    duplicatePoint.signals[0].series[0].points[0],
+  );
+  assertBuildRejects(duplicatePoint, inputPath, outputPath, /semantic validation failed.*strictly increasing/i);
+
+  const undeclaredSeriesEntity = structuredClone(snapshot);
+  undeclaredSeriesEntity.signals[0].series[0].entity = "UNDECLARED";
+  assertBuildRejects(undeclaredSeriesEntity, inputPath, outputPath, /semantic validation failed.*not declared/i);
+
+  const undeclaredLatestEntity = structuredClone(snapshot);
+  undeclaredLatestEntity.signals[0].latest.entity = "UNDECLARED";
+  assertBuildRejects(undeclaredLatestEntity, inputPath, outputPath, /semantic validation failed.*latest entity.*not declared/i);
+
+  const staleLatest = structuredClone(snapshot);
+  staleLatest.signals[0].latest.value += 1;
+  assertBuildRejects(staleLatest, inputPath, outputPath, /semantic validation failed.*latest.*last point/i);
+
+  const misalignedHeadline = structuredClone(snapshot);
+  const headline = misalignedHeadline.signals.find(({ id }) => id === "engels-divergence");
+  headline.series
+    .find(({ entity, measure }) => entity === "AUS" && measure === "Labour income per capita")
+    .points.pop();
+  assertBuildRejects(misalignedHeadline, inputPath, outputPath, /semantic validation failed.*headline.*aligned/i);
+
+  for (const authorizationState of ["authorised", "active"]) {
+    const incompleteAuthority = structuredClone(snapshot);
+    incompleteAuthority.public_update.action.authorization_state = authorizationState;
+    assertBuildRejects(
+      incompleteAuthority,
+      inputPath,
+      outputPath,
+      /semantic validation failed.*complete owner, authority, help route and appeal route/i,
+    );
+  }
+
+  const completeAuthority = structuredClone(snapshot);
+  Object.assign(completeAuthority.public_update.action, {
+    authorization_state: "active",
+    owner: "Named owner",
+    authority: "Recorded decision authority",
+    help_route: "https://example.test/help",
+    appeal_route: "https://example.test/appeal",
+  });
+  writeFileSync(inputPath, JSON.stringify(completeAuthority));
+  assert.doesNotThrow(() => execFileSync(process.execPath, [buildPath, inputPath, outputPath]));
 });
 
 test("the build produces a self-contained page with parseable application code", () => {

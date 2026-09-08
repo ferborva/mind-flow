@@ -48,7 +48,7 @@
       "additionalProperties": { "$ref": "#/$defs/playbook" }
     }
   },
-  "additionalProperties": true,
+  "additionalProperties": false,
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "nullableNonEmptyString": { "anyOf": [{ "$ref": "#/$defs/nonEmptyString" }, { "type": "null" }] },
@@ -265,7 +265,12 @@
       "required": ["name", "url", "retrieved"],
       "properties": {
         "name": { "type": "string" },
-        "url": { "type": "string" },
+        "url": {
+          "anyOf": [
+            { "const": "" },
+            { "type": "string", "format": "uri", "pattern": "^https://" }
+          ]
+        },
         "retrieved": { "type": "string" },
         "note": { "type": "string" }
       },
