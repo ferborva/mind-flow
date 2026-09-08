@@ -59,11 +59,14 @@ complete account of household welfare.
 The unit of success should be a person who can obtain a decent-living basket,
 not a product whose marginal cost happens to approach zero.
 
-> **Access = availability × affordability × eligibility × quality ×
-> delivery. If any factor is zero, access is zero.**
+> **Effective access requires availability, affordability, eligibility,
+> quality and delivery for the same service, population, place and period.**
 
-That multiplication matters. A free diagnosis that is illegal locally, too
-low-quality to trust, or unreachable without broadband does not count.
+Treat this as a service-level funnel. Multiplication is valid only if every
+stage is estimated as a compatible conditional probability with a common
+denominator. Otherwise it manufactures precision. A free diagnosis that is
+illegal locally, too low-quality to trust, or unreachable without broadband
+still does not count.
 
 ### The core measure: household access margin
 

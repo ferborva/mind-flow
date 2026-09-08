@@ -349,13 +349,12 @@ RESOLVED 2026-09-07 by research/2026-09-07-abundance-figures.md:
 STILL FOR FER, and the first one is now the big one:
 
 1. THE REMEDY NEEDS NEW REASONING. Nvidia and Alphabet's combined profit, spread
-   across humanity, is 8.3 cents per person per day. Lifting the 6.64bn people
-   below $30/day up to $30/day costs ~62% of global GDP. Redistribution is short
-   by a factor of twenty. His CONCLUSION (free services, cost to zero) survives
-   and is arguably the only thing that can work, but the argument that gets him
-   there has to change: not "companies should be generous" but "redistribution
-   is arithmetically impossible, so the cost has to collapse instead". That is a
-   substantive change to his argument and therefore his call, not mine.
+   across humanity, is about eight cents per person per day. **Correction,
+   2026-09-08:** the earlier 62%-of-GDP comparison assumed zero resources for
+   everybody below $30 and mixed PPP with nominal units. It is withdrawn. His
+   remedy needs a portfolio case covering lower costs, earnings, ownership,
+   transfers, public provision and institutional design. That is a substantive
+   change to his argument and therefore his call, not mine.
 2. NAMING. "The missing if" is still mine, not his.
 3. THE BAUMOL CARD, unplayed. Demonetisation is real for manufactured and
    digital goods and has failed completely for housing, healthcare and

@@ -78,8 +78,8 @@ a transparent scenario lab, and the underlying evidence.
 
 | Signal | Status | Source |
 |---|---|---|
-| The Engels divergence | derived | Output vs labour income per capita, both indexed |
-| The transmission gap | derived | Annual growth difference, in percentage points |
+| Aggregate labour-income transmission baseline | derived | Output vs constructed labour income per capita, both indexed |
+| Annual aggregate transmission gap | derived | Annual growth difference, in percentage points |
 | Labour share of GDP | measured | OWID / ILOSTAT, SDG 10.4.1 |
 | GDP per capita | measured | World Bank, NY.GDP.PCAP.KD |
 | Consumer price inflation | measured | World Bank, FP.CPI.TOTL.ZG |
@@ -121,19 +121,21 @@ change in labour share. Different units, and on the data the labour term
 contributed under 8%: **the headline was inflation in a costume, and it rendered
 FAILING in red against a comparison the data did not support.**
 
-Replaced with the Engels comparison, which is dimensionally consistent and is the
-test history actually ran. The answer changed: World 2004-2025 shows output per
-capita +44.3% against labour income per capita +40.8%, a 3.5 index-point gap.
-**Britain's was roughly ten times that. This is not an Engels' Pause.**
+Replaced with a dimensionally consistent aggregate baseline. World 2004-2025
+shows output per capita +44.3% against constructed labour income per capita
++40.8%, a 3.5 index-point gap. **That describes the aggregate series. It cannot
+establish or rule out an Engels-like experience for any cohort.** GDP per capita
+is not output per worker, and labour-share times real GDP is not a household
+real-wage series, so the historical comparison is motivation rather than a
+like-for-like test.
 
 The correction is stated on the page, not just here. See
 `research/2026-09-07-red-team-the-observatory.md`.
 
 ## Known limits
 
-- **No cohort cuts.** A national average can pass while a displaced cohort
-  fails. That is exactly what happened during Engels' Pause. This is the most
-  important missing thing.
+- **No cohort cuts.** A national average can obscure a displaced cohort. This is
+  the most important missing thing.
 - **Headline CPI is a poor stand-in** for a decent-living basket. The basket
   question is unresolved and it changes the transmission test's answer.
 - **Labour share reports with a long lag**, so recent years are thin and the

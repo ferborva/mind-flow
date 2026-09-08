@@ -30,6 +30,24 @@ test("the observatory leads from trajectory to crises, action and evidence", () 
   assert.match(template, /aria-live=["']polite["']/);
 });
 
+test("the self-contained public page has no remote font dependency", () => {
+  assert.doesNotMatch(template, /fonts\.googleapis\.com|fonts\.gstatic\.com/i);
+});
+
+test("public language does not turn imperfect proxies into verdicts", () => {
+  assert.doesNotMatch(template, /not yet an Engels['’] Pause/i);
+  assert.doesNotMatch(template, /10-point attention line/i);
+  assert.doesNotMatch(template, /choosing to work/i);
+
+  const participation = snapshot.signals.find((signal) => signal.id === "participation");
+  assert.match(participation.question, /labour.market participation/i);
+  assert.match(participation.caveats.join(" "), /does not reveal why/i);
+
+  const baseline = snapshot.signals.find((signal) => signal.id === "engels-divergence");
+  assert.match(baseline.name, /baseline/i);
+  assert.match(baseline.caveats.join(" "), /not.*like.for.like/i);
+});
+
 test("snapshot carries actionable crisis and actor contracts", () => {
   assert.match(snapshot.schema_version, /^1\.2\./);
   assert.ok(snapshot.crises.length >= 5);

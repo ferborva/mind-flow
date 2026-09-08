@@ -1,7 +1,4 @@
 <title>Seldon Observatory</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <style>
 /* ---------------------------------------------------------------- tokens */
@@ -411,6 +408,8 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
         <div class="access-factor"><b>Quality</b><span>Does it work?</span></div>
         <div class="access-factor"><b>Delivery</b><span>Can it reach me?</span></div>
       </div>
+      <p class="small-note"><strong>Read this as a service-level funnel, not a multiplication.</strong>
+        Each condition needs its own population, period, evidence and uncertainty before any composite can be valid.</p>
     </section>
 
     <section class="section" id="crisis-radar">
@@ -855,15 +854,14 @@ function renderScenario(){
   var og=Number(document.getElementById("output-growth").value), ig=Number(document.getElementById("income-growth").value);
   var years=Number(document.getElementById("horizon").value), out=[],inc=[];
   for(var y=0;y<=years;y++){out.push(100*Math.pow(1+og/100,y));inc.push(100*Math.pow(1+ig/100,y));}
-  var gap=inc[years-0]-out[years-0], severe=gap<=-10;
+  var gap=inc[years-0]-out[years-0];
   document.getElementById("output-growth-value").textContent=og.toFixed(1)+"% / year";
   document.getElementById("income-growth-value").textContent=ig.toFixed(1)+"% / year";
   document.getElementById("horizon-value").textContent=years+" years";
   document.getElementById("scenario-result").textContent=(gap>0?"+":"")+gap.toFixed(1)+" index points after "+years+" years";
-  document.getElementById("scenario-result").style.color=severe?css("--critical"):css("--ink");
-  document.getElementById("scenario-sub").textContent=severe?
-    "This scenario crosses the 10-point attention line. It is a prompt to prepare, not a prediction.":
-    "This scenario stays inside the 10-point attention line. Cohort harms may still be hidden.";
+  document.getElementById("scenario-result").style.color=css("--ink");
+  document.getElementById("scenario-sub").textContent=
+    "This is arithmetic under the chosen rates, not a probability or action threshold. Cohort outcomes may differ.";
   var NS="http://www.w3.org/2000/svg",svg=document.getElementById("scenario-chart");svg.innerHTML="";
   function mk(t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt)e.textContent=txt;return e;}
   var W=620,H=330,m={l:52,r:22,t:24,b:34},all=out.concat(inc),lo=Math.min.apply(null,all),hi=Math.max.apply(null,all);
@@ -940,10 +938,10 @@ function panel(sig){
 
 /* ------------------------------------------------------------------ render */
 var FAMILY = {
-  engels:{t:"The Engels test", d:"Output against what reaches people as labour income. Britain ran this from 1780 to 1840: output per worker +46%, real wages +12%. Fifty years."},
+  engels:{t:"Aggregate transmission baseline", d:"A descriptive comparison of output and constructed labour income per person. It identifies questions for cohort investigation, not whether a historical pause has begun."},
   conditions:{t:"The money condition", d:"How many people are on the wrong side of the if, before we start."},
   prices:{t:"The price channel", d:"Whether cost is actually collapsing where households feel it. The weakest instrumentation here, and the argument turns on it."},
-  labour:{t:"The labour channel", d:"Whether people are still choosing to work, and can."},
+  labour:{t:"The labour channel", d:"How paid-work participation and worker flows are changing, without inferring the reasons from an aggregate rate."},
   access:{t:"The access outcome", d:"Whether resources and usable public provision clear the local cost of a decent life."},
   power:{t:"The power channel", d:"Whether control of the productive frontier is becoming too concentrated to keep access contestable."},
   readiness:{t:"The delivery rail", d:"Whether protection can actually reach the right people before damage compounds."},
@@ -974,34 +972,32 @@ function renderVerdict(){
   }
 
   if(gap===null){
-    lft.appendChild(el("div","eyebrow","Engels test"));
+    lft.appendChild(el("div","eyebrow","Aggregate transmission baseline"));
     lft.appendChild(el("div","bigunit","Not available in this snapshot."));
     rt.appendChild(el("h2",null,"No headline signal in this snapshot."));
     v.appendChild(lft); v.appendChild(rt); return;
   }
 
-  var severe = gap < -10;               // Britain 1780-1840 was about -34
-  lft.appendChild(el("div","eyebrow","Engels gap · "+entName(ent)+" · "+span));
+  lft.appendChild(el("div","eyebrow","Aggregate baseline · "+entName(ent)+" · "+span));
   var n=el("div","bignum tnum",(gap>0?"+":"")+fmt(gap,1));
-  n.style.color = severe?css("--critical"):css("--ink");
+  n.style.color = css("--ink");
   lft.appendChild(n);
   lft.appendChild(el("div","bigunit","index points, labour income against output"));
-  var ch=el("span","chip "+(severe?"critical":"neutral")); ch.style.marginTop="14px";
+  var ch=el("span","chip neutral"); ch.style.marginTop="14px";
   ch.appendChild(el("span","dot"));
-  ch.appendChild(el("span",null,severe?"diverging":"tracking"));
+  ch.appendChild(el("span",null,"observed gap"));
   lft.appendChild(ch);
 
-  rt.appendChild(el("h2",null, severe
-    ? "Output and labour income have come apart."
-    : "Output and labour income are still tracking. This is not yet an Engels' Pause."));
+  rt.appendChild(el("h2",null, gap<0
+    ? "Constructed labour income grew "+fmt(Math.abs(gap),1)+" index points less than output in this aggregate baseline."
+    : "Constructed labour income grew "+fmt(gap,1)+" index points more than output in this aggregate baseline."));
   rt.appendChild(el("p",null,
-    "Britain 1780 to 1840: output per worker rose 46%, real wages 12%, and the profit rate "+
-    "doubled. Fifty years in which the people producing the growth did not see it. Then 1840 to "+
-    "1900 it inverted: output +90%, real wages +123%. The catch-up came a lifetime late."));
-  rt.appendChild(el("p",null, severe
-    ? "That is the pattern this reading is starting to resemble. The argument is no longer hypothetical."
-    : "So the honest reading is: the pause has not started. That is not reassurance, it is a baseline. "+
-      "This dashboard exists so that if it does start, we notice in the first few years rather than the fortieth."));
+    "This comparison uses real GDP per person and labour share to construct an aggregate labour-income series. "+
+    "It is not household purchasing power, a wage series, or a causal estimate of technology's effects."));
+  rt.appendChild(el("p",null,
+    "Engels' Pause remains a historical warning, not a like-for-like benchmark here. This aggregate can neither "+
+    "establish nor rule out harm to a cohort. That requires earnings, employment-flow, access and cost evidence "+
+    "for particular people and places."));
   var warn=el("p",null,
     "Correction: an earlier build of this page reported a \"transmission test\" that added price "+
     "inflation to the change in labour share. Those are different units, the labour term "+

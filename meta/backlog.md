@@ -67,12 +67,13 @@ script.
       closing section, which is a rewrite of the last third.
       Original framing of the problem: The combined profit
       of Nvidia and Alphabet, spread across humanity, is 8.3 cents per person per
-      day. Lifting everyone below $30/day to $30/day costs ~62% of global GDP.
-      Redistribution is short by a factor of twenty. His conclusion (free
-      services, cost to zero) survives and may be the only thing that can work,
-      but the route to it has to change: not "companies should be generous" but
-      "redistribution is impossible, so cost has to collapse". His call, because
-      it changes his argument.
+      day. **Correction, 2026-09-08:** the prior 62%-of-GDP comparison treated
+      everybody below $30 as having zero resources and mixed PPP with nominal
+      units. It is withdrawn. The World Bank 2025 nowcast reports a 54.92%
+      poverty gap at $30, implying about 49.4tn 2021 international dollars per
+      year as a perfect-targeting cash-equivalent shortfall, not a programme
+      budget. His remedy now needs a portfolio case rather than an "only cost
+      collapse works" claim. His call, because it changes his argument.
 - [ ] **The concept name.** Still open. "The missing if" is mine.
 - [ ] **The Baumol paragraph.** Demonetisation has worked for manufactured and
       digital goods and failed completely for housing, healthcare and education.

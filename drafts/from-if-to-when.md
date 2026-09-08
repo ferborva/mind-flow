@@ -11,7 +11,7 @@ research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026
 provenance: commissioned-proposal
 audience: the Moonshot Mates
 created: 2026-09-07
-updated: 2026-09-07
+updated: 2026-09-08
 ---
 
 <!-- PROVENANCE WARNING, read before doing anything with this file.
@@ -58,6 +58,11 @@ Do not promote this to posts/ until he has been through the marked sections.
 
 # From If to When
 
+> **Provenance note:** This is a Ren-authored commissioned proposal built on
+> Fernando's captured ideas. Fernando has not endorsed its phases, forecasts,
+> prescriptions or political choices. Those sections remain proposals for
+> review, not statements of his position.
+
 ## 🦅 TL;DR
 
 - My last piece argued that every abundance promise hides an **if**. This one
@@ -91,22 +96,31 @@ build anything. And the sentence is incomplete, because the real structure is
 If you have the money. If there is stock. If a supply chain reaches you. If it is
 legal where you live. If you are old enough. If you hold the certificate.
 
-Four in five people alive today live on less than $30 a day. When we say "you
-will be able to", we are, almost entirely, talking to the other fifth.
+The World Bank's 2025 nowcast estimates that four in five people live on less
+than $30 a day in 2021 international dollars. When we say "you will be able
+to", we risk talking mainly to the other fifth.
 
 I got one big thing wrong in that piece, and I want to correct it in public
 before I build on top of it.
 
 **I argued the companies hold the money, so the companies should choose to give
 it back.** Then someone did the arithmetic. Nvidia and Alphabet's combined net
-profit, spread across humanity, is **eight cents per person per day**. Lifting
-everyone below $30 a day up to $30 a day costs about **62% of global GDP**.
-Redistribution is not slightly short. It is short by a factor of twenty.
+profit, spread across humanity, is **about eight cents per person per day**.
+That comparison is illustrative, not a global financing denominator.
 
-So the moral framing was wrong. **The only arithmetic that closes a gap that size
-is the cost of a decent life falling, not the funding for it rising.** Which
-gets me to the same destination by a harder road, and makes the rest of this
-piece possible.
+The earlier research then made a worse mistake: it priced every person below
+$30 as if they had no income, mixed international-dollar poverty measures with
+nominal-dollar GDP, and called the result 62% of world output. The World Bank's
+2025 nowcast instead reports a 54.92% poverty gap at the $30 line. That implies a
+perfect-targeting cash-equivalent shortfall of about **49.4 trillion 2021
+international dollars a year**, before implementation, behaviour or general
+equilibrium effects. It cannot be compared directly with nominal world GDP.
+
+So the moral framing was still incomplete, but not for the reason first given.
+**Durable access needs a portfolio: lower real resource costs, stronger earnings
+and ownership, transfers, public provision, shorter required working time and
+institutions that distribute productive power.** Cost collapse is one powerful
+route. The evidence does not make it the only one.
 
 ## ⏳ The last time we ran this experiment
 
@@ -171,8 +185,9 @@ years. It is not a timer for this transition.
 
 ## 🔄 Why ADKAR, and where it breaks
 
-The reason I want a change framework here rather than an economic model is that
-the constraint is not technical. It is human, and humans move at a known rate.
+The reason I want a change framework beside the economic models is that the
+constraint is not only technical. People and institutions adapt at different,
+context-dependent rates, which this draft does not yet know how to forecast.
 
 ADKAR has five stages, and the whole point is that they are sequential:
 **Awareness, Desire, Knowledge, Ability, Reinforcement.** If any one is
@@ -367,8 +382,13 @@ household can actually use it.
 
 And zero cost is not enough on its own:
 
-> **Access = availability × affordability × eligibility × quality ×
-> delivery. If any factor is zero, access is zero.**
+> **Effective access requires availability, affordability, eligibility,
+> quality and delivery for the same service, population, place and period.**
+
+This is a service-level funnel, not yet a multiplication. Multiplying ordinal
+or unmatched measures would manufacture precision. Each stage needs a defined
+denominator, and the system should show the binding condition rather than hide
+it inside one composite.
 
 That gives us a control system rather than a collection of interesting numbers:
 
@@ -389,9 +409,8 @@ Every signal needs an owner, a response and a rehearsal date.
 
 Two notes on this.
 
-**A national average can pass while the displaced cohort fails.** That is
-precisely what happened during Engels' Pause. Every one of these needs a cohort
-and regional cut, not just a headline.
+**A national average can look stable while an exposed cohort deteriorates.**
+Every one of these needs a cohort and regional cut, not just a headline.
 
 **It cannot be one happy number.** As everything automatable deflates, the
 human-required residue can get relatively *more* expensive. The gap is not a
@@ -593,11 +612,14 @@ NEEDS HIS DECISION:
    advice to households and communities in his voice. He should read this one
    line by line before it goes anywhere.
 
-VERIFIED AND SAFE:
+VERIFIED OR BOUNDED:
 - Engels' Pause figures (Allen): +46%/+12% then +90%/+123%, profit rate doubled.
 - Factory Acts raising child-labour costs and accelerating steam adoption.
 - ADKAR five stages and the sequencing principle (Prosci, Hiatt 2003).
-- 8.3 cents/person/day, 62% of global GDP, four in five below $30/day.
+- Nvidia and Alphabet's combined profit is about 8.3 cents per person per day.
+- World Bank 2025 nowcast: 80.33% below $30 and a 54.92% poverty gap. The
+  implied cash-equivalent shortfall is about 49.4tn 2021 international dollars,
+  not a budget estimate and not directly comparable with nominal GDP.
 - All sourced in research/.
 
 STILL OPEN FROM EARLIER:

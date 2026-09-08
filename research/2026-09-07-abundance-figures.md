@@ -6,6 +6,7 @@ status: active
 themes: [abundance]
 supports: [2026-09-01-abundance-is-conditional, abundance-has-an-if]
 retrieved: 2026-09-07
+corrected: 2026-09-08
 ---
 
 # Fact-check and figures for the abundance rant
@@ -27,6 +28,10 @@ line. Retrieved 2026-09-07.
 - **The biggest finding is one that cuts against his own remedy.** See the last
   section. Redistributing the profits of the most profitable companies on earth
   yields about **8 cents per person per day.** The money is not there.
+- **Correction, 2026-09-08:** the original 62%-of-GDP comparison was invalid.
+  It treated every person below $30 as having zero resources and compared a
+  2021-PPP welfare quantity with nominal-dollar GDP. The corrected section
+  reports the World Bank poverty gap without making that unit error.
 
 ---
 
@@ -157,34 +162,49 @@ must choose to make the money flow. Test it arithmetically.
 Nvidia and Alphabet are two of the most profitable companies in history.
 Combined net profit: **$252.3bn a year, $691m a day.**
 
-Spread across 8.3 billion people:
+Spread across the World Bank's 2025 reporting population of 8.21 billion:
 
-> **$30.40 per person per year. Eight and a third cents a day.**
+> **About $30.73 per person per year. About eight cents a day.**
 
-Derived: $252.3bn ÷ 8.3bn people. Population from
-[Worldometer/IMF, 2026](https://www.worldometers.info/gdp/gdp-by-country/).
+Derived: $252.3bn ÷ 8.2106bn people.
 
-Widen it as far as you like and the shape does not change. To lift the 6.64bn
-people below $30/day up to $30/day would cost **$72.7 trillion a year, about 62%
-of global GDP** ($118.18tn, IMF WEO April 2026). That is not a redistribution
-problem. That is a production problem.
+The first version then multiplied $30 by every person below the line, as if each
+person had zero resources. That is not how poverty shortfalls are calculated.
+The relevant aggregate is the **poverty gap**, the mean shortfall from the line
+across the whole population, counting people above it as having zero shortfall.
 
-**Verdict: his diagnosis survives, his remedy does not, at least not as
-redistribution.** The `if` framing is untouched by this. What breaks is the
-implicit assumption that the profits of a handful of giants are the right
-denominator. They are three orders of magnitude short.
+The World Bank PIP 2025 nowcast at a user-set $30 line reports:
 
-But notice where that leaves him: **the only mechanism that closes a gap that
-size is the cost of the service collapsing toward zero, which is exactly what he
-proposes at the end with the Tesla gyms and the free clinics.** His conclusion is
-right. The reasoning that gets him there needs replacing. He should arrive at
-free services because redistribution is arithmetically impossible, not because
-companies ought to be generous.
+| Field | Value |
+|---|---:|
+| Reporting population | 8,210,628,737 |
+| Share below $30 | 80.33% |
+| Poverty gap | 54.92% |
+| People below $30 | 6,595,827,300 |
 
-That is a better piece than the one currently drafted.
+At face value, `0.5492 × $30 × 365 × 8.2106bn` gives a perfect-targeting
+cash-equivalent shortfall of about **49.4 trillion 2021 international dollars
+per year**. This is not a programme budget. It omits delivery costs, behavioural
+responses, price changes, public provision and general equilibrium effects.
+Most importantly, a 2021-PPP welfare quantity cannot be compared directly with
+nominal-dollar global GDP, so the prior **62% claim is withdrawn**.
 
-Source for global GDP: [IMF World Economic Outlook April 2026 via StatisticsTimes](https://statisticstimes.com/economy/world-gdp.php)
-($118.18tn for 2025).
+Sources: [World Bank PIP aggregate API, 2025 nowcast at $30](https://api.worldbank.org/pip/v1/pip-grp?group_by=wb&year=2025&povline=30&format=json),
+[World Bank poverty-gap definition](https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SI.POV.GAPS),
+[World Bank on PPP use and limits](https://datahelpdesk.worldbank.org/knowledgebase/articles/114945-why-are-some-series-shown-in-purchasing-power-pari).
+
+**Verdict: the two-company illustration cannot settle the policy question.**
+The `if` framing survives, while the remedy must be tested as a portfolio of
+real cost reduction, earnings, ownership, transfers, public provision and
+institutional change. Two firms' profits are not the denominator for any one of
+those pathways.
+
+Cost collapse remains a powerful mechanism because it reduces the recurring
+real resources needed for access. **The evidence does not establish it as the
+only mechanism.** Public provision, distribution, ownership and productive
+capacity determine whether lower technical cost becomes effective access.
+
+That makes a harder and more defensible piece than the one first drafted.
 
 ## 🩺 Belgium and Spain
 

@@ -106,7 +106,7 @@ SIGNAL_DEFS = [
         id="labour-share", name="Labour share of GDP", family="engels",
         unit="percent", precision=1, direction="up_is_good",
         question="Who is getting the gains?",
-        why_it_matters="The share of everything produced that reaches people as labour income. During Engels' Pause this fell while output soared.",
+        why_it_matters="The share of output recorded as labour income. It is one distributional indicator, not a measure of household access on its own.",
         trouble_reading="A sustained fall while output per person rises.",
         source=dict(name="Our World in Data / ILOSTAT (SDG 10.4.1)",
                     url="https://ourworldindata.org/grapher/labor-share-of-gdp",
@@ -117,8 +117,8 @@ SIGNAL_DEFS = [
         id="gdp-per-capita", name="GDP per capita", family="engels",
         unit="usd", precision=0, direction="up_is_good",
         question="Is output still growing?",
-        why_it_matters="The output side of the Engels comparison. Read against labour share, not on its own.",
-        trouble_reading="Rising steadily while labour share falls. That is the pause.",
+        why_it_matters="An aggregate output baseline. Read with distribution, household resources and access measures, never on its own.",
+        trouble_reading="Rising output alongside sustained cohort-level earnings or access deterioration.",
         source=dict(name="World Bank Open Data",
                     url="https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.PCAP.KD",
                     note="NY.GDP.PCAP.KD, constant 2015 US$"),
@@ -155,11 +155,11 @@ SIGNAL_DEFS = [
     dict(
         id="participation", name="Labour force participation rate", family="labour",
         unit="percent", precision=1, direction="neutral",
-        question="Are people still choosing to work?",
-        why_it_matters="The closest available proxy for the reservation-wage problem. If needs are met without work, this is where it shows first.",
-        trouble_reading="Falling in essential, human-required work while output holds up.",
-        caveats=["A blunt proxy. Participation falls for ageing and study as well as for choice.",
-                 "Does not distinguish the residue of human-required work from the rest."],
+        question="How is labour-market participation changing?",
+        why_it_matters="A broad measure of connection to paid labour. It can identify where more specific cohort and worker-flow evidence is needed.",
+        trouble_reading="A cohort-specific decline accompanied by involuntary non-participation, longer job searches or fewer desired hours.",
+        caveats=["This aggregate does not reveal why participation changed. Ageing, education, disability, discouraged work, care and preference can all move it.",
+                 "It cannot distinguish voluntary choice, automation effects or human-required work."],
         source=dict(name="World Bank Open Data / ILO modelled estimates",
                     url="https://api.worldbank.org/v2/country/WLD/indicator/SL.TLF.CACT.ZS",
                     note="SL.TLF.CACT.ZS, ages 15+"),
@@ -291,7 +291,7 @@ CRISES = [
     dict(
         id="displacement-cascade", name="The local displacement cascade", status="unscored",
         condition="Job loss clusters in an occupation or place while re-employment slows and replacement earnings fall.",
-        why_it_matters="National employment can look healthy while one community enters its own Engels' Pause.",
+        why_it_matters="National employment can look healthy while one community experiences concentrated loss and slow recovery.",
         movement="Sectoral mobilisation, resistance to automation and geographic decline hidden by averages.",
         communication="Name the affected cohort and give one reachable action with one accountable owner.",
         leading_signals=["transmission-gap", "participation", "transition-speed"],
@@ -443,7 +443,7 @@ def build(snapshot_id, retrieved):
         signals.append(sig)
         log.append(f"  by design  {sig['id']:20} not_measured")
 
-    # Derived: the Engels comparison, in both its cumulative and annual forms.
+    # Derived: an aggregate labour-income transmission baseline, in cumulative and annual forms.
     signals.extend(derive_engels(signals, retrieved, log))
 
     return {
@@ -465,7 +465,7 @@ def build(snapshot_id, retrieved):
 
 def derive_engels(signals, retrieved, log):
     """
-    The Engels test, done properly.
+    A dimensionally consistent aggregate transmission baseline.
 
     v1.0.0 shipped a "transmission test" that added consumer price inflation (a
     rate) to the change in labour share (a percentage-point change). Those are
@@ -480,7 +480,7 @@ def derive_engels(signals, retrieved, log):
         gap = growth(labour income pc) - growth(GDP pc), in percentage points
 
     Both sides are real, per capita, and growth rates. Dimensionally consistent,
-    and it is literally the Engels comparison.
+    and it provides a descriptive comparison of output and constructed labour income.
     """
     by_id = {s["id"]: s for s in signals}
     lab = {e["entity"]: dict(e["points"]) for e in by_id["labour-share"].get("series", [])}
@@ -518,31 +518,32 @@ def derive_engels(signals, retrieved, log):
         caveats=[
             "Labour income here is labour SHARE times output, so it includes an imputation for "
             "the self-employed. It is not a wage series.",
-            "A national average can pass while a displaced cohort fails. That is exactly what "
-            "happened during Engels' Pause, and there are no cohort cuts here.",
+            "A national average can obscure deterioration for a displaced cohort, and there "
+            "are no cohort cuts here.",
             "Labour share is reported with a long lag, so the most recent years rest on fewer "
             "countries than the chart implies.",
             "Excludes asset ownership, arguably a third channel, and the one that actually "
             "carried the wealthy through the last transition.",
+            "This is not a like-for-like reconstruction of Engels' Pause: GDP per capita is not "
+            "output per worker, and labour-share times real GDP is not a household real-wage series.",
         ])
 
-    div = dict(common, id="engels-divergence", name="The Engels divergence",
+    div = dict(common, id="engels-divergence", name="Aggregate labour-income transmission baseline",
         unit="index", precision=1,
-        question="Are output and labour income still moving together?",
-        why_it_matters=("Britain 1780-1840: output per worker rose 46%, real wages 12%. That gap "
-                        "is what a technological transition looks like from underneath. Both lines "
-                        "indexed to 100 at the base year: if they separate, the pause is here."),
-        trouble_reading="The lines separating and staying separated.",
+        question="Are aggregate output and labour income per person moving together?",
+        why_it_matters=("A descriptive distributional baseline. It can reveal aggregate divergence "
+                        "worth investigating, but cannot identify household welfare or exposed cohorts."),
+        trouble_reading="Sustained separation that remains after revisions and appears in cohort-level earnings and access measures.",
         method=("Real GDP per capita and real labour income per capita (labour share x real GDP "
                 "per capita), each indexed to 100 at the first year both series cover."),
         series=div_series)
 
-    gap = dict(common, id="transmission-gap", name="The transmission gap",
+    gap = dict(common, id="transmission-gap", name="Annual aggregate transmission gap",
         unit="pp", precision=2,
         question="Is labour income growing as fast as output?",
-        why_it_matters=("The annual version of the divergence, and the falsifiable form of the "
-                        "claim. Negative means output is outrunning what reaches people as labour "
-                        "income. Sustained negative is an Engels' Pause."),
+        why_it_matters=("The annual version of the aggregate baseline. Negative means the constructed "
+                        "labour-income series grew more slowly than real GDP per person. It is a prompt "
+                        "for cohort investigation, not a crisis verdict."),
         trouble_reading="Persistently below zero.",
         method=("Growth in real labour income per capita minus growth in real GDP per capita, in "
                 "percentage points. Both sides are real, per capita growth rates, so they are "

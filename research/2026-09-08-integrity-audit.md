@@ -83,6 +83,15 @@ This correction does not show that redistribution is sufficient. It shows that
 the current number cannot establish that it is insufficient by a factor of
 twenty.
 
+**Correction completed, 2026-09-08.** The official PIP aggregate endpoint for
+the 2025 World nowcast at a user-set $30 line reports a population of
+8,210,628,737, a headcount of 80.33%, and a poverty gap of 54.92%. Applying the
+definition gives `0.5492 × $30 × 365 × 8,210,628,737`, or about **49.4 trillion
+2021 international dollars per year** as a static, perfectly targeted
+cash-equivalent shortfall. It is not a programme budget and cannot be compared
+directly with nominal-dollar GDP. The query, assumptions and remaining limits
+are recorded in `research/2026-09-07-abundance-figures.md`.
+
 ### 2. Cost collapse as the only mechanism
 
 Even with corrected arithmetic, the conclusion that only falling cost can close

@@ -1,7 +1,7 @@
 {
  "schema_version": "1.2.0",
  "snapshot_id": "2026-09-07",
- "generated_at": "2026-09-07T12:15:10Z",
+ "generated_at": "2026-09-08T00:17:46Z",
  "generator": "fetch_snapshot.py@1.2.0",
  "title": "Signals toward the transition",
  "notes": "Transition-control snapshot. Every measured series comes straight from an open registry with no interpolation. Instrument gaps remain visible, and crisis states remain unscored until their leading signals and thresholds exist.",
@@ -51,7 +51,7 @@
    "precision": 1,
    "direction": "up_is_good",
    "question": "Who is getting the gains?",
-   "why_it_matters": "The share of everything produced that reaches people as labour income. During Engels' Pause this fell while output soared.",
+   "why_it_matters": "The share of output recorded as labour income. It is one distributional indicator, not a measure of household access on its own.",
    "trouble_reading": "A sustained fall while output per person rises.",
    "source": {
     "name": "Our World in Data / ILOSTAT (SDG 10.4.1)",
@@ -541,8 +541,8 @@
    "precision": 0,
    "direction": "up_is_good",
    "question": "Is output still growing?",
-   "why_it_matters": "The output side of the Engels comparison. Read against labour share, not on its own.",
-   "trouble_reading": "Rising steadily while labour share falls. That is the pause.",
+   "why_it_matters": "An aggregate output baseline. Read with distribution, household resources and access measures, never on its own.",
+   "trouble_reading": "Rising output alongside sustained cohort-level earnings or access deterioration.",
    "source": {
     "name": "World Bank Open Data",
     "url": "https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.PCAP.KD",
@@ -4232,12 +4232,12 @@
    "unit": "percent",
    "precision": 1,
    "direction": "neutral",
-   "question": "Are people still choosing to work?",
-   "why_it_matters": "The closest available proxy for the reservation-wage problem. If needs are met without work, this is where it shows first.",
-   "trouble_reading": "Falling in essential, human-required work while output holds up.",
+   "question": "How is labour-market participation changing?",
+   "why_it_matters": "A broad measure of connection to paid labour. It can identify where more specific cohort and worker-flow evidence is needed.",
+   "trouble_reading": "A cohort-specific decline accompanied by involuntary non-participation, longer job searches or fewer desired hours.",
    "caveats": [
-    "A blunt proxy. Participation falls for ageing and study as well as for choice.",
-    "Does not distinguish the residue of human-required work from the rest."
+    "This aggregate does not reveal why participation changed. Ageing, education, disability, discouraged work, care and preference can all move it.",
+    "It cannot distinguish voluntary choice, automation effects or human-required work."
    ],
    "source": {
     "name": "World Bank Open Data / ILO modelled estimates",
@@ -7213,17 +7213,18 @@
    },
    "caveats": [
     "Labour income here is labour SHARE times output, so it includes an imputation for the self-employed. It is not a wage series.",
-    "A national average can pass while a displaced cohort fails. That is exactly what happened during Engels' Pause, and there are no cohort cuts here.",
+    "A national average can obscure deterioration for a displaced cohort, and there are no cohort cuts here.",
     "Labour share is reported with a long lag, so the most recent years rest on fewer countries than the chart implies.",
-    "Excludes asset ownership, arguably a third channel, and the one that actually carried the wealthy through the last transition."
+    "Excludes asset ownership, arguably a third channel, and the one that actually carried the wealthy through the last transition.",
+    "This is not a like-for-like reconstruction of Engels' Pause: GDP per capita is not output per worker, and labour-share times real GDP is not a household real-wage series."
    ],
    "id": "engels-divergence",
-   "name": "The Engels divergence",
+   "name": "Aggregate labour-income transmission baseline",
    "unit": "index",
    "precision": 1,
-   "question": "Are output and labour income still moving together?",
-   "why_it_matters": "Britain 1780-1840: output per worker rose 46%, real wages 12%. That gap is what a technological transition looks like from underneath. Both lines indexed to 100 at the base year: if they separate, the pause is here.",
-   "trouble_reading": "The lines separating and staying separated.",
+   "question": "Are aggregate output and labour income per person moving together?",
+   "why_it_matters": "A descriptive distributional baseline. It can reveal aggregate divergence worth investigating, but cannot identify household welfare or exposed cohorts.",
+   "trouble_reading": "Sustained separation that remains after revisions and appears in cohort-level earnings and access measures.",
    "method": "Real GDP per capita and real labour income per capita (labour share x real GDP per capita), each indexed to 100 at the first year both series cover.",
    "series": [
     {
@@ -8180,16 +8181,17 @@
    },
    "caveats": [
     "Labour income here is labour SHARE times output, so it includes an imputation for the self-employed. It is not a wage series.",
-    "A national average can pass while a displaced cohort fails. That is exactly what happened during Engels' Pause, and there are no cohort cuts here.",
+    "A national average can obscure deterioration for a displaced cohort, and there are no cohort cuts here.",
     "Labour share is reported with a long lag, so the most recent years rest on fewer countries than the chart implies.",
-    "Excludes asset ownership, arguably a third channel, and the one that actually carried the wealthy through the last transition."
+    "Excludes asset ownership, arguably a third channel, and the one that actually carried the wealthy through the last transition.",
+    "This is not a like-for-like reconstruction of Engels' Pause: GDP per capita is not output per worker, and labour-share times real GDP is not a household real-wage series."
    ],
    "id": "transmission-gap",
-   "name": "The transmission gap",
+   "name": "Annual aggregate transmission gap",
    "unit": "pp",
    "precision": 2,
    "question": "Is labour income growing as fast as output?",
-   "why_it_matters": "The annual version of the divergence, and the falsifiable form of the claim. Negative means output is outrunning what reaches people as labour income. Sustained negative is an Engels' Pause.",
+   "why_it_matters": "The annual version of the aggregate baseline. Negative means the constructed labour-income series grew more slowly than real GDP per person. It is a prompt for cohort investigation, not a crisis verdict.",
    "trouble_reading": "Persistently below zero.",
    "method": "Growth in real labour income per capita minus growth in real GDP per capita, in percentage points. Both sides are real, per capita growth rates, so they are comparable. Replaces the v1.0.0 transmission test, which was not.",
    "series": [
@@ -8672,7 +8674,7 @@
    "name": "The local displacement cascade",
    "status": "unscored",
    "condition": "Job loss clusters in an occupation or place while re-employment slows and replacement earnings fall.",
-   "why_it_matters": "National employment can look healthy while one community enters its own Engels' Pause.",
+   "why_it_matters": "National employment can look healthy while one community experiences concentrated loss and slow recovery.",
    "movement": "Sectoral mobilisation, resistance to automation and geographic decline hidden by averages.",
    "communication": "Name the affected cohort and give one reachable action with one accountable owner.",
    "leading_signals": [
