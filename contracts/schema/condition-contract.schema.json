@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/condition-contract/1-0-0",
+  "title": "Seldon Observatory condition contract",
+  "description": "A versioned, scoped and auditable IF contract. Missing or disputed evidence is an explicit state, never an implicit false.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "summary",
+    "scope",
+    "predicates",
+    "gates",
+    "evaluation",
+    "evidence_catalog",
+    "governance"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "title": { "$ref": "#/$defs/nonEmptyString" },
+    "summary": { "$ref": "#/$defs/nonEmptyString" },
+    "scope": { "$ref": "#/$defs/scope" },
+    "predicates": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/id" },
+      "additionalProperties": { "$ref": "#/$defs/predicate" }
+    },
+    "gates": {
+      "type": "object",
+      "required": ["watch", "act", "pause", "reverse", "recover", "graduate"],
+      "properties": {
+        "watch": { "$ref": "#/$defs/expression" },
+        "act": { "$ref": "#/$defs/expression" },
+        "pause": { "$ref": "#/$defs/expression" },
+        "reverse": { "$ref": "#/$defs/expression" },
+        "recover": { "$ref": "#/$defs/expression" },
+        "graduate": { "$ref": "#/$defs/expression" }
+      },
+      "additionalProperties": false
+    },
+    "evaluation": { "$ref": "#/$defs/evaluation" },
+    "evidence_catalog": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidenceRecord" }
+    },
+    "governance": { "$ref": "#/$defs/governance" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "governance": {
+            "type": "object",
+            "properties": {
+              "lifecycle": { "enum": ["approved", "active", "paused"] }
+            },
+            "required": ["lifecycle"]
+          }
+        },
+        "required": ["governance"]
+      },
+      "then": {
+        "properties": {
+          "governance": {
+            "type": "object",
+            "properties": {
+              "approved_by": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "scope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services"],
+      "properties": {
+        "jurisdictions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "geographies": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "cohorts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "services": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["predicate_ref"],
+          "properties": { "predicate_ref": { "$ref": "#/$defs/id" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["all"],
+          "properties": {
+            "all": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/expression" }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["any"],
+          "properties": {
+            "any": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/expression" }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["not"],
+          "properties": { "not": { "$ref": "#/$defs/expression" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["unless"],
+          "properties": {
+            "unless": {
+              "type": "object",
+              "required": ["condition", "exception"],
+              "properties": {
+                "condition": { "$ref": "#/$defs/expression" },
+                "exception": { "$ref": "#/$defs/expression" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "predicate": {
+      "type": "object",
+      "required": ["signal_id", "operator", "threshold", "window", "evidence"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/id" },
+        "operator": {
+          "enum": [
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "eq",
+            "neq",
+            "change_gt",
+            "change_gte",
+            "change_lt",
+            "change_lte"
+          ]
+        },
+        "threshold": {
+          "type": "object",
+          "required": ["value", "unit", "rationale"],
+          "properties": {
+            "value": { "type": "number" },
+            "unit": { "$ref": "#/$defs/nonEmptyString" },
+            "rationale": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "window": {
+          "type": "object",
+          "required": ["lookback", "unit", "minimum_observations", "persistence"],
+          "properties": {
+            "lookback": { "type": "integer", "minimum": 1 },
+            "unit": { "enum": ["day", "week", "month", "quarter", "year"] },
+            "minimum_observations": { "type": "integer", "minimum": 1 },
+            "persistence": { "type": "integer", "minimum": 1 },
+            "maximum_age": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "object",
+          "required": [
+            "source_ids",
+            "minimum_sources",
+            "minimum_quality",
+            "require_uncertainty"
+          ],
+          "properties": {
+            "source_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/id" }
+            },
+            "minimum_sources": { "type": "integer", "minimum": 1 },
+            "minimum_quality": { "enum": ["exploratory", "provisional", "validated"] },
+            "require_uncertainty": { "type": "boolean" },
+            "minimum_probability": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "evaluation": {
+      "type": "object",
+      "required": ["state", "evaluated_at", "evidence_refs", "explanation"],
+      "properties": {
+        "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+        "evaluated_at": { "type": "string", "format": "date-time" },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "explanation": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceRecord": {
+      "type": "object",
+      "required": [
+        "id",
+        "source",
+        "retrieved_at",
+        "vintage",
+        "quality",
+        "uncertainty",
+        "licence"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "source": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "vintage": { "$ref": "#/$defs/nonEmptyString" },
+        "quality": { "enum": ["exploratory", "provisional", "validated"] },
+        "uncertainty": { "$ref": "#/$defs/nonEmptyString" },
+        "licence": { "$ref": "#/$defs/nonEmptyString" },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "owner": {
+      "type": "object",
+      "required": ["organisation", "role"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "required": ["organisation", "role", "approved_at"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" },
+        "approved_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "governance": {
+      "type": "object",
+      "required": [
+        "owner",
+        "lifecycle",
+        "approved_by",
+        "valid_from",
+        "expires_at",
+        "review_every"
+      ],
+      "properties": {
+        "owner": { "$ref": "#/$defs/owner" },
+        "lifecycle": { "enum": ["draft", "shadow", "approved", "active", "paused", "retired"] },
+        "approved_by": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/approval" }
+        },
+        "valid_from": { "type": "string", "format": "date-time" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "review_every": {
+          "type": "object",
+          "required": ["value", "unit"],
+          "properties": {
+            "value": { "type": "integer", "minimum": 1 },
+            "unit": { "enum": ["day", "week", "month", "quarter", "year"] }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

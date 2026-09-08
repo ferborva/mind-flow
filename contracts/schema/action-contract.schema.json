@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/action-contract/1-0-0",
+  "title": "Seldon Observatory action contract",
+  "description": "A reversible, funded and appealable action bound to one gate of a condition contract.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "condition_id",
+    "gate",
+    "required_condition_state",
+    "verb",
+    "object",
+    "rationale",
+    "lifecycle",
+    "owner",
+    "authority",
+    "funding",
+    "sla",
+    "appeal",
+    "reversibility",
+    "verification",
+    "communications",
+    "approved_by",
+    "valid_from",
+    "expires_at"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "condition_id": { "$ref": "#/$defs/id" },
+    "gate": { "$ref": "#/$defs/gate" },
+    "required_condition_state": { "const": "true" },
+    "verb": { "type": "string", "pattern": "^[a-z]+(?:-[a-z]+)*$" },
+    "object": { "$ref": "#/$defs/nonEmptyString" },
+    "rationale": { "$ref": "#/$defs/nonEmptyString" },
+    "lifecycle": { "enum": ["draft", "shadow", "approved", "active", "paused", "completed", "retired"] },
+    "owner": { "$ref": "#/$defs/owner" },
+    "authority": {
+      "type": "object",
+      "required": ["basis", "instrument", "constraints"],
+      "properties": {
+        "basis": { "$ref": "#/$defs/nonEmptyString" },
+        "instrument": { "$ref": "#/$defs/nonEmptyString" },
+        "reference": { "type": "string", "format": "uri" },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "funding": {
+      "type": "object",
+      "required": ["status", "source"],
+      "properties": {
+        "status": { "enum": ["secured", "conditional", "unfunded"] },
+        "source": { "$ref": "#/$defs/nonEmptyString" },
+        "amount": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "valid_through": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "sla": {
+      "type": "object",
+      "required": ["acknowledge_within", "activate_within", "update_every"],
+      "properties": {
+        "acknowledge_within": { "$ref": "#/$defs/duration" },
+        "activate_within": { "$ref": "#/$defs/duration" },
+        "update_every": { "$ref": "#/$defs/duration" }
+      },
+      "additionalProperties": false
+    },
+    "appeal": {
+      "type": "object",
+      "required": ["channel", "route", "acknowledge_within", "independent_reviewer"],
+      "properties": {
+        "channel": { "$ref": "#/$defs/nonEmptyString" },
+        "route": { "type": "string", "format": "uri" },
+        "acknowledge_within": { "$ref": "#/$defs/duration" },
+        "independent_reviewer": { "$ref": "#/$defs/owner" }
+      },
+      "additionalProperties": false
+    },
+    "reversibility": {
+      "type": "object",
+      "required": ["pause", "reverse", "recover", "graduate"],
+      "properties": {
+        "pause": { "const": "pause" },
+        "reverse": { "const": "reverse" },
+        "recover": { "const": "recover" },
+        "graduate": { "const": "graduate" }
+      },
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "required": ["outcome_signal_ids", "success", "review_within"],
+      "properties": {
+        "outcome_signal_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "success": { "$ref": "#/$defs/nonEmptyString" },
+        "review_within": { "$ref": "#/$defs/duration" }
+      },
+      "additionalProperties": false
+    },
+    "communications": {
+      "type": "object",
+      "required": ["audiences", "message", "help_route", "next_update_within"],
+      "properties": {
+        "audiences": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "message": { "$ref": "#/$defs/nonEmptyString" },
+        "help_route": { "type": "string", "format": "uri" },
+        "next_update_within": { "$ref": "#/$defs/duration" }
+      },
+      "additionalProperties": false
+    },
+    "approved_by": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/approval" }
+    },
+    "valid_from": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "lifecycle": { "enum": ["approved", "active", "paused", "completed"] }
+        },
+        "required": ["lifecycle"]
+      },
+      "then": {
+        "properties": {
+          "approved_by": { "type": "array", "minItems": 1 },
+          "funding": {
+            "type": "object",
+            "properties": { "status": { "const": "secured" } },
+            "required": ["status"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "gate": { "enum": ["watch", "act", "pause", "reverse", "recover", "graduate"] },
+    "owner": {
+      "type": "object",
+      "required": ["organisation", "role"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "required": ["organisation", "role", "approved_at"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" },
+        "approved_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "duration": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "integer", "minimum": 1 },
+        "unit": { "enum": ["hour", "day", "week", "month", "quarter", "year"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}
