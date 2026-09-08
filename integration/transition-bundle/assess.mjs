@@ -32,6 +32,7 @@ import {
   assessForecastIssueBasis,
   assertForecastSemantics,
 } from "../../forecasts/lib/registry.mjs";
+import { validateExecutableIfView } from "../../dashboard/tools/validate-executable-if-view.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = resolve(here, "../..");
@@ -127,7 +128,33 @@ function safeArtifact(ref, rootDir) {
   return { bytes, document: JSON.parse(bytes.toString("utf8")), path: realCandidate };
 }
 
-function validateDashboard(path) {
+function validateDashboard(document, path, context) {
+  if (["1.0.0", "1.1.0"].includes(document?.schema_version) && document?.view_id) {
+    const projectionSources = {};
+    for (const [role, reference] of Object.entries(document?.projection_sources || {})) {
+      try {
+        const loaded = safeArtifact(reference, context.rootDir);
+        projectionSources[role] = {
+          bytes: loaded.bytes,
+          document: loaded.document,
+          path: reference.path,
+          sha256: reference.sha256,
+        };
+      } catch {
+        projectionSources[role] = null;
+      }
+    }
+    const result = validateExecutableIfView(document, {
+      sourceKernel: sourceArtifact(context, "executable-if-kernel"),
+      projectionSources,
+    });
+    return {
+      valid: result.schema_conformant && result.source_verified &&
+        result.projection_sources_verified && result.semantic_valid,
+      detail: result.errors,
+      result,
+    };
+  }
   const temporary = mkdtempSync(join(tmpdir(), "mind-flow-dashboard-bundle-"));
   try {
     const result = spawnSync(process.execPath, [dashboardBuilder, path, join(temporary, "index.html")], {
@@ -214,8 +241,8 @@ function validateComponent(role, document, artifactPath, evaluatedAt, context = 
       };
     }
     if (role === "dashboard-snapshot") {
-      const result = validateDashboard(artifactPath);
-      return { valid: result.valid, result };
+      const result = validateDashboard(document, artifactPath, context);
+      return { valid: result.valid, result: result.result || result };
     }
     if (role === "forecast") {
       const schemaValid = validateForecastSchema(document);
@@ -263,7 +290,12 @@ function conditionIds(role, document, componentResult) {
     return (document.if_expressions || []).flatMap(({ content }) =>
       content?.condition_binding?.condition_id ? [content.condition_binding.condition_id] : []);
   }
-  if (role === "dashboard-snapshot") return (document.if_path?.conditions || []).map(({ id }) => id);
+  if (role === "dashboard-snapshot") {
+    if (Array.isArray(document.condition_views)) {
+      return document.condition_views.map(({ condition_id: id }) => id);
+    }
+    return (document.if_path?.conditions || []).map(({ id }) => id);
+  }
   if (role === "forecast") {
     return document.target?.condition_id ? [document.target.condition_id] : [];
   }
@@ -479,7 +511,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       documents.get(role),
       paths.get(role),
       bundle?.evaluation_clock?.evaluated_at,
-      { bytes, documents, refs },
+      { bytes, documents, refs, rootDir },
     );
     componentResults[role] = result.result;
     if (!result.valid) {
@@ -784,9 +816,16 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   }
 
   const dashboard = documents.get("dashboard-snapshot");
-  if (dashboard?.source_transition_bundle?.binding_state === "bound") {
-    const source = dashboard.source_transition_bundle;
-    if (source.bundle_id === bundle?.bundle_id) {
+  const executableProjectionSource = dashboard?.projection_sources?.["transition-bundle"];
+  const legacyProjectionSource = dashboard?.source_transition_bundle?.binding_state === "bound"
+    ? dashboard.source_transition_bundle
+    : null;
+  const dashboardSource = executableProjectionSource || legacyProjectionSource;
+  if (dashboardSource) {
+    const sourceBundleId = executableProjectionSource
+      ? dashboardSource.id
+      : dashboardSource.bundle_id;
+    if (sourceBundleId === bundle?.bundle_id) {
       referenceIntegrity = false;
       issues.push(issue(
         "DASHBOARD_DERIVATION_CYCLE",
@@ -795,23 +834,45 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       ));
     } else {
       try {
-        const loadedSource = safeArtifact(source, rootDir);
+        const loadedSource = safeArtifact(dashboardSource, rootDir);
         const sourceRoles = (loadedSource.document?.artifacts || [])
           .map(({ role }) => role)
           .sort();
         const expectedRoles = coreRoles(loadedSource.document)
           .filter((role) => role !== "dashboard-snapshot")
           .sort();
-        if (digest(loadedSource.bytes) !== source.sha256 ||
-            loadedSource.document?.bundle_id !== source.bundle_id ||
-            loadedSource.document?.schema_version !== source.schema_version ||
+        const retainedCoreFields = [
+          "schema_version",
+          "classification",
+          "as_of",
+          "evaluation_clock",
+          "authority_effect",
+          "publication_approved",
+          "action_authorised",
+          "canonical",
+          "scope_bindings",
+        ];
+        const sourceAssessment = loadedSource.document?.bundle_stage === "pre-projection-core"
+          ? assessTransitionBundle(loadedSource.document, { rootDir })
+          : { bundle_coherent: false };
+        const coreUnchanged = same(
+          loadedSource.document?.artifacts,
+          refs.filter(({ role }) => role !== "dashboard-snapshot"),
+        ) && retainedCoreFields.every((field) =>
+          same(loadedSource.document?.[field], bundle?.[field]));
+        if (digest(loadedSource.bytes) !== dashboardSource.sha256 ||
+            loadedSource.document?.bundle_id !== sourceBundleId ||
+            (legacyProjectionSource &&
+              loadedSource.document?.schema_version !== dashboardSource.schema_version) ||
             loadedSource.document?.bundle_stage !== "pre-projection-core" ||
-            !same(sourceRoles, expectedRoles)) {
+            !same(sourceRoles, expectedRoles) ||
+            !sourceAssessment.bundle_coherent ||
+            !coreUnchanged) {
           referenceIntegrity = false;
           issues.push(issue(
             "DASHBOARD_DERIVATION_INVALID",
             "dashboard-snapshot",
-            "a bound dashboard must resolve an exact six-artifact pre-projection core",
+            "a bound dashboard must resolve a coherent exact pre-projection core and add only itself",
           ));
         }
       } catch (error) {
@@ -820,7 +881,8 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       }
     }
   }
-  if (dashboard && !(dashboard.possible_path_refs || []).length) {
+  if (dashboard && !(dashboard.possible_path_refs || []).length &&
+      !dashboard?.projection_sources?.["possible-path"]) {
     issues.push(issue(
       "DASHBOARD_PATHS_UNRESOLVED",
       "dashboard-snapshot",

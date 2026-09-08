@@ -18,6 +18,12 @@ const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateSchema = ajv.compile(schema);
 const STATES = ["true", "false", "unknown", "stale", "conflicted"];
+const PROJECTION_ROLES = [
+  "transition-bundle",
+  "possible-path",
+  "preparation-register",
+  "forecast",
+];
 
 function issue(code, path, message, keyword = "semantic") {
   return { code, path, message, keyword };
@@ -55,6 +61,104 @@ function expectedSourceBinding(sourceKernel) {
     schema_version: kernel.schema_version,
     manifest_hash: kernel.manifest_hash,
   };
+}
+
+function sourceDocumentId(role, document) {
+  if (role === "transition-bundle") return document?.bundle_id;
+  if (role === "possible-path") return document?.path_id;
+  if (role === "preparation-register") return document?.register_id;
+  if (role === "forecast") return document?.id;
+  return undefined;
+}
+
+function retainedSourceValid(role, source, errors) {
+  const basePath = `/projection_sources/${role}`;
+  if (!(source?.bytes instanceof Uint8Array) || !source?.document ||
+      !source?.path || !source?.sha256) {
+    errors.push(issue(
+      "PROJECTION_SOURCE_UNRESOLVED",
+      basePath,
+      `the ${role} projection source requires retained bytes, document, path and digest`,
+    ));
+    return false;
+  }
+  const bytes = Buffer.from(source.bytes);
+  const actualSha256 = `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+  let retainedDocument;
+  try {
+    retainedDocument = JSON.parse(bytes.toString("utf8"));
+  } catch (error) {
+    errors.push(issue(
+      "PROJECTION_SOURCE_BYTES_INVALID",
+      basePath,
+      `retained ${role} bytes are not JSON: ${error.message}`,
+    ));
+    return false;
+  }
+  if (actualSha256 !== source.sha256 || !isDeepStrictEqual(retainedDocument, source.document)) {
+    errors.push(issue(
+      "PROJECTION_SOURCE_BYTES_MISMATCH",
+      basePath,
+      `the ${role} document or digest does not equal its retained bytes`,
+    ));
+    return false;
+  }
+  return true;
+}
+
+function projectionSourcesAssessment(view, sourceKernel, projectionSources, errors) {
+  if (view?.schema_version !== "1.1.0") return;
+  const resolved = new Map();
+  for (const role of PROJECTION_ROLES) {
+    const source = projectionSources?.[role];
+    const ref = view?.projection_sources?.[role];
+    if (!retainedSourceValid(role, source, errors)) continue;
+    const expected = {
+      role,
+      id: sourceDocumentId(role, source.document),
+      path: source.path,
+      sha256: source.sha256,
+    };
+    if (!isDeepStrictEqual(ref, expected)) {
+      errors.push(issue(
+        "PROJECTION_SOURCE_MISMATCH",
+        `/projection_sources/${role}`,
+        `the displayed ${role} reference must match its exact retained source`,
+      ));
+      continue;
+    }
+    resolved.set(role, source.document);
+  }
+
+  const bundle = resolved.get("transition-bundle");
+  const expectedArtifacts = [
+    ["possible-path", projectionSources?.["possible-path"]],
+    ["preparation-register", projectionSources?.["preparation-register"]],
+    ["forecast", projectionSources?.forecast],
+    ["executable-if-kernel", sourceKernel],
+  ];
+  const artifactRefs = new Map((bundle?.artifacts || []).map((ref) => [ref.role, ref]));
+  if (bundle?.schema_version !== "1.2.0" || bundle?.bundle_stage !== "pre-projection-core" ||
+      bundle?.artifacts?.length !== 7) {
+    errors.push(issue(
+      "PROJECTION_BUNDLE_INVALID",
+      "/projection_sources/transition-bundle",
+      "the view must derive from a seven-artifact Round 4 pre-projection core",
+    ));
+  }
+  for (const [role, source] of expectedArtifacts) {
+    if (!source || !isDeepStrictEqual(artifactRefs.get(role), {
+      role,
+      path: source.path,
+      sha256: source.sha256,
+    })) {
+      errors.push(issue(
+        "PROJECTION_BUNDLE_ARTIFACT_MISMATCH",
+        `/projection_sources/${role}`,
+        `the pre-projection bundle must retain the exact ${role} artifact`,
+      ));
+    }
+  }
 }
 
 function expectedClaimScope(definition) {
@@ -139,7 +243,7 @@ function forecastAssessment(view, index, errors) {
   }
 }
 
-export function validateExecutableIfView(view, { sourceKernel } = {}) {
+export function validateExecutableIfView(view, { sourceKernel, projectionSources } = {}) {
   const errors = [];
   const schemaConformant = validateSchema(view);
   if (!schemaConformant) {
@@ -152,6 +256,7 @@ export function validateExecutableIfView(view, { sourceKernel } = {}) {
   }
 
   const legendByState = legendAssessment(view, errors);
+  projectionSourcesAssessment(view, sourceKernel, projectionSources, errors);
   const kernel = sourceKernel?.document;
   let retainedDocument = null;
   if (!(sourceKernel?.bytes instanceof Uint8Array)) {
@@ -350,6 +455,34 @@ export function validateExecutableIfView(view, { sourceKernel } = {}) {
     forecastAssessment(conditionView, index, errors);
   }
 
+  if (view?.schema_version === "1.1.0" && projectionSources?.forecast?.document) {
+    const forecast = projectionSources.forecast.document;
+    const conditionView = (view.condition_views || [])
+      .find(({ condition_id: id }) => id === forecast.target?.condition_id);
+    const forecastView = conditionView?.forecast_context?.find(({ forecast_id: id }) =>
+      id === forecast.id);
+    const expected = {
+      forecast_id: forecast.id,
+      public_label: forecast.question,
+      probability: forecast.probability,
+      semantic_role: "forecast-probability-not-condition-truth",
+      condition_truth_effect: "none",
+      may_set_if_state: false,
+      issued_at: forecast.issued_at,
+      target_period: {
+        starts_at: forecast.target?.observation_window_start,
+        ends_at: forecast.target?.observation_window_end,
+      },
+    };
+    if (!forecastView || !isDeepStrictEqual(forecastView, expected)) {
+      errors.push(issue(
+        "FORECAST_PROJECTION_MISMATCH",
+        "/condition_views/forecast_context",
+        "displayed probability and target must equal the exact forecast source without setting IF truth",
+      ));
+    }
+  }
+
   const sourceErrorCodes = new Set([
     "SOURCE_KERNEL_INVALID",
     "SOURCE_KERNEL_UNRESOLVED",
@@ -359,9 +492,20 @@ export function validateExecutableIfView(view, { sourceKernel } = {}) {
     "SOURCE_DOCUMENT_MISMATCH",
     "SOURCE_BINDING_MISMATCH",
   ]);
+  const projectionErrorCodes = new Set([
+    "PROJECTION_SOURCE_UNRESOLVED",
+    "PROJECTION_SOURCE_BYTES_INVALID",
+    "PROJECTION_SOURCE_BYTES_MISMATCH",
+    "PROJECTION_SOURCE_MISMATCH",
+    "PROJECTION_BUNDLE_INVALID",
+    "PROJECTION_BUNDLE_ARTIFACT_MISMATCH",
+    "FORECAST_PROJECTION_MISMATCH",
+  ]);
   return {
     schema_conformant: schemaConformant,
     source_verified: !errors.some(({ code }) => sourceErrorCodes.has(code)),
+    projection_sources_verified: view?.schema_version !== "1.1.0" ||
+      !errors.some(({ code }) => projectionErrorCodes.has(code)),
     semantic_valid: errors.length === 0,
     state_legend: Object.fromEntries(legendByState),
     displayed_if_states: displayedIfStates,

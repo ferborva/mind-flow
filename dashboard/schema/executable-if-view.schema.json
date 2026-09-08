@@ -17,7 +17,7 @@
     "publication_approved"
   ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "enum": ["1.0.0", "1.1.0"] },
     "view_id": { "$ref": "#/$defs/id" },
     "generated_at": { "$ref": "#/$defs/instant" },
     "classification": { "const": "synthetic-research-fixture" },
@@ -35,11 +35,26 @@
       "minItems": 1,
       "items": { "$ref": "#/$defs/conditionView" }
     },
+    "projection_sources": { "$ref": "#/$defs/projectionSources" },
     "empirical_truth_established": { "const": false },
     "authority_effect": { "const": "none" },
     "action_authorised": { "const": false },
     "publication_approved": { "const": false }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "schema_version": { "const": "1.1.0" } },
+        "required": ["schema_version"]
+      },
+      "then": {
+        "required": ["projection_sources"],
+        "properties": {
+          "projection_sources": { "$ref": "#/$defs/projectionSources" }
+        }
+      }
+    }
+  ],
   "additionalProperties": false,
   "$defs": {
     "id": {
@@ -96,6 +111,49 @@
           "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
         },
         "manifest_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "projectionSource": {
+      "type": "object",
+      "required": ["role", "id", "path", "sha256"],
+      "properties": {
+        "role": {
+          "enum": ["transition-bundle", "possible-path", "preparation-register", "forecast"]
+        },
+        "id": { "$ref": "#/$defs/id" },
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+        },
+        "sha256": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "projectionSource": {
+      "type": "object",
+      "required": ["role", "id", "path", "sha256"],
+      "properties": {
+        "role": {
+          "enum": ["transition-bundle", "possible-path", "preparation-register", "forecast"]
+        },
+        "id": { "$ref": "#/$defs/id" },
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+        },
+        "sha256": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "projectionSources": {
+      "type": "object",
+      "required": ["transition-bundle", "possible-path", "preparation-register", "forecast"],
+      "properties": {
+        "transition-bundle": { "$ref": "#/$defs/projectionSource" },
+        "possible-path": { "$ref": "#/$defs/projectionSource" },
+        "preparation-register": { "$ref": "#/$defs/projectionSource" },
+        "forecast": { "$ref": "#/$defs/projectionSource" }
       },
       "additionalProperties": false
     },
