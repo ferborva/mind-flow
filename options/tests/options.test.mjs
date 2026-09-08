@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { evaluateGates, proposeTransition } from "../../contracts/evaluator.mjs";
 import {
   assertConditionalOption,
   checksumJson,
@@ -44,20 +45,6 @@ function hasCode(result, code) {
   return result.errors.some((error) => error.code === code);
 }
 
-function gateEligibility(overrides = {}) {
-  return {
-    evaluation_id: "evaluation.au-clerical-access-margin.2026-09-08",
-    condition_definition_ref: structuredClone(validOption.condition_definition_ref),
-    gate_ref: `#/gates/${validOption.bound_gate}`,
-    truth_state: "true",
-    eligibility_state: "eligible",
-    eligibility_basis: "candidate-phase",
-    authorisation_effect: "none",
-    evaluated_at: "2026-09-08T00:00:00Z",
-    ...overrides,
-  };
-}
-
 function dissentRecord(overrides = {}) {
   return {
     id: "dissent.worker-consent",
@@ -77,10 +64,52 @@ const schema = readJson(join(options, "schema", "conditional-option.schema.json"
 const conditionSchema = readJson(join(repository, "contracts", "schema", "condition-contract.schema.json"));
 const validOption = readJson(join(options, "fixtures", "option.valid.json"));
 const condition = readJson(join(repository, "contracts", "fixtures", "condition.valid.json"));
+const observations = readJson(join(repository, "contracts", "fixtures", "observations.valid.json"));
+const completedRun = readJson(join(repository, "contracts", "fixtures", "evaluation-run.valid.json"));
+const failedAttempt = readJson(join(repository, "contracts", "fixtures", "evaluation-attempt.failed.valid.json"));
 const asOf = "2026-09-08T00:00:00Z";
+
+function safeEvaluationBundle(definition = condition) {
+  const safeObservations = structuredClone(observations);
+  const definitionReference = {
+    id: definition.id,
+    version: definition.definition_version,
+    checksum: checksumJson(definition),
+  };
+  for (const observation of safeObservations) {
+    observation.condition_definition = structuredClone(definitionReference);
+  }
+  const harm = safeObservations.find(({ predicate_ref: ref }) => ref === "harm-material");
+  harm.state = "false";
+  harm.state_probability = 0.99;
+  harm.reason = "Both synthetic reviews are below the declared material-harm threshold.";
+  const states = Object.fromEntries(
+    safeObservations.map(({ predicate_ref: ref, state }) => [ref, state]),
+  );
+  const evaluated = evaluateGates(definition, states);
+  const evaluationRun = structuredClone(completedRun);
+  evaluationRun.id = "evaluation.au-clerical-access-margin.safe.20260908t0000z";
+  evaluationRun.condition_definition = structuredClone(definitionReference);
+  evaluationRun.predicate_results = Object.fromEntries(safeObservations.map((observation) => [
+    observation.predicate_ref,
+    {
+      observation_id: observation.id,
+      state: observation.state,
+      reason: observation.reason,
+    },
+  ]));
+  evaluationRun.gate_results = evaluated.gates;
+  evaluationRun.condition_resolution = evaluated.condition_resolution;
+  evaluationRun.transition_proposal = proposeTransition(
+    evaluated,
+    evaluationRun.lifecycle_context.prior_state,
+  );
+  return { observations: safeObservations, evaluation_run: evaluationRun };
+}
+
 const settings = Object.freeze({
   condition,
-  gate_eligibility: gateEligibility(),
+  evaluation_bundle: safeEvaluationBundle(),
   as_of: asOf,
 });
 const attacksDirectory = join(options, "fixtures", "attacks");
@@ -147,58 +176,55 @@ test("condition semantic governance and time bounds fail closed", () => {
   }), "CONDITION_EXPIRED"));
 });
 
-test("one bound gate requires eligible, explicitly non-authorising evaluation input", () => {
+test("one bound gate requires a completed, reproducible, non-authorising evaluation bundle", () => {
   assert.equal(validOption.bound_gate, "act");
 
   const missing = validateConditionalOption(validOption, { condition, as_of: asOf });
-  assert.ok(hasCode(missing, "MISSING_GATE_ELIGIBILITY"));
+  assert.ok(hasCode(missing, "MISSING_EVALUATION_BUNDLE"));
 
-  const wrongGate = validateConditionalOption(validOption, {
-    ...settings,
-    gate_eligibility: gateEligibility({ gate_ref: "#/gates/watch" }),
+  const failed = validateConditionalOption(validOption, {
+    condition,
+    evaluation_bundle: {
+      observations: structuredClone(observations),
+      evaluation_run: structuredClone(failedAttempt),
+    },
+    as_of: failedAttempt.recorded_at,
   });
-  assert.ok(hasCode(wrongGate, "GATE_ELIGIBILITY_MISMATCH"));
+  assert.ok(hasCode(failed, "EVALUATION_RUN_SCHEMA_INVALID"));
 
   const ineligible = validateConditionalOption(validOption, {
-    ...settings,
-    gate_eligibility: gateEligibility({ eligibility_state: "ineligible" }),
+    condition,
+    evaluation_bundle: {
+      observations: structuredClone(observations),
+      evaluation_run: structuredClone(completedRun),
+    },
+    as_of: asOf,
   });
+  assert.ok(hasCode(ineligible, "GATE_NOT_TRUE"));
   assert.ok(hasCode(ineligible, "GATE_NOT_ELIGIBLE"));
 
-  const authorising = validateConditionalOption(validOption, {
-    ...settings,
-    gate_eligibility: gateEligibility({ authorisation_effect: "authorised" }),
-  });
-  assert.ok(hasCode(authorising, "GATE_ELIGIBILITY_AUTHORISING"));
-
-  const wrongBasis = validateConditionalOption(validOption, {
-    ...settings,
-    gate_eligibility: gateEligibility({ eligibility_basis: "safety-pause" }),
-  });
-  assert.ok(hasCode(wrongBasis, "GATE_ELIGIBILITY_BASIS_MISMATCH"));
-
+  const futureBundle = safeEvaluationBundle();
+  futureBundle.evaluation_run.evaluated_at = "2026-09-09T00:00:00Z";
   const future = validateConditionalOption(validOption, {
-    ...settings,
-    gate_eligibility: gateEligibility({ evaluated_at: "2099-01-01T00:00:00Z" }),
+    condition,
+    evaluation_bundle: futureBundle,
+    as_of: asOf,
   });
   assert.ok(hasCode(future, "FUTURE_GATE_EVALUATION"));
 });
 
-test("the caller-supplied gate trust boundary is explicit in contracts and documentation", () => {
+test("the completed evaluation trust boundary is explicit in contracts and documentation", () => {
   const readme = readFileSync(join(options, "README.md"), "utf8");
-  assert.match(schema.description, /caller-supplied.*non-authorising.*not.*fact or authority/i);
-  assert.match(readme, /caller-supplied/i);
-  assert.match(readme, /not an evaluated fact/i);
+  assert.match(schema.description, /non-authorising/i);
+  assert.match(readme, /completed evaluation bundle/i);
+  assert.match(readme, /content-validated.*externally unverified/i);
   assert.match(readme, /does not prove authority/i);
 });
 
 test("gate policy governs verbs, object classes and in-scope services", () => {
   const watchProtection = structuredClone(validOption);
   watchProtection.bound_gate = "watch";
-  const watchResult = validateConditionalOption(watchProtection, {
-    ...settings,
-    gate_eligibility: gateEligibility({ gate_ref: "#/gates/watch" }),
-  });
+  const watchResult = validateConditionalOption(watchProtection, settings);
   assert.ok(hasCode(watchResult, "GATE_ACTION_NOT_ALLOWED"));
 
   const studyAtAct = structuredClone(validOption);
@@ -252,12 +278,9 @@ test("option expiry is capped by both condition expiry and a 180-day TTL", () =>
   shortCondition.governance.expires_at = "2027-02-01T00:00:00Z";
   const conditionBoundOption = structuredClone(validOption);
   conditionBoundOption.condition_definition_ref.checksum = checksumJson(shortCondition);
-  const conditionBoundEligibility = gateEligibility({
-    condition_definition_ref: structuredClone(conditionBoundOption.condition_definition_ref),
-  });
   assert.ok(hasCode(validateConditionalOption(conditionBoundOption, {
     condition: shortCondition,
-    gate_eligibility: conditionBoundEligibility,
+    evaluation_bundle: safeEvaluationBundle(shortCondition),
     as_of: asOf,
   }), "OPTION_EXCEEDS_CONDITION_EXPIRY"));
 });
@@ -282,7 +305,7 @@ test("dissent is deduplicated and blocking consent or rights dissent withholds o
     const record = renderConditionalOption(blocked, settings);
     assert.equal(record.publication_state, "withheld", concern);
     assert.match(record.text, /^\[WITHHELD; AGENT-PROPOSED OPTION, NOT AUTHORISED;/);
-    assert.match(record.text, new RegExp(`blocking ${concern} dissent`, "i"));
+    assert.match(record.text, new RegExp(`${concern} dissent`, "i"));
     assert.doesNotMatch(record.text, /could consider an option/i);
     assert.deepEqual(record.dissent, blocked.dissent);
   }
@@ -294,36 +317,52 @@ test("dissent is deduplicated and blocking consent or rights dissent withholds o
   };
   const record = renderConditionalOption(surfaced, settings);
   assert.equal(record.publication_state, "candidate-only");
-  assert.match(record.text, /Dissent recorded: evidence by candidate\.actor\.clerical-workers/i);
+  assert.match(record.text, /caller-supplied unverified dissent assertion: evidence by candidate\.actor\.clerical-workers/i);
   assert.deepEqual(record.dissent, surfaced.dissent);
 });
 
 test("renderer returns one atomic public record with bound refs and a verifiable digest", () => {
   const record = renderConditionalOption(validOption, settings);
   assert.deepEqual(Object.keys(record).sort(), [
+    "action",
     "actor_ref",
+    "assertion_trust",
+    "authorisation_state",
+    "claim_class",
     "condition_ref",
+    "cross_actor_dependencies",
     "dissent",
     "expires_at",
+    "expiry_effect",
     "gate_ref",
-    "option_id",
+    "gate_requirements",
+    "option_ref",
     "output_digest",
+    "protected_outcome",
+    "provenance",
     "publication_state",
+    "readiness_dependencies",
     "record_version",
+    "review",
     "scope_ref",
     "text",
   ]);
+  assert.equal(record.record_version, "2.0.0");
+  assert.equal(record.option_ref.id, validOption.id);
+  assert.equal(record.option_ref.version, validOption.option_version);
+  assert.equal(record.option_ref.checksum, checksumJson(validOption));
   assert.equal(record.actor_ref.id, validOption.actor_ref);
   assert.deepEqual(record.condition_ref, validOption.condition_definition_ref);
   assert.equal(record.gate_ref.path, "#/gates/act");
   assert.equal(record.gate_ref.authorisation_effect, "none");
+  assert.equal(record.gate_ref.evaluation_ref.trust_state, "content-validated-unverified");
   assert.deepEqual(record.scope_ref.scope, condition.scope);
   assert.equal(record.scope_ref.checksum, checksumJson(condition.scope));
   const { output_digest: outputDigest, ...unsigned } = record;
   assert.equal(outputDigest, checksumJson(unsigned));
   assert.match(record.text, /^\[AGENT-PROPOSED OPTION, NOT AUTHORISED;/);
   assert.match(record.text, /could consider an option to protect income, housing and healthcare continuity/);
-  assert.match(record.text, /eligible gate evaluation is non-authorising/i);
+  assert.match(record.text, /content-validated but externally unverified and non-authorising/i);
   assert.doesNotMatch(record.text, /\b(must|will|shall|now|immediately)\b/i);
   assert.equal(Object.hasOwn(record, "wording"), false);
 });
@@ -375,7 +414,10 @@ test("all previously successful hostile counterexamples are regression-closed", 
   assert.ok(hasCode(validateConditionalOption(globalScope, settings), "CONDITION_SCOPE_MISMATCH"));
 
   assert.throws(
-    () => renderConditionalOption(validOption, { condition, gate_eligibility: settings.gate_eligibility }),
+    () => renderConditionalOption(validOption, {
+      condition,
+      evaluation_bundle: settings.evaluation_bundle,
+    }),
     /MISSING_AS_OF/,
     "expired records cannot exploit an omitted clock",
   );

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mind-flow.org/options/conditional-option/1-2-0",
   "title": "Agent-proposed conditional option",
-  "description": "A closed, non-authorising proposal record. Caller-supplied gate eligibility is content-bound and non-authorising. It is not an evaluated fact or authority.",
+  "description": "A closed, non-authorising proposal record. Compilation requires a completed, reproducible evaluation bundle whose externally unverified result grants no authority.",
   "type": "object",
   "required": [
     "schema_version",
