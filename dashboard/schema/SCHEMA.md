@@ -1,6 +1,6 @@
 # The snapshot contract
 
-**Version 2.0.0**
+**Version 2.1.0**
 
 The Observatory renders a frozen, validated snapshot. It does not query data
 providers in the browser.
@@ -26,12 +26,15 @@ authority, provenance, scope or uncertainty.
 | New required decision field | Minor |
 | Renamed, removed or semantically changed field | Major |
 
-Version 2.0 is a major release because it changes record identity, correction
+Version 2.0 was a major release because it changed record identity, correction
 lineage and the meaning of evidence time. The current build requires schema
-2.0.x, one complete seven-part public update, its exact selected point lineage,
-one scoped IF path and an explicit typed possible-path reference boundary. The
+2.1.0. Version 2.1 adds a required transition-bundle binding state and governed
+resolution for typed possible paths. It retains the 2.0 timing contract, one
+complete seven-part public update, exact selected point lineage and one scoped
+IF path. The
 frozen predecessors remain available as `archive/snapshot-1.5.schema.json` and
-`archive/snapshot-1.8.schema.json`. The content-addressed
+`archive/snapshot-1.8.schema.json`; the prior contract is frozen as
+`archive/snapshot-2.0.schema.json`. The content-addressed
 `snapshot-schema-registry.json` binds each historical version to the exact
 schema bytes and dependencies used to validate it.
 
@@ -39,12 +42,12 @@ schema bytes and dependencies used to validate it.
 
 ```jsonc
 {
-  "schema_version": "2.0.0",
-  "record_id": "2026-09-08.r2",
+  "schema_version": "2.1.0",
+  "record_id": "2026-09-08.r3",
   "snapshot_id": "2026-09-08",
   "as_of": "2026-09-08T00:41:31Z",
   "generated_at": "2026-09-08T00:41:31Z",
-  "generator": "migrate-timing-contract.mjs@2.0.0",
+  "generator": "migrate-transition-bundle-binding@1.0.0",
   "publication_status": "research_draft_unverified",
   "evidence_policy": {
     "id": "adapter-classification-policy",
@@ -56,7 +59,7 @@ schema bytes and dependencies used to validate it.
   "correction": {
     "kind": "corrected_revision",
     "supersedes_snapshot_id": "2026-09-08",
-    "supersedes_record_id": "2026-09-08.r1",
+    "supersedes_record_id": "2026-09-08.r2",
     "supersedes_snapshot_sha256": "sha256:...",
     "issued_on": "2026-09-08",
     "summary": "Corrects classifications without changing source values.",
@@ -74,6 +77,10 @@ schema bytes and dependencies used to validate it.
   "signals": [],
   "public_update": {},
   "if_path": {},
+  "source_transition_bundle": {
+    "binding_state": "unbound_prototype",
+    "reason": "No scope-matched typed possible path is bound."
+  },
   "possible_path_refs": []
 }
 ```
@@ -163,6 +170,11 @@ or rewriting either predecessor. Its status remains
 `UNVERIFIED SOURCE BYTES`. Publishable mode always fails with
 `MISSING_TRUSTED_ACQUISITION_BOUNDARY` until a separately verifiable publisher
 receipt system exists.
+
+Record `2026-09-08.r3` preserves `r2` byte-for-byte and adds the required
+transition-bundle binding state. Its state is `unbound_prototype` and its path
+references remain empty because no typed path matches the complete World
+aggregate IF scope.
 
 ## Timing and freshness
 
@@ -271,11 +283,25 @@ actions. The current snapshot has five unknown conditions and no decision.
 
 ## Typed possible-path boundary
 
-`possible_path_refs` may contain only closed artifact references. The current
-snapshot leaves the array empty because no typed pathway assessment has been
-registered for the World aggregate scope. The build rejects any non-empty array
-until it can resolve each reference to a schema-valid, checksum-bound pathway
-assessment and verify scope, chronology, evidence roles and condition gates.
+`source_transition_bundle` is required. It is either an explicit
+`unbound_prototype` with an empty `possible_path_refs` array, or a `bound`
+content address naming one repository-relative transition bundle. A bound state
+must contain at least one path reference.
+
+The build does not trust those fields by assertion. It rejects traversal,
+symlinks and non-regular files; verifies the bundle and path bytes against both
+digests; applies the repository-owned transition-bundle schema and fixed
+possible-path validator; resolves exactly one `possible-path` role; and matches
+path ID, schema version, checksum, bundle-native scope hash, canonical condition
+identities and every `WHO + VERB + OBJECT + STANDARD + PLACE + PERIOD + IF`
+field to the dashboard decision record. Missing signal
+roles, scope drift, path drift and untyped narratives fail closed.
+
+Only then does the build create a separate derived projection for the browser.
+The projection preserves the source classification, unscored epistemic status,
+competing paths, population accounting, abandonment rule, expiry and the
+explicit absence of action authority. Validation does not make the path true,
+probable, complete or authorised.
 
 This replaces free-text crisis and playbook lists. Those lists could look like
 forecasts or guidance without a governed hypothesis, discriminator, option,

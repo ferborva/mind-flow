@@ -17,11 +17,10 @@
     "signals",
     "public_update",
     "if_path",
-    "source_transition_bundle",
     "possible_path_refs"
   ],
   "properties": {
-    "schema_version": { "const": "2.1.0" },
+    "schema_version": { "type": "string", "pattern": "^2\\.0\\.[0-9]+$" },
     "record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
     "snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "as_of": { "type": "string", "format": "date-time", "pattern": "Z$" },
@@ -61,39 +60,12 @@
     },
     "public_update": { "$ref": "#/$defs/publicUpdate" },
     "if_path": { "$ref": "#/$defs/ifPath" },
-    "source_transition_bundle": { "$ref": "#/$defs/sourceTransitionBundle" },
     "possible_path_refs": {
       "type": "array",
-      "maxItems": 1,
       "uniqueItems": true,
       "items": { "$ref": "#/$defs/artifactReference" }
     }
   },
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "source_transition_bundle": {
-            "type": "object",
-            "properties": { "binding_state": { "const": "unbound_prototype" } },
-            "required": ["binding_state"]
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "publication_status": { "const": "research_draft_unverified" },
-          "possible_path_refs": { "type": "array", "maxItems": 0 }
-        }
-      },
-      "else": {
-        "properties": {
-          "publication_status": { "const": "research_draft_unverified" },
-          "possible_path_refs": { "type": "array", "minItems": 1 }
-        }
-      }
-    }
-  ],
   "additionalProperties": false,
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
@@ -103,38 +75,10 @@
       "required": ["id", "version", "checksum"],
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
-        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+(?:\\.[0-9]+)?$" },
+        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
         "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
       },
       "additionalProperties": false
-    },
-    "sourceTransitionBundle": {
-      "oneOf": [
-        {
-          "type": "object",
-          "required": ["binding_state", "reason"],
-          "properties": {
-            "binding_state": { "const": "unbound_prototype" },
-            "reason": { "$ref": "#/$defs/nonEmptyString" }
-          },
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "required": ["binding_state", "bundle_id", "schema_version", "path", "sha256"],
-          "properties": {
-            "binding_state": { "const": "bound" },
-            "bundle_id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
-            "schema_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
-            "path": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
-            },
-            "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
-          },
-          "additionalProperties": false
-        }
-      ]
     },
     "correction": {
       "type": "object",

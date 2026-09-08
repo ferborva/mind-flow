@@ -25,10 +25,11 @@ import {
   validateTimingGraph,
   validateTimingRule,
 } from "../timing/validation.mjs";
+import { resolvePossiblePathProjection } from "./transition-bundle-binding.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
-const snapshotPath = resolve(process.argv[2] || resolve(dashboard, "snapshots", "2026-09-08.r2.json"));
+const snapshotPath = resolve(process.argv[2] || resolve(dashboard, "snapshots", "2026-09-08.r3.json"));
 const outputPath = resolve(process.argv[3] || resolve(dashboard, "web", "index.html"));
 const templatePath = resolve(dashboard, "web", "index.template.html");
 const schemaPath = resolve(dashboard, "schema", "snapshot.schema.json");
@@ -923,9 +924,6 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   if (snapshot.if_path?.decision?.result === "no_decision" && snapshot.if_path.decision.eligible_actions.length) {
     errors.push("an if_path with no decision cannot contain eligible actions");
   }
-  if ((snapshot.possible_path_refs || []).length) {
-    errors.push("possible-path references are not resolved by this snapshot build");
-  }
   if (update?.action?.authorization_state === "none" &&
       (update.action.owner || update.action.authority || update.action.help_route || update.action.appeal_route)) {
     errors.push("an unauthorised public update cannot claim an owner, authority, help route or appeal route");
@@ -988,9 +986,23 @@ try {
   if (timingPlaceholderCount !== 1) {
     throw new Error(`Expected one __TIMING_ASSESSMENTS__ placeholder, found ${timingPlaceholderCount}`);
   }
+  const possiblePathPlaceholderCount = template.split("__POSSIBLE_PATHS__").length - 1;
+  if (possiblePathPlaceholderCount !== 1) {
+    throw new Error(`Expected one __POSSIBLE_PATHS__ placeholder, found ${possiblePathPlaceholderCount}`);
+  }
 
   const snapshotBytes = readFileSync(snapshotPath);
   const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
+  const modeArgument = process.argv.slice(4).find((argument) => argument.startsWith("--mode="));
+  const buildMode = modeArgument?.slice("--mode=".length) || "research-draft";
+  if (!new Set(["research-draft", "publishable"]).has(buildMode)) {
+    throw new Error(`unsupported dashboard build mode ${buildMode}`);
+  }
+  if (buildMode === "publishable") {
+    throw new Error(
+      "MISSING_TRUSTED_ACQUISITION_BOUNDARY: publishable mode is disabled until source receipts are separately verifiable",
+    );
+  }
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
   const timingSchema = JSON.parse(readFileSync(timingSchemaPath, "utf8"));
   const policyBytes = readFileSync(policyPath);
@@ -1006,16 +1018,7 @@ try {
   if (!validate(snapshot)) {
     throw new Error(`snapshot schema validation failed: ${ajv.errorsText(validate.errors)}`);
   }
-  const modeArgument = process.argv.slice(4).find((argument) => argument.startsWith("--mode="));
-  const buildMode = modeArgument?.slice("--mode=".length) || "research-draft";
-  if (!new Set(["research-draft", "publishable"]).has(buildMode)) {
-    throw new Error(`unsupported dashboard build mode ${buildMode}`);
-  }
-  if (buildMode === "publishable") {
-    throw new Error(
-      "MISSING_TRUSTED_ACQUISITION_BOUNDARY: publishable mode is disabled until source receipts are separately verifiable",
-    );
-  }
+  const possiblePathProjection = resolvePossiblePathProjection(snapshot);
   const rawBytesById = verifyRawInputs(snapshot);
   const correction = correctionContext(snapshot);
   const semanticErrors = validateSemantics(
@@ -1071,12 +1074,14 @@ try {
     );
   }
   const timingAssessments = JSON.stringify(timingAssessmentBundle).replaceAll("</", "<\\/");
+  const possiblePaths = JSON.stringify(possiblePathProjection).replaceAll("</", "<\\/");
   writeFileSync(
     outputPath,
     template
       .replace("__SNAPSHOT__", serialised)
       .replace("__FRESHNESS_POLICY__", freshnessPolicy)
-      .replace("__TIMING_ASSESSMENTS__", timingAssessments),
+      .replace("__TIMING_ASSESSMENTS__", timingAssessments)
+      .replace("__POSSIBLE_PATHS__", possiblePaths),
     "utf8",
   );
   process.stdout.write(`Built ${outputPath} from ${snapshotPath}\n`);

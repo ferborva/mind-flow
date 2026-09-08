@@ -1,12 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/integration/transition-bundle/1-0-0",
+  "$id": "https://mind-flow.org/integration/transition-bundle/1-1-0",
   "title": "Mind Flow transition bundle",
   "description": "A content-addressed manifest that asks whether separately validated programme artifacts describe one bounded transition. It does not establish truth, authority or permission.",
   "type": "object",
   "required": [
     "schema_version",
     "bundle_id",
+    "bundle_stage",
     "classification",
     "as_of",
     "evaluation_clock",
@@ -14,11 +15,13 @@
     "publication_approved",
     "action_authorised",
     "canonical",
+    "scope_bindings",
     "artifacts"
   ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "bundle_id": { "$ref": "#/$defs/id" },
+    "bundle_stage": { "enum": ["pre-projection-core", "complete-core"] },
     "classification": { "const": "research-draft" },
     "as_of": { "type": "string", "format": "date-time" },
     "evaluation_clock": {
@@ -36,24 +39,35 @@
     "action_authorised": { "const": false },
     "canonical": {
       "type": "object",
-      "required": ["scope_hash", "condition_ids", "if_logic_hash", "root_role"],
+      "required": [
+        "condition_ids",
+        "outcome_logic_ref",
+        "scope_manifest_ref",
+        "root_role"
+      ],
       "properties": {
-        "scope_hash": { "$ref": "#/$defs/sha256" },
         "condition_ids": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": { "$ref": "#/$defs/id" }
         },
-        "if_logic_hash": { "$ref": "#/$defs/sha256" },
+        "outcome_logic_ref": { "$ref": "#/$defs/outcomeLogicRef" },
+        "scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" },
         "root_role": { "const": "agency-map" }
       },
       "additionalProperties": false
     },
+    "scope_bindings": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/scopeBinding" }
+    },
     "artifacts": {
       "type": "array",
-      "minItems": 7,
-      "maxItems": 8,
+      "minItems": 6,
+      "maxItems": 7,
       "items": {
         "type": "object",
         "required": ["role", "path", "sha256"],
@@ -66,8 +80,7 @@
               "possible-path",
               "preparation-register",
               "dashboard-snapshot",
-              "forecast",
-              "experiment-fact-pack"
+              "forecast"
             ]
           },
           "path": {
@@ -80,9 +93,78 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "bundle_stage": { "const": "pre-projection-core" } },
+        "required": ["bundle_stage"]
+      },
+      "then": {
+        "properties": { "artifacts": { "type": "array", "minItems": 6, "maxItems": 6 } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "bundle_stage": { "const": "complete-core" } },
+        "required": ["bundle_stage"]
+      },
+      "then": {
+        "properties": { "artifacts": { "type": "array", "minItems": 7, "maxItems": 7 } }
+      }
+    }
+  ],
   "additionalProperties": false,
   "$defs": {
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
-    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+    },
+    "outcomeLogicRef": {
+      "type": "object",
+      "required": ["artifact_role", "json_pointer", "sha256"],
+      "properties": {
+        "artifact_role": { "const": "agency-map" },
+        "json_pointer": { "const": "/outcome_scope/condition_logic" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "scopeManifestRef": {
+      "type": "object",
+      "required": ["scope_manifest_id", "path", "sha256"],
+      "properties": {
+        "scope_manifest_id": { "$ref": "#/$defs/id" },
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "mappingRef": {
+      "type": "object",
+      "required": ["mapping_id", "sha256"],
+      "properties": {
+        "mapping_id": { "$ref": "#/$defs/id" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "scopeBinding": {
+      "type": "object",
+      "required": [
+        "role",
+        "canonical_scope_manifest_ref",
+        "native_scope_hash",
+        "mapping_ref"
+      ],
+      "properties": {
+        "role": { "enum": ["agency-map", "possible-path"] },
+        "canonical_scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" },
+        "native_scope_hash": { "$ref": "#/$defs/sha256" },
+        "mapping_ref": { "$ref": "#/$defs/mappingRef" }
+      },
+      "additionalProperties": false
+    }
   }
 }

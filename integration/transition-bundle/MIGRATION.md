@@ -1,90 +1,99 @@
 # Coherent transition migration
 
-## Verdict
+## Current verdict
 
-The current subsystem contracts cannot produce one honest coherent bundle.
-They can each validate local records, but they do not yet expose enough typed
-identity to prove that those records describe the same condition, population,
-decision window, evidence state and intervention.
+The component contracts expose typed scope and artifact surfaces, but they do
+not yet expose the executable IF boundary needed for a coherent synthetic core.
+The current agency-map logic hashes condition IDs only. It does not bind the
+predicates, thresholds, windows, missingness rules, signal definitions or fixed
+measurement-to-truth evaluator behind those IDs. Creating
+`fixtures/coherent.synthetic.json` now would produce false confidence.
 
-The acceptance suite in `tests/pending/coherent-bundle.acceptance.mjs` records
-the missing contracts. It is intentionally red. Making it green by deleting a
-cross-check, treating prose as an identifier or trusting a caller assertion is
-not an acceptable migration.
+The current Round 03 records must not be relabelled as coherent. Their native
+condition IDs describe different examples. The next step is to derive seven
+new fixtures from one canonical synthetic transition, not to weaken identity
+checks or translate unrelated IDs by assertion.
 
 ## Safety invariants
 
-Every migration must preserve these invariants:
-
-1. Existing component validators stay fixed and continue to reject invalid
-   native records.
+1. Existing component validators stay fixed and reject invalid native records.
 2. Every retained artifact is content-addressed and validated by repository
-   code selected by the assessor, never by the caller.
-3. A coherent synthetic bundle proves referential and semantic consistency. It
+   code selected by the assessor.
+3. A coherent synthetic core proves referential and semantic consistency. It
    does not prove empirical truth, democratic authority or permission to act.
 4. `truth`, `authority`, `publication_approved` and `action_authorised` remain
-   false for the synthetic acceptance fixture.
-5. A timestamp written into a manifest cannot certify its own trust. Freshness
-   requires a verifier-controlled clock or a separately validated attestation.
-6. Native scope hashes are not compared as if they shared a hash domain. A
-   canonical scope manifest must bind each native scope and make every mapping
-   explicit.
+   false for every synthetic acceptance fixture.
+5. A manifest timestamp cannot certify its own trust. Freshness is a separate
+   gate.
+6. Native scope hashes remain in their original domains. A canonical scope
+   manifest maps them without pretending their bytes or structures are equal.
+7. An experiment that references a core bundle cannot be embedded in that same
+   content-addressed core.
 
-## Required contract migrations
+## Landed interfaces
 
-| Boundary | Current blocker | Minimum contract change | Acceptance proof |
-| --- | --- | --- | --- |
-| Canonical condition | Agency, evolution, paths and signals use unrelated IDs and incompatible version types | Define one immutable condition-definition reference with an ID, definition digest and native references. Keep native version types rather than coercing them. | All downstream references resolve to the same definition digest through the evolution root. |
-| Scope | Agency and path scope hashes cover different structures and domains | Add a content-addressed canonical scope manifest containing population, geography, time window, intervention and exclusions. Bind each role to its native scope hash plus a declared mapping. | The assessor recomputes every native hash and validates each mapping to the canonical dimensions. |
-| Evolution | A condition state has no immutable link to the executable IF definition | Require `condition_definition_ref` on every current state and event result in `contracts/evolution/schema/condition-evolution-ledger.schema.json`. | History replay ends at the exact condition definition used by all downstream artifacts. |
-| Preparation | `condition_binding` names ledger tips but omits the condition identity and producer event | Require `condition_id`, `condition_version`, `ledger_manifest_hash`, `producer_event_id` and `producer_event_hash` in `preparation/schema/preparation-register.schema.json`. | Each action and stop rule resolves to one historical condition state, not just nearby prose. |
-| Forecast | The closed target object cannot identify a signal metric, condition or scope | Require `signal_id`, `metric_id`, `metric_checksum`, `condition_id` and `scope_hash` in `forecasts/schema/binary-forecast.schema.json`. | Forecast resolution verifies the registered metric checksum and canonical condition and scope. |
-| Dashboard | Snapshot validation rejects every nonempty possible-path reference | Add `source_transition_bundle` to the snapshot schema, resolve content-addressed path references during build and render them as a derived projection. | The built snapshot exposes positive, adverse, refusal and recovery paths from the same bundle. |
-| Experiment | The comparison is governed by prose tests, not an executable manifest | Add `experiments/observatory-comparison/schema/experiment-manifest.schema.json` plus a fixed semantic validator. Require `source_transition_bundle`, `fact_pack`, `arms` and `safety`. | Both arms consume the same immutable fact pack and carry explicit stop and contamination rules. |
-| Freshness | The manifest could previously label its own clock trusted | Keep manifest clocks operator-supplied and untrusted. Add a verifier-controlled clock input or a separately content-addressed time attestation with a fixed validator. | Changing manifest fields alone can never open the freshness gate. |
+| Boundary | Contract now available | Remaining integration work |
+| --- | --- | --- |
+| Outcome logic | `canonical.outcome_logic_ref` binds the exact agency-map IF AST. | Add a separately hashed executable IF contract covering definitions, signals and evaluators. |
+| Scope | `canonical.scope_manifest_ref` and `scope_bindings` bind distinct agency and path native hashes to separately hashed mappings. | Extend mappings when other native contracts expose scope hashes. Keep mapping truth false until independently assessed. |
+| Evolution | Every event state, folded current state and public condition carries a recomputed `condition_definition_ref`. | Build evolution events for the canonical synthetic condition set. |
+| Preparation | Condition binding names condition ID, native version, ledger manifest and producer event ID and hash. | Point a synthetic register at the new evolution ledger. |
+| Forecast | Target binds signal ID, metric ID and checksum, condition ID and scope hash. | Issue a synthetic forecast against the canonical signal and scope. |
+| Dashboard | Snapshot binds a source transition bundle and resolves possible paths. | Build a projection from the coherent synthetic core without creating a self-reference. |
+| Experiment | A fixed manifest validator checks exact source bytes, fact-pack parity, arms and safety stops. | Put it in a later envelope after fact packs expose canonical condition and scope references. |
 
-## Integration contract after the component migrations
+## Core resolution order
 
-Evolve the bundle schema rather than overloading the current scalar hashes. A
-versioned successor should contain:
-
-- `canonical.condition_definition_ref`, the content address of the executable
-  IF definition;
-- `canonical.scope_manifest_ref`, the content address of the complete bounded
-  scope;
-- `scope_bindings`, one entry per role with the canonical manifest reference,
-  native scope hash and content-addressed mapping;
-- `bindings`, native condition, version, metric, event and bundle references as
-  applicable;
-- `artifacts`, retaining exact bytes and fixed validator roles;
-- an evaluator-supplied time attestation result that is not writable as a
-  trusted manifest claim.
-
-The assessor should resolve the graph in this order:
+The seven-artifact core must resolve in this order:
 
 ```text
-condition definition -> evolution history -> agency options
-                     -> signal metrics -> possible paths -> forecasts
-                     -> preparation actions -> dashboard projection
-                     -> governed experiment
+canonical IF definition -> evolution history -> agency options
+                        -> signal metrics -> possible paths -> forecasts
+                        -> preparation actions -> dashboard projection
 ```
 
-Any unresolved edge keeps the relevant gate closed and keeps the whole bundle
+Any unresolved edge keeps the related gate closed and keeps the core
 incoherent. Error codes must identify the failed edge so a public interface can
-say what is known, what is missing and what would change the assessment.
+say what is known, what is missing and what observation or decision would
+change the assessment.
 
-## Delivery sequence
+The current operator-supplied clock leaves `freshness` false. It should not be
+turned into a caller claim. Either freshness remains an independent closed gate,
+or a later verifier supplies a separately validated time attestation.
 
-1. Agree the canonical condition and scope manifests using one synthetic,
-   explicitly non-empirical transition.
-2. Land the evolution and preparation identity fields with validator tests.
-3. Land forecast target bindings with registry-resolution tests.
-4. Land dashboard bundle and path resolution with build tests.
-5. Land the experiment manifest, fact-pack parity and safety validator.
-6. Add verifier-controlled time handling to this integration boundary.
-7. Create `fixtures/coherent.synthetic.json`, pin every artifact digest and make
-   the pending acceptance suite green without changing its safety assertions.
-8. Only then connect empirical evidence, institutional authority and public
+## Experiment envelope
+
+The experiment layer must be acyclic:
+
+```text
+frozen coherent core -> typed shared fact pack -> experiment manifest
+                     \__________________________ experiment envelope
+```
+
+The envelope content-addresses the already frozen core and experiment manifest.
+The fact pack must name the core's canonical condition IDs,
+`outcome_logic_ref` and `scope_manifest_ref`. The envelope assessor then
+checks those references against the frozen core. Manifest validity alone is not
+enough, and recruitment remains blocked.
+
+## Next delivery sequence
+
+1. Specify a fixed executable IF kernel and normalized observation contract.
+2. Bind immutable condition definitions to exact signal definitions and evaluator bytes.
+3. Extend condition evolution so definition changes remain replayable.
+4. Select one synthetic condition set and canonical scope manifest.
+5. Generate evolution, agency, signal, path, forecast and preparation fixtures
+   from those identities.
+6. Freeze a six-artifact pre-projection core so the dashboard can safely name
+   source bytes without a self-reference.
+7. Build the dashboard snapshot from that frozen source, then form the final
+   seven-artifact core with an explicit acyclic derivation reference.
+8. Add `fixtures/coherent.synthetic.json` and make the core acceptance check
+   green without changing its false truth, authority, action and publication
+   assertions.
+9. Define a separate experiment-envelope contract after the typed fact-pack
+   interface lands.
+10. Only then connect empirical evidence, institutional authority and public
    claims through separately reviewed gates.
 
 Run the ordinary integration safety suite with:
@@ -98,6 +107,3 @@ Run the migration acceptance contract with:
 ```sh
 npm run test:integration:migration
 ```
-
-The second command must remain red until all required subsystem migrations and
-the coherent synthetic fixture exist.

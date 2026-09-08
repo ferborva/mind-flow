@@ -24,6 +24,7 @@ test("the dashboard first layer preserves the executable public contract", () =>
     "RESEARCH PROTOTYPE",
     "NOT LIVE",
     "NO SERVICE OR POLICY AUTHORITY",
+    "WHAT CHANGED",
     "CURRENT READ",
     "SCOPE AND APPLICABILITY",
     "IF STATUS",

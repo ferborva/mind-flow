@@ -8,7 +8,7 @@ import { assessTransitionBundle } from "../../assess.mjs";
 const root = resolve(import.meta.dirname, "../../../..");
 const readJson = (path) => JSON.parse(readFileSync(resolve(root, path), "utf8"));
 
-test("one coherent synthetic transition crosses all eight subsystem boundaries", () => {
+test("one coherent synthetic transition crosses all seven core subsystem boundaries", () => {
   const fixturePath = resolve(
     root,
     "integration/transition-bundle/fixtures/coherent.synthetic.json",
@@ -26,7 +26,6 @@ test("one coherent synthetic transition crosses all eight subsystem boundaries",
   assert.equal(result.gates.history, true);
   assert.equal(result.gates.forecast, true);
   assert.equal(result.gates.preparation, true);
-  assert.equal(result.gates.experiment, true);
   assert.equal(result.gates.truth, false);
   assert.equal(result.gates.authority, false);
   assert.equal(result.gates.publication, false);
@@ -34,12 +33,12 @@ test("one coherent synthetic transition crosses all eight subsystem boundaries",
   assert.equal(result.publication_approved, false);
 });
 
-test("bundle binds one condition definition while preserving native scope domains", () => {
+test("bundle binds outcome logic while preserving native scope domains", () => {
   const schema = readJson(
     "integration/transition-bundle/schema/transition-bundle.schema.json",
   );
   const canonical = schema.properties.canonical;
-  assert.ok(canonical.required.includes("condition_definition_ref"));
+  assert.ok(canonical.required.includes("outcome_logic_ref"));
   assert.ok(canonical.required.includes("scope_manifest_ref"));
   assert.ok(schema.required.includes("scope_bindings"));
 

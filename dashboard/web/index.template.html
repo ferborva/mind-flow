@@ -370,6 +370,13 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .condition-card details p{margin:7px 0 0;font-size:11px;color:var(--ink-3);white-space:pre-line}
 .if-claim{border-left:3px solid var(--accent);background:var(--surface-2);padding:14px 16px;margin:0 0 15px;color:var(--ink-2);font-size:13px}
 .condition-decision{border:1px dashed var(--axis);padding:12px 14px;margin:15px 0 0;color:var(--ink-2);font-size:12px;border-radius:5px}
+.path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:12px;margin-top:14px}
+.path-card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+.path-card h3{font-size:21px;margin:0 0 8px}.path-card p{color:var(--ink-2);font-size:13px}
+.path-card dl{display:grid;gap:7px;margin:15px 0}.path-card dl div{border-top:1px solid var(--rule);padding-top:7px}
+.path-card dt{font:600 9px "IBM Plex Mono",monospace;color:var(--accent);letter-spacing:.09em;text-transform:uppercase}
+.path-card dd{margin:3px 0 0;color:var(--ink-2);font-size:12px;overflow-wrap:anywhere}
+.path-card .path-boundary{color:var(--warning);font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.07em}
 @media(max-width:900px){.condition-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.condition-grid{grid-template-columns:1fr}}
 .plain-warning{border-left:3px solid var(--warning);padding:12px 16px;background:color-mix(in srgb,var(--warning) 7%,transparent);color:var(--ink-2);font-size:13px}
@@ -415,6 +422,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
     <dl class="public-update">
+      <div class="update-cell primary"><dt>WHAT CHANGED</dt><dd id="now-changed" aria-live="polite">Loading correction record…</dd></div>
       <div class="update-cell primary"><dt>CURRENT READ</dt><dd id="now-inferred" aria-live="polite">Loading update contract…</dd></div>
       <div class="update-cell primary"><dt>SCOPE AND APPLICABILITY</dt><dd id="now-affected">Loading update contract…</dd><dd class="scope-banner" id="update-scope">Loading update scope…</dd></div>
       <div class="update-cell decision"><dt>IF STATUS</dt><dd id="now-condition">Loading update contract…</dd></div>
@@ -422,7 +430,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
       <div class="update-cell decision"><dt>MONITORING</dt><dd id="now-next-check">MONITORING INACTIVE. No governed check is scheduled.</dd></div>
       <div class="update-cell secondary goal-choice"><dt>PROPOSED GOAL (VALUE CHOICE)</dt><dd>Expand real choices and continuity as technological capability grows. Proposed by the project authors and agents. Affected-party adoption is not completed. Alternative goals and dissent remain legitimate.</dd></div>
       <div class="update-cell secondary"><dt>EVIDENCE STATE</dt><dd id="now-observed">Loading update contract…</dd></div>
-      <div class="update-cell secondary"><dt>PATH STATUS</dt><dd>No positive or adverse path is established. Refusal, reduction and no-deployment remain legitimate candidate paths.</dd></div>
+      <div class="update-cell secondary"><dt>PATH STATUS</dt><dd id="now-path-status">No positive or adverse path is established. Refusal, reduction and no-deployment remain legitimate candidate paths.</dd></div>
       <div class="update-cell secondary"><dt>WHAT WOULD CHANGE THIS READING?</dt><dd id="now-falsifier">Loading update contract…</dd></div>
     </dl>
   </section>
@@ -497,6 +505,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
           reproducible assessments. Several may fit at once. None is a probability, forecast or command.</p>
       </div>
       <p class="plain-warning" id="possible-path-status" aria-live="polite"><strong>No typed possible-path assessment is registered for this scope.</strong> No future branch, crisis status or early-warning readiness is established.</p>
+      <div class="path-grid" id="possible-path-list"></div>
     </section>
 
     <section class="section" id="action-deck">
@@ -594,6 +603,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 
 <script id="snapshot-data" type="application/json">__SNAPSHOT__</script>
 <script id="timing-assessment-data" type="application/json">__TIMING_ASSESSMENTS__</script>
+<script id="possible-path-data" type="application/json">__POSSIBLE_PATHS__</script>
 <script>
 (function(){
 "use strict";
@@ -601,6 +611,7 @@ var ACCEPTS = 2;                       // major schema version this build render
 var SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 var snap = JSON.parse(document.getElementById("snapshot-data").textContent);
 var timingAssessmentBundle = JSON.parse(document.getElementById("timing-assessment-data").textContent);
+var possiblePathProjection = JSON.parse(document.getElementById("possible-path-data").textContent);
 var timingAssessments = timingAssessmentBundle.signals||{};
 var timingPolicy = __FRESHNESS_POLICY__;
 var entity = "OWID_WRL", tableMode = false, familyFilter = "ALL";
@@ -1004,11 +1015,50 @@ function renderConditionMap(){
     card.appendChild(el("span","condition-state",condition.state+" · "+condition.evidence_grade));
     var details=el("details"),summary=el("summary",null,"Why this state?"),body=el("p",null,
       condition.summary+"\nBecause: "+condition.because+"\nStrongest challenge: "+condition.strongest_challenge+
+      "\nHistory: "+(condition.previous_state==null
+        ? "History unavailable. This state cannot support trend or decision claims."
+        : "Previous state "+condition.previous_state+". Inspect the bound evolution record before inferring a trend.")+
       "\nNext observation: "+condition.next_observation.event+"\nDate: "+(condition.next_observation.on||"Not scheduled")+
       " · Owner: "+(condition.next_observation.owner||"None")+"\nIf unavailable: "+condition.next_observation.failure_handling);
     details.appendChild(summary);details.appendChild(body);card.appendChild(details);grid.appendChild(card);
   });
   decision.textContent=path.decision.result.toUpperCase().replaceAll("_"," ")+". "+path.decision.summary;
+}
+
+function renderPossiblePaths(){
+  var status=document.getElementById("possible-path-status"),list=document.getElementById("possible-path-list");
+  var firstScreen=document.getElementById("now-path-status"),paths=possiblePathProjection.paths||[];
+  list.innerHTML="";
+  if(possiblePathProjection.binding_state!=="bound"||!paths.length){
+    status.textContent="No typed possible-path assessment is registered for this scope. No future branch, crisis status or early-warning readiness is established. "+(possiblePathProjection.reason||"");
+    firstScreen.textContent="No positive or adverse path is established. Refusal, reduction and no-deployment remain legitimate candidate paths.";
+    return;
+  }
+  status.textContent=paths.length+" Byte-matched registered hypothesis. Its internal references passed structural checks. Its truth, probability, and fitness for action were not established. It is an invented test example containing no real-world evidence and has not been reviewed by affected people or an accountable authority.";
+  firstScreen.textContent=paths.length+" typed possible-path hypothesis is available for inspection. It establishes no probability, authority or permission to act.";
+  paths.forEach(function(path){
+    var card=el("article","path-card"),scope=path.outcome_scope||{};
+    card.appendChild(el("h3",null,path.title));
+    card.appendChild(el("p",null,path.public_claim));
+    var facts=el("dl");
+    function fact(label,value){var row=el("div");row.appendChild(el("dt",null,label));row.appendChild(el("dd",null,value));facts.appendChild(row);}
+    fact("Typed scope",scope.who+" · "+scope.verb+" · "+scope.object+" · "+scope.standard+" · "+scope.place+" · "+scope.period);
+    fact("IF bindings",(scope.if_conditions||[]).map(function(item){return item.condition_id;}).join(" · "));
+    fact("Competing paths",(path.competing_paths||[]).map(function(item){return item.label;}).join(" · "));
+    fact("Signal roles",(path.signal_roles||[]).map(function(item){return item.role+": "+item.status;}).join(" · "));
+    fact("Structural coherence","Passed for the exact registered core");
+    fact("Empirical truth","Not assessed");
+    fact("Probability","Not produced");
+    fact("Action authority","None");
+    fact("Public approval","Not granted");
+    card.appendChild(facts);
+    var identity=el("details"),identitySummary=el("summary",null,"Technical identity"),identityBody=el("p",null,
+      path.path_id+" · "+path.schema_version+" · "+path.artifact_sha256+"\nA matching hash detects local byte changes. It does not authenticate the source or establish that the claim is true.");
+    identity.appendChild(identitySummary);identity.appendChild(identityBody);card.appendChild(identity);
+    card.appendChild(el("p","path-boundary","NOT REVIEWED BY AFFECTED PEOPLE OR AN ACCOUNTABLE AUTHORITY · NO ACTION AUTHORITY · UNSCORED · NOT A FORECAST"));
+    card.appendChild(el("p","small-note","Only one path has been expanded. Competitors are names only and have not received equivalent assessment. Strongest named competitor: "+path.strongest_competing_path_id+"."));
+    list.appendChild(card);
+  });
 }
 
 function baselineRates(){
@@ -1351,12 +1401,19 @@ function renderNow(){
       disclosure.appendChild(label);disclosure.appendChild(body);host.appendChild(disclosure);}
   }
   if(!update){
-    ["now-observed","now-affected","now-inferred","now-condition","now-action","now-falsifier","now-next-check"]
+    ["now-changed","now-observed","now-affected","now-inferred","now-condition","now-action","now-falsifier","now-next-check"]
       .forEach(function(id){cell(id,"Unknown. No validated public update is included in this snapshot.");});
     document.getElementById("update-scope").textContent="PUBLIC UPDATE UNAVAILABLE";return;
   }
   var scope=update.scope,observed=update.observed,affected=update.affected,inferred=update.inferred;
   var condition=update.condition_change,action=update.action,falsifier=update.falsifier,next=update.next_check;
+  var correction=snap.correction;
+  cell("now-changed",correction&&correction.source_values_changed===false
+    ? "Only the record contract changed. Source values and the registered IF states did not."
+    : "Inspect the correction record before comparing this revision.",
+    correction
+      ? correction.summary+"\nChanged fields: "+correction.changed_fields.join(", ")+"\nSource values changed: "+(correction.source_values_changed?"yes":"no")
+      : "No correction record is attached.");
   var sources=observed.source_signal_ids.map(function(id){var signal=signalById(id);return signal&&signal.source?signal.source.name:id;});
   var updateSignals=observed.source_signal_ids.map(signalById).filter(Boolean);
   var visibleTimingState=Array.from(new Set(updateSignals.map(function(signal){
@@ -1400,7 +1457,7 @@ function renderNow(){
 }
 
 function renderAll(){
-  renderMeta();renderNow();renderCoverage();renderConditionMap();renderVerdict();
+  renderMeta();renderNow();renderCoverage();renderConditionMap();renderPossiblePaths();renderVerdict();
   renderFamilyFilter();renderEntityButtons();renderScenario();renderFamilies();
   refreshEvidenceExport();
 }

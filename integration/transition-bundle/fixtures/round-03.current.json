@@ -1,6 +1,7 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "bundle_id": "bundle.round-03.current",
+  "bundle_stage": "complete-core",
   "classification": "research-draft",
   "as_of": "2026-09-09T00:00:00Z",
   "evaluation_clock": {
@@ -12,15 +13,51 @@
   "publication_approved": false,
   "action_authorised": false,
   "canonical": {
-    "scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615",
     "condition_ids": [
       "condition.transition-option-ready",
       "condition.employment-offer-exists",
       "condition.protection-capacity-ready"
     ],
-    "if_logic_hash": "sha256:080df08c385987f05ed0964d0398d53792642014dcf7f4f29cb50a950cc89290",
+    "outcome_logic_ref": {
+      "artifact_role": "agency-map",
+      "json_pointer": "/outcome_scope/condition_logic",
+      "sha256": "sha256:080df08c385987f05ed0964d0398d53792642014dcf7f4f29cb50a950cc89290"
+    },
+    "scope_manifest_ref": {
+      "scope_manifest_id": "scope-manifest.round-03.current",
+      "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+      "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+    },
     "root_role": "agency-map"
   },
+  "scope_bindings": [
+    {
+      "role": "agency-map",
+      "canonical_scope_manifest_ref": {
+        "scope_manifest_id": "scope-manifest.round-03.current",
+        "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+        "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+      },
+      "native_scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615",
+      "mapping_ref": {
+        "mapping_id": "scope-mapping.round-03.agency-map",
+        "sha256": "sha256:e5439008c7b0a4736aabcb2712eb15bad54ad5d159136b58e0e438cd463d1a38"
+      }
+    },
+    {
+      "role": "possible-path",
+      "canonical_scope_manifest_ref": {
+        "scope_manifest_id": "scope-manifest.round-03.current",
+        "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+        "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+      },
+      "native_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010",
+      "mapping_ref": {
+        "mapping_id": "scope-mapping.round-03.possible-path",
+        "sha256": "sha256:5ab2900886f0c7029f457b648c079bb375b81a0563066fc9ed93d7c823ca3d9e"
+      }
+    }
+  ],
   "artifacts": [
     {
       "role": "agency-map",
@@ -30,7 +67,7 @@
     {
       "role": "evolution-ledger",
       "path": "contracts/evolution/fixtures/valid/all-operations.json",
-      "sha256": "sha256:e82e8db87022fda705b379a0890a67d05a043c854030e0ffab7ffacbe78c8494"
+      "sha256": "sha256:1c1ff91e2bdf5f4fbe5f2797d7654e39c141e26f0e4fa436db1e0e6df6a6c8f7"
     },
     {
       "role": "signal-registry",
@@ -45,17 +82,17 @@
     {
       "role": "preparation-register",
       "path": "preparation/fixtures/valid/round-03.register.json",
-      "sha256": "sha256:3907c7de2cc0f35249d6fa2f8e983110c77899d3e3c537677f1aae485e7c2674"
+      "sha256": "sha256:ce2d06db57bd36dd8d0131bc0d2051163d753b82d4a1073e36d002915bb53496"
     },
     {
       "role": "dashboard-snapshot",
-      "path": "dashboard/snapshots/2026-09-08.r2.json",
-      "sha256": "sha256:80cdae407821c49df33dc4fd1e5e630fc23d269f543cacc512c4705cd11bfb1f"
+      "path": "dashboard/snapshots/2026-09-08.r3.json",
+      "sha256": "sha256:40618e0e60dde72dd4c64c813665d29b0bc6e3fdf7d7e913a9a45d8bf70f7c38"
     },
     {
       "role": "forecast",
       "path": "forecasts/fixtures/decision-linked.issued.json",
-      "sha256": "sha256:bdcfd86d7221f87a08111332e0213b580e2534ec6d2671b37f8cb0fefc58b7a8"
+      "sha256": "sha256:fa7abb8baf38b81b43b83b0eae463bca7aeeb1ab24c83a97fc9da6d56cf83e07"
     }
   ]
 }

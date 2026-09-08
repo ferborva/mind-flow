@@ -202,12 +202,12 @@ export function validateSnapshotIndex(index, records = [], schemas = {}) {
     }
     const first = revisions[0];
     if (first?.revision === 1 &&
-        parsedSnapshots[first.position]?.schema_version === "2.0.0" &&
+        Number(parsedSnapshots[first.position]?.schema_version?.split(".")[0]) >= 2 &&
         parsedSnapshots[first.position]?.correction) {
       errors.push(problem(
         "SNAPSHOT_INDEX_UNEXPECTED_CORRECTION",
         `$.snapshots[${first.position}]`,
-        "A schema 2.0 first revision begins a new evidence date and cannot correct another date.",
+        "A schema 2.x first revision begins a new evidence date and cannot correct another date.",
       ));
     }
     for (let index = 1; index < revisions.length; index += 1) {

@@ -1,49 +1,67 @@
 # Transition bundle
 
-The transition bundle asks a question that the subsystem validators cannot:
+The transition bundle asks a question that subsystem validators cannot answer
+alone:
 
 > Do these exact artifacts describe the same bounded transition?
 
-The answer for the current Round 03 artifacts is **no**. Each retained
-component passes its own fixed validator, but their condition identities,
-scopes, histories and decision objects do not join. That failure is the useful
-result. It prevents a collection of internally valid records from becoming a
-false programme-level conclusion.
+This is a seven-artifact core. It binds agency, evolution, signals, paths,
+forecasts, preparation and dashboard projection. The current Round 03 answer
+is **no** because those valid local records still use different condition
+identities. Refusing that join prevents a collection of plausible records from
+becoming a false programme-level conclusion.
 
 ## Contract
 
-The bundle is a content-addressed manifest. The repository, rather than the
-caller, selects each component validator. The assessment then checks:
+The repository, not the caller, selects every component validator. The core
+assessment checks:
 
 1. exact local bytes and path containment;
-2. each subsystem's own schema and semantic validator;
-3. one canonical scope, condition set and IF-logic root;
-4. condition identity through the evolution history;
-5. target bindings for signals, forecasts, paths, preparation and the
-   dashboard;
-6. a common evaluation clock;
-7. independent gates for integrity, scope, history, truth, freshness,
-   evidence, forecast, preparation, authority, publication and experiments.
+2. every subsystem's own schema and semantic validator;
+3. one content-addressed `outcome_logic_ref` for the agency-map IF AST;
+4. immutable condition-definition references through evolution events and the
+   folded current state;
+5. one content-addressed `scope_manifest_ref`;
+6. explicit `scope_bindings` from that manifest to each supported native scope
+   hash domain;
+7. condition, metric, forecast, preparation, path and dashboard joins; and
+8. independent integrity, scope, history, truth, freshness, evidence,
+   forecast, preparation, authority and publication gates.
 
-This is not another truth schema. The agency map currently supplies the
-canonical scope and IF AST. The condition-evolution ledger must become the
-history root. Downstream artifacts must resolve those identities rather than
-copying prose or declaring themselves ready.
+Native scope hashes are never coerced into equality. The agency map and
+possible path hash different native structures. Their distinct hashes are
+retained, then bound to one canonical scope manifest through separately hashed
+mappings. Mapping integrity can pass while `mapping_truth_assessed` remains
+false.
+
+This is not an executable IF or truth schema. The outcome-logic reference binds
+only the Boolean wiring of condition IDs. It does not bind their predicates,
+thresholds, windows, missingness rules or measurement-to-truth evaluator.
+Condition-reference integrity does not make an IF
+condition true. Scope-mapping integrity does not prove two concepts equivalent.
+Nothing in the core grants authority, approves publication or authorises
+action.
 
 ## Current result
 
-`fixtures/round-03.current.json` pins the current individually valid artifacts.
-Its expected programme assessment is incoherent and non-authorising. Among the
-machine-detected blockers:
+`fixtures/round-03.current.json` pins seven individually validated artifacts.
+Its expected programme assessment remains incoherent and non-authorising. Its
+coherence blockers are now narrower:
 
-- no condition ID is shared by every component;
-- the possible-path scope differs from the agency-map scope;
-- preparation IFs identify ledger tips but not canonical condition IDs;
-- the forecast target is not bound to a condition, signal, metric checksum and
-  scope;
-- the dashboard has no resolved possible paths;
-- the evaluation time is operator-supplied rather than independently trusted;
-- experiment arms do not consume one immutable fact pack.
+- no condition ID is shared by all seven core components;
+- downstream condition identities do not resolve through the evolution root.
+
+Freshness is a separate closed gate because the supplied evaluation time is not
+independently trusted. It does not make an otherwise coherent core incoherent.
+
+The scope manifest records known differences instead of hiding them. Forecast,
+preparation and dashboard contracts now expose typed bindings, but their current
+records still need to be regenerated from the same canonical synthetic
+transition.
+
+Do not generate the coherent synthetic core until an executable IF kernel binds
+each condition definition, exact signal definition and fixed predicate
+evaluator through its evolution history. Shared IDs and hashes are insufficient.
 
 Run the assessment:
 
@@ -52,32 +70,36 @@ node integration/transition-bundle/tools/assess.mjs
 ```
 
 Exit code `2` means the bundle was assessed but is not coherent. It does not
-mean its individual artifacts are invalid. Run the contract tests with:
+mean its individual artifacts are invalid. Run the safety tests with:
 
 ```sh
 npm run test:integration
 ```
 
-The schema permits only an operator-supplied, untrusted manifest clock. A
-verifier-controlled clock or separately validated attestation is required
-before freshness can open. Likewise, an experiment artifact stays invalid
-until a fixed repository validator can prove fact-pack parity, arm binding and
-safety. Content addressing by itself proves neither claim.
+The schema permits only an operator-supplied, untrusted manifest clock. Changing
+manifest fields cannot open freshness. A verifier-controlled clock or
+separately validated attestation is required for that gate.
+
+## Experiment boundary
+
+An experiment manifest must not be embedded in the same content-addressed core
+bundle that it names as its source. That creates an impossible hash cycle. A
+later experiment envelope must instead content-address the frozen seven-artifact
+core and the experiment manifest. Its fixed validator must verify fact-pack and
+arm parity, while integration separately checks the fact pack's canonical
+condition and scope references. Experiment validity still cannot approve
+recruitment or create truth or authority.
 
 ## Migration rule
 
-Do not make the current fixture pass by weakening the cross-checks. Build one
-new bounded synthetic transition from the canonical agency map, then derive or
-bind every other artifact to it. A passing synthetic bundle must remain
-`research-draft`, with truth, authority, action and publication gates false
-until evidence and real institutions close them outside this repository.
+Do not make a fixture pass by weakening cross-checks. Regenerate one bounded,
+explicitly synthetic transition from a canonical condition and scope, then bind
+all seven core artifacts to it. A passing synthetic bundle remains
+`research-draft`, with truth, authority, action and publication false.
 
-The exact cross-system changes are specified in [MIGRATION.md](MIGRATION.md).
-They are also encoded as an intentionally failing acceptance suite:
+The remaining sequence and acceptance criteria are in
+[MIGRATION.md](MIGRATION.md). Run them with:
 
 ```sh
 npm run test:integration:migration
 ```
-
-Keep that suite red until the component contracts expose the required typed
-bindings. It must not be made green by weakening the integration checks.

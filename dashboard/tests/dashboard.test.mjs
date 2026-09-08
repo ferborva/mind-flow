@@ -13,8 +13,8 @@ import addFormats from "ajv-formats";
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const templatePath = join(dashboard, "web", "index.template.html");
-const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
-const predecessorSnapshotPath = join(dashboard, "snapshots", "2026-09-08.json");
+const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r3.json");
+const predecessorSnapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
 const legacySnapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
 const snapshotIndexPath = join(dashboard, "snapshots", "index.json");
 const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
@@ -43,7 +43,7 @@ test("the corrected record preserves immutable, honestly unverified predecessors
   );
   assert.equal(legacy.reproducibility.raw_input_status, "not_pinned");
   assert.equal(legacy.reproducibility.snapshot_rebuild_status, "not_verified");
-  assert.equal(snapshot.correction?.supersedes_record_id, "2026-09-08.r1");
+  assert.equal(snapshot.correction?.supersedes_record_id, "2026-09-08.r2");
   assert.equal(snapshot.correction?.supersedes_snapshot_id, snapshot.snapshot_id);
   assert.equal(
     snapshot.correction?.supersedes_snapshot_sha256,
@@ -51,7 +51,12 @@ test("the corrected record preserves immutable, honestly unverified predecessors
   );
   assert.equal(snapshot.correction?.source_values_changed, false);
   assert.equal(index.latest, snapshot.record_id);
-  assert.deepEqual(index.snapshots.map(({ id }) => id), ["2026-09-07.r1", "2026-09-08.r1", snapshot.record_id]);
+  assert.deepEqual(index.snapshots.map(({ id }) => id), [
+    "2026-09-07.r1",
+    "2026-09-08.r1",
+    "2026-09-08.r2",
+    snapshot.record_id,
+  ]);
   assert.match(template, /id=["']snapshot-correction["']/);
   assert.match(template, /supersedes_record_id/);
 });
@@ -166,6 +171,7 @@ test("the first screen discloses prototype authority and the seven-part update",
     "RESEARCH PROTOTYPE",
     "NOT LIVE",
     "NO SERVICE OR POLICY AUTHORITY",
+    "WHAT CHANGED",
     "CURRENT READ",
     "SCOPE AND APPLICABILITY",
     "IF STATUS",
@@ -186,6 +192,8 @@ test("the first screen discloses prototype authority and the seven-part update",
   assert.match(template, /no positive or adverse path is established/i);
   assert.match(template, /no Observatory-linked help or challenge service exists/i);
   assert.match(template, /No psychohistory/i);
+  assert.match(template, /Only the record contract changed/i);
+  assert.match(template, /History unavailable.*cannot support trend or decision claims/i);
   assert.match(template, /id=["']now-observed["']/i);
   assert.match(template, /function renderNow\(/);
   assert.match(template, /function publicUpdateEpistemicLabel\(/);
@@ -253,6 +261,10 @@ test("untyped future stories are withheld until possible-path assessments resolv
   assert.equal(Object.hasOwn(snapshot, "playbooks"), false);
   assert.deepEqual(snapshot.possible_path_refs, []);
   assert.match(template, /No typed possible-path assessment is registered for this scope/i);
+  assert.doesNotMatch(template, /resolved from bundle/i);
+  assert.doesNotMatch(template, /synthetic, unscored hypothesis requiring human review/i);
+  assert.match(template, /Byte-matched registered hypothesis/i);
+  assert.match(template, /truth, probability, and fitness for action were not established/i);
 });
 
 test("scenario arithmetic cannot masquerade as a forecast or trigger", () => {
@@ -280,7 +292,8 @@ test("entity selection never silently falls back to another geography", () => {
 });
 
 test("snapshot reserves only typed possible-path references", () => {
-  assert.match(snapshot.schema_version, /^2\.0\./);
+  assert.equal(snapshot.schema_version, "2.1.0");
+  assert.equal(snapshot.source_transition_bundle.binding_state, "unbound_prototype");
   assert.deepEqual(snapshot.possible_path_refs, []);
   assert.equal(Object.hasOwn(snapshot, "crises"), false);
   assert.equal(Object.hasOwn(snapshot, "playbooks"), false);
@@ -837,7 +850,7 @@ test("the build produces a self-contained page with parseable application code",
   writeFileSync(semanticallyInvalidPath, JSON.stringify(unresolvedPossiblePath));
   assert.throws(
     () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
-    /possible-path.*not resolved|semantic validation failed/i,
+    /snapshot schema validation failed|unbound.*possible-path/i,
   );
 
   const falseHelpRoute = structuredClone(snapshot);
@@ -849,7 +862,7 @@ test("the build produces a self-contained page with parseable application code",
   );
 });
 
-test("operator documentation matches the governed 2.0 timing build", () => {
+test("operator documentation matches the governed 2.1 bundle-bound build", () => {
   const readme = readFileSync(dashboardReadmePath, "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
@@ -866,10 +879,12 @@ test("operator documentation matches the governed 2.0 timing build", () => {
   assert.match(readme, /live.*retired.*2\.0 timing.*acquisition/is);
   assert.match(readme, /migrate-timing-contract\.mjs/);
   assert.match(readme, /schema\/archive\/snapshot-1\.8\.schema\.json/);
+  assert.match(readme, /schema\/archive\/snapshot-2\.0\.schema\.json/);
+  assert.match(readme, /transition-bundle-binding\.mjs/);
   assert.doesNotMatch(readme, /Load snapshot/i);
   assert.doesNotMatch(readme, /current v2/i);
   assert.doesNotMatch(readme, /python3 dashboard\/tools\/fetch_snapshot\.py\s*$/m);
-  assert.match(schemaReadme, /Version 2\.0\.0/);
+  assert.match(schemaReadme, /Version 2\.1\.0/);
   assert.match(schemaReadme, /record_id/);
   assert.match(schemaReadme, /exact selected point lineage/i);
   assert.match(schemaReadme, /unknown.*must not.*fresh/is);
@@ -878,6 +893,8 @@ test("operator documentation matches the governed 2.0 timing build", () => {
   assert.match(schemaReadme, /reported.*unverified.*retrieval/is);
   assert.match(schemaReadme, /internal.*clock.*unknown.*retained.*execution/is);
   assert.match(schemaReadme, /content-addressed.*schema-registry|content-addressed.*schema registry/is);
+  assert.match(schemaReadme, /source_transition_bundle.*required/is);
+  assert.match(schemaReadme, /WHO \+ VERB \+ OBJECT \+ STANDARD \+.*PLACE \+ PERIOD \+ IF/is);
   assert.match(schemaReadme, /selection-only.*external\s+record binding/is);
   assert.match(schemaReadme, /snapshot-1\.8\.schema\.json/);
   assert.match(schemaReadme, /seven-part public update/i);

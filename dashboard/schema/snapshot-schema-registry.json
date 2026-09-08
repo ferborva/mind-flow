@@ -15,8 +15,19 @@
     },
     {
       "snapshot_schema_version": "2.0.0",
-      "path": "snapshot.schema.json",
+      "path": "archive/snapshot-2.0.schema.json",
       "sha256": "sha256:25701b8bd97a97b1ccee6ff7ba5991497a53ee6884e54c1b62d1ef09e2c7ea63",
+      "dependencies": [
+        {
+          "path": "source-timing.schema.json",
+          "sha256": "sha256:1c12fc29751d5715708fb23124116f2730d1e394e0c2c2b175e3c28cf2d4ad31"
+        }
+      ]
+    },
+    {
+      "snapshot_schema_version": "2.1.0",
+      "path": "snapshot.schema.json",
+      "sha256": "sha256:dc40c5fdffd88202b5e49e62a0fc9135a8d163e198b449e3a7399f7895767bf1",
       "dependencies": [
         {
           "path": "source-timing.schema.json",

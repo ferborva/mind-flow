@@ -20,8 +20,8 @@ const dashboard = resolve(here, "..");
 const root = resolve(dashboard, "..");
 const buildPath = join(dashboard, "tools", "build.mjs");
 const fetchPath = join(dashboard, "tools", "fetch_snapshot.py");
-const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
-const predecessorPath = join(dashboard, "snapshots", "2026-09-08.json");
+const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r3.json");
+const predecessorPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
 const legacyPath = join(dashboard, "snapshots", "2026-09-07.json");
 const indexPath = join(dashboard, "snapshots", "index.json");
 const policyPath = join(dashboard, "evidence", "adapter-classification-policy.json");
@@ -159,7 +159,7 @@ test("a correction is bound to predecessor bytes and its changed fields are deri
     assert.equal(entry.sha256, `sha256:${createHash("sha256").update(bytes).digest("hex")}`);
   }
   assert.equal(snapshot.correction.supersedes_snapshot_sha256, predecessorDigest);
-  assert.equal(snapshot.correction.supersedes_record_id, "2026-09-08.r1");
+  assert.equal(snapshot.correction.supersedes_record_id, "2026-09-08.r2");
   assert.ok(snapshot.correction.changed_fields.length > 0);
 
   const falseFlag = structuredClone(snapshot);

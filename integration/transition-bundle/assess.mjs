@@ -1,7 +1,11 @@
 import { createHash } from "node:crypto";
 import {
+  closeSync,
+  constants,
+  fstatSync,
   lstatSync,
   mkdtempSync,
+  openSync,
   readFileSync,
   realpathSync,
   rmSync,
@@ -24,15 +28,18 @@ import { assertForecastSemantics } from "../../forecasts/lib/registry.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = resolve(here, "../..");
 const bundleSchema = JSON.parse(readFileSync(resolve(here, "schema/transition-bundle.schema.json"), "utf8"));
+const scopeManifestSchema = JSON.parse(readFileSync(resolve(here, "schema/scope-manifest.schema.json"), "utf8"));
 const forecastSchema = JSON.parse(readFileSync(resolve(defaultRoot, "forecasts/schema/binary-forecast.schema.json"), "utf8"));
 const dashboardBuilder = resolve(defaultRoot, "dashboard/tools/build.mjs");
+const MAX_ARTIFACT_BYTES = 5 * 1024 * 1024;
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateBundleSchema = ajv.compile(bundleSchema);
+const validateScopeManifestSchema = ajv.compile(scopeManifestSchema);
 const validateForecastSchema = ajv.compile(forecastSchema);
 
-const REQUIRED_ROLES = [
+const CORE_ROLES = [
   "agency-map",
   "evolution-ledger",
   "signal-registry",
@@ -63,6 +70,10 @@ function checksumJson(value) {
   return digest(canonicalJson(value));
 }
 
+function same(left, right) {
+  return canonicalJson(left) === canonicalJson(right);
+}
+
 function sameSet(left, right) {
   return left.length === right.length &&
     [...left].sort().every((value, index) => value === [...right].sort()[index]);
@@ -70,12 +81,17 @@ function sameSet(left, right) {
 
 function safeArtifact(ref, rootDir) {
   if (!ref || typeof ref.path !== "string" || isAbsolute(ref.path) ||
-      ref.path.split("/").some((part) => part === ".." || part === "")) {
+      !/^[A-Za-z0-9][A-Za-z0-9._/-]*\.json$/.test(ref.path) ||
+      ref.path.split("/").some((part) => part === ".." || part === "." || part === "")) {
     throw new Error("path must be a closed repository-relative JSON path");
   }
   const candidate = resolve(rootDir, ref.path);
-  if (lstatSync(candidate).isSymbolicLink()) {
-    throw new Error("symbolic links are not accepted as artifact paths");
+  let current = realpathSync(rootDir);
+  for (const part of ref.path.split("/")) {
+    current = resolve(current, part);
+    if (lstatSync(current).isSymbolicLink()) {
+      throw new Error("symbolic links are not accepted in artifact paths");
+    }
   }
   const realRoot = realpathSync(rootDir);
   const realCandidate = realpathSync(candidate);
@@ -83,7 +99,18 @@ function safeArtifact(ref, rootDir) {
   if (fromRoot === "" || fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot)) {
     throw new Error("artifact path escapes the repository root");
   }
-  const bytes = readFileSync(realCandidate);
+  const descriptor = openSync(realCandidate, constants.O_RDONLY | constants.O_NOFOLLOW);
+  let bytes;
+  try {
+    const stat = fstatSync(descriptor);
+    if (!stat.isFile()) throw new Error("artifact path must name a regular file");
+    if (stat.size > MAX_ARTIFACT_BYTES) {
+      throw new Error(`artifact exceeds the ${MAX_ARTIFACT_BYTES}-byte size limit`);
+    }
+    bytes = readFileSync(descriptor);
+  } finally {
+    closeSync(descriptor);
+  }
   return { bytes, document: JSON.parse(bytes.toString("utf8")), path: realCandidate };
 }
 
@@ -138,16 +165,6 @@ function validateComponent(role, document, artifactPath, evaluatedAt) {
       assertForecastSemantics(document);
       return { valid: true, result: { schema_valid: true, semantic_valid: true } };
     }
-    if (role === "experiment-fact-pack") {
-      return {
-        valid: false,
-        result: {
-          content_addressed_only: true,
-          semantic_validator_available: false,
-          errors: ["no fixed experiment manifest and fact-pack validator is available"],
-        },
-      };
-    }
     return { valid: false, result: { errors: ["role has no fixed validator"] } };
   } catch (error) {
     return { valid: false, result: { errors: [error.message] } };
@@ -178,6 +195,32 @@ function intersection(sets) {
   return [...sets[0]].filter((value) => sets.slice(1).every((set) => set.has(value))).sort();
 }
 
+function canonicalScopeFromAgency(agency) {
+  const scope = agency?.outcome_scope || {};
+  return {
+    source_role: "agency-map",
+    native_scope_hash: scope.scope_hash,
+    people: scope.people,
+    verb: scope.verb,
+    object: scope.object,
+    standard: scope.standard,
+    place: scope.place,
+    period: scope.period,
+    jurisdictions: scope.jurisdictions,
+    geographies: scope.geographies,
+    services: scope.services,
+    starts_at: scope.starts_at,
+    ends_at: scope.ends_at,
+  };
+}
+
+function nativeScopeHash(role, document) {
+  if (["agency-map", "possible-path"].includes(role)) {
+    return document?.outcome_scope?.scope_hash;
+  }
+  return undefined;
+}
+
 export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   const issues = [];
   const schemaValid = validateBundleSchema(bundle);
@@ -190,9 +233,12 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   }
 
   const refs = Array.isArray(bundle?.artifacts) ? bundle.artifacts : [];
+  const requiredRoles = bundle?.bundle_stage === "pre-projection-core"
+    ? CORE_ROLES.filter((role) => role !== "dashboard-snapshot")
+    : CORE_ROLES;
   const roleCounts = new Map();
   for (const ref of refs) roleCounts.set(ref.role, (roleCounts.get(ref.role) || 0) + 1);
-  for (const role of REQUIRED_ROLES) {
+  for (const role of requiredRoles) {
     if (roleCounts.get(role) !== 1) {
       issues.push(issue("ARTIFACT_ROLE_CARDINALITY", role, "every required role must appear exactly once"));
     }
@@ -221,8 +267,56 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     }
   }
 
+  let referenceIntegrity = true;
+  let conditionDefinitionValid = false;
+  let scopeManifest;
+  let scopeManifestReferenceValid = false;
+  const scopeManifestRef = bundle?.canonical?.scope_manifest_ref;
+  if (scopeManifestRef) {
+    try {
+      const loaded = safeArtifact(scopeManifestRef, rootDir);
+      if (digest(loaded.bytes) !== scopeManifestRef.sha256) {
+        referenceIntegrity = false;
+        issues.push(issue(
+          "SCOPE_MANIFEST_HASH_MISMATCH",
+          "scope-manifest",
+          "retained scope-manifest bytes do not match the canonical reference",
+        ));
+      } else {
+        scopeManifest = loaded.document;
+        if (!validateScopeManifestSchema(scopeManifest)) {
+          referenceIntegrity = false;
+          issues.push(issue(
+            "SCOPE_MANIFEST_INVALID",
+            "scope-manifest",
+            ajv.errorsText(validateScopeManifestSchema.errors, { separator: "; " }),
+          ));
+        } else if (scopeManifest.scope_manifest_id !== scopeManifestRef.scope_manifest_id) {
+          referenceIntegrity = false;
+          issues.push(issue(
+            "SCOPE_MANIFEST_ID_MISMATCH",
+            "scope-manifest",
+            "scope-manifest identity does not match its canonical reference",
+          ));
+        } else {
+          scopeManifestReferenceValid = true;
+        }
+      }
+    } catch (error) {
+      referenceIntegrity = false;
+      issues.push(issue("SCOPE_MANIFEST_PATH_INVALID", "scope-manifest", error.message));
+    }
+  } else {
+    referenceIntegrity = false;
+    issues.push(issue(
+      "SCOPE_MANIFEST_REF_MISSING",
+      "scope-manifest",
+      "canonical scope must resolve through one content-addressed manifest",
+    ));
+  }
+
   let componentsValid = artifactIntegrity;
-  for (const role of REQUIRED_ROLES) {
+  for (const role of requiredRoles) {
     if (!documents.has(role)) {
       componentsValid = false;
       continue;
@@ -239,27 +333,9 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       issues.push(issue("COMPONENT_VALIDATION_FAILED", role, "the fixed repository validator rejected this artifact"));
     }
   }
-  if (documents.has("experiment-fact-pack")) {
-    const result = validateComponent(
-      "experiment-fact-pack",
-      documents.get("experiment-fact-pack"),
-      paths.get("experiment-fact-pack"),
-      bundle?.evaluation_clock?.evaluated_at,
-    );
-    componentResults["experiment-fact-pack"] = result.result;
-    if (!result.valid) {
-      componentsValid = false;
-      issues.push(issue(
-        "COMPONENT_VALIDATION_FAILED",
-        "experiment-fact-pack",
-        "no fixed repository validator can establish experiment fact parity and safety",
-      ));
-    }
-  }
-
   const canonicalIds = bundle?.canonical?.condition_ids || [];
   const identityByRole = {};
-  for (const role of REQUIRED_ROLES) {
+  for (const role of requiredRoles) {
     if (!documents.has(role)) continue;
     const ids = [...new Set(conditionIds(role, documents.get(role), componentResults[role]))].sort();
     identityByRole[role] = ids;
@@ -270,7 +346,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
         "IF expressions name ledger tips but do not identify the canonical condition",
       ));
     }
-    if (role !== "forecast" && !sameSet(ids, canonicalIds)) {
+    if (!sameSet(ids, canonicalIds)) {
       issues.push(issue(
         "CONDITION_SET_MISMATCH",
         role,
@@ -280,17 +356,150 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   }
 
   const agency = documents.get("agency-map");
-  if (agency) {
-    if (agency.outcome_scope?.scope_hash !== bundle?.canonical?.scope_hash) {
-      issues.push(issue("SCOPE_HASH_MISMATCH", "agency-map", "root scope does not match the bundle scope"));
-    }
-    if (checksumJson(agency.outcome_scope?.condition_logic) !== bundle?.canonical?.if_logic_hash) {
-      issues.push(issue("IF_LOGIC_HASH_MISMATCH", "agency-map", "root IF logic does not match the bundle logic"));
+  if (agency?.outcome_scope?.condition_logic) {
+    const conditionRef = bundle?.canonical?.outcome_logic_ref;
+    const expectedHash = checksumJson(agency.outcome_scope?.condition_logic);
+    conditionDefinitionValid = conditionRef?.artifact_role === "agency-map" &&
+      conditionRef?.json_pointer === "/outcome_scope/condition_logic" &&
+      conditionRef?.sha256 === expectedHash;
+    if (!conditionDefinitionValid) {
+      referenceIntegrity = false;
+      issues.push(issue(
+        "OUTCOME_LOGIC_REF_MISMATCH",
+        "agency-map",
+        "canonical outcome-logic reference does not match the exact agency-map IF logic",
+      ));
     }
   }
-  const possiblePath = documents.get("possible-path");
-  if (possiblePath?.outcome_scope?.scope_hash !== bundle?.canonical?.scope_hash) {
-    issues.push(issue("SCOPE_HASH_MISMATCH", "possible-path", "possible-path scope differs from the canonical scope"));
+  if (!agency?.outcome_scope?.condition_logic) {
+    referenceIntegrity = false;
+    issues.push(issue(
+      "OUTCOME_LOGIC_REF_MISMATCH",
+      "agency-map",
+      "canonical outcome-logic root is unavailable",
+    ));
+  }
+
+  let scopeBindingValid = scopeManifestReferenceValid;
+  const scopeByRole = {};
+  const scopeBindings = Array.isArray(bundle?.scope_bindings) ? bundle.scope_bindings : [];
+  const requiredScopeRoles = ["agency-map", "possible-path"];
+  const bindingCounts = new Map();
+  for (const binding of scopeBindings) {
+    bindingCounts.set(binding.role, (bindingCounts.get(binding.role) || 0) + 1);
+  }
+  for (const role of requiredScopeRoles) {
+    if (bindingCounts.get(role) !== 1) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_BINDING_CARDINALITY",
+        role,
+        "every native scope domain must have exactly one canonical mapping",
+      ));
+    }
+  }
+  const mappings = new Map();
+  const mappingRoleCounts = new Map();
+  for (const mapping of scopeManifest?.mappings || []) {
+    mappingRoleCounts.set(mapping.role, (mappingRoleCounts.get(mapping.role) || 0) + 1);
+    if (mappings.has(mapping.mapping_id)) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_MAPPING_ID_DUPLICATE",
+        mapping.role,
+        "scope-manifest mapping identities must be unique",
+      ));
+    }
+    mappings.set(mapping.mapping_id, mapping);
+  }
+  for (const role of requiredScopeRoles) {
+    if (mappingRoleCounts.get(role) !== 1) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_MAPPING_CARDINALITY",
+        role,
+        "scope manifest must contain exactly one mapping for every native scope domain",
+      ));
+    }
+  }
+  for (const mapping of scopeManifest?.mappings || []) {
+    const relationshipValid = mapping.role === "agency-map"
+      ? mapping.relationship === "canonical-source" && mapping.unresolved_differences.length === 0
+      : mapping.relationship === "declared-correspondence-unverified" &&
+        mapping.unresolved_differences.length > 0;
+    if (!relationshipValid) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_MAPPING_SEMANTICS_INVALID",
+        mapping.role,
+        "canonical source and unverified correspondence relationships must retain their explicit difference rules",
+      ));
+    }
+  }
+  if (scopeManifest && agency && !same(
+    scopeManifest.canonical_scope,
+    canonicalScopeFromAgency(agency),
+  )) {
+    scopeBindingValid = false;
+    referenceIntegrity = false;
+    issues.push(issue(
+      "SCOPE_MANIFEST_CANONICAL_DRIFT",
+      "agency-map",
+      "canonical scope does not reproduce the agency-map source scope exactly",
+    ));
+  }
+  for (const binding of scopeBindings) {
+    const role = binding?.role || "unknown";
+    const actualNativeHash = nativeScopeHash(role, documents.get(role));
+    const mapping = mappings.get(binding?.mapping_ref?.mapping_id);
+    const manifestRefMatches = same(
+      binding?.canonical_scope_manifest_ref,
+      scopeManifestRef,
+    );
+    const nativeHashMatches = Boolean(actualNativeHash) &&
+      binding?.native_scope_hash === actualNativeHash;
+    const mappingMatches = Boolean(mapping) &&
+      binding?.mapping_ref?.sha256 === checksumJson(mapping) &&
+      mapping?.role === role &&
+      mapping?.native_scope_hash === binding?.native_scope_hash;
+    scopeByRole[role] = {
+      native_scope_hash: binding?.native_scope_hash || null,
+      canonical_manifest_ref_valid: manifestRefMatches,
+      native_hash_valid: nativeHashMatches,
+      mapping_ref_valid: mappingMatches,
+      mapping_truth_assessed: false,
+    };
+    if (!manifestRefMatches) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_BINDING_MANIFEST_REF_MISMATCH",
+        role,
+        "scope binding does not name the canonical scope-manifest reference exactly",
+      ));
+    }
+    if (!nativeHashMatches) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_BINDING_NATIVE_HASH_MISMATCH",
+        role,
+        "scope binding rewrites or does not match the component native scope hash",
+      ));
+    }
+    if (!mappingMatches) {
+      scopeBindingValid = false;
+      referenceIntegrity = false;
+      issues.push(issue(
+        "SCOPE_MAPPING_REF_MISMATCH",
+        role,
+        "scope mapping identity, digest, role or native hash does not resolve exactly",
+      ));
+    }
   }
 
   const forecast = documents.get("forecast");
@@ -304,6 +513,42 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   }
 
   const dashboard = documents.get("dashboard-snapshot");
+  if (dashboard?.source_transition_bundle?.binding_state === "bound") {
+    const source = dashboard.source_transition_bundle;
+    if (source.bundle_id === bundle?.bundle_id) {
+      referenceIntegrity = false;
+      issues.push(issue(
+        "DASHBOARD_DERIVATION_CYCLE",
+        "dashboard-snapshot",
+        "a dashboard cannot source the complete core that contains that dashboard",
+      ));
+    } else {
+      try {
+        const loadedSource = safeArtifact(source, rootDir);
+        const sourceRoles = (loadedSource.document?.artifacts || [])
+          .map(({ role }) => role)
+          .sort();
+        const expectedRoles = CORE_ROLES
+          .filter((role) => role !== "dashboard-snapshot")
+          .sort();
+        if (digest(loadedSource.bytes) !== source.sha256 ||
+            loadedSource.document?.bundle_id !== source.bundle_id ||
+            loadedSource.document?.schema_version !== source.schema_version ||
+            loadedSource.document?.bundle_stage !== "pre-projection-core" ||
+            !same(sourceRoles, expectedRoles)) {
+          referenceIntegrity = false;
+          issues.push(issue(
+            "DASHBOARD_DERIVATION_INVALID",
+            "dashboard-snapshot",
+            "a bound dashboard must resolve an exact six-artifact pre-projection core",
+          ));
+        }
+      } catch (error) {
+        referenceIntegrity = false;
+        issues.push(issue("DASHBOARD_DERIVATION_INVALID", "dashboard-snapshot", error.message));
+      }
+    }
+  }
   if (dashboard && !(dashboard.possible_path_refs || []).length) {
     issues.push(issue(
       "DASHBOARD_PATHS_UNRESOLVED",
@@ -316,23 +561,12 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     "bundle",
     "the integration has no independent time-authority verifier, so manifest time cannot establish freshness",
   ));
-  if (!documents.has("experiment-fact-pack")) {
-    issues.push(issue(
-      "EXPERIMENT_FACT_PACK_MISSING",
-      "experiment-fact-pack",
-      "experiment arms are not bound to one immutable fact pack",
-    ));
-  } else {
-    issues.push(issue(
-      "EXPERIMENT_VALIDATOR_UNAVAILABLE",
-      "experiment-fact-pack",
-      "content addressing cannot establish fact parity, arm binding or safety without a fixed validator",
-    ));
-  }
-
   const issueCodes = new Set(issues.map(({ code }) => code));
-  const machineValid = schemaValid && artifactIntegrity;
-  const bundleCoherent = machineValid && componentsValid && issues.length === 0;
+  const machineValid = schemaValid && artifactIntegrity && referenceIntegrity;
+  const coherenceBlockers = issues.filter(
+    ({ code }) => code !== "EVALUATION_TIME_UNTRUSTED",
+  );
+  const bundleCoherent = machineValid && componentsValid && coherenceBlockers.length === 0;
   const scopeReady = ![...issueCodes].some((code) => code.includes("SCOPE"));
   const identityReady = !issueCodes.has("CONDITION_SET_MISMATCH") &&
     !issueCodes.has("PREPARATION_CONDITION_ID_MISSING");
@@ -347,12 +581,12 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     preparation: bundleCoherent && identityReady,
     authority: false,
     publication: false,
-    experiment: false,
   };
 
   return {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     bundle_id: bundle?.bundle_id || null,
+    bundle_stage: bundle?.bundle_stage || null,
     machine_valid: machineValid,
     components_valid: componentsValid,
     bundle_coherent: bundleCoherent,
@@ -362,10 +596,21 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       by_role: identityByRole,
       shared_by_all: intersection(Object.values(identityByRole).map((ids) => new Set(ids))),
     },
+    outcome_logic: {
+      valid: conditionDefinitionValid,
+      declared_ref: bundle?.canonical?.outcome_logic_ref || null,
+    },
+    scope_binding: {
+      valid: scopeBindingValid,
+      scope_manifest_id: scopeManifest?.scope_manifest_id || null,
+      mapping_truth_assessed: false,
+      by_role: scopeByRole,
+    },
     component_results: componentResults,
     authority_effect: "none",
     action_authorised: false,
     publication_approved: false,
+    coherence_blockers: coherenceBlockers,
     issues,
   };
 }

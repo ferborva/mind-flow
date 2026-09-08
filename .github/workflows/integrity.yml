@@ -39,7 +39,7 @@ jobs:
       - name: Rebuild the global Observatory
         run: >-
           node dashboard/tools/build.mjs
-          dashboard/snapshots/2026-09-08.r2.json
+          dashboard/snapshots/2026-09-08.r3.json
           dashboard/web/index.html
 
       - name: Rebuild the Australia pilot

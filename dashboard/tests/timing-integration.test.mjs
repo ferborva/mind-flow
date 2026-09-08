@@ -20,7 +20,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const oldR1Path = join(dashboard, "snapshots", "2026-09-08.json");
 const oldLegacyPath = join(dashboard, "snapshots", "2026-09-07.json");
-const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
+const oldR2Path = join(dashboard, "snapshots", "2026-09-08.r2.json");
+const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r3.json");
 const indexPath = join(dashboard, "snapshots", "index.json");
 const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
 const timingSchemaPath = join(dashboard, "schema", "source-timing.schema.json");
@@ -64,7 +65,7 @@ function loadSnapshotSchemas() {
 const snapshotSchemas = loadSnapshotSchemas();
 const validateIndex = (index, records) => validateSnapshotIndex(index, records, snapshotSchemas);
 
-test("frozen v1.5 and v1.8 records remain byte-identical beside the v2.0 correction", () => {
+test("frozen v1.5, v1.8 and v2.0 records remain byte-identical beside the v2.1 correction", () => {
   assert.equal(
     digest(readFileSync(oldLegacyPath)),
     "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
@@ -73,13 +74,17 @@ test("frozen v1.5 and v1.8 records remain byte-identical beside the v2.0 correct
     digest(readFileSync(oldR1Path)),
     "sha256:f09f5b7c2cf2187bd6997921b0b48b2b9857dbf110520167037ff7b00ef8fd35",
   );
+  assert.equal(
+    digest(readFileSync(oldR2Path)),
+    "sha256:80cdae407821c49df33dc4fd1e5e630fc23d269f543cacc512c4705cd11bfb1f",
+  );
   const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
-  assert.equal(snapshot.record_id, "2026-09-08.r2");
-  assert.equal(snapshot.correction.supersedes_record_id, "2026-09-08.r1");
-  assert.equal(snapshot.correction.supersedes_snapshot_sha256, digest(readFileSync(oldR1Path)));
+  assert.equal(snapshot.record_id, "2026-09-08.r3");
+  assert.equal(snapshot.correction.supersedes_record_id, "2026-09-08.r2");
+  assert.equal(snapshot.correction.supersedes_snapshot_sha256, digest(readFileSync(oldR2Path)));
 });
 
-test("the v2.0 snapshot and timing graph fail closed under their governed policy", () => {
+test("the v2.1 snapshot and timing graph fail closed under their governed policy", () => {
   const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
   const policyBytes = readFileSync(policyPath);
   const policy = JSON.parse(policyBytes);
@@ -90,7 +95,7 @@ test("the v2.0 snapshot and timing graph fail closed under their governed policy
   ajv.addSchema(timingSchema);
   const validate = ajv.compile(snapshotSchema);
   assert.equal(validate(snapshot), true, ajv.errorsText(validate.errors));
-  assert.equal(snapshot.schema_version, "2.0.0");
+  assert.equal(snapshot.schema_version, "2.1.0");
   assert.equal(snapshot.evidence_policy.version, "2.0.0");
   assert.equal(snapshot.evidence_policy.sha256, digest(policyBytes));
   assert.equal(Object.hasOwn(snapshot, "timing_assessments"), false);
@@ -138,11 +143,12 @@ test("the v2.0 snapshot and timing graph fail closed under their governed policy
 test("the record index permits same-day corrections without rewriting history", () => {
   const index = JSON.parse(readFileSync(indexPath, "utf8"));
   assert.equal(index.schema_version, "2.0.0");
-  assert.equal(index.latest, "2026-09-08.r2");
+  assert.equal(index.latest, "2026-09-08.r3");
   assert.deepEqual(index.snapshots.map(({ id }) => id), [
     "2026-09-07.r1",
     "2026-09-08.r1",
     "2026-09-08.r2",
+    "2026-09-08.r3",
   ]);
   for (const entry of index.snapshots) {
     const snapshot = JSON.parse(readFileSync(join(dashboard, "snapshots", entry.path), "utf8"));
@@ -177,7 +183,7 @@ test("the record index rejects false latest pointers and duplicate identities", 
   ));
 
   const traversal = structuredClone(index);
-  traversal.snapshots.at(-1).path = "../2026-09-08.r2.json";
+  traversal.snapshots.at(-1).path = "../2026-09-08.r3.json";
   const traversalRecords = records.map((record, position) => ({
     entry: traversal.snapshots[position], bytes: record.bytes,
   }));
@@ -213,14 +219,14 @@ test("the record index rejects false latest pointers and duplicate identities", 
   const newDateSnapshot = JSON.parse(records.at(-1).bytes.toString("utf8"));
   newDateSnapshot.record_id = "2026-09-09.r1";
   newDateSnapshot.snapshot_id = "2026-09-09";
-  newDateSnapshot.correction.supersedes_record_id = "2026-09-08.r2";
+  newDateSnapshot.correction.supersedes_record_id = "2026-09-08.r3";
   newDateSnapshot.correction.supersedes_snapshot_id = "2026-09-08";
   newDateSnapshot.correction.supersedes_snapshot_sha256 = records.at(-1).entry.sha256;
   const newDateBytes = Buffer.from(JSON.stringify(newDateSnapshot));
   const newDateEntry = {
     id: "2026-09-09.r1",
     snapshot_id: "2026-09-09",
-    schema_version: "2.0.0",
+    schema_version: "2.1.0",
     path: "2026-09-09.r1.json",
     sha256: digest(newDateBytes),
   };
@@ -245,9 +251,9 @@ test("the record index rejects false latest pointers and duplicate identities", 
 
   const malformedHistory = structuredClone(index);
   const malformedBytes = Buffer.from(JSON.stringify({
-    schema_version: "2.0.0",
+    schema_version: "2.1.0",
     snapshot_id: "2026-09-08",
-    record_id: "2026-09-08.r2",
+    record_id: "2026-09-08.r3",
   }));
   malformedHistory.snapshots.at(-1).sha256 = digest(malformedBytes);
   const malformedRecords = records.slice(0, -1).map((record, position) => ({
@@ -267,7 +273,7 @@ test("the record index rejects false latest pointers and duplicate identities", 
   ));
 });
 
-test("the production build refuses v1.8 and injects derived timing assessments for v2.0", () => {
+test("the production build refuses v1.8 and injects derived timing assessments for v2.1", () => {
   const outputDirectory = mkdtempSync(join(tmpdir(), "mind-flow-timing-integration-"));
   const outputPath = join(outputDirectory, "index.html");
   execFileSync(process.execPath, [buildPath, snapshotPath, outputPath]);
@@ -298,11 +304,11 @@ test("the production build refuses v1.8 and injects derived timing assessments f
   delete unsignedBundle.evaluator;
   assert.equal(validateAssessments(unsignedBundle), false);
   assert.deepEqual(bundle.record_binding, {
-    record_id: "2026-09-08.r2",
+    record_id: "2026-09-08.r3",
     snapshot_sha256: digest(readFileSync(snapshotPath)),
     evidence_policy_sha256: digest(readFileSync(policyPath)),
     evidence_cutoff: "2026-09-08T00:41:31Z",
-    record_generated_at: "2026-09-08T09:49:00Z",
+    record_generated_at: "2026-09-09T12:00:00Z",
   });
   assert.ok(Object.values(bundle.signals).every(
     (assessment) => assessment.record_generated_at && !Object.hasOwn(assessment, "snapshot_revision"),

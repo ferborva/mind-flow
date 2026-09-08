@@ -18,7 +18,7 @@ accountability.
 
 | Surface | Purpose | Claim limit |
 |---|---|---|
-| `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an empty typed possible-path boundary |
+| `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an explicitly unbound typed possible-path boundary |
 | `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
 
 Neither surface is approved for public warning or operational action. The
@@ -43,13 +43,19 @@ verifies a separately hash-pinned adapter and classification policy, every
 record-index identity/path/digest and correction link, complete raw-input coverage for local-hash claims,
 byte-to-series equivalence, derived arithmetic, timing and the seven-part
 update. The default public build accepts only the latest indexed record. It also
-rejects missing signal references and false authority claims.
+rejects missing signal references and false authority claims. A non-empty
+possible-path reference is rendered only after the build resolves a
+content-addressed transition bundle, re-hashes the repository-contained path
+artifact, applies the repository-owned path validator and proves exact `WHO +
+VERB + OBJECT + STANDARD + PLACE + PERIOD + IF` alignment.
 
 `snapshot_id` names the evidence cut-off date. `record_id` names an immutable
 revision of that dated claim record. This distinction permits a same-day
 correction such as `2026-09-08.r2` without overwriting `2026-09-08.r1`. A later
 correction keeps the original evidence-date identity while `generated_at` and
 `correction.issued_on` record when the correction was actually produced.
+Record `2026-09-08.r3` adds the transition-bundle boundary without rewriting
+the frozen `r2` bytes.
 
 The current snapshot is explicitly `research_draft_unverified`: its transformed
 values are frozen, but its upstream response bytes were not retained. Every
@@ -60,7 +66,8 @@ not publisher authenticity. `--mode=publishable` always fails with
 system exists. Captured inputs must also carry 2xx HTTP and matching media
 metadata.
 
-There is no single truthful freshness clock. Schema 2.0 keeps **reference
+There is no single truthful freshness clock. The schema 2.1 snapshot retains
+the schema 2.0 timing contract, which keeps **reference
 period**, **publisher vintage**, **publisher release**, **retrieval**, **byte
 acquisition**, **derived computation** and **record generation** separate.
 Build-time assessments use exact selected point lineage. An unknown clock stays
@@ -129,11 +136,13 @@ unknown, so the registered decision is `no_decision`.
 | `schema/snapshot-index.schema.json` | Immutable record-index contract |
 | `schema/archive/snapshot-1.5.schema.json` | Frozen first public prototype schema |
 | `schema/archive/snapshot-1.8.schema.json` | Frozen predecessor schema, retained for migration audit |
+| `schema/archive/snapshot-2.0.schema.json` | Frozen timing-correction schema, retained for migration audit |
 | `evidence/adapter-classification-policy.json` | Pinned source, selector and evidence-class policy |
 | `evidence/archive/adapter-classification-policy-1.2.json` | Frozen predecessor policy |
 | `timing/validation.mjs` | Clock, evidence-binding and exact-lineage assessment kernel |
 | `tools/fetch_snapshot.py` | Verifies frozen raw-input manifests; live writing is retired |
 | `tools/migrate-timing-contract.mjs` | Deterministically creates the 2.0 correction and record index |
+| `tools/transition-bundle-binding.mjs` | Resolves bundle-bound path artifacts and creates the derived public projection |
 | `tools/build.mjs` | Validates and embeds one global snapshot |
 | `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
 | `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
@@ -145,17 +154,17 @@ unknown, so the registered decision is `no_decision`.
 ## Build and test
 
 ```bash
-node dashboard/tools/migrate-timing-contract.mjs
 node dashboard/tools/build.mjs \
-  dashboard/snapshots/2026-09-08.r2.json dashboard/web/index.html
+  dashboard/snapshots/2026-09-08.r3.json dashboard/web/index.html
 node dashboard/tools/build-australia-pilot.mjs \
   pilots/australia/data/nero-clerical-2026-08.json \
   pilots/australia/web/index.html
 npm test
 ```
 
-The migration command is deterministic and pins the predecessor bytes. The
-build and tests use frozen local evidence. To verify a retained legacy fixture,
+The build and tests use frozen local evidence. The timing migration tool exists
+to reproduce the historical `r2` record, not to create the active `r3` record.
+To verify a retained legacy fixture,
 run `python3 dashboard/tools/fetch_snapshot.py --verify-input-manifest PATH`.
 Running the fetcher without that flag fails closed and cannot rewrite the 2.0
 record index.
@@ -192,8 +201,14 @@ is an instrumentation backlog, not a neutral or safe state.
   wording, scope or evidence changed, so no history-based decision is eligible.
 - Free-text failure modes and actor playbooks were removed because labels alone
   could not bind hypotheses, discriminators, condition gates or authority.
-- Non-empty possible-path references fail the build until the dashboard can
-  resolve and validate their typed artifacts end to end.
+- A non-empty possible-path reference passes only when the declared transition
+  bundle and typed path bytes are repository-contained and checksum-exact, the
+  fixed path validator accepts every required role and graph invariant, and the
+  bundle-native scope, canonical conditions and complete dashboard IF scope
+  match. Symlinks, drift and prose substitutes fail closed.
+- The displayed path is a build-derived projection. Its source bundle remains
+  `research-draft`, grants no authority and cannot turn a hypothesis into a
+  finding, forecast or command.
 - A public signal cannot become an operational action without a separate owner,
   authority, review, expiry, help route and appeal path.
 
