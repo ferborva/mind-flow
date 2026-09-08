@@ -43,7 +43,9 @@ The protocol now separates operational concerns:
    recovering or complete.
 6. `action-lifecycle-state.schema.json` records the operational state asserted
    for one checksum-pinned action. It is separate from both the action definition
-   and the evaluation run, and its external trust remains explicit.
+   and the evaluation run. An initial inactive assertion is explicit; every
+   later state embeds the full checksum-pinned source owner event. External
+   trust remains explicit.
 7. `transition-proposal.schema.json` records the repository-computed proposal
    from one action, one completed evaluation run and one prior lifecycle state.
    It has no authority effect and contains no owner event.
@@ -130,13 +132,17 @@ simultaneously consistent with the same evidence. `selection_effect: none`
 prevents the assessment from silently choosing one future.
 
 `assessConditionPathway` recomputes those branch assessments. Its output is
-repository-computed, checksum-pins its registered evaluator and remains
+repository-computed, checksum-pins its registered executable dependency manifest and remains
 externally unverified. A gate test must exclude at least one truth state, and a
 named discriminator must affect a gate tested by that branch. Evidence,
 forecast, readiness, option and participation references must resolve to
-supplied checksum-pinned content. The five readiness roles cannot be collapsed
-into one artifact. A `candidate-only` operational action must reference a
-separate action contract; `none` contains no option reference. Neither state
+supplied checksum-pinned content. Only conditional options currently have a
+registered schema and semantic validator. Every other non-empty support role
+fails closed until its own validator is registered; a checksum alone does not
+create a type. The five readiness roles cannot be collapsed into one artifact.
+A `candidate-only` operational action must reference a separate conditional
+option contract, and the branch must test the option's bound gate with `true`
+among its expected states. `none` contains no option reference. Neither state
 approves, activates or recommends an action.
 
 ## Action contract
@@ -155,6 +161,12 @@ That record pins the exact action and uses the closed
 `action-transition-lifecycle/1.0.0` vocabulary: `inactive`, `watching`,
 `preparing`, `active`, `paused`, `reversing`, `recovering` or `graduated`. Its
 timestamp must precede the evaluation used for a new transition proposal.
+Every non-initial state embeds its full `unverified-external` source owner event
+and a checksum reference to that event. This preserves inspectable lineage but
+does not verify that the external event truly occurred. Reuse rejects a source
+event whose owner, transition tuple, prior lifecycle, role-specific reference
+version, action approval window or deterministic resulting-state ID conflicts
+with the bound action.
 
 The pinned gate-truth state must be `true`, and its orthogonal eligibility must
 also pass: phase eligibility for `prepare` or `act`, duty eligibility for
@@ -174,29 +186,46 @@ gate and observation references, checksums, date order, evidence timing,
 coverage minimums, source and quality policy, uncertainty bounds, probability
 policy, action lifetime and funding lifetime. `validateEvaluationBundle`
 re-evaluates every gate and requires the stored state, trace and condition
-resolution to match exactly. Evaluation validation does not inspect or create an
-action lifecycle.
+resolution to match exactly. For an approved, active or paused condition, no
+approval may predate definition creation or follow the start of validity. Equal
+second-resolution timestamps are permitted; the checksum dependency preserves
+content order. Evaluation validation does not inspect or create an action
+lifecycle.
 
 `validateTransitionBundle` separately recomputes a transition proposal from the
 exact action, matching completed run and prior action state. A proposal cannot
 predate action validity or approval, or outlive secured funding.
-`validateOperationalActionState` then requires a later owner event only when the
-proposed lifecycle differs from the prior lifecycle. Its four checksum-bound
-references and transition tuple must match that proposal exactly. An unchanged
-proposal preserves the prior state and must not invent an owner event. Any event remains
-`unverified-external`; passing validation proves internal consistency, not the
-truth, legality or authority of the external assertion.
+`validateOperationalActionState` then requires an owner event recorded no
+earlier than the proposal only when the proposed lifecycle differs from the
+prior lifecycle. Equal second-resolution timestamps are permitted because the
+event checksum-pins the proposal. Its four checksum-bound references and
+transition tuple must match that proposal exactly. An unchanged
+proposal preserves the prior state and must not invent an owner event or state.
+A change must also bind the exact lifecycle state deterministically derived
+from the event. Any event remains `unverified-external`; passing validation
+proves internal consistency, not the truth, legality or authority of the
+external assertion.
 
 `validateConditionPathwayDefinition` checks branch kinds, unique identifiers,
-condition and predicate references, scope and validity dates.
+condition and predicate references, non-repeated gate hypotheses, scope and
+validity dates.
 `validateConditionPathwayBundle` recomputes every assessment from its pinned
 evaluation inputs without selecting a winning branch or importing action
 authority.
 
 Completed runs, attempts and possible-path assessments pin a registered
-evaluator ID, version and source digest from `evaluator-registry.json`. The
+evaluator ID, version and executable-manifest digest from
+`evaluator-registry.json`. The manifest pins the bytes of the pathway
+interpreter, every directly imported semantic validator, the schemas they
+enforce and the package lock. Loading the interpreter fails closed if the
+manifest or any declared dependency drifts. This provenance identifies the
+repository computation. It does not validate external truth or grant action
+authority. The
 registry is repository-local and has
 `authority_effect: none`; it establishes reproducibility, not external trust.
+Generated proposal, resulting-state and assessment IDs also include the full
+digest of their identity inputs, so same-instant records over different inputs
+cannot silently collide.
 
 `validateEvaluationAttempt` applies the same definition, observation, date and
 deterministic-output checks to the subset an attempt claims to have completed.

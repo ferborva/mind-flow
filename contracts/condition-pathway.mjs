@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { isDeepStrictEqual } from "node:util";
 
@@ -5,6 +6,10 @@ import {
   checksumJson,
   validateEvaluationBundle,
 } from "./semantic-validation.mjs";
+import {
+  validateConditionalOption,
+  validateConditionalOptionBinding,
+} from "../options/validation.mjs";
 
 export { checksumJson };
 
@@ -20,9 +25,55 @@ const EVALUATOR_REGISTRY = JSON.parse(readFileSync(
   new URL("./evaluator-registry.json", import.meta.url),
   "utf8",
 ));
+const PATHWAY_EVALUATOR_MANIFEST_BYTES = readFileSync(
+  new URL("./pathway-evaluator-manifest.json", import.meta.url),
+);
+const PATHWAY_EVALUATOR_MANIFEST = JSON.parse(PATHWAY_EVALUATOR_MANIFEST_BYTES.toString("utf8"));
 const PATHWAY_EVALUATOR = EVALUATOR_REGISTRY.evaluators.find(
   ({ id, version }) => id === "mind-flow.condition-pathway" && version === "1.0.0",
 );
+
+function checksumBytes(value) {
+  return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function verifyPathwayEvaluatorClosure() {
+  if (!PATHWAY_EVALUATOR) {
+    throw new TypeError("The condition-pathway evaluator is not registered.");
+  }
+  if (PATHWAY_EVALUATOR.digest_kind !== "executable-manifest-sha256") {
+    throw new TypeError("The condition-pathway evaluator must bind an executable manifest.");
+  }
+  if (PATHWAY_EVALUATOR.digest !== checksumBytes(PATHWAY_EVALUATOR_MANIFEST_BYTES)) {
+    throw new TypeError("The registered condition-pathway evaluator manifest digest does not match.");
+  }
+  if (
+    PATHWAY_EVALUATOR_MANIFEST.authority_effect !== "none" ||
+    !Array.isArray(PATHWAY_EVALUATOR_MANIFEST.dependencies) ||
+    PATHWAY_EVALUATOR_MANIFEST.dependencies.length === 0
+  ) {
+    throw new TypeError("The condition-pathway evaluator manifest is invalid.");
+  }
+  const seen = new Set();
+  for (const dependency of PATHWAY_EVALUATOR_MANIFEST.dependencies) {
+    const path = dependency?.path;
+    if (
+      typeof path !== "string" ||
+      path.startsWith("/") ||
+      path.split("/").includes("..") ||
+      seen.has(path)
+    ) {
+      throw new TypeError("The condition-pathway evaluator manifest contains an unsafe or duplicate path.");
+    }
+    seen.add(path);
+    const bytes = readFileSync(new URL(`../${path}`, import.meta.url));
+    if (dependency.digest !== checksumBytes(bytes)) {
+      throw new TypeError(`The condition-pathway evaluator dependency ${path} does not match its manifest.`);
+    }
+  }
+}
+
+verifyPathwayEvaluatorClosure();
 
 function problem(code, path, message) {
   return { code, path, message };
@@ -91,40 +142,96 @@ function supportingArtifactReference(artifact) {
   return { id: artifact.id, version, checksum: checksumJson(artifact) };
 }
 
-function supportingReferenceErrors(definition, supportingArtifacts) {
+function supportingReferenceErrors(definition, conditions, supportingArtifacts) {
   const errors = [];
   const references = [];
-  const add = (reference, path) => {
-    if (reference !== null && reference !== undefined) references.push({ reference, path });
+  const add = (reference, path, role = "support", branch = null) => {
+    if (reference !== null && reference !== undefined) {
+      references.push({ reference, path, role, branch });
+    }
   };
   for (const [branchIndex, branch] of (definition?.branches || []).entries()) {
     for (const [index, reference] of (branch.binding_interpretation?.evidence_refs || []).entries()) {
-      add(reference, `$.branches[${branchIndex}].binding_interpretation.evidence_refs[${index}]`);
+      add(
+        reference,
+        `$.branches[${branchIndex}].binding_interpretation.evidence_refs[${index}]`,
+        "binding-evidence",
+      );
     }
-    add(branch.forecast_relation?.forecast_ref, `$.branches[${branchIndex}].forecast_relation.forecast_ref`);
+    add(
+      branch.forecast_relation?.forecast_ref,
+      `$.branches[${branchIndex}].forecast_relation.forecast_ref`,
+      "forecast",
+    );
     for (const field of [
       "detector_ref",
       "loss_function_ref",
       "performance_evidence_ref",
       "review_capacity_ref",
       "lead_time_evidence_ref",
-    ]) add(branch.early_warning?.[field], `$.branches[${branchIndex}].early_warning.${field}`);
+    ]) add(
+      branch.early_warning?.[field],
+      `$.branches[${branchIndex}].early_warning.${field}`,
+      `early-warning:${field}`,
+    );
     for (const [index, reference] of (branch.operational_action?.option_refs || []).entries()) {
-      add(reference, `$.branches[${branchIndex}].operational_action.option_refs[${index}]`);
+      add(
+        reference,
+        `$.branches[${branchIndex}].operational_action.option_refs[${index}]`,
+        "conditional-option",
+        branch,
+      );
     }
   }
   for (const [name, safeguard] of Object.entries(definition?.participation_safeguards || {})) {
     for (const [index, reference] of (safeguard.evidence_refs || []).entries()) {
-      add(reference, `$.participation_safeguards.${name}.evidence_refs[${index}]`);
+      add(
+        reference,
+        `$.participation_safeguards.${name}.evidence_refs[${index}]`,
+        `participation-evidence:${name}`,
+      );
     }
   }
-  const resolved = (supportingArtifacts || []).map(supportingArtifactReference).filter(Boolean);
-  for (const { reference, path } of references) {
-    if (!resolved.some((candidate) => isDeepStrictEqual(candidate, reference))) {
+  const resolved = (supportingArtifacts || []).map((artifact) => ({
+    artifact,
+    reference: supportingArtifactReference(artifact),
+  })).filter(({ reference }) => reference !== null);
+  for (const { reference, path, role, branch } of references) {
+    const match = resolved.find((candidate) => isDeepStrictEqual(candidate.reference, reference));
+    if (!match) {
       errors.push(problem(
         "PATHWAY_SUPPORTING_ARTIFACT_UNRESOLVED",
         path,
         "Every evidence, forecast, readiness, option and participation reference must resolve to supplied checksum-pinned content.",
+      ));
+      continue;
+    }
+    if (role === "conditional-option") {
+      const boundCondition = conditions.get(match.artifact.condition_definition_ref?.id);
+      const optionResult = validateConditionalOptionBinding(match.artifact, boundCondition);
+      const declaredCondition = (definition.condition_definitions || []).some((candidate) =>
+        isDeepStrictEqual(candidate, match.artifact.condition_definition_ref));
+      const testedBinding = (branch?.gate_tests || []).some((gateTest) =>
+        gateTest.gate === match.artifact.bound_gate &&
+        gateTest.expected_states.includes("true") &&
+        isDeepStrictEqual(gateTest.condition_definition, match.artifact.condition_definition_ref));
+      if (
+        !optionResult.valid ||
+        !isDeepStrictEqual(match.artifact.scope, definition.scope) ||
+        !declaredCondition ||
+        !testedBinding
+      ) {
+        errors.push(problem(
+          "PATHWAY_OPTION_ARTIFACT_INVALID",
+          path,
+          "A candidate option must satisfy its closed schema and bind this pathway scope, condition and tested gate.",
+        ));
+      }
+    } else {
+      errors.push(problem(
+        "PATHWAY_SUPPORT_ROLE_UNVALIDATED",
+        path,
+        `Supporting role ${role} has no registered schema and semantic validator, so it cannot be linked yet.`,
       ));
     }
   }
@@ -212,6 +319,7 @@ export function validateConditionPathwayDefinition(
   }
 
   const gateTestIds = new Set();
+  const branchHypotheses = new Map();
   for (const [branchIndex, branch] of branches.entries()) {
     if (!/\bIF\b/.test(branch.public_statement || "")) {
       errors.push(problem(
@@ -222,6 +330,7 @@ export function validateConditionPathwayDefinition(
     }
     const testedGatePredicates = new Set();
     const boundConditionPredicates = new Set();
+    const branchGateBindings = new Set();
     for (const [testIndex, gateTest] of (branch.gate_tests || []).entries()) {
       const testPath = `$.branches[${branchIndex}].gate_tests[${testIndex}]`;
       if (gateTestIds.has(gateTest.id)) {
@@ -232,6 +341,18 @@ export function validateConditionPathwayDefinition(
         ));
       }
       gateTestIds.add(gateTest.id);
+      const gateBinding = checksumJson({
+        condition_definition: gateTest.condition_definition,
+        gate: gateTest.gate,
+      });
+      if (branchGateBindings.has(gateBinding)) {
+        errors.push(problem(
+          "PATHWAY_BRANCH_GATE_CONTRADICTION",
+          testPath,
+          "A branch may test a condition gate only once; repeated tests could encode contradictory states.",
+        ));
+      }
+      branchGateBindings.add(gateBinding);
       const condition = conditions.get(gateTest.condition_definition?.id);
       if (
         !condition ||
@@ -282,9 +403,45 @@ export function validateConditionPathwayDefinition(
         ));
       }
     }
+
+    const hypothesis = checksumJson((branch.gate_tests || []).map((gateTest) => ({
+      condition_definition: gateTest.condition_definition,
+      gate: gateTest.gate,
+      expected_states: [...(gateTest.expected_states || [])].sort(),
+    })).sort((left, right) => checksumJson(left).localeCompare(checksumJson(right))));
+    if (branchHypotheses.has(hypothesis)) {
+      errors.push(problem(
+        "PATHWAY_BRANCH_HYPOTHESIS_DUPLICATE",
+        `$.branches[${branchIndex}].gate_tests`,
+        `This branch repeats the tested IF hypothesis of branch ${branchHypotheses.get(hypothesis)}.`,
+      ));
+    } else {
+      branchHypotheses.set(hypothesis, branch.id);
+    }
+
+    const hasExpected = (gates, states) => (branch.gate_tests || []).some((gateTest) =>
+      gates.includes(gateTest.gate) && gateTest.expected_states.some((state) => states.includes(state)));
+    const kindIsConsistent =
+      (branch.kind === "positive" && hasExpected(["watch", "prepare", "act"], ["true"])) ||
+      (branch.kind === "adverse" && hasExpected(
+        ["pause", "reverse"],
+        ["true", "unknown", "stale", "conflicted"],
+      )) ||
+      (branch.kind === "measurement-alternative" && hasExpected(
+        ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"],
+        ["unknown", "stale", "conflicted"],
+      )) ||
+      (branch.kind === "recovery" && hasExpected(["recover", "graduate"], ["true"]));
+    if (!kindIsConsistent) {
+      errors.push(problem(
+        "PATHWAY_BRANCH_KIND_INCONSISTENT",
+        `$.branches[${branchIndex}].kind`,
+        "The branch kind does not match the role and expected state of any tested IF gate.",
+      ));
+    }
   }
 
-  errors.push(...supportingReferenceErrors(definition, supportingArtifacts));
+  errors.push(...supportingReferenceErrors(definition, conditions, supportingArtifacts));
 
   for (const [branchIndex, branch] of branches.entries()) {
     if (branch.early_warning?.readiness !== "shadow-ready") continue;
@@ -356,9 +513,6 @@ export function assessConditionPathway(
   assessedAt,
   supportingArtifacts = [],
 ) {
-  if (!PATHWAY_EVALUATOR) {
-    throw new TypeError("The condition-pathway evaluator is not registered.");
-  }
   const assessedInstant = instant(assessedAt);
   if (assessedInstant === null) {
     throw new TypeError("A condition-pathway assessment requires an exact UTC assessed_at.");
@@ -435,6 +589,28 @@ export function assessConditionPathway(
     });
   }
 
+  for (const branch of definition.branches) {
+    if (branch.operational_action.status !== "candidate-only") continue;
+    for (const reference of branch.operational_action.option_refs) {
+      const option = supportingArtifacts.find((artifact) =>
+        isDeepStrictEqual(supportingArtifactReference(artifact), reference));
+      const bundle = evaluationBundles.find(({ condition }) =>
+        condition.id === option?.condition_definition_ref?.id);
+      const optionResult = validateConditionalOption(option, {
+        condition: bundle?.condition,
+        evaluation_bundle: bundle ? {
+          observations: bundle.observations,
+          evaluation_run: bundle.evaluation_run,
+        } : undefined,
+        as_of: assessedAt,
+      });
+      if (!optionResult.valid) {
+        throw new TypeError(`The candidate option ${reference.id} is invalid at assessment time: ${optionResult.errors
+          .map(({ code }) => code).join(", ")}.`);
+      }
+    }
+  }
+
   const branchAssessments = definition.branches.map((branch) => {
     const { pathObservation, gateTruth } = branchObservation(branch, runsByCondition);
     return {
@@ -462,14 +638,20 @@ export function assessConditionPathway(
   const discriminatingPredicates = [...new Set(
     definition.branches.flatMap(({ next_discriminating_predicates: refs }) => refs),
   )];
+  const pathwayRef = pathwayReference(definition);
+  const identityDigest = checksumJson({
+    pathway_definition: pathwayRef,
+    evaluation_inputs: evaluationInputs,
+    assessed_at: assessedAt,
+  }).slice("sha256:".length);
 
   return {
     schema_version: "1.0.0",
     id: `assessment.${definition.id}.${assessedAt
-      .toLowerCase().replaceAll(/[^a-z0-9]+/g, "")}`,
+      .toLowerCase().replaceAll(/[^a-z0-9]+/g, "")}.${identityDigest}`,
     assessment_version: "1.0.0",
     assessed_at: assessedAt,
-    pathway_definition: pathwayReference(definition),
+    pathway_definition: pathwayRef,
     evaluation_inputs: evaluationInputs,
     branch_assessments: branchAssessments,
     cross_branch: {

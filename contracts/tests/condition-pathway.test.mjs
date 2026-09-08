@@ -24,10 +24,12 @@ const clone = (value) => structuredClone(value);
 
 const definitionSchema = schema("condition-pathway-definition.schema.json");
 const assessmentSchema = schema("condition-pathway-assessment.schema.json");
+const evaluatorManifestSchema = schema("evaluator-manifest.schema.json");
 const definition = fixture("condition-pathway.credibility-break.valid.json");
 const condition = fixture("condition.valid.json");
 const observations = fixture("observations.valid.json");
 const run = fixture("evaluation-run.valid.json");
+const validOption = readJson(resolve(contracts, "../options/fixtures/option.valid.json"));
 const bundles = [{ condition, observations, evaluation_run: run }];
 const assessedAt = "2026-09-08T00:00:00Z";
 
@@ -35,6 +37,7 @@ const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateDefinitionSchema = ajv.compile(definitionSchema);
 const validateAssessmentSchema = ajv.compile(assessmentSchema);
+const validateEvaluatorManifestSchema = ajv.compile(evaluatorManifestSchema);
 
 const evaluatorRegistry = readJson(join(contracts, "evaluator-registry.json"));
 
@@ -128,6 +131,48 @@ test("every branch is bound to real condition gates and names discriminating obs
   assert.ok(validateConditionPathwayDefinition(tautology, [condition]).errors.some(
     ({ code }) => code === "PATHWAY_GATE_TEST_TAUTOLOGY",
   ));
+
+  const relabelled = clone(definition);
+  for (const branch of relabelled.branches.slice(1)) {
+    branch.gate_tests = clone(relabelled.branches[0].gate_tests);
+    branch.next_discriminating_predicates = clone(
+      relabelled.branches[0].next_discriminating_predicates,
+    );
+  }
+  const relabelledResult = validateConditionPathwayDefinition(relabelled, [condition]);
+  assert.ok(relabelledResult.errors.some(
+    ({ code }) => code === "PATHWAY_BRANCH_HYPOTHESIS_DUPLICATE",
+  ));
+  assert.ok(relabelledResult.errors.some(
+    ({ code }) => code === "PATHWAY_BRANCH_KIND_INCONSISTENT",
+  ));
+
+  const keyReorderedDuplicate = clone(definition);
+  const reorderedBranch = clone(keyReorderedDuplicate.branches[0]);
+  reorderedBranch.id = "path.positive-preparation.reordered-duplicate";
+  reorderedBranch.gate_tests.forEach((gateTest, index) => {
+    gateTest.id = `test.reordered-duplicate.${index}`;
+  });
+  const originalReference = reorderedBranch.gate_tests[0].condition_definition;
+  reorderedBranch.gate_tests[0].condition_definition = {
+    version: originalReference.version,
+    id: originalReference.id,
+    checksum: originalReference.checksum,
+  };
+  keyReorderedDuplicate.branches.push(reorderedBranch);
+  assert.ok(validateConditionPathwayDefinition(
+    keyReorderedDuplicate,
+    [condition],
+  ).errors.some(({ code }) => code === "PATHWAY_BRANCH_HYPOTHESIS_DUPLICATE"));
+
+  const contradictory = clone(definition);
+  const repeated = clone(contradictory.branches[0].gate_tests[0]);
+  repeated.id = "gate-test.contradictory";
+  repeated.expected_states = repeated.expected_states.includes("true") ? ["false"] : ["true"];
+  contradictory.branches[0].gate_tests.push(repeated);
+  assert.ok(validateConditionPathwayDefinition(contradictory, [condition]).errors.some(
+    ({ code }) => code === "PATHWAY_BRANCH_GATE_CONTRADICTION",
+  ));
 });
 
 test("readiness, forecasts and options fail closed until their separate evidence exists", () => {
@@ -138,6 +183,26 @@ test("readiness, forecasts and options fail closed until their separate evidence
   const inventedForecast = clone(definition);
   inventedForecast.branches[0].forecast_relation = { status: "linked", forecast_ref: null };
   expectInvalid(validateDefinitionSchema, inventedForecast, "a linked forecast needs a pinned reference");
+
+  const fakeForecast = {
+    id: "forecast.fake",
+    version: "1.0.0",
+    payload: "an untyped object cannot become forecast evidence",
+  };
+  const linkedForecast = clone(definition);
+  linkedForecast.branches[0].forecast_relation = {
+    status: "linked",
+    forecast_ref: {
+      id: fakeForecast.id,
+      version: fakeForecast.version,
+      checksum: checksumJson(fakeForecast),
+    },
+  };
+  assert.ok(validateConditionPathwayDefinition(
+    linkedForecast,
+    [condition],
+    [fakeForecast],
+  ).errors.some(({ code }) => code === "PATHWAY_SUPPORT_ROLE_UNVALIDATED"));
 
   const inventedOption = clone(definition);
   inventedOption.branches[0].operational_action = {
@@ -160,6 +225,80 @@ test("readiness, forecasts and options fail closed until their separate evidence
   assert.ok(validateConditionPathwayDefinition(unresolvedOption, [condition]).errors.some(
     ({ code }) => code === "PATHWAY_SUPPORTING_ARTIFACT_UNRESOLVED",
   ));
+
+  const arbitrary = {
+    id: "option.invented",
+    option_version: "1.0.0",
+    payload: "not a conditional option contract",
+  };
+  unresolvedOption.branches[0].operational_action.option_refs[0] = {
+    id: arbitrary.id,
+    version: arbitrary.option_version,
+    checksum: checksumJson(arbitrary),
+  };
+  assert.ok(validateConditionPathwayDefinition(
+    unresolvedOption,
+    [condition],
+    [arbitrary],
+  ).errors.some(({ code }) => code === "PATHWAY_OPTION_ARTIFACT_INVALID"));
+
+  const typedOption = clone(definition);
+  typedOption.branches[2].gate_tests[0].expected_states = ["true", "conflicted"];
+  typedOption.branches[2].operational_action = {
+    status: "candidate-only",
+    authority_effect: "none",
+    option_refs: [{
+      id: validOption.id,
+      version: validOption.option_version,
+      checksum: checksumJson(validOption),
+    }],
+  };
+  assert.deepEqual(validateConditionPathwayDefinition(
+    typedOption,
+    [condition],
+    [validOption],
+  ), { valid: true, errors: [] });
+  assert.throws(
+    () => assessConditionPathway(typedOption, bundles, assessedAt, [validOption]),
+    /candidate option.*invalid/i,
+    "a schema-valid option still needs current condition and gate semantics",
+  );
+
+  const optionUnderFalseGate = clone(typedOption);
+  optionUnderFalseGate.branches[2].gate_tests[0].expected_states = ["false"];
+  assert.ok(validateConditionPathwayDefinition(
+    optionUnderFalseGate,
+    [condition],
+    [validOption],
+  ).errors.some(({ code }) => code === "PATHWAY_OPTION_ARTIFACT_INVALID"));
+
+  const roleConfusedOption = clone(validOption);
+  roleConfusedOption.verb = "reverse";
+  const pathwayWithRoleConfusedOption = clone(typedOption);
+  pathwayWithRoleConfusedOption.branches[2].operational_action.option_refs[0] = {
+    id: roleConfusedOption.id,
+    version: roleConfusedOption.option_version,
+    checksum: checksumJson(roleConfusedOption),
+  };
+  assert.ok(validateConditionPathwayDefinition(
+    pathwayWithRoleConfusedOption,
+    [condition],
+    [roleConfusedOption],
+  ).errors.some(({ code }) => code === "PATHWAY_OPTION_ARTIFACT_INVALID"));
+
+  const thresholdConfusedOption = clone(validOption);
+  thresholdConfusedOption.protected_outcome.threshold.value = -999;
+  const pathwayWithThresholdConfusedOption = clone(typedOption);
+  pathwayWithThresholdConfusedOption.branches[2].operational_action.option_refs[0] = {
+    id: thresholdConfusedOption.id,
+    version: thresholdConfusedOption.option_version,
+    checksum: checksumJson(thresholdConfusedOption),
+  };
+  assert.ok(validateConditionPathwayDefinition(
+    pathwayWithThresholdConfusedOption,
+    [condition],
+    [thresholdConfusedOption],
+  ).errors.some(({ code }) => code === "PATHWAY_OPTION_ARTIFACT_INVALID"));
 
   const aliasedReadiness = clone(definition);
   const inventedRef = {
@@ -288,10 +427,36 @@ test("the assessment binds every input and remains non-authorising", () => {
     ({ id, version }) => id === "mind-flow.condition-pathway" && version === "1.0.0",
   );
   assert.deepEqual(assessment.provenance.evaluator, registered);
+  const manifestPath = join(contracts, "pathway-evaluator-manifest.json");
+  const manifestBytes = readFileSync(manifestPath);
+  const manifest = JSON.parse(manifestBytes);
+  assert.equal(
+    validateEvaluatorManifestSchema(manifest),
+    true,
+    ajv.errorsText(validateEvaluatorManifestSchema.errors),
+  );
+  assert.equal(registered.digest_kind, "executable-manifest-sha256");
   assert.equal(
     registered.digest,
-    `sha256:${createHash("sha256").update(readFileSync(join(contracts, "condition-pathway.mjs"))).digest("hex")}`,
+    `sha256:${createHash("sha256").update(manifestBytes).digest("hex")}`,
   );
+  assert.ok(manifest.dependencies.some(({ path }) => path === "options/validation.mjs"));
+  for (const dependency of manifest.dependencies) {
+    assert.equal(
+      dependency.digest,
+      `sha256:${createHash("sha256").update(readFileSync(resolve(contracts, "..", dependency.path))).digest("hex")}`,
+      `${dependency.path} drifted outside the evaluator identity`,
+    );
+  }
   assert.equal(Object.hasOwn(assessment, "probability"), false);
   assert.equal(Object.hasOwn(assessment, "action"), false);
+});
+
+test("assessment IDs bind definition versions and inputs even at the same instant", () => {
+  const first = assessConditionPathway(definition, bundles, assessedAt);
+  const revised = clone(definition);
+  revised.definition_version = "1.0.1";
+  const second = assessConditionPathway(revised, bundles, assessedAt);
+  assert.notEqual(first.id, second.id);
+  assert.notEqual(first.pathway_definition.checksum, second.pathway_definition.checksum);
 });

@@ -11,6 +11,7 @@
     "lifecycle_vocabulary",
     "lifecycle",
     "recorded_at",
+    "lineage",
     "trust_state",
     "provenance"
   ],
@@ -21,10 +22,37 @@
     "lifecycle_vocabulary": { "const": "action-transition-lifecycle/1.0.0" },
     "lifecycle": { "$ref": "#/$defs/lifecycle" },
     "recorded_at": { "type": "string", "format": "date-time" },
+    "lineage": { "$ref": "#/$defs/lineage" },
     "trust_state": { "$ref": "#/$defs/trustState" },
     "provenance": { "$ref": "#/$defs/provenance" }
   },
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lifecycle": { "const": "inactive" } },
+        "required": ["lifecycle"]
+      },
+      "then": {
+        "properties": {
+          "lineage": {
+            "type": "object",
+            "properties": { "kind": { "const": "initial-assertion" } },
+            "required": ["kind"]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "lineage": {
+            "type": "object",
+            "properties": { "kind": { "const": "owner-transition-event" } },
+            "required": ["kind"]
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
@@ -43,6 +71,108 @@
     "actionReference": { "$ref": "#/$defs/artifactReference" },
     "lifecycle": {
       "enum": ["inactive", "watching", "preparing", "active", "paused", "reversing", "recovering", "graduated"]
+    },
+    "lineage": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": { "kind": { "const": "initial-assertion" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "owner-transition-event" },
+            "owner_event_ref": { "$ref": "#/$defs/ownerEventReference" },
+            "owner_event": { "$ref": "#/$defs/ownerTransitionEvent" }
+          },
+          "required": ["kind", "owner_event_ref", "owner_event"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ownerTransitionEvent": {
+      "type": "object",
+      "required": [
+        "schema_version", "id", "action_ref", "transition_proposal_ref",
+        "evaluation_run_ref", "prior_state_ref", "event_type",
+        "from_lifecycle", "to_lifecycle", "recorded_at", "trust_state",
+        "owner", "provenance"
+      ],
+      "properties": {
+        "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "id": { "$ref": "#/$defs/id" },
+        "action_ref": { "$ref": "#/$defs/artifactReference" },
+        "transition_proposal_ref": { "$ref": "#/$defs/proposalReference" },
+        "evaluation_run_ref": { "$ref": "#/$defs/evaluationRunReference" },
+        "prior_state_ref": { "$ref": "#/$defs/priorStateReference" },
+        "event_type": { "enum": ["watch", "prepare", "activate", "resume", "pause", "reverse", "begin-recovery", "recovery-exit", "graduate"] },
+        "from_lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "to_lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "recorded_at": { "type": "string", "format": "date-time" },
+        "trust_state": { "const": "unverified-external" },
+        "owner": { "$ref": "#/$defs/producer" },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "watch" }, "from_lifecycle": { "const": "inactive" }, "to_lifecycle": { "const": "watching" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "prepare" }, "from_lifecycle": { "enum": ["inactive", "watching"] }, "to_lifecycle": { "const": "preparing" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "activate" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing"] }, "to_lifecycle": { "const": "active" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "resume" }, "from_lifecycle": { "const": "paused" }, "to_lifecycle": { "const": "active" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "pause" }, "from_lifecycle": { "enum": ["preparing", "active", "recovering"] }, "to_lifecycle": { "const": "paused" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "reverse" }, "from_lifecycle": { "enum": ["preparing", "active", "paused", "recovering"] }, "to_lifecycle": { "const": "reversing" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "begin-recovery" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing", "active", "paused"] }, "to_lifecycle": { "const": "recovering" } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "recovery-exit" }, "from_lifecycle": { "const": "recovering" }, "to_lifecycle": { "enum": ["active", "graduated"] } } },
+            { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "graduate" }, "from_lifecycle": { "enum": ["active", "paused"] }, "to_lifecycle": { "const": "graduated" } } }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "ownerEventReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "proposalReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "evaluationRunReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^3\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "priorStateReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum", "lifecycle", "trust_state"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "trust_state": { "const": "unverified-external" }
+      },
+      "additionalProperties": false
     },
     "trustState": {
       "const": "unverified-external",

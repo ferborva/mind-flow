@@ -10,12 +10,13 @@
     {
       "id": "mind-flow.condition-evaluator",
       "version": "3.0.0",
-      "digest": "sha256:83e1290a815648db470a41c3e8eef8cee0fd2156b2c5035a0914242939bb9e89"
+      "digest": "sha256:712214e1af7a3313b8b413cb601fb201191a26c9161b7ac8952f53fea292a3dc"
     },
     {
       "id": "mind-flow.condition-pathway",
       "version": "1.0.0",
-      "digest": "sha256:18ee0da71c9aa41c4c31cf0db2466ebab97f1a31d76f7507e6ca3b7b78b07495"
+      "digest_kind": "executable-manifest-sha256",
+      "digest": "sha256:75b1eac593908eb4cde42733bbc657e6dc798d4ae92491b727171124362904e6"
     }
   ]
 }

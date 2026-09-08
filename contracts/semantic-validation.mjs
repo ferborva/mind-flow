@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { isDeepStrictEqual } from "node:util";
 
 import {
+  deriveResultingLifecycleState,
   GATES,
   evaluateGates,
   proposeTransition,
@@ -15,10 +16,8 @@ const EVALUATOR_REGISTRY = JSON.parse(readFileSync(
 ));
 const OWNER_EVENT_TRANSITIONS = new Set([
   "watch:inactive:watching",
-  "watch:watching:watching",
   "prepare:inactive:preparing",
   "prepare:watching:preparing",
-  "prepare:preparing:preparing",
   "activate:inactive:active",
   "activate:watching:active",
   "activate:preparing:active",
@@ -236,6 +235,24 @@ function validateDefinitionSemantics(definition) {
     "$.governance.valid_from",
     "$.governance.expires_at",
   );
+  for (const [index, approval] of (definition.governance?.approved_by || []).entries()) {
+    validateOrder(
+      errors,
+      definition.created_at,
+      approval.approved_at,
+      "DEFINITION_APPROVAL_BEFORE_CREATION",
+      "$.created_at",
+      `$.governance.approved_by[${index}].approved_at`,
+    );
+    validateOrder(
+      errors,
+      approval.approved_at,
+      definition.governance?.valid_from,
+      "DEFINITION_VALID_BEFORE_APPROVAL",
+      `$.governance.approved_by[${index}].approved_at`,
+      "$.governance.valid_from",
+    );
+  }
 
   const requirementIds = (definition.evidence_requirements || []).map((item) => item.id);
   if (new Set(requirementIds).size !== requirementIds.length) {
@@ -765,6 +782,7 @@ export function validateOperationalActionState(
   priorState,
   proposal,
   ownerEvent,
+  resultingState,
 ) {
   const transition = validateTransitionBundle(
     definition,
@@ -798,14 +816,21 @@ export function validateOperationalActionState(
         "An unchanged proposal preserves the checksum-pinned prior state and must not invent a transition event.",
       ));
     }
+    if (resultingState !== null && resultingState !== undefined) {
+      errors.push(problem(
+        "RESULTING_STATE_NOT_APPLICABLE",
+        "$.resulting_state",
+        "An unchanged proposal preserves the checksum-pinned prior state and must not invent a resulting state.",
+      ));
+    }
     return { valid: errors.length === 0, errors };
   }
   if (!ownerEvent || typeof ownerEvent !== "object" || Array.isArray(ownerEvent)) {
-    errors.push(problem(
-      "OWNER_EVENT_REQUIRED",
-      "$.owner_event",
-      "An operational-state claim requires a separate owner event recorded after the proposal.",
-    ));
+      errors.push(problem(
+        "OWNER_EVENT_REQUIRED",
+        "$.owner_event",
+        "An operational-state claim requires a separate owner event recorded no earlier than the proposal.",
+      ));
     return { valid: false, errors };
   }
   const referencesMatch =
@@ -848,6 +873,32 @@ export function validateOperationalActionState(
     "$.transition_proposal.generated_at",
     "$.owner_event.recorded_at",
   );
+  validateOrder(
+    errors,
+    ownerEvent.recorded_at,
+    action.expires_at,
+    "OWNER_EVENT_AFTER_ACTION_EXPIRY",
+    "$.owner_event.recorded_at",
+    "$.action.expires_at",
+  );
+  if (action.funding?.valid_through) {
+    validateOrder(
+      errors,
+      ownerEvent.recorded_at,
+      action.funding.valid_through,
+      "OWNER_EVENT_AFTER_FUNDING_VALIDITY",
+      "$.owner_event.recorded_at",
+      "$.action.funding.valid_through",
+    );
+  }
+  validateOrder(
+    errors,
+    ownerEvent.recorded_at,
+    definition.governance?.expires_at,
+    "OWNER_EVENT_AFTER_CONDITION_EXPIRY",
+    "$.owner_event.recorded_at",
+    "$.definition.governance.expires_at",
+  );
   if (
     definition.governance?.lifecycle === "paused" &&
     ["watch", "prepare", "activate", "resume"].includes(ownerEvent.event_type)
@@ -857,6 +908,27 @@ export function validateOperationalActionState(
       "$.owner_event.event_type",
       "A paused condition cannot support a new watching, preparation, activation or resume event.",
     ));
+  }
+  if (!resultingState || typeof resultingState !== "object" || Array.isArray(resultingState)) {
+    errors.push(problem(
+      "RESULTING_STATE_REQUIRED",
+      "$.resulting_state",
+      "A changing operational claim requires the exact lifecycle state derived from its owner event.",
+    ));
+  } else {
+    let expectedResultingState = null;
+    try {
+      expectedResultingState = deriveResultingLifecycleState(action, ownerEvent);
+    } catch {
+      // Owner-event structural errors are reported separately below.
+    }
+    if (expectedResultingState && !isDeepStrictEqual(resultingState, expectedResultingState)) {
+      errors.push(problem(
+        "RESULTING_STATE_MISMATCH",
+        "$.resulting_state",
+        "The resulting state must reproduce exactly from the owner event and preserve its lineage.",
+      ));
+    }
   }
   return { valid: errors.length === 0, errors };
 }

@@ -137,10 +137,11 @@
         "classification": { "const": "repository-computed" },
         "evaluator": {
           "type": "object",
-          "required": ["id", "version", "digest"],
+          "required": ["id", "version", "digest_kind", "digest"],
           "properties": {
             "id": { "const": "mind-flow.condition-pathway" },
             "version": { "const": "1.0.0" },
+            "digest_kind": { "const": "executable-manifest-sha256" },
             "digest": { "$ref": "#/$defs/checksum" }
           },
           "additionalProperties": false

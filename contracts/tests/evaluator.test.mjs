@@ -8,6 +8,7 @@ import {
   PREDICATE_TRUTH_STATES,
   STATES,
   TRUTH_TABLES,
+  deriveResultingLifecycleState,
   evaluateExpression,
   evaluateGates,
   proposeTransition,
@@ -42,6 +43,55 @@ const expectedAny = {
   stale:      { true: "true",  false: "stale",      unknown: "unknown",    stale: "stale",      conflicted: "unknown" },
   conflicted: { true: "true",  false: "conflicted", unknown: "unknown",    stale: "unknown",    conflicted: "conflicted" },
 };
+
+function syntheticSourceOwnerEvent(action, lifecycle, recordedAt = "2026-09-07T00:00:00Z") {
+  const transitions = {
+    watching: ["watch", "inactive"],
+    preparing: ["prepare", "inactive"],
+    active: ["activate", "inactive"],
+    paused: ["pause", "active"],
+    reversing: ["reverse", "active"],
+    recovering: ["begin-recovery", "inactive"],
+    graduated: ["graduate", "active"],
+  };
+  const [eventType, fromLifecycle] = transitions[lifecycle];
+  return {
+    schema_version: "1.0.0",
+    id: `owner-event.synthetic.${lifecycle}`,
+    action_ref: {
+      id: action.id,
+      version: action.action_version,
+      checksum: checksumJson(action),
+    },
+    transition_proposal_ref: {
+      id: `transition-proposal.synthetic.${lifecycle}`,
+      version: "1.0.0",
+      checksum: `sha256:${"3".repeat(64)}`,
+    },
+    evaluation_run_ref: {
+      id: `evaluation.synthetic.${lifecycle}`,
+      version: "3.0.0",
+      checksum: `sha256:${"4".repeat(64)}`,
+    },
+    prior_state_ref: {
+      id: `action-state.synthetic.${fromLifecycle}`,
+      version: "1.0.0",
+      checksum: `sha256:${"5".repeat(64)}`,
+      lifecycle: fromLifecycle,
+      trust_state: "unverified-external",
+    },
+    event_type: eventType,
+    from_lifecycle: fromLifecycle,
+    to_lifecycle: lifecycle,
+    recorded_at: recordedAt,
+    trust_state: "unverified-external",
+    owner: { organisation: "Test only", role: "fixture owner" },
+    provenance: {
+      producer: { organisation: "Test only", role: "fixture" },
+      method: "Embedded unverified owner event for contract testing",
+    },
+  };
+}
 
 const expectedAlternativeIf = expectedAny;
 
@@ -442,7 +492,7 @@ test("stateful transition proposals never authorise or withdraw support", () => 
     run_status: "completed",
     evaluated_at: "2026-09-08T00:00:00Z",
   };
-  const priorState = (lifecycle, action) => ({
+  const priorState = (lifecycle, action) => lifecycle === "inactive" ? ({
     schema_version: "1.0.0",
     id: `action-state.${action.id}.${lifecycle}`,
     action_ref: {
@@ -453,12 +503,13 @@ test("stateful transition proposals never authorise or withdraw support", () => 
     lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
     lifecycle,
     recorded_at: "2026-09-07T00:00:00Z",
+    lineage: { kind: "initial-assertion" },
     trust_state: "unverified-external",
     provenance: {
       producer: { organisation: "Test only", role: "fixture" },
       method: "Synthetic test record",
     },
-  });
+  }) : deriveResultingLifecycleState(action, syntheticSourceOwnerEvent(action, lifecycle));
   const propose = (states, lifecycle, gate = "act") => {
     const action = actionFor(gate);
     const evaluation = evaluate(states);
@@ -495,6 +546,16 @@ test("stateful transition proposals never authorise or withdraw support", () => 
     "consider_preparation",
   );
   assert.equal(
+    propose({ act: "true", prepare: "false" }, "inactive", "prepare").proposal,
+    "hold",
+    "a true act gate cannot substitute for a prepare-bound action's false gate",
+  );
+  assert.equal(
+    propose({ act: "true", prepare: "true" }, "inactive", "prepare").proposal,
+    "consider_preparation",
+    "a lower-priority true prepare gate remains independently actionable",
+  );
+  assert.equal(
     propose({ act: "true" }, "paused").proposal,
     "consider_resume",
   );
@@ -503,6 +564,10 @@ test("stateful transition proposals never authorise or withdraw support", () => 
   assert.equal(noLongerTriggered.proposal, "continue_active");
   assert.equal(noLongerTriggered.proposed_lifecycle, "active");
   assert.equal(noLongerTriggered.automatic_support_withdrawal, false);
+
+  const continuingWatch = propose({ watch: "true" }, "watching", "watch");
+  assert.equal(continuingWatch.proposal, "continue_watching");
+  assert.equal(continuingWatch.proposed_lifecycle, "watching");
 
   const reverseWithRecovery = propose({ reverse: "true", recover: "true" }, "active");
   assert.equal(reverseWithRecovery.proposal, "consider_reversal");
@@ -553,6 +618,7 @@ test("transition proposals reject incomplete or forged evaluations", () => {
     lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
     lifecycle: "inactive",
     recorded_at: "2026-09-07T00:00:00Z",
+    lineage: { kind: "initial-assertion" },
     trust_state: "unverified-external",
     provenance: {
       producer: { organisation: "Test only", role: "fixture" },
@@ -617,23 +683,10 @@ test("recovery exit is proposed before and separately from any owner event", () 
     gate_results: structuredClone(evaluation.gates),
     condition_resolution: structuredClone(evaluation.condition_resolution),
   };
-  const priorState = {
-    schema_version: "1.0.0",
-    id: "action-state.test.recovering",
-    action_ref: {
-      id: action.id,
-      version: action.action_version,
-      checksum: checksumJson(action),
-    },
-    lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
-    lifecycle: "recovering",
-    recorded_at: "2026-09-07T00:00:00Z",
-    trust_state: "unverified-external",
-    provenance: {
-      producer: { organisation: "Test only", role: "fixture" },
-      method: "Synthetic test record",
-    },
-  };
+  const priorState = deriveResultingLifecycleState(
+    action,
+    syntheticSourceOwnerEvent(action, "recovering"),
+  );
 
   const exitProposal = proposeTransition(
     evaluation,
@@ -646,6 +699,21 @@ test("recovery exit is proposed before and separately from any owner event", () 
   assert.equal(exitProposal.proposed_lifecycle, "active");
   assert.equal(Object.hasOwn(exitProposal, "owner_event_ref"), false);
   assert.equal(exitProposal.authority_effect, "none");
+
+  const prepareBoundAction = { ...action, id: "action.test.recovery-prepare", gate: "prepare" };
+  const prepareBoundState = deriveResultingLifecycleState(
+    prepareBoundAction,
+    syntheticSourceOwnerEvent(prepareBoundAction, "recovering"),
+  );
+  const wrongGateExit = proposeTransition(
+    evaluation,
+    prepareBoundAction,
+    prepareBoundState,
+    run,
+    "2026-09-08T00:00:30Z",
+  );
+  assert.equal(wrongGateExit.proposal, "await_recovery_evidence");
+  assert.equal(wrongGateExit.proposed_lifecycle, "recovering");
 
   const noExitGates = Object.fromEntries(GATES.map((gate) => [gate, { state: "false" }]));
   const noExit = { gates: noExitGates, errors: [] };
@@ -665,6 +733,42 @@ test("recovery exit is proposed before and separately from any owner event", () 
   );
   assert.equal(hold.proposal, "await_recovery_evidence");
   assert.equal(hold.proposed_lifecycle, "recovering");
+});
+
+test("proposal IDs bind the evaluation run at the same generation instant", () => {
+  const gates = Object.fromEntries(GATES.map((gate) => [gate, { state: "false" }]));
+  gates.act.state = "true";
+  const evaluation = { gates, errors: [] };
+  evaluation.condition_resolution = resolveCondition(evaluation);
+  const action = { id: "action.test.collision", action_version: "1.0.0", gate: "act" };
+  const priorState = {
+    schema_version: "1.0.0",
+    id: "action-state.test.collision",
+    action_ref: { id: action.id, version: action.action_version, checksum: checksumJson(action) },
+    lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
+    lifecycle: "inactive",
+    recorded_at: "2026-09-07T00:00:00Z",
+    lineage: { kind: "initial-assertion" },
+    trust_state: "unverified-external",
+    provenance: {
+      producer: { organisation: "Test only", role: "fixture" },
+      method: "Synthetic test record",
+    },
+  };
+  const run = {
+    id: "evaluation.test.collision.first",
+    schema_version: "3.0.0",
+    run_status: "completed",
+    evaluated_at: "2026-09-08T00:00:00Z",
+    gate_results: structuredClone(evaluation.gates),
+    condition_resolution: structuredClone(evaluation.condition_resolution),
+  };
+  const secondRun = { ...run, id: "evaluation.test.collision.second" };
+  const generatedAt = "2026-09-08T00:00:30Z";
+  assert.notEqual(
+    proposeTransition(evaluation, action, priorState, run, generatedAt).id,
+    proposeTransition(evaluation, action, priorState, secondRun, generatedAt).id,
+  );
 });
 
 test("gate evaluation reports missing gates and bad references without hiding valid gates", () => {

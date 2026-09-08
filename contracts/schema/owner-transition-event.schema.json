@@ -40,8 +40,8 @@
   "allOf": [
     {
       "oneOf": [
-        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "watch" }, "from_lifecycle": { "enum": ["inactive", "watching"] }, "to_lifecycle": { "const": "watching" } } },
-        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "prepare" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing"] }, "to_lifecycle": { "const": "preparing" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "watch" }, "from_lifecycle": { "const": "inactive" }, "to_lifecycle": { "const": "watching" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "prepare" }, "from_lifecycle": { "enum": ["inactive", "watching"] }, "to_lifecycle": { "const": "preparing" } } },
         { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "activate" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing"] }, "to_lifecycle": { "const": "active" } } },
         { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "resume" }, "from_lifecycle": { "const": "paused" }, "to_lifecycle": { "const": "active" } } },
         { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "pause" }, "from_lifecycle": { "enum": ["preparing", "active", "recovering"] }, "to_lifecycle": { "const": "paused" } } },

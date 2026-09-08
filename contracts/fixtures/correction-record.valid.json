@@ -15,7 +15,7 @@
   "invalidates": [{
     "kind": "evaluation-run",
     "id": "evaluation.au-clerical-access-margin.20260908t0000z",
-    "checksum": "sha256:b0a57c02078ace5e5bed894628c6d2e3c461f2251d2ba182cdf21c14be060b0c"
+    "checksum": "sha256:56fd1ee974301b4db305a9b6605203d7440de8ae5bd617a946a4265a8875e031"
   }],
   "reason": "A synthetic linkage-job defect hid both replacement-earnings quarters. The original observation and every run that consumed it remain preserved but superseded or invalidated.",
   "recorded_at": "2026-09-08T00:10:00Z",

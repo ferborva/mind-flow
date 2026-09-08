@@ -32,6 +32,7 @@
         "hold_for_review",
         "hold_for_new_contract",
         "consider_watching",
+        "continue_watching",
         "consider_preparation",
         "continue_preparation",
         "consider_activation",

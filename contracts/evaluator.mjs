@@ -476,6 +476,31 @@ const LIFECYCLES = new Set([
   "graduated",
 ]);
 const RECORD_TRUST_STATES = new Set(["unverified-external"]);
+const OWNER_EVENT_TRANSITIONS = new Set([
+  "watch:inactive:watching",
+  "prepare:inactive:preparing",
+  "prepare:watching:preparing",
+  "activate:inactive:active",
+  "activate:watching:active",
+  "activate:preparing:active",
+  "resume:paused:active",
+  "pause:preparing:paused",
+  "pause:active:paused",
+  "pause:recovering:paused",
+  "reverse:preparing:reversing",
+  "reverse:active:reversing",
+  "reverse:paused:reversing",
+  "reverse:recovering:reversing",
+  "begin-recovery:inactive:recovering",
+  "begin-recovery:watching:recovering",
+  "begin-recovery:preparing:recovering",
+  "begin-recovery:active:recovering",
+  "begin-recovery:paused:recovering",
+  "recovery-exit:recovering:active",
+  "recovery-exit:recovering:graduated",
+  "graduate:active:graduated",
+  "graduate:paused:graduated",
+]);
 
 function canonicalise(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalise).join(",")}]`;
@@ -522,15 +547,80 @@ function strictInstant(value) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function validArtifactReference(reference, versionPattern = /^[1-9][0-9]*\.[0-9]+\.[0-9]+$/) {
+  return reference &&
+    /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/.test(reference.id || "") &&
+    versionPattern.test(reference.version || "") &&
+    /^sha256:[a-f0-9]{64}$/.test(reference.checksum || "");
+}
+
+function ownerEventReference(ownerEvent) {
+  return {
+    id: ownerEvent.id,
+    version: ownerEvent.schema_version,
+    checksum: recordChecksum(ownerEvent),
+  };
+}
+
+function validOwnerEventForAction(action, ownerEvent) {
+  const ownerEventTime = strictInstant(ownerEvent?.recorded_at);
+  const actionValidFrom = strictInstant(action.valid_from);
+  const actionExpiresAt = strictInstant(action.expires_at);
+  const fundingValidThrough = strictInstant(action.funding?.valid_through);
+  const approvalTimes = (action.approved_by || []).map(({ approved_at: approvedAt }) =>
+    strictInstant(approvedAt));
+  return ownerEvent &&
+    /^1\.0\.[0-9]+$/.test(ownerEvent.schema_version || "") &&
+    /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/.test(ownerEvent.id || "") &&
+    isDeepStrictEqual(ownerEvent.action_ref, actionReference(action)) &&
+    validArtifactReference(ownerEvent.transition_proposal_ref, /^1\.0\.[0-9]+$/) &&
+    validArtifactReference(ownerEvent.evaluation_run_ref, /^3\.0\.[0-9]+$/) &&
+    validArtifactReference(ownerEvent.prior_state_ref, /^1\.0\.[0-9]+$/) &&
+    OWNER_EVENT_TRANSITIONS.has(
+      `${ownerEvent.event_type}:${ownerEvent.from_lifecycle}:${ownerEvent.to_lifecycle}`,
+    ) &&
+    ownerEvent.prior_state_ref.lifecycle === ownerEvent.from_lifecycle &&
+    ownerEvent.prior_state_ref.trust_state === "unverified-external" &&
+    ownerEvent.trust_state === "unverified-external" &&
+    (!action.owner || isDeepStrictEqual(ownerEvent.owner, action.owner)) &&
+    ownerEventTime !== null &&
+    (action.valid_from === undefined || (actionValidFrom !== null && ownerEventTime >= actionValidFrom)) &&
+    (action.expires_at === undefined || (actionExpiresAt !== null && ownerEventTime <= actionExpiresAt)) &&
+    (action.funding?.valid_through === undefined || (
+      fundingValidThrough !== null && ownerEventTime <= fundingValidThrough
+    )) &&
+    approvalTimes.every((approvedAt) => approvedAt !== null && ownerEventTime >= approvedAt);
+}
+
+function hasValidStateLineage(priorState, action) {
+  if (priorState.lifecycle === "inactive") {
+    return isDeepStrictEqual(priorState.lineage, { kind: "initial-assertion" });
+  }
+  const lineage = priorState.lineage;
+  const ownerEvent = lineage?.owner_event;
+  const ownerEventRef = ownerEvent && ownerEventReference(ownerEvent);
+  return lineage?.kind === "owner-transition-event" &&
+    validArtifactReference(lineage.owner_event_ref, /^1\.0\.[0-9]+$/) &&
+    validOwnerEventForAction(action, ownerEvent) &&
+    isDeepStrictEqual(lineage.owner_event_ref, ownerEventRef) &&
+    priorState.id === `action-state.${action.id}.${ownerEvent.to_lifecycle}.${ownerEventRef.checksum
+      .slice("sha256:".length)}` &&
+    ownerEvent.to_lifecycle === priorState.lifecycle &&
+    ownerEvent.recorded_at === priorState.recorded_at &&
+    ownerEvent.trust_state === priorState.trust_state &&
+    isDeepStrictEqual(ownerEvent.provenance, priorState.provenance);
+}
+
 function validatePriorState(priorState, action, run, generatedAt) {
   if (
     !priorState ||
-    priorState.schema_version !== "1.0.0" ||
+    !/^1\.0\.[0-9]+$/.test(priorState.schema_version || "") ||
     typeof priorState.id !== "string" ||
     priorState.lifecycle_vocabulary !== "action-transition-lifecycle/1.0.0" ||
     !LIFECYCLES.has(priorState.lifecycle) ||
     !RECORD_TRUST_STATES.has(priorState.trust_state) ||
-    !isDeepStrictEqual(priorState.action_ref, actionReference(action))
+    !isDeepStrictEqual(priorState.action_ref, actionReference(action)) ||
+    !hasValidStateLineage(priorState, action)
   ) {
     throw new TypeError("A valid action-bound lifecycle-state record is required.");
   }
@@ -657,13 +747,22 @@ function transitionRecord(
   proposedLifecycle,
   conflicts = [],
 ) {
+  const actionRef = actionReference(action);
+  const evaluationRunRef = evaluationRunReference(run);
+  const priorStateRef = priorStateReference(priorState);
+  const identityDigest = recordChecksum({
+    action_ref: actionRef,
+    evaluation_run_ref: evaluationRunRef,
+    prior_state_ref: priorStateRef,
+    generated_at: generatedAt,
+  }).slice("sha256:".length);
   return {
     schema_version: "1.0.0",
     id: `transition-proposal.${action.id}.${generatedAt
-      .toLowerCase().replaceAll(/[^a-z0-9]+/g, "")}`,
-    action_ref: actionReference(action),
-    evaluation_run_ref: evaluationRunReference(run),
-    prior_state_ref: priorStateReference(priorState),
+      .toLowerCase().replaceAll(/[^a-z0-9]+/g, "")}.${identityDigest}`,
+    action_ref: actionRef,
+    evaluation_run_ref: evaluationRunRef,
+    prior_state_ref: priorStateRef,
     generated_at: generatedAt,
     proposal,
     proposed_lifecycle: proposedLifecycle,
@@ -672,6 +771,36 @@ function transitionRecord(
     automatic_support_withdrawal: false,
     concurrent_duties: [...resolution.concurrent_duties],
     transition_conflicts: [...resolution.transition_conflicts, ...conflicts],
+  };
+}
+
+/**
+ * Derive the state created by one externally asserted owner event. The state
+ * remains unverified-external and cannot make the event authoritative.
+ */
+export function deriveResultingLifecycleState(action, ownerEvent) {
+  if (
+    !validOwnerEventForAction(action, ownerEvent) ||
+    !LIFECYCLES.has(ownerEvent.to_lifecycle)
+  ) {
+    throw new TypeError("A valid action-bound owner event is required to derive lifecycle state.");
+  }
+  const eventRef = ownerEventReference(ownerEvent);
+  const identityDigest = eventRef.checksum.slice("sha256:".length);
+  return {
+    schema_version: "1.0.0",
+    id: `action-state.${action.id}.${ownerEvent.to_lifecycle}.${identityDigest}`,
+    action_ref: actionReference(action),
+    lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
+    lifecycle: ownerEvent.to_lifecycle,
+    recorded_at: ownerEvent.recorded_at,
+    lineage: {
+      kind: "owner-transition-event",
+      owner_event_ref: eventRef,
+      owner_event: structuredClone(ownerEvent),
+    },
+    trust_state: "unverified-external",
+    provenance: structuredClone(ownerEvent.provenance),
   };
 }
 
@@ -738,7 +867,11 @@ export function proposeTransition(evaluation, action, priorState, run, generated
     if (resolution.exit_candidate === "graduate" && resolution.exit_candidate_eligible) {
       return record("consider_recovery_exit", "graduated");
     }
-    if (resolution.candidate_phase === "act" && resolution.candidate_phase_eligible) {
+    if (
+      action.gate === "act" &&
+      resolution.candidate_phase === "act" &&
+      resolution.candidate_phase_eligible
+    ) {
       return record("consider_recovery_exit", "active");
     }
     return record("await_recovery_evidence", "recovering");
@@ -777,8 +910,9 @@ export function proposeTransition(evaluation, action, priorState, run, generated
 
   if (
     action.gate === "prepare" &&
-    ["prepare", "act"].includes(resolution.candidate_phase) &&
-    resolution.candidate_phase_eligible
+    evaluation.gates.prepare.state === "true" &&
+    resolution.safety_control === "none" &&
+    resolution.transition_conflicts.length === 0
   ) {
     if (["inactive", "watching"].includes(priorLifecycle)) {
       return record("consider_preparation", "preparing");
@@ -801,6 +935,9 @@ export function proposeTransition(evaluation, action, priorState, run, generated
     action.gate === "watch" &&
     resolution.concurrent_duties_eligible.watch
   ) {
+    if (priorLifecycle === "watching") {
+      return record("continue_watching", "watching");
+    }
     return record("consider_watching", "watching");
   }
   return record("hold", priorLifecycle);

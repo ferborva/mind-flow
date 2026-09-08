@@ -882,16 +882,8 @@ export function hasBlockingDissent(option) {
   return (option?.dissent?.records || []).some(({ concern }) => BLOCKING_DISSENT.has(concern));
 }
 
-export function validateOptionSemantics(option, {
-  condition,
-  evaluation_bundle: evaluationBundle,
-  as_of: asOf,
-} = {}) {
+function intrinsicOptionErrors(option) {
   const errors = [
-    ...conditionContractErrors(condition, asOf),
-    ...conditionBindingErrors(option, condition),
-    ...evaluationBundleErrors(option, condition, evaluationBundle, asOf),
-    ...timeErrors(option, condition, evaluationBundle, asOf),
     ...gateActionErrors(option),
     ...dissentErrors(option),
     ...displayStringErrors(option),
@@ -942,6 +934,54 @@ export function validateOptionSemantics(option, {
     ));
   }
 
+  return { valid: errors.length === 0, errors };
+}
+
+export function validateConditionalOptionIntrinsic(option) {
+  if (!validateOptionSchema(option)) {
+    return {
+      valid: false,
+      errors: (validateOptionSchema.errors || []).map((error) => problem(
+        "SCHEMA_INVALID",
+        error.instancePath || "$",
+        error.message || "The option does not satisfy the closed schema.",
+      )),
+    };
+  }
+  return intrinsicOptionErrors(option);
+}
+
+export function validateConditionalOptionBinding(option, condition) {
+  const intrinsic = validateConditionalOptionIntrinsic(option);
+  if (!intrinsic.valid && intrinsic.errors.some(({ code }) => code === "SCHEMA_INVALID")) {
+    return intrinsic;
+  }
+  if (!condition || typeof condition !== "object" || !validateConditionSchema(condition)) {
+    return {
+      valid: false,
+      errors: [...intrinsic.errors, problem(
+        "CONDITION_SCHEMA_INVALID",
+        "$.condition",
+        "Condition-aware option binding requires a schema-valid condition definition.",
+      )],
+    };
+  }
+  const errors = [...intrinsic.errors, ...conditionBindingErrors(option, condition)];
+  return { valid: errors.length === 0, errors };
+}
+
+export function validateOptionSemantics(option, {
+  condition,
+  evaluation_bundle: evaluationBundle,
+  as_of: asOf,
+} = {}) {
+  const errors = [
+    ...conditionContractErrors(condition, asOf),
+    ...conditionBindingErrors(option, condition),
+    ...evaluationBundleErrors(option, condition, evaluationBundle, asOf),
+    ...timeErrors(option, condition, evaluationBundle, asOf),
+    ...intrinsicOptionErrors(option).errors,
+  ];
   return { valid: errors.length === 0, errors };
 }
 

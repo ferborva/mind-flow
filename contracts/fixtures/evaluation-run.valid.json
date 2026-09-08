@@ -110,7 +110,7 @@
     "evaluator": {
       "id": "mind-flow.condition-evaluator",
       "version": "3.0.0",
-      "digest": "sha256:83e1290a815648db470a41c3e8eef8cee0fd2156b2c5035a0914242939bb9e89"
+      "digest": "sha256:712214e1af7a3313b8b413cb601fb201191a26c9161b7ac8952f53fea292a3dc"
     }
   }
 }

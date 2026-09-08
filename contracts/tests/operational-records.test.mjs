@@ -53,6 +53,7 @@ test("evaluation provenance is pinned to the evaluator registry", () => {
       entry.version === completedRun.provenance.evaluator.version,
   );
   assert.equal(registered.digest, digest);
+  assert.notEqual(registered.digest_kind, "executable-manifest-sha256");
   assert.deepEqual(completedRun.provenance.evaluator, registered);
 
   const forgedRun = clone(completedRun);
