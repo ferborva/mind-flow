@@ -19,18 +19,40 @@ const buildPath = join(dashboard, "tools", "build.mjs");
 const template = readFileSync(templatePath, "utf8");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 
-test("the observatory leads from trajectory to crises, action and evidence", () => {
+test("the observatory leads with status, public meaning, IFs, paths, action and evidence", () => {
   for (const id of [
+    "now",
     "trajectory",
-    "crisis-radar",
+    "condition-map",
+    "possible-paths",
     "action-deck",
     "scenario-lab",
     "signal-atlas",
+    "accountability",
   ]) {
     assert.match(template, new RegExp(`id=["']${id}["']`));
   }
   assert.match(template, /Capability is not access/);
   assert.match(template, /aria-live=["']polite["']/);
+});
+
+test("the first screen discloses prototype authority and the seven-part update", () => {
+  for (const label of [
+    "PROTOTYPE",
+    "AGENT PROPOSAL",
+    "REQUIRES FERNANDO REVIEW",
+    "OBSERVED",
+    "AFFECTED",
+    "INFERRED",
+    "IF CHANGED",
+    "ACTION AND OWNER",
+    "FALSIFIER",
+    "NEXT CHECK",
+  ]) {
+    assert.match(template, new RegExp(label, "i"), `missing ${label}`);
+  }
+  assert.match(template, /No authorised action/i);
+  assert.match(template, /No psychohistory/i);
 });
 
 test("the self-contained public page has no remote font dependency", () => {
@@ -41,6 +63,19 @@ test("public language does not turn imperfect proxies into verdicts", () => {
   assert.doesNotMatch(template, /not yet an Engels['’] Pause/i);
   assert.doesNotMatch(template, /10-point attention line/i);
   assert.doesNotMatch(template, /choosing to work/i);
+
+  const sourceText = JSON.stringify(snapshot);
+  for (const rejected of [
+    /Abundance requires this to go negative/i,
+    /wrong side of the money condition/i,
+    /single clearest measure/i,
+    /last mile is the hardest/i,
+    /predicts that the residue gets dearer/i,
+    /will people still consent to the transition/i,
+    /politics turns/i,
+  ]) {
+    assert.doesNotMatch(sourceText, rejected);
+  }
 
   const participation = snapshot.signals.find((signal) => signal.id === "participation");
   assert.match(participation.question, /labour.market participation/i);
@@ -53,6 +88,10 @@ test("public language does not turn imperfect proxies into verdicts", () => {
 
 test("failure scenarios do not predict or pathologise democratic responses", () => {
   assert.doesNotMatch(template, /Likely movement:/i);
+  assert.doesNotMatch(template, /Crisis radar/i);
+  assert.doesNotMatch(template, /warning signals live/i);
+  assert.doesNotMatch(template, /id=["']crisis-chart["']/i);
+  assert.match(template, /Possible failure modes/i);
   for (const crisis of snapshot.crises) {
     assert.equal("movement" in crisis, false, `${crisis.id}: remove movement forecast`);
     assert.ok(
@@ -60,6 +99,12 @@ test("failure scenarios do not predict or pathologise democratic responses", () 
       `${crisis.id}: possible responses must remain plural and unpredicted`,
     );
   }
+});
+
+test("scenario arithmetic cannot masquerade as a forecast or trigger", () => {
+  assert.match(template, /SCENARIO, NOT A FORECAST/i);
+  assert.doesNotMatch(template, /transparent projection/i);
+  assert.doesNotMatch(template, /attention-worthy gap/i);
 });
 
 test("snapshot carries actionable crisis and actor contracts", () => {

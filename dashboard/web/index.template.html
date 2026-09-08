@@ -291,7 +291,7 @@ h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,4vw,40p
 .access-factor span{color:var(--ink-3)}
 @media(max-width:680px){.access-equation{grid-template-columns:1fr 1fr}.access-factor:last-child{grid-column:1/-1}}
 
-/* crisis radar */
+/* possible failure modes */
 .radar-layout{display:grid;grid-template-columns:minmax(310px,.72fr) minmax(0,1.28fr);gap:20px}
 @media(max-width:860px){.radar-layout{grid-template-columns:1fr}}
 .radar-field{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px;min-height:470px;display:grid;place-items:center}
@@ -355,30 +355,81 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .method-stack summary{cursor:pointer;font-family:"IBM Plex Sans Condensed",sans-serif;font-size:19px;font-weight:600}
 .method-stack details>div{color:var(--ink-2);max-width:75ch;padding-top:12px}
 .method-stack pre{max-height:320px;max-width:100%}
+.authority-strip{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 20px}
+.authority-pill{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase;
+  border:1px solid var(--warning);color:var(--ink);background:color-mix(in srgb,var(--warning) 12%,transparent);padding:5px 8px;border-radius:3px}
+.authority-pill.blocked{border-color:var(--critical);background:color-mix(in srgb,var(--critical) 10%,transparent)}
+.public-update{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0 0;padding-bottom:24px}
+.update-cell{background:var(--surface-2);border:1px solid var(--rule);border-radius:7px;padding:13px 14px;min-height:104px}
+.update-cell dt{font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--accent);margin-bottom:7px}
+.update-cell dd{margin:0;color:var(--ink-2);font-size:12.5px;line-height:1.45}
+.update-cell dd strong{color:var(--ink)}
+@media(max-width:900px){.public-update{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.public-update{grid-template-columns:1fr}}
+.condition-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.condition-card{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:20px 16px;overflow:hidden}
+.condition-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:var(--accent);opacity:.55}
+.condition-card .ordinal{font:500 10px "IBM Plex Mono",monospace;color:var(--ink-3)}
+.condition-card h3{font-size:19px;margin:9px 0 5px}.condition-card p{font-size:12.5px;color:var(--ink-2);margin:0 0 14px}
+.condition-card .unknown{font:600 10px "IBM Plex Mono",monospace;color:var(--warning);letter-spacing:.09em}
+@media(max-width:900px){.condition-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.condition-grid{grid-template-columns:1fr}}
+.path-horizon{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.path-card{min-height:180px;padding:22px;border:1px solid var(--rule);border-radius:12px;background:linear-gradient(145deg,var(--surface),var(--surface-2))}
+.path-card .horizon{font:500 10px "IBM Plex Mono",monospace;color:var(--accent);letter-spacing:.12em}
+.path-card h3{font-size:24px;margin:14px 0 8px}.path-card p{color:var(--ink-2);font-size:13px;margin:0}
+@media(max-width:760px){.path-horizon{grid-template-columns:1fr}}
+.failure-layout{display:grid;grid-template-columns:minmax(250px,.38fr) 1fr;gap:18px;align-items:start}
+@media(max-width:800px){.failure-layout{grid-template-columns:1fr}}
+.plain-warning{border-left:3px solid var(--warning);padding:12px 16px;background:color-mix(in srgb,var(--warning) 7%,transparent);color:var(--ink-2);font-size:13px}
+.account-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.account-card{border:1px solid var(--rule);border-radius:9px;background:var(--surface);padding:20px}
+.account-card h3{font-size:19px;margin-bottom:8px}.account-card p,.account-card li{font-size:13px;color:var(--ink-2)}
+.account-card ul{padding-left:18px;margin-bottom:0}
+@media(max-width:760px){.account-grid{grid-template-columns:1fr}}
 footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 
 <header class="masthead"><div class="wrap">
+  <div class="authority-strip" aria-label="Publication status">
+    <span class="authority-pill">PROTOTYPE</span>
+    <span class="authority-pill">AGENT PROPOSAL</span>
+    <span class="authority-pill">REQUIRES FERNANDO REVIEW</span>
+    <span class="authority-pill blocked">PUBLIC RELEASE BLOCKED</span>
+  </div>
   <div class="brandline">
-    <div class="brandmark"><span class="sigil" aria-hidden="true"></span><h1>Seldon Observatory</h1></div>
+    <div class="brandmark"><span class="sigil" aria-hidden="true"></span><h1>Abundance Transition Observatory</h1></div>
     <span class="sub" id="m-schema">schema —</span>
   </div>
-  <p class="standfirst"><strong>Observe the crossing.<br>Protect human agency.</strong></p>
-  <p class="lead-copy">A public instrument for testing whether advancing capability becomes
-    lived access, where the transition may fracture, and which preparations should move before harm compounds.</p>
+  <p class="standfirst"><strong>Complete the promise.<br>Make every IF visible.</strong></p>
+  <p class="lead-copy"><strong>Capability is not access.</strong> This is a proposed public instrument for testing
+    whether new capability becomes agency, where conditions may fail, and what people can prepare without pretending certainty.</p>
+  <p class="plain-warning"><strong>No psychohistory. No inevitable future.</strong> The mathematical language describes
+    evidence, assumptions and conditional paths. It does not confer predictive authority.</p>
   <dl class="readout">
     <div><dt>Snapshot</dt><dd class="mono" id="m-id">—</dd></div>
     <div><dt>Generated</dt><dd class="mono" id="m-gen">—</dd></div>
     <div><dt>Signals</dt><dd class="mono" id="m-count">—</dd></div>
     <div><dt>Entities</dt><dd class="mono" id="m-ents">—</dd></div>
   </dl>
+  <section id="now" aria-labelledby="now-title">
+    <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
+    <dl class="public-update">
+      <div class="update-cell"><dt>OBSERVED</dt><dd><strong>Six measured and two derived global signals.</strong> Eight planned signals are not measured.</dd></div>
+      <div class="update-cell"><dt>AFFECTED</dt><dd><strong>Unknown.</strong> The global snapshot does not yet identify a population, place or cohort experiencing a change.</dd></div>
+      <div class="update-cell"><dt>INFERRED</dt><dd>Aggregate output and constructed labour income have diverged. This is descriptive and does not identify a cause.</dd></div>
+      <div class="update-cell"><dt>IF CHANGED</dt><dd><strong>None validated.</strong> Capability, reach, agency, durability and fairness remain untested as a complete chain.</dd></div>
+      <div class="update-cell"><dt>ACTION AND OWNER</dt><dd><strong>No authorised action.</strong> Agent proposal: research team continues the bounded Australian clerical baseline.</dd></div>
+      <div class="update-cell"><dt>FALSIFIER</dt><dd>Cohort evidence may narrow, reverse or redistribute the aggregate reading. Competing explanations must be tested.</dd></div>
+      <div class="update-cell"><dt>NEXT CHECK</dt><dd><strong>7 October 2026, planned.</strong> Check the September NERO release for employment nowcasts only.</dd></div>
+    </dl>
+  </section>
 </div></header>
 
 <nav class="nav-shell" aria-label="Observatory sections"><div class="nav">
-  <a href="#trajectory">Trajectory</a><a href="#crisis-radar">Crisis radar</a>
-  <a href="#action-deck">Action deck</a><a href="#scenario-lab">Scenario lab</a>
-  <a href="#signal-atlas">Signal atlas</a><a href="#methods">Methods</a>
+  <a href="#now">Now</a><a href="#condition-map">Conditions</a><a href="#possible-paths">Paths</a>
+  <a href="#action-deck">Action</a><a href="#signal-atlas">Evidence</a><a href="#accountability">Accountability</a>
   <span class="nav-spacer"></span><button id="theme-toggle" type="button">Change light</button>
 </div></nav>
 
@@ -386,49 +437,72 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <main>
     <section class="section" id="trajectory">
       <div class="section-head">
-        <div><div class="section-kicker">01 · Trajectory</div><h2>Is abundance reaching people?</h2></div>
-        <p><strong>Capability is not access.</strong> The future improves only when more people can
-          reliably use good services without losing voice, security, or freedom to choose.</p>
+        <div><div class="section-kicker">01 · Current evidence</div><h2>What can the aggregate baseline actually say?</h2></div>
+        <p>It can expose a question about transmission. It cannot diagnose an individual, predict a crisis,
+          attribute change to AI, or establish whether abundance is reaching a particular community.</p>
       </div>
       <div class="trajectory-grid">
         <div class="verdict" id="verdict" aria-live="polite"></div>
-        <aside class="orbit-card" aria-label="Access instrumentation coverage">
+        <aside class="orbit-card" aria-label="Instrumentation coverage">
           <div class="orbit" aria-hidden="true">
             <span class="orbit-ring"></span><span class="orbit-ring r2"></span><span class="orbit-ring r3"></span>
             <span class="orbit-axis"></span><span class="orbit-axis a2"></span>
-            <div class="orbit-core"><strong id="coverage-value">—</strong><span>signal coverage</span></div>
+            <div class="orbit-core"><strong id="coverage-value">—</strong><span>inputs available</span></div>
           </div>
-          <div class="orbit-note" id="coverage-note">Measured and derived, not a progress score.</div>
+          <div class="orbit-note" id="coverage-note">Completeness only. Not progress, risk or probability.</div>
         </aside>
       </div>
-      <div class="access-equation" aria-label="Access equation">
+      <div class="access-equation" aria-label="Service access funnel">
         <div class="access-factor"><b>Availability</b><span>Does it exist?</span></div>
         <div class="access-factor"><b>Affordability</b><span>Can I pay?</span></div>
         <div class="access-factor"><b>Eligibility</b><span>Am I allowed?</span></div>
         <div class="access-factor"><b>Quality</b><span>Does it work?</span></div>
         <div class="access-factor"><b>Delivery</b><span>Can it reach me?</span></div>
       </div>
-      <p class="small-note"><strong>Read this as a service-level funnel, not a multiplication.</strong>
-        Each condition needs its own population, period, evidence and uncertainty before any composite can be valid.</p>
+      <p class="small-note"><strong>This is a service-level funnel, not a multiplication.</strong>
+        Every condition needs a population, place, period, evidence threshold and uncertainty statement.</p>
     </section>
 
-    <section class="section" id="crisis-radar">
+    <section class="section" id="condition-map">
       <div class="section-head">
-        <div><div class="section-kicker">02 · Crisis radar</div><h2>Find the fracture early.</h2></div>
-        <p>Five foreseeable failure modes. The radar shows how much of each warning system exists,
-          not a synthetic probability. An empty axis is a preparation signal, not reassurance.</p>
+        <div><div class="section-kicker">02 · IF map</div><h2>The promise holds only if five layers hold.</h2></div>
+        <p>The condition chain is the unit of public reasoning. A capability announcement is an input,
+          not evidence that people received a durable, fair increase in agency.</p>
       </div>
-      <div class="radar-layout">
-        <div class="radar-field"><svg id="crisis-chart" viewBox="0 0 460 460" role="img" aria-label="Coverage of crisis leading indicators"></svg></div>
-        <div><div class="crisis-list" id="crisis-list"></div><article class="crisis-detail" id="crisis-detail" aria-live="polite"></article></div>
+      <div class="condition-grid">
+        <article class="condition-card"><span class="ordinal">IF 01</span><h3>Capability</h3><p>Can the system perform the useful task safely and reliably in context?</p><span class="unknown">UNKNOWN</span></article>
+        <article class="condition-card"><span class="ordinal">IF 02</span><h3>Reach</h3><p>Can the affected people access it at an acceptable total cost?</p><span class="unknown">UNKNOWN</span></article>
+        <article class="condition-card"><span class="ordinal">IF 03</span><h3>Agency</h3><p>Does it expand meaningful choices without coercion or dependency?</p><span class="unknown">UNKNOWN</span></article>
+        <article class="condition-card"><span class="ordinal">IF 04</span><h3>Durability</h3><p>Do benefits persist through shocks, market shifts and policy changes?</p><span class="unknown">UNKNOWN</span></article>
+        <article class="condition-card"><span class="ordinal">IF 05</span><h3>Fairness</h3><p>Are gains and burdens distributed with voice, remedy and dignity?</p><span class="unknown">UNKNOWN</span></article>
+      </div>
+      <p class="small-note"><strong>Current state: incomplete.</strong> Five unknowns are not a score of zero and do not imply failure. They mark the work required before a claim can pass.</p>
+    </section>
+
+    <section class="section" id="possible-paths">
+      <div class="section-head">
+        <div><div class="section-kicker">03 · Conditional paths</div><h2>Possible futures, not a single destination.</h2></div>
+        <p>These horizons are unscored hypotheses. They make the intended promise discussable while keeping
+          competing explanations, adverse paths and democratic choices open.</p>
+      </div>
+      <div class="path-horizon">
+        <article class="path-card"><span class="horizon">HORIZON A · UNSCORED</span><h3>Time returns</h3><p>If productivity gains reach workers through shorter hours, stronger income or public provision, people gain time without losing security.</p></article>
+        <article class="path-card"><span class="horizon">HORIZON B · UNSCORED</span><h3>Capability reaches everyone</h3><p>If price, eligibility, quality and delivery barriers fall together, useful services become genuinely accessible.</p></article>
+        <article class="path-card"><span class="horizon">HORIZON C · UNSCORED</span><h3>Choices multiply</h3><p>If access is durable and power remains contestable, people can choose more of how they live, learn, care and contribute.</p></article>
+      </div>
+      <h3>Possible failure modes</h3>
+      <p class="small-note">These are hypotheses to investigate, not diagnoses, probabilities or predictions of public behaviour.</p>
+      <div class="failure-layout">
+        <div class="crisis-list" id="crisis-list"></div>
+        <article class="crisis-detail" id="crisis-detail" aria-live="polite"></article>
       </div>
     </section>
 
     <section class="section" id="action-deck">
       <div class="section-head">
-        <div><div class="section-kicker">03 · Action deck</div><h2>Move before the threshold.</h2></div>
-        <p>Preparation changes by actor and phase. Select who you can influence, then turn general concern
-          into steps that have an owner, a delivery rail, and an activation moment.</p>
+        <div><div class="section-kicker">04 · Action deck</div><h2>Prepare proportionately, with an owner and a stop rule.</h2></div>
+        <p><strong>Agent proposal, not authorised.</strong> Select an actor to inspect possible preparations.
+          Adoption requires a named decision owner, evidence gate, affected-group review, safeguards and reversal path.</p>
       </div>
       <div class="actor-tabs" id="actor-tabs" role="group" aria-label="Choose an actor"></div>
       <div id="playbook" aria-live="polite"></div>
@@ -436,9 +510,9 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 
     <section class="section" id="scenario-lab">
       <div class="section-head">
-        <div><div class="section-kicker">04 · Scenario lab</div><h2>Test the transmission.</h2></div>
-        <p>A transparent projection, not a forecast. Adjust annual output and labour-income growth to see
-          how quickly a modest divergence compounds into an attention-worthy gap.</p>
+        <div><div class="section-kicker">05 · Scenario lab</div><h2>[SCENARIO, NOT A FORECAST] Test arithmetic.</h2></div>
+        <p>Choose constant annual growth rates and inspect the resulting indexed paths. The output is arithmetic,
+          not a probability, forecast, diagnosis or activation rule.</p>
       </div>
       <div class="scenario-shell"><div class="scenario-grid">
         <div class="scenario-controls">
@@ -446,113 +520,68 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
           <div class="range-row"><label for="output-growth">Output growth <output id="output-growth-value">—</output></label><input id="output-growth" type="range" min="-2" max="8" step="0.1"></div>
           <div class="range-row"><label for="income-growth">Labour-income growth <output id="income-growth-value">—</output></label><input id="income-growth" type="range" min="-2" max="8" step="0.1"></div>
           <div class="range-row"><label for="horizon">Horizon <output id="horizon-value">—</output></label><input id="horizon" type="range" min="3" max="20" step="1" value="10"></div>
-          <button class="ctl" id="scenario-reset" type="button">Reset to observed trend</button>
+          <button class="ctl" id="scenario-reset" type="button">Use aggregate baseline rates</button>
         </div>
         <div><svg id="scenario-chart" viewBox="0 0 620 330" role="img" aria-label="Scenario of indexed output and labour income"></svg>
-          <div class="scenario-legend"><span><i></i>Output per person</span><span><i></i>Labour income per person</span></div></div>
+          <div class="scenario-legend"><span><i></i>Output per person</span><span><i></i>Constructed labour income per person</span></div></div>
       </div></div>
     </section>
 
     <section class="section" id="signal-atlas">
       <div class="section-head">
-        <div><div class="section-kicker">05 · Signal atlas</div><h2>Interrogate the evidence.</h2></div>
-        <p>Every claim keeps its source, method, caveats, and trouble reading. Missing instruments remain
-          on the page because blind spots are part of the state of the transition.</p>
+        <div><div class="section-kicker">06 · Evidence atlas</div><h2>Interrogate every input.</h2></div>
+        <p>Each signal exposes its source, method, caveats and counter-reading. Missing instrumentation stays
+          visible because uncertainty is part of the public record.</p>
       </div>
       <div class="controls">
         <span class="lbl">Entity</span><span id="entity-buttons" style="display:flex;gap:6px;flex-wrap:wrap"></span>
         <span class="spacer"></span><label class="sr-only" for="family-filter">Signal family</label>
         <select class="control-select" id="family-filter"><option value="ALL">All signal families</option></select>
         <button class="ctl" id="toggle-table" aria-pressed="false">Table view</button>
-        <label class="ctl" for="load-snap">Load snapshot</label><input type="file" id="load-snap" accept="application/json,.json" hidden>
       </div>
       <div id="families"></div>
     </section>
 
-    <section class="section" id="methods">
+    <section class="section" id="accountability">
       <div class="section-head">
-        <div><div class="section-kicker">06 · Methods</div><h2>Built to be argued with.</h2></div>
-        <p>The Observatory earns trust by exposing uncertainty, falsifiers, missing instruments, and the
-          exact dated evidence behind every view.</p>
+        <div><div class="section-kicker">07 · Accountability</div><h2>Built to be corrected, challenged and stopped.</h2></div>
+        <p>The Observatory should earn authority through inspectable evidence and correction, never through its aesthetic.</p>
+      </div>
+      <div class="account-grid">
+        <article class="account-card"><h3>Correction record</h3><p>The earlier “transmission test” mixed incompatible units and overstated what the data showed. It was withdrawn and replaced with a descriptive aggregate baseline.</p></article>
+        <article class="account-card"><h3>Challenge service</h3><p><strong>Not yet operational.</strong> Public release remains blocked until challenges can be submitted, tracked, answered and linked to changed claims.</p></article>
+        <article class="account-card"><h3>Decision safeguards</h3><ul><li>No automated public trigger.</li><li>No action without named authority.</li><li>No cohort claim from a national average.</li><li>No causal claim from descriptive movement.</li></ul></article>
+      </div>
+
+      <div class="section-head" id="methods" style="margin-top:54px">
+        <div><div class="section-kicker">Methods</div><h2>What could change this reading?</h2></div>
+        <p>A useful instrument names evidence that could narrow, reverse or redistribute its interpretation.</p>
       </div>
       <div class="method-stack">
-
-  <section class="api" style="margin-bottom:18px">
-    <h2>What would change my mind</h2>
-    <p>
-      A dashboard that cannot be wrong is not an instrument, it is a poster. So,
-      explicitly: here is what would falsify the case these signals are built to test.
-    </p>
-    <ul style="max-width:66ch;color:var(--ink-2);padding-left:20px">
-      <li><strong>The Engels gap stays near zero for a decade while output accelerates.</strong>
-        Then labour income is keeping up, the pause is not coming, and the worry was misplaced.</li>
-      <li><strong>Someone builds the zero-cost count and it climbs steeply.</strong> If the
-        share of a decent-living basket available at near-zero marginal cost is rising fast,
-        the money condition is dissolving without redistribution and the argument is answered.</li>
-      <li><strong>The share below $30 a day falls sharply.</strong> Four in five people is the
-        premise. Break the premise and the rest follows.</li>
-      <li><strong>Someone shows CPI can detect demonetisation.</strong> The price channel here
-        rests on an index that reweights away from anything whose price collapses. If that is
-        wrong, the weakest part of this becomes the strongest.</li>
-    </ul>
-  </section>
-
-  <section class="api" style="margin-bottom:18px">
-    <h2>Where I need you to push</h2>
-    <p>Not rhetorical. The instrument is more useful once these are settled.</p>
-    <ul style="max-width:66ch;color:var(--ink-2);padding-left:20px">
-      <li><strong>Define the zero-cost count.</strong> Which basket, where "close to zero" sits,
-        and whether advertiser-funded-but-free-to-consumer counts. Three rulings and it exists.</li>
-      <li><strong>Which CPI components are automatable?</strong> That split is the Baumol gap.
-        The data is there; the judgement is not.</li>
-      <li><strong>Cohort cuts.</strong> A national average can pass while the displaced cohort
-        fails. That is precisely what happened during Engels' Pause and it is the biggest hole here.</li>
-      <li><strong>Is asset ownership a third transmission channel?</strong> It is excluded. It is
-        also the one that carried the wealthy through the last transition.</li>
-    </ul>
-  </section>
-
-  <section class="api">
-    <h2>The snapshot contract</h2>
-    <p>
-      This page never talks to a data provider. It renders a <strong>snapshot</strong>:
-      a dated, versioned JSON file pulled from open registries by a separate fetcher.
-      That separation is deliberate, and it is what makes any future snapshot render
-      here without touching this page.
-    </p>
-    <div class="flow">
-      <b>open registries</b><i>→</i><b>fetch_snapshot.py</b><i>→</i>
-      <b>snapshots/YYYY-MM-DD.json</b><i>→</i><b>this page</b>
-    </div>
-    <p>
-      The page reads whatever is in the <code class="mono">signals</code> array. Add a
-      signal to a future snapshot and it appears here. Remove one and it vanishes.
-      No rebuild. Use <strong>Load snapshot…</strong> above to render any file that
-      validates against schema <span class="mono" id="api-accepts">1.x</span>.
-    </p>
-    <div class="warnbar">
-      <strong>Why snapshots and not a live feed.</strong> A live dashboard silently
-      changes underneath an argument that cited it. A snapshot is dated, checkable and
-      quotable: if someone disputes a number, they can be handed the exact file the
-      claim was written against.
-    </div>
-    <pre id="api-shape"></pre>
-  </section>
+        <section class="api" style="margin-bottom:18px">
+          <h2>Bounded falsifiers</h2>
+          <ul style="max-width:72ch;color:var(--ink-2);padding-left:20px">
+            <li><strong>Transmission:</strong> matched cohort evidence showing earnings, security and hours improving with output would weaken the concern for that cohort and period.</li>
+            <li><strong>Access:</strong> service-level evidence showing lower total cost, sustained quality and broader uptake would support a path from capability to lived access.</li>
+            <li><strong>Agency:</strong> repeated affected-person evidence showing expanded voluntary choices without material dependency would support the agency condition.</li>
+            <li><strong>Attribution:</strong> credible natural experiments or other causal designs could distinguish technology effects from demand, policy, composition and measurement effects.</li>
+          </ul>
+        </section>
+        <section class="api">
+          <h2>The snapshot contract</h2>
+          <p>This page renders a dated, versioned JSON snapshot collected from named sources by a separate fetcher. Snapshots keep an argument reproducible when upstream data changes.</p>
+          <div class="flow"><b>named sources</b><i>→</i><b>fetch_snapshot.py</b><i>→</i><b>dated snapshot</b><i>→</i><b>validated build</b></div>
+          <p><strong>Local snapshot loading is disabled in this public prototype.</strong> Schema-major checking alone was insufficient. Re-enable only after full schema validation, provenance checks and an unmistakable local-data watermark.</p>
+          <div class="warnbar"><strong>Current limit.</strong> The snapshot schema validates structure, not whether a source is correct, a method is appropriate or a conclusion is justified.</div>
+          <pre id="api-shape"></pre>
+        </section>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>
-      <strong>Prototype.</strong> Measured series come straight from open registries with
-      no interpolation and no carry-forward. Derived signals state their method and their
-      caveats. Missing signals remain deliberately empty because nobody publishes them yet, and
-      hiding that would be dishonest.
-    </p>
-    <p>
-      A national average can pass while a displaced cohort fails. That is exactly what
-      happened during Engels' Pause, and none of these series is cut by cohort yet.
-    </p>
+    <p><strong>Prototype and agent proposal.</strong> Measured series retain their named sources. Derived signals state their methods and caveats. Missing fields indicate absent evidence in this snapshot, not proof that no source exists.</p>
+    <p>National aggregates may conceal divergent outcomes. No current series establishes effects for a particular cohort, attributes change to AI, or authorises intervention.</p>
     <p id="sourceline"></p>
   </footer>
 </div>
@@ -763,43 +792,25 @@ function renderCoverage(){
   var total=(snap.signals||[]).length;
   var ready=(snap.signals||[]).filter(function(s){return isInstrumented(s.id)}).length;
   document.getElementById("coverage-value").textContent=ready+" / "+total;
-  document.getElementById("coverage-note").textContent=ready+" instrumented · "+(total-ready)+
-    " explicitly missing. Coverage, not a progress score.";
+  document.getElementById("coverage-note").textContent=ready+" planned inputs available · "+(total-ready)+
+    " absent in this snapshot. Completeness only, not progress, risk or probability.";
 }
 
-function renderCrisisRadar(){
+function renderFailureModes(){
   var crises=snap.crises||[];
   if(!crises.length){
     document.getElementById("crisis-detail").textContent="No crisis contract in this snapshot.";
     return;
   }
   if(!selectedCrisis||!crises.some(function(c){return c.id===selectedCrisis})) selectedCrisis=crises[0].id;
-  var NS="http://www.w3.org/2000/svg", svg=document.getElementById("crisis-chart"); svg.innerHTML="";
-  function mk(t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt)e.textContent=txt;return e;}
-  var cx=230,cy=230,r=146,n=crises.length;
-  var point=function(i,scale){var a=-Math.PI/2+i*Math.PI*2/n;return [cx+Math.cos(a)*r*scale,cy+Math.sin(a)*r*scale];};
-  [0.25,0.5,0.75,1].forEach(function(scale){
-    var pts=crises.map(function(_,i){return point(i,scale).join(",")}).join(" ");
-    svg.appendChild(mk("polygon",{points:pts,fill:"none",stroke:css("--grid"),"stroke-width":1}));
-  });
-  crises.forEach(function(c,i){
-    var p=point(i,1); svg.appendChild(mk("line",{x1:cx,y1:cy,x2:p[0],y2:p[1],stroke:css("--grid"),"stroke-width":1}));
-    var lp=point(i,1.18), label=c.name.replace(/^The /,"");
-    if(label.length>22) label=label.slice(0,21)+"…";
-    svg.appendChild(mk("text",{x:lp[0],y:lp[1]+4,"text-anchor":"middle"},label));
-  });
-  var data=crises.map(function(c,i){return point(i,coverageFor(c).pct).join(",")}).join(" ");
-  svg.appendChild(mk("polygon",{points:data,fill:css("--accent-soft"),stroke:css("--accent"),"stroke-width":2}));
-  crises.forEach(function(c,i){var p=point(i,coverageFor(c).pct);svg.appendChild(mk("circle",{cx:p[0],cy:p[1],r:4,fill:css("--accent")}));});
-
   var list=document.getElementById("crisis-list"); list.innerHTML="";
   crises.forEach(function(c,i){
     var cov=coverageFor(c), b=el("button","crisis-choice"); b.type="button";
     b.setAttribute("aria-pressed",String(c.id===selectedCrisis));
     b.appendChild(el("span","num",String(i+1).padStart(2,"0")));
     b.appendChild(el("span","name",c.name));
-    b.appendChild(el("span","coverage",cov.ready+"/"+cov.total+" signals"));
-    b.onclick=function(){selectedCrisis=c.id;renderCrisisRadar();}; list.appendChild(b);
+    b.appendChild(el("span","coverage",cov.ready+"/"+cov.total+" inputs available"));
+    b.onclick=function(){selectedCrisis=c.id;renderFailureModes();}; list.appendChild(b);
   });
   renderCrisisDetail(crises.find(function(c){return c.id===selectedCrisis}));
 }
@@ -807,7 +818,7 @@ function renderCrisisRadar(){
 function renderCrisisDetail(c){
   var host=document.getElementById("crisis-detail"); host.innerHTML="";
   var cov=coverageFor(c), chip=el("span","chip void"); chip.appendChild(el("span","dot"));
-  chip.appendChild(el("span",null,c.status+" · "+cov.ready+" of "+cov.total+" warning signals live")); host.appendChild(chip);
+  chip.appendChild(el("span",null,"unscored hypothesis · "+cov.ready+" of "+cov.total+" planned inputs available")); host.appendChild(chip);
   host.appendChild(el("h3",null,c.name)); host.appendChild(el("p",null,c.condition));
   var tags=el("div","signal-tags"); (c.leading_signals||[]).forEach(function(id){
     var s=signalById(id), tag=el("span","signal-tag"+(isInstrumented(id)?" ready":""),s?s.name:id);
@@ -833,25 +844,27 @@ function renderPlaybook(){
   keys.forEach(function(key){var b=el("button","actor-tab",books[key].label);b.type="button";
     b.setAttribute("aria-pressed",String(key===actor));b.onclick=function(){actor=key;renderPlaybook();};tabs.appendChild(b);});
   var host=document.getElementById("playbook"), book=books[actor];host.innerHTML="";
+  var proposal=el("p","plain-warning");
+  proposal.innerHTML="<strong>Proposal, not authorised.</strong> Owner, evidence gate, affected-group review and stop rule are not yet assigned.";
+  host.appendChild(proposal);
   host.appendChild(el("p","playbook-principle",book.principle));
-  var cols=el("div","action-columns"), names={now:"Build now",warning:"At warning",crisis:"During crisis"};
+  var cols=el("div","action-columns"), names={now:"Prepare safely",warning:"If evidence is validated",crisis:"Protect and recover"};
   ["now","warning","crisis"].forEach(function(phase){var col=el("article","action-column");
     col.appendChild(el("div","phase",phase));col.appendChild(el("h3",null,names[phase]));var ol=el("ol");
     (book[phase]||[]).forEach(function(a){ol.appendChild(el("li",null,a));});col.appendChild(ol);cols.appendChild(col);});
   host.appendChild(cols);
 }
 
-function observedRates(){
+function baselineRates(){
   var d=signalById("engels-divergence"), ent=entity==="ALL"?"OWID_WRL":entity;
   if(!d) return {output:2,income:2};
-  function get(re){return (d.series||[]).find(function(s){return s.entity===ent&&re.test(s.measure||"")})||
-    (d.series||[]).find(function(s){return s.entity==="OWID_WRL"&&re.test(s.measure||"")});}
+  function get(re){return (d.series||[]).find(function(s){return s.entity===ent&&re.test(s.measure||"")});}
   function rate(s){if(!s||s.points.length<2)return 2;var pts=s.points, start=pts[Math.max(0,pts.length-11)],end=pts[pts.length-1];
     return (Math.pow(end[1]/start[1],1/(end[0]-start[0]))-1)*100;}
   return {output:rate(get(/Output/)),income:rate(get(/Labour/))};
 }
 function seedScenario(){
-  var rates=observedRates();document.getElementById("output-growth").value=rates.output.toFixed(1);
+  var rates=baselineRates();document.getElementById("output-growth").value=rates.output.toFixed(1);
   document.getElementById("income-growth").value=rates.income.toFixed(1);scenarioSeededFor=entity;
 }
 function renderScenario(){
@@ -907,7 +920,7 @@ function panel(sig){
   if(sig.status==="not_measured"||sig.status==="unavailable"){
     var vb=el("div","voidbox");
     vb.appendChild(el("div","big", sig.status==="not_measured"
-      ? "No registry publishes this." : "Fetch failed for this snapshot."));
+      ? "No evidence is included for this signal." : "Fetch failed for this snapshot."));
     vb.appendChild(el("div","small", sig.method || "Kept visible on purpose. A dashboard that hid its own blind spot would be lying by composition."));
     p.appendChild(vb);
   } else {
@@ -944,13 +957,13 @@ function panel(sig){
 /* ------------------------------------------------------------------ render */
 var FAMILY = {
   engels:{t:"Aggregate transmission baseline", d:"A descriptive comparison of output and constructed labour income per person. It identifies questions for cohort investigation, not whether a historical pause has begun."},
-  conditions:{t:"The money condition", d:"How many people are on the wrong side of the if, before we start."},
-  prices:{t:"The price channel", d:"Whether cost is actually collapsing where households feel it. The weakest instrumentation here, and the argument turns on it."},
+  conditions:{t:"Material living conditions", d:"Who can reliably meet a defined living standard, using a threshold that is explicit and contestable."},
+  prices:{t:"Household cost channel", d:"Whether total costs are changing for defined baskets, places and households. Current instrumentation is incomplete."},
   labour:{t:"The labour channel", d:"How paid-work participation and worker flows are changing, without inferring the reasons from an aggregate rate."},
   access:{t:"The access outcome", d:"Whether resources and usable public provision clear the local cost of a decent life."},
   power:{t:"The power channel", d:"Whether control of the productive frontier is becoming too concentrated to keep access contestable."},
   readiness:{t:"The delivery rail", d:"Whether protection can actually reach the right people before damage compounds."},
-  legitimacy:{t:"Trust and consent", d:"Whether the people carrying the losses still see the crossing as fair and governable."}
+  legitimacy:{t:"Trust and participation", d:"Whether affected people report fair process, voice, remedy and confidence in relevant institutions."}
 };
 var ORDER=["engels","access","prices","conditions","labour","power","readiness","legitimacy"];
 
@@ -965,11 +978,6 @@ function renderVerdict(){
   if(d){
     var out=(d.series||[]).find(function(x){return x.entity===ent&&/Output/.test(x.measure)});
     var lab=(d.series||[]).find(function(x){return x.entity===ent&&/Labour/.test(x.measure)});
-    if(!out||!lab){
-      out=(d.series||[]).find(function(x){return x.entity==="OWID_WRL"&&/Output/.test(x.measure)});
-      lab=(d.series||[]).find(function(x){return x.entity==="OWID_WRL"&&/Labour/.test(x.measure)});
-      ent="OWID_WRL";
-    }
     if(out&&lab){
       gap = lab.points[lab.points.length-1][1] - out.points[out.points.length-1][1];
       span = out.points[0][0]+"–"+out.points[out.points.length-1][0];
@@ -990,7 +998,7 @@ function renderVerdict(){
   lft.appendChild(el("div","bigunit","index points, labour income against output"));
   var ch=el("span","chip neutral"); ch.style.marginTop="14px";
   ch.appendChild(el("span","dot"));
-  ch.appendChild(el("span",null,"observed gap"));
+  ch.appendChild(el("span",null,"derived baseline comparison"));
   lft.appendChild(ch);
 
   rt.appendChild(el("h2",null, gap<0
@@ -1063,7 +1071,6 @@ function renderMeta(){
   document.getElementById("m-count").textContent=(snap.signals||[]).length+" ("+measured+" measured · "+derived+" derived)";
   document.getElementById("m-ents").textContent=activeEntities().length;
   document.getElementById("m-schema").textContent="schema "+(snap.schema_version||"?");
-  document.getElementById("api-accepts").textContent=ACCEPTS+".x";
   var srcs={}; (snap.signals||[]).forEach(function(s){ if(s.source&&s.source.name&&s.source.url) srcs[s.source.name]=1; });
   document.getElementById("sourceline").textContent="Sources: "+Object.keys(srcs).join(" · ")+".";
   document.getElementById("api-shape").textContent=JSON.stringify({
@@ -1082,7 +1089,7 @@ function renderMeta(){
 }
 
 function renderAll(){
-  renderMeta();renderCoverage();renderVerdict();renderCrisisRadar();renderPlaybook();
+  renderMeta();renderCoverage();renderVerdict();renderFailureModes();renderPlaybook();
   renderFamilyFilter();renderEntityButtons();renderScenario();renderFamilies();
 }
 
@@ -1098,28 +1105,8 @@ document.getElementById("theme-toggle").onclick=function(){
   var root=document.documentElement, light=root.getAttribute("data-theme")==="light";
   root.setAttribute("data-theme",light?"dark":"light");this.textContent=light?"Change light":"Change dark";renderAll();
 };
-document.getElementById("load-snap").onchange=function(ev){
-  var f=ev.target.files&&ev.target.files[0]; if(!f) return;
-  var r=new FileReader();
-  r.onload=function(){
-    try{
-      var next=JSON.parse(r.result);
-      var maj=parseInt(String(next.schema_version||"0").split(".")[0],10);
-      if(maj!==ACCEPTS){
-        alert("This build renders schema "+ACCEPTS+".x. That file declares "+
-              (next.schema_version||"nothing")+", so it is not rendered rather than "+
-              "shown misleadingly.");
-        return;
-      }
-      snap=next; entity="OWID_WRL";familyFilter="ALL";selectedCrisis=null;scenarioSeededFor=null;
-      SLOT={}; (snap.entities||[]).forEach(function(e,i){ SLOT[e.code]=SERIES[i%8]; });
-      renderAll();
-    }catch(e){ alert("Could not parse that file as JSON: "+e.message); }
-  };
-  r.readAsText(f);
-};
 window.addEventListener("resize",function(){ clearTimeout(window.__rt);
-  window.__rt=setTimeout(function(){renderFamilies();renderCrisisRadar();renderScenario();},180); });
+  window.__rt=setTimeout(function(){renderFamilies();renderScenario();},180); });
 
 renderAll();
 })();

@@ -127,8 +127,8 @@ SIGNAL_DEFS = [
     dict(
         id="poverty-30", name="Living on less than $30 a day", family="conditions",
         unit="percent", precision=1, direction="down_is_good",
-        question="How many people are on the wrong side of the money condition?",
-        why_it_matters="Roughly a developed-world floor. The single clearest measure of who the abundance promise currently excludes.",
+        question="How many people live below this explicit daily-consumption threshold?",
+        why_it_matters="A broad, contestable baseline for material living conditions. It does not define a decent life or identify why people fall below the line.",
         trouble_reading="Flat, while capability and output rise.",
         caveats=["The most recent years are modelled nowcasts, not survey estimates. Treat the "
                  "tail of this series as a projection.",
@@ -143,7 +143,7 @@ SIGNAL_DEFS = [
         unit="percent", precision=1, direction="down_is_good",
         question="How many are below the upper-middle-income line?",
         why_it_matters="The World Bank's upper-middle-income poverty line, revised upward in June 2025.",
-        trouble_reading="Stalling. The last mile is the hardest and the most expensive.",
+        trouble_reading="A sustained plateau or rise, especially where survey coverage and uncertainty are adequate.",
         caveats=["The most recent years are modelled nowcasts, not survey estimates.",
                  "The World Bank raised this line in June 2025; the series is not comparable "
                  "across that revision without care."],
@@ -169,7 +169,7 @@ SIGNAL_DEFS = [
         id="inflation", name="Consumer price inflation", family="prices",
         unit="percent", precision=1, direction="down_is_good",
         question="Are prices actually falling?",
-        why_it_matters="The price channel. Abundance requires this to go negative for real baskets, not merely to slow.",
+        why_it_matters="A broad household price measure. It can show inflation pressure but cannot establish affordability, access or demonetisation on its own.",
         trouble_reading="Persistently positive. Deflation of goods is not showing up in what households actually buy.",
         caveats=["Headline CPI, not a decent-living basket. The basket question is unresolved.",
                  "CPI may be structurally incapable of showing demonetisation: it weights what "
@@ -199,7 +199,7 @@ NOT_MEASURED = [
         id="baumol-gap", name="The Baumol gap", family="prices",
         unit="percent", precision=1, direction="down_is_good",
         question="How fast is the human-required residue getting relatively more expensive?",
-        why_it_matters="Price index of automatable baskets against human-required ones. Predicts that the residue gets dearer as everything else deflates.",
+        why_it_matters="A proposed comparison of price movement in explicitly classified baskets. Any result would depend on contested classification and weighting choices.",
         trouble_reading="Widening with no policy response.",
         method="Not yet computed. Requires splitting CPI components into automatable and human-required, which is a judgement call rather than a data problem.",
         caveats=["CPI component data exists. The split does not, and choosing it is contestable."],
@@ -254,8 +254,8 @@ NOT_MEASURED = [
     dict(
         id="trust-consent", name="Trust and consent", family="legitimacy",
         unit="percent", precision=1, direction="up_is_good",
-        question="Will people still consent to the transition?",
-        why_it_matters="Perceived fairness can fail before economic aggregates breach, turning a manageable crossing into a legitimacy crisis.",
+        question="How do affected people assess fairness, voice, remedy and institutional trust?",
+        why_it_matters="Repeated affected-person evidence may reveal legitimacy concerns that aggregate economic measures cannot observe.",
         trouble_reading="Trust falls among the same cohorts carrying the losses.",
         method="Not yet constructed. Requires repeated, cohort-specific measures of fairness, trust and willingness to support the transition.",
         caveats=["Generic institutional-trust surveys do not isolate the technology transition."],
@@ -312,7 +312,7 @@ CRISES = [
     dict(
         id="legitimacy-break", name="The legitimacy break", status="unscored",
         condition="Access falls while profits, mark-ups or productive-power concentration rise.",
-        why_it_matters="A distribution problem becomes a power problem, and politics turns.",
+        why_it_matters="The joint pattern could motivate competing explanations about distribution, market power and public legitimacy that require separate testing.",
         possible_public_responses=[
             "Competition, taxation, public-return or ownership reform proposals.",
             "Consumer, worker or community organising around access and control.",
