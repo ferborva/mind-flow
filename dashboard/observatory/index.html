@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#07100f">
+    <meta name="description" content="A research prototype for inspecting executable IF conditions, evidence, forecasts, paths and authority boundaries.">
+    <title>The Transition Observatory · Round 04</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./data.js"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to observatory</a>
+    <div class="data-error" id="observatory-error" role="alert" hidden></div>
+    <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <header class="masthead">
+      <a class="identity" href="#overview" aria-label="Transition Observatory home">
+        <span class="identity-mark" aria-hidden="true">Φ</span>
+        <span><b>The Transition Observatory</b><small>Human agency through change</small></span>
+      </a>
+      <div class="masthead-meta">
+        <span id="round-label">Round</span>
+        <span class="classification" id="classification-label">Loading source</span>
+        <time id="as-of"></time>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="hero" id="overview" aria-labelledby="hero-title">
+        <div class="hero-intro reveal">
+          <p class="eyebrow">An instrument for navigable futures</p>
+          <h1 id="hero-title">Make the <em>IF</em><br>visible.</h1>
+          <p class="lede">Inspect candidate conditions for people to move through technological change with meaningful choice, without pretending the set is complete.</p>
+        </div>
+
+        <article class="condition-console reveal" aria-labelledby="condition-title">
+          <div class="console-head">
+            <div>
+              <p class="section-index">01 / Executable condition</p>
+              <h2 id="condition-title">The registered claim</h2>
+            </div>
+            <div class="state-seal" data-current-state>···</div>
+          </div>
+          <dl class="grammar" id="grammar-grid">
+            <div><dt>Who</dt><dd data-grammar="who"></dd></div>
+            <div><dt>Verb</dt><dd data-grammar="verb"></dd></div>
+            <div><dt>Outcome</dt><dd data-grammar="outcome"></dd></div>
+            <div><dt>Standard</dt><dd data-grammar="standard"></dd></div>
+            <div><dt>Place</dt><dd data-grammar="place"></dd></div>
+            <div><dt>Period</dt><dd data-grammar="period"></dd></div>
+          </dl>
+          <div class="if-clause">
+            <span>IF</span>
+            <p data-grammar="if"></p>
+          </div>
+        </article>
+
+        <div class="truth-bar reveal" aria-label="Current state, forecast and authority summary">
+          <article class="truth-cell current-cell">
+            <p class="label">Current IF evaluation</p>
+            <div class="state-readout"><strong data-current-state></strong></div>
+            <p id="current-evidence-note"></p>
+          </article>
+          <article class="truth-cell forecast-cell">
+            <div class="probability-ring" id="probability-ring" aria-hidden="true"><b id="probability-number"></b></div>
+            <div><p class="label">Future event forecast</p><strong id="forecast-short"></strong><p>Different question, not a truth score.</p></div>
+          </article>
+          <article class="truth-cell authority-cell">
+            <p class="label">Decision boundary</p>
+            <strong id="authority-status"></strong>
+            <p id="authority-note"></p>
+          </article>
+          <article class="truth-cell next-cell">
+            <p class="label">Preparation review by</p>
+            <strong><time id="next-check-date"></time></strong>
+            <p id="next-check-note"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section state-section" id="states" aria-labelledby="states-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">02 / Branch explorer</p><h2 id="states-title">Five states. Five responses.</h2></div>
+          <p>Explore the registered decision path. This changes the scenario view, never the current receipt.</p>
+        </header>
+        <div class="state-switcher reveal" id="state-switcher" role="group" aria-label="Explore IF state branches"></div>
+        <article class="branch-display reveal" aria-live="polite" aria-atomic="true" id="branch-display">
+          <div class="branch-coordinate"><span>STATE</span><b id="branch-state"></b></div>
+          <div><p class="branch-kicker" id="branch-recovery"></p><h3 id="branch-action"></h3><p id="branch-explanation"></p></div>
+          <p class="scenario-flag" id="scenario-flag">Scenario view only</p>
+        </article>
+      </section>
+
+      <section class="section evolution-section" id="evolution" aria-labelledby="evolution-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">03 / IF evolution</p><h2 id="evolution-title">The condition is versioned.</h2></div>
+          <p>Trace change without silently changing meaning. Definition, evidence, paths and human values evolve on separate axes.</p>
+        </header>
+        <div class="axis-layout reveal">
+          <div class="axis-tabs" id="axis-tabs" role="tablist" aria-label="IF evolution axes"></div>
+          <article class="axis-panel" id="axis-panel" role="tabpanel" tabindex="0" aria-labelledby="axis-definition" aria-live="polite"></article>
+          <div class="orbital-map" aria-hidden="true">
+            <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
+            <div class="orbit-core">IF</div>
+            <span class="axis-point point-definition">D</span><span class="axis-point point-evidence">E</span>
+            <span class="axis-point point-path">P</span><span class="axis-point point-values">V</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section crossings-section" id="crossings" aria-labelledby="crossings-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">04 / Non-true decision gates</p><h2 id="crossings-title">Pause consequence. Recover evidence.</h2></div>
+          <p>These are registered responses to non-true IF states. They are not crisis findings or authority to act.</p>
+        </header>
+        <div class="crossing-track reveal" id="crossing-track"></div>
+      </section>
+
+      <section class="section path-section" id="paths" aria-labelledby="paths-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">05 / Possible paths</p><h2 id="paths-title">One candidate. Named competing hypotheses.</h2></div>
+          <p>Open-world navigation means preserving rival explanations and an explicit route to abandonment.</p>
+        </header>
+        <div class="path-grid reveal" id="path-grid"></div>
+      </section>
+
+      <section class="section preparation-section" id="preparation" aria-labelledby="preparation-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">06 / Reversible preparation</p><h2 id="preparation-title">Prepare without pretending to decide.</h2></div>
+          <p>The registered action proposal has a narrow eligibility trigger, human gates and a stop rule.</p>
+        </header>
+        <article class="preparation-card reveal">
+          <div class="prep-status"><span id="prep-eligibility"></span><strong id="prep-title"></strong><p id="prep-sentence"></p></div>
+          <dl class="prep-facts" id="prep-facts"></dl>
+          <div class="control-columns"><div><h3>Start only when</h3><ul id="start-controls"></ul></div><div><h3>Stop when</h3><ul id="stop-controls"></ul></div></div>
+        </article>
+      </section>
+
+      <section class="section signal-section" id="signals" aria-labelledby="signals-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">07 / Measurement field</p><h2 id="signals-title">Know what is measured. Name what is missing.</h2></div>
+          <p id="source-status"></p>
+        </header>
+        <div class="metric-grid reveal" id="metric-grid"></div>
+        <div class="gap-strip reveal" id="gap-strip"></div>
+      </section>
+
+      <section class="section provenance-section" id="provenance" aria-labelledby="provenance-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">08 / Provenance</p><h2 id="provenance-title">Inspect the registered source chain.</h2></div>
+          <p>Expand the chain to inspect exact artifact identities and integrity hashes.</p>
+        </header>
+        <details class="provenance-ledger reveal">
+          <summary>Inspect the Round 4 source chain <span id="artifact-count"></span></summary>
+          <div id="provenance-list"></div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p><span aria-hidden="true">Φ</span> The Transition Observatory</p>
+      <p>Research draft · Synthetic fixture · No empirical finding · No authority</p>
+    </footer>
+
+    <noscript><p class="noscript">This observatory needs JavaScript to project its local, hash-bound Round 4 source bundle.</p></noscript>
+  </body>
+</html>

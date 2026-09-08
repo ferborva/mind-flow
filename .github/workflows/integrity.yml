@@ -48,5 +48,13 @@ jobs:
           pilots/australia/data/nero-clerical-2026-08.json
           pilots/australia/web/index.html
 
+      - name: Reproduce the Round 4 transition checkpoint
+        run: |
+          node integration/transition-bundle/tools/build-round-04-core.mjs --check
+          node dashboard/tools/build-round-04-executable-if-view.mjs --check
+          node integration/transition-bundle/tools/build-round-04-complete-core.mjs --check
+          node dashboard/observatory/build.mjs --check
+          node experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs --check
+
       - name: Reject generated-artifact drift
         run: git diff --exit-code

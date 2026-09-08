@@ -74,3 +74,18 @@ test("the complete test contract includes the condition agency map", () => {
     /contracts\/agency-map\/tests\/\*\.test\.mjs/,
   );
 });
+
+test("the complete test contract includes and reproduces the Round 4 Observatory", () => {
+  assert.match(packageJson.scripts.test, /npm run test:dashboard/);
+  assert.match(
+    packageJson.scripts["test:dashboard"],
+    /dashboard\/observatory\/tests\/\*\.test\.mjs/,
+  );
+  for (const command of [
+    "node integration/transition-bundle/tools/build-round-04-core.mjs --check",
+    "node dashboard/tools/build-round-04-executable-if-view.mjs --check",
+    "node integration/transition-bundle/tools/build-round-04-complete-core.mjs --check",
+    "node dashboard/observatory/build.mjs --check",
+    "node experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs --check",
+  ]) assert.match(workflow, new RegExp(command.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+});

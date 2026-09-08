@@ -15,7 +15,7 @@
     "test:options": "node --test options/tests/*.test.mjs",
     "test:preparation": "node --test preparation/tests/*.test.mjs",
     "test:forecasts": "node --test forecasts/tests/*.test.mjs",
-    "test:dashboard": "node --test dashboard/tests/*.test.mjs",
+    "test:dashboard": "node --test dashboard/tests/*.test.mjs dashboard/observatory/tests/*.test.mjs",
     "test:pilot": "node --test pilots/australia/tests/*.test.mjs",
     "test:rehearsal": "node --test pilots/australia/rehearsal/tests/*.test.mjs",
     "test:communications": "node --test communications/tests/*.test.mjs",
