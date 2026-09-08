@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
@@ -15,6 +16,11 @@ import {
   renderConditionIf,
   validateConditionEvolutionLedger,
 } from "../validate.mjs";
+import {
+  computeExecutableIfEvolutionManifestHash,
+  projectExecutableIfEvolution,
+  validateExecutableIfEvolution,
+} from "../project-executable-if.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
@@ -31,6 +37,88 @@ const canonicalisationVectors = JSON.parse(readFileSync(
 function hasCode(result, code) {
   return result.errors.some((error) => error.code === code);
 }
+
+const executableKernel = () => JSON.parse(readFileSync(
+  resolve(root, "../executable-if/fixtures/kernel.synthetic.json"),
+  "utf8",
+));
+const executableKernelSha256 = () => `sha256:${createHash("sha256").update(readFileSync(
+  resolve(root, "../executable-if/fixtures/kernel.synthetic.json"),
+)).digest("hex")}`;
+
+test("v2 projects complete executable IF history without inventing a second definition ledger", () => {
+  const kernel = executableKernel();
+  const projection = projectExecutableIfEvolution(kernel, {
+    artifact_path: "contracts/executable-if/fixtures/kernel.synthetic.json",
+    artifact_sha256: executableKernelSha256(),
+    generated_at: "2026-09-09T00:00:00Z",
+  });
+  const result = validateExecutableIfEvolution(projection, {
+    sourceKernel: kernel,
+    sourceKernelArtifactSha256: projection.source_kernel_ref.artifact_sha256,
+  });
+
+  assert.equal(result.machine_valid, true);
+  assert.equal(result.integrity_valid, true);
+  assert.equal(result.source_binding_verified, true);
+  assert.equal(result.history_complete, true);
+  assert.deepEqual(
+    projection.source_history_ref.operations,
+    ["added", "narrowed", "definition-revised", "split", "merge"],
+  );
+  assert.deepEqual(
+    projection.current_state.conditions.map(({ condition_definition_ref: ref }) => ref.condition_id),
+    ["condition.worker-option.nsw"],
+  );
+  assert.equal(projection.condition_projections[0].source_event_ref.event_id,
+    "event.worker-option.merge");
+  assert.equal(projection.condition_projections[0].assessment_status, "open");
+  assert.equal(projection.contract_boundary.condition_truth_effect, "none");
+  assert.equal(projection.contract_boundary.action_authorisation_effect, "none");
+});
+
+test("v2 cannot claim complete history without the exact source kernel", () => {
+  const kernel = executableKernel();
+  const projection = projectExecutableIfEvolution(kernel, {
+    artifact_path: "contracts/executable-if/fixtures/kernel.synthetic.json",
+    artifact_sha256: executableKernelSha256(),
+    generated_at: "2026-09-09T00:00:00Z",
+  });
+
+  const detached = validateExecutableIfEvolution(projection);
+  assert.equal(detached.machine_valid, true);
+  assert.equal(detached.integrity_valid, true);
+  assert.equal(detached.source_binding_verified, false);
+  assert.equal(detached.history_complete, false);
+  assert.ok(hasCode(detached, "SOURCE_KERNEL_UNVERIFIED"));
+
+  const tampered = clone(projection);
+  tampered.source_history_ref.operations[2] = "narrowed";
+  tampered.manifest_hash = computeExecutableIfEvolutionManifestHash(tampered);
+  const rejected = validateExecutableIfEvolution(tampered, {
+    sourceKernel: kernel,
+    sourceKernelArtifactSha256: tampered.source_kernel_ref.artifact_sha256,
+  });
+  assert.equal(rejected.source_binding_verified, false);
+  assert.equal(rejected.history_complete, false);
+  assert.ok(hasCode(rejected, "SOURCE_HISTORY_MISMATCH"));
+});
+
+test("the general evolution entrypoint verifies a v2 source-bound overlay", () => {
+  const kernel = executableKernel();
+  const projection = projectExecutableIfEvolution(kernel, {
+    artifact_path: "contracts/executable-if/fixtures/kernel.synthetic.json",
+    artifact_sha256: executableKernelSha256(),
+    generated_at: "2026-09-09T00:00:00Z",
+  });
+  const result = validateConditionEvolutionLedger(projection, {
+    sourceKernel: kernel,
+    sourceKernelArtifactSha256: projection.source_kernel_ref.artifact_sha256,
+  });
+  assert.equal(result.ledger_valid, true);
+  assert.equal(result.history_complete, true);
+  assert.equal(result.source_binding_verified, true);
+});
 
 test("every current and event condition state carries an immutable definition reference", () => {
   const schema = JSON.parse(readFileSync(

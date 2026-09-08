@@ -1,0 +1,260 @@
+{
+  "schema_version": "2.0.0",
+  "ledger_id": "ledger.round-04.worker-option.synthetic",
+  "classification": "research-draft",
+  "generated_at": "2026-09-09T00:00:00Z",
+  "source_kernel_ref": {
+    "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+    "artifact_sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b",
+    "kernel_id": "kernel.worker-option.synthetic",
+    "manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+    "evaluator_ref": {
+      "id": "mind-flow.executable-if.evaluator",
+      "version": "1.0.0",
+      "digest": "sha256:be2034c8654754b9a02d3b3cf458d56b2c212467adf2cbe2e06d06b261f69f0b",
+      "implementation_digest": "sha256:b9d7b8f725e60fd84b6ee8861b7146c632a2d1b203ec6a0879c6938debe3cef5",
+      "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+    }
+  },
+  "source_history_ref": {
+    "history_status": "complete-and-locally-validated",
+    "event_count": 5,
+    "tip_sequence": 5,
+    "tip_event_id": "event.worker-option.merge",
+    "tip_event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6",
+    "operations": [
+      "added",
+      "narrowed",
+      "definition-revised",
+      "split",
+      "merge"
+    ],
+    "event_refs": [
+      {
+        "sequence": 1,
+        "event_id": "event.worker-option.added",
+        "operation": "added",
+        "event_hash": "sha256:01cd619ef81fd1eb551f72b8a53a76c7bc41429e5c0291fd5f24cfc4acd2c1d7"
+      },
+      {
+        "sequence": 2,
+        "event_id": "event.worker-option.narrowed",
+        "operation": "narrowed",
+        "event_hash": "sha256:87b7c0b2af16389e93990cd078d18fb32de5741fc96a5d600677ad36e920758b"
+      },
+      {
+        "sequence": 3,
+        "event_id": "event.worker-option.revised",
+        "operation": "definition-revised",
+        "event_hash": "sha256:22b01567349b0d0cb07be5bb3c150d13979656308946404031ba867dce555c5f"
+      },
+      {
+        "sequence": 4,
+        "event_id": "event.worker-option.split",
+        "operation": "split",
+        "event_hash": "sha256:5f5df63da53d99f6b1032a800823257fe5f22e31642c3c48b4ad50c3ff788970"
+      },
+      {
+        "sequence": 5,
+        "event_id": "event.worker-option.merge",
+        "operation": "merge",
+        "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+      }
+    ],
+    "active_condition_definition_refs": [
+      {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      }
+    ],
+    "evidence_event_count": 11,
+    "evidence_tip_event_id": "evidence-event.august-review.added",
+    "evidence_tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+    "evidence_state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+  },
+  "condition_projections": [
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 5,
+        "event_id": "event.worker-option.merge",
+        "operation": "merge",
+        "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+      },
+      "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+      "claim": {
+        "who": "Affected workers in the registered scope",
+        "verb": "retain",
+        "object": "a credible alternative and an accessible human review route",
+        "standard": "both registered protection predicates are satisfied",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2026-01-01T00:00:00Z",
+          "ends_at": "2026-12-31T23:59:59Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 11,
+        "tip_event_id": "evidence-event.august-review.added",
+        "tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+        "state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    }
+  ],
+  "governance_events": [],
+  "current_state": {
+    "as_of_sequence": 5,
+    "as_of_event_id": "event.worker-option.merge",
+    "as_of_event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6",
+    "evidence_state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa",
+    "conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 5,
+          "event_id": "event.worker-option.merge",
+          "operation": "merge",
+          "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+        },
+        "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+        "claim": {
+          "who": "Affected workers in the registered scope",
+          "verb": "retain",
+          "object": "a credible alternative and an accessible human review route",
+          "standard": "both registered protection predicates are satisfied",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-01-01T00:00:00Z",
+            "ends_at": "2026-12-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales"
+          ],
+          "cohorts": [
+            "General Clerks",
+            "Payroll Clerks"
+          ],
+          "services": [
+            "Work transition support"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 11,
+          "tip_event_id": "evidence-event.august-review.added",
+          "tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+          "state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      }
+    ]
+  },
+  "publication_anchor": {
+    "verification_status": "not-verified-by-external-checkpoint",
+    "checkpoint_uri": "https://mind-flow.org/checkpoints/unpublished/round-04",
+    "source_event_count": 5,
+    "tip_event_id": "event.worker-option.merge",
+    "tip_event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+  },
+  "public_projection": {
+    "history": {
+      "status": "complete-source-bound",
+      "change_count": 5,
+      "operations": [
+        "added",
+        "narrowed",
+        "definition-revised",
+        "split",
+        "merge"
+      ],
+      "notice": "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment."
+    },
+    "active_conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+        "claim": {
+          "who": "Affected workers in the registered scope",
+          "verb": "retain",
+          "object": "a credible alternative and an accessible human review route",
+          "standard": "both registered protection predicates are satisfied",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-01-01T00:00:00Z",
+            "ends_at": "2026-12-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales"
+          ],
+          "cohorts": [
+            "General Clerks",
+            "Payroll Clerks"
+          ],
+          "services": [
+            "Work transition support"
+          ]
+        },
+        "assessment_status": "open"
+      }
+    ],
+    "boundaries": {
+      "mechanical_rule_state_is_empirical_truth": false,
+      "authority_granted": false,
+      "action_authorised": false
+    }
+  },
+  "manifest_hash": "sha256:fd258eecb21ecdc57f157f3b4b7f4b9db85f548bab52398b2c1e063eb753c7c2",
+  "contract_boundary": {
+    "definition_history_owner": "source-executable-if-kernel",
+    "history_validity_effect": "source-binding-and-integrity-only",
+    "condition_truth_effect": "none",
+    "authority_effect": "none",
+    "action_authorisation_effect": "none"
+  }
+}

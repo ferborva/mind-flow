@@ -69,6 +69,14 @@ export function computeEvidenceEventHash(event) {
   return digest("evidence-event", without(event, "evidence_event_hash"));
 }
 
+export function computeEvidenceStateHash(states) {
+  return digest(
+    "current-evidence-state",
+    [...states].sort((left, right) =>
+      evidenceStateKey(left).localeCompare(evidenceStateKey(right))),
+  );
+}
+
 export function computeManifestHash(kernel) {
   return digest("kernel-manifest", without(kernel, "manifest_hash"));
 }
@@ -1203,10 +1211,6 @@ export function evaluateKernelCondition(kernel, conditionId, { evaluatedAt }) {
   const receipt = structuredClone(base);
   delete receipt.evaluation_hash;
   receipt.kernel_manifest_hash = kernel.manifest_hash;
-  receipt.evidence_state_hash = digest(
-    "current-evidence-state",
-    [...kernel.current_evidence_state].sort((left, right) =>
-      evidenceStateKey(left).localeCompare(evidenceStateKey(right))),
-  );
+  receipt.evidence_state_hash = computeEvidenceStateHash(kernel.current_evidence_state);
   return { ...receipt, evaluation_hash: digest("kernel-evaluation-receipt", receipt) };
 }

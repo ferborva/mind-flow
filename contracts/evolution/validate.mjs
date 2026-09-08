@@ -5,6 +5,8 @@ import { isDeepStrictEqual } from "node:util";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { validateExecutableIfEvolution } from "./project-executable-if.mjs";
+
 const schema = JSON.parse(readFileSync(
   new URL("./schema/condition-evolution-ledger.schema.json", import.meta.url),
   "utf8",
@@ -781,7 +783,10 @@ function cropErrors(history) {
   return errors;
 }
 
-export function validateConditionEvolutionLedger(ledger) {
+export function validateConditionEvolutionLedger(ledger, options = {}) {
+  if (ledger?.schema_version === "2.0.0") {
+    return validateExecutableIfEvolution(ledger, options);
+  }
   const errors = [];
   const schemaValid = validateSchema(ledger);
   if (!schemaValid) {

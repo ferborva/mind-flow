@@ -25,6 +25,25 @@ internally reproducible and unaltered relative to its hashes?* Evidence
 assessment, condition evaluation, governance authority and action lifecycle
 remain separate contracts.
 
+## Version 2: one definition history, one governance overlay
+
+Round 4 introduces an executable IF kernel. The kernel owns `added`,
+`narrowed`, `definition-revised`, `split` and `merge` because those operations
+change executable meaning or identity. Evolution v2 does not copy that chain.
+It content-addresses the exact kernel artifact, manifest, evaluator, every
+definition event, the active definition set and the evidence-state tip.
+
+The v2 overlay owns assessment and public-governance state. Its initial Round 4
+fixture deliberately contains no governance event and leaves every active
+condition `open`. A mechanically computed rule state is therefore never
+laundered into empirical truth. Without the exact retained kernel bytes, the
+overlay reports `history_complete: false` even when its own structure and
+manifest are intact.
+
+This split prevents two ledgers from claiming to own the same definition
+history. It also keeps superseded split and merge ancestors visible in the
+kernel without treating them as current conditions downstream.
+
 ## Why this exists
 
 Public decisions often retain a memorable conclusion while the qualifying
@@ -226,7 +245,13 @@ substitute for the private event record.
 
 - `schema/condition-evolution-ledger.schema.json` is closed at every object
   boundary.
+- `schema/executable-if-evolution.schema.json` closes the v2 assessment overlay
+  and exact source-history binding.
 - `validate.mjs` performs semantic validation and the deterministic fold.
+- `project-executable-if.mjs` generates and verifies the v2 overlay without
+  duplicating kernel definition history.
+- `fixtures/round-04.worker-option.synthetic.json` is a non-authorising v2
+  example derived from the hostile-tested synthetic kernel.
 - `fixtures/valid/all-operations.json` exercises all eleven event types.
 - `fixtures/valid/cropped-history.json` demonstrates a disclosed crop.
 - `fixtures/build-fixtures.mjs` deterministically regenerates fixture content
@@ -252,6 +277,13 @@ Maintainers can regenerate both committed fixtures with:
 
 ```sh
 node contracts/evolution/fixtures/build-fixtures.mjs write
+```
+
+Rebuild or verify the Round 4 executable overlay with:
+
+```sh
+node contracts/evolution/tools/build-executable-if-overlay.mjs
+node contracts/evolution/tools/build-executable-if-overlay.mjs --check
 ```
 
 ## Known boundary
