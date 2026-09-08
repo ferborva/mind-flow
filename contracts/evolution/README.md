@@ -77,8 +77,11 @@ Every event contains:
 
 Every state carries `unresolved_challenge_ids`. A challenge remains in that list
 until a later `satisfied` or `failed` event contains a hash-bound resolution.
-The public projection includes unresolved challenge text when its event is in
-the disclosed history and marks its details `omitted-unverified` otherwise.
+Private audit events retain the exact challenge statement and recording actor.
+The public projection never copies either field. It publishes only the
+statement hash and time with `redacted-hash-only`, or marks details
+`omitted-unverified` when the event is outside the disclosed history. Resolution
+statements and resolver identities follow the same hash-only default.
 
 `satisfied` and `failed` states also bind an assessment ID, version, checksum,
 evaluator, method, threshold, evaluation time and the exact evidence identities
@@ -124,7 +127,10 @@ A split is exact only along one `partition_dimension`. Every other scope
 dimension must remain identical. `coverage_mode` declares whether the listed
 members exhaust the source or intentionally omit named `uncovered_members`.
 `overlap_mode` declares whether children are disjoint or intentionally overlap.
-An undeclared gap or overlap fails.
+An undeclared gap or overlap fails. Every child must also preserve proposition,
+evidence, status, unresolved challenges and assessment exactly. Only identity,
+version, the declared partition scope and its deterministic rendering may
+change.
 
 A merge is `identity-consolidation-only`. All active sources and the new
 identity must use identical proposition wording and scope. It carries forward
@@ -196,9 +202,11 @@ Removing events while continuing to claim `history.mode: complete` fails.
 `public_projection` is a deterministic cache, checked just like
 `current_state`. It says whether history is complete, repeats the truth and
 authority boundaries, lists each change with who recorded it, why, both clocks,
-retroactivity notice, challenges and resolutions, and lists current conditions
-with plain status labels and unresolved challenge details. It is the minimum
-public explanation surface, not a substitute for the event record.
+retroactivity notice, hash-only challenge and resolution records, and lists
+current conditions with plain status labels and redacted unresolved challenge
+records. Its `challenge_details_disclosure` boundary is fixed to
+`hash-only-redacted`. It is the minimum public explanation surface, not a
+substitute for the private event record.
 
 ## Files and command
 

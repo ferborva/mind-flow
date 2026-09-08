@@ -187,16 +187,14 @@ export function computePublicProjection(ledger) {
           return challenge
             ? {
                 challenge_id: challengeId,
-                details_status: "included",
-                statement: challenge.statement,
-                raised_by: challenge.raised_by,
+                details_status: "redacted-hash-only",
+                statement_sha256: challenge.statement_sha256,
                 raised_at: challenge.raised_at,
               }
             : {
                 challenge_id: challengeId,
                 details_status: "omitted-unverified",
-                statement: null,
-                raised_by: null,
+                statement_sha256: null,
                 raised_at: null,
               };
         }),
@@ -216,6 +214,7 @@ export function computePublicProjection(ledger) {
       condition_truth_assessed: false,
       authority_granted: false,
       action_authorised: false,
+      challenge_details_disclosure: "hash-only-redacted",
     },
     changes: (ledger?.events || []).map((event) => ({
       sequence: event.sequence,
@@ -235,16 +234,15 @@ export function computePublicProjection(ledger) {
       resolution_ids: (event.challenges?.resolutions || []).map(({ challenge_id: id }) => id).sort(compareId),
       challenge_records: (event.challenges?.entries || []).map((challenge) => ({
         challenge_id: challenge.challenge_id,
-        details_status: "included",
-        statement: challenge.statement,
-        raised_by: challenge.raised_by,
+        details_status: "redacted-hash-only",
+        statement_sha256: challenge.statement_sha256,
         raised_at: challenge.raised_at,
       })),
       resolution_records: (event.challenges?.resolutions || []).map((resolution) => ({
         challenge_id: resolution.challenge_id,
         outcome: resolution.outcome,
-        statement: resolution.statement,
-        resolved_by: resolution.resolved_by,
+        details_status: "redacted-hash-only",
+        statement_sha256: resolution.statement_sha256,
         resolved_at: resolution.resolved_at,
       })),
     })),
@@ -508,6 +506,19 @@ function stateTransitionErrors(event, state, eventIndex) {
     const retained = next.find(({ condition_id: id }) => id === source?.condition_id);
     const children = next.filter(({ condition_id: id }) => id !== source?.condition_id);
     const mapping = event.identity_change?.mappings?.[0];
+    const childSemanticsInvalid = children.some((child) => !sameExcept(source || {}, child, [
+      "condition_id",
+      "condition_version",
+      "scope",
+      "rendered_if",
+    ]));
+    if (childSemanticsInvalid) {
+      errors.push(problem(
+        "SPLIT_SEMANTICS_INVALID",
+        `${path}.new_states`,
+        "A scope-only split must preserve wording, evidence, status, challenges and assessment exactly.",
+      ));
+    }
     if (previous.length !== 1 || !ACTIVE_STATES.has(source?.status) ||
         event.identity_change?.kind !== "split" || children.length < 2 ||
         retained?.condition_version !== source?.condition_version + 1 ||
@@ -516,9 +527,10 @@ function stateTransitionErrors(event, state, eventIndex) {
         !isDeepStrictEqual(mapping?.from_condition_ids, [source?.condition_id]) ||
         !isDeepStrictEqual(new Set(mapping?.to_condition_ids), new Set(children.map(({ condition_id: id }) => id))) ||
         !splitCoverageValid(event, source, children) ||
+        childSemanticsInvalid ||
         children.some((child) => child.condition_version !== 1 || child.status !== source?.status ||
           state.has(child.condition_id) || !isScopeSubset(child.scope, source.scope) ||
-          !exactEvidencePrefix(source.evidence, child.evidence))) {
+          !isDeepStrictEqual(source.evidence, child.evidence))) {
       errors.push(problem(
         "SPLIT_COVERAGE_INVALID",
         `${path}.identity_change`,

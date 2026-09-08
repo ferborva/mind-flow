@@ -2423,7 +2423,8 @@
     "boundaries": {
       "condition_truth_assessed": false,
       "authority_granted": false,
-      "action_authorised": false
+      "action_authorised": false,
+      "challenge_details_disclosure": "hash-only-redacted"
     },
     "changes": [
       {
@@ -2484,9 +2485,8 @@
         "challenge_records": [
           {
             "challenge_id": "challenge.alpha.composition",
-            "details_status": "included",
-            "statement": "The indicator may reflect sector composition rather than technological displacement.",
-            "raised_by": "actor.affected-worker",
+            "details_status": "redacted-hash-only",
+            "statement_sha256": "sha256:9fdb3cd4400cc17f8a67d4b4254e866edc2fa8ef5d5411145976efd7000da61e",
             "raised_at": "2026-09-08T00:01:30Z"
           }
         ],
@@ -2522,9 +2522,8 @@
         "challenge_records": [
           {
             "challenge_id": "challenge.alpha.scope",
-            "details_status": "included",
-            "statement": "Affected parties dispute whether the selected geography represents their experience.",
-            "raised_by": "actor.affected-worker",
+            "details_status": "redacted-hash-only",
+            "statement_sha256": "sha256:d9a406b029e2f4de55a876906b99616933b08757cd703b0a1f0d4ce4a1854b1c",
             "raised_at": "2026-09-08T00:02:30Z"
           }
         ],
@@ -2591,15 +2590,15 @@
           {
             "challenge_id": "challenge.alpha.composition",
             "outcome": "rejected",
-            "statement": "The bounded assessment rejects composition as an adequate explanation for this fixture result.",
-            "resolved_by": "actor.fixture-evaluator",
+            "details_status": "redacted-hash-only",
+            "statement_sha256": "sha256:302441702b6024833d8fde941a77971283008ef8c6d1af52a9d3458f70bc309e",
             "resolved_at": "2026-09-08T00:04:40Z"
           },
           {
             "challenge_id": "challenge.alpha.scope",
             "outcome": "rejected",
-            "statement": "The assessment is restricted to New South Wales; the wider geography is not claimed.",
-            "resolved_by": "actor.fixture-evaluator",
+            "details_status": "redacted-hash-only",
+            "statement_sha256": "sha256:61f07357f158cbae89132368efbe46a9794febe620e40d42014d1d6881727fe5",
             "resolved_at": "2026-09-08T00:04:45Z"
           }
         ]
@@ -3167,7 +3166,7 @@
       }
     ]
   },
-  "manifest_hash": "sha256:6cf52955f8a94f19939ae6f1998530a34c11a1a762d764fd015cc230158b5ba3",
+  "manifest_hash": "sha256:21b8f5daed5328b152a6f8477d87b1f26f576a05f640e1aadb449fa44411bcef",
   "contract_boundary": {
     "history_validity_effect": "structural-and-integrity-only",
     "condition_truth_effect": "none",

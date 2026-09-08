@@ -57,6 +57,39 @@ function resealFrom(ledger, startIndex = 0) {
   ledger.publication_anchor.tip_hash = previous.event_hash;
 }
 
+function resealGraphFrom(ledger, startIndex = 0) {
+  const byId = new Map(ledger.events.slice(0, startIndex).map((event) => [event.event_id, event]));
+  let predecessor = startIndex === 0
+    ? (ledger.history.base.after_event_id === null ? null : {
+        event_id: ledger.history.base.after_event_id,
+        event_version: ledger.history.base.after_event_version,
+        event_hash: ledger.history.base.tip_hash,
+      })
+    : {
+        event_id: ledger.events[startIndex - 1].event_id,
+        event_version: ledger.events[startIndex - 1].event_version,
+        event_hash: ledger.events[startIndex - 1].event_hash,
+      };
+  for (let index = startIndex; index < ledger.events.length; index += 1) {
+    const event = ledger.events[index];
+    event.parent_events = event.parent_events.map((parent) => ({
+      ...parent,
+      event_hash: byId.get(parent.event_id)?.event_hash || parent.event_hash,
+    }));
+    event.chain_predecessor = predecessor;
+    event.previous_event_hash = predecessor?.event_hash || null;
+    event.event_hash = computeEventHash(event);
+    byId.set(event.event_id, event);
+    predecessor = {
+      event_id: event.event_id,
+      event_version: event.event_version,
+      event_hash: event.event_hash,
+    };
+  }
+  ledger.current_state.as_of_event_hash = predecessor.event_hash;
+  ledger.publication_anchor.tip_hash = predecessor.event_hash;
+}
+
 function appendAndSeal(ledger, event) {
   const previous = ledger.events.at(-1);
   event.sequence = previous.sequence + 1;
@@ -574,6 +607,35 @@ test("hostile: a split cannot duplicate members while claiming a disjoint exhaus
   assert.ok(hasCode(result, "SPLIT_COVERAGE_INVALID"));
 });
 
+test("hostile: a scope-only split cannot rewrite its proposition or evidence", () => {
+  for (const mutate of [
+    (child) => {
+      child.wording = "UNRELATED semantic condition";
+      child.rendered_if = renderConditionIf(child);
+    },
+    (child) => {
+      child.evidence.push({
+        evidence_id: "evidence.unrelated",
+        version: "1.0.0",
+        checksum: `sha256:${"f".repeat(64)}`,
+        role: "context",
+      });
+    },
+  ]) {
+    const ledger = fixture("valid/all-operations.json");
+    const eventIndex = ledger.events.findIndex(({ operation }) => operation === "split");
+    const event = ledger.events[eventIndex];
+    for (const child of event.new_states.filter(({ condition_id: id }) =>
+      id !== event.previous_states[0].condition_id)) mutate(child);
+    resealGraphFrom(ledger, eventIndex);
+    refreshDerived(ledger);
+
+    const result = validateConditionEvolutionLedger(ledger);
+    assert.equal(result.machine_valid, false, JSON.stringify(result.errors, null, 2));
+    assert.ok(hasCode(result, "SPLIT_SEMANTICS_INVALID"));
+  }
+});
+
 test("a split may expose partial, overlapping coverage only when both are declared exactly", () => {
   const ledger = fixture("valid/all-operations.json");
   const eventIndex = ledger.events.findIndex(({ operation }) => operation === "split");
@@ -587,7 +649,7 @@ test("a split may expose partial, overlapping coverage only when both are declar
     overlap_mode: "declared-overlap",
     uncovered_members: ["Victoria"],
   });
-  resealFrom(ledger, eventIndex);
+  resealGraphFrom(ledger, eventIndex);
   refreshDerived(ledger);
 
   const result = validateConditionEvolutionLedger(ledger);
@@ -749,7 +811,7 @@ test("canonical hashes use a versioned domain and exact safe-integer vector", ()
   assert.equal(computeStateHash(entries), computeStateHash([...entries].reverse()));
 });
 
-test("the public projection is deterministic and exposes unresolved challenges and boundaries", () => {
+test("the public projection is deterministic and exposes redacted challenge records and boundaries", () => {
   const ledger = fixture("valid/all-operations.json");
   assert.deepEqual(ledger.public_projection, computePublicProjection(ledger));
   assert.equal(ledger.public_projection.boundaries.condition_truth_assessed, false);
@@ -760,7 +822,25 @@ test("the public projection is deterministic and exposes unresolved challenges a
   const satisfied = ledger.public_projection.changes.find(({ operation }) =>
     operation === "satisfied");
   assert.equal(satisfied.resolution_records.length, 2);
-  assert.ok(satisfied.resolution_records.every(({ statement }) => statement.length > 20));
+  assert.ok(satisfied.resolution_records.every((record) =>
+    record.details_status === "redacted-hash-only" && /^sha256:/.test(record.statement_sha256)));
+});
+
+test("hostile: private challenge text and identity never enter the public projection", () => {
+  const ledger = fixture("valid/all-operations.json");
+  const eventIndex = ledger.events.findIndex(({ operation }) => operation === "challenged");
+  const challenge = ledger.events[eventIndex].challenges.entries[0];
+  challenge.statement = "Named worker has a private medical diagnosis.";
+  challenge.statement_sha256 = computeChallengeHash(challenge.statement);
+  challenge.raised_by = "person.named-worker";
+  resealGraphFrom(ledger, eventIndex);
+  refreshDerived(ledger);
+
+  const result = validateConditionEvolutionLedger(ledger);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  const projection = JSON.stringify(ledger.public_projection);
+  assert.doesNotMatch(projection, /private medical diagnosis|person\.named-worker/);
+  assert.match(projection, new RegExp(challenge.statement_sha256));
 });
 
 test("a cropped public projection distinguishes included from omitted challenge details", () => {
@@ -775,7 +855,7 @@ test("a cropped public projection distinguishes included from omitted challenge 
     unresolved.map(({ challenge_id: id, details_status: status }) => [id, status]),
     [
       ["challenge.alpha.composition", "omitted-unverified"],
-      ["challenge.alpha.scope", "included"],
+      ["challenge.alpha.scope", "redacted-hash-only"],
     ],
   );
 });

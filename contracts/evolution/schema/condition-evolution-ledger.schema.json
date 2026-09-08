@@ -664,15 +664,12 @@
     },
     "publicChallenge": {
       "type": "object",
-      "required": ["challenge_id", "details_status", "statement", "raised_by", "raised_at"],
+      "required": ["challenge_id", "details_status", "statement_sha256", "raised_at"],
       "properties": {
         "challenge_id": { "$ref": "#/$defs/id" },
-        "details_status": { "enum": ["included", "omitted-unverified"] },
-        "statement": {
-          "oneOf": [{ "$ref": "#/$defs/nonEmptyString" }, { "type": "null" }]
-        },
-        "raised_by": {
-          "oneOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }]
+        "details_status": { "enum": ["redacted-hash-only", "omitted-unverified"] },
+        "statement_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
         },
         "raised_at": {
           "oneOf": [{ "$ref": "#/$defs/instant" }, { "type": "null" }]
@@ -682,12 +679,12 @@
     },
     "publicResolution": {
       "type": "object",
-      "required": ["challenge_id", "outcome", "statement", "resolved_by", "resolved_at"],
+      "required": ["challenge_id", "outcome", "details_status", "statement_sha256", "resolved_at"],
       "properties": {
         "challenge_id": { "$ref": "#/$defs/id" },
         "outcome": { "enum": ["upheld", "partially-upheld", "rejected", "withdrawn"] },
-        "statement": { "$ref": "#/$defs/nonEmptyString" },
-        "resolved_by": { "$ref": "#/$defs/id" },
+        "details_status": { "const": "redacted-hash-only" },
+        "statement_sha256": { "$ref": "#/$defs/hash" },
         "resolved_at": { "$ref": "#/$defs/instant" }
       },
       "additionalProperties": false
@@ -802,11 +799,12 @@
         },
         "boundaries": {
           "type": "object",
-          "required": ["condition_truth_assessed", "authority_granted", "action_authorised"],
+          "required": ["condition_truth_assessed", "authority_granted", "action_authorised", "challenge_details_disclosure"],
           "properties": {
             "condition_truth_assessed": { "const": false },
             "authority_granted": { "const": false },
-            "action_authorised": { "const": false }
+            "action_authorised": { "const": false },
+            "challenge_details_disclosure": { "const": "hash-only-redacted" }
           },
           "additionalProperties": false
         },

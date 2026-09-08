@@ -23,7 +23,7 @@
       "kind": "ledger-manifest",
       "fixture": "fixtures/valid/all-operations.json",
       "selector": "$",
-      "expected_hash": "sha256:6cf52955f8a94f19939ae6f1998530a34c11a1a762d764fd015cc230158b5ba3"
+      "expected_hash": "sha256:21b8f5daed5328b152a6f8477d87b1f26f576a05f640e1aadb449fa44411bcef"
     }
   ]
 }
