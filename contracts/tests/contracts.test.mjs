@@ -47,7 +47,7 @@ function predicateRefs(expression) {
   return [];
 }
 
-test("the reference condition exercises the complete IF grammar", () => {
+test("the immutable reference definition exercises the complete IF grammar", () => {
   assert.equal(validateCondition(condition), true, ajv.errorsText(validateCondition.errors));
   assert.deepEqual(Object.keys(condition.gates).sort(), [
     "act",
@@ -62,23 +62,15 @@ test("the reference condition exercises the complete IF grammar", () => {
   for (const operator of ['"all"', '"any"', '"not"', '"unless"']) {
     assert.match(serialised, new RegExp(operator), `fixture does not exercise ${operator}`);
   }
-  assert.deepEqual(conditionSchema.$defs.evaluation.properties.state.enum, [
-    "true",
-    "false",
-    "unknown",
-    "stale",
-    "conflicted",
-  ]);
+  assert.match(condition.schema_version, /^2\.0\./);
+  assert.equal(Object.hasOwn(condition, "evaluation"), false);
+  assert.equal(Object.hasOwn(condition, "evidence_catalog"), false);
 });
 
 test("condition validation rejects unsafe or ambiguous contracts", () => {
   const noScope = clone(condition);
   delete noScope.scope;
   expectInvalid(validateCondition, noScope, "scope must be explicit");
-
-  const invalidState = clone(condition);
-  invalidState.evaluation.state = "probably";
-  expectInvalid(validateCondition, invalidState, "evaluation state must be bounded");
 
   const weakPredicate = clone(condition);
   delete weakPredicate.predicates["access-falling"].evidence;
@@ -90,9 +82,9 @@ test("condition validation rejects unsafe or ambiguous contracts", () => {
   expectInvalid(validateCondition, unreviewedApproval, "approved conditions need an approver");
 });
 
-test("every evidence reference resolves and can meet its source-count policy", () => {
-  const evidenceIds = new Set(condition.evidence_catalog.map((record) => record.id));
-  assert.equal(evidenceIds.size, condition.evidence_catalog.length, "evidence IDs must be unique");
+test("every evidence requirement resolves and can meet its source-count policy", () => {
+  const evidenceIds = new Set(condition.evidence_requirements.map((record) => record.id));
+  assert.equal(evidenceIds.size, condition.evidence_requirements.length, "evidence IDs must be unique");
 
   for (const expression of Object.values(condition.gates)) {
     for (const ref of predicateRefs(expression)) {
@@ -112,9 +104,6 @@ test("every evidence reference resolves and can meet its source-count policy", (
     }
   }
 
-  for (const id of condition.evaluation.evidence_refs) {
-    assert.ok(evidenceIds.has(id), `evaluation references missing evidence ${id}`);
-  }
   assert.ok(
     Date.parse(condition.governance.valid_from) < Date.parse(condition.governance.expires_at),
     "condition expiry must follow its start",
@@ -123,7 +112,8 @@ test("every evidence reference resolves and can meet its source-count policy", (
 
 test("the reference action binds an IF gate to owned, reversible delivery", () => {
   assert.equal(validateAction(action), true, ajv.errorsText(validateAction.errors));
-  assert.equal(action.condition_id, condition.id);
+  assert.equal(action.condition_definition.id, condition.id);
+  assert.equal(action.condition_definition.version, condition.definition_version);
   assert.ok(condition.gates[action.gate], "action references a missing condition gate");
 
   for (const gate of Object.values(action.reversibility)) {
@@ -143,6 +133,11 @@ test("action validation rejects unowned or unfunded commitments", () => {
   const unfundedApproval = clone(action);
   unfundedApproval.lifecycle = "approved";
   unfundedApproval.funding.status = "unfunded";
+  unfundedApproval.approved_by = [{
+    organisation: "Synthetic review body",
+    role: "test approver",
+    approved_at: "2026-09-08T00:00:00Z",
+  }];
   expectInvalid(validateAction, unfundedApproval, "approved actions must be funded");
 
   const expiredBeforeValid = clone(action);

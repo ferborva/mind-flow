@@ -1,20 +1,25 @@
 {
-  "schema_version": "1.0.0",
-  "id": "action.au-clerical-access-bridge.v1",
-  "condition_id": "condition.au-clerical-access-margin.v1",
+  "schema_version": "2.0.0",
+  "id": "action.au-clerical-access-bridge",
+  "action_version": "1.0.0",
+  "condition_definition": {
+    "id": "condition.au-clerical-access-margin",
+    "version": "1.0.0",
+    "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4"
+  },
   "gate": "act",
   "required_condition_state": "true",
   "verb": "protect",
   "object": "income, housing and healthcare continuity for the scoped cohort",
   "rationale": "Stabilise lived access before asking displaced people to retrain or relocate.",
-  "lifecycle": "approved",
+  "lifecycle": "shadow",
   "owner": {
     "organisation": "Example Australian delivery authority",
     "role": "transition protection accountable officer"
   },
   "authority": {
-    "basis": "Time-limited pilot authority approved for this fixture",
-    "instrument": "Example Transition Protection Pilot Direction 2026",
+    "basis": "Hypothetical authority recorded only to test the contract shape",
+    "instrument": "Unapproved Transition Protection Pilot proposal",
     "reference": "https://example.gov.au/authority/transition-protection",
     "constraints": [
       "Use only the cohort and geography declared by the condition contract.",
@@ -23,10 +28,8 @@
     ]
   },
   "funding": {
-    "status": "secured",
-    "source": "Example pre-positioned pilot appropriation",
-    "amount": 1000000,
-    "currency": "AUD",
+    "status": "conditional",
+    "source": "No commitment. Illustrative funding path for the test fixture.",
     "valid_through": "2027-03-08T00:00:00Z"
   },
   "sla": {
@@ -60,13 +63,7 @@
     "help_route": "https://example.gov.au/transition-protection/help",
     "next_update_within": { "value": 1, "unit": "week" }
   },
-  "approved_by": [
-    {
-      "organisation": "Example Australian delivery authority",
-      "role": "pilot accountable executive",
-      "approved_at": "2026-09-08T00:00:00Z"
-    }
-  ],
+  "approved_by": [],
   "valid_from": "2026-09-08T00:00:00Z",
   "expires_at": "2027-03-08T00:00:00Z"
 }

@@ -1,14 +1,31 @@
 {
-  "schema_version": "1.0.0",
-  "id": "condition.au-clerical-access-margin.v1",
+  "schema_version": "2.0.0",
+  "id": "condition.au-clerical-access-margin",
+  "definition_version": "1.0.0",
+  "created_at": "2026-09-08T00:00:00Z",
   "title": "Clerical worker access-margin protection",
   "summary": "Watch, act and recover when productivity gains stop reaching an exposed cohort as lived access.",
+  "provenance": {
+    "classification": "commissioned-proposal",
+    "authors": ["Ren"],
+    "rationale": "Synthetic Phase 0 contract created to test the IF protocol. It is not an endorsed policy."
+  },
   "scope": {
     "jurisdictions": ["Australia"],
     "geographies": ["Greater Sydney"],
     "cohorts": ["clerical and administrative workers displaced in the previous 12 months"],
     "services": ["local decent-living basket"]
   },
+  "evidence_requirements": [
+    { "id": "evidence.access-margin", "description": "Cohort household resources and local reference-budget evidence." },
+    { "id": "evidence.output", "description": "Revision-aware real output per capita evidence." },
+    { "id": "evidence.action-harm", "description": "Primary assessment of protective-action benefits and harms." },
+    { "id": "evidence.action-harm-review", "description": "Independent review of protective-action benefits and harms." },
+    { "id": "evidence.authority", "description": "Current administrative status of the action's legal authority." },
+    { "id": "evidence.readiness", "description": "Representative delivery-rail stress test." },
+    { "id": "evidence.appeals", "description": "Appeal volume and overturn-rate evidence." },
+    { "id": "evidence.worker-flow", "description": "Cohort re-employment and replacement-earnings evidence." }
+  ],
   "predicates": {
     "access-falling": {
       "signal_id": "household-access-margin",
@@ -229,86 +246,6 @@
       ]
     }
   },
-  "evaluation": {
-    "state": "unknown",
-    "evaluated_at": "2026-09-08T00:00:00Z",
-    "evidence_refs": ["evidence.access-margin"],
-    "explanation": "Shadow contract only. Required cohort measures and calibrated thresholds do not yet exist."
-  },
-  "evidence_catalog": [
-    {
-      "id": "evidence.access-margin",
-      "source": "https://example.org/evidence/access-margin",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "2026-Q2",
-      "quality": "provisional",
-      "uncertainty": "Sampling and reference-budget uncertainty must be propagated.",
-      "licence": "Prototype fixture only"
-    },
-    {
-      "id": "evidence.output",
-      "source": "https://api.worldbank.org/",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "2026-09-08",
-      "quality": "validated",
-      "uncertainty": "Subject to national-accounts revisions.",
-      "licence": "CC BY 4.0"
-    },
-    {
-      "id": "evidence.action-harm",
-      "source": "https://example.org/evidence/action-harm",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "prototype",
-      "quality": "exploratory",
-      "uncertainty": "No operational estimate exists.",
-      "licence": "Prototype fixture only"
-    },
-    {
-      "id": "evidence.action-harm-review",
-      "source": "https://example.org/evidence/action-harm-independent-review",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "prototype",
-      "quality": "exploratory",
-      "uncertainty": "No independent operational estimate exists.",
-      "licence": "Prototype fixture only"
-    },
-    {
-      "id": "evidence.authority",
-      "source": "https://example.gov.au/authority/register",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "2026-09-08",
-      "quality": "validated",
-      "uncertainty": "Administrative status, not a statistical estimate.",
-      "licence": "Prototype fixture only"
-    },
-    {
-      "id": "evidence.readiness",
-      "source": "https://example.gov.au/readiness/drill",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "prototype",
-      "quality": "exploratory",
-      "uncertainty": "No representative delivery drill exists.",
-      "licence": "Prototype fixture only"
-    },
-    {
-      "id": "evidence.appeals",
-      "source": "https://example.gov.au/appeals/statistics",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "prototype",
-      "quality": "exploratory",
-      "uncertainty": "No operational programme exists.",
-      "licence": "Prototype fixture only"
-    },
-    {
-      "id": "evidence.worker-flow",
-      "source": "https://example.org/evidence/worker-flow",
-      "retrieved_at": "2026-09-08T00:00:00Z",
-      "vintage": "prototype",
-      "quality": "exploratory",
-      "uncertainty": "Linked cohort series does not yet exist.",
-      "licence": "Prototype fixture only"
-    }
-  ],
   "governance": {
     "owner": {
       "organisation": "Seldon Observatory pilot",

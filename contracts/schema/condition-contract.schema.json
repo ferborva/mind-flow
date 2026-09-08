@@ -1,27 +1,37 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/contracts/condition-contract/1-0-0",
-  "title": "Seldon Observatory condition contract",
-  "description": "A versioned, scoped and auditable IF contract. Missing or disputed evidence is an explicit state, never an implicit false.",
+  "$id": "https://mind-flow.org/contracts/condition-definition/2-0-0",
+  "title": "Seldon Observatory condition definition",
+  "description": "An immutable, scoped IF definition. Observations and evaluation runs are separate append-only records.",
   "type": "object",
   "required": [
     "schema_version",
     "id",
+    "definition_version",
+    "created_at",
     "title",
     "summary",
+    "provenance",
     "scope",
+    "evidence_requirements",
     "predicates",
     "gates",
-    "evaluation",
-    "evidence_catalog",
     "governance"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^2\\.0\\.[0-9]+$" },
     "id": { "$ref": "#/$defs/id" },
+    "definition_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "created_at": { "type": "string", "format": "date-time" },
     "title": { "$ref": "#/$defs/nonEmptyString" },
     "summary": { "$ref": "#/$defs/nonEmptyString" },
+    "provenance": { "$ref": "#/$defs/provenance" },
     "scope": { "$ref": "#/$defs/scope" },
+    "evidence_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidenceRequirement" }
+    },
     "predicates": {
       "type": "object",
       "minProperties": 1,
@@ -40,12 +50,6 @@
         "graduate": { "$ref": "#/$defs/expression" }
       },
       "additionalProperties": false
-    },
-    "evaluation": { "$ref": "#/$defs/evaluation" },
-    "evidence_catalog": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/evidenceRecord" }
     },
     "governance": { "$ref": "#/$defs/governance" }
   },
@@ -79,6 +83,35 @@
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "provenance": {
+      "type": "object",
+      "required": ["classification", "authors", "rationale"],
+      "properties": {
+        "classification": { "enum": ["captured", "research-derived", "commissioned-proposal"] },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "source_capture_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidenceRequirement": {
+      "type": "object",
+      "required": ["id", "description"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "description": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
     "scope": {
       "type": "object",
       "required": ["jurisdictions", "geographies", "cohorts", "services"],
@@ -229,44 +262,6 @@
           },
           "additionalProperties": false
         }
-      },
-      "additionalProperties": false
-    },
-    "evaluation": {
-      "type": "object",
-      "required": ["state", "evaluated_at", "evidence_refs", "explanation"],
-      "properties": {
-        "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
-        "evaluated_at": { "type": "string", "format": "date-time" },
-        "evidence_refs": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "$ref": "#/$defs/id" }
-        },
-        "explanation": { "$ref": "#/$defs/nonEmptyString" }
-      },
-      "additionalProperties": false
-    },
-    "evidenceRecord": {
-      "type": "object",
-      "required": [
-        "id",
-        "source",
-        "retrieved_at",
-        "vintage",
-        "quality",
-        "uncertainty",
-        "licence"
-      ],
-      "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "source": { "type": "string", "format": "uri" },
-        "retrieved_at": { "type": "string", "format": "date-time" },
-        "vintage": { "$ref": "#/$defs/nonEmptyString" },
-        "quality": { "enum": ["exploratory", "provisional", "validated"] },
-        "uncertainty": { "$ref": "#/$defs/nonEmptyString" },
-        "licence": { "$ref": "#/$defs/nonEmptyString" },
-        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
       },
       "additionalProperties": false
     },
