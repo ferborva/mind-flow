@@ -14,17 +14,25 @@ authority. The visual language can evoke long-range systems thinking. The
 claims still have to survive ordinary evidence, democratic consent and
 accountability.
 
-## Two prototype surfaces
+## Three prototype surfaces
 
 | Surface | Purpose | Claim limit |
 |---|---|---|
 | `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an explicitly unbound typed possible-path boundary |
 | `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
+| `observatory/index.html` | **Transition Observatory, Round 04** | Interactive projection of the exact synthetic seven-artifact pre-projection core, with five-state branches, a separate forecast, reversible preparation and no authority |
 
-Neither surface is approved for public warning or operational action. The
+None of these surfaces is approved for public warning or operational action. The
 global snapshot schema accepts only `none` and `proposed` action states. It
 rejects operational state claims even when their metadata looks complete,
 because no trusted external authority-verification boundary exists yet.
+
+The Round 04 Observatory uses synthetic fixtures to test whether a complex
+transition record can remain inspectable. Its mechanically computed `true`
+state is not an empirical finding. Its 62% forecast concerns a future event and
+is not a confidence score for the current IF. Its source bundle, forecast and
+preparation proposal are hash-bound, while truth, freshness, authority and
+publication remain closed.
 
 ## Architecture
 
@@ -166,6 +174,8 @@ unknown, so the registered decision is `no_decision`.
 | `tools/build.mjs` | Validates and embeds one global snapshot |
 | `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
 | `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
+| `observatory/build.mjs` | Builds the Round 04 static Observatory from its coherent pre-projection core |
+| `observatory/` | Generated Round 04 experience, local source projection and focused tests |
 | `snapshots/` | Dated global snapshots and index |
 | `web/index.template.html` | Global page source |
 | `web/index.html` | Generated global page. Do not edit directly |
@@ -179,6 +189,7 @@ node dashboard/tools/build.mjs \
 node dashboard/tools/build-australia-pilot.mjs \
   pilots/australia/data/nero-clerical-2026-08.json \
   pilots/australia/web/index.html
+node dashboard/observatory/build.mjs --check
 npm test
 ```
 

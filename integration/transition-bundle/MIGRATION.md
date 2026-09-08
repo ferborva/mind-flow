@@ -5,13 +5,14 @@
 The executable IF boundary is available in transition-bundle schema 1.2. It
 binds typed claims, dated definitions, exact signals, evidence quality,
 evidence lifecycle, five-valued evaluation and content-addressed receipts. The
-remaining work is migration: derive every subsystem artifact from the kernel's
-active condition set and prove each cross-contract join.
+synthetic structural migration is complete: every subsystem artifact is derived
+from the kernel's active condition set and each cross-contract join is verified.
+This does not close any real-world truth or legitimacy gate.
 
 The current Round 03 records must not be relabelled as coherent. Their native
-condition IDs describe different examples. The next step is to derive eight
-new fixtures from one canonical synthetic transition, not to weaken identity
-checks or translate unrelated IDs by assertion.
+condition IDs describe different examples. Round 04 therefore derives eight new
+fixtures from one canonical synthetic transition without weakening identity
+checks or translating unrelated IDs by assertion.
 
 ## Safety invariants
 
@@ -33,14 +34,14 @@ checks or translate unrelated IDs by assertion.
 
 | Boundary | Contract now available | Remaining integration work |
 | --- | --- | --- |
-| Executable IF | `canonical.executable_if_ref` binds kernel bytes, evaluator identity, active definitions and the current evidence-state tip. | Bind its scope and signals to every remaining downstream artifact. |
-| Outcome logic | `canonical.outcome_logic_ref` binds the exact agency-map IF AST. | Regenerate the agency map from the active executable condition set. |
-| Scope | `canonical.scope_manifest_ref` and `scope_bindings` bind distinct agency and path native hashes to separately hashed mappings. | Extend mappings when other native contracts expose scope hashes. Keep mapping truth false until independently assessed. |
-| Evolution | The v2 assessment overlay binds the exact complete kernel definition history, active definitions, producer events and evidence-state tip without copying definition ownership. | Bind downstream artifacts to the v2 manifest and exact active producer event. |
-| Preparation | Condition binding names condition ID, native version, ledger manifest and producer event ID and hash. | Point a synthetic register at the new evolution ledger. |
-| Forecast | Target binds signal ID, metric ID and checksum, condition ID and scope hash. | Issue a synthetic forecast against the canonical signal and scope. |
-| Dashboard | Snapshot binds a source transition bundle and resolves possible paths. | Build a projection from the coherent synthetic core without creating a self-reference. |
-| Experiment | A fixed manifest validator checks exact source bytes, fact-pack parity, arms and safety stops. | Put it in a later envelope after fact packs expose canonical condition and scope references. |
+| Executable IF | `canonical.executable_if_ref` binds kernel bytes, evaluator identity, active definitions and the current evidence-state tip. | Replace synthetic observations only through a governed acquisition boundary. |
+| Outcome logic | `canonical.outcome_logic_ref` binds the exact agency-map IF AST. | Independent review of construct and decision validity. |
+| Scope | `canonical.scope_manifest_ref` and `scope_bindings` bind distinct agency and path native hashes to separately hashed mappings. | Keep mapping truth false until independently assessed. |
+| Evolution | The v2 assessment overlay binds the exact complete kernel definition history, active definitions, producer events and evidence-state tip without copying definition ownership. | Test whether independent encoders reproduce the history and state. |
+| Preparation | Condition binding names condition ID, native version, ledger manifest and producer event ID and hash. | Affected-party, feasibility, rights and real-authority review. |
+| Forecast | Target binds signal ID, metric ID and checksum, condition ID and scope hash. | Prospective issuance, resolution and scoring with no operational consequence. |
+| Dashboard | The complete core adds the exact projection of a coherent pre-projection bundle without self-reference. | Public comprehension, accessibility and rendered-parity testing. |
+| Experiment | A fixed manifest validator checks exact source bytes, fact-pack parity, arms and safety stops. | A later envelope plus independent protocol approval before recruitment. |
 
 ## Core resolution order
 
@@ -83,18 +84,19 @@ enough, and recruitment remains blocked.
 3. Select one synthetic active condition set and project its v2 evolution
    overlay. **Done.**
 4. Generate agency, signal, path, forecast and preparation fixtures
-   from those identities.
+   from those identities. **Done.**
 5. Freeze a seven-artifact pre-projection core so the dashboard can safely name
-   source bytes without a self-reference.
+   source bytes without a self-reference. **Done.**
 6. Build the dashboard snapshot from that frozen source, then form the final
-   eight-artifact core with an explicit acyclic derivation reference.
-7. Add `fixtures/coherent.synthetic.json` and make the core acceptance check
-   green without changing its false truth, authority, action and publication
-   assertions.
-8. Define a separate experiment-envelope contract after the typed fact-pack
-   interface lands.
-9. Only then connect empirical evidence, institutional authority and public
-   claims through separately reviewed gates.
+   eight-artifact core with an explicit acyclic derivation reference. **Done.**
+7. Make the complete-core acceptance check green without changing its false
+   truth, authority, action and publication assertions. **Done.**
+8. Freeze the exact shared experiment fact pack and five-state semantics.
+   **Done.** Recruitment, analysis and rendered parity remain blocked.
+9. Define a separate experiment-envelope contract and obtain independent
+   protocol approval before recruitment.
+10. Only then connect empirical evidence, institutional authority and public
+    claims through separately reviewed gates.
 
 Run the ordinary integration safety suite with:
 

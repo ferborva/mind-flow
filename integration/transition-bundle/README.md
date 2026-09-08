@@ -54,11 +54,16 @@ coherence blockers are now narrower:
 - no condition ID is shared by all seven core components;
 - downstream condition identities do not resolve through the evolution root.
 
-`fixtures/round-04.worker-option.pre-projection.json` is the first coherent
+`fixtures/round-04.worker-option.pre-projection.json` is the coherent
 seven-artifact, non-dashboard Round 4 core. Its kernel, evolution, signals,
 agency, path, preparation and forecast resolve one exact worker-option
 condition, scope, bounded period and evidence state. Integrity, scope-mapping,
 history, evidence, forecast and preparation gates pass.
+
+`fixtures/round-04.worker-option.complete.json` is the eight-artifact complete
+core. It adds only the exact dashboard projection derived from the frozen
+pre-projection bundle. Its builder rejects changes to the earlier artifact
+references, canonical references, scope bindings, clock and authority boundary.
 
 That result has a deliberately narrow meaning. The scope manifest's structure
 and hashes agree, while `mapping_truth_assessed` remains false. The supplied
@@ -67,10 +72,10 @@ establish empirical truth. No actor, authority, intervention benefit or public
 release has been authenticated. Truth, freshness, authority and publication
 therefore stay false.
 
-The next migration gate is a dashboard derived from this exact pre-projection
-core, followed by a complete core that adds only that projection. Shared IDs
-and hashes remain insufficient without exact scope, signal, forecast,
-preparation and derivation joins.
+This closes only the synthetic structural migration gate. Shared IDs and hashes
+remain insufficient without exact scope, signal, forecast, preparation and
+derivation joins. Real evidence, trusted clocks, scope truth, affected-party
+participation, authority and publication each require separate review.
 
 Run the assessment:
 
@@ -84,6 +89,8 @@ mean its individual artifacts are invalid. Run the safety tests with:
 ```sh
 npm run test:integration
 node integration/transition-bundle/tools/build-round-04-core.mjs --check
+node dashboard/tools/build-round-04-executable-if-view.mjs --check
+node integration/transition-bundle/tools/build-round-04-complete-core.mjs --check
 ```
 
 The schema permits only an operator-supplied, untrusted manifest clock. Changing

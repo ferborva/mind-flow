@@ -868,6 +868,8 @@ test("operator documentation matches the governed 2.1 bundle-bound build", () =>
   assert.match(readme, /public_update/);
   assert.match(readme, /build-time.*validation/i);
   assert.match(readme, /Australia evidence room/i);
+  assert.match(readme, /Transition Observatory.*Round 04/is);
+  assert.match(readme, /exact synthetic seven-artifact pre-projection core/i);
   assert.match(readme, /release.*blocked/i);
   assert.match(readme, /record_id/);
   assert.match(readme, /reference\s+period.*publisher\s+vintage.*publisher\s+release.*retrieval.*byte\s+acquisition.*record\s+generation/is);

@@ -249,11 +249,14 @@ test("hostile: a resealed evolution overlay cannot omit or rewrite kernel histor
 test("README documents the core bundle and experiment-envelope boundary", () => {
   const readme = readFileSync(resolve(import.meta.dirname, "../README.md"), "utf8");
   assert.match(readme, /seven.*core/is);
+  assert.match(readme, /eight-artifact\s+complete\s+core/i);
+  assert.match(readme, /round-04\.worker-option\.complete\.json/);
   assert.match(readme, /outcome_logic_ref/);
   assert.match(readme, /scope_manifest_ref/);
   assert.match(readme, /native scope hash/i);
   assert.match(readme, /experiment envelope/i);
   assert.match(readme, /does not.*truth/is);
+  assert.doesNotMatch(readme, /next migration gate is a dashboard/i);
 });
 
 test("hostile: canonical outcome-logic reference drift fails closed", () => {
