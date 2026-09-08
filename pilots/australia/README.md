@@ -6,6 +6,12 @@
 
 Proceed with an 8 to 12 week baseline and data-access pilot. Do not yet publish a causal AI transition score, a crisis forecast, or automated policy triggers.
 
+The prospective acquisition path is specified in
+[The Bridge Study](evidence-bridge-protocol.md). It treats verified deployment,
+task redesign, worker outcomes, household continuity and lived agency as a
+single missing evidence bridge, while keeping each construct and claim ceiling
+separate.
+
 Australia has enough primary data to build a useful baseline for five clerical occupation groups and to test whether household continuity-floor measures can be estimated. It does not yet have the linked, repeated evidence needed to infer this chain:
 
 `AI exposure -> realised adoption -> work redesign -> worker flows -> household resources -> essential access -> agency`
