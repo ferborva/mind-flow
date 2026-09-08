@@ -53,6 +53,9 @@ test("the first screen discloses prototype authority and the seven-part update",
   }
   assert.match(template, /No authorised action/i);
   assert.match(template, /No psychohistory/i);
+  assert.match(template, /id=["']now-observed["']/i);
+  assert.match(template, /function renderNow\(/);
+  assert.doesNotMatch(template, /Six measured and two derived global signals/i);
 });
 
 test("the self-contained public page has no remote font dependency", () => {

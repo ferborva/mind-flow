@@ -1,4 +1,4 @@
-<title>Seldon Observatory</title>
+<title>Abundance Transition Observatory</title>
 
 <style>
 /* ---------------------------------------------------------------- tokens */
@@ -416,7 +416,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
     <dl class="public-update">
-      <div class="update-cell"><dt>OBSERVED</dt><dd><strong>Six measured and two derived global signals.</strong> Eight planned signals are not measured.</dd></div>
+      <div class="update-cell"><dt>OBSERVED</dt><dd id="now-observed" aria-live="polite">Counting snapshot inputs…</dd></div>
       <div class="update-cell"><dt>AFFECTED</dt><dd><strong>Unknown.</strong> The global snapshot does not yet identify a population, place or cohort experiencing a change.</dd></div>
       <div class="update-cell"><dt>INFERRED</dt><dd>Aggregate output and constructed labour income have diverged. This is descriptive and does not identify a cause.</dd></div>
       <div class="update-cell"><dt>IF CHANGED</dt><dd><strong>None validated.</strong> Capability, reach, agency, durability and fairness remain untested as a complete chain.</dd></div>
@@ -1088,8 +1088,18 @@ function renderMeta(){
   },null,1);
 }
 
+function renderNow(){
+  var signals=snap.signals||[];
+  var measured=signals.filter(function(s){return s.status==="measured"}).length;
+  var derived=signals.filter(function(s){return s.status==="derived"}).length;
+  var absent=signals.length-measured-derived;
+  var host=document.getElementById("now-observed");
+  host.textContent=measured+" measured and "+derived+" derived inputs in this snapshot. "+
+    absent+" planned inputs contain no observation. Counts describe coverage, not transition state.";
+}
+
 function renderAll(){
-  renderMeta();renderCoverage();renderVerdict();renderFailureModes();renderPlaybook();
+  renderMeta();renderNow();renderCoverage();renderVerdict();renderFailureModes();renderPlaybook();
   renderFamilyFilter();renderEntityButtons();renderScenario();renderFamilies();
 }
 
