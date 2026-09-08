@@ -21,7 +21,10 @@ accountability.
 | `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns, conditional paths and unauthorised action proposals |
 | `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
 
-Neither surface is approved for public warning or operational action.
+Neither surface is approved for public warning or operational action. The
+global snapshot schema accepts only `none` and `proposed` action states. It
+rejects operational state claims even when their metadata looks complete,
+because no trusted external authority-verification boundary exists yet.
 
 ## Architecture
 

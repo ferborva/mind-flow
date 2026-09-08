@@ -115,8 +115,13 @@ inference classes include descriptive readings. Causal or forecast claims need
 additional governed evidence contracts and cannot be produced merely by
 changing prose.
 
-An action with `authorization_state: none` must not claim an owner or authority.
-A check marked related to an inference must name both a date and owner.
+Schema 1.5 accepts only `none` and `proposed`. It cannot import `authorised`,
+`active`, `paused` or `ended` because this repository has no trusted issuance
+boundary that can verify those states. Reintroducing an operational state
+requires a future schema version bound to an externally verified, signed,
+scoped and current action contract. An action with `authorization_state: none`
+must not claim an owner or authority. A check marked related to an inference
+must name both a date and owner.
 
 ## Scoped IF path
 

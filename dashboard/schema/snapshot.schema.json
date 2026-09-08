@@ -212,7 +212,7 @@
           "required": ["summary", "authorization_state", "owner", "authority", "help_route", "appeal_route"],
           "properties": {
             "summary": { "$ref": "#/$defs/nonEmptyString" },
-            "authorization_state": { "enum": ["none", "proposed", "authorised", "active", "paused", "ended"] },
+            "authorization_state": { "enum": ["none", "proposed"] },
             "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
             "authority": { "$ref": "#/$defs/nullableNonEmptyString" },
             "help_route": { "$ref": "#/$defs/nullableNonEmptyString" },

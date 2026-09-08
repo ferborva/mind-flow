@@ -399,6 +399,16 @@ test("the JSON schema actually validates the current snapshot contract", () => {
   unsupportedClosureClaim.reproducibility.snapshot_rebuild_status = "verified_bit_for_bit";
   assert.equal(validate(unsupportedClosureClaim), false, "bit-for-bit closure cannot be claimed by this slice");
 
+  for (const authorizationState of ["authorised", "active", "paused", "ended"]) {
+    const unsupportedOperationalClaim = structuredClone(snapshot);
+    unsupportedOperationalClaim.public_update.action.authorization_state = authorizationState;
+    assert.equal(
+      validate(unsupportedOperationalClaim),
+      false,
+      `schema 1.5 cannot import an unverified ${authorizationState} action claim`,
+    );
+  }
+
   const unknownRootField = structuredClone(snapshot);
   unknownRootField.internal_cohort_records = [{ name: "must not become public" }];
   assert.equal(validate(unknownRootField), false, "unknown root fields must fail validation");
@@ -474,27 +484,22 @@ test("the build enforces series, headline, latest and action-authority semantics
     .points.pop();
   assertBuildRejects(misalignedHeadline, inputPath, outputPath, /semantic validation failed.*headline.*aligned/i);
 
-  for (const authorizationState of ["authorised", "active"]) {
-    const incompleteAuthority = structuredClone(snapshot);
-    incompleteAuthority.public_update.action.authorization_state = authorizationState;
+  for (const authorizationState of ["authorised", "active", "paused", "ended"]) {
+    const unsupportedOperationalClaim = structuredClone(snapshot);
+    Object.assign(unsupportedOperationalClaim.public_update.action, {
+      authorization_state: authorizationState,
+      owner: "Named owner",
+      authority: "Asserted decision authority",
+      help_route: "https://example.test/help",
+      appeal_route: "https://example.test/appeal",
+    });
     assertBuildRejects(
-      incompleteAuthority,
+      unsupportedOperationalClaim,
       inputPath,
       outputPath,
-      /semantic validation failed.*complete owner, authority, help route and appeal route/i,
+      /schema validation failed/i,
     );
   }
-
-  const completeAuthority = structuredClone(snapshot);
-  Object.assign(completeAuthority.public_update.action, {
-    authorization_state: "active",
-    owner: "Named owner",
-    authority: "Recorded decision authority",
-    help_route: "https://example.test/help",
-    appeal_route: "https://example.test/appeal",
-  });
-  writeFileSync(inputPath, JSON.stringify(completeAuthority));
-  assert.doesNotThrow(() => execFileSync(process.execPath, [buildPath, inputPath, outputPath]));
 });
 
 test("the build produces a self-contained page with parseable application code", () => {

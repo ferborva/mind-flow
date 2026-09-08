@@ -164,12 +164,6 @@ function validateSemantics(snapshot) {
       (update.action.owner || update.action.authority || update.action.help_route || update.action.appeal_route)) {
     errors.push("an unauthorised public update cannot claim an owner, authority, help route or appeal route");
   }
-  if (["authorised", "active"].includes(update?.action?.authorization_state) &&
-      ["owner", "authority", "help_route", "appeal_route"].some((field) => !update.action[field])) {
-    errors.push(
-      "an authorised or active public update requires complete owner, authority, help route and appeal route metadata",
-    );
-  }
   if (update?.next_check?.related_to_inference && (!update.next_check.on || !update.next_check.owner)) {
     errors.push("a next check linked to the inference requires a date and owner");
   }
