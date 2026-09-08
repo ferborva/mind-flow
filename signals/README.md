@@ -60,6 +60,11 @@ It means the registered evidence cannot establish the condition yet.
   operational consequence.
 - An agent proposal never creates authority, consent, funding or capacity.
 
+The validator compiles only the repository-owned schema whose byte digest is
+pinned in the implementation. Caller-supplied schemas are ignored, and the
+non-authority fields are checked semantically as a second boundary. A relaxed
+schema fork therefore cannot turn structural validity into operational effect.
+
 The fixture contains no acquired source bytes and no locally verified condition
 ledger. Those absences are represented as `not-acquired` and
 `external-unverified`, with a next acquisition. Placeholder hashes are not used.
@@ -98,4 +103,4 @@ node --test signals/tests/*.test.mjs
 
 The tests attack unresolved references, role laundering, scope substitution,
 dependent corroboration, inadequate decision lead time, forbidden claim
-permissions and source-lineage cycles.
+permissions, caller-controlled schema forks and source-lineage cycles.

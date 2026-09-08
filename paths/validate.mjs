@@ -5,10 +5,15 @@ import { isDeepStrictEqual } from "node:util";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-const DEFAULT_SCHEMA = JSON.parse(readFileSync(
+const DEFAULT_SCHEMA_BYTES = readFileSync(
   new URL("./schema/possible-path.schema.json", import.meta.url),
-  "utf8",
-));
+);
+const DEFAULT_SCHEMA_SHA256 = "48349beaaf2b33e3d423bff6112c9f250a50041acdc8d25fd44ae16f89abb27a";
+const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
+if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
+  throw new Error("possible-path schema bytes do not match the validator's pinned contract digest");
+}
+const DEFAULT_SCHEMA = JSON.parse(DEFAULT_SCHEMA_BYTES.toString("utf8"));
 
 const OPERATIONS = [
   "added",
@@ -63,7 +68,14 @@ export function renderPublicClaimCeiling(path) {
   const conditions = scope.if_conditions
     .map(({ public_condition: publicCondition }) => publicCondition)
     .join("; and if ");
-  return `Synthetic possible path, not a finding: ${scope.who} may ${scope.verb} ${scope.object} at ${scope.standard}, in ${scope.place}, during ${scope.period}, only if ${conditions}. This open-world hypothesis is unscored and grants no action authority.`;
+  const affected = path.population_accounting.affected_populations
+    .map(({ label }) => label)
+    .join("; ");
+  const omissions = path.population_accounting.omissions.entries.length > 0
+    ? path.population_accounting.omissions.entries.map(({ public_notice }) => public_notice).join(" ")
+    : `No omitted population was identified by this limited search: ${path.population_accounting.omissions.search_limitations}`;
+  const competitors = path.competing_paths.map(({ label }) => label).join("; ");
+  return `Synthetic possible path, not a finding: ${scope.who} may ${scope.verb} ${scope.object} at ${scope.standard}, in ${scope.place}, during ${scope.period}, only if ${conditions}. Affected populations: ${affected}. Scope omissions: ${omissions} Named competing paths: ${competitors}. This open-world hypothesis is unscored and grants no action authority.`;
 }
 
 function duplicateIssues(items, key, path) {
@@ -101,6 +113,14 @@ function publicNarrativeStrings(path) {
   return [
     path.title,
     path.hypothesis_summary,
+    path.outcome_scope?.who,
+    path.outcome_scope?.verb,
+    path.outcome_scope?.object,
+    path.outcome_scope?.standard,
+    path.outcome_scope?.place,
+    path.outcome_scope?.period,
+    ...(path.outcome_scope?.if_conditions || []).map(({ public_condition: publicCondition }) =>
+      publicCondition),
     ...(path.graph?.nodes || []).flatMap((node) => [node.label]),
     ...(path.graph?.edges || []).flatMap((edge) => [
       edge.label,
@@ -108,22 +128,123 @@ function publicNarrativeStrings(path) {
       edge.branches?.if_false?.public_explanation,
       edge.branches?.if_unknown?.public_explanation,
     ]),
-    path.strongest_competing_path?.label,
-    path.strongest_competing_path?.selection_reason,
-    path.strongest_competing_path?.incompatible_claim,
-    ...(path.strongest_competing_path?.discriminating_observations || []).flatMap((observation) => [
-      observation.construct,
-      observation.possible_path_pattern,
-      observation.competing_path_pattern,
+    ...(path.competing_paths || []).flatMap((competitor) => [
+      competitor.label,
+      competitor.selection_reason,
+      competitor.incompatible_claim,
+      ...competitor.discriminating_observations.flatMap((observation) => [
+        observation.construct,
+        observation.possible_path_pattern,
+        observation.competing_path_pattern,
+      ]),
     ]),
     path.abandonment?.public_notice,
+    ...(path.population_accounting?.affected_populations || []).map(({ label }) => label),
+    ...(path.population_accounting?.omissions?.entries || []).map(({ public_notice: notice }) => notice),
   ].filter((value) => typeof value === "string");
 }
 
-export function validatePossiblePath(path, { schema = DEFAULT_SCHEMA } = {}) {
+function graphIntegrityIssues(path, conditionIds, nodeById) {
+  const errors = [];
+  const outgoing = new Map(path.graph.nodes.map(({ node_id: nodeId }) => [nodeId, []]));
+  for (const edge of path.graph.edges) {
+    if (outgoing.has(edge.from_node_id) && nodeById.has(edge.to_node_id)) {
+      outgoing.get(edge.from_node_id).push(edge);
+    }
+  }
+
+  for (const node of path.graph.nodes) {
+    if (node.kind === "abandonment" && outgoing.get(node.node_id).length > 0) {
+      errors.push(issue(
+        "ABANDONMENT_NOT_SINK",
+        "/graph/edges",
+        `${node.node_id} is an abandonment node and cannot have outgoing edges`,
+      ));
+    }
+    if (node.kind === "outcome" && outgoing.get(node.node_id).length > 0) {
+      errors.push(issue(
+        "OUTCOME_NOT_SINK",
+        "/graph/edges",
+        `${node.node_id} is an outcome node and cannot have outgoing edges`,
+      ));
+    }
+  }
+
+  for (const [edgeIndex, edge] of path.graph.edges.entries()) {
+    for (const branchName of ["if_false", "if_unknown"]) {
+      const target = nodeById.get(edge.branches[branchName].target_node_id);
+      if (target && (target.kind !== "abandonment" || outgoing.get(target.node_id).length > 0)) {
+        errors.push(issue(
+          "BLOCKED_BRANCH_NOT_TERMINAL",
+          `/graph/edges/${edgeIndex}/branches/${branchName}/target_node_id`,
+          `${branchName} must terminate at an abandonment sink`,
+        ));
+      }
+    }
+  }
+
+  const colour = new Map();
+  let cycleFound = false;
+  function detectCycle(nodeId) {
+    colour.set(nodeId, "visiting");
+    for (const edge of outgoing.get(nodeId) || []) {
+      const nextColour = colour.get(edge.to_node_id);
+      if (nextColour === "visiting") cycleFound = true;
+      else if (nextColour !== "visited") detectCycle(edge.to_node_id);
+    }
+    colour.set(nodeId, "visited");
+  }
+  for (const nodeId of outgoing.keys()) {
+    if (!colour.has(nodeId)) detectCycle(nodeId);
+  }
+  if (cycleFound) {
+    errors.push(issue(
+      "GRAPH_CYCLE",
+      "/graph/edges",
+      "possible-path traversal must be acyclic so every consequential route can be checked",
+    ));
+  }
+
+  let reachedOutcome = false;
+  const visited = new Set();
+  function inspectRoutes(nodeId, accumulated) {
+    const node = nodeById.get(nodeId);
+    if (!node) return;
+    const routeKey = `${nodeId}\n${[...accumulated].sort().join("\n")}`;
+    if (visited.has(routeKey)) return;
+    visited.add(routeKey);
+    if (node.kind === "outcome") {
+      reachedOutcome = true;
+      if (!exactSet([...accumulated], conditionIds)) {
+        errors.push(issue(
+          "OUTCOME_ROUTE_CONDITION_COVERAGE_INVALID",
+          "/graph/edges",
+          `${nodeId} is reachable without every registered IF condition`,
+        ));
+      }
+      return;
+    }
+    for (const edge of outgoing.get(nodeId) || []) {
+      const nextConditions = new Set(accumulated);
+      for (const binding of edge.condition_bindings) nextConditions.add(binding.condition_id);
+      inspectRoutes(edge.to_node_id, nextConditions);
+    }
+  }
+  inspectRoutes(path.graph.entry_node_id, new Set());
+  if (!reachedOutcome) {
+    errors.push(issue(
+      "OUTCOME_UNREACHABLE",
+      "/graph/entry_node_id",
+      "the entry node must have at least one explicit route to an outcome",
+    ));
+  }
+  return errors;
+}
+
+export function validatePossiblePath(path) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
-  const validateSchema = ajv.compile(schema);
+  const validateSchema = ajv.compile(DEFAULT_SCHEMA);
   const schemaValid = validateSchema(path);
   const errors = (validateSchema.errors || []).map((error) => ({
     ...error,
@@ -141,6 +262,18 @@ export function validatePossiblePath(path, { schema = DEFAULT_SCHEMA } = {}) {
     action_authorised: false,
   };
 
+  if (path?.governance?.auto_action !== false
+      || path?.governance?.authority_status !== "externally-unverified"
+      || path?.governance?.action_authorised !== false
+      || path?.governance?.human_decision_required !== true
+      || path?.governance?.owner_ref !== null) {
+    errors.push(issue(
+      "AUTHORITY_BOUNDARY_INVALID",
+      "/governance",
+      "possible paths cannot grant or verify action authority",
+    ));
+  }
+
   if (!schemaValid) {
     return {
       machine_valid: false,
@@ -148,6 +281,10 @@ export function validatePossiblePath(path, { schema = DEFAULT_SCHEMA } = {}) {
       integrity_valid: false,
       boundaries,
       public_claim_ceiling: null,
+      public_narrative: {
+        deterministic_text: null,
+        publication_status: "human-review-required",
+      },
       errors,
     };
   }
@@ -321,6 +458,7 @@ export function validatePossiblePath(path, { schema = DEFAULT_SCHEMA } = {}) {
       ));
     }
   }
+  errors.push(...graphIntegrityIssues(path, conditionIds, nodeById));
 
   for (const [policyIndex, policy] of path.condition_evolution_policies.entries()) {
     const anchor = anchorById.get(policy.condition_id);
@@ -401,15 +539,30 @@ export function validatePossiblePath(path, { schema = DEFAULT_SCHEMA } = {}) {
     }
   }
 
-  if (path.strongest_competing_path.path_id === path.path_id) {
+  const competitorIds = path.competing_paths.map(({ path_id: pathId }) => pathId);
+  if (new Set(competitorIds).size !== competitorIds.length) {
+    errors.push(issue(
+      "DUPLICATE_COMPETING_PATH",
+      "/competing_paths",
+      "every named competing path must have a distinct identity",
+    ));
+  }
+  if (competitorIds.includes(path.path_id)) {
     errors.push(issue(
       "COMPETING_PATH_NOT_DISTINCT",
-      "/strongest_competing_path/path_id",
-      "the strongest competing path must have a distinct identity",
+      "/competing_paths",
+      "a competing path cannot reuse the candidate path identity",
+    ));
+  }
+  if (!competitorIds.includes(path.strongest_competing_path_id)) {
+    errors.push(issue(
+      "UNRESOLVED_STRONGEST_COMPETING_PATH",
+      "/strongest_competing_path_id",
+      "the strongest competing path selection must resolve to one named competitor",
     ));
   }
 
-  const forbidden = /\b(?:forecast|probability|likelihood|inevitable|crisis)\b|\d+(?:\.\d+)?\s*%/i;
+  const forbidden = /\b(?:forecast|probability|likelihood|inevitable|crisis|chance|odds)\b|\d+(?:\.\d+)?\s*%|\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+(?:in|out of)\s+(?:ten|hundred|thousand|\d+)\b|\b(?:most|a majority of)\s+(?:cases|people|workers|outcomes|events|paths)\b|\b(?:0|1)?\.\d+\b/i;
   for (const [index, value] of publicNarrativeStrings(path).entries()) {
     if (forbidden.test(value)) {
       errors.push(issue(
@@ -436,6 +589,10 @@ export function validatePossiblePath(path, { schema = DEFAULT_SCHEMA } = {}) {
     integrity_valid: integrityValid,
     boundaries,
     public_claim_ceiling: expectedCeiling,
+    public_narrative: {
+      deterministic_text: expectedCeiling,
+      publication_status: "human-review-required",
+    },
     errors,
   };
 }

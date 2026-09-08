@@ -1,5 +1,18 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+
+const DEFAULT_SCHEMA_BYTES = readFileSync(
+  new URL("./schema/signal-registry.schema.json", import.meta.url),
+);
+const DEFAULT_SCHEMA_SHA256 = "99618128ad667fd0c16db73a22e0a46d0685b86284f0303c5aba4dd7cfe99b1a";
+const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
+if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
+  throw new Error("signal-registry schema bytes do not match the validator's pinned contract digest");
+}
+const DEFAULT_SCHEMA = JSON.parse(DEFAULT_SCHEMA_BYTES.toString("utf8"));
 
 const ROLES = [
   "leading",
@@ -89,10 +102,10 @@ function intersects(left, right) {
   return [...left].some((item) => right.has(item));
 }
 
-export function validateSignalRegistry(registry, { schema }) {
+export function validateSignalRegistry(registry) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
-  const validateSchema = ajv.compile(schema);
+  const validateSchema = ajv.compile(DEFAULT_SCHEMA);
   const schemaValid = validateSchema(registry);
   const errors = (validateSchema.errors ?? []).map((item) => ({
     ...item,
@@ -100,6 +113,19 @@ export function validateSignalRegistry(registry, { schema }) {
     path: item.instancePath,
     message: item.message ?? "schema validation failed",
   }));
+
+  if (registry?.authority !== "none"
+      || registry?.operational_effect !== false
+      || (registry?.signals || []).some((signal) =>
+        signal?.claim_permissions?.causal_claim !== false
+        || signal?.claim_permissions?.individual_inference !== false
+        || signal?.claim_permissions?.operational_effect !== false)) {
+    errors.push(issue(
+      "AUTHORITY_BOUNDARY_INVALID",
+      "/authority",
+      "signal registries cannot establish causality, individual inference or action authority",
+    ));
+  }
 
   if (!schemaValid) {
     return {

@@ -15,7 +15,8 @@
     "condition_anchors",
     "graph",
     "condition_evolution_policies",
-    "strongest_competing_path",
+    "competing_paths",
+    "strongest_competing_path_id",
     "signal_portfolio",
     "population_accounting",
     "gaming_and_reflexivity",
@@ -27,7 +28,7 @@
     "public_claim_ceiling"
   ],
   "properties": {
-    "schema_version": { "const": "1.0" },
+    "schema_version": { "const": "1.1" },
     "path_id": { "$ref": "#/$defs/id" },
     "classification": { "const": "synthetic-example-not-a-finding" },
     "title": { "$ref": "#/$defs/nonEmpty" },
@@ -40,7 +41,7 @@
         "kind": { "const": "possible-path-hypothesis" },
         "world_model": { "const": "open-world" },
         "quantification": { "const": "unscored" },
-        "selection_status": { "const": "one-revisable-path-among-unnamed-possibilities" },
+        "selection_status": { "const": "one-revisable-path-among-named-and-unnamed-possibilities" },
         "truth_status": { "const": "not-assessed" }
       }
     },
@@ -73,7 +74,12 @@
       "minItems": 1,
       "items": { "$ref": "#/$defs/evolutionPolicy" }
     },
-    "strongest_competing_path": { "$ref": "#/$defs/competingPath" },
+    "competing_paths": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/competingPath" }
+    },
+    "strongest_competing_path_id": { "$ref": "#/$defs/id" },
     "signal_portfolio": { "$ref": "#/$defs/signalPortfolio" },
     "population_accounting": { "$ref": "#/$defs/populationAccounting" },
     "gaming_and_reflexivity": {

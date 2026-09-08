@@ -47,6 +47,27 @@ test("the Australian clerical fixture is an unscored synthetic path, not a findi
   assert.equal(fixture.epistemic_contract.quantification, "unscored");
 });
 
+test("a caller-controlled schema fork cannot manufacture action authority", () => {
+  const forkedSchema = clone(schema);
+  forkedSchema.properties.governance.properties.auto_action = { type: "boolean" };
+  forkedSchema.properties.governance.properties.authority_status = { type: "string" };
+  forkedSchema.properties.governance.properties.action_authorised = { type: "boolean" };
+  forkedSchema.properties.governance.properties.human_decision_required = { type: "boolean" };
+  forkedSchema.properties.governance.properties.owner_ref = { type: ["string", "null"] };
+  const changed = clone();
+  Object.assign(changed.governance, {
+    auto_action: true,
+    authority_status: "verified",
+    action_authorised: true,
+    human_decision_required: false,
+    owner_ref: "actor.attacker",
+  });
+
+  const result = validatePossiblePath(changed, { schema: forkedSchema });
+  assert.equal(result.machine_valid, false, JSON.stringify(result, null, 2));
+  assert.ok(result.errors.some(({ code }) => code === "AUTHORITY_BOUNDARY_INVALID"));
+});
+
 test("the complete WHO VERB OBJECT STANDARD PLACE PERIOD IF scope is hash-bound", () => {
   assert.equal(fixture.outcome_scope.scope_hash, computeOutcomeScopeHash(fixture.outcome_scope));
   for (const field of ["who", "verb", "object", "standard", "place", "period", "if_conditions"]) {
@@ -140,14 +161,59 @@ test("forecast, probability and crisis-verdict language is rejected", () => {
   }
 });
 
-test("the strongest competitor and discriminating observations cannot disappear", () => {
+test("ratio, chance and qualitative-frequency claims cannot bypass the unscored boundary", () => {
+  for (const phrase of [
+    "Seven in ten cases follow this path",
+    "This path has a 0.7 chance of occurring",
+    "Most cases will follow this path",
+  ]) {
+    const changed = clone();
+    changed.hypothesis_summary = phrase;
+    expectError(changed, "FORBIDDEN_VERDICT_LANGUAGE");
+  }
+});
+
+test("the deterministic ceiling still requires human review because it renders bounded free text", () => {
+  const result = validate(fixture);
+  assert.equal(result.public_narrative.deterministic_text, fixture.public_claim_ceiling);
+  assert.equal(result.public_narrative.publication_status, "human-review-required");
+});
+
+test("quantification cannot move into another field rendered by the public ceiling", () => {
+  const changed = clone();
+  changed.population_accounting.affected_populations[0].label = "Seven in ten cases follow this path";
+  changed.public_claim_ceiling = renderPublicClaimCeiling(changed);
+  expectError(changed, "FORBIDDEN_VERDICT_LANGUAGE");
+});
+
+test("at least two distinct named competitors and a strongest selection cannot disappear", () => {
   const noCompetitor = clone();
-  delete noCompetitor.strongest_competing_path;
+  noCompetitor.competing_paths.pop();
   expectError(noCompetitor, "SCHEMA_INVALID");
 
   const noObservation = clone();
-  noObservation.strongest_competing_path.discriminating_observations = [];
+  noObservation.competing_paths[0].discriminating_observations = [];
   expectError(noObservation, "SCHEMA_INVALID");
+
+  const duplicate = clone();
+  duplicate.competing_paths[1].path_id = duplicate.competing_paths[0].path_id;
+  expectError(duplicate, "DUPLICATE_COMPETING_PATH");
+
+  const unresolvedStrongest = clone();
+  unresolvedStrongest.strongest_competing_path_id = "path.synthetic.missing";
+  expectError(unresolvedStrongest, "UNRESOLVED_STRONGEST_COMPETING_PATH");
+});
+
+test("the public ceiling names affected populations, omissions and competing paths", () => {
+  for (const population of fixture.population_accounting.affected_populations) {
+    assert.match(fixture.public_claim_ceiling, new RegExp(population.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+  for (const omission of fixture.population_accounting.omissions.entries) {
+    assert.match(fixture.public_claim_ceiling, new RegExp(omission.public_notice.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+  for (const competitor of fixture.competing_paths) {
+    assert.match(fixture.public_claim_ceiling, new RegExp(competitor.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
 });
 
 test("authority cannot be inflated and the public ceiling is deterministic", () => {
@@ -196,4 +262,42 @@ test("a blocked branch cannot quietly target the proposed destination", () => {
     changed.graph.edges[0].branches[branch].target_node_id = changed.graph.edges[0].to_node_id;
     expectError(changed, "BLOCKED_BRANCH_TARGET_MISMATCH");
   }
+});
+
+test("false and unknown branches cannot indirectly re-enter a consequential route", () => {
+  for (const branch of ["if_false", "if_unknown"]) {
+    const changed = clone();
+    changed.graph.edges[0].branches[branch].target_node_id = "node.negotiated-option";
+    expectError(changed, "BLOCKED_BRANCH_NOT_TERMINAL");
+  }
+});
+
+test("every entry-to-outcome route must accumulate every registered IF condition", () => {
+  const changed = clone();
+  const direct = clone(changed.graph.edges[0]);
+  direct.edge_id = "edge.direct-incomplete";
+  direct.to_node_id = "node.scoped-outcome";
+  direct.kind = "transition";
+  direct.branches.if_true.target_node_id = direct.to_node_id;
+  changed.graph.edges.push(direct);
+
+  expectError(changed, "OUTCOME_ROUTE_CONDITION_COVERAGE_INVALID");
+});
+
+test("abandonment and outcome nodes are sinks and graph cycles fail closed", () => {
+  const abandonmentEscape = clone();
+  const escape = clone(abandonmentEscape.graph.edges[0]);
+  escape.edge_id = "edge.abandonment-escape";
+  escape.from_node_id = "node.abandon";
+  abandonmentEscape.graph.edges.push(escape);
+  expectError(abandonmentEscape, "ABANDONMENT_NOT_SINK");
+
+  const cycle = clone();
+  const backEdge = clone(cycle.graph.edges[0]);
+  backEdge.edge_id = "edge.back-to-baseline";
+  backEdge.from_node_id = "node.negotiated-option";
+  backEdge.to_node_id = "node.baseline";
+  backEdge.branches.if_true.target_node_id = "node.baseline";
+  cycle.graph.edges.push(backEdge);
+  expectError(cycle, "GRAPH_CYCLE");
 });

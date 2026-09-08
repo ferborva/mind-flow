@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "path_id": "path.synthetic.au-clerical-supported-transition",
   "classification": "synthetic-example-not-a-finding",
   "title": "A supported transition path for an Australian clerical cohort",
@@ -8,7 +8,7 @@
     "kind": "possible-path-hypothesis",
     "world_model": "open-world",
     "quantification": "unscored",
-    "selection_status": "one-revisable-path-among-unnamed-possibilities",
+    "selection_status": "one-revisable-path-among-named-and-unnamed-possibilities",
     "truth_status": "not-assessed"
   },
   "outcome_scope": {
@@ -285,32 +285,52 @@
       ]
     }
   ],
-  "strongest_competing_path": {
-    "path_id": "path.synthetic.au-clerical-work-redesign",
-    "label": "Clerical work is redesigned in place rather than requiring occupational transition",
-    "selection_reason": "It explains stable employment and earnings through task change inside existing roles, which directly competes with transition as the mechanism.",
-    "incompatible_claim": "Most measured adaptation occurs within retained clerical roles, so transition support is not the main route to the scoped standard.",
-    "discriminating_observations": [
-      {
-        "observation_id": "observation.synthetic.role-retention",
-        "construct": "Worker-level role retention and task redesign, separated from occupational transition",
-        "possible_path_pattern": "Scoped workers use rejectable transition options and enter different paid roles.",
-        "competing_path_pattern": "Scoped workers remain in clerical roles while task mix and tools change.",
-        "period": "Prospectively registered quarterly observations during 2027-01-01 through 2029-12-31",
-        "source_plan": "Acquire consented worker-level longitudinal observations and independently audited employer task records; no source is acquired in this fixture.",
-        "status": "unresolved"
-      },
-      {
-        "observation_id": "observation.synthetic.standard-mechanism",
-        "construct": "Real hourly earnings and essential conditions by retained-role or transitioned-role mechanism",
-        "possible_path_pattern": "The scoped standard is observed among workers who voluntarily use the transition option.",
-        "competing_path_pattern": "The scoped standard is observed mainly among workers whose clerical role is retained and redesigned.",
-        "period": "Prospectively registered baseline and follow-up windows during 2027-01-01 through 2029-12-31",
-        "source_plan": "Pre-register linked measurement and an affected-party audit before collection; no source is acquired in this fixture.",
-        "status": "unresolved"
-      }
-    ]
-  },
+  "competing_paths": [
+    {
+      "path_id": "path.synthetic.au-clerical-work-redesign",
+      "label": "Clerical work is redesigned in place rather than requiring occupational transition",
+      "selection_reason": "It explains stable employment and earnings through task change inside existing roles, which directly competes with transition as the mechanism.",
+      "incompatible_claim": "Measured adaptation occurs within retained clerical roles, so transition support is not the main route to the scoped standard.",
+      "discriminating_observations": [
+        {
+          "observation_id": "observation.synthetic.role-retention",
+          "construct": "Worker-level role retention and task redesign, separated from occupational transition",
+          "possible_path_pattern": "Scoped workers use rejectable transition options and enter different paid roles.",
+          "competing_path_pattern": "Scoped workers remain in clerical roles while task mix and tools change.",
+          "period": "Prospectively registered quarterly observations during 2027-01-01 through 2029-12-31",
+          "source_plan": "Acquire consented worker-level longitudinal observations and independently audited employer task records; no source is acquired in this fixture.",
+          "status": "unresolved"
+        },
+        {
+          "observation_id": "observation.synthetic.standard-mechanism",
+          "construct": "Real hourly earnings and essential conditions by retained-role or transitioned-role mechanism",
+          "possible_path_pattern": "The scoped standard is observed among workers who voluntarily use the transition option.",
+          "competing_path_pattern": "The scoped standard is observed mainly among workers whose clerical role is retained and redesigned.",
+          "period": "Prospectively registered baseline and follow-up windows during 2027-01-01 through 2029-12-31",
+          "source_plan": "Pre-register linked measurement and an affected-party audit before collection; no source is acquired in this fixture.",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "path_id": "path.synthetic.au-clerical-demand-contraction",
+      "label": "Clerical demand contracts without a supported transition route",
+      "selection_reason": "It explains fewer clerical roles through demand contraction rather than a funded and rejectable worker transition mechanism.",
+      "incompatible_claim": "The scoped standard is not reached because role loss occurs without the registered supports and worker choice.",
+      "discriminating_observations": [
+        {
+          "observation_id": "observation.synthetic.unsupported-exits",
+          "construct": "Worker-level exits from clerical employment without registered transition-option exposure",
+          "possible_path_pattern": "Scoped workers who leave clerical roles have a recorded rejectable option and preserve the scoped standard.",
+          "competing_path_pattern": "Scoped workers leave clerical roles without option exposure or without preserving the scoped standard.",
+          "period": "Prospectively registered quarterly observations during 2027-01-01 through 2029-12-31",
+          "source_plan": "Acquire consented worker-level transition and non-transition observations with independent support-access audits; no source is acquired in this fixture.",
+          "status": "unresolved"
+        }
+      ]
+    }
+  ],
+  "strongest_competing_path_id": "path.synthetic.au-clerical-work-redesign",
   "signal_portfolio": {
     "condition_ids": [
       "condition.synthetic.worker-option",
@@ -437,5 +457,5 @@
     "created_at": "2026-09-08T00:00:00Z",
     "updated_at": "2026-09-08T00:00:00Z"
   },
-  "public_claim_ceiling": "Synthetic possible path, not a finding: Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces may transition to comparable or preferred paid work at no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition, in Australia, during 2027-01-01 through 2029-12-31, only if each affected worker has a funded, accessible and genuinely rejectable transition option before role change; and if named institutions have verified funding, delivery capacity, appeal routes and recovery plans for the scoped cohort and period. This open-world hypothesis is unscored and grants no action authority."
+  "public_claim_ceiling": "Synthetic possible path, not a finding: Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces may transition to comparable or preferred paid work at no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition, in Australia, during 2027-01-01 through 2029-12-31, only if each affected worker has a funded, accessible and genuinely rejectable transition option before role change; and if named institutions have verified funding, delivery capacity, appeal routes and recovery plans for the scoped cohort and period. Affected populations: Employees in the registered Australian clerical cohort; Households that depend on earnings from the registered worker cohort; Participating employers and frontline managers. Scope omissions: Temporary visa holders are not adequately represented by this synthetic example. Unpaid carers are named as an unresolved omitted population. Named competing paths: Clerical work is redesigned in place rather than requiring occupational transition; Clerical demand contracts without a supported transition route. This open-world hypothesis is unscored and grants no action authority."
 }

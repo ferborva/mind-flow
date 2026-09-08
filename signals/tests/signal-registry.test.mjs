@@ -28,6 +28,23 @@ test("a bounded Australian candidate is structurally valid but proves no truth, 
   assert.equal(result.action_authority_determined, false);
 });
 
+test("a caller-controlled schema fork cannot manufacture operational authority", () => {
+  const forkedSchema = structuredClone(schema);
+  forkedSchema.properties.authority = { type: "string" };
+  forkedSchema.properties.operational_effect = { type: "boolean" };
+  forkedSchema.$defs.signal.properties.claim_permissions.properties.operational_effect = {
+    type: "boolean",
+  };
+  const mutated = structuredClone(fixture);
+  mutated.authority = "execute";
+  mutated.operational_effect = true;
+  mutated.signals[0].claim_permissions.operational_effect = true;
+
+  const result = validateSignalRegistry(mutated, { schema: forkedSchema });
+  assert.equal(result.machine_valid, false, JSON.stringify(result, null, 2));
+  assert.ok(hasCode(result, "AUTHORITY_BOUNDARY_INVALID"));
+});
+
 test("every material signal boundary is required and the schema is closed", () => {
   const mutated = structuredClone(fixture);
   mutated.signals[0].confidence_score = 0.99;

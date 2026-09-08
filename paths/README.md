@@ -39,13 +39,17 @@ the bindings fails validation.
    the standard, place, period and every plain-language IF.
 2. **Follow every branch.** A true result permits human consideration only. A
    false or unknown result blocks that edge. Unknown never means safe.
-3. **Try to defeat it.** Inspect the strongest competing path, its
+3. **Try to defeat it.** Inspect every named competing path, the registered
+   strongest selection, their
    discriminating observations, unresolved signal roles, omitted populations,
    gaming risks and abandonment triggers.
 
 The graph is a discussion surface, not an execution engine. `auto_action` and
 `action_authorised` are fixed to false. Authority remains
 `externally-unverified`, even when every local structural test passes.
+False and unknown branches must end at abandonment sinks. Outcome nodes are
+sinks too. The validator rejects cycles and checks every entry-to-outcome route
+accumulates every registered IF condition.
 
 ## 🔀 IFs evolve, so paths must stop
 
@@ -74,10 +78,12 @@ cannot fetch and authenticate the external ledger event that would satisfy it.
 
 ## 🧭 Competing paths and signals
 
-A path must name its strongest known competitor and at least one observation
-that could distinguish them. The observations remain unresolved until a
-separate prospective evidence process acquires and validates them. Calling one
-competitor “strongest” is a registered judgement, not a measured rank.
+A path must name at least two distinct competitors, select one of those named
+records as its strongest known competitor, and register observations that could
+distinguish each from the candidate path. The observations remain unresolved
+until a separate prospective evidence process acquires and validates them.
+Calling one competitor “strongest” is a registered judgement, not a measured
+rank. Unnamed possibilities still remain possible under the open-world model.
 
 Each path also exposes seven evidence roles:
 
@@ -99,6 +105,9 @@ contracts.
 The path names affected populations and the channel through which each may be
 affected. It also carries an explicit omission register. “None identified” is
 allowed only with a search method and its limitations still visible.
+The deterministic public ceiling repeats every affected-population label,
+omission notice and named competitor, so those boundaries cannot disappear from
+the public scope while remaining present only in the machine record.
 
 The synthetic Australian clerical example identifies temporary visa holders
 and unpaid carers as incompletely represented. It also records risks from offer
@@ -112,13 +121,20 @@ affected-party evidence.
 - `schema/possible-path.schema.json` closes every object boundary and fixes the
   non-authority states.
 - `validate.mjs` checks graph, scope, condition, signal and population
-  integrity and produces the deterministic public claim ceiling.
+  integrity against a repository-owned digest-pinned schema and produces the
+  deterministic public claim ceiling.
 - `fixtures/australian-clerical-transition.synthetic.json` is a synthetic,
   unverified example.
 - `tests/possible-path.test.mjs` attacks scope mutation, missing branches,
   incomplete condition policies, dispute and satisfaction laundering,
   verdict language, competitor removal, authority inflation, population
-  omission and signal reuse.
+  omission, unsafe reachability, caller-supplied schema forks and signal reuse.
+
+Only the deterministic ceiling is returned as the bounded public rendering.
+Because that rendering includes bounded domain prose, its publication status
+remains `human-review-required`. The lexical checks reject known quantitative
+and forecast forms but do not claim to understand every natural-language
+equivalent.
 
 Run:
 
