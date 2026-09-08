@@ -39,11 +39,15 @@ evidence/claims/
   README.md
   policy-v2.json
   validate.mjs
+  validate-ceilings.mjs
+  records/major-thesis-claims.json
   schema/claim-ledger-v2.schema.json
   schema/claim-policy-v2.schema.json
+  schema/claim-ceiling-registry-v1.schema.json
   fixtures/valid/*.json
   fixtures/hostile/*.json
   tests/claim-firewall.test.mjs
+  tests/claim-ceiling-registry.test.mjs
 ```
 
 Both JSON Schemas are closed. The ledger is closed at its root and every nested
@@ -105,6 +109,32 @@ fixture by the test loader. They cover collapsed compound claims, extra fields,
 tampered text, unresolved evidence, review and authority references, expiry,
 wrong authority type, policy drift, duplicate IDs and malformed replacement
 graphs.
+
+## Evidence ceilings for major thesis claims
+
+The separate
+[`major-thesis-claims.json`](records/major-thesis-claims.json) registry adds the
+measurement boundary that the atomic ledger does not yet carry. Every registered
+claim must state:
+
+- the estimand and denominator, including their current defined or unknown
+  status;
+- population, geography and time scope;
+- the maximum permitted inference and specifically prohibited inferences;
+- direct evidence links and at least one counterevidence statement;
+- a registered but untested falsifier, decision rule and evidence needed; and
+- unresolved evidence needs.
+
+The record distinguishes retained references from repository files. A retained
+reference has not been frozen or checksum-bound, so it can support only the
+recorded source-report ceiling. It must not be treated as a reproducible source
+artifact.
+
+`validate-ceilings.mjs` checks the closed schema, unique identifiers, references,
+required measurement boundaries, direct support for supported claims and the
+rule that a withdrawn claim cannot retain a positive inference ceiling. It does
+not evaluate whether a source is accurate, whether a denominator is substantively
+appropriate, whether a falsifier is powerful, or whether the claim is true.
 
 ## Known limits before integration
 

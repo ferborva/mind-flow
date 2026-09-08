@@ -1,0 +1,1067 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "major-thesis-claims.round-03",
+  "created_at": "2026-09-09T12:00:00Z",
+  "validation_scope": {
+    "machine_checks": "shape-references-and-declared-boundaries-only",
+    "truth": "not-determined-by-machine-validity",
+    "publishability": "not-determined-by-machine-validity"
+  },
+  "claims": [
+    {
+      "claim_id": "thesis.if-method-diagnosis",
+      "statement": "Verb plus scoped outcome plus IF is a validated method for discovering the true binding condition.",
+      "origin_locations": [
+        "drafts/name-the-if.md:51",
+        "drafts/name-the-if.md:161",
+        "meta/abundance-transition-programme.md:187"
+      ],
+      "epistemic_class": "causal-hypothesis",
+      "support_state": "insufficient-evidence",
+      "claim_verdict": "unknown",
+      "estimand": {
+        "status": "unknown",
+        "measure_type": "classification-agreement",
+        "description": "Incremental accuracy, completeness, inter-rater agreement and decision usefulness of the IF grammar relative to simpler condition registers."
+      },
+      "denominator": {
+        "status": "unknown",
+        "statistical_unit": "encoding task and affected participant",
+        "description": "No representative or preregistered set of service promises, encoders or affected participants has been fixed."
+      },
+      "scope": {
+        "population": {
+          "status": "unknown",
+          "description": "Intended users and affected populations have not been sampled."
+        },
+        "geography": {
+          "status": "unknown",
+          "description": "No jurisdiction set has been registered for validation."
+        },
+        "time": {
+          "status": "unknown",
+          "description": "No study window or re-test interval has been registered."
+        }
+      },
+      "inference_ceiling": {
+        "level": "unsupported",
+        "permitted_statement": "The IF frame is a proposed grammar for generating, challenging and tracking candidate conditions.",
+        "prohibited_inferences": [
+          "The five prompts are complete.",
+          "The protocol identifies the true binding condition.",
+          "The protocol improves decisions or outcomes."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.round-03-thesis-audit",
+          "relation": "limits"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "Completeness, inter-rater reliability, construct validity and decision usefulness have not been tested, and an unregistered viable route can overturn a binding-condition diagnosis.",
+          "evidence_refs": [
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The method hypothesis fails if independent encoders using the IF grammar do not outperform a preregistered simpler assumptions register on material omissions and consequential classification disagreements.",
+        "decision_rule": "Withdraw diagnostic language if the IF arm fails the preregistered superiority threshold or creates more consequential omissions than the comparator.",
+        "evidence_needed": [
+          "Preregistered heterogeneous service-claim set",
+          "Independent blinded encodings",
+          "Affected-party omitted-route review",
+          "Comparator arm and agreement threshold fixed before results"
+        ],
+        "evidence_refs": []
+      },
+      "open_evidence_needs": [
+        "Preregister and run the ten-service grammar reliability study with an explicit comparator."
+      ]
+    },
+    {
+      "claim_id": "poverty.830-modelled-share",
+      "statement": "The retained processed series reports 44.38% of the world population below 8.30 dollars per day in 2026, expressed in 2021 international dollars.",
+      "origin_locations": [
+        "drafts/name-the-if.md:128",
+        "research/2026-09-07-abundance-figures.md:133"
+      ],
+      "epistemic_class": "modelled-estimate",
+      "support_state": "supported",
+      "claim_verdict": "narrow",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "proportion",
+        "description": "Modelled share of the represented world population living in households with per-person welfare below 8.30 2021 international dollars per day."
+      },
+      "denominator": {
+        "status": "defined",
+        "statistical_unit": "persons represented in the source's modelled world population",
+        "description": "The world population represented by the processed World Bank-derived series for the 2026 estimate."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "People represented by the source model, subject to its survey coverage and welfare concepts."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "World aggregate in the processed series."
+        },
+        "time": {
+          "status": "defined",
+          "description": "2026 modelled estimate/nowcast as recorded in the retained research, not a direct 2026 census."
+        }
+      },
+      "inference_ceiling": {
+        "level": "source-report-only",
+        "permitted_statement": "The retained processed World Bank-derived series reports a 2026 modelled estimate of 44.38% below the World Bank 8.30-dollar upper-middle-income line in 2021 PPP.",
+        "prohibited_inferences": [
+          "44.38% is a direct observation of people alive today.",
+          "Everyone below the line cannot access an abundance service.",
+          "The estimate identifies any individual's binding condition."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.owid-830-series",
+          "relation": "supports"
+        },
+        {
+          "evidence_id": "evidence.world-bank-lines-2025",
+          "relation": "context"
+        },
+        {
+          "evidence_id": "evidence.world-bank-pip-nowcasts",
+          "relation": "limits"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The value is modelled from survey distributions and nowcasting inputs and is not a direct observation or an individual access measure.",
+          "evidence_refs": [
+            "evidence.world-bank-pip-nowcasts",
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The source-report claim fails if the frozen source series and metadata do not reproduce 44.38% for the specified threshold, year and PPP vintage.",
+        "decision_rule": "Withdraw or correct the number if exact reproduction fails; never repair it by changing the threshold, year or vintage after the fact.",
+        "evidence_needed": [
+          "Frozen downloadable series",
+          "Frozen metadata and processing notes",
+          "Reproduction command and checksum"
+        ],
+        "evidence_refs": [
+          "evidence.owid-830-series"
+        ]
+      },
+      "open_evidence_needs": [
+        "Freeze the downloadable source series, metadata, query date and checksum before public use."
+      ]
+    },
+    {
+      "claim_id": "poverty.30-modelled-share",
+      "statement": "The retained processed series reports 80.04% of the world population below a user-set 30-dollar-per-day threshold in 2026, expressed in 2021 international dollars.",
+      "origin_locations": [
+        "drafts/name-the-if.md:128",
+        "research/2026-09-07-abundance-figures.md:133"
+      ],
+      "epistemic_class": "modelled-estimate",
+      "support_state": "supported",
+      "claim_verdict": "narrow",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "proportion",
+        "description": "Modelled share of the represented world population below a user-selected 30 2021-international-dollar daily welfare threshold."
+      },
+      "denominator": {
+        "status": "defined",
+        "statistical_unit": "persons represented in the source's modelled world population",
+        "description": "The world population represented by the processed World Bank-derived series for the 2026 estimate."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "People represented by the source model, subject to its survey coverage and welfare concepts."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "World aggregate in the processed series."
+        },
+        "time": {
+          "status": "defined",
+          "description": "2026 modelled estimate/nowcast as recorded in the retained research."
+        }
+      },
+      "inference_ceiling": {
+        "level": "source-report-only",
+        "permitted_statement": "The retained processed series reports a 2026 modelled estimate near four in five below a user-set 30-dollar threshold in 2021 international dollars.",
+        "prohibited_inferences": [
+          "30 dollars is an official World Bank poverty line.",
+          "30 dollars is a validated developed-world floor.",
+          "The figure is comparable to nominal-dollar income, GDP or company profit."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.owid-30-series",
+          "relation": "supports"
+        },
+        {
+          "evidence_id": "evidence.world-bank-pip-nowcasts",
+          "relation": "limits"
+        },
+        {
+          "evidence_id": "evidence.world-bank-lines-2025",
+          "relation": "contradicts"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The World Bank's published 2021-PPP global poverty lines are 3.00, 4.20 and 8.30 dollars; 30 dollars is a user-set threshold, not an official line or validated developed-world floor.",
+          "evidence_refs": [
+            "evidence.world-bank-lines-2025",
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The numerical source-report claim fails if a frozen source series does not reproduce 80.04% for 2026 at the 30-dollar threshold in 2021 international dollars.",
+        "decision_rule": "Withdraw or correct the number if reproduction fails; keep the threshold explicitly user-selected even if the value reproduces.",
+        "evidence_needed": [
+          "Frozen downloadable series",
+          "Frozen metadata and processing notes",
+          "Reproduction command and checksum"
+        ],
+        "evidence_refs": [
+          "evidence.owid-30-series"
+        ]
+      },
+      "open_evidence_needs": [
+        "Validate any proposed decent-life interpretation against local reference budgets and material deprivation before attaching it to 30 dollars."
+      ]
+    },
+    {
+      "claim_id": "poverty.abundance-audience",
+      "statement": "Because about four in five people are below the 30-dollar threshold, abundance promises are almost entirely talking to the other fifth.",
+      "origin_locations": [
+        "drafts/name-the-if.md:128"
+      ],
+      "epistemic_class": "causal-hypothesis",
+      "support_state": "unsupported",
+      "claim_verdict": "withdraw",
+      "estimand": {
+        "status": "unknown",
+        "measure_type": "association",
+        "description": "Relationship between household welfare position and who makes, hears, understands or could benefit from abundance promises."
+      },
+      "denominator": {
+        "status": "unknown",
+        "statistical_unit": "people exposed to a defined corpus of abundance communications",
+        "description": "No communication corpus, audience frame or exposure denominator has been registered."
+      },
+      "scope": {
+        "population": {
+          "status": "unknown",
+          "description": "The population hearing or addressed by abundance rhetoric is not measured by the poverty series."
+        },
+        "geography": {
+          "status": "unknown",
+          "description": "No communication market or jurisdiction is specified."
+        },
+        "time": {
+          "status": "unknown",
+          "description": "No publication or audience-observation period is specified."
+        }
+      },
+      "inference_ceiling": {
+        "level": "unsupported",
+        "permitted_statement": "The modelled distribution figures show that affordability constraints are widespread under the selected welfare thresholds.",
+        "prohibited_inferences": [
+          "The figures identify the intended or actual audience of abundance rhetoric.",
+          "Income rank determines whether a person can benefit from a named capability.",
+          "The lower four fifths share one binding condition."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.owid-30-series",
+          "relation": "context"
+        },
+        {
+          "evidence_id": "evidence.round-03-thesis-audit",
+          "relation": "contradicts"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "A population income distribution does not measure the audience, framing, uptake or beneficiaries of abundance communications, so the conclusion is an ecological inference and non sequitur.",
+          "evidence_refs": [
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The audience hypothesis remains withdrawn unless a preregistered content and audience study directly measures which income groups are addressed, reached and able to benefit.",
+        "decision_rule": "Do not reinstate the claim from distribution data alone; require direct audience and beneficiary evidence for a defined corpus and period.",
+        "evidence_needed": [
+          "Defined abundance-communication corpus",
+          "Representative audience exposure data",
+          "Income or welfare measure compatible with the audience sample",
+          "Benefit and exclusion measures"
+        ],
+        "evidence_refs": []
+      },
+      "open_evidence_needs": [
+        "No direct audience evidence is retained; remove the claim rather than commission research unless it becomes decision-relevant."
+      ]
+    },
+    {
+      "claim_id": "healthcare.us-uninsured-2024",
+      "statement": "The US Census Bureau estimated that 27.1 million people, 8.0% of the population, had no health insurance coverage at any point during calendar year 2024.",
+      "origin_locations": [
+        "drafts/name-the-if.md:229",
+        "research/2026-09-09-healthcare-if-validation.md:118"
+      ],
+      "epistemic_class": "published-statistic",
+      "support_state": "supported",
+      "claim_verdict": "keep",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "count",
+        "description": "People without health insurance coverage at any point in calendar year 2024 under the CPS ASEC measure; the source also reports the corresponding population percentage."
+      },
+      "denominator": {
+        "status": "defined",
+        "statistical_unit": "people in the CPS ASEC US population estimate",
+        "description": "US population represented by the CPS ASEC annual insurance-coverage estimate."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "People in the United States represented by CPS ASEC."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "United States national estimate."
+        },
+        "time": {
+          "status": "defined",
+          "description": "Calendar year 2024 annual coverage measure."
+        }
+      },
+      "inference_ceiling": {
+        "level": "source-report-only",
+        "permitted_statement": "Census estimated 27.1 million people, 8.0%, lacked coverage at any point during calendar year 2024 under CPS ASEC.",
+        "prohibited_inferences": [
+          "All uninsured people failed to obtain needed care.",
+          "Insured people could afford a named service.",
+          "Insurance status was the binding condition for any named patient."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.us-census-coverage-2024",
+          "relation": "supports"
+        },
+        {
+          "evidence_id": "evidence.healthcare-validation",
+          "relation": "context"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The annual coverage measure does not establish affordability among insured people or access to a particular service.",
+          "evidence_refs": [
+            "evidence.healthcare-validation"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The source-report claim fails if the frozen Census table, definition or correction does not reproduce both 27.1 million and 8.0% for the 2024 annual measure.",
+        "decision_rule": "Correct or withdraw the number if the frozen official release or a formal correction differs.",
+        "evidence_needed": [
+          "Frozen Census publication and table",
+          "Coverage definition and revision record"
+        ],
+        "evidence_refs": [
+          "evidence.us-census-coverage-2024"
+        ]
+      },
+      "open_evidence_needs": [
+        "Freeze the cited Census PDF and table checksum before public publication."
+      ]
+    },
+    {
+      "claim_id": "healthcare.us-cost-unmet-2025",
+      "statement": "The 2025 NHIS early release reports that 6.0% of US adults aged 18 or older failed to obtain needed medical care because of cost.",
+      "origin_locations": [
+        "drafts/name-the-if.md:230",
+        "research/2026-09-09-healthcare-if-validation.md:122"
+      ],
+      "epistemic_class": "published-statistic",
+      "support_state": "supported",
+      "claim_verdict": "keep",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "proportion",
+        "description": "Share of adults aged 18+ who failed to obtain needed medical care due to cost under the 2025 NHIS early-release measure."
+      },
+      "denominator": {
+        "status": "defined",
+        "statistical_unit": "adults aged 18 or older represented by the 2025 NHIS early release",
+        "description": "US adults aged 18+ in the NHIS early-release estimation universe."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "US adults aged 18 or older represented by NHIS."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "United States national estimate."
+        },
+        "time": {
+          "status": "defined",
+          "description": "2025 NHIS early release."
+        }
+      },
+      "inference_ceiling": {
+        "level": "source-report-only",
+        "permitted_statement": "NCHS reports 6.0% of US adults aged 18+ failed to obtain needed medical care due to cost in the 2025 NHIS early release.",
+        "prohibited_inferences": [
+          "The measure identifies which treatment was missed.",
+          "The measure identifies the policy that caused the result.",
+          "The measure can be combined with the uninsured percentage into one rate."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.cdc-access-2025",
+          "relation": "supports"
+        },
+        {
+          "evidence_id": "evidence.healthcare-validation",
+          "relation": "context"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The measure does not identify a complete patient journey, a specific treatment, an outcome or a causal policy.",
+          "evidence_refs": [
+            "evidence.healthcare-validation"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The source-report claim fails if the frozen NCHS release, definition or correction does not reproduce 6.0% for adults aged 18+ in 2025.",
+        "decision_rule": "Correct or withdraw the number if the frozen official release or a formal correction differs.",
+        "evidence_needed": [
+          "Frozen NCHS release and table",
+          "Question wording, denominator and revision record"
+        ],
+        "evidence_refs": [
+          "evidence.cdc-access-2025"
+        ]
+      },
+      "open_evidence_needs": [
+        "Freeze the exact NCHS table and metadata because the public FastStats page can update."
+      ]
+    },
+    {
+      "claim_id": "healthcare.country-binding-condition",
+      "statement": "The four-country healthcare observations establish one binding access condition for each country.",
+      "origin_locations": [
+        "drafts/name-the-if.md:238",
+        "research/2026-09-09-healthcare-if-validation.md:142"
+      ],
+      "epistemic_class": "causal-hypothesis",
+      "support_state": "unsupported",
+      "claim_verdict": "withdraw",
+      "estimand": {
+        "status": "unknown",
+        "measure_type": "causal-effect",
+        "description": "The condition that defeats every viable healthcare access route for a named person, service and period."
+      },
+      "denominator": {
+        "status": "unknown",
+        "statistical_unit": "person-service access journey",
+        "description": "The retained sources use different people, services, waits, appointments, coverage measures and statistical units rather than a common access-journey denominator."
+      },
+      "scope": {
+        "population": {
+          "status": "unknown",
+          "description": "No common clinical-need population exists across the Spain, Belgium, Australia and United States observations."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "Separate non-harmonised national observations for Spain, Belgium, Australia and the United States."
+        },
+        "time": {
+          "status": "unknown",
+          "description": "The retained sources use different reference periods in 2024 and 2025-26 and do not form one comparison window."
+        }
+      },
+      "inference_ceiling": {
+        "level": "unsupported",
+        "permitted_statement": "The official observations demonstrate that healthcare price, availability and proximity measures vary by service, person, provider, place and period and cannot be ranked on these denominators.",
+        "prohibited_inferences": [
+          "The observations form a country ranking.",
+          "The observations identify the binding condition for a whole country.",
+          "The observations identify a named patient's binding condition."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.healthcare-validation",
+          "relation": "contradicts"
+        },
+        {
+          "evidence_id": "evidence.round-03-thesis-audit",
+          "relation": "contradicts"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "No common patient journey, service basket, clinical need, severity, waiting-time definition or cost denominator was found across all four countries.",
+          "evidence_refs": [
+            "evidence.healthcare-validation",
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "A binding-condition claim remains withdrawn unless the same named service, clinical-need population, viable routes, outcome standard and period are measured across the proposed comparison scope.",
+        "decision_rule": "Do not publish a national binding-IF conclusion when any route, person, service, unit or period remains unmatched or unknown.",
+        "evidence_needed": [
+          "Harmonised person-service journey data",
+          "Complete viable-route register",
+          "Matched clinical need, eligibility, price, travel, wait, capacity and capability measures"
+        ],
+        "evidence_refs": []
+      },
+      "open_evidence_needs": [
+        "No harmonised four-country patient-journey dataset is retained; keep the example as a denominator lesson, not a comparison."
+      ]
+    },
+    {
+      "claim_id": "thesis.if-when-same-conditions",
+      "statement": "Consumer IFs and provider WHENs are the same conditions with a different verb.",
+      "origin_locations": [
+        "drafts/every-if-is-somebodys-when.md:49",
+        "drafts/every-if-is-somebodys-when.md:82",
+        "meta/abundance-transition-programme.md:108"
+      ],
+      "epistemic_class": "causal-hypothesis",
+      "support_state": "conflicted",
+      "claim_verdict": "withdraw",
+      "estimand": {
+        "status": "unknown",
+        "measure_type": "semantic-equivalence",
+        "description": "Equivalence of condition nodes across affected-person outcome registers and actor-specific delivery or action registers."
+      },
+      "denominator": {
+        "status": "unknown",
+        "statistical_unit": "linked person-outcome and actor-work register pair",
+        "description": "No set of independently encoded linked register pairs has been registered."
+      },
+      "scope": {
+        "population": {
+          "status": "unknown",
+          "description": "Relevant affected people and actors vary by service and are not sampled."
+        },
+        "geography": {
+          "status": "unknown",
+          "description": "No jurisdiction or service system has been fixed for an equivalence test."
+        },
+        "time": {
+          "status": "unknown",
+          "description": "No observation window has been fixed."
+        }
+      },
+      "inference_ceiling": {
+        "level": "unsupported",
+        "permitted_statement": "Consumer and actor registers can contain causally linked but non-identical conditions.",
+        "prohibited_inferences": [
+          "Changing IF to WHEN preserves condition identity.",
+          "Tense identifies a stable side of an exchange.",
+          "A consumer/provider binary captures funders, regulators, workers and mixed delivery systems."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.round-03-thesis-audit",
+          "relation": "contradicts"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The draft's adjacent examples list consumer price, legality and reach but provider validation, licence and unit cost, directly demonstrating linked but non-identical registers.",
+          "evidence_refs": [
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The identity claim remains withdrawn unless independent encoders applying preregistered equivalence rules recover the same condition nodes across person and actor registers without consequential omissions.",
+        "decision_rule": "Use linked-register language if exact or functional equivalence falls below the preregistered threshold for any consequential condition class.",
+        "evidence_needed": [
+          "Preregistered equivalence rules",
+          "Independent actor and affected-person encodings",
+          "Adjudication of consequential mismatches"
+        ],
+        "evidence_refs": []
+      },
+      "open_evidence_needs": [
+        "Test linked-register mappings across mixed public, private and community delivery systems."
+      ]
+    },
+    {
+      "claim_id": "australia.first-proof",
+      "statement": "The Australian clerical-worker pilot is the first proof of the transition thesis.",
+      "origin_locations": [
+        "meta/abundance-transition-programme.md:28",
+        "meta/abundance-transition-programme.md:220"
+      ],
+      "epistemic_class": "causal-hypothesis",
+      "support_state": "unsupported",
+      "claim_verdict": "withdraw",
+      "estimand": {
+        "status": "unknown",
+        "measure_type": "causal-effect",
+        "description": "Causal effect of AI adoption and work redesign on employment flows, earnings, essential access and experienced agency for scoped clerical workers."
+      },
+      "denominator": {
+        "status": "unknown",
+        "statistical_unit": "scoped clerical worker or preregistered cohort member",
+        "description": "No linked worker cohort and outcome denominator has been established."
+      },
+      "scope": {
+        "population": {
+          "status": "unknown",
+          "description": "Candidate occupations are named, but a linked in-scope worker cohort is not established."
+        },
+        "geography": {
+          "status": "unknown",
+          "description": "Australia is proposed, with candidate states and SA4s conditional on data support."
+        },
+        "time": {
+          "status": "unknown",
+          "description": "No causal study period, baseline or follow-up window is registered."
+        }
+      },
+      "inference_ceiling": {
+        "level": "unsupported",
+        "permitted_statement": "Australia has official building blocks for a bounded, prospective, no-consequence feasibility study.",
+        "prohibited_inferences": [
+          "NERO movement is an observed AI effect.",
+          "Business AI use can be assigned to individual clerical workers or SA4s.",
+          "The retained sources establish displacement, essential-access loss, agency change or crisis."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.australia-source-triage",
+          "relation": "contradicts"
+        },
+        {
+          "evidence_id": "evidence.nero",
+          "relation": "context"
+        },
+        {
+          "evidence_id": "evidence.abs-business-ai",
+          "relation": "context"
+        },
+        {
+          "evidence_id": "evidence.ilo-exposure",
+          "relation": "context"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The retained sources measure different units and do not close the chain from occupational exposure through adoption and redesign to worker or household outcomes.",
+          "evidence_refs": [
+            "evidence.australia-source-triage",
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "Any future causal hypothesis fails if preregistered source-independent worker outcomes are better explained by macro-demand, sector composition, measurement change, policy/ownership or no-material-change models than by the AI pathway.",
+        "decision_rule": "Retain feasibility-only status until a registered design separates the AI pathway from competing explanations and observes the protected outcomes in the same cohort.",
+        "evidence_needed": [
+          "Source-independent worker-flow outcome",
+          "Observed adoption or task-redesign event",
+          "Common cohort, geography, classification and period",
+          "Preregistered competing causal graphs"
+        ],
+        "evidence_refs": []
+      },
+      "open_evidence_needs": [
+        "Acquire one source-independent worker-flow outcome and one independently observed adoption or redesign event for the same registered cohort."
+      ]
+    },
+    {
+      "claim_id": "australia.nero-measurement",
+      "statement": "NERO publishes monthly modelled employment estimates for 355 four-digit occupations across 88 SA4 regions, and the estimates must not be summed or combined across occupations or geographies.",
+      "origin_locations": [
+        "research/2026-09-08-australia-pilot-source-triage.md:35"
+      ],
+      "epistemic_class": "published-statistic",
+      "support_state": "supported",
+      "claim_verdict": "keep",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "count",
+        "description": "Publisher-modelled employment level for a specific four-digit occupation, SA4 residence region and release vintage."
+      },
+      "denominator": {
+        "status": "defined",
+        "statistical_unit": "one occupation-by-SA4 model cell",
+        "description": "A registered NERO cell, not a sum across occupations or geographies and not an individual worker record."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "Employment represented by the NERO model for one of 355 four-digit occupations."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "One of 88 SA4 regions by worker residence, not business location."
+        },
+        "time": {
+          "status": "defined",
+          "description": "Monthly estimate for a named source and release vintage."
+        }
+      },
+      "inference_ceiling": {
+        "level": "source-report-only",
+        "permitted_statement": "NERO reports this modelled estimate for this occupation, SA4 and vintage.",
+        "prohibited_inferences": [
+          "The model cell is a direct employment observation.",
+          "A movement is caused by AI.",
+          "Smoothed estimates reliably detect rapid change outside model history."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.nero",
+          "relation": "supports"
+        },
+        {
+          "evidence_id": "evidence.australia-source-triage",
+          "relation": "limits"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The series is experimental, smoothed, revision-prone, can miss rapid changes and shares source dependence with ABS Labour Force Survey inputs.",
+          "evidence_refs": [
+            "evidence.nero",
+            "evidence.australia-source-triage"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The source-description claim fails if the frozen NERO release and methodology do not preserve the stated cell count, unit, non-additivity rule or modelled status.",
+        "decision_rule": "Correct the register to the frozen vintage; never silently substitute current NERO metadata for the registered release.",
+        "evidence_needed": [
+          "Frozen NERO data vintage",
+          "Frozen methodology version",
+          "Checksums and extraction query"
+        ],
+        "evidence_refs": [
+          "evidence.nero"
+        ]
+      },
+      "open_evidence_needs": [
+        "Freeze the exact NERO data and methodology artefacts for the proposed pilot vintage."
+      ]
+    },
+    {
+      "claim_id": "australia.business-ai-use-2024-25",
+      "statement": "The ABS reports that 12% of in-scope businesses selected AI use in 2024-25.",
+      "origin_locations": [
+        "research/2026-09-08-australia-pilot-source-triage.md:37"
+      ],
+      "epistemic_class": "published-statistic",
+      "support_state": "supported",
+      "claim_verdict": "keep",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "proportion",
+        "description": "Share of in-scope businesses reporting/selecting AI use under the ABS Characteristics of Australian Business question."
+      },
+      "denominator": {
+        "status": "defined",
+        "statistical_unit": "in-scope businesses",
+        "description": "Businesses in the ABS survey population, not workers, jobs or tasks."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "In-scope Australian businesses represented by the ABS survey."
+        },
+        "geography": {
+          "status": "defined",
+          "description": "Australia national business estimate; not an SA4 worker estimate."
+        },
+        "time": {
+          "status": "defined",
+          "description": "Financial year 2024-25."
+        }
+      },
+      "inference_ceiling": {
+        "level": "source-report-only",
+        "permitted_statement": "Twelve per cent of in-scope businesses reported/select AI use in the 2024-25 ABS measure.",
+        "prohibited_inferences": [
+          "Twelve per cent of workers use AI.",
+          "The statistic measures adoption intensity or task redesign.",
+          "The statistic identifies AI treatment for a clerical worker, occupation or SA4."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.abs-business-ai",
+          "relation": "supports"
+        },
+        {
+          "evidence_id": "evidence.australia-source-triage",
+          "relation": "limits"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The ABS item records selected business use, not intensity, task change, worker exposure, local adoption or individual treatment.",
+          "evidence_refs": [
+            "evidence.abs-business-ai",
+            "evidence.australia-source-triage"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "The source-report claim fails if the frozen ABS release or question universe does not reproduce 12% for the stated business population and period.",
+        "decision_rule": "Correct the value or scope to the frozen official release; do not reinterpret a changed question as the same series.",
+        "evidence_needed": [
+          "Frozen ABS table and survey question",
+          "Population and weighting metadata",
+          "Revision record"
+        ],
+        "evidence_refs": [
+          "evidence.abs-business-ai"
+        ]
+      },
+      "open_evidence_needs": [
+        "Obtain an independently measured workplace adoption or task-redesign event before using this statistic in a worker-level transition chain."
+      ]
+    },
+    {
+      "claim_id": "governance.repository-blocks-publication",
+      "statement": "A machine-readable repository boundary currently blocks public issuance or publication when review requirements fail.",
+      "origin_locations": [
+        "meta/abundance-transition-programme.md:422",
+        "meta/abundance-transition-programme.md:443"
+      ],
+      "epistemic_class": "causal-hypothesis",
+      "support_state": "unsupported",
+      "claim_verdict": "withdraw",
+      "estimand": {
+        "status": "defined",
+        "measure_type": "governance-enforcement",
+        "description": "Whether every operational route to public issuance is forced through an authenticated, non-bypassable validation and authorisation boundary."
+      },
+      "denominator": {
+        "status": "unknown",
+        "statistical_unit": "operational publication route",
+        "description": "No complete inventory of repository, CI, hosting, manual and alternate publication routes has been registered."
+      },
+      "scope": {
+        "population": {
+          "status": "defined",
+          "description": "Callers and systems capable of preparing or publishing Observatory artefacts."
+        },
+        "geography": {
+          "status": "not-applicable",
+          "description": "The claim concerns technical and organisational control boundaries rather than a population geography."
+        },
+        "time": {
+          "status": "defined",
+          "description": "Current repository and deployment state recorded on 2026-09-09."
+        }
+      },
+      "inference_ceiling": {
+        "level": "unsupported",
+        "permitted_statement": "When invoked, repository validators can reject structurally incomplete candidate records under their declared checks.",
+        "prohibited_inferences": [
+          "The library cannot be bypassed.",
+          "The repository authorises or blocks public publication.",
+          "A structurally valid packet has legitimate reviewers, authority, consent or evidence."
+        ]
+      },
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence.public-release-governance",
+          "relation": "contradicts"
+        },
+        {
+          "evidence_id": "evidence.trusted-issuance-boundary",
+          "relation": "contradicts"
+        }
+      ],
+      "counterevidence": [
+        {
+          "statement": "The governance documents explicitly say a caller can bypass the library, no CI, hosting or operational issuance boundary exists, and the repository cannot authorise a public release.",
+          "evidence_refs": [
+            "evidence.public-release-governance",
+            "evidence.trusted-issuance-boundary",
+            "evidence.round-03-thesis-audit"
+          ]
+        }
+      ],
+      "registered_falsifier": {
+        "status": "registered-not-tested",
+        "statement": "A future enforcement claim fails if any registered publication route can issue an artefact without authenticated review, valid authority and exact-byte checks enforced outside the caller-controlled library.",
+        "decision_rule": "Describe the boundary as missing until a complete route inventory and adversarial bypass test show every consequential route fails closed.",
+        "evidence_needed": [
+          "Complete publication-route inventory",
+          "Externally enforced CI and hosting policy",
+          "Authenticated identity and authority records",
+          "Adversarial bypass test"
+        ],
+        "evidence_refs": []
+      },
+      "open_evidence_needs": [
+        "No operational issuance boundary exists; this requires external identity, CI, hosting and governance implementation beyond the repository validator."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence.round-03-thesis-audit",
+      "source_class": "project-review",
+      "uri": "../../../reviews/external/round-03/second-pass-thesis-evidence.md",
+      "captured_at": "2026-09-09T12:00:00Z",
+      "artifact_status": "repository-file",
+      "claim_ceiling": "Independent second-pass review findings and retained source ceilings; not a primary empirical source or truth determination."
+    },
+    {
+      "evidence_id": "evidence.world-bank-lines-2025",
+      "source_class": "primary-source",
+      "uri": "https://www.worldbank.org/en/news/factsheet/2025/06/05/june-2025-update-to-global-poverty-lines",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "The World Bank updated its 2021-PPP international, lower-middle-income and upper-middle-income lines to 3.00, 4.20 and 8.30 dollars in June 2025; 30 dollars is not one of those official lines."
+    },
+    {
+      "evidence_id": "evidence.world-bank-pip-nowcasts",
+      "source_class": "publisher-model-output",
+      "uri": "https://datatopics.worldbank.org/dataviz/pip-nowcasts/",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "PIP nowcasts are modelled estimates rather than direct current observations and require explicit threshold, PPP vintage, year and data vintage."
+    },
+    {
+      "evidence_id": "evidence.owid-830-series",
+      "source_class": "secondary-processed-series",
+      "uri": "https://ourworldindata.org/grapher/share-living-with-less-than-upper-middle-income-poverty-line",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "The retained processed World Bank-derived series reports 44.38% for the world in 2026 below 8.30 dollars per day in 2021 international dollars; it is not a direct observation or access measure."
+    },
+    {
+      "evidence_id": "evidence.owid-30-series",
+      "source_class": "secondary-processed-series",
+      "uri": "https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "The retained processed World Bank-derived series reports 80.04% for the world in 2026 below a user-set 30-dollar threshold in 2021 international dollars; it is not an official poverty line or audience measure."
+    },
+    {
+      "evidence_id": "evidence.healthcare-validation",
+      "source_class": "project-research",
+      "uri": "../../../research/2026-09-09-healthcare-if-validation.md",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "repository-file",
+      "claim_ceiling": "Bounded healthcare source review preserving service, population, time and denominator differences; not a country ranking or binding-condition diagnosis."
+    },
+    {
+      "evidence_id": "evidence.us-census-coverage-2024",
+      "source_class": "primary-source",
+      "uri": "https://www2.census.gov/library/publications/2025/demo/p60-288.pdf",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "CPS ASEC estimate of 27.1 million people, 8.0%, without health insurance coverage at any point during calendar year 2024; not affordability or service access among insured people."
+    },
+    {
+      "evidence_id": "evidence.cdc-access-2025",
+      "source_class": "primary-source",
+      "uri": "https://www.cdc.gov/nchs/fastats/access-to-health-care.htm",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "The 2025 NHIS early release reports 6.0% of adults aged 18+ failed to obtain needed medical care due to cost; it does not identify treatment, outcome or cause."
+    },
+    {
+      "evidence_id": "evidence.australia-source-triage",
+      "source_class": "project-research",
+      "uri": "../../../research/2026-09-08-australia-pilot-source-triage.md",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "repository-file",
+      "claim_ceiling": "Official Australian sources support a prospective no-consequence feasibility study but do not close the chain from AI capability to lived agency or establish a crisis."
+    },
+    {
+      "evidence_id": "evidence.nero",
+      "source_class": "publisher-model-output",
+      "uri": "https://www.jobsandskills.gov.au/data/nero",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "Monthly modelled estimate for one of 355 four-digit occupations and one of 88 SA4 residence regions at a named vintage; not additive, a direct observation, rapid-change detector or causal AI measure."
+    },
+    {
+      "evidence_id": "evidence.abs-business-ai",
+      "source_class": "primary-source",
+      "uri": "https://www.abs.gov.au/statistics/industry/technology-and-innovation/characteristics-australian-business/latest-release",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "Twelve per cent of in-scope businesses selected AI use in 2024-25; not intensity, task change, worker exposure or local worker treatment."
+    },
+    {
+      "evidence_id": "evidence.ilo-exposure",
+      "source_class": "publisher-model-output",
+      "uri": "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+      "captured_at": "2026-09-09T00:00:00Z",
+      "artifact_status": "retained-reference-only",
+      "claim_ceiling": "Modelled potential occupational exposure, with clerical occupations highest in the index; not Australian adoption, automation, displacement or harm."
+    },
+    {
+      "evidence_id": "evidence.public-release-governance",
+      "source_class": "project-governance",
+      "uri": "../../../governance/public-release-governance.md",
+      "captured_at": "2026-09-09T12:00:00Z",
+      "artifact_status": "repository-file",
+      "claim_ceiling": "The validator checks caller assertions and internal relationships; callers can bypass it and no CI, hosting or operational issuance boundary exists."
+    },
+    {
+      "evidence_id": "evidence.trusted-issuance-boundary",
+      "source_class": "project-governance",
+      "uri": "../../../governance/trusted-issuance-boundary.md",
+      "captured_at": "2026-09-09T12:00:00Z",
+      "artifact_status": "repository-file",
+      "claim_ceiling": "The repository cannot authorise a public release; the document specifies a missing boundary rather than claiming it exists."
+    }
+  ]
+}
