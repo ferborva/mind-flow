@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "observation.earnings-restored.2026q2.c1",
+  "condition_definition": {
+    "id": "condition.au-clerical-access-margin",
+    "version": "1.0.0",
+    "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4"
+  },
+  "predicate_ref": "earnings-restored",
+  "state": "true",
+  "state_probability": 0.84,
+  "reason": "A corrected linkage recovered both quarterly estimates and puts replacement earnings above ninety percent of prior real earnings.",
+  "period": { "start": "2026-01-01T00:00:00Z", "end": "2026-06-30T23:59:59Z" },
+  "recorded_at": "2026-09-08T00:05:00Z",
+  "coverage": {
+    "expected": 2,
+    "observed": 2,
+    "unit": "quarter",
+    "explanation": "Both quarterly estimates are present after correcting the linkage job."
+  },
+  "uncertainty": {
+    "status": "quantified",
+    "rationale": "The corrected linked sample supports a weighted confidence interval.",
+    "method": "linked-panel-bootstrap-v1",
+    "lower": 90.7,
+    "upper": 95.8,
+    "confidence": 0.95
+  },
+  "evidence": [{
+    "source_id": "evidence.worker-flow",
+    "url": "https://example.org/evidence/worker-flow-2026q2-corrected",
+    "retrieved_at": "2026-09-08T00:03:00Z",
+    "vintage": "2026 Q2 corrected synthetic linkage fixture",
+    "checksum": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "quality": "validated",
+    "licence": "Synthetic fixture only"
+  }],
+  "provenance": {
+    "producer": { "organisation": "Seldon Observatory pilot", "role": "shadow analyst" },
+    "method_version": "predicate-assessment-1.0.1",
+    "software_checksum": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+  }
+}

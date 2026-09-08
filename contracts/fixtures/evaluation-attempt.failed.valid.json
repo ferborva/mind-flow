@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "id": "attempt.au-clerical-access-margin.20260908t000200z",
+  "attempt_status": "failed",
+  "condition_definition": {
+    "id": "condition.au-clerical-access-margin",
+    "version": "1.0.0",
+    "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4"
+  },
+  "started_at": "2026-09-08T00:02:00Z",
+  "recorded_at": "2026-09-08T00:02:10Z",
+  "predicate_results": {},
+  "gate_results": {},
+  "errors": [{
+    "code": "INPUT_LOAD_FAILED",
+    "stage": "input",
+    "message": "The synthetic observation bundle could not be loaded.",
+    "retryable": true
+  }],
+  "provenance": {
+    "producer": { "organisation": "Seldon Observatory pilot", "role": "shadow evaluation service" },
+    "engine": "mind-flow deterministic condition evaluator",
+    "engine_version": "1.0.0",
+    "engine_checksum": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  }
+}

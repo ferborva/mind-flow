@@ -459,3 +459,306 @@ export function validateActionBinding(definition, action) {
   }
   return { valid: errors.length === 0, errors };
 }
+
+export function validateEvaluationAttempt(definition, observations, attempt) {
+  const errors = [
+    ...validateDefinitionSemantics(definition),
+    ...definitionReferenceErrors(
+      definition,
+      attempt.condition_definition,
+      "$.attempt.condition_definition",
+    ),
+  ];
+  validateOrder(
+    errors,
+    definition.governance?.valid_from,
+    attempt.started_at,
+    "ATTEMPT_BEFORE_DEFINITION_VALID",
+    "$.definition.governance.valid_from",
+    "$.attempt.started_at",
+  );
+  validateOrder(
+    errors,
+    attempt.started_at,
+    attempt.recorded_at,
+    "ATTEMPT_RECORDED_BEFORE_START",
+    "$.attempt.started_at",
+    "$.attempt.recorded_at",
+  );
+  validateOrder(
+    errors,
+    attempt.recorded_at,
+    definition.governance?.expires_at,
+    "ATTEMPT_AFTER_DEFINITION_EXPIRY",
+    "$.attempt.recorded_at",
+    "$.definition.governance.expires_at",
+  );
+
+  const observationsById = new Map(
+    (observations || []).map((observation) => [observation.id, observation]),
+  );
+  const stateMap = {};
+  for (const [predicateRef, result] of Object.entries(attempt.predicate_results || {})) {
+    const observation = observationsById.get(result.observation_id);
+    if (
+      !observation ||
+      observation.predicate_ref !== predicateRef ||
+      observation.state !== result.state ||
+      observation.reason !== result.reason
+    ) {
+      errors.push(problem(
+        "ATTEMPT_OBSERVATION_REFERENCE_MISMATCH",
+        `$.attempt.predicate_results.${predicateRef}`,
+        "The attempt input does not reproduce its referenced observation.",
+      ));
+      continue;
+    }
+    errors.push(...validateObservationSemantics(
+      definition,
+      observation,
+      (observations || []).indexOf(observation),
+    ));
+    validateOrder(
+      errors,
+      observation.recorded_at,
+      attempt.started_at,
+      "ATTEMPT_STARTED_BEFORE_OBSERVATION",
+      `$.observations.${observation.id}.recorded_at`,
+      "$.attempt.started_at",
+    );
+    stateMap[predicateRef] = result.state;
+  }
+
+  const gateResults = attempt.gate_results || {};
+  const gateCount = Object.keys(gateResults).length;
+  if (attempt.attempt_status === "partial" && (gateCount === 0 || gateCount >= GATES.length)) {
+    errors.push(problem(
+      "PARTIAL_ATTEMPT_GATE_COUNT_INVALID",
+      "$.attempt.gate_results",
+      "A partial attempt must contain at least one but fewer than all gate outputs.",
+    ));
+  }
+  if (attempt.attempt_status === "failed" && gateCount !== 0) {
+    errors.push(problem(
+      "FAILED_ATTEMPT_HAS_GATE_OUTPUT",
+      "$.attempt.gate_results",
+      "A failed attempt cannot publish a successful gate output.",
+    ));
+  }
+
+  const evaluated = evaluateGates(definition, stateMap);
+  for (const [gate, recorded] of Object.entries(gateResults)) {
+    if (!GATES.includes(gate) || !isDeepStrictEqual(evaluated.gates?.[gate], recorded)) {
+      errors.push(problem(
+        "ATTEMPT_GATE_RESULT_MISMATCH",
+        `$.attempt.gate_results.${gate}`,
+        `Recorded ${gate} output does not match deterministic evaluation of available inputs.`,
+      ));
+    }
+  }
+  return { valid: errors.length === 0, errors };
+}
+
+function artifactKey(kind, id) {
+  return `${kind}:${id}`;
+}
+
+function artifactTime(artifact) {
+  if (artifact.kind === "predicate-observation") return artifact.value.recorded_at;
+  if (artifact.kind === "evaluation-run") return artifact.value.evaluated_at;
+  if (artifact.kind === "evaluation-attempt") return artifact.value.recorded_at;
+  return undefined;
+}
+
+function artifactConditionReference(artifact) {
+  return artifact.value.condition_definition;
+}
+
+function correctionScopeMatches(source, replacement) {
+  if (!isDeepStrictEqual(
+    artifactConditionReference(source),
+    artifactConditionReference(replacement),
+  )) return false;
+  if (source.kind === "predicate-observation") {
+    return source.value.predicate_ref === replacement.value.predicate_ref;
+  }
+  return true;
+}
+
+function directlyDependsOn(artifact, source) {
+  if (source.kind !== "predicate-observation") return false;
+  if (artifact.kind !== "evaluation-run" && artifact.kind !== "evaluation-attempt") return false;
+  return Object.values(artifact.value.predicate_results || {}).some(
+    (result) => result.observation_id === source.value.id,
+  );
+}
+
+export function validateCorrectionChain(artifacts, corrections) {
+  const errors = [];
+  const artifactIndex = new Map();
+  for (const [index, artifact] of (artifacts || []).entries()) {
+    const key = artifactKey(artifact.kind, artifact.value?.id);
+    if (artifactIndex.has(key)) {
+      errors.push(problem(
+        "DUPLICATE_CORRECTION_ARTIFACT",
+        `$.artifacts[${index}]`,
+        `Artifact ${key} is duplicated in the validation bundle.`,
+      ));
+    }
+    artifactIndex.set(key, artifact);
+  }
+
+  function resolveReference(reference, path) {
+    const key = artifactKey(reference?.kind, reference?.id);
+    const artifact = artifactIndex.get(key);
+    if (!artifact) {
+      errors.push(problem(
+        "CORRECTION_ARTIFACT_MISSING",
+        path,
+        `Referenced artifact ${key} is not present in the validation bundle.`,
+      ));
+      return null;
+    }
+    if (reference.checksum !== checksumJson(artifact.value)) {
+      errors.push(problem(
+        "CORRECTION_ARTIFACT_CHECKSUM_MISMATCH",
+        `${path}.checksum`,
+        `Referenced checksum does not match artifact ${key}.`,
+      ));
+    }
+    return artifact;
+  }
+
+  const correctionIds = new Set();
+  const outgoing = new Set();
+  const incoming = new Set();
+  const edges = new Map();
+  for (const [index, correction] of (corrections || []).entries()) {
+    const root = `$.corrections[${index}]`;
+    if (correctionIds.has(correction.id)) {
+      errors.push(problem(
+        "DUPLICATE_CORRECTION_ID",
+        `${root}.id`,
+        `Correction ID ${correction.id} is duplicated.`,
+      ));
+    }
+    correctionIds.add(correction.id);
+
+    const sourceKey = artifactKey(correction.corrects?.kind, correction.corrects?.id);
+    const replacementKey = artifactKey(
+      correction.replacement?.kind,
+      correction.replacement?.id,
+    );
+    if (outgoing.has(sourceKey)) {
+      errors.push(problem(
+        "CORRECTION_BRANCH",
+        `${root}.corrects`,
+        `Artifact ${sourceKey} already has a replacement in this chain.`,
+      ));
+    }
+    if (incoming.has(replacementKey)) {
+      errors.push(problem(
+        "CORRECTION_MERGE",
+        `${root}.replacement`,
+        `Artifact ${replacementKey} already replaces another artifact.`,
+      ));
+    }
+    outgoing.add(sourceKey);
+    incoming.add(replacementKey);
+    edges.set(sourceKey, replacementKey);
+
+    if (correction.corrects?.kind !== correction.replacement?.kind) {
+      errors.push(problem(
+        "CORRECTION_KIND_MISMATCH",
+        `${root}.replacement.kind`,
+        "A replacement must have the same artifact kind as its predecessor.",
+      ));
+    }
+    if (sourceKey === replacementKey) {
+      errors.push(problem(
+        "CORRECTION_SELF_REFERENCE",
+        `${root}.replacement`,
+        "A correction cannot replace an artifact with itself.",
+      ));
+    }
+
+    const source = resolveReference(correction.corrects, `${root}.corrects`);
+    const replacement = resolveReference(correction.replacement, `${root}.replacement`);
+    const invalidatedKeys = new Set();
+    const invalidatedArtifacts = [];
+    for (const [impactIndex, reference] of (correction.invalidates || []).entries()) {
+      const invalidated = resolveReference(reference, `${root}.invalidates[${impactIndex}]`);
+      if (invalidated) invalidatedArtifacts.push({ artifact: invalidated, impactIndex });
+      invalidatedKeys.add(artifactKey(reference.kind, reference.id));
+    }
+
+    if (source && replacement) {
+      if (!correctionScopeMatches(source, replacement)) {
+        errors.push(problem(
+          "CORRECTION_SCOPE_MISMATCH",
+          `${root}.replacement`,
+          "A correction must preserve the condition and predicate scope of its predecessor.",
+        ));
+      }
+      for (const { artifact: invalidated, impactIndex } of invalidatedArtifacts) {
+        if (!directlyDependsOn(invalidated, source)) {
+          errors.push(problem(
+            "CORRECTION_DOWNSTREAM_INVALIDATION_UNRELATED",
+            `${root}.invalidates[${impactIndex}]`,
+            "An invalidated artifact must directly consume the corrected artifact.",
+          ));
+        }
+      }
+      validateOrder(
+        errors,
+        artifactTime(source),
+        artifactTime(replacement),
+        "CORRECTION_REPLACEMENT_PREDATES_SOURCE",
+        `${root}.corrects`,
+        `${root}.replacement`,
+      );
+      validateOrder(
+        errors,
+        artifactTime(replacement),
+        correction.recorded_at,
+        "CORRECTION_RECORDED_BEFORE_REPLACEMENT",
+        `${root}.replacement`,
+        `${root}.recorded_at`,
+      );
+
+      for (const dependent of artifactIndex.values()) {
+        if (!directlyDependsOn(dependent, source)) continue;
+        const dependentKey = artifactKey(dependent.kind, dependent.value.id);
+        if (!invalidatedKeys.has(dependentKey)) {
+          errors.push(problem(
+            "CORRECTION_DOWNSTREAM_INVALIDATION_MISSING",
+            `${root}.invalidates`,
+            `Known downstream artifact ${dependentKey} consumed the corrected artifact.`,
+          ));
+        }
+      }
+    }
+  }
+
+  const visiting = new Set();
+  const visited = new Set();
+  function visit(node) {
+    if (visiting.has(node)) return true;
+    if (visited.has(node)) return false;
+    visiting.add(node);
+    const next = edges.get(node);
+    if (next && visit(next)) return true;
+    visiting.delete(node);
+    visited.add(node);
+    return false;
+  }
+  if ([...edges.keys()].some(visit)) {
+    errors.push(problem(
+      "CORRECTION_CYCLE",
+      "$.corrections",
+      "Correction edges must form acyclic, linear chains.",
+    ));
+  }
+
+  return { valid: errors.length === 0, errors };
+}

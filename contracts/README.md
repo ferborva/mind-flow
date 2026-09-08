@@ -11,7 +11,7 @@ is pre-release, and preserving a 1.x shape that mixed policy with mutable state
 would imply safety that it did not provide. There is no automatic 1.x
 compatibility claim.
 
-The protocol now separates three concerns:
+The protocol now separates operational concerns:
 
 1. `condition-contract.schema.json` defines immutable scope, predicates,
    evidence requirements, gates and governance. A material edit creates a new
@@ -22,7 +22,14 @@ The protocol now separates three concerns:
    fields to update inside a definition.
 3. `evaluation-run.schema.json` pins the exact condition definition and
    observations used, then records deterministic outputs and traces for all six
-   gates. A correction is a new observation and run.
+   gates. Only this completed, reproducible artifact is decision-ready.
+4. `evaluation-attempt.schema.json` preserves partial and failed work without
+   allowing it to masquerade as a completed run. A partial attempt has one to
+   five reproducible gate outputs and at least one operational error. A failed
+   attempt has errors but no successful gate output.
+5. `correction-record.schema.json` links a checksum-pinned artifact to a new
+   replacement, preserves the old artifact and declares known downstream
+   artifacts that must be invalidated.
 
 The action contract also pins the definition ID, version and checksum. The
 reference action is a fictional shadow proposal with conditional funding, no
@@ -84,6 +91,17 @@ coverage minimums, source and quality policy, uncertainty bounds, probability
 policy, action lifetime and funding lifetime. It also re-evaluates every gate
 and requires the stored state and trace to match exactly.
 
+`validateEvaluationAttempt` applies the same definition, observation, date and
+deterministic-output checks to the subset an attempt claims to have completed.
+An attempt is operational evidence only. It cannot satisfy the completed-run
+schema or authorize an action.
+
+`validateCorrectionChain` checks a supplied, closed artifact bundle. It verifies
+checksums, references, time order, preserved condition and predicate scope,
+linear acyclic replacement chains and explicit invalidation of every known run
+or attempt that directly consumed a corrected observation. A correction never
+edits its predecessor.
+
 `checksumJson` uses the project's sorted-key canonical JSON encoding. It is
 deterministic within this implementation, but it is not yet an interoperability
 claim such as RFC 8785.
@@ -96,7 +114,7 @@ npm run test:contracts
 npm test
 ```
 
-Tests compile all four schemas with Ajv's JSON Schema 2020-12 implementation,
+Tests compile all six schemas with Ajv's JSON Schema 2020-12 implementation,
 pass the valid fixtures, and prove that invalid state, scope, evidence, dates,
 references, traces, reversibility, appeals, SLAs and funding fail visibly.
 
@@ -131,13 +149,15 @@ cannot hide behind short-circuiting.
 
 ## Known limits before operational use
 
-- Append-only storage and correction chains require a persistence layer and are
-  not enforceable by JSON Schema.
+- Append-only storage is not enforceable by JSON Schema. Correction validation
+  can only reason over the history supplied to it, so a repository or ledger
+  must prevent edits and provide a complete artifact set.
+- Correction impact discovery currently covers direct observation consumers in
+  known runs and attempts. Transitive action, communication and external-system
+  invalidation remain orchestration responsibilities.
 - Checksums are recorded but source bytes, signatures and producer attestations
   are not yet verified.
 - Predicate observations are reasoned inputs. This package does not yet compute
   raw signal windows, thresholds, persistence or maximum age.
-- The evaluation-run contract records completed runs only. Failed or partially
-  available runs need a separate operational record.
 - Coverage units remain declared text. Cross-provider unit ontologies and
   conversion rules are not yet defined.
