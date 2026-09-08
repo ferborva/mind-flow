@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-01
+updated: 2026-09-08
 ---
 
 # Backlog
@@ -20,6 +20,59 @@ One question per turn when actually asking him. This list is the queue, not the
 script.
 
 ## Open
+
+### From the frame conversation, 2026-09-08
+
+The three at the top are the ones that block writing. The rest can wait.
+
+- [ ] **Does the sequencing concession kill the dated phases?** He said the
+      order conditions fall in cannot be planned. `from-if-to-when` runs on five
+      named phases with dates to 2055. My read is that the phases survive as
+      scenarios and the dashboard does the diagnosis, but he said both things
+      twenty minutes apart and never noticed. **The single most consequential
+      open question in the repo.**
+- [ ] **Are the five condition categories his?** Price, permission, proximity,
+      availability, capability, plus the discretion split. They are mine. He
+      liked them and repeated them back with one name changed, which is adoption
+      and not authorship. Either he names his own set or he says use these, and
+      until then they cannot appear in his voice as his invention.
+- [ ] **Piece one is specified and unwritten.** The shrug, the missing if, the
+      categories as a starting set, one worked example, the invitation. No
+      remedy, no crisis layer, no supply side. Around 1,500 words, for the
+      Moonshot crew and anyone else who would use the frame. Say go and it gets
+      drafted.
+- [ ] **What Wissner-Gross actually said.** "Everything will be unlimited",
+      have anything, learn anything, live forever, brain into digital space,
+      within ten years. Quoted from memory. The whole reversal argument stands on
+      those being real claims, and it is the one place the piece can be attacked
+      on a fact rather than an opinion. Needs episode and date.
+- [ ] **The Diamandis anecdote needs a source.** "Dad, it's just another model,
+      so what." It is proposed as the opening line of piece one, so it cannot be
+      a paraphrase of a half-remembered episode.
+- [ ] **Belgium, Spain, Australia, and the US as the breaker.** He wants the
+      healthcare example centred on the US with two sentences of contrast. He
+      says himself he knows the feel of the three systems and not the mechanics.
+      Research note needed before any figure reaches a draft.
+- [ ] **Does the Atlassian example stay attributed?** His employer, its internal
+      compliance posture, in a public repo. His words and mild, but it is the
+      first time work has appeared here as evidence. Keep, anonymise to "a large
+      enterprise", or cut?
+- [ ] **Where does recursion stop?** The supplier's if has a supplier. One level
+      is a demonstration, three is a research programme. He did not say.
+- [ ] **Which conditions are measurable today?** He mapped the frame onto goal /
+      signal / metric and then did not answer which conditions can actually be
+      instrumented. That answer is what separates a working observatory from a
+      schema.
+- [ ] **Does the state get its own form of the sentence?** Consumers get an if,
+      enterprises get a when. He has consistently refused to make this about
+      governments, and the healthcare example he picked is publicly supplied in
+      three of the four countries.
+- [ ] **Is Seldon in or out?** He wants the crisis-forecasting layer and has been
+      told twice it reads as prophecy. He has not answered either time.
+- [ ] **The "so what" he never answered.** He asked whether any of this changes
+      anything, called the answer a sermon, and moved on. Worth asking once,
+      properly, because it decides how much of this is for him and how much is
+      for them.
 
 ### Calibration
 
@@ -176,8 +229,8 @@ a read-through. The big ones:
 
 - [x] **The first real conversation.** 2026-09-01, the abundance rant. Six seeds
       and a draft out of one sitting. The machinery works.
-- [ ] **The second one.** Anything at all. A theme needs three separate captures
-      before it is real, and abundance currently has one.
+- [x] **The second one.** Resolved. Four captures now, abundance is an active
+      theme, and the fourth one argues with the first three.
 
 ## Answered
 
