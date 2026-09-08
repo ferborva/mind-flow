@@ -34,6 +34,7 @@ its attribution with it.
 
 | File | What it does |
 |---|---|
+| `2026-09-09-transition-crisis-point-register.md` | Defines nine candidate conversion failures, their rival paths, evidence roles, actor-specific WHENs, preparation boundaries and validation sequence |
 | `2026-09-08-early-warning-action-systems.md` | Maps warning, anticipatory-action and foresight practice into a contestable IF ladder, with explicit limits on the analogy |
 | `2026-09-08-integrity-audit.md` | Stops invalid claims, records corrected poverty-gap reasoning and defines the next validation programme |
 | `2026-09-08-thesis-debate.md` | Steelmans the conditional-abundance thesis and its strongest opposition proposition by proposition |
