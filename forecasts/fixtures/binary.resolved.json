@@ -55,8 +55,12 @@
     "status": "resolved",
     "outcome": 1,
     "resolved_at": "2027-08-15T00:00:00Z",
-    "source": "https://example.org/fictional-transition-survey/2027-q2",
-    "evidence_vintage": "fictional-2027-q2",
+    "evidence": {
+      "source": "https://example.org/fictional-transition-survey/2027-q2",
+      "retrieved_at": "2027-08-15T00:00:00Z",
+      "vintage": "fictional-2027-q2",
+      "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
     "notes": "Synthetic positive outcome for scoring tests."
   },
   "history": [

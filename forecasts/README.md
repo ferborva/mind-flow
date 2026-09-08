@@ -10,10 +10,19 @@ resolved later without rewriting the original probability or question.
 2. Name the cohort, geography, service, horizon and exact resolution source.
 3. Declare a naive or reference-class baseline at issue time.
 4. Store the issue commit and input checksums.
-5. Never overwrite issued substance. Append resolution or voiding evidence.
-6. Score every resolvable forecast, including misses.
-7. Publish calibration only after the sample is large enough to support it.
-8. Keep forecast quality separate from the usefulness or legitimacy of an
+5. Reject any input vintage retrieved after `issued_at`; otherwise later
+   evidence could leak into an apparently prospective forecast.
+6. Never overwrite issued substance. History begins with the issue event,
+   remains strictly chronological and only appends the matching resolution or
+   void event.
+7. Pin resolution evidence by source, retrieval time, vintage and SHA-256
+   checksum. Evidence cannot be retrieved after `resolved_at`.
+8. Resolve only inside the declared window, including `resolved_at <= resolve_by`.
+9. Use exact RFC 3339 instants with timezones and real calendar dates for every
+   lifecycle, history and evidence timestamp.
+10. Score every resolvable forecast, including misses.
+11. Publish calibration only after the sample is large enough to support it.
+12. Keep forecast quality separate from the usefulness or legitimacy of an
    action taken in response.
 
 Binary forecasts use Brier score and log loss. Brier skill compares the score

@@ -41,7 +41,7 @@
     "data_vintages": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/dataVintage" }
+      "items": { "$ref": "#/$defs/contentAddressedEvidence" }
     },
     "provenance": { "$ref": "#/$defs/provenance" },
     "assumptions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
@@ -111,7 +111,7 @@
       },
       "additionalProperties": false
     },
-    "dataVintage": {
+    "contentAddressedEvidence": {
       "type": "object",
       "required": ["source", "retrieved_at", "vintage", "checksum"],
       "properties": {
@@ -141,13 +141,12 @@
     },
     "resolvedResolution": {
       "type": "object",
-      "required": ["status", "outcome", "resolved_at", "source", "evidence_vintage"],
+      "required": ["status", "outcome", "resolved_at", "evidence"],
       "properties": {
         "status": { "const": "resolved" },
         "outcome": { "enum": [0, 1] },
         "resolved_at": { "type": "string", "format": "date-time" },
-        "source": { "type": "string", "format": "uri" },
-        "evidence_vintage": { "type": "string", "minLength": 1 },
+        "evidence": { "$ref": "#/$defs/contentAddressedEvidence" },
         "notes": { "type": "string" }
       },
       "additionalProperties": false

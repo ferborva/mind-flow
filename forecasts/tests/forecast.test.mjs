@@ -29,6 +29,10 @@ const schema = readJson(join(forecasts, "schema", "binary-forecast.schema.json")
 const issued = readJson(join(forecasts, "fixtures", "binary.issued.json"));
 const resolved = readJson(join(forecasts, "fixtures", "binary.resolved.json"));
 
+function withContentAddressedResolution(record = resolved) {
+  return structuredClone(record);
+}
+
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validate = ajv.compile(schema);
@@ -40,6 +44,8 @@ test("issued and resolved forecasts have a resolvable contract", () => {
   assert.ok(issued.target.resolution_source);
   assert.ok(issued.baseline.probability >= 0 && issued.baseline.probability <= 1);
   assert.ok(issued.probability >= 0 && issued.probability <= 1);
+  assert.match(resolved.resolution.evidence.checksum, /^sha256:[a-f0-9]{64}$/);
+  assert.ok(resolved.resolution.evidence.retrieved_at);
   assert.ok(Date.parse(issued.issued_at) < Date.parse(issued.resolve_after));
   assert.ok(Date.parse(issued.resolve_after) <= Date.parse(issued.resolve_by));
   assert.doesNotThrow(() => assertForecastSemantics(issued));
@@ -70,6 +76,100 @@ test("schema rejects vague, unbounded or retrospectively convenient forecasts", 
   const resolvedTooEarly = structuredClone(resolved);
   resolvedTooEarly.resolution.resolved_at = "2026-10-01T00:00:00Z";
   assert.throws(() => assertForecastSemantics(resolvedTooEarly), /resolution window/);
+});
+
+test("resolution evidence is content-addressed and schema-closed", () => {
+  const addressed = withContentAddressedResolution();
+  assert.equal(validate(addressed), true, ajv.errorsText(validate.errors));
+
+  for (const field of ["source", "retrieved_at", "vintage", "checksum"]) {
+    const incomplete = structuredClone(addressed);
+    delete incomplete.resolution.evidence[field];
+    assert.equal(validate(incomplete), false, `resolution evidence requires ${field}`);
+  }
+
+  const unpinned = structuredClone(addressed);
+  unpinned.resolution.evidence.checksum = "sha256:unverified";
+  assert.equal(validate(unpinned), false, "resolution evidence requires a SHA-256 content address");
+
+  const leakedField = structuredClone(addressed);
+  leakedField.resolution.evidence.internal_notes = "not registry evidence";
+  assert.equal(validate(leakedField), false, "resolution evidence rejects unknown fields");
+});
+
+test("issue-time data vintages cannot look ahead and timestamps stay exact", () => {
+  const lookAhead = structuredClone(issued);
+  lookAhead.data_vintages[0].retrieved_at = "2026-09-08T00:00:01Z";
+  assert.throws(() => assertForecastSemantics(lookAhead), /data vintage.*issued_at/i);
+
+  const invalidCalendarDate = structuredClone(issued);
+  invalidCalendarDate.data_vintages[0].retrieved_at = "2026-02-30T00:00:00Z";
+  assert.throws(() => assertForecastSemantics(invalidCalendarDate), /RFC 3339.*calendar/i);
+
+  const missingTimezone = structuredClone(issued);
+  missingTimezone.issued_at = "2026-09-08T00:00:00";
+  missingTimezone.history[0].at = missingTimezone.issued_at;
+  assert.throws(() => assertForecastSemantics(missingTimezone), /RFC 3339.*calendar/i);
+
+  const equivalentOffset = structuredClone(issued);
+  equivalentOffset.issued_at = "2026-09-08T10:00:00+10:00";
+  equivalentOffset.history[0].at = equivalentOffset.issued_at;
+  assert.doesNotThrow(() => assertForecastSemantics(equivalentOffset));
+});
+
+test("history starts at issue, is chronological, and matches lifecycle status", () => {
+  const wrongFirstEvent = structuredClone(issued);
+  wrongFirstEvent.history[0].event = "resolved";
+  assert.throws(() => assertForecastSemantics(wrongFirstEvent), /history.*begin.*issued/i);
+
+  const wrongIssueTime = structuredClone(issued);
+  wrongIssueTime.history[0].at = "2026-09-08T00:00:01Z";
+  assert.throws(() => assertForecastSemantics(wrongIssueTime), /history.*issued_at/i);
+
+  const simultaneousTransition = withContentAddressedResolution();
+  simultaneousTransition.history[1].at = simultaneousTransition.history[0].at;
+  assert.throws(() => assertForecastSemantics(simultaneousTransition), /history.*chronological/i);
+
+  const mismatchedTransitionTime = withContentAddressedResolution();
+  mismatchedTransitionTime.history[1].at = "2027-08-14T00:00:00Z";
+  assert.throws(() => assertForecastSemantics(mismatchedTransitionTime), /history.*resolved_at/i);
+
+  const transitionAfterResolution = withContentAddressedResolution();
+  transitionAfterResolution.history.push({
+    at: "2027-08-16T00:00:00Z",
+    event: "voided",
+    actor: "forecast test fixture",
+  });
+  assert.throws(() => assertForecastSemantics(transitionAfterResolution), /history.*status/i);
+
+  const contradictoryStatus = withContentAddressedResolution();
+  contradictoryStatus.status = "issued";
+  assert.throws(() => assertForecastSemantics(contradictoryStatus), /status.*resolution/i);
+});
+
+test("resolution stays inside its window and cannot rely on future evidence", () => {
+  const tooLate = withContentAddressedResolution();
+  tooLate.resolution.resolved_at = "2027-10-01T00:00:01Z";
+  tooLate.history[1].at = tooLate.resolution.resolved_at;
+  assert.throws(() => assertForecastSemantics(tooLate), /resolve_by/i);
+
+  const futureEvidence = withContentAddressedResolution();
+  futureEvidence.resolution.evidence.retrieved_at = "2027-08-15T00:00:01Z";
+  assert.throws(() => assertForecastSemantics(futureEvidence), /evidence.*resolved_at/i);
+
+  const impossibleEvidenceDate = withContentAddressedResolution();
+  impossibleEvidenceDate.resolution.evidence.retrieved_at = "2027-02-30T00:00:00Z";
+  assert.throws(() => assertForecastSemantics(impossibleEvidenceDate), /RFC 3339.*calendar/i);
+
+  const invalidChecksum = withContentAddressedResolution();
+  invalidChecksum.resolution.evidence.checksum = "sha256:unverified";
+  assert.throws(() => assertForecastSemantics(invalidChecksum), /evidence.*checksum/i);
+
+  const boundaryResolution = withContentAddressedResolution();
+  boundaryResolution.resolution.resolved_at = boundaryResolution.resolve_by;
+  boundaryResolution.resolution.evidence.retrieved_at = boundaryResolution.resolve_by;
+  boundaryResolution.history[1].at = boundaryResolution.resolve_by;
+  assert.doesNotThrow(() => assertForecastSemantics(boundaryResolution));
 });
 
 test("binary scores reward honest probability and compare with the baseline", () => {
@@ -112,6 +212,30 @@ test("issued forecast substance is immutable while resolution may be appended", 
     () => assertIssuedForecastImmutable(issued, rewrittenHistory),
     /history/,
   );
+
+  const invalidTransition = structuredClone(resolved);
+  invalidTransition.status = "issued";
+  assert.throws(
+    () => assertIssuedForecastImmutable(issued, invalidTransition),
+    /status.*resolution/i,
+  );
+
+  const voided = structuredClone(issued);
+  voided.status = "void";
+  voided.resolution = {
+    status: "void",
+    outcome: null,
+    voided_at: "2026-10-01T00:00:00Z",
+    reason: "Synthetic source retired before the resolution window.",
+  };
+  voided.history.push({
+    at: voided.resolution.voided_at,
+    event: "voided",
+    actor: "forecast test fixture",
+  });
+  assert.equal(validate(voided), true, ajv.errorsText(validate.errors));
+  assert.doesNotThrow(() => assertForecastSemantics(voided));
+  assert.doesNotThrow(() => assertIssuedForecastImmutable(issued, voided));
 });
 
 test("unresolved or void forecasts cannot be scored as outcomes", () => {
