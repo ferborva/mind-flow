@@ -1,0 +1,564 @@
+{
+  "ledger_version": "1.0.0",
+  "created_at": "2026-09-08",
+  "author": "Ren",
+  "provenance": "agent-analysis",
+  "endorsement": "Not Fernando's opinion. Claims and dispositions require his review before becoming his substance.",
+  "scope": [
+    "drafts/abundance-has-an-if.md",
+    "drafts/from-if-to-when.md",
+    "research/2026-09-07-transition-control-system.md",
+    "dashboard/snapshots/2026-09-07.json"
+  ],
+  "disposition_definitions": {
+    "stop_line": "Do not repeat publicly until corrected or validated.",
+    "reconstruct": "The question is useful but the current measure is not valid for it.",
+    "test": "Keep explicitly as a hypothesis with a registered validation path.",
+    "retain_scoped": "Retain only with the scope and caveats in this ledger.",
+    "missing": "Required for the project goal but absent from the current instrument."
+  },
+  "evidence_grades": {
+    "A": "Direct primary data or a validated official measure appropriate to the claim.",
+    "B": "Strong primary research or official modelling with material limitations.",
+    "C": "Indirect evidence, analogy, partial construct validity or unvalidated extrapolation.",
+    "D": "Unsupported, invalidly measured or contradicted by the method used."
+  },
+  "claims": [
+    {
+      "id": "MF-C001",
+      "title": "Capability promises contain conditions",
+      "claim": "Every meaningful promise of capability or agency is conditional on one or more technical, economic, institutional, operational, human, ecological or geopolitical factors.",
+      "claim_class": "conceptual",
+      "origin": "Fernando-originated framing",
+      "locations": ["drafts/abundance-has-an-if.md"],
+      "disposition": "retain_scoped",
+      "evidence_grade": "C",
+      "rationale": "This is a strong organising grammar, not yet an established universal empirical law.",
+      "counter_hypotheses": [
+        "Some capabilities are sufficiently unconditional that the added IFs do not change meaningful access.",
+        "The useful unit is an outcome-production system rather than a capability promise."
+      ],
+      "falsifiers": [
+        "Repeated service studies find that the proposed condition taxonomy does not explain observed access failures.",
+        "Independent reviewers cannot classify real access paths consistently using the IF grammar."
+      ],
+      "next_test": "Encode ten services with independent reviewers and measure agreement, omitted conditions and decision usefulness.",
+      "source_refs": []
+    },
+    {
+      "id": "MF-C002",
+      "title": "Money is the biggest IF",
+      "claim": "Affordability is currently the dominant constraint on broad human access.",
+      "claim_class": "empirical-generalisation",
+      "origin": "Fernando-originated claim",
+      "locations": ["drafts/abundance-has-an-if.md"],
+      "disposition": "test",
+      "evidence_grade": "C",
+      "rationale": "Poverty and financial-hardship evidence supports importance, but dominance varies by service, cohort and jurisdiction.",
+      "counter_hypotheses": [
+        "Capacity, eligibility, information, distance, quality or trust dominates for important services.",
+        "A condition called affordability is partly a symptom of unequal income, ownership and public provision."
+      ],
+      "falsifiers": [
+        "Removing consumer financial burden leaves effective use and outcomes mostly unchanged.",
+        "Service funnels repeatedly identify a non-financial stage as the largest loss."
+      ],
+      "next_test": "Estimate service-level access funnels for the pilot cohort and compare losses by condition.",
+      "source_refs": ["SRC-PIP-20260324", "SRC-WHO-UHC-2025"]
+    },
+    {
+      "id": "MF-C003",
+      "title": "$30 a day is a developed-world floor",
+      "claim": "$30 per day in 2021 PPP is a defensible developed-world floor and 80% below it are on the wrong side of the money condition.",
+      "claim_class": "threshold-and-description",
+      "origin": "agent-supported draft claim",
+      "locations": ["drafts/abundance-has-an-if.md", "drafts/from-if-to-when.md"],
+      "disposition": "reconstruct",
+      "evidence_grade": "C",
+      "rationale": "PIP can estimate the headcount at a chosen line, but $30 is not an official developed-world floor and survey welfare can be income or consumption. A headcount does not establish effective access.",
+      "counter_hypotheses": [
+        "Local reference budgets and observed deprivation classify adequate living standards differently.",
+        "Public and household production permits effective access below the selected monetary line."
+      ],
+      "falsifiers": [
+        "The $30 classification has weak agreement with material deprivation and service-access outcomes.",
+        "Sensitivity to PPP vintage, welfare concept or threshold reverses the public conclusion."
+      ],
+      "next_test": "Compare $30 headcounts with local reference-budget shortfalls and deprivation outcomes across representative countries.",
+      "source_refs": ["SRC-PIP-20260324", "SRC-EC-REFERENCE-BUDGETS", "SRC-EUSILC-2019-1700"]
+    },
+    {
+      "id": "MF-C004",
+      "title": "Global uplift costs 62% of GDP",
+      "claim": "Lifting 6.64 billion people below $30 per day to that level costs $72.7 trillion per year, about 62% of global GDP.",
+      "claim_class": "derived-quantitative",
+      "origin": "agent-derived research claim",
+      "locations": ["research/2026-09-07-abundance-figures.md", "drafts/from-if-to-when.md", "meta/backlog.md"],
+      "disposition": "stop_line",
+      "evidence_grade": "D",
+      "rationale": "The calculation applies the full threshold to every person below it, equivalent to assuming zero resources for all. It must sum shortfalls from the line.",
+      "counter_hypotheses": [
+        "The aggregate poverty gap is materially smaller than the full-line-times-headcount estimate.",
+        "Income, consumption, in-kind provision and behavioural responses make a static transfer calculation incomplete."
+      ],
+      "falsifiers": [
+        "A reproducible PIP distribution calculation using the correct poverty-gap definition produces the same estimate within a predeclared tolerance."
+      ],
+      "next_test": "Compute the aggregate shortfall from PIP version 20260324_2021 and publish code, welfare concepts, coverage and uncertainty.",
+      "source_refs": ["SRC-PIP-20260324", "SRC-WB-POVERTY-GAP"]
+    },
+    {
+      "id": "MF-C005",
+      "title": "Only cost collapse closes the gap",
+      "claim": "The only arithmetic capable of closing the global access gap is the cost of a decent life falling.",
+      "claim_class": "causal-and-exclusionary",
+      "origin": "commissioned proposal",
+      "locations": ["drafts/from-if-to-when.md"],
+      "disposition": "stop_line",
+      "evidence_grade": "D",
+      "rationale": "The conclusion relies partly on MF-C004 and excludes mixed mechanisms without comparison.",
+      "counter_hypotheses": [
+        "A portfolio of earnings, transfers, public provision, ownership reform, productivity and lower costs closes the gap.",
+        "For capacity-constrained services, more funding and supply matter more than marginal cost collapse."
+      ],
+      "falsifiers": [
+        "Cross-country or microsimulation evidence shows feasible mixed mechanisms reaching the selected access floor without broad cost collapse."
+      ],
+      "next_test": "Compare policy and production portfolios using distributional microsimulation and service-capacity constraints.",
+      "source_refs": ["SRC-IMF-SDN-2024-002", "SRC-WHO-UHC-2025"]
+    },
+    {
+      "id": "MF-C006",
+      "title": "Wages and prices are the transmission channels",
+      "claim": "Productivity gains reach households through wages or prices.",
+      "claim_class": "causal-model",
+      "origin": "Fernando-endorsed framing, later expanded in the commissioned proposal",
+      "locations": ["capture/2026-09-07-endorsing-the-red-team.md", "drafts/from-if-to-when.md"],
+      "disposition": "reconstruct",
+      "evidence_grade": "C",
+      "rationale": "Transfers, taxes, self-employment, capital income, debt, wealth, public provision, household production and time costs also transmit or block gains.",
+      "counter_hypotheses": [
+        "Public provision is the dominant transmission channel for some essential services.",
+        "Ownership and capital income dominate gains for some households while liabilities absorb gains for others."
+      ],
+      "falsifiers": [
+        "A complete household accounting decomposition shows omitted channels are quantitatively negligible across relevant cohorts."
+      ],
+      "next_test": "Build a full household resource and service-provision identity before choosing headline channels.",
+      "source_refs": ["SRC-OECD-WELLBEING-2024", "SRC-EUSILC-2019-1700"]
+    },
+    {
+      "id": "MF-C007",
+      "title": "The world is not in an Engels' Pause",
+      "claim": "World real GDP per capita and derived real labour income per capita differed by 3.5 index points from 2004 to 2025, so the world is not in an Engels' Pause.",
+      "claim_class": "derived-descriptive-and-analogy",
+      "origin": "agent-derived dashboard claim",
+      "locations": ["dashboard/README.md", "dashboard/snapshots/2026-09-07.json", "research/2026-09-07-red-team-the-observatory.md"],
+      "disposition": "reconstruct",
+      "evidence_grade": "C",
+      "rationale": "The two lines are dimensionally consistent with each other, but not like-for-like with output per worker and real wages in Allen. GDP deflation, composition, modelling and cohort aggregation limit the inference.",
+      "counter_hypotheses": [
+        "Specific occupations, regions or income groups are already experiencing pause-like divergence hidden by the world average.",
+        "Household purchasing-power income diverges more than GDP-deflated aggregate labour income."
+      ],
+      "falsifiers": [
+        "Like-for-like cohort measures with household deflation and uncertainty confirm broad tracking across exposed groups.",
+        "Alternative aggregation and vintage choices leave the conclusion unchanged."
+      ],
+      "next_test": "Decompose by employment, hours, real hourly compensation, population and cohort, then compare with a reconstructed historical benchmark.",
+      "source_refs": ["SRC-ILO-LABOUR-SHARE-2019", "SRC-ALLEN-2009"]
+    },
+    {
+      "id": "MF-C008",
+      "title": "Access is the product of five factors",
+      "claim": "Access equals availability multiplied by affordability, eligibility, quality and delivery, and becomes zero if any factor is zero.",
+      "claim_class": "measurement-model",
+      "origin": "commissioned proposal",
+      "locations": ["drafts/from-if-to-when.md", "research/2026-09-07-transition-control-system.md"],
+      "disposition": "reconstruct",
+      "evidence_grade": "D",
+      "rationale": "The dimensions are useful, but multiplying unlike scores without a common conditional-probability interpretation creates fake precision and hidden weighting.",
+      "counter_hypotheses": [
+        "A sequential service funnel identifies access losses more faithfully.",
+        "Different dimensions are partly substitutable or jointly determined rather than independent."
+      ],
+      "falsifiers": [
+        "Each term is estimated as a conditional probability for the same need, cohort, service and period, and the product validates against realised effective access."
+      ],
+      "next_test": "Construct one service funnel and validate predicted access against observed use and outcome.",
+      "source_refs": ["SRC-WHO-UHC-2025", "SRC-EC-JRC-COMPOSITES"]
+    },
+    {
+      "id": "MF-C009",
+      "title": "Zero-cost count measures abundance",
+      "claim": "The number of products and services at near-zero consumer or delivery cost is an appropriate target for abundance.",
+      "claim_class": "measurement-model",
+      "origin": "Fernando-originated metric, definition agent-proposed",
+      "locations": ["seeds/the-zero-cost-count.md", "dashboard/snapshots/2026-09-07.json"],
+      "disposition": "reconstruct",
+      "evidence_grade": "D",
+      "rationale": "A count ignores relevance, reach, outcome and costs shifted to taxpayers, advertisers, data, attention, time, unpaid labour or nature.",
+      "counter_hypotheses": [
+        "Effective-access coverage by important outcome better reflects abundance.",
+        "Required labour hours or total social cost is more decision-useful than a binary zero threshold."
+      ],
+      "falsifiers": [
+        "The count predicts independently measured access, agency and well-being after controlling for service mix and population reach."
+      ],
+      "next_test": "Compare count, cost-to-outcome, coverage and consumer-time measures across a pilot basket.",
+      "source_refs": ["SRC-OECD-DIGITAL-GDP", "SRC-WHO-UHC-2025"]
+    },
+    {
+      "id": "MF-C010",
+      "title": "The binding IF migrates to permission",
+      "claim": "As technical cost falls, legality, identity, jurisdiction and certification become the primary access constraints for many services.",
+      "claim_class": "predictive",
+      "origin": "commissioned proposal",
+      "locations": ["drafts/from-if-to-when.md"],
+      "disposition": "test",
+      "evidence_grade": "C",
+      "rationale": "Plausible for regulated services, but service-specific and confounded with capacity, trust, quality and infrastructure.",
+      "counter_hypotheses": [
+        "Physical capacity, complements and quality remain binding after digital costs fall.",
+        "Regulation harmonises as capability diffuses, so permission gaps narrow."
+      ],
+      "falsifiers": [
+        "Across low-cost services, non-permission constraints consistently explain more unmet need.",
+        "Cross-jurisdiction eligibility variance falls after cost decline."
+      ],
+      "next_test": "Track a single regulated service across jurisdictions and estimate condition-specific losses over time.",
+      "source_refs": ["SRC-WHO-UHC-2025", "SRC-UN-SDG-METADATA-2026"]
+    },
+    {
+      "id": "MF-C011",
+      "title": "ADKAR phases describe civilisation-scale transition",
+      "claim": "Awareness, Desire, Knowledge, Ability and Reinforcement provide the right sequence for a multi-decade social transition.",
+      "claim_class": "analogy-and-planning-model",
+      "origin": "Fernando-requested framework, agent extrapolation",
+      "locations": ["drafts/from-if-to-when.md", "research/2026-09-07-transition-precedents-and-adkar.md"],
+      "disposition": "retain_scoped",
+      "evidence_grade": "C",
+      "rationale": "ADKAR is an individual and organisational change tool. Cohort desynchronisation is useful; macro phase prediction is not validated.",
+      "counter_hypotheses": [
+        "Technology diffusion, institutional capacity or political conflict predicts transition better.",
+        "Cohorts move non-sequentially and regress in ways the phase model obscures."
+      ],
+      "falsifiers": [
+        "Observed cohorts do not pass through the stages in the proposed order.",
+        "Alternative models produce better out-of-sample transition forecasts."
+      ],
+      "next_test": "Use ADKAR only as a communication diagnostic and compare it with diffusion and institutional-readiness models.",
+      "source_refs": []
+    },
+    {
+      "id": "MF-C012",
+      "title": "Five crisis crossings forecast social response",
+      "claim": "Credibility, local displacement, legitimacy, essential work and permission-border breaks are the principal foreseeable transition crises.",
+      "claim_class": "scenario-taxonomy",
+      "origin": "commissioned proposal",
+      "locations": ["drafts/from-if-to-when.md", "dashboard/snapshots/2026-09-07.json"],
+      "disposition": "test",
+      "evidence_grade": "C",
+      "rationale": "These are coherent scenarios, not validated forecasts. Ecological, fiscal, security, model-failure, misinformation and democratic-governance paths may be missing.",
+      "counter_hypotheses": [
+        "Different crises dominate or the five categories are consequences rather than forecastable events.",
+        "The proposed leading signals fire too late or too often to support action."
+      ],
+      "falsifiers": [
+        "Historical backtests show poor lead time, low discrimination or unacceptable false-alarm costs.",
+        "Prospective observations are better explained by omitted crisis pathways."
+      ],
+      "next_test": "Backtest each pathway against automation, industrial closure, pandemic and cost-of-living episodes before setting thresholds.",
+      "source_refs": ["SRC-WB-ASP-2020", "SRC-ILO-SOCIAL-DIALOGUE-2025"]
+    },
+    {
+      "id": "MF-C013",
+      "title": "Pre-committed triggers improve transition outcomes",
+      "claim": "Public thresholds with pre-agreed owners, actions and finance will reduce harm from transition shocks.",
+      "claim_class": "causal-policy",
+      "origin": "commissioned proposal",
+      "locations": ["research/2026-09-07-transition-control-system.md", "drafts/from-if-to-when.md"],
+      "disposition": "test",
+      "evidence_grade": "B",
+      "rationale": "Adaptive social protection supports the mechanism for recurrent shocks, but transferability to AI labour shocks and false-alarm costs are unknown.",
+      "counter_hypotheses": [
+        "Rigid triggers are gamed, activate too late or crowd out better discretionary judgement.",
+        "Political and delivery capacity, rather than trigger design, determines outcomes."
+      ],
+      "falsifiers": [
+        "Backtests and rehearsals show more delay, exclusion or net harm than a transparent discretionary baseline."
+      ],
+      "next_test": "Compare candidate rules through historical backtests and a tabletop with delivery operators and affected workers.",
+      "source_refs": ["SRC-WB-ASP-2020", "SRC-WB-DIGITAL-DELIVERY-2025"]
+    },
+    {
+      "id": "MF-C014",
+      "title": "Positive agency is a required outcome",
+      "claim": "The Observatory must measure gained choice and capability, not only avoided crisis and material consumption.",
+      "claim_class": "normative-measurement-requirement",
+      "origin": "user-commissioned goal, operationalised by Ren",
+      "locations": [],
+      "disposition": "missing",
+      "evidence_grade": "B",
+      "rationale": "The current instrument is hazard-heavy and can report safety while autonomy, time, voice, connection or environmental sustainability deteriorates.",
+      "counter_hypotheses": [
+        "Material access alone is a sufficient operational proxy for agency.",
+        "Subjective choice measures are too unstable for decision use."
+      ],
+      "falsifiers": [
+        "Agency measures add no predictive or explanatory value for well-being, consent or resilience beyond material access."
+      ],
+      "next_test": "Add desired versus actual time use, perceived control, civic voice, learning access and service choice to the pilot validation set.",
+      "source_refs": ["SRC-OECD-WELLBEING-2024", "SRC-UNDP-HDR-2025"]
+    },
+    {
+      "id": "MF-C015",
+      "title": "Headline CPI must become negative",
+      "claim": "Abundance requires consumer price inflation to become negative for real household baskets.",
+      "claim_class": "measurement-interpretation",
+      "origin": "agent-authored dashboard interpretation",
+      "locations": ["dashboard/snapshots/2026-09-07.json"],
+      "disposition": "stop_line",
+      "evidence_grade": "D",
+      "rationale": "Target outcomes can become cheaper in quality-adjusted or labour-time terms while aggregate CPI remains positive.",
+      "counter_hypotheses": [
+        "Broad access improves through income and quality gains with stable positive aggregate inflation.",
+        "Demonetised digital services are poorly represented in expenditure-weighted CPI."
+      ],
+      "falsifiers": [
+        "Across countries and periods, broad effective-access gains occur only alongside negative household-basket inflation."
+      ],
+      "next_test": "Measure service-specific money and time cost per effective outcome beside household-type living-cost indexes.",
+      "source_refs": ["SRC-ABS-SLCI-2026Q2", "SRC-OECD-DIGITAL-GDP"]
+    },
+    {
+      "id": "MF-C016",
+      "title": "Participation measures choosing to work",
+      "claim": "Labour-force participation is the closest available proxy for whether needs being met causes people to choose not to work.",
+      "claim_class": "measurement-interpretation",
+      "origin": "agent-authored dashboard interpretation",
+      "locations": ["dashboard/snapshots/2026-09-07.json"],
+      "disposition": "stop_line",
+      "evidence_grade": "D",
+      "rationale": "Participation combines retirement, education, disability, caring, discouragement, policy, migration and voluntary choice.",
+      "counter_hypotheses": [
+        "Participation declines because people cannot find suitable work or cannot combine work with care.",
+        "Working hours, job quality and desired hours change before participation."
+      ],
+      "falsifiers": [
+        "Linked survey evidence shows participation changes are dominated by secure voluntary withdrawal in the relevant cohort."
+      ],
+      "next_test": "Use reasons for non-participation, desired hours, job-search status, security and longitudinal transitions.",
+      "source_refs": ["SRC-OECD-WELLBEING-2024"]
+    },
+    {
+      "id": "MF-C017",
+      "title": "Eight instruments do not exist",
+      "claim": "Access margin, transition speed, concentration, preparedness, trust and cross-border access are unmeasured because the instruments do not exist.",
+      "claim_class": "data-availability",
+      "origin": "agent-authored dashboard status",
+      "locations": ["dashboard/README.md", "dashboard/snapshots/2026-09-07.json"],
+      "disposition": "reconstruct",
+      "evidence_grade": "D",
+      "rationale": "Partial official instruments exist. The honest statuses are not defined, not integrated, inaccessible, stale, not comparable or not validated.",
+      "counter_hypotheses": [
+        "Existing datasets can answer useful narrower versions of each question.",
+        "The missing object is a join and validation protocol rather than an instrument."
+      ],
+      "falsifiers": [
+        "A documented search finds no usable component measures for a precisely scoped service, cohort and jurisdiction."
+      ],
+      "next_test": "Create a source inventory and replace binary measurement status with a data-readiness state machine.",
+      "source_refs": ["SRC-JSA-GENAI-2025", "SRC-OECD-WELLBEING-2024", "SRC-WB-DIGITAL-DELIVERY-2025", "SRC-EUSILC-2019-1700"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "SRC-PIP-20260324",
+      "publisher": "World Bank",
+      "title": "Poverty and Inequality Platform",
+      "version_or_period": "20260324_2021; 2021 PPP",
+      "url": "https://pip.worldbank.org/about",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-WB-POVERTY-GAP",
+      "publisher": "World Bank",
+      "title": "Poverty gap at $3.00 a day (2021 PPP), metadata",
+      "version_or_period": "WDI SI.POV.GAPS",
+      "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SI.POV.GAPS",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-ILO-LABOUR-SHARE-2019",
+      "publisher": "International Labour Organization",
+      "title": "The global labour income share and distribution: Methodological description",
+      "version_or_period": "July 2019",
+      "url": "https://www.ilo.org/publications/global-labour-income-share-and-distribution-methodological-description",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-ILO-GENAI-2025",
+      "publisher": "International Labour Organization",
+      "title": "Generative AI and Jobs: A Refined Global Index of Occupational Exposure",
+      "version_or_period": "Working Paper 140; 20 May 2025",
+      "url": "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-IMF-SDN-2024-001",
+      "publisher": "International Monetary Fund",
+      "title": "Gen-AI: Artificial Intelligence and the Future of Work",
+      "version_or_period": "Staff Discussion Note 2024/001; DOI 10.5089/9798400262548.006",
+      "url": "https://www.elibrary.imf.org/view/journals/006/2024/001/article-A001-en.xml",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-IMF-SDN-2024-002",
+      "publisher": "International Monetary Fund",
+      "title": "Broadening the Gains from Generative AI: The Role of Fiscal Policies",
+      "version_or_period": "Staff Discussion Note 2024/002; DOI 10.5089/9798400277177.006",
+      "url": "https://www.imf.org/en/Publications/Staff-Discussion-Notes/Issues/2024/06/11/Broadening-the-Gains-from-Generative-AI-The-Role-of-Fiscal-Policies-549639",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-JSA-GENAI-2025",
+      "publisher": "Jobs and Skills Australia",
+      "title": "Australia's AI Transition: Jobs, Skills and the Future of Work",
+      "version_or_period": "Final detailed release; 30 September 2025",
+      "url": "https://www.jobsandskills.gov.au/studies/generative-artificial-intelligence-capacity-study",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-ABS-AI-2024-25",
+      "publisher": "Australian Bureau of Statistics",
+      "title": "Characteristics of Australian Business",
+      "version_or_period": "2024-25 financial year",
+      "url": "https://www.abs.gov.au/statistics/industry/technology-and-innovation/characteristics-australian-business/latest-release",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-ABS-SLCI-2026Q2",
+      "publisher": "Australian Bureau of Statistics",
+      "title": "Selected Living Cost Indexes, Australia",
+      "version_or_period": "June quarter 2026; methodology includes 2023-24 HFCE and 2015-16 HES inputs",
+      "url": "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/selected-living-cost-indexes-australia",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-OECD-WELLBEING-2024",
+      "publisher": "Organisation for Economic Co-operation and Development",
+      "title": "How's Life? 2024",
+      "version_or_period": "2024 edition; DOI 10.1787/90ba854a-en",
+      "url": "https://www.oecd.org/en/publications/how-s-life-2024_90ba854a-en.html",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-WHO-UHC-2025",
+      "publisher": "World Health Organization and World Bank",
+      "title": "Monitoring universal health coverage",
+      "version_or_period": "2025 framework; service coverage through 2023 and financial hardship through 2022",
+      "url": "https://www.who.int/data/monitoring-universal-health-coverage",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-EC-REFERENCE-BUDGETS",
+      "publisher": "European Commission",
+      "title": "Reference budgets",
+      "version_or_period": "European Reference Budgets Network methodology",
+      "url": "https://employment-social-affairs.ec.europa.eu/policies-and-activities/social-protection-social-inclusion/addressing-poverty-and-supporting-social-inclusion/active-inclusion/minimum-income/reference-budgets_en",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-EUSILC-2019-1700",
+      "publisher": "Eurostat",
+      "title": "EU Statistics on Income and Living Conditions methodology",
+      "version_or_period": "Framework under Regulation EU 2019/1700",
+      "url": "https://ec.europa.eu/eurostat/web/income-and-living-conditions/methodology",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-WB-ASP-2020",
+      "publisher": "World Bank",
+      "title": "Adaptive Social Protection: Building Resilience to Shocks",
+      "version_or_period": "2020 framework",
+      "url": "https://www.worldbank.org/en/publication/human-capital/publication/adaptive-social-protection-building-resilience-to-shocks-key-findings",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-WB-DIGITAL-DELIVERY-2025",
+      "publisher": "World Bank",
+      "title": "Digital Delivery Systems for Social Protection",
+      "version_or_period": "19 September 2025",
+      "url": "https://www.worldbank.org/en/brief/2025/09/19/digital-delivery-systems",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-ILO-SOCIAL-DIALOGUE-2025",
+      "publisher": "International Labour Organization",
+      "title": "Global case studies of social dialogue on AI and algorithmic management",
+      "version_or_period": "Working Paper 144; 10 July 2025; DOI 10.54394/VOQE4924",
+      "url": "https://www.ilo.org/publications/global-case-studies-social-dialogue-ai-and-algorithmic-management",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-EC-JRC-COMPOSITES",
+      "publisher": "European Commission Joint Research Centre",
+      "title": "Composite indicators: Step 8 sensitivity analysis",
+      "version_or_period": "Updated 1 December 2020",
+      "url": "https://knowledge4policy.ec.europa.eu/composite-indicators/toolkit_en/navigation-page/10-step-guide_en/step-8-sensitivity-analysis_en",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-OECD-DIGITAL-GDP",
+      "publisher": "Organisation for Economic Co-operation and Development",
+      "title": "Measuring GDP in a Digitalised Economy",
+      "version_or_period": "OECD Statistics Working Paper 2016/07",
+      "url": "https://www.oecd.org/en/publications/measuring-gdp-in-a-digitalised-economy_5jlwqd81d09r-en.html",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-UNDP-HDR-2025",
+      "publisher": "United Nations Development Programme",
+      "title": "Human Development Report 2025: A matter of choice",
+      "version_or_period": "2025 edition",
+      "url": "https://hdr.undp.org/content/human-development-report-2025",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-UN-SDG-METADATA-2026",
+      "publisher": "United Nations Statistics Division",
+      "title": "SDG Indicators Metadata Repository",
+      "version_or_period": "Metadata current 24 August 2026",
+      "url": "https://unstats.un.org/sdgs/metadata/",
+      "retrieved": "2026-09-08"
+    },
+    {
+      "id": "SRC-ALLEN-2009",
+      "publisher": "Explorations in Economic History",
+      "title": "Engels' pause: Technical change, capital accumulation, and inequality in the British industrial revolution",
+      "version_or_period": "Robert C. Allen; 2009",
+      "url": "https://www.nuff.ox.ac.uk/Users/Allen/engelspause.pdf",
+      "retrieved": "2026-09-08"
+    }
+  ],
+  "validation_order": [
+    "MF-C004",
+    "MF-C005",
+    "MF-C008",
+    "MF-C015",
+    "MF-C016",
+    "MF-C006",
+    "MF-C007",
+    "MF-C017",
+    "MF-C009",
+    "MF-C002",
+    "MF-C003",
+    "MF-C010",
+    "MF-C012",
+    "MF-C013",
+    "MF-C001",
+    "MF-C014",
+    "MF-C011"
+  ]
+}
