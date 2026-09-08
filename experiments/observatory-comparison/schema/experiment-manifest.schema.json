@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/experiments/observatory-comparison/experiment-manifest/1-0-0",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/experiment-manifest/1-1-0",
   "title": "Observatory comparison research manifest",
   "description": "A closed, content-addressed proposal manifest. Conformance can establish declared input parity, not rendered parity, ethics approval, empirical truth or recruitment authority.",
   "type": "object",
@@ -16,7 +16,7 @@
     "contract_boundary"
   ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "manifest_id": { "$ref": "#/$defs/id" },
     "classification": { "const": "synthetic-research-proposal" },
     "protocol_ref": { "$ref": "#/$defs/protocolRef" },
@@ -31,13 +31,14 @@
     "safety": { "$ref": "#/$defs/safety" },
     "contract_boundary": {
       "type": "object",
-      "required": ["truth_effect", "authority_effect", "ethics_approval_effect", "recruitment_effect", "parity_effect"],
+      "required": ["truth_effect", "authority_effect", "ethics_approval_effect", "recruitment_effect", "parity_effect", "source_projection_effect"],
       "properties": {
         "truth_effect": { "const": "none" },
         "authority_effect": { "const": "none" },
         "ethics_approval_effect": { "const": "none" },
         "recruitment_effect": { "const": "none" },
-        "parity_effect": { "const": "declared-input-binding-only" }
+        "parity_effect": { "const": "declared-input-binding-only" },
+        "source_projection_effect": { "const": "coherent-pre-projection-core-only" }
       },
       "additionalProperties": false
     }
@@ -94,9 +95,11 @@
     },
     "sourceBundleRef": {
       "type": "object",
-      "required": ["bundle_id", "path", "sha256"],
+      "required": ["bundle_id", "bundle_stage", "schema_version", "path", "sha256"],
       "properties": {
         "bundle_id": { "$ref": "#/$defs/id" },
+        "bundle_stage": { "const": "pre-projection-core" },
+        "schema_version": { "const": "1.2.0" },
         "path": { "$ref": "#/$defs/path" },
         "sha256": { "$ref": "#/$defs/sha256" }
       },

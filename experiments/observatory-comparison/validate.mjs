@@ -98,6 +98,12 @@ const REQUIRED_BOUNDARIES = [
   "strongest-challenge",
   "correction-route",
 ];
+const IF_STATES = ["true", "false", "unknown", "stale", "conflicted"];
+const FORBIDDEN_SUCCESS_ENDPOINTS = new Set([
+  "aesthetic-preference",
+  "perceived-authority",
+  "uncalibrated-confidence",
+]);
 
 function error(code, path, message) {
   return { code, path, message };
@@ -115,6 +121,14 @@ function sameReference(left, right) {
 
 function sameFileReference(left, right) {
   return left?.artifact_id === right?.artifact_id
+    && left?.path === right?.path
+    && left?.sha256 === right?.sha256;
+}
+
+function sameSourceBundleReference(left, right) {
+  return left?.bundle_id === right?.bundle_id
+    && left?.bundle_stage === right?.bundle_stage
+    && left?.schema_version === right?.schema_version
     && left?.path === right?.path
     && left?.sha256 === right?.sha256;
 }
@@ -173,7 +187,7 @@ export function assessSourceFactBinding(sourceBundle, factPack) {
   const errors = [];
   const sourceCanonical = sourceBundle?.canonical;
   const factCanonical = factPack?.canonical;
-  if (sourceBundle?.bundle_stage !== "complete-core"
+  if (sourceBundle?.bundle_stage !== "pre-projection-core"
     || sourceCanonical?.root_role !== "agency-map"
     || !Array.isArray(sourceCanonical?.condition_ids)
     || sourceCanonical.condition_ids.length === 0
@@ -182,11 +196,17 @@ export function assessSourceFactBinding(sourceBundle, factPack) {
       !== "/outcome_scope/condition_logic"
     || !sourceCanonical?.scope_manifest_ref?.scope_manifest_id
     || !sourceCanonical?.scope_manifest_ref?.path
-    || !sourceCanonical?.scope_manifest_ref?.sha256) {
+    || !sourceCanonical?.scope_manifest_ref?.sha256
+    || sourceCanonical?.executable_if_ref?.artifact_role !== "executable-if-kernel"
+    || !sourceCanonical?.executable_if_ref?.kernel_id
+    || !sourceCanonical?.executable_if_ref?.manifest_hash
+    || !Array.isArray(sourceCanonical?.executable_if_ref?.active_condition_definition_refs)
+    || sourceCanonical.executable_if_ref.active_condition_definition_refs.length === 0
+    || !sourceCanonical?.executable_if_ref?.evidence_state_ref?.evidence_state_hash) {
     errors.push(error(
       "SOURCE_CANONICAL_CONTRACT_INVALID",
       "$.source_transition_bundle.canonical",
-      "The source must expose the fixed complete-core condition and scope reference contract.",
+      "The source must expose the fixed pre-projection condition, scope and executable IF contract.",
     ));
   }
   if (!sourceCanonical || !factCanonical
@@ -195,7 +215,8 @@ export function assessSourceFactBinding(sourceBundle, factPack) {
       sourceCanonical.outcome_logic_ref,
       factCanonical.outcome_logic_ref,
     )
-    || !isDeepStrictEqual(sourceCanonical.scope_manifest_ref, factCanonical.scope_manifest_ref)) {
+    || !isDeepStrictEqual(sourceCanonical.scope_manifest_ref, factCanonical.scope_manifest_ref)
+    || !isDeepStrictEqual(sourceCanonical.executable_if_ref, factCanonical.executable_if_ref)) {
     errors.push(error(
       "FACT_PACK_CANONICAL_MISMATCH",
       "$.fact_pack.canonical",
@@ -221,7 +242,10 @@ export function assessSourceFactBinding(sourceBundle, factPack) {
   return { valid: errors.length === 0, errors };
 }
 
-export function assessFactPackSemantics(factPack) {
+export function assessFactPackSemantics(factPack, {
+  rootDir = defaultRoot,
+  sourceBundle = null,
+} = {}) {
   const errors = [];
   const schemaValid = validateFactPackSchema(factPack);
   if (!schemaValid) {
@@ -243,7 +267,324 @@ export function assessFactPackSemantics(factPack) {
       "Fact-pack claim identities must be unique and structurally valid.",
     ));
   }
+  const legend = Array.isArray(factPack?.state_legend) ? factPack.state_legend : [];
+  const legendStates = legend.map(({ state }) => state);
+  if (!sameSet(legendStates, IF_STATES) || !unique(legendStates)) {
+    errors.push(error(
+      "STATE_LEGEND_PARTITION_INVALID",
+      "$.state_legend",
+      "The shared fact pack must distinguish all five executable IF states exactly once.",
+    ));
+  }
+  for (const field of ["public_label", "public_meaning", "next_step"]) {
+    if (!unique(legend.map((entry) => entry?.[field]))) {
+      errors.push(error(
+        "STATE_LEGEND_SEMANTICS_COLLAPSED",
+        "$.state_legend",
+        `Every executable IF state requires distinct ${field} copy.`,
+      ));
+    }
+  }
+  const possiblePathArtifact = sourceBundle?.artifacts?.find(({ role }) =>
+    role === "possible-path") || null;
+  const loadedSourceDocuments = new Map();
+  const resolveProjection = (ref) => {
+    if (!ref || ref.artifact_role !== "possible-path") return null;
+    if (possiblePathArtifact
+      && (ref.path !== possiblePathArtifact.path || ref.sha256 !== possiblePathArtifact.sha256)) {
+      return null;
+    }
+    try {
+      let document = loadedSourceDocuments.get(ref.path);
+      if (!document) {
+        const loaded = loadArtifact(ref, rootDir);
+        if (digest(loaded.bytes) !== ref.sha256) return null;
+        document = JSON.parse(loaded.bytes.toString("utf8"));
+        loadedSourceDocuments.set(ref.path, document);
+      }
+      const value = pointerValue(document, ref.json_pointer);
+      return value === undefined ? null : { document, value };
+    } catch {
+      return null;
+    }
+  };
+  for (const [index, entry] of legend.entries()) {
+    const resolved = resolveProjection(entry?.source_ref);
+    const candidateEdgeIndexes = (resolved?.document?.graph?.edges || [])
+      .map((edge, edgeIndex) => ({ edge, edgeIndex }))
+      .filter(({ edge }) => IF_STATES.every((state) => edge?.branches?.[`if_${state}`]))
+      .map(({ edgeIndex }) => edgeIndex);
+    const expectedPointer = candidateEdgeIndexes.length === 1
+      ? `/graph/edges/${candidateEdgeIndexes[0]}/branches/if_${entry?.state}`
+      : null;
+    const branch = resolved?.value;
+    if (!resolved || entry?.source_ref?.json_pointer !== expectedPointer
+      || !branch || typeof branch !== "object" || Array.isArray(branch)
+      || entry.public_label !== `IF ${entry.state}`
+      || entry.public_meaning !== branch.public_explanation
+      || entry.next_step !== branch.recovery) {
+      errors.push(error(
+        "STATE_LEGEND_SOURCE_MISMATCH",
+        `$.state_legend[${index}]`,
+        "Every five-state meaning must project the exact source path branch for that state.",
+      ));
+    }
+  }
+
+  const pathClaims = claims.filter(({ claim_id: id }) =>
+    id === "claim.synthetic-transition-path");
+  if (pathClaims.length !== 1) {
+    errors.push(error(
+      "PATH_CLAIM_SOURCE_MISMATCH",
+      "$.claims",
+      "The possible-path public claim must appear exactly once.",
+    ));
+  } else {
+    const claim = pathClaims[0];
+    const requiredPointers = [
+      "/public_claim_ceiling",
+      "/competing_paths",
+      "/epistemic_contract",
+      "/outcome_scope",
+    ];
+    const resolvedByPointer = new Map((claim.source_refs || []).map((ref) => [
+      ref.json_pointer,
+      resolveProjection(ref),
+    ]));
+    const publicClaim = resolvedByPointer.get("/public_claim_ceiling")?.value;
+    const competitors = resolvedByPointer.get("/competing_paths")?.value;
+    const epistemic = resolvedByPointer.get("/epistemic_contract")?.value;
+    const outcomeScope = resolvedByPointer.get("/outcome_scope")?.value;
+    const expectedScope = outcomeScope
+      ? `WHO: ${outcomeScope.who}; PLACE: ${outcomeScope.place}; PERIOD: ${outcomeScope.period}.`
+      : null;
+    const expectedUncertainty = epistemic
+      ? `Truth status: ${epistemic.truth_status}; world model: ${epistemic.world_model}; quantification: ${epistemic.quantification}.`
+      : null;
+    if (!sameSet((claim.source_refs || []).map(({ json_pointer: pointer }) => pointer),
+      requiredPointers)
+      || typeof publicClaim !== "string" || !Array.isArray(competitors)
+      || !epistemic || !outcomeScope
+      || claim.text !== publicClaim
+      || claim.epistemic_status !== "scenario"
+      || claim.scope !== expectedScope
+      || claim.uncertainty !== expectedUncertainty) {
+      errors.push(error(
+        "PATH_CLAIM_SOURCE_MISMATCH",
+        "$.claims",
+        "The path claim, competitors, epistemic boundary and scope must be exact typed source projections.",
+      ));
+    }
+  }
+  const legendByState = new Map(legend.map((entry) => [entry.state, entry]));
+  for (const [index, condition] of (factPack?.if_conditions || []).entries()) {
+    const expected = legendByState.get(condition?.state);
+    if (!expected || !isDeepStrictEqual(condition?.public_state_display, expected)) {
+      errors.push(error(
+        "IF_STATE_DISPLAY_MISMATCH",
+        `$.if_conditions[${index}].public_state_display`,
+        "Condition display copy must come from the exact five-state legend entry.",
+      ));
+    }
+  }
+  if (factPack?.forecast_context?.truth_effect !== "none"
+    || factPack?.forecast_context?.may_set_if_state !== false
+    || factPack?.forecast_context?.semantic_role
+      !== "forecast-probability-not-current-if-state") {
+    errors.push(error(
+      "PROBABILITY_TRUTH_EFFECT_FORBIDDEN",
+      "$.forecast_context",
+      "A forecast probability cannot set or alter the current executable IF state.",
+    ));
+  }
   return { schema_valid: schemaValid, valid: errors.length === 0, errors };
+}
+
+export function assessDeliberationScriptSemantics(script, expectedFactPackRef) {
+  const errors = [];
+  const schemaValid = validateScriptSchema(script);
+  if (!schemaValid) {
+    errors.push(error(
+      "DELIBERATION_SCRIPT_SCHEMA_INVALID",
+      "$",
+      ajv.errorsText(validateScriptSchema.errors, { separator: "; " }),
+    ));
+  }
+  if (!sameReference(script?.fact_pack_ref, expectedFactPackRef)) {
+    errors.push(error(
+      "FACILITATION_FACT_PACK_MISMATCH",
+      "$.fact_pack_ref",
+      "Facilitation must bind the exact fact-pack bytes used by every arm.",
+    ));
+  }
+  const boundary = script?.facilitation_boundary || {};
+  if ([
+    "may_add_facts",
+    "may_add_urgency",
+    "may_add_probability",
+    "may_set_if_state",
+    "may_recommend_action",
+  ].some((field) => boundary[field] !== false)) {
+    errors.push(error(
+      "FACILITATION_LEAKAGE",
+      "$.facilitation_boundary",
+      "Facilitation cannot add facts, urgency, probabilities, IF states or action recommendations.",
+    ));
+  }
+  return { schema_valid: schemaValid, valid: errors.length === 0, errors };
+}
+
+export function assessOutcomeContractSemantics(outcome) {
+  const errors = [];
+  const schemaValid = validateOutcomeSchema(outcome);
+  if (!schemaValid) {
+    errors.push(error(
+      "OUTCOME_CONTRACT_SCHEMA_INVALID",
+      "$",
+      ajv.errorsText(validateOutcomeSchema.errors, { separator: "; " }),
+    ));
+  }
+  if (outcome?.primary_endpoint !== "complete-unaided-boundary-reconstruction"
+    || FORBIDDEN_SUCCESS_ENDPOINTS.has(outcome?.primary_endpoint)
+    || outcome?.endpoint_boundary?.aesthetic_preference !== "descriptive-only-not-success"
+    || outcome?.endpoint_boundary?.perceived_authority !== "safety-harm-not-success"
+    || outcome?.endpoint_boundary?.uncalibrated_confidence !== "calibration-harm-not-success"
+    || outcome?.endpoint_boundary?.thesis_agreement !== "not-an-outcome") {
+    errors.push(error(
+      "SUCCESS_ENDPOINT_FORBIDDEN",
+      "$.primary_endpoint",
+      "Aesthetic preference, perceived authority, uncalibrated confidence and thesis agreement cannot be success endpoints.",
+    ));
+  }
+  return { schema_valid: schemaValid, valid: errors.length === 0, errors };
+}
+
+export function assessExecutableIfFactBinding(sourceBundle, factPack, {
+  rootDir = defaultRoot,
+  sourceAssessment: suppliedAssessment = null,
+} = {}) {
+  const errors = [];
+  let sourceAssessment = suppliedAssessment;
+  try {
+    sourceAssessment ||= assessTransitionBundle(sourceBundle, { rootDir });
+  } catch (cause) {
+    errors.push(error("SOURCE_CORE_ASSESSMENT_FAILED", "$", cause.message));
+    return {
+      valid: false,
+      computed_rule_state: null,
+      empirical_truth_established: false,
+      authority_effect: "none",
+      errors,
+    };
+  }
+  if (sourceBundle?.bundle_stage !== "pre-projection-core"
+    || sourceAssessment?.bundle_coherent !== true) {
+    errors.push(error(
+      "SOURCE_CORE_INELIGIBLE",
+      "$",
+      "Executable IF facts require the coherent Round 4 pre-projection core.",
+    ));
+  }
+
+  let scopeManifest = null;
+  try {
+    const scopeRef = sourceBundle.canonical.scope_manifest_ref;
+    const loaded = loadArtifact(scopeRef, rootDir);
+    if (digest(loaded.bytes) !== scopeRef.sha256) {
+      errors.push(error("SCOPE_MANIFEST_HASH_MISMATCH", "$.decision_context.scope",
+        "Scope manifest bytes do not match the source core."));
+    } else {
+      scopeManifest = JSON.parse(loaded.bytes.toString("utf8"));
+    }
+  } catch (cause) {
+    errors.push(error("SCOPE_MANIFEST_UNRESOLVED", "$.decision_context.scope", cause.message));
+  }
+  if (!scopeManifest
+    || !isDeepStrictEqual(factPack?.decision_context?.scope, scopeManifest.canonical_scope)
+    || factPack?.decision_context?.mapping_truth_assessed !== false) {
+    errors.push(error(
+      "CONDITION_SCOPE_MISMATCH",
+      "$.decision_context.scope",
+      "The fact pack must preserve the exact canonical scope and unresolved mapping-truth boundary.",
+    ));
+  }
+
+  const evaluations = sourceAssessment?.executable_if?.governed_evaluations || [];
+  const activeConditions = sourceAssessment?.component_results?.["evolution-ledger"]
+    ?.public_projection?.active_conditions || [];
+  const factConditions = Array.isArray(factPack?.if_conditions) ? factPack.if_conditions : [];
+  const expectedConditionIds = sourceBundle?.canonical?.condition_ids || [];
+  if (!sameSet(factConditions.map(({ condition_id: id }) => id), expectedConditionIds)
+    || !unique(factConditions.map(({ condition_id: id }) => id))) {
+    errors.push(error(
+      "FACT_PACK_IF_COVERAGE_MISMATCH",
+      "$.if_conditions",
+      "Every source-core condition must appear exactly once in the shared facts.",
+    ));
+  }
+
+  for (const [index, condition] of factConditions.entries()) {
+    const receipt = evaluations.find((candidate) =>
+      candidate.condition_definition_ref?.condition_id === condition.condition_id);
+    const active = activeConditions.find((candidate) =>
+      candidate.condition_definition_ref?.condition_id === condition.condition_id);
+    if (!active || !isDeepStrictEqual(condition.condition_definition_ref,
+      active.condition_definition_ref)) {
+      errors.push(error(
+        "CONDITION_DEFINITION_MISMATCH",
+        `$.if_conditions[${index}].condition_definition_ref`,
+        "The displayed condition must bind the exact active definition.",
+      ));
+    }
+    if (!active || !isDeepStrictEqual(condition.claim, active.claim)
+      || !isDeepStrictEqual(condition.scope, active.scope)) {
+      errors.push(error(
+        "CONDITION_SCOPE_MISMATCH",
+        `$.if_conditions[${index}]`,
+        "The displayed condition must preserve exact claim, period and scope fields.",
+      ));
+    }
+    if (!receipt || !isDeepStrictEqual(condition.evaluation_receipt, receipt)) {
+      errors.push(error(
+        "EVALUATION_RECEIPT_MISMATCH",
+        `$.if_conditions[${index}].evaluation_receipt`,
+        "The displayed evaluation receipt must equal the recomputed source-core receipt.",
+      ));
+    }
+    if (!receipt || condition.state !== receipt.computed_rule_state?.state) {
+      errors.push(error(
+        "DISPLAYED_STATE_MISMATCH",
+        `$.if_conditions[${index}].state`,
+        "The displayed IF state must equal the source-core computed rule state.",
+      ));
+    }
+  }
+
+  const forecastArtifact = sourceBundle?.artifacts?.find(({ role }) => role === "forecast");
+  const forecastContext = factPack?.forecast_context;
+  if (!forecastArtifact || forecastContext?.forecast_ref?.artifact_role !== "forecast"
+    || forecastContext?.forecast_ref?.path !== forecastArtifact.path
+    || forecastContext?.forecast_ref?.sha256 !== forecastArtifact.sha256
+    || forecastContext?.forecast_ref?.json_pointer !== "/probability"
+    || forecastContext?.condition_id !== expectedConditionIds[0]
+    || forecastContext?.probability !== sourceAssessment?.component_results?.forecast?.forecast_probability
+    || forecastContext?.issue_time_evaluation_hash !== evaluations[0]?.evaluation_hash
+    || forecastContext?.truth_effect !== "none"
+    || forecastContext?.may_set_if_state !== false) {
+    errors.push(error(
+      "FORECAST_CONTEXT_MISMATCH",
+      "$.forecast_context",
+      "Forecast context must bind its exact source while remaining orthogonal to current IF truth.",
+    ));
+  }
+
+  return {
+    valid: errors.length === 0,
+    computed_rule_state: evaluations[0]?.computed_rule_state?.state || null,
+    empirical_truth_established: false,
+    authority_effect: "none",
+    errors,
+  };
 }
 
 export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {}) {
@@ -327,14 +668,16 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
     errors.push(error("FACT_PACK_JSON_INVALID", "$.fact_pack", cause.message));
   }
 
-  const factPackSchemaValid = Boolean(factPack) && validateFactPackSchema(factPack);
-  if (factPack && !factPackSchemaValid) {
+  const factPackAssessment = factPack
+    ? assessFactPackSemantics(factPack, { rootDir, sourceBundle: sourceDocument })
+    : { schema_valid: false, valid: false, errors: [] };
+  const factPackSchemaValid = factPackAssessment.schema_valid;
+  if (factPack && !factPackAssessment.valid) {
     artifactContractsValid = false;
-    errors.push(error(
-      "FACT_PACK_SCHEMA_INVALID",
-      "$.fact_pack",
-      ajv.errorsText(validateFactPackSchema.errors, { separator: "; " }),
-    ));
+    errors.push(...factPackAssessment.errors.map((item) => ({
+      ...item,
+      path: `$.fact_pack${item.path === "$" ? "" : item.path.slice(1)}`,
+    })));
   }
 
   const protocol = parseJsonArtifact(
@@ -366,12 +709,14 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
       "The fact-pack ID does not match the retained fact-pack bytes.",
     ));
   }
-  if (factPack && factPack.source_transition_bundle_id
-    !== manifest?.source_transition_bundle?.bundle_id) {
+  if (factPack && !sameSourceBundleReference(
+    factPack.source_transition_bundle_ref,
+    manifest?.source_transition_bundle,
+  )) {
     errors.push(error(
       "FACT_PACK_SOURCE_MISMATCH",
       "$.fact_pack",
-      "The fact pack does not name the manifest's exact source transition bundle.",
+      "The fact pack does not bind the manifest's exact source transition bundle bytes.",
     ));
   }
   const sourceFactBinding = assessSourceFactBinding(sourceDocument, factPack);
@@ -382,18 +727,29 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
   if (sourceDocument) {
     try {
       sourceAssessment = assessTransitionBundle(sourceDocument, { rootDir });
-      sourceCoreEligible = sourceDocument.bundle_stage === "complete-core"
+      sourceCoreEligible = sourceDocument.bundle_stage === "pre-projection-core"
         && sourceAssessment.bundle_coherent === true;
       if (!sourceCoreEligible) {
         errors.push(error(
           "SOURCE_CORE_INELIGIBLE",
           "$.source_transition_bundle",
-          "The pinned source must be a coherent seven-artifact complete core before an experiment can be eligible.",
+          "The pinned source must be the coherent seven-artifact Round 4 pre-projection core before an experiment can be eligible.",
         ));
       }
     } catch (cause) {
       errors.push(error("SOURCE_CORE_ASSESSMENT_FAILED", "$.source_transition_bundle", cause.message));
     }
+  }
+
+  const executableIfFactBinding = sourceDocument && factPack
+    ? assessExecutableIfFactBinding(sourceDocument, factPack, { rootDir, sourceAssessment })
+    : { valid: false, errors: [] };
+  if (!executableIfFactBinding.valid) {
+    artifactContractsValid = false;
+    errors.push(...executableIfFactBinding.errors.map((item) => ({
+      ...item,
+      path: `$.fact_pack${item.path === "$" ? "" : item.path.slice(1)}`,
+    })));
   }
 
   let claimSourceBindingsValid = Boolean(sourceDocument && factPackSchemaValid);
@@ -476,15 +832,20 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
     if (!instrument || !validateInstrumentSchema(instrument)
       || instrument.instrument_id !== arm.instrument_ref?.artifact_id
       || instrument.instrument_kind !== arm.instrument_kind
+      || !sameSourceBundleReference(
+        instrument.source_transition_bundle_ref,
+        manifest?.source_transition_bundle,
+      )
       || !sameReference(instrument.fact_pack_ref, manifest?.fact_pack)
       || !sameSet(instrument.render_contract?.claim_ids, factClaimIds)
       || !sameSet(instrument.render_contract?.condition_ids, factConditionIds)
+      || !sameSet(instrument.render_contract?.state_legend_states, IF_STATES)
       || !sameSet(instrument.render_contract?.boundary_ids, REQUIRED_BOUNDARIES)) {
       artifactContractsValid = false;
       errors.push(error(
         "ARTIFACT_TYPE_INVALID",
         `$.arms[${index}].instrument_ref`,
-        "An instrument must match its inner ID and arm kind, bind the shared fact pack, and render every claim, condition and public boundary.",
+        "An instrument must match its arm, bind the exact source and fact pack, and render every claim, condition, state and boundary.",
       ));
     }
 
@@ -493,10 +854,14 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
       "OUTCOME_CONTRACT_JSON_INVALID",
       `$.arms[${index}].outcome_contract_ref`,
     );
-    if (!outcome || !validateOutcomeSchema(outcome)
+    const outcomeAssessment = outcome
+      ? assessOutcomeContractSemantics(outcome)
+      : { valid: false };
+    if (!outcome || !outcomeAssessment.valid
       || outcome.outcome_contract_id !== arm.outcome_contract_ref?.artifact_id
       || outcome.outcome_contract_id !== protocol?.analysis?.outcome_contract_id
-      || outcome.estimand_id !== protocol?.analysis?.estimand_id) {
+      || outcome.estimand_id !== protocol?.analysis?.estimand_id
+      || outcome.primary_endpoint !== protocol?.analysis?.primary_endpoint) {
       artifactContractsValid = false;
       errors.push(error(
         "ARTIFACT_TYPE_INVALID",
@@ -511,7 +876,10 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
         "DELIBERATION_SCRIPT_JSON_INVALID",
         `$.arms[${index}].deliberation_script_ref`,
       );
-      if (!script || !validateScriptSchema(script)
+      const scriptAssessment = script
+        ? assessDeliberationScriptSemantics(script, manifest?.fact_pack)
+        : { valid: false };
+      if (!script || !scriptAssessment.valid
         || script.script_id !== arm.deliberation_script_ref.artifact_id) {
         artifactContractsValid = false;
         errors.push(error(
@@ -618,6 +986,7 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
     && artifactIntegrity
     && factPackSchemaValid
     && sourceFactBinding.valid
+    && executableIfFactBinding.valid
     && claimSourceBindingsValid
     && factParity
     && protocolConstraintsValid
@@ -633,6 +1002,7 @@ export function assessExperimentManifest(manifest, { rootDir = defaultRoot } = {
     artifact_contracts_valid: artifactContractsValid,
     fact_pack_schema_valid: factPackSchemaValid,
     source_fact_binding_valid: sourceFactBinding.valid,
+    executable_if_fact_binding_valid: executableIfFactBinding.valid,
     claim_source_bindings_valid: claimSourceBindingsValid,
     source_core_eligible: sourceCoreEligible,
     source_core_assessment: sourceAssessment ? {

@@ -1,14 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/experiments/observatory-comparison/outcome-contract/1-0-0",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/outcome-contract/1-1-0",
   "title": "Unvalidated experiment outcome contract",
   "type": "object",
-  "required": ["schema_version", "outcome_contract_id", "classification", "estimand_id", "primary_estimand", "dangerous_understanding_errors", "validation_state", "analysis_state", "contract_boundary"],
+  "required": ["schema_version", "outcome_contract_id", "classification", "estimand_id", "primary_endpoint", "primary_estimand", "dangerous_understanding_errors", "endpoint_boundary", "validation_state", "analysis_state", "contract_boundary"],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "outcome_contract_id": { "$ref": "#/$defs/id" },
     "classification": { "const": "synthetic-unvalidated-research-proposal" },
     "estimand_id": { "const": "estimand.complete-boundary-reconstruction-risk-difference" },
+    "primary_endpoint": { "const": "complete-unaided-boundary-reconstruction" },
     "primary_estimand": { "$ref": "#/$defs/nonEmpty" },
     "dangerous_understanding_errors": {
       "type": "array",
@@ -27,6 +28,17 @@
           "proposal-as-legal-or-democratic-authority"
         ]
       }
+    },
+    "endpoint_boundary": {
+      "type": "object",
+      "required": ["aesthetic_preference", "perceived_authority", "uncalibrated_confidence", "thesis_agreement"],
+      "properties": {
+        "aesthetic_preference": { "const": "descriptive-only-not-success" },
+        "perceived_authority": { "const": "safety-harm-not-success" },
+        "uncalibrated_confidence": { "const": "calibration-harm-not-success" },
+        "thesis_agreement": { "const": "not-an-outcome" }
+      },
+      "additionalProperties": false
     },
     "validation_state": { "const": "not-validated" },
     "analysis_state": { "const": "not-preregistered" },

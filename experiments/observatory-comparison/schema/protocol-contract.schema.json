@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/experiments/observatory-comparison/protocol-contract/1-0-0",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/protocol-contract/1-1-0",
   "title": "Structured comparison protocol proposal",
   "type": "object",
   "required": ["schema_version", "protocol_id", "status", "design", "analysis", "contract_boundary"],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "protocol_id": { "const": "protocol.observatory-comparison.v1" },
     "status": { "const": "proposed-not-preregistered-or-approved" },
     "design": {
@@ -40,10 +40,11 @@
     },
     "analysis": {
       "type": "object",
-      "required": ["outcome_contract_id", "estimand_id", "intention_to_treat", "smallest_effect_worth_detecting", "power_plan", "multiplicity_plan", "missingness_plan", "attrition_allowance", "contamination_plan", "preregistration_state"],
+      "required": ["outcome_contract_id", "estimand_id", "primary_endpoint", "intention_to_treat", "smallest_effect_worth_detecting", "power_plan", "multiplicity_plan", "missingness_plan", "attrition_allowance", "contamination_plan", "preregistration_state"],
       "properties": {
         "outcome_contract_id": { "const": "outcomes.observatory-comparison.synthetic-v1" },
         "estimand_id": { "const": "estimand.complete-boundary-reconstruction-risk-difference" },
+        "primary_endpoint": { "const": "complete-unaided-boundary-reconstruction" },
         "intention_to_treat": { "const": true },
         "smallest_effect_worth_detecting": { "type": "null" },
         "power_plan": { "const": "not-specified" },

@@ -1,22 +1,24 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "manifest_id": "experiment.observatory-comparison.synthetic-v1",
   "classification": "synthetic-research-proposal",
   "protocol_ref": {
     "artifact_id": "protocol.observatory-comparison.v1",
     "artifact_type": "research-protocol-contract",
     "path": "experiments/observatory-comparison/fixtures/protocol-contract.synthetic.json",
-    "sha256": "sha256:ea927372dbeef60c09721a5bc1316bf05adf73f212c3f9ee73d484cd4a2b11d9"
+    "sha256": "sha256:e289196d603f6dc7f814ed82aaaf3b613544c7ce903e121cd052599505e77adc"
   },
   "source_transition_bundle": {
-    "bundle_id": "bundle.round-03.current",
-    "path": "integration/transition-bundle/fixtures/round-03.current.json",
-    "sha256": "sha256:96a2d0c9c54c26b5dba7380cc063f6151c70c53c7135948b6bdffffe2b528656"
+    "bundle_id": "bundle.round-04.worker-option.pre-projection",
+    "bundle_stage": "pre-projection-core",
+    "schema_version": "1.2.0",
+    "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+    "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225"
   },
   "fact_pack": {
     "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
     "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-    "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+    "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
   },
   "arms": [
     {
@@ -26,19 +28,19 @@
         "artifact_id": "instrument.conventional-release.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-conventional.synthetic.json",
-      "sha256": "sha256:ffeefa26a7835cd5c10036cc46b79cb67df3958bdcb93626abadd6eeb4b8b5eb"
+        "sha256": "sha256:1b7fcfe9499f242d7d7784977763f9798d46e239395f4034bb14c11848d56bf1"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-      "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
       },
       "deliberation_script_ref": null,
       "outcome_contract_ref": {
         "artifact_id": "outcomes.observatory-comparison.synthetic-v1",
         "artifact_type": "outcome-contract",
         "path": "experiments/observatory-comparison/fixtures/outcome-contract.synthetic.json",
-        "sha256": "sha256:b982c8e267ad4f661611426bd17a0d97b5995fa54c03def88656d67b592b8f08"
+        "sha256": "sha256:49585332d0c0c1d34d5a20c86c33ee980daaed70e7c00ce875f1c3b351dce123"
       },
       "allocation_weight": 1
     },
@@ -49,24 +51,24 @@
         "artifact_id": "instrument.release-plus-deliberation.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-release-deliberation.synthetic.json",
-      "sha256": "sha256:2babfc9fdcba87dc22e796c911f3c03405dda5b81f505e52554b9e12569e2631"
+        "sha256": "sha256:35e280b3a509011556a8e0f49ea673e1d74e19b3e3f87f6849762c1f9e6b245f"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-      "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
       },
       "deliberation_script_ref": {
         "artifact_id": "script.observatory-comparison.synthetic-v1",
         "artifact_type": "deliberation-script",
         "path": "experiments/observatory-comparison/fixtures/deliberation-script.synthetic.json",
-        "sha256": "sha256:c2f719087d83621fc807c5bc2f5b9a2f66e1199fe48b5136162a272b9260b0ab"
+        "sha256": "sha256:f1885e3fed1071e4b320505197e75ba474df5f90f55cf73551b10f0dbda4eeda"
       },
       "outcome_contract_ref": {
         "artifact_id": "outcomes.observatory-comparison.synthetic-v1",
         "artifact_type": "outcome-contract",
         "path": "experiments/observatory-comparison/fixtures/outcome-contract.synthetic.json",
-        "sha256": "sha256:b982c8e267ad4f661611426bd17a0d97b5995fa54c03def88656d67b592b8f08"
+        "sha256": "sha256:49585332d0c0c1d34d5a20c86c33ee980daaed70e7c00ce875f1c3b351dce123"
       },
       "allocation_weight": 1
     },
@@ -77,19 +79,19 @@
         "artifact_id": "instrument.observatory-self-serve.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-observatory-self-serve.synthetic.json",
-      "sha256": "sha256:e3f38a01ba552b96fa968a010a56126566dd7bf619f0d4d800deb84c28c1e354"
+        "sha256": "sha256:ec36c5050725409ff715ddc1f153dce363dc678c9f4c6ba9e7c5b08b2f38a558"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-      "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
       },
       "deliberation_script_ref": null,
       "outcome_contract_ref": {
         "artifact_id": "outcomes.observatory-comparison.synthetic-v1",
         "artifact_type": "outcome-contract",
         "path": "experiments/observatory-comparison/fixtures/outcome-contract.synthetic.json",
-        "sha256": "sha256:b982c8e267ad4f661611426bd17a0d97b5995fa54c03def88656d67b592b8f08"
+        "sha256": "sha256:49585332d0c0c1d34d5a20c86c33ee980daaed70e7c00ce875f1c3b351dce123"
       },
       "allocation_weight": 1
     },
@@ -100,24 +102,24 @@
         "artifact_id": "instrument.observatory-plus-deliberation.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-observatory-deliberation.synthetic.json",
-      "sha256": "sha256:d725c9ce04d1d6531660dad9692b3c422c4103c0ee0e1b32dea81921dd64e3ac"
+        "sha256": "sha256:4b6898cf649ed5e80d6c8c22c50e9e98dc6fba29934da05bc4ccae081d845e4f"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-      "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
       },
       "deliberation_script_ref": {
         "artifact_id": "script.observatory-comparison.synthetic-v1",
         "artifact_type": "deliberation-script",
         "path": "experiments/observatory-comparison/fixtures/deliberation-script.synthetic.json",
-        "sha256": "sha256:c2f719087d83621fc807c5bc2f5b9a2f66e1199fe48b5136162a272b9260b0ab"
+        "sha256": "sha256:f1885e3fed1071e4b320505197e75ba474df5f90f55cf73551b10f0dbda4eeda"
       },
       "outcome_contract_ref": {
         "artifact_id": "outcomes.observatory-comparison.synthetic-v1",
         "artifact_type": "outcome-contract",
         "path": "experiments/observatory-comparison/fixtures/outcome-contract.synthetic.json",
-        "sha256": "sha256:b982c8e267ad4f661611426bd17a0d97b5995fa54c03def88656d67b592b8f08"
+        "sha256": "sha256:49585332d0c0c1d34d5a20c86c33ee980daaed70e7c00ce875f1c3b351dce123"
       },
       "allocation_weight": 1
     }
@@ -142,7 +144,10 @@
         "measure": "urgent-irreversible-action-intention",
         "operator": "any",
         "threshold": 1,
-        "strata": ["all-participants", "directly-affected"],
+        "strata": [
+          "all-participants",
+          "directly-affected"
+        ],
         "effect": "pause-and-independent-review",
         "compensation_across_strata": "forbidden"
       },
@@ -151,7 +156,12 @@
         "measure": "dangerous-understanding-increase",
         "operator": "gt",
         "threshold": 0,
-        "strata": ["all-participants", "directly-affected", "low-numeracy", "limited-english"],
+        "strata": [
+          "all-participants",
+          "directly-affected",
+          "low-numeracy",
+          "limited-english"
+        ],
         "effect": "pause-and-independent-review",
         "compensation_across_strata": "forbidden"
       },
@@ -160,7 +170,10 @@
         "measure": "serious-anxiety-stigma-dignity-or-blame-report",
         "operator": "any",
         "threshold": 1,
-        "strata": ["all-participants", "directly-affected"],
+        "strata": [
+          "all-participants",
+          "directly-affected"
+        ],
         "effect": "pause-and-independent-review",
         "compensation_across_strata": "forbidden"
       },
@@ -169,7 +182,9 @@
         "measure": "no-real-service-warning-or-authority-notice-missed",
         "operator": "any",
         "threshold": 1,
-        "strata": ["all-participants"],
+        "strata": [
+          "all-participants"
+        ],
         "effect": "pause-and-independent-review",
         "compensation_across_strata": "forbidden"
       },
@@ -178,7 +193,9 @@
         "measure": "critical-assistive-technology-path-failure",
         "operator": "any",
         "threshold": 1,
-        "strata": ["assistive-technology"],
+        "strata": [
+          "assistive-technology"
+        ],
         "effect": "pause-and-independent-review",
         "compensation_across_strata": "forbidden"
       },
@@ -187,7 +204,9 @@
         "measure": "personal-data-outside-approved-minimum",
         "operator": "any",
         "threshold": 1,
-        "strata": ["all-participants"],
+        "strata": [
+          "all-participants"
+        ],
         "effect": "pause-and-independent-review",
         "compensation_across_strata": "forbidden"
       }
@@ -198,6 +217,7 @@
     "authority_effect": "none",
     "ethics_approval_effect": "none",
     "recruitment_effect": "none",
-    "parity_effect": "declared-input-binding-only"
+    "parity_effect": "declared-input-binding-only",
+    "source_projection_effect": "coherent-pre-projection-core-only"
   }
 }

@@ -1,35 +1,45 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/experiments/observatory-comparison/fact-pack/1-0-0",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/fact-pack/1-1-0",
   "title": "Shared synthetic study fact pack",
-  "description": "The exact bounded facts and caveats declared as shared input across study arms. It is not evidence that each renderer represented them faithfully.",
+  "description": "The exact Round 4 projection shared across all study arms. Structural conformance establishes neither empirical truth nor authority.",
   "type": "object",
-  "required": ["schema_version", "fact_pack_id", "classification", "source_transition_bundle_id", "canonical", "decision_context", "claims", "if_conditions", "correction_route", "contract_boundary"],
+  "required": [
+    "schema_version",
+    "fact_pack_id",
+    "classification",
+    "source_transition_bundle_ref",
+    "canonical",
+    "decision_context",
+    "claims",
+    "state_legend",
+    "if_conditions",
+    "forecast_context",
+    "correction_route",
+    "contract_boundary"
+  ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "fact_pack_id": { "$ref": "#/$defs/id" },
     "classification": { "const": "synthetic-fictional-study-material" },
-    "source_transition_bundle_id": { "$ref": "#/$defs/id" },
+    "source_transition_bundle_ref": { "$ref": "#/$defs/sourceBundleRef" },
     "canonical": {
       "type": "object",
-      "required": ["condition_ids", "outcome_logic_ref", "scope_manifest_ref"],
+      "required": ["condition_ids", "outcome_logic_ref", "scope_manifest_ref", "executable_if_ref"],
       "properties": {
-        "condition_ids": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": { "$ref": "#/$defs/id" }
-        },
-        "outcome_logic_ref": { "$ref": "#/$defs/outcomeLogicRef" },
-        "scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" }
+        "condition_ids": { "$ref": "#/$defs/idArray" },
+        "outcome_logic_ref": { "type": "object" },
+        "scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" },
+        "executable_if_ref": { "type": "object" }
       },
       "additionalProperties": false
     },
     "decision_context": {
       "type": "object",
-      "required": ["scope", "no_real_service", "no_real_warning", "no_action_authority"],
+      "required": ["scope", "mapping_truth_assessed", "no_real_service", "no_real_warning", "no_action_authority"],
       "properties": {
-        "scope": { "$ref": "#/$defs/nonEmpty" },
+        "scope": { "$ref": "#/$defs/canonicalScope" },
+        "mapping_truth_assessed": { "const": false },
         "no_real_service": { "const": true },
         "no_real_warning": { "const": true },
         "no_action_authority": { "const": true }
@@ -45,40 +55,62 @@
         "properties": {
           "claim_id": { "$ref": "#/$defs/id" },
           "text": { "$ref": "#/$defs/nonEmpty" },
-          "epistemic_status": { "enum": ["observation", "inference", "scenario", "forecast"] },
+          "epistemic_status": { "enum": ["observation", "mechanical-rule-result", "inference", "scenario", "forecast"] },
           "scope": { "$ref": "#/$defs/nonEmpty" },
           "uncertainty": { "$ref": "#/$defs/nonEmpty" },
-          "source_refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/sourceRef" } }
+          "source_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "$ref": "#/$defs/sourceRef" }
+          }
         },
         "additionalProperties": false
       }
+    },
+    "state_legend": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/stateLegendEntry" }
     },
     "if_conditions": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "type": "object",
-          "required": ["condition_id", "question", "state", "state_basis", "assessment_ref", "strongest_challenge", "next_observation"],
-        "properties": {
-          "condition_id": { "$ref": "#/$defs/id" },
-          "question": { "$ref": "#/$defs/nonEmpty" },
-          "state": { "const": "unknown" },
-          "state_basis": { "const": "synthetic-unassessed" },
-          "assessment_ref": { "type": "null" },
-          "strongest_challenge": { "$ref": "#/$defs/nonEmpty" },
-          "next_observation": { "$ref": "#/$defs/nonEmpty" }
-        },
-        "additionalProperties": false
-      }
+      "items": { "$ref": "#/$defs/ifCondition" }
+    },
+    "forecast_context": {
+      "type": "object",
+      "required": [
+        "forecast_ref",
+        "condition_id",
+        "probability",
+        "issue_time_evaluation_hash",
+        "semantic_role",
+        "truth_effect",
+        "may_set_if_state"
+      ],
+      "properties": {
+        "forecast_ref": { "$ref": "#/$defs/sourceRef" },
+        "condition_id": { "$ref": "#/$defs/id" },
+        "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "issue_time_evaluation_hash": { "$ref": "#/$defs/sha256" },
+        "semantic_role": { "const": "forecast-probability-not-current-if-state" },
+        "truth_effect": { "const": "none" },
+        "may_set_if_state": { "const": false }
+      },
+      "additionalProperties": false
     },
     "correction_route": { "type": "string", "format": "uri", "pattern": "^https://" },
     "contract_boundary": {
       "type": "object",
-      "required": ["truth_effect", "forecast_effect", "authority_effect"],
+      "required": ["truth_effect", "forecast_effect", "authority_effect", "action_authorised", "publication_approved"],
       "properties": {
         "truth_effect": { "const": "none" },
-        "forecast_effect": { "const": "none" },
-        "authority_effect": { "const": "none" }
+        "forecast_effect": { "const": "context-only" },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "publication_approved": { "const": false }
       },
       "additionalProperties": false
     }
@@ -88,12 +120,28 @@
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
     "nonEmpty": { "type": "string", "pattern": ".*\\S.*" },
     "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
-    "outcomeLogicRef": {
+    "instant": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+    "idArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "stringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    },
+    "sourceBundleRef": {
       "type": "object",
-      "required": ["artifact_role", "json_pointer", "sha256"],
+      "required": ["bundle_id", "bundle_stage", "schema_version", "path", "sha256"],
       "properties": {
-        "artifact_role": { "const": "agency-map" },
-        "json_pointer": { "const": "/outcome_scope/condition_logic" },
+        "bundle_id": { "$ref": "#/$defs/id" },
+        "bundle_stage": { "const": "pre-projection-core" },
+        "schema_version": { "const": "1.2.0" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
         "sha256": { "$ref": "#/$defs/sha256" }
       },
       "additionalProperties": false
@@ -108,11 +156,122 @@
       },
       "additionalProperties": false
     },
+    "period": {
+      "type": "object",
+      "required": ["starts_at", "ends_at"],
+      "properties": {
+        "starts_at": { "$ref": "#/$defs/instant" },
+        "ends_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": ["who", "verb", "object", "standard", "polarity", "period"],
+      "properties": {
+        "who": { "$ref": "#/$defs/nonEmpty" },
+        "verb": { "$ref": "#/$defs/nonEmpty" },
+        "object": { "$ref": "#/$defs/nonEmpty" },
+        "standard": { "$ref": "#/$defs/nonEmpty" },
+        "polarity": { "enum": ["affirmative", "negative"] },
+        "period": { "$ref": "#/$defs/period" }
+      },
+      "additionalProperties": false
+    },
+    "conditionScope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services"],
+      "properties": {
+        "jurisdictions": { "$ref": "#/$defs/stringArray" },
+        "geographies": { "$ref": "#/$defs/stringArray" },
+        "cohorts": { "$ref": "#/$defs/stringArray" },
+        "services": { "$ref": "#/$defs/stringArray" }
+      },
+      "additionalProperties": false
+    },
+    "canonicalScope": {
+      "type": "object",
+      "required": ["source_role", "native_scope_hash", "people", "verb", "object", "standard", "place", "period", "jurisdictions", "geographies", "services", "starts_at", "ends_at"],
+      "properties": {
+        "source_role": { "const": "agency-map" },
+        "native_scope_hash": { "$ref": "#/$defs/sha256" },
+        "people": { "$ref": "#/$defs/nonEmpty" },
+        "verb": { "$ref": "#/$defs/nonEmpty" },
+        "object": { "$ref": "#/$defs/nonEmpty" },
+        "standard": { "$ref": "#/$defs/nonEmpty" },
+        "place": { "$ref": "#/$defs/nonEmpty" },
+        "period": { "$ref": "#/$defs/nonEmpty" },
+        "jurisdictions": { "$ref": "#/$defs/stringArray" },
+        "geographies": { "$ref": "#/$defs/stringArray" },
+        "services": { "$ref": "#/$defs/stringArray" },
+        "starts_at": { "$ref": "#/$defs/instant" },
+        "ends_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "stateLegendEntry": {
+      "type": "object",
+      "required": ["state", "public_label", "public_meaning", "next_step", "source_ref"],
+      "properties": {
+        "state": { "$ref": "#/$defs/state" },
+        "public_label": { "$ref": "#/$defs/nonEmpty" },
+        "public_meaning": { "$ref": "#/$defs/nonEmpty" },
+        "next_step": { "$ref": "#/$defs/nonEmpty" },
+        "source_ref": { "$ref": "#/$defs/sourceRef" }
+      },
+      "additionalProperties": false
+    },
+    "ifCondition": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "question",
+        "condition_definition_ref",
+        "claim",
+        "scope",
+        "state",
+        "state_basis",
+        "evaluation_receipt",
+        "public_state_display",
+        "strongest_challenge",
+        "next_observation",
+        "empirical_truth_established",
+        "authority_effect",
+        "action_authorised"
+      ],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "question": { "$ref": "#/$defs/nonEmpty" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "claim": { "$ref": "#/$defs/claim" },
+        "scope": { "$ref": "#/$defs/conditionScope" },
+        "state": { "$ref": "#/$defs/state" },
+        "state_basis": { "const": "computed-rule-state-not-empirical-truth" },
+        "evaluation_receipt": { "type": "object" },
+        "public_state_display": { "$ref": "#/$defs/stateLegendEntry" },
+        "strongest_challenge": { "$ref": "#/$defs/nonEmpty" },
+        "next_observation": { "$ref": "#/$defs/nonEmpty" },
+        "empirical_truth_established": { "const": false },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false }
+      },
+      "additionalProperties": false
+    },
     "sourceRef": {
       "type": "object",
       "required": ["artifact_role", "path", "sha256", "json_pointer"],
       "properties": {
-        "artifact_role": { "enum": ["transition-bundle", "agency-map", "evolution-ledger", "signal-registry", "possible-path", "preparation-register", "dashboard-snapshot", "forecast"] },
+        "artifact_role": { "enum": ["transition-bundle", "agency-map", "evolution-ledger", "signal-registry", "possible-path", "preparation-register", "forecast", "executable-if-kernel"] },
         "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
         "sha256": { "$ref": "#/$defs/sha256" },
         "json_pointer": { "type": "string", "pattern": "^/(?:[^~/]|~0|~1)+(?:/(?:[^~/]|~0|~1)+)*$" }

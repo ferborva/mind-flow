@@ -7,7 +7,7 @@ provenance: commissioned-agent-proposal
 author: Ren
 reviewer: Fernando Bordallo
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 authority: none
 ---
 
@@ -65,11 +65,29 @@ facilitator or deployed interface presented the inputs faithfully. Rendered
 fact parity requires captured outputs and an independent comparison that this
 prototype does not perform.
 
-The manifest also pins a seven-artifact transition core and runs its independent
-coherence assessor. The current Round 03 core is intentionally incoherent, so
-the manifest's own contracts pass while `source_core_eligible` and
-`manifest_valid` remain false. Copied IDs and matching fake hashes cannot make a
-broken source eligible.
+The manifest pins the coherent seven-artifact Round 4 pre-projection core and
+runs its independent assessor. The shared fact pack reproduces its exact active
+condition definition, WHO + VERB + OBJECT + STANDARD + PERIOD, observation
+scope, evidence state and evaluation receipt. The complete source bytes and
+every arm's fact-pack bytes are content addressed. Copied IDs or resealed prose
+cannot substitute for those joins.
+
+The mechanical rule currently computes `true` for the synthetic fixture. That
+does not establish empirical truth. The fact pack preserves a five-state legend
+for `true`, `false`, `unknown`, `stale` and `conflicted`, with a distinct public
+meaning and next step for each. A separate 62% synthetic forecast concerns a
+future threshold event. Probabilities, including zero or one, cannot set the
+current IF state.
+
+Each state meaning and next step is an exact, hash-bound projection of that
+state's branch in the possible-path artifact. The path claim is the artifact's
+exact public claim ceiling and separately binds its competitor set, epistemic
+contract and outcome scope. A valid pointer cannot lend authority to different
+prose, and swapping two state meanings fails validation.
+
+The two deliberation arms bind the same script bytes. The script cannot add
+facts, urgency, probability, condition state or action advice. Presentation may
+change comprehension, but it cannot change facts, truth or authority.
 
 The version 1 manifest is deliberately unable to approve recruitment. Its
 schema fixes ethics and privacy review to `pending`, participant data collection
@@ -80,6 +98,10 @@ The structured protocol also records that power, smallest worthwhile effect,
 multiplicity, missingness, attrition, contamination and assignment
 implementation are not yet specified. Until those become independently
 reviewed, `analysis_ready` remains false.
+
+Aesthetic preference is descriptive only. Perceived authority and uncalibrated
+confidence are safety or calibration harms, not success endpoints. The sole
+proposed primary endpoint remains complete unaided boundary reconstruction.
 
 ## Instrument hypotheses
 
@@ -171,7 +193,7 @@ on a held-out vignette:
 3. scenario versus forecast;
 4. option versus commitment and action;
 5. current uncertainty and strongest credible alternative;
-6. the material IF that changed or stayed unknown;
+6. the material IF state, including true, false, unknown, stale or conflicted;
 7. who has authority and who does not; and
 8. the next check, challenge or appeal route.
 

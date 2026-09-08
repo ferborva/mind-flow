@@ -1,22 +1,35 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "instrument_id": "instrument.observatory-self-serve.synthetic-v1",
   "instrument_kind": "observatory-self-serve",
   "classification": "synthetic-unrendered-specification",
+  "source_transition_bundle_ref": {
+    "bundle_id": "bundle.round-04.worker-option.pre-projection",
+    "bundle_stage": "pre-projection-core",
+    "schema_version": "1.2.0",
+    "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+    "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225"
+  },
   "fact_pack_ref": {
     "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
     "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-    "sha256": "sha256:b59c5023732204673b1b43cdc5f381b436e9200d8d237664da354d82536ad5b7"
+    "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
   },
   "render_contract": {
     "claim_ids": [
-      "claim.synthetic-condition-set",
-      "claim.synthetic-transition-path"
+      "claim.synthetic-computed-if-state",
+      "claim.synthetic-transition-path",
+      "claim.synthetic-future-probability"
     ],
     "condition_ids": [
-      "condition.transition-option-ready",
-      "condition.employment-offer-exists",
-      "condition.protection-capacity-ready"
+      "condition.worker-option.nsw"
+    ],
+    "state_legend_states": [
+      "true",
+      "false",
+      "unknown",
+      "stale",
+      "conflicted"
     ],
     "boundary_ids": [
       "no-real-service",
@@ -26,9 +39,19 @@
       "strongest-challenge",
       "correction-route"
     ],
+    "source_scope_clock_visible": true,
     "may_add_facts": false,
     "may_add_urgency": false,
-    "may_hide_unknowns": false,
+    "may_hide_nondecisive_states": false,
+    "may_use_probability_as_state": false,
+    "may_imply_authority": false,
     "output_capture_required": true
+  },
+  "presentation_boundary": {
+    "fact_effect": "none",
+    "truth_effect": "none",
+    "authority_effect": "none",
+    "aesthetic_preference_role": "descriptive-only-not-success",
+    "confidence_role": "calibration-and-harm-monitor-only"
   }
 }

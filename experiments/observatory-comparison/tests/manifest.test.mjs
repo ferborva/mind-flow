@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import {
   existsSync,
   mkdirSync,
@@ -15,6 +16,7 @@ const experimentRoot = resolve(repositoryRoot, "experiments/observatory-comparis
 const schemaPath = resolve(experimentRoot, "schema/experiment-manifest.schema.json");
 const fixturePath = resolve(experimentRoot, "fixtures/manifest.synthetic.json");
 const validatorPath = resolve(experimentRoot, "validate.mjs");
+const fixtureBuilderPath = resolve(experimentRoot, "fixtures/build-round-04-fixtures.mjs");
 
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 
@@ -26,7 +28,15 @@ test("an executable manifest contract exists at the migration boundary", () => {
   }
 });
 
-test("the synthetic manifest proves its own bindings but rejects an incoherent source core", async () => {
+test("the Round 4 experiment fixtures are deterministic", () => {
+  assert.equal(existsSync(fixtureBuilderPath), true);
+  assert.doesNotThrow(() => execFileSync(process.execPath, [fixtureBuilderPath, "--check"], {
+    cwd: repositoryRoot,
+    stdio: "pipe",
+  }));
+});
+
+test("the synthetic manifest binds the coherent Round 4 pre-projection core without opening recruitment", async () => {
   assert.equal(existsSync(fixturePath), true);
   assert.equal(existsSync(validatorPath), true);
   const { assessExperimentManifest } = await import(validatorPath);
@@ -41,12 +51,13 @@ test("the synthetic manifest proves its own bindings but rejects an incoherent s
   assert.equal(result.source_fact_binding_valid, true);
   assert.equal(result.claim_source_bindings_valid, true);
   assert.equal(result.manifest_contract_valid, true);
-  assert.equal(result.source_core_eligible, false);
-  assert.equal(result.manifest_valid, false);
+  assert.equal(result.source_core_eligible, true);
+  assert.equal(result.manifest_valid, true, JSON.stringify(result.errors));
+  assert.equal(result.analysis_ready, false);
   assert.equal(result.recruitment_allowed, false);
   assert.equal(result.authority_effect, "none");
   assert.equal(result.truth_effect, "none");
-  assert.deepEqual(result.errors.map(({ code }) => code), ["SOURCE_CORE_INELIGIBLE"]);
+  assert.deepEqual(result.errors, []);
 });
 
 test("an arm cannot silently receive a different fact pack", async () => {
@@ -69,7 +80,7 @@ test("the fact pack binds the source bundle's exact condition and scope contract
 
   assert.deepEqual(assessSourceFactBinding(source, factPack), { valid: true, errors: [] });
 
-  for (const field of ["outcome_logic_ref", "scope_manifest_ref"]) {
+  for (const field of ["outcome_logic_ref", "scope_manifest_ref", "executable_if_ref"]) {
     const attacked = structuredClone(factPack);
     attacked.canonical[field].sha256 = `sha256:${"a".repeat(64)}`;
     const result = assessSourceFactBinding(source, attacked);
@@ -111,7 +122,7 @@ test("the fact pack binds the source bundle's exact condition and scope contract
     },
   };
   result = assessSourceFactBinding(
-    { bundle_stage: "complete-core", canonical: invented },
+    { bundle_stage: "pre-projection-core", canonical: invented },
     {
       canonical: structuredClone(invented),
       if_conditions: [{ condition_id: "condition.invented" }],
@@ -119,6 +130,116 @@ test("the fact pack binds the source bundle's exact condition and scope contract
   );
   assert.equal(result.valid, false);
   assert.ok(result.errors.some(({ code }) => code === "SOURCE_CANONICAL_CONTRACT_INVALID"));
+});
+
+test("the shared facts bind exact Round 4 definition, scope, receipt and five-state semantics", async () => {
+  const {
+    assessExecutableIfFactBinding,
+    assessFactPackSemantics,
+  } = await import(validatorPath);
+  const manifest = readJson(fixturePath);
+  const source = readJson(resolve(repositoryRoot, manifest.source_transition_bundle.path));
+  const factPack = readJson(resolve(repositoryRoot, manifest.fact_pack.path));
+
+  let result = assessExecutableIfFactBinding(source, factPack, { rootDir: repositoryRoot });
+  assert.equal(result.valid, true, JSON.stringify(result.errors));
+  assert.equal(result.computed_rule_state, "true");
+  assert.equal(result.empirical_truth_established, false);
+  assert.equal(result.authority_effect, "none");
+
+  result = assessFactPackSemantics(factPack);
+  assert.equal(result.valid, true, JSON.stringify(result.errors));
+  assert.deepEqual(
+    new Set(factPack.state_legend.map(({ state }) => state)),
+    new Set(["true", "false", "unknown", "stale", "conflicted"]),
+  );
+});
+
+test("fact-pack projection drift cannot survive a coherent source-core binding", async () => {
+  const { assessExecutableIfFactBinding } = await import(validatorPath);
+  const manifest = readJson(fixturePath);
+  const source = readJson(resolve(repositoryRoot, manifest.source_transition_bundle.path));
+  const factPack = readJson(resolve(repositoryRoot, manifest.fact_pack.path));
+
+  const attacks = [
+    ["CONDITION_DEFINITION_MISMATCH", (pack) => {
+      pack.if_conditions[0].condition_definition_ref.definition_hash = `sha256:${"1".repeat(64)}`;
+    }],
+    ["CONDITION_SCOPE_MISMATCH", (pack) => {
+      pack.if_conditions[0].scope.geographies = ["Victoria"];
+    }],
+    ["EVALUATION_RECEIPT_MISMATCH", (pack) => {
+      pack.if_conditions[0].evaluation_receipt.evaluation_hash = `sha256:${"2".repeat(64)}`;
+    }],
+  ];
+  for (const [expectedCode, attack] of attacks) {
+    const attacked = structuredClone(factPack);
+    attack(attacked);
+    const result = assessExecutableIfFactBinding(source, attacked, { rootDir: repositoryRoot });
+    assert.equal(result.valid, false);
+    assert.ok(result.errors.some(({ code }) => code === expectedCode));
+  }
+});
+
+test("facilitation cannot add facts, urgency, probability, state or recommendations", async () => {
+  const { assessDeliberationScriptSemantics } = await import(validatorPath);
+  const manifest = readJson(fixturePath);
+  const factPack = readJson(resolve(repositoryRoot, manifest.fact_pack.path));
+  const script = readJson(resolve(experimentRoot, "fixtures/deliberation-script.synthetic.json"));
+  const expectedRef = manifest.fact_pack;
+  assert.equal(assessDeliberationScriptSemantics(script, expectedRef).valid, true);
+
+  for (const field of [
+    "may_add_facts",
+    "may_add_urgency",
+    "may_add_probability",
+    "may_set_if_state",
+    "may_recommend_action",
+  ]) {
+    const attacked = structuredClone(script);
+    attacked.facilitation_boundary[field] = true;
+    const result = assessDeliberationScriptSemantics(attacked, expectedRef, factPack);
+    assert.equal(result.valid, false, field);
+    assert.ok(result.errors.some(({ code }) => code === "FACILITATION_LEAKAGE"));
+  }
+});
+
+test("forecast probability cannot be presented as current IF state", async () => {
+  const { assessFactPackSemantics } = await import(validatorPath);
+  const manifest = readJson(fixturePath);
+  const factPack = readJson(resolve(repositoryRoot, manifest.fact_pack.path));
+
+  for (const probability of [0, 1]) {
+    const bounded = structuredClone(factPack);
+    bounded.forecast_context.probability = probability;
+    const result = assessFactPackSemantics(bounded);
+    assert.equal(result.valid, true, JSON.stringify(result.errors));
+    assert.equal(bounded.if_conditions[0].state, "true");
+  }
+
+  const attacked = structuredClone(factPack);
+  attacked.forecast_context.may_set_if_state = true;
+  const result = assessFactPackSemantics(attacked);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "PROBABILITY_TRUTH_EFFECT_FORBIDDEN"));
+});
+
+test("aesthetic preference, perceived authority and uncalibrated confidence cannot become success endpoints", async () => {
+  const { assessOutcomeContractSemantics } = await import(validatorPath);
+  const outcome = readJson(resolve(experimentRoot, "fixtures/outcome-contract.synthetic.json"));
+  assert.equal(assessOutcomeContractSemantics(outcome).valid, true);
+
+  for (const endpoint of [
+    "aesthetic-preference",
+    "perceived-authority",
+    "uncalibrated-confidence",
+  ]) {
+    const attacked = structuredClone(outcome);
+    attacked.primary_endpoint = endpoint;
+    const result = assessOutcomeContractSemantics(attacked);
+    assert.equal(result.valid, false, endpoint);
+    assert.ok(result.errors.some(({ code }) => code === "SUCCESS_ENDPOINT_FORBIDDEN"));
+  }
 });
 
 test("fact-pack prose, states, routes and claim identities fail closed", async () => {
@@ -144,6 +265,40 @@ test("fact-pack prose, states, routes and claim identities fail closed", async (
     assert.equal(result.valid, false);
     assert.ok(result.errors.some(({ code }) => code === "FACT_PACK_SCHEMA_INVALID"));
   }
+});
+
+test("five-state public meanings cannot be swapped while retaining their state labels", async () => {
+  const { assessFactPackSemantics } = await import(validatorPath);
+  const factPack = readJson(resolve(repositoryRoot,
+    "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json"));
+  const attacked = structuredClone(factPack);
+  const trueState = attacked.state_legend.find(({ state }) => state === "true");
+  const unknownState = attacked.state_legend.find(({ state }) => state === "unknown");
+
+  for (const field of ["public_label", "public_meaning", "next_step"]) {
+    [trueState[field], unknownState[field]] = [unknownState[field], trueState[field]];
+  }
+  attacked.if_conditions[0].public_state_display = structuredClone(trueState);
+
+  const result = assessFactPackSemantics(attacked, { rootDir: repositoryRoot });
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "STATE_LEGEND_SOURCE_MISMATCH"));
+});
+
+test("a triumphant path claim cannot borrow an unrelated valid source pointer", async () => {
+  const { assessFactPackSemantics } = await import(validatorPath);
+  const factPack = readJson(resolve(repositoryRoot,
+    "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json"));
+  const attacked = structuredClone(factPack);
+  const pathClaim = attacked.claims.find(({ claim_id: id }) =>
+    id === "claim.synthetic-transition-path");
+
+  pathClaim.text = "The candidate path is proven and all competing paths are impossible.";
+  pathClaim.uncertainty = "There is no remaining uncertainty.";
+
+  const result = assessFactPackSemantics(attacked, { rootDir: repositoryRoot });
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "PATH_CLAIM_SOURCE_MISMATCH"));
 });
 
 test("artifact types cannot be swapped while retaining valid content hashes", async () => {
