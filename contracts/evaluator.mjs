@@ -9,7 +9,7 @@ import { isDeepStrictEqual } from "node:util";
  * layer. This module only combines those states without erasing uncertainty.
  */
 
-export const EVALUATOR_VERSION = "2.0.0";
+export const EVALUATOR_VERSION = "3.0.0";
 
 export const PREDICATE_TRUTH_STATES = Object.freeze([
   "true",
@@ -475,30 +475,7 @@ const LIFECYCLES = new Set([
   "recovering",
   "graduated",
 ]);
-const LIFECYCLE_VOCABULARY = "condition-transition-lifecycle/1.0.0";
 const RECORD_TRUST_STATES = new Set(["unverified-external"]);
-const OWNER_EVENT_TRANSITIONS = new Set([
-  "activate:inactive:active",
-  "activate:watching:active",
-  "activate:preparing:active",
-  "resume:paused:active",
-  "pause:preparing:paused",
-  "pause:active:paused",
-  "pause:recovering:paused",
-  "reverse:preparing:reversing",
-  "reverse:active:reversing",
-  "reverse:paused:reversing",
-  "reverse:recovering:reversing",
-  "begin-recovery:inactive:recovering",
-  "begin-recovery:watching:recovering",
-  "begin-recovery:preparing:recovering",
-  "begin-recovery:active:recovering",
-  "begin-recovery:paused:recovering",
-  "recovery-exit:recovering:active",
-  "recovery-exit:recovering:graduated",
-  "graduate:active:graduated",
-  "graduate:paused:graduated",
-]);
 
 function canonicalise(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalise).join(",")}]`;
@@ -515,7 +492,6 @@ function recordChecksum(record) {
 
 function priorStateReference(priorState) {
   return {
-    artifact_type: "lifecycle-state",
     id: priorState.id,
     version: priorState.schema_version,
     checksum: recordChecksum(priorState),
@@ -524,54 +500,48 @@ function priorStateReference(priorState) {
   };
 }
 
-function ownerEventReference(ownerEvent) {
-  if (!ownerEvent) return null;
+function actionReference(action) {
   return {
-    artifact_type: "owner-transition-event",
-    id: ownerEvent.id,
-    version: ownerEvent.schema_version,
-    checksum: recordChecksum(ownerEvent),
-    event_type: ownerEvent.event_type,
-    from_lifecycle: ownerEvent.from_lifecycle,
-    to_lifecycle: ownerEvent.to_lifecycle,
-    trust_state: ownerEvent.trust_state,
+    id: action.id,
+    version: action.action_version,
+    checksum: recordChecksum(action),
   };
 }
 
-function validatePriorState(priorState) {
+function evaluationRunReference(run) {
+  return {
+    id: run.id,
+    version: run.schema_version,
+    checksum: recordChecksum(run),
+  };
+}
+
+function strictInstant(value) {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(value || "")) return null;
+  const parsed = Date.parse(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function validatePriorState(priorState, action, run, generatedAt) {
   if (
     !priorState ||
     priorState.schema_version !== "1.0.0" ||
-    priorState.artifact_type !== "lifecycle-state" ||
     typeof priorState.id !== "string" ||
-    priorState.lifecycle_vocabulary !== LIFECYCLE_VOCABULARY ||
+    priorState.lifecycle_vocabulary !== "action-transition-lifecycle/1.0.0" ||
     !LIFECYCLES.has(priorState.lifecycle) ||
-    !RECORD_TRUST_STATES.has(priorState.trust_state)
+    !RECORD_TRUST_STATES.has(priorState.trust_state) ||
+    !isDeepStrictEqual(priorState.action_ref, actionReference(action))
   ) {
-    throw new TypeError("A valid condition-transition lifecycle-state record is required.");
+    throw new TypeError("A valid action-bound lifecycle-state record is required.");
   }
-}
-
-function validateOwnerEvent(ownerEvent, priorState) {
-  if (ownerEvent === null || ownerEvent === undefined) return;
-  if (
-    ownerEvent.schema_version !== "1.0.0" ||
-    ownerEvent.artifact_type !== "owner-transition-event" ||
-    typeof ownerEvent.id !== "string" ||
-    ownerEvent.lifecycle_mapping_version !== "1.0.0" ||
-    !LIFECYCLES.has(ownerEvent.from_lifecycle) ||
-    !LIFECYCLES.has(ownerEvent.to_lifecycle) ||
-    !RECORD_TRUST_STATES.has(ownerEvent.trust_state) ||
-    !OWNER_EVENT_TRANSITIONS.has(
-      `${ownerEvent.event_type}:${ownerEvent.from_lifecycle}:${ownerEvent.to_lifecycle}`,
-    ) ||
-    ownerEvent.evaluation_run_ref?.artifact_type !== "evaluation-run" ||
-    typeof ownerEvent.evaluation_run_ref?.id !== "string" ||
-    ownerEvent.evaluation_run_ref?.version !== "2.0.0" ||
-    !/^sha256:[a-f0-9]{64}$/.test(ownerEvent.evaluation_run_ref?.checksum || "") ||
-    !isDeepStrictEqual(ownerEvent.prior_state_ref, priorStateReference(priorState))
-  ) {
-    throw new TypeError("The owner event is invalid or is not bound to the prior state.");
+  const stateAt = strictInstant(priorState.recorded_at);
+  const evaluatedAt = strictInstant(run?.evaluated_at);
+  const proposalAt = strictInstant(generatedAt);
+  if (stateAt === null || evaluatedAt === null || stateAt > evaluatedAt) {
+    throw new TypeError("The prior state must not be recorded after the evaluation.");
+  }
+  if (proposalAt === null || proposalAt < evaluatedAt) {
+    throw new TypeError("The transition proposal must not predate its evaluation.");
   }
 }
 
@@ -590,6 +560,18 @@ function validatedResolution(evaluation) {
     throw new TypeError("The recorded condition resolution does not match gate recomputation.");
   }
   return recomputed;
+}
+
+function validateEvaluationRunBasis(evaluation, resolution, run) {
+  if (
+    !run ||
+    !/^3\.0\.[0-9]+$/.test(run.schema_version || "") ||
+    run.run_status !== "completed" ||
+    !isDeepStrictEqual(run.gate_results, evaluation.gates) ||
+    !isDeepStrictEqual(run.condition_resolution, resolution)
+  ) {
+    throw new TypeError("The evaluation and completed evaluation run do not match exactly.");
+  }
 }
 
 /**
@@ -667,17 +649,22 @@ export function resolveCondition(evaluation) {
 
 function transitionRecord(
   resolution,
+  action,
   priorState,
-  ownerEvent,
+  run,
+  generatedAt,
   proposal,
   proposedLifecycle,
   conflicts = [],
 ) {
   return {
-    proposal_version: "1.0.0",
-    lifecycle_mapping_version: "1.0.0",
+    schema_version: "1.0.0",
+    id: `transition-proposal.${action.id}.${generatedAt
+      .toLowerCase().replaceAll(/[^a-z0-9]+/g, "")}`,
+    action_ref: actionReference(action),
+    evaluation_run_ref: evaluationRunReference(run),
     prior_state_ref: priorStateReference(priorState),
-    owner_event_ref: ownerEventReference(ownerEvent),
+    generated_at: generatedAt,
     proposal,
     proposed_lifecycle: proposedLifecycle,
     authority_effect: "none",
@@ -693,52 +680,38 @@ function transitionRecord(
  * Prior lifecycle prevents a fresh gate evaluation from silently reactivating
  * a reversed or graduated option, or withdrawing an already active support.
  */
-export function proposeTransition(evaluation, priorState, ownerEvent = null) {
-  validatePriorState(priorState);
-  validateOwnerEvent(ownerEvent, priorState);
+export function proposeTransition(evaluation, action, priorState, run, generatedAt) {
+  validatePriorState(priorState, action, run, generatedAt);
   const priorLifecycle = priorState.lifecycle;
   const resolution = validatedResolution(evaluation);
+  validateEvaluationRunBasis(evaluation, resolution, run);
+  const record = (proposal, proposedLifecycle, conflicts = []) => transitionRecord(
+    resolution,
+    action,
+    priorState,
+    run,
+    generatedAt,
+    proposal,
+    proposedLifecycle,
+    conflicts,
+  );
 
   if (priorLifecycle === "graduated") {
-    return transitionRecord(
-      resolution,
-      priorState,
-      ownerEvent,
-      "hold_for_new_contract",
-      priorLifecycle,
-    );
+    return record("hold_for_new_contract", priorLifecycle);
   }
 
   if (resolution.safety_control === "reverse") {
     if (priorLifecycle === "reversing") {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "continue_reversal",
-        "reversing",
-      );
+      return record("continue_reversal", "reversing");
     }
     if (["preparing", "active", "paused", "recovering"].includes(priorLifecycle)) {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "consider_reversal",
-        "reversing",
-      );
+      return record("consider_reversal", "reversing");
     }
-    return transitionRecord(resolution, priorState, ownerEvent, "hold", priorLifecycle);
+    return record("hold", priorLifecycle);
   }
 
   if (priorLifecycle === "reversing") {
-    return transitionRecord(
-      resolution,
-      priorState,
-      ownerEvent,
-      "hold_for_new_contract",
-      "reversing",
-    );
+    return record("hold_for_new_contract", "reversing");
   }
 
   if (["pause", "precautionary_hold"].includes(resolution.safety_control)) {
@@ -746,19 +719,13 @@ export function proposeTransition(evaluation, priorState, ownerEvent = null) {
       const proposal = resolution.safety_control === "pause"
         ? "consider_pause"
         : "consider_precautionary_pause";
-      return transitionRecord(resolution, priorState, ownerEvent, proposal, "paused");
+      return record(proposal, "paused");
     }
-    return transitionRecord(resolution, priorState, ownerEvent, "hold", priorLifecycle);
+    return record("hold", priorLifecycle);
   }
 
   if (resolution.transition_conflicts.length > 0) {
-    return transitionRecord(
-      resolution,
-      priorState,
-      ownerEvent,
-      "hold_for_review",
-      priorLifecycle,
-    );
+    return record("hold_for_review", priorLifecycle);
   }
 
   if (priorLifecycle === "recovering") {
@@ -766,58 +733,22 @@ export function proposeTransition(evaluation, priorState, ownerEvent = null) {
       resolution.concurrent_duties.includes("recover") &&
       resolution.concurrent_duties_eligible.recover
     ) {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "continue_recovery",
-        "recovering",
-      );
+      return record("continue_recovery", "recovering");
     }
-    const recoveryExit = ownerEvent?.event_type === "recovery-exit" &&
-      ownerEvent.from_lifecycle === "recovering";
-    const targetEligible = ownerEvent?.to_lifecycle === "active"
-      ? resolution.candidate_phase === "act" && resolution.candidate_phase_eligible
-      : ownerEvent?.to_lifecycle === "graduated"
-        ? resolution.exit_candidate === "graduate" && resolution.exit_candidate_eligible
-        : false;
-    if (recoveryExit && targetEligible) {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "consider_recovery_exit",
-        ownerEvent.to_lifecycle,
-      );
+    if (resolution.exit_candidate === "graduate" && resolution.exit_candidate_eligible) {
+      return record("consider_recovery_exit", "graduated");
     }
-    return transitionRecord(
-      resolution,
-      priorState,
-      ownerEvent,
-      "await_recovery_exit_event",
-      "recovering",
-      recoveryExit ? ["owner_event_condition_mismatch"] : [],
-    );
+    if (resolution.candidate_phase === "act" && resolution.candidate_phase_eligible) {
+      return record("consider_recovery_exit", "active");
+    }
+    return record("await_recovery_evidence", "recovering");
   }
 
   if (resolution.exit_candidate === "graduate" && resolution.exit_candidate_eligible) {
     if (["active", "paused", "recovering"].includes(priorLifecycle)) {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "consider_graduation",
-        "graduated",
-      );
+      return record("consider_graduation", "graduated");
     }
-    return transitionRecord(
-      resolution,
-      priorState,
-      ownerEvent,
-      "hold_for_review",
-      priorLifecycle,
-      ["graduate_without_existing_action"],
-    );
+    return record("hold_for_review", priorLifecycle, ["graduate_without_existing_action"]);
   }
 
   if (
@@ -825,77 +756,54 @@ export function proposeTransition(evaluation, priorState, ownerEvent = null) {
     resolution.concurrent_duties_eligible.recover
   ) {
     if (priorLifecycle === "active") {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "continue_with_recovery",
-        "active",
-      );
+      return record("continue_with_recovery", "active");
     }
-    return transitionRecord(
-      resolution,
-      priorState,
-      ownerEvent,
-      "consider_recovery",
-      "recovering",
-    );
+    return record("consider_recovery", "recovering");
   }
 
-  if (resolution.candidate_phase === "act" && resolution.candidate_phase_eligible) {
+  if (
+    action.gate === "act" &&
+    resolution.candidate_phase === "act" &&
+    resolution.candidate_phase_eligible
+  ) {
     if (priorLifecycle === "paused") {
-      return transitionRecord(resolution, priorState, ownerEvent, "consider_resume", "active");
+      return record("consider_resume", "active");
     }
     if (["inactive", "watching", "preparing"].includes(priorLifecycle)) {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "consider_activation",
-        "active",
-      );
+      return record("consider_activation", "active");
     }
-    return transitionRecord(resolution, priorState, ownerEvent, "continue_active", "active");
+    return record("continue_active", "active");
   }
 
-  if (resolution.candidate_phase === "prepare" && resolution.candidate_phase_eligible) {
+  if (
+    action.gate === "prepare" &&
+    ["prepare", "act"].includes(resolution.candidate_phase) &&
+    resolution.candidate_phase_eligible
+  ) {
     if (["inactive", "watching"].includes(priorLifecycle)) {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "consider_preparation",
-        "preparing",
-      );
+      return record("consider_preparation", "preparing");
     }
     if (priorLifecycle === "preparing") {
-      return transitionRecord(
-        resolution,
-        priorState,
-        ownerEvent,
-        "continue_preparation",
-        "preparing",
-      );
+      return record("continue_preparation", "preparing");
     }
   }
 
   if (priorLifecycle === "active") {
-    return transitionRecord(resolution, priorState, ownerEvent, "continue_active", "active");
+    return record("continue_active", "active");
   }
   if (priorLifecycle === "paused") {
-    return transitionRecord(resolution, priorState, ownerEvent, "hold", "paused");
+    return record("hold", "paused");
   }
   if (priorLifecycle === "preparing") {
-    return transitionRecord(resolution, priorState, ownerEvent, "hold", "preparing");
+    return record("hold", "preparing");
   }
   if (
-    resolution.candidate_phase === "watch" &&
-    resolution.candidate_phase_eligible &&
+    action.gate === "watch" &&
     resolution.concurrent_duties_eligible.watch
   ) {
-    return transitionRecord(resolution, priorState, ownerEvent, "consider_watching", "watching");
+    return record("consider_watching", "watching");
   }
-  return transitionRecord(resolution, priorState, ownerEvent, "hold", priorLifecycle);
+  return record("hold", priorLifecycle);
 }
 
 /** Evaluate every required lifecycle gate independently. */

@@ -6,17 +6,19 @@ tested.
 
 ## Artifact separation
 
-Version 3 of the condition and action schemas intentionally breaks version 2 by
-requiring the first-class `prepare` gate and making every eligibility axis
-explicitly non-authorising. Evaluation runs and attempts move to schema version
-2, and the evaluator moves to version 2. The reference condition definition and
-action also move to major version 2 because their gate and binding semantics
-changed. Earlier evaluation-run version 1 records used `activation_allowed`,
-`action_resolution` and only six gates. They must not be relabelled as version 2
-output. Version 1 also accepted free-form evaluator provenance. Migration means
-creating new versioned definitions, observations and evaluations with new
-checksums while preserving old artifacts. There is no automatic compatibility
-claim.
+**The current split keeps evaluation, action governance, operational state,
+computed proposals and owner events in separate checksum-bound artifacts.** An
+evaluation can establish gate truth and conditional eligibility. It cannot
+approve an action, change an operational lifecycle or record an owner's choice.
+
+Condition definitions remain on schema version 3. Pure completed evaluation
+runs and the evaluator move to version 3. Action records move to schema version
+4 and replace the mixed `lifecycle` field with `record_lifecycle`. Evaluation
+attempts remain on schema version 2. Earlier evaluation-run version 2 records
+embedded lifecycle context and a transition proposal, while action version 3
+mixed record governance with operational state. They must not be relabelled as
+the new versions. Migration creates new artifacts and checksums while preserving
+the old records. There is no automatic compatibility claim.
 
 The protocol now separates operational concerns:
 
@@ -29,20 +31,38 @@ The protocol now separates operational concerns:
    fields to update inside a definition.
 3. `evaluation-run.schema.json` pins the exact condition definition and
    observations used, then records deterministic outputs and traces for all
-   seven gates plus a versioned transition proposal. Only this completed,
-   reproducible artifact is decision-ready.
+   seven gates. Version 3 is a pure evaluation artifact. It contains no action,
+   prior state, transition proposal or owner event.
 4. `evaluation-attempt.schema.json` preserves partial and failed work without
    allowing it to masquerade as a completed run. A partial attempt has one to
    six reproducible gate outputs and at least one operational error. A failed
    attempt has errors but no successful gate output.
-5. `correction-record.schema.json` links a checksum-pinned artifact to a new
+5. `action-contract.schema.json` binds one gate to a governed action definition.
+   Version 4 uses `record_lifecycle` only: `draft`, `shadow`, `approved` or
+   `retired`. It does not claim that the action is operationally active, paused,
+   recovering or complete.
+6. `action-lifecycle-state.schema.json` records the operational state asserted
+   for one checksum-pinned action. It is separate from both the action definition
+   and the evaluation run, and its external trust remains explicit.
+7. `transition-proposal.schema.json` records the repository-computed proposal
+   from one action, one completed evaluation run and one prior lifecycle state.
+   It has no authority effect and contains no owner event.
+8. `owner-transition-event.schema.json` records a later external owner event.
+   It must pin the exact action, run, prior state and computed proposal, then
+   enact exactly that supported transition tuple.
+9. `condition-pathway-definition.schema.json` and
+   `condition-pathway-assessment.schema.json` separate possible-path hypotheses
+   from deterministic assessments of which paths are consistent with current
+   bounded IF evidence.
+10. `correction-record.schema.json` links a checksum-pinned artifact to a new
    replacement, preserves the old artifact and declares known downstream
    artifacts that must be invalidated.
 
-The action contract also pins the definition ID, version and checksum and uses
-the closed `condition-transition-lifecycle/1.0.0` mapping. The reference action
-is a fictional shadow proposal with conditional funding, no approval and no
-claim of government authority.
+The reference action is a fictional shadow record with conditional funding, no
+approval and no claim of government authority. The separate lifecycle state and
+owner-event records are labelled `unverified-external` because this repository
+does not verify external signatures, mandates, funding or consent. Structural
+validity and checksum integrity never create authority.
 
 ## Condition grammar
 
@@ -90,8 +110,34 @@ temporary support.
 
 Adding required `advance` and `scale` gates would duplicate direction in every
 condition and make the smallest safe contract larger. We should revisit that
-decision only if shadow pilots show that opportunity programs need materially
+decision only if shadow pilots show that opportunity programmes need materially
 different transition semantics that action verbs and outcomes cannot express.
+
+## Condition pathways
+
+`condition-pathway-definition.schema.json` groups positive, adverse,
+measurement-alternative and recovery branches under one bounded scope. Every
+branch names its IF gate tests, next discriminating predicates, forecast
+relationship, early-warning readiness and operational-action boundary. A
+`hypothesis-only` interpretation has no evidence references. A pathway cannot
+carry a crisis score, probability, causal verdict or action command.
+
+`condition-pathway-assessment.schema.json` pins the pathway definition and every
+completed evaluation input. It records six independent axes for each branch:
+definition lifecycle, gate truth, binding interpretation, path observation,
+migration evidence and operational action. Several branches may remain
+simultaneously consistent with the same evidence. `selection_effect: none`
+prevents the assessment from silently choosing one future.
+
+`assessConditionPathway` recomputes those branch assessments. Its output is
+repository-computed, checksum-pins its registered evaluator and remains
+externally unverified. A gate test must exclude at least one truth state, and a
+named discriminator must affect a gate tested by that branch. Evidence,
+forecast, readiness, option and participation references must resolve to
+supplied checksum-pinned content. The five readiness roles cannot be collapsed
+into one artifact. A `candidate-only` operational action must reference a
+separate action contract; `none` contains no option reference. Neither state
+approves, activates or recommends an action.
 
 ## Action contract
 
@@ -99,17 +145,22 @@ different transition semantics that action verbs and outcomes cannot express.
 `prepare` binding is distinct from both observation and material action, and
 must describe only bounded, low-regret and reversible readiness work. The
 contract requires an accountable owner, authority, funding state, response SLA,
-appeal route, verification outcome, communications and expiry. Approved or active
-actions must have at least one approver and secured funding. An active action
-record is supplied by its accountable owner; the evaluator cannot create it.
-Importing an operational lifecycle requires a semantically valid completed
-evaluation bundle and a checksum-bound owner event. The event's trust is labelled
-`unverified-external` because this repository does not verify external
-signatures or authority. The pinned gate-truth state must be `true`, and its
-orthogonal eligibility must also pass: phase eligibility for `prepare` or `act`,
-duty eligibility for `watch` or `recover`, exit eligibility for `graduate`, and
-winning safety precedence for `pause` or `reverse`. These fields permit
-consideration only. They are not approval, authority, activation or a command.
+appeal route, verification outcome, communications and expiry. Version 4
+`record_lifecycle` describes governance of the action definition only. An
+`approved` record must have at least one approver and secured funding, but it is
+still not an operational-state claim.
+
+Operational lifecycle belongs only in `action-lifecycle-state.schema.json`.
+That record pins the exact action and uses the closed
+`action-transition-lifecycle/1.0.0` vocabulary: `inactive`, `watching`,
+`preparing`, `active`, `paused`, `reversing`, `recovering` or `graduated`. Its
+timestamp must precede the evaluation used for a new transition proposal.
+
+The pinned gate-truth state must be `true`, and its orthogonal eligibility must
+also pass: phase eligibility for `prepare` or `act`, duty eligibility for
+`watch` or `recover`, exit eligibility for `graduate`, and winning safety
+precedence for `pause` or `reverse`. These results permit computation of a
+proposal only. They are not approval, authority, activation or a command.
 
 The fixtures are synthetic test contracts, not policy proposals and not evidence
 that the example thresholds are valid. Their thresholds explicitly remain in
@@ -121,18 +172,36 @@ JSON Schema validates each artifact's shape. `semantic-validation.mjs` validates
 the relationships that Schema cannot establish alone: definition references,
 gate and observation references, checksums, date order, evidence timing,
 coverage minimums, source and quality policy, uncertainty bounds, probability
-policy, action lifetime and funding lifetime. It also re-evaluates every gate
-and requires the stored state, trace, condition resolution and transition
-proposal to match exactly.
+policy, action lifetime and funding lifetime. `validateEvaluationBundle`
+re-evaluates every gate and requires the stored state, trace and condition
+resolution to match exactly. Evaluation validation does not inspect or create an
+action lifecycle.
 
-Completed runs and attempts pin a registered evaluator ID, version and source
-digest from `evaluator-registry.json`. The registry is repository-local and has
+`validateTransitionBundle` separately recomputes a transition proposal from the
+exact action, matching completed run and prior action state. A proposal cannot
+predate action validity or approval, or outlive secured funding.
+`validateOperationalActionState` then requires a later owner event only when the
+proposed lifecycle differs from the prior lifecycle. Its four checksum-bound
+references and transition tuple must match that proposal exactly. An unchanged
+proposal preserves the prior state and must not invent an owner event. Any event remains
+`unverified-external`; passing validation proves internal consistency, not the
+truth, legality or authority of the external assertion.
+
+`validateConditionPathwayDefinition` checks branch kinds, unique identifiers,
+condition and predicate references, scope and validity dates.
+`validateConditionPathwayBundle` recomputes every assessment from its pinned
+evaluation inputs without selecting a winning branch or importing action
+authority.
+
+Completed runs, attempts and possible-path assessments pin a registered
+evaluator ID, version and source digest from `evaluator-registry.json`. The
+registry is repository-local and has
 `authority_effect: none`; it establishes reproducibility, not external trust.
 
 `validateEvaluationAttempt` applies the same definition, observation, date and
 deterministic-output checks to the subset an attempt claims to have completed.
 An attempt is operational evidence only. It cannot satisfy the completed-run
-schema or authorize an action.
+schema or authorise an action.
 
 `validateCorrectionChain` checks a supplied, closed artifact bundle. It verifies
 checksums, references, time order, preserved condition and predicate scope,
@@ -236,25 +305,34 @@ non-authorising and orthogonal:
    recover-only or graduate-only result meaningful, and lets recovery remain
    eligible during pause or reversal. No eligibility field changes authority.
 
-`proposeTransition` then combines that immutable resolution with a closed,
-checksum-bound prior-state record. Without external signature verification its
-trust is honestly labelled `unverified-external`. Consequential proposals
-require all seven valid gate results, no evaluation errors, exact recomputation
-of the stored resolution and eligibility on the relevant axis. Evaluation-run
-version 2 persists the result as a closed `transition_proposal` record with
-`proposal_version`, lifecycle mapping version, prior-state and owner-event
-references, proposed lifecycle, conflicts and concurrent duties. An unresolved
-safeguard proposes a precautionary pause only from a
-preparing, active or recovering lifecycle; inactive and watching states merely
-hold. Active support is not withdrawn merely because `act` later becomes false.
-Paused work can only be proposed for resumption when `act` is true and the hard
-safeguards are current and false. Reversing and graduated records never
-reactivate from a new gate evaluation. A recovering lifecycle remains recovering
-until a valid checksum-bound `recovery-exit` owner event is supplied, even when
-`act` or `graduate` is true. Every proposal has
-`authority_effect: none`, `automatic_transition: false` and
-`automatic_support_withdrawal: false`; a separately verified owner event must
-perform any lifecycle change.
+`proposeTransition` combines the immutable condition resolution with one exact
+action record, one checksum-bound prior action state and the completed
+evaluation run. The prior state must not postdate the evaluation, and the
+proposal must not predate it. The resulting
+`transition-proposal.schema.json` artifact pins all three inputs and records its
+generation time, proposed lifecycle, conflicts and concurrent duties. It does
+not accept, predict or embed an owner event.
+
+Consequential proposals require all seven valid gate results, no evaluation
+errors, exact recomputation of the stored resolution and eligibility on the
+action's relevant axis. An unresolved safeguard proposes a precautionary pause
+only from a preparing, active or recovering lifecycle; inactive and watching
+states merely hold. Active support is not withdrawn merely because `act` later
+becomes false. Paused work can only be proposed for resumption when `act` is
+true and the hard safeguards are current and false. Reversing and graduated
+records never reactivate from a new gate evaluation. A recovering lifecycle can
+produce a recovery-exit proposal only when the relevant `act` or `graduate`
+eligibility passes. Until then it remains recovering.
+
+Every proposal has `authority_effect: none`, `automatic_transition: false` and
+`automatic_support_withdrawal: false`. When the proposed lifecycle changes, a
+later `owner-transition-event.schema.json` record must pin the exact action,
+evaluation run, prior state and proposal, occur no earlier than the proposal,
+name the same owner and exactly enact a supported from/to tuple. When it does
+not change, the prior state remains the state of record and no transition event
+is applicable. Even then, this repository records any event as
+`unverified-external`. It does not verify the owner's identity, legal authority,
+funding, consent or real-world execution.
 
 The public compiler must bind `actor reference + verb + bounded object and
 scope + gate reference + condition checksum`. Without a verified commitment it

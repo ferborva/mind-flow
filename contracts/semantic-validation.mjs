@@ -13,23 +13,12 @@ const EVALUATOR_REGISTRY = JSON.parse(readFileSync(
   new URL("./evaluator-registry.json", import.meta.url),
   "utf8",
 ));
-const ACTION_LIFECYCLE_MAPPING_VERSION = "1.0.0";
-const ACTION_TO_TRANSITION_LIFECYCLE = Object.freeze({
-  draft: "inactive",
-  shadow: "inactive",
-  approved: "inactive",
-  active: "active",
-  paused: "paused",
-  completed: "graduated",
-  retired: "graduated",
-});
-const OPERATIONAL_ACTION_LIFECYCLES = new Set([
-  "active",
-  "paused",
-  "completed",
-  "retired",
-]);
 const OWNER_EVENT_TRANSITIONS = new Set([
+  "watch:inactive:watching",
+  "watch:watching:watching",
+  "prepare:inactive:preparing",
+  "prepare:watching:preparing",
+  "prepare:preparing:preparing",
   "activate:inactive:active",
   "activate:watching:active",
   "activate:preparing:active",
@@ -86,83 +75,41 @@ function evaluatorRegistryErrors(record, path) {
 
 function evaluationRunReference(run) {
   return {
-    artifact_type: "evaluation-run",
     id: run.id,
     version: run.schema_version,
     checksum: checksumJson(run),
   };
 }
 
-function ownerEventErrors(ownerEvent, run, targetLifecycle) {
-  const errors = [];
-  if (!ownerEvent || typeof ownerEvent !== "object" || Array.isArray(ownerEvent)) {
-    return [problem(
-      "OPERATIONAL_LIFECYCLE_OWNER_EVENT_REQUIRED",
-      "$.lifecycle_evidence.owner_event",
-      "An operational lifecycle import requires a checksum-bound owner transition event.",
-    )];
-  }
-  if (!isDeepStrictEqual(ownerEvent.evaluation_run_ref, evaluationRunReference(run))) {
-    errors.push(problem(
-      "OWNER_EVENT_EVALUATION_MISMATCH",
-      "$.lifecycle_evidence.owner_event.evaluation_run_ref",
-      "The owner event must pin the completed evaluation run by id, version and checksum.",
-    ));
-  }
-  if (!isDeepStrictEqual(ownerEvent.prior_state_ref, run.transition_proposal?.prior_state_ref)) {
-    errors.push(problem(
-      "OWNER_EVENT_PRIOR_STATE_MISMATCH",
-      "$.lifecycle_evidence.owner_event.prior_state_ref",
-      "The owner event must pin the proposal prior state.",
-    ));
-  }
-  const priorLifecycle = run.lifecycle_context?.prior_state?.lifecycle;
-  if (
-    ownerEvent.lifecycle_mapping_version !== ACTION_LIFECYCLE_MAPPING_VERSION ||
-    ownerEvent.from_lifecycle !== priorLifecycle ||
-    ownerEvent.to_lifecycle !== targetLifecycle ||
-    run.transition_proposal?.proposed_lifecycle !== targetLifecycle ||
-    !OWNER_EVENT_TRANSITIONS.has(
-      `${ownerEvent.event_type}:${ownerEvent.from_lifecycle}:${ownerEvent.to_lifecycle}`,
-    )
-  ) {
-    errors.push(problem(
-      "OWNER_EVENT_LIFECYCLE_MISMATCH",
-      "$.lifecycle_evidence.owner_event",
-      "The owner event, proposal and strict lifecycle mapping must identify one supported transition.",
-    ));
-  }
-  if (ownerEvent.trust_state !== "unverified-external") {
-    errors.push(problem(
-      "OWNER_EVENT_TRUST_INVALID",
-      "$.lifecycle_evidence.owner_event.trust_state",
-      "External verification is unavailable; the owner event must remain labelled unverified-external.",
-    ));
-  }
-  const eventAt = instant(ownerEvent.recorded_at);
-  const evaluatedAt = instant(run.evaluated_at);
-  if (eventAt === null || evaluatedAt === null || eventAt < evaluatedAt) {
-    errors.push(problem(
-      "OWNER_EVENT_TIME_INVALID",
-      "$.lifecycle_evidence.owner_event.recorded_at",
-      "The owner event must be recorded at or after its completed evaluation run.",
-    ));
-  }
-  return errors;
+function actionReference(action) {
+  return {
+    id: action.id,
+    version: action.action_version,
+    checksum: checksumJson(action),
+  };
+}
+
+function lifecycleStateReference(state) {
+  return {
+    id: state.id,
+    version: state.schema_version,
+    checksum: checksumJson(state),
+    lifecycle: state.lifecycle,
+    trust_state: state.trust_state,
+  };
+}
+
+function transitionProposalReference(proposal) {
+  return {
+    id: proposal.id,
+    version: proposal.schema_version,
+    checksum: checksumJson(proposal),
+  };
 }
 
 function instant(value) {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? parsed : null;
-}
-
-function gateConditionEligible(resolution, gate) {
-  if (gate === "watch") return resolution.concurrent_duties_eligible.watch;
-  if (gate === "recover") return resolution.concurrent_duties_eligible.recover;
-  if (gate === "graduate") return resolution.exit_candidate_eligible;
-  if (gate === "pause") return resolution.safety_control === "pause";
-  if (gate === "reverse") return resolution.safety_control === "reverse";
-  return resolution.candidate_phase_eligible;
 }
 
 function validateOrder(errors, earlier, later, code, earlierPath, laterPath) {
@@ -493,6 +440,13 @@ function validateObservationSemantics(definition, observation, index) {
 
 export function validateEvaluationBundle(definition, observations, run) {
   const errors = validateDefinitionSemantics(definition);
+  if (["draft", "retired"].includes(definition.governance?.lifecycle)) {
+    errors.push(problem(
+      "CONDITION_LIFECYCLE_NOT_EVALUABLE",
+      "$.definition.governance.lifecycle",
+      "Draft and retired condition definitions cannot produce completed evaluations.",
+    ));
+  }
   errors.push(...evaluatorRegistryErrors(run, "$.run"));
   const definitionChecksum = checksumJson(definition);
   errors.push(...definitionReferenceErrors(
@@ -597,33 +551,12 @@ export function validateEvaluationBundle(definition, observations, run) {
         "Recorded condition resolution does not match deterministic safety precedence.",
       ));
     }
-    let transitionProposal = null;
-    try {
-      transitionProposal = proposeTransition(
-        evaluated,
-        run.lifecycle_context?.prior_state,
-        run.lifecycle_context?.owner_event,
-      );
-    } catch (cause) {
-      errors.push(problem(
-        "TRANSITION_PROPOSAL_INVALID",
-        "$.run.transition_proposal",
-        cause instanceof Error ? cause.message : "The transition proposal is invalid.",
-      ));
-    }
-    if (transitionProposal && !isDeepStrictEqual(transitionProposal, run.transition_proposal)) {
-      errors.push(problem(
-        "TRANSITION_PROPOSAL_MISMATCH",
-        "$.run.transition_proposal",
-        "Recorded transition proposal does not match the resolution and prior lifecycle.",
-      ));
-    }
   }
 
   return { valid: errors.length === 0, errors };
 }
 
-export function validateActionBinding(definition, action, lifecycleEvidence) {
+export function validateActionBinding(definition, action) {
   const errors = [
     ...validateDefinitionSemantics(definition),
     ...definitionReferenceErrors(
@@ -682,61 +615,248 @@ export function validateActionBinding(definition, action, lifecycleEvidence) {
       "$.action.funding.valid_through",
     );
   }
-  if (action.lifecycle_mapping_version !== ACTION_LIFECYCLE_MAPPING_VERSION) {
+
+  const conditionLifecycle = definition.governance?.lifecycle;
+  const actionLifecycle = action.record_lifecycle;
+  const lifecycleAllowed = {
+    draft: new Set(["draft"]),
+    shadow: new Set(["draft", "shadow"]),
+    approved: new Set(["draft", "shadow", "approved"]),
+    active: new Set(["draft", "shadow", "approved"]),
+    paused: new Set(["draft", "shadow", "approved"]),
+    retired: new Set(["retired"]),
+  };
+  if (!lifecycleAllowed[conditionLifecycle]?.has(actionLifecycle)) {
     errors.push(problem(
-      "ACTION_LIFECYCLE_MAPPING_INVALID",
-      "$.action.lifecycle_mapping_version",
-      "The action must pin lifecycle mapping version 1.0.0.",
+      "ACTION_RECORD_LIFECYCLE_INCOMPATIBLE",
+      "$.action.record_lifecycle",
+      `Action record lifecycle ${String(actionLifecycle)} is incompatible with condition lifecycle ${String(conditionLifecycle)}.`,
     ));
   }
-  if (OPERATIONAL_ACTION_LIFECYCLES.has(action.lifecycle)) {
-    const observations = lifecycleEvidence?.observations;
-    const run = lifecycleEvidence?.evaluation_run;
-    if (!Array.isArray(observations) || !run || run.run_status !== "completed") {
+  return { valid: errors.length === 0, errors };
+}
+
+function evaluatedFromRun(run) {
+  return {
+    gates: run.gate_results,
+    condition_resolution: run.condition_resolution,
+    errors: [],
+  };
+}
+
+export function validateTransitionBundle(
+  definition,
+  observations,
+  run,
+  action,
+  priorState,
+  proposal,
+) {
+  const errors = [];
+  const evaluation = validateEvaluationBundle(definition, observations, run);
+  if (!evaluation.valid) {
+    errors.push(problem(
+      "TRANSITION_EVALUATION_BUNDLE_INVALID",
+      "$.evaluation_run",
+      `The completed evaluation bundle is invalid: ${evaluation.errors
+        .map(({ code }) => code).join(", ")}.`,
+    ));
+  }
+  const actionBinding = validateActionBinding(definition, action);
+  if (!actionBinding.valid) {
+    errors.push(problem(
+      "TRANSITION_ACTION_BINDING_INVALID",
+      "$.action",
+      `The action binding is invalid: ${actionBinding.errors
+        .map(({ code }) => code).join(", ")}.`,
+    ));
+  }
+  if (!isDeepStrictEqual(priorState?.action_ref, actionReference(action))) {
+    errors.push(problem(
+      "PRIOR_STATE_ACTION_MISMATCH",
+      "$.prior_state.action_ref",
+      "The prior state must pin the exact action record.",
+    ));
+  }
+  validateOrder(
+    errors,
+    priorState?.recorded_at,
+    run?.evaluated_at,
+    "PRIOR_STATE_AFTER_EVALUATION",
+    "$.prior_state.recorded_at",
+    "$.evaluation_run.evaluated_at",
+  );
+  validateOrder(
+    errors,
+    run?.evaluated_at,
+    proposal?.generated_at,
+    "PROPOSAL_BEFORE_EVALUATION",
+    "$.evaluation_run.evaluated_at",
+    "$.transition_proposal.generated_at",
+  );
+  validateOrder(
+    errors,
+    action?.valid_from,
+    proposal?.generated_at,
+    "PROPOSAL_BEFORE_ACTION_VALID",
+    "$.action.valid_from",
+    "$.transition_proposal.generated_at",
+  );
+  validateOrder(
+    errors,
+    proposal?.generated_at,
+    action?.expires_at,
+    "PROPOSAL_AFTER_ACTION_EXPIRY",
+    "$.transition_proposal.generated_at",
+    "$.action.expires_at",
+  );
+  for (const [index, approval] of (action?.approved_by || []).entries()) {
+    validateOrder(
+      errors,
+      approval.approved_at,
+      proposal?.generated_at,
+      "PROPOSAL_BEFORE_ACTION_APPROVAL",
+      `$.action.approved_by[${index}].approved_at`,
+      "$.transition_proposal.generated_at",
+    );
+  }
+  if (action?.funding?.valid_through) {
+    validateOrder(
+      errors,
+      proposal?.generated_at,
+      action.funding.valid_through,
+      "PROPOSAL_AFTER_FUNDING_VALIDITY",
+      "$.transition_proposal.generated_at",
+      "$.action.funding.valid_through",
+    );
+  }
+
+  let expected = null;
+  try {
+    expected = proposeTransition(
+      evaluatedFromRun(run),
+      action,
+      priorState,
+      run,
+      proposal?.generated_at,
+    );
+  } catch (cause) {
+    errors.push(problem(
+      "TRANSITION_PROPOSAL_INVALID",
+      "$.transition_proposal",
+      cause instanceof Error ? cause.message : "The transition proposal is invalid.",
+    ));
+  }
+  if (expected && !isDeepStrictEqual(expected, proposal)) {
+    errors.push(problem(
+      "TRANSITION_PROPOSAL_MISMATCH",
+      "$.transition_proposal",
+      "The transition proposal does not reproduce from its action, evaluation and prior state.",
+    ));
+  }
+  return { valid: errors.length === 0, errors };
+}
+
+export function validateOperationalActionState(
+  definition,
+  observations,
+  run,
+  action,
+  priorState,
+  proposal,
+  ownerEvent,
+) {
+  const transition = validateTransitionBundle(
+    definition,
+    observations,
+    run,
+    action,
+    priorState,
+    proposal,
+  );
+  const errors = [...transition.errors];
+  if (!["active", "paused"].includes(definition.governance?.lifecycle)) {
+    errors.push(problem(
+      "CONDITION_LIFECYCLE_NOT_OPERATIONAL",
+      "$.definition.governance.lifecycle",
+      "Only an active or paused externally governed condition can support an operational-state claim.",
+    ));
+  }
+  if (action.record_lifecycle !== "approved") {
+    errors.push(problem(
+      "ACTION_RECORD_NOT_APPROVED",
+      "$.action.record_lifecycle",
+      "An operational-state claim requires an approved action record.",
+    ));
+  }
+  const stateChanges = proposal?.proposed_lifecycle !== priorState?.lifecycle;
+  if (!stateChanges) {
+    if (ownerEvent !== null && ownerEvent !== undefined) {
       errors.push(problem(
-        "OPERATIONAL_LIFECYCLE_BUNDLE_REQUIRED",
-        "$.action.lifecycle",
-        "An operational lifecycle import requires a completed evaluation bundle. The repository does not authorise the imported state.",
+        "OWNER_EVENT_NOT_APPLICABLE",
+        "$.owner_event",
+        "An unchanged proposal preserves the checksum-pinned prior state and must not invent a transition event.",
       ));
-    } else {
-      const bundle = validateEvaluationBundle(definition, observations, run);
-      if (!bundle.valid) {
-        errors.push(problem(
-          "OPERATIONAL_LIFECYCLE_BUNDLE_INVALID",
-          "$.lifecycle_evidence.evaluation_run",
-          `The completed evaluation bundle is invalid: ${bundle.errors
-            .map((entry) => entry.code)
-            .join(", ")}.`,
-        ));
-      }
-      const targetLifecycle = ACTION_TO_TRANSITION_LIFECYCLE[action.lifecycle];
-      errors.push(...ownerEventErrors(
-        lifecycleEvidence.owner_event,
-        run,
-        targetLifecycle,
-      ));
-      if (action.lifecycle === "active") {
-        const gateState = run.gate_results?.[action.gate]?.state ?? null;
-        if (gateState !== "true") {
-          errors.push(problem(
-            "ACTION_GATE_NOT_TRUE",
-            `$.lifecycle_evidence.evaluation_run.gate_results.${action.gate}`,
-            `Action gate ${String(action.gate)} must have gate-truth state true before an active lifecycle can be imported.`,
-          ));
-        }
-        const resolution = run.condition_resolution;
-        if (!gateConditionEligible(resolution, action.gate)) {
-          errors.push(problem(
-            "ACTION_CONDITION_BLOCKED",
-            "$.lifecycle_evidence.evaluation_run.condition_resolution",
-            `The ${String(action.gate)} condition is blocked by ${[
-              ...resolution.blocking_gates,
-              ...resolution.transition_conflicts,
-            ].join(", ") || "gate precedence"}. This result grants no authority.`,
-          ));
-        }
-      }
     }
+    return { valid: errors.length === 0, errors };
+  }
+  if (!ownerEvent || typeof ownerEvent !== "object" || Array.isArray(ownerEvent)) {
+    errors.push(problem(
+      "OWNER_EVENT_REQUIRED",
+      "$.owner_event",
+      "An operational-state claim requires a separate owner event recorded after the proposal.",
+    ));
+    return { valid: false, errors };
+  }
+  const referencesMatch =
+    isDeepStrictEqual(ownerEvent.action_ref, actionReference(action)) &&
+    isDeepStrictEqual(ownerEvent.evaluation_run_ref, evaluationRunReference(run)) &&
+    isDeepStrictEqual(ownerEvent.prior_state_ref, lifecycleStateReference(priorState)) &&
+    isDeepStrictEqual(ownerEvent.transition_proposal_ref, transitionProposalReference(proposal));
+  const transitionMatches =
+    ownerEvent.from_lifecycle === priorState?.lifecycle &&
+    ownerEvent.to_lifecycle === proposal?.proposed_lifecycle &&
+    OWNER_EVENT_TRANSITIONS.has(
+      `${ownerEvent.event_type}:${ownerEvent.from_lifecycle}:${ownerEvent.to_lifecycle}`,
+    );
+  if (!referencesMatch || !transitionMatches) {
+    errors.push(problem(
+      "OWNER_EVENT_PROPOSAL_MISMATCH",
+      "$.owner_event",
+      "The owner event must pin and exactly enact one supported computed transition proposal.",
+    ));
+  }
+  if (!isDeepStrictEqual(ownerEvent.owner, action.owner)) {
+    errors.push(problem(
+      "OWNER_EVENT_ACTOR_MISMATCH",
+      "$.owner_event.owner",
+      "The owner event actor must match the action record owner assertion.",
+    ));
+  }
+  if (ownerEvent.trust_state !== "unverified-external") {
+    errors.push(problem(
+      "OWNER_EVENT_TRUST_INVALID",
+      "$.owner_event.trust_state",
+      "External verification is unavailable; owner-event trust must remain unverified-external.",
+    ));
+  }
+  validateOrder(
+    errors,
+    proposal?.generated_at,
+    ownerEvent.recorded_at,
+    "OWNER_EVENT_BEFORE_PROPOSAL",
+    "$.transition_proposal.generated_at",
+    "$.owner_event.recorded_at",
+  );
+  if (
+    definition.governance?.lifecycle === "paused" &&
+    ["watch", "prepare", "activate", "resume"].includes(ownerEvent.event_type)
+  ) {
+    errors.push(problem(
+      "PAUSED_CONDITION_CANNOT_ADVANCE",
+      "$.owner_event.event_type",
+      "A paused condition cannot support a new watching, preparation, activation or resume event.",
+    ));
   }
   return { valid: errors.length === 0, errors };
 }

@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "3.0.0",
   "id": "evaluation.au-clerical-access-margin.20260908t0000z",
   "run_status": "completed",
   "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
@@ -105,48 +105,12 @@
     "unresolved_hard_safeguards": ["reverse"],
     "transition_conflicts": []
   },
-  "lifecycle_context": {
-    "prior_state": {
-      "schema_version": "1.0.0",
-      "artifact_type": "lifecycle-state",
-      "id": "lifecycle-state.au-clerical-access-margin.inactive.20260907",
-      "lifecycle_vocabulary": "condition-transition-lifecycle/1.0.0",
-      "lifecycle": "inactive",
-      "recorded_at": "2026-09-07T00:00:00Z",
-      "trust_state": "unverified-external",
-      "provenance": {
-        "producer": { "organisation": "Seldon Observatory pilot", "role": "external lifecycle recorder" },
-        "method": "Unverified external lifecycle assertion captured for shadow evaluation"
-      }
-    },
-    "owner_event": null
-  },
-  "transition_proposal": {
-    "proposal_version": "1.0.0",
-    "lifecycle_mapping_version": "1.0.0",
-    "prior_state_ref": {
-      "artifact_type": "lifecycle-state",
-      "id": "lifecycle-state.au-clerical-access-margin.inactive.20260907",
-      "version": "1.0.0",
-      "checksum": "sha256:02da8176bdaa25cd0d8b7e761791024978b67060f2f59e885b377fc0181f6fd2",
-      "lifecycle": "inactive",
-      "trust_state": "unverified-external"
-    },
-    "owner_event_ref": null,
-    "proposal": "hold",
-    "proposed_lifecycle": "inactive",
-    "authority_effect": "none",
-    "automatic_transition": false,
-    "automatic_support_withdrawal": false,
-    "concurrent_duties": ["watch"],
-    "transition_conflicts": []
-  },
   "provenance": {
     "producer": { "organisation": "Seldon Observatory pilot", "role": "shadow evaluation service" },
     "evaluator": {
       "id": "mind-flow.condition-evaluator",
-      "version": "2.0.0",
-      "digest": "sha256:66d8e67b6095f466ed12490a311d536123e265995caae94dbf1d2a1266912d57"
+      "version": "3.0.0",
+      "digest": "sha256:83e1290a815648db470a41c3e8eef8cee0fd2156b2c5035a0914242939bb9e89"
     }
   }
 }

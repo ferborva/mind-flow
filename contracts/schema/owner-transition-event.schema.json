@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/owner-transition-event/1-0-0",
+  "title": "Owner transition event",
+  "description": "An externally asserted owner event that checksum-pins and exactly enacts one supported transition proposal. Repository validation grants no authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "action_ref",
+    "transition_proposal_ref",
+    "evaluation_run_ref",
+    "prior_state_ref",
+    "event_type",
+    "from_lifecycle",
+    "to_lifecycle",
+    "recorded_at",
+    "trust_state",
+    "owner",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "action_ref": { "$ref": "#/$defs/artifactReference" },
+    "transition_proposal_ref": { "$ref": "#/$defs/proposalReference" },
+    "evaluation_run_ref": { "$ref": "#/$defs/evaluationRunReference" },
+    "prior_state_ref": { "$ref": "#/$defs/priorStateReference" },
+    "event_type": {
+      "enum": ["watch", "prepare", "activate", "resume", "pause", "reverse", "begin-recovery", "recovery-exit", "graduate"]
+    },
+    "from_lifecycle": { "$ref": "#/$defs/lifecycle" },
+    "to_lifecycle": { "$ref": "#/$defs/lifecycle" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "trust_state": { "const": "unverified-external" },
+    "owner": { "$ref": "#/$defs/producer" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "oneOf": [
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "watch" }, "from_lifecycle": { "enum": ["inactive", "watching"] }, "to_lifecycle": { "const": "watching" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "prepare" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing"] }, "to_lifecycle": { "const": "preparing" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "activate" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing"] }, "to_lifecycle": { "const": "active" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "resume" }, "from_lifecycle": { "const": "paused" }, "to_lifecycle": { "const": "active" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "pause" }, "from_lifecycle": { "enum": ["preparing", "active", "recovering"] }, "to_lifecycle": { "const": "paused" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "reverse" }, "from_lifecycle": { "enum": ["preparing", "active", "paused", "recovering"] }, "to_lifecycle": { "const": "reversing" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "begin-recovery" }, "from_lifecycle": { "enum": ["inactive", "watching", "preparing", "active", "paused"] }, "to_lifecycle": { "const": "recovering" } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "recovery-exit" }, "from_lifecycle": { "const": "recovering" }, "to_lifecycle": { "enum": ["active", "graduated"] } } },
+        { "type": "object", "required": ["event_type", "from_lifecycle", "to_lifecycle"], "properties": { "event_type": { "const": "graduate" }, "from_lifecycle": { "enum": ["active", "paused"] }, "to_lifecycle": { "const": "graduated" } } }
+      ]
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/version" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "proposalReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "evaluationRunReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^3\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "priorStateReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum", "lifecycle", "trust_state"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "trust_state": { "const": "unverified-external" }
+      },
+      "additionalProperties": false
+    },
+    "lifecycle": {
+      "enum": ["inactive", "watching", "preparing", "active", "paused", "reversing", "recovering", "graduated"]
+    },
+    "producer": {
+      "type": "object",
+      "required": ["organisation", "role"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["producer", "method"],
+      "properties": {
+        "producer": { "$ref": "#/$defs/producer" },
+        "method": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

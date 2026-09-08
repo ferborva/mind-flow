@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/contracts/action-contract/3-0-0",
+  "$id": "https://mind-flow.org/contracts/action-contract/4-0-0",
   "title": "Seldon Observatory action contract",
   "description": "A reversible, funded and appealable action record supplied by an accountable owner and bound to one gate of a condition contract. Gate truth and axis-specific eligibility do not create authority or activate the action.",
   "type": "object",
@@ -14,8 +14,7 @@
     "verb",
     "object",
     "rationale",
-    "lifecycle",
-    "lifecycle_mapping_version",
+    "record_lifecycle",
     "owner",
     "authority",
     "funding",
@@ -29,7 +28,7 @@
     "expires_at"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^3\\.0\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^4\\.0\\.[0-9]+$" },
     "id": { "$ref": "#/$defs/id" },
     "action_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
     "condition_definition": { "$ref": "#/$defs/definitionReference" },
@@ -44,10 +43,9 @@
     "verb": { "type": "string", "pattern": "^[a-z]+(?:-[a-z]+)*$" },
     "object": { "$ref": "#/$defs/nonEmptyString" },
     "rationale": { "$ref": "#/$defs/nonEmptyString" },
-    "lifecycle": { "enum": ["draft", "shadow", "approved", "active", "paused", "completed", "retired"] },
-    "lifecycle_mapping_version": {
-      "const": "1.0.0",
-      "description": "Pins the exhaustive action-contract to condition-transition lifecycle mapping used by semantic validation."
+    "record_lifecycle": {
+      "enum": ["draft", "shadow", "approved", "retired"],
+      "description": "Governance lifecycle of this immutable action definition. Operational state belongs only in a checksum-bound action-lifecycle-state record."
     },
     "owner": { "$ref": "#/$defs/owner" },
     "authority": {
@@ -153,9 +151,9 @@
     {
       "if": {
         "properties": {
-          "lifecycle": { "enum": ["approved", "active", "paused", "completed"] }
+          "record_lifecycle": { "const": "approved" }
         },
-        "required": ["lifecycle"]
+        "required": ["record_lifecycle"]
       },
       "then": {
         "properties": {

@@ -4,7 +4,7 @@ import { dirname, join, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { evaluateGates, proposeTransition } from "../../contracts/evaluator.mjs";
+import { evaluateGates } from "../../contracts/evaluator.mjs";
 import {
   checksumJson,
   validateConditionalOption,
@@ -76,10 +76,6 @@ function safeEvaluationBundle(condition = structuredClone(baseCondition), stateO
   ]));
   evaluationRun.gate_results = evaluated.gates;
   evaluationRun.condition_resolution = evaluated.condition_resolution;
-  evaluationRun.transition_proposal = proposeTransition(
-    evaluated,
-    evaluationRun.lifecycle_context.prior_state,
-  );
   return { observations, evaluation_run: evaluationRun };
 }
 

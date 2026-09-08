@@ -103,6 +103,9 @@ test("schemas name predicate truth and gate truth axes explicitly", () => {
   const runSchema = readJson(join(contracts, "schema", "evaluation-run.schema.json"));
   const attemptSchema = readJson(join(contracts, "schema", "evaluation-attempt.schema.json"));
   const evaluatorRegistrySchema = readJson(join(contracts, "schema", "evaluator-registry.schema.json"));
+  const stateSchema = readJson(join(contracts, "schema", "action-lifecycle-state.schema.json"));
+  const proposalSchema = readJson(join(contracts, "schema", "transition-proposal.schema.json"));
+  const eventSchema = readJson(join(contracts, "schema", "owner-transition-event.schema.json"));
 
   assert.ok(observationSchema.$defs.predicateTruthState);
   assert.ok(runSchema.$defs.predicateTruthState);
@@ -110,16 +113,23 @@ test("schemas name predicate truth and gate truth axes explicitly", () => {
   assert.ok(attemptSchema.$defs.predicateTruthState);
   assert.ok(attemptSchema.$defs.gateTruthState);
   assert.equal(conditionSchema.$id, "https://mind-flow.org/contracts/condition-definition/3-0-0");
-  assert.equal(actionSchema.$id, "https://mind-flow.org/contracts/action-contract/3-0-0");
-  assert.equal(runSchema.$id, "https://mind-flow.org/contracts/evaluation-run/2-0-0");
+  assert.equal(actionSchema.$id, "https://mind-flow.org/contracts/action-contract/4-0-0");
+  assert.equal(runSchema.$id, "https://mind-flow.org/contracts/evaluation-run/3-0-0");
   assert.equal(attemptSchema.$id, "https://mind-flow.org/contracts/evaluation-attempt/2-0-0");
   assert.equal(evaluatorRegistrySchema.$id, "https://mind-flow.org/contracts/evaluator-registry/1-0-0");
+  assert.equal(stateSchema.$id, "https://mind-flow.org/contracts/action-lifecycle-state/1-0-0");
+  assert.equal(proposalSchema.$id, "https://mind-flow.org/contracts/transition-proposal/1-0-0");
+  assert.equal(eventSchema.$id, "https://mind-flow.org/contracts/owner-transition-event/1-0-0");
   assert.equal(action.required_gate_truth_state, "true");
-  assert.equal(action.lifecycle_mapping_version, "1.0.0");
+  assert.equal(action.record_lifecycle, "shadow");
+  assert.equal(Object.hasOwn(action, "lifecycle"), false);
+  assert.equal(Object.hasOwn(action, "lifecycle_mapping_version"), false);
   assert.equal(Object.hasOwn(action, "required_condition_state"), false);
   assert.ok(runSchema.required.includes("condition_resolution"));
-  assert.ok(runSchema.required.includes("transition_proposal"));
-  assert.ok(runSchema.required.includes("lifecycle_context"));
+  assert.equal(runSchema.required.includes("transition_proposal"), false);
+  assert.equal(runSchema.required.includes("lifecycle_context"), false);
+  assert.equal(Object.hasOwn(runSchema.properties, "transition_proposal"), false);
+  assert.equal(Object.hasOwn(runSchema.properties, "lifecycle_context"), false);
   assert.equal(runSchema.required.includes("action_resolution"), false);
 });
 
@@ -181,12 +191,12 @@ test("the reference action binds an IF gate to owned, reversible delivery", () =
   preparation.verb = "rehearse";
   assert.equal(validateAction(preparation), true, ajv.errorsText(validateAction.errors));
 
-  const withoutLifecycleMapping = clone(action);
-  delete withoutLifecycleMapping.lifecycle_mapping_version;
+  const withoutRecordLifecycle = clone(action);
+  delete withoutRecordLifecycle.record_lifecycle;
   expectInvalid(
     validateAction,
-    withoutLifecycleMapping,
-    "action lifecycle imports require the versioned strict mapping",
+    withoutRecordLifecycle,
+    "action records require an explicit governance lifecycle",
   );
 });
 
@@ -200,7 +210,7 @@ test("action validation rejects unowned or unfunded commitments", () => {
   expectInvalid(validateAction, noSla, "an action needs a response SLA");
 
   const unfundedApproval = clone(action);
-  unfundedApproval.lifecycle = "approved";
+  unfundedApproval.record_lifecycle = "approved";
   unfundedApproval.funding.status = "unfunded";
   unfundedApproval.approved_by = [{
     organisation: "Synthetic review body",

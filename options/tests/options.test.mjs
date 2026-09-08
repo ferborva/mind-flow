@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import { evaluateGates, proposeTransition } from "../../contracts/evaluator.mjs";
+import { evaluateGates } from "../../contracts/evaluator.mjs";
 import {
   assertConditionalOption,
   checksumJson,
@@ -100,10 +100,6 @@ function safeEvaluationBundle(definition = condition) {
   ]));
   evaluationRun.gate_results = evaluated.gates;
   evaluationRun.condition_resolution = evaluated.condition_resolution;
-  evaluationRun.transition_proposal = proposeTransition(
-    evaluated,
-    evaluationRun.lifecycle_context.prior_state,
-  );
   return { observations: safeObservations, evaluation_run: evaluationRun };
 }
 

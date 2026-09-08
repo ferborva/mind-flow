@@ -6,6 +6,16 @@
       "id": "mind-flow.condition-evaluator",
       "version": "2.0.0",
       "digest": "sha256:66d8e67b6095f466ed12490a311d536123e265995caae94dbf1d2a1266912d57"
+    },
+    {
+      "id": "mind-flow.condition-evaluator",
+      "version": "3.0.0",
+      "digest": "sha256:83e1290a815648db470a41c3e8eef8cee0fd2156b2c5035a0914242939bb9e89"
+    },
+    {
+      "id": "mind-flow.condition-pathway",
+      "version": "1.0.0",
+      "digest": "sha256:18ee0da71c9aa41c4c31cf0db2466ebab97f1a31d76f7507e6ca3b7b78b07495"
     }
   ]
 }

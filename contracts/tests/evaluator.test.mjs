@@ -13,6 +13,7 @@ import {
   proposeTransition,
   resolveCondition,
 } from "../evaluator.mjs";
+import { checksumJson } from "../semantic-validation.mjs";
 
 const ref = (predicate_ref) => ({ predicate_ref });
 const states = (...values) =>
@@ -53,7 +54,7 @@ const expectedVetoIf = {
 };
 
 test("five-valued NOT, ALL and ANY truth tables are explicit and complete", () => {
-  assert.equal(EVALUATOR_VERSION, "2.0.0");
+  assert.equal(EVALUATOR_VERSION, "3.0.0");
   assert.deepEqual(PREDICATE_TRUTH_STATES, ["true", "false", "unknown", "stale", "conflicted"]);
   assert.deepEqual(GATE_TRUTH_STATES, PREDICATE_TRUTH_STATES);
   assert.deepEqual(STATES, ["true", "false", "unknown", "stale", "conflicted"]);
@@ -430,11 +431,26 @@ test("stateful transition proposals never authorise or withdraw support", () => 
     evaluation.condition_resolution = resolveCondition(evaluation);
     return evaluation;
   };
-  const priorState = (lifecycle) => ({
+  const actionFor = (gate = "act") => ({
+    id: `action.test.${gate}`,
+    action_version: "1.0.0",
+    gate,
+  });
+  const run = {
+    id: "evaluation.test.transition",
+    schema_version: "3.0.0",
+    run_status: "completed",
+    evaluated_at: "2026-09-08T00:00:00Z",
+  };
+  const priorState = (lifecycle, action) => ({
     schema_version: "1.0.0",
-    artifact_type: "lifecycle-state",
-    id: `lifecycle-state.test.${lifecycle}`,
-    lifecycle_vocabulary: "condition-transition-lifecycle/1.0.0",
+    id: `action-state.${action.id}.${lifecycle}`,
+    action_ref: {
+      id: action.id,
+      version: action.action_version,
+      checksum: checksumJson(action),
+    },
+    lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
     lifecycle,
     recorded_at: "2026-09-07T00:00:00Z",
     trust_state: "unverified-external",
@@ -443,18 +459,29 @@ test("stateful transition proposals never authorise or withdraw support", () => 
       method: "Synthetic test record",
     },
   });
-  const propose = (states, lifecycle, ownerEvent = null) => proposeTransition(
-    evaluate(states),
-    priorState(lifecycle),
-    ownerEvent,
-  );
+  const propose = (states, lifecycle, gate = "act") => {
+    const action = actionFor(gate);
+    const evaluation = evaluate(states);
+    const matchingRun = {
+      ...run,
+      gate_results: evaluation.gates,
+      condition_resolution: evaluation.condition_resolution,
+    };
+    return proposeTransition(
+      evaluation,
+      action,
+      priorState(lifecycle, action),
+      matchingRun,
+      "2026-09-08T00:00:30Z",
+    );
+  };
 
   const activation = propose({ act: "true" }, "inactive");
-  assert.equal(activation.proposal_version, "1.0.0");
-  assert.equal(activation.lifecycle_mapping_version, "1.0.0");
+  assert.equal(activation.schema_version, "1.0.0");
   assert.equal(activation.prior_state_ref.lifecycle, "inactive");
   assert.match(activation.prior_state_ref.checksum, /^sha256:[a-f0-9]{64}$/);
-  assert.equal(activation.owner_event_ref, null);
+  assert.match(activation.action_ref.checksum, /^sha256:[a-f0-9]{64}$/);
+  assert.match(activation.evaluation_run_ref.checksum, /^sha256:[a-f0-9]{64}$/);
   assert.equal(activation.proposal, "consider_activation");
   assert.equal(activation.proposed_lifecycle, "active");
   assert.equal(activation.authority_effect, "none");
@@ -464,7 +491,7 @@ test("stateful transition proposals never authorise or withdraw support", () => 
   assert.deepEqual(activation.transition_conflicts, []);
 
   assert.equal(
-    propose({ prepare: "true", watch: "true" }, "watching").proposal,
+    propose({ prepare: "true", watch: "true" }, "watching", "prepare").proposal,
     "consider_preparation",
   );
   assert.equal(
@@ -508,11 +535,22 @@ test("stateful transition proposals never authorise or withdraw support", () => 
 });
 
 test("transition proposals reject incomplete or forged evaluations", () => {
+  const action = { id: "action.test.act", action_version: "1.0.0", gate: "act" };
+  const run = {
+    id: "evaluation.test.transition-validation",
+    schema_version: "3.0.0",
+    run_status: "completed",
+    evaluated_at: "2026-09-08T00:00:00Z",
+  };
   const priorState = {
     schema_version: "1.0.0",
-    artifact_type: "lifecycle-state",
-    id: "lifecycle-state.test.inactive",
-    lifecycle_vocabulary: "condition-transition-lifecycle/1.0.0",
+    id: "action-state.test.inactive",
+    action_ref: {
+      id: action.id,
+      version: action.action_version,
+      checksum: checksumJson(action),
+    },
+    lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
     lifecycle: "inactive",
     recorded_at: "2026-09-07T00:00:00Z",
     trust_state: "unverified-external",
@@ -525,37 +563,69 @@ test("transition proposals reject incomplete or forged evaluations", () => {
   gates.act.state = "true";
   const valid = { gates, errors: [] };
   valid.condition_resolution = resolveCondition(valid);
+  run.gate_results = structuredClone(valid.gates);
+  run.condition_resolution = structuredClone(valid.condition_resolution);
 
   const forgedEligibility = structuredClone(valid);
   forgedEligibility.condition_resolution.candidate_phase_eligible = false;
   assert.throws(
-    () => proposeTransition(forgedEligibility, priorState),
+    () => proposeTransition(forgedEligibility, action, priorState, run, "2026-09-08T00:00:30Z"),
     /resolution does not match/i,
   );
 
   const unresolvedForgery = structuredClone(valid);
   unresolvedForgery.condition_resolution.unresolved_hard_safeguards = ["reverse"];
   assert.throws(
-    () => proposeTransition(unresolvedForgery, priorState),
+    () => proposeTransition(unresolvedForgery, action, priorState, run, "2026-09-08T00:00:30Z"),
     /resolution does not match/i,
   );
 
   const incomplete = structuredClone(valid);
   delete incomplete.gates.prepare;
   incomplete.errors = [{ code: "MISSING_GATE", gate: "prepare" }];
-  assert.throws(() => proposeTransition(incomplete, priorState), /complete.*evaluation/i);
+  assert.throws(
+    () => proposeTransition(incomplete, action, priorState, run, "2026-09-08T00:00:30Z"),
+    /complete.*evaluation/i,
+  );
+
+  const otherEvaluation = structuredClone(valid);
+  otherEvaluation.gates.act.state = "false";
+  otherEvaluation.condition_resolution = resolveCondition(otherEvaluation);
+  const otherRun = {
+    ...run,
+    id: "evaluation.test.other-run",
+    gate_results: otherEvaluation.gates,
+    condition_resolution: otherEvaluation.condition_resolution,
+  };
+  assert.throws(
+    () => proposeTransition(valid, action, priorState, otherRun, "2026-09-08T00:00:30Z"),
+    /evaluation.*run/i,
+  );
 });
 
-test("recovering is preserved without a checksum-bound recovery-exit event", () => {
+test("recovery exit is proposed before and separately from any owner event", () => {
   const gates = Object.fromEntries(GATES.map((gate) => [gate, { state: "false" }]));
   gates.act.state = "true";
   const evaluation = { gates, errors: [] };
   evaluation.condition_resolution = resolveCondition(evaluation);
+  const action = { id: "action.test.recovery-exit", action_version: "1.0.0", gate: "act" };
+  const run = {
+    id: "evaluation.test.recovery-exit-basis",
+    schema_version: "3.0.0",
+    run_status: "completed",
+    evaluated_at: "2026-09-08T00:00:00Z",
+    gate_results: structuredClone(evaluation.gates),
+    condition_resolution: structuredClone(evaluation.condition_resolution),
+  };
   const priorState = {
     schema_version: "1.0.0",
-    artifact_type: "lifecycle-state",
-    id: "lifecycle-state.test.recovering",
-    lifecycle_vocabulary: "condition-transition-lifecycle/1.0.0",
+    id: "action-state.test.recovering",
+    action_ref: {
+      id: action.id,
+      version: action.action_version,
+      checksum: checksumJson(action),
+    },
+    lifecycle_vocabulary: "action-transition-lifecycle/1.0.0",
     lifecycle: "recovering",
     recorded_at: "2026-09-07T00:00:00Z",
     trust_state: "unverified-external",
@@ -565,47 +635,36 @@ test("recovering is preserved without a checksum-bound recovery-exit event", () 
     },
   };
 
-  const proposal = proposeTransition(evaluation, priorState);
-  assert.equal(proposal.proposal, "await_recovery_exit_event");
-  assert.equal(proposal.proposed_lifecycle, "recovering");
-  assert.equal(proposal.owner_event_ref, null);
-
-  const ownerEvent = {
-    schema_version: "1.0.0",
-    artifact_type: "owner-transition-event",
-    id: "owner-event.test.exit-recovery",
-    event_type: "recovery-exit",
-    lifecycle_mapping_version: "1.0.0",
-    prior_state_ref: proposal.prior_state_ref,
-    evaluation_run_ref: {
-      artifact_type: "evaluation-run",
-      id: "evaluation.test.recovery-exit-basis",
-      version: "2.0.0",
-      checksum: `sha256:${"4".repeat(64)}`,
-    },
-    from_lifecycle: "recovering",
-    to_lifecycle: "active",
-    recorded_at: "2026-09-07T12:00:00Z",
-    trust_state: "unverified-external",
-    owner: { organisation: "Test only", role: "unverified owner" },
-    provenance: {
-      producer: { organisation: "Test only", role: "fixture" },
-      method: "Synthetic unverified owner event",
-    },
-  };
-  const exitProposal = proposeTransition(evaluation, priorState, ownerEvent);
+  const exitProposal = proposeTransition(
+    evaluation,
+    action,
+    priorState,
+    run,
+    "2026-09-08T00:00:30Z",
+  );
   assert.equal(exitProposal.proposal, "consider_recovery_exit");
   assert.equal(exitProposal.proposed_lifecycle, "active");
-  assert.equal(exitProposal.owner_event_ref.trust_state, "unverified-external");
-  assert.match(exitProposal.owner_event_ref.checksum, /^sha256:[a-f0-9]{64}$/);
+  assert.equal(Object.hasOwn(exitProposal, "owner_event_ref"), false);
   assert.equal(exitProposal.authority_effect, "none");
 
-  const forgedEvent = structuredClone(ownerEvent);
-  forgedEvent.prior_state_ref.checksum = `sha256:${"0".repeat(64)}`;
-  assert.throws(
-    () => proposeTransition(evaluation, priorState, forgedEvent),
-    /not bound to the prior state/i,
+  const noExitGates = Object.fromEntries(GATES.map((gate) => [gate, { state: "false" }]));
+  const noExit = { gates: noExitGates, errors: [] };
+  noExit.condition_resolution = resolveCondition(noExit);
+  const noExitRun = {
+    ...run,
+    id: "evaluation.test.recovery-no-exit-basis",
+    gate_results: structuredClone(noExit.gates),
+    condition_resolution: structuredClone(noExit.condition_resolution),
+  };
+  const hold = proposeTransition(
+    noExit,
+    action,
+    priorState,
+    noExitRun,
+    "2026-09-08T00:00:30Z",
   );
+  assert.equal(hold.proposal, "await_recovery_evidence");
+  assert.equal(hold.proposed_lifecycle, "recovering");
 });
 
 test("gate evaluation reports missing gates and bad references without hiding valid gates", () => {

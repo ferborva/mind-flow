@@ -1,5 +1,5 @@
 {
-  "schema_version": "3.0.0",
+  "schema_version": "4.0.0",
   "id": "action.au-clerical-access-bridge",
   "action_version": "2.0.0",
   "condition_definition": {
@@ -12,8 +12,7 @@
   "verb": "protect",
   "object": "income, housing and healthcare continuity for the scoped cohort",
   "rationale": "Stabilise lived access before asking displaced people to retrain or relocate.",
-  "lifecycle": "shadow",
-  "lifecycle_mapping_version": "1.0.0",
+  "record_lifecycle": "shadow",
   "owner": {
     "organisation": "Example Australian delivery authority",
     "role": "transition protection accountable officer"

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/contracts/evaluation-run/2-0-0",
+  "$id": "https://mind-flow.org/contracts/evaluation-run/3-0-0",
   "title": "Seldon Observatory evaluation run",
-  "description": "An append-only record of predicate inputs and deterministic outputs for all condition gates.",
+  "description": "A pure, append-only record of predicate inputs and deterministic condition outputs. It contains no action lifecycle state, transition proposal or owner event.",
   "type": "object",
   "required": [
     "schema_version",
@@ -13,12 +13,10 @@
     "predicate_results",
     "gate_results",
     "condition_resolution",
-    "lifecycle_context",
-    "transition_proposal",
     "provenance"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^2\\.0\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^3\\.0\\.[0-9]+$" },
     "id": { "$ref": "#/$defs/id" },
     "run_status": { "const": "completed" },
     "condition_definition": { "$ref": "#/$defs/definitionReference" },
@@ -47,8 +45,6 @@
       "allOf": [{ "$ref": "#/$defs/conditionResolution" }],
       "description": "Orthogonal, non-authorising condition outputs and safety precedence."
     },
-    "lifecycle_context": { "$ref": "#/$defs/lifecycleContext" },
-    "transition_proposal": { "$ref": "#/$defs/transitionProposal" },
     "provenance": { "$ref": "#/$defs/provenance" }
   },
   "additionalProperties": false,
@@ -195,185 +191,6 @@
           "type": "array",
           "uniqueItems": true,
           "items": { "enum": ["act_and_graduate", "recover_and_graduate"] }
-        }
-      },
-      "additionalProperties": false
-    },
-    "lifecycle": {
-      "enum": ["inactive", "watching", "preparing", "active", "paused", "reversing", "recovering", "graduated"]
-    },
-    "recordTrustState": {
-      "const": "unverified-external",
-      "description": "Repository checks can verify content integrity only. They do not verify the external event or authority claim."
-    },
-    "recordProducer": {
-      "type": "object",
-      "required": ["organisation", "role"],
-      "properties": {
-        "organisation": { "$ref": "#/$defs/nonEmptyString" },
-        "role": { "$ref": "#/$defs/nonEmptyString" }
-      },
-      "additionalProperties": false
-    },
-    "recordProvenance": {
-      "type": "object",
-      "required": ["producer", "method"],
-      "properties": {
-        "producer": { "$ref": "#/$defs/recordProducer" },
-        "method": { "$ref": "#/$defs/nonEmptyString" }
-      },
-      "additionalProperties": false
-    },
-    "priorStateReference": {
-      "type": "object",
-      "required": ["artifact_type", "id", "version", "checksum", "lifecycle", "trust_state"],
-      "properties": {
-        "artifact_type": { "const": "lifecycle-state" },
-        "id": { "$ref": "#/$defs/id" },
-        "version": { "const": "1.0.0" },
-        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
-        "lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "trust_state": { "$ref": "#/$defs/recordTrustState" }
-      },
-      "additionalProperties": false
-    },
-    "lifecycleState": {
-      "type": "object",
-      "required": ["schema_version", "artifact_type", "id", "lifecycle_vocabulary", "lifecycle", "recorded_at", "trust_state", "provenance"],
-      "properties": {
-        "schema_version": { "const": "1.0.0" },
-        "artifact_type": { "const": "lifecycle-state" },
-        "id": { "$ref": "#/$defs/id" },
-        "lifecycle_vocabulary": { "const": "condition-transition-lifecycle/1.0.0" },
-        "lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "recorded_at": { "type": "string", "format": "date-time" },
-        "trust_state": { "$ref": "#/$defs/recordTrustState" },
-        "provenance": { "$ref": "#/$defs/recordProvenance" }
-      },
-      "additionalProperties": false
-    },
-    "ownerEventReference": {
-      "type": "object",
-      "required": ["artifact_type", "id", "version", "checksum", "event_type", "from_lifecycle", "to_lifecycle", "trust_state"],
-      "properties": {
-        "artifact_type": { "const": "owner-transition-event" },
-        "id": { "$ref": "#/$defs/id" },
-        "version": { "const": "1.0.0" },
-        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
-        "event_type": { "enum": ["activate", "resume", "pause", "reverse", "begin-recovery", "recovery-exit", "graduate"] },
-        "from_lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "to_lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "trust_state": { "$ref": "#/$defs/recordTrustState" }
-      },
-      "additionalProperties": false
-    },
-    "evaluationRunReference": {
-      "type": "object",
-      "required": ["artifact_type", "id", "version", "checksum"],
-      "properties": {
-        "artifact_type": { "const": "evaluation-run" },
-        "id": { "$ref": "#/$defs/id" },
-        "version": { "const": "2.0.0" },
-        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
-      },
-      "additionalProperties": false
-    },
-    "ownerTransitionEvent": {
-      "type": "object",
-      "required": ["schema_version", "artifact_type", "id", "event_type", "lifecycle_mapping_version", "prior_state_ref", "evaluation_run_ref", "from_lifecycle", "to_lifecycle", "recorded_at", "trust_state", "owner", "provenance"],
-      "properties": {
-        "schema_version": { "const": "1.0.0" },
-        "artifact_type": { "const": "owner-transition-event" },
-        "id": { "$ref": "#/$defs/id" },
-        "event_type": { "enum": ["activate", "resume", "pause", "reverse", "begin-recovery", "recovery-exit", "graduate"] },
-        "lifecycle_mapping_version": { "const": "1.0.0" },
-        "prior_state_ref": { "$ref": "#/$defs/priorStateReference" },
-        "evaluation_run_ref": { "$ref": "#/$defs/evaluationRunReference" },
-        "from_lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "to_lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "recorded_at": { "type": "string", "format": "date-time" },
-        "trust_state": { "$ref": "#/$defs/recordTrustState" },
-        "owner": { "$ref": "#/$defs/recordProducer" },
-        "provenance": { "$ref": "#/$defs/recordProvenance" }
-      },
-      "additionalProperties": false
-    },
-    "lifecycleContext": {
-      "type": "object",
-      "required": ["prior_state", "owner_event"],
-      "properties": {
-        "prior_state": { "$ref": "#/$defs/lifecycleState" },
-        "owner_event": {
-          "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/ownerTransitionEvent" }
-          ]
-        }
-      },
-      "additionalProperties": false
-    },
-    "transitionProposal": {
-      "type": "object",
-      "description": "A deterministic, auditable proposal derived from the condition resolution and prior lifecycle. It never changes lifecycle or authority by itself.",
-      "required": [
-        "proposal_version",
-        "lifecycle_mapping_version",
-        "prior_state_ref",
-        "owner_event_ref",
-        "proposal",
-        "proposed_lifecycle",
-        "authority_effect",
-        "automatic_transition",
-        "automatic_support_withdrawal",
-        "concurrent_duties",
-        "transition_conflicts"
-      ],
-      "properties": {
-        "proposal_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
-        "lifecycle_mapping_version": { "const": "1.0.0" },
-        "prior_state_ref": { "$ref": "#/$defs/priorStateReference" },
-        "owner_event_ref": {
-          "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/ownerEventReference" }
-          ]
-        },
-        "proposal": {
-          "enum": [
-            "hold",
-            "hold_for_review",
-            "hold_for_new_contract",
-            "consider_watching",
-            "consider_preparation",
-            "continue_preparation",
-            "consider_activation",
-            "consider_resume",
-            "continue_active",
-            "consider_pause",
-            "consider_precautionary_pause",
-            "consider_reversal",
-            "continue_reversal",
-            "consider_recovery",
-            "continue_recovery",
-            "continue_with_recovery",
-            "consider_graduation",
-            "consider_recovery_exit",
-            "await_recovery_exit_event"
-          ]
-        },
-        "proposed_lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "authority_effect": { "const": "none" },
-        "automatic_transition": { "const": false },
-        "automatic_support_withdrawal": { "const": false },
-        "concurrent_duties": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "enum": ["watch", "recover"] }
-        },
-        "transition_conflicts": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "enum": ["act_and_graduate", "recover_and_graduate", "graduate_without_existing_action", "owner_event_condition_mismatch"] }
         }
       },
       "additionalProperties": false

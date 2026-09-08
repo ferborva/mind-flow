@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/action-lifecycle-state/1-0-0",
+  "title": "Action lifecycle state",
+  "description": "An externally asserted operational state for one checksum-pinned action record. Repository validation preserves integrity but grants no authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "action_ref",
+    "lifecycle_vocabulary",
+    "lifecycle",
+    "recorded_at",
+    "trust_state",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "action_ref": { "$ref": "#/$defs/actionReference" },
+    "lifecycle_vocabulary": { "const": "action-transition-lifecycle/1.0.0" },
+    "lifecycle": { "$ref": "#/$defs/lifecycle" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "trust_state": { "$ref": "#/$defs/trustState" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/version" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "actionReference": { "$ref": "#/$defs/artifactReference" },
+    "lifecycle": {
+      "enum": ["inactive", "watching", "preparing", "active", "paused", "reversing", "recovering", "graduated"]
+    },
+    "trustState": {
+      "const": "unverified-external",
+      "description": "The repository has no external trust anchor for an owner's operational-state assertion."
+    },
+    "producer": {
+      "type": "object",
+      "required": ["organisation", "role"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["producer", "method"],
+      "properties": {
+        "producer": { "$ref": "#/$defs/producer" },
+        "method": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
