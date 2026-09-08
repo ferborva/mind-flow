@@ -1,7 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.2.0",
   "id": "forecast.au-clerical-adoption.example.2027-q2.v1",
   "epistemic_class": "forecast",
+  "forecast_use": "research_only",
   "status": "resolved",
   "title": "Fictional Australian clerical-adoption forecast fixture",
   "question": "Will the fictional pilot adoption measure reach its declared threshold in 2027 Q2?",
@@ -18,12 +19,58 @@
       "services": ["Work-transition measurement"]
     },
     "resolution_rule": "Resolve 1 only if the named source reports at least 20.0 percent for the exact scope and period. Resolve 0 if it reports below 20.0 percent. Void if the source retires or materially changes the measure before publication.",
-    "resolution_source": "https://example.org/fictional-transition-survey"
+    "resolution_source": "https://example.org/fictional-transition-survey",
+    "resolution_event_id": "event.synthetic-adoption.2027-q2",
+    "independence_cluster_id": "cluster.synthetic-adoption.2027-q2",
+    "observation_window_start": "2027-04-01T00:00:00Z",
+    "observation_window_end": "2027-06-30T23:59:59Z",
+    "outcome_publication_not_before": "2027-07-01T00:00:00Z"
   },
   "baseline": {
-    "name": "Fictional no-skill reference forecast",
+    "campaign_id": "campaign.synthetic-transition-2027",
+    "family_id": "family.reference-historical.v1",
+    "name": "Fictional mechanical historical-frequency baseline",
+    "kind": "mechanical",
+    "mechanical_role": "reference_class",
     "probability": 0.5,
-    "method": "Fixed 50 percent reference used only to test the scoring harness."
+    "method": "Frozen historical-frequency algorithm used only to test the harness.",
+    "declared_at": "2026-09-07T00:00:00Z",
+    "policy_snapshot": {
+      "source": "https://example.org/forecast-baselines/reference-v1",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "reference-policy-v1",
+      "checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "calculation": {
+      "algorithm_id": "historical-frequency",
+      "version": "1",
+      "input_checksums": ["sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],
+      "checksum": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "naive_baseline": {
+    "campaign_id": "campaign.synthetic-transition-2027",
+    "family_id": "family.naive-constant.v1",
+    "name": "Fictional mechanical constant baseline",
+    "kind": "mechanical",
+    "mechanical_role": "naive",
+    "probability": 0.5,
+    "method": "Frozen constant-probability algorithm used only to test the harness.",
+    "declared_at": "2026-09-07T00:00:00Z",
+    "policy_snapshot": {
+      "source": "https://example.org/forecast-baselines/naive-v1",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "naive-policy-v1",
+      "checksum": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "calculation": {
+      "algorithm_id": "constant-probability",
+      "version": "1",
+      "input_checksums": ["sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],
+      "checksum": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "verification_status": "unverified_external_review_required"
+    }
   },
   "method": {
     "kind": "human",
@@ -51,12 +98,17 @@
     "The fictional measure remains below the threshold.",
     "The measure changes and the forecast must be voided rather than reinterpreted."
   ],
+  "void_policy": {
+    "allowed_reason_codes": ["source_retired", "measure_materially_changed"],
+    "evidence_required": true
+  },
   "resolution": {
     "status": "resolved",
     "outcome": 1,
     "resolved_at": "2027-08-15T00:00:00Z",
     "evidence": {
       "source": "https://example.org/fictional-transition-survey/2027-q2",
+      "published_at": "2027-08-15T00:00:00Z",
       "retrieved_at": "2027-08-15T00:00:00Z",
       "vintage": "fictional-2027-q2",
       "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"

@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/forecasts/evaluation-plan.schema.json",
+  "title": "Prospective forecast evaluation plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "registered_at",
+    "claimed_registered_commit",
+    "registration_anchor",
+    "registered_plan_checksum",
+    "cohort_policy",
+    "eligible_registry_manifest",
+    "forecast_use_scope",
+    "cohort",
+    "scoring",
+    "reliability",
+    "void_handling",
+    "declared_utility"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.1.0" },
+    "id": {
+      "type": "string",
+      "pattern": "^forecast-evaluation\\.[a-z0-9][a-z0-9.-]+\\.v[0-9]+$"
+    },
+    "registered_at": { "type": "string", "format": "date-time" },
+    "claimed_registered_commit": { "type": "string", "pattern": "^[a-f0-9]{7,40}$" },
+    "registration_anchor": { "$ref": "#/$defs/unverifiedAnchor" },
+    "registered_plan_checksum": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "cohort_policy": {
+      "type": "object",
+      "required": ["campaign_id", "registered_at", "eligibility_rule", "anchor"],
+      "properties": {
+        "campaign_id": { "type": "string", "minLength": 1 },
+        "registered_at": { "type": "string", "format": "date-time" },
+        "eligibility_rule": {
+          "type": "object",
+          "required": ["kind", "campaign_id", "exclusions"],
+          "properties": {
+            "kind": { "const": "all_issued_campaign_records" },
+            "campaign_id": { "type": "string", "minLength": 1 },
+            "exclusions": { "const": "none" }
+          },
+          "additionalProperties": false
+        },
+        "anchor": { "$ref": "#/$defs/unverifiedAnchor" }
+      },
+      "additionalProperties": false
+    },
+    "eligible_registry_manifest": {
+      "type": "object",
+      "required": [
+        "sealed_at",
+        "eligible_forecast_ids",
+        "source",
+        "retrieved_at",
+        "vintage",
+        "checksum",
+        "verification_status"
+      ],
+      "properties": {
+        "sealed_at": { "type": "string", "format": "date-time" },
+        "eligible_forecast_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^forecast\\.[a-z0-9][a-z0-9.-]+\\.v[0-9]+$"
+          }
+        },
+        "source": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "vintage": { "type": "string", "minLength": 1 },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "verification_status": { "const": "unverified_external_review_required" }
+      },
+      "additionalProperties": false
+    },
+    "forecast_use_scope": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["research_only", "decision_linked"] }
+    },
+    "cohort": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["forecast_id", "issued_record_checksum"],
+        "properties": {
+          "forecast_id": {
+            "type": "string",
+            "pattern": "^forecast\\.[a-z0-9][a-z0-9.-]+\\.v[0-9]+$"
+          },
+          "issued_record_checksum": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "required": ["primary", "secondary", "baseline_comparator"],
+      "properties": {
+        "primary": { "const": "brier" },
+        "secondary": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["log_loss"] }
+        },
+        "baseline_comparator": {
+          "const": "campaign_mechanical_naive_and_reference_class"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reliability": {
+      "type": "object",
+      "required": [
+        "bin_edges",
+        "minimum_resolved_forecasts",
+        "minimum_forecasts_per_bin",
+        "minimum_independent_clusters",
+        "minimum_independent_clusters_per_bin",
+        "small_n_handling"
+      ],
+      "properties": {
+        "bin_edges": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "minimum_resolved_forecasts": { "type": "integer", "minimum": 30 },
+        "minimum_forecasts_per_bin": { "type": "integer", "minimum": 5 },
+        "minimum_independent_clusters": { "type": "integer", "minimum": 20 },
+        "minimum_independent_clusters_per_bin": { "type": "integer", "minimum": 5 },
+        "small_n_handling": { "const": "withhold_rates_and_calibration_language" }
+      },
+      "additionalProperties": false
+    },
+    "void_handling": {
+      "type": "object",
+      "required": [
+        "cohort_denominator",
+        "scoring",
+        "adjudication_required",
+        "minimum_score_coverage"
+      ],
+      "properties": {
+        "cohort_denominator": { "const": "all_registered_forecasts" },
+        "scoring": { "const": "exclude_with_visible_disclosure" },
+        "adjudication_required": { "const": true },
+        "minimum_score_coverage": { "type": "number", "minimum": 0.8, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "declared_utility": {
+      "type": "object",
+      "required": ["comparator", "aggregation"],
+      "properties": {
+        "comparator": { "const": "declared_no_model_policy" },
+        "aggregation": { "const": "stratify_by_utility_scale_consultation_and_adherence" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "unverifiedAnchor": {
+      "type": "object",
+      "required": ["source", "retrieved_at", "vintage", "checksum", "verification_status"],
+      "properties": {
+        "source": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "vintage": { "type": "string", "minLength": 1 },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "verification_status": { "const": "unverified_external_review_required" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

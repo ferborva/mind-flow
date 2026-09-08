@@ -43,6 +43,8 @@ test("issued and resolved forecasts have a resolvable contract", () => {
   assert.equal(issued.epistemic_class, "forecast");
   assert.ok(issued.target.resolution_source);
   assert.ok(issued.baseline.probability >= 0 && issued.baseline.probability <= 1);
+  assert.equal(issued.baseline.kind, "mechanical");
+  assert.equal(issued.naive_baseline.kind, "mechanical");
   assert.ok(issued.probability >= 0 && issued.probability <= 1);
   assert.match(resolved.resolution.evidence.checksum, /^sha256:[a-f0-9]{64}$/);
   assert.ok(resolved.resolution.evidence.retrieved_at);
@@ -64,6 +66,15 @@ test("schema rejects vague, unbounded or retrospectively convenient forecasts", 
   const impossibleProbability = structuredClone(issued);
   impossibleProbability.probability = 1.2;
   assert.equal(validate(impossibleProbability), false, "probability must be bounded");
+  assert.throws(
+    () => assertForecastSemantics(impossibleProbability),
+    /forecast probability/i,
+    "semantic validation must not rely on callers running the JSON schema first",
+  );
+
+  const impossibleBaseline = structuredClone(issued);
+  impossibleBaseline.baseline.probability = -0.1;
+  assert.throws(() => assertForecastSemantics(impossibleBaseline), /baseline probability/i);
 
   const unscoped = structuredClone(issued);
   delete unscoped.target.scope.cohorts;
@@ -82,7 +93,7 @@ test("resolution evidence is content-addressed and schema-closed", () => {
   const addressed = withContentAddressedResolution();
   assert.equal(validate(addressed), true, ajv.errorsText(validate.errors));
 
-  for (const field of ["source", "retrieved_at", "vintage", "checksum"]) {
+  for (const field of ["source", "published_at", "retrieved_at", "vintage", "checksum"]) {
     const incomplete = structuredClone(addressed);
     delete incomplete.resolution.evidence[field];
     assert.equal(validate(incomplete), false, `resolution evidence requires ${field}`);
@@ -182,10 +193,15 @@ test("binary scores reward honest probability and compare with the baseline", ()
   assert.deepEqual(score, {
     outcome: 1,
     brier: 0.09,
-    baseline_brier: 0.25,
-    brier_skill: 0.64,
+    reference_class_baseline_brier: 0.25,
+    reference_class_brier_skill: 0.64,
+    reference_class_brier_skill_state: "finite",
+    naive_baseline_brier: 0.25,
+    naive_brier_skill: 0.64,
+    naive_brier_skill_state: "finite",
     log_loss: -Math.log(0.7),
-    baseline_log_loss: -Math.log(0.5),
+    reference_class_baseline_log_loss: -Math.log(0.5),
+    naive_baseline_log_loss: -Math.log(0.5),
   });
 });
 
@@ -226,7 +242,28 @@ test("issued forecast substance is immutable while resolution may be appended", 
     status: "void",
     outcome: null,
     voided_at: "2026-10-01T00:00:00Z",
+    reason_code: "source_retired",
     reason: "Synthetic source retired before the resolution window.",
+    evidence: {
+      source: "https://example.org/fictional-transition-survey/retirement-notice",
+      published_at: "2026-10-01T00:00:00Z",
+      retrieved_at: "2026-10-01T00:00:00Z",
+      vintage: "fictional-retirement-notice-v1",
+      checksum: "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    },
+    adjudication: {
+      claimed_adjudicator_id: "synthetic-independent-reviewer",
+      independent_of_forecaster: true,
+      decision: "accepted_void",
+      verification_status: "unverified_external_review_required",
+      evidence: {
+        source: "https://example.org/fictional-transition-survey/void-review",
+        published_at: "2026-10-01T00:00:00Z",
+        retrieved_at: "2026-10-01T00:00:00Z",
+        vintage: "fictional-void-review-v1",
+        checksum: "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      },
+    },
   };
   voided.history.push({
     at: voided.resolution.voided_at,
@@ -245,4 +282,12 @@ test("unresolved or void forecasts cannot be scored as outcomes", () => {
   voided.status = "void";
   voided.resolution.outcome = null;
   assert.throws(() => scoreBinaryForecast(voided), /resolved forecast/);
+
+  const futureEvidence = structuredClone(resolved);
+  futureEvidence.resolution.evidence.retrieved_at = "2027-08-15T00:00:01Z";
+  assert.throws(
+    () => scoreBinaryForecast(futureEvidence),
+    /evidence.*resolved_at/i,
+    "the standalone scorer must not bypass registry chronology",
+  );
 });

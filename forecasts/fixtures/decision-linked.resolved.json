@@ -1,0 +1,208 @@
+{
+  "schema_version": "1.2.0",
+  "id": "forecast.synthetic-decision.continuity.2027-q2.v1",
+  "epistemic_class": "forecast",
+  "forecast_use": "decision_linked",
+  "status": "resolved",
+  "title": "Fictional decision-linked continuity forecast fixture",
+  "question": "Will the fictional continuity measure fall below its declared threshold in 2027 Q2?",
+  "issued_at": "2026-09-08T00:00:00Z",
+  "resolve_after": "2027-07-01T00:00:00Z",
+  "resolve_by": "2027-10-01T00:00:00Z",
+  "probability": 0.7,
+  "target": {
+    "event": "The fictional continuity measure is below 75 percent for the scoped cohort.",
+    "unit": "binary threshold event",
+    "scope": {
+      "geographies": ["Fictional Harbourvale"],
+      "cohorts": ["Fictional continuity cohort"],
+      "services": ["Fictional continuity support"]
+    },
+    "resolution_rule": "Resolve 1 only if the named source reports continuity below 75.0 percent for the exact scope and period. Resolve 0 otherwise. Apply only the separately declared void policy.",
+    "resolution_source": "https://example.org/fictional-continuity-survey",
+    "resolution_event_id": "event.synthetic-continuity.2027-q2",
+    "independence_cluster_id": "cluster.synthetic-continuity.2027-q2",
+    "observation_window_start": "2027-04-01T00:00:00Z",
+    "observation_window_end": "2027-06-30T23:59:59Z",
+    "outcome_publication_not_before": "2027-07-01T00:00:00Z"
+  },
+  "baseline": {
+    "campaign_id": "campaign.synthetic-transition-2027",
+    "family_id": "family.reference-historical.v1",
+    "name": "Fictional mechanical historical-frequency baseline",
+    "kind": "mechanical",
+    "mechanical_role": "reference_class",
+    "probability": 0.5,
+    "method": "Frozen historical-frequency algorithm used only to test the harness.",
+    "declared_at": "2026-09-07T00:00:00Z",
+    "policy_snapshot": {
+      "source": "https://example.org/forecast-baselines/reference-v1",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "reference-policy-v1",
+      "checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "calculation": {
+      "algorithm_id": "historical-frequency",
+      "version": "1",
+      "input_checksums": ["sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "checksum": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "naive_baseline": {
+    "campaign_id": "campaign.synthetic-transition-2027",
+    "family_id": "family.naive-constant.v1",
+    "name": "Fictional mechanical constant baseline",
+    "kind": "mechanical",
+    "mechanical_role": "naive",
+    "probability": 0.5,
+    "method": "Frozen constant-probability algorithm used only to test the harness.",
+    "declared_at": "2026-09-07T00:00:00Z",
+    "policy_snapshot": {
+      "source": "https://example.org/forecast-baselines/naive-v1",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "naive-policy-v1",
+      "checksum": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "calculation": {
+      "algorithm_id": "constant-probability",
+      "version": "1",
+      "input_checksums": ["sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "checksum": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "method": {
+    "kind": "human",
+    "description": "Synthetic judgement for a decision-evaluation software fixture.",
+    "version": "fixture-1"
+  },
+  "data_vintages": [
+    {
+      "source": "https://example.org/fictional-continuity-survey/2026-q2",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "fictional-2026-q2",
+      "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ],
+  "provenance": {
+    "author": "Ren",
+    "class": "agent-proposal",
+    "issued_commit": "0000000",
+    "disclaimer": "Fictional fixture for testing. It is not an issued public forecast, decision or Fernando's view."
+  },
+  "assumptions": [
+    "The target, actions, utility values and decision owner are synthetic.",
+    "The recorded action may affect the target, so the comparison cannot identify causal model value."
+  ],
+  "counter_hypotheses": [
+    "The fictional continuity measure does not cross the threshold.",
+    "A support decision changes the measured outcome.",
+    "The declared utility table does not reflect affected-party values."
+  ],
+  "void_policy": {
+    "allowed_reason_codes": ["source_retired", "measure_materially_changed"],
+    "evidence_required": true
+  },
+  "decision_context": {
+    "decision_id": "decision.synthetic-continuity-support.v1",
+    "claimed_accountable_owner": {
+      "claimed_owner_id": "synthetic-transition-owner",
+      "name": "Fictional transition owner",
+      "role": "Synthetic human decision owner",
+      "acknowledged_at": "2026-09-07T00:00:00Z",
+      "acknowledgement_evidence": {
+        "source": "https://example.org/fictional-owner/acknowledgement-v1",
+        "retrieved_at": "2026-09-07T00:00:00Z",
+        "vintage": "fictional-owner-acknowledgement-v1",
+        "checksum": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      "verification_status": "unverified_external_review_required"
+    },
+    "decision_due_at": "2026-10-01T00:00:00Z",
+    "eligible_actions": ["continue monitoring", "prepare reversible support"],
+    "forecast_policy": {
+      "probability_threshold": 0.6,
+      "action_at_or_above": "prepare reversible support",
+      "action_below": "continue monitoring",
+      "role": "evaluation_only_human_authorisation_required"
+    },
+    "no_model_baseline": {
+      "policy_id": "policy.synthetic-no-model-continuity.v1",
+      "version": "1",
+      "action": "continue monitoring",
+      "declared_at": "2026-09-07T00:00:00Z",
+      "policy_snapshot": {
+        "source": "https://example.org/fictional-policy/no-model-continuity-v1",
+        "retrieved_at": "2026-09-07T00:00:00Z",
+        "vintage": "fictional-policy-v1",
+        "checksum": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      }
+    },
+    "utility_model": {
+      "scale_id": "synthetic-continuity-utility-v1",
+      "unit": "synthetic decision points",
+      "perspective": "fictional affected cohort",
+      "lower_bound": -10,
+      "upper_bound": 10,
+      "basis": {
+        "class": "agent_hypothesis",
+        "declared_at": "2026-09-07T00:00:00Z",
+        "evidence": {
+          "source": "https://example.org/fictional-policy/utility-table-v1",
+          "retrieved_at": "2026-09-07T00:00:00Z",
+          "vintage": "fictional-utility-v1",
+          "checksum": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+        }
+      },
+      "entries": [
+        { "action": "continue monitoring", "outcome": 0, "value": 1 },
+        { "action": "continue monitoring", "outcome": 1, "value": 0 },
+        { "action": "prepare reversible support", "outcome": 0, "value": -2 },
+        { "action": "prepare reversible support", "outcome": 1, "value": 5 }
+      ]
+    },
+    "outcome_interference": "action_may_affect_target"
+  },
+  "resolution": {
+    "status": "resolved",
+    "outcome": 1,
+    "resolved_at": "2027-08-15T00:00:00Z",
+    "evidence": {
+      "source": "https://example.org/fictional-continuity-survey/2027-q2",
+      "published_at": "2027-08-15T00:00:00Z",
+      "retrieved_at": "2027-08-15T00:00:00Z",
+      "vintage": "fictional-2027-q2",
+      "checksum": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    "decision_observation": {
+      "decided_at": "2026-09-30T00:00:00Z",
+      "action_taken": "prepare reversible support",
+      "claimed_authoriser_id": "synthetic-transition-owner",
+      "forecast_consulted": true,
+      "authority_verification_status": "unverified_external_review_required",
+      "evidence": {
+        "source": "https://example.org/fictional-decisions/continuity-support-v1",
+        "published_at": "2026-09-30T00:00:00Z",
+        "retrieved_at": "2026-09-30T00:00:00Z",
+        "vintage": "fictional-decision-v1",
+        "checksum": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+      }
+    },
+    "notes": "Synthetic positive outcome and decision observation for evaluation tests."
+  },
+  "history": [
+    {
+      "at": "2026-09-08T00:00:00Z",
+      "event": "issued",
+      "actor": "forecast test fixture",
+      "note": "Synthetic record created to test decision-linked forecast safeguards."
+    },
+    {
+      "at": "2027-08-15T00:00:00Z",
+      "event": "resolved",
+      "actor": "forecast test fixture",
+      "note": "Synthetic outcome appended after the separately evidenced human decision."
+    }
+  ]
+}

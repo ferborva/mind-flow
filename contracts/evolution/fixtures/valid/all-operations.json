@@ -1,0 +1,3177 @@
+{
+  "schema_version": "1.0.0",
+  "canonicalisation": {
+    "profile": "mind-flow-canonical-json-v1",
+    "hash_algorithm": "sha-256",
+    "domain_separation": true,
+    "safe_integer_max": 9007199254740991
+  },
+  "ledger_id": "ledger.round-03.all-operations",
+  "generated_at": "2026-09-08T01:00:00Z",
+  "history": {
+    "mode": "complete",
+    "omitted_event_count": 0,
+    "omitted_ranges": [],
+    "omission_reason": null,
+    "external_record": null,
+    "base": {
+      "after_sequence": 0,
+      "after_event_id": null,
+      "after_event_version": null,
+      "tip_hash": null,
+      "tip_effective_at": null,
+      "tip_recorded_at": null,
+      "state_hash": null,
+      "conditions": []
+    }
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "event.01.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 1,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:01:00Z",
+      "recorded_at": "2026-09-08T00:01:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": null,
+      "previous_event_hash": null,
+      "event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540"
+    },
+    {
+      "sequence": 2,
+      "event_id": "event.02.challenged",
+      "event_version": "1.0.0",
+      "operation": "challenged",
+      "parent_events": [
+        {
+          "event_id": "event.01.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 1,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 2,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "challenged",
+          "unresolved_challenge_ids": [
+            "challenge.alpha.composition"
+          ],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the challenged transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:02:00Z",
+      "recorded_at": "2026-09-08T00:02:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "recorded",
+        "entries": [
+          {
+            "challenge_id": "challenge.alpha.composition",
+            "statement": "The indicator may reflect sector composition rather than technological displacement.",
+            "statement_sha256": "sha256:9fdb3cd4400cc17f8a67d4b4254e866edc2fa8ef5d5411145976efd7000da61e",
+            "raised_by": "actor.affected-worker",
+            "raised_at": "2026-09-08T00:01:30Z",
+            "evidence_refs": [
+              {
+                "evidence_id": "evidence.alpha",
+                "version": "1.0.0",
+                "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              }
+            ]
+          }
+        ],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.01.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540"
+      },
+      "previous_event_hash": "sha256:c7442917030e9df9d26e88d2c8c9c5bd5549b82371e7d769c019c97436711540",
+      "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+    },
+    {
+      "sequence": 3,
+      "event_id": "event.03.disputed",
+      "event_version": "1.0.0",
+      "operation": "disputed",
+      "parent_events": [
+        {
+          "event_id": "event.02.challenged",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 2,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "challenged",
+          "unresolved_challenge_ids": [
+            "challenge.alpha.composition"
+          ],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 3,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "disputed",
+          "unresolved_challenge_ids": [
+            "challenge.alpha.composition",
+            "challenge.alpha.scope"
+          ],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the disputed transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:03:00Z",
+      "recorded_at": "2026-09-08T00:03:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "recorded",
+        "entries": [
+          {
+            "challenge_id": "challenge.alpha.scope",
+            "statement": "Affected parties dispute whether the selected geography represents their experience.",
+            "statement_sha256": "sha256:d9a406b029e2f4de55a876906b99616933b08757cd703b0a1f0d4ce4a1854b1c",
+            "raised_by": "actor.affected-worker",
+            "raised_at": "2026-09-08T00:02:30Z",
+            "evidence_refs": [
+              {
+                "evidence_id": "evidence.alpha",
+                "version": "1.0.0",
+                "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              }
+            ]
+          }
+        ],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.02.challenged",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d"
+      },
+      "previous_event_hash": "sha256:f4cef56dd207c71770ad651a2b89f644a8ea4dc1e132bfe078b24aceac87d60d",
+      "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+    },
+    {
+      "sequence": 4,
+      "event_id": "event.04.narrowed",
+      "event_version": "1.0.0",
+      "operation": "narrowed",
+      "parent_events": [
+        {
+          "event_id": "event.03.disputed",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 3,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "disputed",
+          "unresolved_challenge_ids": [
+            "challenge.alpha.composition",
+            "challenge.alpha.scope"
+          ],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 4,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "disputed",
+          "unresolved_challenge_ids": [
+            "challenge.alpha.composition",
+            "challenge.alpha.scope"
+          ],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the narrowed transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:04:00Z",
+      "recorded_at": "2026-09-08T00:04:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.03.disputed",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57"
+      },
+      "previous_event_hash": "sha256:ff06e75719d571491df3faf178a42cde0d2e470b3c3a32b4e6d171d7eb1b5c57",
+      "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+    },
+    {
+      "sequence": 5,
+      "event_id": "event.05.satisfied",
+      "event_version": "1.0.0",
+      "operation": "satisfied",
+      "parent_events": [
+        {
+          "event_id": "event.04.narrowed",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 4,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "disputed",
+          "unresolved_challenge_ids": [
+            "challenge.alpha.composition",
+            "challenge.alpha.scope"
+          ],
+          "assessment": null,
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.alpha",
+          "condition_version": 5,
+          "wording": "condition.alpha is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.alpha",
+              "version": "1.0.0",
+              "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "role": "supports"
+            }
+          ],
+          "status": "satisfied",
+          "unresolved_challenge_ids": [],
+          "assessment": {
+            "assessment_id": "assessment.alpha.satisfaction",
+            "version": "1.0.0",
+            "checksum": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "evaluator_id": "actor.fixture-evaluator",
+            "method_id": "method.fixture-threshold",
+            "threshold_id": "threshold.fixture-v1",
+            "evaluated_at": "2026-09-08T00:04:50Z",
+            "evidence_ids": [
+              "evidence.alpha"
+            ]
+          },
+          "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the satisfied transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:05:00Z",
+      "recorded_at": "2026-09-08T00:05:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "resolved",
+        "entries": [],
+        "resolutions": [
+          {
+            "challenge_id": "challenge.alpha.composition",
+            "outcome": "rejected",
+            "statement": "The bounded assessment rejects composition as an adequate explanation for this fixture result.",
+            "statement_sha256": "sha256:302441702b6024833d8fde941a77971283008ef8c6d1af52a9d3458f70bc309e",
+            "resolved_by": "actor.fixture-evaluator",
+            "resolved_at": "2026-09-08T00:04:40Z",
+            "evidence_refs": [
+              {
+                "evidence_id": "evidence.alpha",
+                "version": "1.0.0",
+                "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              }
+            ]
+          },
+          {
+            "challenge_id": "challenge.alpha.scope",
+            "outcome": "rejected",
+            "statement": "The assessment is restricted to New South Wales; the wider geography is not claimed.",
+            "statement_sha256": "sha256:61f07357f158cbae89132368efbe46a9794febe620e40d42014d1d6881727fe5",
+            "resolved_by": "actor.fixture-evaluator",
+            "resolved_at": "2026-09-08T00:04:45Z",
+            "evidence_refs": [
+              {
+                "evidence_id": "evidence.alpha",
+                "version": "1.0.0",
+                "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              }
+            ]
+          }
+        ]
+      },
+      "chain_predecessor": {
+        "event_id": "event.04.narrowed",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6"
+      },
+      "previous_event_hash": "sha256:71091995f92e321aa58264c0d3d087a83cd6b7c9be12d702aec139dad8377af6",
+      "event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6"
+    },
+    {
+      "sequence": 6,
+      "event_id": "event.06.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.beta",
+          "condition_version": 1,
+          "wording": "condition.beta is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:06:00Z",
+      "recorded_at": "2026-09-08T00:06:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.05.satisfied",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6"
+      },
+      "previous_event_hash": "sha256:92271b36e0cfd8141bb8e6a0fc70d07f2743a7ded269fda65b24392b3d9450d6",
+      "event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e"
+    },
+    {
+      "sequence": 7,
+      "event_id": "event.07.failed",
+      "event_version": "1.0.0",
+      "operation": "failed",
+      "parent_events": [
+        {
+          "event_id": "event.06.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.beta",
+          "condition_version": 1,
+          "wording": "condition.beta is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.beta",
+          "condition_version": 2,
+          "wording": "condition.beta is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.beta",
+              "version": "1.0.0",
+              "checksum": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+              "role": "contradicts"
+            }
+          ],
+          "status": "failed",
+          "unresolved_challenge_ids": [],
+          "assessment": {
+            "assessment_id": "assessment.beta.failure",
+            "version": "1.0.0",
+            "checksum": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+            "evaluator_id": "actor.fixture-evaluator",
+            "method_id": "method.fixture-threshold",
+            "threshold_id": "threshold.fixture-v1",
+            "evaluated_at": "2026-09-08T00:06:50Z",
+            "evidence_ids": [
+              "evidence.beta"
+            ]
+          },
+          "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the failed transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:07:00Z",
+      "recorded_at": "2026-09-08T00:07:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.06.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e"
+      },
+      "previous_event_hash": "sha256:7fc0d84c43ba1738ec98285b084abcd9ba78b70fbcb56bbb6263ced2b3ccc32e",
+      "event_hash": "sha256:36094dcaa55300dd152682ac37c2e61e0a380589010af0c122037d33833f23c7"
+    },
+    {
+      "sequence": 8,
+      "event_id": "event.08.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.gamma",
+          "condition_version": 1,
+          "wording": "condition.gamma is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:08:00Z",
+      "recorded_at": "2026-09-08T00:08:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.07.failed",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:36094dcaa55300dd152682ac37c2e61e0a380589010af0c122037d33833f23c7"
+      },
+      "previous_event_hash": "sha256:36094dcaa55300dd152682ac37c2e61e0a380589010af0c122037d33833f23c7",
+      "event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c"
+    },
+    {
+      "sequence": 9,
+      "event_id": "event.09.expired",
+      "event_version": "1.0.0",
+      "operation": "expired",
+      "parent_events": [
+        {
+          "event_id": "event.08.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.gamma",
+          "condition_version": 1,
+          "wording": "condition.gamma is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.gamma",
+          "condition_version": 2,
+          "wording": "condition.gamma is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "expired",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the expired transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:09:00Z",
+      "recorded_at": "2026-09-08T00:09:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.08.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c"
+      },
+      "previous_event_hash": "sha256:9cc8353a7d8dbbe3914375ac54a537aa5dd158e2c933a34ebc9ed3ed533dcd9c",
+      "event_hash": "sha256:7391b11148d67569c75d5e863ed483061268b99f0f8e2e6c274ae8f3bf84d637"
+    },
+    {
+      "sequence": 10,
+      "event_id": "event.10.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.delta",
+          "condition_version": 1,
+          "wording": "condition.delta is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:10:00Z",
+      "recorded_at": "2026-09-08T00:10:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.09.expired",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:7391b11148d67569c75d5e863ed483061268b99f0f8e2e6c274ae8f3bf84d637"
+      },
+      "previous_event_hash": "sha256:7391b11148d67569c75d5e863ed483061268b99f0f8e2e6c274ae8f3bf84d637",
+      "event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a"
+    },
+    {
+      "sequence": 11,
+      "event_id": "event.11.withdrawn",
+      "event_version": "1.0.0",
+      "operation": "withdrawn",
+      "parent_events": [
+        {
+          "event_id": "event.10.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.delta",
+          "condition_version": 1,
+          "wording": "condition.delta is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.delta",
+          "condition_version": 2,
+          "wording": "condition.delta is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "withdrawn",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the withdrawn transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:11:00Z",
+      "recorded_at": "2026-09-08T00:11:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.10.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a"
+      },
+      "previous_event_hash": "sha256:c76f95129d1a9a4ac86102879a1e8f3716627025ac972245cd1473388676a05a",
+      "event_hash": "sha256:5873ed5414ae126f4f36b43e28caa56ea5311db11b38ce472e241caf7d0d5b1a"
+    },
+    {
+      "sequence": 12,
+      "event_id": "event.12.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.epsilon",
+          "condition_version": 1,
+          "wording": "condition.epsilon is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:12:00Z",
+      "recorded_at": "2026-09-08T00:12:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.11.withdrawn",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:5873ed5414ae126f4f36b43e28caa56ea5311db11b38ce472e241caf7d0d5b1a"
+      },
+      "previous_event_hash": "sha256:5873ed5414ae126f4f36b43e28caa56ea5311db11b38ce472e241caf7d0d5b1a",
+      "event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a"
+    },
+    {
+      "sequence": 13,
+      "event_id": "event.13.superseded",
+      "event_version": "1.0.0",
+      "operation": "superseded",
+      "parent_events": [
+        {
+          "event_id": "event.12.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.epsilon",
+          "condition_version": 1,
+          "wording": "condition.epsilon is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.epsilon",
+          "condition_version": 2,
+          "wording": "condition.epsilon is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "superseded",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the superseded transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:13:00Z",
+      "recorded_at": "2026-09-08T00:13:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.12.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a"
+      },
+      "previous_event_hash": "sha256:3cd4445537eb79af0d5055164a48b051df475d071afa53d0c08443275557919a",
+      "event_hash": "sha256:9b82b09a9126d24f7f44f8a2b3b4640ca077d6b15928db835c67f85c21424c07"
+    },
+    {
+      "sequence": 14,
+      "event_id": "event.14.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.source",
+          "condition_version": 1,
+          "wording": "condition.source is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:14:00Z",
+      "recorded_at": "2026-09-08T00:14:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.13.superseded",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:9b82b09a9126d24f7f44f8a2b3b4640ca077d6b15928db835c67f85c21424c07"
+      },
+      "previous_event_hash": "sha256:9b82b09a9126d24f7f44f8a2b3b4640ca077d6b15928db835c67f85c21424c07",
+      "event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479"
+    },
+    {
+      "sequence": 15,
+      "event_id": "event.15.split",
+      "event_version": "1.0.0",
+      "operation": "split",
+      "parent_events": [
+        {
+          "event_id": "event.14.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.source",
+          "condition_version": 1,
+          "wording": "condition.source is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.source",
+          "condition_version": 2,
+          "wording": "condition.source is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "superseded",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+        },
+        {
+          "condition_id": "condition.source.nsw",
+          "condition_version": 1,
+          "wording": "condition.source is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
+        },
+        {
+          "condition_id": "condition.source.vic",
+          "condition_version": 1,
+          "wording": "condition.source is evidenced under its declared scope",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Victoria"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: Victoria; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "split",
+        "semantic_effect": "scope-partition-only",
+        "partition_dimension": "geographies",
+        "coverage_mode": "exhaustive",
+        "overlap_mode": "disjoint",
+        "uncovered_members": [],
+        "mappings": [
+          {
+            "from_condition_ids": [
+              "condition.source"
+            ],
+            "to_condition_ids": [
+              "condition.source.nsw",
+              "condition.source.vic"
+            ]
+          }
+        ]
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the split transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:15:00Z",
+      "recorded_at": "2026-09-08T00:15:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.14.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479"
+      },
+      "previous_event_hash": "sha256:40fa5e78a6f8cd4ac03d8fb3909eaeed6521389f678bb6f736febb78af6fd479",
+      "event_hash": "sha256:f47c85471dd72b334a7cb7db238ff4a00762513f9ae6fd35090e288df79ccd6f"
+    },
+    {
+      "sequence": 16,
+      "event_id": "event.16.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.merge-a",
+          "condition_version": 1,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-a",
+              "version": "1.0.0",
+              "checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "role": "supports"
+            }
+          ],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:16:00Z",
+      "recorded_at": "2026-09-08T00:16:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.15.split",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:f47c85471dd72b334a7cb7db238ff4a00762513f9ae6fd35090e288df79ccd6f"
+      },
+      "previous_event_hash": "sha256:f47c85471dd72b334a7cb7db238ff4a00762513f9ae6fd35090e288df79ccd6f",
+      "event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea"
+    },
+    {
+      "sequence": 17,
+      "event_id": "event.17.added",
+      "event_version": "1.0.0",
+      "operation": "added",
+      "parent_events": [],
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.merge-b",
+          "condition_version": 1,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-b",
+              "version": "1.0.0",
+              "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "role": "supports"
+            }
+          ],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "none",
+        "mappings": []
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the added transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:17:00Z",
+      "recorded_at": "2026-09-08T00:17:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.16.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea"
+      },
+      "previous_event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea",
+      "event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102"
+    },
+    {
+      "sequence": 18,
+      "event_id": "event.18.merged",
+      "event_version": "1.0.0",
+      "operation": "merged",
+      "parent_events": [
+        {
+          "event_id": "event.16.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:9104176c9ff73d8be721d80f4ec0ea66a37ad1db45b100b4effc1a9e6e8cbcea"
+        },
+        {
+          "event_id": "event.17.added",
+          "event_version": "1.0.0",
+          "event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102"
+        }
+      ],
+      "previous_states": [
+        {
+          "condition_id": "condition.merge-a",
+          "condition_version": 1,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-a",
+              "version": "1.0.0",
+              "checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "role": "supports"
+            }
+          ],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        },
+        {
+          "condition_id": "condition.merge-b",
+          "condition_version": 1,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-b",
+              "version": "1.0.0",
+              "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "role": "supports"
+            }
+          ],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.merge-a",
+          "condition_version": 2,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-a",
+              "version": "1.0.0",
+              "checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "role": "supports"
+            }
+          ],
+          "status": "superseded",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        },
+        {
+          "condition_id": "condition.merge-b",
+          "condition_version": 2,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-b",
+              "version": "1.0.0",
+              "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "role": "supports"
+            }
+          ],
+          "status": "superseded",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        },
+        {
+          "condition_id": "condition.merge-c",
+          "condition_version": 1,
+          "wording": "the bounded shared merge condition holds",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "working-age people"
+            ],
+            "services": [
+              "income transition support"
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_id": "evidence.merge-a",
+              "version": "1.0.0",
+              "checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "role": "supports"
+            },
+            {
+              "evidence_id": "evidence.merge-b",
+              "version": "1.0.0",
+              "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "role": "supports"
+            }
+          ],
+          "status": "open",
+          "unresolved_challenge_ids": [],
+          "assessment": null,
+          "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+        }
+      ],
+      "identity_change": {
+        "kind": "merge",
+        "semantic_effect": "identity-consolidation-only",
+        "mappings": [
+          {
+            "from_condition_ids": [
+              "condition.merge-a",
+              "condition.merge-b"
+            ],
+            "to_condition_ids": [
+              "condition.merge-c"
+            ]
+          }
+        ]
+      },
+      "actor": {
+        "actor_id": "actor.fixture-author",
+        "display_name": "Fixture author",
+        "capacity": "author"
+      },
+      "provenance": {
+        "classification": "commissioned-proposal",
+        "source_refs": [
+          {
+            "source_id": "capture.round-03",
+            "source_uri": "capture://round-03/condition-evolution",
+            "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "reason": "Exercise the merged transition without claiming condition truth or action authority.",
+      "effective_at": "2026-09-08T00:18:00Z",
+      "recorded_at": "2026-09-08T00:18:00Z",
+      "retroactivity": {
+        "status": "not-retroactive",
+        "reason": null,
+        "affected_window": null,
+        "superseded_publication_refs": [],
+        "affected_decision_refs": [],
+        "public_notice": null
+      },
+      "challenges": {
+        "disposition": "none",
+        "entries": [],
+        "resolutions": []
+      },
+      "chain_predecessor": {
+        "event_id": "event.17.added",
+        "event_version": "1.0.0",
+        "event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102"
+      },
+      "previous_event_hash": "sha256:5ceca2d4a6308f799fd9a52aeae90fad2d1909137663a33fafd68b591c406102",
+      "event_hash": "sha256:14357616e3ee314bdfd8c859f673afe26c0e9e8f24c1c1afc16a91bda8f0aa18"
+    }
+  ],
+  "current_state": {
+    "as_of_sequence": 18,
+    "as_of_event_id": "event.18.merged",
+    "as_of_event_hash": "sha256:14357616e3ee314bdfd8c859f673afe26c0e9e8f24c1c1afc16a91bda8f0aa18",
+    "conditions": [
+      {
+        "condition_id": "condition.alpha",
+        "condition_version": 5,
+        "wording": "condition.alpha is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [
+          {
+            "evidence_id": "evidence.alpha",
+            "version": "1.0.0",
+            "checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "role": "supports"
+          }
+        ],
+        "status": "satisfied",
+        "unresolved_challenge_ids": [],
+        "assessment": {
+          "assessment_id": "assessment.alpha.satisfaction",
+          "version": "1.0.0",
+          "checksum": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "evaluator_id": "actor.fixture-evaluator",
+          "method_id": "method.fixture-threshold",
+          "threshold_id": "threshold.fixture-v1",
+          "evaluated_at": "2026-09-08T00:04:50Z",
+          "evidence_ids": [
+            "evidence.alpha"
+          ]
+        },
+        "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.beta",
+        "condition_version": 2,
+        "wording": "condition.beta is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [
+          {
+            "evidence_id": "evidence.beta",
+            "version": "1.0.0",
+            "checksum": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+            "role": "contradicts"
+          }
+        ],
+        "status": "failed",
+        "unresolved_challenge_ids": [],
+        "assessment": {
+          "assessment_id": "assessment.beta.failure",
+          "version": "1.0.0",
+          "checksum": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+          "evaluator_id": "actor.fixture-evaluator",
+          "method_id": "method.fixture-threshold",
+          "threshold_id": "threshold.fixture-v1",
+          "evaluated_at": "2026-09-08T00:06:50Z",
+          "evidence_ids": [
+            "evidence.beta"
+          ]
+        },
+        "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.delta",
+        "condition_version": 2,
+        "wording": "condition.delta is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [],
+        "status": "withdrawn",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.epsilon",
+        "condition_version": 2,
+        "wording": "condition.epsilon is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [],
+        "status": "superseded",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.gamma",
+        "condition_version": 2,
+        "wording": "condition.gamma is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [],
+        "status": "expired",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.merge-a",
+        "condition_version": 2,
+        "wording": "the bounded shared merge condition holds",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [
+          {
+            "evidence_id": "evidence.merge-a",
+            "version": "1.0.0",
+            "checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "role": "supports"
+          }
+        ],
+        "status": "superseded",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.merge-b",
+        "condition_version": 2,
+        "wording": "the bounded shared merge condition holds",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [
+          {
+            "evidence_id": "evidence.merge-b",
+            "version": "1.0.0",
+            "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "role": "supports"
+          }
+        ],
+        "status": "superseded",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.merge-c",
+        "condition_version": 1,
+        "wording": "the bounded shared merge condition holds",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [
+          {
+            "evidence_id": "evidence.merge-a",
+            "version": "1.0.0",
+            "checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "role": "supports"
+          },
+          {
+            "evidence_id": "evidence.merge-b",
+            "version": "1.0.0",
+            "checksum": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "role": "supports"
+          }
+        ],
+        "status": "open",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.source",
+        "condition_version": 2,
+        "wording": "condition.source is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales",
+            "Victoria"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [],
+        "status": "superseded",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.source.nsw",
+        "condition_version": 1,
+        "wording": "condition.source is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [],
+        "status": "open",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]"
+      },
+      {
+        "condition_id": "condition.source.vic",
+        "condition_version": 1,
+        "wording": "condition.source is evidenced under its declared scope",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Victoria"
+          ],
+          "cohorts": [
+            "working-age people"
+          ],
+          "services": [
+            "income transition support"
+          ]
+        },
+        "evidence": [],
+        "status": "open",
+        "unresolved_challenge_ids": [],
+        "assessment": null,
+        "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: Victoria; cohorts: working-age people; services: income transition support]"
+      }
+    ]
+  },
+  "publication_anchor": {
+    "verification_status": "not-verified-by-local-validator",
+    "checkpoint_uri": "https://example.invalid/checkpoints/round-03-all-operations.json",
+    "event_count": 18,
+    "tip_event_id": "event.18.merged",
+    "tip_event_version": "1.0.0",
+    "tip_hash": "sha256:14357616e3ee314bdfd8c859f673afe26c0e9e8f24c1c1afc16a91bda8f0aa18"
+  },
+  "public_projection": {
+    "history": {
+      "status": "complete",
+      "notice": "The disclosed event history begins at sequence 1. External checkpoint verification remains separate.",
+      "omitted_event_count": 0
+    },
+    "boundaries": {
+      "condition_truth_assessed": false,
+      "authority_granted": false,
+      "action_authorised": false
+    },
+    "changes": [
+      {
+        "sequence": 1,
+        "event_id": "event.01.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.alpha"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:01:00Z",
+        "recorded_at": "2026-09-08T00:01:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 2,
+        "event_id": "event.02.challenged",
+        "operation": "challenged",
+        "condition_ids": [
+          "condition.alpha"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the challenged transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:02:00Z",
+        "recorded_at": "2026-09-08T00:02:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [
+          "challenge.alpha.composition"
+        ],
+        "resolution_ids": [],
+        "challenge_records": [
+          {
+            "challenge_id": "challenge.alpha.composition",
+            "details_status": "included",
+            "statement": "The indicator may reflect sector composition rather than technological displacement.",
+            "raised_by": "actor.affected-worker",
+            "raised_at": "2026-09-08T00:01:30Z"
+          }
+        ],
+        "resolution_records": []
+      },
+      {
+        "sequence": 3,
+        "event_id": "event.03.disputed",
+        "operation": "disputed",
+        "condition_ids": [
+          "condition.alpha"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the disputed transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:03:00Z",
+        "recorded_at": "2026-09-08T00:03:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [
+          "challenge.alpha.scope"
+        ],
+        "resolution_ids": [],
+        "challenge_records": [
+          {
+            "challenge_id": "challenge.alpha.scope",
+            "details_status": "included",
+            "statement": "Affected parties dispute whether the selected geography represents their experience.",
+            "raised_by": "actor.affected-worker",
+            "raised_at": "2026-09-08T00:02:30Z"
+          }
+        ],
+        "resolution_records": []
+      },
+      {
+        "sequence": 4,
+        "event_id": "event.04.narrowed",
+        "operation": "narrowed",
+        "condition_ids": [
+          "condition.alpha"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the narrowed transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:04:00Z",
+        "recorded_at": "2026-09-08T00:04:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 5,
+        "event_id": "event.05.satisfied",
+        "operation": "satisfied",
+        "condition_ids": [
+          "condition.alpha"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the satisfied transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:05:00Z",
+        "recorded_at": "2026-09-08T00:05:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [
+          "challenge.alpha.composition",
+          "challenge.alpha.scope"
+        ],
+        "challenge_records": [],
+        "resolution_records": [
+          {
+            "challenge_id": "challenge.alpha.composition",
+            "outcome": "rejected",
+            "statement": "The bounded assessment rejects composition as an adequate explanation for this fixture result.",
+            "resolved_by": "actor.fixture-evaluator",
+            "resolved_at": "2026-09-08T00:04:40Z"
+          },
+          {
+            "challenge_id": "challenge.alpha.scope",
+            "outcome": "rejected",
+            "statement": "The assessment is restricted to New South Wales; the wider geography is not claimed.",
+            "resolved_by": "actor.fixture-evaluator",
+            "resolved_at": "2026-09-08T00:04:45Z"
+          }
+        ]
+      },
+      {
+        "sequence": 6,
+        "event_id": "event.06.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.beta"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:06:00Z",
+        "recorded_at": "2026-09-08T00:06:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 7,
+        "event_id": "event.07.failed",
+        "operation": "failed",
+        "condition_ids": [
+          "condition.beta"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the failed transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:07:00Z",
+        "recorded_at": "2026-09-08T00:07:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 8,
+        "event_id": "event.08.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.gamma"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:08:00Z",
+        "recorded_at": "2026-09-08T00:08:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 9,
+        "event_id": "event.09.expired",
+        "operation": "expired",
+        "condition_ids": [
+          "condition.gamma"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the expired transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:09:00Z",
+        "recorded_at": "2026-09-08T00:09:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 10,
+        "event_id": "event.10.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.delta"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:10:00Z",
+        "recorded_at": "2026-09-08T00:10:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 11,
+        "event_id": "event.11.withdrawn",
+        "operation": "withdrawn",
+        "condition_ids": [
+          "condition.delta"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the withdrawn transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:11:00Z",
+        "recorded_at": "2026-09-08T00:11:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 12,
+        "event_id": "event.12.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.epsilon"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:12:00Z",
+        "recorded_at": "2026-09-08T00:12:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 13,
+        "event_id": "event.13.superseded",
+        "operation": "superseded",
+        "condition_ids": [
+          "condition.epsilon"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the superseded transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:13:00Z",
+        "recorded_at": "2026-09-08T00:13:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 14,
+        "event_id": "event.14.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.source"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:14:00Z",
+        "recorded_at": "2026-09-08T00:14:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 15,
+        "event_id": "event.15.split",
+        "operation": "split",
+        "condition_ids": [
+          "condition.source",
+          "condition.source.nsw",
+          "condition.source.vic"
+        ],
+        "identity_change": {
+          "kind": "split",
+          "semantic_effect": "scope-partition-only",
+          "partition_dimension": "geographies",
+          "coverage_mode": "exhaustive",
+          "overlap_mode": "disjoint",
+          "uncovered_members": [],
+          "mappings": [
+            {
+              "from_condition_ids": [
+                "condition.source"
+              ],
+              "to_condition_ids": [
+                "condition.source.nsw",
+                "condition.source.vic"
+              ]
+            }
+          ]
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the split transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:15:00Z",
+        "recorded_at": "2026-09-08T00:15:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 16,
+        "event_id": "event.16.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.merge-a"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:16:00Z",
+        "recorded_at": "2026-09-08T00:16:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 17,
+        "event_id": "event.17.added",
+        "operation": "added",
+        "condition_ids": [
+          "condition.merge-b"
+        ],
+        "identity_change": {
+          "kind": "none",
+          "mappings": []
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the added transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:17:00Z",
+        "recorded_at": "2026-09-08T00:17:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      },
+      {
+        "sequence": 18,
+        "event_id": "event.18.merged",
+        "operation": "merged",
+        "condition_ids": [
+          "condition.merge-a",
+          "condition.merge-b",
+          "condition.merge-c"
+        ],
+        "identity_change": {
+          "kind": "merge",
+          "semantic_effect": "identity-consolidation-only",
+          "mappings": [
+            {
+              "from_condition_ids": [
+                "condition.merge-a",
+                "condition.merge-b"
+              ],
+              "to_condition_ids": [
+                "condition.merge-c"
+              ]
+            }
+          ]
+        },
+        "actor_id": "actor.fixture-author",
+        "reason": "Exercise the merged transition without claiming condition truth or action authority.",
+        "effective_at": "2026-09-08T00:18:00Z",
+        "recorded_at": "2026-09-08T00:18:00Z",
+        "retroactivity": {
+          "status": "not-retroactive",
+          "reason": null,
+          "affected_window": null,
+          "superseded_publication_refs": [],
+          "affected_decision_refs": [],
+          "public_notice": null
+        },
+        "challenge_ids": [],
+        "resolution_ids": [],
+        "challenge_records": [],
+        "resolution_records": []
+      }
+    ],
+    "current_conditions": [
+      {
+        "condition_id": "condition.alpha",
+        "condition_version": 5,
+        "rendered_if": "IF condition.alpha is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]",
+        "status": "satisfied",
+        "status_label": "Satisfaction recorded; truth not established by this ledger",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.05.satisfied",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the satisfied transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:05:00Z",
+          "recorded_at": "2026-09-08T00:05:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.beta",
+        "condition_version": 2,
+        "rendered_if": "IF condition.beta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "failed",
+        "status_label": "Failure recorded; causal explanation not established by this ledger",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.07.failed",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the failed transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:07:00Z",
+          "recorded_at": "2026-09-08T00:07:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.delta",
+        "condition_version": 2,
+        "rendered_if": "IF condition.delta is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "withdrawn",
+        "status_label": "Withdrawn; unresolved challenges remain visible",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.11.withdrawn",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the withdrawn transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:11:00Z",
+          "recorded_at": "2026-09-08T00:11:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.epsilon",
+        "condition_version": 2,
+        "rendered_if": "IF condition.epsilon is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "superseded",
+        "status_label": "Superseded; inspect its named successors or replacement record",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.13.superseded",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the superseded transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:13:00Z",
+          "recorded_at": "2026-09-08T00:13:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.gamma",
+        "condition_version": 2,
+        "rendered_if": "IF condition.gamma is evidenced under its declared scope [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "expired",
+        "status_label": "Expired; unresolved challenges remain visible",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.09.expired",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the expired transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:09:00Z",
+          "recorded_at": "2026-09-08T00:09:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.merge-a",
+        "condition_version": 2,
+        "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "superseded",
+        "status_label": "Superseded; inspect its named successors or replacement record",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.18.merged",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the merged transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:18:00Z",
+          "recorded_at": "2026-09-08T00:18:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.merge-b",
+        "condition_version": 2,
+        "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "superseded",
+        "status_label": "Superseded; inspect its named successors or replacement record",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.18.merged",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the merged transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:18:00Z",
+          "recorded_at": "2026-09-08T00:18:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.merge-c",
+        "condition_version": 1,
+        "rendered_if": "IF the bounded shared merge condition holds [jurisdictions: Australia; geographies: Australia; cohorts: working-age people; services: income transition support]",
+        "status": "open",
+        "status_label": "Open; not evaluated",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.18.merged",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the merged transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:18:00Z",
+          "recorded_at": "2026-09-08T00:18:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.source",
+        "condition_version": 2,
+        "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales, Victoria; cohorts: working-age people; services: income transition support]",
+        "status": "superseded",
+        "status_label": "Superseded; inspect its named successors or replacement record",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.15.split",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the split transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:15:00Z",
+          "recorded_at": "2026-09-08T00:15:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.source.nsw",
+        "condition_version": 1,
+        "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: New South Wales; cohorts: working-age people; services: income transition support]",
+        "status": "open",
+        "status_label": "Open; not evaluated",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.15.split",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the split transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:15:00Z",
+          "recorded_at": "2026-09-08T00:15:00Z"
+        }
+      },
+      {
+        "condition_id": "condition.source.vic",
+        "condition_version": 1,
+        "rendered_if": "IF condition.source is evidenced under its declared scope [jurisdictions: Australia; geographies: Victoria; cohorts: working-age people; services: income transition support]",
+        "status": "open",
+        "status_label": "Open; not evaluated",
+        "unresolved_challenges": [],
+        "last_change": {
+          "event_id": "event.15.split",
+          "actor_id": "actor.fixture-author",
+          "reason": "Exercise the split transition without claiming condition truth or action authority.",
+          "effective_at": "2026-09-08T00:15:00Z",
+          "recorded_at": "2026-09-08T00:15:00Z"
+        }
+      }
+    ]
+  },
+  "manifest_hash": "sha256:6cf52955f8a94f19939ae6f1998530a34c11a1a762d764fd015cc230158b5ba3",
+  "contract_boundary": {
+    "history_validity_effect": "structural-and-integrity-only",
+    "condition_truth_effect": "none",
+    "authority_effect": "none",
+    "action_authorisation_effect": "none"
+  }
+}

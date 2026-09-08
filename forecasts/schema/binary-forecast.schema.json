@@ -7,6 +7,7 @@
     "schema_version",
     "id",
     "epistemic_class",
+    "forecast_use",
     "status",
     "title",
     "question",
@@ -16,18 +17,21 @@
     "probability",
     "target",
     "baseline",
+    "naive_baseline",
     "method",
     "data_vintages",
     "provenance",
     "assumptions",
     "counter_hypotheses",
+    "void_policy",
     "resolution",
     "history"
   ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.2.0" },
     "id": { "type": "string", "pattern": "^forecast\\.[a-z0-9][a-z0-9.-]+\\.v[0-9]+$" },
     "epistemic_class": { "const": "forecast" },
+    "forecast_use": { "enum": ["research_only", "decision_linked"] },
     "status": { "enum": ["issued", "resolved", "void"] },
     "title": { "type": "string", "minLength": 1 },
     "question": { "type": "string", "minLength": 1 },
@@ -37,6 +41,7 @@
     "probability": { "type": "number", "minimum": 0, "maximum": 1 },
     "target": { "$ref": "#/$defs/target" },
     "baseline": { "$ref": "#/$defs/baseline" },
+    "naive_baseline": { "$ref": "#/$defs/baseline" },
     "method": { "$ref": "#/$defs/method" },
     "data_vintages": {
       "type": "array",
@@ -46,6 +51,8 @@
     "provenance": { "$ref": "#/$defs/provenance" },
     "assumptions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "counter_hypotheses": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "void_policy": { "$ref": "#/$defs/voidPolicy" },
+    "decision_context": { "$ref": "#/$defs/decisionContext" },
     "resolution": { "$ref": "#/$defs/resolution" },
     "history": {
       "type": "array",
@@ -65,6 +72,17 @@
     {
       "if": { "properties": { "status": { "const": "void" } } },
       "then": { "properties": { "resolution": { "$ref": "#/$defs/voidResolution" } } }
+    },
+    {
+      "if": {
+        "required": ["forecast_use"],
+        "properties": { "forecast_use": { "const": "decision_linked" } }
+      },
+      "then": {
+        "required": ["decision_context"],
+        "properties": { "decision_context": { "$ref": "#/$defs/decisionContext" } }
+      },
+      "else": { "properties": { "decision_context": false } }
     }
   ],
   "additionalProperties": false,
@@ -81,23 +99,78 @@
     },
     "target": {
       "type": "object",
-      "required": ["event", "unit", "scope", "resolution_rule", "resolution_source"],
+      "required": [
+        "event",
+        "unit",
+        "scope",
+        "resolution_rule",
+        "resolution_source",
+        "resolution_event_id",
+        "independence_cluster_id",
+        "observation_window_start",
+        "observation_window_end",
+        "outcome_publication_not_before"
+      ],
       "properties": {
         "event": { "type": "string", "minLength": 1 },
         "unit": { "type": "string", "minLength": 1 },
         "scope": { "$ref": "#/$defs/scope" },
         "resolution_rule": { "type": "string", "minLength": 1 },
-        "resolution_source": { "type": "string", "format": "uri" }
+        "resolution_source": { "type": "string", "format": "uri" },
+        "resolution_event_id": { "type": "string", "minLength": 1 },
+        "independence_cluster_id": { "type": "string", "minLength": 1 },
+        "observation_window_start": { "type": "string", "format": "date-time" },
+        "observation_window_end": { "type": "string", "format": "date-time" },
+        "outcome_publication_not_before": { "type": "string", "format": "date-time" }
       },
       "additionalProperties": false
     },
     "baseline": {
       "type": "object",
-      "required": ["name", "probability", "method"],
+      "required": [
+        "campaign_id",
+        "family_id",
+        "name",
+        "kind",
+        "mechanical_role",
+        "probability",
+        "method",
+        "declared_at",
+        "policy_snapshot",
+        "calculation"
+      ],
       "properties": {
+        "campaign_id": { "type": "string", "minLength": 1 },
+        "family_id": { "type": "string", "minLength": 1 },
         "name": { "type": "string", "minLength": 1 },
+        "kind": { "const": "mechanical" },
+        "mechanical_role": { "enum": ["naive", "reference_class"] },
         "probability": { "type": "number", "minimum": 0, "maximum": 1 },
-        "method": { "type": "string", "minLength": 1 }
+        "method": { "type": "string", "minLength": 1 },
+        "declared_at": { "type": "string", "format": "date-time" },
+        "policy_snapshot": { "$ref": "#/$defs/contentAddressedEvidence" },
+        "calculation": {
+          "type": "object",
+          "required": [
+            "algorithm_id",
+            "version",
+            "input_checksums",
+            "checksum",
+            "verification_status"
+          ],
+          "properties": {
+            "algorithm_id": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "input_checksums": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+            },
+            "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+            "verification_status": { "const": "unverified_external_review_required" }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     },
@@ -117,6 +190,7 @@
       "properties": {
         "source": { "type": "string", "format": "uri" },
         "retrieved_at": { "type": "string", "format": "date-time" },
+        "published_at": { "type": "string", "format": "date-time" },
         "vintage": { "type": "string", "minLength": 1 },
         "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
       },
@@ -133,6 +207,176 @@
       },
       "additionalProperties": false
     },
+    "voidPolicy": {
+      "type": "object",
+      "required": ["allowed_reason_codes", "evidence_required"],
+      "properties": {
+        "allowed_reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "source_retired",
+              "measure_materially_changed",
+              "resolution_evidence_unavailable"
+            ]
+          }
+        },
+        "evidence_required": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "accountableOwner": {
+      "type": "object",
+      "required": [
+        "claimed_owner_id",
+        "name",
+        "role",
+        "acknowledged_at",
+        "acknowledgement_evidence",
+        "verification_status"
+      ],
+      "properties": {
+        "claimed_owner_id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "acknowledged_at": { "type": "string", "format": "date-time" },
+        "acknowledgement_evidence": { "$ref": "#/$defs/contentAddressedEvidence" },
+        "verification_status": { "const": "unverified_external_review_required" }
+      },
+      "additionalProperties": false
+    },
+    "forecastPolicy": {
+      "type": "object",
+      "required": [
+        "probability_threshold",
+        "action_at_or_above",
+        "action_below",
+        "role"
+      ],
+      "properties": {
+        "probability_threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+        "action_at_or_above": { "type": "string", "minLength": 1 },
+        "action_below": { "type": "string", "minLength": 1 },
+        "role": { "const": "evaluation_only_human_authorisation_required" }
+      },
+      "additionalProperties": false
+    },
+    "noModelBaseline": {
+      "type": "object",
+      "required": ["policy_id", "version", "action", "declared_at", "policy_snapshot"],
+      "properties": {
+        "policy_id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "action": { "type": "string", "minLength": 1 },
+        "declared_at": { "type": "string", "format": "date-time" },
+        "policy_snapshot": { "$ref": "#/$defs/contentAddressedEvidence" }
+      },
+      "additionalProperties": false
+    },
+    "utilityEntry": {
+      "type": "object",
+      "required": ["action", "outcome", "value"],
+      "properties": {
+        "action": { "type": "string", "minLength": 1 },
+        "outcome": { "enum": [0, 1] },
+        "value": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "utilityModel": {
+      "type": "object",
+      "required": [
+        "scale_id",
+        "unit",
+        "perspective",
+        "lower_bound",
+        "upper_bound",
+        "basis",
+        "entries"
+      ],
+      "properties": {
+        "scale_id": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "perspective": { "type": "string", "minLength": 1 },
+        "lower_bound": { "type": "number", "minimum": -1000000000, "maximum": 1000000000 },
+        "upper_bound": { "type": "number", "minimum": -1000000000, "maximum": 1000000000 },
+        "basis": {
+          "type": "object",
+          "required": ["class", "declared_at", "evidence"],
+          "properties": {
+            "class": {
+              "enum": ["agent_hypothesis", "affected_party_governed", "authorised_policy"]
+            },
+            "declared_at": { "type": "string", "format": "date-time" },
+            "evidence": { "$ref": "#/$defs/contentAddressedEvidence" }
+          },
+          "additionalProperties": false
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "$ref": "#/$defs/utilityEntry" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionContext": {
+      "type": "object",
+      "required": [
+        "decision_id",
+        "claimed_accountable_owner",
+        "decision_due_at",
+        "eligible_actions",
+        "forecast_policy",
+        "no_model_baseline",
+        "utility_model",
+        "outcome_interference"
+      ],
+      "properties": {
+        "decision_id": { "type": "string", "minLength": 1 },
+        "claimed_accountable_owner": { "$ref": "#/$defs/accountableOwner" },
+        "decision_due_at": { "type": "string", "format": "date-time" },
+        "eligible_actions": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "forecast_policy": { "$ref": "#/$defs/forecastPolicy" },
+        "no_model_baseline": { "$ref": "#/$defs/noModelBaseline" },
+        "utility_model": { "$ref": "#/$defs/utilityModel" },
+        "outcome_interference": {
+          "enum": ["action_cannot_affect_target", "action_may_affect_target"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionObservation": {
+      "type": "object",
+      "required": [
+        "decided_at",
+        "action_taken",
+        "claimed_authoriser_id",
+        "forecast_consulted",
+        "authority_verification_status",
+        "evidence"
+      ],
+      "properties": {
+        "decided_at": { "type": "string", "format": "date-time" },
+        "action_taken": { "type": "string", "minLength": 1 },
+        "claimed_authoriser_id": { "type": "string", "minLength": 1 },
+        "forecast_consulted": { "type": "boolean" },
+        "authority_verification_status": { "const": "unverified_external_review_required" },
+        "evidence": {
+          "type": "object",
+          "$ref": "#/$defs/contentAddressedEvidence",
+          "required": ["published_at"]
+        }
+      },
+      "additionalProperties": false
+    },
     "pendingResolution": {
       "type": "object",
       "required": ["status"],
@@ -146,19 +390,67 @@
         "status": { "const": "resolved" },
         "outcome": { "enum": [0, 1] },
         "resolved_at": { "type": "string", "format": "date-time" },
-        "evidence": { "$ref": "#/$defs/contentAddressedEvidence" },
+        "evidence": {
+          "type": "object",
+          "$ref": "#/$defs/contentAddressedEvidence",
+          "required": ["published_at"]
+        },
+        "decision_observation": { "$ref": "#/$defs/decisionObservation" },
         "notes": { "type": "string" }
       },
       "additionalProperties": false
     },
     "voidResolution": {
       "type": "object",
-      "required": ["status", "outcome", "voided_at", "reason"],
+      "required": [
+        "status",
+        "outcome",
+        "voided_at",
+        "reason_code",
+        "reason",
+        "evidence",
+        "adjudication"
+      ],
       "properties": {
         "status": { "const": "void" },
         "outcome": { "type": "null" },
         "voided_at": { "type": "string", "format": "date-time" },
-        "reason": { "type": "string", "minLength": 1 }
+        "reason_code": {
+          "enum": [
+            "source_retired",
+            "measure_materially_changed",
+            "resolution_evidence_unavailable"
+          ]
+        },
+        "reason": { "type": "string", "minLength": 1 },
+        "evidence": {
+          "type": "object",
+          "$ref": "#/$defs/contentAddressedEvidence",
+          "required": ["published_at"]
+        },
+        "adjudication": {
+          "type": "object",
+          "required": [
+            "claimed_adjudicator_id",
+            "independent_of_forecaster",
+            "decision",
+            "verification_status",
+            "evidence"
+          ],
+          "properties": {
+            "claimed_adjudicator_id": { "type": "string", "minLength": 1 },
+            "independent_of_forecaster": { "const": true },
+            "decision": { "const": "accepted_void" },
+            "verification_status": { "const": "unverified_external_review_required" },
+            "evidence": {
+              "type": "object",
+              "$ref": "#/$defs/contentAddressedEvidence",
+              "required": ["published_at"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "decision_observation": { "$ref": "#/$defs/decisionObservation" }
       },
       "additionalProperties": false
     },
