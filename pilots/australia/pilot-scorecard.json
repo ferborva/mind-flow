@@ -1,0 +1,230 @@
+{
+  "schema_version": "1.0.0",
+  "status": "agent_analysis",
+  "as_at": "2026-09-08",
+  "title": "Australia pilot evidence-readiness scorecard",
+  "warning": "These are agent-assigned evidence-readiness scores, not transition outcomes, risk rankings or official statistics. Do not combine them into a public crisis or agency index.",
+  "scale": {
+    "0": "No valid source for the construct",
+    "1": "Context or indirect proxy only",
+    "2": "Baseline estimate may be feasible after access, precision and disclosure checks",
+    "3": "Repeatable descriptive monitoring is feasible with material limitations",
+    "4": "Decision-grade causal or action-trigger evidence is feasible"
+  },
+  "overall_decision": {
+    "baseline_feasibility_pilot": "GO",
+    "limited_descriptive_observatory": "CONDITIONAL GO AFTER GATES",
+    "causal_ai_transition_dashboard": "STOP",
+    "crisis_forecast_or_automated_action_trigger": "STOP",
+    "reason": "The official evidence supports cohort definitions, modelled exposure and parts of worker-flow and continuity-floor baselining. It does not observe realised AI adoption, work redesign and downstream outcomes together over time."
+  },
+  "chain_links": [
+    {
+      "id": "exposure",
+      "score": 3,
+      "decision": "go_contextual_baseline",
+      "strongest_sources": ["jsa-genai-capacity-2025"],
+      "available": "Task-level augmentability and automatability mapped to ANZSCO occupations.",
+      "blocking_gap": "Static modelled technical potential cannot establish adoption, timing or harm.",
+      "minimum_next_evidence": "Versioned refresh policy and explicit separation from realised adoption."
+    },
+    {
+      "id": "adoption",
+      "score": 1,
+      "decision": "stop_cohort_region_claims",
+      "strongest_sources": ["abs-business-characteristics-2024-25", "jsa-genai-capacity-2025"],
+      "available": "Official business-level AI-use context by industry and size, plus mixed-method JSA evidence.",
+      "blocking_gap": "No recurring occupation by region by time measure of deployment, task, intensity or controls.",
+      "minimum_next_evidence": "Monthly employer-verified occupation-region adoption panel with deployment dates and affected workflows."
+    },
+    {
+      "id": "work_redesign",
+      "score": 1,
+      "decision": "stop_redesign_claims",
+      "strongest_sources": ["jsa-genai-capacity-2025"],
+      "available": "Static skill-demand and profile evidence plus adaptation concepts.",
+      "blocking_gap": "No representative before-and-after task, hours, discretion, training, monitoring and worker-voice panel.",
+      "minimum_next_evidence": "Quarterly matched employer-worker redesign instrument with a pre-deployment baseline."
+    },
+    {
+      "id": "worker_flows",
+      "score": 2,
+      "decision": "conditional_descriptive_go",
+      "strongest_sources": ["jsa-nero-2026-08", "abs-longitudinal-lfs-2603", "abs-job-mobility-2026", "abs-lfs-detailed-2026-03"],
+      "available": "Monthly modelled occupation-SA4 employment, short longitudinal worker transitions and annual mobility measures.",
+      "blocking_gap": "The same records do not observe AI adoption or work redesign. NERO is smoothed and must not be aggregated across occupations or regions.",
+      "minimum_next_evidence": "Access and precision validation, separate cohort series and a linkage or credible comparison design."
+    },
+    {
+      "id": "household_resources",
+      "score": 2,
+      "decision": "conditional_baseline_go",
+      "strongest_sources": ["abs-gss-2025", "abs-employee-earnings-2025", "dss-payment-demographics-2025-12"],
+      "available": "GSS household income, housing costs, liquidity and cash-flow problems can potentially be crossed with occupation and SA4 in DataLab.",
+      "blocking_gap": "Cross-sectional, retrospective and likely sparse at fine geography. No current Survey of Income and Housing benchmark or cohort panel.",
+      "minimum_next_evidence": "GSS DataLab cell-feasibility test and a repeated household-resource pulse."
+    },
+    {
+      "id": "essential_access",
+      "score": 2,
+      "decision": "conditional_baseline_go",
+      "strongest_sources": ["abs-gss-2025", "aihw-housing-assistance-2026", "aer-retail-performance-2026-q3", "abs-patient-experiences-2024-25"],
+      "available": "GSS contains direct cash-flow and service-access indicators for all six floor domains, with domain-specific official context.",
+      "blocking_gap": "Most direct measures are cross-sectional, annual, retrospective, incomplete by jurisdiction or not cohort-linked.",
+      "minimum_next_evidence": "Validated GSS baseline plus a monthly or quarterly cohort continuity-floor pulse."
+    },
+    {
+      "id": "agency",
+      "score": 1,
+      "decision": "stop_direct_index",
+      "strongest_sources": ["abs-gss-2025", "abs-barriers-incentives-2026"],
+      "available": "Life satisfaction, support, trust, desire for work or hours, barriers and incentives are available as separate proxies.",
+      "blocking_gap": "No validated direct, repeated construct for control, meaningful options, worker voice, time autonomy or ability to refuse.",
+      "minimum_next_evidence": "Co-designed agency module with construct validation, repeated observations and visible component measures."
+    }
+  ],
+  "continuity_floor": [
+    {
+      "id": "housing",
+      "score": 2,
+      "decision": "conditional_baseline_go",
+      "direct_baseline": ["GSS mortgage or rent cash-flow failure", "GSS rent-to-income ratio and tenure"],
+      "repeat_context": ["DSS Commonwealth Rent Assistance", "AIHW rental stress, social housing and waitlists"],
+      "blocking_gap": "No timely occupation-linked housing access or forced-move series."
+    },
+    {
+      "id": "food",
+      "score": 2,
+      "decision": "conditional_baseline_go",
+      "direct_baseline": ["GSS went without meals", "ABS 2023 food insecurity due to lack of money"],
+      "repeat_context": ["ABS monthly household food spending, context only"],
+      "blocking_gap": "Official direct access measures are lagged, retrospective and not repeatably occupation-region linked."
+    },
+    {
+      "id": "energy",
+      "score": 2,
+      "decision": "conditional_jurisdiction_go",
+      "direct_baseline": ["GSS utility bill cash-flow failure", "GSS unable to heat or cool"],
+      "repeat_context": ["AER customer debt, hardship, payment plans, disconnections and reconnections"],
+      "blocking_gap": "AER excludes Victoria, Western Australia and Northern Territory and has no occupation link."
+    },
+    {
+      "id": "transport",
+      "score": 1,
+      "decision": "stop_monitoring",
+      "direct_baseline": ["GSS perceived transport difficulty", "GSS car registration or insurance cash-flow failure"],
+      "repeat_context": ["ABS monthly household transport spending, context only"],
+      "blocking_gap": "No recurring national, cohort-linked measure of practical transport access."
+    },
+    {
+      "id": "primary_healthcare",
+      "score": 2,
+      "decision": "conditional_baseline_go",
+      "direct_baseline": ["GSS health, hospital or Medicare access difficulty", "GSS went without dental treatment", "ABS delayed or missed GP care including due to cost"],
+      "repeat_context": ["ABS Patient Experiences annual survey"],
+      "blocking_gap": "Measures are retrospective and occupation-region feasibility is unverified."
+    },
+    {
+      "id": "connectivity",
+      "score": 1,
+      "decision": "stop_monitoring",
+      "direct_baseline": ["GSS telephone or internet bill cash-flow failure", "GSS telecommunications service-access difficulty"],
+      "repeat_context": ["ACCC historical broadband performance"],
+      "blocking_gap": "The ACCC performance programme ended in June 2026 and did not measure unconnected households or affordability."
+    }
+  ],
+  "mandatory_gates": [
+    {
+      "id": "governance",
+      "pass_condition": "Named statistical, privacy, worker-representation, Indigenous data-governance and floor-domain owners approve the pre-registration.",
+      "status": "not_started",
+      "failure_action": "STOP public prototype."
+    },
+    {
+      "id": "datalab_access",
+      "pass_condition": "Approved ABS DataLab access exists for GSS 2025, Longitudinal LFS and Barriers and Incentives, with an output-clearance plan.",
+      "status": "not_started",
+      "failure_action": "Restrict work to public aggregate context."
+    },
+    {
+      "id": "gss_occupation_depth",
+      "pass_condition": "DataLab metadata confirms ANZOCCD can identify all five scoped unit groups without an undocumented mapping.",
+      "status": "not_started",
+      "failure_action": "STOP occupation-specific GSS analysis."
+    },
+    {
+      "id": "gss_precision_and_disclosure",
+      "pass_condition": "Each published occupation-geography cell passes ABS clearance, predeclared unweighted-sample, suppression and relative-standard-error rules.",
+      "status": "not_started",
+      "failure_action": "Move to a broader geography or suppress. Never impute a green status."
+    },
+    {
+      "id": "classification_control",
+      "pass_condition": "Every series declares occupation and geography versions. ANZSCO, OSCA and ASGS concordances are versioned, reviewed and tested.",
+      "status": "not_started",
+      "failure_action": "STOP trend joins across the break."
+    },
+    {
+      "id": "denominator_control",
+      "pass_condition": "Automated tests reject joins or comparisons across incompatible units such as people, households, businesses, customers and recipients.",
+      "status": "not_started",
+      "failure_action": "STOP composite calculations and affected displays."
+    },
+    {
+      "id": "provenance",
+      "pass_condition": "Every value resolves to source, table or item, reference period, release, transformation, uncertainty, revision and licence metadata.",
+      "status": "not_started",
+      "failure_action": "Do not publish the value."
+    },
+    {
+      "id": "observation_inference_action_separation",
+      "pass_condition": "User testing shows people can distinguish observed data, conditional inference and proposed action, including exposure versus adoption and association versus causation.",
+      "status": "not_started",
+      "failure_action": "Redesign and retest."
+    },
+    {
+      "id": "no_automated_harm",
+      "pass_condition": "The product cannot rank people or places for coercive action, withdraw services or trigger sanctions from modelled exposure, proxies or sparse cells.",
+      "status": "not_started",
+      "failure_action": "STOP deployment."
+    },
+    {
+      "id": "adoption_redesign_evidence",
+      "pass_condition": "A representative repeated occupation-region adoption and work-redesign source is operational with a pre-deployment baseline.",
+      "status": "missing_source",
+      "failure_action": "Permit descriptive context only. Prohibit causal AI transition claims."
+    },
+    {
+      "id": "early_warning_cadence",
+      "pass_condition": "Direct worker, household-floor and agency measures recur at a cadence appropriate to the promised response time, with known and acceptable lag.",
+      "status": "missing_source",
+      "failure_action": "Prohibit real-time or early-warning claims."
+    },
+    {
+      "id": "crisis_trigger_validation",
+      "pass_condition": "Any trigger uses at least two independent measures, declared uncertainty, counterevidence, expiry, human review and tested false-positive and false-negative costs.",
+      "status": "not_started",
+      "failure_action": "Show conditions for deliberation only. Do not fire automated actions."
+    }
+  ],
+  "review_decision_rule": {
+    "go_limited_observatory_if": [
+      "All gates except adoption_redesign_evidence and early_warning_cadence pass",
+      "The interface is explicitly labelled baseline and descriptive",
+      "Missing chain links remain visible and prevent causal or alert outputs"
+    ],
+    "go_early_warning_if": [
+      "All mandatory gates pass",
+      "Prospective validation demonstrates useful warning lead time",
+      "Independent review accepts construct validity and error costs",
+      "Actions are proportionate, reversible and floor-protecting"
+    ],
+    "stop_if": [
+      "GSS cannot identify the cohorts at a publishable level",
+      "Users systematically confuse exposure with adoption or association with causation",
+      "Required uncertainty, provenance or coverage cannot be shown",
+      "The proposed use could remove support, target or penalise people",
+      "No action can occur within the lag of the signal"
+    ]
+  }
+}
