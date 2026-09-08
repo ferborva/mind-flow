@@ -47,5 +47,18 @@ test("each instrument hypothesis has an IF, discriminator and retirement rule", 
   assert.match(protocol, /IF the Observatory/i);
   assert.match(protocol, /discriminating observation/i);
   assert.match(protocol, /retire or narrow/i);
-  assert.match(protocol, /no operational warning.*no individual consequence/is);
+  assert.match(protocol, /no operational\s*>?\s*warning/i);
+  assert.doesNotMatch(protocol, /tests an interface, not people/i);
+  assert.doesNotMatch(protocol, /no individual consequence/i);
+});
+
+test("participant effects are named and governed before recruitment", () => {
+  assert.match(protocol, /participants may experience.*anxiety.*stigma.*pressure/is);
+  assert.match(protocol, /informed consent/i);
+  assert.match(protocol, /withdraw.*without penalty/i);
+  assert.match(protocol, /debrief/i);
+  assert.match(protocol, /support or referral/i);
+  assert.match(protocol, /adverse-event\s+owner/i);
+  assert.match(protocol, /independent safety monitor/i);
+  assert.match(protocol, /remediation/i);
 });

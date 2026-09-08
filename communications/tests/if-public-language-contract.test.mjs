@@ -9,6 +9,7 @@ const contract = readFileSync(
   resolve(here, "../if-public-language-contract.md"),
   "utf8",
 );
+const readme = readFileSync(resolve(here, "../README.md"), "utf8");
 
 test("the public grammar completes each claim class with a scoped IF", () => {
   assert.match(contract, /verb \+ \[blank\] \+ IF/i);
@@ -73,6 +74,10 @@ test("public choices are evidence-and-authority appropriate and non-priming", ()
   assert.match(contract, /does not prove inevitable|does not establish inevitability/i);
   assert.match(contract, /No countdowns, inevitability language, moral labels or instructions to fear/i);
   assert.doesNotMatch(contract, /resisters|laggards|irrational opposition|inevitable losers/i);
+  assert.match(contract, /editorial judgment/i);
+  assert.match(contract, /loss function/i);
+  assert.match(contract, /affected-part(?:y|ies).*priorit/i);
+  assert.doesNotMatch(contract, /evidence decides emphasis/i);
   assert.doesNotMatch(contract, /—/);
 });
 
@@ -85,4 +90,12 @@ test("every public rendering exposes uncertainty, dissent and the next review", 
     "What happens if no choice is made",
     "When it will be reviewed",
   ]) assert.match(contract, new RegExp(field, "i"));
+});
+
+test("the communications kit owns editorial prominence as a value choice", () => {
+  assert.match(readme, /accountable editorial judgment/i);
+  assert.match(readme, /loss function/i);
+  assert.match(readme, /affected-party priorities/i);
+  assert.match(readme, /accountable owner/i);
+  assert.doesNotMatch(readme, /The evidence decides the emphasis/i);
 });

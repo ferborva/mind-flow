@@ -21,7 +21,6 @@ const validateSchema = ajv.compile(registerSchema);
 const EMERGENCY_MAX_MS = 7 * 24 * 60 * 60 * 1000;
 const RETROSPECTIVE_MAX_MS = 30 * 24 * 60 * 60 * 1000;
 const EMERGENCY_VERBS = new Set(["pause", "protect", "provide"]);
-const STRONG_PARTY_DISPOSITIONS = new Set(["consented", "necessity-test-passed"]);
 const QUALITY_RANK = Object.freeze({ exploratory: 0, provisional: 1, validated: 2 });
 const TRUST_RANK = Object.freeze({ unverified: 0, "source-authenticated": 1, "independently-reproduced": 2 });
 const CONFIDENCE_BY_RANK = Object.freeze(["low", "medium", "high"]);
@@ -63,6 +62,31 @@ export function renderActionSentence(action, plainLanguageIf) {
     `affected parties: ${action.scope.affected_party_ids.join(", ")}`,
   ].join("; ");
   return `Proposal: ${action.verb} ${action.object.description} within ${scope} IF ${plainLanguageIf}. This record does not authorise action.`;
+}
+
+function stripTerminalPunctuation(value) {
+  return value.replace(/[.!?]+$/u, "");
+}
+
+function renderIfLogic(logic, clauseById) {
+  if (logic.clause_ref) {
+    const statement = clauseById.get(logic.clause_ref) ?? `[unknown clause ${logic.clause_ref}]`;
+    return stripTerminalPunctuation(statement);
+  }
+  if (logic.all) {
+    return `(${logic.all.map((child) => renderIfLogic(child, clauseById)).join(" AND ")})`;
+  }
+  if (logic.any) {
+    return `(${logic.any.map((child) => renderIfLogic(child, clauseById)).join(" OR ")})`;
+  }
+  if (logic.not) return `NOT (${renderIfLogic(logic.not, clauseById)})`;
+  return `(${renderIfLogic(logic.veto_if.condition, clauseById)} AND NOT (${renderIfLogic(logic.veto_if.blocker, clauseById)}))`;
+}
+
+export function renderIfExpression(expressionContent) {
+  const clauseById = new Map(expressionContent.clauses.map((clause) =>
+    [clause.clause_id, clause.statement]));
+  return renderIfLogic(expressionContent.logic, clauseById);
 }
 
 function problem(code, path, message) {
@@ -110,14 +134,28 @@ function windowStartAt(evaluatedAt, window) {
   return instant.getTime();
 }
 
-function computeClauseResult(clause, evidenceRefs, evidenceById, evaluatedAt, errors, path) {
-  const observations = evidenceRefs.flatMap((evidenceId) => {
+function computeClauseResult(
+  clause,
+  evidenceRefs,
+  evidenceById,
+  evidenceScopes,
+  evaluatedAt,
+  errors,
+  path,
+) {
+  const candidates = evidenceRefs.flatMap((evidenceId) => {
     const source = evidenceById.get(evidenceId);
     if (!source) return [];
     return source.observations
       .filter(({ measure, unit }) => measure === clause.measure && unit === clause.threshold.unit)
       .map((observation) => ({ ...observation, evidenceId }));
   });
+  const observations = candidates.filter((observation) =>
+    evidenceScopes.some((scope) => sameValue(scope, observation.evidence_scope)));
+  if (candidates.length !== observations.length) {
+    errors.push(problem("OBSERVATION_SCOPE_MISMATCH", path,
+      `${clause.clause_id} has a matching measure outside the expression and evaluation evidence scope.`));
+  }
   const windowStart = windowStartAt(evaluatedAt, clause.window);
   const current = observations.filter((observation) => {
     const observedAt = Date.parse(observation.observed_at);
@@ -132,24 +170,41 @@ function computeClauseResult(clause, evidenceRefs, evidenceById, evaluatedAt, er
   }
   const stale = observations.length > 0 && current.length < observations.length;
   if (current.length < clause.window.minimum_observations) {
-    return { result: "unknown", stale, insufficient: true };
+    return {
+      result: "unknown",
+      stale,
+      insufficient: true,
+      contributingEvidenceIds: [...new Set(current.map(({ evidenceId }) => evidenceId))],
+    };
   }
   let values;
+  let contributingObservations;
   if (clause.operator.startsWith("change_")) {
     const ordered = [...current].sort((left, right) =>
       Date.parse(left.observed_at) - Date.parse(right.observed_at));
     values = [ordered.at(-1).value - ordered[0].value];
+    contributingObservations = ordered.length === 1
+      ? [ordered[0]]
+      : [ordered[0], ordered.at(-1)];
   } else {
     values = current.map(({ value }) => value);
+    contributingObservations = current;
   }
   const comparisons = values.map((value) => comparisonPasses(
     clause.operator,
     value,
     clause.threshold.value,
   ));
-  if (comparisons.every(Boolean)) return { result: "true", stale, insufficient: false };
-  if (comparisons.every((value) => !value)) return { result: "false", stale, insufficient: false };
-  return { result: "conflicted", stale, insufficient: false };
+  const contributingEvidenceIds = [...new Set(
+    contributingObservations.map(({ evidenceId }) => evidenceId),
+  )];
+  if (comparisons.every(Boolean)) {
+    return { result: "true", stale, insufficient: false, contributingEvidenceIds };
+  }
+  if (comparisons.every((value) => !value)) {
+    return { result: "false", stale, insufficient: false, contributingEvidenceIds };
+  }
+  return { result: "conflicted", stale, insufficient: false, contributingEvidenceIds };
 }
 
 function expectedComparatorHeadline(comparator) {
@@ -163,11 +218,23 @@ function expectedComparatorHeadline(comparator) {
     if (outcome.without_action.upper < outcome.with_action.lower) return -1;
     return 0;
   });
-  const actionHarm = comparator.action_harms.reduce((total, harm) =>
-    total + harm.severity_weight * harm.likelihood, 0);
-  const inactionHarm = comparator.inaction_harms.reduce((total, harm) =>
-    total + harm.severity_weight * harm.likelihood, 0);
-  preferences.push(Math.sign(inactionHarm - actionHarm));
+  const dimensions = new Map(comparator.harm_taxonomy.dimensions.map((dimension) =>
+    [dimension.dimension_id, dimension]));
+  const inactionByPartyDimension = new Map(comparator.inaction_harms.map((harm) =>
+    [`${harm.party_id}|${harm.dimension_id}`, harm]));
+  for (const actionHarm of comparator.action_harms) {
+    const actionScore = actionHarm.severity_weight * actionHarm.likelihood;
+    const dimension = dimensions.get(actionHarm.dimension_id);
+    if (dimension?.non_compensable && actionScore >= dimension.action_veto_threshold) {
+      return "action-blocked-by-harm-veto";
+    }
+    const inactionHarm = inactionByPartyDimension.get(
+      `${actionHarm.party_id}|${actionHarm.dimension_id}`,
+    );
+    if (!inactionHarm) continue;
+    const inactionScore = inactionHarm.severity_weight * inactionHarm.likelihood;
+    preferences.push(Math.sign(inactionScore - actionScore));
+  }
   if (preferences.every((value) => value > 0)) return "action-appears-safer";
   if (preferences.every((value) => value < 0)) return "inaction-appears-safer";
   if (preferences.every((value) => value === 0)) return "similar";
@@ -212,6 +279,87 @@ function evaluateLogic(logic, results) {
   if (values.includes("conflicted")) return "conflicted";
   if (values.includes("unknown")) return "unknown";
   return operator === "all" ? "true" : "false";
+}
+
+function deriveValidNecessityEvaluations(action, evidenceById, asOf, path, errors) {
+  const evaluations = action.affected_party_governance.necessity_evaluations;
+  const validIds = new Set();
+  const duplicateIds = new Set(duplicateValues(evaluations.map(({ evaluation_id: id }) => id)));
+  for (const duplicate of duplicateIds) {
+    errors.push(problem("DUPLICATE_NECESSITY_EVALUATION",
+      `${path}.affected_party_governance.necessity_evaluations`,
+      `${duplicate} appears more than once.`));
+  }
+
+  for (const [index, evaluation] of evaluations.entries()) {
+    const evaluationPath = `${path}.affected_party_governance.necessity_evaluations[${index}]`;
+    let valid = !duplicateIds.has(evaluation.evaluation_id);
+    const fail = (code, field, message) => {
+      valid = false;
+      errors.push(problem(code, `${evaluationPath}.${field}`, message));
+    };
+    if (!action.scope.affected_party_ids.includes(evaluation.party_id)) {
+      fail("NECESSITY_PARTY_OUT_OF_SCOPE", "party_id",
+        "A necessity evaluation must name a party inside the action scope.");
+    }
+    if (!sameValue(evaluation.scope, action.scope)) {
+      fail("NECESSITY_SCOPE_MISMATCH", "scope",
+        "A necessity evaluation must bind the complete action scope.");
+    }
+    const evidence = evidenceById.get(evaluation.evidence_ref);
+    if (evidence?.role !== "evaluation" || !evidence.party_ids.includes(evaluation.party_id)) {
+      fail("NECESSITY_EVIDENCE_INVALID", "evidence_ref",
+        "Necessity evidence must be an evaluation source explicitly bound to the burdened party.");
+    }
+    const alternativeIds = evaluation.alternatives_considered
+      .map(({ alternative_id: id }) => id);
+    const selected = evaluation.alternatives_considered
+      .filter(({ disposition }) => disposition === "selected");
+    if (duplicateValues(alternativeIds).length
+      || selected.length !== 1
+      || selected[0].alternative_id !== evaluation.least_restrictive_alternative_id) {
+      fail("NECESSITY_ALTERNATIVES_INVALID", "alternatives_considered",
+        "Alternatives must be unique and exactly one selected least-restrictive route must match the declared identity.");
+    }
+    if (evaluation.dissent.status === "unresolved") {
+      fail("NECESSITY_DISSENT_UNRESOLVED", "dissent",
+        "Unresolved affected-party dissent prevents a derived necessity pass.");
+    }
+    const validFrom = Date.parse(evaluation.valid_from);
+    const expiresAt = Date.parse(evaluation.expires_at);
+    if (validFrom > asOf || expiresAt <= asOf || expiresAt <= validFrom) {
+      fail("NECESSITY_WINDOW_INVALID", "expires_at",
+        "A necessity evaluation must already apply and remain current at the register as_of time.");
+    }
+    if (evaluation.appeal_route !== action.affected_party_governance.challenge_route) {
+      fail("NECESSITY_APPEAL_ROUTE_MISMATCH", "appeal_route",
+        "Necessity review and affected-party governance must expose the same appeal route.");
+    }
+    if (action.reversibility.class === "emergency-containment") {
+      const emergency = action.emergency_exception;
+      if (!emergency
+        || evaluation.threat !== emergency.threat
+        || evaluation.reviewer_ref !== emergency.independent_reviewer.reviewer_id
+        || expiresAt > Date.parse(emergency.ends_at)) {
+        fail("NECESSITY_EMERGENCY_BINDING_INVALID", "reviewer_ref",
+          "Emergency necessity must bind its stated threat, reviewer and containment expiry.");
+      }
+    }
+    if (valid) validIds.add(evaluation.evaluation_id);
+  }
+
+  const referencedIds = action.affected_party_dispositions
+    .map(({ necessity_evaluation_ref: ref }) => ref)
+    .filter(Boolean);
+  for (const evaluation of evaluations) {
+    if (!referencedIds.includes(evaluation.evaluation_id)) {
+      errors.push(problem("UNUSED_NECESSITY_EVALUATION",
+        `${path}.affected_party_governance.necessity_evaluations`,
+        `${evaluation.evaluation_id} is not bound to an affected-party disposition.`));
+      validIds.delete(evaluation.evaluation_id);
+    }
+  }
+  return validIds;
 }
 
 function schemaProblems() {
@@ -269,6 +417,14 @@ function semanticProblems(register) {
     `${action.action_id}@${action.version}`))) {
     errors.push(problem("DUPLICATE_ACTION", "$.actions", `${duplicate} appears more than once.`));
   }
+  const registerHarmIds = register.actions.flatMap((action) => [
+    ...action.inaction_comparator.action_harms,
+    ...action.inaction_comparator.inaction_harms,
+  ]).map(({ harm_id: id }) => id);
+  for (const duplicate of duplicateValues(registerHarmIds)) {
+    errors.push(problem("DUPLICATE_REGISTER_HARM_ID", "$.actions",
+      `${duplicate} is reused across the register; harm identities must be globally unique.`));
+  }
 
   const expressions = new Map(register.if_expressions.map((record) => [keyOf(record), record]));
   const evaluations = new Map(register.if_evaluations.map((record) => [keyOf(record), record]));
@@ -294,9 +450,17 @@ function semanticProblems(register) {
           "Synthetic fixture evidence cannot claim authenticated or reproduced trust."));
       }
     });
+    const evidenceHarmIds = bundle.content.sources.flatMap(({ harm_estimates: harms }) =>
+      harms.map(({ harm_id: id }) => id));
+    for (const duplicate of duplicateValues(evidenceHarmIds)) {
+      errors.push(problem("DUPLICATE_EVIDENCE_HARM_ID",
+        `$.evidence_bundles[${bundleIndex}].content.sources`,
+        `${duplicate} is reused by more than one evidence harm record.`));
+    }
   });
 
   register.if_expressions.forEach((expression, expressionIndex) => {
+    const path = `$.if_expressions[${expressionIndex}].content`;
     const clauseIds = expression.content.clauses.map(({ clause_id: id }) => id);
     for (const duplicate of duplicateValues(clauseIds)) {
       errors.push(problem(
@@ -312,6 +476,35 @@ function semanticProblems(register) {
           `$.if_expressions[${expressionIndex}].content.logic`,
           `${reference} is not declared by the IF expression.`,
         ));
+      }
+    }
+    const logicClauseRefs = logicReferences(expression.content.logic);
+    if (duplicateValues(logicClauseRefs).length
+      || !sameValue([...logicClauseRefs].sort(), [...clauseIds].sort())) {
+      errors.push(problem(
+        "IF_LOGIC_CLAUSE_COVERAGE_MISMATCH",
+        `${path}.logic`,
+        "IF logic must reference every declared clause exactly once.",
+      ));
+    }
+    const renderedIf = renderIfExpression(expression.content);
+    if (expression.content.plain_language !== renderedIf) {
+      errors.push(problem(
+        "IF_PUBLIC_RENDER_MISMATCH",
+        `${path}.plain_language`,
+        "Public IF language must be the deterministic rendering of the complete typed logic.",
+      ));
+    }
+    const scopeIdentities = expression.content.scope.evidence_scopes.map(canonicalise);
+    if (duplicateValues(scopeIdentities).length) {
+      errors.push(problem("DUPLICATE_EVIDENCE_SCOPE", `${path}.scope.evidence_scopes`,
+        "Each evidence scope must have one unique semantic identity."));
+    }
+    for (const evidenceScope of expression.content.scope.evidence_scopes) {
+      if (!expression.content.scope.cohorts.includes(evidenceScope.population)
+        || !expression.content.scope.geographies.includes(evidenceScope.geography)) {
+        errors.push(problem("EVIDENCE_SCOPE_OUTSIDE_EXPRESSION", `${path}.scope.evidence_scopes`,
+          "Evidence populations and geographies must be explicit members of the public expression scope."));
       }
     }
     const binding = expression.content.condition_binding;
@@ -391,22 +584,27 @@ function semanticProblems(register) {
           `${path}.evidence_bundle_ref`,
           `${result.clause_ref} requires ${clause.evidence_requirement} evidence.`));
       }
-      const independenceGroups = new Set(result.evidence_refs
-        .map((id) => evidenceById.get(id)?.independence_group)
-        .filter(Boolean));
-      if (independenceGroups.size < clause.minimum_independent_sources) {
-        errors.push(problem("IF_SOURCE_INDEPENDENCE_UNMET",
-          `${path}.clause_results[${resultIndex}].evidence_refs`,
-          `${result.clause_ref} requires ${clause.minimum_independent_sources} independent source groups.`));
-      }
       const computedClause = computeClauseResult(
         clause,
         result.evidence_refs,
         evidenceById,
+        evaluation.content.scope.evidence_scopes,
         evaluatedAt,
         errors,
         `${path}.clause_results[${resultIndex}].evidence_refs`,
       );
+      const contributingIndependenceGroups = new Set(computedClause.contributingEvidenceIds
+        .map((id) => evidenceById.get(id)?.independence_group)
+        .filter(Boolean));
+      if (result.result !== "unknown"
+        && contributingIndependenceGroups.size < clause.minimum_independent_sources) {
+        errors.push(problem("IF_CONTRIBUTING_SOURCE_INDEPENDENCE_UNMET",
+          `${path}.clause_results[${resultIndex}].evidence_refs`,
+          `${result.clause_ref} requires matching current observations from ${clause.minimum_independent_sources} independent source groups.`));
+        errors.push(problem("IF_SOURCE_INDEPENDENCE_UNMET",
+          `${path}.clause_results[${resultIndex}].evidence_refs`,
+          `${result.clause_ref} lacks the required independent contributing source groups.`));
+      }
       computedClauseResults.set(result.clause_ref, computedClause.result);
       if (computedClause.stale && result.result !== "unknown") {
         errors.push(problem("STALE_CLAUSE_EVIDENCE",
@@ -507,6 +705,13 @@ function semanticProblems(register) {
     }
     const bundleEvidenceIds = new Set(bundle.content.sources.map(({ evidence_id: id }) => id));
     const bundleEvidenceById = new Map(bundle.content.sources.map((source) => [source.evidence_id, source]));
+    const validNecessityIds = deriveValidNecessityEvaluations(
+      action,
+      bundleEvidenceById,
+      asOf,
+      path,
+      errors,
+    );
     action.affected_party_dispositions.forEach((party, partyIndex) => {
       if (!bundleEvidenceIds.has(party.evidence_ref)) {
         errors.push(problem("PARTY_EVIDENCE_UNRESOLVED",
@@ -525,6 +730,12 @@ function semanticProblems(register) {
         errors.push(problem("PARTY_CHALLENGE_ROUTE_MISMATCH",
           `${path}.affected_party_dispositions[${partyIndex}].challenge_route`,
           "Each party must receive the published affected-party challenge route."));
+      }
+      if (party.necessity_evaluation_ref !== null
+        && !validNecessityIds.has(party.necessity_evaluation_ref)) {
+        errors.push(problem("PARTY_NECESSITY_EVALUATION_INVALID",
+          `${path}.affected_party_dispositions[${partyIndex}].necessity_evaluation_ref`,
+          "A necessity gate is derived only from a current party, scope, dissent, alternatives, expiry, appeal and reviewer-bound evaluation."));
       }
     });
     const objectionPartyIds = action.affected_party_governance.objections.map(({ party_id: id }) => id);
@@ -600,6 +811,45 @@ function semanticProblems(register) {
       ...action.inaction_comparator.action_harms,
       ...action.inaction_comparator.inaction_harms,
     ];
+    const comparator = action.inaction_comparator;
+    const allHarms = [...comparator.action_harms, ...comparator.inaction_harms];
+    const harmIds = allHarms.map(({ harm_id: id }) => id);
+    if (duplicateValues(harmIds).length) {
+      errors.push(problem("DUPLICATE_HARM_ID", `${path}.inaction_comparator`,
+        "A harm identity may appear only once across action and inaction arms."));
+    }
+    const dimensions = comparator.harm_taxonomy.dimensions;
+    const dimensionIds = dimensions.map(({ dimension_id: id }) => id);
+    if (duplicateValues(dimensionIds).length) {
+      errors.push(problem("DUPLICATE_HARM_DIMENSION",
+        `${path}.inaction_comparator.harm_taxonomy.dimensions`,
+        "The declared non-overlapping taxonomy must give each dimension one identity."));
+    }
+    const declaredDimensions = new Set(dimensionIds);
+    const usedDimensions = new Set(allHarms.map(({ dimension_id: id }) => id));
+    if (allHarms.some(({ dimension_id: id }) => !declaredDimensions.has(id))
+      || dimensions.some(({ dimension_id: id }) => !usedDimensions.has(id))) {
+      errors.push(problem("HARM_TAXONOMY_COVERAGE_MISMATCH",
+        `${path}.inaction_comparator.harm_taxonomy`,
+        "Every used harm dimension must be declared exactly once and every declaration must be used."));
+    }
+    for (const [field, arm] of [["action_harms", "action"], ["inaction_harms", "inaction"]]) {
+      const semanticIds = comparator[field].map((harm) =>
+        `${arm}|${harm.party_id}|${harm.dimension_id}`);
+      if (duplicateValues(semanticIds).length) {
+        errors.push(problem("DUPLICATE_HARM_SEMANTIC_IDENTITY",
+          `${path}.inaction_comparator.${field}`,
+          "Each arm may contain only one estimate for a party and non-overlapping harm dimension."));
+      }
+    }
+    const actionPairs = comparator.action_harms.map((harm) =>
+      `${harm.party_id}|${harm.dimension_id}`).sort();
+    const inactionPairs = comparator.inaction_harms.map((harm) =>
+      `${harm.party_id}|${harm.dimension_id}`).sort();
+    if (!sameValue(actionPairs, inactionPairs)) {
+      errors.push(problem("HARM_ARM_COVERAGE_MISMATCH", `${path}.inaction_comparator`,
+        "Action and inaction arms must cover the same party and harm-dimension identities."));
+    }
     for (const [outcomeIndex, outcome] of comparatorRecords.entries()) {
       for (const ref of outcome.evidence_refs) {
         if (!bundleEvidenceIds.has(ref)) {
@@ -637,6 +887,7 @@ function semanticProblems(register) {
         const expectedEvidence = {
           harm_id: harm.harm_id,
           party_id: harm.party_id,
+          dimension_id: harm.dimension_id,
           arm,
           severity_weight: harm.severity_weight,
           likelihood: harm.likelihood,
@@ -729,6 +980,10 @@ function semanticProblems(register) {
     const recoveryCompleteBy = Date.parse(recovery.complete_by);
     const recoveryMaximum = recoveryBase
       + recovery.complete_within.value * DURATION_MS[recovery.complete_within.unit];
+    if (recoveryCompleteBy <= recoveryBase) {
+      errors.push(problem("RECOVERY_CHRONOLOGY_INVALID", `${path}.recovery_path.complete_by`,
+        "Recovery completion must occur after the action or emergency-containment period it remedies."));
+    }
     if (recoveryCompleteBy > recoveryMaximum) {
       errors.push(problem("RECOVERY_DEADLINE_INCOHERENT", `${path}.recovery_path.complete_by`,
         "The explicit recovery deadline exceeds the registered completion duration."));
@@ -737,6 +992,14 @@ function semanticProblems(register) {
       || Date.parse(recovery.capacity_valid_through) < recoveryCompleteBy) {
       errors.push(problem("RECOVERY_RESOURCES_EXPIRE_EARLY", `${path}.recovery_path`,
         "Reserved recovery funding and capacity must remain valid through the completion deadline."));
+    }
+    if (funding.status !== "secured"
+      || capacity.status !== "available"
+      || funding.valid_through === null
+      || Date.parse(funding.valid_through) < recoveryCompleteBy
+      || Date.parse(capacity.readiness_valid_until) < recoveryCompleteBy) {
+      errors.push(problem("RECOVERY_RESOURCE_BINDING_INVALID", `${path}.resources`,
+        "The action's actual funding and capacity records must remain valid through recovery completion."));
     }
 
     if (action.reversibility.class === "irreversible") {
@@ -752,7 +1015,8 @@ function semanticProblems(register) {
       const burdened = action.affected_party_dispositions.filter(({ relationships }) =>
         relationships.includes("burdened"));
       if (burdened.length === 0
-        || burdened.some(({ disposition }) => !STRONG_PARTY_DISPOSITIONS.has(disposition))) {
+        || burdened.some((party) => party.disposition !== "consented"
+          && !validNecessityIds.has(party.necessity_evaluation_ref))) {
         errors.push(problem("IRREVERSIBLE_PARTY_GATE_UNMET", `${path}.affected_party_dispositions`,
           "Every burdened party needs recorded consent or a reviewable public necessity test."));
       }
@@ -827,6 +1091,17 @@ function semanticProblems(register) {
           `${path}.emergency_exception.independent_reviewer.relationship`,
           "The emergency reviewer must be structurally independent of the acting body."));
       }
+      const reviewer = emergency.independent_reviewer;
+      const reviewerOrganisation = reviewer.organisation.trim().toLowerCase();
+      if ([action.accountable_owner.organisation, action.actor.name]
+        .map((value) => value.trim().toLowerCase())
+        .includes(reviewerOrganisation)
+        || [action.accountable_owner.owner_id, action.actor.actor_id]
+          .includes(reviewer.reviewer_id)) {
+        errors.push(problem("EMERGENCY_REVIEWER_CONFLICT",
+          `${path}.emergency_exception.independent_reviewer`,
+          "The named reviewer must be a distinct person and organisation from the acting and accountable bodies."));
+      }
       if (action.resources.funding.status !== "secured"
         || action.resources.capacity.status !== "available"
         || !action.recovery_path.funding_reserved
@@ -852,7 +1127,8 @@ function semanticProblems(register) {
       const burdened = action.affected_party_dispositions.filter(({ relationships }) =>
         relationships.includes("burdened"));
       if (burdened.length === 0
-        || burdened.some(({ disposition }) => !STRONG_PARTY_DISPOSITIONS.has(disposition))) {
+        || burdened.some((party) => party.disposition !== "consented"
+          && !validNecessityIds.has(party.necessity_evaluation_ref))) {
         errors.push(problem("EMERGENCY_RIGHTS_GATE_UNMET", `${path}.affected_party_dispositions`,
           "Emergency burdens need consent or a documented, challengeable necessity test."));
       }

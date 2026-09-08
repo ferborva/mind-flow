@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/preparation/preparation-register/1-0-0",
+  "$id": "https://mind-flow.org/preparation/preparation-register/1-1-0",
   "title": "Early-action preparation register",
   "description": "Content-bound IF expressions, evaluations, evidence and proposals. This register records preparedness; it cannot authorise or execute an action.",
   "type": "object",
   "required": ["schema_version", "register_id", "as_of", "authorisation_effect", "evidence_truth_assessed", "if_expressions", "if_evaluations", "evidence_bundles", "actions"],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "register_id": { "$ref": "#/$defs/id" },
     "as_of": { "type": "string", "format": "date-time" },
     "authorisation_effect": { "const": "none" },
@@ -14,7 +14,7 @@
     "if_expressions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expressionEnvelope" } },
     "if_evaluations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evaluationEnvelope" } },
     "evidence_bundles": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceEnvelope" } },
-    "actions": { "type": "array", "minItems": 1, "items": { "$ref": "https://mind-flow.org/preparation/preparation-action/1-0-0" } }
+    "actions": { "type": "array", "minItems": 1, "items": { "$ref": "https://mind-flow.org/preparation/preparation-action/1-1-0" } }
   },
   "additionalProperties": false,
   "$defs": {
@@ -29,15 +29,30 @@
       "additionalProperties": false
     },
     "scope": {
-      "type": "object", "required": ["jurisdictions", "geographies", "cohorts", "services", "affected_party_ids", "exclusions"],
+      "type": "object", "required": ["jurisdictions", "geographies", "cohorts", "services", "affected_party_ids", "exclusions", "evidence_scopes"],
       "properties": {
         "jurisdictions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "geographies": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "cohorts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "services": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "affected_party_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
-        "exclusions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } }
+        "exclusions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "evidence_scopes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/evidenceScope" } }
       }, "additionalProperties": false
+    },
+    "evidenceScope": {
+      "type": "object",
+      "required": ["construct", "population", "geography", "statistical_unit", "denominator", "period", "aggregation"],
+      "properties": {
+        "construct": { "$ref": "#/$defs/id" },
+        "population": { "$ref": "#/$defs/nonEmpty" },
+        "geography": { "$ref": "#/$defs/nonEmpty" },
+        "statistical_unit": { "$ref": "#/$defs/nonEmpty" },
+        "denominator": { "$ref": "#/$defs/nonEmpty" },
+        "period": { "$ref": "#/$defs/nonEmpty" },
+        "aggregation": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
     },
     "logic": {
       "oneOf": [
@@ -121,14 +136,15 @@
     },
     "observation": {
       "type": "object",
-      "required": ["observation_id", "measure", "value", "unit", "observed_at", "valid_until"],
+      "required": ["observation_id", "measure", "value", "unit", "observed_at", "valid_until", "evidence_scope"],
       "properties": {
         "observation_id": { "$ref": "#/$defs/id" },
         "measure": { "$ref": "#/$defs/id" },
         "value": { "type": "number" },
         "unit": { "$ref": "#/$defs/nonEmpty" },
         "observed_at": { "type": "string", "format": "date-time" },
-        "valid_until": { "type": "string", "format": "date-time" }
+        "valid_until": { "type": "string", "format": "date-time" },
+        "evidence_scope": { "$ref": "#/$defs/evidenceScope" }
       },
       "additionalProperties": false
     },
@@ -167,10 +183,11 @@
     },
     "harmEstimateEvidence": {
       "type": "object",
-      "required": ["harm_id", "party_id", "arm", "severity_weight", "likelihood"],
+      "required": ["harm_id", "party_id", "dimension_id", "arm", "severity_weight", "likelihood"],
       "properties": {
         "harm_id": { "$ref": "#/$defs/id" },
         "party_id": { "$ref": "#/$defs/id" },
+        "dimension_id": { "$ref": "#/$defs/id" },
         "arm": { "enum": ["action", "inaction"] },
         "severity_weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
         "likelihood": { "type": "number", "minimum": 0, "maximum": 1 }

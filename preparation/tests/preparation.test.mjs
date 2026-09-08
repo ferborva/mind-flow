@@ -72,6 +72,8 @@ test("closed schemas accept the public register and reject authority claims", ()
   const validate = ajv.compile(registerSchema);
 
   assert.equal(validate(fixture), true, ajv.errorsText(validate.errors));
+  assert.equal(fixture.schema_version, "1.1.0");
+  assert.ok(fixture.actions.every((action) => action.schema_version === "1.1.0"));
   assert.equal(fixture.authorisation_effect, "none");
   assert.ok(fixture.actions.every((action) =>
     action.authorisation_effect === "none" && action.record_kind === "proposal"));
@@ -150,7 +152,10 @@ test("irreversible proposals carry a higher evidence, authority and consent burd
     "caller-asserted-verified-with-independent-review");
   assert.ok(irreversible.affected_party_dispositions
     .filter(({ relationships }) => relationships.includes("burdened"))
-    .every(({ disposition }) => ["consented", "necessity-test-passed"].includes(disposition)));
+    .every(({ disposition, necessity_evaluation_ref: necessityRef }) =>
+      disposition === "consented" || necessityRef !== null));
+  assert.ok(fixture.actions.flatMap(({ affected_party_dispositions: parties }) => parties)
+    .every(({ disposition }) => disposition !== "necessity-test-passed"));
 });
 
 test("the emergency exception is narrow, timeboxed, safeguarded and reviewable", () => {

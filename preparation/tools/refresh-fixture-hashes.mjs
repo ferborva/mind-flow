@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
-import { checksumJson } from "../lib/validate.mjs";
+import { checksumJson, renderActionSentence } from "../lib/validate.mjs";
 
 const target = new URL("../fixtures/valid/round-03.register.json", import.meta.url);
 const register = JSON.parse(readFileSync(target, "utf8"));
@@ -36,6 +36,7 @@ for (const action of register.actions) {
   action.if_binding.expression_ref.checksum = expression.checksum;
   action.if_binding.evaluation_ref.checksum = evaluation.checksum;
   action.evidence_bundle_ref.checksum = bundle.checksum;
+  action.public_sentence = renderActionSentence(action, expression.content.plain_language);
 }
 
 writeFileSync(target, `${JSON.stringify(register, null, 2)}\n`, "utf8");

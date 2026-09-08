@@ -21,7 +21,19 @@ It is a proposal, not an instruction. A structurally conformant record does not 
 | Can harm be undone? | Reversibility class, residual harm and funded recovery path |
 | What if we do nothing? | Symmetric, evidence-bound estimates with a machine-derived comparison |
 
-An IF result is eligibility evidence only. The validator applies each registered operator and threshold to typed observations inside the declared window. Insufficient, future or expired observations compute to `unknown`. It then recomputes the IF logic. This proves only that the result follows from the supplied bytes. It does not prove that those bytes describe the world.
+An IF result is eligibility evidence only. Every observation binds its construct,
+population, geography, statistical unit, denominator, period and aggregation to
+the action, expression and evaluation scope. The validator applies each
+registered operator and threshold only to matching observations inside the
+declared window. Only sources contributing matching, current observations count
+toward independence. Insufficient, future, expired or out-of-scope observations
+compute to `unknown`. It then recomputes the IF logic. This proves only that the
+result follows from the supplied bytes. It does not prove that those bytes
+describe the world.
+
+Typed logic must reference every declared clause exactly once. Public IF text is
+a deterministic rendering of those exact clauses and operators, so a smoother
+paraphrase cannot silently omit or duplicate a condition.
 
 A proposal may remain structurally publishable while its IF result is `false`, `unknown` or `conflicted`, because planning may start before a crisis. Action cannot start through this record. The bound result must be `true` before any separate decision process considers execution. Funding, readiness, affected-party treatment and lawful authority remain independent gates, and `authorisation_effect` stays `none`.
 
@@ -35,7 +47,17 @@ Cross-actor dependencies record a request, offer, commitment or refusal. They ne
 
 ## Reversibility first
 
-Preparation is reversible by default. Reversible and partially reversible proposals reserve quantified recovery funding and capacity through an explicit completion deadline. Irreversible proposals face a higher structural bar: validated evidence classification, a caller-asserted authority basis, an independent-review reference, secured resources, committed dependencies and consent or a challengeable public-necessity test for each burdened party. These are recorded claims, not external verification.
+Preparation is reversible by default. Reversible and partially reversible
+proposals reserve quantified recovery funding and capacity through an explicit
+completion deadline after the action. The declared reservation must agree with
+the action's actual funding and capacity validity. Irreversible proposals face
+a higher structural bar: validated evidence classification, a caller-asserted
+authority basis, an independent-review reference, secured resources, committed
+dependencies and consent or a challengeable necessity evaluation for each
+burdened party. Necessity is derived from party, exact scope, evidence, competing
+alternatives, least-restrictive selection, dissent, expiry, reviewer and appeal
+bindings. A caller-provided `passed` label cannot satisfy the gate. These are
+recorded claims, not external verification.
 
 "Recoverable" does not mean harmless. Every proposal states residual harm and an explicit remedy route.
 
@@ -43,7 +65,15 @@ Preparation is reversible by default. Reversible and partially reversible propos
 
 The exception is limited to `pause`, `protect` or `provide`. It requires typed start and stop gates, a recorded imminent threat, necessity, the least restrictive alternative, proportionality, distinct rights safeguards, a caller-asserted authority basis, a reviewer claimed to be structurally independent, positive funding, current quantified capacity, committed dependencies and an automatic end within **seven days**. Renewal requires a new record. A retrospective review must occur strictly after containment and within thirty days.
 
-Fail-closed automation is not a claim that inaction is safe. **Inaction is not safe by default.** Both paths use the same estimate and harm shapes, evidence references and affected-party scope. Every point estimate must match an evidence-bound interval for both arms. Harm uses a predeclared 0 to 1 cardinal severity-weight scale and a 0 to 1 likelihood, never arithmetic over ordinal labels. The validator derives the headline from interval separation and expected harm. It informs deliberation but authorises neither path.
+Fail-closed automation is not a claim that inaction is safe. **Inaction is not
+safe by default.** Both paths use the same estimate and harm shapes, evidence
+references and affected-party scope. Every point estimate must match an
+evidence-bound interval for both arms. Each harm has a unique record identity
+and one declared, mutually exclusive party-and-dimension identity in each arm.
+The validator compares paired identities without summing across people or harm
+dimensions. A non-compensable action-harm threshold vetoes a favourable
+headline before other benefits are considered. It informs deliberation but
+authorises neither path.
 
 ## Files and trust boundary
 

@@ -14,9 +14,10 @@ authority: none
 # Observatory public-instrument comparison
 
 > **AGENT-PROPOSED RESEARCH PROTOCOL. NOT PREREGISTERED OR APPROVED.** This
-> design tests an interface, not people. It creates no operational warning and
-> no individual consequence. Affected-party, research-ethics, accessibility,
-> privacy and statistical review must occur before recruitment.
+> design tests how people respond to an interface. It creates no operational
+> warning, but participants may experience anxiety, stigma, perceived pressure,
+> false reassurance or altered intentions. Affected-party, research-ethics,
+> accessibility, privacy and statistical review must occur before recruitment.
 
 ## Decision first
 
@@ -208,6 +209,14 @@ requires it. Do not add a helpful metric after seeing which arm wins. Never
 describe a noisy subgroup estimate as proof that a population is deficient.
 
 ## Safety and subgroup stop lines
+
+Before recruitment, the approved protocol must specify informed consent in
+accessible language, immediate withdrawal without penalty, a prompt debrief,
+and an accessible support or referral route. It must name an adverse-event
+owner, an independent safety monitor with authority to pause recruitment, and
+a remediation process for participant harms. Compensation already earned is
+not lost on withdrawal. No participant should have to disclose distress to the
+product team to receive support.
 
 Pause the study and review the material if any arm:
 

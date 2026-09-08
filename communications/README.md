@@ -31,7 +31,10 @@ updated: 2026-09-08
 - Headlines state scope, time and uncertainty. They do not turn data coverage
   into risk, correlation into cause, or a national average into a cohort result.
 - Crisis and positive-horizon paths receive equal scrutiny, but not forced equal
-  word count. The evidence decides the emphasis.
+  word count. Prominence is an accountable editorial judgment. Evidence
+  constrains what may be claimed, but it does not decide emphasis. Publish the
+  loss function, affected-party priorities, plausible harms, uncertainty and
+  accountable owner used to choose colour, order and word count.
 - Communication aims to improve understanding and agency. It must never use
   fear, vulnerability or political identity to manufacture consent.
 

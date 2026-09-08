@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/preparation/preparation-action/1-0-0",
+  "$id": "https://mind-flow.org/preparation/preparation-action/1-1-0",
   "title": "Non-authorising early-action proposal",
   "description": "A publicly legible proposal that binds verb plus object to a scoped IF evaluation, resources, safeguards, recovery and the explicit alternative of inaction. Conformance never grants authority.",
   "type": "object",
@@ -12,7 +12,7 @@
     "reversibility", "recovery_path", "inaction_comparator", "generated_at", "review_by"
   ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "action_id": { "$ref": "#/$defs/id" },
     "version": { "$ref": "#/$defs/semver" },
     "record_kind": { "const": "proposal" },
@@ -73,7 +73,7 @@
     },
     "affected_party_governance": {
       "type": "object",
-      "required": ["discovery_method", "coverage_state", "known_omissions", "objections", "challenge_route"],
+      "required": ["discovery_method", "coverage_state", "known_omissions", "objections", "necessity_evaluations", "challenge_route"],
       "properties": {
         "discovery_method": { "$ref": "#/$defs/nonEmpty" },
         "coverage_state": { "const": "provisional-publicly-challengeable" },
@@ -92,6 +92,7 @@
             "additionalProperties": false
           }
         },
+        "necessity_evaluations": { "type": "array", "items": { "$ref": "#/$defs/necessityEvaluation" } },
         "challenge_route": { "type": "string", "format": "uri" }
       },
       "additionalProperties": false
@@ -100,13 +101,14 @@
       "type": "array", "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["party_id", "party", "relationships", "disposition", "evidence_ref", "response", "safeguard", "challenge_route"],
+        "required": ["party_id", "party", "relationships", "disposition", "evidence_ref", "necessity_evaluation_ref", "response", "safeguard", "challenge_route"],
         "properties": {
           "party_id": { "$ref": "#/$defs/id" },
           "party": { "$ref": "#/$defs/nonEmpty" },
           "relationships": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["affected", "benefited", "burdened"] }, "contains": { "const": "affected" } },
-          "disposition": { "enum": ["not-contacted", "invited", "heard", "consented", "objected", "necessity-test-passed"] },
+          "disposition": { "enum": ["not-contacted", "invited", "heard", "consented", "objected"] },
           "evidence_ref": { "$ref": "#/$defs/nonEmpty" },
+          "necessity_evaluation_ref": { "type": ["string", "null"], "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
           "response": { "$ref": "#/$defs/nonEmpty" },
           "safeguard": { "$ref": "#/$defs/nonEmpty" },
           "challenge_route": { "type": "string", "format": "uri" }
@@ -202,16 +204,17 @@
     },
     "inaction_comparator": {
       "type": "object",
-      "required": ["baseline", "horizon", "expected_outcomes", "action_harms", "inaction_harms", "severity_scale_ref", "comparison_method", "comparison", "confidence", "authorisation_effect"],
+      "required": ["baseline", "horizon", "expected_outcomes", "action_harms", "inaction_harms", "harm_taxonomy", "severity_scale_ref", "comparison_method", "comparison", "confidence", "authorisation_effect"],
       "properties": {
         "baseline": { "$ref": "#/$defs/nonEmpty" },
         "horizon": { "$ref": "#/$defs/duration" },
         "expected_outcomes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/comparatorOutcome" } },
         "action_harms": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/harmEstimate" } },
         "inaction_harms": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/harmEstimate" } },
+        "harm_taxonomy": { "$ref": "#/$defs/harmTaxonomy" },
         "severity_scale_ref": { "type": "string", "format": "uri" },
-        "comparison_method": { "const": "predeclared-direction-plus-expected-harm" },
-        "comparison": { "enum": ["action-appears-safer", "inaction-appears-safer", "similar", "uncertain"] },
+        "comparison_method": { "const": "paired-party-dimension-with-noncompensable-veto" },
+        "comparison": { "enum": ["action-appears-safer", "inaction-appears-safer", "similar", "uncertain", "action-blocked-by-harm-veto"] },
         "confidence": { "enum": ["low", "medium", "high"] },
         "authorisation_effect": { "const": "none" }
       },
@@ -236,14 +239,29 @@
     },
     "scope": {
       "type": "object",
-      "required": ["jurisdictions", "geographies", "cohorts", "services", "affected_party_ids", "exclusions"],
+      "required": ["jurisdictions", "geographies", "cohorts", "services", "affected_party_ids", "exclusions", "evidence_scopes"],
       "properties": {
         "jurisdictions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "geographies": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "cohorts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "services": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "affected_party_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
-        "exclusions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } }
+        "exclusions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "evidence_scopes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/evidenceScope" } }
+      },
+      "additionalProperties": false
+    },
+    "evidenceScope": {
+      "type": "object",
+      "required": ["construct", "population", "geography", "statistical_unit", "denominator", "period", "aggregation"],
+      "properties": {
+        "construct": { "$ref": "#/$defs/id" },
+        "population": { "$ref": "#/$defs/nonEmpty" },
+        "geography": { "$ref": "#/$defs/nonEmpty" },
+        "statistical_unit": { "$ref": "#/$defs/nonEmpty" },
+        "denominator": { "$ref": "#/$defs/nonEmpty" },
+        "period": { "$ref": "#/$defs/nonEmpty" },
+        "aggregation": { "$ref": "#/$defs/nonEmpty" }
       },
       "additionalProperties": false
     },
@@ -310,13 +328,78 @@
     },
     "harmEstimate": {
       "type": "object",
-      "required": ["harm_id", "party_id", "severity_weight", "likelihood", "evidence_refs"],
+      "required": ["harm_id", "party_id", "dimension_id", "severity_weight", "likelihood", "evidence_refs"],
       "properties": {
         "harm_id": { "$ref": "#/$defs/id" },
         "party_id": { "$ref": "#/$defs/id" },
+        "dimension_id": { "$ref": "#/$defs/id" },
         "severity_weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
         "likelihood": { "type": "number", "minimum": 0, "maximum": 1 },
         "evidence_refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } }
+      },
+      "additionalProperties": false
+    },
+    "harmTaxonomy": {
+      "type": "object",
+      "required": ["taxonomy_ref", "overlap_policy", "dimensions"],
+      "properties": {
+        "taxonomy_ref": { "type": "string", "format": "uri" },
+        "overlap_policy": { "const": "declared-mutually-exclusive-dimensions" },
+        "dimensions": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["dimension_id", "label", "non_compensable", "action_veto_threshold"],
+            "properties": {
+              "dimension_id": { "$ref": "#/$defs/id" },
+              "label": { "$ref": "#/$defs/nonEmpty" },
+              "non_compensable": { "type": "boolean" },
+              "action_veto_threshold": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "necessityEvaluation": {
+      "type": "object",
+      "required": ["evaluation_id", "party_id", "scope", "evidence_ref", "threat", "alternatives_considered", "least_restrictive_alternative_id", "dissent", "valid_from", "expires_at", "appeal_route", "reviewer_ref"],
+      "properties": {
+        "evaluation_id": { "$ref": "#/$defs/id" },
+        "party_id": { "$ref": "#/$defs/id" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "evidence_ref": { "$ref": "#/$defs/id" },
+        "threat": { "$ref": "#/$defs/nonEmpty" },
+        "alternatives_considered": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["alternative_id", "description", "disposition", "reason"],
+            "properties": {
+              "alternative_id": { "$ref": "#/$defs/id" },
+              "description": { "$ref": "#/$defs/nonEmpty" },
+              "disposition": { "enum": ["selected", "rejected"] },
+              "reason": { "$ref": "#/$defs/nonEmpty" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "least_restrictive_alternative_id": { "$ref": "#/$defs/id" },
+        "dissent": {
+          "type": "object",
+          "required": ["status", "search_method", "records"],
+          "properties": {
+            "status": { "enum": ["none-recorded", "resolved", "unresolved"] },
+            "search_method": { "$ref": "#/$defs/nonEmpty" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/nonEmpty" } }
+          },
+          "additionalProperties": false
+        },
+        "valid_from": { "type": "string", "format": "date-time" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "appeal_route": { "type": "string", "format": "uri" },
+        "reviewer_ref": { "$ref": "#/$defs/id" }
       },
       "additionalProperties": false
     },
@@ -353,13 +436,27 @@
         "rights_safeguards": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
         "independent_reviewer": {
           "type": "object",
-          "required": ["reviewer_id", "organisation", "relationship", "verification_ref", "identity_state"],
+          "required": ["reviewer_id", "organisation", "relationship", "selection_control", "conflict_checks", "conflict_disclosure", "verification_ref", "identity_state", "independence_state"],
           "properties": {
             "reviewer_id": { "$ref": "#/$defs/id" },
             "organisation": { "$ref": "#/$defs/nonEmpty" },
             "relationship": { "enum": ["independent", "affiliated", "self-review"] },
+            "selection_control": { "const": "external-to-acting-body" },
+            "conflict_checks": {
+              "type": "object",
+              "required": ["employment", "financial", "reporting", "appointment_control"],
+              "properties": {
+                "employment": { "const": "none-declared" },
+                "financial": { "const": "none-declared" },
+                "reporting": { "const": "none-declared" },
+                "appointment_control": { "const": "external-to-acting-body" }
+              },
+              "additionalProperties": false
+            },
+            "conflict_disclosure": { "$ref": "#/$defs/nonEmpty" },
             "verification_ref": { "type": "string", "format": "uri" },
-            "identity_state": { "const": "caller-asserted-unverified" }
+            "identity_state": { "const": "caller-asserted-unverified" },
+            "independence_state": { "const": "caller-asserted-unverified" }
           },
           "additionalProperties": false
         }, "retrospective_review_by": { "type": "string", "format": "date-time" },

@@ -35,6 +35,9 @@ authority: none
   that acting or waiting is safe.
 - The aim is to make an **evidence-and-authority-appropriate choice** possible
   and contestable.
+- Prominence remains an accountable **editorial judgment**, not an output that
+  the evidence decides. Any display rule must publish its loss function,
+  affected-party priorities, plausible harms, uncertainty and accountable owner.
 
 ---
 
