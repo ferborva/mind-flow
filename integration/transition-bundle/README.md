@@ -45,7 +45,7 @@ empirical truth. Scope-mapping integrity does not prove two concepts
 equivalent. Nothing in the core grants authority, approves publication or
 authorises action.
 
-## Current result
+## Current results
 
 `fixtures/round-03.current.json` pins seven individually validated artifacts.
 Its expected programme assessment remains incoherent and non-authorising. Its
@@ -54,18 +54,23 @@ coherence blockers are now narrower:
 - no condition ID is shared by all seven core components;
 - downstream condition identities do not resolve through the evolution root.
 
-Freshness is a separate closed gate because the supplied evaluation time is not
-independently trusted. It does not make an otherwise coherent core incoherent.
+`fixtures/round-04.worker-option.pre-projection.json` is the first coherent
+seven-artifact, non-dashboard Round 4 core. Its kernel, evolution, signals,
+agency, path, preparation and forecast resolve one exact worker-option
+condition, scope, bounded period and evidence state. Integrity, scope-mapping,
+history, evidence, forecast and preparation gates pass.
 
-The scope manifest records known differences instead of hiding them. Forecast,
-preparation and dashboard contracts now expose typed bindings, but their current
-records still need to be regenerated from the same canonical synthetic
-transition.
+That result has a deliberately narrow meaning. The scope manifest's structure
+and hashes agree, while `mapping_truth_assessed` remains false. The supplied
+clock is untrusted, so freshness remains closed. Mechanical IF state does not
+establish empirical truth. No actor, authority, intervention benefit or public
+release has been authenticated. Truth, freshness, authority and publication
+therefore stay false.
 
-The executable IF and evolution boundaries have landed. The next migration gate
-is to derive new subsystem fixtures from the active definition and exact
-evidence-state reference. Shared IDs and hashes remain insufficient without
-scope, signal, forecast and preparation joins.
+The next migration gate is a dashboard derived from this exact pre-projection
+core, followed by a complete core that adds only that projection. Shared IDs
+and hashes remain insufficient without exact scope, signal, forecast,
+preparation and derivation joins.
 
 Run the assessment:
 
@@ -78,6 +83,7 @@ mean its individual artifacts are invalid. Run the safety tests with:
 
 ```sh
 npm run test:integration
+node integration/transition-bundle/tools/build-round-04-core.mjs --check
 ```
 
 The schema permits only an operator-supplied, untrusted manifest clock. Changing

@@ -28,7 +28,10 @@ import { validateConditionEvolutionLedger } from "../../contracts/evolution/vali
 import { validatePossiblePath } from "../../paths/validate.mjs";
 import { validateSignalRegistry } from "../../signals/validate.mjs";
 import { assessPreparationRegister } from "../../preparation/lib/validate.mjs";
-import { assertForecastSemantics } from "../../forecasts/lib/registry.mjs";
+import {
+  assessForecastIssueBasis,
+  assertForecastSemantics,
+} from "../../forecasts/lib/registry.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = resolve(here, "../..");
@@ -219,8 +222,22 @@ function validateComponent(role, document, artifactPath, evaluatedAt, context = 
       if (!schemaValid) {
         return { valid: false, result: { schema_valid: false, errors: structuredClone(validateForecastSchema.errors) } };
       }
-      assertForecastSemantics(document);
-      return { valid: true, result: { schema_valid: true, semantic_valid: true } };
+      const sources = document?.schema_version === "1.4.0" ? {
+        sourceKernel: sourceArtifact(context, "executable-if-kernel"),
+        sourceSignalRegistry: sourceArtifact(context, "signal-registry"),
+      } : {};
+      assertForecastSemantics(document, sources);
+      const issueBasis = document?.schema_version === "1.4.0"
+        ? assessForecastIssueBasis(document, sources)
+        : null;
+      return {
+        valid: issueBasis ? issueBasis.external_bindings_verified === true : true,
+        result: {
+          schema_valid: true,
+          semantic_valid: true,
+          ...(issueBasis || {}),
+        },
+      };
     }
     return { valid: false, result: { errors: ["role has no fixed validator"] } };
   } catch (error) {
@@ -827,6 +844,8 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   const preparation = documents.get("preparation-register");
   const preparationBindingsReady = preparation?.schema_version !== "1.2.0" ||
     componentResults["preparation-register"]?.external_bindings_verified === true;
+  const forecastBindingsReady = forecast?.schema_version !== "1.4.0" ||
+    componentResults.forecast?.external_bindings_verified === true;
   const gates = {
     integrity: bundleCoherent,
     scope: bundleCoherent && scopeReady,
@@ -834,7 +853,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     truth: false,
     freshness: false,
     evidence: bundleCoherent && identityReady && executableSignalReferenceValid,
-    forecast: bundleCoherent && !issueCodes.has("FORECAST_TARGET_UNBOUND"),
+    forecast: bundleCoherent && forecastBindingsReady && !issueCodes.has("FORECAST_TARGET_UNBOUND"),
     preparation: bundleCoherent && identityReady && preparationBindingsReady,
     authority: false,
     publication: false,
