@@ -14,7 +14,15 @@
     "publisher": "Jobs and Skills Australia",
     "product": "Nowcast of Employment by Region and Occupation",
     "release_period": "2026-08",
-    "released_at": "2026-09-02",
+    "publisher_release_date": "2026-09-02",
+    "release_availability": {
+      "kind": "first-seen-interval",
+      "not_seen_as_of_utc": null,
+      "first_seen_at_utc": "2026-09-08T01:01:48Z",
+      "chronology_state": "unknown",
+      "evidence": "The archive was first recorded during retrieval. No independently evidenced earlier absence check or exact publisher UTC timestamp is available.",
+      "next_observation": "Before the next planned release, record an automated UTC check showing the archive absent, then record the first UTC check showing it present and retain both response records. Prefer a publisher-signed UTC timestamp when available."
+    },
     "retrieved_at": "2026-09-08T01:01:48Z",
     "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
     "archive_name": "2026-08_nero.zip",
@@ -98,17 +106,24 @@
     "unit": "overlapping series-month observations",
     "dependence_warning": "Rows are serially and spatially dependent. A persistent trend produces repeated flags. Episode-level rates will be required in the shadow rehearsal.",
     "calculation_method": {
+      "generated_by": "node pilots/australia/tools/decline-audit.mjs <path-to-2026-08_shiny_df.csv>",
+      "calculation_version": "1.0.0",
+      "source_rows_in_scope": 58080,
       "monthly_change": "nsc_emp(t) / nsc_emp(t-1) - 1 within occupation-SA4",
       "twelve_month_change": "nsc_emp(t) / nsc_emp(t-12) - 1 within occupation-SA4",
       "three_consecutive_declines": "Current observation and its two preceding monthly changes are each below zero",
-      "denominator": "Every eligible overlapping series-month is equally counted; no population weighting",
+      "denominator": "Each metric counts only series-months with its required preceding observations. Three consecutive declines require three prior monthly comparisons; no population weighting is applied.",
       "era_split": "Assigned from the current reference date, with dates through 2022-11-15 in the negative-control era",
       "rounding": "Displayed shares are rounded to six decimal places"
     },
     "whole_archive": {
       "monthly_comparisons": 57640,
       "share_negative_monthly_change": 0.426301,
-      "share_at_or_beyond_three_consecutive_monthly_declines": 0.372745,
+      "three_consecutive_decline_flags": 21485,
+      "three_consecutive_decline_eligible_observations": 56760,
+      "three_consecutive_decline_first_eligible_date": "2015-12-15",
+      "three_consecutive_decline_last_eligible_date": "2026-08-15",
+      "share_at_or_beyond_three_consecutive_monthly_declines": 0.378524,
       "share_monthly_decline_at_least_5_percent": 0.000729,
       "share_monthly_decline_at_least_10_percent": 0.0,
       "minimum_monthly_change": -0.090909,
@@ -118,17 +133,31 @@
       "share_twelve_month_decline_at_least_10_percent": 0.180284,
       "share_twelve_month_decline_at_least_20_percent": 0.04053
     },
+    "pre_negative_control_era": {
+      "definition": "Eligible three-decline reference dates from 2015-12-15 through 2016-08-15, before the declared negative-control window.",
+      "three_consecutive_decline_flags": 1534,
+      "three_consecutive_decline_eligible_observations": 3960,
+      "share_at_or_beyond_three_consecutive_monthly_declines": 0.387374
+    },
     "negative_control_era": {
       "definition": "Reference dates from 2016-09-15 through 2022-11-15. This transparent pre-December 2022 split is a GenAI-era placebo window, not an AI-free period and not labelled ground truth.",
       "twelve_month_comparisons": 33000,
       "share_twelve_month_decline_at_least_10_percent": 0.194303,
-      "share_at_or_beyond_three_consecutive_monthly_declines": 0.366147,
+      "three_consecutive_decline_flags": 12321,
+      "three_consecutive_decline_eligible_observations": 33000,
+      "three_consecutive_decline_first_eligible_date": "2016-09-15",
+      "three_consecutive_decline_last_eligible_date": "2022-11-15",
+      "share_at_or_beyond_three_consecutive_monthly_declines": 0.373364,
       "share_meeting_both_three_month_and_twelve_month_10_percent_rules": 0.172848
     },
     "later_era": {
       "definition": "Reference dates from 2022-12-15 through 2026-08-15. This is not a treated period because adoption is unobserved.",
       "twelve_month_comparisons": 19800,
       "share_twelve_month_decline_at_least_10_percent": 0.156919,
+      "three_consecutive_decline_flags": 7630,
+      "three_consecutive_decline_eligible_observations": 19800,
+      "three_consecutive_decline_first_eligible_date": "2022-12-15",
+      "three_consecutive_decline_last_eligible_date": "2026-08-15",
       "share_at_or_beyond_three_consecutive_monthly_declines": 0.385354,
       "share_meeting_both_three_month_and_twelve_month_10_percent_rules": 0.135505
     },

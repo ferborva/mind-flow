@@ -43,6 +43,7 @@
         "archive_name": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}_nero\\.zip$" },
         "release_period": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" },
         "released_at": { "type": "string", "format": "date" },
+        "release_availability": { "$ref": "#/$defs/releaseAvailability" },
         "retrieved_at": { "type": "string", "format": "date-time" },
         "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
       },
@@ -81,6 +82,36 @@
   "additionalProperties": false,
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
+    "releaseAvailability": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "timestamp_utc", "evidence"],
+          "properties": {
+            "kind": { "const": "verified-publisher-timestamp" },
+            "timestamp_utc": { "type": "string", "format": "date-time", "pattern": "Z$" },
+            "evidence": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "not_seen_as_of_utc", "first_seen_at_utc", "evidence"],
+          "properties": {
+            "kind": { "const": "first-seen-interval" },
+            "not_seen_as_of_utc": {
+              "anyOf": [
+                { "type": "string", "format": "date-time", "pattern": "Z$" },
+                { "type": "null" }
+              ]
+            },
+            "first_seen_at_utc": { "type": "string", "format": "date-time", "pattern": "Z$" },
+            "evidence": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "point": {
       "type": "object",
       "required": ["date", "value", "status"],

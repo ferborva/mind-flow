@@ -166,9 +166,27 @@
     },
     {
       "id": "denominator_control",
-      "pass_condition": "Automated tests reject joins or comparisons across incompatible units such as people, households, businesses, customers and recipients.",
+      "pass_condition": "Automated tests reject joins or comparisons across incompatible units and regenerate every eligible alert denominator from source rows, including boundary months.",
       "status": "not_started",
       "failure_action": "STOP composite calculations and affected displays."
+    },
+    {
+      "id": "release_chronology",
+      "pass_condition": "Each prospective vintage has a verified UTC publisher timestamp or a conservative first-seen interval whose bounds prove that detector inputs predate release. Calendar-only dates and unbounded intervals remain unknown.",
+      "status": "missing_evidence",
+      "failure_action": "Exclude the vintage from prospective lead-time claims and record the exact next release-availability observation."
+    },
+    {
+      "id": "independence_and_scope",
+      "pass_condition": "Each corroborating measure has audited independent lineage and matches the exact occupation, geography, time window and outcome construct. Labour Force family inputs and broader aggregates are context only.",
+      "status": "missing_source",
+      "failure_action": "Leave the corroboration condition unknown. Do not validate an occupation-SA4 signal with dependent or broader evidence."
+    },
+    {
+      "id": "cohort_floor_linkage",
+      "pass_condition": "A household-floor observation directly identifies the scoped occupation cohort. Place-level aggregates are displayed separately and cannot satisfy the cohort condition.",
+      "status": "missing_source",
+      "failure_action": "Leave the cohort-floor condition unknown and show place evidence as context only."
     },
     {
       "id": "provenance",
@@ -202,7 +220,7 @@
     },
     {
       "id": "crisis_trigger_validation",
-      "pass_condition": "Any trigger uses at least two independent measures, declared uncertainty, counterevidence, expiry, human review and tested false-positive and false-negative costs.",
+      "pass_condition": "Any trigger uses independently sourced and scope-compatible measures, declared uncertainty, counterevidence, expiry, human review and predeclared false-positive and false-negative costs. Compare no-alert through decision utility because its precision is undefined.",
       "status": "not_started",
       "failure_action": "Show conditions for deliberation only. Do not fire automated actions."
     }

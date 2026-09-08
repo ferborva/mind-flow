@@ -49,10 +49,51 @@ function isCalendarDate(value) {
 }
 
 function parseTimestamp(value, path, pattern = DATETIME_PATTERN) {
-  if (typeof value !== "string" || !pattern.test(value) || Number.isNaN(Date.parse(value))) {
+  if (
+    typeof value !== "string" ||
+    !pattern.test(value) ||
+    !isCalendarDate(value.slice(0, 10)) ||
+    Number.isNaN(Date.parse(value))
+  ) {
     fail("INVALID_SCHEMA", `${path} must be a valid timestamp.`, { path, value });
   }
   return Date.parse(value);
+}
+
+function validateReleaseAvailability(value, path) {
+  requireObject(value, path);
+  requireString(value.kind, `${path}.kind`);
+  requireString(value.evidence, `${path}.evidence`);
+
+  if (value.kind === "verified-publisher-timestamp") {
+    const timestamp = parseTimestamp(value.timestamp_utc, `${path}.timestamp_utc`);
+    return {
+      kind: value.kind,
+      earliestExclusive: null,
+      exact: timestamp,
+      latest: timestamp,
+    };
+  }
+
+  if (value.kind === "first-seen-interval") {
+    const latest = parseTimestamp(value.first_seen_at_utc, `${path}.first_seen_at_utc`);
+    const earliestExclusive = value.not_seen_as_of_utc === null
+      ? null
+      : parseTimestamp(value.not_seen_as_of_utc, `${path}.not_seen_as_of_utc`);
+    if (earliestExclusive !== null && earliestExclusive >= latest) {
+      fail("INVALID_SCHEMA", `${path} must put the absence observation before first sighting.`, {
+        path,
+      });
+    }
+    return {
+      kind: value.kind,
+      earliestExclusive,
+      exact: null,
+      latest,
+    };
+  }
+
+  fail("INVALID_SCHEMA", `${path}.kind is unsupported.`, { path, kind: value.kind });
 }
 
 function canonicalise(value) {
@@ -175,6 +216,7 @@ function validateVintage(vintage, label) {
   for (const field of ["licence", "archive_url", "archive_name", "release_period", "released_at", "retrieved_at", "checksum"]) {
     requireString(source[field], `${label}.source.${field}`);
   }
+  requireObject(source.release_availability, `${label}.source.release_availability`);
   if (!PERIOD_PATTERN.test(source.release_period)) {
     fail("INVALID_SCHEMA", `${label}.source.release_period is invalid.`, { label });
   }
@@ -193,10 +235,15 @@ function validateVintage(vintage, label) {
       value: source.released_at,
     });
   }
-  const releasedAt = parseTimestamp(`${source.released_at}T00:00:00Z`, `${label}.source.released_at`);
+  const releaseAvailability = validateReleaseAvailability(
+    source.release_availability,
+    `${label}.source.release_availability`,
+  );
   const retrievedAt = parseTimestamp(source.retrieved_at, `${label}.source.retrieved_at`);
-  if (retrievedAt < releasedAt) {
-    fail("INVALID_SCHEMA", `${label} was retrieved before its stated release date.`, { label });
+  if (retrievedAt < releaseAvailability.latest) {
+    fail("INVALID_SCHEMA", `${label} was retrieved before its evidenced publication availability.`, {
+      label,
+    });
   }
 
   requireObject(vintage.scope, `${label}.scope`);
@@ -240,7 +287,7 @@ function validateVintage(vintage, label) {
 
   return {
     keys,
-    releasedAt,
+    releaseAvailability,
     retrievedAt,
   };
 }
@@ -289,6 +336,19 @@ function compareCoverage(previousValidation, currentValidation) {
   }
 }
 
+function releaseDefinitelyFollows(current, previous) {
+  const lowerBound = current.exact ?? current.earliestExclusive;
+  return lowerBound !== null && lowerBound > previous.latest;
+}
+
+function detectorDefinitelyPredates(detectorTimestamp, releaseAvailability) {
+  if (releaseAvailability.exact !== null) {
+    return detectorTimestamp < releaseAvailability.exact;
+  }
+  return releaseAvailability.earliestExclusive !== null &&
+    detectorTimestamp <= releaseAvailability.earliestExclusive;
+}
+
 function validateRunInputs({ previousVintage, currentVintage, detector, generatedAt }) {
   const detectorValidation = validateDetector(detector);
   const previousValidation = validateVintage(previousVintage, "previousVintage");
@@ -303,15 +363,22 @@ function validateRunInputs({ previousVintage, currentVintage, detector, generate
       current_period: currentVintage.source.release_period,
     });
   }
-  if (
-    currentValidation.releasedAt <= previousValidation.releasedAt
-  ) {
-    fail("LOOK_AHEAD_RISK", "Current vintage must follow the previous vintage in period and release time.");
+  if (!releaseDefinitelyFollows(
+    currentValidation.releaseAvailability,
+    previousValidation.releaseAvailability,
+  )) {
+    fail(
+      "LOOK_AHEAD_RISK",
+      "Evidence does not prove that the current vintage became available after the previous vintage.",
+    );
   }
-  if (detectorValidation.registeredAt >= currentValidation.releasedAt) {
-    fail("LOOK_AHEAD_RISK", "Detector registration must predate the evidence release.", {
+  if (!detectorDefinitelyPredates(
+    detectorValidation.registeredAt,
+    currentValidation.releaseAvailability,
+  )) {
+    fail("LOOK_AHEAD_RISK", "Detector registration is not proven to predate evidence availability.", {
       registered_at: detector.registered_at,
-      released_at: currentVintage.source.released_at,
+      release_availability: currentVintage.source.release_availability,
     });
   }
   if (currentVintage.source.checksum === previousVintage.source.checksum) {
@@ -451,7 +518,8 @@ function revisionSummary(previousVintage, currentVintage, synthetic) {
 function provenanceRecord(vintage) {
   return {
     release_period: vintage.source.release_period,
-    released_at: vintage.source.released_at,
+    publisher_release_date: vintage.source.released_at,
+    release_availability: structuredClone(vintage.source.release_availability),
     retrieved_at: vintage.source.retrieved_at,
     archive_url: vintage.source.archive_url,
     archive_name: vintage.source.archive_name,
@@ -496,7 +564,8 @@ function runCore({ previousVintage, currentVintage, detector, generatedAt, synth
       : "This is a descriptive review-rule output from modelled employment estimates. It does not establish why employment changed or justify action.",
     as_of: {
       decision_release_period: currentVintage.source.release_period,
-      decision_release_date: currentVintage.source.released_at,
+      publisher_release_date: currentVintage.source.released_at,
+      decision_release_availability: structuredClone(currentVintage.source.release_availability),
       uses_only_current_vintage_for_signal: true,
       revisions_are_diagnostic_only: true,
     },

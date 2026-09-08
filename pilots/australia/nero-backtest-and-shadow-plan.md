@@ -107,13 +107,17 @@ The [official methodology](https://www.jobsandskills.gov.au/data/nero/nero-metho
 
 No single comparator validates the full chain. Use the 2026 Census to test point estimates, a new employer-worker panel to test adoption and redesign, and household measures to test downstream continuity. Keep those conclusions separate.
 
+**Independent corroboration is a hard lineage and scope gate, not a second line on a chart.** The corroborator must be non-derived for the tested outcome and match the occupation, geography, construct and overlapping period. LFS and longitudinal LFS are partially dependent because NERO uses and reconciles to LFS inputs. They may provide coherence or transition context, but they cannot satisfy independent corroboration. A state result cannot validate an SA4 signal. Missing lineage or scope compatibility leaves the corroborated state unknown.
+
 ### Lead time
 
-Lead time begins at publication, not at the middle of the reference month:
+Lead time begins at evidenced publication availability, not at the middle of the reference month:
 
 `lead_time = independently observed event onset - alert publication timestamp`
 
-The August reference data were released on 2 September. A chart that uses 15 August as the alert time grants information earlier than the user could have received it. Historical release timestamps and target onset dates are absent, so historical lead time is not measurable.
+The August reference data carry a publisher calendar date of 2 September, but no independently evidenced UTC release instant or prior absence check. The first recorded sighting is the 8 September retrieval. That unbounded first-seen record cannot prove same-day order, so chronology and historical lead time remain unknown. A chart that uses 15 August or invents midnight UTC grants unsupported timing precision.
+
+For each future release, retain either a verified publisher UTC timestamp or two observation records defining a conservative interval: the last UTC check at which the archive was absent and the first UTC check at which it was present. If an event or detector time falls inside that interval, report chronology as unknown. When chronology is proven but the exact release instant is not, report lower and upper lead-time bounds rather than one point.
 
 A warning is useful only if its lower-tail lead time exceeds the time required for its bounded action. A monthly employment estimate cannot honestly promise a rapid response to a shock that smoothing hides or that is confirmed after the action window closes.
 
@@ -176,18 +180,18 @@ Do not select a threshold from the holdout. Register a small set of interpretabl
 - rolling slope over a declared window;
 - acceleration relative to a trailing seasonal baseline;
 - a run rule with declared minimum change, not direction alone; and
-- a two-source rule requiring non-NERO corroboration.
+- a two-source rule requiring audited non-derived corroboration at the same occupation, geography, construct and overlapping period.
 
 For each detector, define eligibility, missingness, series-size stratum, minimum history, threshold, alert episode, cooldown, reset, forecast horizon and bounded action. Keep all five occupations separate.
 
 Use simple comparators:
 
-- no-alert policy;
+- no-alert policy, compared only through decision utility because its precision is undefined;
 - seasonal persistence;
 - fixed 12-month change rule; and
 - a broad state-occupation trend rule.
 
-A complex model must beat these on out-of-time data and decision utility, not merely in-sample fit.
+A complex model must beat alerting baselines on their applicable out-of-time metrics and beat no-alert on preregistered decision utility, not merely in-sample fit. Before evaluation, freeze the bounded action, event sample, false-positive and false-negative losses, horizon, clustering, censoring and stopping rule.
 
 ### 4. Split by time and model version
 
@@ -204,9 +208,9 @@ Randomly splitting rows is invalid because neighbouring months and regions are d
 For each target, document:
 
 - exact event definition and onset date;
-- source and release vintage;
+- source, release vintage and verified UTC availability or bounded first-seen interval;
 - whether it is a NERO input;
-- geography, occupation and denominator;
+- geography, occupation, construct and denominator;
 - observation and reporting lag;
 - uncertainty and revisions; and
 - blind adjudication before revealing the NERO signal where judgement is required.
@@ -219,7 +223,7 @@ Report by detector, occupation, state, SA4, series-size risk group and model ver
 
 - number and prevalence of independent event episodes;
 - sensitivity and false-negative rate;
-- precision and false-discovery rate;
+- precision and false-discovery rate for policies that issue at least one alert, otherwise report precision as undefined;
 - specificity and false-positive rate using a defensible sample of non-event periods;
 - alert episodes per 100 eligible series per month;
 - first-alert lead-time distribution from publication date;
@@ -229,9 +233,11 @@ Report by detector, occupation, state, SA4, series-size risk group and model ver
 - alert flip rate after revision;
 - missing, suppressed and stale rates;
 - calibration if the detector emits probabilities; and
-- net decision value under predeclared false-positive and false-negative costs.
+- net decision value under predeclared false-positive and false-negative costs, including a defined no-alert comparison.
 
 Use clustered or block-resampled confidence intervals. Series-month rows are not independent. Report numerator and denominator beside every rate.
+
+No-event, rare-event and partly censored fixtures must return an explicit utility decision. If all eligible outcomes remain unresolved, return insufficient evidence rather than manufacturing a score. The executable reference is `pilots/australia/tools/decision-utility.mjs`.
 
 ### 7. Challenge the result
 
@@ -309,7 +315,7 @@ The Census comparison tests level and ranking accuracy near August 2026. It does
 ### GO to monthly shadow operation only if
 
 - the detector and target are registered before the next data release;
-- source archives and decisions are immutable and independently time-stamped;
+- source archives and decisions are immutable, with a verified UTC release timestamp or a bounded first-seen interval;
 - every result is labelled modelled and descriptive;
 - missingness, revision and model-version changes fail visibly;
 - NERO series remain separate;
@@ -320,7 +326,7 @@ The Census comparison tests level and ranking accuracy near August 2026. It does
 
 - an independent target exists at compatible cohort, geography and time;
 - the evaluation has enough independent event episodes to meet a predeclared confidence-interval precision after clustering;
-- the lower confidence bounds for sensitivity and precision beat the named simple baselines and minimum decision requirements;
+- sensitivity and precision beat applicable alerting baselines and minimum decision requirements, while net decision utility beats the no-alert policy under the preregistered loss matrix;
 - alert burden fits declared human review capacity;
 - first-alert lead time exceeds the mobilisation time of the proposed action, including a poor-tail lead-time test;
 - revision-driven alert flips remain below a predeclared tolerance tied to action cost;

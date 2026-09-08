@@ -33,6 +33,7 @@
     ]
   },
   "condition_states": [
+    "unknown",
     "unmeasured",
     "measured_below_threshold",
     "measured_near_threshold",
@@ -51,6 +52,7 @@
   "reference_registry": [
     { "id": "future-adoption-panel", "type": "planned_data_source", "status": "missing", "description": "Monthly employer-verified occupation-region AI deployment panel." },
     { "id": "future-redesign-panel", "type": "planned_data_source", "status": "missing", "description": "Quarterly matched employer-worker task and work-design panel." },
+    { "id": "future-employer-worker-panel", "type": "planned_data_source", "status": "missing", "description": "Governed employer-worker panel with an auditable, non-NERO worker-flow outcome at an exact occupation, geography and period." },
     { "id": "future-floor-pulse", "type": "planned_data_source", "status": "missing", "description": "Monthly or quarterly cohort continuity-floor pulse." },
     { "id": "future-agency-module", "type": "planned_data_source", "status": "missing", "description": "Co-designed, validated direct agency module." },
     { "id": "future-intervention-register", "type": "planned_data_source", "status": "missing", "description": "Programme eligibility, capacity, timing, take-up and quality register." },
@@ -137,43 +139,78 @@
       "geography": "One SA4 or state",
       "if_all": [
         { "indicator": "NERO employed-person estimate", "test": "A sustained deviation exceeds a preregistered practical and uncertainty threshold", "window": "At least three monthly observations", "source_id": "jsa-nero-2026-08" },
-        { "indicator": "Independent labour-flow measure", "test": "LFS, longitudinal LFS or Job Mobility direction is consistent when available", "window": "Overlapping reference period", "source_id": "abs-longitudinal-lfs-2603" },
+        { "indicator": "Audited independent worker-flow outcome", "test": "A separately collected outcome matches the exact occupation, geography and overlapping period, and its lineage audit shows it is not a NERO input or derivative", "window": "Preregistered warning and outcome window", "source_id": "future-employer-worker-panel", "independence_class": "potentially_independent_after_audit", "compatibility_gate": ["same occupation", "same geography", "overlapping time", "same worker-flow construct"] },
         { "indicator": "Series validity", "test": "No suppression, classification break or material unreconciled revision", "window": "All contributing vintages", "source_id": "jsa-nero-2026-08" }
       ],
       "if_any": [],
-      "counterevidence": ["Population or migration shift explains movement", "Seasonal pattern", "Occupation recoding", "NERO revision reverses the signal", "State LFS contradicts the direction"],
-      "bounded_interpretation": "Employment or transition conditions may have changed. The cause remains unknown.",
+      "context_only": [
+        { "source_id": "abs-lfs-detailed-2026-03", "dependence_class": "partially_dependent", "scope": "State by occupation", "use": "Broad coherence context only; cannot satisfy independent corroboration for an occupation-SA4 NERO signal." },
+        { "source_id": "abs-longitudinal-lfs-2603", "dependence_class": "partially_dependent", "scope": "Restricted worker-flow sample with geography to be verified", "use": "Transition context only; cannot validate NERO employment levels or satisfy an exact occupation-SA4 corroboration gate." },
+        { "source_id": "abs-job-mobility-2026", "dependence_class": "different_survey_construct_scope_mismatch", "scope": "Annual and broader than occupation-SA4 in public outputs", "use": "Worker-flow context only unless a preregistered extract passes every compatibility gate." }
+      ],
+      "counterevidence": ["Population or migration shift explains movement", "Seasonal pattern", "Occupation recoding", "NERO revision reverses the signal", "LFS context contradicts the direction", "Candidate corroborator shares a NERO input", "Population, geography, period or construct does not match"],
+      "bounded_interpretation": "NERO may identify a descriptive review candidate. Independent worker-flow change remains unknown until a non-derived source passes every scope-compatibility gate, and the cause remains unknown.",
       "action": "Convene a time-bounded evidence review, collect local qualitative evidence and test confounders.",
       "owner": "Pilot statistical lead",
       "review_window": "Within 10 business days",
       "expiry": "After 30 days unless confirmed with refreshed evidence",
-      "uncertainty_rule": "Require independent corroboration and display revisions. Never aggregate NERO series.",
+      "uncertainty_rule": "LFS-family evidence and other NERO inputs may provide context but never independent corroboration. Require audited non-derived evidence at the same occupation, geography, construct and overlapping time. Display revisions and never aggregate NERO series.",
       "false_positive_cost": "False alarm, stigma and wasted response capacity.",
       "false_negative_cost": "Delayed training, income or employment support.",
-      "status": "partly_measurable_no_causal_attribution"
+      "status": "unmeasured_blocking",
+      "next_observation": "Freeze the first governed employer-worker panel extract that covers one named occupation-SA4 and overlapping period, then publish its field lineage and test independence, population, geography, time and construct compatibility before evaluating corroboration."
     },
     {
-      "id": "IF-05-continuity-floor-review",
+      "id": "IF-05a-cohort-continuity-floor-review",
       "verb": "Protect",
-      "object": "the six-domain continuity floor",
-      "population": "Scoped workers and households where a valid occupation link exists; broader local population otherwise",
-      "geography": "National or state for GSS unless SA4 cells pass precision and disclosure; source-native geography for domain context",
+      "object": "the six-domain continuity floor for the affected cohort",
+      "population": "Scoped workers and their households only; no broader-population fallback",
+      "geography": "The same national, state or SA4 scope as the affected cohort, only where linkage, precision and disclosure gates pass",
       "if_all": [
-        { "indicator": "Direct floor breach", "test": "At least one direct access or cash-flow measure worsens beyond a preregistered threshold", "window": "Source-native reference period", "source_id": "abs-gss-2025" },
-        { "indicator": "Independent domain evidence", "test": "A different official collection supports the same domain and direction", "window": "Nearest overlapping period", "source_id": "domain_source_selected_from_manifest" },
+        { "indicator": "Direct cohort floor breach", "test": "At least one direct access or cash-flow measure for the scoped workers and their households worsens beyond a preregistered threshold", "window": "Same cohort transition period", "source_id": "future-floor-pulse" },
+        { "indicator": "Cohort-place linkage", "test": "Every floor observation is linked to the named occupation and geography without substituting a local-population aggregate", "window": "Every release", "source_id": "future-floor-pulse" },
         { "indicator": "Precision and coverage", "test": "Estimate passes uncertainty and disclosure rules and exclusions are visible", "window": "Every release", "source_id": "pilot-publication-policy" }
       ],
       "if_any": [],
-      "counterevidence": ["Spending changes without access deterioration", "Policy eligibility or reporting change explains administrative series", "AER jurisdiction absent", "Retrospective window predates labour transition"],
-      "bounded_interpretation": "A domain may be under pressure in the measured population and period. The result does not establish an AI cause.",
+      "context_only": [
+        { "source_id": "abs-gss-2025", "scope": "Use only when an occupation-linked cohort estimate passes access, precision and disclosure review; otherwise local-population context." },
+        { "source_id": "domain_source_selected_from_manifest", "scope": "Source-native place context; cannot set the affected-cohort state without a valid cohort link." }
+      ],
+      "counterevidence": ["Broader local access improves while the affected cohort deteriorates", "Spending changes without access deterioration", "Policy eligibility or reporting change explains administrative series", "AER jurisdiction absent", "Retrospective window predates labour transition"],
+      "bounded_interpretation": "Affected-cohort continuity is unknown until a direct measure covers the same workers or a representative cohort sample, geography and period. A broader place result cannot make the cohort state positive.",
       "action": "Offer voluntary, non-stigmatising support and investigate service capacity. Do not reduce other support.",
-      "owner": "Floor-domain owner and community governance group",
+      "owner": "Cohort floor-domain owner and worker-community governance group",
       "review_window": "Within 10 business days after a valid release",
       "expiry": "At the next direct measure or after 90 days, whichever comes first",
-      "uncertainty_rule": "Two independent collections and a direct access measure are required. Price or spending alone cannot satisfy this condition.",
-      "false_positive_cost": "Misdirected services and place or cohort stigma.",
+      "uncertainty_rule": "Missing occupation or household linkage remains unmeasured. No local, state or national aggregate may be substituted. A direct cohort access measure and compatible independent domain evidence are required; price or spending alone cannot satisfy this condition.",
+      "false_positive_cost": "Misdirected services and cohort stigma.",
       "false_negative_cost": "Loss of housing, food, energy, mobility, healthcare or connectivity before support arrives.",
-      "status": "baseline_only_not_early_warning"
+      "status": "unmeasured_blocking",
+      "next_observation": "Collect the first governed cohort continuity-floor pulse for one named occupation and geography, report its respondent denominator, linkage coverage, non-response, period, precision and disclosure result, then compare it with independently sourced domain evidence for the same scope."
+    },
+    {
+      "id": "IF-05b-place-continuity-context",
+      "verb": "Describe",
+      "object": "the six-domain continuity floor for the broader place",
+      "population": "Source-native local, state or national population, explicitly not the affected occupation cohort",
+      "geography": "National or state for GSS unless SA4 cells pass precision and disclosure; source-native geography for domain context",
+      "if_all": [
+        { "indicator": "Direct place floor measure", "test": "At least one direct access or cash-flow measure changes beyond a preregistered threshold", "window": "Source-native reference period", "source_id": "abs-gss-2025" },
+        { "indicator": "Independent domain context", "test": "A different official collection supports the same domain and direction for a compatible place and period", "window": "Nearest overlapping period", "source_id": "domain_source_selected_from_manifest" },
+        { "indicator": "Precision and coverage", "test": "Estimate passes uncertainty and disclosure rules and exclusions are visible", "window": "Every release", "source_id": "pilot-publication-policy" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Spending changes without access deterioration", "Policy eligibility or reporting change explains administrative series", "Place boundaries or periods do not match"],
+      "bounded_interpretation": "A floor domain may be under pressure in the measured place and period. This is context only and cannot establish the affected cohort's state or an AI cause.",
+      "action": "Publish bounded place context for evidence review. Do not infer, target or alter cohort support from it.",
+      "owner": "Place floor-domain owner and community governance group",
+      "review_window": "At each valid source release",
+      "expiry": "At the next direct measure or after 90 days, whichever comes first",
+      "uncertainty_rule": "Keep population, geography and period source-native. Never use this place condition as a fallback for IF-05a.",
+      "false_positive_cost": "Place stigma and misdirected services.",
+      "false_negative_cost": "Failure to notice broad service pressure that deserves separate investigation.",
+      "status": "baseline_only_not_cohort_evidence",
+      "next_observation": "Publish the next source-native place estimate with its population denominator, geography, period, precision, disclosure status and independent domain comparison; keep IF-05a unknown unless its separate cohort evidence arrives."
     },
     {
       "id": "IF-06-agency-support",

@@ -12,6 +12,12 @@
     "archive_name": "2026-08_nero.zip",
     "release_period": "2026-08",
     "released_at": "2026-09-02",
+    "release_availability": {
+      "kind": "first-seen-interval",
+      "not_seen_as_of_utc": null,
+      "first_seen_at_utc": "2026-09-08T01:01:48Z",
+      "evidence": "The archive was first recorded during retrieval. No independently evidenced earlier absence check or exact publisher UTC timestamp is available, so prospective chronology remains unknown for this vintage."
+    },
     "retrieved_at": "2026-09-08T01:01:48Z",
     "checksum": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446"
   },

@@ -106,6 +106,13 @@ The floor is breached when a household cannot obtain or retain an essential, not
 - ABS Job Mobility annual job changes, engagements, separations, retrenchment and changes in employment characteristics.
 - ABS Labour Force detailed quarterly occupation unit group by sex and state estimates.
 
+The ABS Labour Force family, including the Longitudinal LFS, is not an
+independent corroborator of NERO because NERO uses and reconciles Labour Force
+Survey inputs. Job Mobility and detailed Labour Force releases are also
+context only unless an audit establishes independent lineage and an exact
+match on occupation, geography, time window and outcome construct. A broad
+state or occupation estimate must not validate an SA4-cohort signal.
+
 **Resolution and timing:** NERO is the highest-frequency cohort-geography source. It is experimental, modelled and smoothed, residence-based, suppresses counts below 10 and can miss novel breaks. Longitudinal LFS is DataLab-only and has an eight-month panel limit. Job Mobility is annual. Public Labour Force detail is state-level for the relevant unit groups.
 
 **Decision:** CONDITIONAL GO for descriptive flow monitoring. STOP for AI attribution because adoption and redesign are not observed in the same records.
@@ -156,7 +163,9 @@ The GSS 2025 DataLab is the most important cross-sectional bridge. It includes o
 Each displayed observation must carry:
 
 - indicator definition and unit;
-- source, table or data item, release date and reference period;
+- source, table or data item, descriptive publisher release date and reference period;
+- a verified UTC release timestamp, or a conservative first-seen interval with
+  its observation evidence;
 - geography and population denominator;
 - observed, modelled, survey-estimated or agent-derived status;
 - confidence interval, relative standard error or suppression state where available;
@@ -164,7 +173,7 @@ Each displayed observation must carry:
 - licence and access conditions; and
 - known break in series.
 
-Never interpolate a missing floor measure into an observed value. Never substitute price or spending for access. Never convert an exposure score into an adoption percentage.
+Never interpolate a missing floor measure into an observed value. Never substitute price or spending for access. Never convert an exposure score into an adoption percentage. A calendar-only release date cannot prove prospective chronology and must never be converted into an invented midnight timestamp. If a first-seen record has no lower bound, leave chronology unknown and record the next observation needed.
 
 ### Joins
 
@@ -176,6 +185,11 @@ Use the following controlled join keys:
 | Geography | ASGS 2021 SA4 | Map SA2 to SA4 only with an official concordance and document split allocation. Do not infer SA4 from provider or retailer regions. |
 | Time | Source reference period | Preserve monthly, quarterly, annual and retrospective windows. Do not label release date as observation date. |
 | Population | Source-native denominator | Distinguish people, employed people, households, businesses, customers and payment recipients. Do not combine rates with unlike denominators. |
+
+Keep cohort and place evidence separate. A household-floor result for a state,
+SA4 or local population is place context only unless the source directly
+identifies the scoped occupation cohort. It cannot fill a missing cohort-floor
+condition or turn its state from unknown to satisfied.
 
 ABS is moving to OSCA 2024 during 2026. JSA NERO and the Gen AI study use ANZSCO 2013 version 1.3, while some ABS earnings material uses an earlier ANZSCO version. Build and publish a versioned concordance before adding any post-transition series.
 
@@ -198,7 +212,7 @@ Every forecast and action should be expressed as a falsifiable conditional:
 
 Example:
 
-> IF employer-verified AI adoption rises in one scoped cohort-region, the same cohort shows a sustained deterioration in at least one independent worker-flow measure, and a separate household-floor measure worsens beyond its predeclared uncertainty band, THEN convene a local evidence review and activate voluntary transition support, UNTIL linked evidence rejects the association or the review period expires.
+> IF employer-verified AI adoption rises in one scoped occupation-SA4 cohort, an independently produced worker-flow outcome for that exact occupation, geography and time window shows sustained deterioration, and a cohort-linked household-floor measure worsens beyond its predeclared uncertainty band, THEN convene a local evidence review and activate voluntary transition support, UNTIL linked evidence rejects the association or the review period expires.
 
 This wording intentionally does not say that AI caused the deterioration. Escalation to a causal claim requires a credible counterfactual design, such as a phased deployment, matched comparison, difference-in-differences design with parallel-trend checks, or randomised intervention where ethical.
 
@@ -231,6 +245,9 @@ At minimum, test and disclose:
 3. Obtain ABS DataLab access for GSS, Longitudinal LFS and Barriers and Incentives.
 4. Freeze source vintages and classification versions in the manifest.
 5. Run an Indigenous data-governance and coverage review. Several national surveys exclude very remote areas and discrete Aboriginal and Torres Strait Islander communities, so the pilot must not imply universal coverage.
+6. Freeze each source's lineage, exact population and geography scope, and UTC
+   release-availability evidence. Leave any unproved independence, scope match
+   or prospective chronology gate unknown.
 
 ### Phase 1: baseline feasibility, weeks 3-6
 
@@ -239,6 +256,8 @@ At minimum, test and disclose:
 3. Ingest the five NERO series separately, recording vintage, revisions and suppressed values.
 4. Reproduce each public floor indicator directly from its published table before any transformation.
 5. Build a denominator and concordance test suite. Fail the pipeline on occupation-version, geography, unit or time-window mismatch.
+6. Recompute all alert denominators from source rows in code, including the
+   first eligible three-decline month, and retain boundary tests.
 
 The public NERO extraction is the first completed component of this phase. It
 does not satisfy the restricted-data, household-floor, agency or causal gates.
@@ -287,7 +306,7 @@ Without items 1 to 4, the observatory can describe context but cannot serve as a
 | Map technical AI exposure | GO, contextual | Strong JSA source, but it models potential under full adoption. |
 | Track realised adoption and redesign | STOP | No recurring occupation-region panel. |
 | Monitor worker employment flows | CONDITIONAL GO | NERO and ABS sources are useful but cannot identify AI causality. |
-| Estimate 2025 floor breaches by cohort | CONDITIONAL GO | GSS DataLab may support national or state estimates after cell and precision testing. |
+| Estimate 2025 floor breaches by cohort | CONDITIONAL GO | GSS DataLab may support national or state estimates only after direct cohort linkage, cell and precision testing. Place-level aggregates are context, not fallback evidence. |
 | Estimate floor breaches by cohort and SA4 | STOP UNTIL TESTED | Sample size and disclosure constraints are likely binding. |
 | Run real-time crisis alerts | STOP | Core measures are annual, retrospective, restricted or discontinued. |
 | Publish a composite transition or agency score | STOP | Construct validity, weighting and direct agency measures are absent. |

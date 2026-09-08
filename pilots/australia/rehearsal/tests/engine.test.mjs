@@ -38,13 +38,14 @@ function monthSequence(startYear, startMonth, count) {
 
 function makeVintage({
   period,
-  releasedAt,
+  releasedAtUtc,
   retrievedAt,
   checksumCharacter,
   dates,
   values,
   occupationCode = "5311",
   sa4Code = "101",
+  releaseAvailability,
 }) {
   const recentObservations = dates.map((date, index) => ({
     date,
@@ -67,7 +68,12 @@ function makeVintage({
       archive_url: `https://www.jobsandskills.gov.au/${period}_nero.zip`,
       archive_name: `${period}_nero.zip`,
       release_period: period,
-      released_at: releasedAt,
+      released_at: releasedAtUtc.slice(0, 10),
+      release_availability: releaseAvailability || {
+        kind: "verified-publisher-timestamp",
+        timestamp_utc: releasedAtUtc,
+        evidence: "Test fixture publisher timestamp.",
+      },
       retrieved_at: retrievedAt,
       checksum: `sha256:${checksumCharacter.repeat(64)}`,
     },
@@ -109,7 +115,7 @@ function fixturePair() {
   const currentDates = monthSequence(2025, 8, 13);
   const previous = makeVintage({
     period: "2026-07",
-    releasedAt: "2026-08-05",
+    releasedAtUtc: "2026-08-05T01:00:00Z",
     retrievedAt: "2026-08-05T02:00:00Z",
     checksumCharacter: "a",
     dates: previousDates,
@@ -117,7 +123,7 @@ function fixturePair() {
   });
   const current = makeVintage({
     period: "2026-08",
-    releasedAt: "2026-09-02",
+    releasedAtUtc: "2026-09-02T01:00:00Z",
     retrievedAt: "2026-09-02T02:00:00Z",
     checksumCharacter: "b",
     dates: currentDates,
@@ -240,7 +246,7 @@ test("fails closed on chronology gaps and reversed release order", () => {
   );
 
   const orderPair = fixturePair();
-  orderPair.current.source.released_at = "2026-08-01";
+  orderPair.current.source.release_availability.timestamp_utc = "2026-08-01T01:00:00Z";
   assert.throws(
     () =>
       runShadowRehearsal({
@@ -337,7 +343,80 @@ test("rejects a detector registered after the evidence release", () => {
     () => runShadowRehearsal({
       previousVintage: previous,
       currentVintage: current,
-      detector: { ...DETECTOR, registered_at: "2026-09-03T00:00:00Z" },
+      detector: { ...DETECTOR, registered_at: "2026-09-02T01:00:00Z" },
+      generatedAt: "2026-09-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError && error.code === "LOOK_AHEAD_RISK",
+  );
+});
+
+test("uses an evidenced UTC release instant for same-day chronology", () => {
+  const before = fixturePair();
+  assert.doesNotThrow(() => runShadowRehearsal({
+    previousVintage: before.previous,
+    currentVintage: before.current,
+    detector: { ...DETECTOR, registered_at: "2026-09-02T00:59:59Z" },
+    generatedAt: "2026-09-08T03:00:00Z",
+  }));
+
+  const after = fixturePair();
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: after.previous,
+      currentVintage: after.current,
+      detector: { ...DETECTOR, registered_at: "2026-09-02T01:00:01Z" },
+      generatedAt: "2026-09-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError && error.code === "LOOK_AHEAD_RISK",
+  );
+});
+
+test("accepts a bounded first-seen interval only when chronology is provable", () => {
+  const safelyBefore = fixturePair();
+  safelyBefore.current.source.release_availability = {
+    kind: "first-seen-interval",
+    not_seen_as_of_utc: "2026-09-02T00:30:00Z",
+    first_seen_at_utc: "2026-09-02T01:30:00Z",
+    evidence: "Test fixture observation interval.",
+  };
+  assert.doesNotThrow(() => runShadowRehearsal({
+    previousVintage: safelyBefore.previous,
+    currentVintage: safelyBefore.current,
+    detector: { ...DETECTOR, registered_at: "2026-09-02T00:29:59Z" },
+    generatedAt: "2026-09-08T03:00:00Z",
+  }));
+
+  const insideInterval = fixturePair();
+  insideInterval.current.source.release_availability = {
+    kind: "first-seen-interval",
+    not_seen_as_of_utc: "2026-09-02T00:30:00Z",
+    first_seen_at_utc: "2026-09-02T01:30:00Z",
+    evidence: "Test fixture observation interval.",
+  };
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: insideInterval.previous,
+      currentVintage: insideInterval.current,
+      detector: { ...DETECTOR, registered_at: "2026-09-02T01:00:00Z" },
+      generatedAt: "2026-09-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError && error.code === "LOOK_AHEAD_RISK",
+  );
+});
+
+test("fails closed when a first-seen record has no lower chronology bound", () => {
+  const { previous, current } = fixturePair();
+  current.source.release_availability = {
+    kind: "first-seen-interval",
+    not_seen_as_of_utc: null,
+    first_seen_at_utc: "2026-09-02T01:00:00Z",
+    evidence: "No earlier absence observation was recorded.",
+  };
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: previous,
+      currentVintage: current,
+      detector: DETECTOR,
       generatedAt: "2026-09-08T03:00:00Z",
     }),
     (error) => error instanceof RehearsalError && error.code === "LOOK_AHEAD_RISK",
@@ -348,7 +427,7 @@ test("fails closed when publication vintages skip a month", () => {
   const { previous } = fixturePair();
   const current = makeVintage({
     period: "2026-09",
-    releasedAt: "2026-10-07",
+    releasedAtUtc: "2026-10-07T01:00:00Z",
     retrievedAt: "2026-10-07T02:00:00Z",
     checksumCharacter: "c",
     dates: monthSequence(2025, 9, 13),
@@ -391,7 +470,7 @@ test("fails closed when review candidates exceed declared human capacity", () =>
 
 test("rejects impossible calendar dates rather than normalising them", () => {
   const { previous, current } = fixturePair();
-  current.source.released_at = "2026-02-31";
+  current.source.release_availability.timestamp_utc = "2026-02-31T01:00:00Z";
   assert.throws(
     () => runShadowRehearsal({
       previousVintage: previous,
