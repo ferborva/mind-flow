@@ -39,7 +39,8 @@ Mine, proposed for his approval:
   - the ADKAR mapping and the cohort-desynchronisation argument
   - the government/business interaction arc
   - the "binding if may migrate from money to permission" hypothesis
-  - the household access margin and the five-part access test
+  - the linked household-access and individual-agency views, the five-part
+    access test, and the required ecological materiality assessment
   - the seven-part communication contract
   - the dashboard, its candidate review conditions, and five unscored crossings
   - the unauthorised response options attached to each crossing
@@ -141,24 +142,22 @@ Now the other half, which nobody quotes:
 | 1780-1840, the pause | **+46%** | **+12%** |
 | 1840-1900, the catch-up | **+90%** | **+123%** |
 
-**The optimists were right and the pessimists were right.** The gains did arrive,
-enormously. They arrived fifty years late, to a different generation, after
-sustained hardship and the political movements that came out of it.
+**Both halves matter.** In this British series, the gains arrived much later, to
+a different generation, after sustained hardship and the political movements
+that came out of it. That is one historical path, not the universal shape or
+timer for a technological transition. **We keep arguing about the destination
+when the distribution of the crossing is the part we need to measure.**
 
-That is the actual shape of a technological transition, and it is the thing our
-abundance conversation is missing. **We keep arguing about the destination when
-the entire problem is the crossing.**
+Why the catch-up happened is contested. Allen's central account emphasises
+capital accumulation catching up with productivity. Institutional reform may
+also have mattered. The Factory Acts changed child-labour rules, but the evidence
+cited here does not establish that they caused steam adoption or ended the pause.
+That mechanism stays a historical hypothesis, not a policy recipe.
 
-And here is the part that should worry us most: **the pause did not end because
-the owners chose to share.** It ended because the capital stock finally saturated
-and because institutions changed the price of the alternatives. The Factory Acts
-raised the cost of child labour, and one second-order effect was that it
-accelerated the adoption of steam power. Regulation changed a relative price, and
-investment moved.
-
-That is a direct rebuke to my own last argument, and a direct endorsement of what
-I want to propose now. **Set the measures, change the relative prices, and the
-allocation follows.** Nobody has to be virtuous.
+That narrows the rebuke to my own last argument. **Measure who receives the
+gains, expose who carries the losses, and test whether an intervention changes
+either.** A change in relative prices may redirect investment. Whether it does,
+and whether the result is fair or durable, remains an empirical question.
 
 ## 🔬 The claim we could actually test
 
@@ -177,11 +176,13 @@ prices, grow other income, or fund the public response. So:
 > testing it well enough.**
 
 The ingredients already exist. Price indices, reference budgets, labour income,
-transfers and public services are all measured. **What is missing is the
-scoreboard at the level that matters: can this household still reach the floor?**
+transfers and public services are all measured. **What is missing is a linked
+view: can this household still reach the floor, and does each affected person
+retain income security, time, privacy, refusal and practical choice?**
 
-Engels' Pause is a warning from one full-scale run. The answer was no, for fifty
-years. It is not a timer for this transition.
+Engels' Pause is a descriptive warning from one country and one measured series.
+It shows that productivity and wages can diverge for decades. It does not tell us
+which mechanism dominates this transition or when the gap will close.
 
 ## 🔄 Why ADKAR, and where it breaks
 
@@ -407,8 +408,9 @@ decline. The instinct was right and the unit was wrong. A national income share
 and a household basket move differently, and dividing them hides the people we
 most need to see.
 
-**The unit of success is a household that can still reach the floor.** For each
-household type, place and exposed cohort:
+**The unit of material access is a household that can still reach the floor.**
+It is not the unit of individual agency. For each household type, place and
+exposed cohort:
 
 > **Access margin = disposable resources + usable public provision - local cost
 > of the decent-living basket.**
@@ -417,6 +419,12 @@ Wages, self-employment income, capital income and transfers all belong on the
 resource side. Housing, food, energy, transport, healthcare, care, education and
 connectivity belong in the local basket. Public provision counts only when the
 household can actually use it.
+
+Household access and individual agency are separate, conjunctive views. A higher
+household margin cannot compensate for one member losing income security,
+discretionary time, privacy, meaningful refusal, switching or appeal. Severe
+individual harms block a favourable conclusion rather than disappearing into a
+household total.
 
 And zero cost is not enough on its own:
 
@@ -436,7 +444,9 @@ That gives us a control system rather than a collection of interesting numbers:
 | **Transition speed**, gross displacement, re-employment time, replacement earnings | Loss accelerates and recovery slows | Evaluate wage insurance, portable benefits and hiring-linked training |
 | **Essential basket pressure**, split by automatable and human-required items | Human-required basket outruns household resources | Evaluate a capacity plan, pay review, credential or migration reform |
 | **Zero-cost access count**, passing all five access tests | Capability rises while verified access stays flat | Evaluate outcome-based procurement and access obligations |
+| **Individual agency**, income security, time, privacy, refusal, switching and appeal | Household access improves while a member carries a severe loss | Pause the favourable conclusion and evaluate the loss with affected people |
 | **Concentration**, across compute, energy and service capacity | Concentration rises while access falls | Evaluate interoperability, procurement diversification and competition review |
+| **Ecological materiality**, lifecycle energy, water, materials, emissions, waste and local burden | A material burden is unassessed or exceeds its agreed ceiling | Keep the condition unknown or failed until it is assessed and governed |
 | **Preparedness**, registry coverage, delivery time, appeals and pre-funded response | Support cannot reach people inside the promised time | Evaluate funding and rehearsal of the delivery rail before more displacement |
 | **Trust and consent**, by cohort | Fairness and confidence fall ahead of economic triggers | Evaluate uncertainty disclosure, two-way forums and trusted local messengers |
 | **Cross-country access gap** | Eligibility and coverage diverge for an essential service | Evaluate mutual recognition, pooled procurement and portable eligibility |
@@ -466,8 +476,9 @@ registered target, evidence and alternatives before it becomes a review signal.
 
 ### 1. The credibility break
 
-Capability and productivity rise while the household access margin stays flat.
-People are told abundance is arriving and experience the opposite.
+Capability and productivity rise while the household access margin stays flat
+or individual agency deteriorates. People are told abundance is arriving and
+experience the opposite.
 
 **Possible public responses, not predictions:** rejection of abundance
 language, distrust of official measures, demands for explanation, organising,
@@ -478,7 +489,8 @@ same cohorts receiving the strongest transition message.
 
 **Preparation option:** publish the baseline, uncertainty and proposed rules for
 challenge before any activation is possible. Replace capability theatre with
-household evidence. Do not announce a public warning until the condition and a
+linked household-access and individual-agency evidence. Do not announce a
+public warning until the condition and a
 real protection contract have both passed their separate gates.
 
 ### 2. The local displacement cascade
@@ -612,20 +624,23 @@ Same as last time. Not rhetorical.
 1. **Is the Engels analogy load-bearing or decorative?** Industrial machinery
    complemented labour even as it destroyed crafts. If AI substitutes rather than
    complements, the precedent is optimistic and I am understating this badly.
-2. **Is the household access margin computable without hiding quality, unpaid
-   care or public provision inside arbitrary valuations?**
+2. **Can household access and individual agency be measured separately without
+   hiding quality, unpaid care, privacy or practical choice inside arbitrary
+   valuations?**
 3. **Does the binding if really migrate to permission?** Or am I over-reading a
    regulatory moment that passes?
-4. **What ends the pause this time?** Last time it was capital saturation plus
-   institutional reform. Neither obviously applies the same way.
+4. **What ends the pause this time?** Allen emphasised capital accumulation in
+   the British case. The contribution of institutional reform, including the
+   Factory Acts, is contested, and neither mechanism transfers automatically.
 5. **Can a minimum access compact survive national politics?** Or does portable
    eligibility create the very backlash it is meant to prevent?
 
 The last piece argued we should stop asking what governments should do and start
 asking what businesses should do. I now think that was half right and framed
-wrong. **It is not about who is more virtuous. It is about who is holding the
-instrument that changes a relative price.** Sometimes that is a company setting a
-cost curve. Sometimes it is a parliament passing a Factory Act.
+wrong. **It is not about who is more virtuous. It is about who can change the
+conditions and who bears the result.** Sometimes that is a company setting a
+cost curve. Sometimes it is a parliament changing the rules. In either case, the
+effect on investment, access, agency and harm still has to be measured.
 
 Food for thought. Tell me where this falls over.
 
@@ -654,9 +669,9 @@ NEEDS HIS DECISION:
 5. Phase 5 entrenchment and its legal form. The draft now makes durability the
    test and leaves constitutional or treaty-level protection as local options,
    but that remains a political position he has never stated.
-6. The household access margin and the five-part access test, which replace the
-   single transmission ratio. Mine. It is a better instrument, and it is still a
-   measurement design he has not seen.
+6. The linked household-access and individual-agency views, plus the five-part
+   access test, which replace the single transmission ratio. Mine. It is a better
+   instrument, and it is still a measurement design he has not seen.
 7. The seven-part communication contract, including "never announce abundance
    beside an unprotected loss". Mine, and it reads as a rule he is laying down.
 8. The actor-by-actor preparation under "Options to evaluate on Monday".
@@ -665,13 +680,16 @@ NEEDS HIS DECISION:
 
 VERIFIED OR BOUNDED:
 - Engels' Pause figures (Allen): +46%/+12% then +90%/+123%, profit rate doubled.
-- Factory Acts raising child-labour costs and accelerating steam adoption.
 - ADKAR five stages and the sequencing principle (Prosci, Hiatt 2003).
 - Nvidia and Alphabet's combined profit is about 8.3 cents per person per day.
 - World Bank 2025 nowcast: 80.33% below $30 and a 54.92% poverty gap. The
   implied cash-equivalent shortfall is about 49.4tn 2021 international dollars,
   not a budget estimate and not directly comparable with nominal GDP.
 - All sourced in research/.
+
+CONTESTED OR OPEN:
+- Whether the Factory Acts materially accelerated steam adoption or helped end
+  Engels' Pause. Do not publish that mechanism as established fact.
 
 STILL OPEN FROM EARLIER:
 - "The missing if" naming, now joined by "from if to when" and the phase names.

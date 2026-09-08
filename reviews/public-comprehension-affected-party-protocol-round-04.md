@@ -83,7 +83,7 @@ Target **180 completed participants**, assigned to one primary perspective group
 
 | Primary perspective group | Minimum complete participants |
 |---|---:|
-| Directly affected or closely analogous workers and households | 30 |
+| Directly affected workers and households in the named release scope | 30 |
 | Community, union, mutual-aid, advocacy and frontline service representatives | 30 |
 | Public administrators, service-delivery workers, caseworkers and appeal practitioners | 30 |
 | Employers, providers, technical practitioners and market participants | 30 |
@@ -91,6 +91,8 @@ Target **180 completed participants**, assigned to one primary perspective group
 | General public with moderate or higher data confidence, balanced across thesis support and scepticism | 30 |
 
 Primary assignment must be declared before analysis. People may belong to more than one perspective, but must not be counted twice in the primary total.
+
+Closely analogous participants may supplement formative work or sensitivity analysis, but they cannot satisfy the directly affected minimum or replace a missing directly affected perspective. Before recruitment, affected representatives must help define what `directly affected` means for the named claim, service, place and period. Report the direct and analogous counts separately.
 
 Across the 180, meet these cross-cutting minimums:
 
@@ -105,6 +107,18 @@ Across the 180, meet these cross-cutting minimums:
 - meaningful spread by age, gender, income security and employment arrangement, reported without exposing individuals.
 
 Do not infer political ideology, disability, Indigeneity, income or vulnerability from other data. Use voluntary self-description and collect only the minimum needed for declared analysis.
+
+### Test the instrument, not only its layout
+
+The confirmatory study must compare whether the Observatory adds decision value over a simpler public instrument. Randomly assign each participant's first exposure to one of three arms using the same facts, source vintage, uncertainty and scope:
+
+1. **Conventional statistical release:** a short official-statistics-style release with source, scope, uncertainty, correction and contact information.
+2. **Statistical release plus deliberation:** the same release followed by a facilitated public deliberation process.
+3. **Observatory plus deliberation:** the Observatory followed by the same deliberation process, facilitator script, duration and participation rights as arm 2.
+
+Primary analysis uses the first exposure only. Pre-register comprehension, trust calibration, false authority, anxiety, action appropriateness, correction speed and willingness to challenge. Record whether any arm prompts unsafe personal, employer, market, media or government action.
+
+The six perspective-group minimums remain release gates, not proof that the comparison is statistically powered. A statistician must set the required arm and perspective-cell sample before recruitment. Ten participants per arm within a 30-person perspective group cannot support a confirmatory superiority claim. **If the Observatory does not add material decision value within affected-party-approved harm bounds, use the simpler instrument.**
 
 ### Indigenous participation is governance, not a demographic quota
 
@@ -182,7 +196,7 @@ Seven fields may be complete for governance and still overload a public reader. 
 
 ### Formative variant test
 
-Test these variants with equivalent content:
+Within the Observatory arm, test these layout variants with equivalent content:
 
 **Variant A: compact institutional labels**
 
@@ -475,8 +489,8 @@ No priority group may trail the overall score by more than 10 percentage points 
 Stop and remediate if any of these occurs:
 
 - any critical incident;
-- more than 5% overall, or more than 10% in any group, expresses H01 through H07, H09, H12, H14, H15 or H16;
-- more than 10% believes `no authorised action` means no one is harmed;
+- 5% or more overall, or 10% or more in any group, expresses H01 through H07, H09, H12, H14, H15 or H16;
+- 10% or more believes `no authorised action` means no one is harmed;
 - any public route changes a number, uncertainty, epistemic class, scope, IF state, action authority, correction or next check;
 - any directly affected participant cannot find real help or appeal when a commitment is active;
 - any disabled participant is blocked from a required task by the release candidate;
@@ -484,6 +498,8 @@ Stop and remediate if any of these occurs:
 - any Indigenous governance condition is unmet;
 - any severe minority report remains without an independent disposition;
 - the named release owner cannot explain the observation, strongest alternative, falsifier, action authority and rollback plan.
+
+Automatic stops override percentage go thresholds. At a group size of 30, three participants are exactly 10%, so three harmful interpretations covered by the rule stop the candidate. They cannot pass through the `at least 90%` comprehension boundary.
 
 ## Exact pre-publication gates
 
@@ -543,6 +559,7 @@ The release record must mark each gate `PASS` with evidence. `Partial`, `planned
 
 - Frozen study and analysis registration published or independently timestamped.
 - Minimum 180 valid completions and all primary and cross-cutting quotas met.
+- The three-arm instrument comparison is adequately powered and the Observatory clears its pre-registered benefit and harm bounds; otherwise the simpler passing arm is selected.
 - Every quantitative gate passes overall and by group.
 - Coding reliability reaches the pre-registered minimum.
 - No critical incident or automatic stop remains.

@@ -19,13 +19,15 @@ updated: 2026-09-08
 
 ## 🦅 TL;DR
 
-- **The project will test, not assume, that technological capability can become
-  shared and durable human agency.**
+- **The mission is to understand when technological capability becomes shared
+  and durable human agency. The programme tests bounded research questions,
+  not a universal promise.**
 - The `IF` is the core object. Every promise, forecast, decision, negotiation
   and action must expose its people, outcome, conditions, evidence, owner,
   safeguard, falsifier and review point.
 - The first proof is deliberately bounded: Australian clerical workers,
-  regional outcomes and continuity of essential household access.
+  regional outcomes, continuity of essential household access, individual
+  agency and ecological materiality.
 - No dashboard signal becomes a warning, no warning becomes an action, and no
   action affects people until every transformation is explicit, testable,
   reversible and owned.
@@ -35,31 +37,35 @@ updated: 2026-09-08
 
 ---
 
-## 🎯 Goal and proposition under test
+## 🎯 Mission and research question
 
 The wider `mind-flow` repository is a provenance-safe system for turning
 Fernando's thinking into durable public knowledge. The Observatory is one
 public instrument inside it.
 
-The proposed Observatory goal is:
+The proposed Observatory mission is:
 
 > **Map the conditions under which growing technological capability becomes
 > shared, durable human agency, then make the evidence and choices legible
 > enough for people to shape the crossing together.**
 
-The proposition under test is:
+The master proposition is a mission-shaped research question. It is not a
+falsifiable empirical claim on its own:
 
-> Valuable capabilities can become more reliably accessible, useful and
-> freely chosen across humanity, while distributional, institutional,
-> operational and ecological failures are detected early enough for
-> legitimate actors to reduce avoidable harm.
+> **Under which named conditions, if any, can valuable capabilities become
+> more reliably accessible, useful and freely chosen for a named population,
+> service, place and period, while legitimate actors detect and reduce
+> distributional, institutional, operational and ecological harm?**
 
-The work must permit four conclusions:
+The programme tests bounded hypotheses beneath that question. Each one must
+name its population, service, place, period, comparator, loss function and
+observation that would defeat it. The work must permit four conclusions for
+each bounded hypothesis:
 
-1. The proposition is supported for a named scope.
+1. The hypothesis is supported for its named scope.
 2. It is supported only under narrower conditions.
 3. It is unresolved because the evidence is inadequate.
-4. It is contradicted and the thesis or intervention must change.
+4. It is contradicted and the hypothesis or intervention must change.
 
 ## 🧭 The operating model
 
@@ -100,7 +106,8 @@ true. In particular:
 3. **Units must close.** No ratio, index or comparison ships without dimensional
    analysis and a reproducible calculation.
 4. **Averages cannot overrule distributions.** Important claims require cohort,
-   place and service scope.
+   place and service scope. A household gain cannot offset a severe loss of
+   income security, time, privacy or practical choice for one of its members.
 5. **Visual confidence cannot exceed empirical confidence.** Colour, hierarchy
    and labels must preserve epistemic class.
 6. **Thresholds need loss functions.** A trigger explains the cost of misses,
@@ -158,7 +165,10 @@ Formalise:
 
 - `WHO + VERB + OUTCOME + STANDARD + PLACE + TIME + IF`;
 - capability, reach, agency, durability and fairness layers;
-- `AND`, `OR`, `NOT` and `UNLESS` relationships;
+- a required ecological assessment, recorded as assessed or not material for
+  the named lifecycle boundary, never silently omitted;
+- `AND`, `OR`, `NOT`, equivalent-route and veto relationships, with no
+  ambiguous executable `UNLESS`;
 - lifecycle, binding state and evidence grade as separate axes;
 - condition migration and feedback;
 - watch, act, pause, reverse, recover and graduate rules.
@@ -178,7 +188,7 @@ Scope the first proof to:
   connectivity;
 - household type and relevant demographic distributions.
 
-Build three linked views:
+Build four linked views:
 
 1. **Transition chain:** task exposure → organisational adoption → work redesign
    → worker flows → earnings and desired hours.
@@ -186,9 +196,13 @@ Build three linked views:
    eligibility, wait, quality and continuity → experienced outcome.
 3. **Agency dividend:** discretionary time, credible alternatives, skill
    portability, privacy, refusal, switching, appeal and self-reported control.
+4. **Ecological materiality:** lifecycle energy, water, materials, emissions,
+   waste and locally concentrated burdens, or a reviewed not-material finding.
 
-**Gate:** sources are feasible, missingness and lag meet declared limits, and
-affected workers recognise the model as relevant to their lives.
+**Gate:** sources are feasible, missingness and lag meet declared limits,
+severe individual harms cannot be offset by household gains, ecological
+materiality is assessed, and affected workers recognise the model as relevant
+to their lives.
 
 ### D. Forecasting discipline
 
@@ -280,18 +294,24 @@ historical forecast without leaving a visible, attributable record.
    sensitivity to $8.30, local reference budgets and material deprivation.
 2. **IF grammar reliability:** independently encode ten services and compare
    omitted conditions and logical relationships.
-3. **One-service access funnel:** identify the binding condition for one cohort
-   and region without a composite score.
+3. **One-service access and agency test:** identify the binding access condition
+   for one cohort and region, then test individual control, time, privacy and
+   refusal without combining them into a household score.
 4. **Transition cohort baseline:** distinguish exposure, adoption, work
    redesign, displacement, re-employment time and earnings recovery.
 5. **Threshold backtest:** compare one-period, two-period and sequential-change
    warnings against historical episodes and explicit loss functions.
 6. **Response stress test:** measure time from simulated breach to verified
    household receipt, human review and appeal resolution.
-7. **Narrative comprehension trial:** compare public explanations and measure
-   understanding, false certainty, trust and action appropriateness.
+7. **Public-instrument trial:** compare a conventional statistical release,
+   the same release plus facilitated deliberation, and the Observatory plus
+   identical deliberation. Measure understanding, false certainty, trust,
+   anxiety and action appropriateness.
 8. **Condition-migration test:** compare whether affordability, eligibility,
    delivery, quality, agency or durability binds after technical cost falls.
+9. **Ecological materiality test:** trace lifecycle and local burdens for one
+   service, or test whether a reviewed not-material determination survives
+   independent challenge.
 
 ## 📦 Release sequence
 
@@ -344,7 +364,9 @@ The checkpoint has crossed the structural gate:
   is authorised;
 - NERO rehearsal logic is preregistered, prospective, capacity-bounded and
   explicitly no-consequence;
-- the release validator blocks publication until all eight evidence gates pass.
+- the repository checks internal consistency and blocks preparation of an
+  external-review packet until all eight candidate evidence categories pass;
+  it cannot verify authority or authorise publication.
 
 It has not crossed the empirical, human or institutional gate. External agent
 review cannot substitute for affected-party participation, statistical review,
@@ -355,7 +377,7 @@ challenge operations, source-licence clearance or real authority.
 
 | Date | Decision | Reason | Revisit if |
 |---|---|---|---|
-| 2026-09-08 | Treat abundance as a proposition to test, not a destination to prove | Prevent confirmation bias and preserve public trust | Fernando adopts a narrower or different goal |
+| 2026-09-08 | Treat abundance as a mission and test bounded hypotheses beneath it | Prevent a universal aspiration from masquerading as a falsifiable empirical claim | Fernando adopts a narrower or different mission |
 | 2026-09-08 | Use Australia and clerical workers as the first pilot | Good primary data, material exposure, tractable regional and service questions | Source feasibility or affected-party review fails |
 | 2026-09-08 | Keep crisis states unscored | Current signals, thresholds and validation do not justify probabilities | Backtests and forecast registry pass their gates |
 | 2026-09-08 | Treat access factors as a funnel, not multiplication | Current measures are not matched conditional probabilities | A validated common-denominator design exists |
