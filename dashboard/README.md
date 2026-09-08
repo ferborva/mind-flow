@@ -102,6 +102,24 @@ frozen predecessor, not a new source fetch.
 The browser cannot load arbitrary local snapshots. A changed snapshot must go
 through the build and test path.
 
+### Executable IF dashboard projection
+
+`schema/executable-if-view.schema.json` defines a bounded projection contract
+for the executable IF kernel. `tools/validate-executable-if-view.mjs` validates
+an in-memory view plus retained kernel bytes. It never shells out, reads the
+latest snapshot index or invents a second truth evaluator.
+
+The projection must recompute the complete evaluation receipt and display that
+exact `computed_rule_state`. Its public legend keeps `true`, `false`, `unknown`,
+`stale` and `conflicted` distinct, with a different explanation and next step
+for each. Source identity, exact claim and scope, evaluation clock, evidence
+state and observation hashes are always visible.
+
+Macro series are context only. They cannot satisfy predicates or alter the IF
+state. Forecast probabilities are also orthogonal to current condition truth,
+including probabilities of zero or one. A computed state remains neither an
+empirical truth claim nor authority to act.
+
 ## Seven-part public update
 
 Schema 2.0 requires one bounded `public_update` and exact source/derived-point
@@ -143,6 +161,8 @@ unknown, so the registered decision is `no_decision`.
 | `tools/fetch_snapshot.py` | Verifies frozen raw-input manifests; live writing is retired |
 | `tools/migrate-timing-contract.mjs` | Deterministically creates the 2.0 correction and record index |
 | `tools/transition-bundle-binding.mjs` | Resolves bundle-bound path artifacts and creates the derived public projection |
+| `tools/validate-executable-if-view.mjs` | Purely validates a receipt-bound executable IF dashboard projection |
+| `schema/executable-if-view.schema.json` | Contract for five-state IF display, provenance and context separation |
 | `tools/build.mjs` | Validates and embeds one global snapshot |
 | `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
 | `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
