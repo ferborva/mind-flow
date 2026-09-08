@@ -7,6 +7,10 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const workflow = readFileSync(resolve(root, ".github", "workflows", "integrity.yml"), "utf8");
+const snapshotIndex = JSON.parse(readFileSync(
+  resolve(root, "dashboard", "snapshots", "index.json"),
+  "utf8",
+));
 
 test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
   assert.match(workflow, /^name:\s*Integrity/m);
@@ -15,6 +19,11 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
   assert.match(workflow, /npm ci/);
   assert.match(workflow, /npm test/);
   assert.match(workflow, /node dashboard\/tools\/build\.mjs/);
+  assert.match(
+    workflow,
+    new RegExp(`dashboard/snapshots/${snapshotIndex.latest}\\.json`),
+    "CI must rebuild the snapshot declared latest by the governed index",
+  );
   assert.match(workflow, /node dashboard\/tools\/build-australia-pilot\.mjs/);
   assert.match(workflow, /git diff --exit-code/);
 });
