@@ -6,8 +6,11 @@
   "required": [
     "schema_version",
     "snapshot_id",
+    "as_of",
     "generated_at",
     "generator",
+    "publication_status",
+    "evidence_policy",
     "reproducibility",
     "entities",
     "signals",
@@ -15,12 +18,25 @@
     "if_path"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.5\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^1\\.7\\.[0-9]+$" },
     "snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "as_of": { "type": "string", "format": "date-time", "pattern": "Z$" },
     "generated_at": { "type": "string", "format": "date-time" },
     "generator": { "type": "string" },
+    "publication_status": { "enum": ["research_draft_unverified", "publishable"] },
+    "evidence_policy": {
+      "type": "object",
+      "required": ["id", "version", "sha256"],
+      "properties": {
+        "id": { "const": "adapter-classification-policy" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
     "title": { "type": "string" },
     "notes": { "type": "string" },
+    "correction": { "$ref": "#/$defs/correction" },
     "reproducibility": { "$ref": "#/$defs/reproducibility" },
     "entities": {
       "type": "array",
@@ -54,6 +70,31 @@
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "nullableNonEmptyString": { "anyOf": [{ "$ref": "#/$defs/nonEmptyString" }, { "type": "null" }] },
+    "correction": {
+      "type": "object",
+      "required": ["kind", "supersedes_snapshot_id", "supersedes_snapshot_sha256", "issued_on", "summary", "changes", "changed_fields", "source_values_changed"],
+      "properties": {
+        "kind": { "const": "corrected_revision" },
+        "supersedes_snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "supersedes_snapshot_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "issued_on": { "type": "string", "format": "date" },
+        "summary": { "$ref": "#/$defs/nonEmptyString" },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "changed_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        },
+        "source_values_changed": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
     "ifPath": {
       "type": "object",
       "required": ["path_id", "provenance", "claim", "conditions", "decision"],
@@ -144,7 +185,8 @@
         "condition_change",
         "action",
         "falsifier",
-        "next_check"
+        "next_check",
+        "lineage"
       ],
       "properties": {
         "update_id": { "$ref": "#/$defs/nonEmptyString" },
@@ -241,12 +283,45 @@
             "failure_handling": { "$ref": "#/$defs/nonEmptyString" }
           },
           "additionalProperties": false
+        },
+        "lineage": {
+          "type": "object",
+          "required": ["derivation_id", "entity", "from_year", "through_year", "source_points", "derived_points", "raw_input_ids"],
+          "properties": {
+            "derivation_id": { "const": "world-aggregate-transmission-v1" },
+            "entity": { "$ref": "#/$defs/nonEmptyString" },
+            "from_year": { "type": "integer" },
+            "through_year": { "type": "integer" },
+            "source_points": { "type": "array", "minItems": 4, "uniqueItems": true, "items": { "$ref": "#/$defs/lineagePoint" } },
+            "derived_points": { "type": "array", "minItems": 4, "uniqueItems": true, "items": { "$ref": "#/$defs/lineagePoint" } },
+            "raw_input_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "lineagePoint": {
+      "type": "object",
+      "required": ["signal_id", "entity", "year", "value", "epistemic_class"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/nonEmptyString" },
+        "entity": { "$ref": "#/$defs/nonEmptyString" },
+        "measure": { "$ref": "#/$defs/nonEmptyString" },
+        "year": { "type": "integer" },
+        "value": { "type": "number" },
+        "epistemic_class": { "$ref": "#/$defs/epistemicClass" },
+        "input_epistemic_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/epistemicClass" }
         }
       },
       "additionalProperties": false
     },
     "epistemicClass": {
-      "enum": ["observed", "derived", "modelled_estimate", "nowcast", "forecast"]
+      "enum": ["observed", "published_statistic", "published_estimate", "derived", "modelled_estimate", "nowcast", "forecast"]
     },
     "epistemicRule": {
       "type": "object",
@@ -263,10 +338,11 @@
     },
     "adapter": {
       "type": "object",
-      "required": ["id", "version", "selected_fields", "epistemic_rules"],
+      "required": ["id", "version", "dataset_id", "selected_fields", "epistemic_rules"],
       "properties": {
         "id": { "$ref": "#/$defs/nonEmptyString" },
         "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "dataset_id": { "$ref": "#/$defs/nonEmptyString" },
         "selected_fields": {
           "type": "array",
           "minItems": 1,
@@ -339,15 +415,36 @@
       "additionalProperties": false
     },
     "point": {
-      "type": "array",
-      "prefixItems": [
-        { "type": "integer" },
-        { "type": "number" },
-        { "$ref": "#/$defs/epistemicClass" }
-      ],
-      "items": false,
-      "minItems": 3,
-      "maxItems": 3
+      "oneOf": [
+        {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer" },
+            { "type": "number" },
+            { "enum": ["observed", "published_statistic", "published_estimate", "modelled_estimate", "nowcast", "forecast"] }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer" },
+            { "type": "number" },
+            { "const": "derived" },
+            {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/epistemicClass" }
+            }
+          ],
+          "items": false,
+          "minItems": 4,
+          "maxItems": 4
+        }
+      ]
     },
     "series": {
       "type": "object",
@@ -419,7 +516,13 @@
             "entity": { "type": "string" },
             "year": { "type": "integer" },
             "value": { "type": "number" },
-            "epistemic_class": { "$ref": "#/$defs/epistemicClass" }
+            "epistemic_class": { "$ref": "#/$defs/epistemicClass" },
+            "input_epistemic_classes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/epistemicClass" }
+            }
           },
           "additionalProperties": false
         }

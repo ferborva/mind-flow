@@ -1,9 +1,9 @@
 {
   "raw_input": {
-    "id": "sha256:ca3af7149ec3e491452d338f204609cefbdd35d563bab9df66f9aa5fa5abc642",
-    "sha256": "ca3af7149ec3e491452d338f204609cefbdd35d563bab9df66f9aa5fa5abc642",
+    "id": "sha256:0ee45b32ae12dbb4fe2e4399c7fdaddf465e8c4edcd7ebe31112e861cf755792",
+    "sha256": "0ee45b32ae12dbb4fe2e4399c7fdaddf465e8c4edcd7ebe31112e861cf755792",
     "path": "../raw/world-bank-sample.json",
-    "byte_length": 140,
+    "byte_length": 218,
     "media_type": "application/json",
     "source_url": "https://api.worldbank.org/v2/country/WLD/indicator/SL.TLF.CACT.ZS",
     "retrieved_at": "2026-09-08T00:00:00Z",
@@ -16,7 +16,8 @@
     "adapter": {
       "id": "world-bank-json",
       "version": "1.0.0",
-      "selected_fields": ["countryiso3code", "country.id", "date", "value"],
+      "dataset_id": "SL.TLF.CACT.ZS",
+      "selected_fields": ["indicator.id", "countryiso3code", "country.id", "date", "value"],
       "epistemic_rules": [
         {
           "epistemic_class": "modelled_estimate",

@@ -34,18 +34,26 @@ The page never fetches live evidence. It renders a dated snapshot:
 source registries -> fetch_snapshot.py -> validated snapshot -> built HTML
 ```
 
-This preserves the exact evidence used for a claim. `tools/build.mjs` performs
+This preserves the evidence envelope used for a claim. `tools/build.mjs` performs
 build-time JSON Schema and semantic validation before embedding a snapshot. It
-fails if, among other checks, the seven-part update is absent, an update cites a
-missing signal, a failure mode cites a missing leading signal, or an
-unauthorised action claims an owner or authority.
+verifies a separately hash-pinned adapter and classification policy, complete
+raw-input coverage for captured claims, byte-to-series equivalence, derived
+arithmetic and the seven-part update. It also rejects missing signal references
+and false authority claims.
+
+The current snapshot is explicitly `research_draft_unverified`: its transformed
+values are frozen, but its upstream response bytes were not retained. Every
+visible evidence value and JSON export therefore says `UNVERIFIED SOURCE BYTES`.
+The separate `--mode=publishable` build rejects any snapshot without
+`captured_and_hash_verified` raw inputs and an explicit `publishable` status.
 
 The browser cannot load arbitrary local snapshots. A changed snapshot must go
 through the build and test path.
 
 ## Seven-part public update
 
-Schema 1.4 requires one bounded `public_update`:
+Schema 1.7 requires one bounded `public_update` and exact source/derived-point
+lineage:
 
 1. **Observed:** the source-native or derived result and its uncertainty.
 2. **Affected:** the defined population, or an explicit unknown.
@@ -70,6 +78,7 @@ unknown, so the registered decision is `no_decision`.
 |---|---|
 | `schema/SCHEMA.md` | Human-readable snapshot contract |
 | `schema/snapshot.schema.json` | Machine-readable contract |
+| `evidence/adapter-classification-policy.json` | Pinned source, selector and evidence-class policy |
 | `tools/fetch_snapshot.py` | Builds a dated global snapshot from source registries |
 | `tools/build.mjs` | Validates and embeds one global snapshot |
 | `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
@@ -84,7 +93,7 @@ unknown, so the registered decision is `no_decision`.
 ```bash
 python3 dashboard/tools/fetch_snapshot.py
 node dashboard/tools/build.mjs \
-  dashboard/snapshots/2026-09-07.json dashboard/web/index.html
+  dashboard/snapshots/2026-09-08.json dashboard/web/index.html
 node dashboard/tools/build-australia-pilot.mjs \
   pilots/australia/data/nero-clerical-2026-08.json \
   pilots/australia/web/index.html
@@ -96,10 +105,12 @@ evidence.
 
 ## What the global snapshot can say
 
-The snapshot includes six measured global series, two derived aggregate
+The snapshot includes six available source series, two derived aggregate
 comparisons and eight deliberately unmeasured or unavailable instruments.
-Measured does not mean decision-ready. The labour-income comparison, for
-example, compares indexed output per person with constructed aggregate labour
+Available does not mean directly observed or decision-ready. Each point is
+labelled as a published statistic, published estimate, modelled estimate,
+nowcast, forecast, direct observation or derived value. The labour-income
+comparison, for example, compares indexed output per person with constructed aggregate labour
 income per person. It is not a household purchasing-power measure, causal AI
 estimate or cohort outcome.
 

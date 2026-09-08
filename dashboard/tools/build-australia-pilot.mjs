@@ -14,9 +14,23 @@ const baselinePath = resolve(process.argv[2] || resolve(pilot, "data", "nero-cle
 const outputPath = resolve(process.argv[3] || resolve(pilot, "web", "index.html"));
 const templatePath = resolve(pilot, "web", "index.template.html");
 const schemaPath = resolve(pilot, "schema", "nero-baseline.schema.json");
+const AUSTRALIA_SOURCE_HOSTS = new Set(["www.jobsandskills.gov.au"]);
+
+function hasAllowedSource(url) {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "https:" && !parsed.username && !parsed.password &&
+      !parsed.port && AUSTRALIA_SOURCE_HOSTS.has(parsed.hostname);
+  } catch {
+    return false;
+  }
+}
 
 function validateSemantics(baseline) {
   const errors = [];
+  if (!hasAllowedSource(baseline.source?.archive_url)) {
+    errors.push("source host is outside the Australia evidence allowlist");
+  }
   const series = baseline.series || [];
   if (baseline.scope?.series_count !== series.length) {
     errors.push(`scope.series_count ${baseline.scope?.series_count} does not match ${series.length} series`);

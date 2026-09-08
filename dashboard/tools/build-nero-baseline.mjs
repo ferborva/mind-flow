@@ -9,6 +9,7 @@ import { spawn } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
 const DEFAULT_OCCUPATIONS = Object.freeze(["5311", "5511", "5512", "5513", "5411"]);
+const AUSTRALIA_SOURCE_HOSTS = new Set(["www.jobsandskills.gov.au"]);
 const EXPECTED_COLUMNS = Object.freeze([
   "",
   "state_name",
@@ -85,7 +86,11 @@ function validateSource(source) {
   parseReleaseMonth(source.release_period);
   if (!Number.isFinite(Date.parse(source.released_at))) throw new Error("source.released_at is invalid");
   if (!Number.isFinite(Date.parse(source.retrieved_at))) throw new Error("source.retrieved_at is invalid");
-  new URL(source.archive_url);
+  const archive = new URL(source.archive_url);
+  if (archive.protocol !== "https:" || archive.username || archive.password || archive.port ||
+      !AUSTRALIA_SOURCE_HOSTS.has(archive.hostname)) {
+    throw new Error(`source host is outside the allowlist: ${archive.hostname}`);
+  }
 }
 
 function normaliseRow(fields, releaseMonth) {

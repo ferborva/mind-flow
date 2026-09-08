@@ -1,10 +1,16 @@
 {
- "schema_version": "1.5.0",
- "latest": "2026-09-07",
+ "schema_version": "1.7.0",
+ "latest": "2026-09-08",
  "snapshots": [
   {
    "id": "2026-09-07",
-   "path": "2026-09-07.json"
+   "path": "2026-09-07.json",
+   "sha256": "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2"
+  },
+  {
+   "id": "2026-09-08",
+   "path": "2026-09-08.json",
+   "sha256": "sha256:eb7e5fe07a2547ec91a3d126f54b14154dddfaafdac61353a1432a43c421d4a6"
   }
  ]
 }

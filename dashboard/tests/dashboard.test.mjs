@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { copyFileSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -12,16 +13,41 @@ import addFormats from "ajv-formats";
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const templatePath = join(dashboard, "web", "index.template.html");
-const snapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
+const snapshotPath = join(dashboard, "snapshots", "2026-09-08.json");
+const legacySnapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
+const snapshotIndexPath = join(dashboard, "snapshots", "index.json");
 const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
 const schemaReadmePath = join(dashboard, "schema", "SCHEMA.md");
 const dashboardReadmePath = join(dashboard, "README.md");
 const buildPath = join(dashboard, "tools", "build.mjs");
 const fetchSnapshotPath = join(dashboard, "tools", "fetch_snapshot.py");
 const rawInputManifestPath = join(dashboard, "evidence", "fixtures", "world-bank-input.json");
+const evidencePolicyPath = join(dashboard, "evidence", "adapter-classification-policy.json");
+const fetcherText = readFileSync(fetchSnapshotPath, "utf8");
+const buildText = readFileSync(buildPath, "utf8");
 
 const template = readFileSync(templatePath, "utf8");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
+const evidencePolicy = JSON.parse(readFileSync(evidencePolicyPath, "utf8"));
+
+test("the corrected snapshot supersedes an immutable, honestly unverified snapshot", () => {
+  const legacyBytes = readFileSync(legacySnapshotPath);
+  const legacy = JSON.parse(legacyBytes);
+  const index = JSON.parse(readFileSync(snapshotIndexPath, "utf8"));
+  assert.equal(
+    createHash("sha256").update(legacyBytes).digest("hex"),
+    "f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
+    "the superseded public evidence record must remain byte-for-byte immutable",
+  );
+  assert.equal(legacy.reproducibility.raw_input_status, "not_pinned");
+  assert.equal(legacy.reproducibility.snapshot_rebuild_status, "not_verified");
+  assert.equal(snapshot.correction?.supersedes_snapshot_id, legacy.snapshot_id);
+  assert.equal(snapshot.correction?.source_values_changed, false);
+  assert.equal(index.latest, snapshot.snapshot_id);
+  assert.deepEqual(index.snapshots.map(({ id }) => id), [legacy.snapshot_id, snapshot.snapshot_id]);
+  assert.match(template, /id=["']snapshot-correction["']/);
+  assert.match(template, /supersedes_snapshot_id/);
+});
 
 function assertBuildRejects(value, inputPath, outputPath, expected) {
   writeFileSync(inputPath, JSON.stringify(value));
@@ -206,11 +232,11 @@ test("entity selection never silently falls back to another geography", () => {
   assert.doesNotMatch(template, /if\s*\(!show\.length\)\s*show\s*=\s*\[series\[0\]\]/);
   assert.match(template, /No data for this signal in/i);
   assert.match(template, /function latestForSelection\(/);
-  assert.match(template, /public_update:\{observed:/);
+  assert.match(template, /GLOBAL UPDATE UNCHANGED/);
 });
 
 test("snapshot carries actionable crisis and actor contracts", () => {
-  assert.match(snapshot.schema_version, /^1\.5\./);
+  assert.match(snapshot.schema_version, /^1\.7\./);
   assert.ok(snapshot.crises.length >= 5);
   assert.ok(Object.keys(snapshot.playbooks).length >= 5);
 
@@ -282,6 +308,8 @@ test("snapshot carries one complete, bounded public update contract", () => {
 test("availability is separate from point-level epistemic class", () => {
   const allowedClasses = new Set([
     "observed",
+    "published_statistic",
+    "published_estimate",
     "derived",
     "modelled_estimate",
     "nowcast",
@@ -295,7 +323,11 @@ test("availability is separate from point-level epistemic class", () => {
     );
     for (const series of signal.series) {
       for (const point of series.points) {
-        assert.equal(point.length, 3, `${signal.id}: every point must carry an epistemic class`);
+        assert.equal(
+          point.length,
+          point[2] === "derived" ? 4 : 3,
+          `${signal.id}: every point must carry its class and derived-input lineage`,
+        );
         assert.ok(allowedClasses.has(point[2]), `${signal.id}: invalid class ${point[2]}`);
       }
     }
@@ -322,11 +354,36 @@ test("availability is separate from point-level epistemic class", () => {
   assert.ok(participationTail.every(([, , epistemicClass]) => epistemicClass === "modelled_estimate"));
 
   assert.match(template, /function epistemicLabel\(/);
-  assert.match(template, /selectedLatest\.year\+" "\+epistemicLabel\(selectedLatest\.epistemic_class\)/);
-  assert.match(template, /epistemicLabel\(p\[2\]\)/);
+  assert.match(template, /selectedLatest\.year\+" "\+pointEpistemicLabel\(/);
+  assert.match(template, /pointEpistemicLabel\(p\)/);
   assert.equal(snapshot.reproducibility.raw_input_status, "not_pinned");
   assert.equal(snapshot.reproducibility.snapshot_rebuild_status, "not_verified");
   assert.match(snapshot.reproducibility.residual_gap, /bit-for-bit rebuild.*not passed/i);
+});
+
+test("published statistics and estimates are not presented as direct observations", () => {
+  for (const epistemicClass of [
+    "observed",
+    "published_statistic",
+    "published_estimate",
+    "modelled_estimate",
+    "nowcast",
+    "forecast",
+    "derived",
+  ]) {
+    assert.ok(evidencePolicy.class_definitions?.[epistemicClass], `${epistemicClass}: definition required`);
+  }
+  for (const id of ["gdp-per-capita", "inflation"]) {
+    const classes = new Set(snapshot.signals.find((signal) => signal.id === id)
+      .series.flatMap(({ points }) => points.map((point) => point[2])));
+    assert.deepEqual(classes, new Set(["published_statistic"]), `${id}: registry statistic is revisable`);
+  }
+  for (const id of ["poverty-30", "poverty-830"]) {
+    const classes = new Set(snapshot.signals.find((signal) => signal.id === id)
+      .series.flatMap(({ points }) => points.map((point) => point[2])));
+    assert.deepEqual(classes, new Set(["published_estimate", "nowcast"]), `${id}: PIP separates estimates and nowcasts`);
+    assert.equal(evidencePolicy.signals[id].classification_basis_url, "https://pip.worldbank.org/home");
+  }
 });
 
 test("content-addressed raw input is verified before an adapter transforms it", () => {
@@ -377,6 +434,122 @@ test("content-addressed raw input is verified before an adapter transforms it", 
     ),
     /unsupported adapter version/i,
   );
+
+  const wrongIndicator = structuredClone(fixture);
+  const wrongIndicatorPayload = JSON.parse(readFileSync(sourceRawPath, "utf8"));
+  wrongIndicatorPayload[1][0].indicator.id = "WRONG.INDICATOR";
+  const wrongIndicatorBytes = Buffer.from(JSON.stringify(wrongIndicatorPayload));
+  const wrongIndicatorDigest = createHash("sha256").update(wrongIndicatorBytes).digest("hex");
+  const wrongIndicatorPath = join(outDir, "wrong-indicator.json");
+  writeFileSync(wrongIndicatorPath, wrongIndicatorBytes);
+  wrongIndicator.raw_input.path = wrongIndicatorPath;
+  wrongIndicator.raw_input.id = `sha256:${wrongIndicatorDigest}`;
+  wrongIndicator.raw_input.sha256 = wrongIndicatorDigest;
+  wrongIndicator.raw_input.byte_length = wrongIndicatorBytes.length;
+  const wrongIndicatorManifestPath = join(outDir, "wrong-indicator-manifest.json");
+  writeFileSync(wrongIndicatorManifestPath, JSON.stringify(wrongIndicator));
+  assert.throws(
+    () => execFileSync(
+      "python3",
+      [fetchSnapshotPath, "--verify-input-manifest", wrongIndicatorManifestPath],
+      { encoding: "utf8", stdio: "pipe" },
+    ),
+    /response indicator.*does not match/i,
+  );
+});
+
+test("a separately pinned policy rejects co-mutated classes, versions and selectors", () => {
+  const policyBytes = readFileSync(evidencePolicyPath);
+  const policyDigest = createHash("sha256").update(policyBytes).digest("hex");
+  assert.match(buildText, new RegExp(policyDigest), "build must pin the external evidence policy digest");
+
+  const outDir = mkdtempSync(join(tmpdir(), "seldon-policy-attacks-"));
+  const inputPath = join(outDir, "snapshot.json");
+  const outputPath = join(outDir, "index.html");
+
+  const coMutated = structuredClone(snapshot);
+  const poverty = coMutated.signals.find(({ id }) => id === "poverty-30");
+  for (const point of poverty.series.flatMap(({ points }) => points)) {
+    if (point[0] >= 2025) point[2] = "observed";
+  }
+  poverty.latest.epistemic_class = "observed";
+  poverty.source.adapter.epistemic_rules.find(({ from_year }) => from_year === 2025)
+    .epistemic_class = "observed";
+  assertBuildRejects(coMutated, inputPath, outputPath, /pinned evidence policy/i);
+
+  const unsupportedVersion = structuredClone(snapshot);
+  unsupportedVersion.signals.find(({ id }) => id === "poverty-30")
+    .source.adapter.version = "999.0.0";
+  assertBuildRejects(unsupportedVersion, inputPath, outputPath, /pinned evidence policy|unsupported adapter/i);
+
+  const wrongSelector = structuredClone(snapshot);
+  const participation = wrongSelector.signals.find(({ id }) => id === "participation");
+  participation.source.adapter.dataset_id = "WRONG.INDICATOR";
+  participation.source.adapter.selected_fields = ["countryiso3code", "date", "wrong-value"];
+  assertBuildRejects(wrongSelector, inputPath, outputPath, /pinned evidence policy|selected fields|indicator/i);
+});
+
+test("captured claims require complete, referenced and transformed raw evidence", () => {
+  const outDir = mkdtempSync(join(tmpdir(), "seldon-raw-coverage-attacks-"));
+  const inputPath = join(outDir, "snapshot.json");
+  const outputPath = join(outDir, "index.html");
+  const fixture = JSON.parse(readFileSync(rawInputManifestPath, "utf8")).raw_input;
+  fixture.path = "evidence/raw/world-bank-sample.json";
+
+  const unreferenced = structuredClone(snapshot);
+  unreferenced.reproducibility.raw_input_status = "captured_and_hash_verified";
+  unreferenced.reproducibility.raw_inputs = [fixture];
+  assertBuildRejects(unreferenced, inputPath, outputPath, /unreferenced raw input|missing captured raw input/i);
+
+  const falseLineage = structuredClone(unreferenced);
+  const participation = falseLineage.signals.find(({ id }) => id === "participation");
+  participation.source.adapter = fixture.adapter;
+  participation.source.raw_input_ids = [fixture.id];
+  assertBuildRejects(falseLineage, inputPath, outputPath, /missing captured raw input|raw transform.*does not match/i);
+});
+
+test("derived series preserve input classes and are recomputed with the public arithmetic", () => {
+  for (const id of ["engels-divergence", "transmission-gap"]) {
+    const signal = snapshot.signals.find((candidate) => candidate.id === id);
+    for (const series of signal.series) {
+      for (const point of series.points) {
+        assert.equal(point.length, 4, `${id}: derived points must retain input classes`);
+        assert.deepEqual(
+          point[3],
+          series.measure === "Output per capita"
+            ? ["published_statistic"]
+            : ["modelled_estimate", "published_statistic"],
+        );
+      }
+    }
+  }
+
+  const outDir = mkdtempSync(join(tmpdir(), "seldon-derived-attacks-"));
+  const inputPath = join(outDir, "snapshot.json");
+  const outputPath = join(outDir, "index.html");
+  for (const id of ["engels-divergence", "transmission-gap"]) {
+    const mutated = structuredClone(snapshot);
+    mutated.signals.find((candidate) => candidate.id === id).series[0].points[2][1] += 999;
+    assertBuildRejects(mutated, inputPath, outputPath, /recomputed.*derived|derived.*recomput/i);
+  }
+
+  const falsePublicArithmetic = structuredClone(snapshot);
+  falsePublicArithmetic.public_update.observed.summary = "The arithmetic says something else.";
+  assertBuildRejects(falsePublicArithmetic, inputPath, outputPath, /public.update.*arithmetic/i);
+});
+
+test("retrieval dating and every export surface retain epistemic class", () => {
+  assert.doesNotMatch(fetcherText, /build\(args\.id,\s*args\.id\)/);
+  assert.match(fetcherText, /retrieved_on\s*=.*datetime/i);
+  assert.match(template, /function pointEpistemicLabel\(/);
+  assert.match(template, /lab\.textContent\s*=.*pointEpistemicLabel\(last\)/s);
+  assert.match(template, /id=["']copy-evidence["']/);
+  assert.match(template, /id=["']export-evidence["']/);
+  assert.match(template, /function currentEvidenceExport\(/);
+  assert.match(template, /navigator\.clipboard\.writeText/);
+  assert.match(template, /URL\.createObjectURL/);
+  assert.match(template, /JSON\.stringify\(\(snap\.signals\|\|\[\]\)\[0\]/);
+  assert.doesNotMatch(template, /epistemic_rules:\[\{epistemic_class:"modelled_estimate"\}\]/);
 });
 
 test("the JSON schema actually validates the current snapshot contract", () => {
@@ -405,7 +578,7 @@ test("the JSON schema actually validates the current snapshot contract", () => {
     assert.equal(
       validate(unsupportedOperationalClaim),
       false,
-      `schema 1.5 cannot import an unverified ${authorizationState} action claim`,
+      `schema 1.7 cannot import an unverified ${authorizationState} action claim`,
     );
   }
 
@@ -577,7 +750,7 @@ test("the build produces a self-contained page with parseable application code",
   );
 });
 
-test("operator documentation matches the governed 1.5 snapshot build", () => {
+test("operator documentation matches the governed 1.7 snapshot build", () => {
   const readme = readFileSync(dashboardReadmePath, "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
@@ -586,7 +759,7 @@ test("operator documentation matches the governed 1.5 snapshot build", () => {
   assert.match(readme, /release.*blocked/i);
   assert.doesNotMatch(readme, /Load snapshot/i);
   assert.doesNotMatch(readme, /current v2/i);
-  assert.match(schemaReadme, /Version 1\.5\.0/);
+  assert.match(schemaReadme, /Version 1\.7\.0/);
   assert.match(schemaReadme, /seven-part public update/i);
   assert.match(schemaReadme, /semantic validation/i);
   assert.doesNotMatch(schemaReadme, /No page rebuild required/i);
