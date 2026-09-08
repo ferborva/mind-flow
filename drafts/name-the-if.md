@@ -49,8 +49,10 @@ updated: 2026-09-09
 ## 🦅 TL;DR
 
 - We propose **verb + fill in the blank + if** as a reporting grammar for
-  abundance promises. Whether it improves diagnosis, comprehension or decisions
-  is an empirical question.
+  abundance promises. Whether it improves condition-finding, comprehension or
+  decisions is an empirical question.
+- For public use, complete the memorable shorthand: **[WHO] can [VERB]
+  [OUTCOME] to [STANDARD], in [PLACE], during [PERIOD], IF [CONDITION SET].**
 - An unstated condition makes a promise harder to evaluate against a declared
   population, service, place and period. We have not established that omission
   causes public conversations to loop.
@@ -174,11 +176,16 @@ better for public future claims.**
 > could overturn that reading, and who can move, verify or is affected by each
 > part?
 
+The short form is the doorway. The inspectable public form is:
+
+> **[WHO] can [VERB] [OUTCOME] to [STANDARD], in [PLACE], during [PERIOD], IF
+> [CONDITION SET].**
+
 1. **Write the promise as a sentence.** "You will be able to see a doctor about
    anything, instantly, for free."
 2. **List the ifs.** All of them, unglamorous ones included. The starting set
    below is there to prompt you, not to constrain you.
-3. **Find the provisional binding set.** Not the condition that is hardest or
+3. **Find the provisional candidate condition set.** Not the condition that is hardest or
    most interesting. Within the registered routes and current evidence, identify
    the conditions that appear to defeat each route for the person in front of
    you. Call each one **a candidate binding IF**. An unregistered route can
@@ -191,6 +198,43 @@ better for public future claims.**
 Then repeat it whenever something changes. **Our test is whether independent
 people can run it again, reach understandable disagreements and improve a
 decision.** That result has not yet been established.
+
+This is a register of candidate conditions, not a diagnosis. A condition that
+appears to block a route becomes a causal explanation only with discriminating
+counterfactual or intervention evidence. Until then, the honest claim is: *this
+route does not pass this registered rule on this evidence.*
+
+---
+
+## 🔄 Make the change visible
+
+The most useful object is not a permanent list of IFs. It is the record of how
+the IF system changes. Every update should separate five axes:
+
+| Axis | Public question |
+|---|---|
+| **Definition** | Did what counts as success, failure or eligibility change? |
+| **Evidence** | Did new, corrected, expired or conflicting evidence change the computed state? |
+| **Path** | Did a route open, close, split or reveal an alternative? |
+| **Actor and authority** | Did responsibility, capacity, consent or lawful permission change? |
+| **Values and loss rule** | Did the protected outcome, burdened population or acceptable trade-off change? |
+
+Keep the current evidence result in one of five states: `true`, `false`,
+`unknown`, `stale` or `conflicted`. True means the registered rule matches the
+current eligible evidence. It does not mean the claim is empirically true or
+that action is authorised. Unknown, stale and conflicted are different public
+problems and demand different next steps.
+
+A useful public update is almost mechanical:
+
+> **What changed:** evidence moved from unknown to conflicted on [DATE] because
+> [SOURCE A] and [SOURCE B] disagree. **What did not change:** the definition,
+> scope, period and protected outcome. **What remains blocked:** [PATH OR
+> ACTION]. **Next observation:** [MEASURE, SOURCE AND DATE].
+
+That record matters for every path, decision and negotiation. It prevents a
+new number, a new actor or a changed value choice from being presented as if
+the original IF simply “turned green”.
 
 ---
 

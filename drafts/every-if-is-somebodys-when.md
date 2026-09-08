@@ -71,6 +71,11 @@ The first piece was written for the person receiving the promise. Take any
 abundance claim, write it as verb + fill in the blank + if, then register the
 conditions that might bind each route today.
 
+For public use, complete the shorthand on both sides:
+
+> **[WHO] can [VERB] [OUTCOME] to [STANDARD], in [PLACE], during [PERIOD], IF
+> [CONDITION SET].**
+
 The same claim can be examined from several positions: affected person,
 provider, worker, funder, regulator, public body and others the first map may
 omit. The first piece concentrated on the affected person's IF.
@@ -145,6 +150,35 @@ correctly, because free-because-somebody-keeps-choosing-to is not a solved
 condition. Discretionary provision may be withdrawn through corporate decision
 unless constrained by contract, regulation, durable finance, governance or a
 viable substitute.
+
+---
+
+## 🔄 WHEN follows an IF change, not a clock
+
+The provider register becomes useful when it answers which change, if any,
+creates a legitimate new move. Track five axes separately:
+
+| Axis | What the provider must disclose |
+|---|---|
+| **Definition** | The success, failure or eligibility rule changed. |
+| **Evidence** | The rule stayed fixed, but its computed state changed. |
+| **Path** | A route opened, closed, split or acquired a rival. |
+| **Actor and authority** | Control, duty, capacity, consent or permission moved. |
+| **Values and loss rule** | The protected outcome, burdened group or acceptable trade-off changed. |
+
+No single axis can silently borrow from another. A favourable evidence state
+does not supply authority. A new authority does not make the evidence true. A
+new route does not erase who carries its losses.
+
+Every CEO, worker, provider, regulator or public-body update should state:
+
+> **What changed:** [AXIS AND EVENT]. **What did not change:** [FIXED
+> DEFINITION, SCOPE, PERIOD OR SAFEGUARD]. **What remains blocked:** [WORK,
+> NEGOTIATION OR DECISION]. **Next observation:** [MEASURE, SOURCE AND DATE].
+
+That is the bridge from IF to WHEN. It turns a changed condition into a bounded
+proposal for one actor, while leaving every unresolved dependency and authority
+boundary visible.
 
 ---
 
