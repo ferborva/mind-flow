@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve, sep } from "node:path";
@@ -10,8 +11,13 @@ const root = resolve(here, "..", "..");
 const manifestPath = resolve(root, "reviews", "round-02-manifest.json");
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 
-function checksumFile(path) {
-  return `sha256:${createHash("sha256").update(readFileSync(path)).digest("hex")}`;
+function checksumFrozenBlob(path) {
+  const bytes = execFileSync("git", ["show", `${manifest.freeze_ref}:${path}`], {
+    cwd: root,
+    encoding: "buffer",
+    maxBuffer: 20 * 1024 * 1024,
+  });
+  return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
 }
 
 test("round-two review manifest pins every declared artifact inside the repository", () => {
@@ -27,7 +33,11 @@ test("round-two review manifest pins every declared artifact inside the reposito
     const path = resolve(root, artifact.path);
     assert.ok(path.startsWith(`${root}${sep}`), `${artifact.path} escapes the repository`);
     assert.match(artifact.role, /\S/);
-    assert.equal(artifact.checksum, checksumFile(path), `${artifact.path} drifted after freeze`);
+    assert.equal(
+      artifact.checksum,
+      checksumFrozenBlob(artifact.path),
+      `${artifact.path} does not match the immutable ${manifest.freeze_ref} blob`,
+    );
   }
 });
 
