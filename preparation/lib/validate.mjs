@@ -4,6 +4,8 @@ import { readFileSync } from "node:fs";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { assessPreparationRegisterV12 } from "./validate-v12.mjs";
+
 const actionSchema = JSON.parse(readFileSync(
   new URL("../schema/preparation-action.schema.json", import.meta.url),
   "utf8",
@@ -1143,7 +1145,7 @@ function semanticProblems(register) {
   return errors;
 }
 
-export function assessPreparationRegister(register) {
+function assessPreparationRegisterV11(register) {
   const schemaConformant = validateSchema(register);
   const errors = schemaConformant ? semanticProblems(register) : schemaProblems();
   return {
@@ -1157,8 +1159,15 @@ export function assessPreparationRegister(register) {
   };
 }
 
-export function assertPreparationRegister(register) {
-  const result = assessPreparationRegister(register);
+export function assessPreparationRegister(register, sources = {}) {
+  if (register?.schema_version === "1.2.0") {
+    return assessPreparationRegisterV12(register, sources);
+  }
+  return assessPreparationRegisterV11(register);
+}
+
+export function assertPreparationRegister(register, sources = {}) {
+  const result = assessPreparationRegister(register, sources);
   if (!result.structurally_publishable_proposal) {
     throw new Error(`Preparation register is not publishable:\n${result.errors
       .map(({ code, path, message }) => `${code} ${path}: ${message}`).join("\n")}`);

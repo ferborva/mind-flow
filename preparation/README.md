@@ -113,3 +113,29 @@ node --test preparation/tests/*.test.mjs
 ```
 
 Before any real-world use, replace the synthetic fixture with authenticated evidence, independently verified authority, affected-party participation and a legally valid decision made outside this record.
+
+## Round 4: one IF, five possible states
+
+Version 1.2 does not run a second preparation-specific truth engine. It binds
+the exact executable-IF definition, evolution history, scope, bounded period,
+evidence state and evaluation receipt. The receipt state is one of `true`,
+`false`, `unknown`, `stale` or `conflicted`. An action trigger must partition
+all five states between eligible and blocked. It cannot omit a difficult state,
+count one twice or make every state eligible.
+
+Eligibility is not a recommendation or authority. If a low-regret proposal is
+eligible under `unknown`, `stale` or `conflicted`, it must be reversible,
+research-only and limited to `assess`, `consult`, `prepare` or `review`. A new
+receipt, ready resources and human approval are mandatory before starting.
+Changes in the condition state, receipt validity or safeguards stop the action.
+
+The Round 4 synthetic example is deliberately blocked: its exact current
+receipt computes `true`, while the private worker-support rehearsal is prepared
+for `false`, `unknown`, `stale` or `conflicted`. This is useful preparedness,
+not a defect and not permission to intervene.
+
+- `schema/preparation-action-1.2.schema.json` closes five-state action triggers.
+- `schema/preparation-register-1.2.schema.json` closes source-bound condition,
+  receipt and preparation-only evidence envelopes.
+- `fixtures/valid/round-04.worker-option.synthetic.json` is reproducibly built
+  by `tools/build-round-04-fixture.mjs`.
