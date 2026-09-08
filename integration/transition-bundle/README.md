@@ -22,8 +22,8 @@ assessment checks:
 3. one content-addressed `executable_if_ref` for the kernel, fixed evaluator,
    active condition definitions and evidence fold;
 4. one content-addressed `outcome_logic_ref` for the agency-map IF AST;
-5. immutable condition-definition references through evolution events and the
-   folded current state;
+5. a v2 evolution overlay that binds the exact complete kernel definition
+   history, active definitions, evidence-state tip and folded current state;
 6. one content-addressed `scope_manifest_ref`;
 7. explicit `scope_bindings` from that manifest to each supported native scope
    hash domain;
@@ -62,10 +62,10 @@ preparation and dashboard contracts now expose typed bindings, but their current
 records still need to be regenerated from the same canonical synthetic
 transition.
 
-The executable IF boundary has landed. The next migration gate is to derive new
-subsystem fixtures from its active condition definitions. Shared IDs and hashes
-remain insufficient without scope, signal, evolution, forecast and preparation
-joins.
+The executable IF and evolution boundaries have landed. The next migration gate
+is to derive new subsystem fixtures from the active definition and exact
+evidence-state reference. Shared IDs and hashes remain insufficient without
+scope, signal, forecast and preparation joins.
 
 Run the assessment:
 

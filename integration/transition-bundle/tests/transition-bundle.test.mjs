@@ -14,6 +14,9 @@ import { join, resolve } from "node:path";
 import test from "node:test";
 
 import { assessTransitionBundle } from "../assess.mjs";
+import { computeEvidenceStateHash } from "../../../contracts/executable-if/validate.mjs";
+import { computeExecutableIfEvolutionManifestHash } from
+  "../../../contracts/evolution/project-executable-if.mjs";
 
 const root = resolve(import.meta.dirname, "../../..");
 const fixturePath = resolve(import.meta.dirname, "../fixtures/round-03.current.json");
@@ -25,6 +28,53 @@ const bundleSchema = JSON.parse(readFileSync(
 
 const clone = (value) => structuredClone(value);
 const sha256 = (bytes) => `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+
+function executableIfRef(kernel) {
+  const evidenceTip = kernel.evidence_events.at(-1);
+  return {
+    artifact_role: "executable-if-kernel",
+    kernel_id: kernel.kernel_id,
+    manifest_hash: kernel.manifest_hash,
+    evaluator_ref: kernel.evaluator,
+    active_condition_definition_refs: kernel.current_state
+      .filter(({ lifecycle }) => lifecycle === "active")
+      .map(({ condition_definition_ref: ref }) => ref),
+    evidence_state_ref: {
+      kernel_id: kernel.kernel_id,
+      kernel_manifest_hash: kernel.manifest_hash,
+      evidence_event_count: kernel.evidence_events.length,
+      evidence_tip_event_id: evidenceTip.evidence_event_id,
+      evidence_tip_event_hash: evidenceTip.evidence_event_hash,
+      evidence_state_hash: computeEvidenceStateHash(kernel.current_evidence_state),
+    },
+  };
+}
+
+function round4Attempt() {
+  const attempted = clone(fixture);
+  const kernelPath = "contracts/executable-if/fixtures/kernel.synthetic.json";
+  const kernelBytes = readFileSync(resolve(root, kernelPath));
+  const kernel = JSON.parse(kernelBytes.toString("utf8"));
+  const evolutionPath = "contracts/evolution/fixtures/round-04.worker-option.synthetic.json";
+  const evolutionBytes = readFileSync(resolve(root, evolutionPath));
+  attempted.schema_version = "1.2.0";
+  attempted.bundle_id = "bundle.round-04.kernel-bound-incoherent";
+  attempted.bundle_stage = "pre-projection-core";
+  attempted.canonical.condition_ids = ["condition.worker-option.nsw"];
+  attempted.canonical.executable_if_ref = executableIfRef(kernel);
+  attempted.artifacts = attempted.artifacts
+    .filter(({ role }) => !["dashboard-snapshot", "evolution-ledger"].includes(role));
+  attempted.artifacts.push({
+    role: "evolution-ledger",
+    path: evolutionPath,
+    sha256: sha256(evolutionBytes),
+  }, {
+    role: "executable-if-kernel",
+    path: kernelPath,
+    sha256: sha256(kernelBytes),
+  });
+  return { attempted, kernel };
+}
 
 test("canonical references preserve immutable definitions and native scope domains", () => {
   assert.ok(bundleSchema.required.includes("bundle_stage"));
@@ -49,6 +99,7 @@ test("canonical references preserve immutable definitions and native scope domai
 test("schema 1.2 adds the executable IF boundary without rewriting Round 3", () => {
   assert.ok(bundleSchema.properties.canonical.properties.executable_if_ref);
   assert.ok(bundleSchema.$defs.executableIfRef);
+  assert.ok(bundleSchema.$defs.executableIfRef.required.includes("evidence_state_ref"));
   assert.ok(bundleSchema.properties.artifacts.items.properties.role.enum.includes(
     "executable-if-kernel",
   ));
@@ -64,38 +115,22 @@ test("schema 1.2 adds the executable IF boundary without rewriting Round 3", () 
 });
 
 test("a Round 4 pre-projection core validates the kernel but rejects unrelated identities", () => {
-  const attempted = clone(fixture);
-  const kernelPath = "contracts/executable-if/fixtures/kernel.synthetic.json";
-  const kernelBytes = readFileSync(resolve(root, kernelPath));
-  const kernel = JSON.parse(kernelBytes.toString("utf8"));
-  const activeDefinitionRefs = kernel.current_state
-    .filter(({ lifecycle }) => lifecycle === "active")
-    .map(({ condition_definition_ref: ref }) => ref);
-  attempted.schema_version = "1.2.0";
-  attempted.bundle_id = "bundle.round-04.kernel-bound-incoherent";
-  attempted.bundle_stage = "pre-projection-core";
-  attempted.artifacts = attempted.artifacts.filter(({ role }) => role !== "dashboard-snapshot");
-  attempted.artifacts.push({
-    role: "executable-if-kernel",
-    path: kernelPath,
-    sha256: sha256(kernelBytes),
-  });
-  attempted.canonical.executable_if_ref = {
-    artifact_role: "executable-if-kernel",
-    kernel_id: kernel.kernel_id,
-    manifest_hash: kernel.manifest_hash,
-    evaluator_ref: kernel.evaluator,
-    active_condition_definition_refs: activeDefinitionRefs,
-  };
+  const { attempted } = round4Attempt();
 
   const result = assessTransitionBundle(attempted, { rootDir: root });
   assert.equal(result.machine_valid, true);
   assert.equal(result.components_valid, true);
   assert.equal(result.bundle_coherent, false);
   assert.equal(result.executable_if.valid, true);
+  assert.equal(result.component_results["evolution-ledger"].source_binding_verified, true);
+  assert.deepEqual(result.condition_identity.by_role["evolution-ledger"], [
+    "condition.worker-option.nsw",
+  ]);
+  assert.equal(result.issues.some(({ code }) => code === "ACTIVE_DEFINITION_REF_MISMATCH"), false);
+  assert.equal(result.issues.some(({ code }) => code === "DEFINITION_HISTORY_MISMATCH"), false);
   assert.ok(result.issues.some(
     ({ code, artifact_role: role }) =>
-      code === "CONDITION_SET_MISMATCH" && role === "executable-if-kernel",
+      code === "CONDITION_SET_MISMATCH" && role === "agency-map",
   ));
   assert.equal(result.gates.truth, false);
   assert.equal(result.gates.authority, false);
@@ -112,18 +147,38 @@ test("hostile: the canonical executable IF reference cannot drift from kernel by
   attempted.artifacts = attempted.artifacts.filter(({ role }) => role !== "dashboard-snapshot");
   attempted.artifacts.push({ role: "executable-if-kernel", path: kernelPath, sha256: sha256(kernelBytes) });
   attempted.canonical.executable_if_ref = {
-    artifact_role: "executable-if-kernel",
-    kernel_id: kernel.kernel_id,
+    ...executableIfRef(kernel),
     manifest_hash: `sha256:${"0".repeat(64)}`,
-    evaluator_ref: kernel.evaluator,
-    active_condition_definition_refs: kernel.current_state
-      .filter(({ lifecycle }) => lifecycle === "active")
-      .map(({ condition_definition_ref: ref }) => ref),
   };
   const result = assessTransitionBundle(attempted, { rootDir: root });
   assert.equal(result.machine_valid, false);
   assert.equal(result.executable_if.valid, false);
   assert.ok(result.issues.some(({ code }) => code === "EXECUTABLE_IF_REF_MISMATCH"));
+});
+
+test("hostile: a resealed evolution overlay cannot omit or rewrite kernel history", () => {
+  const { attempted } = round4Attempt();
+  const evolutionRef = attempted.artifacts.find(({ role }) => role === "evolution-ledger");
+  const evolution = JSON.parse(readFileSync(resolve(root, evolutionRef.path), "utf8"));
+  evolution.source_history_ref.operations[2] = "narrowed";
+
+  const hostilePath = resolve(root,
+    "integration/transition-bundle/fixtures/evolution-history-drift.test.json");
+  evolution.manifest_hash = computeExecutableIfEvolutionManifestHash(evolution);
+  const bytes = Buffer.from(`${JSON.stringify(evolution, null, 2)}\n`);
+  writeFileSync(hostilePath, bytes);
+  try {
+    evolutionRef.path = "integration/transition-bundle/fixtures/evolution-history-drift.test.json";
+    evolutionRef.sha256 = sha256(bytes);
+    const result = assessTransitionBundle(attempted, { rootDir: root });
+    assert.equal(result.machine_valid, false);
+    assert.equal(result.components_valid, false);
+    assert.ok(result.issues.some(({ code }) => code === "DEFINITION_HISTORY_MISMATCH"));
+    assert.equal(result.gates.history, false);
+    assert.equal(result.action_authorised, false);
+  } finally {
+    unlinkSync(hostilePath);
+  }
 });
 
 test("README documents the core bundle and experiment-envelope boundary", () => {

@@ -20,6 +20,7 @@ import addFormats from "ajv-formats";
 
 import { validateConditionAgencyMap } from "../../contracts/agency-map/validate.mjs";
 import {
+  computeEvidenceStateHash,
   evaluateKernelCondition,
   validateExecutableIfKernel,
 } from "../../contracts/executable-if/validate.mjs";
@@ -140,15 +141,22 @@ function validateDashboard(path) {
   }
 }
 
-function validateComponent(role, document, artifactPath, evaluatedAt) {
+function validateComponent(role, document, artifactPath, evaluatedAt, context = {}) {
   try {
     if (role === "agency-map") {
       const result = validateConditionAgencyMap(document, { evaluatedAt });
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
     if (role === "evolution-ledger") {
-      const result = validateConditionEvolutionLedger(document);
-      return { valid: result.machine_valid && result.integrity_valid, result };
+      const kernelRef = context.refs?.find(({ role: candidate }) =>
+        candidate === "executable-if-kernel");
+      const result = validateConditionEvolutionLedger(document, document?.schema_version === "2.0.0"
+        ? {
+            sourceKernel: context.documents?.get("executable-if-kernel"),
+            sourceKernelArtifactSha256: kernelRef?.sha256,
+          }
+        : {});
+      return { valid: result.ledger_valid, result };
     }
     if (role === "executable-if-kernel") {
       const result = validateExecutableIfKernel(document);
@@ -191,7 +199,8 @@ function conditionIds(role, document, componentResult) {
   if (role === "agency-map") return document.outcome_scope?.condition_ids || [];
   if (role === "evolution-ledger") {
     return (componentResult?.current_state?.conditions || document.current_state?.conditions || [])
-      .map(({ condition_id: id }) => id);
+      .map((condition) => condition.condition_id ||
+        condition.condition_definition_ref?.condition_id);
   }
   if (role === "signal-registry") return (document.condition_bindings || []).map(({ condition_id: id }) => id);
   if (role === "possible-path") return (document.outcome_scope?.if_conditions || []).map(({ condition_id: id }) => id);
@@ -348,6 +357,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       documents.get(role),
       paths.get(role),
       bundle?.evaluation_clock?.evaluated_at,
+      { documents, refs },
     );
     componentResults[role] = result.result;
     if (!result.valid) {
@@ -368,12 +378,22 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       .sort((left, right) => left.condition_id.localeCompare(right.condition_id));
     const declaredRefs = [...(declared?.active_condition_definition_refs || [])]
       .sort((left, right) => left.condition_id.localeCompare(right.condition_id));
+    const evidenceTip = kernel?.evidence_events?.at(-1);
+    const expectedEvidenceStateRef = kernel ? {
+      kernel_id: kernel.kernel_id,
+      kernel_manifest_hash: kernel.manifest_hash,
+      evidence_event_count: kernel.evidence_events.length,
+      evidence_tip_event_id: evidenceTip?.evidence_event_id,
+      evidence_tip_event_hash: evidenceTip?.evidence_event_hash,
+      evidence_state_hash: computeEvidenceStateHash(kernel.current_evidence_state),
+    } : null;
     executableIfReferenceValid = Boolean(kernel) &&
       declared?.artifact_role === "executable-if-kernel" &&
       declared?.kernel_id === kernel?.kernel_id &&
       declared?.manifest_hash === kernel?.manifest_hash &&
       same(declared?.evaluator_ref, kernel?.evaluator) &&
-      same(declaredRefs, activeDefinitionRefs);
+      same(declaredRefs, activeDefinitionRefs) &&
+      same(declared?.evidence_state_ref, expectedEvidenceStateRef);
     if (!executableIfReferenceValid) {
       referenceIntegrity = false;
       issues.push(issue(
@@ -386,6 +406,30 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
         governedEvaluations.push(evaluateKernelCondition(kernel, reference.condition_id, {
           evaluatedAt: bundle?.evaluation_clock?.evaluated_at,
         }));
+      }
+    }
+
+    const evolution = documents.get("evolution-ledger");
+    const evolutionResult = componentResults["evolution-ledger"];
+    if (evolution?.schema_version !== "2.0.0" || !evolutionResult?.source_binding_verified ||
+        !evolutionResult?.history_complete) {
+      referenceIntegrity = false;
+      issues.push(issue(
+        "DEFINITION_HISTORY_MISMATCH",
+        "evolution-ledger",
+        "Round 4 evolution must bind the exact complete executable IF definition and evidence history",
+      ));
+    } else {
+      const evolutionRefs = (evolutionResult.current_state?.conditions || [])
+        .map(({ condition_definition_ref: reference }) => reference)
+        .sort((left, right) => left.condition_id.localeCompare(right.condition_id));
+      if (!same(evolutionRefs, activeDefinitionRefs)) {
+        referenceIntegrity = false;
+        issues.push(issue(
+          "ACTIVE_DEFINITION_REF_MISMATCH",
+          "evolution-ledger",
+          "evolution active definitions must equal the kernel active definitions exactly",
+        ));
       }
     }
   }

@@ -65,6 +65,7 @@ test("the Round 4 bundle binds the executable IF kernel and active definitions",
     "manifest_hash",
     "evaluator_ref",
     "active_condition_definition_refs",
+    "evidence_state_ref",
   ]) {
     assert.ok(reference.required.includes(field), `executable IF reference is missing ${field}`);
   }

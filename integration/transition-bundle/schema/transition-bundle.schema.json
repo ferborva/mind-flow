@@ -233,7 +233,8 @@
         "kernel_id",
         "manifest_hash",
         "evaluator_ref",
-        "active_condition_definition_refs"
+        "active_condition_definition_refs",
+        "evidence_state_ref"
       ],
       "properties": {
         "artifact_role": { "const": "executable-if-kernel" },
@@ -245,7 +246,28 @@
           "minItems": 1,
           "uniqueItems": true,
           "items": { "$ref": "#/$defs/conditionDefinitionRef" }
-        }
+        },
+        "evidence_state_ref": { "$ref": "#/$defs/evidenceStateRef" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceStateRef": {
+      "type": "object",
+      "required": [
+        "kernel_id",
+        "kernel_manifest_hash",
+        "evidence_event_count",
+        "evidence_tip_event_id",
+        "evidence_tip_event_hash",
+        "evidence_state_hash"
+      ],
+      "properties": {
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "kernel_manifest_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_event_count": { "type": "integer", "minimum": 1 },
+        "evidence_tip_event_id": { "$ref": "#/$defs/id" },
+        "evidence_tip_event_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_state_hash": { "$ref": "#/$defs/sha256" }
       },
       "additionalProperties": false
     },

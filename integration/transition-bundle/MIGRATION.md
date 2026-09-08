@@ -33,10 +33,10 @@ checks or translate unrelated IDs by assertion.
 
 | Boundary | Contract now available | Remaining integration work |
 | --- | --- | --- |
-| Executable IF | `canonical.executable_if_ref` binds kernel bytes, evaluator identity and active definitions. | Bind its scope, signals and definition lineage to every downstream artifact. |
+| Executable IF | `canonical.executable_if_ref` binds kernel bytes, evaluator identity, active definitions and the current evidence-state tip. | Bind its scope and signals to every remaining downstream artifact. |
 | Outcome logic | `canonical.outcome_logic_ref` binds the exact agency-map IF AST. | Regenerate the agency map from the active executable condition set. |
 | Scope | `canonical.scope_manifest_ref` and `scope_bindings` bind distinct agency and path native hashes to separately hashed mappings. | Extend mappings when other native contracts expose scope hashes. Keep mapping truth false until independently assessed. |
-| Evolution | Every event state, folded current state and public condition carries a recomputed `condition_definition_ref`. | Build evolution events for the canonical synthetic condition set. |
+| Evolution | The v2 assessment overlay binds the exact complete kernel definition history, active definitions, producer events and evidence-state tip without copying definition ownership. | Bind downstream artifacts to the v2 manifest and exact active producer event. |
 | Preparation | Condition binding names condition ID, native version, ledger manifest and producer event ID and hash. | Point a synthetic register at the new evolution ledger. |
 | Forecast | Target binds signal ID, metric ID and checksum, condition ID and scope hash. | Issue a synthetic forecast against the canonical signal and scope. |
 | Dashboard | Snapshot binds a source transition bundle and resolves possible paths. | Build a projection from the coherent synthetic core without creating a self-reference. |
@@ -80,8 +80,9 @@ enough, and recruitment remains blocked.
 
 1. Freeze the hostile-tested executable IF kernel and evidence fold. **Done.**
 2. Bind the kernel into transition-bundle schema 1.2. **Done.**
-3. Select one synthetic active condition set and canonical scope manifest.
-4. Generate evolution, agency, signal, path, forecast and preparation fixtures
+3. Select one synthetic active condition set and project its v2 evolution
+   overlay. **Done.**
+4. Generate agency, signal, path, forecast and preparation fixtures
    from those identities.
 5. Freeze a seven-artifact pre-projection core so the dashboard can safely name
    source bytes without a self-reference.
