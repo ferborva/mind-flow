@@ -32,11 +32,11 @@ submitted: 2026-09-08
 
 ## R02-BC-SL-01
 
-**Severity:** Stop-line  
-**Lane:** B and C  
+**Severity:** Stop-line
+**Lane:** B and C
 **Artifact:** `dashboard/snapshots/2026-09-07.json:7,2634-2653,3519-3545`;
 `dashboard/schema/snapshot.schema.json:263-316`;
-`dashboard/web/index.html:800`  
+`dashboard/web/index.html:800`
 **Control challenged:** Measured, modelled and projected values remain
 machine-distinguishable.
 
@@ -60,10 +60,10 @@ measured. UI, copy and exports show `2026 nowcast` beside the value.
 
 ## R02-BC-SL-02
 
-**Severity:** Stop-line  
-**Lane:** B and C  
+**Severity:** Stop-line
+**Lane:** B and C
 **Artifact:** `dashboard/tools/fetch_snapshot.py:40-94`;
-`dashboard/schema/snapshot.schema.json:263-272`; `dashboard/README.md:28-38`  
+`dashboard/schema/snapshot.schema.json:263-272`; `dashboard/README.md:28-38`
 **Control challenged:** The build preserves the exact evidence used.
 
 **Observed problem:** The fetcher reads mutable live endpoints while the source
@@ -85,10 +85,10 @@ pinned inputs. Mutated or revised live data cannot silently pass.
 
 ## R02-BC-SL-03
 
-**Severity:** Stop-line  
-**Lane:** B and C  
+**Severity:** Stop-line
+**Lane:** B and C
 **Artifact:** `governance/if-protocol.md:134-160`;
-`contracts/README.md:138-146`; `contracts/evaluator.mjs:261-288`  
+`contracts/README.md:138-146`; `contracts/evaluator.mjs:261-288`
 **Control challenged:** Public and executable `UNLESS` semantics agree.
 
 **Observed problem:** The public protocol says an authorised equivalent route
@@ -111,11 +111,11 @@ require two independent encoders to return identical results for public examples
 
 ## R02-B-MJ-01
 
-**Severity:** Major  
-**Lane:** B  
+**Severity:** Major
+**Lane:** B
 **Artifact:** `governance/if-protocol.md:230-269`;
 `contracts/evaluator.mjs:9-15`; `pilots/australia/if-register.json:35-48`;
-`dashboard/schema/snapshot.schema.json:121`  
+`dashboard/schema/snapshot.schema.json:121`
 **Control challenged:** Condition states can be migrated deterministically.
 
 **Observed problem:** Lifecycle, binding, measurement and predicate truth use
@@ -131,12 +131,12 @@ conversion fails rather than defaulting.
 
 ## R02-B-MJ-02
 
-**Severity:** Major  
-**Lane:** B  
+**Severity:** Major
+**Lane:** B
 **Artifact:** `communications/early-action-and-negotiation-framework.md:523-545`;
 `contracts/evaluator.mjs:369-394`;
 `contracts/schema/action-contract.schema.json:30-99`;
-`contracts/semantic-validation.mjs:401-424`  
+`contracts/semantic-validation.mjs:401-424`
 **Control challenged:** Hard safety gates override action.
 
 **Observed problem:** A reproduced fixture returned `watch=true, act=true,
@@ -152,11 +152,11 @@ true, or when a hard safeguard is unresolved.
 
 ## R02-C-MJ-01
 
-**Severity:** Major  
-**Lane:** C  
+**Severity:** Major
+**Lane:** C
 **Artifact:** `pilots/australia/if-register.json:133-150`;
 `pilots/australia/nero-shadow-protocol.json:223-240`;
-`pilots/australia/nero-backtest-and-shadow-plan.md:93-108`  
+`pilots/australia/nero-backtest-and-shadow-plan.md:93-108`
 **Control challenged:** NERO corroboration is independent and scope-compatible.
 
 **Observed problem:** IF-04 names LFS-family evidence as independent while the
@@ -173,9 +173,9 @@ satisfy escalation.
 
 ## R02-C-MJ-02
 
-**Severity:** Major  
-**Lane:** C  
-**Artifact:** `pilots/australia/if-register.json:156-176`  
+**Severity:** Major
+**Lane:** C
+**Artifact:** `pilots/australia/if-register.json:156-176`
 **Control challenged:** Affected-cohort evidence is not substituted by an
 aggregate population.
 
@@ -192,11 +192,11 @@ while the cohort worsens must block a positive cohort state.
 
 ## R02-C-MJ-03
 
-**Severity:** Major  
-**Lane:** C  
+**Severity:** Major
+**Lane:** C
 **Artifact:** `pilots/australia/nero-shadow-protocol.json:75-97`;
 `pilots/australia/rehearsal/engine.mjs:175-199,307-315`;
-`pilots/australia/nero-warning-audit-2026-08.json:17`  
+`pilots/australia/nero-warning-audit-2026-08.json:17`
 **Control challenged:** Shadow evaluation proves no look-ahead.
 
 **Observed problem:** The protocol requires `publisher_release_timestamp`, but
@@ -212,10 +212,10 @@ publication order without synthetic midnight.
 
 ## R02-C-MJ-04
 
-**Severity:** Major  
-**Lane:** C  
+**Severity:** Major
+**Lane:** C
 **Artifact:** `pilots/australia/nero-backtest-and-shadow-plan.md:183-190,319-331`;
-`pilots/australia/nero-shadow-protocol.json:279-305`  
+`pilots/australia/nero-shadow-protocol.json:279-305`
 **Control challenged:** The NERO go rule can compare precision with every
 declared baseline.
 
@@ -232,9 +232,9 @@ produce defined decisions.
 
 ## R02-C-MN-01
 
-**Severity:** Minor  
-**Lane:** C  
-**Artifact:** `pilots/australia/nero-warning-audit-2026-08.json:96-135`  
+**Severity:** Minor
+**Lane:** C
+**Artifact:** `pilots/australia/nero-warning-audit-2026-08.json:96-135`
 **Control challenged:** Three-consecutive-decline rates use their declared
 eligible observations.
 

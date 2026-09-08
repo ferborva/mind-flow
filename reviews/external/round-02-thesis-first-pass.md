@@ -27,12 +27,12 @@ submitted: 2026-09-08
 
 ## R02-AD-SL-01
 
-**Severity:** Stop-line  
-**Lane:** D cross-check, with dependency on E and F  
+**Severity:** Stop-line
+**Lane:** D cross-check, with dependency on E and F
 **Artifact:** `governance/schema/public-release.schema.json:29-56,95-175`;
 `governance/public-release-validation.mjs:13-35,262-425`;
 `contracts/tests/public-release-governance.test.mjs:46-67,109-123`;
-`reviews/public-comprehension-affected-party-protocol-round-04.md:488-583`  
+`reviews/public-comprehension-affected-party-protocol-round-04.md:488-583`
 **Control challenged:** The release validator is a machine-readable boundary
 that blocks public issuance until required review and authority exist.
 
@@ -88,11 +88,11 @@ Agent review cannot close it.
 
 ## R02-A-MJ-01
 
-**Severity:** Major  
-**Lane:** A  
+**Severity:** Major
+**Lane:** A
 **Artifact:** `meta/abundance-transition-programme.md:38-62`;
 `evidence/claim-ledger-2026-09-08.json:28-45`;
-`research/2026-09-08-thesis-debate.md:905-921,1098-1110`  
+`research/2026-09-08-thesis-debate.md:905-921,1098-1110`
 **Claim challenged:** The central proposition is empirically testable and can
 be contradicted.
 
@@ -141,12 +141,12 @@ whether each bounded hypothesis is identifiable.
 
 ## R02-AD-SL-02
 
-**Severity:** Stop-line  
-**Lane:** A, cross-check D  
+**Severity:** Stop-line
+**Lane:** A, cross-check D
 **Artifact:** `meta/abundance-transition-programme.md:46-55`;
 `governance/if-protocol.md:71-113,162-223`;
 `dashboard/schema/snapshot.schema.json:55-119`;
-`dashboard/web/index.template.html:478-486`  
+`dashboard/web/index.template.html:478-486`
 **Claim challenged:** The proposition's ecological conditions are represented
 by the five-layer IF model, and the promise holds only if those layers hold.
 
@@ -200,10 +200,10 @@ agent cannot choose acceptable burden thresholds.
 
 ## R02-A-SL-03
 
-**Severity:** Stop-line  
-**Lane:** A  
+**Severity:** Stop-line
+**Lane:** A
 **Artifact:** `drafts/from-if-to-when.md:129-161,183-184,666-669`;
-`research/2026-09-07-transition-precedents-and-adkar.md:67-129`  
+`research/2026-09-07-transition-precedents-and-adkar.md:67-129`
 **Claim challenged:** Engels' Pause reveals the actual shape of technological
 transitions, and it ended because capital saturated plus Factory Acts raised
 child-labour costs, accelerated steam adoption and redirected allocation.
@@ -263,10 +263,10 @@ cannot substitute.
 
 ## R02-D-MJ-01
 
-**Severity:** Major  
-**Lane:** D, cross-check A  
+**Severity:** Major
+**Lane:** D, cross-check A
 **Artifact:** `drafts/from-if-to-when.md:167-181,403-429` and household access
-and agency constructs throughout `governance/if-protocol.md:81-113`  
+and agency constructs throughout `governance/if-protocol.md:81-113`
 **Claim challenged:** A household's access margin is the relevant success unit
 and can establish whether gains reached exposed people.
 
@@ -322,11 +322,11 @@ household-survey expertise.
 
 ## R02-AD-MJ-02
 
-**Severity:** Major  
-**Lane:** A, cross-check D  
+**Severity:** Major
+**Lane:** A, cross-check D
 **Artifact:** `meta/abundance-transition-programme.md:277-294`;
 `research/2026-09-08-thesis-debate.md:905-921`;
-`reviews/public-comprehension-affected-party-protocol-round-04.md:179-201`  
+`reviews/public-comprehension-affected-party-protocol-round-04.md:179-201`
 **Claim challenged:** The Observatory is a useful and trustworthy public
 instrument, rather than a more elaborate presentation of information
 available through simpler institutions.
@@ -385,9 +385,9 @@ expertise and affected-party co-design.
 
 ## R02-D-MJ-02
 
-**Severity:** Major  
-**Lane:** D  
-**Artifact:** `reviews/public-comprehension-affected-party-protocol-round-04.md:82-105,420-486,488-572`  
+**Severity:** Major
+**Lane:** D
+**Artifact:** `reviews/public-comprehension-affected-party-protocol-round-04.md:82-105,420-486,488-572`
 **Control challenged:** The proposed protocol ensures directly affected
 participation and prevents dangerous misunderstandings from being averaged
 away.

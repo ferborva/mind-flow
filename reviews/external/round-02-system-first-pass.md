@@ -34,11 +34,11 @@ submitted: 2026-09-08
 
 ## R02-E-001
 
-**Severity:** Stop-line  
-**Lane:** E, with F dependency  
+**Severity:** Stop-line
+**Lane:** E, with F dependency
 **Artifact:** `governance/public-release-validation.mjs:70-76,262-425,445-459`;
 `governance/schema/public-release.schema.json:129-208`;
-`governance/public-release-governance.md:54-97`  
+`governance/public-release-governance.md:54-97`
 **Control challenged:** `issuePublicRelease()` is a fail-closed issuance
 boundary.
 
@@ -88,11 +88,11 @@ or reviewer independence. Those remain human and institutional gates.
 
 ## R02-E-002
 
-**Severity:** Stop-line  
-**Lane:** E  
+**Severity:** Stop-line
+**Lane:** E
 **Artifact:** `dashboard/schema/snapshot.schema.json:16-51`;
 `dashboard/tools/build.mjs:67-87`;
-`dashboard/tools/build-australia-pilot.mjs:14-26`  
+`dashboard/tools/build-australia-pilot.mjs:14-26`
 **Control challenged:** The build validates snapshots and supports
 privacy-preserving public publication.
 
@@ -145,12 +145,12 @@ data-authority review where applicable.
 
 ## R02-E-003
 
-**Severity:** Stop-line  
-**Lane:** E  
+**Severity:** Stop-line
+**Lane:** E
 **Artifact:** `dashboard/schema/snapshot.schema.json:246-261`;
 `dashboard/tools/build.mjs:17-64`;
 `dashboard/web/index.template.html:1021-1058`;
-`dashboard/tools/build-australia-pilot.mjs:14-26`  
+`dashboard/tools/build-australia-pilot.mjs:14-26`
 **Control challenged:** A successful validated build cannot manufacture a
 materially false quantitative display.
 
@@ -197,12 +197,12 @@ alignment rules.
 
 ## R02-EF-004
 
-**Severity:** Stop-line  
-**Lane:** E primary; F cross-check  
+**Severity:** Stop-line
+**Lane:** E primary; F cross-check
 **Artifact:** `dashboard/schema/snapshot.schema.json:208-219`;
 `dashboard/tools/build.mjs:57-60`;
 `dashboard/web/index.template.html:1143-1175`;
-`governance/public-charter.md:174-183,243-271`  
+`governance/public-charter.md:174-183,243-271`
 **Control challenged:** An action cannot appear active without owner,
 authority, help and appeal, and those labels remain adjacent under crop or
 reflow.
@@ -248,12 +248,12 @@ verification of lawful scope and current mandate.
 
 ## R02-E-005
 
-**Severity:** Major  
-**Lane:** E  
+**Severity:** Major
+**Lane:** E
 **Artifact:** `dashboard/schema/snapshot.schema.json:263-270`;
 `dashboard/web/index.template.html:980-991`;
 `dashboard/tools/build-australia-pilot.mjs:14-26`;
-`pilots/australia/web/index.template.html:242-248`  
+`pilots/australia/web/index.template.html:242-248`
 **Control challenged:** Snapshot-supplied links are safe.
 
 **Observed problem:** Main source URLs are unrestricted strings and are
@@ -293,10 +293,10 @@ policy.
 
 ## R02-E-006
 
-**Severity:** Major  
-**Lane:** E  
+**Severity:** Major
+**Lane:** E
 **Artifact:** `dashboard/web/index.template.html:1-3,199-220,347-405` and
-generated file with the same structure  
+generated file with the same structure
 **Control challenged:** The global Observatory is accessible across screen
 readers, mobile, zoom and light or dark modes.
 
@@ -344,12 +344,12 @@ mandatory.
 
 ## R02-F-001
 
-**Severity:** Major  
-**Lane:** F, cross-check from E  
+**Severity:** Major
+**Lane:** F, cross-check from E
 **Artifact:** `communications/early-action-and-negotiation-framework.md:46-124,339-461,523-564`;
 `dashboard/schema/snapshot.schema.json:348-358`;
 `dashboard/web/index.template.html:851-891`;
-`dashboard/snapshots/2026-09-07.json:8958-9055`  
+`dashboard/snapshots/2026-09-07.json:8958-9055`
 **Control challenged:** The product can preserve precedence, conflict, pause,
 reversal, recovery, authority, expiry and negotiation.
 
