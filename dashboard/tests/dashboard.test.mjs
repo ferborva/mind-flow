@@ -166,7 +166,7 @@ test("the first screen discloses prototype authority and the seven-part update",
     "PROTOTYPE",
     "AGENT PROPOSAL",
     "REQUIRES FERNANDO REVIEW",
-    "WHAT THE DATA SHOW",
+    "WHAT THE RECORD REPORTS",
     "AFFECTED",
     "INFERRED",
     "IF CHANGED",
@@ -180,6 +180,11 @@ test("the first screen discloses prototype authority and the seven-part update",
   assert.match(template, /No psychohistory/i);
   assert.match(template, /id=["']now-observed["']/i);
   assert.match(template, /function renderNow\(/);
+  assert.match(template, /function publicUpdateEpistemicLabel\(/);
+  assert.match(
+    template,
+    /cell\("now-observed",publicUpdateEpistemicLabel\(observed,update\.lineage\)\+"\. "/,
+  );
   assert.doesNotMatch(template, /Six measured and two derived global signals/i);
 });
 

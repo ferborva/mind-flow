@@ -413,7 +413,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
     <dl class="public-update">
-      <div class="update-cell"><dt>WHAT THE DATA SHOW</dt><dd id="now-observed" aria-live="polite">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>WHAT THE RECORD REPORTS</dt><dd id="now-observed" aria-live="polite">Loading update contract…</dd></div>
       <div class="update-cell"><dt>AFFECTED</dt><dd id="now-affected">Loading update contract…</dd></div>
       <div class="update-cell"><dt>INFERRED</dt><dd id="now-inferred">Loading update contract…</dd></div>
       <div class="update-cell"><dt>IF CHANGED</dt><dd id="now-condition">Loading update contract…</dd></div>
@@ -633,6 +633,14 @@ function stateLabel(sig){
 }
 function epistemicLabel(value){
   return String(value||"unknown").replaceAll("_"," ");
+}
+function publicUpdateEpistemicLabel(observed,lineage){
+  var label=epistemicLabel(observed.epistemic_class);
+  if(observed.epistemic_class!=="derived") return label;
+  var inputs=Array.from(new Set((lineage.derived_points||[]).flatMap(function(point){
+    return point.input_epistemic_classes||[];
+  }))).map(epistemicLabel);
+  return inputs.length?label+" FROM "+inputs.join(" + "):label+" FROM UNRESOLVED INPUT CLASS";
 }
 function sourceBytesLabel(){
   return snap.reproducibility&&snap.reproducibility.raw_input_status==="captured_local_hash_consistent"
@@ -1347,7 +1355,7 @@ function renderNow(){
         signal,[reference.year],reference.entity,reference.measure||null);
     }).join("; ");
   }).join("; ");
-  cell("now-observed",observed.summary+" ["+visibleTimingState+" · "+sourceBytesLabel()+" · FROZEN RECORD "+snap.record_id+"]",
+  cell("now-observed",publicUpdateEpistemicLabel(observed,update.lineage)+". "+observed.summary+" ["+visibleTimingState+" · "+sourceBytesLabel()+" · FROZEN RECORD "+snap.record_id+"]",
     "Class: "+observed.epistemic_class+"\nMeasure: "+observed.measure+"\nScope: "+scope.population+" / "+scope.place+" / "+scope.period+"\nRecord: "+observed.record_id+"\nPublisher release and retrieval: "+timingSummary+"\nUncertainty: "+observed.uncertainty+"\nSources: "+sources.join("; "));
   cell("now-affected",affected.status.toUpperCase()+". "+affected.summary,
     "Excluded or unresolved: "+affected.excluded_or_unresolved.join("; "));

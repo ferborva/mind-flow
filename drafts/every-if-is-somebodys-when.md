@@ -49,7 +49,7 @@ updated: 2026-09-09
 - Most abundance promises depend on **supply**, not a gift arriving. Somebody,
   or some durable system, has to be able to provide the thing.
 - So the frame has two sides. Consumers get **"I will be able to X, if..."**.
-  Providers get **"we will be able to offer X, when..."**.
+  Providers record **"we propose we could attempt to offer X, when..."**.
 - **Same conditions, different posture.** An IF exposes what a person's outcome
   depends on. A WHEN records what one actor proposes it could do as conditions
   change.
