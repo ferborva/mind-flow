@@ -10,8 +10,10 @@ import {
   computeObservationHash,
   computeSignalDefinitionHash,
   evaluateCondition,
+  evaluateKernelCondition,
   evaluateTruthExpression,
   resealKernel,
+  selectCurrentEvidence,
   validateExecutableIfKernel,
 } from "../validate.mjs";
 
@@ -31,7 +33,7 @@ function definition(id) {
 }
 
 function observationsFor(id) {
-  return fixture.observations.filter(
+  return selectCurrentEvidence(fixture).filter(
     ({ condition_definition_ref: ref }) => ref.condition_id === id,
   );
 }
@@ -130,7 +132,9 @@ test("normalized observations produce fixed five-valued predicate and condition 
     evaluatedAt: "2026-09-09T00:00:00Z",
   }).condition_truth.state, "stale");
 
-  const disagreement = clone(observed.at(-1));
+  const disagreement = clone(observed.find(
+    ({ observation_id: id }) => id === "observation.option-coverage.august",
+  ));
   disagreement.observation_id = "observation.worker-option.nsw.conflict";
   disagreement.source_id = "source.synthetic-independent-review";
   disagreement.value = 0.5;
@@ -157,6 +161,51 @@ test("definition events name an author and reason", () => {
     assert.match(event.recorded_by, /.+/);
     assert.match(event.reason, /.+/);
   }
+});
+
+test("the evidence ledger exercises correction, challenge, withdrawal and expiry", () => {
+  const validation = validateExecutableIfKernel(fixture);
+  assert.equal(validation.evidence_history_valid, true);
+  assert.deepEqual(
+    [...new Set(fixture.evidence_events.map(({ operation }) => operation))].sort(),
+    [
+      "challenge-resolved",
+      "evidence-added",
+      "evidence-challenged",
+      "evidence-corrected",
+      "evidence-expired",
+      "evidence-withdrawn",
+    ],
+  );
+  assert.ok(fixture.current_evidence_state.some(({ lifecycle }) => lifecycle === "superseded"));
+  assert.ok(fixture.current_evidence_state.some(({ lifecycle }) => lifecycle === "withdrawn"));
+  assert.ok(fixture.current_evidence_state.some(({ lifecycle }) => lifecycle === "expired"));
+  assert.equal(selectCurrentEvidence(fixture).length, 4);
+  assert.ok(!selectCurrentEvidence(fixture).some(
+    ({ observation_id: id }) => id === "observation.option-coverage.july.original",
+  ));
+  assert.match(readme, /Only `active` evidence.*eligible for evaluation/is);
+  assert.match(readme, /different cell is new evidence, not a\s+correction/is);
+});
+
+test("governed evaluation binds the validated kernel and its active evidence fold", () => {
+  const result = evaluateKernelCondition(fixture, "condition.worker-option.nsw", {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+  });
+  assert.equal(result.mechanically_valid_for_evaluation, true);
+  assert.equal(result.computed_rule_state.state, "true");
+  assert.equal(result.kernel_manifest_hash, fixture.manifest_hash);
+  assert.match(result.evidence_state_hash, /^sha256:[a-f0-9]{64}$/);
+  assert.equal(result.observation_hashes.length, 4);
+
+  const tampered = clone(fixture);
+  tampered.current_evidence_state[0].lifecycle = "active";
+  const rejected = evaluateKernelCondition(tampered, "condition.worker-option.nsw", {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+  });
+  assert.equal(rejected.mechanically_valid_for_evaluation, false);
+  assert.equal(rejected.computed_rule_state.state, "unknown");
+  assert.ok(rejected.errors.some(({ code }) => code === "KERNEL_INVALID"));
 });
 
 test("five-valued logic never coerces unknown, stale or conflicted to false", () => {
@@ -296,8 +345,9 @@ test("hostile: replaying an identical condition version is not a new event", () 
 test("hostile: malformed or future observations cannot enter standalone evaluation", () => {
   const active = definition("condition.worker-option.nsw");
   const invalid = clone(observationsFor(active.condition_id));
-  invalid[0].value = 0.5;
-  invalid[0].observation_hash = computeObservationHash(invalid[0]);
+  const invalidBoolean = invalid.find(({ predicate_id: id }) => id === "human-review");
+  invalidBoolean.value = 0.5;
+  invalidBoolean.observation_hash = computeObservationHash(invalidBoolean);
   const malformed = evaluateCondition(active, fixture.signals, invalid, {
     evaluatedAt: "2026-09-09T00:00:00Z",
   });
@@ -325,7 +375,7 @@ test("hostile: standalone evaluation rejects unsealed condition semantics", () =
   assert.ok(result.errors.some(({ code }) => code === "DEFINITION_HASH_MISMATCH"));
 });
 
-test("hostile: a source cannot submit two values for one signal-period cell", () => {
+test("hostile: an observation cannot bypass evidence-event governance", () => {
   const changed = clone(fixture);
   const duplicate = clone(changed.observations.at(-1));
   duplicate.observation_id = "observation.option-coverage.august.duplicate";
@@ -335,7 +385,7 @@ test("hostile: a source cannot submit two values for one signal-period cell", ()
   resealKernel(changed);
   const result = validateExecutableIfKernel(changed);
   assert.equal(result.machine_valid, false);
-  assert.ok(result.errors.some(({ code }) => code === "DUPLICATE_SOURCE_PERIOD_CELL"));
+  assert.ok(result.errors.some(({ code }) => code === "OBSERVATION_MISSING_EVIDENCE_EVENT"));
 });
 
 test("the checked-in synthetic fixture is reproducible without rewriting it", () => {
@@ -704,6 +754,8 @@ test("hostile: a merge cannot fabricate Cartesian scope cells", () => {
         }),
     ],
     observations: [],
+    evidence_events: [],
+    current_evidence_state: [],
     current_state: [
       makeState(nswGeneral, 2, "superseded"),
       makeState(qldPayroll, 2, "superseded"),
@@ -733,4 +785,103 @@ test("hostile: a derived identity must begin at definition version one", () => {
   const result = validateExecutableIfKernel(changed);
   assert.equal(result.machine_valid, false);
   assert.ok(result.errors.some(({ code }) => code === "INVALID_SPLIT_TARGET"));
+});
+
+test("an unresolved evidence challenge is excluded and leaves the IF unknown", () => {
+  const changed = clone(fixture);
+  changed.evidence_events = changed.evidence_events.slice(0, 8);
+  const retainedIds = new Set([
+    "observation.option-coverage.june.withdrawn",
+    "observation.human-review.june.expired",
+    "observation.option-coverage.july.original",
+    "observation.option-coverage.july",
+    "observation.human-review.july",
+  ]);
+  changed.observations = changed.observations.filter(({ observation_id: id }) => retainedIds.has(id));
+  changed.current_evidence_state = [
+    changed.evidence_events[1].new_states[0],
+    changed.evidence_events[3].new_states[0],
+    changed.evidence_events[5].new_states[0],
+    changed.evidence_events[5].new_states[1],
+    changed.evidence_events[7].new_states[0],
+  ];
+  resealKernel(changed);
+  const validation = validateExecutableIfKernel(changed);
+  assert.equal(validation.machine_valid, true);
+  const active = definition("condition.worker-option.nsw");
+  const selected = selectCurrentEvidence(changed);
+  assert.ok(!selected.some(({ observation_id: id }) => id === "observation.human-review.july"));
+  assert.equal(evaluateCondition(active, fixture.signals, selected, {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+  }).condition_truth.state, "unknown");
+});
+
+test("hostile: a correction cannot change the source-period cell", () => {
+  const changed = clone(fixture);
+  const replacement = changed.observations.find(
+    ({ observation_id: id }) => id === "observation.option-coverage.july",
+  );
+  replacement.period.start = "2026-07-02T00:00:00Z";
+  replacement.observation_hash = computeObservationHash(replacement);
+  const correction = changed.evidence_events.find(
+    ({ operation }) => operation === "evidence-corrected",
+  );
+  correction.new_states[1].observation_ref.observation_hash = replacement.observation_hash;
+  correction.relation.to_observation_ref.observation_hash = replacement.observation_hash;
+  const current = changed.current_evidence_state.find(
+    ({ observation_ref: ref }) => ref.observation_id === replacement.observation_id,
+  );
+  current.observation_ref.observation_hash = replacement.observation_hash;
+  resealKernel(changed);
+  const result = validateExecutableIfKernel(changed);
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "INVALID_EVIDENCE_CORRECTION"));
+});
+
+test("hostile: two active observations cannot occupy one source-period cell", () => {
+  const changed = clone(fixture);
+  const source = changed.observations.find(
+    ({ observation_id: id }) => id === "observation.option-coverage.august",
+  );
+  const duplicate = clone(source);
+  duplicate.observation_id = "observation.option-coverage.august.competing";
+  duplicate.value = 0.2;
+  duplicate.observation_hash = computeObservationHash(duplicate);
+  changed.observations.push(duplicate);
+  const state = {
+    observation_ref: {
+      observation_id: duplicate.observation_id,
+      observation_hash: duplicate.observation_hash,
+    },
+    state_version: 1,
+    lifecycle: "active",
+  };
+  changed.evidence_events.push({
+    sequence: changed.evidence_events.length + 1,
+    evidence_event_id: "evidence-event.august-option.competing",
+    operation: "evidence-added",
+    recorded_at: "2026-09-04T00:00:00Z",
+    recorded_by: "Hostile test",
+    reason: "Try to keep two values active in one cell.",
+    previous_states: [],
+    new_states: [state],
+    relation: { kind: "none" },
+    authority_effect: "none",
+    action_authorised: false,
+    previous_evidence_event_hash: null,
+    evidence_event_hash: `sha256:${"0".repeat(64)}`,
+  });
+  changed.current_evidence_state.push(state);
+  resealKernel(changed);
+  const result = validateExecutableIfKernel(changed);
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "DUPLICATE_ACTIVE_SOURCE_PERIOD_CELL"));
+});
+
+test("hostile: evidence history cannot be rewritten without detection", () => {
+  const changed = clone(fixture);
+  changed.evidence_events[5].reason = "Rewritten correction rationale.";
+  const result = validateExecutableIfKernel(changed);
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "EVIDENCE_EVENT_HASH_MISMATCH"));
 });

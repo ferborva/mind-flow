@@ -103,8 +103,8 @@ Changing the claim requires a new identity and an explicit relationship.
 
 ## Evolution contract
 
-Definitions are introduced through a locally hash-chained event history. The supported
-prototype operations are:
+Definitions are introduced through a locally hash-chained event history. The
+supported prototype operations are:
 
 - `added`: introduce one new active identity;
 - `narrowed`: preserve executable semantics while making scope a strict subset;
@@ -122,10 +122,23 @@ version, even with identical bytes, is rejected because it would make a replay
 look like a new change. This local chain detects rewriting only when an earlier
 checkpoint is retained elsewhere. `recorded_by` is not authenticated.
 
-This prototype does not yet encode evidence-added, challenged, disputed,
-expired, withdrawn or threshold-authorised events. Those belong in the next
-integration round. Definition history alone does not describe the full life of
-an IF.
+Evidence has a separate, locally hash-chained lifecycle:
+
+- `evidence-added` introduces one observation once;
+- `evidence-corrected` supersedes it with a new same-cell observation;
+- `evidence-challenged` excludes it while the challenge is unresolved;
+- `challenge-resolved` returns the same observation to active use;
+- `evidence-withdrawn` and `evidence-expired` exclude it without erasure.
+
+Only `active` evidence from a valid fold is eligible for evaluation.
+`challenged`, `superseded`, `withdrawn` and `expired` evidence stays visible in
+history. A correction cannot change the condition, predicate, signal, scope,
+period, unit or source identity. A different cell is new evidence, not a
+correction.
+
+This prototype does not yet authenticate event actors, model disputed claims
+between institutions, impose a retention service, or encode who has authority
+to resolve a challenge. Those are integration gates, not implied capabilities.
 
 ## Integrity and its ceiling
 

@@ -65,6 +65,10 @@ export function computeEventHash(event) {
   return digest("definition-event", without(event, "event_hash"));
 }
 
+export function computeEvidenceEventHash(event) {
+  return digest("evidence-event", without(event, "evidence_event_hash"));
+}
+
 export function computeManifestHash(kernel) {
   return digest("kernel-manifest", without(kernel, "manifest_hash"));
 }
@@ -90,6 +94,13 @@ function signalRefFor(signal) {
     signal_id: signal.signal_id,
     definition_version: signal.definition_version,
     signal_definition_hash: signal.signal_definition_hash,
+  };
+}
+
+function observationRefFor(observation) {
+  return {
+    observation_id: observation.observation_id,
+    observation_hash: observation.observation_hash,
   };
 }
 
@@ -755,7 +766,6 @@ function validateHistory(kernel, signalMap, errors) {
 
 function validateObservations(kernel, signalMap, definitionObjects, definitionIntroducedAt, errors) {
   const ids = new Set();
-  const sourcePeriodCells = new Set();
   for (const [index, observation] of kernel.observations.entries()) {
     const path = `/observations/${index}`;
     if (ids.has(observation.observation_id)) {
@@ -809,6 +819,169 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
       errors.push(error("OBSERVATION_COVERAGE_INCOHERENT", `${path}/coverage`,
         "observed and missing units must equal eligible units"));
     }
+  }
+}
+
+function evidenceStateKey(state) {
+  return state.observation_ref.observation_id;
+}
+
+function sameObservationCell(left, right) {
+  return same(
+    [left.condition_definition_ref, left.predicate_id, left.signal_ref, left.scope,
+      left.period, left.unit, left.source_id],
+    [right.condition_definition_ref, right.predicate_id, right.signal_ref, right.scope,
+      right.period, right.unit, right.source_id],
+  );
+}
+
+function validateEvidenceHistory(kernel, errors) {
+  const observations = new Map(kernel.observations.map((observation) => [
+    observation.observation_id,
+    observation,
+  ]));
+  const current = new Map();
+  const introducedIds = new Set();
+  const eventIds = new Set();
+  let previousHash = null;
+  let previousTime = -Infinity;
+
+  const validateStateRef = (state, path) => {
+    const observation = observations.get(state.observation_ref.observation_id);
+    if (!observation || !sameRef(state.observation_ref, observationRefFor(observation))) {
+      errors.push(error("EVIDENCE_STATE_OBSERVATION_UNRESOLVED", `${path}/observation_ref`,
+        "evidence state must bind an exact registered observation"));
+    }
+    return observation;
+  };
+  const sameStateRef = (left, right) => sameRef(left.observation_ref, right.observation_ref);
+  const requireTransition = (before, after, lifecycle, path) => {
+    if (!sameStateRef(before, after) || after.state_version !== before.state_version + 1 ||
+        after.lifecycle !== lifecycle) {
+      errors.push(error("INVALID_EVIDENCE_STATE_TRANSITION", path,
+        "evidence state must preserve its observation, increment once and enter the required lifecycle"));
+    }
+  };
+
+  kernel.evidence_events.forEach((event, index) => {
+    const path = `/evidence_events/${index}`;
+    if (event.sequence !== index + 1) {
+      errors.push(error("EVIDENCE_EVENT_SEQUENCE_GAP", `${path}/sequence`,
+        "evidence event sequences must be contiguous"));
+    }
+    if (eventIds.has(event.evidence_event_id)) {
+      errors.push(error("DUPLICATE_EVIDENCE_EVENT_ID", `${path}/evidence_event_id`,
+        "evidence event ids must be unique"));
+    }
+    eventIds.add(event.evidence_event_id);
+    const eventTime = Date.parse(event.recorded_at);
+    if (eventTime <= previousTime) {
+      errors.push(error("EVIDENCE_EVENT_CHRONOLOGY_INVALID", `${path}/recorded_at`,
+        "evidence events must be strictly chronological"));
+    }
+    previousTime = eventTime;
+    if (event.previous_evidence_event_hash !== previousHash) {
+      errors.push(error("EVIDENCE_EVENT_CHAIN_BROKEN", `${path}/previous_evidence_event_hash`,
+        "evidence event does not bind the prior event hash"));
+    }
+    if (event.evidence_event_hash !== computeEvidenceEventHash(event)) {
+      errors.push(error("EVIDENCE_EVENT_HASH_MISMATCH", `${path}/evidence_event_hash`,
+        "evidence event hash does not match event bytes"));
+    }
+    if (event.authority_effect !== "none" || event.action_authorised !== false) {
+      errors.push(error("EVIDENCE_EVENT_AUTHORITY_CLAIM", path,
+        "evidence events cannot authorise action"));
+    }
+    for (const [stateIndex, state] of event.previous_states.entries()) {
+      const statePath = `${path}/previous_states/${stateIndex}`;
+      validateStateRef(state, statePath);
+      const expected = current.get(evidenceStateKey(state));
+      if (!expected || !same(expected, state) || !["active", "challenged"].includes(state.lifecycle)) {
+        errors.push(error("PREVIOUS_EVIDENCE_STATE_NOT_CURRENT", statePath,
+          "event previous evidence state must equal a current mutable state"));
+      }
+    }
+    for (const [stateIndex, state] of event.new_states.entries()) {
+      const observation = validateStateRef(state, `${path}/new_states/${stateIndex}`);
+      if (observation && Date.parse(observation.recorded_at) > eventTime) {
+        errors.push(error("EVIDENCE_EVENT_PREDATES_OBSERVATION", path,
+          "an evidence event cannot precede the observation it references"));
+      }
+    }
+
+    const previous = event.previous_states;
+    const next = event.new_states;
+    if (event.operation === "evidence-added") {
+      if (previous.length !== 0 || next.length !== 1 || next[0].state_version !== 1 ||
+          next[0].lifecycle !== "active" || event.relation.kind !== "none" ||
+          current.has(evidenceStateKey(next[0])) || introducedIds.has(evidenceStateKey(next[0]))) {
+        errors.push(error("INVALID_EVIDENCE_ADDED_EVENT", path,
+          "evidence-added must introduce one new active observation at state version one"));
+      } else introducedIds.add(evidenceStateKey(next[0]));
+    } else if (event.operation === "evidence-corrected") {
+      const before = previous[0];
+      const oldAfter = before && next.find((state) => evidenceStateKey(state) === evidenceStateKey(before));
+      const replacement = next.find((state) => !before || evidenceStateKey(state) !== evidenceStateKey(before));
+      const sourceObservation = before && observations.get(evidenceStateKey(before));
+      const replacementObservation = replacement && observations.get(evidenceStateKey(replacement));
+      if (previous.length !== 1 || next.length !== 2 || !oldAfter || !replacement ||
+          replacement.state_version !== 1 || replacement.lifecycle !== "active" ||
+          event.relation.kind !== "correction" ||
+          !sameRef(event.relation.from_observation_ref, before.observation_ref) ||
+          !sameRef(event.relation.to_observation_ref, replacement.observation_ref) ||
+          introducedIds.has(evidenceStateKey(replacement)) || current.has(evidenceStateKey(replacement)) ||
+          !sourceObservation || !replacementObservation ||
+          !sameObservationCell(sourceObservation, replacementObservation)) {
+        errors.push(error("INVALID_EVIDENCE_CORRECTION", path,
+          "a correction must supersede one current observation with one new same-cell observation"));
+      } else {
+        requireTransition(before, oldAfter, "superseded", path);
+        introducedIds.add(evidenceStateKey(replacement));
+      }
+    } else {
+      const before = previous[0];
+      const after = next[0];
+      const expected = {
+        "evidence-challenged": ["active", "challenged"],
+        "challenge-resolved": ["challenged", "active"],
+        "evidence-withdrawn": [["active", "challenged"], "withdrawn"],
+        "evidence-expired": ["active", "expired"],
+      }[event.operation];
+      const allowedBefore = Array.isArray(expected?.[0]) ? expected[0] : [expected?.[0]];
+      if (previous.length !== 1 || next.length !== 1 || event.relation.kind !== "none" ||
+          !expected || !allowedBefore.includes(before?.lifecycle)) {
+        errors.push(error("INVALID_EVIDENCE_LIFECYCLE_EVENT", path,
+          "challenge, resolution, withdrawal and expiry require one exact current state"));
+      } else requireTransition(before, after, expected[1], path);
+    }
+    for (const state of event.new_states) current.set(evidenceStateKey(state), state);
+    previousHash = event.evidence_event_hash;
+  });
+
+  for (const observationId of observations.keys()) {
+    if (!introducedIds.has(observationId)) {
+      errors.push(error("OBSERVATION_MISSING_EVIDENCE_EVENT", "/observations",
+        `observation ${observationId} was never introduced by evidence history`));
+    }
+  }
+  for (const observationId of introducedIds) {
+    if (!observations.has(observationId)) {
+      errors.push(error("EVIDENCE_EVENT_OBSERVATION_MISSING", "/evidence_events",
+        `evidence history introduced missing observation ${observationId}`));
+    }
+  }
+  const declared = new Map(kernel.current_evidence_state.map((state) => [evidenceStateKey(state), state]));
+  if (declared.size !== kernel.current_evidence_state.length || declared.size !== current.size ||
+      [...current].some(([id, state]) => !same(declared.get(id), state))) {
+    errors.push(error("CURRENT_EVIDENCE_STATE_FOLD_MISMATCH", "/current_evidence_state",
+      "declared evidence state must equal the complete evidence-event fold"));
+  }
+
+  const activeCells = new Set();
+  for (const state of current.values()) {
+    if (state.lifecycle !== "active") continue;
+    const observation = observations.get(evidenceStateKey(state));
+    if (!observation) continue;
     const cell = canonicalJson([
       observation.condition_definition_ref,
       observation.predicate_id,
@@ -816,12 +989,23 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
       observation.period,
       observation.source_id,
     ]);
-    if (sourcePeriodCells.has(cell)) {
-      errors.push(error("DUPLICATE_SOURCE_PERIOD_CELL", path,
-        "one source id can provide only one value for a signal-period cell"));
+    if (activeCells.has(cell)) {
+      errors.push(error("DUPLICATE_ACTIVE_SOURCE_PERIOD_CELL", "/current_evidence_state",
+        "only one active observation may occupy a source-period cell"));
     }
-    sourcePeriodCells.add(cell);
+    activeCells.add(cell);
   }
+
+  return [...current.values()].sort((left, right) =>
+    evidenceStateKey(left).localeCompare(evidenceStateKey(right)));
+}
+
+export function selectCurrentEvidence(kernel) {
+  const active = new Map((kernel.current_evidence_state || [])
+    .filter(({ lifecycle }) => lifecycle === "active")
+    .map((state) => [state.observation_ref.observation_id, state.observation_ref.observation_hash]));
+  return (kernel.observations || []).filter((observation) =>
+    active.get(observation.observation_id) === observation.observation_hash);
 }
 
 export function resealKernel(kernel) {
@@ -840,6 +1024,12 @@ export function resealKernel(kernel) {
   for (const observation of kernel.observations || []) {
     observation.observation_hash = computeObservationHash(observation);
   }
+  let previousEvidenceEventHash = null;
+  for (const event of kernel.evidence_events || []) {
+    event.previous_evidence_event_hash = previousEvidenceEventHash;
+    event.evidence_event_hash = computeEvidenceEventHash(event);
+    previousEvidenceEventHash = event.evidence_event_hash;
+  }
   kernel.manifest_hash = computeManifestHash(kernel);
   return kernel;
 }
@@ -856,6 +1046,7 @@ export function validateExecutableIfKernel(kernel) {
       schema_valid: false,
       integrity_valid: false,
       history_valid: false,
+      evidence_history_valid: false,
       machine_valid: false,
       mechanically_valid_for_evaluation: false,
       executable: false,
@@ -866,6 +1057,7 @@ export function validateExecutableIfKernel(kernel) {
       definition_history: [],
       current_definition_state: [],
       current_state: [],
+      current_evidence_state: [],
       errors,
     };
   }
@@ -899,12 +1091,16 @@ export function validateExecutableIfKernel(kernel) {
     history.definitionIntroducedAt,
     errors,
   );
+  const evidenceHistoryStart = errors.length;
+  const currentEvidenceState = validateEvidenceHistory(kernel, errors);
+  const evidenceHistoryValid = errors.length === evidenceHistoryStart;
   if (kernel.manifest_hash !== computeManifestHash(kernel)) {
     errors.push(error("MANIFEST_HASH_MISMATCH", "/manifest_hash", "manifest hash does not match kernel bytes"));
   }
   const integrityCodes = new Set([
     "SIGNAL_HASH_MISMATCH", "DEFINITION_HASH_MISMATCH", "OBSERVATION_HASH_MISMATCH",
-    "EVENT_HASH_MISMATCH", "EVENT_CHAIN_BROKEN", "MANIFEST_HASH_MISMATCH",
+    "EVENT_HASH_MISMATCH", "EVENT_CHAIN_BROKEN", "EVIDENCE_EVENT_HASH_MISMATCH",
+    "EVIDENCE_EVENT_CHAIN_BROKEN", "MANIFEST_HASH_MISMATCH",
   ]);
   const integrityValid = !errors.some(({ code }) => integrityCodes.has(code));
   const machineValid = errors.length === 0;
@@ -912,6 +1108,7 @@ export function validateExecutableIfKernel(kernel) {
     schema_valid: true,
     integrity_valid: integrityValid,
     history_valid: historyValid,
+    evidence_history_valid: evidenceHistoryValid,
     machine_valid: machineValid,
     mechanically_valid_for_evaluation: machineValid,
     executable: machineValid,
@@ -922,6 +1119,69 @@ export function validateExecutableIfKernel(kernel) {
     definition_history: history.definitionHistory,
     current_definition_state: history.currentState,
     current_state: history.currentState,
+    current_evidence_state: currentEvidenceState,
     errors,
   };
+}
+
+function rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, rejectionErrors) {
+  const receipt = {
+    evaluated_at: evaluatedAt,
+    clock: { source: "caller-supplied", trusted: false },
+    evaluator_ref: FIXED_EVALUATOR_REF,
+    kernel_manifest_hash: kernel?.manifest_hash || null,
+    evidence_state_hash: null,
+    requested_condition_id: conditionId,
+    condition_definition_ref: null,
+    observation_hashes: [],
+    mechanically_valid_for_evaluation: false,
+    computed_rule_state: { axis: "computed_rule_state", state: "unknown" },
+    executable: false,
+    errors: rejectionErrors,
+    predicate_results: {},
+    condition_truth: { axis: "condition_truth", state: "unknown" },
+    empirical_truth_established: false,
+    authority_effect: "none",
+    action_authorised: false,
+    publication_approved: false,
+  };
+  return { ...receipt, evaluation_hash: digest("kernel-evaluation-receipt", receipt) };
+}
+
+export function evaluateKernelCondition(kernel, conditionId, { evaluatedAt }) {
+  const validation = validateExecutableIfKernel(kernel);
+  if (!validation.machine_valid) {
+    return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
+      error("KERNEL_INVALID", "/", "governed evaluation requires a machine-valid kernel"),
+      ...validation.errors,
+    ]);
+  }
+  const state = validation.current_definition_state.find((candidate) =>
+    candidate.condition_id === conditionId && candidate.lifecycle === "active");
+  if (!state) {
+    return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
+      error("KERNEL_CONDITION_NOT_ACTIVE", "/current_state",
+        "requested condition must resolve to one active current definition"),
+    ]);
+  }
+  const definition = kernel.events.flatMap(({ introduced_definitions: definitions }) => definitions)
+    .find((candidate) => sameRef(refFor(candidate), state.condition_definition_ref));
+  if (!definition) {
+    return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
+      error("KERNEL_CONDITION_UNRESOLVED", "/events",
+        "active condition definition could not be resolved"),
+    ]);
+  }
+  const selected = selectCurrentEvidence(kernel).filter((observation) =>
+    sameRef(observation.condition_definition_ref, refFor(definition)));
+  const base = evaluateCondition(definition, kernel.signals, selected, { evaluatedAt });
+  const receipt = structuredClone(base);
+  delete receipt.evaluation_hash;
+  receipt.kernel_manifest_hash = kernel.manifest_hash;
+  receipt.evidence_state_hash = digest(
+    "current-evidence-state",
+    [...kernel.current_evidence_state].sort((left, right) =>
+      evidenceStateKey(left).localeCompare(evidenceStateKey(right))),
+  );
+  return { ...receipt, evaluation_hash: digest("kernel-evaluation-receipt", receipt) };
 }

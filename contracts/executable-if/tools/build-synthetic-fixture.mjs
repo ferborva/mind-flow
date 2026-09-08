@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import {
   FIXED_EVALUATOR_REF,
   computeConditionDefinitionHash,
+  computeEvidenceEventHash,
   computeEventHash,
   computeManifestHash,
   computeObservationHash,
@@ -252,12 +253,112 @@ function observation(observationId, predicateId, signalId, start, end, recordedA
   return item;
 }
 
+const withdrawnJune = observation(
+  "observation.option-coverage.june.withdrawn", "option-coverage", "signal.option.coverage",
+  "2026-06-01T00:00:00Z", "2026-06-30T00:00:00Z", "2026-07-01T00:00:00Z", 0.91, "ratio",
+);
+const expiredJune = observation(
+  "observation.human-review.june.expired", "human-review", "signal.human-review.available",
+  "2026-06-01T00:00:00Z", "2026-06-30T00:00:00Z", "2026-07-01T00:00:00Z", true, "boolean",
+);
+const originalJuly = observation(
+  "observation.option-coverage.july.original", "option-coverage", "signal.option.coverage",
+  "2026-07-01T00:00:00Z", "2026-07-31T00:00:00Z", "2026-08-01T00:00:00Z", 0.91, "ratio",
+);
+const correctedJuly = observation(
+  "observation.option-coverage.july", "option-coverage", "signal.option.coverage",
+  "2026-07-01T00:00:00Z", "2026-07-31T00:00:00Z", "2026-08-03T00:00:00Z", 0.94, "ratio",
+);
+const humanJuly = observation(
+  "observation.human-review.july", "human-review", "signal.human-review.available",
+  "2026-07-01T00:00:00Z", "2026-07-31T00:00:00Z", "2026-08-01T00:00:00Z", true, "boolean",
+);
+const optionAugust = observation(
+  "observation.option-coverage.august", "option-coverage", "signal.option.coverage",
+  "2026-08-01T00:00:00Z", "2026-08-31T00:00:00Z", "2026-09-01T00:00:00Z", 0.95, "ratio",
+);
+const humanAugust = observation(
+  "observation.human-review.august", "human-review", "signal.human-review.available",
+  "2026-08-01T00:00:00Z", "2026-08-31T00:00:00Z", "2026-09-01T00:00:00Z", true, "boolean",
+);
 const observations = [
-  observation("observation.human-review.july", "human-review", "signal.human-review.available", "2026-07-01T00:00:00Z", "2026-07-31T00:00:00Z", "2026-08-01T00:00:00Z", true, "boolean"),
-  observation("observation.human-review.august", "human-review", "signal.human-review.available", "2026-08-01T00:00:00Z", "2026-08-31T00:00:00Z", "2026-09-01T00:00:00Z", true, "boolean"),
-  observation("observation.option-coverage.july", "option-coverage", "signal.option.coverage", "2026-07-01T00:00:00Z", "2026-07-31T00:00:00Z", "2026-08-01T00:00:00Z", 0.94, "ratio"),
-  observation("observation.option-coverage.august", "option-coverage", "signal.option.coverage", "2026-08-01T00:00:00Z", "2026-08-31T00:00:00Z", "2026-09-01T00:00:00Z", 0.95, "ratio"),
+  withdrawnJune,
+  expiredJune,
+  originalJuly,
+  correctedJuly,
+  humanJuly,
+  optionAugust,
+  humanAugust,
 ];
+
+function evidenceRef(item) {
+  return { observation_id: item.observation_id, observation_hash: item.observation_hash };
+}
+
+function evidenceState(item, stateVersion, lifecycle = "active") {
+  return {
+    observation_ref: evidenceRef(item),
+    state_version: stateVersion,
+    lifecycle,
+  };
+}
+
+function evidenceEvent(sequence, evidenceEventId, operation, recordedAt, previousStates,
+  newStates, relation = { kind: "none" }) {
+  return {
+    sequence,
+    evidence_event_id: evidenceEventId,
+    operation,
+    recorded_at: recordedAt,
+    recorded_by: "Ren (Codex agent)",
+    reason: `Synthetic ${operation} event for evidence-lifecycle testing.`,
+    previous_states: previousStates,
+    new_states: newStates,
+    relation,
+    authority_effect: "none",
+    action_authorised: false,
+    previous_evidence_event_hash: null,
+    evidence_event_hash: `sha256:${"0".repeat(64)}`,
+  };
+}
+
+const evidenceEvents = [
+  evidenceEvent(1, "evidence-event.june-option.added", "evidence-added", "2026-07-02T00:00:00Z",
+    [], [evidenceState(withdrawnJune, 1)]),
+  evidenceEvent(2, "evidence-event.june-option.withdrawn", "evidence-withdrawn", "2026-07-03T00:00:00Z",
+    [evidenceState(withdrawnJune, 1)], [evidenceState(withdrawnJune, 2, "withdrawn")]),
+  evidenceEvent(3, "evidence-event.june-review.added", "evidence-added", "2026-07-04T00:00:00Z",
+    [], [evidenceState(expiredJune, 1)]),
+  evidenceEvent(4, "evidence-event.june-review.expired", "evidence-expired", "2026-07-05T00:00:00Z",
+    [evidenceState(expiredJune, 1)], [evidenceState(expiredJune, 2, "expired")]),
+  evidenceEvent(5, "evidence-event.july-option.added", "evidence-added", "2026-08-02T00:00:00Z",
+    [], [evidenceState(originalJuly, 1)]),
+  evidenceEvent(6, "evidence-event.july-option.corrected", "evidence-corrected", "2026-08-04T00:00:00Z",
+    [evidenceState(originalJuly, 1)], [
+      evidenceState(originalJuly, 2, "superseded"),
+      evidenceState(correctedJuly, 1),
+    ], {
+      kind: "correction",
+      from_observation_ref: evidenceRef(originalJuly),
+      to_observation_ref: evidenceRef(correctedJuly),
+    }),
+  evidenceEvent(7, "evidence-event.july-review.added", "evidence-added", "2026-08-05T00:00:00Z",
+    [], [evidenceState(humanJuly, 1)]),
+  evidenceEvent(8, "evidence-event.july-review.challenged", "evidence-challenged", "2026-08-06T00:00:00Z",
+    [evidenceState(humanJuly, 1)], [evidenceState(humanJuly, 2, "challenged")]),
+  evidenceEvent(9, "evidence-event.july-review.resolved", "challenge-resolved", "2026-08-07T00:00:00Z",
+    [evidenceState(humanJuly, 2, "challenged")], [evidenceState(humanJuly, 3)]),
+  evidenceEvent(10, "evidence-event.august-option.added", "evidence-added", "2026-09-02T00:00:00Z",
+    [], [evidenceState(optionAugust, 1)]),
+  evidenceEvent(11, "evidence-event.august-review.added", "evidence-added", "2026-09-03T00:00:00Z",
+    [], [evidenceState(humanAugust, 1)]),
+];
+let previousEvidenceEventHash = null;
+for (const item of evidenceEvents) {
+  item.previous_evidence_event_hash = previousEvidenceEventHash;
+  item.evidence_event_hash = computeEvidenceEventHash(item);
+  previousEvidenceEventHash = item.evidence_event_hash;
+}
 
 const kernel = {
   schema_version: "1.0.0",
@@ -271,6 +372,16 @@ const kernel = {
   signals,
   events,
   observations,
+  evidence_events: evidenceEvents,
+  current_evidence_state: [
+    evidenceState(withdrawnJune, 2, "withdrawn"),
+    evidenceState(expiredJune, 2, "expired"),
+    evidenceState(originalJuly, 2, "superseded"),
+    evidenceState(correctedJuly, 1),
+    evidenceState(humanJuly, 3),
+    evidenceState(optionAugust, 1),
+    evidenceState(humanAugust, 1),
+  ],
   current_state: [
     state(parentV2, 4, "superseded"),
     state(general, 2, "superseded"),

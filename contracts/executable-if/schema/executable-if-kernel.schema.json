@@ -16,6 +16,8 @@
     "signals",
     "events",
     "observations",
+    "evidence_events",
+    "current_evidence_state",
     "current_state",
     "manifest_hash"
   ],
@@ -41,6 +43,14 @@
     "observations": {
       "type": "array",
       "items": { "$ref": "#/$defs/normalizedObservation" }
+    },
+    "evidence_events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceEvent" }
+    },
+    "current_evidence_state": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceState" }
     },
     "current_state": {
       "type": "array",
@@ -470,6 +480,99 @@
         "authority_effect": { "const": "none" },
         "action_authorised": { "const": false },
         "observation_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "observationRef": {
+      "type": "object",
+      "required": ["observation_id", "observation_hash"],
+      "properties": {
+        "observation_id": { "$ref": "#/$defs/id" },
+        "observation_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceState": {
+      "type": "object",
+      "required": ["observation_ref", "state_version", "lifecycle"],
+      "properties": {
+        "observation_ref": { "$ref": "#/$defs/observationRef" },
+        "state_version": { "type": "integer", "minimum": 1 },
+        "lifecycle": {
+          "enum": ["active", "challenged", "superseded", "withdrawn", "expired"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidenceRelation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": { "kind": { "const": "none" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "from_observation_ref", "to_observation_ref"],
+          "properties": {
+            "kind": { "const": "correction" },
+            "from_observation_ref": { "$ref": "#/$defs/observationRef" },
+            "to_observation_ref": { "$ref": "#/$defs/observationRef" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "evidenceEvent": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "evidence_event_id",
+        "operation",
+        "recorded_at",
+        "recorded_by",
+        "reason",
+        "previous_states",
+        "new_states",
+        "relation",
+        "authority_effect",
+        "action_authorised",
+        "previous_evidence_event_hash",
+        "evidence_event_hash"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "evidence_event_id": { "$ref": "#/$defs/id" },
+        "operation": {
+          "enum": [
+            "evidence-added",
+            "evidence-corrected",
+            "evidence-challenged",
+            "challenge-resolved",
+            "evidence-withdrawn",
+            "evidence-expired"
+          ]
+        },
+        "recorded_at": { "$ref": "#/$defs/instant" },
+        "recorded_by": { "$ref": "#/$defs/nonEmpty" },
+        "reason": { "$ref": "#/$defs/nonEmpty" },
+        "previous_states": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceState" }
+        },
+        "new_states": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceState" }
+        },
+        "relation": { "$ref": "#/$defs/evidenceRelation" },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "previous_evidence_event_hash": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "evidence_event_hash": { "$ref": "#/$defs/hash" }
       },
       "additionalProperties": false
     }
