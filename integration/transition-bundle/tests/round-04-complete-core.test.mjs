@@ -58,6 +58,20 @@ test("the complete Round 4 core is coherent but cannot confer truth or authority
   assert.equal(result.publication_approved, false);
 });
 
+test("projection cannot reseal manifest drift that leaves component bytes valid", () => {
+  const drifted = read(finalPath);
+  drifted.as_of = "2026-09-08T23:59:59Z";
+
+  const result = assessTransitionBundle(drifted, { rootDir: root });
+  assert.equal(result.components_valid, true, JSON.stringify(result.issues, null, 2));
+  assert.equal(result.bundle_coherent, false);
+  assert.equal(
+    result.issues.some(({ code }) => code === "DASHBOARD_DERIVATION_INVALID"),
+    true,
+    JSON.stringify(result.issues, null, 2),
+  );
+});
+
 test("the complete-core builder reproduces both projection and manifest", async () => {
   const { spawnSync } = await import("node:child_process");
   const result = spawnSync(
