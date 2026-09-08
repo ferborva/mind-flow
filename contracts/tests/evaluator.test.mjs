@@ -24,17 +24,17 @@ const expectedNot = {
 const expectedAll = {
   true:       { true: "true",       false: "false", unknown: "unknown", stale: "stale",      conflicted: "conflicted" },
   false:      { true: "false",      false: "false", unknown: "false",   stale: "false",      conflicted: "false" },
-  unknown:    { true: "unknown",    false: "false", unknown: "unknown", stale: "stale",      conflicted: "conflicted" },
-  stale:      { true: "stale",      false: "false", unknown: "stale",   stale: "stale",      conflicted: "conflicted" },
-  conflicted: { true: "conflicted", false: "false", unknown: "conflicted", stale: "conflicted", conflicted: "conflicted" },
+  unknown:    { true: "unknown",    false: "false", unknown: "unknown", stale: "unknown",    conflicted: "unknown" },
+  stale:      { true: "stale",      false: "false", unknown: "unknown", stale: "stale",      conflicted: "unknown" },
+  conflicted: { true: "conflicted", false: "false", unknown: "unknown", stale: "unknown",    conflicted: "conflicted" },
 };
 
 const expectedAny = {
   true:       { true: "true",  false: "true",       unknown: "true",       stale: "true",       conflicted: "true" },
   false:      { true: "true",  false: "false",      unknown: "unknown",    stale: "stale",      conflicted: "conflicted" },
-  unknown:    { true: "true",  false: "unknown",    unknown: "unknown",    stale: "stale",      conflicted: "conflicted" },
-  stale:      { true: "true",  false: "stale",      unknown: "stale",      stale: "stale",      conflicted: "conflicted" },
-  conflicted: { true: "true",  false: "conflicted", unknown: "conflicted", stale: "conflicted", conflicted: "conflicted" },
+  unknown:    { true: "true",  false: "unknown",    unknown: "unknown",    stale: "unknown",    conflicted: "unknown" },
+  stale:      { true: "true",  false: "stale",      unknown: "unknown",    stale: "stale",      conflicted: "unknown" },
+  conflicted: { true: "true",  false: "conflicted", unknown: "unknown",    stale: "unknown",    conflicted: "conflicted" },
 };
 
 test("five-valued NOT, ALL and ANY truth tables are explicit and complete", () => {
@@ -70,6 +70,24 @@ test("UNLESS is A AND NOT B for every pair of states", () => {
         states(condition, exception),
       );
       assert.equal(actual.state, expected, `${condition} unless ${exception}`);
+    }
+  }
+});
+
+test("mixed uncertainty reasons do not manufacture an ordinal hierarchy", () => {
+  for (const left of ["unknown", "stale", "conflicted"]) {
+    for (const right of ["unknown", "stale", "conflicted"]) {
+      const expected = left === right ? left : "unknown";
+      assert.equal(
+        evaluateExpression({ all: [ref("a"), ref("b")] }, states(left, right)).state,
+        expected,
+        `ALL ${left}, ${right}`,
+      );
+      assert.equal(
+        evaluateExpression({ any: [ref("a"), ref("b")] }, states(left, right)).state,
+        expected,
+        `ANY ${left}, ${right}`,
+      );
     }
   }
 });

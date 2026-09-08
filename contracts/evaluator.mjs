@@ -24,25 +24,24 @@ export const GATES = Object.freeze([
 ]);
 
 const STATE_SET = new Set(STATES);
-const UNCERTAINTY_RANK = Object.freeze({ unknown: 1, stale: 2, conflicted: 3 });
 const EXPRESSION_KEYS = new Set(["predicate_ref", "all", "any", "not", "unless"]);
 
-function strongestUncertainty(left, right) {
-  return UNCERTAINTY_RANK[left] >= UNCERTAINTY_RANK[right] ? left : right;
+function combineUncertainty(left, right) {
+  return left === right ? left : "unknown";
 }
 
 function allPair(left, right) {
   if (left === "false" || right === "false") return "false";
   if (left === "true") return right;
   if (right === "true") return left;
-  return strongestUncertainty(left, right);
+  return combineUncertainty(left, right);
 }
 
 function anyPair(left, right) {
   if (left === "true" || right === "true") return "true";
   if (left === "false") return right;
   if (right === "false") return left;
-  return strongestUncertainty(left, right);
+  return combineUncertainty(left, right);
 }
 
 function makeBinaryTable(combine) {
