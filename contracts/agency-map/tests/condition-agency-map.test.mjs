@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
@@ -6,6 +7,7 @@ import test from "node:test";
 import {
   computeOutcomeScopeHash,
   computePublicProjection,
+  computeMetricChecksum,
   validateConditionAgencyMap,
 } from "../validate.mjs";
 
@@ -19,6 +21,34 @@ const fixture = JSON.parse(readFileSync(resolve(
   "fixtures/australian-clerical-agency.synthetic.json",
 ), "utf8"));
 const readme = readFileSync(resolve(root, "README.md"), "utf8");
+const repositoryRoot = resolve(root, "../..");
+
+function readJson(path) {
+  return JSON.parse(readFileSync(resolve(repositoryRoot, path), "utf8"));
+}
+
+function round4Sources() {
+  const registryPath = "signals/fixtures/round-04.worker-option.synthetic.json";
+  const registryBytes = readFileSync(resolve(repositoryRoot, registryPath));
+  return {
+    sourceKernel: readJson("contracts/executable-if/fixtures/kernel.synthetic.json"),
+    sourceEvolution: readJson("contracts/evolution/fixtures/round-04.worker-option.synthetic.json"),
+    sourceSignalRegistry: JSON.parse(registryBytes.toString("utf8")),
+    sourceSignalRegistryArtifactPath: registryPath,
+    sourceSignalRegistryArtifactSha256: `sha256:${createHash("sha256").update(registryBytes).digest("hex")}`,
+  };
+}
+
+function round4Fixture() {
+  return readJson("contracts/agency-map/fixtures/round-04.worker-option.synthetic.json");
+}
+
+function validateRound4(document) {
+  return validateConditionAgencyMap(document, {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+    ...round4Sources(),
+  });
+}
 
 function clone(value) {
   return structuredClone(value);
@@ -34,6 +64,77 @@ function validate(value) {
 function hasCode(result, code) {
   return result.errors.some((error) => error.code === code);
 }
+
+test("Round 4 agency binds exact definition, evidence, registry metrics and public IF", () => {
+  const document = round4Fixture();
+  const result = validateRound4(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(result.source_bindings_verified, true);
+  assert.equal(document.schema_version, "1.1.0");
+  assert.deepEqual(
+    document.signals.map(({ registered_metric_ref: reference }) => reference.binding_kind),
+    [
+      "executable-predicate",
+      "executable-predicate",
+      "supplemental-observation",
+      "supplemental-observation",
+    ],
+  );
+  assert.equal(document.public_projection.consumer_if.basis.condition_truth_assessed, false);
+  assert.match(document.public_projection.consumer_if.statement, /to the following standard:/i);
+  assert.ok(document.public_projection.signal_contracts.every((signal) =>
+    signal.registered_metric_checksum && signal.binding_kind));
+});
+
+test("hostile: agency cannot borrow definition, evidence or metric meaning", () => {
+  for (const [code, mutate] of [
+    ["AGENCY_CONDITION_DEFINITION_MISMATCH", (document) => {
+      document.conditions[0].canonical_binding.condition_definition_ref.definition_hash =
+        `sha256:${"0".repeat(64)}`;
+    }],
+    ["AGENCY_EVIDENCE_STATE_MISMATCH", (document) => {
+      document.conditions[0].canonical_binding.evidence_state_ref.state_hash =
+        `sha256:${"0".repeat(64)}`;
+    }],
+    ["AGENCY_EVOLUTION_BINDING_MISMATCH", (document) => {
+      document.conditions[0].canonical_binding.history_tip_ref.event_hash =
+        `sha256:${"0".repeat(64)}`;
+    }],
+    ["AGENCY_CONDITION_SOURCE_EVENT_MISMATCH", (document) => {
+      document.conditions[0].canonical_binding.condition_source_event_ref.event_hash =
+        `sha256:${"0".repeat(64)}`;
+    }],
+    ["AGENCY_SIGNAL_REGISTRY_REF_MISMATCH", (document) => {
+      document.signal_registry_ref.artifact_sha256 = `sha256:${"0".repeat(64)}`;
+    }],
+    ["AGENCY_REGISTERED_METRIC_MISMATCH", (document) => {
+      document.signals[0].metric.measure = "a different quantity";
+      document.signals[0].metric.metric_checksum = computeMetricChecksum(document.signals[0].metric);
+    }],
+  ]) {
+    const document = round4Fixture();
+    mutate(document);
+    document.outcome_scope.scope_hash = computeOutcomeScopeHash(document);
+    document.public_projection = computePublicProjection(document);
+    assert.ok(hasCode(validateRound4(document), code), code);
+  }
+});
+
+test("hostile: supplemental evidence cannot become the action's intended predicate", () => {
+  const document = round4Fixture();
+  document.action_hypotheses[0].intended_signal_ref =
+    "signal.worker-option.counter.synthetic";
+  const result = validateRound4(document);
+  assert.ok(hasCode(result, "AGENCY_ACTION_SIGNAL_SEMANTICS_MISMATCH"));
+});
+
+test("hostile: resealing cannot hide public IF drift from the executable claim", () => {
+  const document = round4Fixture();
+  document.conditions[0].public_if_clause = "an easier but unrelated condition holds";
+  document.outcome_scope.scope_hash = computeOutcomeScopeHash(document);
+  document.public_projection = computePublicProjection(document);
+  assert.ok(hasCode(validateRound4(document), "AGENCY_PUBLIC_IF_MISMATCH"));
+});
 
 test("the synthetic map is explicit but proves no truth, control or authority", () => {
   const result = validate(fixture);

@@ -1,0 +1,575 @@
+{
+  "schema_version": "1.1.0",
+  "id": "agency-map.round-04.worker-option.synthetic",
+  "provenance": "commissioned-agent-proposal",
+  "created_at": "2026-09-08T00:00:00Z",
+  "as_of": "2026-09-09T00:00:00Z",
+  "authority_effect": "none",
+  "condition_truth_assessed": false,
+  "actor_identity_verified": false,
+  "control_verified": false,
+  "forecast_produced": false,
+  "commitment_created": false,
+  "action_authorised": false,
+  "goal": {
+    "statement": "Affected people gain durable agency and share in technological abundance without involuntary loss of real earnings or essential conditions.",
+    "classification": "value-choice",
+    "selection_authority": "external-unverified"
+  },
+  "outcome_scope": {
+    "people": "Affected workers inside the complete registered observation scope",
+    "verb": "navigate",
+    "object": "automation-related work change",
+    "standard": "without involuntary loss of real earnings or essential conditions, while retaining a credible alternative and accessible human review",
+    "place": "New South Wales, Australia",
+    "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+    "jurisdictions": [
+      "Australia"
+    ],
+    "geographies": [
+      "New South Wales"
+    ],
+    "services": [
+      "Work transition support"
+    ],
+    "starts_at": "2026-01-01T00:00:00Z",
+    "ends_at": "2026-12-31T23:59:59Z",
+    "affected_actor_refs": [
+      "actor.affected-workers.nsw"
+    ],
+    "condition_ids": [
+      "condition.worker-option.nsw"
+    ],
+    "condition_logic": {
+      "condition_ref": "condition.worker-option.nsw"
+    },
+    "scope_hash": "sha256:38c06346387de1f89492b0afd3231dd4063e3404b1f62c35f85c79b23a2fb90c"
+  },
+  "condition_loci": [
+    "technical",
+    "organisational",
+    "market",
+    "legal-institutional",
+    "infrastructure",
+    "ecological",
+    "personal-capacity",
+    "shared-system",
+    "unknown"
+  ],
+  "actors": [
+    {
+      "actor_ref": "actor.affected-workers.nsw",
+      "label": "Affected General Clerks and Payroll Clerks in New South Wales",
+      "actor_class": "affected-people",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "challenge",
+          "object_class": "record",
+          "geographies": [
+            "New South Wales"
+          ],
+          "services": [
+            "Work transition support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    },
+    {
+      "actor_ref": "actor.worker-transition-provider.candidate",
+      "label": "Candidate worker transition provider",
+      "actor_class": "institution",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "prepare",
+          "object_class": "service",
+          "geographies": [
+            "New South Wales"
+          ],
+          "services": [
+            "Work transition support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    },
+    {
+      "actor_ref": "actor.independent-verifier.candidate",
+      "label": "Candidate independent worker-selected verifier",
+      "actor_class": "worker-representative",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "audit",
+          "object_class": "record",
+          "geographies": [
+            "New South Wales"
+          ],
+          "services": [
+            "Work transition support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "signal_ref": "signal.option.coverage",
+      "label": "Credible option coverage",
+      "condition_id": "condition.worker-option.nsw",
+      "role": "confirming",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.option.coverage",
+        "measure": "Share of affected workers with a credible alternative",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "direction": "increase",
+        "collection_process_id": "process.synthetic-employer-worker-panel",
+        "source_refs": [
+          "https://example.invalid/mind-flow/round-04/employer-worker-panel.synthetic.json"
+        ],
+        "evaluation_rule": "Apply the immutable executable predicate to exact-scope observations. Preserve missing, stale and conflicted states.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:18b7291bc3b3f7956e3b85819f6ce360e39af1cfceb6bb039f9fd5fae1462e44"
+      },
+      "registered_metric_ref": {
+        "registry_id": "registry.round-04.worker-option.synthetic",
+        "signal_id": "signal.option.coverage",
+        "metric_id": "metric.option.coverage",
+        "metric_checksum": "sha256:856a1b887e8bee10a8bdf82e5a9aa61fa2467caf61c1f59aa8a0f5413df8d902",
+        "binding_kind": "executable-predicate",
+        "projection_profile": "signal-registry-estimand-to-agency-metric-v1"
+      }
+    },
+    {
+      "signal_ref": "signal.human-review.available",
+      "label": "Human review available",
+      "condition_id": "condition.worker-option.nsw",
+      "role": "readiness",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.human-review.available",
+        "measure": "Whether an accessible human review route exists",
+        "unit": "boolean",
+        "denominator": "all eligible scope cells in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "All eligible scope cells report the same Boolean state",
+        "direction": "maintain",
+        "collection_process_id": "process.synthetic-employer-worker-panel",
+        "source_refs": [
+          "https://example.invalid/mind-flow/round-04/employer-worker-panel.synthetic.json"
+        ],
+        "evaluation_rule": "Apply the immutable executable predicate to exact-scope observations. Preserve missing, stale and conflicted states.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:73af3713f48eb87449c2c38f64a707b6fc527b60b5bdf371c53bdca7a313915b"
+      },
+      "registered_metric_ref": {
+        "registry_id": "registry.round-04.worker-option.synthetic",
+        "signal_id": "signal.human-review.available",
+        "metric_id": "metric.human-review.available",
+        "metric_checksum": "sha256:f23b8c2b25cf35f3998dbbc2b57c69b4ca99630fd9dab6c7bbd60bdf92239071",
+        "binding_kind": "executable-predicate",
+        "projection_profile": "signal-registry-estimand-to-agency-metric-v1"
+      }
+    },
+    {
+      "signal_ref": "signal.worker-option.counter.synthetic",
+      "label": "Reported earnings or essential-condition deterioration",
+      "condition_id": "condition.worker-option.nsw",
+      "role": "counter",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.worker-option.counter.synthetic",
+        "measure": "share reporting lower real earnings or worse essential conditions",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic-employer-worker-panel",
+        "source_refs": [
+          "https://example.invalid/mind-flow/round-04/employer-worker-panel.synthetic.json"
+        ],
+        "evaluation_rule": "Measure the registered counter construct independently. Missing observations remain unknown and this metric never changes executable truth.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:071493fa44ffa332a41851c9553005877c86ddcf0d030313889147b3dea7a84c"
+      },
+      "registered_metric_ref": {
+        "registry_id": "registry.round-04.worker-option.synthetic",
+        "signal_id": "signal.worker-option.counter.synthetic",
+        "metric_id": "metric.worker-option.counter.synthetic",
+        "metric_checksum": "sha256:e5913de7acd3b6ebd1b0c29162386737f5bb2644cfaed0f407be9d67a17086d9",
+        "binding_kind": "supplemental-observation",
+        "projection_profile": "signal-registry-estimand-to-agency-metric-v1"
+      }
+    },
+    {
+      "signal_ref": "signal.worker-option.information-harm.synthetic",
+      "label": "Reported transition-information harm",
+      "condition_id": "condition.worker-option.nsw",
+      "role": "information-harm",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.worker-option.information-harm.synthetic",
+        "measure": "share reporting reduced clarity after transition communication",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic-employer-worker-panel",
+        "source_refs": [
+          "https://example.invalid/mind-flow/round-04/employer-worker-panel.synthetic.json"
+        ],
+        "evaluation_rule": "Measure the registered information-harm construct independently. Missing observations remain unknown and this metric never changes executable truth.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:aa9cfb4bda5447c99d9120f13ae675c3f3441aeab9b6157edd10cce7e475f64d"
+      },
+      "registered_metric_ref": {
+        "registry_id": "registry.round-04.worker-option.synthetic",
+        "signal_id": "signal.worker-option.information-harm.synthetic",
+        "metric_id": "metric.worker-option.information-harm.synthetic",
+        "metric_checksum": "sha256:4acf65e20ddc27b9105a443705ad8e7ca327afbe7222196c71842b9353934e14",
+        "binding_kind": "supplemental-observation",
+        "projection_profile": "signal-registry-estimand-to-agency-metric-v1"
+      }
+    }
+  ],
+  "signal_registry_ref": {
+    "registry_id": "registry.round-04.worker-option.synthetic",
+    "schema_version": "1.1.0",
+    "artifact_path": "signals/fixtures/round-04.worker-option.synthetic.json",
+    "artifact_sha256": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+  },
+  "condition_ledger_ref": {
+    "ledger_id": "ledger.round-04.worker-option.synthetic",
+    "ledger_version": "2.0.0",
+    "tip_event_id": "event.worker-option.merge",
+    "tip_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6",
+    "uri": "https://example.invalid/mind-flow/evolution/ledger.round-04.worker-option.synthetic.json",
+    "verification": "external-unverified"
+  },
+  "conditions": [
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "ledger_anchor": {
+        "condition_id": "condition.worker-option.nsw",
+        "condition_version": "1.0.0",
+        "tip_event_id": "event.worker-option.merge",
+        "tip_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+      },
+      "public_if_clause": "Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z",
+      "category_prompts": [
+        "availability",
+        "capability",
+        "permission",
+        "proximity",
+        "other"
+      ],
+      "locus": "shared-system",
+      "signal_refs": [
+        "signal.option.coverage",
+        "signal.human-review.available",
+        "signal.worker-option.counter.synthetic",
+        "signal.worker-option.information-harm.synthetic"
+      ],
+      "canonical_binding": {
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "evolution_ref": {
+          "ledger_id": "ledger.round-04.worker-option.synthetic",
+          "schema_version": "2.0.0",
+          "manifest_hash": "sha256:fd258eecb21ecdc57f157f3b4b7f4b9db85f548bab52398b2c1e063eb753c7c2"
+        },
+        "history_tip_ref": {
+          "sequence": 5,
+          "event_id": "event.worker-option.merge",
+          "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+        },
+        "condition_source_event_ref": {
+          "sequence": 5,
+          "event_id": "event.worker-option.merge",
+          "operation": "merge",
+          "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
+        },
+        "evidence_state_ref": {
+          "kernel_id": "kernel.worker-option.synthetic",
+          "kernel_manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+          "event_count": 11,
+          "tip_event_id": "evidence-event.august-review.added",
+          "tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+          "state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+        }
+      },
+      "relations": [
+        {
+          "actor_ref": "actor.affected-workers.nsw",
+          "roles": [
+            "affected"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.worker-transition-provider.candidate",
+          "roles": [
+            "influences",
+            "delivers",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.independent-verifier.candidate",
+          "roles": [
+            "verifies",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        }
+      ]
+    }
+  ],
+  "provider_plans": [
+    {
+      "plan_id": "plan.worker-transition-provider.round-04.synthetic",
+      "actor_ref": "actor.worker-transition-provider.candidate",
+      "offered_verb": "prepare",
+      "offered_object": "a reversible worker-controlled transition-support rehearsal",
+      "object_class": "service",
+      "standard": "the registered option, accessibility, refusal, review and information-safety checks",
+      "place": "New South Wales, Australia",
+      "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "geographies": [
+        "New South Wales"
+      ],
+      "services": [
+        "Work transition support"
+      ],
+      "starts_at": "2026-01-01T00:00:00Z",
+      "ends_at": "2026-12-31T23:59:59Z",
+      "ordering": "concurrent-or-dependency-bound",
+      "when_clauses": [
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "condition_anchor_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6",
+          "mode": "prepare",
+          "completion_criterion": "A bounded rehearsal demonstrates access, refusal, human review and worker challenge paths without worsening the registered counter or information-harm measures.",
+          "completion_test": {
+            "measure": "registered rehearsal, safeguard and independent worker review checks passed",
+            "operator": "human-review",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier.candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        }
+      ]
+    }
+  ],
+  "action_hypotheses": [
+    {
+      "hypothesis_id": "action-hypothesis.prepare-worker-option-rehearsal",
+      "actor_ref": "actor.worker-transition-provider.candidate",
+      "verb": "prepare",
+      "object": "a reversible worker-controlled transition-support rehearsal",
+      "object_class": "service",
+      "geography": "New South Wales",
+      "service": "Work transition support",
+      "target_condition_id": "condition.worker-option.nsw",
+      "intended_signal_ref": "signal.option.coverage",
+      "expected_direction": "increase",
+      "counter_signal_refs": [
+        "signal.worker-option.counter.synthetic"
+      ],
+      "harm_signal_refs": [
+        "signal.worker-option.information-harm.synthetic"
+      ],
+      "mechanism": "A worker-controlled rehearsal may expose access, refusal and review failures before any consequential transition decision.",
+      "falsifier": "Option coverage or review access does not improve, adverse outcomes rise, information harm rises, or affected workers reject the mechanism.",
+      "expires_at": "2026-12-01T00:00:00Z",
+      "reversibility": "reversible",
+      "status": "proposal-only",
+      "authority_verification": "external-unverified",
+      "action_authorised": false
+    }
+  ],
+  "public_projection": {
+    "goal": "Affected people gain durable agency and share in technological abundance without involuntary loss of real earnings or essential conditions. This is a value choice, not a directly measured state.",
+    "freshness": {
+      "as_of": "2026-09-09T00:00:00Z",
+      "runtime_evaluation_required": true
+    },
+    "affected_parties": [
+      {
+        "actor_ref": "actor.affected-workers.nsw",
+        "label": "Affected General Clerks and Payroll Clerks in New South Wales",
+        "identity_verification": "external-unverified"
+      }
+    ],
+    "consumer_if": {
+      "status": "unscored outcome hypothesis",
+      "statement": "Affected workers inside the complete registered observation scope may navigate automation-related work change to the following standard: without involuntary loss of real earnings or essential conditions, while retaining a credible alternative and accessible human review, in New South Wales, Australia, during 2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z, if Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z.",
+      "basis": {
+        "condition_definition_refs": [
+          {
+            "condition_id": "condition.worker-option.nsw",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+          }
+        ],
+        "evidence_state_refs": [
+          {
+            "kernel_id": "kernel.worker-option.synthetic",
+            "kernel_manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+            "event_count": 11,
+            "tip_event_id": "evidence-event.august-review.added",
+            "tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+            "state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+          }
+        ],
+        "condition_truth_assessed": false,
+        "authority_effect": "none"
+      }
+    },
+    "signal_contracts": [
+      {
+        "signal_ref": "signal.human-review.available",
+        "condition_id": "condition.worker-option.nsw",
+        "role": "readiness",
+        "label": "Human review available",
+        "measure": "Whether an accessible human review route exists",
+        "unit": "boolean",
+        "denominator": "all eligible scope cells in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "All eligible scope cells report the same Boolean state",
+        "direction": "maintain",
+        "metric_checksum": "sha256:73af3713f48eb87449c2c38f64a707b6fc527b60b5bdf371c53bdca7a313915b",
+        "registered_metric_checksum": "sha256:f23b8c2b25cf35f3998dbbc2b57c69b4ca99630fd9dab6c7bbd60bdf92239071",
+        "binding_kind": "executable-predicate",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.option.coverage",
+        "condition_id": "condition.worker-option.nsw",
+        "role": "confirming",
+        "label": "Credible option coverage",
+        "measure": "Share of affected workers with a credible alternative",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "direction": "increase",
+        "metric_checksum": "sha256:18b7291bc3b3f7956e3b85819f6ce360e39af1cfceb6bb039f9fd5fae1462e44",
+        "registered_metric_checksum": "sha256:856a1b887e8bee10a8bdf82e5a9aa61fa2467caf61c1f59aa8a0f5413df8d902",
+        "binding_kind": "executable-predicate",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.worker-option.counter.synthetic",
+        "condition_id": "condition.worker-option.nsw",
+        "role": "counter",
+        "label": "Reported earnings or essential-condition deterioration",
+        "measure": "share reporting lower real earnings or worse essential conditions",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "direction": "decrease",
+        "metric_checksum": "sha256:071493fa44ffa332a41851c9553005877c86ddcf0d030313889147b3dea7a84c",
+        "registered_metric_checksum": "sha256:e5913de7acd3b6ebd1b0c29162386737f5bb2644cfaed0f407be9d67a17086d9",
+        "binding_kind": "supplemental-observation",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.worker-option.information-harm.synthetic",
+        "condition_id": "condition.worker-option.nsw",
+        "role": "information-harm",
+        "label": "Reported transition-information harm",
+        "measure": "share reporting reduced clarity after transition communication",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "aggregation": "Eligible-worker weighted ratio",
+        "direction": "decrease",
+        "metric_checksum": "sha256:aa9cfb4bda5447c99d9120f13ae675c3f3441aeab9b6157edd10cce7e475f64d",
+        "registered_metric_checksum": "sha256:4acf65e20ddc27b9105a443705ad8e7ca327afbe7222196c71842b9353934e14",
+        "binding_kind": "supplemental-observation",
+        "verification": "external-unverified"
+      }
+    ],
+    "provider_when_plans": [
+      {
+        "actor_ref": "actor.worker-transition-provider.candidate",
+        "status": "conditional plan hypothesis, not forecast or commitment",
+        "statement": "Candidate worker transition provider proposes that it could prepare a reversible worker-controlled transition-support rehearsal at the registered option, accessibility, refusal, review and information-safety checks, in New South Wales, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z, when Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z [prepare]. Capability and identity remain caller-asserted and unverified. This is a conditional plan hypothesis, not a forecast or commitment.",
+        "condition_moves": [
+          "condition.worker-option.nsw: prepare"
+        ],
+        "conditions": [
+          {
+            "condition_id": "condition.worker-option.nsw",
+            "mode": "prepare",
+            "completion_criterion": "A bounded rehearsal demonstrates access, refusal, human review and worker challenge paths without worsening the registered counter or information-harm measures.",
+            "completion_test": "registered rehearsal, safeguard and independent worker review checks passed human-review true pass-fail; verifier actor.independent-verifier.candidate",
+            "dependency_actor_refs": [],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          }
+        ]
+      }
+    ],
+    "action_hypotheses": [
+      {
+        "hypothesis_id": "action-hypothesis.prepare-worker-option-rehearsal",
+        "status": "proposal-only; not authorised",
+        "statement": "Candidate worker transition provider proposes prepare a reversible worker-controlled transition-support rehearsal as a hypothesis that signal.option.coverage would increase for condition.worker-option.nsw.",
+        "falsifier": "Option coverage or review access does not improve, adverse outcomes rise, information harm rises, or affected workers reject the mechanism."
+      }
+    ],
+    "boundary": "Structural consistency does not establish condition truth, actor identity, control, consent, commitment or authority. No action is authorised."
+  }
+}

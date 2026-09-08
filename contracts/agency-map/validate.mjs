@@ -5,6 +5,8 @@ import { isDeepStrictEqual } from "node:util";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { computeEvidenceStateHash } from "../executable-if/validate.mjs";
+
 const HASH_DOMAIN = "mind-flow:condition-agency-map:v1";
 const REPOSITORY_SCHEMA = JSON.parse(readFileSync(
   new URL("./schema/condition-agency-map.schema.json", import.meta.url),
@@ -103,12 +105,15 @@ function outcomeHashMaterial(map) {
     outcome_scope: scope,
     if_clauses: (scope.condition_ids || []).map((conditionId) => {
       const condition = conditionById.get(conditionId);
-      return condition ? {
+      const clause = condition ? {
         condition_id: condition.condition_id,
         public_if_clause: condition.public_if_clause,
         ledger_anchor: condition.ledger_anchor,
       } : { condition_id: conditionId, unresolved: true };
+      if (condition?.canonical_binding) clause.canonical_binding = condition.canonical_binding;
+      return clause;
     }),
+    ...(map.signal_registry_ref ? { signal_registry_ref: map.signal_registry_ref } : {}),
   };
 }
 
@@ -143,6 +148,11 @@ export function computeOutcomeScopeHash(map) {
   return checksum("outcome-scope", outcomeHashMaterial(map));
 }
 
+export function renderBoundPublicIfClause(definition) {
+  const { claim } = definition;
+  return `${claim.who} ${claim.verb} ${claim.object}, at the standard that ${claim.standard}, from ${claim.period.starts_at} through ${claim.period.ends_at}`;
+}
+
 function actorByRef(map) {
   return new Map((map.actors || []).map((actor) => [actor.actor_ref, actor]));
 }
@@ -158,7 +168,9 @@ export function computePublicProjection(map) {
   const conditionLogic = scope.condition_logic
     ? renderConditionLogic(scope.condition_logic, conditions)
     : "[unresolved condition logic]";
-  const consumerStatement = `${scope.people || "People"} may ${scope.verb || ""} ${scope.object || ""} at ${scope.standard || ""}, in ${scope.place || ""}, during ${scope.period || ""}, if ${conditionLogic}.`;
+  const consumerStatement = map.schema_version === "1.1.0"
+    ? `${scope.people || "People"} may ${scope.verb || ""} ${scope.object || ""} to the following standard: ${scope.standard || ""}, in ${scope.place || ""}, during ${scope.period || ""}, if ${conditionLogic}.`
+    : `${scope.people || "People"} may ${scope.verb || ""} ${scope.object || ""} at ${scope.standard || ""}, in ${scope.place || ""}, during ${scope.period || ""}, if ${conditionLogic}.`;
 
   const affectedParties = (scope.affected_actor_refs || [])
     .map((actorRef) => ({
@@ -185,6 +197,10 @@ export function computePublicProjection(map) {
       direction: signal.metric?.direction || "unknown",
       metric_checksum: signal.metric?.metric_checksum ||
         "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      ...(signal.registered_metric_ref ? {
+        registered_metric_checksum: signal.registered_metric_ref.metric_checksum,
+        binding_kind: signal.registered_metric_ref.binding_kind,
+      } : {}),
       verification: signal.verification,
     }))
     .sort((left, right) => left.signal_ref.localeCompare(right.signal_ref));
@@ -236,6 +252,16 @@ export function computePublicProjection(map) {
     consumer_if: {
       status: "unscored outcome hypothesis",
       statement: consumerStatement,
+      ...(map.schema_version === "1.1.0" ? {
+        basis: {
+          condition_definition_refs: map.conditions.map(({ canonical_binding: binding }) =>
+            binding.condition_definition_ref),
+          evidence_state_refs: map.conditions.map(({ canonical_binding: binding }) =>
+            binding.evidence_state_ref),
+          condition_truth_assessed: false,
+          authority_effect: "none",
+        },
+      } : {}),
     },
     signal_contracts: signalContracts,
     provider_when_plans: providerPlans,
@@ -718,7 +744,236 @@ function actionIntegrity(map, actors, conditions, signals) {
   return errors;
 }
 
-export function validateConditionAgencyMap(map, { evaluatedAt } = {}) {
+function exactEvidenceStateRef(kernel) {
+  const tip = kernel.evidence_events.at(-1);
+  return {
+    kernel_id: kernel.kernel_id,
+    kernel_manifest_hash: kernel.manifest_hash,
+    event_count: kernel.evidence_events.length,
+    tip_event_id: tip.evidence_event_id,
+    tip_event_hash: tip.evidence_event_hash,
+    state_hash: computeEvidenceStateHash(kernel.current_evidence_state),
+  };
+}
+
+function normalizeRegistryEvidenceState(reference) {
+  return reference ? {
+    kernel_id: reference.kernel_id,
+    kernel_manifest_hash: reference.kernel_manifest_hash,
+    event_count: reference.evidence_event_count,
+    tip_event_id: reference.evidence_tip_event_id,
+    tip_event_hash: reference.evidence_tip_event_hash,
+    state_hash: reference.evidence_state_hash,
+  } : null;
+}
+
+function sourceBindingIntegrity(map, {
+  sourceKernel,
+  sourceEvolution,
+  sourceSignalRegistry,
+  sourceSignalRegistryArtifactPath,
+  sourceSignalRegistryArtifactSha256,
+}) {
+  const errors = [];
+  if (!sourceKernel || !sourceEvolution || !sourceSignalRegistry ||
+      !sourceSignalRegistryArtifactPath || !sourceSignalRegistryArtifactSha256) {
+    return [issue(
+      "AGENCY_SOURCE_BINDINGS_REQUIRED",
+      "/",
+      "v1.1 validation requires retained kernel, evolution and signal-registry sources",
+    )];
+  }
+
+  const registryRef = map.signal_registry_ref;
+  if (!registryRef || registryRef.registry_id !== sourceSignalRegistry.registry_id ||
+      registryRef.schema_version !== sourceSignalRegistry.schema_version ||
+      registryRef.artifact_path !== sourceSignalRegistryArtifactPath ||
+      registryRef.artifact_sha256 !== sourceSignalRegistryArtifactSha256) {
+    errors.push(issue(
+      "AGENCY_SIGNAL_REGISTRY_REF_MISMATCH",
+      "/signal_registry_ref",
+      "the agency map must bind the exact retained signal-registry bytes and identity",
+    ));
+  }
+
+  const activeStates = sourceKernel.current_state.filter(({ lifecycle }) => lifecycle === "active");
+  const definitions = sourceKernel.events.flatMap(({ introduced_definitions: values }) => values);
+  const registrySignals = new Map(sourceSignalRegistry.signals.map((signal) => [
+    signal.signal_id,
+    signal,
+  ]));
+  const registrySources = new Map(sourceSignalRegistry.sources.map((source) => [
+    source.source_id,
+    source,
+  ]));
+  const evolutionConditions = new Map(sourceEvolution.current_state.conditions.map((condition) => [
+    condition.condition_definition_ref.condition_id,
+    condition,
+  ]));
+  const registryConditions = new Map(sourceSignalRegistry.condition_bindings.map((binding) => [
+    binding.condition_id,
+    binding,
+  ]));
+  const expectedEvidenceState = exactEvidenceStateRef(sourceKernel);
+  const historyTip = {
+    sequence: sourceEvolution.source_history_ref.tip_sequence,
+    event_id: sourceEvolution.source_history_ref.tip_event_id,
+    event_hash: sourceEvolution.source_history_ref.tip_event_hash,
+  };
+
+  for (const [conditionIndex, condition] of map.conditions.entries()) {
+    const canonical = condition.canonical_binding;
+    const active = activeStates.find(({ condition_definition_ref: reference }) =>
+      reference.condition_id === condition.condition_id);
+    const definition = definitions.find(({ definition_hash: hash }) =>
+      hash === active?.condition_definition_ref.definition_hash);
+    const evolution = evolutionConditions.get(condition.condition_id);
+    const registry = registryConditions.get(condition.condition_id);
+    if (!active || !definition || !evolution ||
+        !canonical || !isDeepStrictEqual(
+          canonical.condition_definition_ref,
+          active.condition_definition_ref,
+        ) || !isDeepStrictEqual(
+          evolution.condition_definition_ref,
+          active.condition_definition_ref,
+        ) || !isDeepStrictEqual(
+          registry?.condition_definition_ref,
+          active.condition_definition_ref,
+        )) {
+      errors.push(issue(
+        "AGENCY_CONDITION_DEFINITION_MISMATCH",
+        `/conditions/${conditionIndex}/canonical_binding/condition_definition_ref`,
+        "the agency condition must resolve to one exact active executable definition",
+      ));
+      continue;
+    }
+    const expectedEvolutionRef = {
+      ledger_id: sourceEvolution.ledger_id,
+      schema_version: sourceEvolution.schema_version,
+      manifest_hash: sourceEvolution.manifest_hash,
+    };
+    if (!isDeepStrictEqual(canonical.evolution_ref, expectedEvolutionRef) ||
+        !isDeepStrictEqual(canonical.history_tip_ref, historyTip) ||
+        registry?.ledger_manifest_hash !== sourceEvolution.manifest_hash ||
+        registry?.ledger_tip_event_id !== historyTip.event_id ||
+        registry?.ledger_tip_hash !== historyTip.event_hash) {
+      errors.push(issue(
+        "AGENCY_EVOLUTION_BINDING_MISMATCH",
+        `/conditions/${conditionIndex}/canonical_binding/evolution_ref`,
+        "evolution identity, complete history tip and condition producer must remain distinct and exact",
+      ));
+    }
+    const registryProducerRef = {
+      sequence: canonical.condition_source_event_ref?.sequence,
+      event_id: canonical.condition_source_event_ref?.event_id,
+      event_hash: canonical.condition_source_event_ref?.event_hash,
+    };
+    if (!isDeepStrictEqual(canonical.condition_source_event_ref, evolution.source_event_ref) ||
+        !isDeepStrictEqual(registryProducerRef, registry.condition_source_event_ref) ||
+        condition.ledger_anchor.condition_version !== active.condition_definition_ref.definition_version ||
+        condition.ledger_anchor.tip_event_id !== evolution.source_event_ref.event_id ||
+        condition.ledger_anchor.tip_hash !== evolution.source_event_ref.event_hash) {
+      errors.push(issue(
+        "AGENCY_CONDITION_SOURCE_EVENT_MISMATCH",
+        `/conditions/${conditionIndex}/canonical_binding/condition_source_event_ref`,
+        "the active condition must bind its own producer event rather than borrowing the history tip",
+      ));
+    }
+    if (!isDeepStrictEqual(canonical.evidence_state_ref, expectedEvidenceState) ||
+        !isDeepStrictEqual(evolution.evidence_state_ref, {
+          event_count: expectedEvidenceState.event_count,
+          tip_event_id: expectedEvidenceState.tip_event_id,
+          tip_event_hash: expectedEvidenceState.tip_event_hash,
+          state_hash: expectedEvidenceState.state_hash,
+        }) || !isDeepStrictEqual(
+          normalizeRegistryEvidenceState(registry.evidence_state_ref),
+          expectedEvidenceState,
+        )) {
+      errors.push(issue(
+        "AGENCY_EVIDENCE_STATE_MISMATCH",
+        `/conditions/${conditionIndex}/canonical_binding/evidence_state_ref`,
+        "the agency condition must preserve the exact executable evidence-history checkpoint",
+      ));
+    }
+    if (condition.public_if_clause !== renderBoundPublicIfClause(definition)) {
+      errors.push(issue(
+        "AGENCY_PUBLIC_IF_MISMATCH",
+        `/conditions/${conditionIndex}/public_if_clause`,
+        "public IF wording must be rendered from the immutable executable claim and PERIOD",
+      ));
+    }
+  }
+
+  if (map.condition_ledger_ref.ledger_id !== sourceEvolution.ledger_id ||
+      map.condition_ledger_ref.ledger_version !== sourceEvolution.schema_version ||
+      map.condition_ledger_ref.tip_event_id !== historyTip.event_id ||
+      map.condition_ledger_ref.tip_hash !== historyTip.event_hash) {
+    errors.push(issue(
+      "AGENCY_EVOLUTION_BINDING_MISMATCH",
+      "/condition_ledger_ref",
+      "the agency ledger reference must preserve the complete evolution history tip",
+    ));
+  }
+
+  for (const [signalIndex, signal] of map.signals.entries()) {
+    const registered = registrySignals.get(signal.signal_ref);
+    const reference = signal.registered_metric_ref;
+    const kind = registered?.executable_binding
+      ? "executable-predicate"
+      : registered?.supplemental_binding?.kind;
+    const link = registered?.condition_links.find(({ condition_id: id, evidence_role: role }) =>
+      id === signal.condition_id && role === signal.role);
+    const contract = registered?.metric_contract;
+    const sourceRecords = (registered?.source_refs || []).map((id) => registrySources.get(id));
+    const sourceUris = sourceRecords.map(({ evidence_ref: uri } = {}) => uri).filter(Boolean).sort();
+    const processes = [...new Set(sourceRecords
+      .map(({ collection_process_id: id } = {}) => id).filter(Boolean))];
+    const exactMetric = contract && signal.label === registered.label && link &&
+      signal.metric.metric_id === contract.metric_id &&
+      signal.metric.measure === contract.measure &&
+      signal.metric.unit === contract.unit &&
+      signal.metric.denominator === contract.denominator &&
+      signal.metric.population === contract.population &&
+      signal.metric.geography === contract.geography &&
+      signal.metric.period === contract.period &&
+      signal.metric.aggregation === contract.aggregation &&
+      signal.metric.evaluation_rule === contract.evaluation_rule &&
+      processes.length === 1 && signal.metric.collection_process_id === processes[0] &&
+      isDeepStrictEqual([...signal.metric.source_refs].sort(), sourceUris);
+    const exactReference = reference && reference.registry_id === sourceSignalRegistry.registry_id &&
+      reference.signal_id === registered?.signal_id &&
+      reference.metric_id === contract?.metric_id &&
+      reference.metric_checksum === contract?.metric_checksum &&
+      reference.binding_kind === kind &&
+      reference.projection_profile === "signal-registry-estimand-to-agency-metric-v1";
+    if (!exactMetric || !exactReference) {
+      errors.push(issue(
+        "AGENCY_REGISTERED_METRIC_MISMATCH",
+        `/signals/${signalIndex}`,
+        "agency metrics must exactly reproduce a resolvable canonical signal-registry contract",
+      ));
+    }
+  }
+
+  for (const [actionIndex, action] of map.action_hypotheses.entries()) {
+    const intended = registrySignals.get(action.intended_signal_ref);
+    const counterValid = action.counter_signal_refs.every((signalId) =>
+      registrySignals.get(signalId)?.supplemental_binding?.purpose === "counter");
+    const harmValid = action.harm_signal_refs.every((signalId) =>
+      registrySignals.get(signalId)?.supplemental_binding?.purpose === "information-harm");
+    if (!intended?.executable_binding || !counterValid || !harmValid) {
+      errors.push(issue(
+        "AGENCY_ACTION_SIGNAL_SEMANTICS_MISMATCH",
+        `/action_hypotheses/${actionIndex}`,
+        "intended action signals must be executable while counter and harm evidence remain supplemental",
+      ));
+    }
+  }
+  return errors;
+}
+
+export function validateConditionAgencyMap(map, options = {}) {
+  const { evaluatedAt } = options;
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
   const validateSchema = ajv.compile(REPOSITORY_SCHEMA);
@@ -747,6 +1002,10 @@ export function validateConditionAgencyMap(map, { evaluatedAt } = {}) {
     errors.push(...planIntegrity(map, actors, conditions));
     errors.push(...actionIntegrity(map, actors, conditions, signals));
 
+    if (map.schema_version === "1.1.0") {
+      errors.push(...sourceBindingIntegrity(map, options));
+    }
+
     if (!isDeepStrictEqual(map.public_projection, computePublicProjection(map))) {
       errors.push(issue(
         "PUBLIC_PROJECTION_MISMATCH",
@@ -756,6 +1015,8 @@ export function validateConditionAgencyMap(map, { evaluatedAt } = {}) {
     }
   }
 
+  const sourceBindingsVerified = map?.schema_version === "1.1.0" &&
+    !errors.some(({ code }) => code.startsWith("AGENCY_") || code === "SCHEMA_INVALID");
   return {
     machine_valid: schemaValid && errors.length === 0,
     schema_valid: schemaValid,
@@ -766,6 +1027,7 @@ export function validateConditionAgencyMap(map, { evaluatedAt } = {}) {
     forecast_produced: false,
     commitment_created: false,
     action_authorised: false,
+    source_bindings_verified: sourceBindingsVerified,
     errors,
   };
 }

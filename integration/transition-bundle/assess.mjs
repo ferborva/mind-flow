@@ -144,7 +144,16 @@ function validateDashboard(path) {
 function validateComponent(role, document, artifactPath, evaluatedAt, context = {}) {
   try {
     if (role === "agency-map") {
-      const result = validateConditionAgencyMap(document, { evaluatedAt });
+      const signalRegistryRef = context.refs?.find(({ role: candidate }) =>
+        candidate === "signal-registry");
+      const result = validateConditionAgencyMap(document, {
+        evaluatedAt,
+        sourceKernel: context.documents?.get("executable-if-kernel"),
+        sourceEvolution: context.documents?.get("evolution-ledger"),
+        sourceSignalRegistry: context.documents?.get("signal-registry"),
+        sourceSignalRegistryArtifactPath: signalRegistryRef?.path,
+        sourceSignalRegistryArtifactSha256: signalRegistryRef?.sha256,
+      });
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
     if (role === "evolution-ledger") {

@@ -147,6 +147,20 @@ test("a Round 4 pre-projection core validates the kernel but rejects unrelated i
   assert.equal(result.gates.authority, false);
 });
 
+test("Round 4 agency source bindings resolve through retained core artifacts", () => {
+  const { attempted } = round4Attempt();
+  const agencyPath = "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json";
+  const agencyBytes = readFileSync(resolve(root, agencyPath));
+  const agencyRef = attempted.artifacts.find(({ role }) => role === "agency-map");
+  agencyRef.path = agencyPath;
+  agencyRef.sha256 = sha256(agencyBytes);
+
+  const result = assessTransitionBundle(attempted, { rootDir: root });
+  assert.equal(result.components_valid, true, JSON.stringify(result.issues, null, 2));
+  assert.equal(result.component_results["agency-map"].source_bindings_verified, true);
+  assert.equal(result.condition_identity.by_role["agency-map"][0], "condition.worker-option.nsw");
+});
+
 test("hostile: a registered signal cannot borrow an executable definition hash", () => {
   const { attempted } = round4Attempt();
   const signalRef = attempted.artifacts.find(({ role }) => role === "signal-registry");

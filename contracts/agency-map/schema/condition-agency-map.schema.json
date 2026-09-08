@@ -13,7 +13,7 @@
     "action_hypotheses", "public_projection"
   ],
   "properties": {
-    "schema_version": {"const": "1.0.0"},
+    "schema_version": {"enum": ["1.0.0", "1.1.0"]},
     "id": {"type": "string", "pattern": "^agency-map\\.[a-z0-9.-]+$"},
     "provenance": {"const": "commissioned-agent-proposal"},
     "created_at": {"type": "string", "format": "date-time"},
@@ -41,6 +41,7 @@
       "type": "array", "minItems": 1,
       "items": {"$ref": "#/$defs/signal"}
     },
+    "signal_registry_ref": {"$ref": "#/$defs/signalRegistryRef"},
     "condition_ledger_ref": {"$ref": "#/$defs/ledgerRef"},
     "conditions": {
       "type": "array", "minItems": 1,
@@ -64,6 +65,87 @@
     "stringSet": {
       "type": "array", "minItems": 1, "uniqueItems": true,
       "items": {"$ref": "#/$defs/nonEmpty"}
+    },
+    "conditionDefinitionRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+        "definition_version": {"type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"},
+        "definition_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "sourceEventRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "event_id", "operation", "event_hash"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 1},
+        "event_id": {"$ref": "#/$defs/identifier"},
+        "operation": {"enum": ["added", "narrowed", "definition-revised", "split", "merge"]},
+        "event_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "historyTipRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "event_id", "event_hash"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 1},
+        "event_id": {"$ref": "#/$defs/identifier"},
+        "event_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "evidenceStateRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kernel_id", "kernel_manifest_hash", "event_count", "tip_event_id", "tip_event_hash", "state_hash"],
+      "properties": {
+        "kernel_id": {"$ref": "#/$defs/identifier"},
+        "kernel_manifest_hash": {"$ref": "#/$defs/sha256"},
+        "event_count": {"type": "integer", "minimum": 1},
+        "tip_event_id": {"$ref": "#/$defs/identifier"},
+        "tip_event_hash": {"$ref": "#/$defs/sha256"},
+        "state_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "canonicalBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_definition_ref", "evolution_ref", "history_tip_ref", "condition_source_event_ref", "evidence_state_ref"],
+      "properties": {
+        "condition_definition_ref": {"$ref": "#/$defs/conditionDefinitionRef"},
+        "evolution_ref": {
+          "type": "object", "additionalProperties": false,
+          "required": ["ledger_id", "schema_version", "manifest_hash"],
+          "properties": {
+            "ledger_id": {"$ref": "#/$defs/identifier"},
+            "schema_version": {"const": "2.0.0"},
+            "manifest_hash": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "history_tip_ref": {"$ref": "#/$defs/historyTipRef"},
+        "condition_source_event_ref": {"$ref": "#/$defs/sourceEventRef"},
+        "evidence_state_ref": {"$ref": "#/$defs/evidenceStateRef"}
+      }
+    },
+    "signalRegistryRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["registry_id", "schema_version", "artifact_path", "artifact_sha256"],
+      "properties": {
+        "registry_id": {"$ref": "#/$defs/identifier"},
+        "schema_version": {"const": "1.1.0"},
+        "artifact_path": {"$ref": "#/$defs/nonEmpty"},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "registeredMetricRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["registry_id", "signal_id", "metric_id", "metric_checksum", "binding_kind", "projection_profile"],
+      "properties": {
+        "registry_id": {"$ref": "#/$defs/identifier"},
+        "signal_id": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"},
+        "metric_id": {"type": "string", "pattern": "^metric\\.[a-z0-9.-]+$"},
+        "metric_checksum": {"$ref": "#/$defs/sha256"},
+        "binding_kind": {"enum": ["executable-predicate", "supplemental-observation"]},
+        "projection_profile": {"const": "signal-registry-estimand-to-agency-metric-v1"}
+      }
     },
     "goal": {
       "type": "object", "additionalProperties": false,
@@ -170,7 +252,8 @@
         "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
         "role": {"enum": ["leading", "confirming", "counter", "outcome", "readiness", "intervention-exposure", "information-harm"]},
         "verification": {"const": "external-unverified"},
-        "metric": {"$ref": "#/$defs/metric"}
+        "metric": {"$ref": "#/$defs/metric"},
+        "registered_metric_ref": {"$ref": "#/$defs/registeredMetricRef"}
       }
     },
     "metric": {
@@ -239,6 +322,7 @@
           "type": "array", "minItems": 1, "uniqueItems": true,
           "items": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"}
         },
+        "canonical_binding": {"$ref": "#/$defs/canonicalBinding"},
         "relations": {
           "type": "array", "minItems": 2,
           "items": {
@@ -383,7 +467,17 @@
           "required": ["status", "statement"],
           "properties": {
             "status": {"const": "unscored outcome hypothesis"},
-            "statement": {"$ref": "#/$defs/nonEmpty"}
+            "statement": {"$ref": "#/$defs/nonEmpty"},
+            "basis": {
+              "type": "object", "additionalProperties": false,
+              "required": ["condition_definition_refs", "evidence_state_refs", "condition_truth_assessed", "authority_effect"],
+              "properties": {
+                "condition_definition_refs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/conditionDefinitionRef"}},
+                "evidence_state_refs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidenceStateRef"}},
+                "condition_truth_assessed": {"const": false},
+                "authority_effect": {"const": "none"}
+              }
+            }
           }
         },
         "signal_contracts": {
@@ -405,6 +499,8 @@
               "aggregation": {"$ref": "#/$defs/nonEmpty"},
               "direction": {"enum": ["increase", "decrease", "maintain", "two-sided", "unknown"]},
               "metric_checksum": {"$ref": "#/$defs/sha256"},
+              "registered_metric_checksum": {"$ref": "#/$defs/sha256"},
+              "binding_kind": {"enum": ["executable-predicate", "supplemental-observation"]},
               "verification": {"const": "external-unverified"}
             }
           }

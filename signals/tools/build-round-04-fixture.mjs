@@ -259,7 +259,7 @@ const registry = {
     publisher: "Mind Flow contract fixture",
     collection_process_id: "process.synthetic-employer-worker-panel",
     depends_on_source_ids: [],
-    evidence_ref: "synthetic://mind-flow/round-04/employer-worker-panel",
+    evidence_ref: "https://example.invalid/mind-flow/round-04/employer-worker-panel.synthetic.json",
     artifact_binding: {
       status: "not-acquired",
       checksum: null,
