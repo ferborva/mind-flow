@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.0.0",
+  "status": "agent_analysis",
+  "as_at": "2026-09-08",
+  "title": "Frozen August 2026 NERO warning-backtest audit",
+  "decision": {
+    "historical_empirical_warning_backtest": "STOP",
+    "within_vintage_alert_load_analysis": "GO_WITH_STRONG_CAVEATS",
+    "prospective_shadow_rehearsal": "GO_AFTER_PROTOCOL_GATES",
+    "public_warning_or_crisis_claim": "STOP",
+    "reason": "The archive contains one retrospectively available modelled path, no publication-vintage dimension, no revisions, no uncertainty and no independent outcome labels. It cannot establish what was knowable at each historical release or classify warnings as true or false."
+  },
+  "source_lock": {
+    "publisher": "Jobs and Skills Australia",
+    "product": "Nowcast of Employment by Region and Occupation",
+    "release_period": "2026-08",
+    "released_at": "2026-09-02",
+    "retrieved_at": "2026-09-08T01:01:48Z",
+    "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+    "archive_name": "2026-08_nero.zip",
+    "archive_bytes": 48613300,
+    "archive_sha256": "a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+    "csv_path": "2026-08_nero/2026-08_shiny_df.csv",
+    "csv_sha256": "7c1efd44b8f6692f32e92267cdbbb386abb87c0aa621d00b83cbde4136d325d1",
+    "rds_path": "2026-08_nero/2026-08_shiny_df.rds",
+    "rds_sha256": "cd807616d3132f1fada8f2944a33f83600af34633e15fd149471bd4208b448a6",
+    "repo_extract": "pilots/australia/data/nero-clerical-2026-08.json",
+    "licence": "CC BY 4.0 International with JSA attribution and stated exclusions"
+  },
+  "official_methodology": {
+    "methodology_url": "https://www.jobsandskills.gov.au/data/nero/nero-methodology",
+    "v3_white_paper_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-06/nowcast_of_employment_by_region_and_occupation_3.0_.pdf",
+    "model": "Stacked ensemble with supervised machine learning, post-model outlier handling, smoothing, reconciliation and scaling to published Labour Force Survey totals by region and occupation.",
+    "v3_release_date": "2026-06-03",
+    "v3_documented_training_cutoff": "2025-08",
+    "v3_documented_holdout": "2025-11",
+    "v3_documented_holdout_metric": {
+      "name": "Mean Absolute Percentage Error",
+      "smaller_group_v2": 24.1,
+      "smaller_group_v3": 16.8,
+      "larger_group_v2": 19.3,
+      "larger_group_v3": 19.0,
+      "unit": "percent",
+      "limitation": "One documented holdout month and aggregate subgroup results test point-estimate error, not warning sensitivity, precision, lead time or downstream crisis detection. Group 2 series were excluded from the v3 comparison."
+    },
+    "official_cautions": [
+      "Estimates are experimental and subject to revision, volatility and error.",
+      "Caution is required for smaller series and large movements.",
+      "Smoothing may hide short-term fluctuations or rapid changes.",
+      "Novel regional employment patterns outside historical data may not be captured.",
+      "Occupation or region estimates must not be summed or combined."
+    ]
+  },
+  "archive_observations": {
+    "csv_header": ["row_id", "state_name", "sa4_code", "sa4_name", "anzsco4_code", "anzsco4_name", "date", "nsc_emp"],
+    "first_reference_date": "2015-09-15",
+    "last_reference_date": "2026-08-15",
+    "months": 132,
+    "all_rows_excluding_header": 4123680,
+    "all_occupations": 355,
+    "all_sa4_regions": 88,
+    "scoped_occupations": ["5311", "5411", "5511", "5512", "5513"],
+    "scoped_rows": 58080,
+    "scoped_series": 440,
+    "observations_per_scoped_series": 132,
+    "missing_backtest_fields": [
+      "publication_vintage",
+      "first_release_value",
+      "revised_value",
+      "revision_reason",
+      "model_version_by_observation",
+      "input_data_cutoff_by_observation",
+      "standard_error_or_prediction_interval",
+      "ground_truth_event_label",
+      "AI_adoption",
+      "work_redesign",
+      "worker_transition",
+      "household_floor_breach",
+      "agency"
+    ]
+  },
+  "series_size_diagnostic": {
+    "date": "2026-08-15",
+    "definition": "Share of the 88 latest SA4 values in each scoped occupation below 800 employed people.",
+    "why_800": "The NERO v3 paper reports that series with a recent average below 800 historically had higher errors and volatility in earlier versions.",
+    "warning": "Latest value below 800 is only a size-risk proxy. It does not reproduce JSA group membership, which uses recent average size, applies within Group 1 and is not identified in the public archive.",
+    "all_scoped": { "series": 440, "below_800": 199, "share": 0.452273, "minimum": 11, "maximum": 12620, "mean": 1393.89 },
+    "by_occupation": [
+      { "code": "5311", "name": "General Clerks", "share_below_800": 0.022727 },
+      { "code": "5411", "name": "Call or Contact Centre Workers", "share_below_800": 0.931818 },
+      { "code": "5511", "name": "Accounting Clerks", "share_below_800": 0.215909 },
+      { "code": "5512", "name": "Bookkeepers", "share_below_800": 0.363636 },
+      { "code": "5513", "name": "Payroll Clerks", "share_below_800": 0.727273 }
+    ]
+  },
+  "descriptive_flag_load": {
+    "purpose": "Stress-test naive detector burden inside one frozen vintage. These are not accuracy, causal-effect or false-positive estimates.",
+    "unit": "overlapping series-month observations",
+    "dependence_warning": "Rows are serially and spatially dependent. A persistent trend produces repeated flags. Episode-level rates will be required in the shadow rehearsal.",
+    "calculation_method": {
+      "monthly_change": "nsc_emp(t) / nsc_emp(t-1) - 1 within occupation-SA4",
+      "twelve_month_change": "nsc_emp(t) / nsc_emp(t-12) - 1 within occupation-SA4",
+      "three_consecutive_declines": "Current observation and its two preceding monthly changes are each below zero",
+      "denominator": "Every eligible overlapping series-month is equally counted; no population weighting",
+      "era_split": "Assigned from the current reference date, with dates through 2022-11-15 in the negative-control era",
+      "rounding": "Displayed shares are rounded to six decimal places"
+    },
+    "whole_archive": {
+      "monthly_comparisons": 57640,
+      "share_negative_monthly_change": 0.426301,
+      "share_at_or_beyond_three_consecutive_monthly_declines": 0.372745,
+      "share_monthly_decline_at_least_5_percent": 0.000729,
+      "share_monthly_decline_at_least_10_percent": 0.0,
+      "minimum_monthly_change": -0.090909,
+      "maximum_monthly_change": 0.1,
+      "twelve_month_comparisons": 52800,
+      "share_twelve_month_decline_at_least_5_percent": 0.309848,
+      "share_twelve_month_decline_at_least_10_percent": 0.180284,
+      "share_twelve_month_decline_at_least_20_percent": 0.04053
+    },
+    "negative_control_era": {
+      "definition": "Reference dates from 2016-09-15 through 2022-11-15. This transparent pre-December 2022 split is a GenAI-era placebo window, not an AI-free period and not labelled ground truth.",
+      "twelve_month_comparisons": 33000,
+      "share_twelve_month_decline_at_least_10_percent": 0.194303,
+      "share_at_or_beyond_three_consecutive_monthly_declines": 0.366147,
+      "share_meeting_both_three_month_and_twelve_month_10_percent_rules": 0.172848
+    },
+    "later_era": {
+      "definition": "Reference dates from 2022-12-15 through 2026-08-15. This is not a treated period because adoption is unobserved.",
+      "twelve_month_comparisons": 19800,
+      "share_twelve_month_decline_at_least_10_percent": 0.156919,
+      "share_at_or_beyond_three_consecutive_monthly_declines": 0.385354,
+      "share_meeting_both_three_month_and_twelve_month_10_percent_rules": 0.135505
+    },
+    "interpretation": "Naive decline rules would have generated a high observation-month alert load before general-purpose generative AI diffusion. Tight one-month thresholds almost never fire, which is consistent with strong smoothing. Neither result reveals warning accuracy because there are no event labels."
+  },
+  "backtest_validity_tests": [
+    {
+      "id": "vintage_reconstruction",
+      "question": "Can the estimate available at each historical release be reconstructed without later data?",
+      "result": "FAIL",
+      "evidence": "The archive has date and nsc_emp columns but no publication-vintage, model-version or input-cutoff columns. Only the August 2026 publication is frozen in the repository."
+    },
+    {
+      "id": "revision_bias",
+      "question": "Can first-release estimates be compared with later revisions?",
+      "result": "FAIL",
+      "evidence": "No earlier publication vintages or revision deltas are present."
+    },
+    {
+      "id": "look_ahead_bias",
+      "question": "Can the historical path be proven to exclude information unavailable at each date?",
+      "result": "FAIL",
+      "evidence": "The current archive does not document per-observation input cutoffs or whether the historical path was regenerated under v3."
+    },
+    {
+      "id": "smoothing_response",
+      "question": "Can time to detect a rapid break be estimated?",
+      "result": "FAIL",
+      "evidence": "JSA states smoothing may miss rapid changes. The archive has no unsmoothed estimate, shock label or event onset."
+    },
+    {
+      "id": "base_rate",
+      "question": "Is the prevalence of the target warning event known?",
+      "result": "FAIL",
+      "evidence": "No target event has been defined or labelled. Decline frequency is alert load, not event prevalence."
+    },
+    {
+      "id": "comparator_independence",
+      "question": "Is a matching independent comparator present?",
+      "result": "FAIL",
+      "evidence": "NERO uses LFS, Census, vacancy and other inputs. The archive contains no independent occupation-SA4 outcome."
+    },
+    {
+      "id": "lead_time",
+      "question": "Can warning lead time be measured from information release to event onset?",
+      "result": "FAIL",
+      "evidence": "Reference dates are available, but historical release timestamps and labelled onset dates are not."
+    },
+    {
+      "id": "false_positive_negative",
+      "question": "Can sensitivity, specificity, precision and false-positive burden be calculated?",
+      "result": "FAIL",
+      "evidence": "No independent binary or time-to-event ground truth exists."
+    },
+    {
+      "id": "semantic_validity",
+      "question": "Does NERO measure the claimed transition mechanism or crisis outcome?",
+      "result": "FAIL",
+      "evidence": "It estimates employment levels. It does not measure AI adoption, work redesign, individual flows, continuity-floor access or agency."
+    }
+  ],
+  "permitted_claims": [
+    "The frozen archive describes a modelled, smoothed employment path for each separate occupation-SA4 series.",
+    "A predeclared rule would have generated a stated descriptive alert load when applied retrospectively to this single vintage.",
+    "The current evidence is insufficient to label those historical flags correct or incorrect."
+  ],
+  "prohibited_claims": [
+    "NERO historically predicted crises.",
+    "A decline flag is an AI warning.",
+    "Pre-2022 flags are false positives.",
+    "The August archive is a pseudo-real-time vintage panel.",
+    "A smoothed employment decline establishes job loss, household hardship or lost agency."
+  ]
+}
