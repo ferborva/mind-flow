@@ -1,8 +1,15 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import { auditDeclineRuns } from "../../tools/decline-audit.mjs";
 import { compareDecisionPolicies } from "../../tools/decision-utility.mjs";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const pilot = resolve(here, "..", "..");
+const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 
 function monthlyRows(seriesCount, monthCount) {
   const rows = [];
@@ -56,6 +63,36 @@ test("boundary-month eligibility produces the declared NERO denominators", () =>
   assert.equal(audit.whole_archive.three_decline.denominator, 56_760);
   assert.equal(audit.negative_control_era.three_decline.denominator, 33_000);
   assert.equal(audit.later_era.three_decline.denominator, 19_800);
+});
+
+test("the recorded official-archive reproduction matches the corrected audit", () => {
+  const reproduction = readJson(resolve(
+    pilot,
+    "reproductions",
+    "nero-decline-audit-2026-09-08.json",
+  ));
+  const publishedAudit = readJson(resolve(pilot, "nero-warning-audit-2026-08.json"));
+  const frozenBaseline = readJson(resolve(pilot, "data", "nero-clerical-2026-08.json"));
+
+  assert.equal(
+    `sha256:${reproduction.source.archive_sha256}`,
+    frozenBaseline.source.checksum,
+  );
+  for (const [reproductionEra, auditEra] of [
+    ["whole_archive", "whole_archive"],
+    ["pre_negative_control_era", "pre_negative_control_era"],
+    ["negative_control_era", "negative_control_era"],
+    ["later_era", "later_era"],
+  ]) {
+    const actual = reproduction.results[reproductionEra].three_consecutive_declines;
+    const declared = publishedAudit.descriptive_flag_load[auditEra];
+    assert.equal(actual.numerator, declared.three_consecutive_decline_flags);
+    assert.equal(actual.denominator, declared.three_consecutive_decline_eligible_observations);
+    assert.equal(actual.share, declared.share_at_or_beyond_three_consecutive_monthly_declines);
+    assert.equal(actual.first_eligible_date, declared.three_consecutive_decline_first_eligible_date);
+    assert.equal(actual.last_eligible_date, declared.three_consecutive_decline_last_eligible_date);
+  }
+  assert.match(reproduction.claim_limit, /does not establish.*warning accuracy/i);
 });
 
 test("no-alert is compared through decision utility while precision stays undefined", () => {

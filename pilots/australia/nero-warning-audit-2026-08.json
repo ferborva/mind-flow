@@ -137,6 +137,8 @@
       "definition": "Eligible three-decline reference dates from 2015-12-15 through 2016-08-15, before the declared negative-control window.",
       "three_consecutive_decline_flags": 1534,
       "three_consecutive_decline_eligible_observations": 3960,
+      "three_consecutive_decline_first_eligible_date": "2015-12-15",
+      "three_consecutive_decline_last_eligible_date": "2016-08-15",
       "share_at_or_beyond_three_consecutive_monthly_declines": 0.387374
     },
     "negative_control_era": {
