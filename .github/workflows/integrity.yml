@@ -1,0 +1,49 @@
+name: Integrity
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integrity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out complete history and review tags
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Run the complete test contract
+        run: npm test
+
+      - name: Rebuild the global Observatory
+        run: >-
+          node dashboard/tools/build.mjs
+          dashboard/snapshots/2026-09-07.json
+          dashboard/web/index.html
+
+      - name: Rebuild the Australia pilot
+        run: >-
+          node dashboard/tools/build-australia-pilot.mjs
+          pilots/australia/data/nero-clerical-2026-08.json
+          pilots/australia/web/index.html
+
+      - name: Reject generated-artifact drift
+        run: git diff --exit-code
