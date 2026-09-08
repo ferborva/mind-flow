@@ -17,8 +17,8 @@ scheduled runs.
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 11 |
-| Dashboard snapshots | 1 |
+| Research notes | 14 |
+| Dashboard snapshots | 4 dated records plus 1 Round 04 projection |
 
 Foundation documents: **4 of 4 in place.**
 
@@ -101,7 +101,10 @@ Foundation documents: **4 of 4 in place.**
 
 | Note | What it covers |
 |---|---|
+| `2026-09-09-round-04-claim-evidence-audit` | Grades the programme's highest-risk claims, states primary-source ceilings and publishes twelve ways the method could fail |
+| `2026-09-09-transition-crisis-point-register` | Treats crisis points as candidate failed conversions, with rival paths, evidence roles and reversible preparations across nine domains |
 | `2026-09-09-healthcare-if-validation` | Bounds the four-country healthcare example with current primary government sources, incompatible denominators and claim ceilings |
+| `2026-09-08-australia-pilot-source-triage` | Bounds the Australian clerical-worker feasibility candidate and records the missing person-level chain |
 | `2026-09-08-early-warning-action-systems` | Adapts established early-warning and anticipatory-action practice into a full IF ladder, while testing where the analogy fails |
 | `2026-09-08-integrity-audit` | Claim stop-lines, corrected poverty-gap reasoning, IF register and bounded Australia pilot |
 | `2026-09-08-thesis-debate` | Eleven proposition-level steelman and opposition cases, discriminating evidence and public debate kit |
@@ -119,6 +122,8 @@ Foundation documents: **4 of 4 in place.**
   quality gates, pilot, release sequence and decisions reserved for Fernando.
 - `meta/round-03-deep-plan.md`: dependency-ordered execution plan, claim
   firewall, expanded IF sentence types, validation gates and hostile assumptions.
+- `meta/round-04-external-review-brief.md`: current review target, six sealed
+  review lanes, reproduction commands, highest-value attacks and blockers.
 - `governance/public-charter.md`: proposed purpose, evidence contract,
   anti-technocracy safeguards, dissent and release gates.
 - `governance/if-protocol.md`: the proposed public grammar and condition graph.
@@ -144,13 +149,20 @@ Foundation documents: **4 of 4 in place.**
   community, institution and country scales, with symmetrical inaction review.
 - `forecasts/`: immutable binary forecast contracts, baseline comparison and
   prospective proper scoring, including a separate decision-linked stratum.
-- `experiments/observatory-comparison/`: a proposed three-arm public-instrument
-  trial with dangerous-understanding and affected-group stop lines.
+- `experiments/observatory-comparison/`: a proposed 2 by 2 public-instrument
+  trial across interface and deliberation, with declared fact parity,
+  dangerous-understanding gates and affected-group stop lines.
 
 These are Ren or agent-authored commissioned proposals. They are not
 Fernando's settled views.
 
 ## Dashboard
+
+**Transition Observatory, Round 04** lives in `dashboard/observatory/`. It is a
+self-contained static prototype derived from the exact synthetic seven-artifact
+pre-projection core. Its current `true` state is a mechanical fixture result,
+not empirical truth. The future 62% forecast is separate, and no action or
+publication is authorised.
 
 **Seldon Observatory** · https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
 

@@ -36,7 +36,10 @@ test("the supply argument keeps consumer IFs and actor WHENs linked but non-iden
 test("programme controls are described as advisory until an issuance boundary exists", () => {
   assert.match(programme, /cannot enforce that requirement at CI, hosting, identity or\s+operational issuance boundaries/i);
   assert.match(programme, /controls are advisory library and build\s+boundaries/i);
-  assert.match(programme, /Current checkpoint: Round 03 repair branch/i);
+  assert.match(programme, /Current checkpoint: Round 04 complete synthetic core/i);
+  assert.match(programme, /seven-artifact pre-projection core/i);
+  assert.match(programme, /eight-artifact complete core/i);
+  assert.match(programme, /truth, freshness,\s+authority and publication remain closed/i);
   assert.match(programme, /transition-bundle assessment/i);
   assert.doesNotMatch(programme, /repository is a provenance-safe system/i);
   assert.doesNotMatch(programme, /Block public issuance at a machine-readable governance boundary/i);

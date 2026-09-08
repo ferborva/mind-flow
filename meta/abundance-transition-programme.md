@@ -35,8 +35,10 @@ updated: 2026-09-09
 - Work advances through evidence, adversarial, affected-party, methods,
   comprehension and operational review. Iteration is required when it changes
   the result, not to manufacture activity.
-- The dependency-ordered execution and claim firewall are maintained in the
-  [Round 03 deep plan](round-03-deep-plan.md).
+- The dependency-ordered foundation remains in the
+  [Round 03 deep plan](round-03-deep-plan.md). The current challenge target and
+  reviewer instructions are in the
+  [Round 04 external review brief](round-04-external-review-brief.md).
 
 ---
 
@@ -435,20 +437,28 @@ their own work.
 - No trigger is presented as an authorised action without real authority.
 - Reviewers receive the charter, threat model, test commands and issue format.
 
-## 🔒 Current checkpoint: Round 03 repair branch
+## 🔒 Current checkpoint: Round 04 complete synthetic core
 
-The Round 03 manifest freezes the exact pre-review artifacts. Subsequent commits
-contain local repairs and new independent attacks, so they are deliberately not
-described as part of that freeze. **A new Round 04 manifest must be generated
-from a clean, tested commit before the next external group reviews the work.**
+Round 04 now has a coherent seven-artifact pre-projection core and an
+eight-artifact complete core. The executable IF kernel, evolution ledger,
+signal registry, agency map, possible path, preparation register, forecast and
+dashboard projection resolve one exact synthetic NSW worker-option condition.
+The complete-core builder rejects any projection that changes the earlier
+artifact references, canonical references, scope bindings, clock or authority
+boundary.
 
-Named validators currently reject specified invalid fixtures when invoked. The
-dashboard renders an explicit non-authorising public update, and no public
-release is authorised. The new
-[transition-bundle assessment](../integration/transition-bundle/README.md) also
-shows why subsystem success is insufficient: the current agency, evolution,
-signal, path, preparation, forecast and dashboard artifacts do not share one
-condition identity, scope or decision history.
+The [transition-bundle assessment](../integration/transition-bundle/README.md)
+opens only structural integrity, scope-mapping integrity, history, evidence
+binding, forecast binding and preparation binding. Mechanical rule state is
+kept separate from real-world truth. Scope structure is kept separate from
+scope-mapping truth. The clock is operator supplied. **Truth, freshness,
+authority and publication remain closed.** Action remains unauthorised.
+
+The Observatory interface and proposed 2 by 2 comparison derive from the same
+pre-projection core. The interface is a synthetic prototype, not the governed
+dashboard artifact inside the complete core. The experiment proves declared
+input parity only. It cannot approve recruitment, and rendered parity has not
+been assessed.
 
 The controls are advisory library and build boundaries. Callers can bypass
 them, and no CI, hosting or operational issuance boundary currently prevents
@@ -473,6 +483,8 @@ public challenge service, source-licence clearance or real authority.
 | 2026-09-08 | Require a machine-readable governance library before preparing a review packet | The library can reject structural incompleteness when invoked, but cannot block publication | An independently enforced CI, hosting and issuance mechanism exists |
 | 2026-09-09 | Assess subsystem coherence before claiming programme readiness | Individually valid artifacts currently describe different condition sets, scopes and histories | One hash-pinned transition bundle passes without weakening the checks |
 | 2026-09-09 | Keep Round 03 immutable and prepare a new Round 04 review freeze | Post-review repairs must not rewrite the reviewed input | The clean branch, manifest and independent reproduction are ready |
+| 2026-09-09 | Join one synthetic condition across a seven-artifact pre-core and add one exact dashboard projection | Shared labels were insufficient; every downstream surface must retain source bytes, definition, receipt, scope and boundaries | A neighbouring attack shows that exact substitution or derivation can pass incorrectly |
+| 2026-09-09 | Keep Round 04 non-authorising despite structural coherence | Mechanical validity cannot establish truth, freshness, scope truth, legitimacy, capacity or consent | Independent external evidence closes the relevant gate through a separately governed process |
 
 ## ❓ Decisions reserved for Fernando
 
