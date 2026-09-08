@@ -33,7 +33,9 @@ the-zero-cost-count, the-free-labour-paradox, the-transmission-test,
 tell-me-your-conditions, run-the-frame-on-the-supplier,
 if-is-demand-when-is-supply, conditions-have-owners,
 agency-is-the-goal-conditions-are-the-signals, you-cannot-sequence-the-conditions
-Pieces: abundance-has-an-if (draft), from-if-to-when (draft)
+Pieces: name-the-if (draft), every-if-is-somebodys-when (draft),
+abundance-has-an-if (draft), from-if-to-when (draft),
+message-to-the-moonshot-mates (correspondence)
 
 <!-- NOTE: active on the third capture, per the rule. Fifteen seeds and two long
      drafts. This is plainly book-shaped, but the book rule wants 5+ POSTS and

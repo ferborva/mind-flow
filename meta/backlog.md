@@ -36,11 +36,9 @@ The three at the top are the ones that block writing. The rest can wait.
       liked them and repeated them back with one name changed, which is adoption
       and not authorship. Either he names his own set or he says use these, and
       until then they cannot appear in his voice as his invention.
-- [ ] **Piece one is specified and unwritten.** The shrug, the missing if, the
-      categories as a starting set, one worked example, the invitation. No
-      remedy, no crisis layer, no supply side. Around 1,500 words, for the
-      Moonshot crew and anyone else who would use the frame. Say go and it gets
-      drafted.
+- [x] **Piece one.** Drafted 2026-09-08 as `drafts/name-the-if.md`, round two as
+      `drafts/every-if-is-somebodys-when.md`, outreach as
+      `drafts/message-to-the-moonshot-mates.md`. Now needs his read.
 - [ ] **What Wissner-Gross actually said.** "Everything will be unlimited",
       have anything, learn anything, live forever, brain into digital space,
       within ten years. Quoted from memory. The whole reversal argument stands on
@@ -73,6 +71,28 @@ The three at the top are the ones that block writing. The rest can wait.
       anything, called the answer a sermon, and moved on. Worth asking once,
       properly, because it decides how much of this is for him and how much is
       for them.
+
+### From the three drafts, 2026-09-08
+
+- [ ] **The podcast transcripts.** He is pulling down transcripts from multiple
+      episodes so the frame can be run against their actual words. The pass,
+      when they land: run the method on promises they make verbatim, find one
+      discussion the frame would have unstuck, find one place it clashes with
+      what they argue, and mine the affectionate specifics for the outreach
+      message. Transcripts go in `research/` with episode and date, and they are
+      third-party material, so nothing in them becomes his substance.
+- [ ] **Provider or procurer?** He said "procurer" in the brief and "the
+      offering side of this contract" in conversation. The round-two draft uses
+      **provider** throughout. His word wins.
+- [ ] **Does round two replace the ending of `abundance-has-an-if`?** The
+      supply-side framing supersedes "what should these companies do with their
+      profits", which is the section the red team broke. If he agrees, that
+      draft's last third gets rewritten and pointed here. It is a rewrite of a
+      piece in review, so it is his call.
+- [ ] **Is the healthcare example the right one to lead with?** It is the one he
+      picked, and it puts him one line away from an argument about American
+      healthcare, which is the misreading the four-country table is there to
+      prevent. Worth a second look before sending.
 
 ### Calibration
 
