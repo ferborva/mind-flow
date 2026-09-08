@@ -14,7 +14,7 @@ scheduled runs.
 |---|---|
 | Captures | 5 |
 | Seeds | 15 |
-| Drafts | 2 |
+| Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
 | Research notes | 10 |
@@ -67,11 +67,20 @@ Foundation documents: **4 of 4 in place.**
 
 ## Drafts
 
-**Not yet opened:** the short piece he specified on 2026-09-08. The frame as an
-instrument, ~1,500 words, no remedy and no crisis layer, for the Moonshot crew
-and anyone who would use it. Blocked only on him saying go. Six new seeds feed
-it.
-
+- `name-the-if`, medium, **drafting**, ~1,700 words. The frame as an instrument:
+  the shrug, the missing if, the reversal, five condition categories, the
+  healthcare promise run across four countries, and the invitation. No remedy,
+  no crisis layer, no supply side. **This is the one he sends.** Two blockers
+  marked inline: the Diamandis anecdote needs a source, the four-country table
+  needs a research note.
+- `every-if-is-somebodys-when`, medium, **drafting**, ~1,500 words. Round two.
+  Consumer's if against provider's when, the CEO's condition list, and sorting
+  conditions by who holds them. **Quietly replaces the broken ending of
+  `abundance-has-an-if`.**
+- `message-to-the-moonshot-mates`, short, **drafting**. Correspondence, not a
+  piece, and it does not move to `posts/`. Three versions: YouTube comment,
+  email, one-liner. Awaits the podcast-transcript pass before it gains specific
+  callbacks.
 - `from-if-to-when`, long, **review**, ~4,500 words. The transition design he
   commissioned. **New tension as of 2026-09-08:** he says the order conditions
   fall in cannot be planned, and this draft runs on five dated phases. See
