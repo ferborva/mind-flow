@@ -18,7 +18,7 @@
         "definition_version": "1.0.0",
         "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
       },
-      "source_event_ref": {
+      "condition_source_event_ref": {
         "sequence": 5,
         "event_id": "event.worker-option.merge",
         "event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6"
@@ -43,11 +43,9 @@
       "depends_on_source_ids": [],
       "evidence_ref": "synthetic://mind-flow/round-04/employer-worker-panel",
       "artifact_binding": {
-        "status": "acquired-external-bytes",
-        "checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-        "byte_length": 1,
-        "retrieved_at": "2026-09-03T00:00:00Z",
-        "next_acquisition": null
+        "status": "not-acquired",
+        "checksum": null,
+        "next_acquisition": "Create a governed synthetic source artifact or acquire approved external bytes before interpreting the candidate signals."
       }
     }
   ],
@@ -269,6 +267,214 @@
           "human-review"
         ]
       }
+    },
+    {
+      "signal_id": "signal.worker-option.counter.synthetic",
+      "label": "Reported earnings or essential-condition deterioration",
+      "status": "candidate",
+      "construct": {
+        "construct_id": "construct.worker-option.counter.synthetic",
+        "name": "Reported earnings or essential-condition deterioration",
+        "definition": "The share of affected workers reporting lower real earnings or worse essential conditions after a transition-support exposure.",
+        "statistical_unit": "affected worker"
+      },
+      "estimand": {
+        "quantity": "share reporting lower real earnings or worse essential conditions",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "aggregation_level": "Eligible-worker weighted ratio"
+      },
+      "epistemic_class": "participant-report",
+      "source_refs": [
+        "source.synthetic-employer-worker-panel"
+      ],
+      "condition_links": [
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+          "evidence_role": "counter",
+          "edge_type": "inhibiting",
+          "scope": {
+            "construct_id": "construct.worker-option.counter.synthetic",
+            "population": "Affected workers inside the complete registered observation scope",
+            "geography": "New South Wales, Australia",
+            "statistical_unit": "affected worker",
+            "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+            "unit": "ratio",
+            "denominator": "eligible affected workers in the exact registered scope",
+            "aggregation_level": "Eligible-worker weighted ratio"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly synthetic observation window",
+        "publication_lag_max_days": 2,
+        "prospective_decision_lead_min_days": 30,
+        "revision_behaviour": "Corrections, challenges, withdrawals and expiry remain in the executable evidence chain."
+      },
+      "uncertainty": {
+        "representation": "Synthetic contract fixture; no population uncertainty is estimated.",
+        "interval_available": false,
+        "known_limits": [
+          "This invented supplemental observation is not executable predicate evidence.",
+          "No causal, prevalence or individual-level conclusion can be drawn."
+        ]
+      },
+      "missingness": {
+        "mechanism": "Synthetic source cells may be absent, incomplete, stale, challenged or withdrawn.",
+        "reporting_rule": "Preserve unknown, stale and conflicted states. Never coerce them to false or zero."
+      },
+      "exclusions": [
+        "real-world causal inference",
+        "individual entitlement or eligibility"
+      ],
+      "confounders": [
+        "selection into the synthetic panel",
+        "unverified source independence"
+      ],
+      "negative_controls": [
+        "a held-out synthetic scope cell with no registered intervention"
+      ],
+      "gaming": {
+        "risks": [
+          "reporting only favourable cells",
+          "renaming one source as multiple independent sources"
+        ],
+        "detection": "Compare exact source IDs, artifact hashes, scope cells and evidence lifecycle events.",
+        "suspension_rule": "Suspend interpretation when any source, scope or evidence-state binding drifts."
+      },
+      "reflexivity": {
+        "risk": "A favourable indicator may be mistaken for a promise or entitlement.",
+        "monitor": "Test comprehension of computed state, empirical truth and authority as separate concepts."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Tests whether counter evidence remains visible without changing the IF predicate.",
+        "next_observation": "Design and independently validate a scope-compatible measurement protocol before operational use."
+      },
+      "public_claim_ceiling": "Reported earnings or essential-condition deterioration may be described only as participant-report evidence about share reporting lower real earnings or worse essential conditions for Affected workers inside the complete registered observation scope, New South Wales, Australia, during 2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z. It does not establish causality, individual outcomes or action authority.",
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      },
+      "supplemental_binding": {
+        "kind": "supplemental-observation",
+        "purpose": "counter",
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "truth_expression_effect": "none"
+      }
+    },
+    {
+      "signal_id": "signal.worker-option.information-harm.synthetic",
+      "label": "Reported transition-information harm",
+      "status": "candidate",
+      "construct": {
+        "construct_id": "construct.worker-option.information-harm.synthetic",
+        "name": "Reported transition-information harm",
+        "definition": "The share of affected workers reporting that transition communication made options, evidence status or authority boundaries less clear.",
+        "statistical_unit": "affected worker"
+      },
+      "estimand": {
+        "quantity": "share reporting reduced clarity after transition communication",
+        "population": "Affected workers inside the complete registered observation scope",
+        "geography": "New South Wales, Australia",
+        "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+        "unit": "ratio",
+        "denominator": "eligible affected workers in the exact registered scope",
+        "aggregation_level": "Eligible-worker weighted ratio"
+      },
+      "epistemic_class": "participant-report",
+      "source_refs": [
+        "source.synthetic-employer-worker-panel"
+      ],
+      "condition_links": [
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+          "evidence_role": "information-harm",
+          "edge_type": "correlated-only",
+          "scope": {
+            "construct_id": "construct.worker-option.information-harm.synthetic",
+            "population": "Affected workers inside the complete registered observation scope",
+            "geography": "New South Wales, Australia",
+            "statistical_unit": "affected worker",
+            "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+            "unit": "ratio",
+            "denominator": "eligible affected workers in the exact registered scope",
+            "aggregation_level": "Eligible-worker weighted ratio"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly synthetic observation window",
+        "publication_lag_max_days": 2,
+        "prospective_decision_lead_min_days": 30,
+        "revision_behaviour": "Corrections, challenges, withdrawals and expiry remain in the executable evidence chain."
+      },
+      "uncertainty": {
+        "representation": "Synthetic contract fixture; no population uncertainty is estimated.",
+        "interval_available": false,
+        "known_limits": [
+          "This invented supplemental observation is not executable predicate evidence.",
+          "No causal, prevalence or individual-level conclusion can be drawn."
+        ]
+      },
+      "missingness": {
+        "mechanism": "Synthetic source cells may be absent, incomplete, stale, challenged or withdrawn.",
+        "reporting_rule": "Preserve unknown, stale and conflicted states. Never coerce them to false or zero."
+      },
+      "exclusions": [
+        "real-world causal inference",
+        "individual entitlement or eligibility"
+      ],
+      "confounders": [
+        "selection into the synthetic panel",
+        "unverified source independence"
+      ],
+      "negative_controls": [
+        "a held-out synthetic scope cell with no registered intervention"
+      ],
+      "gaming": {
+        "risks": [
+          "reporting only favourable cells",
+          "renaming one source as multiple independent sources"
+        ],
+        "detection": "Compare exact source IDs, artifact hashes, scope cells and evidence lifecycle events.",
+        "suspension_rule": "Suspend interpretation when any source, scope or evidence-state binding drifts."
+      },
+      "reflexivity": {
+        "risk": "A favourable indicator may be mistaken for a promise or entitlement.",
+        "monitor": "Test comprehension of computed state, empirical truth and authority as separate concepts."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Tests whether information-harm evidence remains visible without changing the IF predicate.",
+        "next_observation": "Design and independently validate a scope-compatible measurement protocol before operational use."
+      },
+      "public_claim_ceiling": "Reported transition-information harm may be described only as participant-report evidence about share reporting reduced clarity after transition communication for Affected workers inside the complete registered observation scope, New South Wales, Australia, during 2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z. It does not establish causality, individual outcomes or action authority.",
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      },
+      "supplemental_binding": {
+        "kind": "supplemental-observation",
+        "purpose": "information-harm",
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        },
+        "truth_expression_effect": "none"
+      }
     }
   ],
   "portfolios": [
@@ -306,7 +512,7 @@
         },
         {
           "role": "counter",
-          "reason": "No independent adverse-outcome measure is registered.",
+          "reason": "A supplemental adverse-outcome construct is registered, but no independent empirical measure is validated.",
           "next_acquisition": "Acquire a scope-compatible counter signal before decision-linked or public use."
         },
         {
@@ -326,7 +532,7 @@
         },
         {
           "role": "information-harm",
-          "reason": "No communication-harm measure is registered.",
+          "reason": "A supplemental communication-harm construct is registered, but no independent empirical measure is validated.",
           "next_acquisition": "Acquire a scope-compatible information-harm signal before decision-linked or public use."
         }
       ],

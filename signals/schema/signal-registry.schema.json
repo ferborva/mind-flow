@@ -208,7 +208,7 @@
             "ledger_tip_event_id",
             "ledger_tip_hash",
             "condition_definition_ref",
-            "source_event_ref",
+            "condition_source_event_ref",
             "evidence_state_ref",
             "next_binding"
           ],
@@ -220,7 +220,7 @@
             "ledger_tip_event_id": { "$ref": "#/$defs/id" },
             "ledger_tip_hash": { "$ref": "#/$defs/sha256" },
             "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
-            "source_event_ref": { "$ref": "#/$defs/sourceEventRef" },
+            "condition_source_event_ref": { "$ref": "#/$defs/sourceEventRef" },
             "evidence_state_ref": { "$ref": "#/$defs/evidenceStateRef" },
             "next_binding": { "type": "null" }
           }
@@ -250,6 +250,17 @@
           "uniqueItems": true,
           "items": { "$ref": "#/$defs/id" }
         }
+      }
+    },
+    "supplementalSignalBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "purpose", "condition_definition_ref", "truth_expression_effect"],
+      "properties": {
+        "kind": { "const": "supplemental-observation" },
+        "purpose": { "enum": ["counter", "information-harm"] },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "truth_expression_effect": { "const": "none" }
       }
     },
     "conditionLink": {
@@ -422,7 +433,8 @@
             "operational_effect": { "type": "boolean" }
           }
         },
-        "executable_binding": { "$ref": "#/$defs/executableSignalBinding" }
+        "executable_binding": { "$ref": "#/$defs/executableSignalBinding" },
+        "supplemental_binding": { "$ref": "#/$defs/supplementalSignalBinding" }
       }
     },
     "roleAssignment": {

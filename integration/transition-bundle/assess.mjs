@@ -269,7 +269,8 @@ function executableSignalProjection(kernel, activeDefinitionRefs) {
 }
 
 function registeredExecutableSignals(registry) {
-  return (registry?.signals || []).map((signal) => ({
+  return (registry?.signals || []).filter(({ executable_binding: binding }) => binding)
+    .map((signal) => ({
     signal_definition_ref: structuredClone(
       signal.executable_binding?.signal_definition_ref,
     ),
@@ -520,7 +521,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
         ledger_tip_event_id: producer?.event_id,
         ledger_tip_hash: producer?.event_hash,
         condition_definition_ref: reference,
-        source_event_ref: producer ? {
+        condition_source_event_ref: producer ? {
           sequence: producer.sequence,
           event_id: producer.event_id,
           event_hash: producer.event_hash,
@@ -534,7 +535,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       ledger_tip_event_id: binding.ledger_tip_event_id,
       ledger_tip_hash: binding.ledger_tip_hash,
       condition_definition_ref: binding.condition_definition_ref,
-      source_event_ref: binding.source_event_ref,
+      condition_source_event_ref: binding.condition_source_event_ref,
       evidence_state_ref: binding.evidence_state_ref,
     })).sort((left, right) => left.condition_id.localeCompare(right.condition_id));
     if (!same(registeredConditionAnchors, expectedConditionAnchors)) {

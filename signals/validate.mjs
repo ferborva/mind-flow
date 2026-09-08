@@ -8,7 +8,7 @@ import addFormats from "ajv-formats";
 const DEFAULT_SCHEMA_BYTES = readFileSync(
   new URL("./schema/signal-registry.schema.json", import.meta.url),
 );
-const DEFAULT_SCHEMA_SHA256 = "2d40e8133672e0fd3616e30c049a5ce49d31d1e0afc5f4635c2d60cccd83c384";
+const DEFAULT_SCHEMA_SHA256 = "fa51c938f0bc1428a931fddc8a818d2d3bbdcfc20674e58266299ebade074d1e";
 const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
 if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
   throw new Error("signal-registry schema bytes do not match the validator's pinned contract digest");
@@ -155,9 +155,7 @@ export function validateSignalRegistry(registry) {
   if (registry.schema_version === "1.1.0") {
     for (const [bindingIndex, binding] of registry.condition_bindings.entries()) {
       if (binding.binding_status !== "locally-verified-complete" ||
-          binding.condition_definition_ref?.condition_id !== binding.condition_id ||
-          binding.source_event_ref?.event_id !== binding.ledger_tip_event_id ||
-          binding.source_event_ref?.event_hash !== binding.ledger_tip_hash) {
+          binding.condition_definition_ref?.condition_id !== binding.condition_id) {
         errors.push(issue(
           "LOCAL_CONDITION_BINDING_MISMATCH",
           `/condition_bindings/${bindingIndex}`,
@@ -168,23 +166,48 @@ export function validateSignalRegistry(registry) {
     const executableRefs = new Set();
     for (const [signalIndex, signal] of registry.signals.entries()) {
       const binding = signal.executable_binding;
+      const supplemental = signal.supplemental_binding;
       const refKey = binding
         ? `${binding.signal_definition_ref?.signal_id}@${binding.signal_definition_ref?.definition_version}`
         : null;
       const linkedConditionIds = new Set(signal.condition_links.map(({ condition_id: id }) => id));
-      if (!binding || binding.signal_definition_ref?.signal_id !== signal.signal_id ||
+      if ((binding === undefined) === (supplemental === undefined)) {
+        errors.push(issue(
+          "SIGNAL_BINDING_KIND_MISMATCH",
+          `/signals/${signalIndex}`,
+          "a v1.1 signal must be exactly one of executable predicate evidence or a supplemental observation",
+        ));
+      } else if (binding && (binding.signal_definition_ref?.signal_id !== signal.signal_id ||
           binding.condition_definition_ref?.condition_id === undefined ||
           !linkedConditionIds.has(binding.condition_definition_ref.condition_id) ||
           !conditionById.has(binding.condition_definition_ref.condition_id) ||
           !isDeepStrictEqual(
             conditionById.get(binding.condition_definition_ref.condition_id)?.condition_definition_ref,
             binding.condition_definition_ref,
-          ) || executableRefs.has(refKey)) {
+          ) || executableRefs.has(refKey))) {
         errors.push(issue(
           "EXECUTABLE_SIGNAL_BINDING_MISMATCH",
           `/signals/${signalIndex}/executable_binding`,
           "an executable signal must bind its own immutable definition and one exact registered condition",
         ));
+      } else if (supplemental) {
+        const exactCondition = conditionById.get(
+          supplemental.condition_definition_ref?.condition_id,
+        );
+        const matchingLink = signal.condition_links.some((link) =>
+          link.condition_id === supplemental.condition_definition_ref?.condition_id &&
+          link.evidence_role === supplemental.purpose);
+        if (supplemental.truth_expression_effect !== "none" || !exactCondition || !matchingLink ||
+            !isDeepStrictEqual(
+              exactCondition.condition_definition_ref,
+              supplemental.condition_definition_ref,
+            )) {
+          errors.push(issue(
+            "SUPPLEMENTAL_SIGNAL_BINDING_MISMATCH",
+            `/signals/${signalIndex}/supplemental_binding`,
+            "supplemental evidence must bind one exact condition and matching non-predicate evidence role",
+          ));
+        }
       }
       if (refKey) executableRefs.add(refKey);
     }

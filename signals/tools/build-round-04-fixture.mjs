@@ -147,6 +147,62 @@ const reviewSignal = signal(
   "all eligible scope cells in the exact registered scope",
 );
 
+function supplementalSignal({ signalId, label, role, definition, quantity }) {
+  const item = structuredClone(optionSignal);
+  const constructId = `construct.${signalId.slice("signal.".length)}`;
+  item.signal_id = signalId;
+  item.label = label;
+  item.construct = {
+    ...item.construct,
+    construct_id: constructId,
+    name: label,
+    definition,
+  };
+  item.estimand.quantity = quantity;
+  item.condition_links[0] = {
+    ...item.condition_links[0],
+    evidence_role: role,
+    edge_type: role === "counter" ? "inhibiting" : "correlated-only",
+    scope: {
+      ...item.condition_links[0].scope,
+      construct_id: constructId,
+    },
+  };
+  item.uncertainty.known_limits = [
+    "This invented supplemental observation is not executable predicate evidence.",
+    "No causal, prevalence or individual-level conclusion can be drawn.",
+  ];
+  item.value_of_information = {
+    decision_ref: null,
+    learning_value: `Tests whether ${role} evidence remains visible without changing the IF predicate.`,
+    next_observation: "Design and independently validate a scope-compatible measurement protocol before operational use.",
+  };
+  delete item.executable_binding;
+  item.supplemental_binding = {
+    kind: "supplemental-observation",
+    purpose: role,
+    condition_definition_ref: structuredClone(activeState.condition_definition_ref),
+    truth_expression_effect: "none",
+  };
+  item.public_claim_ceiling = renderPublicClaimCeiling(item);
+  return item;
+}
+
+const counterSignal = supplementalSignal({
+  signalId: "signal.worker-option.counter.synthetic",
+  label: "Reported earnings or essential-condition deterioration",
+  role: "counter",
+  definition: "The share of affected workers reporting lower real earnings or worse essential conditions after a transition-support exposure.",
+  quantity: "share reporting lower real earnings or worse essential conditions",
+});
+const informationHarmSignal = supplementalSignal({
+  signalId: "signal.worker-option.information-harm.synthetic",
+  label: "Reported transition-information harm",
+  role: "information-harm",
+  definition: "The share of affected workers reporting that transition communication made options, evidence status or authority boundaries less clear.",
+  quantity: "share reporting reduced clarity after transition communication",
+});
+
 const registry = {
   schema_version: "1.1.0",
   registry_id: "registry.round-04.worker-option.synthetic",
@@ -162,7 +218,7 @@ const registry = {
     ledger_tip_event_id: producer.event_id,
     ledger_tip_hash: producer.event_hash,
     condition_definition_ref: structuredClone(activeState.condition_definition_ref),
-    source_event_ref: {
+    condition_source_event_ref: {
       sequence: producer.sequence,
       event_id: producer.event_id,
       event_hash: producer.event_hash,
@@ -178,14 +234,12 @@ const registry = {
     depends_on_source_ids: [],
     evidence_ref: "synthetic://mind-flow/round-04/employer-worker-panel",
     artifact_binding: {
-      status: "acquired-external-bytes",
-      checksum: `sha256:${"1".repeat(64)}`,
-      byte_length: 1,
-      retrieved_at: "2026-09-03T00:00:00Z",
-      next_acquisition: null,
+      status: "not-acquired",
+      checksum: null,
+      next_acquisition: "Create a governed synthetic source artifact or acquire approved external bytes before interpreting the candidate signals.",
     },
   }],
-  signals: [optionSignal, reviewSignal],
+  signals: [optionSignal, reviewSignal, counterSignal, informationHarmSignal],
   portfolios: [{
     condition_id: activeDefinition.condition_id,
     ledger_ref: ledgerRef,
@@ -198,11 +252,11 @@ const registry = {
     role_assignments: [{ role: "confirming", signal_ids: [optionSignal.signal_id] }],
     unresolved_roles: [
       ["leading", "No validated pre-threshold precursor is registered."],
-      ["counter", "No independent adverse-outcome measure is registered."],
+      ["counter", "A supplemental adverse-outcome construct is registered, but no independent empirical measure is validated."],
       ["outcome", "The protected human outcome is not yet measured independently."],
       ["readiness", "Human-review availability is executable evidence, but operational capacity is not validated."],
       ["intervention-exposure", "No governed programme exposure record is registered."],
-      ["information-harm", "No communication-harm measure is registered."],
+      ["information-harm", "A supplemental communication-harm construct is registered, but no independent empirical measure is validated."],
     ].map(([role, reason]) => ({
       role,
       reason,

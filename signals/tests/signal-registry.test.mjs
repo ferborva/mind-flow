@@ -38,7 +38,7 @@ function locallyBoundRegistry() {
     ledger_tip_event_id: "event.worker-option.merge",
     ledger_tip_hash: hash("c"),
     condition_definition_ref: conditionDefinitionRef,
-    source_event_ref: {
+    condition_source_event_ref: {
       sequence: 5,
       event_id: "event.worker-option.merge",
       event_hash: hash("c"),
@@ -77,6 +77,18 @@ test("v1.1 can bind exact local condition, evidence and executable signal identi
     binding.signal_definition_ref.signal_id === signalId));
 });
 
+test("condition producer and complete history tip are independent anchors", () => {
+  const document = locallyBoundRegistry();
+  document.condition_bindings[0].condition_source_event_ref = {
+    sequence: 3,
+    event_id: "event.worker-option.produced",
+    event_hash: hash("9"),
+  };
+
+  const result = validate(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+});
+
 test("the Round 4 executable signal registry is valid and reproducible", () => {
   const document = JSON.parse(readFileSync(
     resolve(root, "fixtures", "round-04.worker-option.synthetic.json"),
@@ -85,10 +97,17 @@ test("the Round 4 executable signal registry is valid and reproducible", () => {
   const result = validate(document);
   assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
   assert.deepEqual(
-    document.signals.map(({ executable_binding: binding }) =>
-      binding.signal_definition_ref.signal_id),
+    document.signals.filter(({ executable_binding: binding }) => binding)
+      .map(({ executable_binding: binding }) => binding.signal_definition_ref.signal_id),
     ["signal.option.coverage", "signal.human-review.available"],
   );
+  assert.deepEqual(
+    document.signals.filter(({ supplemental_binding: binding }) => binding)
+      .map(({ supplemental_binding: binding }) => [binding.purpose, binding.truth_expression_effect]),
+    [["counter", "none"], ["information-harm", "none"]],
+  );
+  assert.ok(document.sources.every(({ artifact_binding: binding }) =>
+    binding.status === "not-acquired" && binding.checksum === null));
 });
 
 test("hostile: executable bindings cannot borrow another signal or condition identity", () => {
@@ -106,6 +125,58 @@ test("hostile: executable bindings cannot borrow another signal or condition ide
     const result = validate(document);
     assert.equal(result.integrity_valid, false);
     assert.ok(hasCode(result, "EXECUTABLE_SIGNAL_BINDING_MISMATCH"));
+  }
+});
+
+test("v1.1 distinguishes supplemental observations from executable predicate evidence", () => {
+  const document = locallyBoundRegistry();
+  const signal = structuredClone(document.signals[0]);
+  signal.signal_id = "signal.supplemental-counter";
+  const conditionDefinitionRef = structuredClone(
+    document.condition_bindings[0].condition_definition_ref,
+  );
+  signal.condition_links[0].evidence_role = "counter";
+  delete signal.executable_binding;
+  signal.supplemental_binding = {
+    kind: "supplemental-observation",
+    purpose: "counter",
+    condition_definition_ref: conditionDefinitionRef,
+    truth_expression_effect: "none",
+  };
+  document.signals.push(signal);
+
+  const result = validate(document);
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+});
+
+test("hostile: supplemental evidence cannot masquerade as a predicate or another role", () => {
+  for (const mutate of [
+    (signal) => { signal.supplemental_binding.truth_expression_effect = "predicate"; },
+    (signal) => { signal.supplemental_binding.purpose = "information-harm"; },
+  ]) {
+    const document = locallyBoundRegistry();
+    const signal = structuredClone(document.signals[0]);
+    signal.signal_id = "signal.supplemental-counter";
+    const conditionDefinitionRef = structuredClone(
+      document.condition_bindings[0].condition_definition_ref,
+    );
+    signal.condition_links[0].evidence_role = "counter";
+    delete signal.executable_binding;
+    signal.supplemental_binding = {
+      kind: "supplemental-observation",
+      purpose: "counter",
+      condition_definition_ref: conditionDefinitionRef,
+      truth_expression_effect: "none",
+    };
+    document.signals.push(signal);
+    mutate(signal);
+
+    const result = validate(document);
+    assert.equal(result.integrity_valid, false);
+    assert.ok(
+      hasCode(result, "SUPPLEMENTAL_SIGNAL_BINDING_MISMATCH") ||
+      hasCode(result, "SCHEMA_INVALID"),
+    );
   }
 });
 
