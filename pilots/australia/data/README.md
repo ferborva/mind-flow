@@ -9,7 +9,8 @@ large source files.
 `nero-clerical-2026-08.json` contains 440 separate modelled employment series:
 five scoped ANZSCO 4-digit occupations by 88 ASGS 2021 SA4 regions. Each series
 retains its own identity, latest estimate, 12-month and 60-month comparison,
-and 25 recent monthly observations.
+and the recent monthly observations plus any older comparison anchor needed to
+recompute the 60-month value.
 
 **Do not sum or combine occupation or region estimates.** Jobs and Skills
 Australia warns that doing so can be inaccurate or misleading. NERO is
@@ -34,8 +35,10 @@ node dashboard/tools/build-nero-baseline.mjs \
   --recent-months 25
 ```
 
-The output stores the archive SHA-256 checksum. A new source release creates a
-new dated file rather than overwriting this vintage.
+The output stores a local archive SHA-256 checksum. It detects changes to the
+locally captured archive but does not authenticate publisher origin. The public
+record remains `research_draft_unverified` and `not_retained_unverified`. A new
+source release creates a new dated file rather than overwriting this vintage.
 
 `source.released_at` is the publisher's descriptive calendar date. It is not a
 UTC availability timestamp and cannot prove that a detector ran before the
@@ -46,10 +49,10 @@ upper bound but no lower bound, so its prospective chronology remains unknown.
 The exact next observation is a timestamped archive or publisher record that
 proves when the release was unavailable, followed by when it became available.
 
-The dashboard baseline builder is outside this pilot correction slice. Its
-output therefore remains display-only until release-availability evidence is
-attached; the rehearsal engine fails closed when that evidence is absent or
-cannot establish ordering.
+The dashboard baseline builder requires release availability, validates its
+chronology, pins source/display metadata, and recomputes latest, 12-month and
+60-month values from included observations. The evidence room and its selected
+JSON export label all values `UNVERIFIED SOURCE BYTES`.
 
 ### Reproduce the warning audit
 

@@ -36,16 +36,23 @@ source registries -> fetch_snapshot.py -> validated snapshot -> built HTML
 
 This preserves the evidence envelope used for a claim. `tools/build.mjs` performs
 build-time JSON Schema and semantic validation before embedding a snapshot. It
-verifies a separately hash-pinned adapter and classification policy, complete
-raw-input coverage for captured claims, byte-to-series equivalence, derived
-arithmetic and the seven-part update. It also rejects missing signal references
-and false authority claims.
+verifies a separately hash-pinned adapter and classification policy, the current
+snapshot index id/path/SHA, complete raw-input coverage for local-hash claims,
+byte-to-series equivalence, derived arithmetic, freshness and the seven-part
+update. It also rejects missing signal references and false authority claims.
 
 The current snapshot is explicitly `research_draft_unverified`: its transformed
 values are frozen, but its upstream response bytes were not retained. Every
 visible evidence value and JSON export therefore says `UNVERIFIED SOURCE BYTES`.
-The separate `--mode=publishable` build rejects any snapshot without
-`captured_and_hash_verified` raw inputs and an explicit `publishable` status.
+Even retained bytes can establish only `captured_local_hash_consistent` status,
+not publisher authenticity. `--mode=publishable` always fails with
+`MISSING_TRUSTED_ACQUISITION_BOUNDARY` until a separately verifiable receipt
+system exists. Captured inputs must also carry 2xx HTTP and matching media
+metadata.
+
+Freshness limits are policy-governed and evaluated against snapshot `as_of`, not
+the build machine clock. A value outside its limit is labelled `STALE` beside
+the value and in its export.
 
 The browser cannot load arbitrary local snapshots. A changed snapshot must go
 through the build and test path.
@@ -136,6 +143,11 @@ The Australian pilot freezes the August 2026 NERO archive and exposes 440
 separate modelled series for five clerical occupations across 88 SA4 regions.
 Jobs and Skills Australia says occupation and region estimates must not be
 summed or combined, so the interface does neither.
+
+The Australia record is pinned as `research_draft_unverified` with
+`not_retained_unverified` source bytes. Its source/display metadata, chronology,
+release availability, latest value and 12/60-month comparisons are validated;
+the checksum is local capture metadata, not archive authentication.
 
 This archive cannot support a historical warning backtest. It has no
 as-published vintage panel, first-release revisions, uncertainty interval or

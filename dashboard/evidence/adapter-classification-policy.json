@@ -1,5 +1,37 @@
 {
-  "policy_version": "1.1.0",
+  "policy_version": "1.2.0",
+  "entity_contracts": [
+    { "code": "OWID_WRL", "name": "World", "kind": "aggregate" },
+    { "code": "USA", "name": "United States", "kind": "country" },
+    { "code": "DEU", "name": "Germany", "kind": "country" },
+    { "code": "ESP", "name": "Spain", "kind": "country" },
+    { "code": "AUS", "name": "Australia", "kind": "country" },
+    { "code": "CHN", "name": "China", "kind": "country" },
+    { "code": "IND", "name": "India", "kind": "country" }
+  ],
+  "freshness_policy": {
+    "basis": "snapshot_as_of",
+    "signal_max_age_years": {
+      "labour-share": 1,
+      "gdp-per-capita": 1,
+      "poverty-30": 1,
+      "poverty-830": 1,
+      "participation": 1,
+      "inflation": 1,
+      "engels-divergence": 1,
+      "transmission-gap": 1
+    }
+  },
+  "public_update_contract": {
+    "derivation_id": "world-aggregate-transmission-v1",
+    "entity": "OWID_WRL",
+    "population": "World aggregate where both component series report data; country coverage varies by year",
+    "place": "World",
+    "observed_measure": "Indexed real GDP per person and labour-share times real GDP per person",
+    "observed_source_signal_ids": ["gdp-per-capita", "labour-share", "engels-divergence"],
+    "observed_uncertainty": "No interval is available in this snapshot. Source revisions, labour-share imputation and changing country coverage are not quantified.",
+    "observed_epistemic_class": "derived"
+  },
   "class_definitions": {
     "observed": "A directly measured value with no inferential transformation beyond recording and unit conversion.",
     "published_statistic": "A publisher-released compiled statistic that may include estimation, imputation, aggregation and revision.",

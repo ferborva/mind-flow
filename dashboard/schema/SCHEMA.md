@@ -41,7 +41,7 @@ its exact point lineage and one scoped IF path.
   "publication_status": "research_draft_unverified",
   "evidence_policy": {
     "id": "adapter-classification-policy",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "sha256": "sha256:..."
   },
   "title": "Signals toward the transition",
@@ -108,8 +108,10 @@ class and, for derived values, its input classes, and must match the series.
 The separately hash-pinned `evidence/adapter-classification-policy.json` defines
 the classification vocabulary and fixes each signal's source URL, request URL,
 adapter version, dataset or indicator identifier, selected fields and year
-rules. It also pins a digest of every signal's displayed identity, unit, source,
-method, caveats and evidence prose, including deliberately missing instruments.
+rules. It also pins entity identity, public-update scope and observed content,
+freshness limits, and a digest of every signal's displayed identity, unit,
+source, method, caveats and evidence prose, including deliberately missing
+instruments.
 Relevant distinctions include:
 
 | Class | Meaning |
@@ -128,20 +130,24 @@ observations. A missing point is absent, never zero, forward-filled or
 interpolated without a separately declared method.
 
 Each available source declares an adapter identifier, semantic version, dataset
-or indicator identifier and selected fields. A `captured_and_hash_verified`
+or indicator identifier and selected fields. A `captured_local_hash_consistent`
 claim requires raw references for every available remote source. Every declared
 raw input must be referenced, match that source's pinned request and adapter,
-and transform into the snapshot series exactly. The build checks SHA-256 and
-byte length before transformation, then independently recomputes both Engels
-derived series and the public-update arithmetic.
+carry 2xx HTTP and matching media metadata, and transform into the snapshot
+series exactly. The build checks SHA-256 and byte length before transformation,
+then independently recomputes both Engels derived series and the public-update
+arithmetic. This proves local consistency only, never publisher authenticity.
 
 The immutable 2026-09-07 snapshot predates complete raw-byte retention. It
 remains honestly `not_pinned` and `not_verified`, with no raw inputs or
 references. The 2026-09-08 corrected revision explicitly supersedes it without
 changing source values and retains the same reproducibility limits.
 Its status is therefore `research_draft_unverified`, and every visible value and
-export carries `UNVERIFIED SOURCE BYTES`. A publishable build requires both an
-explicit `publishable` status and `captured_and_hash_verified` raw inputs.
+export carries `UNVERIFIED SOURCE BYTES`. Publishable mode always fails with
+`MISSING_TRUSTED_ACQUISITION_BOUNDARY` until a separately verifiable publisher
+receipt system exists. Policy freshness is calculated against snapshot `as_of`,
+without consulting wall-clock time, and stale values are labelled beside every
+value/export.
 
 ## Seven-part public update
 

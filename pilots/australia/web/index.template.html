@@ -85,7 +85,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--quiet);f
 <body>
 <header class="mast"><div class="wrap">
   <div class="authority" aria-label="Publication status">
-    <span>AUSTRALIA PILOT</span><span>MODELLED ESTIMATE</span><span>AGENT PROPOSAL</span><span class="block">NOT AN AI EFFECT</span>
+    <span>AUSTRALIA PILOT</span><span>MODELLED ESTIMATE</span><span>AGENT PROPOSAL</span><span class="block">UNVERIFIED SOURCE BYTES</span><span class="block">NOT AN AI EFFECT</span>
   </div>
   <div class="eyebrow">Abundance Transition Observatory / evidence room</div>
   <h1>Watch one transition without inventing the rest.</h1>
@@ -109,11 +109,11 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--quiet);f
   <section aria-labelledby="series-title">
     <div class="identity">
       <div><div class="eyebrow">Selected evidence unit</div><h2 id="series-title">Loading series</h2><p id="series-place"></p></div>
-      <div class="estimate"><strong id="latest-value">Loading</strong><span id="latest-date">modelled employed persons</span></div>
+      <div class="estimate"><strong id="latest-value">Loading</strong><span id="latest-date">modelled employed persons</span><span class="byte-status">UNVERIFIED SOURCE BYTES</span></div>
     </div>
     <div class="warning"><strong>NERO estimates must not be summed or combined.</strong> Direction and scale within this separate series are more informative than the precise value. Smoothing may conceal rapid changes.</div>
     <div class="update" aria-live="polite">
-      <article><h3>OBSERVED</h3><p id="u-observed"></p></article>
+      <article><h3>WHAT THE DATA SHOW</h3><p id="u-observed"></p></article>
       <article><h3>AFFECTED</h3><p id="u-affected"></p></article>
       <article><h3>INFERRED</h3><p id="u-inferred"></p></article>
       <article><h3>IF CHANGED</h3><p><strong>None validated.</strong> Employment movement alone does not establish capability, adoption, access, agency, durability or fairness.</p></article>
@@ -137,7 +137,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--quiet);f
   <section class="section" aria-labelledby="evidence-title">
     <div class="section-head"><div><div class="eyebrow">Source-native evidence</div><h2 id="evidence-title">Inspect the path, not a verdict.</h2></div><p>The line preserves 25 monthly model outputs. The comparisons are arithmetic from the same vintage, not statistical tests or alerts.</p></div>
     <div class="evidence-grid">
-      <div class="panel"><h3>Recent modelled path</h3><p class="sub" id="chart-subtitle"></p><svg id="series-chart" viewBox="0 0 760 340" role="img"><title>Selected NERO occupation-region series</title></svg></div>
+      <div class="panel"><h3>Recent modelled path</h3><p class="sub" id="chart-subtitle"></p><p class="sub" id="chart-byte-status"><strong>UNVERIFIED SOURCE BYTES</strong> for every plotted value.</p><svg id="series-chart" viewBox="0 0 760 340" role="img"><title>Selected NERO occupation-region series</title></svg></div>
       <aside class="changes">
         <div class="change"><span>12 MONTH COMPARISON</span><strong id="change-12">Not available</strong><small id="change-12-range"></small></div>
         <div class="change"><span>60 MONTH COMPARISON</span><strong id="change-60">Not available</strong><small id="change-60-range"></small></div>
@@ -160,7 +160,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--quiet);f
 
   <section class="section" aria-labelledby="table-title">
     <div class="section-head"><div><div class="eyebrow">Observation record</div><h2 id="table-title">Every displayed month.</h2></div><p>No interpolation, composite, ranking or cross-series total is created here.</p></div>
-    <div class="table-wrap"><table id="series-table"><thead><tr><th>Reference month</th><th>Modelled employed persons</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+    <div class="table-wrap"><table id="series-table"><thead><tr><th>Reference month</th><th>Modelled employed persons · UNVERIFIED SOURCE BYTES</th><th>Status</th></tr></thead><tbody></tbody></table></div>
   </section>
 
   <section class="section" id="source-contract" aria-labelledby="source-title">
@@ -168,9 +168,11 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--quiet);f
     <dl class="contract">
       <div><dt>Publisher</dt><dd id="source-publisher"></dd></div><div><dt>Source</dt><dd><a id="source-link" rel="noopener" target="_blank"></a></dd></div>
       <div><dt>Released</dt><dd id="source-released"></dd></div><div><dt>Retrieved</dt><dd id="source-retrieved"></dd></div>
-      <div><dt>Archive</dt><dd id="source-archive"></dd></div><div><dt>Checksum</dt><dd id="source-checksum" class="mono"></dd></div>
+      <div><dt>Archive</dt><dd id="source-archive"></dd></div><div><dt>Local capture checksum</dt><dd id="source-checksum" class="mono"></dd></div>
       <div><dt>Licence</dt><dd id="source-licence"></dd></div><div><dt>Measurement limit</dt><dd id="source-limit"></dd></div>
+      <div><dt>Publication</dt><dd id="source-publication"></dd></div><div><dt>Source bytes</dt><dd id="source-byte-status">UNVERIFIED SOURCE BYTES</dd></div>
     </dl>
+    <p><a class="model-chip" id="export-evidence" download="australia-nero-evidence-unverified.json">Export selected evidence · UNVERIFIED SOURCE BYTES</a></p>
   </section>
 </main>
 
@@ -187,7 +189,10 @@ var region=document.getElementById("region-select");
 function unique(items,key){var seen={};return items.filter(function(item){var value=item[key];if(seen[value])return false;seen[value]=1;return true;});}
 function option(value,label){var item=document.createElement("option");item.value=value;item.textContent=label;return item;}
 function number(value){return value==null?"Not available":Number(value).toLocaleString("en-AU");}
+function sourceBytesLabel(){return "UNVERIFIED SOURCE BYTES";}
 function month(date){return new Date(date+"T00:00:00Z").toLocaleDateString("en-AU",{year:"numeric",month:"short",timeZone:"UTC"});}
+function monthIndex(date){var bits=date.split("-");return Number(bits[0])*12+Number(bits[1])-1;}
+function displayObservations(series){var latest=monthIndex(series.latest.date);return series.recent_observations.filter(function(point){return monthIndex(point.date)>=latest-24;});}
 function selected(){return data.series.find(function(item){return item.occupation_code===occupation.value&&item.sa4_code===region.value;});}
 function describe(change){
   if(!change||change.percent==null)return "Not available";
@@ -207,13 +212,13 @@ function fillRegions(preferred){
 }
 function set(id,text){document.getElementById(id).textContent=text;}
 function renderChange(change,valueId,rangeId){
-  set(valueId,describe(change));
+  set(valueId,describe(change)+" · "+sourceBytesLabel());
   set(rangeId,change?number(change.from_value)+" in "+month(change.from_date)+" to current vintage":"Comparison unavailable in this vintage");
 }
 function renderChart(series){
   var svg=document.getElementById("series-chart"),NS="http://www.w3.org/2000/svg";svg.innerHTML="";
   var title=document.createElementNS(NS,"title");title.textContent=series.occupation_name+" in "+series.sa4_name+", recent NERO modelled estimates";svg.appendChild(title);
-  var points=series.recent_observations.filter(function(point){return point.value!=null;});
+  var points=displayObservations(series).filter(function(point){return point.value!=null;});
   if(points.length<2)return;
   var W=760,H=340,m={l:62,r:22,t:25,b:38},values=points.map(function(point){return point.value;});
   var lo=Math.min.apply(null,values),hi=Math.max.apply(null,values),pad=Math.max(1,(hi-lo)*.16);lo-=pad;hi+=pad;
@@ -226,24 +231,42 @@ function renderChart(series){
 }
 function renderTable(series){
   var body=document.querySelector("#series-table tbody");body.innerHTML="";
-  series.recent_observations.slice().reverse().forEach(function(point){var row=document.createElement("tr");[month(point.date),number(point.value),point.status].forEach(function(value){var cell=document.createElement("td");cell.textContent=value;row.appendChild(cell);});body.appendChild(row);});
+  displayObservations(series).slice().reverse().forEach(function(point){var row=document.createElement("tr");[month(point.date),number(point.value)+" · "+sourceBytesLabel(),point.status].forEach(function(value){var cell=document.createElement("td");cell.textContent=value;row.appendChild(cell);});body.appendChild(row);});
+}
+var evidenceExportUrl=null;
+function currentEvidenceExport(series){
+  return {
+    schema_version:data.schema_version,id:data.id,
+    publication_status:data.publication_status,
+    source_bytes_status:data.source_bytes_status,
+    source_bytes_warning:sourceBytesLabel(),
+    source:data.source,scope:data.scope,
+    public_warning:data.public_warning,interpretation_limit:data.interpretation_limit,
+    revision_policy:data.revision_policy,series:series
+  };
+}
+function refreshEvidenceExport(series){
+  if(evidenceExportUrl)URL.revokeObjectURL(evidenceExportUrl);
+  evidenceExportUrl=URL.createObjectURL(new Blob([JSON.stringify(currentEvidenceExport(series),null,2)],{type:"application/json"}));
+  document.getElementById("export-evidence").href=evidenceExportUrl;
 }
 function render(){
   var series=selected();if(!series)return;
   set("series-title",series.occupation_name);set("series-place",series.sa4_name+" / "+series.state_name+" / region of residence");
-  set("latest-value",number(series.latest.value));set("latest-date",month(series.latest.date)+" / modelled employed persons");
-  set("u-observed","NERO modelled "+number(series.latest.value)+" employed persons for "+series.occupation_name+" living in "+series.sa4_name+" in "+month(series.latest.date)+".");
+  set("latest-value",number(series.latest.value));set("latest-date",month(series.latest.date)+" / modelled employed persons · "+sourceBytesLabel());
+  set("u-observed","NERO modelled "+number(series.latest.value)+" employed persons ["+sourceBytesLabel()+"] for "+series.occupation_name+" living in "+series.sa4_name+" in "+month(series.latest.date)+".");
   set("u-affected","The evidence unit is one occupation-region model series. It does not identify individual workers, households or employers.");
-  set("u-inferred","Within this vintage, the series is "+describe(series.change_12m)+" than 12 months earlier. This does not explain why.");
-  set("chart-subtitle",series.occupation_code+" / "+series.sa4_code+" / "+series.recent_observations.length+" monthly model outputs / no cross-series aggregation");
+  set("u-inferred","Within this vintage, the series is "+describe(series.change_12m)+" than 12 months earlier ["+sourceBytesLabel()+"]. This does not explain why.");
+  set("chart-subtitle",series.occupation_code+" / "+series.sa4_code+" / "+displayObservations(series).length+" recent monthly model outputs / no cross-series aggregation");
   renderChange(series.change_12m,"change-12","change-12-range");renderChange(series.change_60m,"change-60","change-60-range");
-  renderChart(series);renderTable(series);
+  renderChart(series);renderTable(series);refreshEvidenceExport(series);
 }
 function renderSource(){
   set("vintage",data.source.release_period+" / released "+data.source.released_at);
   set("series-count",data.scope.series_count+" kept separate");
   set("source-publisher",data.source.publisher);set("source-released",data.source.released_at);set("source-retrieved",data.source.retrieved_at);
-  set("source-archive",data.source.archive_name);set("source-checksum",data.source.checksum);set("source-licence",data.source.licence);set("source-limit",data.interpretation_limit);
+  set("source-archive",data.source.archive_name);set("source-checksum",data.source.checksum+" · local consistency only, not publisher authentication");set("source-licence",data.source.licence);set("source-limit",data.interpretation_limit);
+  set("source-publication",data.publication_status);set("source-byte-status",sourceBytesLabel()+" · archive bytes are not retained and no publisher receipt is available");
   var link=document.getElementById("source-link");link.href=data.source.archive_url;link.textContent=data.source.title;
 }
 fillOccupations();fillRegions("117");renderSource();render();

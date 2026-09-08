@@ -76,7 +76,9 @@ function parseReleaseMonth(releasePeriod) {
 }
 
 function validateSource(source) {
-  const required = ["archive_url", "release_period", "released_at", "retrieved_at", "checksum"];
+  const required = [
+    "archive_url", "release_period", "released_at", "retrieved_at", "checksum", "release_availability",
+  ];
   for (const field of required) {
     if (!source?.[field]) throw new Error(`source.${field} is required`);
   }
@@ -84,8 +86,24 @@ function validateSource(source) {
     throw new Error("source.checksum must be a sha256 digest");
   }
   parseReleaseMonth(source.release_period);
-  if (!Number.isFinite(Date.parse(source.released_at))) throw new Error("source.released_at is invalid");
-  if (!Number.isFinite(Date.parse(source.retrieved_at))) throw new Error("source.retrieved_at is invalid");
+  const releasedAt = Date.parse(`${source.released_at}T00:00:00Z`);
+  const retrievedAt = Date.parse(source.retrieved_at);
+  if (!Number.isFinite(releasedAt)) throw new Error("source.released_at is invalid");
+  if (!Number.isFinite(retrievedAt)) throw new Error("source.retrieved_at is invalid");
+  if (releasedAt > retrievedAt) throw new Error("source.released_at must not follow source.retrieved_at");
+  const availability = source.release_availability;
+  if (availability.kind !== "first-seen-interval") {
+    throw new Error("source.release_availability must use a first-seen interval without claiming authentication");
+  }
+  const firstSeen = Date.parse(availability.first_seen_at_utc);
+  const notSeen = availability.not_seen_as_of_utc === null
+    ? null : Date.parse(availability.not_seen_as_of_utc);
+  if (!Number.isFinite(firstSeen) || firstSeen > retrievedAt) {
+    throw new Error("source.release_availability first_seen_at_utc must not follow retrieval");
+  }
+  if (notSeen !== null && (!Number.isFinite(notSeen) || notSeen >= firstSeen)) {
+    throw new Error("source.release_availability absence check must precede first seen");
+  }
   const archive = new URL(source.archive_url);
   if (archive.protocol !== "https:" || archive.username || archive.password || archive.port ||
       !AUSTRALIA_SOURCE_HOSTS.has(archive.hostname)) {
@@ -198,6 +216,7 @@ export function buildNeroBaseline(rows, options = {}) {
       group.observations.sort((left, right) => left.month - right.month);
       const latest = group.observations.at(-1);
       const cutoff = latest ? latest.month - recentMonths + 1 : releaseMonth;
+      const comparisonMonths = new Set(latest ? [latest.month - 12, latest.month - 60] : []);
       return {
         occupation_code: group.occupation_code,
         occupation_name: group.occupation_name,
@@ -208,7 +227,7 @@ export function buildNeroBaseline(rows, options = {}) {
         change_12m: changeAt(group.observations, 12),
         change_60m: changeAt(group.observations, 60),
         recent_observations: group.observations
-          .filter((point) => point.month >= cutoff)
+          .filter((point) => point.month >= cutoff || comparisonMonths.has(point.month))
           .map(publicPoint),
       };
     })
@@ -223,6 +242,8 @@ export function buildNeroBaseline(rows, options = {}) {
     schema_version: "1.0.0",
     id: `nero-clerical-baseline-${options.source.release_period}`,
     title: "Australian clerical employment by occupation and SA4",
+    publication_status: "research_draft_unverified",
+    source_bytes_status: "not_retained_unverified",
     epistemic_class: "modelled-estimate",
     measurement_type: "modelled-nowcast",
     source: {
@@ -321,6 +342,12 @@ async function main() {
       released_at: args["released-at"],
       retrieved_at: args["retrieved-at"],
       checksum: await sha256(sourcePath),
+      release_availability: {
+        kind: "first-seen-interval",
+        not_seen_as_of_utc: null,
+        first_seen_at_utc: args["retrieved-at"],
+        evidence: "The archive was first recorded during retrieval. No independently evidenced earlier absence check or publisher receipt is available.",
+      },
     },
   });
 

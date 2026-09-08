@@ -12,7 +12,7 @@ Design rules, enforced here so the contract holds:
   - never invent a data point, never interpolate, never carry forward
   - availability is separate from the epistemic class carried by every point
   - selected fields and adapter versions are explicit contracts
-  - raw responses are content-addressed, persisted and hash-verified before parsing
+  - raw responses are content-addressed and checked for local hash consistency before parsing
   - a signal that cannot be fetched is emitted with status "unavailable" and an
     empty series, rather than silently dropped
   - a signal nobody publishes is emitted with status "not_measured" on purpose
@@ -130,7 +130,8 @@ def capture_verified_raw_input(url, adapter, suffix):
         "sha256": digest,
         "path": f"evidence/raw/{filename}",
         "byte_length": len(raw),
-        "media_type": response_metadata["content_type"] or "application/octet-stream",
+        "media_type": (response_metadata["content_type"] or "application/octet-stream")
+                      .split(";", 1)[0].strip().lower(),
         "source_url": url,
         "retrieved_at": datetime.datetime.now(datetime.timezone.utc)
                         .replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -687,14 +688,16 @@ def build(snapshot_id, retrieved):
         },
         "title": "Signals toward the transition",
         "notes": ("Transition-control snapshot. Availability is separate from point-level evidence "
-                  "class. Raw registry responses are content-addressed and hash-verified before "
-                  "transformation. Instrument gaps and unresolved rebuild evidence remain visible."),
+                  "class. Raw registry responses are content-addressed and checked for local hash "
+                  "consistency before transformation. Publisher origin remains unverified. "
+                  "Instrument gaps and unresolved rebuild evidence remain visible."),
         "reproducibility": {
-            "raw_input_status": "captured_and_hash_verified",
+            "raw_input_status": "captured_local_hash_consistent",
             "snapshot_rebuild_status": "not_verified",
             "raw_inputs": list(raw_inputs.values()),
-            "residual_gap": ("Raw bytes were verified before transformation, but a fresh-environment "
-                             "bit-for-bit snapshot rebuild has not passed."),
+            "residual_gap": ("Raw bytes passed local length and hash checks before transformation, "
+                             "but publisher origin lacks a separately verifiable receipt and a "
+                             "fresh-environment bit-for-bit snapshot rebuild has not passed."),
         },
         "public_update": public_update,
         "if_path": build_if_path(),

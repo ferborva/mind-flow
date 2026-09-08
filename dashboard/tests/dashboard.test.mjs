@@ -143,7 +143,7 @@ test("the first screen discloses prototype authority and the seven-part update",
     "PROTOTYPE",
     "AGENT PROPOSAL",
     "REQUIRES FERNANDO REVIEW",
-    "OBSERVED",
+    "WHAT THE DATA SHOW",
     "AFFECTED",
     "INFERRED",
     "IF CHANGED",
@@ -355,7 +355,7 @@ test("availability is separate from point-level epistemic class", () => {
 
   assert.match(template, /function epistemicLabel\(/);
   assert.match(template, /selectedLatest\.year\+" "\+pointEpistemicLabel\(/);
-  assert.match(template, /pointEpistemicLabel\(p\)/);
+  assert.match(template, /pointEpistemicLabel\(sig,p\)/);
   assert.equal(snapshot.reproducibility.raw_input_status, "not_pinned");
   assert.equal(snapshot.reproducibility.snapshot_rebuild_status, "not_verified");
   assert.match(snapshot.reproducibility.residual_gap, /bit-for-bit rebuild.*not passed/i);
@@ -497,7 +497,7 @@ test("captured claims require complete, referenced and transformed raw evidence"
   fixture.path = "evidence/raw/world-bank-sample.json";
 
   const unreferenced = structuredClone(snapshot);
-  unreferenced.reproducibility.raw_input_status = "captured_and_hash_verified";
+  unreferenced.reproducibility.raw_input_status = "captured_local_hash_consistent";
   unreferenced.reproducibility.raw_inputs = [fixture];
   assertBuildRejects(unreferenced, inputPath, outputPath, /unreferenced raw input|missing captured raw input/i);
 
@@ -542,7 +542,7 @@ test("retrieval dating and every export surface retain epistemic class", () => {
   assert.doesNotMatch(fetcherText, /build\(args\.id,\s*args\.id\)/);
   assert.match(fetcherText, /retrieved_on\s*=.*datetime/i);
   assert.match(template, /function pointEpistemicLabel\(/);
-  assert.match(template, /lab\.textContent\s*=.*pointEpistemicLabel\(last\)/s);
+  assert.match(template, /lab\.textContent\s*=.*pointEpistemicLabel\(sig,last\)/s);
   assert.match(template, /id=["']copy-evidence["']/);
   assert.match(template, /id=["']export-evidence["']/);
   assert.match(template, /function currentEvidenceExport\(/);
@@ -641,7 +641,7 @@ test("the build enforces series, headline, latest and action-authority semantics
   fixture.path = "evidence/raw/world-bank-sample.json";
   fixture.id = `sha256:${"0".repeat(64)}`;
   fixture.sha256 = "0".repeat(64);
-  mismatchedRawInput.reproducibility.raw_input_status = "captured_and_hash_verified";
+  mismatchedRawInput.reproducibility.raw_input_status = "captured_local_hash_consistent";
   mismatchedRawInput.reproducibility.raw_inputs = [fixture];
   assertBuildRejects(
     mismatchedRawInput,

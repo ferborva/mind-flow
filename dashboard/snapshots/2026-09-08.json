@@ -7,8 +7,8 @@
  "publication_status": "research_draft_unverified",
  "evidence_policy": {
   "id": "adapter-classification-policy",
-  "version": "1.1.0",
-  "sha256": "sha256:55c74f0e2da4f289bc6a38055abf72c82a54440dbc6abb05cceb700f1f6e3dab"
+  "version": "1.2.0",
+  "sha256": "sha256:780ad6a23adfca588049841ab648d159a2c95e3e19e848bddfb82b784b56474f"
  },
  "title": "Signals toward the transition",
  "notes": "Corrected classification and lineage revision of the 2026-09-07 snapshot. Source values are unchanged. Exact upstream-byte reconstruction remains unverified, instrument gaps remain visible, and crisis states remain unscored.",

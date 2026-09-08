@@ -17,7 +17,7 @@ const schemaPath = resolve(dashboard, "schema", "snapshot.schema.json");
 const policyPath = resolve(dashboard, "evidence", "adapter-classification-policy.json");
 const snapshotIndexPath = resolve(dashboard, "snapshots", "index.json");
 const snapshotDirectory = resolve(dashboard, "snapshots");
-const POLICY_SHA256 = "55c74f0e2da4f289bc6a38055abf72c82a54440dbc6abb05cceb700f1f6e3dab";
+const POLICY_SHA256 = "780ad6a23adfca588049841ab648d159a2c95e3e19e848bddfb82b784b56474f";
 const GLOBAL_SOURCE_HOSTS = new Set(["api.worldbank.org", "ourworldindata.org", "ec.europa.eu"]);
 
 const ENTITY_CODES = new Set(["OWID_WRL", "USA", "DEU", "ESP", "AUS", "CHN", "IND"]);
@@ -261,9 +261,9 @@ function recomputeEngels(signals) {
   return { divergence, gap };
 }
 
-function expectedPublicArithmetic(divergence) {
-  const output = divergence.find(({ entity, measure }) => entity === "OWID_WRL" && measure === "Output per capita");
-  const labour = divergence.find(({ entity, measure }) => entity === "OWID_WRL" && measure === "Labour income per capita");
+function expectedPublicArithmetic(divergence, entity) {
+  const output = divergence.find((series) => series.entity === entity && series.measure === "Output per capita");
+  const labour = divergence.find((series) => series.entity === entity && series.measure === "Labour income per capita");
   if (!output?.points.length || !labour?.points.length) {
     return {
       period: "Unavailable in this snapshot",
@@ -383,7 +383,37 @@ function correctionContext(snapshot) {
   } catch (error) {
     errors.push(`correction predecessor JSON is invalid: ${error.message}`);
   }
+  if (predecessor && predecessor.snapshot_id >= snapshot.snapshot_id) {
+    errors.push("correction predecessor must be strictly earlier than the corrected snapshot");
+  }
   return { errors, predecessor };
+}
+
+function indexedSnapshotBinding(snapshot, snapshotBytes) {
+  let index;
+  try {
+    index = JSON.parse(readFileSync(snapshotIndexPath, "utf8"));
+  } catch (error) {
+    return [`current snapshot index cannot be read: ${error.message}`];
+  }
+  const entry = index.snapshots?.find(({ id }) => id === snapshot.snapshot_id);
+  if (!entry) return ["snapshot is not registered in the snapshot index"];
+  const expectedPath = `${snapshot.snapshot_id}.json`;
+  if (!entry || entry.path !== expectedPath) {
+    return ["current snapshot must match indexed id, path and SHA"];
+  }
+  const canonicalPath = resolve(snapshotDirectory, entry.path);
+  let canonicalBytes;
+  try {
+    canonicalBytes = readFileSync(canonicalPath);
+  } catch {
+    return ["current snapshot must match indexed id, path and SHA"];
+  }
+  const indexedDigest = sha256(canonicalBytes);
+  if (entry.sha256 !== indexedDigest || sha256(snapshotBytes) !== entry.sha256) {
+    return ["current snapshot must match indexed id, path and SHA"];
+  }
+  return [];
 }
 
 function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correction) {
@@ -400,6 +430,9 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   if (entityIds.size !== entities.length) errors.push("entity identifiers must be unique");
   if (signalIds.size !== signals.length) errors.push("signal identifiers must be unique");
   if (rawInputIds.size !== rawInputs.length) errors.push("raw input identifiers must be unique");
+  if (!same(entities, policy.entity_contracts)) {
+    errors.push("entity contract must match the pinned evidence policy");
+  }
   if (snapshot.correction && (
     snapshot.correction.supersedes_snapshot_id === snapshot.snapshot_id ||
     snapshot.correction.issued_on !== snapshot.snapshot_id ||
@@ -432,10 +465,6 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   if (!Number.isFinite(asOf) || !Number.isFinite(generatedAt) || generatedAt < asOf) {
     errors.push("generated_at must be at or after as_of");
   }
-  if (snapshot.publication_status === "publishable" &&
-      snapshot.reproducibility?.raw_input_status !== "captured_and_hash_verified") {
-    errors.push("publishable evidence requires captured_and_hash_verified raw inputs");
-  }
   if (snapshot.evidence_policy?.id !== "adapter-classification-policy" ||
       snapshot.evidence_policy?.version !== policy.policy_version ||
       snapshot.evidence_policy?.sha256 !== policyDigest) {
@@ -458,6 +487,14 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     }
     if (!allowedHttpsUrl(rawInput.source_url, GLOBAL_SOURCE_HOSTS)) {
       errors.push(`raw input ${rawInput.id} source host is outside the allowlist`);
+    }
+    if (rawInput.response_metadata?.http_status < 200 || rawInput.response_metadata?.http_status > 299) {
+      errors.push(`raw input ${rawInput.id} HTTP status must be 2xx`);
+    }
+    const responseMediaType = rawInput.response_metadata?.content_type
+      ?.split(";", 1)[0].trim().toLowerCase();
+    if (!responseMediaType || responseMediaType !== rawInput.media_type.toLowerCase()) {
+      errors.push(`raw input ${rawInput.id} media_type must match response content_type`);
     }
     const retrievedAt = Date.parse(rawInput.retrieved_at);
     if (!Number.isFinite(retrievedAt) || retrievedAt > asOf || retrievedAt > generatedAt) {
@@ -519,7 +556,7 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
       }
     }
     const rawInputReferences = signal.source?.raw_input_ids || [];
-    if (snapshot.reproducibility.raw_input_status === "captured_and_hash_verified") {
+    if (snapshot.reproducibility.raw_input_status === "captured_local_hash_consistent") {
       if (signal.status === "available" && signal.source?.url && !rawInputReferences.length) {
         errors.push(`signal ${signal.id} is missing captured raw input coverage`);
       }
@@ -598,6 +635,13 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     }
   }
 
+  const freshnessLimits = policy.freshness_policy?.signal_max_age_years || {};
+  for (const signal of signals.filter(({ status }) => status === "available")) {
+    if (!Number.isInteger(freshnessLimits[signal.id]) || freshnessLimits[signal.id] < 0) {
+      errors.push(`signal ${signal.id} requires a policy-governed freshness limit`);
+    }
+  }
+
   for (const rawInputId of rawInputIds) {
     if (!referencedRawInputIds.has(rawInputId)) {
       errors.push(`unreferenced raw input ${rawInputId} cannot support a captured claim`);
@@ -661,7 +705,8 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   for (const id of update?.observed?.source_signal_ids || []) {
     if (!signalIds.has(id)) errors.push(`public_update source signal ${id} is not declared`);
   }
-  const publicArithmetic = expectedPublicArithmetic(recomputed.divergence);
+  const publicContract = policy.public_update_contract;
+  const publicArithmetic = expectedPublicArithmetic(recomputed.divergence, publicContract?.entity);
   if (update && (update.scope.period !== publicArithmetic.period ||
                  update.observed.summary !== publicArithmetic.summary)) {
     errors.push("public_update arithmetic does not match recomputed derived series");
@@ -669,6 +714,28 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   const publicLineage = expectedPublicLineage(signals, update);
   if (update && !same(update.lineage, publicLineage)) {
     errors.push("public_update lineage does not match recomputed source and derived points");
+  }
+  const expectedScope = publicContract && {
+    entity: publicLineage?.entity,
+    population: publicContract.population,
+    place: publicContract.place,
+    period: publicArithmetic.period,
+  };
+  const expectedObserved = publicContract && {
+    summary: publicArithmetic.summary,
+    measure: publicContract.observed_measure,
+    source_signal_ids: publicContract.observed_source_signal_ids,
+    vintage: snapshot.snapshot_id,
+    uncertainty: publicContract.observed_uncertainty,
+    epistemic_class: publicContract.observed_epistemic_class,
+  };
+  if (update && (!same(update.scope, expectedScope) ||
+                 update.lineage?.derivation_id !== publicContract?.derivation_id ||
+                 update.lineage?.entity !== publicContract?.entity)) {
+    errors.push("public_update scope must match pinned policy and recomputed lineage");
+  }
+  if (update && !same(update.observed, expectedObserved)) {
+    errors.push("public_update observed block must match pinned policy and recomputed lineage");
   }
   const conditions = snapshot.if_path?.conditions || [];
   const conditionIds = conditions.map(({ id }) => id);
@@ -736,8 +803,13 @@ try {
   if (placeholderCount !== 1) {
     throw new Error(`Expected one __SNAPSHOT__ placeholder, found ${placeholderCount}`);
   }
+  const freshnessPlaceholderCount = template.split("__FRESHNESS_POLICY__").length - 1;
+  if (freshnessPlaceholderCount !== 1) {
+    throw new Error(`Expected one __FRESHNESS_POLICY__ placeholder, found ${freshnessPlaceholderCount}`);
+  }
 
-  const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
+  const snapshotBytes = readFileSync(snapshotPath);
+  const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
   const policyBytes = readFileSync(policyPath);
   const policyDigest = createHash("sha256").update(policyBytes).digest("hex");
@@ -756,10 +828,10 @@ try {
   if (!new Set(["research-draft", "publishable"]).has(buildMode)) {
     throw new Error(`unsupported dashboard build mode ${buildMode}`);
   }
-  if (buildMode === "publishable" &&
-      (snapshot.publication_status !== "publishable" ||
-       snapshot.reproducibility.raw_input_status !== "captured_and_hash_verified")) {
-    throw new Error("publishable mode requires publication_status publishable and captured_and_hash_verified raw inputs");
+  if (buildMode === "publishable") {
+    throw new Error(
+      "MISSING_TRUSTED_ACQUISITION_BOUNDARY: publishable mode is disabled until source receipts are separately verifiable",
+    );
   }
   const rawBytesById = verifyRawInputs(snapshot);
   const correction = correctionContext(snapshot);
@@ -773,8 +845,17 @@ try {
   if (semanticErrors.length) {
     throw new Error(`snapshot semantic validation failed: ${semanticErrors.join("; ")}`);
   }
+  const bindingErrors = indexedSnapshotBinding(snapshot, snapshotBytes);
+  if (bindingErrors.length) {
+    throw new Error(`snapshot semantic validation failed: ${bindingErrors.join("; ")}`);
+  }
   const serialised = JSON.stringify(snapshot).replaceAll("</", "<\\/");
-  writeFileSync(outputPath, template.replace("__SNAPSHOT__", serialised), "utf8");
+  const freshnessPolicy = JSON.stringify(policy.freshness_policy).replaceAll("</", "<\\/");
+  writeFileSync(
+    outputPath,
+    template.replace("__SNAPSHOT__", serialised).replace("__FRESHNESS_POLICY__", freshnessPolicy),
+    "utf8",
+  );
   process.stdout.write(`Built ${outputPath} from ${snapshotPath}\n`);
 } catch (error) {
   process.stderr.write(`Dashboard build failed: ${error.message}\n`);

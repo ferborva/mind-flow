@@ -36,21 +36,42 @@ function rejectsBuild(value, expected, ...args) {
 test("research-draft evidence cannot pass the publishable build mode", () => {
   assert.equal(snapshot.publication_status, "research_draft_unverified");
   assert.equal(snapshot.reproducibility.raw_input_status, "not_pinned");
-  rejectsBuild(snapshot, /publishable.*captured.and.hash.verified/i, "--mode=publishable");
+  rejectsBuild(snapshot, /MISSING_TRUSTED_ACQUISITION_BOUNDARY/, "--mode=publishable");
+
+  const selfConsistentClaim = structuredClone(snapshot);
+  selfConsistentClaim.publication_status = "publishable";
+  rejectsBuild(selfConsistentClaim, /MISSING_TRUSTED_ACQUISITION_BOUNDARY/, "--mode=publishable");
 });
 
-test("unverified values stay labelled and exports retain the complete evidence envelope", () => {
+test("local hashes never become publisher authentication wording", () => {
   const template = readFileSync(templatePath, "utf8");
   assert.match(template, /UNVERIFIED SOURCE BYTES/);
   assert.match(template, /function sourceBytesLabel\(/);
+  assert.match(template, /LOCAL HASH CONSISTENCY ONLY/);
+  assert.doesNotMatch(template, /\bVERIFIED SOURCE BYTES\b/);
   for (const field of [
     "publication_status", "as_of", "generated_at", "correction", "reproducibility",
-    "evidence_policy", "provenance", "source_bytes_status",
+    "evidence_policy", "provenance", "source_bytes_status", "currentness",
   ]) assert.match(template, new RegExp(`${field}:`), `export omits ${field}`);
   for (const epistemicClass of [
     "observed", "published_statistic", "published_estimate", "modelled_estimate",
     "nowcast", "forecast", "derived", "not_measured", "unavailable",
   ]) assert.match(template, new RegExp(`${epistemicClass}:`), `coverage omits ${epistemicClass}`);
+});
+
+test("captured local inputs require successful HTTP and matching media metadata", () => {
+  const fixture = JSON.parse(readFileSync(rawManifestPath, "utf8")).raw_input;
+  fixture.path = "evidence/raw/world-bank-sample.json";
+  const failedHttp = structuredClone(snapshot);
+  failedHttp.reproducibility.raw_input_status = "captured_local_hash_consistent";
+  failedHttp.reproducibility.raw_inputs = [fixture];
+  failedHttp.reproducibility.raw_inputs[0].response_metadata.http_status = 599;
+  rejectsBuild(failedHttp, /schema validation failed|HTTP status must be 2xx/i);
+
+  const wrongMedia = structuredClone(failedHttp);
+  wrongMedia.reproducibility.raw_inputs[0].response_metadata.http_status = 200;
+  wrongMedia.reproducibility.raw_inputs[0].response_metadata.content_type = "text/html";
+  rejectsBuild(wrongMedia, /media.type.*content.type|content.type.*media.type/i);
 });
 
 test("the pinned policy rejects co-mutated displayed identity, units and evidence prose", () => {
@@ -103,6 +124,59 @@ test("a correction is bound to predecessor bytes and its changed fields are deri
   const falseFields = structuredClone(snapshot);
   falseFields.correction.changed_fields = ["invented"];
   rejectsBuild(falseFields, /correction changed.fields.*predecessor/i);
+
+  const backwards = structuredClone(snapshot);
+  backwards.snapshot_id = "2026-09-07";
+  backwards.as_of = "2026-09-07T00:41:31Z";
+  backwards.generated_at = "2026-09-07T00:41:31Z";
+  backwards.correction.issued_on = "2026-09-07";
+  backwards.correction.supersedes_snapshot_id = "2026-09-08";
+  backwards.correction.supersedes_snapshot_sha256 = index.snapshots.find(({ id }) => id === "2026-09-08").sha256;
+  backwards.public_update.observed.vintage = "2026-09-07";
+  backwards.public_update.update_id = "world-aggregate-transmission-2026-09-07";
+  rejectsBuild(backwards, /correction predecessor must be strictly earlier/i);
+});
+
+test("every buildable snapshot is registered and bound to its canonical path and bytes", () => {
+  const changed = structuredClone(snapshot);
+  changed.notes = "Self-authored replacement with the current id";
+  rejectsBuild(changed, /snapshot must match indexed id, path and SHA/i);
+
+  const unregistered = structuredClone(snapshot);
+  unregistered.snapshot_id = "2026-09-09";
+  unregistered.as_of = "2026-09-09T00:41:31Z";
+  unregistered.generated_at = "2026-09-09T00:41:31Z";
+  delete unregistered.correction;
+  unregistered.public_update.observed.vintage = "2026-09-09";
+  unregistered.public_update.update_id = "world-aggregate-transmission-2026-09-09";
+  rejectsBuild(unregistered, /snapshot is not registered in the snapshot index/i);
+});
+
+test("freshness is policy-governed from snapshot as_of and exposed beside values", () => {
+  const policy = JSON.parse(readFileSync(policyPath, "utf8"));
+  assert.equal(policy.freshness_policy.basis, "snapshot_as_of");
+  assert.ok(policy.freshness_policy.signal_max_age_years.inflation >= 0);
+  const template = readFileSync(templatePath, "utf8");
+  assert.match(template, /function currentnessFor\(/);
+  assert.match(template, /STALE AS OF/);
+  assert.match(template, /pointEpistemicLabel\(sig,/);
+});
+
+test("public observed content and entity identity are wholly bound to policy and lineage", () => {
+  const attacks = [
+    (value) => { value.public_update.scope.population = "Every household directly observed"; },
+    (value) => { value.public_update.scope.place = "Official global census"; },
+    (value) => { value.public_update.observed.measure = "Direct publisher observation"; },
+    (value) => { value.public_update.observed.source_signal_ids = ["inflation"]; },
+    (value) => { value.public_update.observed.uncertainty = "None"; },
+    (value) => { value.public_update.observed.epistemic_class = "observed"; },
+    (value) => { value.entities.find(({ code }) => code === "OWID_WRL").name = "Official households"; },
+  ];
+  for (const attack of attacks) {
+    const changed = structuredClone(snapshot);
+    attack(changed);
+    rejectsBuild(changed, /public_update (scope|observed).*policy.*lineage|entity contract.*policy/i);
+  }
 });
 
 test("as-of chronology is strict and future points require forecast class", () => {
@@ -152,6 +226,12 @@ test("global and Australian evidence builders enforce exact source-host allowlis
     released_at: "2026-09-02",
     retrieved_at: "2026-09-08T00:00:00Z",
     checksum: `sha256:${"a".repeat(64)}`,
+    release_availability: {
+      kind: "first-seen-interval",
+      not_seen_as_of_utc: null,
+      first_seen_at_utc: "2026-09-08T00:00:00Z",
+      evidence: "First recorded during retrieval; no independently evidenced earlier absence check.",
+    },
   };
   assert.throws(
     () => buildNeroBaseline([

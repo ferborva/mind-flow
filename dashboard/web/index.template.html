@@ -452,7 +452,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
     <dl class="public-update">
-      <div class="update-cell"><dt>OBSERVED</dt><dd id="now-observed" aria-live="polite">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>WHAT THE DATA SHOW</dt><dd id="now-observed" aria-live="polite">Loading update contract…</dd></div>
       <div class="update-cell"><dt>AFFECTED</dt><dd id="now-affected">Loading update contract…</dd></div>
       <div class="update-cell"><dt>INFERRED</dt><dd id="now-inferred">Loading update contract…</dd></div>
       <div class="update-cell"><dt>IF CHANGED</dt><dd id="now-condition">Loading update contract…</dd></div>
@@ -563,7 +563,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
         <p>Each signal exposes its source, method, caveats and counter-reading. Missing instrumentation stays
           visible because uncertainty is part of the public record.</p>
       </div>
-      <p class="warnbar"><strong>UNVERIFIED SOURCE BYTES.</strong> Every displayed evidence value and export retains this warning until all upstream response bytes are captured and hash-verified.</p>
+      <p class="warnbar"><strong>UNVERIFIED SOURCE BYTES.</strong> A matching local hash can detect local byte changes, but it does not authenticate publisher origin. Publishable mode remains blocked pending separately verifiable acquisition receipts.</p>
       <div class="controls">
         <span class="lbl">Entity</span><span id="entity-buttons" style="display:flex;gap:6px;flex-wrap:wrap"></span>
         <span class="spacer"></span><label class="sr-only" for="family-filter">Signal family</label>
@@ -628,6 +628,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 var ACCEPTS = 1;                       // major schema version this build renders
 var SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 var snap = JSON.parse(document.getElementById("snapshot-data").textContent);
+var freshnessPolicy = __FRESHNESS_POLICY__;
 var entity = "OWID_WRL", tableMode = false, familyFilter = "ALL";
 var actor = null, selectedCrisis = null, scenarioSeededFor = "example";
 
@@ -667,12 +668,12 @@ function state(sig){
 function stateLabel(sig){
   var s=state(sig);
   if(s==="void") return sig.status==="not_measured"?"not measured":"unavailable";
-  if(sig.latest) return pointEpistemicLabel([
+  if(sig.latest) return pointEpistemicLabel(sig,[
     sig.latest.year,sig.latest.value,sig.latest.epistemic_class,sig.latest.input_epistemic_classes
   ]);
   var classes=[];
   (sig.series||[]).forEach(function(series){series.points.forEach(function(point){
-    var label=pointEpistemicLabel(point);if(classes.indexOf(label)<0)classes.push(label);
+    var label=pointEpistemicLabel(sig,point);if(classes.indexOf(label)<0)classes.push(label);
   });});
   return classes.length?classes.join(" + "):"available";
 }
@@ -680,15 +681,27 @@ function epistemicLabel(value){
   return String(value||"unknown").replaceAll("_"," ");
 }
 function sourceBytesLabel(){
-  return snap.reproducibility&&snap.reproducibility.raw_input_status==="captured_and_hash_verified"
-    ? "VERIFIED SOURCE BYTES" : "UNVERIFIED SOURCE BYTES";
+  return snap.reproducibility&&snap.reproducibility.raw_input_status==="captured_local_hash_consistent"
+    ? "LOCAL HASH CONSISTENCY ONLY · PUBLISHER ORIGIN UNVERIFIED" : "UNVERIFIED SOURCE BYTES";
 }
-function pointEpistemicLabel(point){
+function latestReferenceYear(sig){
+  var years=[];(sig.series||[]).forEach(function(series){(series.points||[]).forEach(function(point){years.push(point[0]);});});
+  return years.length?Math.max.apply(null,years):null;
+}
+function currentnessFor(sig){
+  var limit=freshnessPolicy.signal_max_age_years[sig.id],latest=latestReferenceYear(sig);
+  var asOfYear=Number(String(snap.as_of||"").slice(0,4));
+  if(!Number.isInteger(limit)||latest==null||!Number.isInteger(asOfYear))return "CURRENTNESS UNAVAILABLE";
+  return asOfYear-latest>limit
+    ? "STALE AS OF "+snap.as_of.slice(0,10)
+    : "CURRENT AS OF "+snap.as_of.slice(0,10);
+}
+function pointEpistemicLabel(sig,point){
   var label=epistemicLabel(point&&point[2]);
   if(point&&point[2]==="derived"&&point[3]&&point[3].length){
     label+=" from "+point[3].map(epistemicLabel).join(" + ");
   }
-  return label+" · "+sourceBytesLabel();
+  return label+" · "+sourceBytesLabel()+" · "+currentnessFor(sig);
 }
 function epistemicRuleFor(sig,year){
   var rules=(sig.source&&sig.source.adapter&&sig.source.adapter.epistemic_rules)||[];
@@ -783,7 +796,7 @@ function chart(sig, box){
       stroke:css("--surface"),"stroke-width":2}));
     var lab=mk("text",{x:px(last[0])+8,y:py(last[1])+3.5,"font-size":10,"font-weight":500});
     lab.setAttribute("fill",css("--ink-2"));
-    lab.textContent = (multi ? entName(s.entity).slice(0,7) : fmt(last[1],sig.precision))+" · "+pointEpistemicLabel(last);
+    lab.textContent = (multi ? entName(s.entity).slice(0,7) : fmt(last[1],sig.precision))+" · "+pointEpistemicLabel(sig,last);
     svg.appendChild(lab);
   });
 
@@ -804,7 +817,7 @@ function chart(sig, box){
       var lft=el("span"); lft.style.cssText="display:inline-flex;align-items:center;gap:6px";
       var sw=el("span","sw"); sw.style.background=colOf(s);
       lft.appendChild(sw); lft.appendChild(el("span",null,labelOf(s)));
-      row.appendChild(lft); row.appendChild(el("b",null,fmt(p[1],sig.precision)+" · "+pointEpistemicLabel(p)));
+      row.appendChild(lft); row.appendChild(el("b",null,fmt(p[1],sig.precision)+" · "+pointEpistemicLabel(sig,p)));
       tip.appendChild(row);
     });
     if(!any){ tip.style.opacity=0; return; }
@@ -844,7 +857,7 @@ function table(sig){
     var tr=el("tr"); tr.appendChild(el("td",null,String(y)));
     show.forEach(function(s){
       var p=s.points.find(function(q){return q[0]===y});
-      tr.appendChild(el("td",null,p?fmt(p[1],sig.precision)+" · "+pointEpistemicLabel(p):"—"));
+      tr.appendChild(el("td",null,p?fmt(p[1],sig.precision)+" · "+pointEpistemicLabel(sig,p):"—"));
     });
     tb.appendChild(tr);
   });
@@ -1008,7 +1021,7 @@ function panel(sig){
   if(selectedLatest){
     var n=el("div","n tnum",fmt(selectedLatest.value,sig.precision)+(sig.unit==="percent"?"%":sig.unit==="pp"?"pp":""));
     right.appendChild(n);
-    right.appendChild(el("div","y",selectedLatest.year+" "+pointEpistemicLabel([
+    right.appendChild(el("div","y",selectedLatest.year+" "+pointEpistemicLabel(sig,[
       selectedLatest.year,selectedLatest.value,selectedLatest.epistemic_class,selectedLatest.input_epistemic_classes
     ])+" · "+entName(selectedLatest.entity)));
   } else {
@@ -1050,7 +1063,7 @@ function panel(sig){
   if(sig.trouble_reading) row("Trouble", sig.trouble_reading);
   if(sig.method && sig.status==="available") row("Method", sig.method);
   var selectedRule=selectedLatest?epistemicRuleFor(sig,selectedLatest.year):null;
-  if(selectedRule) row("Evidence", pointEpistemicLabel([
+  if(selectedRule) row("Evidence", pointEpistemicLabel(sig,[
     selectedLatest.year,selectedLatest.value,selectedLatest.epistemic_class,selectedLatest.input_epistemic_classes
   ])+" · "+selectedRule.source_vintage+
     " · "+selectedRule.uncertainty+" · "+selectedRule.resolution_rule);
@@ -1107,10 +1120,10 @@ function renderVerdict(){
   var n=el("div","bignum tnum",(gap>0?"+":"")+fmt(gap,1));
   n.style.color = css("--ink");
   lft.appendChild(n);
-  lft.appendChild(el("div","bigunit","index points, labour income against output · "+sourceBytesLabel()));
+  lft.appendChild(el("div","bigunit","index points, labour income against output · "+sourceBytesLabel()+" · "+currentnessFor(g)));
   var ch=el("span","chip neutral"); ch.style.marginTop="14px";
   ch.appendChild(el("span","dot"));
-  ch.appendChild(el("span",null,"derived baseline comparison · "+sourceBytesLabel()));
+  ch.appendChild(el("span",null,"derived baseline comparison · "+sourceBytesLabel()+" · "+currentnessFor(g)));
   lft.appendChild(ch);
 
   rt.appendChild(el("h2",null, gap<0
@@ -1185,6 +1198,7 @@ function currentEvidenceExport(){
       id:signal.id,name:signal.name,family:signal.family,status:signal.status,
       unit:signal.unit,precision:signal.precision,source:signal.source,
       source_bytes_status:snap.reproducibility.raw_input_status,
+      currentness:currentnessFor(signal),
       series:selected?selected.show:[]
     };
   });
@@ -1239,7 +1253,10 @@ function renderNow(){
   var scope=update.scope,observed=update.observed,affected=update.affected,inferred=update.inferred;
   var condition=update.condition_change,action=update.action,falsifier=update.falsifier,next=update.next_check;
   var sources=observed.source_signal_ids.map(function(id){var signal=signalById(id);return signal&&signal.source?signal.source.name:id;});
-  cell("now-observed",observed.summary+" ["+sourceBytesLabel()+"]",
+  var updateSignals=observed.source_signal_ids.map(signalById).filter(Boolean);
+  var updateCurrentness=updateSignals.some(function(signal){return currentnessFor(signal).indexOf("STALE AS OF")===0;})
+    ? "STALE AS OF "+snap.as_of.slice(0,10) : "CURRENT AS OF "+snap.as_of.slice(0,10);
+  cell("now-observed",observed.summary+" ["+sourceBytesLabel()+" · "+updateCurrentness+"]",
     "Class: "+observed.epistemic_class+"\nMeasure: "+observed.measure+"\nScope: "+scope.population+" / "+scope.place+" / "+scope.period+"\nVintage: "+observed.vintage+"\nUncertainty: "+observed.uncertainty+"\nSources: "+sources.join("; "));
   cell("now-affected",affected.status.toUpperCase()+". "+affected.summary,
     "Excluded or unresolved: "+affected.excluded_or_unresolved.join("; "));

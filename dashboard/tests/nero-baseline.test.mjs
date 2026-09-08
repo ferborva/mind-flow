@@ -21,6 +21,12 @@ const SOURCE = {
   released_at: "2026-09-02",
   retrieved_at: "2026-09-08T00:00:00Z",
   checksum: `sha256:${"a".repeat(64)}`,
+  release_availability: {
+    kind: "first-seen-interval",
+    not_seen_as_of_utc: null,
+    first_seen_at_utc: "2026-09-08T00:00:00Z",
+    evidence: "First recorded during retrieval; no independently evidenced earlier absence check.",
+  },
 };
 
 test("CSV parsing preserves quoted commas and escaped quotes", () => {
@@ -48,6 +54,8 @@ test("baseline keeps occupation-region series separate and exposes model limits"
 
   assert.equal(result.epistemic_class, "modelled-estimate");
   assert.equal(result.measurement_type, "modelled-nowcast");
+  assert.equal(result.publication_status, "research_draft_unverified");
+  assert.equal(result.source_bytes_status, "not_retained_unverified");
   assert.equal(result.series.length, 3);
   assert.deepEqual(
     result.series.map(({ occupation_code, sa4_code }) => [occupation_code, sa4_code]),

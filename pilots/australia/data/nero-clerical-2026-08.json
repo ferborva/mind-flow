@@ -2,6 +2,8 @@
   "schema_version": "1.0.0",
   "id": "nero-clerical-baseline-2026-08",
   "title": "Australian clerical employment by occupation and SA4",
+  "publication_status": "research_draft_unverified",
+  "source_bytes_status": "not_retained_unverified",
   "epistemic_class": "modelled-estimate",
   "measurement_type": "modelled-nowcast",
   "source": {
@@ -61,6 +63,11 @@
         "percent": 23.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3411,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 4049,
@@ -213,6 +220,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3705,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2957,
           "status": "reported-modelled-estimate"
@@ -363,6 +375,11 @@
         "percent": -22.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2663,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2313,
@@ -515,6 +532,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1496,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 983,
           "status": "reported-modelled-estimate"
@@ -665,6 +687,11 @@
         "percent": -25.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1634,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1262,
@@ -817,6 +844,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3307,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2959,
           "status": "reported-modelled-estimate"
@@ -967,6 +999,11 @@
         "percent": -22.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4453,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3502,
@@ -1119,6 +1156,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2164,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1649,
           "status": "reported-modelled-estimate"
@@ -1269,6 +1311,11 @@
         "percent": -2.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1288,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1157,
@@ -1421,6 +1468,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1278,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1888,
           "status": "reported-modelled-estimate"
@@ -1571,6 +1623,11 @@
         "percent": 14.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4306,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 4100,
@@ -1723,6 +1780,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2806,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2497,
           "status": "reported-modelled-estimate"
@@ -1873,6 +1935,11 @@
         "percent": -19.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2114,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1468,
@@ -2025,6 +2092,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2085,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1408,
           "status": "reported-modelled-estimate"
@@ -2175,6 +2247,11 @@
         "percent": -20.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4359,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3234,
@@ -2327,6 +2404,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4488,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4557,
           "status": "reported-modelled-estimate"
@@ -2477,6 +2559,11 @@
         "percent": -8.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4117,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3255,
@@ -2629,6 +2716,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2473,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2039,
           "status": "reported-modelled-estimate"
@@ -2779,6 +2871,11 @@
         "percent": -12.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 7469,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 6316,
@@ -2931,6 +3028,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3186,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2581,
           "status": "reported-modelled-estimate"
@@ -3081,6 +3183,11 @@
         "percent": 8.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4418,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 4280,
@@ -3233,6 +3340,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2496,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2543,
           "status": "reported-modelled-estimate"
@@ -3383,6 +3495,11 @@
         "percent": -2.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4414,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3766,
@@ -3535,6 +3652,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4718,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 5063,
           "status": "reported-modelled-estimate"
@@ -3685,6 +3807,11 @@
         "percent": 8.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 5243,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 5617,
@@ -3837,6 +3964,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2139,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1939,
           "status": "reported-modelled-estimate"
@@ -3987,6 +4119,11 @@
         "percent": 7.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 5080,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 5320,
@@ -4139,6 +4276,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3048,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2994,
           "status": "reported-modelled-estimate"
@@ -4289,6 +4431,11 @@
         "percent": -5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1498,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1631,
@@ -4441,6 +4588,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1327,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1592,
           "status": "reported-modelled-estimate"
@@ -4591,6 +4743,11 @@
         "percent": 11.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3344,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3257,
@@ -4743,6 +4900,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1780,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1772,
           "status": "reported-modelled-estimate"
@@ -4893,6 +5055,11 @@
         "percent": 56.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2218,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3211,
@@ -5045,6 +5212,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 7216,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 6945,
           "status": "reported-modelled-estimate"
@@ -5195,6 +5367,11 @@
         "percent": -5.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3462,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3636,
@@ -5347,6 +5524,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3720,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4301,
           "status": "reported-modelled-estimate"
@@ -5497,6 +5679,11 @@
         "percent": 22.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4652,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 6376,
@@ -5649,6 +5836,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 5000,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4364,
           "status": "reported-modelled-estimate"
@@ -5799,6 +5991,11 @@
         "percent": -7.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 5332,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 5229,
@@ -5951,6 +6148,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 9177,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 8913,
           "status": "reported-modelled-estimate"
@@ -6101,6 +6303,11 @@
         "percent": 13
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 8551,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 10414,
@@ -6253,6 +6460,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2495,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3410,
           "status": "reported-modelled-estimate"
@@ -6403,6 +6615,11 @@
         "percent": 18.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1401,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1495,
@@ -6555,6 +6772,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1140,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1385,
           "status": "reported-modelled-estimate"
@@ -6705,6 +6927,11 @@
         "percent": -11.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1297,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1020,
@@ -6857,6 +7084,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4168,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3163,
           "status": "reported-modelled-estimate"
@@ -7007,6 +7239,11 @@
         "percent": -23.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3373,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2744,
@@ -7159,6 +7396,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4397,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 5494,
           "status": "reported-modelled-estimate"
@@ -7309,6 +7551,11 @@
         "percent": -6.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2309,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2152,
@@ -7461,6 +7708,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 5104,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3459,
           "status": "reported-modelled-estimate"
@@ -7611,6 +7863,11 @@
         "percent": -1.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3421,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3115,
@@ -7763,6 +8020,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1535,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1251,
           "status": "reported-modelled-estimate"
@@ -7913,6 +8175,11 @@
         "percent": -19
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3379,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3142,
@@ -8065,6 +8332,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 8090,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 8614,
           "status": "reported-modelled-estimate"
@@ -8215,6 +8487,11 @@
         "percent": -2.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3878,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 4358,
@@ -8367,6 +8644,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3648,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4385,
           "status": "reported-modelled-estimate"
@@ -8517,6 +8799,11 @@
         "percent": -22.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2737,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2091,
@@ -8669,6 +8956,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2882,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2180,
           "status": "reported-modelled-estimate"
@@ -8819,6 +9111,11 @@
         "percent": -22.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3717,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2770,
@@ -8971,6 +9268,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 893,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1200,
           "status": "reported-modelled-estimate"
@@ -9121,6 +9423,11 @@
         "percent": 1.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4207,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3858,
@@ -9273,6 +9580,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1735,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1931,
           "status": "reported-modelled-estimate"
@@ -9423,6 +9735,11 @@
         "percent": -18.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2916,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2455,
@@ -9575,6 +9892,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3608,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3036,
           "status": "reported-modelled-estimate"
@@ -9725,6 +10047,11 @@
         "percent": 10.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3726,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3283,
@@ -9877,6 +10204,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 5636,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 5620,
           "status": "reported-modelled-estimate"
@@ -10027,6 +10359,11 @@
         "percent": 23.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4014,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 4449,
@@ -10179,6 +10516,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3255,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3486,
           "status": "reported-modelled-estimate"
@@ -10329,6 +10671,11 @@
         "percent": 27.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 945,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1023,
@@ -10481,6 +10828,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 989,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 786,
           "status": "reported-modelled-estimate"
@@ -10631,6 +10983,11 @@
         "percent": 5.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1678,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1604,
@@ -10783,6 +11140,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1687,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1630,
           "status": "reported-modelled-estimate"
@@ -10933,6 +11295,11 @@
         "percent": -3.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1039,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 828,
@@ -11085,6 +11452,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1873,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1672,
           "status": "reported-modelled-estimate"
@@ -11235,6 +11607,11 @@
         "percent": 22.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3263,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3711,
@@ -11387,6 +11764,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 7849,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 7503,
           "status": "reported-modelled-estimate"
@@ -11537,6 +11919,11 @@
         "percent": -9.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 6749,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 6049,
@@ -11689,6 +12076,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 5270,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4684,
           "status": "reported-modelled-estimate"
@@ -11839,6 +12231,11 @@
         "percent": 27.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1356,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1419,
@@ -11991,6 +12388,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1201,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1122,
           "status": "reported-modelled-estimate"
@@ -12141,6 +12543,11 @@
         "percent": -5.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1500,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1380,
@@ -12293,6 +12700,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3045,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3121,
           "status": "reported-modelled-estimate"
@@ -12443,6 +12855,11 @@
         "percent": 8.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1355,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1508,
@@ -12595,6 +13012,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 299,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 308,
           "status": "reported-modelled-estimate"
@@ -12745,6 +13167,11 @@
         "percent": -7.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 953,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 989,
@@ -12897,6 +13324,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3121,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2888,
           "status": "reported-modelled-estimate"
@@ -13047,6 +13479,11 @@
         "percent": 6.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1529,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1539,
@@ -13199,6 +13636,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 12167,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 11079,
           "status": "reported-modelled-estimate"
@@ -13349,6 +13791,11 @@
         "percent": -12.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 123,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 117,
@@ -13501,6 +13948,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 606,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 692,
           "status": "reported-modelled-estimate"
@@ -13651,6 +14103,11 @@
         "percent": 29.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 122,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 160,
@@ -13803,6 +14260,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 94,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 87,
           "status": "reported-modelled-estimate"
@@ -13953,6 +14415,11 @@
         "percent": -8.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 23,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 25,
@@ -14105,6 +14572,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 579,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 368,
           "status": "reported-modelled-estimate"
@@ -14255,6 +14727,11 @@
         "percent": 17
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 525,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 529,
@@ -14407,6 +14884,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 110,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 107,
           "status": "reported-modelled-estimate"
@@ -14557,6 +15039,11 @@
         "percent": 32
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 25,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 37,
@@ -14709,6 +15196,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 26,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 39,
           "status": "reported-modelled-estimate"
@@ -14859,6 +15351,11 @@
         "percent": -18.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 661,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 530,
@@ -15011,6 +15508,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 114,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 81,
           "status": "reported-modelled-estimate"
@@ -15161,6 +15663,11 @@
         "percent": 34.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 23,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 34,
@@ -15313,6 +15820,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 49,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 64,
           "status": "reported-modelled-estimate"
@@ -15463,6 +15975,11 @@
         "percent": 6.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 183,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 204,
@@ -15615,6 +16132,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 548,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 537,
           "status": "reported-modelled-estimate"
@@ -15765,6 +16287,11 @@
         "percent": -22.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 593,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 481,
@@ -15917,6 +16444,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 123,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 146,
           "status": "reported-modelled-estimate"
@@ -16067,6 +16599,11 @@
         "percent": 10.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 577,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 584,
@@ -16219,6 +16756,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 499,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 388,
           "status": "reported-modelled-estimate"
@@ -16369,6 +16911,11 @@
         "percent": -3.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 226,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 231,
@@ -16521,6 +17068,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 164,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 169,
           "status": "reported-modelled-estimate"
@@ -16671,6 +17223,11 @@
         "percent": 8.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 483,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 608,
@@ -16823,6 +17380,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 474,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 445,
           "status": "reported-modelled-estimate"
@@ -16973,6 +17535,11 @@
         "percent": 15.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 725,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 618,
@@ -17125,6 +17692,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 167,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 181,
           "status": "reported-modelled-estimate"
@@ -17275,6 +17847,11 @@
         "percent": -21.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 685,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 675,
@@ -17427,6 +18004,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 150,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 120,
           "status": "reported-modelled-estimate"
@@ -17577,6 +18159,11 @@
         "percent": -2.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 244,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 284,
@@ -17729,6 +18316,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 148,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 130,
           "status": "reported-modelled-estimate"
@@ -17879,6 +18471,11 @@
         "percent": -27.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 323,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 280,
@@ -18031,6 +18628,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 49,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 63,
           "status": "reported-modelled-estimate"
@@ -18181,6 +18783,11 @@
         "percent": -31.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 614,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 586,
@@ -18333,6 +18940,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1626,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 976,
           "status": "reported-modelled-estimate"
@@ -18483,6 +19095,11 @@
         "percent": -23.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 424,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 425,
@@ -18635,6 +19252,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 540,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 593,
           "status": "reported-modelled-estimate"
@@ -18785,6 +19407,11 @@
         "percent": -17.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1031,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1149,
@@ -18937,6 +19564,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 751,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 654,
           "status": "reported-modelled-estimate"
@@ -19087,6 +19719,11 @@
         "percent": -32
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 826,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 716,
@@ -19239,6 +19876,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1386,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1120,
           "status": "reported-modelled-estimate"
@@ -19389,6 +20031,11 @@
         "percent": -27.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1783,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1407,
@@ -19541,6 +20188,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 605,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 458,
           "status": "reported-modelled-estimate"
@@ -19691,6 +20343,11 @@
         "percent": -17.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 29,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 33,
@@ -19843,6 +20500,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 28,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 36,
           "status": "reported-modelled-estimate"
@@ -19993,6 +20655,11 @@
         "percent": 0
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 22,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 31,
@@ -20145,6 +20812,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 245,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 246,
           "status": "reported-modelled-estimate"
@@ -20295,6 +20967,11 @@
         "percent": -16.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 504,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 455,
@@ -20447,6 +21124,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 669,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 509,
           "status": "reported-modelled-estimate"
@@ -20597,6 +21279,11 @@
         "percent": 10.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 357,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 362,
@@ -20749,6 +21436,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 643,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 588,
           "status": "reported-modelled-estimate"
@@ -20899,6 +21591,11 @@
         "percent": -33.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 104,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 81,
@@ -21051,6 +21748,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 21,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 30,
           "status": "reported-modelled-estimate"
@@ -21201,6 +21903,11 @@
         "percent": -1.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 90,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 106,
@@ -21353,6 +22060,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 758,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 950,
           "status": "reported-modelled-estimate"
@@ -21503,6 +22215,11 @@
         "percent": -27.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 828,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 623,
@@ -21655,6 +22372,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 531,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 941,
           "status": "reported-modelled-estimate"
@@ -21805,6 +22527,11 @@
         "percent": 17.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 28,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 41,
@@ -21957,6 +22684,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 541,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 425,
           "status": "reported-modelled-estimate"
@@ -22107,6 +22839,11 @@
         "percent": -34.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 628,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 469,
@@ -22259,6 +22996,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 10,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 14,
           "status": "reported-modelled-estimate"
@@ -22409,6 +23151,11 @@
         "percent": 5.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 539,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 571,
@@ -22561,6 +23308,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 128,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 92,
           "status": "reported-modelled-estimate"
@@ -22711,6 +23463,11 @@
         "percent": 9.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 461,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 484,
@@ -22863,6 +23620,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 179,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 147,
           "status": "reported-modelled-estimate"
@@ -23013,6 +23775,11 @@
         "percent": -3.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 503,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 503,
@@ -23165,6 +23932,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1071,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1167,
           "status": "reported-modelled-estimate"
@@ -23315,6 +24087,11 @@
         "percent": -16.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 629,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 678,
@@ -23467,6 +24244,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 452,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 599,
           "status": "reported-modelled-estimate"
@@ -23617,6 +24399,11 @@
         "percent": 13.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 45,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 52,
@@ -23769,6 +24556,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 42,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 34,
           "status": "reported-modelled-estimate"
@@ -23919,6 +24711,11 @@
         "percent": 36.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 38,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 54,
@@ -24071,6 +24868,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 123,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 111,
           "status": "reported-modelled-estimate"
@@ -24221,6 +25023,11 @@
         "percent": 60
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 25,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 44,
@@ -24373,6 +25180,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 107,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 160,
           "status": "reported-modelled-estimate"
@@ -24523,6 +25335,11 @@
         "percent": 16.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 324,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 410,
@@ -24675,6 +25492,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 488,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 885,
           "status": "reported-modelled-estimate"
@@ -24825,6 +25647,11 @@
         "percent": 28.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 475,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 703,
@@ -24977,6 +25804,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 464,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 455,
           "status": "reported-modelled-estimate"
@@ -25127,6 +25959,11 @@
         "percent": 10
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 20,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 25,
@@ -25279,6 +26116,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 10,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 24,
           "status": "reported-modelled-estimate"
@@ -25429,6 +26271,11 @@
         "percent": 23.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 13,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 18,
@@ -25581,6 +26428,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 507,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 481,
           "status": "reported-modelled-estimate"
@@ -25731,6 +26583,11 @@
         "percent": -39.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 265,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 148,
@@ -25883,6 +26740,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 123,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 103,
           "status": "reported-modelled-estimate"
@@ -26033,6 +26895,11 @@
         "percent": -25.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 166,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 166,
@@ -26185,6 +27052,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 201,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 133,
           "status": "reported-modelled-estimate"
@@ -26335,6 +27207,11 @@
         "percent": 20
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 10,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 13,
@@ -26487,6 +27364,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 574,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 445,
           "status": "reported-modelled-estimate"
@@ -26637,6 +27519,11 @@
         "percent": 6.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 998,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1221,
@@ -26789,6 +27676,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1417,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1304,
           "status": "reported-modelled-estimate"
@@ -26939,6 +27831,11 @@
         "percent": -17
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1105,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1098,
@@ -27091,6 +27988,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 481,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 559,
           "status": "reported-modelled-estimate"
@@ -27241,6 +28143,11 @@
         "percent": 34
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 692,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1062,
@@ -27393,6 +28300,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 981,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1298,
           "status": "reported-modelled-estimate"
@@ -27543,6 +28455,11 @@
         "percent": 106.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 923,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1517,
@@ -27695,6 +28612,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 825,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 823,
           "status": "reported-modelled-estimate"
@@ -27845,6 +28767,11 @@
         "percent": -3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 755,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 804,
@@ -27997,6 +28924,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 896,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1314,
           "status": "reported-modelled-estimate"
@@ -28147,6 +29079,11 @@
         "percent": -24.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1837,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1693,
@@ -28299,6 +29236,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 898,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 920,
           "status": "reported-modelled-estimate"
@@ -28449,6 +29391,11 @@
         "percent": -23.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 968,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 722,
@@ -28601,6 +29548,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 886,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 916,
           "status": "reported-modelled-estimate"
@@ -28751,6 +29703,11 @@
         "percent": 122
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1430,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2624,
@@ -28903,6 +29860,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2918,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4317,
           "status": "reported-modelled-estimate"
@@ -29053,6 +30015,11 @@
         "percent": -11.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1673,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1513,
@@ -29205,6 +30172,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1190,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1163,
           "status": "reported-modelled-estimate"
@@ -29355,6 +30327,11 @@
         "percent": -18.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3433,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3270,
@@ -29507,6 +30484,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1540,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1614,
           "status": "reported-modelled-estimate"
@@ -29657,6 +30639,11 @@
         "percent": 2.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2048,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1620,
@@ -29809,6 +30796,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1254,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1490,
           "status": "reported-modelled-estimate"
@@ -29959,6 +30951,11 @@
         "percent": 21
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1964,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2348,
@@ -30111,6 +31108,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1794,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1924,
           "status": "reported-modelled-estimate"
@@ -30261,6 +31263,11 @@
         "percent": -1.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2640,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3526,
@@ -30413,6 +31420,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1487,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1350,
           "status": "reported-modelled-estimate"
@@ -30563,6 +31575,11 @@
         "percent": 6.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2537,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3179,
@@ -30715,6 +31732,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1319,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1495,
           "status": "reported-modelled-estimate"
@@ -30865,6 +31887,11 @@
         "percent": 11.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 858,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1031,
@@ -31017,6 +32044,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 567,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 775,
           "status": "reported-modelled-estimate"
@@ -31167,6 +32199,11 @@
         "percent": 1.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1518,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1671,
@@ -31319,6 +32356,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 805,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 873,
           "status": "reported-modelled-estimate"
@@ -31469,6 +32511,11 @@
         "percent": 21.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1011,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1456,
@@ -31621,6 +32668,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2493,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2961,
           "status": "reported-modelled-estimate"
@@ -31771,6 +32823,11 @@
         "percent": -6.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1922,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1750,
@@ -31923,6 +32980,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1679,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2366,
           "status": "reported-modelled-estimate"
@@ -32073,6 +33135,11 @@
         "percent": -2.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2262,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3530,
@@ -32225,6 +33292,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1607,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3009,
           "status": "reported-modelled-estimate"
@@ -32375,6 +33447,11 @@
         "percent": -4.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3807,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3745,
@@ -32527,6 +33604,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4212,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 5283,
           "status": "reported-modelled-estimate"
@@ -32677,6 +33759,11 @@
         "percent": -7.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4632,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 5068,
@@ -32829,6 +33916,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1202,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1969,
           "status": "reported-modelled-estimate"
@@ -32979,6 +34071,11 @@
         "percent": -24.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 807,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 634,
@@ -33131,6 +34228,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 602,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 842,
           "status": "reported-modelled-estimate"
@@ -33281,6 +34383,11 @@
         "percent": 27.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 496,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 491,
@@ -33433,6 +34540,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1996,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1716,
           "status": "reported-modelled-estimate"
@@ -33583,6 +34695,11 @@
         "percent": 17.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1368,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1426,
@@ -33735,6 +34852,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2364,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2086,
           "status": "reported-modelled-estimate"
@@ -33885,6 +35007,11 @@
         "percent": 52.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 683,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1084,
@@ -34037,6 +35164,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1657,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1812,
           "status": "reported-modelled-estimate"
@@ -34187,6 +35319,11 @@
         "percent": -35
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1607,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1647,
@@ -34339,6 +35476,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 964,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1347,
           "status": "reported-modelled-estimate"
@@ -34489,6 +35631,11 @@
         "percent": 25.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 843,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1088,
@@ -34641,6 +35788,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4813,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3665,
           "status": "reported-modelled-estimate"
@@ -34791,6 +35943,11 @@
         "percent": -2.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1969,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1793,
@@ -34943,6 +36100,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2584,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2730,
           "status": "reported-modelled-estimate"
@@ -35093,6 +36255,11 @@
         "percent": 17.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1140,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1245,
@@ -35245,6 +36412,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1258,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1701,
           "status": "reported-modelled-estimate"
@@ -35395,6 +36567,11 @@
         "percent": -1.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1358,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1330,
@@ -35547,6 +36724,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 557,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 356,
           "status": "reported-modelled-estimate"
@@ -35697,6 +36879,11 @@
         "percent": 18.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1627,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1920,
@@ -35849,6 +37036,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 734,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1212,
           "status": "reported-modelled-estimate"
@@ -35999,6 +37191,11 @@
         "percent": -4.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1298,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1362,
@@ -36151,6 +37348,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1099,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1265,
           "status": "reported-modelled-estimate"
@@ -36301,6 +37503,11 @@
         "percent": -11.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1671,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1508,
@@ -36453,6 +37660,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3234,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2540,
           "status": "reported-modelled-estimate"
@@ -36603,6 +37815,11 @@
         "percent": 13.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1678,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1861,
@@ -36755,6 +37972,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1627,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1339,
           "status": "reported-modelled-estimate"
@@ -36905,6 +38127,11 @@
         "percent": -37
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 565,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 358,
@@ -37057,6 +38284,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 483,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 346,
           "status": "reported-modelled-estimate"
@@ -37207,6 +38439,11 @@
         "percent": -17.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 693,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 814,
@@ -37359,6 +38596,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 898,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1167,
           "status": "reported-modelled-estimate"
@@ -37509,6 +38751,11 @@
         "percent": -15.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 632,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 583,
@@ -37661,6 +38908,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 815,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1112,
           "status": "reported-modelled-estimate"
@@ -37811,6 +39063,11 @@
         "percent": 35.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1591,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1756,
@@ -37963,6 +39220,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 4037,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 4769,
           "status": "reported-modelled-estimate"
@@ -38113,6 +39375,11 @@
         "percent": 3.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 3738,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 3791,
@@ -38265,6 +39532,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2977,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2815,
           "status": "reported-modelled-estimate"
@@ -38415,6 +39687,11 @@
         "percent": -15.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 689,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 617,
@@ -38567,6 +39844,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 384,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 509,
           "status": "reported-modelled-estimate"
@@ -38717,6 +39999,11 @@
         "percent": 24.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 490,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 626,
@@ -38869,6 +40156,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1157,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1125,
           "status": "reported-modelled-estimate"
@@ -39019,6 +40311,11 @@
         "percent": 28.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 591,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 530,
@@ -39171,6 +40468,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 141,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 189,
           "status": "reported-modelled-estimate"
@@ -39321,6 +40623,11 @@
         "percent": 7.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 430,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 403,
@@ -39473,6 +40780,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 832,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1217,
           "status": "reported-modelled-estimate"
@@ -39623,6 +40935,11 @@
         "percent": 67
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 276,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 460,
@@ -39775,6 +41092,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2183,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 2943,
           "status": "reported-modelled-estimate"
@@ -39925,6 +41247,11 @@
         "percent": 5.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 943,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 824,
@@ -40077,6 +41404,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1326,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1052,
           "status": "reported-modelled-estimate"
@@ -40227,6 +41559,11 @@
         "percent": -25.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 917,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 907,
@@ -40379,6 +41716,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 541,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 497,
           "status": "reported-modelled-estimate"
@@ -40529,6 +41871,11 @@
         "percent": 11.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 582,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 607,
@@ -40681,6 +42028,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 915,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 781,
           "status": "reported-modelled-estimate"
@@ -40831,6 +42183,11 @@
         "percent": -8.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1007,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 858,
@@ -40983,6 +42340,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 996,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 898,
           "status": "reported-modelled-estimate"
@@ -41133,6 +42495,11 @@
         "percent": 6.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 515,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 519,
@@ -41285,6 +42652,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 724,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 914,
           "status": "reported-modelled-estimate"
@@ -41435,6 +42807,11 @@
         "percent": 3.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 908,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 662,
@@ -41587,6 +42964,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 947,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 861,
           "status": "reported-modelled-estimate"
@@ -41737,6 +43119,11 @@
         "percent": -40.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1027,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 586,
@@ -41889,6 +43276,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1061,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 988,
           "status": "reported-modelled-estimate"
@@ -42039,6 +43431,11 @@
         "percent": -6.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1043,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1136,
@@ -42191,6 +43588,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1334,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 823,
           "status": "reported-modelled-estimate"
@@ -42341,6 +43743,11 @@
         "percent": -12
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 842,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 908,
@@ -42493,6 +43900,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 707,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 757,
           "status": "reported-modelled-estimate"
@@ -42643,6 +44055,11 @@
         "percent": -30.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2123,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1403,
@@ -42795,6 +44212,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1003,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 952,
           "status": "reported-modelled-estimate"
@@ -42945,6 +44367,11 @@
         "percent": -5.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1108,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1232,
@@ -43097,6 +44524,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 958,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 934,
           "status": "reported-modelled-estimate"
@@ -43247,6 +44679,11 @@
         "percent": -9.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 821,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 999,
@@ -43399,6 +44836,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 929,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 852,
           "status": "reported-modelled-estimate"
@@ -43549,6 +44991,11 @@
         "percent": -2.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1144,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1004,
@@ -43701,6 +45148,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 627,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 732,
           "status": "reported-modelled-estimate"
@@ -43851,6 +45303,11 @@
         "percent": 1.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1104,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1030,
@@ -44003,6 +45460,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 879,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 738,
           "status": "reported-modelled-estimate"
@@ -44153,6 +45615,11 @@
         "percent": 0.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 826,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 810,
@@ -44305,6 +45772,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 560,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 518,
           "status": "reported-modelled-estimate"
@@ -44455,6 +45927,11 @@
         "percent": 11.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1306,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1189,
@@ -44607,6 +46084,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 943,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 645,
           "status": "reported-modelled-estimate"
@@ -44757,6 +46239,11 @@
         "percent": -25.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1492,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1102,
@@ -44909,6 +46396,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1710,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1657,
           "status": "reported-modelled-estimate"
@@ -45059,6 +46551,11 @@
         "percent": 21.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1428,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1336,
@@ -45211,6 +46708,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1834,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1920,
           "status": "reported-modelled-estimate"
@@ -45361,6 +46863,11 @@
         "percent": -18.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2665,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1849,
@@ -45513,6 +47020,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1595,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1749,
           "status": "reported-modelled-estimate"
@@ -45663,6 +47175,11 @@
         "percent": -36.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 4086,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2578,
@@ -45815,6 +47332,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 3772,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3290,
           "status": "reported-modelled-estimate"
@@ -45965,6 +47487,11 @@
         "percent": 26.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2168,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2617,
@@ -46117,6 +47644,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1298,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1212,
           "status": "reported-modelled-estimate"
@@ -46267,6 +47799,11 @@
         "percent": -17.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1044,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 952,
@@ -46419,6 +47956,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1000,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 848,
           "status": "reported-modelled-estimate"
@@ -46569,6 +48111,11 @@
         "percent": 73.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 663,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 790,
@@ -46721,6 +48268,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 700,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1034,
           "status": "reported-modelled-estimate"
@@ -46871,6 +48423,11 @@
         "percent": -14.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1188,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 928,
@@ -47023,6 +48580,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1364,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1229,
           "status": "reported-modelled-estimate"
@@ -47173,6 +48735,11 @@
         "percent": 34.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 646,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 768,
@@ -47325,6 +48892,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 647,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 861,
           "status": "reported-modelled-estimate"
@@ -47475,6 +49047,11 @@
         "percent": -15.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1191,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 998,
@@ -47627,6 +49204,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 777,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1069,
           "status": "reported-modelled-estimate"
@@ -47777,6 +49359,11 @@
         "percent": -36.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1375,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1196,
@@ -47929,6 +49516,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2821,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3355,
           "status": "reported-modelled-estimate"
@@ -48079,6 +49671,11 @@
         "percent": 105.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 777,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1390,
@@ -48231,6 +49828,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1488,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1796,
           "status": "reported-modelled-estimate"
@@ -48381,6 +49983,11 @@
         "percent": 40.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 803,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 917,
@@ -48533,6 +50140,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 798,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 688,
           "status": "reported-modelled-estimate"
@@ -48683,6 +50295,11 @@
         "percent": 20.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 684,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 792,
@@ -48835,6 +50452,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 559,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 361,
           "status": "reported-modelled-estimate"
@@ -48985,6 +50607,11 @@
         "percent": -19.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2150,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1797,
@@ -49137,6 +50764,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 752,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 618,
           "status": "reported-modelled-estimate"
@@ -49287,6 +50919,11 @@
         "percent": -36.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1242,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 992,
@@ -49439,6 +51076,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1327,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1638,
           "status": "reported-modelled-estimate"
@@ -49589,6 +51231,11 @@
         "percent": -16.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1396,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1176,
@@ -49741,6 +51388,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1253,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1079,
           "status": "reported-modelled-estimate"
@@ -49891,6 +51543,11 @@
         "percent": 15
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1094,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1240,
@@ -50043,6 +51700,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 862,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 659,
           "status": "reported-modelled-estimate"
@@ -50193,6 +51855,11 @@
         "percent": -4.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 513,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 707,
@@ -50345,6 +52012,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 379,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 321,
           "status": "reported-modelled-estimate"
@@ -50495,6 +52167,11 @@
         "percent": -6.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 934,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 964,
@@ -50647,6 +52324,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 843,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 766,
           "status": "reported-modelled-estimate"
@@ -50797,6 +52479,11 @@
         "percent": -17
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 716,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 736,
@@ -50949,6 +52636,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 834,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 711,
           "status": "reported-modelled-estimate"
@@ -51099,6 +52791,11 @@
         "percent": -31.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1177,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 862,
@@ -51251,6 +52948,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2779,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 3089,
           "status": "reported-modelled-estimate"
@@ -51401,6 +53103,11 @@
         "percent": -15.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 2101,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 2131,
@@ -51553,6 +53260,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1882,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1312,
           "status": "reported-modelled-estimate"
@@ -51703,6 +53415,11 @@
         "percent": -11.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1138,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1101,
@@ -51855,6 +53572,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 415,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 278,
           "status": "reported-modelled-estimate"
@@ -52005,6 +53727,11 @@
         "percent": -36.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 534,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 441,
@@ -52157,6 +53884,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 714,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 907,
           "status": "reported-modelled-estimate"
@@ -52307,6 +54039,11 @@
         "percent": -2.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 613,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 481,
@@ -52459,6 +54196,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 174,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 168,
           "status": "reported-modelled-estimate"
@@ -52609,6 +54351,11 @@
         "percent": -6.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 359,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 359,
@@ -52761,6 +54508,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 722,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 684,
           "status": "reported-modelled-estimate"
@@ -52911,6 +54663,11 @@
         "percent": -2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 342,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 385,
@@ -53063,6 +54820,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1017,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 877,
           "status": "reported-modelled-estimate"
@@ -53213,6 +54975,11 @@
         "percent": 11
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 499,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 627,
@@ -53365,6 +55132,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 453,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 673,
           "status": "reported-modelled-estimate"
@@ -53515,6 +55287,11 @@
         "percent": 25.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 151,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 190,
@@ -53667,6 +55444,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 60,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 83,
           "status": "reported-modelled-estimate"
@@ -53817,6 +55599,11 @@
         "percent": 10.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 56,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 65,
@@ -53969,6 +55756,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 585,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 603,
           "status": "reported-modelled-estimate"
@@ -54119,6 +55911,11 @@
         "percent": 42.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 526,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 605,
@@ -54271,6 +56068,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 109,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 144,
           "status": "reported-modelled-estimate"
@@ -54421,6 +56223,11 @@
         "percent": 31.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 86,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 115,
@@ -54573,6 +56380,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 95,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 135,
           "status": "reported-modelled-estimate"
@@ -54723,6 +56535,11 @@
         "percent": 6.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 804,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1010,
@@ -54875,6 +56692,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 405,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 437,
           "status": "reported-modelled-estimate"
@@ -55025,6 +56847,11 @@
         "percent": 19.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 455,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 470,
@@ -55177,6 +57004,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 65,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 103,
           "status": "reported-modelled-estimate"
@@ -55327,6 +57159,11 @@
         "percent": -26.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 737,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 611,
@@ -55479,6 +57316,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 751,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 961,
           "status": "reported-modelled-estimate"
@@ -55629,6 +57471,11 @@
         "percent": 10.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 529,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 632,
@@ -55781,6 +57628,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 135,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 158,
           "status": "reported-modelled-estimate"
@@ -55931,6 +57783,11 @@
         "percent": 5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1211,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1269,
@@ -56083,6 +57940,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 696,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 538,
           "status": "reported-modelled-estimate"
@@ -56233,6 +58095,11 @@
         "percent": 21
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 453,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 612,
@@ -56385,6 +58252,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 412,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 574,
           "status": "reported-modelled-estimate"
@@ -56535,6 +58407,11 @@
         "percent": -15.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 704,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 611,
@@ -56687,6 +58564,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 538,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 938,
           "status": "reported-modelled-estimate"
@@ -56837,6 +58719,11 @@
         "percent": -29.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 981,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 638,
@@ -56989,6 +58876,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 436,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 472,
           "status": "reported-modelled-estimate"
@@ -57139,6 +59031,11 @@
         "percent": 112.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 443,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 944,
@@ -57291,6 +59188,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 227,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 248,
           "status": "reported-modelled-estimate"
@@ -57441,6 +59343,11 @@
         "percent": -27.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 590,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 533,
@@ -57593,6 +59500,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 142,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 156,
           "status": "reported-modelled-estimate"
@@ -57743,6 +59655,11 @@
         "percent": 0.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 634,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 737,
@@ -57895,6 +59812,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 155,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 174,
           "status": "reported-modelled-estimate"
@@ -58045,6 +59967,11 @@
         "percent": -32.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 645,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 598,
@@ -58197,6 +60124,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 753,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 811,
           "status": "reported-modelled-estimate"
@@ -58347,6 +60279,11 @@
         "percent": -4.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 765,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 954,
@@ -58499,6 +60436,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 523,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 919,
           "status": "reported-modelled-estimate"
@@ -58649,6 +60591,11 @@
         "percent": -12.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1064,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1018,
@@ -58801,6 +60748,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 688,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1010,
           "status": "reported-modelled-estimate"
@@ -58951,6 +60903,11 @@
         "percent": 18.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 733,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 863,
@@ -59103,6 +61060,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 2034,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1346,
           "status": "reported-modelled-estimate"
@@ -59253,6 +61215,11 @@
         "percent": 34.2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 1110,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1746,
@@ -59405,6 +61372,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 488,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 486,
           "status": "reported-modelled-estimate"
@@ -59555,6 +61527,11 @@
         "percent": -8.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 135,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 148,
@@ -59707,6 +61684,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 549,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 735,
           "status": "reported-modelled-estimate"
@@ -59857,6 +61839,11 @@
         "percent": 4.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 84,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 100,
@@ -60009,6 +61996,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 447,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 617,
           "status": "reported-modelled-estimate"
@@ -60159,6 +62151,11 @@
         "percent": 90.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 385,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 667,
@@ -60311,6 +62308,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 562,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 619,
           "status": "reported-modelled-estimate"
@@ -60461,6 +62463,11 @@
         "percent": 39.7
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 365,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 433,
@@ -60613,6 +62620,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 587,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 911,
           "status": "reported-modelled-estimate"
@@ -60763,6 +62775,11 @@
         "percent": 80.9
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 450,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 799,
@@ -60915,6 +62932,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 316,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 550,
           "status": "reported-modelled-estimate"
@@ -61065,6 +63087,11 @@
         "percent": 47.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 483,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 877,
@@ -61217,6 +63244,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 638,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1214,
           "status": "reported-modelled-estimate"
@@ -61367,6 +63399,11 @@
         "percent": 107.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 448,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 708,
@@ -61519,6 +63556,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 412,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 991,
           "status": "reported-modelled-estimate"
@@ -61669,6 +63711,11 @@
         "percent": 97.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 419,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 782,
@@ -61821,6 +63868,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 317,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 635,
           "status": "reported-modelled-estimate"
@@ -61971,6 +64023,11 @@
         "percent": 60.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 383,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 574,
@@ -62123,6 +64180,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 31,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 74,
           "status": "reported-modelled-estimate"
@@ -62273,6 +64335,11 @@
         "percent": 59.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 532,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 878,
@@ -62425,6 +64492,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 111,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 175,
           "status": "reported-modelled-estimate"
@@ -62575,6 +64647,11 @@
         "percent": 72.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 382,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 603,
@@ -62727,6 +64804,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 434,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 844,
           "status": "reported-modelled-estimate"
@@ -62877,6 +64959,11 @@
         "percent": 45.1
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 450,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 525,
@@ -63029,6 +65116,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 862,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 694,
           "status": "reported-modelled-estimate"
@@ -63179,6 +65271,11 @@
         "percent": -11.6
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 868,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 823,
@@ -63331,6 +65428,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 396,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 505,
           "status": "reported-modelled-estimate"
@@ -63481,6 +65583,11 @@
         "percent": -2
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 256,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 262,
@@ -63633,6 +65740,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 63,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 66,
           "status": "reported-modelled-estimate"
@@ -63783,6 +65895,11 @@
         "percent": 75.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 280,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 457,
@@ -63935,6 +66052,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1773,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 528,
           "status": "reported-modelled-estimate"
@@ -64085,6 +66207,11 @@
         "percent": 61.5
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 52,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 85,
@@ -64237,6 +66364,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 330,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 412,
           "status": "reported-modelled-estimate"
@@ -64387,6 +66519,11 @@
         "percent": 97.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 406,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 828,
@@ -64539,6 +66676,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 1030,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 1263,
           "status": "reported-modelled-estimate"
@@ -64689,6 +66831,11 @@
         "percent": 29.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 758,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 1022,
@@ -64841,6 +66988,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 697,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 778,
           "status": "reported-modelled-estimate"
@@ -64991,6 +67143,11 @@
         "percent": 45.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 96,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 135,
@@ -65143,6 +67300,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 49,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 80,
           "status": "reported-modelled-estimate"
@@ -65293,6 +67455,11 @@
         "percent": 50
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 86,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 129,
@@ -65445,6 +67612,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 512,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 355,
           "status": "reported-modelled-estimate"
@@ -65595,6 +67767,11 @@
         "percent": 4.8
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 249,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 186,
@@ -65747,6 +67924,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 43,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 34,
           "status": "reported-modelled-estimate"
@@ -65897,6 +68079,11 @@
         "percent": -26.3
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 255,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 222,
@@ -66049,6 +68236,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 376,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 266,
           "status": "reported-modelled-estimate"
@@ -66200,6 +68392,11 @@
       },
       "recent_observations": [
         {
+          "date": "2021-08-15",
+          "value": 116,
+          "status": "reported-modelled-estimate"
+        },
+        {
           "date": "2024-08-15",
           "value": 146,
           "status": "reported-modelled-estimate"
@@ -66350,6 +68547,11 @@
         "percent": 25.4
       },
       "recent_observations": [
+        {
+          "date": "2021-08-15",
+          "value": 472,
+          "status": "reported-modelled-estimate"
+        },
         {
           "date": "2024-08-15",
           "value": 841,
