@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "id": "forecast.au-clerical-adoption.example.2027-q2.v1",
+  "epistemic_class": "forecast",
+  "status": "issued",
+  "title": "Fictional Australian clerical-adoption forecast fixture",
+  "question": "Will the fictional pilot adoption measure reach its declared threshold in 2027 Q2?",
+  "issued_at": "2026-09-08T00:00:00Z",
+  "resolve_after": "2027-07-01T00:00:00Z",
+  "resolve_by": "2027-10-01T00:00:00Z",
+  "probability": 0.7,
+  "target": {
+    "event": "The fictional pilot measure is at or above 20 percent for the scoped cohort.",
+    "unit": "binary threshold event",
+    "scope": {
+      "geographies": ["Australia"],
+      "cohorts": ["Fictional clerical-worker pilot cohort"],
+      "services": ["Work-transition measurement"]
+    },
+    "resolution_rule": "Resolve 1 only if the named source reports at least 20.0 percent for the exact scope and period. Resolve 0 if it reports below 20.0 percent. Void if the source retires or materially changes the measure before publication.",
+    "resolution_source": "https://example.org/fictional-transition-survey"
+  },
+  "baseline": {
+    "name": "Fictional no-skill reference forecast",
+    "probability": 0.5,
+    "method": "Fixed 50 percent reference used only to test the scoring harness."
+  },
+  "method": {
+    "kind": "human",
+    "description": "Synthetic judgement for a software fixture. It is not an empirical forecast.",
+    "version": "fixture-1"
+  },
+  "data_vintages": [
+    {
+      "source": "https://example.org/fictional-transition-survey/2026-q2",
+      "retrieved_at": "2026-09-08T00:00:00Z",
+      "vintage": "fictional-2026-q2",
+      "checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "provenance": {
+    "author": "Ren",
+    "class": "agent-proposal",
+    "issued_commit": "0000000",
+    "disclaimer": "Fictional fixture for testing. Not an issued public forecast and not Fernando's view."
+  },
+  "assumptions": [
+    "The source, cohort, threshold and probability are synthetic test values."
+  ],
+  "counter_hypotheses": [
+    "The fictional measure remains below the threshold.",
+    "The measure changes and the forecast must be voided rather than reinterpreted."
+  ],
+  "resolution": {
+    "status": "pending"
+  },
+  "history": [
+    {
+      "at": "2026-09-08T00:00:00Z",
+      "event": "issued",
+      "actor": "forecast test fixture",
+      "note": "Synthetic record created to exercise immutability and scoring."
+    }
+  ]
+}
