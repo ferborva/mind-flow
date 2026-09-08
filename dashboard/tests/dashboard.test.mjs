@@ -195,21 +195,20 @@ test("public language does not turn imperfect proxies into verdicts", () => {
   assert.doesNotMatch(inflation.trouble_reading, /positive|persist/i);
 });
 
-test("failure scenarios do not predict or pathologise democratic responses", () => {
+test("untyped future stories are withheld until possible-path assessments resolve", () => {
   assert.doesNotMatch(template, /Likely movement:/i);
   assert.doesNotMatch(template, /Crisis radar/i);
   assert.doesNotMatch(template, /warning signals live/i);
   assert.doesNotMatch(template, /id=["']crisis-chart["']/i);
   assert.doesNotMatch(template, /class=["'][^"']*orbit/i);
   assert.doesNotMatch(template, /cov\.ready\s*\+\s*["']\/["']\s*\+\s*cov\.total/);
-  assert.match(template, /Possible failure modes/i);
-  for (const crisis of snapshot.crises) {
-    assert.equal("movement" in crisis, false, `${crisis.id}: remove movement forecast`);
-    assert.ok(
-      crisis.possible_public_responses?.length >= 1,
-      `${crisis.id}: possible responses must remain plural and unpredicted`,
-    );
-  }
+  assert.doesNotMatch(template, /Possible failure modes/i);
+  assert.doesNotMatch(template, /HORIZON [ABC]/i);
+  assert.doesNotMatch(template, /function renderCrisisDetail\(/);
+  assert.equal(Object.hasOwn(snapshot, "crises"), false);
+  assert.equal(Object.hasOwn(snapshot, "playbooks"), false);
+  assert.deepEqual(snapshot.possible_path_refs, []);
+  assert.match(template, /No typed possible-path assessment is registered for this scope/i);
 });
 
 test("scenario arithmetic cannot masquerade as a forecast or trigger", () => {
@@ -220,11 +219,12 @@ test("scenario arithmetic cannot masquerade as a forecast or trigger", () => {
   assert.doesNotMatch(template, /scenarioSeededFor\s*!==\s*entity\)\s*seedScenario/);
 });
 
-test("public action options begin unselected and label every proposal", () => {
-  assert.match(template, /actor\s*=\s*null/);
-  assert.match(template, /Choose a role to inspect options/i);
-  assert.match(template, /PROPOSAL, NOT AUTHORISED/i);
-  assert.doesNotMatch(JSON.stringify(snapshot.playbooks), /named case owner|the appeal path/i);
+test("public action options remain absent until typed option references resolve", () => {
+  assert.doesNotMatch(template, /actor\s*=\s*null/);
+  assert.doesNotMatch(template, /Choose a role to inspect options/i);
+  assert.doesNotMatch(template, /function renderPlaybook\(/);
+  assert.match(template, /No typed conditional options are registered for this scope/i);
+  assert.match(template, /No authorised action/i);
 });
 
 test("entity selection never silently falls back to another geography", () => {
@@ -235,27 +235,11 @@ test("entity selection never silently falls back to another geography", () => {
   assert.match(template, /GLOBAL UPDATE UNCHANGED/);
 });
 
-test("snapshot carries actionable crisis and actor contracts", () => {
-  assert.match(snapshot.schema_version, /^1\.7\./);
-  assert.ok(snapshot.crises.length >= 5);
-  assert.ok(Object.keys(snapshot.playbooks).length >= 5);
-
-  const signalIds = new Set(snapshot.signals.map((signal) => signal.id));
-  for (const crisis of snapshot.crises) {
-    assert.ok(crisis.id && crisis.name && crisis.condition);
-    assert.ok(["unscored", "watch", "activated"].includes(crisis.status));
-    assert.ok(crisis.leading_signals.length > 0);
-    for (const id of crisis.leading_signals) assert.ok(signalIds.has(id), `${crisis.id}: ${id}`);
-    for (const tier of ["prepare", "protect", "recover"]) {
-      assert.ok(crisis.actions[tier], `${crisis.id}: missing ${tier}`);
-    }
-  }
-
-  for (const actions of Object.values(snapshot.playbooks)) {
-    for (const tier of ["now", "warning", "crisis"]) {
-      assert.ok(actions[tier]?.length, `playbook missing ${tier}`);
-    }
-  }
+test("snapshot reserves only typed possible-path references", () => {
+  assert.match(snapshot.schema_version, /^1\.8\./);
+  assert.deepEqual(snapshot.possible_path_refs, []);
+  assert.equal(Object.hasOwn(snapshot, "crises"), false);
+  assert.equal(Object.hasOwn(snapshot, "playbooks"), false);
 });
 
 test("the IF map is a scoped decision record rather than static vocabulary", () => {
@@ -741,6 +725,18 @@ test("the build produces a self-contained page with parseable application code",
     /semantic validation failed/i,
   );
 
+  const unresolvedPossiblePath = structuredClone(snapshot);
+  unresolvedPossiblePath.possible_path_refs.push({
+    id: "assessment.unresolved",
+    version: "1.0.0",
+    checksum: `sha256:${"0".repeat(64)}`,
+  });
+  writeFileSync(semanticallyInvalidPath, JSON.stringify(unresolvedPossiblePath));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
+    /possible-path.*not resolved|semantic validation failed/i,
+  );
+
   const falseHelpRoute = structuredClone(snapshot);
   falseHelpRoute.public_update.action.help_route = "service-that-does-not-exist";
   writeFileSync(semanticallyInvalidPath, JSON.stringify(falseHelpRoute));
@@ -750,7 +746,7 @@ test("the build produces a self-contained page with parseable application code",
   );
 });
 
-test("operator documentation matches the governed 1.7 snapshot build", () => {
+test("operator documentation matches the governed 1.8 snapshot build", () => {
   const readme = readFileSync(dashboardReadmePath, "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
@@ -759,7 +755,7 @@ test("operator documentation matches the governed 1.7 snapshot build", () => {
   assert.match(readme, /release.*blocked/i);
   assert.doesNotMatch(readme, /Load snapshot/i);
   assert.doesNotMatch(readme, /current v2/i);
-  assert.match(schemaReadme, /Version 1\.7\.0/);
+  assert.match(schemaReadme, /Version 1\.8\.0/);
   assert.match(schemaReadme, /seven-part public update/i);
   assert.match(schemaReadme, /semantic validation/i);
   assert.doesNotMatch(schemaReadme, /No page rebuild required/i);

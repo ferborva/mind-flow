@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.7.0
+fetch_snapshot.py 1.8.0
 
 Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.7.0).
+conforming to dashboard/schema/snapshot.schema.json (v1.8.0).
 
     python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
     python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
@@ -20,8 +20,8 @@ Design rules, enforced here so the contract holds:
 
 import argparse, csv, hashlib, io, json, sys, urllib.request, urllib.parse, datetime, os
 
-GENERATOR = "fetch_snapshot.py@1.7.0"
-SCHEMA_VERSION = "1.7.0"
+GENERATOR = "fetch_snapshot.py@1.8.0"
+SCHEMA_VERSION = "1.8.0"
 TIMEOUT = 60
 DASHBOARD_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_INPUT_DIR = os.path.join(DASHBOARD_DIR, "evidence", "raw")
@@ -472,163 +472,6 @@ NOT_MEASURED = [
 ]
 
 
-CRISES = [
-    dict(
-        id="credibility-break", name="The credibility break", status="unscored",
-        condition="Capability and productivity rise while household access stays flat or falls.",
-        why_it_matters="People are told abundance is arriving and experience the opposite.",
-        possible_public_responses=[
-            "Public challenge to abundance claims or official measures.",
-            "Demands for evidence, protection, participation or a different goal.",
-            "Disengagement from institutions that do not recognise lived outcomes.",
-        ],
-        communication="Publish the baseline, uncertainty and the protection activated by the warning.",
-        leading_signals=["inflation", "poverty-30", "trust-consent", "access-margin"],
-        actions=dict(
-            prepare="Agree the evidence, messengers and activation rules before trust falls.",
-            protect="Announce household protection with the warning, never after it.",
-            recover="Publish misses, compensate avoidable harm and let affected communities redesign the response.",
-        ),
-    ),
-    dict(
-        id="displacement-cascade", name="The local displacement cascade", status="unscored",
-        condition="Job loss clusters in an occupation or place while re-employment slows and replacement earnings fall.",
-        why_it_matters="National employment can look healthy while one community experiences concentrated loss and slow recovery.",
-        possible_public_responses=[
-            "Collective bargaining, sectoral organising or negotiation over deployment.",
-            "Demands for income continuity, worker voice or local investment.",
-            "Relocation, occupation change or rejection of the proposed transition.",
-        ],
-        communication="Name the affected cohort and give one reachable action with one accountable owner.",
-        leading_signals=["transmission-gap", "participation", "transition-speed"],
-        actions=dict(
-            prepare="Pre-fund portable benefits, wage insurance and hiring-linked pathways.",
-            protect="Stabilise income, housing and healthcare before asking people to retrain.",
-            recover="Track re-employment time and replacement earnings until the cohort recovers.",
-        ),
-    ),
-    dict(
-        id="legitimacy-break", name="The legitimacy break", status="unscored",
-        condition="Access falls while profits, mark-ups or productive-power concentration rise.",
-        why_it_matters="The joint pattern could motivate competing explanations about distribution, market power and public legitimacy that require separate testing.",
-        possible_public_responses=[
-            "Competition, taxation, public-return or ownership reform proposals.",
-            "Consumer, worker or community organising around access and control.",
-            "Defence of scale economies where they demonstrably improve reach and quality.",
-        ],
-        communication="Show the public return for public support and publish red lights as readily as green ones.",
-        leading_signals=["labour-share", "concentration", "access-margin"],
-        actions=dict(
-            prepare="Set access obligations, independent audit and public-return clauses while conditions are good.",
-            protect="Trigger competition review, procurement diversification and temporary access obligations.",
-            recover="Reduce structural dependence through interoperability and plural capacity.",
-        ),
-    ),
-    dict(
-        id="essential-work-squeeze", name="The essential-work squeeze", status="unscored",
-        condition="Vacancies, exits and service queues rise together in work that still needs humans.",
-        why_it_matters="Cheap automated goods can coexist with scarce care, judgement and physical presence.",
-        possible_public_responses=[
-            "Collective bargaining over pay, staffing, autonomy and workload.",
-            "Debate over capacity, credentials, migration and service priorities.",
-            "Informal rationing or coercive proposals that require explicit rights safeguards.",
-        ],
-        communication="Recognise the work's value before appealing to duty or purpose.",
-        leading_signals=["participation", "baumol-gap", "transition-speed"],
-        actions=dict(
-            prepare="Improve pay, status, autonomy, staffing and credential portability.",
-            protect="Deploy reserve capacity and protect service continuity without suppressing bargaining power.",
-            recover="Redesign the employment bargain around sustainable load, agency and recognition.",
-        ),
-    ),
-    dict(
-        id="permission-border-split", name="The permission and border split", status="unscored",
-        condition="An essential service becomes technically cheap while access varies by identity or jurisdiction.",
-        why_it_matters="The binding if can migrate from money to permission.",
-        possible_public_responses=[
-            "Appeals, litigation or political challenge to eligibility rules.",
-            "Mutual-recognition, portability or sovereignty proposals.",
-            "Migration or informal alternatives when legitimate routes fail.",
-        ],
-        communication="Make eligibility rules and the reasons for them explicit before scarcity moves into permission.",
-        leading_signals=["cross-border-access", "access-margin", "zero-cost-count"],
-        actions=dict(
-            prepare="Agree mutual recognition, portable eligibility and minimum service standards.",
-            protect="Use pooled procurement and an interoperable access floor across participating countries.",
-            recover="Review exclusions, appeals and cross-border variance service by service.",
-        ),
-    ),
-]
-
-
-PLAYBOOKS = {
-    "individual": dict(
-        label="Individuals and households",
-        principle="Build options without pretending a household can diversify away a system-wide shock.",
-        now=["Map dependence on one employer, occupation, place and benefit system.",
-             "Make qualifications and work evidence portable.",
-             "Know the local support and appeal routes before they are needed."],
-        warning=["Protect cash flow, housing and healthcare continuity.",
-                 "Use verified sector evidence to choose options without panic.",
-                 "Activate community support before isolation compounds the shock."],
-        crisis=["Stabilise first. Do not accept irreversible decisions under acute pressure.",
-                "Verify that a real local help and appeal route exists before publishing guidance.",
-                "Record lost access so the cohort is visible in the recovery data."],
-    ),
-    "community": dict(
-        label="Communities, unions and civil society",
-        principle="National averages need a local witness.",
-        now=["Map exposed employers, essential services, trusted messengers and delivery gaps.",
-             "Negotiate data access, notice and transition terms before redundancies.",
-             "Pre-agree mutual aid, legal support and rapid feedback channels."],
-        warning=["Compare national claims with lived access by cohort and place.",
-                 "Open two-way forums through trusted local institutions.",
-                 "Publish the gap when the average is green and the community is red."],
-        crisis=["Coordinate income, food, housing, care and legal support through one local front door.",
-                "Protect targeted groups from stigma and misinformation.",
-                "Keep community representatives inside response decisions."],
-    ),
-    "business": dict(
-        label="Businesses",
-        principle="Regulatory certainty in exchange for auditable access and a credible worker transition.",
-        now=["Publish cost and access curves without exposing model weights or trade secrets.",
-             "File a worker-transition plan before material automation.",
-             "Pre-fund portable benefits or wage insurance where displacement is foreseeable."],
-        warning=["Report who is affected, what remains uncertain and what protection activates.",
-                 "Slow deployment where the agreed delivery rail is not ready.",
-                 "Accept independent audit in exchange for procurement and certainty."],
-        crisis=["Fund the pre-agreed protection and preserve service continuity.",
-                "Share timely worker-flow data with privacy safeguards.",
-                "Co-design recovery with affected workers and places."],
-    ),
-    "country": dict(
-        label="Countries",
-        principle="Build the delivery rail before the warning light turns red.",
-        now=["Join local reference budgets to household resources and usable public provision.",
-             "Legislate signal owners, automatic first responses and budgets.",
-             "Stress-test registries, payments, casework, appeals and privacy protections."],
-        warning=["Activate bridge income, portable benefits or in-kind access for the exposed cohort.",
-                 "Publish regional and cohort cuts with a fixed update cadence.",
-                 "Use outcome-based procurement for verified access, not nominally free products."],
-        crisis=["Expand support vertically and horizontally through the rehearsed delivery rail.",
-                "Protect housing, healthcare and essential-service continuity.",
-                "Review concentration, emergency powers and exclusions in public."],
-    ),
-    "international": dict(
-        label="International institutions",
-        principle="Keep local choice above the floor and make the floor interoperable.",
-        now=["Define comparable access measures, audit rules and revision histories.",
-             "Pool procurement where national buying power is weak.",
-             "Pre-position transition finance for countries with limited fiscal capacity."],
-        warning=["Track cross-border variance as a warning in its own right.",
-                 "Activate mutual recognition and portable eligibility agreements.",
-                 "Coordinate uncertainty ranges and public communication."],
-        crisis=["Fund delivery capacity, not only entitlements.",
-                "Prevent export controls from breaking the minimum access compact.",
-                "Publish where the floor failed and which institution owns recovery."],
-    ),
-}
-
 
 def build(snapshot_id, retrieved):
     signals, log, raw_inputs = [], [], {}
@@ -703,8 +546,7 @@ def build(snapshot_id, retrieved):
         "if_path": build_if_path(),
         "entities": [{"code": c, "name": n, "kind": k} for c, n, k, _ in ENTITIES],
         "signals": signals,
-        "crises": CRISES,
-        "playbooks": PLAYBOOKS,
+        "possible_path_refs": [],
     }, log
 
 

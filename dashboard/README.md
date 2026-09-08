@@ -18,7 +18,7 @@ accountability.
 
 | Surface | Purpose | Claim limit |
 |---|---|---|
-| `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns, conditional paths and unauthorised action proposals |
+| `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an empty typed possible-path boundary |
 | `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
 
 Neither surface is approved for public warning or operational action. The
@@ -59,7 +59,7 @@ through the build and test path.
 
 ## Seven-part public update
 
-Schema 1.7 requires one bounded `public_update` and exact source/derived-point
+Schema 1.8 requires one bounded `public_update` and exact source/derived-point
 lineage:
 
 1. **Observed:** the source-native or derived result and its uncertainty.
@@ -126,14 +126,16 @@ confidence. They include household access, transition speed, productive-power
 concentration, response readiness, trust and cross-border access. Missingness
 is an instrumentation backlog, not a neutral or safe state.
 
-## Scenarios, failure modes and actions
+## Scenarios, possible paths and actions
 
 - Scenario arithmetic uses explicit example assumptions or user-entered inputs.
   It is not seeded silently from observations and is not a forecast.
-- Failure modes are unscored hypotheses. Evidence counts are an inventory, not
-  a probability, readiness score or risk rating.
-- Action cards are hidden until a person chooses a role. Every item is labelled
-  `PROPOSAL, NOT AUTHORISED`.
+- The current World snapshot has no registered typed possible-path assessment.
+  It therefore displays no crisis path, forecast, option or action card.
+- Free-text failure modes and actor playbooks were removed because labels alone
+  could not bind hypotheses, discriminators, condition gates or authority.
+- Non-empty possible-path references fail the build until the dashboard can
+  resolve and validate their typed artifacts end to end.
 - A public signal cannot become an operational action without a separate owner,
   authority, review, expiry, help route and appeal path.
 

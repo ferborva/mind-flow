@@ -1,5 +1,5 @@
 {
- "schema_version": "1.7.0",
+ "schema_version": "1.8.0",
  "latest": "2026-09-08",
  "snapshots": [
   {
@@ -10,7 +10,7 @@
   {
    "id": "2026-09-08",
    "path": "2026-09-08.json",
-   "sha256": "sha256:4332d972e1f2f78b6842531b113ff97c976b3d22882c27e1be07de5d44a0545f"
+   "sha256": "sha256:f09f5b7c2cf2187bd6997921b0b48b2b9857dbf110520167037ff7b00ef8fd35"
   }
  ]
 }

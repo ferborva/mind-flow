@@ -761,10 +761,8 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
   if (snapshot.if_path?.decision?.result === "no_decision" && snapshot.if_path.decision.eligible_actions.length) {
     errors.push("an if_path with no decision cannot contain eligible actions");
   }
-  for (const crisis of snapshot.crises || []) {
-    for (const id of crisis.leading_signals || []) {
-      if (!signalIds.has(id)) errors.push(`crisis ${crisis.id} source signal ${id} is not declared`);
-    }
+  if ((snapshot.possible_path_refs || []).length) {
+    errors.push("possible-path references are not resolved by this snapshot build");
   }
   if (update?.action?.authorization_state === "none" &&
       (update.action.owner || update.action.authority || update.action.help_route || update.action.appeal_route)) {

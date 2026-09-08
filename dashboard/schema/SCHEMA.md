@@ -1,6 +1,6 @@
 # The snapshot contract
 
-**Version 1.7.0**
+**Version 1.8.0**
 
 The Observatory renders a frozen, validated snapshot. It does not query data
 providers in the browser.
@@ -26,18 +26,19 @@ authority, provenance, scope or uncertainty.
 | New required decision field | Minor |
 | Renamed, removed or semantically changed field | Major |
 
-The current build requires schema 1.7.x, one complete seven-part public update,
-its exact point lineage and one scoped IF path.
+The current build requires schema 1.8.x, one complete seven-part public update,
+its exact point lineage, one scoped IF path and an explicit typed possible-path
+reference boundary.
 
 ## Top-level shape
 
 ```jsonc
 {
-  "schema_version": "1.7.0",
+  "schema_version": "1.8.0",
   "snapshot_id": "2026-09-08",
   "as_of": "2026-09-08T00:41:31Z",
   "generated_at": "2026-09-08T00:41:31Z",
-  "generator": "fetch_snapshot.py@1.7.0",
+  "generator": "fetch_snapshot.py@1.8.0",
   "publication_status": "research_draft_unverified",
   "evidence_policy": {
     "id": "adapter-classification-policy",
@@ -66,8 +67,7 @@ its exact point lineage and one scoped IF path.
   "signals": [],
   "public_update": {},
   "if_path": {},
-  "crises": [],
-  "playbooks": {}
+  "possible_path_refs": []
 }
 ```
 
@@ -170,7 +170,7 @@ inference classes include descriptive readings. Causal or forecast claims need
 additional governed evidence contracts and cannot be produced merely by
 changing prose.
 
-Schema 1.7 accepts only `none` and `proposed`. It cannot import `authorised`,
+Schema 1.8 accepts only `none` and `proposed`. It cannot import `authorised`,
 `active`, `paused` or `ended` because this repository has no trusted issuance
 boundary that can verify those states. Reintroducing an operational state
 requires a future schema version bound to an externally verified, signed,
@@ -196,27 +196,20 @@ The path decision is separately one of `no_decision`, `watch`, `act`, `pause`,
 `reverse`, `recover` or `graduate`. `no_decision` cannot contain eligible
 actions. The current snapshot has five unknown conditions and no decision.
 
-## Failure-mode contracts
+## Typed possible-path boundary
 
-`crises` currently contains possible failure modes, not crisis predictions.
-Each record includes a condition, plural possible public responses, leading
-signal identifiers and reversible prepare, protect and recover proposals.
+`possible_path_refs` may contain only closed artifact references. The current
+snapshot leaves the array empty because no typed pathway assessment has been
+registered for the World aggregate scope. The build rejects any non-empty array
+until it can resolve each reference to a schema-valid, checksum-bound pathway
+assessment and verify scope, chronology, evidence roles and condition gates.
 
-States are `unscored`, `watch` or `activated`. The current snapshot keeps these
-records unscored. A count of available leading signals is not a probability,
-risk score or activation threshold.
-
-Every leading signal identifier must resolve to a signal in the same snapshot.
-
-## Actor playbooks
-
-`playbooks` groups proposed options by actor and phase. The interface begins
-with no actor selected and labels each option `PROPOSAL, NOT AUTHORISED`.
-
-These string lists are communication scaffolding, not operational action
-records. Operational use requires separate contracts for IF condition, owner,
-authority, consent, affected population, help, appeal, review, expiry and stop
-conditions.
+This replaces free-text crisis and playbook lists. Those lists could look like
+forecasts or guidance without a governed hypothesis, discriminator, option,
+authority or falsifier. Their removal is a truth-boundary change, not a claim
+that adverse paths are impossible. A future UI may display positive, adverse,
+measurement-alternative and recovery branches only after the typed contracts
+are integrated end to end.
 
 ## Validation layers
 
@@ -225,7 +218,7 @@ The build must pass both layers:
 1. **JSON Schema validation:** types, required fields, enums, formats and local
    object structure.
 2. **Semantic validation:** entity references, source-signal references,
-   failure-mode and IF-path signal references, IF condition alignment, decision
+   IF-path signal references, IF condition alignment, decision
    consistency, authority consistency, pinned adapter policy, complete raw-input
    coverage, byte-to-series equivalence, derived recomputation, public-update
    arithmetic, full public-update lineage, content addresses, correction

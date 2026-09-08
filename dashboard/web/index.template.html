@@ -296,42 +296,6 @@ h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,4vw,40p
 .access-factor span{color:var(--ink-3)}
 @media(max-width:680px){.access-equation{grid-template-columns:1fr 1fr}.access-factor:last-child{grid-column:1/-1}}
 
-/* possible failure modes */
-.radar-layout{display:grid;grid-template-columns:minmax(310px,.72fr) minmax(0,1.28fr);gap:20px}
-@media(max-width:860px){.radar-layout{grid-template-columns:1fr}}
-.radar-field{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px;min-height:470px;display:grid;place-items:center}
-#crisis-chart{width:min(100%,470px);height:auto;overflow:visible}
-#crisis-chart text{font:500 10px "IBM Plex Mono",monospace;fill:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
-.crisis-list{display:grid;gap:8px;margin-bottom:12px}
-.crisis-choice{width:100%;display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;text-align:left;
-  background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;cursor:pointer}
-.crisis-choice:hover,.crisis-choice[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
-.crisis-choice .num{font:500 12px "IBM Plex Mono",monospace;color:var(--accent)}
-.crisis-choice .name{font-weight:500}.crisis-choice .coverage{font:400 10px "IBM Plex Mono",monospace;color:var(--ink-3)}
-.crisis-detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:26px;min-height:310px}
-.crisis-detail h3{font-size:25px;margin:8px 0 10px}.crisis-detail>p{color:var(--ink-2)}
-.signal-tags{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
-.signal-tag{font:400 10px "IBM Plex Mono",monospace;padding:5px 8px;border:1px solid var(--rule);border-radius:99px;color:var(--ink-2)}
-.signal-tag.ready{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
-.response-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
-.response-step{padding:14px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-2)}
-.response-step b{display:block;color:var(--ink);font:500 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
-.proposal-label{display:block;color:var(--warning);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.08em;margin-bottom:5px}
-@media(max-width:650px){.response-grid{grid-template-columns:1fr}.radar-field{min-height:380px}}
-
-/* action deck */
-.actor-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.actor-tab{background:transparent;color:var(--ink-2);border:1px solid var(--rule);border-radius:99px;padding:8px 13px;
-  font:500 11px "IBM Plex Mono",monospace;cursor:pointer}
-.actor-tab:hover,.actor-tab[aria-pressed="true"]{color:var(--plane);background:var(--accent);border-color:var(--accent)}
-.playbook-principle{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(22px,3vw,34px);max-width:28ch;margin:22px 0 28px}
-.action-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.action-column{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:20px}
-.action-column .phase{font:500 10px "IBM Plex Mono",monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.15em}
-.action-column h3{font-size:21px;margin:7px 0 14px}.action-column ol{margin:0;padding-left:20px;color:var(--ink-2)}
-.action-column li{padding:7px 0 9px;border-bottom:1px solid var(--rule)}.action-column li:last-child{border:0}
-@media(max-width:760px){.action-columns{grid-template-columns:1fr}}
-
 /* scenario */
 .scenario-shell{background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--surface) 84%,var(--s3) 5%));
   border:1px solid var(--rule);border-radius:12px;padding:clamp(20px,4vw,34px);box-shadow:var(--shadow)}
@@ -389,13 +353,6 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .condition-decision{border:1px dashed var(--axis);padding:12px 14px;margin:15px 0 0;color:var(--ink-2);font-size:12px;border-radius:5px}
 @media(max-width:900px){.condition-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.condition-grid{grid-template-columns:1fr}}
-.path-horizon{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
-.path-card{min-height:180px;padding:22px;border:1px solid var(--rule);border-radius:12px;background:linear-gradient(145deg,var(--surface),var(--surface-2))}
-.path-card .horizon{font:500 10px "IBM Plex Mono",monospace;color:var(--accent);letter-spacing:.12em}
-.path-card h3{font-size:24px;margin:14px 0 8px}.path-card p{color:var(--ink-2);font-size:13px;margin:0}
-@media(max-width:760px){.path-horizon{grid-template-columns:1fr}}
-.failure-layout{display:grid;grid-template-columns:minmax(250px,.38fr) 1fr;gap:18px;align-items:start}
-@media(max-width:800px){.failure-layout{grid-template-columns:1fr}}
 .plain-warning{border-left:3px solid var(--warning);padding:12px 16px;background:color-mix(in srgb,var(--warning) 7%,transparent);color:var(--ink-2);font-size:13px}
 .instrumentation-card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:22px}
 .instrumentation-card h3{font-size:19px;margin-bottom:10px}.instrumentation-card dl{margin:0;display:grid;gap:7px}
@@ -417,7 +374,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   body{background:#fff}
   .nav-shell,#theme-toggle,.controls{display:none!important}
   .wrap{max-width:none;padding-left:0;padding-right:0}
-  .panel,.verdict,.path-card,.crisis-detail,.action-column,.condition-card,.account-card,.api{
+  .panel,.verdict,.condition-card,.account-card,.api{
     box-shadow:none;break-inside:avoid;page-break-inside:avoid;
   }
   details:not([open]) > :not(summary){display:block!important}
@@ -510,31 +467,20 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 
     <section class="section" id="possible-paths">
       <div class="section-head">
-        <div><div class="section-kicker">03 · Conditional paths</div><h2>Possible futures, not a single destination.</h2></div>
-        <p>These horizons are unscored hypotheses. They make the intended promise discussable while keeping
-          competing explanations, adverse paths and democratic choices open.</p>
+        <div><div class="section-kicker">03 · Possible paths</div><h2>Compare futures only when their IFs are typed.</h2></div>
+        <p>Positive, adverse, measurement-alternative and recovery paths need checksum-pinned definitions and
+          reproducible assessments. Several may fit at once. None is a probability, forecast or command.</p>
       </div>
-      <div class="path-horizon">
-        <article class="path-card"><span class="horizon">HORIZON A · UNSCORED</span><h3>Time returns</h3><p>If productivity gains reach workers through shorter hours, stronger income or public provision, people gain time without losing security.</p></article>
-        <article class="path-card"><span class="horizon">HORIZON B · UNSCORED</span><h3>Capability reaches everyone</h3><p>If price, eligibility, quality and delivery barriers fall together, useful services become genuinely accessible.</p></article>
-        <article class="path-card"><span class="horizon">HORIZON C · UNSCORED</span><h3>Choices multiply</h3><p>If access is durable and power remains contestable, people can choose more of how they live, learn, care and contribute.</p></article>
-      </div>
-      <h3>Possible failure modes</h3>
-      <p class="small-note">These are hypotheses to investigate, not diagnoses, probabilities or predictions of public behaviour.</p>
-      <div class="failure-layout">
-        <div class="crisis-list" id="crisis-list"></div>
-        <article class="crisis-detail" id="crisis-detail" aria-live="polite"></article>
-      </div>
+      <p class="plain-warning" id="possible-path-status" aria-live="polite"><strong>No typed possible-path assessment is registered for this scope.</strong> No future branch, crisis status or early-warning readiness is established.</p>
     </section>
 
     <section class="section" id="action-deck">
       <div class="section-head">
-        <div><div class="section-kicker">04 · Action deck</div><h2>Prepare proportionately, with an owner and a stop rule.</h2></div>
-        <p><strong>No authorised action. Agent proposal only.</strong> Select an actor to inspect possible preparations.
-          Adoption requires a named decision owner, evidence gate, affected-group review, safeguards and reversal path.</p>
+        <div><div class="section-kicker">04 · Action boundary</div><h2>Conditions can inform options. They cannot create authority.</h2></div>
+        <p><strong>No authorised action.</strong> No typed conditional options are registered for this scope.
+          A future option must bind a true eligible gate, affected-group review, owner, safeguards, funding, appeal, expiry and stop rule.</p>
       </div>
-      <div class="actor-tabs" id="actor-tabs" role="group" aria-label="Choose an actor"></div>
-      <div id="playbook" aria-live="polite"></div>
+      <p class="plain-warning" aria-live="polite">No option, recommendation, commitment or operational action is displayed.</p>
     </section>
 
     <section class="section" id="scenario-lab">
@@ -630,7 +576,7 @@ var SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 var snap = JSON.parse(document.getElementById("snapshot-data").textContent);
 var freshnessPolicy = __FRESHNESS_POLICY__;
 var entity = "OWID_WRL", tableMode = false, familyFilter = "ALL";
-var actor = null, selectedCrisis = null, scenarioSeededFor = "example";
+var scenarioSeededFor = "example";
 
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
 function el(t,c,txt){ var e=document.createElement(t); if(c)e.className=c; if(txt!=null)e.textContent=txt; return e; }
@@ -650,15 +596,6 @@ function activeEntities(){
   return (snap.entities||[]).filter(function(e){ return seen[e.code]; });
 }
 function signalById(id){ return (snap.signals||[]).find(function(s){return s.id===id}); }
-function isInstrumented(id){
-  var s=signalById(id);
-  return !!s && s.status==="available" && !!((s.series||[]).length||s.latest);
-}
-function coverageFor(crisis){
-  var ids=crisis.leading_signals||[], ready=ids.filter(isInstrumented).length;
-  return {ready:ready,total:ids.length,pct:ids.length?ready/ids.length:0};
-}
-
 /* state of a signal against its trouble reading */
 function state(sig){
   if(sig.status==="not_measured") return "void";
@@ -900,68 +837,6 @@ function renderConditionMap(){
     details.appendChild(summary);details.appendChild(body);card.appendChild(details);grid.appendChild(card);
   });
   decision.textContent=path.decision.result.toUpperCase().replaceAll("_"," ")+". "+path.decision.summary;
-}
-
-function renderFailureModes(){
-  var crises=snap.crises||[];
-  if(!crises.length){
-    document.getElementById("crisis-detail").textContent="No crisis contract in this snapshot.";
-    return;
-  }
-  if(!selectedCrisis||!crises.some(function(c){return c.id===selectedCrisis})) selectedCrisis=crises[0].id;
-  var list=document.getElementById("crisis-list"); list.innerHTML="";
-  crises.forEach(function(c,i){
-    var b=el("button","crisis-choice"); b.type="button";
-    b.setAttribute("aria-pressed",String(c.id===selectedCrisis));
-    b.appendChild(el("span","num",String(i+1).padStart(2,"0")));
-    b.appendChild(el("span","name",c.name));
-    b.appendChild(el("span","coverage","unscored"));
-    b.onclick=function(){selectedCrisis=c.id;renderFailureModes();}; list.appendChild(b);
-  });
-  renderCrisisDetail(crises.find(function(c){return c.id===selectedCrisis}));
-}
-
-function renderCrisisDetail(c){
-  var host=document.getElementById("crisis-detail"); host.innerHTML="";
-  var chip=el("span","chip void"); chip.appendChild(el("span","dot"));
-  chip.appendChild(el("span",null,"unscored hypothesis")); host.appendChild(chip);
-  host.appendChild(el("h3",null,c.name)); host.appendChild(el("p",null,c.condition));
-  var tags=el("div","signal-tags"); (c.leading_signals||[]).forEach(function(id){
-    var s=signalById(id), tag=el("span","signal-tag"+(isInstrumented(id)?" ready":""),s?s.name:id);
-    tag.title=isInstrumented(id)?"Instrumented":"Instrument missing"; tags.appendChild(tag);
-  }); host.appendChild(tags);
-  var context=el("p",null,c.why_it_matters); context.style.fontSize="13px"; host.appendChild(context);
-  var responses=c.possible_public_responses||[c.movement].filter(Boolean);
-  if(responses.length){
-    var publicResponse=el("p",null,"Possible public responses, not predictions: "+responses.join(" "));
-    publicResponse.style.fontSize="13px"; host.appendChild(publicResponse);
-  }
-  var comm=el("p",null,"Communication: "+c.communication); comm.style.fontSize="13px"; host.appendChild(comm);
-  var grid=el("div","response-grid"); ["prepare","protect","recover"].forEach(function(phase){
-    var step=el("div","response-step");step.appendChild(el("b",null,phase));step.appendChild(el("span",null,c.actions[phase]));grid.appendChild(step);
-  }); host.appendChild(grid);
-}
-
-function renderPlaybook(){
-  var books=snap.playbooks||{}, keys=Object.keys(books);
-  if(!keys.length){document.getElementById("playbook").textContent="No actor playbook in this snapshot.";return;}
-  var tabs=document.getElementById("actor-tabs");tabs.innerHTML="";
-  keys.forEach(function(key){var b=el("button","actor-tab",books[key].label);b.type="button";
-    b.setAttribute("aria-pressed",String(key===actor));b.onclick=function(){actor=key;renderPlaybook();};tabs.appendChild(b);});
-  var host=document.getElementById("playbook");host.innerHTML="";
-  if(!actor||!books[actor]){
-    host.appendChild(el("p","plain-warning","Choose a role to inspect options. No role is selected and no directive applies."));return;
-  }
-  var book=books[actor];
-  var proposal=el("p","plain-warning");
-  proposal.innerHTML="<strong>Proposal, not authorised.</strong> Owner, evidence gate, affected-group review and stop rule are not yet assigned.";
-  host.appendChild(proposal);
-  host.appendChild(el("p","playbook-principle",book.principle));
-  var cols=el("div","action-columns"), names={now:"Options to evaluate now",warning:"Options if evidence is validated",crisis:"Options for governed protection"};
-  ["now","warning","crisis"].forEach(function(phase){var col=el("article","action-column");
-    col.appendChild(el("div","phase",phase));col.appendChild(el("h3",null,names[phase]));var ol=el("ol");
-    (book[phase]||[]).forEach(function(a){var item=el("li");item.appendChild(el("span","proposal-label","PROPOSAL, NOT AUTHORISED"));item.appendChild(document.createTextNode(a));ol.appendChild(item);});col.appendChild(ol);cols.appendChild(col);});
-  host.appendChild(cols);
 }
 
 function baselineRates(){
@@ -1277,7 +1152,7 @@ function renderNow(){
 }
 
 function renderAll(){
-  renderMeta();renderNow();renderCoverage();renderConditionMap();renderVerdict();renderFailureModes();renderPlaybook();
+  renderMeta();renderNow();renderCoverage();renderConditionMap();renderVerdict();
   renderFamilyFilter();renderEntityButtons();renderScenario();renderFamilies();
   refreshEvidenceExport();
 }
