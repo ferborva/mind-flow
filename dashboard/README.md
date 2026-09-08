@@ -1,152 +1,147 @@
-# dashboard
+# Abundance Transition Observatory
 
-**Seldon Observatory.** Instrumentation for the transition. A portal for arguing
-about the signals rather than the slogans.
+> **Status:** Agent-built research prototype. Public release is blocked pending
+> Fernando's substantive approval, affected-party comprehension testing,
+> independent statistical review, accessibility review and release governance.
 
-Original v1 artifact: https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
+The Observatory is a public reasoning surface for a difficult transition. It
+separates what was observed, who may be affected, what is inferred, which IF
+condition changed, what action is authorised, what would falsify the reading,
+and when evidence will be checked again.
 
-The current v2 build is `web/index.html` in this repository.
+It does not predict history, assign a single transition score, or confer policy
+authority. The visual language can evoke long-range systems thinking. The
+claims still have to survive ordinary evidence, democratic consent and
+accountability.
 
-## The one architectural decision
+## Two prototype surfaces
 
-**The page never talks to a data provider. It renders a snapshot.**
+| Surface | Purpose | Claim limit |
+|---|---|---|
+| `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns, conditional paths and unauthorised action proposals |
+| `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
 
+Neither surface is approved for public warning or operational action.
+
+## Architecture
+
+The page never fetches live evidence. It renders a dated snapshot:
+
+```text
+source registries -> fetch_snapshot.py -> validated snapshot -> built HTML
 ```
-open registries  →  tools/fetch_snapshot.py  →  snapshots/YYYY-MM-DD.json  →  web/index.html
-   (the world)          (runs here)                 (the contract)              (renders)
-```
 
-Three reasons, in order.
+This preserves the exact evidence used for a claim. `tools/build.mjs` performs
+build-time JSON Schema and semantic validation before embedding a snapshot. It
+fails if, among other checks, the seven-part update is absent, an update cites a
+missing signal, a failure mode cites a missing leading signal, or an
+unauthorised action claims an owner or authority.
 
-1. **Provenance.** Every figure in this repo carries a source and a retrieval
-   date. A live dashboard silently changes underneath the argument that cited it.
-   A snapshot is dated, checkable and quotable: if someone disputes a number in a
-   piece, hand them the exact file the claim was written against.
-2. **The page is sandboxed.** A published artifact cannot make network calls to
-   data hosts. Live was never on the table there.
-3. **Reproducibility.** A snapshot is a file. Diff it, archive it, replay it.
+The browser cannot load arbitrary local snapshots. A changed snapshot must go
+through the build and test path.
 
-## Layout
+## Seven-part public update
 
-| Path | What it is |
+Schema 1.3 requires one bounded `public_update`:
+
+1. **Observed:** the source-native or derived result and its uncertainty.
+2. **Affected:** the defined population, or an explicit unknown.
+3. **Inferred:** the bounded interpretation and inference class.
+4. **IF changed:** the named condition and whether it changed state.
+5. **Action and owner:** authority, owner, help and appeal, or explicit absence.
+6. **Falsifier:** evidence that would narrow, reverse or withdraw the reading.
+7. **Next check:** the dated, owned review, or a statement that none is governed.
+
+The current global update is about the World aggregate. Selecting another place
+does not relabel that update. Evidence panels never substitute World data when
+the chosen place has no observation.
+
+## Repository map
+
+| Path | Role |
 |---|---|
-| `schema/SCHEMA.md` | The contract. Read this first. |
-| `schema/snapshot.schema.json` | Machine-readable JSON Schema |
-| `tools/fetch_snapshot.py` | Pulls the signals, writes a dated snapshot |
-| `tools/build.mjs` | Safely embeds one snapshot into the template |
-| `tools/build-nero-baseline.mjs` | Streams an official NERO ZIP into separate, frozen occupation-region series |
-| `snapshots/` | Dated snapshots plus `index.json` |
-| `web/index.template.html` | The page, with a `__SNAPSHOT__` placeholder |
-| `web/index.html` | Built page with a snapshot baked in. **Generated, do not edit.** |
-| `tests/dashboard.test.mjs` | Contract and self-contained-build tests |
-| `tests/nero-baseline.test.mjs` | CSV, semantics, provenance and frozen NERO-baseline tests |
+| `schema/SCHEMA.md` | Human-readable snapshot contract |
+| `schema/snapshot.schema.json` | Machine-readable contract |
+| `tools/fetch_snapshot.py` | Builds a dated global snapshot from source registries |
+| `tools/build.mjs` | Validates and embeds one global snapshot |
+| `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
+| `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
+| `snapshots/` | Dated global snapshots and index |
+| `web/index.template.html` | Global page source |
+| `web/index.html` | Generated global page. Do not edit directly |
+| `tests/` | Schema, semantics, generated-page and Australian-pilot tests |
 
-## Refreshing
+## Build and test
 
 ```bash
-python3 dashboard/tools/fetch_snapshot.py          # today's snapshot
+python3 dashboard/tools/fetch_snapshot.py
 node dashboard/tools/build.mjs \
   dashboard/snapshots/2026-09-07.json dashboard/web/index.html
-node --test dashboard/tests/dashboard.test.mjs
+node dashboard/tools/build-australia-pilot.mjs \
+  pilots/australia/data/nero-clerical-2026-08.json \
+  pilots/australia/web/index.html
+npm test
 ```
 
-Then republish `web/index.html` to the same artifact URL. **This is a natural
-scheduled-run job**: refresh, rebuild, republish, and note in the commit what
-moved.
+The fetcher touches external registries. Building and testing use frozen local
+evidence.
 
-Edit `index.template.html`, never `index.html`.
+## What the global snapshot can say
 
-## Future compatibility
+The snapshot includes six measured global series, two derived aggregate
+comparisons and eight deliberately unmeasured or unavailable instruments.
+Measured does not mean decision-ready. The labour-income comparison, for
+example, compares indexed output per person with constructed aggregate labour
+income per person. It is not a household purchasing-power measure, causal AI
+estimate or cohort outcome.
 
-Any snapshot validating against schema **1.x** renders in any 1.x build of the
-page, without a rebuild. The page reads whatever is in `signals` and lays it out;
-it does not know signal names in advance.
+The missing instruments are visible because omission can create false
+confidence. They include household access, transition speed, productive-power
+concentration, response readiness, trust and cross-border access. Missingness
+is an instrumentation backlog, not a neutral or safe state.
 
-Two ways to render a different snapshot:
+## Scenarios, failure modes and actions
 
-- **Bake it in.** Rebuild as above. This is what the published page shows.
-- **Load it in the browser.** The page has a **Load snapshot…** control that
-  reads a local JSON file. Nothing is uploaded. A future snapshot can be checked
-  against the live page before it is ever published.
+- Scenario arithmetic uses explicit example assumptions or user-entered inputs.
+  It is not seeded silently from observations and is not a forecast.
+- Failure modes are unscored hypotheses. Evidence counts are an inventory, not
+  a probability, readiness score or risk rating.
+- Action cards are hidden until a person chooses a role. Every item is labelled
+  `PROPOSAL, NOT AUTHORISED`.
+- A public signal cannot become an operational action without a separate owner,
+  authority, review, expiry, help route and appeal path.
 
-Adding a signal is a fetcher change plus a snapshot. If it needed a page change,
-the contract is broken and that is a bug in the page.
+## Australian evidence boundary
 
-## What is in the first snapshot
+The Australian pilot freezes the August 2026 NERO archive and exposes 440
+separate modelled series for five clerical occupations across 88 SA4 regions.
+Jobs and Skills Australia says occupation and region estimates must not be
+summed or combined, so the interface does neither.
 
-Audience: **people with agency over the crossing.** The page moves from the
-observed trajectory to five foreseeable crisis points, phase-specific playbooks,
-a transparent scenario lab, and the underlying evidence.
+This archive cannot support a historical warning backtest. It has no
+as-published vintage panel, first-release revisions, uncertainty interval or
+independent target labels. It can support a prospective, no-consequence shadow
+rehearsal after governance gates pass. See
+`../pilots/australia/nero-backtest-and-shadow-plan.md`.
 
-| Signal | Status | Source |
-|---|---|---|
-| Aggregate labour-income transmission baseline | derived | Output vs constructed labour income per capita, both indexed |
-| Annual aggregate transmission gap | derived | Annual growth difference, in percentage points |
-| Labour share of GDP | measured | OWID / ILOSTAT, SDG 10.4.1 |
-| GDP per capita | measured | World Bank, NY.GDP.PCAP.KD |
-| Consumer price inflation | measured | World Bank, FP.CPI.TOTL.ZG |
-| Living on less than $30/day | measured | OWID / World Bank PIP |
-| Living on less than $8.30/day | measured | OWID / World Bank PIP |
-| Labour force participation | measured | World Bank / ILO |
-| **Zero-cost count** | **not measured** | **No registry publishes this** |
-| **The Baumol gap** | **not measured** | Constructible, not yet constructed |
-| **Household access margin** | **not measured** | Requires joined local budgets and resources |
-| **Transition speed** | **not measured** | Requires cohort worker-flow data |
-| **Productive-power concentration** | **not measured** | No joined capacity registry |
-| **Response readiness** | **not measured** | Requires delivery stress tests |
-| **Trust and consent** | **not measured** | Requires repeated cohort measures |
-| **Cross-border access variance** | **not measured** | Requires comparable service-level rules |
+## Known release blockers
 
-## The empty panels are the point
+- The seven-part update has not passed comprehension testing with affected
+  workers, community organisations, policy decision-makers or general readers.
+- No approved action owner, authority, help route or appeal path exists.
+- Global indicators do not carry complete point-of-claim uncertainty and
+  revision metadata.
+- The static IF map is a vocabulary aid, not yet a scoped decision record.
+- Keyboard, screen-reader, contrast, reduced-motion and mobile behaviour need
+  rendered accessibility verification.
+- Privacy, security, data-governance and correction processes need independent
+  review.
+- The prospective Australian rehearsal has not accumulated future vintages or
+  independent outcome evidence.
 
-Every `not_measured` signal renders as a visible void with the reason attached.
-These are not omissions. Together they are an instrumentation backlog.
+## Provenance and editorial authority
 
-The zero-cost count is the metric this whole argument turns on, and nobody
-publishes it. **A dashboard that quietly dropped its own blind spot would be
-lying by composition.** Showing the hole is also the honest way to claim the
-metric is novel: it is not tracked because it does not exist yet, and defining
-it (which basket, what threshold, does advertiser-funded count) is unfinished
-work sitting in `meta/backlog.md`.
-
-## Provenance
-
-A dashboard is **research, not his substance**. Series are third-party facts with
-sources and dates. The derived signal states its method and its caveats in the
-snapshot, and the page renders both. Nothing here becomes an opinion of Fer's
-unless he says it in a capture.
-
-## The v1.0.0 correction
-
-v1.0.0 shipped a "transmission test" that added consumer price inflation to the
-change in labour share. Different units, and on the data the labour term
-contributed under 8%: **the headline was inflation in a costume, and it rendered
-FAILING in red against a comparison the data did not support.**
-
-Replaced with a dimensionally consistent aggregate baseline. World 2004-2025
-shows output per capita +44.3% against constructed labour income per capita
-+40.8%, a 3.5 index-point gap. **That describes the aggregate series. It cannot
-establish or rule out an Engels-like experience for any cohort.** GDP per capita
-is not output per worker, and labour-share times real GDP is not a household
-real-wage series, so the historical comparison is motivation rather than a
-like-for-like test.
-
-The correction is stated on the page, not just here. See
-`research/2026-09-07-red-team-the-observatory.md`.
-
-## Known limits
-
-- **No cohort cuts.** A national average can obscure a displaced cohort. This is
-  the most important missing thing.
-- **Headline CPI is a poor stand-in** for a decent-living basket. The basket
-  question is unresolved and it changes the transmission test's answer.
-- **Labour share reports with a long lag**, so recent years are thin and the
-  most recent transmission reading rests on fewer countries than it looks.
-- **Asset ownership is arguably a third transmission channel** and is not here.
-- **No uncertainty on anything.** Every point renders as a fact with no interval.
-  The largest remaining weakness.
-- **No empirical forecast.** The scenario lab projects user-supplied rates. It
-  is intentionally labelled as a scenario and carries no probability.
-- **No concentration series.** Compute, market share, capital ownership. A hole,
-  given the parent argument is about concentration.
-- **The seven entities need a stated rationale** or a proper panel.
+The code, research and wording are agent proposals. Source series remain
+third-party facts with dates and caveats. Nothing in this dashboard becomes
+Fernando's view until he reviews and adopts it. Corrections remain visible in
+the page and repository history.

@@ -1,10 +1,80 @@
 {
- "schema_version": "1.2.1",
+ "schema_version": "1.3.0",
  "snapshot_id": "2026-09-07",
  "generated_at": "2026-09-08T00:41:31Z",
- "generator": "fetch_snapshot.py@1.2.1",
+ "generator": "fetch_snapshot.py@1.3.0",
  "title": "Signals toward the transition",
  "notes": "Transition-control snapshot. Every measured series comes straight from an open registry with no interpolation. Instrument gaps remain visible, and crisis states remain unscored until their leading signals and thresholds exist.",
+ "public_update": {
+  "update_id": "world-aggregate-transmission-2026-09-07",
+  "epistemic_class": "mixed",
+  "provenance": {
+   "status": "agent_proposal",
+   "producer": "Ren (Codex agent)",
+   "review_state": "requires_fernando_review"
+  },
+  "scope": {
+   "entity": "OWID_WRL",
+   "population": "World aggregate where both component series report data; country coverage varies by year",
+   "place": "World",
+   "period": "2004 to 2025"
+  },
+  "observed": {
+   "summary": "From a shared index of 100 in 2004, real output per person reached 144.27 and constructed real labour income per person reached 140.79 in 2025, a difference of -3.48 index points.",
+   "measure": "Indexed real GDP per person and labour-share times real GDP per person",
+   "source_signal_ids": ["gdp-per-capita", "labour-share", "engels-divergence"],
+   "vintage": "2026-09-07",
+   "uncertainty": "No interval is available in this snapshot. Source revisions, labour-share imputation and changing country coverage are not quantified.",
+   "epistemic_class": "derived"
+  },
+  "affected": {
+   "status": "unknown",
+   "summary": "This aggregate does not identify an affected population or show whether any cohort gained or lost agency.",
+   "excluded_or_unresolved": [
+    "Occupation and industry cohorts",
+    "Household income, transfers, assets and in-kind provision",
+    "Geographic and demographic distributions",
+    "Desired hours, security, access and self-reported agency"
+   ]
+  },
+  "inferred": {
+   "summary": "The constructed aggregate labour-income path grew less than output over this window. This is a prompt for cohort investigation, not a finding of harm or an AI effect.",
+   "inference_class": "descriptive",
+   "method": "Index each component to 100 in the first shared year, then subtract the final output index from the final constructed labour-income index.",
+   "strongest_alternatives": [
+    "The construction omits transfers, asset income and public provision",
+    "Changing country coverage or source revisions may alter the aggregate path",
+    "Aggregate composition may conceal cohorts moving in opposite directions"
+   ]
+  },
+  "condition_change": {
+   "changed": false,
+   "summary": "No change is established in the capability, reach, agency, durability or fairness conditions.",
+   "condition_ids": ["capability", "reach", "agency", "durability", "fairness"],
+   "state": "unknown",
+   "evidence_grade": "Insufficient for a scoped condition evaluation"
+  },
+  "action": {
+   "summary": "No authorised action follows from this aggregate descriptive comparison.",
+   "authorization_state": "none",
+   "owner": null,
+   "authority": null,
+   "help_route": null,
+   "appeal_route": null
+  },
+  "falsifier": {
+   "summary": "Test whether the apparent divergence survives a like-for-like reconstruction with distributional household resources and declared uncertainty.",
+   "test": "Reproduce 2004 to 2025 using consistent real units for earnings, transfers, asset income and usable public provision, with stable coverage and uncertainty. Compare the cumulative difference with zero and across cohorts.",
+   "implication": "If the difference is not distinguishable from zero or reverses for relevant cohorts, withdraw or narrow the broader transmission inference. Preserve the original arithmetic as a historical record."
+  },
+  "next_check": {
+   "on": null,
+   "owner": null,
+   "event": "No governed refresh or review is scheduled for this aggregate inference.",
+   "related_to_inference": false,
+   "failure_handling": "Keep the update labelled unscheduled and stale rather than substituting an unrelated data release."
+  }
+ },
  "entities": [
   {
    "code": "OWID_WRL",
@@ -5303,10 +5373,10 @@
    "family": "prices",
    "unit": "percent",
    "precision": 1,
-   "direction": "down_is_good",
-   "question": "Are prices actually falling?",
+   "direction": "neutral",
+   "question": "How did headline consumer prices change?",
    "why_it_matters": "A broad household price measure. It can show inflation pressure but cannot establish affordability, access or demonetisation on its own.",
-   "trouble_reading": "Persistently positive. Deflation of goods is not showing up in what households actually buy.",
+   "trouble_reading": "A divergence between headline CPI and service-level total cost or access that remains unexplained.",
    "caveats": [
     "Headline CPI, not a decent-living basket. The basket question is unresolved.",
     "CPI may be structurally incapable of showing demonetisation: it weights what households currently buy, so a good whose price collapses loses weight or leaves the basket. The strongest objection to using it here, and it is unresolved."
@@ -8782,7 +8852,7 @@
    ],
    "crisis": [
     "Stabilise first. Do not accept irreversible decisions under acute pressure.",
-    "Use the named case owner and appeal path.",
+    "Verify that a real local help and appeal route exists before publishing guidance.",
     "Record lost access so the cohort is visible in the recovery data."
    ]
   },

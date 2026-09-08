@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.2.1
+fetch_snapshot.py 1.3.0
 
 Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.2.1).
+conforming to dashboard/schema/snapshot.schema.json (v1.3.0).
 
     python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
     python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
@@ -18,8 +18,8 @@ Design rules, enforced here so the contract holds:
 
 import argparse, csv, io, json, sys, urllib.request, datetime, os
 
-GENERATOR = "fetch_snapshot.py@1.2.1"
-SCHEMA_VERSION = "1.2.1"
+GENERATOR = "fetch_snapshot.py@1.3.0"
+SCHEMA_VERSION = "1.3.0"
 TIMEOUT = 60
 
 # Entities we pull. World first; the rest give cross-country variance.
@@ -167,10 +167,10 @@ SIGNAL_DEFS = [
     ),
     dict(
         id="inflation", name="Consumer price inflation", family="prices",
-        unit="percent", precision=1, direction="down_is_good",
-        question="Are prices actually falling?",
+        unit="percent", precision=1, direction="neutral",
+        question="How did headline consumer prices change?",
         why_it_matters="A broad household price measure. It can show inflation pressure but cannot establish affordability, access or demonetisation on its own.",
-        trouble_reading="Persistently positive. Deflation of goods is not showing up in what households actually buy.",
+        trouble_reading="A divergence between headline CPI and service-level total cost or access that remains unexplained.",
         caveats=["Headline CPI, not a decent-living basket. The basket question is unresolved.",
                  "CPI may be structurally incapable of showing demonetisation: it weights what "
                  "households currently buy, so a good whose price collapses loses weight or leaves "
@@ -374,7 +374,7 @@ PLAYBOOKS = {
                  "Use verified sector evidence to choose options without panic.",
                  "Activate community support before isolation compounds the shock."],
         crisis=["Stabilise first. Do not accept irreversible decisions under acute pressure.",
-                "Use the named case owner and appeal path.",
+                "Verify that a real local help and appeal route exists before publishing guidance.",
                 "Record lost access so the cohort is visible in the recovery data."],
     ),
     "community": dict(
@@ -476,6 +476,7 @@ def build(snapshot_id, retrieved):
         "notes": ("Transition-control snapshot. Every measured series comes straight from an open "
                   "registry with no interpolation. Instrument gaps remain visible, and crisis "
                   "states remain unscored until their leading signals and thresholds exist."),
+        "public_update": build_public_update(signals, snapshot_id),
         "entities": [{"code": c, "name": n, "kind": k} for c, n, k, _ in ENTITIES],
         "signals": signals,
         "crises": CRISES,
@@ -576,6 +577,113 @@ def derive_engels(signals, retrieved, log):
     log.append(f"  derived    {'engels-divergence':20} {len(div_series)//2} entities x 2 measures")
     log.append(f"  derived    {'transmission-gap':20} {len(gap_series)} entities")
     return [div, gap]
+
+
+def build_public_update(signals, snapshot_id):
+    """Build one scoped seven-part update without turning coverage into a result."""
+    by_id = {signal["id"]: signal for signal in signals}
+    baseline = by_id.get("engels-divergence", {})
+    output = next((series for series in baseline.get("series", [])
+                   if series.get("entity") == "OWID_WRL" and
+                   series.get("measure") == "Output per capita"), None)
+    labour = next((series for series in baseline.get("series", [])
+                   if series.get("entity") == "OWID_WRL" and
+                   series.get("measure") == "Labour income per capita"), None)
+
+    if output and labour and output.get("points") and labour.get("points"):
+        start_year = output["points"][0][0]
+        end_year = output["points"][-1][0]
+        output_value = output["points"][-1][1]
+        labour_value = labour["points"][-1][1]
+        difference = round(labour_value - output_value, 2)
+        period = f"{start_year} to {end_year}"
+        observed = (
+            f"From a shared index of 100 in {start_year}, real output per person reached "
+            f"{output_value:.2f} and constructed real labour income per person reached "
+            f"{labour_value:.2f} in {end_year}, a difference of {difference:.2f} index points."
+        )
+        inferred = (
+            "The constructed aggregate labour-income path grew less than output over this "
+            "window. This is a prompt for cohort investigation, not a finding of harm or an AI effect."
+        )
+    else:
+        period = "Unavailable in this snapshot"
+        observed = (
+            "The aggregate output and constructed labour-income comparison is unavailable in "
+            "this snapshot. No value is carried forward."
+        )
+        inferred = "No aggregate transmission inference is available from this snapshot."
+
+    return {
+        "update_id": f"world-aggregate-transmission-{snapshot_id}",
+        "epistemic_class": "mixed",
+        "provenance": {
+            "status": "agent_proposal",
+            "producer": "Ren (Codex agent)",
+            "review_state": "requires_fernando_review",
+        },
+        "scope": {
+            "entity": "OWID_WRL",
+            "population": "World aggregate where both component series report data; country coverage varies by year",
+            "place": "World",
+            "period": period,
+        },
+        "observed": {
+            "summary": observed,
+            "measure": "Indexed real GDP per person and labour-share times real GDP per person",
+            "source_signal_ids": ["gdp-per-capita", "labour-share", "engels-divergence"],
+            "vintage": snapshot_id,
+            "uncertainty": "No interval is available in this snapshot. Source revisions, labour-share imputation and changing country coverage are not quantified.",
+            "epistemic_class": "derived",
+        },
+        "affected": {
+            "status": "unknown",
+            "summary": "This aggregate does not identify an affected population or show whether any cohort gained or lost agency.",
+            "excluded_or_unresolved": [
+                "Occupation and industry cohorts",
+                "Household income, transfers, assets and in-kind provision",
+                "Geographic and demographic distributions",
+                "Desired hours, security, access and self-reported agency",
+            ],
+        },
+        "inferred": {
+            "summary": inferred,
+            "inference_class": "descriptive",
+            "method": "Index each component to 100 in the first shared year, then subtract the final output index from the final constructed labour-income index.",
+            "strongest_alternatives": [
+                "The construction omits transfers, asset income and public provision",
+                "Changing country coverage or source revisions may alter the aggregate path",
+                "Aggregate composition may conceal cohorts moving in opposite directions",
+            ],
+        },
+        "condition_change": {
+            "changed": False,
+            "summary": "No change is established in the capability, reach, agency, durability or fairness conditions.",
+            "condition_ids": ["capability", "reach", "agency", "durability", "fairness"],
+            "state": "unknown",
+            "evidence_grade": "Insufficient for a scoped condition evaluation",
+        },
+        "action": {
+            "summary": "No authorised action follows from this aggregate descriptive comparison.",
+            "authorization_state": "none",
+            "owner": None,
+            "authority": None,
+            "help_route": None,
+            "appeal_route": None,
+        },
+        "falsifier": {
+            "summary": "Test whether the apparent divergence survives a like-for-like reconstruction with distributional household resources and declared uncertainty.",
+            "test": "Reproduce the same period using consistent real units for earnings, transfers, asset income and usable public provision, with stable coverage and uncertainty. Compare the cumulative difference with zero and across cohorts.",
+            "implication": "If the difference is not distinguishable from zero or reverses for relevant cohorts, withdraw or narrow the broader transmission inference. Preserve the original arithmetic as a historical record.",
+        },
+        "next_check": {
+            "on": None,
+            "owner": None,
+            "event": "No governed refresh or review is scheduled for this aggregate inference.",
+            "related_to_inference": False,
+            "failure_handling": "Keep the update labelled unscheduled and stale rather than substituting an unrelated data release.",
+        },
+    }
 
 
 def main():

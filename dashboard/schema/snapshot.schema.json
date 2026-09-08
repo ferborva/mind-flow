@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mind-flow.local/dashboard/snapshot.schema.json",
-  "title": "Seldon Observatory snapshot",
+  "title": "Abundance Transition Observatory snapshot",
   "type": "object",
   "required": [
     "schema_version",
@@ -9,7 +9,8 @@
     "generated_at",
     "generator",
     "entities",
-    "signals"
+    "signals",
+    "public_update"
   ],
   "properties": {
     "schema_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
@@ -35,6 +36,7 @@
       "type": "array",
       "items": { "$ref": "#/$defs/signal" }
     },
+    "public_update": { "$ref": "#/$defs/publicUpdate" },
     "crises": {
       "type": "array",
       "items": { "$ref": "#/$defs/crisis" }
@@ -46,6 +48,130 @@
   },
   "additionalProperties": true,
   "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "publicUpdate": {
+      "type": "object",
+      "required": [
+        "update_id",
+        "epistemic_class",
+        "provenance",
+        "scope",
+        "observed",
+        "affected",
+        "inferred",
+        "condition_change",
+        "action",
+        "falsifier",
+        "next_check"
+      ],
+      "properties": {
+        "update_id": { "$ref": "#/$defs/nonEmptyString" },
+        "epistemic_class": { "const": "mixed" },
+        "provenance": {
+          "type": "object",
+          "required": ["status", "producer", "review_state"],
+          "properties": {
+            "status": { "const": "agent_proposal" },
+            "producer": { "$ref": "#/$defs/nonEmptyString" },
+            "review_state": { "const": "requires_fernando_review" }
+          },
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "required": ["entity", "population", "place", "period"],
+          "properties": {
+            "entity": { "$ref": "#/$defs/nonEmptyString" },
+            "population": { "$ref": "#/$defs/nonEmptyString" },
+            "place": { "$ref": "#/$defs/nonEmptyString" },
+            "period": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "observed": {
+          "type": "object",
+          "required": ["summary", "measure", "source_signal_ids", "vintage", "uncertainty", "epistemic_class"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "measure": { "$ref": "#/$defs/nonEmptyString" },
+            "source_signal_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+            "vintage": { "type": "string", "format": "date" },
+            "uncertainty": { "$ref": "#/$defs/nonEmptyString" },
+            "epistemic_class": { "enum": ["observed", "modelled", "derived"] }
+          },
+          "additionalProperties": false
+        },
+        "affected": {
+          "type": "object",
+          "required": ["status", "summary", "excluded_or_unresolved"],
+          "properties": {
+            "status": { "enum": ["known", "partial", "unknown"] },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "excluded_or_unresolved": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          },
+          "additionalProperties": false
+        },
+        "inferred": {
+          "type": "object",
+          "required": ["summary", "inference_class", "method", "strongest_alternatives"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "inference_class": { "enum": ["descriptive", "associational", "causal", "forecast", "scenario"] },
+            "method": { "$ref": "#/$defs/nonEmptyString" },
+            "strongest_alternatives": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          },
+          "additionalProperties": false
+        },
+        "condition_change": {
+          "type": "object",
+          "required": ["changed", "summary", "condition_ids", "state", "evidence_grade"],
+          "properties": {
+            "changed": { "type": "boolean" },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "condition_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+            "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+            "evidence_grade": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "action": {
+          "type": "object",
+          "required": ["summary", "authorization_state", "owner", "authority", "help_route", "appeal_route"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "authorization_state": { "enum": ["none", "proposed", "authorised", "active", "paused", "ended"] },
+            "owner": { "type": ["string", "null"] },
+            "authority": { "type": ["string", "null"] },
+            "help_route": { "type": ["string", "null"] },
+            "appeal_route": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "falsifier": {
+          "type": "object",
+          "required": ["summary", "test", "implication"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "test": { "$ref": "#/$defs/nonEmptyString" },
+            "implication": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "next_check": {
+          "type": "object",
+          "required": ["on", "owner", "event", "related_to_inference", "failure_handling"],
+          "properties": {
+            "on": { "type": ["string", "null"], "format": "date" },
+            "owner": { "type": ["string", "null"] },
+            "event": { "$ref": "#/$defs/nonEmptyString" },
+            "related_to_inference": { "type": "boolean" },
+            "failure_handling": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "point": {
       "type": "array",
       "prefixItems": [{ "type": "integer" }, { "type": "number" }],

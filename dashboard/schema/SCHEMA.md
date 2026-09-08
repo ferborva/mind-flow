@@ -1,187 +1,154 @@
 # The snapshot contract
 
-**Version 1.2.1**
+**Version 1.3.0**
 
-One rule governs this whole directory: **the website never talks to a data
-provider.** It renders a snapshot. That is the entire architecture, and every
-other decision follows from it.
+The Observatory renders a frozen, validated snapshot. It does not query data
+providers in the browser.
 
-```
-open registries  →  fetch_snapshot.py  →  snapshots/YYYY-MM-DD.json  →  the page
-   (the world)         (runs here)            (the contract)            (renders)
+```text
+source registries -> fetch_snapshot.py -> snapshot JSON -> build validation -> HTML
 ```
 
-## Why a snapshot and not a live feed
+The JSON Schema is the type contract. `tools/build.mjs` adds semantic validation
+for relationships that JSON Schema alone cannot prove.
 
-Three reasons, in order of importance.
+## Compatibility and release rule
 
-1. **Provenance.** Every figure in this repository carries a source and a
-   retrieval date. A live dashboard silently changes underneath an argument that
-   cited it. A snapshot is a dated, checkable, quotable object. If someone
-   disputes a number in a piece, they can be handed the exact snapshot the piece
-   was written against.
-2. **The page is sandboxed.** A published artifact cannot make network calls to
-   data hosts. Even if we wanted live, we could not have it there.
-3. **Reproducibility.** A snapshot is a file. It can be diffed, archived and
-   replayed. "What did the labour share series look like when we made that
-   claim" is answerable forever.
+`schema_version` uses semantic versioning. A 1.x template may tolerate older
+optional fields, but publishable builds must satisfy the requirements of the
+template and validator being used. Compatibility never permits silent loss of
+authority, provenance, scope or uncertainty.
 
-## The compatibility promise
-
-**Any snapshot that validates against `snapshot.schema.json` v1.x renders in any
-v1.x build of the page.** That is the whole point of the contract.
-
-The page does not know the names of signals in advance. It reads whatever is in
-the `signals` array and renders it. Add a signal to a future snapshot and it
-appears. Remove one and it vanishes. **No page rebuild required.**
-
-Consequences worth stating:
-- Signals are **data, not code**. A new signal is a fetcher change plus a
-  snapshot, never a page change.
-- The page must degrade gracefully on anything it does not recognise: unknown
-  `family`, missing `latest`, empty `series`, `status: not_measured`.
-- Breaking the shape means a major version bump and a page that declares which
-  schema versions it accepts.
-
-## Versioning
-
-`schema_version` is semver.
-
-| Change | Bump |
+| Change | Version change |
 |---|---|
-| New optional field | patch |
-| New signal, new family, new source | patch (data, not schema) |
-| New required field the page needs | minor, page must tolerate its absence |
-| Renamed or removed field, changed meaning | **major** |
+| New optional metadata | Patch |
+| New signal or source | Patch |
+| New required decision field | Minor |
+| Renamed, removed or semantically changed field | Major |
 
-The page declares `ACCEPTS` (e.g. `1.x`) and refuses politely outside it, rather
-than rendering something misleading.
+The current build requires schema 1.3.x and one complete seven-part public
+update.
 
-## Top level
+## Top-level shape
 
 ```jsonc
 {
-  "schema_version": "1.2.1",
-  "snapshot_id": "2026-09-07",         // YYYY-MM-DD, unique, sortable
+  "schema_version": "1.3.0",
+  "snapshot_id": "2026-09-07",
   "generated_at": "2026-09-07T10:00:00Z",
-  "generator": "fetch_snapshot.py@1.2.1",
+  "generator": "fetch_snapshot.py@1.3.0",
   "title": "Signals toward the transition",
-  "notes": "Free text. Anything a reader needs to know about this run.",
-  "entities": [ /* see below */ ],
-  "signals": [ /* see below */ ],
-  "crises": [ /* optional crisis-control contracts */ ],
-  "playbooks": { /* optional actor-phase action contracts */ }
+  "notes": "Run-level context and limits.",
+  "entities": [],
+  "signals": [],
+  "public_update": {},
+  "crises": [],
+  "playbooks": {}
 }
 ```
 
-## Entities
+## Entities and selection
 
-Places a series can be about. Kept separate so signals reference them by code
-and the page can build a consistent country picker.
+Entities have a stable `code`, public `name` and `kind` of `aggregate`,
+`country` or `region`. A series points to one entity code.
 
-```jsonc
-{ "code": "OWID_WRL", "name": "World", "kind": "aggregate" }
-{ "code": "ESP",      "name": "Spain", "kind": "country" }
-```
-
-`kind`: `aggregate` | `country` | `region`.
+The interface must never fill a missing selected geography with another
+geography. It shows an explicit absence instead. `ALL` is a comparison view, not
+an implied global average.
 
 ## Signals
 
-The unit of the dashboard. One measurable thing.
+A signal is one source-native or derived measure. Required decision-relevant
+fields include:
 
-```jsonc
-{
-  "id": "labour-share",                  // stable slug, never reused
-  "name": "Labour share of GDP",
-  "family": "engels",                    // grouping for layout
-  "status": "measured",                  // measured | derived | not_measured
-  "unit": "percent",                     // percent | ratio | index | usd | count
-  "precision": 1,                        // decimal places for display
+- stable identifier, name, family, status, unit and precision;
+- question and reason the measure matters;
+- neutral or explicitly justified direction;
+- source, retrieval date and caveats;
+- method for derived measures; and
+- source-native series with ascending time points.
 
-  "question": "Who is getting the gains?",
-  "why_it_matters": "One sentence on what this tells you.",
-  "trouble_reading": "The value that means we are in trouble.",
-  "direction": "up_is_good",             // up_is_good | down_is_good | neutral
+Signal status is one of:
 
-  "method": "Only for derived signals. How it was computed, in words.",
-  "caveats": ["Anything that would embarrass us if a reader found it first."],
+| Status | Meaning |
+|---|---|
+| `measured` | Included from a named source. This does not mean decision-ready |
+| `derived` | Constructed from included measures with a visible method |
+| `not_measured` | Required instrument is absent by design or unavailable in the evidence system |
+| `unavailable` | A fetch or source failure occurred for this snapshot |
 
-  "source": {
-    "name": "Our World in Data / ILOSTAT",
-    "url": "https://...",
-    "retrieved": "2026-09-07",
-    "note": "SDG indicator 10.4.1"
-  },
+A missing point is absent, never zero, forward-filled or interpolated without a
+separate declared method. `latest` is snapshot metadata. The interface derives
+a displayed latest value from the selected entity's actual series.
 
-  "series": [
-    {
-      "entity": "OWID_WRL",
-      "points": [[2010, 53.1], [2011, 52.8]]   // [year, value], year-ascending
-    }
-  ],
+## Seven-part public update
 
-  "latest": { "entity": "OWID_WRL", "year": 2023, "value": 52.3 }
-}
-```
+`public_update` binds a claim to a scope and separates seven things readers can
+otherwise collapse:
 
-### `status` is load-bearing
+1. `observed`: claim text, epistemic class, value, unit, period, uncertainty and
+   source signal identifiers.
+2. `affected`: named population and status, including `unknown`.
+3. `inferred`: interpretation, inference class and alternatives.
+4. `condition_change`: condition identifier, changed state and reason.
+5. `action`: authorisation state, action, owner, authority, help and appeal.
+6. `falsifier`: test and implication for the claim.
+7. `next_check`: date, owner and whether it is related to the inference.
 
-| Value | Meaning | How the page treats it |
-|---|---|---|
-| `measured` | Straight from a registry | Normal chart |
-| `derived` | Computed by us from measured inputs. **`method` required.** | Chart plus a visible method note |
-| `not_measured` | **The instrument does not exist yet.** `series` is empty. | Rendered as a deliberate gap, not hidden |
+The update also carries its own provenance and scope. The current allowed
+inference classes include descriptive readings. Causal or forecast claims need
+additional governed evidence contracts and cannot be produced merely by
+changing prose.
 
-**`not_measured` is the most important value in this schema.** The zero-cost
-count is the signal this whole argument turns on and nobody publishes it. A
-dashboard that quietly omitted it would be lying by composition. It appears, it
-is empty, and the page says why.
+An action with `authorization_state: none` must not claim an owner or authority.
+A check marked related to an inference must name both a date and owner.
 
-## Nulls and gaps
+## Failure-mode contracts
 
-- A missing year is an **absent point**, never a zero and never interpolated.
-- `latest` is the most recent non-null point, and carries its own year, because
-  different signals are current to different years. **Never imply data is more
-  recent than it is.**
+`crises` currently contains possible failure modes, not crisis predictions.
+Each record includes a condition, plural possible public responses, leading
+signal identifiers and reversible prepare, protect and recover proposals.
 
-## Adding a signal
+States are `unscored`, `watch` or `activated`. The current snapshot keeps these
+records unscored. A count of available leading signals is not a probability,
+risk score or activation threshold.
 
-1. Add an adapter in `tools/fetch_snapshot.py`.
-2. Re-run it. A new dated snapshot appears.
-3. Nothing else. The page picks it up.
-
-If step 3 required touching the page, the contract is broken and that is a bug
-in the page, not in the snapshot.
-
-## Crisis contracts
-
-Schema 1.2 adds optional crisis contracts. Their state remains `unscored` until
-the required signals and defensible activation thresholds exist. The interface
-may show instrumentation coverage, but it must not turn coverage into risk.
-
-```jsonc
-{
-  "id": "credibility-break",
-  "name": "The credibility break",
-  "status": "unscored",                 // unscored | watch | activated
-  "condition": "Capability rises while access falls.",
-  "why_it_matters": "…",
-  "possible_public_responses": ["…"],
-  "communication": "…",
-  "leading_signals": ["inflation", "access-margin"],
-  "actions": { "prepare": "…", "protect": "…", "recover": "…" }
-}
-```
-
-`possible_public_responses` lists plural democratic, institutional or personal
-responses without predicting that people will adopt them. The older singular
-`movement` field remains schema-compatible but is deprecated.
+Every leading signal identifier must resolve to a signal in the same snapshot.
 
 ## Actor playbooks
 
-`playbooks` is keyed by actor. Each entry has a public label, a governing
-principle, and non-empty action lists for `now`, `warning`, and `crisis`.
+`playbooks` groups proposed options by actor and phase. The interface begins
+with no actor selected and labels each option `PROPOSAL, NOT AUTHORISED`.
 
-The human-readable contract is complemented by `snapshot.schema.json`, which is
-the machine-checkable source for types and required fields.
+These string lists are communication scaffolding, not operational action
+records. Operational use requires separate contracts for IF condition, owner,
+authority, consent, affected population, help, appeal, review, expiry and stop
+conditions.
+
+## Validation layers
+
+The build must pass both layers:
+
+1. **JSON Schema validation:** types, required fields, enums, formats and local
+   object structure.
+2. **Semantic validation:** entity references, source-signal references,
+   failure-mode signal references, authority consistency and governed next-check
+   requirements.
+
+Validation prevents known structural contradictions. It does not prove that a
+source is correct, an inference is warranted, a public explanation is
+understood, or an action is legitimate.
+
+## Adding or changing evidence
+
+1. Change the fetcher or bounded extraction tool.
+2. Create a new snapshot. Never overwrite the evidence used for a prior claim.
+3. Run the schema and semantic tests.
+4. Review the generated diff, including changes to source dates, missingness and
+   public interpretation.
+5. Rebuild the page.
+6. Pass the separate public-release governance gates before publication.
+
+The machine-readable source of truth for structure is
+`snapshot.schema.json`. This document explains its intended use and claim
+limits.

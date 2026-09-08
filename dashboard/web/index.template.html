@@ -311,6 +311,7 @@ h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,4vw,40p
 .response-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
 .response-step{padding:14px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-2)}
 .response-step b{display:block;color:var(--ink);font:500 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.proposal-label{display:block;color:var(--warning);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.08em;margin-bottom:5px}
 @media(max-width:650px){.response-grid{grid-template-columns:1fr}.radar-field{min-height:380px}}
 
 /* action deck */
@@ -332,6 +333,8 @@ h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,4vw,40p
 .scenario-grid{display:grid;grid-template-columns:minmax(230px,.42fr) minmax(0,1fr);gap:34px}
 @media(max-width:820px){.scenario-grid{grid-template-columns:1fr}}
 .scenario-controls{display:grid;gap:20px}.range-row label{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;color:var(--ink-2);font-size:13px}
+.scenario-class{display:inline-block;border:1px solid var(--warning);color:var(--warning);padding:4px 7px;border-radius:3px;font:600 9px "IBM Plex Mono",monospace;letter-spacing:.09em;margin-bottom:12px}
+.scenario-seed{font:400 10px "IBM Plex Mono",monospace;color:var(--ink-3);margin:0}
 .range-row output{font:500 13px "IBM Plex Mono",monospace;color:var(--accent)}
 input[type="range"]{width:100%;accent-color:var(--accent)}
 .scenario-result{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,3.5vw,40px);line-height:1.05;margin:0 0 8px;max-width:20ch}
@@ -364,6 +367,9 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .update-cell dt{font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--accent);margin-bottom:7px}
 .update-cell dd{margin:0;color:var(--ink-2);font-size:12.5px;line-height:1.45}
 .update-cell dd strong{color:var(--ink)}
+.update-cell details{margin-top:9px}.update-cell summary{cursor:pointer;color:var(--accent);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.update-cell details p{margin:7px 0 0;color:var(--ink-3);font-size:11px;white-space:pre-line}
+.scope-banner{margin:0 0 20px;padding:9px 12px;border:1px solid var(--rule);border-radius:5px;color:var(--ink-3);font:500 10px "IBM Plex Mono",monospace}
 @media(max-width:900px){.public-update{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.public-update{grid-template-columns:1fr}}
 .condition-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -382,6 +388,10 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .failure-layout{display:grid;grid-template-columns:minmax(250px,.38fr) 1fr;gap:18px;align-items:start}
 @media(max-width:800px){.failure-layout{grid-template-columns:1fr}}
 .plain-warning{border-left:3px solid var(--warning);padding:12px 16px;background:color-mix(in srgb,var(--warning) 7%,transparent);color:var(--ink-2);font-size:13px}
+.instrumentation-card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:22px}
+.instrumentation-card h3{font-size:19px;margin-bottom:10px}.instrumentation-card dl{margin:0;display:grid;gap:7px}
+.instrumentation-card dl div{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.instrumentation-card dt{color:var(--ink-2);font-size:12px}.instrumentation-card dd{margin:0;font:500 11px "IBM Plex Mono",monospace;color:var(--ink-3)}
 .account-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .account-card{border:1px solid var(--rule);border-radius:9px;background:var(--surface);padding:20px}
 .account-card h3{font-size:19px;margin-bottom:8px}.account-card p,.account-card li{font-size:13px;color:var(--ink-2)}
@@ -416,14 +426,15 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
     <dl class="public-update">
-      <div class="update-cell"><dt>OBSERVED</dt><dd id="now-observed" aria-live="polite">Counting snapshot inputs…</dd></div>
-      <div class="update-cell"><dt>AFFECTED</dt><dd><strong>Unknown.</strong> The global snapshot does not yet identify a population, place or cohort experiencing a change.</dd></div>
-      <div class="update-cell"><dt>INFERRED</dt><dd>Aggregate output and constructed labour income have diverged. This is descriptive and does not identify a cause.</dd></div>
-      <div class="update-cell"><dt>IF CHANGED</dt><dd><strong>None validated.</strong> Capability, reach, agency, durability and fairness remain untested as a complete chain.</dd></div>
-      <div class="update-cell"><dt>ACTION AND OWNER</dt><dd><strong>No authorised action.</strong> Agent proposal: research team continues the bounded Australian clerical baseline.</dd></div>
-      <div class="update-cell"><dt>FALSIFIER</dt><dd>Cohort evidence may narrow, reverse or redistribute the aggregate reading. Competing explanations must be tested.</dd></div>
-      <div class="update-cell"><dt>NEXT CHECK</dt><dd><strong>7 October 2026, planned.</strong> Check the September NERO release for employment nowcasts only.</dd></div>
+      <div class="update-cell"><dt>OBSERVED</dt><dd id="now-observed" aria-live="polite">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>AFFECTED</dt><dd id="now-affected">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>INFERRED</dt><dd id="now-inferred">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>IF CHANGED</dt><dd id="now-condition">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>ACTION AND OWNER</dt><dd id="now-action">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>FALSIFIER</dt><dd id="now-falsifier">Loading update contract…</dd></div>
+      <div class="update-cell"><dt>NEXT CHECK</dt><dd id="now-next-check">Loading update contract…</dd></div>
     </dl>
+    <p class="scope-banner" id="update-scope">Loading update scope…</p>
   </section>
 </div></header>
 
@@ -443,13 +454,10 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
       </div>
       <div class="trajectory-grid">
         <div class="verdict" id="verdict" aria-live="polite"></div>
-        <aside class="orbit-card" aria-label="Instrumentation coverage">
-          <div class="orbit" aria-hidden="true">
-            <span class="orbit-ring"></span><span class="orbit-ring r2"></span><span class="orbit-ring r3"></span>
-            <span class="orbit-axis"></span><span class="orbit-axis a2"></span>
-            <div class="orbit-core"><strong id="coverage-value">—</strong><span>inputs available</span></div>
-          </div>
-          <div class="orbit-note" id="coverage-note">Completeness only. Not progress, risk or probability.</div>
+        <aside class="instrumentation-card" aria-label="Instrumentation inventory">
+          <h3>Instrumentation inventory</h3>
+          <dl id="coverage-list"></dl>
+          <p class="small-note" id="coverage-note">Availability by evidence class. No aggregate score.</p>
         </aside>
       </div>
       <div class="access-equation" aria-label="Service access funnel">
@@ -501,7 +509,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
     <section class="section" id="action-deck">
       <div class="section-head">
         <div><div class="section-kicker">04 · Action deck</div><h2>Prepare proportionately, with an owner and a stop rule.</h2></div>
-        <p><strong>Agent proposal, not authorised.</strong> Select an actor to inspect possible preparations.
+        <p><strong>No authorised action. Agent proposal only.</strong> Select an actor to inspect possible preparations.
           Adoption requires a named decision owner, evidence gate, affected-group review, safeguards and reversal path.</p>
       </div>
       <div class="actor-tabs" id="actor-tabs" role="group" aria-label="Choose an actor"></div>
@@ -516,13 +524,14 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
       </div>
       <div class="scenario-shell"><div class="scenario-grid">
         <div class="scenario-controls">
-          <div><p class="scenario-result" id="scenario-result">—</p><p class="scenario-sub" id="scenario-sub">—</p></div>
-          <div class="range-row"><label for="output-growth">Output growth <output id="output-growth-value">—</output></label><input id="output-growth" type="range" min="-2" max="8" step="0.1"></div>
-          <div class="range-row"><label for="income-growth">Labour-income growth <output id="income-growth-value">—</output></label><input id="income-growth" type="range" min="-2" max="8" step="0.1"></div>
+          <div><span class="scenario-class" id="scenario-class">SCENARIO, NOT A FORECAST</span><p class="scenario-result" id="scenario-result">—</p><p class="scenario-sub" id="scenario-sub">—</p></div>
+          <div class="range-row"><label for="output-growth">Output growth <output id="output-growth-value">—</output></label><input id="output-growth" type="range" min="-2" max="8" step="0.1" value="2"></div>
+          <div class="range-row"><label for="income-growth">Labour-income growth <output id="income-growth-value">—</output></label><input id="income-growth" type="range" min="-2" max="8" step="0.1" value="2"></div>
           <div class="range-row"><label for="horizon">Horizon <output id="horizon-value">—</output></label><input id="horizon" type="range" min="3" max="20" step="1" value="10"></div>
           <button class="ctl" id="scenario-reset" type="button">Use aggregate baseline rates</button>
+          <p class="scenario-seed" id="scenario-seed">Example assumptions: 2.0% output and 2.0% labour-income growth. User-adjustable and not sourced from the snapshot.</p>
         </div>
-        <div><svg id="scenario-chart" viewBox="0 0 620 330" role="img" aria-label="Scenario of indexed output and labour income"></svg>
+        <div><svg id="scenario-chart" viewBox="0 0 620 330" role="img" aria-label="Scenario, not a forecast: indexed output and labour income under selected assumptions"></svg>
           <div class="scenario-legend"><span><i></i>Output per person</span><span><i></i>Constructed labour income per person</span></div></div>
       </div></div>
     </section>
@@ -594,7 +603,7 @@ var ACCEPTS = 1;                       // major schema version this build render
 var SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 var snap = JSON.parse(document.getElementById("snapshot-data").textContent);
 var entity = "OWID_WRL", tableMode = false, familyFilter = "ALL";
-var actor = "country", selectedCrisis = null, scenarioSeededFor = null;
+var actor = null, selectedCrisis = null, scenarioSeededFor = "example";
 
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
 function el(t,c,txt){ var e=document.createElement(t); if(c)e.className=c; if(txt!=null)e.textContent=txt; return e; }
@@ -627,16 +636,11 @@ function coverageFor(crisis){
 function state(sig){
   if(sig.status==="not_measured") return "void";
   if(sig.status==="unavailable")  return "void";
-  var l=sig.latest; if(!l) return "neutral";
-  if(sig.id==="transmission-test") return l.value<0?"critical":"good";
-  if(sig.direction==="up_is_good")   return l.value>0?"neutral":"warning";
-  if(sig.direction==="down_is_good") return "neutral";
   return "neutral";
 }
 function stateLabel(sig){
   var s=state(sig);
   if(s==="void") return sig.status==="not_measured"?"not measured":"unavailable";
-  if(sig.id==="transmission-test") return s==="critical"?"failing":"passing";
   return sig.status==="derived"?"derived":"measured";
 }
 
@@ -649,8 +653,6 @@ function pick(sig){
   if(hasM){
     var ent = entity==="ALL" ? "OWID_WRL" : entity;
     show = series.filter(function(s){return s.entity===ent});
-    if(!show.length) show = series.filter(function(s){return s.entity==="OWID_WRL"});
-    if(!show.length) show = series.slice(0,2);
     var ms = show.map(function(s){return s.measure});
     labelOf=function(s){return s.measure||entName(s.entity)};
     colOf=function(s){return css(SERIES[ms.indexOf(s.measure)%8])};
@@ -660,16 +662,22 @@ function pick(sig){
     colOf=function(s){return colFor(s.entity)};
   } else {
     show = series.filter(function(s){return s.entity===entity});
-    if(!show.length) show = series.filter(function(s){return s.entity==="OWID_WRL"});
-    if(!show.length) show = [series[0]];
     labelOf=function(s){return entName(s.entity)};
     colOf=function(s){return colFor(s.entity)};
   }
   return {show:show, labelOf:labelOf, colOf:colOf, multi:multi};
 }
 
+function latestForSelection(sig){
+  if(entity==="ALL") return null;
+  var sel=pick(sig);
+  if(!sel||sel.show.length!==1) return null;
+  var series=sel.show[0], point=series.points[series.points.length-1];
+  return point ? {value:point[1],year:point[0],entity:series.entity} : null;
+}
+
 function chart(sig, box){
-  var sel=pick(sig); if(!sel) return null;
+  var sel=pick(sig); if(!sel||!sel.show.length) return null;
   var show=sel.show, labelOf=sel.labelOf, colOf=sel.colOf, multi=sel.multi;
 
   var W=560,H=190, m={t:14,r:62,b:26,l:48};
@@ -767,7 +775,7 @@ function chart(sig, box){
 }
 
 function table(sig){
-  var sel=pick(sig); if(!sel) return null;
+  var sel=pick(sig); if(!sel||!sel.show.length) return null;
   var show=sel.show, labelOf=sel.labelOf;
   var years={}; show.forEach(function(s){s.points.forEach(function(p){years[p[0]]=1})});
   var ys=Object.keys(years).map(Number).sort(function(a,b){return b-a});
@@ -789,11 +797,12 @@ function table(sig){
 
 /* -------------------------------------------------------- control system */
 function renderCoverage(){
-  var total=(snap.signals||[]).length;
-  var ready=(snap.signals||[]).filter(function(s){return isInstrumented(s.id)}).length;
-  document.getElementById("coverage-value").textContent=ready+" / "+total;
-  document.getElementById("coverage-note").textContent=ready+" planned inputs available · "+(total-ready)+
-    " absent in this snapshot. Completeness only, not progress, risk or probability.";
+  var labels={measured:"Measured source series",derived:"Derived comparisons",not_measured:"No observation in snapshot",unavailable:"Fetch unavailable"};
+  var counts={measured:0,derived:0,not_measured:0,unavailable:0};
+  (snap.signals||[]).forEach(function(signal){counts[signal.status]=(counts[signal.status]||0)+1;});
+  var host=document.getElementById("coverage-list");host.innerHTML="";
+  Object.keys(labels).forEach(function(status){var row=el("div");row.appendChild(el("dt",null,labels[status]));row.appendChild(el("dd",null,String(counts[status]||0)));host.appendChild(row);});
+  document.getElementById("coverage-note").textContent="Evidence-class inventory only. No aggregate score, readiness claim, risk level or probability.";
 }
 
 function renderFailureModes(){
@@ -805,11 +814,11 @@ function renderFailureModes(){
   if(!selectedCrisis||!crises.some(function(c){return c.id===selectedCrisis})) selectedCrisis=crises[0].id;
   var list=document.getElementById("crisis-list"); list.innerHTML="";
   crises.forEach(function(c,i){
-    var cov=coverageFor(c), b=el("button","crisis-choice"); b.type="button";
+    var b=el("button","crisis-choice"); b.type="button";
     b.setAttribute("aria-pressed",String(c.id===selectedCrisis));
     b.appendChild(el("span","num",String(i+1).padStart(2,"0")));
     b.appendChild(el("span","name",c.name));
-    b.appendChild(el("span","coverage",cov.ready+"/"+cov.total+" inputs available"));
+    b.appendChild(el("span","coverage","unscored"));
     b.onclick=function(){selectedCrisis=c.id;renderFailureModes();}; list.appendChild(b);
   });
   renderCrisisDetail(crises.find(function(c){return c.id===selectedCrisis}));
@@ -817,8 +826,8 @@ function renderFailureModes(){
 
 function renderCrisisDetail(c){
   var host=document.getElementById("crisis-detail"); host.innerHTML="";
-  var cov=coverageFor(c), chip=el("span","chip void"); chip.appendChild(el("span","dot"));
-  chip.appendChild(el("span",null,"unscored hypothesis · "+cov.ready+" of "+cov.total+" planned inputs available")); host.appendChild(chip);
+  var chip=el("span","chip void"); chip.appendChild(el("span","dot"));
+  chip.appendChild(el("span",null,"unscored hypothesis")); host.appendChild(chip);
   host.appendChild(el("h3",null,c.name)); host.appendChild(el("p",null,c.condition));
   var tags=el("div","signal-tags"); (c.leading_signals||[]).forEach(function(id){
     var s=signalById(id), tag=el("span","signal-tag"+(isInstrumented(id)?" ready":""),s?s.name:id);
@@ -839,36 +848,42 @@ function renderCrisisDetail(c){
 function renderPlaybook(){
   var books=snap.playbooks||{}, keys=Object.keys(books);
   if(!keys.length){document.getElementById("playbook").textContent="No actor playbook in this snapshot.";return;}
-  if(!books[actor]) actor=keys[0];
   var tabs=document.getElementById("actor-tabs");tabs.innerHTML="";
   keys.forEach(function(key){var b=el("button","actor-tab",books[key].label);b.type="button";
     b.setAttribute("aria-pressed",String(key===actor));b.onclick=function(){actor=key;renderPlaybook();};tabs.appendChild(b);});
-  var host=document.getElementById("playbook"), book=books[actor];host.innerHTML="";
+  var host=document.getElementById("playbook");host.innerHTML="";
+  if(!actor||!books[actor]){
+    host.appendChild(el("p","plain-warning","Choose a role to inspect options. No role is selected and no directive applies."));return;
+  }
+  var book=books[actor];
   var proposal=el("p","plain-warning");
   proposal.innerHTML="<strong>Proposal, not authorised.</strong> Owner, evidence gate, affected-group review and stop rule are not yet assigned.";
   host.appendChild(proposal);
   host.appendChild(el("p","playbook-principle",book.principle));
-  var cols=el("div","action-columns"), names={now:"Prepare safely",warning:"If evidence is validated",crisis:"Protect and recover"};
+  var cols=el("div","action-columns"), names={now:"Options to evaluate now",warning:"Options if evidence is validated",crisis:"Options for governed protection"};
   ["now","warning","crisis"].forEach(function(phase){var col=el("article","action-column");
     col.appendChild(el("div","phase",phase));col.appendChild(el("h3",null,names[phase]));var ol=el("ol");
-    (book[phase]||[]).forEach(function(a){ol.appendChild(el("li",null,a));});col.appendChild(ol);cols.appendChild(col);});
+    (book[phase]||[]).forEach(function(a){var item=el("li");item.appendChild(el("span","proposal-label","PROPOSAL, NOT AUTHORISED"));item.appendChild(document.createTextNode(a));ol.appendChild(item);});col.appendChild(ol);cols.appendChild(col);});
   host.appendChild(cols);
 }
 
 function baselineRates(){
   var d=signalById("engels-divergence"), ent=entity==="ALL"?"OWID_WRL":entity;
-  if(!d) return {output:2,income:2};
+  if(!d) return null;
   function get(re){return (d.series||[]).find(function(s){return s.entity===ent&&re.test(s.measure||"")});}
-  function rate(s){if(!s||s.points.length<2)return 2;var pts=s.points, start=pts[Math.max(0,pts.length-11)],end=pts[pts.length-1];
+  function rate(s){if(!s||s.points.length<2)return null;var pts=s.points, start=pts[Math.max(0,pts.length-11)],end=pts[pts.length-1];
     return (Math.pow(end[1]/start[1],1/(end[0]-start[0]))-1)*100;}
-  return {output:rate(get(/Output/)),income:rate(get(/Labour/))};
+  var output=rate(get(/Output/)),income=rate(get(/Labour/));
+  return output==null||income==null?null:{output:output,income:income,entity:ent};
 }
 function seedScenario(){
-  var rates=baselineRates();document.getElementById("output-growth").value=rates.output.toFixed(1);
+  var rates=baselineRates();
+  if(!rates){document.getElementById("scenario-seed").textContent="No aggregate baseline is available for this selection. Existing user assumptions are unchanged.";return;}
+  document.getElementById("output-growth").value=rates.output.toFixed(1);
   document.getElementById("income-growth").value=rates.income.toFixed(1);scenarioSeededFor=entity;
+  document.getElementById("scenario-seed").textContent="Seeded from the selected aggregate baseline for "+entName(rates.entity)+". See the evidence atlas for source period, method and limitations.";
 }
 function renderScenario(){
-  if(scenarioSeededFor!==entity) seedScenario();
   var og=Number(document.getElementById("output-growth").value), ig=Number(document.getElementById("income-growth").value);
   var years=Number(document.getElementById("horizon").value), out=[],inc=[];
   for(var y=0;y<=years;y++){out.push(100*Math.pow(1+og/100,y));inc.push(100*Math.pow(1+ig/100,y));}
@@ -896,7 +911,8 @@ function renderScenario(){
 
 /* ------------------------------------------------------------------ panels */
 function panel(sig){
-  var p=el("div","panel"+(sig.status==="not_measured"||sig.status==="unavailable"?" void":""));
+  var selected=pick(sig), noSelectedData=!!selected&&!selected.show.length;
+  var p=el("div","panel"+(sig.status==="not_measured"||sig.status==="unavailable"||noSelectedData?" void":""));
   var top=el("div","panel-top");
   var lft=el("div");
   lft.appendChild(el("h3",null,sig.name));
@@ -904,24 +920,29 @@ function panel(sig){
   top.appendChild(lft);
 
   var right=el("div","val");
-  if(sig.latest){
-    var n=el("div","n tnum",fmt(sig.latest.value,sig.precision)+(sig.unit==="percent"?"%":sig.unit==="pp"?"pp":""));
-    if(sig.id==="transmission-test") n.style.color = sig.latest.value<0?css("--critical"):css("--good");
+  var selectedLatest=latestForSelection(sig);
+  if(selectedLatest){
+    var n=el("div","n tnum",fmt(selectedLatest.value,sig.precision)+(sig.unit==="percent"?"%":sig.unit==="pp"?"pp":""));
     right.appendChild(n);
-    right.appendChild(el("div","y",sig.latest.year+" · "+entName(sig.latest.entity)));
+    right.appendChild(el("div","y",selectedLatest.year+" · "+entName(selectedLatest.entity)));
   } else {
     var ch=el("span","chip "+state(sig));
     ch.appendChild(el("span","dot")); ch.appendChild(el("span",null,stateLabel(sig)));
     right.appendChild(ch);
+    if(noSelectedData) right.appendChild(el("div","y","No data · "+entName(entity)));
+    else if(entity==="ALL"&&selected&&selected.show.length) right.appendChild(el("div","y","Multiple places · select one"));
+    else if(selected&&selected.show.length>1) right.appendChild(el("div","y","Multiple measures · "+entName(entity)));
   }
   top.appendChild(right);
   p.appendChild(top);
 
-  if(sig.status==="not_measured"||sig.status==="unavailable"){
+  if(sig.status==="not_measured"||sig.status==="unavailable"||noSelectedData){
     var vb=el("div","voidbox");
-    vb.appendChild(el("div","big", sig.status==="not_measured"
-      ? "No evidence is included for this signal." : "Fetch failed for this snapshot."));
-    vb.appendChild(el("div","small", sig.method || "Kept visible on purpose. A dashboard that hid its own blind spot would be lying by composition."));
+    vb.appendChild(el("div","big", noSelectedData ? "No data for this signal in "+entName(entity)+"."
+      : sig.status==="not_measured" ? "No evidence is included for this signal." : "Fetch failed for this snapshot."));
+    vb.appendChild(el("div","small", noSelectedData
+      ? "The Observatory will not substitute another place. Choose a different geography or inspect the source coverage."
+      : sig.method || "Kept visible on purpose. A dashboard that hid its own blind spot would be lying by composition."));
     p.appendChild(vb);
   } else {
     var box=el("div","chartbox");
@@ -1048,7 +1069,7 @@ function renderEntityButtons(){
     .concat([{code:"ALL",name:"Compare all"}]);
   opts.forEach(function(o){
     var b=el("button","ctl",o.name); b.setAttribute("aria-pressed",String(o.code===entity));
-    b.onclick=function(){ entity=o.code; scenarioSeededFor=null; renderEntityButtons(); renderVerdict(); renderScenario(); renderFamilies(); };
+    b.onclick=function(){ entity=o.code; renderEntityButtons(); renderNow(); renderVerdict(); renderScenario(); renderFamilies(); };
     host.appendChild(b);
   });
 }
@@ -1078,24 +1099,53 @@ function renderMeta(){
     generated_at:snap.generated_at, generator:snap.generator,
     entities:[{code:"OWID_WRL",name:"World",kind:"aggregate"}],
     signals:[{id:"labour-share",name:"Labour share of GDP",family:"engels",
-      status:"measured",unit:"percent",precision:1,direction:"up_is_good",
+      status:"measured",unit:"percent",precision:1,direction:"neutral",
       question:"Who is getting the gains?",why_it_matters:"…",trouble_reading:"…",
       source:{name:"…",url:"…",retrieved:snap.snapshot_id},
       series:[{entity:"OWID_WRL",points:[[2024,52.4],[2025,52.6]]}],
       latest:{entity:"OWID_WRL",year:2025,value:52.6}}],
+    public_update:{observed:{summary:"…",epistemic_class:"derived",source_signal_ids:["labour-share"]},
+      affected:{status:"unknown",summary:"…"},inferred:{summary:"…",inference_class:"descriptive"},
+      condition_change:{changed:false,state:"unknown"},action:{authorization_state:"none",owner:null,authority:null},
+      falsifier:{test:"…",implication:"withdraw or narrow"},next_check:{on:null,owner:null,related_to_inference:false}},
     crises:[{id:"credibility-break",status:"unscored",leading_signals:["inflation","access-margin"],actions:{prepare:"…",protect:"…",recover:"…"}}],
     playbooks:{country:{now:["…"],warning:["…"],crisis:["…"]}}
   },null,1);
 }
 
 function renderNow(){
-  var signals=snap.signals||[];
-  var measured=signals.filter(function(s){return s.status==="measured"}).length;
-  var derived=signals.filter(function(s){return s.status==="derived"}).length;
-  var absent=signals.length-measured-derived;
-  var host=document.getElementById("now-observed");
-  host.textContent=measured+" measured and "+derived+" derived inputs in this snapshot. "+
-    absent+" planned inputs contain no observation. Counts describe coverage, not transition state.";
+  var update=snap.public_update;
+  function cell(id,summary,detail){
+    var host=document.getElementById(id);host.innerHTML="";host.appendChild(document.createTextNode(summary));
+    if(detail){var disclosure=el("details"),label=el("summary",null,"Evidence contract"),body=el("p",null,detail);
+      disclosure.appendChild(label);disclosure.appendChild(body);host.appendChild(disclosure);}
+  }
+  if(!update){
+    ["now-observed","now-affected","now-inferred","now-condition","now-action","now-falsifier","now-next-check"]
+      .forEach(function(id){cell(id,"Unknown. No validated public update is included in this snapshot.");});
+    document.getElementById("update-scope").textContent="PUBLIC UPDATE UNAVAILABLE";return;
+  }
+  var scope=update.scope,observed=update.observed,affected=update.affected,inferred=update.inferred;
+  var condition=update.condition_change,action=update.action,falsifier=update.falsifier,next=update.next_check;
+  var sources=observed.source_signal_ids.map(function(id){var signal=signalById(id);return signal&&signal.source?signal.source.name:id;});
+  cell("now-observed",observed.summary,
+    "Class: "+observed.epistemic_class+"\nMeasure: "+observed.measure+"\nScope: "+scope.population+" / "+scope.place+" / "+scope.period+"\nVintage: "+observed.vintage+"\nUncertainty: "+observed.uncertainty+"\nSources: "+sources.join("; "));
+  cell("now-affected",affected.status.toUpperCase()+". "+affected.summary,
+    "Excluded or unresolved: "+affected.excluded_or_unresolved.join("; "));
+  cell("now-inferred",inferred.summary,
+    "Inference class: "+inferred.inference_class+"\nMethod: "+inferred.method+"\nStrongest alternatives: "+inferred.strongest_alternatives.join("; "));
+  cell("now-condition",condition.changed?condition.summary:"No change established. "+condition.summary,
+    "State: "+condition.state+"\nEvidence grade: "+condition.evidence_grade+"\nConditions: "+condition.condition_ids.join(", "));
+  cell("now-action",action.summary,
+    "Authorisation: "+action.authorization_state+"\nOwner: "+(action.owner||"None")+"\nAuthority: "+(action.authority||"None")+"\nHelp: "+(action.help_route||"None")+"\nAppeal: "+(action.appeal_route||"None"));
+  cell("now-falsifier",falsifier.summary,
+    "Test: "+falsifier.test+"\nImplication: "+falsifier.implication);
+  cell("now-next-check",next.event,
+    "Date: "+(next.on||"Not scheduled")+"\nOwner: "+(next.owner||"None")+"\nChecks this inference: "+(next.related_to_inference?"Yes":"No")+"\nIf unavailable: "+next.failure_handling);
+  var selected=entity==="ALL"?"Compare all":entName(entity),same=entity===scope.entity;
+  document.getElementById("update-scope").textContent=same
+    ? "PUBLIC UPDATE SCOPE · "+scope.place+" · "+scope.population+" · "+scope.period
+    : "GLOBAL UPDATE UNCHANGED · Evidence atlas selection: "+selected+". No matching seven-part update is registered.";
 }
 
 function renderAll(){
@@ -1107,10 +1157,11 @@ document.getElementById("toggle-table").onclick=function(){
   tableMode=!tableMode; this.setAttribute("aria-pressed",String(tableMode)); renderFamilies();
 };
 document.getElementById("family-filter").onchange=function(){familyFilter=this.value;renderFamilies();};
-document.getElementById("output-growth").oninput=renderScenario;
-document.getElementById("income-growth").oninput=renderScenario;
+function markScenarioManual(){scenarioSeededFor="manual";document.getElementById("scenario-seed").textContent="User-entered assumptions. They are not observations or a project forecast.";renderScenario();}
+document.getElementById("output-growth").oninput=markScenarioManual;
+document.getElementById("income-growth").oninput=markScenarioManual;
 document.getElementById("horizon").oninput=renderScenario;
-document.getElementById("scenario-reset").onclick=function(){scenarioSeededFor=null;renderScenario();};
+document.getElementById("scenario-reset").onclick=function(){seedScenario();renderScenario();};
 document.getElementById("theme-toggle").onclick=function(){
   var root=document.documentElement, light=root.getAttribute("data-theme")==="light";
   root.setAttribute("data-theme",light?"dark":"light");this.textContent=light?"Change light":"Change dark";renderAll();

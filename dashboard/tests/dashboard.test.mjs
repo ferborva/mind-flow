@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -14,6 +14,8 @@ const dashboard = resolve(here, "..");
 const templatePath = join(dashboard, "web", "index.template.html");
 const snapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
 const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
+const schemaReadmePath = join(dashboard, "schema", "SCHEMA.md");
+const dashboardReadmePath = join(dashboard, "README.md");
 const buildPath = join(dashboard, "tools", "build.mjs");
 
 const template = readFileSync(templatePath, "utf8");
@@ -87,6 +89,10 @@ test("public language does not turn imperfect proxies into verdicts", () => {
   const baseline = snapshot.signals.find((signal) => signal.id === "engels-divergence");
   assert.match(baseline.name, /baseline/i);
   assert.match(baseline.caveats.join(" "), /not.*like.for.like/i);
+
+  const inflation = snapshot.signals.find((signal) => signal.id === "inflation");
+  assert.equal(inflation.direction, "neutral");
+  assert.doesNotMatch(inflation.trouble_reading, /positive|persist/i);
 });
 
 test("failure scenarios do not predict or pathologise democratic responses", () => {
@@ -94,6 +100,8 @@ test("failure scenarios do not predict or pathologise democratic responses", () 
   assert.doesNotMatch(template, /Crisis radar/i);
   assert.doesNotMatch(template, /warning signals live/i);
   assert.doesNotMatch(template, /id=["']crisis-chart["']/i);
+  assert.doesNotMatch(template, /class=["'][^"']*orbit/i);
+  assert.doesNotMatch(template, /cov\.ready\s*\+\s*["']\/["']\s*\+\s*cov\.total/);
   assert.match(template, /Possible failure modes/i);
   for (const crisis of snapshot.crises) {
     assert.equal("movement" in crisis, false, `${crisis.id}: remove movement forecast`);
@@ -108,10 +116,27 @@ test("scenario arithmetic cannot masquerade as a forecast or trigger", () => {
   assert.match(template, /SCENARIO, NOT A FORECAST/i);
   assert.doesNotMatch(template, /transparent projection/i);
   assert.doesNotMatch(template, /attention-worthy gap/i);
+  assert.match(template, /id=["']scenario-class["']/i);
+  assert.doesNotMatch(template, /scenarioSeededFor\s*!==\s*entity\)\s*seedScenario/);
+});
+
+test("public action options begin unselected and label every proposal", () => {
+  assert.match(template, /actor\s*=\s*null/);
+  assert.match(template, /Choose a role to inspect options/i);
+  assert.match(template, /PROPOSAL, NOT AUTHORISED/i);
+  assert.doesNotMatch(JSON.stringify(snapshot.playbooks), /named case owner|the appeal path/i);
+});
+
+test("entity selection never silently falls back to another geography", () => {
+  assert.doesNotMatch(template, /if\s*\(!show\.length\)\s*show\s*=\s*series\.filter/);
+  assert.doesNotMatch(template, /if\s*\(!show\.length\)\s*show\s*=\s*\[series\[0\]\]/);
+  assert.match(template, /No data for this signal in/i);
+  assert.match(template, /function latestForSelection\(/);
+  assert.match(template, /public_update:\{observed:/);
 });
 
 test("snapshot carries actionable crisis and actor contracts", () => {
-  assert.match(snapshot.schema_version, /^1\.2\./);
+  assert.match(snapshot.schema_version, /^1\.3\./);
   assert.ok(snapshot.crises.length >= 5);
   assert.ok(Object.keys(snapshot.playbooks).length >= 5);
 
@@ -131,6 +156,31 @@ test("snapshot carries actionable crisis and actor contracts", () => {
       assert.ok(actions[tier]?.length, `playbook missing ${tier}`);
     }
   }
+});
+
+test("snapshot carries one complete, bounded public update contract", () => {
+  const update = snapshot.public_update;
+  assert.ok(update, "public_update is required");
+  for (const field of [
+    "observed",
+    "affected",
+    "inferred",
+    "condition_change",
+    "action",
+    "falsifier",
+    "next_check",
+  ]) assert.ok(update[field], `public_update.${field} is required`);
+
+  assert.equal(update.scope.entity, "OWID_WRL");
+  assert.equal(update.observed.epistemic_class, "derived");
+  assert.match(update.observed.uncertainty, /not quantified|no interval/i);
+  assert.equal(update.affected.status, "unknown");
+  assert.equal(update.inferred.inference_class, "descriptive");
+  assert.equal(update.condition_change.changed, false);
+  assert.equal(update.action.authorization_state, "none");
+  assert.equal(update.action.owner, null);
+  assert.match(update.falsifier.implication, /withdraw|narrow|reverse/i);
+  assert.equal(update.next_check.related_to_inference, false);
 });
 
 test("the JSON schema actually validates the current snapshot contract", () => {
@@ -161,4 +211,37 @@ test("the build produces a self-contained page with parseable application code",
   const applicationCode = scripts.at(-1)?.[1];
   assert.ok(applicationCode, "application script is missing");
   assert.doesNotThrow(() => new Function(applicationCode));
+
+  const invalidPath = join(outDir, "invalid.json");
+  const malformed = structuredClone(snapshot);
+  delete malformed.public_update;
+  writeFileSync(invalidPath, JSON.stringify(malformed));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, invalidPath, outputPath], { stdio: "pipe" }),
+    /Dashboard build failed|validation/i,
+  );
+
+  const semanticallyInvalidPath = join(outDir, "semantically-invalid.json");
+  const semanticallyInvalid = structuredClone(snapshot);
+  semanticallyInvalid.public_update.observed.source_signal_ids.push("missing-signal");
+  writeFileSync(semanticallyInvalidPath, JSON.stringify(semanticallyInvalid));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
+    /semantic validation failed/i,
+  );
+});
+
+test("operator documentation matches the governed 1.3 snapshot build", () => {
+  const readme = readFileSync(dashboardReadmePath, "utf8");
+  const schemaReadme = readFileSync(schemaReadmePath, "utf8");
+  assert.match(readme, /public_update/);
+  assert.match(readme, /build-time.*validation/i);
+  assert.match(readme, /Australia evidence room/i);
+  assert.match(readme, /release.*blocked/i);
+  assert.doesNotMatch(readme, /Load snapshot/i);
+  assert.doesNotMatch(readme, /current v2/i);
+  assert.match(schemaReadme, /Version 1\.3\.0/);
+  assert.match(schemaReadme, /seven-part public update/i);
+  assert.match(schemaReadme, /semantic validation/i);
+  assert.doesNotMatch(schemaReadme, /No page rebuild required/i);
 });
