@@ -20,6 +20,7 @@ const indexPath = join(dashboard, "snapshots", "index.json");
 const policyPath = join(dashboard, "evidence", "adapter-classification-policy.json");
 const templatePath = join(dashboard, "web", "index.template.html");
 const rawManifestPath = join(dashboard, "evidence", "fixtures", "world-bank-input.json");
+const australiaReadmePath = join(root, "pilots", "australia", "README.md");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 
 function rejectsBuild(value, expected, ...args) {
@@ -57,6 +58,12 @@ test("local hashes never become publisher authentication wording", () => {
     "observed", "published_statistic", "published_estimate", "modelled_estimate",
     "nowcast", "forecast", "derived", "not_measured", "unavailable",
   ]) assert.match(template, new RegExp(`${epistemicClass}:`), `coverage omits ${epistemicClass}`);
+});
+
+test("the Australian feasibility note does not overstate an unretained archive as reproducible", () => {
+  const note = readFileSync(australiaReadmePath, "utf8");
+  assert.doesNotMatch(note, /proves that one public source can be reduced reproducibly/i);
+  assert.match(note, /locally recomputable.*archive can be recovered/i);
 });
 
 test("captured local inputs require successful HTTP and matching media metadata", () => {
