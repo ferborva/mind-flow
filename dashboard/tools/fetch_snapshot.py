@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.3.0
+fetch_snapshot.py 1.4.0
 
 Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.3.0).
+conforming to dashboard/schema/snapshot.schema.json (v1.4.0).
 
     python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
     python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
@@ -18,8 +18,8 @@ Design rules, enforced here so the contract holds:
 
 import argparse, csv, io, json, sys, urllib.request, datetime, os
 
-GENERATOR = "fetch_snapshot.py@1.3.0"
-SCHEMA_VERSION = "1.3.0"
+GENERATOR = "fetch_snapshot.py@1.4.0"
+SCHEMA_VERSION = "1.4.0"
 TIMEOUT = 60
 
 # Entities we pull. World first; the rest give cross-country variance.
@@ -477,6 +477,7 @@ def build(snapshot_id, retrieved):
                   "registry with no interpolation. Instrument gaps remain visible, and crisis "
                   "states remain unscored until their leading signals and thresholds exist."),
         "public_update": build_public_update(signals, snapshot_id),
+        "if_path": build_if_path(),
         "entities": [{"code": c, "name": n, "kind": k} for c, n, k, _ in ENTITIES],
         "signals": signals,
         "crises": CRISES,
@@ -682,6 +683,86 @@ def build_public_update(signals, snapshot_id):
             "event": "No governed refresh or review is scheduled for this aggregate inference.",
             "related_to_inference": False,
             "failure_handling": "Keep the update labelled unscheduled and stale rather than substituting an unrelated data release.",
+        },
+    }
+
+
+def build_if_path():
+    """Build a scoped unresolved IF path without manufacturing condition evidence."""
+    missing_review = {
+        "on": None,
+        "owner": None,
+        "failure_handling": "Keep the condition unknown. Do not carry forward, infer safety or substitute an aggregate proxy.",
+    }
+
+    def condition(identifier, label, position, question, missing, challenge):
+        return {
+            "id": identifier,
+            "label": label,
+            "position": position,
+            "question": question,
+            "state": "unknown",
+            "previous_state": None,
+            "evidence_grade": "No scoped evaluation",
+            "summary": f"{label} is not evaluated for a defined population, place and decision horizon.",
+            "because": missing,
+            "source_signal_ids": [],
+            "strongest_challenge": challenge,
+            "next_observation": dict(missing_review, event=f"Commission or identify {label.lower()} evidence for the same cohort, place and period."),
+        }
+
+    return {
+        "path_id": "capability-to-shared-durable-agency",
+        "provenance": {
+            "status": "agent_proposal",
+            "producer": "Ren (Codex agent)",
+            "review_state": "requires_fernando_review",
+        },
+        "claim": {
+            "who": "People in a defined cohort",
+            "verb": "gain",
+            "outcome": "shared and durable human agency from rising technological capability",
+            "standard": "A protected continuity floor plus meaningful choice, using thresholds not yet approved",
+            "place": "No decision geography is registered",
+            "period": "No decision horizon is registered",
+            "status": "unresolved",
+        },
+        "conditions": [
+            condition(
+                "capability", "Capability", 1,
+                "Can the system perform the useful task safely and reliably in context?",
+                "The snapshot contains no scoped technology, task, reliability or safety evaluation.",
+                "A benchmark result may fail in real workflows or for excluded users.",
+            ),
+            condition(
+                "reach", "Reach", 2,
+                "Can affected people use it at an acceptable total cost and service level?",
+                "Aggregate income, poverty and price series do not measure service-level availability, affordability, eligibility, quality and delivery together.",
+                "Nominal availability can rise while practical access falls for a cohort.",
+            ),
+            condition(
+                "agency", "Agency", 3,
+                "Does it expand meaningful choices without coercion or dependency?",
+                "The snapshot has no repeated direct measure of choice, control, refusal, switching, voice or remedy.",
+                "More capability can increase surveillance, dependency or compelled use.",
+            ),
+            condition(
+                "durability", "Durability", 4,
+                "Do benefits persist through shocks, market shifts and policy changes?",
+                "No cohort outcome has a declared stress test, persistence window or recovery threshold.",
+                "An early gain may reverse when prices, ownership, funding or institutions change.",
+            ),
+            condition(
+                "fairness", "Fairness", 5,
+                "Are gains and burdens distributed with voice, remedy and dignity?",
+                "Aggregate labour share cannot identify the distribution of benefits, burdens, participation or remedy.",
+                "An aggregate improvement can coexist with concentrated harm or exclusion.",
+            ),
+        ],
+        "decision": {
+            "result": "no_decision",
+            "summary": "Every condition is unknown for a decision-ready scope. No watch, act, pause, reverse, recover or graduate rule is eligible.",
+            "eligible_actions": [],
         },
     }
 

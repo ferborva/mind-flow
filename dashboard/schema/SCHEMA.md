@@ -1,6 +1,6 @@
 # The snapshot contract
 
-**Version 1.3.0**
+**Version 1.4.0**
 
 The Observatory renders a frozen, validated snapshot. It does not query data
 providers in the browser.
@@ -26,22 +26,23 @@ authority, provenance, scope or uncertainty.
 | New required decision field | Minor |
 | Renamed, removed or semantically changed field | Major |
 
-The current build requires schema 1.3.x and one complete seven-part public
-update.
+The current build requires schema 1.4.x, one complete seven-part public update
+and one scoped IF path.
 
 ## Top-level shape
 
 ```jsonc
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "snapshot_id": "2026-09-07",
   "generated_at": "2026-09-07T10:00:00Z",
-  "generator": "fetch_snapshot.py@1.3.0",
+  "generator": "fetch_snapshot.py@1.4.0",
   "title": "Signals toward the transition",
   "notes": "Run-level context and limits.",
   "entities": [],
   "signals": [],
   "public_update": {},
+  "if_path": {},
   "crises": [],
   "playbooks": {}
 }
@@ -103,6 +104,24 @@ changing prose.
 An action with `authorization_state: none` must not claim an owner or authority.
 A check marked related to an inference must name both a date and owner.
 
+## Scoped IF path
+
+`if_path` turns the IF layer from a vocabulary display into a decision record.
+Its `claim` states:
+
+```text
+WHO + VERB + OUTCOME + STANDARD + PLACE + PERIOD + IF conditions
+```
+
+Each condition records its position, question, current and previous state,
+evidence grade, reason, source-signal references, strongest challenge and next
+observation. An unknown condition must stay explicit. Its absence cannot be
+treated as false, safe or satisfied.
+
+The path decision is separately one of `no_decision`, `watch`, `act`, `pause`,
+`reverse`, `recover` or `graduate`. `no_decision` cannot contain eligible
+actions. The current snapshot has five unknown conditions and no decision.
+
 ## Failure-mode contracts
 
 `crises` currently contains possible failure modes, not crisis predictions.
@@ -132,8 +151,8 @@ The build must pass both layers:
 1. **JSON Schema validation:** types, required fields, enums, formats and local
    object structure.
 2. **Semantic validation:** entity references, source-signal references,
-   failure-mode signal references, authority consistency and governed next-check
-   requirements.
+   failure-mode and IF-path signal references, IF condition alignment, decision
+   consistency, authority consistency and governed next-check requirements.
 
 Validation prevents known structural contradictions. It does not prove that a
 source is correct, an inference is warranted, a public explanation is

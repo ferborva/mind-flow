@@ -10,10 +10,11 @@
     "generator",
     "entities",
     "signals",
-    "public_update"
+    "public_update",
+    "if_path"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
+    "schema_version": { "type": "string", "pattern": "^1\\.4\\.[0-9]+$" },
     "snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "generated_at": { "type": "string", "format": "date-time" },
     "generator": { "type": "string" },
@@ -37,6 +38,7 @@
       "items": { "$ref": "#/$defs/signal" }
     },
     "public_update": { "$ref": "#/$defs/publicUpdate" },
+    "if_path": { "$ref": "#/$defs/ifPath" },
     "crises": {
       "type": "array",
       "items": { "$ref": "#/$defs/crisis" }
@@ -49,6 +51,84 @@
   "additionalProperties": true,
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
+    "nullableNonEmptyString": { "anyOf": [{ "$ref": "#/$defs/nonEmptyString" }, { "type": "null" }] },
+    "ifPath": {
+      "type": "object",
+      "required": ["path_id", "provenance", "claim", "conditions", "decision"],
+      "properties": {
+        "path_id": { "$ref": "#/$defs/nonEmptyString" },
+        "provenance": { "$ref": "#/$defs/proposalProvenance" },
+        "claim": {
+          "type": "object",
+          "required": ["who", "verb", "outcome", "standard", "place", "period", "status"],
+          "properties": {
+            "who": { "$ref": "#/$defs/nonEmptyString" },
+            "verb": { "$ref": "#/$defs/nonEmptyString" },
+            "outcome": { "$ref": "#/$defs/nonEmptyString" },
+            "standard": { "$ref": "#/$defs/nonEmptyString" },
+            "place": { "$ref": "#/$defs/nonEmptyString" },
+            "period": { "$ref": "#/$defs/nonEmptyString" },
+            "status": { "enum": ["unresolved", "supported", "narrowed", "contradicted", "expired"] }
+          },
+          "additionalProperties": false
+        },
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "position", "question", "state", "previous_state", "evidence_grade", "summary", "because", "source_signal_ids", "strongest_challenge", "next_observation"],
+            "properties": {
+              "id": { "$ref": "#/$defs/nonEmptyString" },
+              "label": { "$ref": "#/$defs/nonEmptyString" },
+              "position": { "type": "integer", "minimum": 1 },
+              "question": { "$ref": "#/$defs/nonEmptyString" },
+              "state": { "$ref": "#/$defs/conditionState" },
+              "previous_state": { "anyOf": [{ "$ref": "#/$defs/conditionState" }, { "type": "null" }] },
+              "evidence_grade": { "$ref": "#/$defs/nonEmptyString" },
+              "summary": { "$ref": "#/$defs/nonEmptyString" },
+              "because": { "$ref": "#/$defs/nonEmptyString" },
+              "source_signal_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+              "strongest_challenge": { "$ref": "#/$defs/nonEmptyString" },
+              "next_observation": {
+                "type": "object",
+                "required": ["event", "on", "owner", "failure_handling"],
+                "properties": {
+                  "event": { "$ref": "#/$defs/nonEmptyString" },
+                  "on": { "type": ["string", "null"], "format": "date" },
+                  "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
+                  "failure_handling": { "$ref": "#/$defs/nonEmptyString" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "decision": {
+          "type": "object",
+          "required": ["result", "summary", "eligible_actions"],
+          "properties": {
+            "result": { "enum": ["no_decision", "watch", "act", "pause", "reverse", "recover", "graduate"] },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "eligible_actions": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "conditionState": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+    "proposalProvenance": {
+      "type": "object",
+      "required": ["status", "producer", "review_state"],
+      "properties": {
+        "status": { "const": "agent_proposal" },
+        "producer": { "$ref": "#/$defs/nonEmptyString" },
+        "review_state": { "const": "requires_fernando_review" }
+      },
+      "additionalProperties": false
+    },
     "publicUpdate": {
       "type": "object",
       "required": [
@@ -67,16 +147,7 @@
       "properties": {
         "update_id": { "$ref": "#/$defs/nonEmptyString" },
         "epistemic_class": { "const": "mixed" },
-        "provenance": {
-          "type": "object",
-          "required": ["status", "producer", "review_state"],
-          "properties": {
-            "status": { "const": "agent_proposal" },
-            "producer": { "$ref": "#/$defs/nonEmptyString" },
-            "review_state": { "const": "requires_fernando_review" }
-          },
-          "additionalProperties": false
-        },
+        "provenance": { "$ref": "#/$defs/proposalProvenance" },
         "scope": {
           "type": "object",
           "required": ["entity", "population", "place", "period"],
@@ -129,7 +200,7 @@
             "changed": { "type": "boolean" },
             "summary": { "$ref": "#/$defs/nonEmptyString" },
             "condition_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
-            "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+            "state": { "$ref": "#/$defs/conditionState" },
             "evidence_grade": { "$ref": "#/$defs/nonEmptyString" }
           },
           "additionalProperties": false
@@ -140,10 +211,10 @@
           "properties": {
             "summary": { "$ref": "#/$defs/nonEmptyString" },
             "authorization_state": { "enum": ["none", "proposed", "authorised", "active", "paused", "ended"] },
-            "owner": { "type": ["string", "null"] },
-            "authority": { "type": ["string", "null"] },
-            "help_route": { "type": ["string", "null"] },
-            "appeal_route": { "type": ["string", "null"] }
+            "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "authority": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "help_route": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "appeal_route": { "$ref": "#/$defs/nullableNonEmptyString" }
           },
           "additionalProperties": false
         },
@@ -162,7 +233,7 @@
           "required": ["on", "owner", "event", "related_to_inference", "failure_handling"],
           "properties": {
             "on": { "type": ["string", "null"], "format": "date" },
-            "owner": { "type": ["string", "null"] },
+            "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
             "event": { "$ref": "#/$defs/nonEmptyString" },
             "related_to_inference": { "type": "boolean" },
             "failure_handling": { "$ref": "#/$defs/nonEmptyString" }

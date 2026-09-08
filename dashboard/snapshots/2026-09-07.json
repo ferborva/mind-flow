@@ -1,8 +1,8 @@
 {
- "schema_version": "1.3.0",
+ "schema_version": "1.4.0",
  "snapshot_id": "2026-09-07",
  "generated_at": "2026-09-08T00:41:31Z",
- "generator": "fetch_snapshot.py@1.3.0",
+ "generator": "fetch_snapshot.py@1.4.0",
  "title": "Signals toward the transition",
  "notes": "Transition-control snapshot. Every measured series comes straight from an open registry with no interpolation. Instrument gaps remain visible, and crisis states remain unscored until their leading signals and thresholds exist.",
  "public_update": {
@@ -73,6 +73,125 @@
    "event": "No governed refresh or review is scheduled for this aggregate inference.",
    "related_to_inference": false,
    "failure_handling": "Keep the update labelled unscheduled and stale rather than substituting an unrelated data release."
+  }
+ },
+ "if_path": {
+  "path_id": "capability-to-shared-durable-agency",
+  "provenance": {
+   "status": "agent_proposal",
+   "producer": "Ren (Codex agent)",
+   "review_state": "requires_fernando_review"
+  },
+  "claim": {
+   "who": "People in a defined cohort",
+   "verb": "gain",
+   "outcome": "shared and durable human agency from rising technological capability",
+   "standard": "A protected continuity floor plus meaningful choice, using thresholds not yet approved",
+   "place": "No decision geography is registered",
+   "period": "No decision horizon is registered",
+   "status": "unresolved"
+  },
+  "conditions": [
+   {
+    "id": "capability",
+    "label": "Capability",
+    "position": 1,
+    "question": "Can the system perform the useful task safely and reliably in context?",
+    "state": "unknown",
+    "previous_state": null,
+    "evidence_grade": "No scoped evaluation",
+    "summary": "Capability is not evaluated for a defined population, place and decision horizon.",
+    "because": "The snapshot contains no scoped technology, task, reliability or safety evaluation.",
+    "source_signal_ids": [],
+    "strongest_challenge": "A benchmark result may fail in real workflows or for excluded users.",
+    "next_observation": {
+     "event": "Commission or identify capability evidence for the same cohort, place and period.",
+     "on": null,
+     "owner": null,
+     "failure_handling": "Keep the condition unknown. Do not carry forward, infer safety or substitute an aggregate proxy."
+    }
+   },
+   {
+    "id": "reach",
+    "label": "Reach",
+    "position": 2,
+    "question": "Can affected people use it at an acceptable total cost and service level?",
+    "state": "unknown",
+    "previous_state": null,
+    "evidence_grade": "No scoped evaluation",
+    "summary": "Reach is not evaluated for a defined population, place and decision horizon.",
+    "because": "Aggregate income, poverty and price series do not measure service-level availability, affordability, eligibility, quality and delivery together.",
+    "source_signal_ids": [],
+    "strongest_challenge": "Nominal availability can rise while practical access falls for a cohort.",
+    "next_observation": {
+     "event": "Commission or identify reach evidence for the same cohort, place and period.",
+     "on": null,
+     "owner": null,
+     "failure_handling": "Keep the condition unknown. Do not carry forward, infer safety or substitute an aggregate proxy."
+    }
+   },
+   {
+    "id": "agency",
+    "label": "Agency",
+    "position": 3,
+    "question": "Does it expand meaningful choices without coercion or dependency?",
+    "state": "unknown",
+    "previous_state": null,
+    "evidence_grade": "No scoped evaluation",
+    "summary": "Agency is not evaluated for a defined population, place and decision horizon.",
+    "because": "The snapshot has no repeated direct measure of choice, control, refusal, switching, voice or remedy.",
+    "source_signal_ids": [],
+    "strongest_challenge": "More capability can increase surveillance, dependency or compelled use.",
+    "next_observation": {
+     "event": "Commission or identify agency evidence for the same cohort, place and period.",
+     "on": null,
+     "owner": null,
+     "failure_handling": "Keep the condition unknown. Do not carry forward, infer safety or substitute an aggregate proxy."
+    }
+   },
+   {
+    "id": "durability",
+    "label": "Durability",
+    "position": 4,
+    "question": "Do benefits persist through shocks, market shifts and policy changes?",
+    "state": "unknown",
+    "previous_state": null,
+    "evidence_grade": "No scoped evaluation",
+    "summary": "Durability is not evaluated for a defined population, place and decision horizon.",
+    "because": "No cohort outcome has a declared stress test, persistence window or recovery threshold.",
+    "source_signal_ids": [],
+    "strongest_challenge": "An early gain may reverse when prices, ownership, funding or institutions change.",
+    "next_observation": {
+     "event": "Commission or identify durability evidence for the same cohort, place and period.",
+     "on": null,
+     "owner": null,
+     "failure_handling": "Keep the condition unknown. Do not carry forward, infer safety or substitute an aggregate proxy."
+    }
+   },
+   {
+    "id": "fairness",
+    "label": "Fairness",
+    "position": 5,
+    "question": "Are gains and burdens distributed with voice, remedy and dignity?",
+    "state": "unknown",
+    "previous_state": null,
+    "evidence_grade": "No scoped evaluation",
+    "summary": "Fairness is not evaluated for a defined population, place and decision horizon.",
+    "because": "Aggregate labour share cannot identify the distribution of benefits, burdens, participation or remedy.",
+    "source_signal_ids": [],
+    "strongest_challenge": "An aggregate improvement can coexist with concentrated harm or exclusion.",
+    "next_observation": {
+     "event": "Commission or identify fairness evidence for the same cohort, place and period.",
+     "on": null,
+     "owner": null,
+     "failure_handling": "Keep the condition unknown. Do not carry forward, infer safety or substitute an aggregate proxy."
+    }
+   }
+  ],
+  "decision": {
+   "result": "no_decision",
+   "summary": "Every condition is unknown for a decision-ready scope. No watch, act, pause, reverse, recover or graduate rule is eligible.",
+   "eligible_actions": []
   }
  },
  "entities": [

@@ -36,6 +36,9 @@ test("the observatory leads with status, public meaning, IFs, paths, action and 
   }
   assert.match(template, /Capability is not access/);
   assert.match(template, /aria-live=["']polite["']/);
+  assert.match(template, /id=["']if-claim["']/);
+  assert.match(template, /id=["']condition-decision["']/);
+  assert.match(template, /function renderConditionMap\(/);
 });
 
 test("the first screen discloses prototype authority and the seven-part update", () => {
@@ -136,7 +139,7 @@ test("entity selection never silently falls back to another geography", () => {
 });
 
 test("snapshot carries actionable crisis and actor contracts", () => {
-  assert.match(snapshot.schema_version, /^1\.3\./);
+  assert.match(snapshot.schema_version, /^1\.4\./);
   assert.ok(snapshot.crises.length >= 5);
   assert.ok(Object.keys(snapshot.playbooks).length >= 5);
 
@@ -156,6 +159,28 @@ test("snapshot carries actionable crisis and actor contracts", () => {
       assert.ok(actions[tier]?.length, `playbook missing ${tier}`);
     }
   }
+});
+
+test("the IF map is a scoped decision record rather than static vocabulary", () => {
+  const path = snapshot.if_path;
+  assert.ok(path, "if_path is required");
+  for (const field of ["who", "verb", "outcome", "standard", "place", "period"]) {
+    assert.ok(path.claim[field], `if_path.claim.${field} is required`);
+  }
+  assert.equal(path.claim.status, "unresolved");
+  assert.equal(path.conditions.length, 5);
+  assert.deepEqual(
+    path.conditions.map(({ id }) => id),
+    snapshot.public_update.condition_change.condition_ids,
+  );
+  for (const condition of path.conditions) {
+    assert.equal(condition.state, "unknown");
+    assert.ok(condition.summary && condition.evidence_grade && condition.strongest_challenge);
+    assert.ok(condition.next_observation.event && condition.next_observation.failure_handling);
+  }
+  assert.equal(path.decision.result, "no_decision");
+  assert.deepEqual(path.decision.eligible_actions, []);
+  assert.doesNotMatch(template, /<article class="condition-card"><span class="ordinal">IF 01/);
 });
 
 test("snapshot carries one complete, bounded public update contract", () => {
@@ -221,6 +246,14 @@ test("the build produces a self-contained page with parseable application code",
     /Dashboard build failed|validation/i,
   );
 
+  const wrongVersion = structuredClone(snapshot);
+  wrongVersion.schema_version = "1.3.0";
+  writeFileSync(invalidPath, JSON.stringify(wrongVersion));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, invalidPath, outputPath], { stdio: "pipe" }),
+    /Dashboard build failed|validation/i,
+  );
+
   const semanticallyInvalidPath = join(outDir, "semantically-invalid.json");
   const semanticallyInvalid = structuredClone(snapshot);
   semanticallyInvalid.public_update.observed.source_signal_ids.push("missing-signal");
@@ -229,9 +262,41 @@ test("the build produces a self-contained page with parseable application code",
     () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
     /semantic validation failed/i,
   );
+
+  const invalidIfPath = structuredClone(snapshot);
+  invalidIfPath.if_path.conditions[0].source_signal_ids.push("missing-signal");
+  writeFileSync(semanticallyInvalidPath, JSON.stringify(invalidIfPath));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
+    /semantic validation failed/i,
+  );
+
+  const mismatchedIfPath = structuredClone(snapshot);
+  mismatchedIfPath.public_update.condition_change.condition_ids.reverse();
+  writeFileSync(semanticallyInvalidPath, JSON.stringify(mismatchedIfPath));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
+    /semantic validation failed/i,
+  );
+
+  const contradictoryDecision = structuredClone(snapshot);
+  contradictoryDecision.if_path.decision.eligible_actions.push("act-now");
+  writeFileSync(semanticallyInvalidPath, JSON.stringify(contradictoryDecision));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
+    /semantic validation failed/i,
+  );
+
+  const falseHelpRoute = structuredClone(snapshot);
+  falseHelpRoute.public_update.action.help_route = "service-that-does-not-exist";
+  writeFileSync(semanticallyInvalidPath, JSON.stringify(falseHelpRoute));
+  assert.throws(
+    () => execFileSync(process.execPath, [buildPath, semanticallyInvalidPath, outputPath], { stdio: "pipe" }),
+    /semantic validation failed/i,
+  );
 });
 
-test("operator documentation matches the governed 1.3 snapshot build", () => {
+test("operator documentation matches the governed 1.4 snapshot build", () => {
   const readme = readFileSync(dashboardReadmePath, "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
@@ -240,7 +305,7 @@ test("operator documentation matches the governed 1.3 snapshot build", () => {
   assert.match(readme, /release.*blocked/i);
   assert.doesNotMatch(readme, /Load snapshot/i);
   assert.doesNotMatch(readme, /current v2/i);
-  assert.match(schemaReadme, /Version 1\.3\.0/);
+  assert.match(schemaReadme, /Version 1\.4\.0/);
   assert.match(schemaReadme, /seven-part public update/i);
   assert.match(schemaReadme, /semantic validation/i);
   assert.doesNotMatch(schemaReadme, /No page rebuild required/i);

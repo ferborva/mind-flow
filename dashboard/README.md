@@ -42,7 +42,7 @@ through the build and test path.
 
 ## Seven-part public update
 
-Schema 1.3 requires one bounded `public_update`:
+Schema 1.4 requires one bounded `public_update`:
 
 1. **Observed:** the source-native or derived result and its uncertainty.
 2. **Affected:** the defined population, or an explicit unknown.
@@ -55,6 +55,11 @@ Schema 1.3 requires one bounded `public_update`:
 The current global update is about the World aggregate. Selecting another place
 does not relabel that update. Evidence panels never substitute World data when
 the chosen place has no observation.
+
+The required `if_path` adds a scoped `WHO + VERB + OUTCOME + STANDARD + PLACE +
+PERIOD + IF` record. Every condition carries a state, reason, evidence grade,
+strongest challenge and next observation. The current five conditions are all
+unknown, so the registered decision is `no_decision`.
 
 ## Repository map
 

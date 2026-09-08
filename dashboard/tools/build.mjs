@@ -25,13 +25,38 @@ function validateSemantics(snapshot) {
   for (const id of update?.observed?.source_signal_ids || []) {
     if (!signalIds.has(id)) errors.push(`public_update source signal ${id} is not declared`);
   }
+  const conditions = snapshot.if_path?.conditions || [];
+  const conditionIds = conditions.map(({ id }) => id);
+  if (new Set(conditionIds).size !== conditionIds.length) {
+    errors.push("if_path condition identifiers must be unique");
+  }
+  const positions = conditions.map(({ position }) => position);
+  if (new Set(positions).size !== positions.length) {
+    errors.push("if_path condition positions must be unique");
+  }
+  for (const condition of conditions) {
+    for (const id of condition.source_signal_ids || []) {
+      if (!signalIds.has(id)) errors.push(`if_path condition ${condition.id} source signal ${id} is not declared`);
+    }
+  }
+  const updateConditionIds = update?.condition_change?.condition_ids || [];
+  if (conditionIds.length && (
+    conditionIds.length !== updateConditionIds.length ||
+    conditionIds.some((id, index) => id !== updateConditionIds[index])
+  )) {
+    errors.push("public_update condition identifiers must match the ordered if_path conditions");
+  }
+  if (snapshot.if_path?.decision?.result === "no_decision" && snapshot.if_path.decision.eligible_actions.length) {
+    errors.push("an if_path with no decision cannot contain eligible actions");
+  }
   for (const crisis of snapshot.crises || []) {
     for (const id of crisis.leading_signals || []) {
       if (!signalIds.has(id)) errors.push(`crisis ${crisis.id} source signal ${id} is not declared`);
     }
   }
-  if (update?.action?.authorization_state === "none" && (update.action.owner || update.action.authority)) {
-    errors.push("an unauthorised public update cannot claim an owner or authority");
+  if (update?.action?.authorization_state === "none" &&
+      (update.action.owner || update.action.authority || update.action.help_route || update.action.appeal_route)) {
+    errors.push("an unauthorised public update cannot claim an owner, authority, help route or appeal route");
   }
   if (update?.next_check?.related_to_inference && (!update.next_check.on || !update.next_check.owner)) {
     errors.push("a next check linked to the inference requires a date and owner");

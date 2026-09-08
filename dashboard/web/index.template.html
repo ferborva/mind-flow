@@ -377,7 +377,11 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .condition-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:var(--accent);opacity:.55}
 .condition-card .ordinal{font:500 10px "IBM Plex Mono",monospace;color:var(--ink-3)}
 .condition-card h3{font-size:19px;margin:9px 0 5px}.condition-card p{font-size:12.5px;color:var(--ink-2);margin:0 0 14px}
-.condition-card .unknown{font:600 10px "IBM Plex Mono",monospace;color:var(--warning);letter-spacing:.09em}
+.condition-card .condition-state{font:600 10px "IBM Plex Mono",monospace;color:var(--warning);letter-spacing:.09em;text-transform:uppercase}
+.condition-card details{margin-top:13px;border-top:1px solid var(--rule);padding-top:10px}.condition-card summary{cursor:pointer;color:var(--accent);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.condition-card details p{margin:7px 0 0;font-size:11px;color:var(--ink-3);white-space:pre-line}
+.if-claim{border-left:3px solid var(--accent);background:var(--surface-2);padding:14px 16px;margin:0 0 15px;color:var(--ink-2);font-size:13px}
+.condition-decision{border:1px dashed var(--axis);padding:12px 14px;margin:15px 0 0;color:var(--ink-2);font-size:12px;border-radius:5px}
 @media(max-width:900px){.condition-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.condition-grid{grid-template-columns:1fr}}
 .path-horizon{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
@@ -477,14 +481,9 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
         <p>The condition chain is the unit of public reasoning. A capability announcement is an input,
           not evidence that people received a durable, fair increase in agency.</p>
       </div>
-      <div class="condition-grid">
-        <article class="condition-card"><span class="ordinal">IF 01</span><h3>Capability</h3><p>Can the system perform the useful task safely and reliably in context?</p><span class="unknown">UNKNOWN</span></article>
-        <article class="condition-card"><span class="ordinal">IF 02</span><h3>Reach</h3><p>Can the affected people access it at an acceptable total cost?</p><span class="unknown">UNKNOWN</span></article>
-        <article class="condition-card"><span class="ordinal">IF 03</span><h3>Agency</h3><p>Does it expand meaningful choices without coercion or dependency?</p><span class="unknown">UNKNOWN</span></article>
-        <article class="condition-card"><span class="ordinal">IF 04</span><h3>Durability</h3><p>Do benefits persist through shocks, market shifts and policy changes?</p><span class="unknown">UNKNOWN</span></article>
-        <article class="condition-card"><span class="ordinal">IF 05</span><h3>Fairness</h3><p>Are gains and burdens distributed with voice, remedy and dignity?</p><span class="unknown">UNKNOWN</span></article>
-      </div>
-      <p class="small-note"><strong>Current state: incomplete.</strong> Five unknowns are not a score of zero and do not imply failure. They mark the work required before a claim can pass.</p>
+      <p class="if-claim" id="if-claim" aria-live="polite">Loading the registered claim and scope…</p>
+      <div class="condition-grid" id="condition-grid"></div>
+      <p class="condition-decision" id="condition-decision" aria-live="polite">Loading the registered decision…</p>
     </section>
 
     <section class="section" id="possible-paths">
@@ -582,6 +581,7 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
           <div class="flow"><b>named sources</b><i>→</i><b>fetch_snapshot.py</b><i>→</i><b>dated snapshot</b><i>→</i><b>validated build</b></div>
           <p><strong>Local snapshot loading is disabled in this public prototype.</strong> Schema-major checking alone was insufficient. Re-enable only after full schema validation, provenance checks and an unmistakable local-data watermark.</p>
           <div class="warnbar"><strong>Current limit.</strong> The snapshot schema validates structure, not whether a source is correct, a method is appropriate or a conclusion is justified.</div>
+          <p class="small-note">Abridged shape for orientation only. The complete embedded snapshot is validated at build time.</p>
           <pre id="api-shape"></pre>
         </section>
       </div>
@@ -803,6 +803,30 @@ function renderCoverage(){
   var host=document.getElementById("coverage-list");host.innerHTML="";
   Object.keys(labels).forEach(function(status){var row=el("div");row.appendChild(el("dt",null,labels[status]));row.appendChild(el("dd",null,String(counts[status]||0)));host.appendChild(row);});
   document.getElementById("coverage-note").textContent="Evidence-class inventory only. No aggregate score, readiness claim, risk level or probability.";
+}
+
+function renderConditionMap(){
+  var path=snap.if_path,claimHost=document.getElementById("if-claim"),grid=document.getElementById("condition-grid"),decision=document.getElementById("condition-decision");
+  grid.innerHTML="";
+  if(!path){
+    claimHost.textContent="No validated IF path is included in this snapshot.";
+    decision.textContent="NO DECISION. Missing IF-path contract.";return;
+  }
+  var claim=path.claim;
+  claimHost.textContent="WHO: "+claim.who+" · VERB: "+claim.verb+" · OUTCOME: "+claim.outcome+" · STANDARD: "+claim.standard+" · PLACE: "+claim.place+" · PERIOD: "+claim.period+" · STATUS: "+claim.status.toUpperCase();
+  path.conditions.slice().sort(function(a,b){return a.position-b.position;}).forEach(function(condition){
+    var card=el("article","condition-card");
+    card.appendChild(el("span","ordinal","IF "+String(condition.position).padStart(2,"0")));
+    card.appendChild(el("h3",null,condition.label));
+    card.appendChild(el("p",null,condition.question));
+    card.appendChild(el("span","condition-state",condition.state+" · "+condition.evidence_grade));
+    var details=el("details"),summary=el("summary",null,"Why this state?"),body=el("p",null,
+      condition.summary+"\nBecause: "+condition.because+"\nStrongest challenge: "+condition.strongest_challenge+
+      "\nNext observation: "+condition.next_observation.event+"\nDate: "+(condition.next_observation.on||"Not scheduled")+
+      " · Owner: "+(condition.next_observation.owner||"None")+"\nIf unavailable: "+condition.next_observation.failure_handling);
+    details.appendChild(summary);details.appendChild(body);card.appendChild(details);grid.appendChild(card);
+  });
+  decision.textContent=path.decision.result.toUpperCase().replaceAll("_"," ")+". "+path.decision.summary;
 }
 
 function renderFailureModes(){
@@ -1108,6 +1132,9 @@ function renderMeta(){
       affected:{status:"unknown",summary:"…"},inferred:{summary:"…",inference_class:"descriptive"},
       condition_change:{changed:false,state:"unknown"},action:{authorization_state:"none",owner:null,authority:null},
       falsifier:{test:"…",implication:"withdraw or narrow"},next_check:{on:null,owner:null,related_to_inference:false}},
+    if_path:{claim:{who:"…",verb:"gain",outcome:"…",standard:"…",place:"…",period:"…",status:"unresolved"},
+      conditions:[{id:"capability",state:"unknown",evidence_grade:"No scoped evaluation",strongest_challenge:"…",next_observation:{event:"…",on:null,owner:null}}],
+      decision:{result:"no_decision",eligible_actions:[]}},
     crises:[{id:"credibility-break",status:"unscored",leading_signals:["inflation","access-margin"],actions:{prepare:"…",protect:"…",recover:"…"}}],
     playbooks:{country:{now:["…"],warning:["…"],crisis:["…"]}}
   },null,1);
@@ -1149,7 +1176,7 @@ function renderNow(){
 }
 
 function renderAll(){
-  renderMeta();renderNow();renderCoverage();renderVerdict();renderFailureModes();renderPlaybook();
+  renderMeta();renderNow();renderCoverage();renderConditionMap();renderVerdict();renderFailureModes();renderPlaybook();
   renderFamilyFilter();renderEntityButtons();renderScenario();renderFamilies();
 }
 
