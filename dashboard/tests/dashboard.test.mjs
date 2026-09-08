@@ -6,6 +6,9 @@ import { dirname, join, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
+
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const templatePath = join(dashboard, "web", "index.template.html");
@@ -71,19 +74,17 @@ test("snapshot carries actionable crisis and actor contracts", () => {
   }
 });
 
-test("the JSON schema validates the current snapshot contract", () => {
+test("the JSON schema actually validates the current snapshot contract", () => {
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
-  assert.equal(schema.$id, "https://mind-flow.local/dashboard/snapshot.schema.json");
-  assert.deepEqual(schema.required, [
-    "schema_version",
-    "snapshot_id",
-    "generated_at",
-    "generator",
-    "entities",
-    "signals",
-  ]);
-  assert.ok(schema.properties.crises);
-  assert.ok(schema.properties.playbooks);
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  addFormats(ajv);
+  const validate = ajv.compile(schema);
+
+  assert.equal(validate(snapshot), true, ajv.errorsText(validate.errors));
+
+  const malformed = structuredClone(snapshot);
+  malformed.signals[0].status = "looks-good";
+  assert.equal(validate(malformed), false, "invalid signal state must fail validation");
 });
 
 test("the build produces a self-contained page with parseable application code", () => {
