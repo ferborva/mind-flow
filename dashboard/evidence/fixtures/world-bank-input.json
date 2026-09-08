@@ -1,0 +1,30 @@
+{
+  "raw_input": {
+    "id": "sha256:ca3af7149ec3e491452d338f204609cefbdd35d563bab9df66f9aa5fa5abc642",
+    "sha256": "ca3af7149ec3e491452d338f204609cefbdd35d563bab9df66f9aa5fa5abc642",
+    "path": "../raw/world-bank-sample.json",
+    "byte_length": 140,
+    "media_type": "application/json",
+    "source_url": "https://api.worldbank.org/v2/country/WLD/indicator/SL.TLF.CACT.ZS",
+    "retrieved_at": "2026-09-08T00:00:00Z",
+    "response_metadata": {
+      "http_status": 200,
+      "content_type": "application/json",
+      "etag": null,
+      "last_modified": null
+    },
+    "adapter": {
+      "id": "world-bank-json",
+      "version": "1.0.0",
+      "selected_fields": ["countryiso3code", "country.id", "date", "value"],
+      "epistemic_rules": [
+        {
+          "epistemic_class": "modelled_estimate",
+          "source_vintage": "Test fixture vintage",
+          "uncertainty": "Test fixture only.",
+          "resolution_rule": "Replace only through a new fixture manifest."
+        }
+      ]
+    }
+  }
+}

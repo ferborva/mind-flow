@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -17,6 +17,8 @@ const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
 const schemaReadmePath = join(dashboard, "schema", "SCHEMA.md");
 const dashboardReadmePath = join(dashboard, "README.md");
 const buildPath = join(dashboard, "tools", "build.mjs");
+const fetchSnapshotPath = join(dashboard, "tools", "fetch_snapshot.py");
+const rawInputManifestPath = join(dashboard, "evidence", "fixtures", "world-bank-input.json");
 
 const template = readFileSync(templatePath, "utf8");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
@@ -208,7 +210,7 @@ test("entity selection never silently falls back to another geography", () => {
 });
 
 test("snapshot carries actionable crisis and actor contracts", () => {
-  assert.match(snapshot.schema_version, /^1\.4\./);
+  assert.match(snapshot.schema_version, /^1\.5\./);
   assert.ok(snapshot.crises.length >= 5);
   assert.ok(Object.keys(snapshot.playbooks).length >= 5);
 
@@ -277,6 +279,106 @@ test("snapshot carries one complete, bounded public update contract", () => {
   assert.equal(update.next_check.related_to_inference, false);
 });
 
+test("availability is separate from point-level epistemic class", () => {
+  const allowedClasses = new Set([
+    "observed",
+    "derived",
+    "modelled_estimate",
+    "nowcast",
+    "forecast",
+  ]);
+
+  for (const signal of snapshot.signals) {
+    assert.ok(
+      ["available", "not_measured", "unavailable"].includes(signal.status),
+      `${signal.id}: status must describe availability, not epistemic class`,
+    );
+    for (const series of signal.series) {
+      for (const point of series.points) {
+        assert.equal(point.length, 3, `${signal.id}: every point must carry an epistemic class`);
+        assert.ok(allowedClasses.has(point[2]), `${signal.id}: invalid class ${point[2]}`);
+      }
+    }
+    if (signal.status === "available") {
+      assert.ok(signal.source.adapter?.version, `${signal.id}: adapter version is required`);
+      assert.ok(signal.source.adapter?.selected_fields.length, `${signal.id}: selected fields are required`);
+    }
+    if (signal.latest) {
+      assert.ok(allowedClasses.has(signal.latest.epistemic_class));
+    }
+  }
+
+  for (const id of ["poverty-30", "poverty-830"]) {
+    const signal = snapshot.signals.find((candidate) => candidate.id === id);
+    const tail = signal.series.flatMap(({ points }) => points.filter(([year]) => year >= 2025));
+    assert.ok(tail.length > 0, `${id}: expected a 2025/2026 tail`);
+    assert.ok(tail.every(([, , epistemicClass]) => epistemicClass === "nowcast"));
+  }
+
+  const participation = snapshot.signals.find(({ id }) => id === "participation");
+  const participationTail = participation.series
+    .flatMap(({ points }) => points.filter(([year]) => year >= 2025));
+  assert.ok(participationTail.length > 0, "participation: expected a 2025 tail");
+  assert.ok(participationTail.every(([, , epistemicClass]) => epistemicClass === "modelled_estimate"));
+
+  assert.match(template, /function epistemicLabel\(/);
+  assert.match(template, /selectedLatest\.year\+" "\+epistemicLabel\(selectedLatest\.epistemic_class\)/);
+  assert.match(template, /epistemicLabel\(p\[2\]\)/);
+  assert.equal(snapshot.reproducibility.raw_input_status, "not_pinned");
+  assert.equal(snapshot.reproducibility.snapshot_rebuild_status, "not_verified");
+  assert.match(snapshot.reproducibility.residual_gap, /bit-for-bit rebuild.*not passed/i);
+});
+
+test("content-addressed raw input is verified before an adapter transforms it", () => {
+  const transformed = JSON.parse(execFileSync(
+    "python3",
+    [fetchSnapshotPath, "--verify-input-manifest", rawInputManifestPath],
+    { encoding: "utf8" },
+  ));
+  assert.deepEqual(transformed, {
+    OWID_WRL: [[2025, 61.25, "modelled_estimate"]],
+  });
+
+  const fixture = JSON.parse(readFileSync(rawInputManifestPath, "utf8"));
+  assert.match(fixture.raw_input.id, /^sha256:[a-f0-9]{64}$/);
+  assert.equal(fixture.raw_input.sha256, fixture.raw_input.id.slice("sha256:".length));
+  assert.ok(fixture.raw_input.adapter.version);
+  assert.ok(fixture.raw_input.adapter.selected_fields.includes("value"));
+
+  const outDir = mkdtempSync(join(tmpdir(), "seldon-raw-evidence-"));
+  const mutatedRawPath = join(outDir, "mutated.json");
+  const sourceRawPath = resolve(dirname(rawInputManifestPath), fixture.raw_input.path);
+  copyFileSync(sourceRawPath, mutatedRawPath);
+  writeFileSync(mutatedRawPath, `${readFileSync(mutatedRawPath, "utf8")}not-json`);
+  fixture.raw_input.path = "mutated.json";
+  const mutatedManifestPath = join(outDir, "manifest.json");
+  writeFileSync(mutatedManifestPath, JSON.stringify(fixture));
+  assert.throws(
+    () => execFileSync(
+      "python3",
+      [fetchSnapshotPath, "--verify-input-manifest", mutatedManifestPath],
+      { encoding: "utf8", stdio: "pipe" },
+    ),
+    /sha256 mismatch.*before transform/i,
+  );
+
+  const unsupported = structuredClone(fixture);
+  unsupported.raw_input.path = mutatedRawPath;
+  unsupported.raw_input.sha256 = fixture.raw_input.sha256;
+  unsupported.raw_input.adapter.version = "999.0.0";
+  const unsupportedManifestPath = join(outDir, "unsupported.json");
+  copyFileSync(sourceRawPath, mutatedRawPath);
+  writeFileSync(unsupportedManifestPath, JSON.stringify(unsupported));
+  assert.throws(
+    () => execFileSync(
+      "python3",
+      [fetchSnapshotPath, "--verify-input-manifest", unsupportedManifestPath],
+      { encoding: "utf8", stdio: "pipe" },
+    ),
+    /unsupported adapter version/i,
+  );
+});
+
 test("the JSON schema actually validates the current snapshot contract", () => {
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
   const ajv = new Ajv2020({ allErrors: true, strict: true });
@@ -288,6 +390,14 @@ test("the JSON schema actually validates the current snapshot contract", () => {
   const malformed = structuredClone(snapshot);
   malformed.signals[0].status = "looks-good";
   assert.equal(validate(malformed), false, "invalid signal state must fail validation");
+
+  const unclassifiedPoint = structuredClone(snapshot);
+  unclassifiedPoint.signals[0].series[0].points[0].pop();
+  assert.equal(validate(unclassifiedPoint), false, "a point without an epistemic class must fail validation");
+
+  const unsupportedClosureClaim = structuredClone(snapshot);
+  unsupportedClosureClaim.reproducibility.snapshot_rebuild_status = "verified_bit_for_bit";
+  assert.equal(validate(unsupportedClosureClaim), false, "bit-for-bit closure cannot be claimed by this slice");
 
   const unknownRootField = structuredClone(snapshot);
   unknownRootField.internal_cohort_records = [{ name: "must not become public" }];
@@ -328,6 +438,34 @@ test("the build enforces series, headline, latest and action-authority semantics
   const staleLatest = structuredClone(snapshot);
   staleLatest.signals[0].latest.value += 1;
   assertBuildRejects(staleLatest, inputPath, outputPath, /semantic validation failed.*latest.*last point/i);
+
+  const staleLatestClass = structuredClone(snapshot);
+  staleLatestClass.signals[0].latest.epistemic_class = "forecast";
+  assertBuildRejects(staleLatestClass, inputPath, outputPath, /semantic validation failed.*latest.*last point/i);
+
+  const contradictedNowcast = structuredClone(snapshot);
+  const poverty = contradictedNowcast.signals.find(({ id }) => id === "poverty-30");
+  poverty.series.flatMap(({ points }) => points).find(([year]) => year >= 2025)[2] = "observed";
+  assertBuildRejects(
+    contradictedNowcast,
+    inputPath,
+    outputPath,
+    /semantic validation failed.*class observed contradicts adapter rule nowcast/i,
+  );
+
+  const fixture = JSON.parse(readFileSync(rawInputManifestPath, "utf8")).raw_input;
+  const mismatchedRawInput = structuredClone(snapshot);
+  fixture.path = "evidence/raw/world-bank-sample.json";
+  fixture.id = `sha256:${"0".repeat(64)}`;
+  fixture.sha256 = "0".repeat(64);
+  mismatchedRawInput.reproducibility.raw_input_status = "captured_and_hash_verified";
+  mismatchedRawInput.reproducibility.raw_inputs = [fixture];
+  assertBuildRejects(
+    mismatchedRawInput,
+    inputPath,
+    outputPath,
+    /sha256 mismatch before transform/i,
+  );
 
   const misalignedHeadline = structuredClone(snapshot);
   const headline = misalignedHeadline.signals.find(({ id }) => id === "engels-divergence");
@@ -434,7 +572,7 @@ test("the build produces a self-contained page with parseable application code",
   );
 });
 
-test("operator documentation matches the governed 1.4 snapshot build", () => {
+test("operator documentation matches the governed 1.5 snapshot build", () => {
   const readme = readFileSync(dashboardReadmePath, "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
@@ -443,7 +581,7 @@ test("operator documentation matches the governed 1.4 snapshot build", () => {
   assert.match(readme, /release.*blocked/i);
   assert.doesNotMatch(readme, /Load snapshot/i);
   assert.doesNotMatch(readme, /current v2/i);
-  assert.match(schemaReadme, /Version 1\.4\.0/);
+  assert.match(schemaReadme, /Version 1\.5\.0/);
   assert.match(schemaReadme, /seven-part public update/i);
   assert.match(schemaReadme, /semantic validation/i);
   assert.doesNotMatch(schemaReadme, /No page rebuild required/i);

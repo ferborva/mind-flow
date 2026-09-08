@@ -1,26 +1,38 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.4.0
+fetch_snapshot.py 1.5.0
 
 Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.4.0).
+conforming to dashboard/schema/snapshot.schema.json (v1.5.0).
 
     python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
     python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
 
 Design rules, enforced here so the contract holds:
   - never invent a data point, never interpolate, never carry forward
-  - every signal records its source url and retrieval date
+  - availability is separate from the epistemic class carried by every point
+  - selected fields and adapter versions are explicit contracts
+  - raw responses are content-addressed, persisted and hash-verified before parsing
   - a signal that cannot be fetched is emitted with status "unavailable" and an
     empty series, rather than silently dropped
   - a signal nobody publishes is emitted with status "not_measured" on purpose
 """
 
-import argparse, csv, io, json, sys, urllib.request, datetime, os
+import argparse, csv, hashlib, io, json, sys, urllib.request, datetime, os
 
-GENERATOR = "fetch_snapshot.py@1.4.0"
-SCHEMA_VERSION = "1.4.0"
+GENERATOR = "fetch_snapshot.py@1.5.0"
+SCHEMA_VERSION = "1.5.0"
 TIMEOUT = 60
+DASHBOARD_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAW_INPUT_DIR = os.path.join(DASHBOARD_DIR, "evidence", "raw")
+ADAPTER_VERSIONS = {
+    "owid-grapher-csv": "1.0.0",
+    "world-bank-json": "1.0.0",
+}
+REQUIRED_SELECTED_FIELDS = {
+    "owid-grapher-csv": {"Entity", "Code", "Year"},
+    "world-bank-json": {"countryiso3code", "country.id", "date", "value"},
+}
 
 # Entities we pull. World first; the rest give cross-country variance.
 ENTITIES = [
@@ -40,19 +52,96 @@ WB_CODES = {c: wb for c, _, _, wb in ENTITIES}
 def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": "mind-flow-dashboard/1.0"})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-        return r.read().decode("utf-8", errors="replace")
+        return r.read(), {
+            "http_status": r.status,
+            "content_type": r.headers.get("Content-Type"),
+            "etag": r.headers.get("ETag"),
+            "last_modified": r.headers.get("Last-Modified"),
+        }
+
+
+def epistemic_class_for(adapter, year):
+    rules = [rule for rule in adapter["epistemic_rules"]
+             if ("from_year" not in rule or year >= rule["from_year"])
+             and ("through_year" not in rule or year <= rule["through_year"])]
+    if len(rules) != 1:
+        raise RuntimeError(f"year {year} must match exactly one epistemic rule")
+    return rules[0]["epistemic_class"]
+
+
+def verify_adapter_contract(adapter):
+    adapter_id = adapter.get("id")
+    expected_version = ADAPTER_VERSIONS.get(adapter_id)
+    if expected_version is None or adapter.get("version") != expected_version:
+        raise RuntimeError(
+            f"unsupported adapter version: {adapter_id}@{adapter.get('version')}"
+        )
+    selected = set(adapter.get("selected_fields") or [])
+    missing = REQUIRED_SELECTED_FIELDS[adapter_id] - selected
+    if missing:
+        raise RuntimeError(f"adapter selected-field contract is missing: {sorted(missing)}")
+    if not adapter.get("epistemic_rules"):
+        raise RuntimeError("adapter epistemic rule contract is empty")
+
+
+def verify_raw_input(raw_input, base_dir):
+    path = raw_input["path"]
+    if not os.path.isabs(path):
+        path = os.path.normpath(os.path.join(base_dir, path))
+    with open(path, "rb") as handle:
+        raw = handle.read()
+    digest = hashlib.sha256(raw).hexdigest()
+    if raw_input.get("id") != f"sha256:{raw_input.get('sha256')}":
+        raise RuntimeError("content-addressed id does not match declared sha256")
+    if digest != raw_input.get("sha256"):
+        raise RuntimeError("sha256 mismatch before transform")
+    if len(raw) != raw_input.get("byte_length"):
+        raise RuntimeError("byte length mismatch before transform")
+    verify_adapter_contract(raw_input["adapter"])
+    return raw
+
+
+def capture_verified_raw_input(url, adapter, suffix):
+    raw, response_metadata = get(url)
+    digest = hashlib.sha256(raw).hexdigest()
+    os.makedirs(RAW_INPUT_DIR, exist_ok=True)
+    filename = f"sha256-{digest}.{suffix}"
+    path = os.path.join(RAW_INPUT_DIR, filename)
+    if not os.path.exists(path):
+        with open(path, "wb") as handle:
+            handle.write(raw)
+    raw_input = {
+        "id": f"sha256:{digest}",
+        "sha256": digest,
+        "path": f"evidence/raw/{filename}",
+        "byte_length": len(raw),
+        "media_type": response_metadata["content_type"] or "application/octet-stream",
+        "source_url": url,
+        "retrieved_at": datetime.datetime.now(datetime.timezone.utc)
+                        .replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "response_metadata": response_metadata,
+        "adapter": adapter,
+    }
+    verified = verify_raw_input(raw_input, DASHBOARD_DIR)
+    return verified, raw_input
 
 
 # ---------------------------------------------------------------- adapters
 
-def owid(slug, value_col=None):
-    """Our World in Data grapher CSV -> {entity_code: [[year, value], ...]}"""
-    raw = get(f"https://ourworldindata.org/grapher/{slug}.csv")
-    rows = list(csv.DictReader(io.StringIO(raw)))
+def transform_owid(raw, adapter):
+    """Verified OWID Grapher CSV bytes -> classified points by entity."""
+    text = raw.decode("utf-8", errors="strict")
+    rows = list(csv.DictReader(io.StringIO(text)))
     if not rows:
         raise RuntimeError("empty csv")
-    cols = [c for c in rows[0] if c not in ("Entity", "Code", "Year")]
-    col = value_col or cols[0]
+    selected = adapter["selected_fields"]
+    missing = [field for field in selected if field not in rows[0]]
+    if missing:
+        raise RuntimeError(f"selected OWID fields are absent: {missing}")
+    value_fields = [field for field in selected if field not in ("Entity", "Code", "Year")]
+    if len(value_fields) != 1:
+        raise RuntimeError("OWID adapter must select exactly one value field")
+    col = value_fields[0]
     out = {}
     for r in rows:
         code = (r.get("Code") or "").strip()
@@ -62,19 +151,23 @@ def owid(slug, value_col=None):
             y = int(r["Year"]); v = float(r[col])
         except (ValueError, TypeError, KeyError):
             continue
-        out.setdefault(code, []).append([y, round(v, 4)])
+        out.setdefault(code, []).append([y, round(v, 4), epistemic_class_for(adapter, y)])
     for k in out:
         out[k].sort(key=lambda p: p[0])
     return out
 
 
-def worldbank(indicator):
-    """World Bank API -> {entity_code: [[year, value], ...]}"""
+def owid(slug, source):
+    url = (f"https://ourworldindata.org/grapher/{slug}.csv"
+           "?v=1&csvType=full&useColumnShortNames=false")
+    raw, raw_input = capture_verified_raw_input(url, source["adapter"], "csv")
+    return transform_owid(raw, source["adapter"]), raw_input
+
+
+def transform_worldbank(raw, adapter):
+    """Verified World Bank API bytes -> classified points by entity."""
     out = {}
-    codes = ";".join(WB_CODES[c] for c, _, _, _ in ENTITIES)
-    url = (f"https://api.worldbank.org/v2/country/{codes}/indicator/{indicator}"
-           f"?format=json&per_page=20000")
-    data = json.loads(get(url))
+    data = json.loads(raw.decode("utf-8", errors="strict"))
     if len(data) < 2 or not data[1]:
         raise RuntimeError("no data")
     rev = {wb: c for c, _, _, wb in ENTITIES}
@@ -88,10 +181,33 @@ def worldbank(indicator):
             code = "OWID_WRL"
         if not code:
             continue
-        out.setdefault(code, []).append([int(row["date"]), round(float(row["value"]), 4)])
+        year = int(row["date"])
+        out.setdefault(code, []).append(
+            [year, round(float(row["value"]), 4), epistemic_class_for(adapter, year)]
+        )
     for k in out:
         out[k].sort(key=lambda p: p[0])
     return out
+
+
+def worldbank(indicator, source):
+    codes = ";".join(WB_CODES[c] for c, _, _, _ in ENTITIES)
+    url = (f"https://api.worldbank.org/v2/country/{codes}/indicator/{indicator}"
+           f"?format=json&per_page=20000")
+    raw, raw_input = capture_verified_raw_input(url, source["adapter"], "json")
+    return transform_worldbank(raw, source["adapter"]), raw_input
+
+
+def transform_verified_manifest(path):
+    with open(path, encoding="utf-8") as handle:
+        raw_input = json.load(handle)["raw_input"]
+    raw = verify_raw_input(raw_input, os.path.dirname(os.path.abspath(path)))
+    adapter = raw_input["adapter"]
+    if adapter["id"] == "world-bank-json":
+        return transform_worldbank(raw, adapter)
+    if adapter["id"] == "owid-grapher-csv":
+        return transform_owid(raw, adapter)
+    raise RuntimeError(f"no transform for adapter {adapter['id']}")
 
 
 # ---------------------------------------------------------------- signals
@@ -99,6 +215,25 @@ def worldbank(indicator):
 def S(**kw):
     kw.setdefault("caveats", [])
     return kw
+
+
+RESOLUTION_RULE = ("Preserve this snapshot vintage. Replace a value only in a new snapshot "
+                   "when the publisher revises or resolves the same period.")
+
+
+def rule(epistemic_class, source_vintage, uncertainty, from_year=None, through_year=None):
+    value = dict(epistemic_class=epistemic_class, source_vintage=source_vintage,
+                 uncertainty=uncertainty, resolution_rule=RESOLUTION_RULE)
+    if from_year is not None:
+        value["from_year"] = from_year
+    if through_year is not None:
+        value["through_year"] = through_year
+    return value
+
+
+def adapter(identifier, selected_fields, epistemic_rules):
+    return dict(id=identifier, version=ADAPTER_VERSIONS[identifier],
+                selected_fields=selected_fields, epistemic_rules=epistemic_rules)
 
 
 SIGNAL_DEFS = [
@@ -110,8 +245,14 @@ SIGNAL_DEFS = [
         trouble_reading="A sustained fall while output per person rises.",
         source=dict(name="Our World in Data / ILOSTAT (SDG 10.4.1)",
                     url="https://ourworldindata.org/grapher/labor-share-of-gdp",
-                    note="SDG indicator 10.4.1, labour income share as a percent of GDP"),
-        fetch=lambda: owid("labor-share-of-gdp"),
+                    note="SDG indicator 10.4.1, labour income share as a percent of GDP",
+                    adapter=adapter("owid-grapher-csv",
+                        ["Entity", "Code", "Year",
+                         "10.4.1 - Labour share of GDP (%) - SL_EMP_GTOTL"],
+                        [rule("modelled_estimate", "ILOSTAT modelled estimates",
+                              "No point interval is preserved in this snapshot.")]),
+                    raw_input_ids=[]),
+        fetch=lambda source: owid("labor-share-of-gdp", source),
     ),
     dict(
         id="gdp-per-capita", name="GDP per capita", family="engels",
@@ -121,8 +262,13 @@ SIGNAL_DEFS = [
         trouble_reading="Rising output alongside sustained cohort-level earnings or access deterioration.",
         source=dict(name="World Bank Open Data",
                     url="https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.PCAP.KD",
-                    note="NY.GDP.PCAP.KD, constant 2015 US$"),
-        fetch=lambda: worldbank("NY.GDP.PCAP.KD"),
+                    note="NY.GDP.PCAP.KD, constant 2015 US$",
+                    adapter=adapter("world-bank-json",
+                        ["countryiso3code", "country.id", "date", "value"],
+                        [rule("observed", "World Bank indicator NY.GDP.PCAP.KD",
+                              "No point interval is published in this snapshot; national accounts remain revisable.")]),
+                    raw_input_ids=[]),
+        fetch=lambda source: worldbank("NY.GDP.PCAP.KD", source),
     ),
     dict(
         id="poverty-30", name="Living on less than $30 a day", family="conditions",
@@ -135,8 +281,16 @@ SIGNAL_DEFS = [
                  "Rests on PPP conversion, which is itself contested for cross-country comparison."],
         source=dict(name="Our World in Data / World Bank PIP",
                     url="https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day",
-                    note="2021 international prices"),
-        fetch=lambda: owid("poverty-share-on-less-than-30-per-day"),
+                    note="2021 international prices",
+                    adapter=adapter("owid-grapher-csv",
+                        ["Entity", "Code", "Year",
+                         "Share of population living on less than $30 a day"],
+                        [rule("observed", "World Bank PIP survey-based series",
+                              "No point interval is preserved in this snapshot.", through_year=2024),
+                         rule("nowcast", "World Bank PIP post-2024 nowcast",
+                              "Modelled tail; no point interval is preserved in this snapshot.", from_year=2025)]),
+                    raw_input_ids=[]),
+        fetch=lambda source: owid("poverty-share-on-less-than-30-per-day", source),
     ),
     dict(
         id="poverty-830", name="Living on less than $8.30 a day", family="conditions",
@@ -149,8 +303,16 @@ SIGNAL_DEFS = [
                  "across that revision without care."],
         source=dict(name="Our World in Data / World Bank PIP",
                     url="https://ourworldindata.org/grapher/share-living-with-less-than-upper-middle-income-poverty-line",
-                    note="$8.30/day, 2021 international prices"),
-        fetch=lambda: owid("share-living-with-less-than-upper-middle-income-poverty-line"),
+                    note="$8.30/day, 2021 international prices",
+                    adapter=adapter("owid-grapher-csv",
+                        ["Entity", "Code", "Year",
+                         "Share of population living on less than $8.30 a day"],
+                        [rule("observed", "World Bank PIP survey-based series",
+                              "No point interval is preserved in this snapshot.", through_year=2024),
+                         rule("nowcast", "World Bank PIP post-2024 nowcast",
+                              "Modelled tail; no point interval is preserved in this snapshot.", from_year=2025)]),
+                    raw_input_ids=[]),
+        fetch=lambda source: owid("share-living-with-less-than-upper-middle-income-poverty-line", source),
     ),
     dict(
         id="participation", name="Labour force participation rate", family="labour",
@@ -162,8 +324,13 @@ SIGNAL_DEFS = [
                  "It cannot distinguish voluntary choice, automation effects or human-required work."],
         source=dict(name="World Bank Open Data / ILO modelled estimates",
                     url="https://api.worldbank.org/v2/country/WLD/indicator/SL.TLF.CACT.ZS",
-                    note="SL.TLF.CACT.ZS, ages 15+"),
-        fetch=lambda: worldbank("SL.TLF.CACT.ZS"),
+                    note="SL.TLF.CACT.ZS, ages 15+",
+                    adapter=adapter("world-bank-json",
+                        ["countryiso3code", "country.id", "date", "value"],
+                        [rule("modelled_estimate", "ILO modelled estimates indicator SL.TLF.CACT.ZS",
+                              "No point interval is preserved in this snapshot.")]),
+                    raw_input_ids=[]),
+        fetch=lambda source: worldbank("SL.TLF.CACT.ZS", source),
     ),
     dict(
         id="inflation", name="Consumer price inflation", family="prices",
@@ -177,8 +344,13 @@ SIGNAL_DEFS = [
                  "the basket. The strongest objection to using it here, and it is unresolved."],
         source=dict(name="World Bank Open Data",
                     url="https://api.worldbank.org/v2/country/WLD/indicator/FP.CPI.TOTL.ZG",
-                    note="FP.CPI.TOTL.ZG, annual %"),
-        fetch=lambda: worldbank("FP.CPI.TOTL.ZG"),
+                    note="FP.CPI.TOTL.ZG, annual %",
+                    adapter=adapter("world-bank-json",
+                        ["countryiso3code", "country.id", "date", "value"],
+                        [rule("observed", "World Bank indicator FP.CPI.TOTL.ZG",
+                              "No point interval is published in this snapshot; national series remain revisable.")]),
+                    raw_input_ids=[]),
+        fetch=lambda source: worldbank("FP.CPI.TOTL.ZG", source),
     ),
 ]
 
@@ -433,20 +605,23 @@ PLAYBOOKS = {
 
 
 def build(snapshot_id, retrieved):
-    signals, log = [], []
+    signals, log, raw_inputs = [], [], {}
 
     for d in SIGNAL_DEFS:
         fetch = d["fetch"]
         sig = {key: value for key, value in d.items() if key != "fetch"}
-        sig["status"] = "measured"
+        sig["status"] = "available"
         sig["source"] = dict(sig["source"], retrieved=retrieved)
         try:
-            data = fetch()
+            data, raw_input = fetch(sig["source"])
+            raw_inputs[raw_input["id"]] = raw_input
+            sig["source"]["raw_input_ids"] = [raw_input["id"]]
             sig["series"] = [{"entity": e, "points": p} for e, p in sorted(data.items()) if p]
             world = data.get("OWID_WRL") or (list(data.values())[0] if data else [])
             if world:
                 ent = "OWID_WRL" if data.get("OWID_WRL") else sorted(data)[0]
-                sig["latest"] = {"entity": ent, "year": world[-1][0], "value": world[-1][1]}
+                sig["latest"] = {"entity": ent, "year": world[-1][0], "value": world[-1][1],
+                                 "epistemic_class": world[-1][2]}
             log.append(f"  ok         {sig['id']:20} {len(sig['series'])} entities")
         except Exception as exc:
             sig["status"] = "unavailable"
@@ -473,9 +648,16 @@ def build(snapshot_id, retrieved):
                         .replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "generator": GENERATOR,
         "title": "Signals toward the transition",
-        "notes": ("Transition-control snapshot. Every measured series comes straight from an open "
-                  "registry with no interpolation. Instrument gaps remain visible, and crisis "
-                  "states remain unscored until their leading signals and thresholds exist."),
+        "notes": ("Transition-control snapshot. Availability is separate from point-level evidence "
+                  "class. Raw registry responses are content-addressed and hash-verified before "
+                  "transformation. Instrument gaps and unresolved rebuild evidence remain visible."),
+        "reproducibility": {
+            "raw_input_status": "captured_and_hash_verified",
+            "snapshot_rebuild_status": "not_verified",
+            "raw_inputs": list(raw_inputs.values()),
+            "residual_gap": ("Raw bytes were verified before transformation, but a fresh-environment "
+                             "bit-for-bit snapshot rebuild has not passed."),
+        },
         "public_update": build_public_update(signals, snapshot_id),
         "if_path": build_if_path(),
         "entities": [{"code": c, "name": n, "kind": k} for c, n, k, _ in ENTITIES],
@@ -505,8 +687,10 @@ def derive_engels(signals, retrieved, log):
     and it provides a descriptive comparison of output and constructed labour income.
     """
     by_id = {s["id"]: s for s in signals}
-    lab = {e["entity"]: dict(e["points"]) for e in by_id["labour-share"].get("series", [])}
-    gdp = {e["entity"]: dict(e["points"]) for e in by_id["gdp-per-capita"].get("series", [])}
+    lab = {e["entity"]: {year: value for year, value, _ in e["points"]}
+           for e in by_id["labour-share"].get("series", [])}
+    gdp = {e["entity"]: {year: value for year, value, _ in e["points"]}
+           for e in by_id["gdp-per-capita"].get("series", [])}
 
     div_series, gap_series = [], []
     for ent in sorted(set(lab) & set(gdp)):
@@ -517,9 +701,11 @@ def derive_engels(signals, retrieved, log):
         g0 = gdp[ent][base]
         l0 = lab[ent][base] / 100 * gdp[ent][base]
         div_series.append({"entity": ent, "measure": "Output per capita",
-                           "points": [[y, round(gdp[ent][y] / g0 * 100, 2)] for y in years]})
+                           "points": [[y, round(gdp[ent][y] / g0 * 100, 2), "derived"]
+                                      for y in years]})
         div_series.append({"entity": ent, "measure": "Labour income per capita",
-                           "points": [[y, round((lab[ent][y] / 100 * gdp[ent][y]) / l0 * 100, 2)]
+                           "points": [[y, round((lab[ent][y] / 100 * gdp[ent][y]) / l0 * 100, 2),
+                                       "derived"]
                                       for y in years]})
         pts = []
         for y in years[1:]:
@@ -528,15 +714,25 @@ def derive_engels(signals, retrieved, log):
             g = gdp[ent][y] / gdp[ent][y - 1] - 1
             li = ((lab[ent][y] / 100 * gdp[ent][y]) /
                   (lab[ent][y - 1] / 100 * gdp[ent][y - 1])) - 1
-            pts.append([y, round((li - g) * 100, 3)])
+            pts.append([y, round((li - g) * 100, 3), "derived"])
         if pts:
             gap_series.append({"entity": ent, "points": pts})
 
     common = dict(
-        family="engels", status="derived", direction="up_is_good",
+        family="engels", status="available", direction="up_is_good",
         source=dict(name="Derived from labour-share and GDP per capita",
                     url="", retrieved=retrieved,
-                    note="Computed by fetch_snapshot.py. Not published anywhere."),
+                    note="Computed by fetch_snapshot.py. Not published anywhere.",
+                    adapter={
+                        "id": "engels-derived-series",
+                        "version": "1.0.0",
+                        "selected_fields": ["labour-share.points", "gdp-per-capita.points"],
+                        "epistemic_rules": [rule(
+                            "derived", f"Derived in snapshot {retrieved}",
+                            "Input uncertainty is not propagated into an interval.",
+                        )],
+                    },
+                    raw_input_ids=[]),
         caveats=[
             "Labour income here is labour SHARE times output, so it includes an imputation for "
             "the self-employed. It is not a wage series.",
@@ -573,7 +769,8 @@ def derive_engels(signals, retrieved, log):
         series=gap_series)
     w = next((e["points"] for e in gap_series if e["entity"] == "OWID_WRL"), None)
     if w:
-        gap["latest"] = {"entity": "OWID_WRL", "year": w[-1][0], "value": w[-1][1]}
+        gap["latest"] = {"entity": "OWID_WRL", "year": w[-1][0], "value": w[-1][1],
+                         "epistemic_class": w[-1][2]}
 
     log.append(f"  derived    {'engels-divergence':20} {len(div_series)//2} entities x 2 measures")
     log.append(f"  derived    {'transmission-gap':20} {len(gap_series)} entities")
@@ -771,7 +968,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", default=datetime.date.today().isoformat())
     ap.add_argument("--out", default="dashboard/snapshots")
+    ap.add_argument(
+        "--verify-input-manifest",
+        help="Verify one content-addressed raw input and transform it with its pinned adapter contract",
+    )
     args = ap.parse_args()
+
+    if args.verify_input_manifest:
+        transformed = transform_verified_manifest(args.verify_input_manifest)
+        json.dump(transformed, sys.stdout, separators=(",", ":"), sort_keys=True)
+        sys.stdout.write("\n")
+        return 0
 
     print(f"building snapshot {args.id}")
     snap, log = build(args.id, args.id)
@@ -791,8 +998,8 @@ def main():
                   f, indent=1)
 
     kb = os.path.getsize(path) / 1024
-    measured = sum(1 for s in snap["signals"] if s["status"] == "measured")
-    print(f"\nwrote {path} ({kb:.0f} KB), {len(snap['signals'])} signals, {measured} measured")
+    available = sum(1 for s in snap["signals"] if s["status"] == "available")
+    print(f"\nwrote {path} ({kb:.0f} KB), {len(snap['signals'])} signals, {available} available")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,10 +21,44 @@ function validateSemantics(snapshot) {
   const signals = snapshot.signals || [];
   const entityIds = new Set(entities.map(({ code }) => code));
   const signalIds = new Set(signals.map(({ id }) => id));
+  const rawInputs = snapshot.reproducibility?.raw_inputs || [];
+  const rawInputIds = new Set(rawInputs.map(({ id }) => id));
+  const rawInputById = new Map(rawInputs.map((rawInput) => [rawInput.id, rawInput]));
   if (entityIds.size !== entities.length) errors.push("entity identifiers must be unique");
   if (signalIds.size !== signals.length) errors.push("signal identifiers must be unique");
+  if (rawInputIds.size !== rawInputs.length) errors.push("raw input identifiers must be unique");
+
+  for (const rawInput of rawInputs) {
+    if (rawInput.id !== `sha256:${rawInput.sha256}`) {
+      errors.push(`raw input ${rawInput.id} identifier must match its sha256`);
+    }
+  }
 
   for (const signal of signals) {
+    const adapter = signal.source?.adapter;
+    const hasPoints = (signal.series || []).some(({ points }) => points.length);
+    if (signal.status === "available" && !hasPoints) {
+      errors.push(`signal ${signal.id} is available but has no points`);
+    }
+    if (signal.status !== "available" && (hasPoints || signal.latest)) {
+      errors.push(`signal ${signal.id} is ${signal.status} but contains available data`);
+    }
+    if (hasPoints && !adapter) {
+      errors.push(`signal ${signal.id} with points requires an adapter contract`);
+    }
+    for (const rule of adapter?.epistemic_rules || []) {
+      if (rule.from_year !== undefined && rule.through_year !== undefined &&
+          rule.from_year > rule.through_year) {
+        errors.push(`signal ${signal.id} has an inverted epistemic rule year range`);
+      }
+    }
+    for (const rawInputId of signal.source?.raw_input_ids || []) {
+      if (!rawInputIds.has(rawInputId)) {
+        errors.push(`signal ${signal.id} raw input ${rawInputId} is not declared`);
+      } else if (JSON.stringify(rawInputById.get(rawInputId).adapter) !== JSON.stringify(adapter)) {
+        errors.push(`signal ${signal.id} adapter contract differs from raw input ${rawInputId}`);
+      }
+    }
     for (const [seriesIndex, series] of (signal.series || []).entries()) {
       if (!entityIds.has(series.entity)) {
         errors.push(`signal ${signal.id} series ${seriesIndex} entity ${series.entity} is not declared`);
@@ -32,6 +67,19 @@ function validateSemantics(snapshot) {
         if (series.points[pointIndex][0] <= series.points[pointIndex - 1][0]) {
           errors.push(`signal ${signal.id} series ${seriesIndex} point years must be strictly increasing`);
           break;
+        }
+      }
+      for (const [year, , epistemicClass] of series.points) {
+        const rules = (adapter?.epistemic_rules || []).filter((rule) =>
+          (rule.from_year === undefined || year >= rule.from_year) &&
+          (rule.through_year === undefined || year <= rule.through_year)
+        );
+        if (rules.length !== 1) {
+          errors.push(`signal ${signal.id} year ${year} must match exactly one epistemic rule`);
+        } else if (rules[0].epistemic_class !== epistemicClass) {
+          errors.push(
+            `signal ${signal.id} year ${year} class ${epistemicClass} contradicts adapter rule ${rules[0].epistemic_class}`,
+          );
         }
       }
     }
@@ -45,7 +93,8 @@ function validateSemantics(snapshot) {
         errors.push(`signal ${signal.id} latest must identify exactly one series`);
       } else {
         const lastPoint = matchingSeries[0].points.at(-1);
-        if (!lastPoint || lastPoint[0] !== signal.latest.year || lastPoint[1] !== signal.latest.value) {
+        if (!lastPoint || lastPoint[0] !== signal.latest.year || lastPoint[1] !== signal.latest.value ||
+            lastPoint[2] !== signal.latest.epistemic_class) {
           errors.push(`signal ${signal.id} latest must match its series last point`);
         }
       }
@@ -127,6 +176,24 @@ function validateSemantics(snapshot) {
   return errors;
 }
 
+function verifyRawInputs(snapshot) {
+  for (const rawInput of snapshot.reproducibility?.raw_inputs || []) {
+    const inputPath = resolve(dashboard, rawInput.path);
+    const evidenceRoot = `${resolve(dashboard, "evidence", "raw")}/`;
+    if (!inputPath.startsWith(evidenceRoot)) {
+      throw new Error(`raw input ${rawInput.id} path escapes dashboard/evidence/raw`);
+    }
+    const bytes = readFileSync(inputPath);
+    const digest = createHash("sha256").update(bytes).digest("hex");
+    if (bytes.length !== rawInput.byte_length) {
+      throw new Error(`raw input ${rawInput.id} byte length mismatch before transform`);
+    }
+    if (digest !== rawInput.sha256) {
+      throw new Error(`raw input ${rawInput.id} sha256 mismatch before transform`);
+    }
+  }
+}
+
 try {
   const template = readFileSync(templatePath, "utf8");
   const placeholderCount = template.split("__SNAPSHOT__").length - 1;
@@ -146,6 +213,7 @@ try {
   if (semanticErrors.length) {
     throw new Error(`snapshot semantic validation failed: ${semanticErrors.join("; ")}`);
   }
+  verifyRawInputs(snapshot);
   const serialised = JSON.stringify(snapshot).replaceAll("</", "<\\/");
   writeFileSync(outputPath, template.replace("__SNAPSHOT__", serialised), "utf8");
   process.stdout.write(`Built ${outputPath} from ${snapshotPath}\n`);

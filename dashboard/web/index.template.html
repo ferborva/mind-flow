@@ -647,7 +647,7 @@ function activeEntities(){
 function signalById(id){ return (snap.signals||[]).find(function(s){return s.id===id}); }
 function isInstrumented(id){
   var s=signalById(id);
-  return !!s && (s.status==="measured"||s.status==="derived") && !!((s.series||[]).length||s.latest);
+  return !!s && s.status==="available" && !!((s.series||[]).length||s.latest);
 }
 function coverageFor(crisis){
   var ids=crisis.leading_signals||[], ready=ids.filter(isInstrumented).length;
@@ -663,7 +663,18 @@ function state(sig){
 function stateLabel(sig){
   var s=state(sig);
   if(s==="void") return sig.status==="not_measured"?"not measured":"unavailable";
-  return sig.status==="derived"?"derived":"measured";
+  return sig.latest?epistemicLabel(sig.latest.epistemic_class):"available";
+}
+function epistemicLabel(value){
+  return String(value||"unknown").replaceAll("_"," ");
+}
+function epistemicRuleFor(sig,year){
+  var rules=(sig.source&&sig.source.adapter&&sig.source.adapter.epistemic_rules)||[];
+  var matches=rules.filter(function(rule){
+    return (rule.from_year===undefined||year>=rule.from_year)&&
+      (rule.through_year===undefined||year<=rule.through_year);
+  });
+  return matches.length===1?matches[0]:null;
 }
 
 /* ------------------------------------------------------------------ chart */
@@ -695,7 +706,7 @@ function latestForSelection(sig){
   var sel=pick(sig);
   if(!sel||sel.show.length!==1) return null;
   var series=sel.show[0], point=series.points[series.points.length-1];
-  return point ? {value:point[1],year:point[0],entity:series.entity} : null;
+  return point ? {value:point[1],year:point[0],epistemic_class:point[2],entity:series.entity} : null;
 }
 
 function chart(sig, box){
@@ -770,7 +781,7 @@ function chart(sig, box){
       var lft=el("span"); lft.style.cssText="display:inline-flex;align-items:center;gap:6px";
       var sw=el("span","sw"); sw.style.background=colOf(s);
       lft.appendChild(sw); lft.appendChild(el("span",null,labelOf(s)));
-      row.appendChild(lft); row.appendChild(el("b",null,fmt(p[1],sig.precision)));
+      row.appendChild(lft); row.appendChild(el("b",null,fmt(p[1],sig.precision)+" · "+epistemicLabel(p[2])));
       tip.appendChild(row);
     });
     if(!any){ tip.style.opacity=0; return; }
@@ -810,7 +821,7 @@ function table(sig){
     var tr=el("tr"); tr.appendChild(el("td",null,String(y)));
     show.forEach(function(s){
       var p=s.points.find(function(q){return q[0]===y});
-      tr.appendChild(el("td",null,p?fmt(p[1],sig.precision):"—"));
+      tr.appendChild(el("td",null,p?fmt(p[1],sig.precision)+" · "+epistemicLabel(p[2]):"—"));
     });
     tb.appendChild(tr);
   });
@@ -819,9 +830,13 @@ function table(sig){
 
 /* -------------------------------------------------------- control system */
 function renderCoverage(){
-  var labels={measured:"Measured source series",derived:"Derived comparisons",not_measured:"No observation in snapshot",unavailable:"Fetch unavailable"};
-  var counts={measured:0,derived:0,not_measured:0,unavailable:0};
-  (snap.signals||[]).forEach(function(signal){counts[signal.status]=(counts[signal.status]||0)+1;});
+  var labels={observed:"Observed points",modelled_estimate:"Modelled estimates",nowcast:"Nowcasts",forecast:"Forecasts",derived:"Derived comparisons",not_measured:"No observation in snapshot",unavailable:"Fetch unavailable"};
+  var counts={observed:0,modelled_estimate:0,nowcast:0,forecast:0,derived:0,not_measured:0,unavailable:0};
+  (snap.signals||[]).forEach(function(signal){
+    if(signal.status!=="available"){counts[signal.status]=(counts[signal.status]||0)+1;return;}
+    var present={};(signal.series||[]).forEach(function(series){series.points.forEach(function(point){present[point[2]]=1;});});
+    Object.keys(present).forEach(function(epistemicClass){counts[epistemicClass]=(counts[epistemicClass]||0)+1;});
+  });
   var host=document.getElementById("coverage-list");host.innerHTML="";
   Object.keys(labels).forEach(function(status){var row=el("div");row.appendChild(el("dt",null,labels[status]));row.appendChild(el("dd",null,String(counts[status]||0)));host.appendChild(row);});
   document.getElementById("coverage-note").textContent="Evidence-class inventory only. No aggregate score, readiness claim, risk level or probability.";
@@ -970,7 +985,7 @@ function panel(sig){
   if(selectedLatest){
     var n=el("div","n tnum",fmt(selectedLatest.value,sig.precision)+(sig.unit==="percent"?"%":sig.unit==="pp"?"pp":""));
     right.appendChild(n);
-    right.appendChild(el("div","y",selectedLatest.year+" · "+entName(selectedLatest.entity)));
+    right.appendChild(el("div","y",selectedLatest.year+" "+epistemicLabel(selectedLatest.epistemic_class)+" · "+entName(selectedLatest.entity)));
   } else {
     var ch=el("span","chip "+state(sig));
     ch.appendChild(el("span","dot")); ch.appendChild(el("span",null,stateLabel(sig)));
@@ -1008,7 +1023,10 @@ function panel(sig){
     r.appendChild(d); meta.appendChild(r);
   }
   if(sig.trouble_reading) row("Trouble", sig.trouble_reading);
-  if(sig.method && sig.status==="derived") row("Method", sig.method);
+  if(sig.method && sig.status==="available") row("Method", sig.method);
+  var selectedRule=selectedLatest?epistemicRuleFor(sig,selectedLatest.year):null;
+  if(selectedRule) row("Evidence", epistemicLabel(selectedLatest.epistemic_class)+" · "+selectedRule.source_vintage+
+    " · "+selectedRule.uncertainty+" · "+selectedRule.resolution_rule);
   if(sig.source) row("Source", sig.source.name + (sig.source.retrieved?" · "+sig.source.retrieved:""),
                      sig.source.url||null);
   if(sig.caveats && sig.caveats.length){
@@ -1133,9 +1151,8 @@ function renderFamilyFilter(){
 function renderMeta(){
   document.getElementById("m-id").textContent=snap.snapshot_id||"—";
   document.getElementById("m-gen").textContent=(snap.generated_at||"—").replace("T"," ").replace("Z"," UTC");
-  var measured=(snap.signals||[]).filter(function(s){return s.status==="measured"}).length;
-  var derived=(snap.signals||[]).filter(function(s){return s.status==="derived"}).length;
-  document.getElementById("m-count").textContent=(snap.signals||[]).length+" ("+measured+" measured · "+derived+" derived)";
+  var available=(snap.signals||[]).filter(function(s){return s.status==="available"}).length;
+  document.getElementById("m-count").textContent=(snap.signals||[]).length+" ("+available+" with data; point classes shown beside values)";
   document.getElementById("m-ents").textContent=activeEntities().length;
   document.getElementById("m-schema").textContent="schema "+(snap.schema_version||"?");
   var srcs={}; (snap.signals||[]).forEach(function(s){ if(s.source&&s.source.name&&s.source.url) srcs[s.source.name]=1; });
@@ -1143,13 +1160,14 @@ function renderMeta(){
   document.getElementById("api-shape").textContent=JSON.stringify({
     schema_version:snap.schema_version, snapshot_id:snap.snapshot_id,
     generated_at:snap.generated_at, generator:snap.generator,
+    reproducibility:{raw_input_status:"not_pinned",snapshot_rebuild_status:"not_verified",raw_inputs:[],residual_gap:"…"},
     entities:[{code:"OWID_WRL",name:"World",kind:"aggregate"}],
     signals:[{id:"labour-share",name:"Labour share of GDP",family:"engels",
-      status:"measured",unit:"percent",precision:1,direction:"neutral",
+      status:"available",unit:"percent",precision:1,direction:"neutral",
       question:"Who is getting the gains?",why_it_matters:"…",trouble_reading:"…",
-      source:{name:"…",url:"…",retrieved:snap.snapshot_id},
-      series:[{entity:"OWID_WRL",points:[[2024,52.4],[2025,52.6]]}],
-      latest:{entity:"OWID_WRL",year:2025,value:52.6}}],
+      source:{name:"…",url:"…",retrieved:snap.snapshot_id,adapter:{id:"owid-grapher-csv",version:"1.0.0",selected_fields:["Entity","Code","Year","value field"],epistemic_rules:[{epistemic_class:"modelled_estimate"}]},raw_input_ids:[]},
+      series:[{entity:"OWID_WRL",points:[[2024,52.4,"modelled_estimate"],[2025,52.6,"modelled_estimate"]]}],
+      latest:{entity:"OWID_WRL",year:2025,value:52.6,epistemic_class:"modelled_estimate"}}],
     public_update:{observed:{summary:"…",epistemic_class:"derived",source_signal_ids:["labour-share"]},
       affected:{status:"unknown",summary:"…"},inferred:{summary:"…",inference_class:"descriptive"},
       condition_change:{changed:false,state:"unknown"},action:{authorization_state:"none",owner:null,authority:null},

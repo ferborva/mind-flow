@@ -1,6 +1,6 @@
 # The snapshot contract
 
-**Version 1.4.0**
+**Version 1.5.0**
 
 The Observatory renders a frozen, validated snapshot. It does not query data
 providers in the browser.
@@ -26,19 +26,25 @@ authority, provenance, scope or uncertainty.
 | New required decision field | Minor |
 | Renamed, removed or semantically changed field | Major |
 
-The current build requires schema 1.4.x, one complete seven-part public update
+The current build requires schema 1.5.x, one complete seven-part public update
 and one scoped IF path.
 
 ## Top-level shape
 
 ```jsonc
 {
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "snapshot_id": "2026-09-07",
   "generated_at": "2026-09-07T10:00:00Z",
-  "generator": "fetch_snapshot.py@1.4.0",
+  "generator": "fetch_snapshot.py@1.5.0",
   "title": "Signals toward the transition",
   "notes": "Run-level context and limits.",
+  "reproducibility": {
+    "raw_input_status": "not_pinned",
+    "snapshot_rebuild_status": "not_verified",
+    "raw_inputs": [],
+    "residual_gap": "Exact upstream bytes were not retained."
+  },
   "entities": [],
   "signals": [],
   "public_update": {},
@@ -73,14 +79,22 @@ Signal status is one of:
 
 | Status | Meaning |
 |---|---|
-| `measured` | Included from a named source. This does not mean decision-ready |
-| `derived` | Constructed from included measures with a visible method |
+| `available` | One or more points are included; each point says how it was produced |
 | `not_measured` | Required instrument is absent by design or unavailable in the evidence system |
 | `unavailable` | A fetch or source failure occurred for this snapshot |
 
-A missing point is absent, never zero, forward-filled or interpolated without a
-separate declared method. `latest` is snapshot metadata. The interface derives
-a displayed latest value from the selected entity's actual series.
+A point is `[year, value, epistemic_class]`. The class is `observed`, `derived`,
+`modelled_estimate`, `nowcast` or `forecast`. Adapter rules bind classes to year
+ranges and retain source vintage, uncertainty and resolution rules. A missing
+point is absent, never zero, forward-filled or interpolated without a separate
+declared method. `latest` repeats the class and must match the selected series.
+
+Each available source declares an adapter identifier, semantic version and
+selected fields. When raw bytes are retained, `raw_inputs` records their SHA-256,
+byte length, response metadata and content path. Both the fetcher and build reject
+a hash mismatch before transforming those bytes. The current 2026-09-07 snapshot
+predates raw-byte retention, so its bit-for-bit rebuild status remains
+`not_verified`.
 
 ## Seven-part public update
 
@@ -152,7 +166,8 @@ The build must pass both layers:
    object structure.
 2. **Semantic validation:** entity references, source-signal references,
    failure-mode and IF-path signal references, IF condition alignment, decision
-   consistency, authority consistency and governed next-check requirements.
+   consistency, authority consistency, point-class rules, content addresses and
+   governed next-check requirements.
 
 Validation prevents known structural contradictions. It does not prove that a
 source is correct, an inference is warranted, a public explanation is
