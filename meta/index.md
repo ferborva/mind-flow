@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-07
+updated: 2026-09-08
 ---
 
 # Index
@@ -17,7 +17,7 @@ scheduled runs.
 | Drafts | 2 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 7 |
+| Research notes | 8 |
 | Dashboard snapshots | 1 |
 
 Foundation documents: **4 of 4 in place.**
@@ -61,15 +61,16 @@ Foundation documents: **4 of 4 in place.**
   substance. Most of the structure is mine and needs his sign-off section by
   section. See the provenance warning at the top of the file.
 - `abundance-has-an-if`, long, **review**. Draws on the first four seeds and
-  touches the other two. Figures and Musk quotes now verified and folded in, and
-  the distribution data added. One substantive call left for Fer: the remedy
-  section needs new reasoning, because redistribution is short by a factor of
-  twenty. See the draft's review notes.
+  touches the other two. Figures and Musk quotes were folded in, and the
+  distribution data added. A 2026-09-08 integrity audit withdrew the invalid
+  62%-of-GDP comparison. One substantive call remains for Fer: the remedy needs
+  a comparative portfolio case. See the draft's review notes.
 
 ## Research
 
 | Note | What it covers |
 |---|---|
+| `2026-09-08-integrity-audit` | Claim stop-lines, corrected poverty-gap reasoning, IF register and bounded Australia pilot |
 | `2026-09-07-abundance-figures` | Fact-check of the rant. Company profits, Musk quotes, displacement vs exposure, global income distribution |
 | `2026-09-07-decent-life-thresholds` | Decent Living Standards thresholds, what a decent life costs, capital needed for a life and the next generation |
 | `2026-09-07-labour-supply-and-cost-disease` | Reservation wage, backward-bending labour supply, Baumol's cost disease, and why his two new ideas pull against each other |
@@ -78,21 +79,36 @@ Foundation documents: **4 of 4 in place.**
 | `2026-09-07-red-team-moonshot` | Five counter-arguments from the Moonshot regulars' own published frameworks, and which parts of the piece survive |
 | `2026-09-07-transition-control-system` | Red team of the transition design: access margin, readiness gates, communications, crisis triggers and preparation by actor |
 
+## Programme and governance
+
+- `meta/abundance-transition-programme.md`: challenge loops, workstreams,
+  quality gates, pilot, release sequence and decisions reserved for Fernando.
+- `governance/public-charter.md`: proposed purpose, evidence contract,
+  anti-technocracy safeguards, dissent and release gates.
+- `governance/if-protocol.md`: the proposed public grammar and condition graph.
+- `evidence/claim-ledger-2026-09-08.json`: machine-readable dispositions,
+  counter-hypotheses, falsifiers and source records for 17 claims.
+
+All four are Ren or agent-authored commissioned proposals. They are not
+Fernando's settled views.
+
 ## Dashboard
 
 **Seldon Observatory** · https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
 
-Snapshot `2026-09-07`, schema 1.1.0. Ten signals, six measured, two derived, two
-deliberately empty because no registry publishes them. Audience: the Moonshot
-crew, argument-first.
+Snapshot `2026-09-07`, schema 1.2.0. Six signals are measured, two are derived
+and eight remain explicitly unmeasured. Audience: the Moonshot crew,
+argument-first.
 
-Headline: World 2004-2025, real output per capita **+44.3%** against real labour
-income per capita **+40.8%**. A 3.5 index-point gap. **Not an Engels' Pause**,
-which is a baseline rather than reassurance.
+Headline baseline: World 2004-2025, real output per capita **+44.3%** against
+constructed real labour income per capita **+40.8%**. A 3.5 index-point gap.
+This aggregate is not a like-for-like Engels comparison and cannot establish or
+rule out cohort-level harm.
 
-**Corrected 2026-09-07.** The v1.0.0 headline added inflation to a change in
+**Corrected 2026-09-07 and 2026-09-08.** The v1.0.0 headline added inflation to a change in
 labour share, different units, and was 94% inflation. It read FAILING in red on
-no real evidence. Replaced and corrected on the page itself.
+no real evidence. The later “not an Engels' Pause” verdict and arbitrary
+scenario threshold were also removed. Both corrections remain visible.
 
 Refresh with `dashboard/tools/fetch_snapshot.py`, rebuild, republish to the same
 URL. See `dashboard/README.md`.

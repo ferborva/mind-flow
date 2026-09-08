@@ -29,6 +29,11 @@ conversation.
 | `drafts/` | Pieces in progress. |
 | `posts/` | Finished pieces, short and medium. |
 | `books/` | Longer collections, once enough posts cluster. |
+| `evidence/` | Claim ledger and source records for auditable public claims. |
+| `governance/` | Proposed public charter and IF Protocol. |
+| `contracts/` | Machine-readable condition and action contracts. |
+| `pilots/` | Bounded validation programmes before any claim of generality. |
+| `dashboard/` | The public Observatory prototype and dated evidence snapshots. |
 | `meta/` | Index, themes, backlog of open questions, templates. |
 
 `CLAUDE.md` is the operating manual: how Claude works this repository between
@@ -36,4 +41,5 @@ conversations.
 
 ## Where to start reading
 
-`meta/index.md`: the map of everything currently here.
+Start with `meta/index.md` for the content map and
+`meta/abundance-transition-programme.md` for the active Observatory programme.
