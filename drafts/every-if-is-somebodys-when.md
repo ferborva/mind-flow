@@ -1,6 +1,6 @@
 ---
 id: every-if-is-somebodys-when
-title: Every If Is Somebody's When
+title: When an IF Becomes Somebody's WHEN
 subtitle: Abundance is an exchange, so the frame has two sides
 type: draft
 status: drafting
@@ -42,17 +42,18 @@ updated: 2026-09-09
 
 ---
 
-# Every If Is Somebody's When
+# When an IF Becomes Somebody's WHEN
 
 ## 🦅 TL;DR
 
-- Most abundance promises depend on **supply**, not a gift arriving. Somebody,
-  or some durable system, has to be able to provide the thing.
+- Many service promises require **continuing production, infrastructure,
+  coordination or maintenance**, not a gift arriving. The provider may be a
+  firm, public institution, household, community, commons or automated system.
 - So the frame has two sides. Consumers get **"I will be able to X, if..."**.
   Providers record **"we propose we could attempt to offer X, when..."**.
-- **Same conditions, different posture.** An IF exposes what a person's outcome
-  depends on. A WHEN records what one actor proposes it could do as conditions
-  change.
+- **Linked conditions, different roles.** Provider conditions may cause,
+  mediate or fail to resolve a consumer condition. A WHEN records what one actor
+  proposes it could attempt as those conditions change.
 - **That actor-specific WHEN register belongs in the CEO's view**, alongside the
   corresponding registers for workers, providers, regulators and public bodies.
 - “Who holds it” is not one owner field. Control, influence, duty, funding,
@@ -67,11 +68,12 @@ updated: 2026-09-09
 ## 🔀 Two sides of the same sentence
 
 The first piece was written for the person receiving the promise. Take any
-abundance claim, write it as verb + fill in the blank + if, find the condition
-that binds today.
+abundance claim, write it as verb + fill in the blank + if, then register the
+conditions that might bind each route today.
 
-But there are two kinds of people reading that frame, and I only served one of
-them.
+The same claim can be examined from several positions: affected person,
+provider, worker, funder, regulator, public body and others the first map may
+omit. The first piece concentrated on the affected person's IF.
 
 Because free healthcare, free education, free compute, free anything: **a
 delivery system has to keep making it available.** An actionable IF on the
@@ -88,19 +90,22 @@ Put the two sentences next to each other:
 > free - **when** the model clears clinical standards, **when** we hold a
 > licence in each market, **when** the unit cost sits below what we can carry.
 
-Same conditions. Different verb. And the verb changes everything.
+**The two registers are linked but non-identical.** Provider clinical
+validation, licence and unit cost can cause, mediate or fail to resolve a
+person's price, permission and reach conditions. The changed verb marks a
+different posture; it does not prove the same condition set.
 
 | | Consumer | Provider |
 |---|---|---|
 | The word | **if** | **when** |
 | What it describes | conditions on a scoped human outcome | one actor's conditional work hypothesis |
 | What you can do about it | challenge, choose, refuse, organise or seek a viable route | act only within real control and authority; prepare, watch or negotiate the rest |
-| What the list is | an outcome diagnosis | a proposal register, not a roadmap promise |
+| What the list is | a register of candidate outcome conditions | a proposal register, not a roadmap promise |
 | Who it belongs to | the affected people and everyone accountable to them | every actor with a distinct relation to a condition |
 
-**I switched tense without noticing I had done it, and the tense turns out to be
-the tell.** Whether you reach for "if" or "when" tells you which side of the
-exchange you are standing on.
+**I switched tense without noticing I had done it, and the change became a useful
+prompt.** IF can expose dependence; WHEN can expose proposed action. It is not a
+validated linguistic test of the role or authority a speaker actually holds.
 
 ---
 
@@ -109,8 +114,10 @@ exchange you are standing on.
 Here is why this matters more than a grammar observation.
 
 An IF list can feel honest and slightly bleak because it exposes dependence.
-**A WHEN register asks which parts can become work for each actor.** Every line
-needs a completion criterion, dependency, review time and explicit claim state.
+**A WHEN register asks which parts can become work for each actor.** This
+programme requires every line to name a completion criterion, dependency,
+review time and explicit claim state. Whether that improves real decisions is a
+test, not a settled result.
 
 **A WHEN is not a date, forecast, guarantee or commitment.** It is a conditional
 plan hypothesis. Conditions can move concurrently, remain dependency-bound,
@@ -124,17 +131,20 @@ Try it on the biggest promise in the room:
 > **We propose we could attempt to offer free and effectively infinite AI compute to the
 > world, when...**
 
-Now the list stops being rhetoric and starts being an engineering programme:
+Now the list becomes a candidate engineering decomposition:
 launch and hardware cost per unit of compute, power and thermal budget, spectrum
 and landing rights country by country, a device in the user's hand, and someone
 able to carry the loss until enough of those fall. *(Illustrative and uncosted.
 Do not quote me on the physics.)*
 
-**That is a document a founder can work. "Companies should be more generous" is
-not.** And I say that as someone whose first version of this argument was
+**That is a document a founder can attempt to test. Whether it is useful,
+complete or decision-improving remains open.** And I say that as someone whose
+first version of this argument was
 exactly "companies should be more generous". The red team took it apart, quite
 correctly, because free-because-somebody-keeps-choosing-to is not a solved
-condition. It is a condition that can be withdrawn on the next earnings call.
+condition. Discretionary provision may be withdrawn through corporate decision
+unless constrained by contract, regulation, durable finance, governance or a
+viable substitute.
 
 ---
 
@@ -155,13 +165,12 @@ But the label is not the locus. A compliance rule may encode law, a customer
 commitment or an insurer's condition. Before calling one “ours”, trace what
 created it, who can change it and who carries the loss if it is ignored.
 
-Now, an exponential-organisations person would look at that list and say
-something sharp: **that is not a condition list, that is an immune response with
-good manners.** Nobody in a large company ever says "we are rejecting this
-because it threatens how we work". They say "our verification standards are not
-met yet". The prescribed cure is to stand up a parallel organisation outside the
-immune system and let it demonstrate that the conditions were never binding at
-all.
+Now, consider a stylised counter-position from the
+exponential-organisations school: **that is not a condition list, that is an
+immune response with good manners.** On this account, organisations may encode
+resistance as process, verification or compliance. Its proposed experiment is a
+parallel team outside the existing workflow. This is a competing organisational
+hypothesis, not a fact about every large company and not a prescribed cure.
 
 I think that is half right, and the half it misses is the interesting one.
 
@@ -182,27 +191,31 @@ not a single owner:
 | **Is affected** | workers and customers carrying the outcome | **Challenge**, organise, choose or refuse, without being recast as delivery capacity |
 | **No actor can currently move it** | a physical or ecological limit | Say **cannot move**, investigate and avoid inventing an owner |
 
-**The third category is the one the parallel organisation cannot route around.**
+**A current supplier cannot fulfil a route that contractually requires an
+attestation it does not hold or liability it cannot accept.**
 Stand up your shadow team, unleash everything, move at ten times the speed, and
 you still cannot ship to an enterprise customer whose procurement demands an
 attestation you do not hold, or accept liability your insurer will not cover.
-Those conditions are not held by your immune system. They are held by somebody
-else's, and you have no jurisdiction there.
+That does not make the condition permanent. The route, term, counterparty,
+insurance or lawful authority might change. Until one does, the current route
+remains blocked.
 
 So the question is not just *what is binding*. It is **who has which relation
-to it**, because that tells each actor which tool it may legitimately propose.
+to it**, because that helps identify a candidate posture. Legitimate action still
+requires legal, institutional and affected-party verification.
 
 ### A note on simply ignoring the list
 
-There is a school of thought, and it has a very famous practitioner, that says
-most of these conditions are fake and you are being polite about them. Ship it
-and litigate afterwards. Make the part yourself. **Every condition is guilty
-until proven physics.**
+One stylised counter-position says many declared conditions are assumed rather
+than tested. Ship it and litigate afterwards. Make the part yourself. **Treat
+each condition as a hypothesis until evidence, rights, safety or physics says
+otherwise.** This is an argument to examine, not an attributed empirical claim.
 
 I have sympathy for that, more than you might expect. Going down the vertical,
-enumerating the conditions and breaking them one at a time *is* the
-first-principles approach, and refusing to accept a constraint just because
-somebody wrote it down is how anything gets built.
+enumerating the conditions and testing them one at a time *is* a
+first-principles approach. Challenging assumed constraints has enabled some
+innovations. Other constraints encode rights, safety, scarce resources or
+physical limits.
 
 The honest version adds two columns: **what happens if this condition is false,
 and who carries that loss?** Some internal preferences can be tested through a
@@ -221,15 +234,15 @@ choose and refuse. A company may influence more, but cannot claim control over
 law, infrastructure, counterparties, ecology or affected people's choices.
 Presenting the sides as mirrors would flatter the side that already has power.
 
-**Naming a condition can protect it.** Write it down carefully enough, give it a
-committee, and you have built a queue that never clears. The when framing helps
-because it forces a completion criterion onto every line. It does not immunise
-you.
+**Naming a condition may protect it or make it accountable.** A register can
+entrench a constraint, expose it to challenge, or do both. The schema can
+require a completion criterion. It cannot force real completion.
 
-**And a public provider does not behave like a company.** Three of the four
-health systems I have lived under are publicly funded, and their when list is a
-budget cycle and an election, not a business case. That is a genuinely different
-machine and this piece does not model it.
+**Public, social-insurance and private delivery arrangements expose different
+machines.** Taxation, compulsory insurance, private providers, household
+payments, regulation, budgets and elections can all enter the same system.
+Their authority, funding and accountability dependencies have to be modelled
+explicitly rather than collapsed into a business case.
 
 ---
 

@@ -163,27 +163,43 @@ test("the observatory leads with status, public meaning, IFs, paths, action and 
 
 test("the first screen discloses prototype authority and the seven-part update", () => {
   for (const label of [
-    "PROTOTYPE",
-    "AGENT PROPOSAL",
-    "REQUIRES FERNANDO REVIEW",
-    "WHAT THE RECORD REPORTS",
-    "AFFECTED",
-    "INFERRED",
-    "IF CHANGED",
-    "ACTION AND OWNER",
-    "FALSIFIER",
-    "NEXT CHECK",
+    "RESEARCH PROTOTYPE",
+    "NOT LIVE",
+    "NO SERVICE OR POLICY AUTHORITY",
+    "CURRENT READ",
+    "SCOPE AND APPLICABILITY",
+    "IF STATUS",
+    "ACTION, HELP AND SAFETY",
+    "MONITORING",
+    "PROPOSED GOAL (VALUE CHOICE)",
+    "EVIDENCE STATE",
+    "PATH STATUS",
+    "WHAT WOULD CHANGE THIS READING?",
   ]) {
-    assert.match(template, new RegExp(label, "i"), `missing ${label}`);
+    assert.ok(template.toLowerCase().includes(label.toLowerCase()), `missing ${label}`);
   }
   assert.match(template, /No authorised action/i);
+  assert.match(template, /does not establish that waiting is safe/i);
+  assert.match(template, /MONITORING INACTIVE/i);
+  assert.match(template, /affected-party adoption.*not completed/i);
+  assert.match(template, /alternative goals and dissent remain legitimate/i);
+  assert.match(template, /no positive or adverse path is established/i);
+  assert.match(template, /no Observatory-linked help or challenge service exists/i);
   assert.match(template, /No psychohistory/i);
   assert.match(template, /id=["']now-observed["']/i);
   assert.match(template, /function renderNow\(/);
   assert.match(template, /function publicUpdateEpistemicLabel\(/);
   assert.match(
     template,
-    /cell\("now-observed",publicUpdateEpistemicLabel\(observed,update\.lineage\)\+"\. "/,
+    /cell\("now-observed","Record: "\+publicUpdateEpistemicLabel\(observed,update\.lineage\)/,
+  );
+  assert.ok(
+    template.indexOf("CURRENT READ") < template.indexOf("Complete the promise"),
+    "the current conclusion must precede the project slogan in reading order",
+  );
+  assert.ok(
+    template.indexOf("ACTION, HELP AND SAFETY") < template.indexOf("EVIDENCE STATE"),
+    "public action semantics must precede technical evidence detail",
   );
   assert.doesNotMatch(template, /Six measured and two derived global signals/i);
 });
@@ -611,7 +627,14 @@ test("the first public claim exposes release and publication state without openi
   assert.match(template, /function compactPublicTimingState\(/);
   const renderNowBlock = template.match(/function renderNow\(\)\{([\s\S]*?)\n\}\n\nfunction renderAll/)?.[1] || "";
   assert.match(renderNowBlock, /visibleTimingState/);
-  assert.match(renderNowBlock, /observed\.summary\+" \["\+visibleTimingState/);
+  assert.match(renderNowBlock, /"\. Publisher timing: "\+visibleTimingState/);
+  assert.match(renderNowBlock, /Source authenticity: unverified/);
+});
+
+test("the aggregate comparison cannot present its number as a transition verdict", () => {
+  assert.match(template, /This number is not a transition score/i);
+  assert.match(template, /\.bignum\{font-size:clamp\(34px,4vw,44px\)/);
+  assert.doesNotMatch(template, /\.bignum\{font-size:clamp\(56px,8vw,92px\)/);
 });
 
 test("the JSON schema actually validates the current snapshot contract", () => {

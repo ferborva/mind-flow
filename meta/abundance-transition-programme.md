@@ -25,12 +25,13 @@ updated: 2026-09-09
 - The `IF` is the core object. Every promise, forecast, decision, negotiation
   and action must expose its people, outcome, conditions, evidence, owner,
   safeguard, falsifier and review point.
-- The first proof is deliberately bounded: Australian clerical workers,
+- The first feasibility candidate is deliberately bounded: Australian clerical workers,
   regional outcomes, continuity of essential household access, individual
   agency and ecological materiality.
-- No dashboard signal becomes a warning, no warning becomes an action, and no
-  action affects people until every transformation is explicit, testable,
-  reversible and owned.
+- The programme requires every signal-to-warning and warning-to-action
+  transformation to be explicit, testable, reversible and owned. **The current
+  repository cannot enforce that requirement at CI, hosting, identity or
+  operational issuance boundaries.**
 - Work advances through evidence, adversarial, affected-party, methods,
   comprehension and operational review. Iteration is required when it changes
   the result, not to manufacture activity.
@@ -41,9 +42,11 @@ updated: 2026-09-09
 
 ## 🎯 Mission and research question
 
-The wider `mind-flow` repository is a provenance-safe system for turning
-Fernando's thinking into durable public knowledge. The Observatory is one
-public instrument inside it.
+The wider `mind-flow` repository contains provenance-oriented schemas,
+checksums and validators for turning Fernando's thinking into durable public
+knowledge. These controls check specified assertions and relationships. **They
+do not authenticate identities, source truth, reviewer independence or complete
+coverage.** The Observatory is one proposed public instrument inside it.
 
 The proposed Observatory mission is:
 
@@ -71,7 +74,7 @@ each bounded hypothesis:
 
 ## 🧭 The operating model
 
-Every work item follows one chain:
+The programme proposes one analytic chain:
 
 ```text
 promise
@@ -105,12 +108,13 @@ examined; signals are evidence about those conditions; metrics specify how a
 signal is calculated; and action hypotheses state how a named actor proposes a
 condition might move. The layers cannot certify one another.
 
-The public lens is a consumer-facing **IF** and a provider-facing **WHEN**. The
-IF exposes the conditions on which a person's outcome depends. The WHEN turns
-the same conditions into a proposed work list for each relevant actor. A WHEN
-is not a date, forecast, guarantee or commitment. Conditions may be concurrent,
-cyclical or dependency-bound. No actor inherits control merely because the
-condition appears on its list.
+The public lens is a consumer-facing **IF** and an actor-specific **WHEN**. The
+IF exposes candidate conditions on which a person's outcome may depend. The
+WHEN records what one actor proposes it could attempt. **The two registers are
+linked but non-identical:** a provider condition may cause, mediate or fail to
+resolve a consumer condition. A WHEN is not a date, forecast, guarantee or
+commitment. Conditions may be concurrent, cyclical or dependency-bound. No
+actor inherits control merely because the condition appears on its list.
 
 ## 🛑 Non-complacency rules
 
@@ -121,14 +125,17 @@ condition appears on its list.
 3. **Units must close.** No ratio, index or comparison ships without dimensional
    analysis and a reproducible calculation.
 4. **Averages cannot overrule distributions.** Important claims require cohort,
-   place and service scope. A household gain cannot offset a severe loss of
-   income security, time, privacy or practical choice for one of its members.
+   place and service scope. The programme adopts a non-compensatory safeguard:
+   an aggregate or household gain cannot offset severe loss of income security,
+   time, privacy, bodily safety or practical choice for an affected person. This
+   is an ethical loss rule proposed by the programme authors, not a statistical
+   fact. Affected-party and lawful decision processes must adopt or revise it.
 5. **Visual confidence cannot exceed empirical confidence.** Colour, hierarchy
    and labels must preserve epistemic class.
 6. **Thresholds need loss functions.** A trigger explains the cost of misses,
    false alarms, delay and gaming.
-7. **No solitary cause.** Causal claims include credible alternatives and a
-   design capable of separating them.
+7. **No default solitary cause.** Causal claims test credible alternatives
+   unless a bounded design can exclude them.
 8. **No unowned protection.** An action needs authority, funding, delivery
    capacity, safeguard, appeal and exit.
 9. **Dissent is not pathology.** Affected people may reject the goal, metric or
@@ -157,6 +164,11 @@ the earliest affected step.
 | **5. Methods** | Can association, prediction and causation be distinguished? | Identification, baselines, uncertainty, scoring | Method reviewer accepts the stated inference class |
 | **6. Comprehension** | Will a public reader understand and act appropriately? | Plain-language and numeracy tests | Readers identify scope, uncertainty, owner and falsifier |
 | **7. Operations** | Can the proposed response work safely in time? | Tabletop, service test, authority and funding | Reversible response meets its service level and appeal test |
+
+**These are proposed release gates, not a validated route to convergence.** We
+have not established their inter-rater reliability, false-reassurance rate or
+effect on public decisions. Each round therefore needs a preregistered question,
+independent result and visible disposition.
 
 The target is not a fixed number of iterations. The target is convergence:
 
@@ -214,12 +226,14 @@ to that history, the complete outcome scope, distinct signal roles, competing
 paths and explicit false and unknown branches. A valid path is still an
 unscored hypothesis, not a finding, forecast or mandate.
 
-**Gate:** independent reviewers can encode the same ten real-world claims with
-acceptable agreement and can explain every disagreement.
+**Gate:** a preregistered claim sample is independently encoded by a declared
+reviewer population. The protocol must name its agreement statistic, minimum
+threshold, adjudication method and failure rule before calling agreement
+acceptable.
 
 ### C. Australia pilot
 
-Scope the first proof to:
+Scope the first feasibility candidate to:
 
 - general clerks;
 - accounting, bookkeeping and payroll clerks;
@@ -228,6 +242,17 @@ Scope the first proof to:
 - continuity of housing, food, energy, transport, primary healthcare and
   connectivity;
 - household type and relevant demographic distributions.
+
+Australia offers useful candidate inputs, but no source closes the chain.
+[Jobs and Skills Australia's NERO](https://www.jobsandskills.gov.au/data/nero)
+publishes monthly modelled estimates for 355 occupations across 88 SA4 regions,
+with smoothing and non-aggregation warnings. The
+[ABS business survey](https://www.abs.gov.au/statistics/industry/technology-and-innovation/characteristics-australian-business/latest-release)
+reports that 12% of businesses selected AI use in 2024-25, without intensity or
+worker linkage. The
+[ILO exposure index](https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure)
+finds clerical occupations have the highest modelled exposure. It does not
+measure observed Australian job impact.
 
 Build four linked views:
 
@@ -239,6 +264,10 @@ Build four linked views:
    portability, privacy, refusal, switching, appeal and self-reported control.
 4. **Ecological materiality:** lifecycle energy, water, materials, emissions,
    waste and locally concentrated burdens, or a reviewed not-material finding.
+
+These arrows are missing identification links, not an established empirical
+chain. Current official sources use incompatible units and do not supply the
+person-level access, agency and ecological outcomes needed to close them.
 
 **Gate:** sources are feasible, missingness and lag meet declared limits,
 severe individual harms cannot be offset by household gains, ecological
@@ -267,7 +296,9 @@ research-only and decision-linked records and withholds calibration language
 below a preregistered information floor.
 
 **Gate:** candidate forecasts beat declared naive baselines in rolling
-historical evaluation. Otherwise they remain hypotheses or scenarios.
+historical evaluation. Otherwise they remain hypotheses or scenarios. A
+baseline win alone does not establish calibration, utility, transportability or
+safe action.
 
 ### E. Early-action compacts
 
@@ -340,8 +371,10 @@ Design for:
 - later national nodes publishing comparable, signed aggregates without
   surrendering sovereignty or local definitions.
 
-**Gate:** no organisation can change a public conclusion, threshold or
-historical forecast without leaving a visible, attributable record.
+**Target gate:** no organisation can change a public conclusion, threshold or
+historical forecast without leaving a visible, attributable record. Achieving
+this requires independently enforced identity, signing, publication and archive
+infrastructure that the repository does not currently provide.
 
 ## 🧪 Priority experiments
 
@@ -349,9 +382,9 @@ historical forecast without leaving a visible, attributable record.
    sensitivity to $8.30, local reference budgets and material deprivation.
 2. **IF grammar reliability:** independently encode ten services and compare
    omitted conditions and logical relationships.
-3. **One-service access and agency test:** identify the binding access condition
-   for one cohort and region, then test individual control, time, privacy and
-   refusal without combining them into a household score.
+3. **One-service access and agency test:** compare candidate binding access
+   conditions for one cohort and region, then test individual control, time,
+   privacy and refusal without combining them into a household score.
 4. **Transition cohort baseline:** distinguish exposure, adoption, work
    redesign, displacement, re-employment time and earnings recovery.
 5. **Threshold backtest:** compare one-period, two-period and sequential-change
@@ -402,46 +435,44 @@ their own work.
 - No trigger is presented as an authorised action without real authority.
 - Reviewers receive the charter, threat model, test commands and issue format.
 
-## 🔒 Current checkpoint: review round 02
+## 🔒 Current checkpoint: Round 03 repair branch
 
-`review/round-02` freezes the current agent-produced argument, IF contracts,
-Australian pilot, rehearsal controls, governance boundary and dashboard for
-independent adversarial review. `reviews/round-02-manifest.json` pins each
-material artifact by SHA-256. The freeze is a review input, not a public
-release.
+The Round 03 manifest freezes the exact pre-review artifacts. Subsequent commits
+contain local repairs and new independent attacks, so they are deliberately not
+described as part of that freeze. **A new Round 04 manifest must be generated
+from a clean, tested commit before the next external group reviews the work.**
 
-The checkpoint has crossed the structural gate:
+Named validators currently reject specified invalid fixtures when invoked. The
+dashboard renders an explicit non-authorising public update, and no public
+release is authorised. The new
+[transition-bundle assessment](../integration/transition-bundle/README.md) also
+shows why subsystem success is insufficient: the current agency, evolution,
+signal, path, preparation, forecast and dashboard artifacts do not share one
+condition identity, scope or decision history.
 
-- public claims and actions have machine-readable epistemic and authority
-  boundaries;
-- the dashboard's seven-part update and IF path fail closed on missing fields;
-- no condition is currently treated as true, no crisis is scored and no action
-  is authorised;
-- NERO rehearsal logic is preregistered, prospective, capacity-bounded and
-  explicitly no-consequence;
-- the repository checks internal consistency and blocks preparation of an
-  external-review packet until all eight candidate evidence categories pass;
-  it cannot verify authority or authorise publication.
-
-It has not crossed the empirical, human or institutional gate. External agent
+The controls are advisory library and build boundaries. Callers can bypass
+them, and no CI, hosting or operational issuance boundary currently prevents
+publication. The branch has therefore crossed neither a programme-level
+integrity gate nor the empirical, human or institutional gates. External agent
 review cannot substitute for affected-party participation, statistical review,
-rendered accessibility testing, security and privacy assessment, public
-challenge operations, source-licence clearance or real authority.
+rendered accessibility testing, security and privacy assessment, a working
+public challenge service, source-licence clearance or real authority.
 
 ## 📝 Live decision log
 
 | Date | Decision | Reason | Revisit if |
 |---|---|---|---|
 | 2026-09-08 | Treat abundance as a mission and test bounded hypotheses beneath it | Prevent a universal aspiration from masquerading as a falsifiable empirical claim | Fernando adopts a narrower or different mission |
-| 2026-09-08 | Use Australia and clerical workers as the first pilot | Good primary data, material exposure, tractable regional and service questions | Source feasibility or affected-party review fails |
+| 2026-09-08 | Use Australia and clerical workers as the first feasibility candidate | JSA, ABS and ILO provide candidate inputs, but no current source closes the person-level causal and agency chain | Source feasibility, linkage or affected-party review fails |
 | 2026-09-08 | Keep crisis states unscored | Current signals, thresholds and validation do not justify probabilities | Backtests and forecast registry pass their gates |
 | 2026-09-08 | Treat access factors as a funnel, not multiplication | Current measures are not matched conditional probabilities | A validated common-denominator design exists |
 | 2026-09-08 | Do not infer choice from labour participation | Aggregate participation cannot identify reasons | Cohort-level reasons, desired hours and security are measured |
-| 2026-09-08 | Stop the historical NERO warning backtest | The archive does not preserve an as-published vintage panel, revision path, uncertainty or independent outcomes | A defensible vintage archive and outcome-label protocol exist |
-| 2026-09-08 | Permit only prospective, no-consequence NERO rehearsal | It can test operational mechanics without pretending to validate prediction or causality | Preregistration, consecutive vintages, labels and review capacity fail |
+| 2026-09-08 | Stop the historical NERO warning backtest | The project has not acquired a defensible as-published vintage panel, revision path, uncertainty series or independent outcomes | A defensible vintage archive and outcome-label protocol exist |
+| 2026-09-08 | Permit only prospective, no-consequence NERO rehearsal | It can test software and workflow mechanics without validating prediction, causality, real capacity, authority or human response | Preregistration, consecutive vintages, labels or review capacity fail |
 | 2026-09-08 | Treat the dashboard IF path as a decision record, not a vocabulary diagram | Every condition must expose scope, state, evidence, challenge and next observation | Independent encoders cannot use it reliably |
-| 2026-09-08 | Block public issuance at a machine-readable governance boundary | Prominent labels alone cannot prevent incomplete review from being treated as approval | A stronger independently enforced release mechanism replaces it |
-| 2026-09-08 | Freeze round 02 for independent review without claiming readiness | Structural controls are testable; human and institutional gates remain open | The manifest drifts, a stop-line appears or reviewers cannot reproduce the build |
+| 2026-09-08 | Require a machine-readable governance library before preparing a review packet | The library can reject structural incompleteness when invoked, but cannot block publication | An independently enforced CI, hosting and issuance mechanism exists |
+| 2026-09-09 | Assess subsystem coherence before claiming programme readiness | Individually valid artifacts currently describe different condition sets, scopes and histories | One hash-pinned transition bundle passes without weakening the checks |
+| 2026-09-09 | Keep Round 03 immutable and prepare a new Round 04 review freeze | Post-review repairs must not rewrite the reviewed input | The clean branch, manifest and independent reproduction are ready |
 
 ## ❓ Decisions reserved for Fernando
 

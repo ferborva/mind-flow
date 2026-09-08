@@ -19,7 +19,7 @@ updated: 2026-09-09
 > This is the short piece specified on 2026-09-08: the shrug, the missing if,
 > the categories as a starting set, one worked example, the invitation. No
 > remedy, no crisis layer, no supply side. Those are held for
-> [Every If Is Somebody's When](every-if-is-somebodys-when.md) and for
+> [When an IF Becomes Somebody's WHEN](every-if-is-somebodys-when.md) and for
 > [From If to When](from-if-to-when.md).
 >
 > **His substance:** the frame itself, the reversal ("if it is all conditional,
@@ -48,16 +48,15 @@ updated: 2026-09-09
 
 ## 🦅 TL;DR
 
-- Every abundance promise has the shape **verb + fill in the blank.** You will be
-  able to learn anything, cure anything, build anything.
-- **That sentence is not finished. The real shape is verb + fill in the blank +
-  if**, and the conditions are where the entire argument lives.
-- This is not pessimism. A promise with no conditions attached cannot be
-  checked, planned around, or argued with, which is exactly why the abundance
-  conversation loops.
-- So the ask is simple: **name your conditions, and tell me which one is binding
-  right now.** That single question turns a destination into something you can
-  report on.
+- We propose **verb + fill in the blank + if** as a reporting grammar for
+  abundance promises. Whether it improves diagnosis, comprehension or decisions
+  is an empirical question.
+- An unstated condition makes a promise harder to evaluate against a declared
+  population, service, place and period. We have not established that omission
+  causes public conversations to loop.
+- So the ask is simple: **name the candidate conditions, register the routes you
+  considered, and show which condition currently appears to bind each route.**
+  That makes a destination testable without pretending the route set is complete.
 - Worked example inside: *"you will be able to see a doctor about anything,
   instantly, for free"*, run across four countries. Same sentence, different
   candidate constraints. **A country is too broad to have one binding IF.**
@@ -71,31 +70,31 @@ another benchmark. They shrug. *It's just another model. So what.*
 
 *This is a composite scene, not an attributed anecdote.*
 
-I do not think that is cynicism, and I do not think they are failing to
-appreciate the technology. I think the shrug is **accurate**, and the reason is
-mechanical.
+I do not think that has to be cynicism or a failure to appreciate the
+technology. **One possible reason for the shrug is that the announcement has not
+been connected to an outcome the listener values.** We have not measured how
+often that explanation holds.
 
-When someone hears "a new model just topped every benchmark", the reaction is
-*so what*, because nobody on earth is walking around holding this sentence:
+When someone hears "a new model just topped a benchmark", their own conditional
+may not be written in the benchmark's terms:
 
 > I will be able to [verb] [fill in the blank] - **if** a new model tops the
 > benchmarks with x% more capability on the Pareto frontier.
 
-**Nobody has that sentence, so the announcement lands against nothing.** A
-benchmark result is a condition moving in a space that does not appear in
-anyone's life. It is real, it matters enormously to the people building the
-thing, and it is denominated in a currency that nobody's own conditional is
-written in.
+Some researchers, developers, investors and users do hold benchmark-linked
+goals. Others do not. **For the second group, the announcement may land without
+a visible connection to a valued outcome.** The result can be real and useful
+without yet showing that a named person's conditions changed.
 
-Compare it to the sentences people *do* hold, without ever writing them down. I
+Compare it to sentences people may hold, without ever writing them down. I
 will be able to get this lump looked at, if I can afford the gap fee. I will be
 able to retrain, if I can find eight hours a week that do not exist. I will be
-able to start the business, if the licence comes through. **Those sentences all
-have an if in them, and none of those ifs say "benchmark".**
+able to start the business, if the licence comes through. **Those examples have
+an IF that the benchmark does not evaluate.**
 
-So the shrug is not a failure of imagination on their side. It is a missing
-translation on ours. And it is the same gap in miniature that the whole
-abundance conversation has at scale.
+So the shrug need not be a failure of imagination on their side. It may expose
+a missing translation on ours. **That is the mechanism this essay proposes to
+test, not a measured account of public response.**
 
 That is what I want to close, and I think it takes one word.
 
@@ -103,7 +102,7 @@ That is what I want to close, and I think it takes one word.
 
 ## 🧩 The half of the sentence nobody finishes
 
-Listen to any abundance conversation for long enough and a pattern falls out:
+In the examples that motivated this essay, a pattern often appeared:
 
 > You will be able to learn, fill in the blank. You will be able to cure, fill
 > in the blank. You will be able to build, fill in the blank.
@@ -114,10 +113,10 @@ because it is a world of promise.
 **The corollary is the interesting part, and it is the part we leave off: verb,
 plus fill in the blank, plus if.**
 
-We live in a world of conditions. Today, you can buy anything. Anything really
-does mean anything. **If.** If you have the money. If there is stock. If you are
-close enough to the stock to get your hands on it. If it is legal where you
-live. If you are old enough. If you hold the certificate that lets you own it.
+We live in a world of conditions. Even an available product may remain
+inaccessible. **If.** If you have the money. If there is stock. If you are close
+enough to get it. If it is legal where you live. If you are eligible. If you
+hold the certificate that lets you own it.
 
 Run the abundance version and it is the same list with the nouns swapped:
 
@@ -125,11 +124,22 @@ Run the abundance version and it is the same list with the nouns swapped:
 > service, **and** the cure exists near me, **and** I live somewhere it is
 > legal, **and** it reaches me at a price my pocket can take.
 
-Here is the honest scale of just the first one. Four in five people alive today
-live on less than $30 a day, roughly a developed-world floor, and 44.4% live on
-less than $8.30. **When we say "you will be able to", we are, almost entirely,
-talking to the other fifth.** *(World Bank distribution data, see
-`research/2026-09-07-abundance-figures.md`.)*
+Here is the scale of just the first one, with the denominator intact. **The March
+2026 World Bank Poverty and Inequality Platform vintage, as processed by Our
+World in Data, estimates that in 2026 about 80.0% of people lived in households
+below 30 international dollars per person per day and 44.4% below 8.30
+international dollars.** Values after 2024 are nowcasts, and the source series
+mixes income and consumption surveys. The $30 threshold is user-selected and
+associated with high-income national poverty-line definitions. It is not an
+official World Bank global poverty line. ([PIP](https://pip.worldbank.org/home),
+[nowcast method](https://datatopics.worldbank.org/dataviz/pip-nowcasts/),
+[$8.30 definition](https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SI.POV.UMIC),
+[$30 processing](https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day))
+
+Those estimates do not identify who abundance rhetoric addresses, the future
+price of a service, public provision, assets, eligibility or effective access.
+**The defensible inference is smaller: resources are likely to be a material
+condition for many people unless the delivery path removes that dependency.**
 
 ---
 
@@ -142,27 +152,27 @@ can walk to the shop*. A lens that applies to everything tells you nothing.
 Two answers.
 
 **First, the reversal.** If it is all conditional anyway, then tell me your
-conditions. That is not a debating trick, it is the whole ask. **The frame does
-not discriminate between claims, it discriminates between people who name their
-conditions and people who do not.** "Everything will be unlimited within ten
-years" is a claim with no conditions attached, so there is nothing in it to
-reason about, plan around, or disagree with. Nobody in the room can be wrong,
-which is precisely why the conversation goes round.
+conditions. That is not a debating trick, it is the whole ask. **The frame makes
+declared conditions available for inspection; it has not yet been shown to
+identify the true binding condition.** "Everything will be unlimited within ten
+years" is harder to evaluate when its people, scope, route and conditions remain
+unstated.
 
 **Second, the posture.** I am not asking what stands in the way. I am asking
 what has to be true. Same content, opposite direction of travel, and it is the
-difference between a critique and a plan. It is the ordinary first-principles
-move: go down the vertical, understand the conditions, break them down one at a
-time. **We do this instinctively when we build products. We refuse to do it when
-we talk about the future.**
+difference between a critique and a candidate plan. It resembles goal-to-signal
+practices used in some product teams: go down the vertical, expose the
+conditions and test them one at a time. **We do not yet know whether this works
+better for public future claims.**
 
 ---
 
 ## 🧰 The method, in four steps
 
 > Take any promise. Write it as **verb + fill in the blank + if**. Then ask:
-> which condition or set is binding right now, and who can move, verify or is
-> affected by each part?
+> which candidate condition appears to bind each registered route, what evidence
+> could overturn that reading, and who can move, verify or is affected by each
+> part?
 
 1. **Write the promise as a sentence.** "You will be able to see a doctor about
    anything, instantly, for free."
@@ -172,14 +182,15 @@ we talk about the future.**
    most interesting. Within the registered routes and current evidence, identify
    the conditions that appear to defeat each route for the person in front of
    you. Call each one **a candidate binding IF**. An unregistered route can
-   overturn the diagnosis.
+   overturn the provisional reading.
 4. **Map the relationships.** Ask who controls, influences, funds, delivers,
    verifies, depends on and is affected by each condition. That determines
    whether a named actor can act, prepare, watch, negotiate, coordinate,
    investigate or honestly say “cannot move”.
 
-Then repeat it whenever something changes. **A frame is only useful if you can
-run it again next week on the news.**
+Then repeat it whenever something changes. **Our test is whether independent
+people can run it again, reach understandable disagreements and improve a
+decision.** That result has not yet been established.
 
 ---
 
@@ -215,8 +226,7 @@ claiming the technology already delivers the complete clinical outcome.
 
 > **You will be able to see a doctor about anything, instantly, for free.**
 
-Run it in the United States, since that is where most of this conversation
-happens.
+Use the United States as one worked context.
 
 | Condition | What we would need to establish |
 |---|---|
@@ -230,8 +240,9 @@ In 2024, **27.1 million people in the United States were uninsured for the
 whole year**. In the 2025 National Health Interview Survey early release,
 **6% of adults reported failing to obtain needed medical care because of
 cost**. These are different measures, and neither tells us which IF binds for a
-named patient. They do establish that coverage and price remain material even
-before we test permission, proximity, availability and capability.
+named patient. They establish population-scale coverage absence and reported
+cost-related unmet need in current US healthcare. **They do not establish a
+binding condition for the hypothetical AI service or any named patient.**
 
 ---
 
@@ -284,11 +295,12 @@ unmapped condition may not. That honest remainder belongs on the map too.
 
 If there are only upsides to an idea, it is propaganda. So, three honest limits.
 
-**It will not tell you the order.** Conditions do not fall in a sequence anyone
-can plan. It is progressive, often unintended, and frequently the one that comes
-down is not the one that was binding. **What you get is diagnosis, not
-forecast**: which condition binds today, and a way to notice when the answer
-changes. That is smaller than a roadmap, and it is still more than we have now.
+**It will not tell you the order.** The framework assumes no universal
+sequence. Actual dependencies, feedback and timing have to be established for
+each case. **What you get is a register of candidate conditions, not a
+diagnosis or forecast.** A binding-condition claim needs evidence that
+registered alternatives do not explain or route around the result, and an
+unregistered route can still overturn it.
 
 **Naming a condition can legitimise it.** Some ifs are real and some are
 somebody's preference wearing a compliance costume, and the method cannot tell
@@ -306,14 +318,16 @@ Not agree with me. Use it.
 
 - **Take one promise you have made on air** and write it out as verb + fill in
   the blank + if. All the conditions, boring ones included.
-- **Name the binding set**, today, for a specific person somewhere specific.
+- **Name the candidate binding set**, today, for a specific person somewhere
+  specific, and list the routes you have not tested.
 - **Map who controls, influences, depends on and is affected by each one**, then
   state which actor could act, prepare, watch, negotiate or investigate.
 - **Then do it again on the next release.** "Which condition did that just
   lower, and for whom?" is a question every model, chip rule and funding round
   can be answered with. Sometimes the answer is "none yet, and that is fine",
-  and that answer is worth saying out loud too. It is the honest answer to most
-  benchmark announcements, and saying it costs you nothing.
+  and that answer is worth saying out loud too. For a named outcome, "no
+  demonstrated change yet" is valid whenever no registered evidence connects
+  the release to its conditions.
 
 **Food for thought:** the shrug your kids give a benchmark result is what
 happens when an announcement has no sentence to land in. Give people the

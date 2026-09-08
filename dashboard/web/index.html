@@ -86,7 +86,7 @@ h1{font-size:clamp(30px,4.6vw,46px);font-weight:700;line-height:1.02}
 .verdict-left{padding:26px 28px;border-right:1px solid var(--rule)}
 @media (max-width:800px){.verdict-left{border-right:0;border-bottom:1px solid var(--rule)}}
 .eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
-.bignum{font-size:clamp(46px,7vw,66px);line-height:.95;font-weight:600;
+.bignum{font-size:clamp(34px,4vw,44px);line-height:1;font-weight:600;
   font-family:"IBM Plex Mono",monospace;letter-spacing:-.03em}
 .bigunit{font-size:15px;color:var(--ink-2);margin-top:8px}
 .verdict-right{padding:26px 28px}
@@ -279,7 +279,7 @@ h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(25px,4vw,40p
 .verdict-left{padding:30px;border-color:var(--rule)}
 .verdict-right{padding:30px}
 .eyebrow{color:var(--accent)}
-.bignum{font-size:clamp(56px,8vw,92px);font-weight:500}
+.bignum{font-size:clamp(34px,4vw,44px);font-weight:500}
 .orbit-card{position:relative;overflow:hidden;min-height:320px;padding:30px;border:1px solid var(--rule);
   border-radius:12px;background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center}
 .orbit{width:min(270px,75vw);aspect-ratio:1;position:relative;display:grid;place-items:center}
@@ -332,16 +332,34 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .authority-pill{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase;
   border:1px solid var(--warning);color:var(--ink);background:color-mix(in srgb,var(--warning) 12%,transparent);padding:5px 8px;border-radius:3px;flex:0 0 auto;max-width:100%;white-space:normal;overflow-wrap:anywhere}
 .authority-pill.blocked{border-color:var(--critical);background:color-mix(in srgb,var(--critical) 10%,transparent)}
-.public-update{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0 0;padding-bottom:24px}
+.status-line{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--critical);border-radius:5px;
+  padding:9px 12px;margin:0 0 20px;color:var(--ink-2);font:600 10px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+.status-line strong{color:var(--critical)}
+.public-update{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;margin:24px 0 0;padding-bottom:12px}
 .update-cell{background:var(--surface-2);border:1px solid var(--rule);border-radius:7px;padding:13px 14px;min-height:104px}
+.update-cell.primary{grid-column:span 6}.update-cell.decision{grid-column:span 4}.update-cell.secondary{grid-column:span 3}
 .update-cell dt{font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--accent);margin-bottom:7px}
 .update-cell dd{margin:0;color:var(--ink-2);font-size:12.5px;line-height:1.45}
 .update-cell dd strong{color:var(--ink)}
 .update-cell details{margin-top:9px}.update-cell summary{cursor:pointer;color:var(--accent);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.08em}
 .update-cell details p{margin:7px 0 0;color:var(--ink-3);font-size:11px;white-space:pre-line}
-.scope-banner{margin:0 0 20px;padding:9px 12px;border:1px solid var(--rule);border-radius:5px;color:var(--ink-3);font:500 10px "IBM Plex Mono",monospace}
-@media(max-width:900px){.public-update{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.public-update{grid-template-columns:1fr}}
+.scope-banner{display:block;margin:9px 0 0;color:var(--ink-3);font:500 10px "IBM Plex Mono",monospace}
+.goal-choice{border-color:color-mix(in srgb,var(--accent) 55%,var(--rule))}
+.safety-waiting{margin:9px 0 0;padding-top:9px;border-top:1px solid var(--rule);color:var(--warning);font-size:11.5px;line-height:1.45}
+.technical-status{margin:22px 0 0;border-top:1px solid var(--rule);padding-top:13px}
+.technical-status>summary{cursor:pointer;color:var(--accent);font:500 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.technical-status .plain-warning{margin:12px 0 0}
+@media(max-width:900px){
+  .update-cell.primary,.update-cell.decision{grid-column:span 6}.update-cell.secondary{grid-column:span 4}
+}
+@media(max-width:520px){
+  .masthead .wrap{padding-top:20px}.status-line{margin-bottom:14px}.brandline{align-items:flex-start}
+  .public-update{display:block;margin-top:18px}.update-cell,.update-cell.primary,.update-cell.decision,.update-cell.secondary{
+    min-height:0;margin:0;border-radius:0;border-width:1px 0 0;padding:11px 0;background:transparent}
+  .update-cell:last-child{border-bottom-width:1px}.standfirst{margin-top:34px}.lead-copy{margin-bottom:20px}
+  .technical-status{margin-top:16px}.readout{display:grid;grid-template-columns:1fr 1fr}
+  .readout div{margin:0;padding:9px 10px 10px 0;border-right:0}.readout div:nth-child(even){padding-left:10px}
+}
 .condition-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .condition-card{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:20px 16px;overflow:hidden}
 .condition-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:var(--accent);opacity:.55}
@@ -386,43 +404,45 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
 <body>
 
 <header class="masthead"><div class="wrap">
-  <div class="authority-strip" aria-label="Publication status">
-    <span class="authority-pill">PROTOTYPE</span>
-    <span class="authority-pill">AGENT PROPOSAL</span>
-    <span class="authority-pill">REQUIRES FERNANDO REVIEW</span>
-    <span class="authority-pill blocked">PUBLIC RELEASE BLOCKED</span>
+  <div class="status-line" aria-label="Publication status">
+    <strong>RESEARCH PROTOTYPE · NOT LIVE</strong>
+    <span>NO SERVICE OR POLICY AUTHORITY · PUBLIC RELEASE BLOCKED</span>
   </div>
   <div class="brandline">
     <div class="brandmark"><span class="sigil" aria-hidden="true"></span><h1>Abundance Transition Observatory</h1></div>
     <span class="sub" id="m-schema">schema not set</span>
   </div>
-  <p class="standfirst"><strong>Complete the promise.<br>Make every IF visible.</strong></p>
-  <p class="lead-copy"><strong>Capability is not access.</strong> This is a proposed public instrument for testing
-    whether new capability becomes agency, where conditions may fail, and what people can prepare without pretending certainty.</p>
-  <p class="plain-warning"><strong>No psychohistory. No inevitable future.</strong> The mathematical language describes
-    evidence, assumptions and conditional paths. It does not confer predictive authority.</p>
-  <p class="plain-warning"><strong>FROZEN ASSESSMENT, NOT LIVE.</strong> Reference periods, publisher vintage, publisher release,
-    retrieval, byte acquisition and record generation are separate clocks. Unknown timing remains unknown.</p>
-  <dl class="readout">
-    <div><dt>Record</dt><dd class="mono" id="m-id">Not set</dd></div>
-    <div><dt>Evidence cut-off</dt><dd class="mono" id="m-cutoff">Not set</dd></div>
-    <div><dt>Record revised</dt><dd class="mono" id="m-gen">Not set</dd></div>
-    <div><dt>Signals</dt><dd class="mono" id="m-count">Not set</dd></div>
-    <div><dt>Entities</dt><dd class="mono" id="m-ents">Not set</dd></div>
-  </dl>
   <section id="now" aria-labelledby="now-title">
     <h2 class="sr-only" id="now-title">What this snapshot says now</h2>
     <dl class="public-update">
-      <div class="update-cell"><dt>WHAT THE RECORD REPORTS</dt><dd id="now-observed" aria-live="polite">Loading update contract…</dd></div>
-      <div class="update-cell"><dt>AFFECTED</dt><dd id="now-affected">Loading update contract…</dd></div>
-      <div class="update-cell"><dt>INFERRED</dt><dd id="now-inferred">Loading update contract…</dd></div>
-      <div class="update-cell"><dt>IF CHANGED</dt><dd id="now-condition">Loading update contract…</dd></div>
-      <div class="update-cell"><dt>ACTION AND OWNER</dt><dd id="now-action">Loading update contract…</dd></div>
-      <div class="update-cell"><dt>FALSIFIER</dt><dd id="now-falsifier">Loading update contract…</dd></div>
-      <div class="update-cell"><dt>NEXT CHECK</dt><dd id="now-next-check">Loading update contract…</dd></div>
+      <div class="update-cell primary"><dt>CURRENT READ</dt><dd id="now-inferred" aria-live="polite">Loading update contract…</dd></div>
+      <div class="update-cell primary"><dt>SCOPE AND APPLICABILITY</dt><dd id="now-affected">Loading update contract…</dd><dd class="scope-banner" id="update-scope">Loading update scope…</dd></div>
+      <div class="update-cell decision"><dt>IF STATUS</dt><dd id="now-condition">Loading update contract…</dd></div>
+      <div class="update-cell decision"><dt>ACTION, HELP AND SAFETY</dt><dd id="now-action">Loading update contract…</dd><p class="safety-waiting">No Observatory action is authorised. This does not establish that waiting is safe. Existing rights, duties and services remain outside this record. No Observatory-linked help or challenge service exists.</p></div>
+      <div class="update-cell decision"><dt>MONITORING</dt><dd id="now-next-check">MONITORING INACTIVE. No governed check is scheduled.</dd></div>
+      <div class="update-cell secondary goal-choice"><dt>PROPOSED GOAL (VALUE CHOICE)</dt><dd>Expand real choices and continuity as technological capability grows. Proposed by the project authors and agents. Affected-party adoption is not completed. Alternative goals and dissent remain legitimate.</dd></div>
+      <div class="update-cell secondary"><dt>EVIDENCE STATE</dt><dd id="now-observed">Loading update contract…</dd></div>
+      <div class="update-cell secondary"><dt>PATH STATUS</dt><dd>No positive or adverse path is established. Refusal, reduction and no-deployment remain legitimate candidate paths.</dd></div>
+      <div class="update-cell secondary"><dt>WHAT WOULD CHANGE THIS READING?</dt><dd id="now-falsifier">Loading update contract…</dd></div>
     </dl>
-    <p class="scope-banner" id="update-scope">Loading update scope…</p>
   </section>
+  <p class="standfirst"><strong>Complete the promise.<br>Make every IF visible.</strong></p>
+  <p class="lead-copy"><strong>Capability is not access.</strong> This is a proposed public instrument for testing
+    whether new capability becomes agency, where conditions may fail, and what people can prepare without pretending certainty.</p>
+  <details class="technical-status">
+    <summary>Inspect technical status and record identity</summary>
+    <p class="plain-warning"><strong>No psychohistory. No inevitable future.</strong> The mathematical language describes
+      evidence, assumptions and conditional paths. It does not confer predictive authority.</p>
+    <p class="plain-warning"><strong>FROZEN ASSESSMENT, NOT LIVE.</strong> Reference periods, publisher vintage, publisher release,
+      retrieval, byte acquisition and record generation are separate clocks. Unknown timing remains unknown.</p>
+    <dl class="readout">
+      <div><dt>Record</dt><dd class="mono" id="m-id">Not set</dd></div>
+      <div><dt>Evidence cut-off</dt><dd class="mono" id="m-cutoff">Not set</dd></div>
+      <div><dt>Record revised</dt><dd class="mono" id="m-gen">Not set</dd></div>
+      <div><dt>Signals</dt><dd class="mono" id="m-count">Not set</dd></div>
+      <div><dt>Entities</dt><dd class="mono" id="m-ents">Not set</dd></div>
+    </dl>
+  </details>
 </div></header>
 
 <nav class="nav-shell" aria-label="Observatory sections"><div class="nav">
@@ -1163,6 +1183,7 @@ function renderVerdict(){
   evidenceDetails.appendChild(el("p",null,sourceBytesLabel()+" · "+verdictTiming));
   lft.appendChild(evidenceDetails);
 
+  rt.appendChild(el("p","score-warning","This number is not a transition score. It has no action authority and no personal interpretation."));
   rt.appendChild(el("h2",null, gap<0
     ? "Constructed labour income grew "+fmt(Math.abs(gap),1)+" index points less than output in this aggregate baseline."
     : "Constructed labour income grew "+fmt(gap,1)+" index points more than output in this aggregate baseline."));
@@ -1355,19 +1376,22 @@ function renderNow(){
         signal,[reference.year],reference.entity,reference.measure||null);
     }).join("; ");
   }).join("; ");
-  cell("now-observed",publicUpdateEpistemicLabel(observed,update.lineage)+". "+observed.summary+" ["+visibleTimingState+" · "+sourceBytesLabel()+" · FROZEN RECORD "+snap.record_id+"]",
+  cell("now-observed","Record: "+publicUpdateEpistemicLabel(observed,update.lineage)+". Publisher timing: "+visibleTimingState+". Source authenticity: unverified. Applicability: unknown beyond the declared aggregate. Inference: "+inferred.inference_class+" only. Decision readiness: none.",
     "Class: "+observed.epistemic_class+"\nMeasure: "+observed.measure+"\nScope: "+scope.population+" / "+scope.place+" / "+scope.period+"\nRecord: "+observed.record_id+"\nPublisher release and retrieval: "+timingSummary+"\nUncertainty: "+observed.uncertainty+"\nSources: "+sources.join("; "));
   cell("now-affected",affected.status.toUpperCase()+". "+affected.summary,
     "Excluded or unresolved: "+affected.excluded_or_unresolved.join("; "));
-  cell("now-inferred",inferred.summary,
+  cell("now-inferred","No transition conclusion can be drawn from this world aggregate. "+inferred.summary,
     "Inference class: "+inferred.inference_class+"\nMethod: "+inferred.method+"\nStrongest alternatives: "+inferred.strongest_alternatives.join("; "));
-  cell("now-condition",condition.changed?condition.summary:"No change established. "+condition.summary,
+  var visibleConditionStates=(snap.if_path.conditions||[]).map(function(item){
+    return item.label.toUpperCase()+" "+item.state.toUpperCase();
+  }).join(" · ");
+  cell("now-condition",visibleConditionStates+". No progress or crisis path is established.",
     "State: "+condition.state+"\nEvidence grade: "+condition.evidence_grade+"\nConditions: "+condition.condition_ids.join(", "));
   cell("now-action",action.summary,
     "Authorisation: "+action.authorization_state+"\nOwner: "+(action.owner||"None")+"\nAuthority: "+(action.authority||"None")+"\nHelp: "+(action.help_route||"None")+"\nAppeal: "+(action.appeal_route||"None"));
   cell("now-falsifier",falsifier.summary,
     "Test: "+falsifier.test+"\nImplication: "+falsifier.implication);
-  cell("now-next-check",next.event,
+  cell("now-next-check",(!next.on||!next.owner?"MONITORING INACTIVE. ":"")+next.event,
     "Date: "+(next.on||"Not scheduled")+"\nOwner: "+(next.owner||"None")+"\nChecks this inference: "+(next.related_to_inference?"Yes":"No")+"\nIf unavailable: "+next.failure_handling);
   var selected=entity==="ALL"?"Compare all":entName(entity),same=entity===scope.entity;
   document.getElementById("update-scope").textContent=same
