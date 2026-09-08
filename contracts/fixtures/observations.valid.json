@@ -2,7 +2,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.access-falling.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "access-falling",
     "state": "true",
     "state_probability": 0.86,
@@ -17,7 +17,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.output-rising.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "output-rising",
     "state": "true",
     "reason": "Revision-aware real output per capita increased across the two-quarter window.",
@@ -31,7 +31,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.harm-material.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "harm-material",
     "state": "conflicted",
     "reason": "The primary assessment is below the harm threshold, while the independent review is above it; neither dominates under the declared method.",
@@ -48,7 +48,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.authority-suspended.20260907",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "authority-suspended",
     "state": "false",
     "reason": "The synthetic authority register contains no suspension notice at the observation cut-off.",
@@ -62,7 +62,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.delivery-slow.202608",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "delivery-slow",
     "state": "false",
     "reason": "Both delivery-rail tests completed within the seven-day threshold.",
@@ -76,7 +76,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.access-restored.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "access-restored",
     "state": "true",
     "state_probability": 0.83,
@@ -91,7 +91,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.earnings-restored.2026q2",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "earnings-restored",
     "state": "unknown",
     "reason": "No revision-stable replacement-earnings observations are available for either required quarter.",
@@ -105,7 +105,7 @@
   {
     "schema_version": "1.0.0",
     "id": "observation.appeals-low.2026q1",
-    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:7675f9d8ba5f6e1762669424fd8bd208b58a4d58fbefa917e451ffbfffcdeef4" },
+    "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "1.0.0", "checksum": "sha256:5ef801c72986d84b7f45344d9d063431b047d32746bc3015beeaaa7a9a644452" },
     "predicate_ref": "appeals-low",
     "state": "stale",
     "reason": "The last complete four-quarter appeal series is older than the one-quarter maximum age.",

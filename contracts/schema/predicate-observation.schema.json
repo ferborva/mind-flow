@@ -23,7 +23,7 @@
     "id": { "$ref": "#/$defs/id" },
     "condition_definition": { "$ref": "#/$defs/definitionReference" },
     "predicate_ref": { "$ref": "#/$defs/id" },
-    "state": { "$ref": "#/$defs/state" },
+    "state": { "$ref": "#/$defs/predicateTruthState" },
     "reason": { "$ref": "#/$defs/nonEmptyString" },
     "period": {
       "type": "object",
@@ -93,7 +93,10 @@
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
-    "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+    "predicateTruthState": {
+      "description": "Truth state of the scoped predicate. This is not a binding, lifecycle or measurement state.",
+      "enum": ["true", "false", "unknown", "stale", "conflicted"]
+    },
     "definitionReference": {
       "type": "object",
       "required": ["id", "version", "checksum"],

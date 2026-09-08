@@ -183,14 +183,32 @@
         },
         {
           "type": "object",
-          "required": ["unless"],
+          "required": ["alternative_if"],
           "properties": {
-            "unless": {
+            "alternative_if": {
               "type": "object",
-              "required": ["condition", "exception"],
+              "description": "An authorised equivalent route. The expression is condition OR alternative.",
+              "required": ["condition", "alternative"],
               "properties": {
                 "condition": { "$ref": "#/$defs/expression" },
-                "exception": { "$ref": "#/$defs/expression" }
+                "alternative": { "$ref": "#/$defs/expression" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["veto_if"],
+          "properties": {
+            "veto_if": {
+              "type": "object",
+              "description": "A safety blocker. The expression is condition AND NOT blocker.",
+              "required": ["condition", "blocker"],
+              "properties": {
+                "condition": { "$ref": "#/$defs/expression" },
+                "blocker": { "$ref": "#/$defs/expression" }
               },
               "additionalProperties": false
             }

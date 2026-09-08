@@ -1,7 +1,12 @@
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 
-import { GATES, evaluateGates } from "./evaluator.mjs";
+import {
+  GATES,
+  GATE_TRUTH_STATES,
+  evaluateGates,
+  resolveAction,
+} from "./evaluator.mjs";
 
 const QUALITY = Object.freeze({ exploratory: 0, provisional: 1, validated: 2 });
 
@@ -67,10 +72,67 @@ function expressionRefs(expression) {
   if (Array.isArray(expression.all)) return expression.all.flatMap(expressionRefs);
   if (Array.isArray(expression.any)) return expression.any.flatMap(expressionRefs);
   if (expression.not) return expressionRefs(expression.not);
+  if (expression.alternative_if) {
+    return [
+      ...expressionRefs(expression.alternative_if.condition),
+      ...expressionRefs(expression.alternative_if.alternative),
+    ];
+  }
+  if (expression.veto_if) {
+    return [
+      ...expressionRefs(expression.veto_if.condition),
+      ...expressionRefs(expression.veto_if.blocker),
+    ];
+  }
   if (expression.unless) {
     return [
       ...expressionRefs(expression.unless.condition),
       ...expressionRefs(expression.unless.exception),
+    ];
+  }
+  return [];
+}
+
+function expressionSemanticErrors(expression, path) {
+  if (!expression || typeof expression !== "object") return [];
+  if (expression.unless) {
+    return [problem(
+      "DEPRECATED_UNLESS_OPERATOR",
+      path,
+      "unless is ambiguous. Use alternative_if for an equivalent route or veto_if for a blocker.",
+    )];
+  }
+  if (Array.isArray(expression.all)) {
+    return expression.all.flatMap((child, index) =>
+      expressionSemanticErrors(child, `${path}.all[${index}]`));
+  }
+  if (Array.isArray(expression.any)) {
+    return expression.any.flatMap((child, index) =>
+      expressionSemanticErrors(child, `${path}.any[${index}]`));
+  }
+  if (expression.not) return expressionSemanticErrors(expression.not, `${path}.not`);
+  if (expression.alternative_if) {
+    return [
+      ...expressionSemanticErrors(
+        expression.alternative_if.condition,
+        `${path}.alternative_if.condition`,
+      ),
+      ...expressionSemanticErrors(
+        expression.alternative_if.alternative,
+        `${path}.alternative_if.alternative`,
+      ),
+    ];
+  }
+  if (expression.veto_if) {
+    return [
+      ...expressionSemanticErrors(
+        expression.veto_if.condition,
+        `${path}.veto_if.condition`,
+      ),
+      ...expressionSemanticErrors(
+        expression.veto_if.blocker,
+        `${path}.veto_if.blocker`,
+      ),
     ];
   }
   return [];
@@ -131,6 +193,7 @@ function validateDefinitionSemantics(definition) {
     }
   }
   for (const [gate, expression] of Object.entries(definition.gates || {})) {
+    errors.push(...expressionSemanticErrors(expression, `$.gates.${gate}`));
     for (const predicateRef of expressionRefs(expression)) {
       if (!Object.hasOwn(definition.predicates || {}, predicateRef)) {
         errors.push(problem(
@@ -393,12 +456,19 @@ export function validateEvaluationBundle(definition, observations, run) {
         ));
       }
     }
+    if (!isDeepStrictEqual(evaluated.action_resolution, run.action_resolution)) {
+      errors.push(problem(
+        "ACTION_RESOLUTION_MISMATCH",
+        "$.run.action_resolution",
+        "Recorded action resolution does not match deterministic safety precedence.",
+      ));
+    }
   }
 
   return { valid: errors.length === 0, errors };
 }
 
-export function validateActionBinding(definition, action) {
+export function validateActionBinding(definition, action, evaluation) {
   const errors = [
     ...validateDefinitionSemantics(definition),
     ...definitionReferenceErrors(
@@ -456,6 +526,44 @@ export function validateActionBinding(definition, action) {
       "$.action.expires_at",
       "$.action.funding.valid_through",
     );
+  }
+  if (action.lifecycle === "active") {
+    if (!evaluation) {
+      errors.push(problem(
+        "ACTION_ACTIVATION_EVALUATION_REQUIRED",
+        "$.action.lifecycle",
+        "An active action requires a complete deterministic gate evaluation.",
+      ));
+    } else {
+      const evaluationComplete =
+        Array.isArray(evaluation.errors) &&
+        evaluation.errors.length === 0 &&
+        GATES.every((gate) =>
+          GATE_TRUTH_STATES.includes(evaluation.gates?.[gate]?.state));
+      if (!evaluationComplete) {
+        errors.push(problem(
+          "ACTION_ACTIVATION_EVALUATION_INVALID",
+          "$.evaluation",
+          "An active action requires successful outputs for every gate.",
+        ));
+      }
+      const gateState = evaluation.gates?.[action.gate]?.state ?? null;
+      if (gateState !== "true") {
+        errors.push(problem(
+          "ACTION_GATE_NOT_TRUE",
+          `$.evaluation.gates.${action.gate}`,
+          `Action gate ${String(action.gate)} must have gate-truth state true before activation.`,
+        ));
+      }
+      const resolution = resolveAction(evaluation);
+      if (action.gate === "act" && !resolution.activation_allowed) {
+        errors.push(problem(
+          "ACTION_ACTIVATION_BLOCKED",
+          "$.evaluation.action_resolution",
+          `Action activation is blocked by ${resolution.blocking_gates.join(", ") || "gate precedence"}.`,
+        ));
+      }
+    }
   }
   return { valid: errors.length === 0, errors };
 }

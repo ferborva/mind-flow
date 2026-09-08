@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { evaluateGates } from "../evaluator.mjs";
 import {
   checksumJson,
   validateActionBinding,
@@ -122,6 +123,13 @@ test("recorded gate traces cannot disagree with deterministic re-evaluation", ()
   tampered.gate_results.act.state = "true";
   const result = validateEvaluationBundle(condition, observations, tampered);
   assert.ok(result.errors.some((error) => error.code === "GATE_RESULT_MISMATCH"));
+
+  const tamperedResolution = clone(run);
+  tamperedResolution.action_resolution.decision = "act";
+  tamperedResolution.action_resolution.activation_allowed = true;
+  assert.ok(validateEvaluationBundle(condition, observations, tamperedResolution).errors.some(
+    (error) => error.code === "ACTION_RESOLUTION_MISMATCH",
+  ));
 });
 
 test("semantic validation rejects undeclared gate and reversibility references", () => {
@@ -136,6 +144,17 @@ test("semantic validation rejects undeclared gate and reversibility references",
   assert.ok(validateActionBinding(condition, unknownGate).errors.some(
     (error) => error.code === "ACTION_REVERSIBILITY_GATE_MISSING",
   ));
+
+  const ambiguousUnless = clone(condition);
+  ambiguousUnless.gates.act = {
+    unless: {
+      condition: { predicate_ref: "access-falling" },
+      exception: { predicate_ref: "authority-suspended" },
+    },
+  };
+  assert.ok(validateActionBinding(ambiguousUnless, action).errors.some(
+    (error) => error.code === "DEPRECATED_UNLESS_OPERATOR",
+  ));
 });
 
 test("the fictional action is shadow-only and pins the same definition", () => {
@@ -149,5 +168,48 @@ test("the fictional action is shadow-only and pins the same definition", () => {
   expiredFunding.funding.valid_through = "2026-09-07T00:00:00Z";
   assert.ok(validateActionBinding(condition, expiredFunding).errors.some(
     (error) => error.code === "FUNDING_EXPIRES_BEFORE_ACTION",
+  ));
+});
+
+test("active actions require a safe completed gate resolution", () => {
+  const active = clone(action);
+  active.lifecycle = "active";
+  active.funding.status = "secured";
+  active.approved_by = [{
+    organisation: "Synthetic review body",
+    role: "test approver",
+    approved_at: "2026-09-08T00:00:00Z",
+  }];
+
+  assert.ok(validateActionBinding(condition, active).errors.some(
+    (error) => error.code === "ACTION_ACTIVATION_EVALUATION_REQUIRED",
+  ));
+
+  const safeStates = Object.fromEntries(
+    Object.keys(condition.predicates).map((predicateRef) => [predicateRef, "false"]),
+  );
+  safeStates["access-falling"] = "true";
+  safeStates["output-rising"] = "true";
+  const safeEvaluation = evaluateGates(condition, safeStates);
+  assert.equal(safeEvaluation.action_resolution.activation_allowed, true);
+  assert.deepEqual(validateActionBinding(condition, active, safeEvaluation), {
+    valid: true,
+    errors: [],
+  });
+
+  const unresolvedReverse = evaluateGates(condition, {
+    ...safeStates,
+    "harm-material": "conflicted",
+  });
+  assert.equal(unresolvedReverse.gates.act.state, "conflicted");
+  assert.equal(unresolvedReverse.gates.reverse.state, "conflicted");
+  assert.ok(validateActionBinding(condition, active, unresolvedReverse).errors.some(
+    (error) => error.code === "ACTION_ACTIVATION_BLOCKED",
+  ));
+
+  const incomplete = clone(safeEvaluation);
+  delete incomplete.gates.recover;
+  assert.ok(validateActionBinding(condition, active, incomplete).errors.some(
+    (error) => error.code === "ACTION_ACTIVATION_EVALUATION_INVALID",
   ));
 });

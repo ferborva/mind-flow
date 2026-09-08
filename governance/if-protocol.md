@@ -23,8 +23,8 @@ updated: 2026-09-08
 
 - A capability promise is incomplete until it names who can achieve what,
   where, by when, to what standard and under which conditions.
-- Conditions form a versioned graph with `AND`, `OR`, `NOT` and `UNLESS`, not a
-  single score.
+- Conditions form a versioned graph with `AND`, `OR`, `NOT`, equivalent-route
+  and veto relationships, not a single score.
 - A condition's lifecycle, current binding state and evidence grade are
   separate. Conflating them creates false confidence.
 - Decisions add an `IF warning, THEN action` contract with an owner, authority,
@@ -43,9 +43,9 @@ Fernando's original pattern is:
 The IF Protocol makes every hidden term explicit:
 
 > **[WHO] can [VERB] [OUTCOME], to [STANDARD], in [PLACE], by [TIME], IF
-> [CONDITIONS]. If [WARNING], then [ACTION] by [OWNER]. Continue until [EXIT
-> TEST]. Pause or stop if [SAFEGUARD] fails. Evidence: [SOURCE, VINTAGE,
-> UNCERTAINTY].**
+> [CONDITIONS], using [AUTHORISED ALTERNATIVE] if needed, and blocked if [VETO].
+> If [WARNING], then [ACTION] by [OWNER]. Continue until [EXIT TEST]. Pause or
+> stop if [SAFEGUARD] fails. Evidence: [SOURCE, VINTAGE, UNCERTAINTY].**
 
 This grammar separates six questions that public promises often collapse:
 
@@ -62,7 +62,7 @@ This grammar separates six questions that public promises often collapse:
 |---|---|
 | Incomplete | Everyone can learn anything. |
 | Better | A secondary student can master the agreed algebra curriculum using an AI tutor. |
-| IF Protocol | A secondary student in the pilot region can master the agreed algebra curriculum, with no greater outcome gap for low-income or disabled students, if the tutor passes quality and safety evaluation, works in required languages, is available without hidden payment, preserves a non-digital route, and provides human review and appeal. |
+| IF Protocol | A secondary student in the pilot region can master the agreed algebra curriculum, with no greater outcome gap for low-income or disabled students, if the tutor passes quality and safety evaluation, works in required languages, is available without hidden payment, preserves a non-digital route, provides human review and appeal, and has its lifecycle ecological burden assessed or reviewed as not material. |
 
 The final version is longer because it makes disagreement possible. People can
 challenge the standard, cohort, conditions, evidence or authority instead of
@@ -112,6 +112,25 @@ externalities, public return for public support, participation and remedy.
 These layers are a completeness check, not an equation. Access, agency and
 fairness cannot be calculated by multiplying ordinal scores.
 
+### Required ecological materiality assessment
+
+Ecology is cross-cutting rather than a sixth score, but it is never optional.
+Every scoped outcome graph carries one dedicated ecological materiality record
+with one of these dispositions:
+
+- **Assessed:** the lifecycle boundary, energy, water, materials, emissions,
+  waste and locally concentrated burdens are measured or explicitly unknown,
+  with affected places, thresholds, evidence, authority and review date.
+- **Not material:** a named human reviewer records why those burdens cannot
+  materially alter the outcome for the declared service, scale, place and
+  period, with evidence, challenge route and expiry.
+- **Unknown:** materiality has not been resolved. The outcome cannot be marked
+  supported and no action may rely on ecological safety.
+
+Omission is not `not material`. A capability, reach or household gain cannot
+compensate for an ecological hard-gate failure or an unresolved material
+burden.
+
 ---
 
 ## 🕸 Condition graphs
@@ -136,7 +155,8 @@ only association.
 | `AND` | Every linked condition is required | Failure of one blocks the claim |
 | `OR` | At least one valid route is sufficient | Routes must meet comparable outcome and rights standards |
 | `NOT` | A named hazard or exclusion must be absent | Define how absence is measured |
-| `UNLESS` | A declared exception replaces one requirement | The exception needs its own evidence, authority, safeguard and expiry |
+| `ALTERNATIVE IF` | A named equivalent route may satisfy the requirement | Stored as `condition OR alternative`; the alternative needs evidence, authority, safeguard and expiry |
+| `VETO IF` | A named blocker defeats an otherwise valid route | Stored as `condition AND NOT blocker`; hard vetoes pre-empt action |
 
 Example:
 
@@ -145,19 +165,21 @@ STUDENT ACHIEVES AGREED LEARNING OUTCOME
 IF
   quality standard passes
   AND safety standard passes
-  AND (home access OR accessible community access)
+  AND (home access OR accessible community access
+       OR an authorised accessibility plan provides an equivalent route)
   AND affordability standard passes
   AND language and disability access pass
-  AND NOT hidden advertising or sale of student data
+  VETO IF hidden advertising or sale of student data
   AND human review is available
   AND appeal is reachable
   AND teacher approval is recorded
-  UNLESS an authorised accessibility plan specifies an equivalent route
 ```
 
-`UNLESS` is not an informal loophole. It records a legitimate exception, who
-authorised it, why it produces an equivalent protected outcome, and when it
-will be reviewed.
+`UNLESS` is not stored as an executable operator. In ordinary language it can
+mean either an equivalent route or a blocking exception, which are opposite
+logical operations. A record must say `alternative_if` for `condition OR
+alternative`, or `veto_if` for `condition AND NOT blocker`. The public rendering
+may use natural language only when it preserves that typed meaning.
 
 ### Condition types
 
@@ -176,6 +198,11 @@ Hard gates cannot be compensated by high scores elsewhere. A safe service does
 not become acceptable because it is cheap. A cheap service does not become
 abundant if people cannot refuse it.
 
+Household access and individual agency are also conjunctive. A household margin
+may describe material access, but it cannot absorb or offset a severe loss of
+income security, discretionary time, privacy, meaningful refusal, switching or
+appeal for one of its members. Each severe individual harm is a hard gate.
+
 ## 🗂 Minimum condition record
 
 Every condition needs a versioned record:
@@ -193,7 +220,7 @@ scope:
   place: Named geography or jurisdiction
   period: Observation and decision horizon
 logic:
-  operator: AND | OR | NOT | UNLESS
+  operator: AND | OR | NOT | ALTERNATIVE_IF | VETO_IF
   dependencies: [condition-id]
 definition:
   measure: Observable definition
@@ -222,8 +249,25 @@ history:
   changes: []
 ```
 
+Every scoped outcome graph also carries this record:
+
+```yaml
+ecology:
+  disposition: assessed | not-material | unknown
+  lifecycle_boundary: Named upstream, operational and downstream boundary
+  burdens: [energy, water, materials, emissions, waste, local externalities]
+  affected_places: []
+  evidence: []
+  threshold_or_rationale: Public threshold or not-material rationale
+  reviewer: Named human reviewer or unset
+  challenge_route: Public route or unset
+  review_on: YYYY-MM-DD
+```
+
 A blank is valid when the answer is unknown. It must render as unknown rather
-than inherit a default that looks authoritative.
+than inherit a default that looks authoritative. The ecology record itself
+cannot be blank or omitted. Until it is assessed or reviewed as not material,
+its disposition is `unknown` and it blocks support and action.
 
 ---
 
@@ -389,8 +433,9 @@ evidence-backed recommendations.
 ### Promise
 
 > Adults displaced from the pilot region's accounts-processing sector can
-> maintain housing, healthcare and a minimum household access margin while
-> choosing a credible next pathway.
+> maintain housing, healthcare and a minimum household access margin while each
+> affected person retains practical choice and can choose a credible next
+> pathway.
 
 ### Condition graph
 
@@ -404,8 +449,11 @@ IF
   AND housing-loss hazard stays below the agreed ceiling
   AND at least two credible pathways are available
   AND participation is voluntary
+  AND severe individual agency harms remain below their non-compensable ceilings
   AND human casework and appeal are reachable
   AND support does NOT require surrendering unrelated privacy or labour rights
+  AND (the ecological lifecycle condition passes
+       OR a current reviewed not-material determination exists)
 ```
 
 ### Warning
@@ -445,7 +493,7 @@ person's preferences shape the pathway.
 | Capability promise | `[cohort] can [verb] [outcome] if [conditions]` |
 | Forecast | `There is [probability] that [condition] reaches [state] by [date], conditional on [assumptions]` |
 | Scenario | `If [assumptions], then [illustrated path]. No probability assigned.` |
-| Decision | `Choose [reversible action] if [decision rule], unless [safeguard]` |
+| Decision | `Choose [reversible action] if [decision rule], blocked if [typed veto]` |
 | Negotiation | `Party A provides [commitment] if Party B provides [commitment], with audit, remedy and exit` |
 | Transition | `Move from [state] to [state] when readiness gates pass, not because the calendar advanced` |
 | Warning | `If [leading conditions] move together under the evidence rule, begin [review or first response]` |

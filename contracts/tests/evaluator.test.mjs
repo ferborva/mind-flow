@@ -2,11 +2,14 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  GATE_TRUTH_STATES,
   GATES,
+  PREDICATE_TRUTH_STATES,
   STATES,
   TRUTH_TABLES,
   evaluateExpression,
   evaluateGates,
+  resolveAction,
 } from "../evaluator.mjs";
 
 const ref = (predicate_ref) => ({ predicate_ref });
@@ -37,7 +40,19 @@ const expectedAny = {
   conflicted: { true: "true",  false: "conflicted", unknown: "unknown",    stale: "unknown",    conflicted: "conflicted" },
 };
 
+const expectedAlternativeIf = expectedAny;
+
+const expectedVetoIf = {
+  true:       { true: "false", false: "true",       unknown: "unknown", stale: "stale",      conflicted: "conflicted" },
+  false:      { true: "false", false: "false",      unknown: "false",   stale: "false",      conflicted: "false" },
+  unknown:    { true: "false", false: "unknown",    unknown: "unknown", stale: "unknown",    conflicted: "unknown" },
+  stale:      { true: "false", false: "stale",      unknown: "unknown", stale: "stale",      conflicted: "unknown" },
+  conflicted: { true: "false", false: "conflicted", unknown: "unknown", stale: "unknown",    conflicted: "conflicted" },
+};
+
 test("five-valued NOT, ALL and ANY truth tables are explicit and complete", () => {
+  assert.deepEqual(PREDICATE_TRUTH_STATES, ["true", "false", "unknown", "stale", "conflicted"]);
+  assert.deepEqual(GATE_TRUTH_STATES, PREDICATE_TRUTH_STATES);
   assert.deepEqual(STATES, ["true", "false", "unknown", "stale", "conflicted"]);
   assert.deepEqual(TRUTH_TABLES.not, expectedNot);
   assert.deepEqual(TRUTH_TABLES.all, expectedAll);
@@ -61,17 +76,78 @@ test("five-valued NOT, ALL and ANY truth tables are explicit and complete", () =
   }
 });
 
-test("UNLESS is A AND NOT B for every pair of states", () => {
+test("equivalent alternatives and veto blockers publish all 25 state pairs", () => {
+  assert.deepEqual(TRUTH_TABLES.alternative_if, expectedAlternativeIf);
+  assert.deepEqual(TRUTH_TABLES.veto_if, expectedVetoIf);
+
   for (const condition of STATES) {
-    for (const exception of STATES) {
-      const expected = expectedAll[condition][expectedNot[exception]];
+    for (const alternative of STATES) {
       const actual = evaluateExpression(
-        { unless: { condition: ref("a"), exception: ref("b") } },
-        states(condition, exception),
+        { alternative_if: { condition: ref("a"), alternative: ref("b") } },
+        states(condition, alternative),
       );
-      assert.equal(actual.state, expected, `${condition} unless ${exception}`);
+      assert.equal(
+        actual.state,
+        expectedAlternativeIf[condition][alternative],
+        `${condition} with equivalent alternative ${alternative}`,
+      );
+    }
+    for (const blocker of STATES) {
+      const actual = evaluateExpression(
+        { veto_if: { condition: ref("a"), blocker: ref("b") } },
+        states(condition, blocker),
+      );
+      assert.equal(
+        actual.state,
+        expectedVetoIf[condition][blocker],
+        `${condition} with veto blocker ${blocker}`,
+      );
     }
   }
+});
+
+test("ambiguous UNLESS is rejected instead of guessing its meaning", () => {
+  const result = evaluateExpression(
+    { unless: { condition: ref("a"), exception: ref("b") } },
+    states("true", "false"),
+  );
+  assert.equal(result.state, null);
+  assert.deepEqual(result.errors.map((error) => error.code), ["DEPRECATED_UNLESS"]);
+});
+
+test("equivalent alternatives and veto blockers preserve decisive traces", () => {
+  const primary = evaluateExpression(
+    { alternative_if: { condition: ref("a"), alternative: ref("b") } },
+    states("true", "conflicted"),
+  );
+  assert.equal(primary.state, "true");
+  assert.deepEqual(primary.trace.map((entry) => entry.predicate_ref), ["a"]);
+  assert.deepEqual(primary.skipped_predicates, ["b"]);
+
+  const alternative = evaluateExpression(
+    { alternative_if: { condition: ref("a"), alternative: ref("b") } },
+    states("false", "true"),
+  );
+  assert.equal(alternative.state, "true");
+  assert.deepEqual(alternative.trace.map((entry) => entry.predicate_ref), ["a", "b"]);
+  assert.deepEqual(alternative.decisive_predicates, ["b"]);
+
+  const blocked = evaluateExpression(
+    { veto_if: { condition: ref("a"), blocker: ref("b") } },
+    states("conflicted", "true"),
+  );
+  assert.equal(blocked.state, "false");
+  assert.deepEqual(blocked.trace.map((entry) => entry.predicate_ref), ["b"]);
+  assert.deepEqual(blocked.skipped_predicates, ["a"]);
+
+  const uncertain = evaluateExpression(
+    { veto_if: { condition: ref("a"), blocker: ref("b") } },
+    states("false", "unknown"),
+  );
+  assert.equal(uncertain.state, "false");
+  assert.deepEqual(uncertain.trace.map((entry) => entry.predicate_ref), ["b", "a"]);
+  assert.deepEqual(uncertain.uncertain_predicates, ["b"]);
+  assert.deepEqual(uncertain.decisive_predicates, ["a"]);
 });
 
 test("mixed uncertainty reasons do not manufacture an ordinal hierarchy", () => {
@@ -112,25 +188,6 @@ test("short-circuiting occurs only for decisive false in ALL and true in ANY", (
   assert.deepEqual(any.decisive_predicates, ["b"]);
   assert.deepEqual(any.uncertain_predicates, ["a"]);
   assert.deepEqual(any.skipped_predicates, ["c"]);
-});
-
-test("UNLESS checks the exception first but still evaluates an uncertain exception when needed", () => {
-  const blocked = evaluateExpression(
-    { unless: { condition: ref("a"), exception: ref("b") } },
-    states("conflicted", "true"),
-  );
-  assert.equal(blocked.state, "false");
-  assert.deepEqual(blocked.trace.map((entry) => entry.predicate_ref), ["b"]);
-  assert.deepEqual(blocked.skipped_predicates, ["a"]);
-
-  const uncertain = evaluateExpression(
-    { unless: { condition: ref("a"), exception: ref("b") } },
-    states("false", "unknown"),
-  );
-  assert.equal(uncertain.state, "false");
-  assert.deepEqual(uncertain.trace.map((entry) => entry.predicate_ref), ["b", "a"]);
-  assert.deepEqual(uncertain.uncertain_predicates, ["b"]);
-  assert.deepEqual(uncertain.decisive_predicates, ["a"]);
 });
 
 test("invalid expressions and predicate references are errors, not uncertain states", () => {
@@ -190,9 +247,9 @@ test("all six gates evaluate independently with complete trace and no mutation",
     gates: {
       watch: { all: [ref("access-falling"), { not: ref("authority-suspended") }] },
       act: {
-        unless: {
+        veto_if: {
           condition: { all: [ref("access-falling"), ref("output-rising")] },
-          exception: { any: [ref("harm-material"), ref("authority-suspended")] },
+          blocker: { any: [ref("harm-material"), ref("authority-suspended")] },
         },
       },
       pause: ref("delivery-slow"),
@@ -229,6 +286,59 @@ test("all six gates evaluate independently with complete trace and no mutation",
   assert.deepEqual(result.errors, []);
   assert.deepEqual({ contract, predicateStates }, before);
   assert.deepEqual(evaluateGates(contract, predicateStates), result, "evaluation must be deterministic");
+});
+
+test("action resolution pre-empts act and blocks unresolved hard safeguards", () => {
+  const evaluated = (overrides = {}) => ({
+    gates: Object.fromEntries(GATES.map((gate) => [gate, { state: "false" }])),
+    errors: [],
+    ...overrides,
+  });
+  const withStates = (statesByGate) => evaluated({
+    gates: Object.fromEntries(GATES.map((gate) => [
+      gate,
+      { state: Object.hasOwn(statesByGate, gate) ? statesByGate[gate] : "false" },
+    ])),
+  });
+
+  assert.deepEqual(resolveAction(withStates({ act: "true" })), {
+    input_state_axis: "gate_truth",
+    decision: "act",
+    activation_allowed: true,
+    eligible_gates: ["act"],
+    blocking_gates: [],
+    unresolved_hard_safeguards: [],
+  });
+  assert.deepEqual(resolveAction(withStates({ act: "true", pause: "true" })), {
+    input_state_axis: "gate_truth",
+    decision: "pause",
+    activation_allowed: false,
+    eligible_gates: ["act", "pause"],
+    blocking_gates: ["pause"],
+    unresolved_hard_safeguards: [],
+  });
+  assert.deepEqual(resolveAction(withStates({ act: "true", pause: "true", reverse: "true" })), {
+    input_state_axis: "gate_truth",
+    decision: "reverse",
+    activation_allowed: false,
+    eligible_gates: ["act", "pause", "reverse"],
+    blocking_gates: ["reverse", "pause"],
+    unresolved_hard_safeguards: [],
+  });
+
+  for (const safeguard of ["reverse", "pause"]) {
+    for (const state of ["unknown", "stale", "conflicted", null, "invalid-state"]) {
+      const result = resolveAction(withStates({ act: "true", [safeguard]: state }));
+      assert.equal(result.decision, "no_action", `${safeguard}=${state}`);
+      assert.equal(result.activation_allowed, false, `${safeguard}=${state}`);
+      assert.deepEqual(result.blocking_gates, [safeguard], `${safeguard}=${state}`);
+      assert.deepEqual(
+        result.unresolved_hard_safeguards,
+        [safeguard],
+        `${safeguard}=${state}`,
+      );
+    }
+  }
 });
 
 test("gate evaluation reports missing gates and bad references without hiding valid gates", () => {

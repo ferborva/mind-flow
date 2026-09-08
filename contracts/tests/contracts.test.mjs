@@ -38,10 +38,16 @@ function predicateRefs(expression) {
   if (expression.all) return expression.all.flatMap(predicateRefs);
   if (expression.any) return expression.any.flatMap(predicateRefs);
   if (expression.not) return predicateRefs(expression.not);
-  if (expression.unless) {
+  if (expression.alternative_if) {
     return [
-      ...predicateRefs(expression.unless.condition),
-      ...predicateRefs(expression.unless.exception),
+      ...predicateRefs(expression.alternative_if.condition),
+      ...predicateRefs(expression.alternative_if.alternative),
+    ];
+  }
+  if (expression.veto_if) {
+    return [
+      ...predicateRefs(expression.veto_if.condition),
+      ...predicateRefs(expression.veto_if.blocker),
     ];
   }
   return [];
@@ -59,12 +65,46 @@ test("the immutable reference definition exercises the complete IF grammar", () 
   ]);
 
   const serialised = JSON.stringify(condition.gates);
-  for (const operator of ['"all"', '"any"', '"not"', '"unless"']) {
+  for (const operator of ['"all"', '"any"', '"not"', '"veto_if"']) {
     assert.match(serialised, new RegExp(operator), `fixture does not exercise ${operator}`);
   }
   assert.match(condition.schema_version, /^2\.0\./);
   assert.equal(Object.hasOwn(condition, "evaluation"), false);
   assert.equal(Object.hasOwn(condition, "evidence_catalog"), false);
+});
+
+test("the grammar separates equivalent alternatives from veto blockers", () => {
+  const withAlternative = clone(condition);
+  withAlternative.gates.watch = {
+    alternative_if: {
+      condition: { predicate_ref: "access-falling" },
+      alternative: { predicate_ref: "output-rising" },
+    },
+  };
+  assert.equal(validateCondition(withAlternative), true, ajv.errorsText(validateCondition.errors));
+
+  const ambiguousUnless = clone(condition);
+  ambiguousUnless.gates.watch = {
+    unless: {
+      condition: { predicate_ref: "access-falling" },
+      exception: { predicate_ref: "authority-suspended" },
+    },
+  };
+  expectInvalid(validateCondition, ambiguousUnless, "ambiguous unless must be rejected");
+});
+
+test("schemas name predicate truth and gate truth axes explicitly", () => {
+  const observationSchema = readJson(join(contracts, "schema", "predicate-observation.schema.json"));
+  const runSchema = readJson(join(contracts, "schema", "evaluation-run.schema.json"));
+  const attemptSchema = readJson(join(contracts, "schema", "evaluation-attempt.schema.json"));
+
+  assert.ok(observationSchema.$defs.predicateTruthState);
+  assert.ok(runSchema.$defs.predicateTruthState);
+  assert.ok(runSchema.$defs.gateTruthState);
+  assert.ok(attemptSchema.$defs.predicateTruthState);
+  assert.ok(attemptSchema.$defs.gateTruthState);
+  assert.equal(action.required_gate_truth_state, "true");
+  assert.equal(Object.hasOwn(action, "required_condition_state"), false);
 });
 
 test("condition validation rejects unsafe or ambiguous contracts", () => {

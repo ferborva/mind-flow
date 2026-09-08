@@ -5,17 +5,17 @@
   "corrects": {
     "kind": "predicate-observation",
     "id": "observation.earnings-restored.2026q2",
-    "checksum": "sha256:f7e0910c75919c0346bceed3d2177990b90d699f3548261b2ea1c444c34f18a7"
+    "checksum": "sha256:f5e1bbb97b8e4d7f5aa93e646b647629eb1607b91e986ff9b317480e705ad638"
   },
   "replacement": {
     "kind": "predicate-observation",
     "id": "observation.earnings-restored.2026q2.c1",
-    "checksum": "sha256:559aafef026ebf8a9c5e0543d2931a1bf3d9e4dc55d170fad6ff3c05aa772fc3"
+    "checksum": "sha256:13e9ff29378a280302a06cd0f53f45acd36c4eb290a7a825ed3299f89938ded4"
   },
   "invalidates": [{
     "kind": "evaluation-run",
     "id": "evaluation.au-clerical-access-margin.20260908t0000z",
-    "checksum": "sha256:287d88b3c4d8f6aa522c99fc51ee1648d4bcff7a2e25e9a82d1560f3217f1a25"
+      "checksum": "sha256:e2fb9050b5b24343ecaa1fee6c21c40bbbb3491d1e47fd1e699b15409daf1abc"
   }],
   "reason": "A synthetic linkage-job defect hid both replacement-earnings quarters. The original observation and every run that consumed it remain preserved but superseded or invalidated.",
   "recorded_at": "2026-09-08T00:10:00Z",

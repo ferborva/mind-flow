@@ -6,13 +6,19 @@
  * layer. This module only combines those states without erasing uncertainty.
  */
 
-export const STATES = Object.freeze([
+export const PREDICATE_TRUTH_STATES = Object.freeze([
   "true",
   "false",
   "unknown",
   "stale",
   "conflicted",
 ]);
+
+// Compatibility alias. New contracts should name this predicate-truth axis.
+export const STATES = PREDICATE_TRUTH_STATES;
+
+// Gate truth has the same values but is a distinct semantic axis.
+export const GATE_TRUTH_STATES = PREDICATE_TRUTH_STATES;
 
 export const GATES = Object.freeze([
   "watch",
@@ -23,8 +29,16 @@ export const GATES = Object.freeze([
   "graduate",
 ]);
 
-const STATE_SET = new Set(STATES);
-const EXPRESSION_KEYS = new Set(["predicate_ref", "all", "any", "not", "unless"]);
+const STATE_SET = new Set(PREDICATE_TRUTH_STATES);
+const EXPRESSION_KEYS = new Set([
+  "predicate_ref",
+  "all",
+  "any",
+  "not",
+  "alternative_if",
+  "veto_if",
+  "unless",
+]);
 
 function combineUncertainty(left, right) {
   return left === right ? left : "unknown";
@@ -71,6 +85,15 @@ export const TRUTH_TABLES = deepFreeze({
   },
   all: makeBinaryTable(allPair),
   any: makeBinaryTable(anyPair),
+  alternative_if: makeBinaryTable(anyPair),
+  veto_if: makeBinaryTable((condition, blocker) =>
+    allPair(condition, {
+      true: "false",
+      false: "true",
+      unknown: "unknown",
+      stale: "stale",
+      conflicted: "conflicted",
+    }[blocker])),
 });
 
 function own(object, key) {
@@ -99,7 +122,16 @@ function validateExpression(expression, predicateStates, knownPredicates, path, 
     errors.push(error(
       "INVALID_EXPRESSION",
       path,
-      "An expression must contain exactly one of predicate_ref, all, any, not or unless.",
+      "An expression must contain exactly one of predicate_ref, all, any, not, alternative_if or veto_if.",
+    ));
+    return;
+  }
+
+  if (key === "unless") {
+    errors.push(error(
+      "DEPRECATED_UNLESS",
+      path,
+      "unless is ambiguous. Use alternative_if for an equivalent route or veto_if for a blocker.",
     ));
     return;
   }
@@ -160,34 +192,36 @@ function validateExpression(expression, predicateStates, knownPredicates, path, 
     return;
   }
 
-  const unless = expression.unless;
+  const operator = expression[key];
+  const rightKey = key === "alternative_if" ? "alternative" : "blocker";
+  const errorCode = key === "alternative_if" ? "INVALID_ALTERNATIVE_IF" : "INVALID_VETO_IF";
   if (
-    !unless ||
-    typeof unless !== "object" ||
-    Array.isArray(unless) ||
-    Object.keys(unless).length !== 2 ||
-    !own(unless, "condition") ||
-    !own(unless, "exception")
+    !operator ||
+    typeof operator !== "object" ||
+    Array.isArray(operator) ||
+    Object.keys(operator).length !== 2 ||
+    !own(operator, "condition") ||
+    !own(operator, rightKey)
   ) {
     errors.push(error(
-      "INVALID_UNLESS",
+      errorCode,
       path,
-      "unless requires exactly one condition and one exception expression.",
+      `${key} requires exactly one condition and one ${rightKey} expression.`,
     ));
     return;
   }
   validateExpression(
-    unless.condition,
+    operator.condition,
     predicateStates,
     knownPredicates,
-    `${path}.unless.condition`,
+    `${path}.${key}.condition`,
     errors,
   );
   validateExpression(
-    unless.exception,
+    operator[rightKey],
     predicateStates,
     knownPredicates,
-    `${path}.unless.exception`,
+    `${path}.${key}.${rightKey}`,
     errors,
   );
 }
@@ -197,10 +231,16 @@ function collectPredicateRefs(expression) {
   if (key === "predicate_ref") return [expression.predicate_ref];
   if (key === "all" || key === "any") return expression[key].flatMap(collectPredicateRefs);
   if (key === "not") return collectPredicateRefs(expression.not);
-  if (key === "unless") {
+  if (key === "alternative_if") {
     return [
-      ...collectPredicateRefs(expression.unless.condition),
-      ...collectPredicateRefs(expression.unless.exception),
+      ...collectPredicateRefs(expression.alternative_if.condition),
+      ...collectPredicateRefs(expression.alternative_if.alternative),
+    ];
+  }
+  if (key === "veto_if") {
+    return [
+      ...collectPredicateRefs(expression.veto_if.condition),
+      ...collectPredicateRefs(expression.veto_if.blocker),
     ];
   }
   return [];
@@ -258,22 +298,69 @@ function sequence(expression, predicateStates, path, kind) {
   return { state, trace, decisive: unique(decisive), skipped: unique(skipped) };
 }
 
-function evaluateUnless(expression, predicateStates, path) {
-  const exceptionExpression = expression.unless.exception;
-  const conditionExpression = expression.unless.condition;
-  const exception = evaluateValidExpression(
-    exceptionExpression,
+function evaluateAlternativeIf(expression, predicateStates, path) {
+  const conditionExpression = expression.alternative_if.condition;
+  const alternativeExpression = expression.alternative_if.alternative;
+  const condition = evaluateValidExpression(
+    conditionExpression,
     predicateStates,
-    `${path}.unless.exception`,
+    `${path}.alternative_if.condition`,
   );
 
-  if (exception.state === "true") {
+  if (condition.state === "true") {
+    return {
+      state: "true",
+      trace: condition.trace,
+      decisive: condition.decisive,
+      skipped: unique([
+        ...condition.skipped,
+        ...collectPredicateRefs(alternativeExpression),
+      ]),
+    };
+  }
+
+  const alternative = evaluateValidExpression(
+    alternativeExpression,
+    predicateStates,
+    `${path}.alternative_if.alternative`,
+  );
+  const state = TRUTH_TABLES.alternative_if[condition.state][alternative.state];
+  let decisive;
+
+  if (alternative.state === "true") {
+    decisive = alternative.decisive;
+  } else if (state === "false") {
+    decisive = [...condition.decisive, ...alternative.decisive];
+  } else {
+    decisive = [condition, alternative]
+      .filter((child) => child.state !== "true" && child.state !== "false")
+      .flatMap((child) => child.decisive);
+  }
+
+  return {
+    state,
+    trace: [...condition.trace, ...alternative.trace],
+    decisive: unique(decisive),
+    skipped: unique([...condition.skipped, ...alternative.skipped]),
+  };
+}
+
+function evaluateVetoIf(expression, predicateStates, path) {
+  const blockerExpression = expression.veto_if.blocker;
+  const conditionExpression = expression.veto_if.condition;
+  const blocker = evaluateValidExpression(
+    blockerExpression,
+    predicateStates,
+    `${path}.veto_if.blocker`,
+  );
+
+  if (blocker.state === "true") {
     return {
       state: "false",
-      trace: exception.trace,
-      decisive: exception.decisive,
+      trace: blocker.trace,
+      decisive: blocker.decisive,
       skipped: unique([
-        ...exception.skipped,
+        ...blocker.skipped,
         ...collectPredicateRefs(conditionExpression),
       ]),
     };
@@ -282,27 +369,26 @@ function evaluateUnless(expression, predicateStates, path) {
   const condition = evaluateValidExpression(
     conditionExpression,
     predicateStates,
-    `${path}.unless.condition`,
+    `${path}.veto_if.condition`,
   );
-  const negatedException = TRUTH_TABLES.not[exception.state];
-  const state = TRUTH_TABLES.all[condition.state][negatedException];
+  const state = TRUTH_TABLES.veto_if[condition.state][blocker.state];
   let decisive;
 
   if (condition.state === "false") {
     decisive = condition.decisive;
   } else if (state === "true") {
-    decisive = [...exception.decisive, ...condition.decisive];
+    decisive = [...blocker.decisive, ...condition.decisive];
   } else {
-    decisive = [exception, condition]
+    decisive = [blocker, condition]
       .filter((child) => child.state !== "true" && child.state !== "false")
       .flatMap((child) => child.decisive);
   }
 
   return {
     state,
-    trace: [...exception.trace, ...condition.trace],
+    trace: [...blocker.trace, ...condition.trace],
     decisive: unique(decisive),
-    skipped: unique([...exception.skipped, ...condition.skipped]),
+    skipped: unique([...blocker.skipped, ...condition.skipped]),
   };
 }
 
@@ -316,7 +402,10 @@ function evaluateValidExpression(expression, predicateStates, path) {
     const child = evaluateValidExpression(expression.not, predicateStates, `${path}.not`);
     return { ...child, state: TRUTH_TABLES.not[child.state] };
   }
-  return evaluateUnless(expression, predicateStates, path);
+  if (key === "alternative_if") {
+    return evaluateAlternativeIf(expression, predicateStates, path);
+  }
+  return evaluateVetoIf(expression, predicateStates, path);
 }
 
 function publicResult(result, errors = []) {
@@ -366,6 +455,69 @@ export function evaluateExpression(expression, predicateStates, options = {}) {
   return publicResult(evaluateValidExpression(expression, statesByPredicate, "$"));
 }
 
+const HARD_SAFEGUARD_PRIORITY = Object.freeze(["reverse", "pause"]);
+const isUnresolvedState = (state) => state !== "true" && state !== "false";
+
+/**
+ * Resolve whether a newly active action is safe from complete gate-truth output.
+ * Recovery and graduation remain visible in eligible_gates but cannot override
+ * a hard reverse or pause safeguard.
+ */
+export function resolveAction(evaluation) {
+  const gates = evaluation?.gates || evaluation || {};
+  const gateState = (gate) => gates?.[gate]?.state ?? null;
+  const eligibleGates = GATES.filter((gate) => gateState(gate) === "true");
+  const trueSafeguards = HARD_SAFEGUARD_PRIORITY.filter(
+    (gate) => gateState(gate) === "true",
+  );
+  const unresolvedHardSafeguards = HARD_SAFEGUARD_PRIORITY.filter(
+    (gate) => isUnresolvedState(gateState(gate)),
+  );
+
+  if (trueSafeguards.length > 0) {
+    return {
+      input_state_axis: "gate_truth",
+      decision: trueSafeguards[0],
+      activation_allowed: false,
+      eligible_gates: eligibleGates,
+      blocking_gates: [...trueSafeguards, ...unresolvedHardSafeguards],
+      unresolved_hard_safeguards: unresolvedHardSafeguards,
+    };
+  }
+
+  if (unresolvedHardSafeguards.length > 0) {
+    return {
+      input_state_axis: "gate_truth",
+      decision: "no_action",
+      activation_allowed: false,
+      eligible_gates: eligibleGates,
+      blocking_gates: unresolvedHardSafeguards,
+      unresolved_hard_safeguards: unresolvedHardSafeguards,
+    };
+  }
+
+  if (gateState("act") === "true") {
+    return {
+      input_state_axis: "gate_truth",
+      decision: "act",
+      activation_allowed: true,
+      eligible_gates: eligibleGates,
+      blocking_gates: [],
+      unresolved_hard_safeguards: [],
+    };
+  }
+
+  const actUnresolved = isUnresolvedState(gateState("act"));
+  return {
+    input_state_axis: "gate_truth",
+    decision: "no_action",
+    activation_allowed: false,
+    eligible_gates: eligibleGates,
+    blocking_gates: actUnresolved ? ["act"] : [],
+    unresolved_hard_safeguards: [],
+  };
+}
+
 /** Evaluate every required lifecycle gate independently. */
 export function evaluateGates(contract, predicateStates) {
   const gates = {};
@@ -391,5 +543,9 @@ export function evaluateGates(contract, predicateStates) {
     errors.push(...result.errors.map((entry) => ({ ...entry, gate })));
   }
 
-  return { gates, errors };
+  return {
+    gates,
+    action_resolution: resolveAction({ gates, errors }),
+    errors,
+  };
 }

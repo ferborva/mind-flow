@@ -10,7 +10,7 @@
     "action_version",
     "condition_definition",
     "gate",
-    "required_condition_state",
+    "required_gate_truth_state",
     "verb",
     "object",
     "rationale",
@@ -33,7 +33,10 @@
     "action_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
     "condition_definition": { "$ref": "#/$defs/definitionReference" },
     "gate": { "$ref": "#/$defs/gate" },
-    "required_condition_state": { "const": "true" },
+    "required_gate_truth_state": {
+      "description": "Required value on the gate-truth axis. It is not a lifecycle or binding state.",
+      "const": "true"
+    },
     "verb": { "type": "string", "pattern": "^[a-z]+(?:-[a-z]+)*$" },
     "object": { "$ref": "#/$defs/nonEmptyString" },
     "rationale": { "$ref": "#/$defs/nonEmptyString" },

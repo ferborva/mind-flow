@@ -216,14 +216,14 @@
       ]
     },
     "act": {
-      "unless": {
+      "veto_if": {
         "condition": {
           "all": [
             { "predicate_ref": "access-falling" },
             { "predicate_ref": "output-rising" }
           ]
         },
-        "exception": {
+        "blocker": {
           "any": [
             { "predicate_ref": "harm-material" },
             { "predicate_ref": "authority-suspended" }

@@ -37,13 +37,25 @@ approval and no claim of government authority.
 
 ## Condition grammar
 
-> **Actor + verb + object, IF evidence conditions hold, UNLESS exceptions apply,
-> UNTIL recovery conditions hold.**
+> **Actor + verb + object, IF evidence conditions hold, with equivalent routes
+> and veto blockers named separately, UNTIL recovery conditions hold.**
 
 `condition-contract.schema.json` makes every scope, threshold, observation
 window and evidence requirement explicit. Conditions use five-valued state:
 `true`, `false`, `unknown`, `stale` or `conflicted`. Missing evidence must never
 silently become `false`.
+
+Within this package, those values belong to two explicit axes:
+
+- **predicate truth** is the evidence-resolved state of one predicate;
+- **gate truth** is the deterministic result of combining predicate-truth
+  inputs.
+
+They are not lifecycle, measurement, binding or evidence-grade states. The JSON
+property remains `state` in versioned observation and evaluation records for
+compatibility, while schema definitions and action requirements name the axis.
+Migration of dashboard and pilot state vocabularies is outside this contract
+repair and remains incomplete.
 
 Every contract carries six gates:
 
@@ -76,7 +88,10 @@ different transition semantics that action verbs and outcomes cannot express.
 `action-contract.schema.json` binds one condition gate to a verb and object. It
 requires an accountable owner, authority, funding state, response SLA, appeal
 route, verification outcome, communications and expiry. Approved or active
-actions must have at least one approver and secured funding.
+actions must have at least one approver and secured funding. An active action
+also requires a complete gate evaluation. Its gate-truth state must be `true`,
+and an action bound to `act` remains blocked unless the deterministic safety
+resolution permits activation.
 
 The fixtures are synthetic test contracts, not policy proposals and not evidence
 that the example thresholds are valid. Their thresholds explicitly remain in
@@ -89,7 +104,7 @@ the relationships that Schema cannot establish alone: definition references,
 gate and observation references, checksums, date order, evidence timing,
 coverage minimums, source and quality policy, uncertainty bounds, probability
 policy, action lifetime and funding lifetime. It also re-evaluates every gate
-and requires the stored state and trace to match exactly.
+and requires the stored state, trace and action resolution to match exactly.
 
 `validateEvaluationAttempt` applies the same definition, observation, date and
 deterministic-output checks to the subset an attempt claims to have completed.
@@ -141,11 +156,54 @@ logically skipped predicates and structural errors. An invalid expression,
 undeclared predicate or missing predicate state returns `state: null` with an
 error. It never masquerades as evidence uncertainty.
 
-`unless` has the exact meaning `condition AND NOT exception`. The evaluator
-checks the exception first because a true exception decisively blocks the
-condition. `all` stops only on `false`; `any` stops only on `true`. A validation
-pass still checks the entire expression before evaluation, so a malformed branch
-cannot hide behind short-circuiting.
+Two operators replace the ambiguous word `unless`:
+
+- `alternative_if` means `condition OR alternative`. The alternative must be an
+  authorised route to an equivalent protected outcome.
+- `veto_if` means `condition AND NOT blocker`. The blocker is checked first, so
+  a true blocker decisively prevents the condition from passing.
+
+`unless` is not valid schema and the evaluator returns `DEPRECATED_UNLESS`
+rather than guessing which meaning was intended. `all` stops only on `false`;
+`any` stops only on `true`. Validation still checks the whole expression before
+evaluation, so a malformed branch cannot hide behind short-circuiting.
+
+### Complete operator truth tables
+
+Rows are the primary `condition`. Columns are the `alternative` or `blocker`.
+`T` is true, `F` is false, `U` is unknown, `S` is stale, and `C` is conflicted.
+
+`alternative_if = condition OR alternative`:
+
+| condition \\ alternative | T | F | U | S | C |
+|---|---|---|---|---|---|
+| T | T | T | T | T | T |
+| F | T | F | U | S | C |
+| U | T | U | U | U | U |
+| S | T | S | U | S | U |
+| C | T | C | U | U | C |
+
+`veto_if = condition AND NOT blocker`:
+
+| condition \\ blocker | T | F | U | S | C |
+|---|---|---|---|---|---|
+| T | F | T | U | S | C |
+| F | F | F | F | F | F |
+| U | F | U | U | U | U |
+| S | F | S | U | S | U |
+| C | F | C | U | U | C |
+
+### Deterministic action safety
+
+`evaluateGates` also emits `action_resolution` from the gate-truth outputs:
+
+1. `reverse=true` selects reverse and blocks activation.
+2. Otherwise, `pause=true` selects pause and blocks activation.
+3. Otherwise, any `unknown`, `stale`, `conflicted` or invalid hard safeguard
+   blocks activation with `no_action`.
+4. Only `act=true` with both hard safeguards false permits activation.
+5. Recovery and graduation remain visible as eligible gates, but cannot
+   override a hard safeguard.
 
 ## Known limits before operational use
 
