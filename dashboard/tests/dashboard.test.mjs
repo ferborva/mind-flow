@@ -51,6 +51,17 @@ test("public language does not turn imperfect proxies into verdicts", () => {
   assert.match(baseline.caveats.join(" "), /not.*like.for.like/i);
 });
 
+test("failure scenarios do not predict or pathologise democratic responses", () => {
+  assert.doesNotMatch(template, /Likely movement:/i);
+  for (const crisis of snapshot.crises) {
+    assert.equal("movement" in crisis, false, `${crisis.id}: remove movement forecast`);
+    assert.ok(
+      crisis.possible_public_responses?.length >= 1,
+      `${crisis.id}: possible responses must remain plural and unpredicted`,
+    );
+  }
+});
+
 test("snapshot carries actionable crisis and actor contracts", () => {
   assert.match(snapshot.schema_version, /^1\.2\./);
   assert.ok(snapshot.crises.length >= 5);

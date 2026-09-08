@@ -1,6 +1,6 @@
 # The snapshot contract
 
-**Version 1.2.0**
+**Version 1.2.1**
 
 One rule governs this whole directory: **the website never talks to a data
 provider.** It renders a snapshot. That is the entire architecture, and every
@@ -61,10 +61,10 @@ than rendering something misleading.
 
 ```jsonc
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.2.1",
   "snapshot_id": "2026-09-07",         // YYYY-MM-DD, unique, sortable
   "generated_at": "2026-09-07T10:00:00Z",
-  "generator": "fetch_snapshot.py@1.2.0",
+  "generator": "fetch_snapshot.py@1.2.1",
   "title": "Signals toward the transition",
   "notes": "Free text. Anything a reader needs to know about this run.",
   "entities": [ /* see below */ ],
@@ -167,12 +167,16 @@ may show instrumentation coverage, but it must not turn coverage into risk.
   "status": "unscored",                 // unscored | watch | activated
   "condition": "Capability rises while access falls.",
   "why_it_matters": "…",
-  "movement": "…",
+  "possible_public_responses": ["…"],
   "communication": "…",
   "leading_signals": ["inflation", "access-margin"],
   "actions": { "prepare": "…", "protect": "…", "recover": "…" }
 }
 ```
+
+`possible_public_responses` lists plural democratic, institutional or personal
+responses without predicting that people will adopt them. The older singular
+`movement` field remains schema-compatible but is deprecated.
 
 ## Actor playbooks
 

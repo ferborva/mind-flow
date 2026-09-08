@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-fetch_snapshot.py 1.2.0
+fetch_snapshot.py 1.2.1
 
 Pulls the transition signals from open data registries and writes a snapshot
-conforming to dashboard/schema/snapshot.schema.json (v1.2.0).
+conforming to dashboard/schema/snapshot.schema.json (v1.2.1).
 
     python3 dashboard/tools/fetch_snapshot.py            # writes today's snapshot
     python3 dashboard/tools/fetch_snapshot.py --id 2026-09-07
@@ -18,8 +18,8 @@ Design rules, enforced here so the contract holds:
 
 import argparse, csv, io, json, sys, urllib.request, datetime, os
 
-GENERATOR = "fetch_snapshot.py@1.2.0"
-SCHEMA_VERSION = "1.2.0"
+GENERATOR = "fetch_snapshot.py@1.2.1"
+SCHEMA_VERSION = "1.2.1"
 TIMEOUT = 60
 
 # Entities we pull. World first; the rest give cross-country variance.
@@ -279,7 +279,11 @@ CRISES = [
         id="credibility-break", name="The credibility break", status="unscored",
         condition="Capability and productivity rise while household access stays flat or falls.",
         why_it_matters="People are told abundance is arriving and experience the opposite.",
-        movement="Rejection of abundance language, institutional distrust and a search for a villain.",
+        possible_public_responses=[
+            "Public challenge to abundance claims or official measures.",
+            "Demands for evidence, protection, participation or a different goal.",
+            "Disengagement from institutions that do not recognise lived outcomes.",
+        ],
         communication="Publish the baseline, uncertainty and the protection activated by the warning.",
         leading_signals=["inflation", "poverty-30", "trust-consent", "access-margin"],
         actions=dict(
@@ -292,7 +296,11 @@ CRISES = [
         id="displacement-cascade", name="The local displacement cascade", status="unscored",
         condition="Job loss clusters in an occupation or place while re-employment slows and replacement earnings fall.",
         why_it_matters="National employment can look healthy while one community experiences concentrated loss and slow recovery.",
-        movement="Sectoral mobilisation, resistance to automation and geographic decline hidden by averages.",
+        possible_public_responses=[
+            "Collective bargaining, sectoral organising or negotiation over deployment.",
+            "Demands for income continuity, worker voice or local investment.",
+            "Relocation, occupation change or rejection of the proposed transition.",
+        ],
         communication="Name the affected cohort and give one reachable action with one accountable owner.",
         leading_signals=["transmission-gap", "participation", "transition-speed"],
         actions=dict(
@@ -305,7 +313,11 @@ CRISES = [
         id="legitimacy-break", name="The legitimacy break", status="unscored",
         condition="Access falls while profits, mark-ups or productive-power concentration rise.",
         why_it_matters="A distribution problem becomes a power problem, and politics turns.",
-        movement="Windfall taxes, break-up demands, nationalisation proposals and direct action.",
+        possible_public_responses=[
+            "Competition, taxation, public-return or ownership reform proposals.",
+            "Consumer, worker or community organising around access and control.",
+            "Defence of scale economies where they demonstrably improve reach and quality.",
+        ],
         communication="Show the public return for public support and publish red lights as readily as green ones.",
         leading_signals=["labour-share", "concentration", "access-margin"],
         actions=dict(
@@ -318,7 +330,11 @@ CRISES = [
         id="essential-work-squeeze", name="The essential-work squeeze", status="unscored",
         condition="Vacancies, exits and service queues rise together in work that still needs humans.",
         why_it_matters="Cheap automated goods can coexist with scarce care, judgement and physical presence.",
-        movement="Essential workers gain leverage while informal rationing and coercive proposals emerge.",
+        possible_public_responses=[
+            "Collective bargaining over pay, staffing, autonomy and workload.",
+            "Debate over capacity, credentials, migration and service priorities.",
+            "Informal rationing or coercive proposals that require explicit rights safeguards.",
+        ],
         communication="Recognise the work's value before appealing to duty or purpose.",
         leading_signals=["participation", "baumol-gap", "transition-speed"],
         actions=dict(
@@ -331,7 +347,11 @@ CRISES = [
         id="permission-border-split", name="The permission and border split", status="unscored",
         condition="An essential service becomes technically cheap while access varies by identity or jurisdiction.",
         why_it_matters="The binding if can migrate from money to permission.",
-        movement="Migration pressure, sovereignty blocs, black markets and conflict over deserving access.",
+        possible_public_responses=[
+            "Appeals, litigation or political challenge to eligibility rules.",
+            "Mutual-recognition, portability or sovereignty proposals.",
+            "Migration or informal alternatives when legitimate routes fail.",
+        ],
         communication="Make eligibility rules and the reasons for them explicit before scarcity moves into permission.",
         leading_signals=["cross-border-access", "access-margin", "zero-cost-count"],
         actions=dict(

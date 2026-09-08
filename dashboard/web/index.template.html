@@ -813,7 +813,12 @@ function renderCrisisDetail(c){
     var s=signalById(id), tag=el("span","signal-tag"+(isInstrumented(id)?" ready":""),s?s.name:id);
     tag.title=isInstrumented(id)?"Instrumented":"Instrument missing"; tags.appendChild(tag);
   }); host.appendChild(tags);
-  var context=el("p",null,c.why_it_matters+" Likely movement: "+c.movement); context.style.fontSize="13px"; host.appendChild(context);
+  var context=el("p",null,c.why_it_matters); context.style.fontSize="13px"; host.appendChild(context);
+  var responses=c.possible_public_responses||[c.movement].filter(Boolean);
+  if(responses.length){
+    var publicResponse=el("p",null,"Possible public responses, not predictions: "+responses.join(" "));
+    publicResponse.style.fontSize="13px"; host.appendChild(publicResponse);
+  }
   var comm=el("p",null,"Communication: "+c.communication); comm.style.fontSize="13px"; host.appendChild(comm);
   var grid=el("div","response-grid"); ["prepare","protect","recover"].forEach(function(phase){
     var step=el("div","response-step");step.appendChild(el("b",null,phase));step.appendChild(el("span",null,c.actions[phase]));grid.appendChild(step);

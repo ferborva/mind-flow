@@ -1,8 +1,8 @@
 {
- "schema_version": "1.2.0",
+ "schema_version": "1.2.1",
  "snapshot_id": "2026-09-07",
- "generated_at": "2026-09-08T00:17:46Z",
- "generator": "fetch_snapshot.py@1.2.0",
+ "generated_at": "2026-09-08T00:41:31Z",
+ "generator": "fetch_snapshot.py@1.2.1",
  "title": "Signals toward the transition",
  "notes": "Transition-control snapshot. Every measured series comes straight from an open registry with no interpolation. Instrument gaps remain visible, and crisis states remain unscored until their leading signals and thresholds exist.",
  "entities": [
@@ -8655,7 +8655,11 @@
    "status": "unscored",
    "condition": "Capability and productivity rise while household access stays flat or falls.",
    "why_it_matters": "People are told abundance is arriving and experience the opposite.",
-   "movement": "Rejection of abundance language, institutional distrust and a search for a villain.",
+   "possible_public_responses": [
+    "Public challenge to abundance claims or official measures.",
+    "Demands for evidence, protection, participation or a different goal.",
+    "Disengagement from institutions that do not recognise lived outcomes."
+   ],
    "communication": "Publish the baseline, uncertainty and the protection activated by the warning.",
    "leading_signals": [
     "inflation",
@@ -8675,7 +8679,11 @@
    "status": "unscored",
    "condition": "Job loss clusters in an occupation or place while re-employment slows and replacement earnings fall.",
    "why_it_matters": "National employment can look healthy while one community experiences concentrated loss and slow recovery.",
-   "movement": "Sectoral mobilisation, resistance to automation and geographic decline hidden by averages.",
+   "possible_public_responses": [
+    "Collective bargaining, sectoral organising or negotiation over deployment.",
+    "Demands for income continuity, worker voice or local investment.",
+    "Relocation, occupation change or rejection of the proposed transition."
+   ],
    "communication": "Name the affected cohort and give one reachable action with one accountable owner.",
    "leading_signals": [
     "transmission-gap",
@@ -8694,7 +8702,11 @@
    "status": "unscored",
    "condition": "Access falls while profits, mark-ups or productive-power concentration rise.",
    "why_it_matters": "A distribution problem becomes a power problem, and politics turns.",
-   "movement": "Windfall taxes, break-up demands, nationalisation proposals and direct action.",
+   "possible_public_responses": [
+    "Competition, taxation, public-return or ownership reform proposals.",
+    "Consumer, worker or community organising around access and control.",
+    "Defence of scale economies where they demonstrably improve reach and quality."
+   ],
    "communication": "Show the public return for public support and publish red lights as readily as green ones.",
    "leading_signals": [
     "labour-share",
@@ -8713,7 +8725,11 @@
    "status": "unscored",
    "condition": "Vacancies, exits and service queues rise together in work that still needs humans.",
    "why_it_matters": "Cheap automated goods can coexist with scarce care, judgement and physical presence.",
-   "movement": "Essential workers gain leverage while informal rationing and coercive proposals emerge.",
+   "possible_public_responses": [
+    "Collective bargaining over pay, staffing, autonomy and workload.",
+    "Debate over capacity, credentials, migration and service priorities.",
+    "Informal rationing or coercive proposals that require explicit rights safeguards."
+   ],
    "communication": "Recognise the work's value before appealing to duty or purpose.",
    "leading_signals": [
     "participation",
@@ -8732,7 +8748,11 @@
    "status": "unscored",
    "condition": "An essential service becomes technically cheap while access varies by identity or jurisdiction.",
    "why_it_matters": "The binding if can migrate from money to permission.",
-   "movement": "Migration pressure, sovereignty blocs, black markets and conflict over deserving access.",
+   "possible_public_responses": [
+    "Appeals, litigation or political challenge to eligibility rules.",
+    "Mutual-recognition, portability or sovereignty proposals.",
+    "Migration or informal alternatives when legitimate routes fail."
+   ],
    "communication": "Make eligibility rules and the reasons for them explicit before scarcity moves into permission.",
    "leading_signals": [
     "cross-border-access",

@@ -96,7 +96,7 @@ Fernando's settled views.
 
 **Seldon Observatory** · https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
 
-Snapshot `2026-09-07`, schema 1.2.0. Six signals are measured, two are derived
+Snapshot `2026-09-07`, schema 1.2.1. Six signals are measured, two are derived
 and eight remain explicitly unmeasured. Audience: the Moonshot crew,
 argument-first.
 
