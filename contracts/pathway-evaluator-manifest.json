@@ -2,10 +2,14 @@
   "schema_version": "1.0.0",
   "id": "mind-flow.condition-pathway.executable-closure",
   "authority_effect": "none",
+  "registry_projection": {
+    "kind": "canonical-json-sha256-without-self-digest",
+    "digest": "sha256:59e7f241b7936a7202207740cfb7f168e963835f86ea95e0099a797f37e0328a"
+  },
   "dependencies": [
     {
       "path": "contracts/condition-pathway.mjs",
-      "digest": "sha256:ff87f0939fb0352afaaaeb7ffcf1fddb9e1179991394d9b2c6def29bd78d8435"
+      "digest": "sha256:6a2135f17a2d5d71531ef9e666c0bb4a35fc6bd662ec10090f14b5450d7a505c"
     },
     {
       "path": "contracts/semantic-validation.mjs",
@@ -21,7 +25,7 @@
     },
     {
       "path": "contracts/schema/evaluator-manifest.schema.json",
-      "digest": "sha256:2f095bc20e9008a777dbc4cf65cd93628462bc2aa7ff9709b8b8f5b1eb9fee81"
+      "digest": "sha256:34dc42fdddacf0a5858ec6209c626a7fb86df6feab9ec4bb187997dffe954ea4"
     },
     {
       "path": "contracts/schema/evaluator-registry.schema.json",

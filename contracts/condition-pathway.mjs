@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readFileSync, realpathSync } from "node:fs";
+import { isAbsolute, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 
 import {
@@ -32,48 +34,103 @@ const PATHWAY_EVALUATOR_MANIFEST = JSON.parse(PATHWAY_EVALUATOR_MANIFEST_BYTES.t
 const PATHWAY_EVALUATOR = EVALUATOR_REGISTRY.evaluators.find(
   ({ id, version }) => id === "mind-flow.condition-pathway" && version === "1.0.0",
 );
+const REPOSITORY_ROOT = realpathSync(fileURLToPath(new URL("../", import.meta.url)));
+const CANONICAL_DEPENDENCY_PATH = /^[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)*$/;
 
 function checksumBytes(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
-function verifyPathwayEvaluatorClosure() {
-  if (!PATHWAY_EVALUATOR) {
-    throw new TypeError("The condition-pathway evaluator is not registered.");
+function canonicaliseForDigest(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicaliseForDigest).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonicaliseForDigest(value[key])}`).join(",")}}`;
   }
-  if (PATHWAY_EVALUATOR.digest_kind !== "executable-manifest-sha256") {
-    throw new TypeError("The condition-pathway evaluator must bind an executable manifest.");
+  return JSON.stringify(value);
+}
+
+function checksumCanonicalJson(value) {
+  return checksumBytes(canonicaliseForDigest(value));
+}
+
+function readRepositoryDependency(path) {
+  const resolved = realpathSync(resolve(REPOSITORY_ROOT, path));
+  const fromRoot = relative(REPOSITORY_ROOT, resolved);
+  if (fromRoot === "" || fromRoot.startsWith(`..${process.platform === "win32" ? "\\" : "/"}`) || isAbsolute(fromRoot)) {
+    throw new TypeError(`The condition-pathway evaluator dependency ${path} escapes the repository.`);
   }
-  if (PATHWAY_EVALUATOR.digest !== checksumBytes(PATHWAY_EVALUATOR_MANIFEST_BYTES)) {
-    throw new TypeError("The registered condition-pathway evaluator manifest digest does not match.");
+  return readFileSync(resolved);
+}
+
+function evaluatorRegistryProjection(registry) {
+  const projection = structuredClone(registry);
+  const ownEntry = projection.evaluators.find(
+    ({ id, version }) => id === "mind-flow.condition-pathway" && version === "1.0.0",
+  );
+  delete ownEntry.digest;
+  return projection;
+}
+
+export function validatePathwayEvaluatorProvenance({
+  registry,
+  manifest,
+  manifestBytes,
+  readDependency,
+}) {
+  const matchingEvaluators = (registry?.evaluators || []).filter(
+    ({ id, version }) => id === "mind-flow.condition-pathway" && version === "1.0.0",
+  );
+  if (matchingEvaluators.length !== 1) {
+    throw new TypeError("Exactly one condition-pathway evaluator must be registered.");
   }
-  if (
-    PATHWAY_EVALUATOR_MANIFEST.authority_effect !== "none" ||
-    !Array.isArray(PATHWAY_EVALUATOR_MANIFEST.dependencies) ||
-    PATHWAY_EVALUATOR_MANIFEST.dependencies.length === 0
-  ) {
+  const evaluator = matchingEvaluators[0];
+  if (!Array.isArray(manifest?.dependencies) || manifest.dependencies.length === 0) {
     throw new TypeError("The condition-pathway evaluator manifest is invalid.");
   }
   const seen = new Set();
-  for (const dependency of PATHWAY_EVALUATOR_MANIFEST.dependencies) {
+  for (const dependency of manifest.dependencies) {
     const path = dependency?.path;
+    const segments = typeof path === "string" ? path.split("/") : [];
     if (
       typeof path !== "string" ||
-      path.startsWith("/") ||
-      path.split("/").includes("..") ||
+      !CANONICAL_DEPENDENCY_PATH.test(path) ||
+      segments.some((segment) => segment === "." || segment === "..") ||
       seen.has(path)
     ) {
-      throw new TypeError("The condition-pathway evaluator manifest contains an unsafe or duplicate path.");
+      throw new TypeError("The condition-pathway evaluator manifest contains an unsafe or non-canonical path.");
     }
     seen.add(path);
-    const bytes = readFileSync(new URL(`../${path}`, import.meta.url));
+  }
+  if (evaluator.digest_kind !== "executable-manifest-sha256") {
+    throw new TypeError("The condition-pathway evaluator must bind an executable manifest.");
+  }
+  if (evaluator.digest !== checksumBytes(manifestBytes)) {
+    throw new TypeError("The registered condition-pathway evaluator manifest digest does not match.");
+  }
+  if (
+    manifest.authority_effect !== "none" ||
+    manifest.registry_projection?.kind !== "canonical-json-sha256-without-self-digest" ||
+    manifest.registry_projection.digest !== checksumCanonicalJson(evaluatorRegistryProjection(registry))
+  ) {
+    throw new TypeError("The condition-pathway evaluator registry projection does not match.");
+  }
+  for (const dependency of manifest.dependencies) {
+    const path = dependency.path;
+    const bytes = readDependency(path);
     if (dependency.digest !== checksumBytes(bytes)) {
       throw new TypeError(`The condition-pathway evaluator dependency ${path} does not match its manifest.`);
     }
   }
+  return true;
 }
 
-verifyPathwayEvaluatorClosure();
+validatePathwayEvaluatorProvenance({
+  registry: EVALUATOR_REGISTRY,
+  manifest: PATHWAY_EVALUATOR_MANIFEST,
+  manifestBytes: PATHWAY_EVALUATOR_MANIFEST_BYTES,
+  readDependency: readRepositoryDependency,
+});
 
 function problem(code, path, message) {
   return { code, path, message };

@@ -11,6 +11,7 @@ import addFormats from "ajv-formats";
 import {
   assessConditionPathway,
   checksumJson,
+  validatePathwayEvaluatorProvenance,
   validateConditionPathwayBundle,
   validateConditionPathwayDefinition,
 } from "../condition-pathway.mjs";
@@ -40,6 +41,11 @@ const validateAssessmentSchema = ajv.compile(assessmentSchema);
 const validateEvaluatorManifestSchema = ajv.compile(evaluatorManifestSchema);
 
 const evaluatorRegistry = readJson(join(contracts, "evaluator-registry.json"));
+const evaluatorManifestPath = join(contracts, "pathway-evaluator-manifest.json");
+const evaluatorManifestBytes = readFileSync(evaluatorManifestPath);
+const evaluatorManifest = JSON.parse(evaluatorManifestBytes);
+const readManifestDependency = (path) => readFileSync(resolve(contracts, "..", path));
+const contractsReadme = readFileSync(join(contracts, "README.md"), "utf8");
 
 function expectInvalid(validate, value, message) {
   assert.equal(validate(value), false, message);
@@ -450,6 +456,56 @@ test("the assessment binds every input and remains non-authorising", () => {
   }
   assert.equal(Object.hasOwn(assessment, "probability"), false);
   assert.equal(Object.hasOwn(assessment, "action"), false);
+});
+
+test("pathway provenance rejects registry aliases, registry drift and non-canonical paths", () => {
+  const duplicateRegistry = clone(evaluatorRegistry);
+  duplicateRegistry.evaluators.unshift({
+    id: "mind-flow.condition-pathway",
+    version: "1.0.0",
+    digest_kind: "executable-manifest-sha256",
+    digest: `sha256:${"0".repeat(64)}`,
+  });
+  assert.throws(
+    () => validatePathwayEvaluatorProvenance({
+      registry: duplicateRegistry,
+      manifest: evaluatorManifest,
+      manifestBytes: evaluatorManifestBytes,
+      readDependency: readManifestDependency,
+    }),
+    /exactly one.*registered/i,
+  );
+
+  const driftedRegistry = clone(evaluatorRegistry);
+  driftedRegistry.evaluators[0].digest = `sha256:${"0".repeat(64)}`;
+  assert.throws(
+    () => validatePathwayEvaluatorProvenance({
+      registry: driftedRegistry,
+      manifest: evaluatorManifest,
+      manifestBytes: evaluatorManifestBytes,
+      readDependency: readManifestDependency,
+    }),
+    /registry projection/i,
+  );
+
+  for (const path of [
+    "%2e%2e/%2e%2e/AGENTS.md",
+    "contracts/./evaluator.mjs",
+    "contracts/../contracts/evaluator.mjs",
+  ]) {
+    const hostileManifest = clone(evaluatorManifest);
+    hostileManifest.dependencies[0].path = path;
+    assert.throws(
+      () => validatePathwayEvaluatorProvenance({
+        registry: evaluatorRegistry,
+        manifest: hostileManifest,
+        manifestBytes: Buffer.from(JSON.stringify(hostileManifest)),
+        readDependency: readManifestDependency,
+      }),
+      /unsafe or non-canonical path/i,
+    );
+  }
+  assert.match(contractsReadme, /does not attest installed npm\s+package bytes or the Node runtime/i);
 });
 
 test("assessment IDs bind definition versions and inputs even at the same instant", () => {

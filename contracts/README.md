@@ -220,8 +220,17 @@ interpreter, every directly imported semantic validator, the schemas they
 enforce and the package lock. Loading the interpreter fails closed if the
 manifest or any declared dependency drifts. This provenance identifies the
 repository computation. It does not validate external truth or grant action
-authority. The
-registry is repository-local and has
+authority. A canonical projection of the evaluator registry is also pinned,
+with only the pathway manifest's self-referential digest omitted. Duplicate
+pathway registrations, registry drift, path aliases, path traversal and
+symlink escape fail closed.
+
+This manifest covers repository bytes only. It does not attest installed npm
+package bytes or the Node runtime. `package-lock.json` constrains declared
+dependency resolution, but a clean execution environment and its runtime must
+be recorded and independently attested before reproducibility is claimed.
+
+The registry is repository-local and has
 `authority_effect: none`; it establishes reproducibility, not external trust.
 Generated proposal, resulting-state and assessment IDs also include the full
 digest of their identity inputs, so same-instant records over different inputs

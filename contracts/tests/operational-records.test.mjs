@@ -55,6 +55,13 @@ test("evaluation provenance is pinned to the evaluator registry", () => {
   assert.equal(registered.digest, digest);
   assert.notEqual(registered.digest_kind, "executable-manifest-sha256");
   assert.deepEqual(completedRun.provenance.evaluator, registered);
+  const duplicate = clone(evaluatorRegistry);
+  duplicate.evaluators.push({ ...registered, digest: `sha256:${"0".repeat(64)}` });
+  assert.equal(
+    validateEvaluatorRegistrySchema(duplicate),
+    true,
+    "JSON Schema cannot express composite-key uniqueness; runtime validation must reject it",
+  );
 
   const forgedRun = clone(completedRun);
   forgedRun.provenance.evaluator = {
