@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -16,8 +17,16 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 const fixture = readJson(join(root, "governance", "fixtures", "public-release.shadow.valid.json"));
+const roundTwoRecordPath = join(
+  root,
+  "governance",
+  "records",
+  "observatory-round-02.blocked.json",
+);
 const schema = readJson(join(root, "governance", "schema", "public-release.schema.json"));
 const clone = (value) => structuredClone(value);
+const checksumFile = (path) =>
+  `sha256:${createHash("sha256").update(readFileSync(path)).digest("hex")}`;
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
@@ -67,6 +76,34 @@ test("the honest shadow record is valid but cannot become a public release", () 
   assert.equal(assessment.operational_action_allowed, false);
   assert.throws(() => issuePublicRelease(fixture), { name: "PublicReleaseBlockedError" });
   assert.deepEqual(fixture.decision.approved_by, []);
+});
+
+test("the round-two Observatory record pins real files and remains blocked", () => {
+  const record = readJson(roundTwoRecordPath);
+  assert.equal(validateSchema(record), true, ajv.errorsText(validateSchema.errors));
+  assert.equal(
+    record.artifact.checksum,
+    checksumFile(join(root, "dashboard", "web", "index.html")),
+  );
+  assert.equal(
+    record.sources[0].checksum,
+    checksumFile(join(root, "dashboard", "snapshots", "2026-09-07.json")),
+  );
+  assert.equal(
+    record.evidence_register[0].checksum,
+    checksumFile(join(
+      root,
+      "reviews",
+      "public-comprehension-affected-party-protocol-round-04.md",
+    )),
+  );
+
+  const assessment = assessPublicRelease(record);
+  assert.equal(assessment.valid, true);
+  assert.equal(assessment.stage_allowed, true);
+  assert.equal(assessment.public_release_allowed, false);
+  assert.deepEqual(assessment.blocking_gates, [...GATES].sort());
+  assert.throws(() => issuePublicRelease(record), { name: "PublicReleaseBlockedError" });
 });
 
 test("a limited public signal requires every release gate and has no operational effect", () => {
@@ -225,4 +262,34 @@ test("release stage, circulation, decision and effect cannot contradict each oth
     () => issuePublicRelease(unpinnedArtifact),
     { name: "PublicReleaseBlockedError" },
   );
+});
+
+test("semantic release validation rejects normalised and timezone-ambiguous dates", () => {
+  const impossibleAssessment = clone(fixture);
+  impossibleAssessment.assessed_at = "2026-02-30T00:30:00Z";
+  assert.ok(assessPublicRelease(impossibleAssessment).errors.some(
+    (error) => error.code === "RELEASE_DATE_INVALID",
+  ));
+
+  const localTimeAssessment = clone(fixture);
+  localTimeAssessment.assessed_at = "2026-09-08T00:30:00";
+  assert.ok(assessPublicRelease(localTimeAssessment).errors.some(
+    (error) => error.code === "RELEASE_DATE_INVALID",
+  ));
+
+  const impossibleVintage = clone(fixture);
+  impossibleVintage.sources[0].vintage_date = "2026-02-30";
+  const impossibleVintageResult = assessPublicRelease(impossibleVintage);
+  assert.ok(impossibleVintageResult.errors.some(
+    (error) => error.code === "SOURCE_DATE_ORDER_INVALID",
+  ));
+  assert.ok(impossibleVintageResult.blocking_gates.includes("source_vintage"));
+
+  const impossibleEvidenceDate = approveForConformance(fixture);
+  impossibleEvidenceDate.evidence_register[0].reviewed_at = "2026-02-30T00:00:00Z";
+  const impossibleEvidenceResult = assessPublicRelease(impossibleEvidenceDate);
+  assert.ok(impossibleEvidenceResult.blocking_gates.includes("authority"));
+  assert.ok(impossibleEvidenceResult.errors.some(
+    (error) => error.code === "REVIEW_EVIDENCE_DATE_INVALID",
+  ));
 });

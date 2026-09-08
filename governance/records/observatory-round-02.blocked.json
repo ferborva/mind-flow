@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "id": "release.observatory-round-02-blocked",
+  "artifact": {
+    "kind": "dashboard",
+    "id": "dashboard.abundance-transition-observatory",
+    "version": "1.4.0",
+    "checksum": "sha256:5f3d6a171801689f6c672ba1f443693c7b1ab849b1c860cd83ae1cf6523ab564",
+    "title": "Abundance Transition Observatory, review round 02"
+  },
+  "release_stage": "shadow-review",
+  "circulation": "restricted",
+  "operational_effect": false,
+  "assessed_at": "2026-09-08T01:00:00Z",
+  "gates": {
+    "authority": {
+      "status": "incomplete",
+      "summary": "Fernando has not approved the dashboard as his position or authorised publication.",
+      "evidence_refs": [],
+      "gaps": [
+        "Record a real publication owner, decision scope and expiry after substantive review."
+      ]
+    },
+    "affected_party_review": {
+      "status": "incomplete",
+      "summary": "A review protocol exists, but no affected-party study has been run.",
+      "evidence_refs": [
+        "review.affected-party-protocol-round-04"
+      ],
+      "gaps": [
+        "Recruit the scoped participant groups, execute the frozen protocol and publish results including dissent."
+      ]
+    },
+    "uncertainty": {
+      "status": "incomplete",
+      "summary": "The interface exposes material unknowns, but point-of-claim uncertainty has not passed independent review.",
+      "evidence_refs": [],
+      "gaps": [
+        "Verify missingness, intervals, revision risk and calibrated language across every rendered state."
+      ]
+    },
+    "challenge": {
+      "status": "incomplete",
+      "summary": "No operational independent challenge route or response service level exists.",
+      "evidence_refs": [],
+      "gaps": [
+        "Name the independent reviewer, submission route, response service level and public disposition ledger."
+      ]
+    },
+    "accessibility": {
+      "status": "incomplete",
+      "summary": "Source inspection is not a rendered accessibility review.",
+      "evidence_refs": [],
+      "gaps": [
+        "Test keyboard, screen reader, contrast, reduced motion, mobile, zoom, print, translation, low-bandwidth and numeracy use with affected people."
+      ]
+    },
+    "security_privacy": {
+      "status": "incomplete",
+      "summary": "The static prototype minimises collection, but no independent security or privacy review has passed.",
+      "evidence_refs": [],
+      "gaps": [
+        "Complete threat, abuse, vulnerability, data-minimisation, re-identification, consent and retention reviews."
+      ]
+    },
+    "correction": {
+      "status": "incomplete",
+      "summary": "Version history exists, but a public correction and withdrawal service is not operational.",
+      "evidence_refs": [],
+      "gaps": [
+        "Provide a public ledger, correction route, accountable owner, response deadline and withdrawal path."
+      ]
+    },
+    "source_vintage": {
+      "status": "incomplete",
+      "summary": "The embedded artifact and snapshot are checksum-pinned, but their complete source chain has not passed independent review.",
+      "evidence_refs": [],
+      "gaps": [
+        "Verify every upstream source, checksum, retrieval time, vintage, licence, revision policy and maximum age."
+      ]
+    }
+  },
+  "evidence_register": [
+    {
+      "id": "review.affected-party-protocol-round-04",
+      "kind": "affected-party-review",
+      "coverage": [
+        "framing",
+        "thresholds",
+        "dissent",
+        "response"
+      ],
+      "uri": "https://github.com/ferborva/mind-flow/blob/ren/abundance-transition-program/reviews/public-comprehension-affected-party-protocol-round-04.md",
+      "checksum": "sha256:c3a9f65561a893a16827e822966cb378c722cfc3a22f5e9a03719f5cfea4f086",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:30:00Z",
+      "valid_through": "2026-10-08T00:30:00Z",
+      "reviewer": {
+        "organisation": "Mind Flow internal agent team",
+        "role": "protocol author, not an affected-party reviewer"
+      },
+      "summary": "The checksum pins a proposed review protocol. It is not evidence that participant review occurred or passed."
+    }
+  ],
+  "sources": [
+    {
+      "id": "source.dashboard-snapshot-2026-09-07",
+      "uri": "https://github.com/ferborva/mind-flow/blob/ren/abundance-transition-program/dashboard/snapshots/2026-09-07.json",
+      "retrieved_at": "2026-09-08T00:41:31Z",
+      "vintage_date": "2026-09-07",
+      "maximum_age_days": 7,
+      "checksum": "sha256:f5736f0f33a371a1818ce9a3fcfd2a5d67b40cb6e98c2b0643e6d3d096832d32",
+      "licence": "Mixed upstream sources. Redistribution clearance remains a release blocker."
+    }
+  ],
+  "decision": {
+    "status": "blocked",
+    "rationale": "The artifact is frozen for restricted adversarial review only. Every mandatory public-release gate remains incomplete.",
+    "approved_by": []
+  },
+  "provenance": {
+    "classification": "commissioned-proposal",
+    "authors": [
+      "Ren",
+      "Poincare",
+      "Curie",
+      "Dalton"
+    ],
+    "rationale": "Agent-produced checkpoint record commissioned by Fernando. It claims no substantive endorsement or public authority."
+  }
+}

@@ -327,6 +327,30 @@ their own work.
 - No trigger is presented as an authorised action without real authority.
 - Reviewers receive the charter, threat model, test commands and issue format.
 
+## 🔒 Current checkpoint: review round 02
+
+`review/round-02` freezes the current agent-produced argument, IF contracts,
+Australian pilot, rehearsal controls, governance boundary and dashboard for
+independent adversarial review. `reviews/round-02-manifest.json` pins each
+material artifact by SHA-256. The freeze is a review input, not a public
+release.
+
+The checkpoint has crossed the structural gate:
+
+- public claims and actions have machine-readable epistemic and authority
+  boundaries;
+- the dashboard's seven-part update and IF path fail closed on missing fields;
+- no condition is currently treated as true, no crisis is scored and no action
+  is authorised;
+- NERO rehearsal logic is preregistered, prospective, capacity-bounded and
+  explicitly no-consequence;
+- the release validator blocks publication until all eight evidence gates pass.
+
+It has not crossed the empirical, human or institutional gate. External agent
+review cannot substitute for affected-party participation, statistical review,
+rendered accessibility testing, security and privacy assessment, public
+challenge operations, source-licence clearance or real authority.
+
 ## 📝 Live decision log
 
 | Date | Decision | Reason | Revisit if |
@@ -336,6 +360,11 @@ their own work.
 | 2026-09-08 | Keep crisis states unscored | Current signals, thresholds and validation do not justify probabilities | Backtests and forecast registry pass their gates |
 | 2026-09-08 | Treat access factors as a funnel, not multiplication | Current measures are not matched conditional probabilities | A validated common-denominator design exists |
 | 2026-09-08 | Do not infer choice from labour participation | Aggregate participation cannot identify reasons | Cohort-level reasons, desired hours and security are measured |
+| 2026-09-08 | Stop the historical NERO warning backtest | The archive does not preserve an as-published vintage panel, revision path, uncertainty or independent outcomes | A defensible vintage archive and outcome-label protocol exist |
+| 2026-09-08 | Permit only prospective, no-consequence NERO rehearsal | It can test operational mechanics without pretending to validate prediction or causality | Preregistration, consecutive vintages, labels and review capacity fail |
+| 2026-09-08 | Treat the dashboard IF path as a decision record, not a vocabulary diagram | Every condition must expose scope, state, evidence, challenge and next observation | Independent encoders cannot use it reliably |
+| 2026-09-08 | Block public issuance at a machine-readable governance boundary | Prominent labels alone cannot prevent incomplete review from being treated as approval | A stronger independently enforced release mechanism replaces it |
+| 2026-09-08 | Freeze round 02 for independent review without claiming readiness | Structural controls are testable; human and institutional gates remain open | The manifest drifts, a stop-line appears or reviewers cannot reproduce the build |
 
 ## ❓ Decisions reserved for Fernando
 

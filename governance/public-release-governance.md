@@ -46,6 +46,11 @@ coverage item must be referenced, passed and current at the decision time.
 Sources must remain within their declared maximum age. Missing, pending, failed,
 expired or stale evidence blocks release.
 
+All semantic timestamps must be exact RFC 3339 instants with a timezone, and
+source vintages must be real calendar dates. The semantic boundary rejects
+normalised dates such as 30 February even when a caller bypasses JSON Schema
+validation.
+
 ## Fail-closed use
 
 `assessPublicRelease(record)` returns semantic errors, blocking gates and three
@@ -65,6 +70,11 @@ const authorization = issuePublicRelease(reviewRecord);
 
 The deployment or publication pipeline must require this authorization. Merely
 calling the advisory assessment and ignoring its result is not a control.
+
+`records/observatory-round-02.blocked.json` is the content-addressed governance
+record for the current Observatory review artifact. Automated tests verify its
+artifact, snapshot and review-protocol checksums. Any change to those files
+invalidates the record until it is deliberately regenerated and reassessed.
 
 ## Honest fixture status
 

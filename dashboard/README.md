@@ -136,7 +136,9 @@ rehearsal after governance gates pass. See
 - No approved action owner, authority, help route or appeal path exists.
 - Global indicators do not carry complete point-of-claim uncertainty and
   revision metadata.
-- The static IF map is a vocabulary aid, not yet a scoped decision record.
+- The IF path is now a validated decision record, but the current claim still
+  lacks an approved cohort, geography, horizon and outcome threshold. All five
+  conditions therefore remain `unknown` and no action is eligible.
 - Keyboard, screen-reader, contrast, reduced-motion and mobile behaviour need
   rendered accessibility verification.
 - Privacy, security, data-governance and correction processes need independent

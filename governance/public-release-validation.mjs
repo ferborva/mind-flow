@@ -38,7 +38,31 @@ function problem(code, path, message) {
   return { code, path, message };
 }
 
+function calendarDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+  if (!match) return null;
+  const [, yearText, monthText, dayText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const date = new Date(0);
+  date.setUTCHours(0, 0, 0, 0);
+  date.setUTCFullYear(year, month - 1, day);
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) return null;
+  return date.getTime();
+}
+
 function instant(value) {
+  const match = /^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.exec(value || "");
+  if (!match || calendarDate(match[1]) === null) return null;
+  const hour = Number(match[2]);
+  const minute = Number(match[3]);
+  const second = Number(match[4]);
+  if (hour > 23 || minute > 59 || second > 59) return null;
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? parsed : null;
 }
@@ -100,7 +124,7 @@ function validateSources(record, errors, effectiveTime) {
     }
     ids.add(source.id);
     const retrieved = instant(source.retrieved_at);
-    const vintage = instant(`${source.vintage_date}T00:00:00Z`);
+    const vintage = calendarDate(source.vintage_date);
     if (
       assessmentTime === null ||
       retrieved === null ||
@@ -245,6 +269,21 @@ export function assessPublicRelease(record) {
       ));
     }
     evidenceById.set(evidence.id, evidence);
+    const reviewedAt = instant(evidence.reviewed_at);
+    const validThrough = instant(evidence.valid_through);
+    if (reviewedAt === null || validThrough === null) {
+      errors.push(problem(
+        "REVIEW_EVIDENCE_DATE_INVALID",
+        `$.evidence_register[${index}]`,
+        "Review and validity timestamps must be exact RFC 3339 instants on real calendar dates.",
+      ));
+    } else if (validThrough < reviewedAt) {
+      errors.push(problem(
+        "REVIEW_EVIDENCE_DATE_ORDER_INVALID",
+        `$.evidence_register[${index}].valid_through`,
+        "Review evidence cannot expire before it was reviewed.",
+      ));
+    }
     const permittedCoverage = new Set(EVIDENCE_COVERAGE[evidence.kind] || []);
     for (const item of evidence.coverage || []) {
       if (!permittedCoverage.has(item)) {
