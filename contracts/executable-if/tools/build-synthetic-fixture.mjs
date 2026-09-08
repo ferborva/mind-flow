@@ -68,6 +68,10 @@ function definition(conditionId, definitionVersion, effectiveFrom, definitionSco
       object: "a credible alternative and an accessible human review route",
       standard: "both registered protection predicates are satisfied",
       polarity: "affirmative",
+      period: {
+        starts_at: "2026-01-01T00:00:00Z",
+        ends_at: "2026-12-31T23:59:59Z",
+      },
     },
     effective_from: effectiveFrom,
     scope: definitionScope,

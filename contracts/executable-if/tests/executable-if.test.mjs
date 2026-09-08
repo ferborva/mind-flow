@@ -75,6 +75,15 @@ test("signals declare their population, estimand, aggregation and projection bou
   }
 });
 
+test("typed claim identity includes the bounded period", () => {
+  for (const item of fixture.events.flatMap(({ introduced_definitions: definitions }) => definitions)) {
+    assert.deepEqual(item.claim.period, {
+      starts_at: "2026-01-01T00:00:00Z",
+      ends_at: "2026-12-31T23:59:59Z",
+    });
+  }
+});
+
 test("normalized observations produce fixed five-valued predicate and condition truth", () => {
   const active = definition("condition.worker-option.nsw");
   const observed = observationsFor(active.condition_id);
@@ -653,6 +662,29 @@ test("hostile: evaluation cannot precede the selected definition", () => {
   assert.equal(result.executable, false);
   assert.equal(result.condition_truth.state, "unknown");
   assert.ok(result.errors.some(({ code }) => code === "EVALUATION_BEFORE_DEFINITION"));
+});
+
+test("hostile: evaluation and observations cannot escape the claim period", () => {
+  const active = definition("condition.worker-option.nsw");
+  const outsideEvaluation = evaluateCondition(active, fixture.signals, [], {
+    evaluatedAt: "2027-01-01T00:00:00Z",
+  });
+  assert.equal(outsideEvaluation.mechanically_valid_for_evaluation, false);
+  assert.ok(outsideEvaluation.errors.some(
+    ({ code }) => code === "EVALUATION_OUTSIDE_CLAIM_PERIOD",
+  ));
+
+  const inputs = clone(observationsFor(active.condition_id));
+  inputs[0].period.end = "2027-01-01T00:00:00Z";
+  inputs[0].recorded_at = "2027-01-02T00:00:00Z";
+  inputs[0].observation_hash = computeObservationHash(inputs[0]);
+  const outsideObservation = evaluateCondition(active, fixture.signals, inputs, {
+    evaluatedAt: "2027-01-03T00:00:00Z",
+  });
+  assert.equal(outsideObservation.mechanically_valid_for_evaluation, false);
+  assert.ok(outsideObservation.errors.some(
+    ({ code }) => code === "OBSERVATION_OUTSIDE_CLAIM_PERIOD",
+  ));
 });
 
 test("evaluation receipts are deterministic and bind the caller-supplied clock", () => {

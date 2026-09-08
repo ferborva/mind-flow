@@ -209,13 +209,22 @@
     },
     "claimIdentity": {
       "type": "object",
-      "required": ["who", "verb", "object", "standard", "polarity"],
+      "required": ["who", "verb", "object", "standard", "polarity", "period"],
       "properties": {
         "who": { "$ref": "#/$defs/nonEmpty" },
         "verb": { "$ref": "#/$defs/nonEmpty" },
         "object": { "$ref": "#/$defs/nonEmpty" },
         "standard": { "$ref": "#/$defs/nonEmpty" },
-        "polarity": { "enum": ["affirmative", "negative"] }
+        "polarity": { "enum": ["affirmative", "negative"] },
+        "period": {
+          "type": "object",
+          "required": ["starts_at", "ends_at"],
+          "properties": {
+            "starts_at": { "$ref": "#/$defs/instant" },
+            "ends_at": { "$ref": "#/$defs/instant" }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     },

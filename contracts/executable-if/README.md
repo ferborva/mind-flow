@@ -20,7 +20,7 @@ world, that a causal explanation is correct or that anybody should act.
 
 ```text
 content-addressed signal definition
-  → typed WHO + VERB + OBJECT + STANDARD + POLARITY
+  → typed WHO + VERB + OBJECT + STANDARD + POLARITY + PERIOD
   → dated, content-addressed condition definition
   → exact-scope normalized observations
   → predicate windows and thresholds
@@ -93,12 +93,14 @@ measure across a different cohort, service, geography or jurisdiction.
 The public sentence is not the identity. Each definition binds a typed claim:
 
 ```text
-WHO + VERB + OBJECT + STANDARD + POLARITY
+WHO + VERB + OBJECT + STANDARD + POLARITY + PERIOD
 ```
 
-Scope supplies the registered places, cohorts and services. `effective_from`
-supplies the earliest valid time. A definition revision may improve thresholds,
-windows or logic, but it cannot invert or silently replace the typed claim.
+Scope supplies the registered places, cohorts and services. The claim period
+supplies its public time boundary, while `effective_from` supplies the earliest
+time a particular definition version can be used. A definition revision may
+improve thresholds, windows or logic, but it cannot invert or silently replace
+the typed claim.
 Changing the claim requires a new identity and an explicit relationship.
 
 ## Evolution contract

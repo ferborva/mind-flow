@@ -357,6 +357,13 @@ export function evaluateCondition(definition, signals, observations, { evaluated
     errors.push(error("EVALUATION_BEFORE_DEFINITION", "/evaluated_at",
       "a condition cannot be evaluated before its definition becomes effective"));
   }
+  const claimStartsAt = Date.parse(definition.claim?.period?.starts_at);
+  const claimEndsAt = Date.parse(definition.claim?.period?.ends_at);
+  if (Number.isFinite(Date.parse(evaluatedAt)) &&
+      (Date.parse(evaluatedAt) < claimStartsAt || Date.parse(evaluatedAt) > claimEndsAt)) {
+    errors.push(error("EVALUATION_OUTSIDE_CLAIM_PERIOD", "/evaluated_at",
+      "evaluation time must fall inside the typed claim period"));
+  }
   for (const [index, signal] of signals.entries()) {
     if (signal.signal_definition_hash !== computeSignalDefinitionHash(signal)) {
       errors.push(error("SIGNAL_HASH_MISMATCH", `/signals/${index}/signal_definition_hash`,
@@ -413,6 +420,11 @@ export function evaluateCondition(definition, signals, observations, { evaluated
     if (start < Date.parse(definition.effective_from) || recorded < Date.parse(definition.effective_from)) {
       errors.push(error("OBSERVATION_PREDATES_DEFINITION", path,
         "an observation cannot support a definition before it becomes effective"));
+      continue;
+    }
+    if (start < claimStartsAt || end > claimEndsAt) {
+      errors.push(error("OBSERVATION_OUTSIDE_CLAIM_PERIOD", `${path}/period`,
+        "an observation period cannot escape the typed claim period"));
       continue;
     }
     if (recorded > Date.parse(evaluatedAt)) {
@@ -482,6 +494,12 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
   if (!same(definition.evaluator_ref, FIXED_EVALUATOR_REF)) {
     errors.push(error("EVALUATOR_IDENTITY_MISMATCH", `${path}/evaluator_ref`,
       "condition definition must use the fixed evaluator semantics"));
+  }
+  const claimStart = Date.parse(definition.claim?.period?.starts_at);
+  const claimEnd = Date.parse(definition.claim?.period?.ends_at);
+  if (!Number.isFinite(claimStart) || !Number.isFinite(claimEnd) || claimStart > claimEnd) {
+    errors.push(error("CONDITION_CLAIM_PERIOD_INVALID", `${path}/claim/period`,
+      "typed claim period requires valid ordered UTC boundaries"));
   }
   const refs = expressionRefs(definition.truth_expression);
   if (new Set(refs).size !== refs.length ||
@@ -809,6 +827,13 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
         (start < introducedAt || recorded < introducedAt)) {
       errors.push(error("OBSERVATION_PREDATES_DEFINITION", path,
         "an observation cannot support a definition before its introducing event"));
+    }
+    const claimStart = Date.parse(definition.claim.period.starts_at);
+    const claimEnd = Date.parse(definition.claim.period.ends_at);
+    if (Number.isFinite(start) && Number.isFinite(end) &&
+        (start < claimStart || end > claimEnd)) {
+      errors.push(error("OBSERVATION_OUTSIDE_CLAIM_PERIOD", `${path}/period`,
+        "an observation period cannot escape the typed claim period"));
     }
     if (!same(observation.scope, definition.scope)) {
       errors.push(error("OBSERVATION_SCOPE_MISMATCH", `${path}/scope`,
