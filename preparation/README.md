@@ -37,7 +37,19 @@ paraphrase cannot silently omit or duplicate a condition.
 
 A proposal may remain structurally publishable while its IF result is `false`, `unknown` or `conflicted`, because planning may start before a crisis. Action cannot start through this record. The bound result must be `true` before any separate decision process considers execution. Funding, readiness, affected-party treatment and lawful authority remain independent gates, and `authorisation_effect` stays `none`.
 
-Condition evolution is not reimplemented here. Every expression pins a canonical evolution-ledger URI, tip event and tip hash. The synthetic fixture marks those bindings `external-unverified`. Version 1 therefore rejects all `shadow-decision` and `public-decision` use until a complete ledger can be verified through the canonical ledger contract.
+Condition evolution is not reimplemented here. Every expression names the exact
+canonical `condition_id` and integer `condition_version`, pins the complete
+ledger manifest, identifies the event that produced that condition state, and
+also records the current ledger tip. The producer event and ledger tip may
+differ when later events concern other conditions. This prevents a proposal
+from pointing vaguely at a nearby ledger while leaving its operative IF
+ambiguous.
+
+The synthetic fixture marks those bindings `external-unverified`. Contract
+conformance checks their shape and internal references only. It does not prove
+that the named ledger, manifest, event or condition exists. Version 1 therefore
+rejects all `shadow-decision` and `public-decision` use until a complete ledger
+can be verified through the canonical ledger contract.
 
 ## Four scales, four boundaries
 

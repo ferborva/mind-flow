@@ -212,6 +212,50 @@ test("IF expressions bind canonical evolution-ledger tips instead of parallel pr
   }
 });
 
+test("IF expressions name the exact canonical condition and producing ledger state", () => {
+  const required = [
+    "condition_id",
+    "condition_version",
+    "ledger_manifest_hash",
+    "producer_event_id",
+    "producer_event_hash",
+  ];
+
+  for (const field of required) {
+    assert.ok(registerSchema.$defs.conditionBinding.required.includes(field),
+      `condition binding schema is missing ${field}`);
+  }
+
+  for (const expression of fixture.if_expressions) {
+    const binding = expression.content.condition_binding;
+    assert.match(binding.condition_id, /^condition\./);
+    assert.ok(Number.isSafeInteger(binding.condition_version));
+    assert.ok(binding.condition_version > 0);
+    assert.match(binding.ledger_manifest_hash, /^sha256:[a-f0-9]{64}$/);
+    assert.match(binding.producer_event_id, /^event\./);
+    assert.match(binding.producer_event_hash, /^sha256:[a-f0-9]{64}$/);
+  }
+});
+
+test("schema rejects preparation bindings that omit an exact evolution identity", () => {
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  addFormats(ajv);
+  ajv.addSchema(actionSchema);
+  const validate = ajv.compile(registerSchema);
+
+  for (const field of [
+    "condition_id",
+    "condition_version",
+    "ledger_manifest_hash",
+    "producer_event_id",
+    "producer_event_hash",
+  ]) {
+    const attacked = structuredClone(fixture);
+    delete attacked.if_expressions[0].content.condition_binding[field];
+    assert.equal(validate(attacked), false, `${field} must be required`);
+  }
+});
+
 test("the README makes the public trust boundary and inaction comparison legible", () => {
   const readme = readFileSync(join(root, "README.md"), "utf8");
   assert.match(readme, /proposal.*not.*instruction/is);

@@ -8,7 +8,7 @@
     {
       "id": "if.individual-transition-file",
       "version": "1.0.0",
-      "checksum": "sha256:e7759b728473542dd0f7e7701f46dee0e5b7271d709cf7cca8f1a1e79bc20072",
+      "checksum": "sha256:7cc06a0e585ce1d2eca6d4b28a5ea0b0b3421c5776e048fd3a2010174f523821",
       "content": {
         "plain_language": "Disposable cash after essential costs is below zero",
         "scope": {
@@ -65,9 +65,14 @@
           "clause_ref": "income-access-below-floor"
         },
         "condition_binding": {
+          "condition_id": "condition.individual-transition-file",
+          "condition_version": 1,
           "ledger_ref": "urn:mind-flow:condition-ledger:individual-transition-file",
+          "ledger_manifest_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
           "ledger_tip_event_id": "event.individual-transition-file.created",
           "ledger_tip_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "producer_event_id": "event.individual-transition-file.created",
+          "producer_event_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
           "verification_state": "external-unverified",
           "verified_at": null,
           "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
@@ -77,7 +82,7 @@
     {
       "id": "if.community-service-drill",
       "version": "1.0.0",
-      "checksum": "sha256:266431c59a9a11f248e81993bd5a66a65dbd41c9f4ea69f2810d581915a0f4ff",
+      "checksum": "sha256:8ff63744afefc2946f7fa4664244c02981feace7201b17f9e1730d699470b81b",
       "content": {
         "plain_language": "Verified available response places are below registered demand",
         "scope": {
@@ -134,9 +139,14 @@
           "clause_ref": "response-capacity-gap"
         },
         "condition_binding": {
+          "condition_id": "condition.community-service-drill",
+          "condition_version": 1,
           "ledger_ref": "urn:mind-flow:condition-ledger:community-service-drill",
+          "ledger_manifest_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
           "ledger_tip_event_id": "event.community-service-drill.created",
           "ledger_tip_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "producer_event_id": "event.community-service-drill.created",
+          "producer_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
           "verification_state": "external-unverified",
           "verified_at": null,
           "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
@@ -146,7 +156,7 @@
     {
       "id": "if.institution-retention-rule",
       "version": "1.0.0",
-      "checksum": "sha256:fdf176aee095abd3ef156a4c15145d49a593c510937aff0a073f3bb28ed73de7",
+      "checksum": "sha256:53220282566bc010d2d950bc015afd37f15d36057ee94b38195bbb3038c5609b",
       "content": {
         "plain_language": "Retention creates material rights risk without necessary benefit",
         "scope": {
@@ -203,9 +213,14 @@
           "clause_ref": "retention-rights-risk"
         },
         "condition_binding": {
+          "condition_id": "condition.institution-retention-rule",
+          "condition_version": 1,
           "ledger_ref": "urn:mind-flow:condition-ledger:institution-retention-rule",
+          "ledger_manifest_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
           "ledger_tip_event_id": "event.institution-retention-rule.created",
           "ledger_tip_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+          "producer_event_id": "event.institution-retention-rule.created",
+          "producer_event_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
           "verification_state": "external-unverified",
           "verified_at": null,
           "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
@@ -215,7 +230,7 @@
     {
       "id": "if.country-emergency-containment",
       "version": "1.0.0",
-      "checksum": "sha256:2331907140369927e6ab5d357ea3464ee0f3071463208feee94c835665bc724a",
+      "checksum": "sha256:27a8f69c8414e5ffbba02ca006578255c9f3865ba963bb1709f9835b38c6211d",
       "content": {
         "plain_language": "(A material payment-integrity failure is imminent AND A less restrictive manual continuity route is available)",
         "scope": {
@@ -305,9 +320,14 @@
           ]
         },
         "condition_binding": {
+          "condition_id": "condition.country-emergency-containment",
+          "condition_version": 1,
           "ledger_ref": "urn:mind-flow:condition-ledger:country-emergency-containment",
+          "ledger_manifest_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
           "ledger_tip_event_id": "event.country-emergency-containment.created",
           "ledger_tip_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+          "producer_event_id": "event.country-emergency-containment.created",
+          "producer_event_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
           "verification_state": "external-unverified",
           "verified_at": null,
           "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
@@ -319,12 +339,12 @@
     {
       "id": "evaluation.individual-transition-file.20260908",
       "version": "1.0.0",
-      "checksum": "sha256:672dc04d82edd4a35551a44fd3a3953edbd427b553910acb0c8bc69d0cf1c7ec",
+      "checksum": "sha256:14dda367ce16d109a653e7eba05b23a13c2ae2accf9677346ead29d3b23f16e6",
       "content": {
         "expression_ref": {
           "id": "if.individual-transition-file",
           "version": "1.0.0",
-          "checksum": "sha256:e7759b728473542dd0f7e7701f46dee0e5b7271d709cf7cca8f1a1e79bc20072"
+          "checksum": "sha256:7cc06a0e585ce1d2eca6d4b28a5ea0b0b3421c5776e048fd3a2010174f523821"
         },
         "evidence_bundle_ref": {
           "id": "evidence.access-and-capacity",
@@ -383,12 +403,12 @@
     {
       "id": "evaluation.community-service-drill.20260908",
       "version": "1.0.0",
-      "checksum": "sha256:2caabbbacf568d84c4175fe10e69baf41c7326f7bce73ed1540b7418b17157c1",
+      "checksum": "sha256:224c07b7d44e4abfefa39e711025d5d81e5da0f5ce9527aa6e544cc4c56a16d2",
       "content": {
         "expression_ref": {
           "id": "if.community-service-drill",
           "version": "1.0.0",
-          "checksum": "sha256:266431c59a9a11f248e81993bd5a66a65dbd41c9f4ea69f2810d581915a0f4ff"
+          "checksum": "sha256:8ff63744afefc2946f7fa4664244c02981feace7201b17f9e1730d699470b81b"
         },
         "evidence_bundle_ref": {
           "id": "evidence.access-and-capacity",
@@ -448,12 +468,12 @@
     {
       "id": "evaluation.institution-retention-rule.20260908",
       "version": "1.0.0",
-      "checksum": "sha256:8c19c334b643cd713f3a19b19952a5d129ea13317c79ec3395cc003a568e0a79",
+      "checksum": "sha256:374f9f0007b527946a6f6632057498b65eec02044f7e3643d550c606b71dff98",
       "content": {
         "expression_ref": {
           "id": "if.institution-retention-rule",
           "version": "1.0.0",
-          "checksum": "sha256:fdf176aee095abd3ef156a4c15145d49a593c510937aff0a073f3bb28ed73de7"
+          "checksum": "sha256:53220282566bc010d2d950bc015afd37f15d36057ee94b38195bbb3038c5609b"
         },
         "evidence_bundle_ref": {
           "id": "evidence.rights-risk",
@@ -513,12 +533,12 @@
     {
       "id": "evaluation.country-emergency-containment.20260908",
       "version": "1.0.0",
-      "checksum": "sha256:de9c99d66d96622d5ea04d318bc88605df93b2a26a74cd6c25c7bb21df710fc1",
+      "checksum": "sha256:7d4bfe332244dc27cc50c92352f167920626cb64494a2c711b1bc7b71390b628",
       "content": {
         "expression_ref": {
           "id": "if.country-emergency-containment",
           "version": "1.0.0",
-          "checksum": "sha256:2331907140369927e6ab5d357ea3464ee0f3071463208feee94c835665bc724a"
+          "checksum": "sha256:27a8f69c8414e5ffbba02ca006578255c9f3865ba963bb1709f9835b38c6211d"
         },
         "evidence_bundle_ref": {
           "id": "evidence.emergency-integrity",
@@ -1214,12 +1234,12 @@
         "expression_ref": {
           "id": "if.individual-transition-file",
           "version": "1.0.0",
-          "checksum": "sha256:e7759b728473542dd0f7e7701f46dee0e5b7271d709cf7cca8f1a1e79bc20072"
+          "checksum": "sha256:7cc06a0e585ce1d2eca6d4b28a5ea0b0b3421c5776e048fd3a2010174f523821"
         },
         "evaluation_ref": {
           "id": "evaluation.individual-transition-file.20260908",
           "version": "1.0.0",
-          "checksum": "sha256:672dc04d82edd4a35551a44fd3a3953edbd427b553910acb0c8bc69d0cf1c7ec"
+          "checksum": "sha256:14dda367ce16d109a653e7eba05b23a13c2ae2accf9677346ead29d3b23f16e6"
         },
         "required_result": "true",
         "effect": "eligibility-only-not-authority"
@@ -1567,12 +1587,12 @@
         "expression_ref": {
           "id": "if.community-service-drill",
           "version": "1.0.0",
-          "checksum": "sha256:266431c59a9a11f248e81993bd5a66a65dbd41c9f4ea69f2810d581915a0f4ff"
+          "checksum": "sha256:8ff63744afefc2946f7fa4664244c02981feace7201b17f9e1730d699470b81b"
         },
         "evaluation_ref": {
           "id": "evaluation.community-service-drill.20260908",
           "version": "1.0.0",
-          "checksum": "sha256:2caabbbacf568d84c4175fe10e69baf41c7326f7bce73ed1540b7418b17157c1"
+          "checksum": "sha256:224c07b7d44e4abfefa39e711025d5d81e5da0f5ce9527aa6e544cc4c56a16d2"
         },
         "required_result": "true",
         "effect": "eligibility-only-not-authority"
@@ -1931,12 +1951,12 @@
         "expression_ref": {
           "id": "if.institution-retention-rule",
           "version": "1.0.0",
-          "checksum": "sha256:fdf176aee095abd3ef156a4c15145d49a593c510937aff0a073f3bb28ed73de7"
+          "checksum": "sha256:53220282566bc010d2d950bc015afd37f15d36057ee94b38195bbb3038c5609b"
         },
         "evaluation_ref": {
           "id": "evaluation.institution-retention-rule.20260908",
           "version": "1.0.0",
-          "checksum": "sha256:8c19c334b643cd713f3a19b19952a5d129ea13317c79ec3395cc003a568e0a79"
+          "checksum": "sha256:374f9f0007b527946a6f6632057498b65eec02044f7e3643d550c606b71dff98"
         },
         "required_result": "true",
         "effect": "eligibility-only-not-authority"
@@ -2325,12 +2345,12 @@
         "expression_ref": {
           "id": "if.country-emergency-containment",
           "version": "1.0.0",
-          "checksum": "sha256:2331907140369927e6ab5d357ea3464ee0f3071463208feee94c835665bc724a"
+          "checksum": "sha256:27a8f69c8414e5ffbba02ca006578255c9f3865ba963bb1709f9835b38c6211d"
         },
         "evaluation_ref": {
           "id": "evaluation.country-emergency-containment.20260908",
           "version": "1.0.0",
-          "checksum": "sha256:de9c99d66d96622d5ea04d318bc88605df93b2a26a74cd6c25c7bb21df710fc1"
+          "checksum": "sha256:7d4bfe332244dc27cc50c92352f167920626cb64494a2c711b1bc7b71390b628"
         },
         "required_result": "true",
         "effect": "eligibility-only-not-authority"

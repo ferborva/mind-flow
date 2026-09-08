@@ -123,11 +123,16 @@
     },
     "conditionBinding": {
       "type": "object",
-      "required": ["ledger_ref", "ledger_tip_event_id", "ledger_tip_hash", "verification_state", "verified_at", "verification_tool"],
+      "required": ["condition_id", "condition_version", "ledger_ref", "ledger_manifest_hash", "ledger_tip_event_id", "ledger_tip_hash", "producer_event_id", "producer_event_hash", "verification_state", "verified_at", "verification_tool"],
       "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "condition_version": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
         "ledger_ref": { "type": "string", "format": "uri" },
+        "ledger_manifest_hash": { "$ref": "#/$defs/checksum" },
         "ledger_tip_event_id": { "$ref": "#/$defs/id" },
         "ledger_tip_hash": { "$ref": "#/$defs/checksum" },
+        "producer_event_id": { "$ref": "#/$defs/id" },
+        "producer_event_hash": { "$ref": "#/$defs/checksum" },
         "verification_state": { "const": "external-unverified" },
         "verified_at": { "type": "null" },
         "verification_tool": { "$ref": "#/$defs/nonEmpty" }
