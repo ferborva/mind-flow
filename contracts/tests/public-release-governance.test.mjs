@@ -27,6 +27,14 @@ const roundTwoRecordPath = join(
   "observatory-round-02.blocked.json",
 );
 const schema = readJson(join(root, "governance", "schema", "public-release.schema.json"));
+const governanceGuide = readFileSync(
+  join(root, "governance", "public-release-governance.md"),
+  "utf8",
+);
+const trustedBoundary = readFileSync(
+  join(root, "governance", "trusted-issuance-boundary.md"),
+  "utf8",
+);
 const clone = (value) => structuredClone(value);
 const checksumFrozenFile = (path) => {
   const relativePath = path.slice(`${root}/`.length);
@@ -194,6 +202,23 @@ test("a syntactically complete public record is only eligible for external autho
       () => prepareExternalAuthorityReview(blocked),
       { name: "ReleaseReadinessBlockedError" },
     );
+  }
+});
+
+test("the documented terminal boundary cannot be mistaken for repository authority", () => {
+  assert.doesNotMatch(governanceGuide, /`issuePublicRelease\(record\)` is/);
+  assert.match(governanceGuide, /cannot authorise publication/i);
+  assert.match(trustedBoundary, /public_release_authorized: false/);
+  for (const control of [
+    "authenticated",
+    "scope",
+    "signature",
+    "evidence-byte",
+    "expiry",
+    "revocation",
+    "deployment",
+  ]) {
+    assert.match(trustedBoundary, new RegExp(control, "i"));
   }
 });
 
