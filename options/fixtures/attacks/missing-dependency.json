@@ -1,0 +1,10 @@
+{
+  "name": "missing-authority-dependency",
+  "operations": [
+    {
+      "op": "remove",
+      "path": "/readiness_dependencies/authority"
+    }
+  ],
+  "expected_layer": "schema"
+}

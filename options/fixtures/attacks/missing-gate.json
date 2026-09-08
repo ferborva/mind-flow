@@ -1,0 +1,10 @@
+{
+  "name": "missing-prepare-gate",
+  "operations": [
+    {
+      "op": "remove",
+      "path": "/gate_requirements/prepare"
+    }
+  ],
+  "expected_layer": "schema"
+}

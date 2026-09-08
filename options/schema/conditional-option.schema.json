@@ -1,0 +1,462 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/options/conditional-option/1-2-0",
+  "title": "Agent-proposed conditional option",
+  "description": "A closed, non-authorising proposal record. Caller-supplied gate eligibility is content-bound and non-authorising. It is not an evaluated fact or authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "option_version",
+    "claim_class",
+    "authorisation_state",
+    "actor_ref",
+    "actor_class",
+    "bound_gate",
+    "verb",
+    "object",
+    "scope",
+    "protected_outcome",
+    "condition_definition_ref",
+    "gate_requirements",
+    "readiness_dependencies",
+    "cross_actor_dependencies",
+    "dissent",
+    "review",
+    "expires_at",
+    "expiry_effect",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.2.0" },
+    "id": { "$ref": "#/$defs/id" },
+    "option_version": { "$ref": "#/$defs/semver" },
+    "claim_class": { "const": "agent-proposed-option" },
+    "authorisation_state": { "const": "never-authorised" },
+    "actor_ref": { "$ref": "#/$defs/candidateActorRef" },
+    "actor_class": { "$ref": "#/$defs/actorClass" },
+    "bound_gate": { "$ref": "#/$defs/gate" },
+    "verb": {
+      "enum": [
+        "assess",
+        "consult",
+        "coordinate",
+        "fund",
+        "pause",
+        "pilot",
+        "prepare",
+        "protect",
+        "provide",
+        "recover",
+        "review",
+        "reverse"
+      ]
+    },
+    "object": { "$ref": "#/$defs/actionObject" },
+    "scope": { "$ref": "#/$defs/scope" },
+    "protected_outcome": { "$ref": "#/$defs/protectedOutcome" },
+    "condition_definition_ref": { "$ref": "#/$defs/pinnedRef" },
+    "gate_requirements": { "$ref": "#/$defs/gateRequirements" },
+    "readiness_dependencies": { "$ref": "#/$defs/readinessDependencies" },
+    "cross_actor_dependencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/crossActorDependency" }
+    },
+    "dissent": { "$ref": "#/$defs/dissent" },
+    "review": { "$ref": "#/$defs/review" },
+    "expires_at": { "$ref": "#/$defs/strictUtc" },
+    "expiry_effect": { "const": "withdraw-proposal" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "token": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidateActorRef": {
+      "type": "string",
+      "pattern": "^candidate\\.actor\\.[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "candidateAgentRef": {
+      "type": "string",
+      "pattern": "^candidate\\.agent\\.[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "candidateSourceRef": {
+      "type": "string",
+      "pattern": "^candidate\\.source\\.[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "candidateDependencyRef": {
+      "type": "string",
+      "pattern": "^candidate\\.dependency\\.[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "candidateOutcomeRef": {
+      "type": "string",
+      "pattern": "^candidate\\.outcome\\.[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "strictUtc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "actorClass": {
+      "enum": [
+        "community",
+        "delivery-provider",
+        "enterprise",
+        "government",
+        "indigenous-authority",
+        "individual",
+        "multilateral",
+        "worker"
+      ]
+    },
+    "actionObject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["class", "vocabulary_ref", "service_ref"],
+          "properties": {
+            "class": { "const": "service-continuity" },
+            "vocabulary_ref": { "const": "option-object.income-housing-healthcare-continuity" },
+            "service_ref": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["class", "vocabulary_ref", "service_ref"],
+          "properties": {
+            "class": { "const": "process" },
+            "vocabulary_ref": { "const": "option-object.bounded-public-consultation" },
+            "service_ref": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["class", "vocabulary_ref", "service_ref"],
+          "properties": {
+            "class": { "const": "safeguard" },
+            "vocabulary_ref": { "const": "option-object.temporary-delivery-safeguard" },
+            "service_ref": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["class", "vocabulary_ref", "service_ref"],
+          "properties": {
+            "class": { "const": "study" },
+            "vocabulary_ref": { "const": "option-object.scoped-evidence-review" },
+            "service_ref": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "tokenArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/token" }
+    },
+    "scopeValueArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "scope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services"],
+      "properties": {
+        "jurisdictions": { "$ref": "#/$defs/scopeValueArray" },
+        "geographies": { "$ref": "#/$defs/scopeValueArray" },
+        "cohorts": { "$ref": "#/$defs/scopeValueArray" },
+        "services": { "$ref": "#/$defs/scopeValueArray" }
+      },
+      "additionalProperties": false
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "protectedOutcome": {
+      "type": "object",
+      "required": [
+        "outcome_ref",
+        "condition_predicate_ref",
+        "measure_ref",
+        "operator",
+        "direction",
+        "threshold"
+      ],
+      "properties": {
+        "outcome_ref": { "$ref": "#/$defs/candidateOutcomeRef" },
+        "condition_predicate_ref": { "$ref": "#/$defs/id" },
+        "measure_ref": { "$ref": "#/$defs/id" },
+        "operator": {
+          "enum": [
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "eq",
+            "neq",
+            "change_gt",
+            "change_gte",
+            "change_lt",
+            "change_lte"
+          ]
+        },
+        "direction": {
+          "enum": ["at-or-above", "at-or-below", "increase", "decrease", "maintain"]
+        },
+        "threshold": { "$ref": "#/$defs/threshold" }
+      },
+      "additionalProperties": false
+    },
+    "pinnedRef": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "gateRequirement": {
+      "type": "object",
+      "required": ["path", "relation", "trigger_truth_state"],
+      "properties": {
+        "path": {
+          "enum": [
+            "#/gates/watch",
+            "#/gates/prepare",
+            "#/gates/act",
+            "#/gates/pause",
+            "#/gates/reverse",
+            "#/gates/recover",
+            "#/gates/graduate"
+          ]
+        },
+        "relation": {
+          "enum": ["observe-when", "enable-when", "block-when", "coexist-when", "end-when"]
+        },
+        "trigger_truth_state": { "const": "true" }
+      },
+      "additionalProperties": false
+    },
+    "gate": {
+      "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"]
+    },
+    "gateRequirements": {
+      "type": "object",
+      "required": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"],
+      "properties": {
+        "watch": { "$ref": "#/$defs/gateRequirement" },
+        "prepare": { "$ref": "#/$defs/gateRequirement" },
+        "act": { "$ref": "#/$defs/gateRequirement" },
+        "pause": { "$ref": "#/$defs/gateRequirement" },
+        "reverse": { "$ref": "#/$defs/gateRequirement" },
+        "recover": { "$ref": "#/$defs/gateRequirement" },
+        "graduate": { "$ref": "#/$defs/gateRequirement" }
+      },
+      "additionalProperties": false
+    },
+    "candidateRef": {
+      "type": "object",
+      "required": ["id", "trust_state", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/candidateDependencyRef" },
+        "trust_state": { "const": "unverified-candidate" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "readinessDependency": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "state"],
+          "properties": {
+            "kind": { "enum": ["authority", "consent", "funding", "service", "help", "appeal"] },
+            "state": { "const": "unknown" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "state", "candidate_ref"],
+          "properties": {
+            "kind": { "enum": ["authority", "consent", "funding", "service", "help", "appeal"] },
+            "state": { "const": "candidate" },
+            "candidate_ref": { "$ref": "#/$defs/candidateRef" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "readinessDependencies": {
+      "type": "object",
+      "required": ["authority", "consent", "funding", "service", "help", "appeal"],
+      "properties": {
+        "authority": { "$ref": "#/$defs/readinessDependency" },
+        "consent": { "$ref": "#/$defs/readinessDependency" },
+        "funding": { "$ref": "#/$defs/readinessDependency" },
+        "service": { "$ref": "#/$defs/readinessDependency" },
+        "help": { "$ref": "#/$defs/readinessDependency" },
+        "appeal": { "$ref": "#/$defs/readinessDependency" }
+      },
+      "additionalProperties": false
+    },
+    "crossActorDependency": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["id", "relation", "actor_ref", "actor_class", "gate_ref", "state"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "relation": {
+              "enum": ["consent", "coordination", "pause-clearance", "readiness", "veto-clearance"]
+            },
+            "actor_ref": { "$ref": "#/$defs/candidateActorRef" },
+            "actor_class": { "$ref": "#/$defs/actorClass" },
+            "gate_ref": { "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"] },
+            "state": { "const": "unknown" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["id", "relation", "actor_ref", "actor_class", "gate_ref", "state", "candidate_ref"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "relation": {
+              "enum": ["consent", "coordination", "pause-clearance", "readiness", "veto-clearance"]
+            },
+            "actor_ref": { "$ref": "#/$defs/candidateActorRef" },
+            "actor_class": { "$ref": "#/$defs/actorClass" },
+            "gate_ref": { "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"] },
+            "state": { "const": "candidate" },
+            "candidate_ref": { "$ref": "#/$defs/candidateRef" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "dissentRecord": {
+      "type": "object",
+      "required": ["id", "actor_ref", "actor_class", "concern", "source_claim"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "actor_ref": { "$ref": "#/$defs/candidateActorRef" },
+        "actor_class": { "$ref": "#/$defs/actorClass" },
+        "concern": {
+          "enum": [
+            "authority",
+            "burden-allocation",
+            "consent",
+            "data-sovereignty",
+            "delivery-risk",
+            "evidence",
+            "rights",
+            "scope"
+          ]
+        },
+        "source_claim": { "$ref": "#/$defs/sourceClaim" }
+      },
+      "additionalProperties": false
+    },
+    "dissent": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["status", "records"],
+          "properties": {
+            "status": { "const": "unknown" },
+            "records": { "type": "array", "maxItems": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "records"],
+          "properties": {
+            "status": { "const": "recorded" },
+            "records": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/dissentRecord" }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "required": ["review_due_at", "criteria_refs"],
+      "properties": {
+        "review_due_at": { "$ref": "#/$defs/strictUtc" },
+        "criteria_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceClaim": {
+      "type": "object",
+      "required": ["id", "trust_state", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/candidateSourceRef" },
+        "trust_state": { "const": "unverified" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["classification", "proposer_type", "proposer_ref", "generated_at", "source_claims"],
+      "properties": {
+        "classification": { "const": "unverified-agent-provenance" },
+        "proposer_type": { "const": "agent" },
+        "proposer_ref": { "$ref": "#/$defs/candidateAgentRef" },
+        "generated_at": { "$ref": "#/$defs/strictUtc" },
+        "source_claims": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sourceClaim" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

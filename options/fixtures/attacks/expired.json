@@ -1,0 +1,13 @@
+{
+  "name": "expired-proposal",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/expires_at",
+      "value": "2026-09-09T00:00:00Z"
+    }
+  ],
+  "as_of": "2026-09-10T00:00:00Z",
+  "expected_layer": "semantic",
+  "expected_code": "OPTION_EXPIRED"
+}

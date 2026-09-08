@@ -1,0 +1,11 @@
+{
+  "name": "imperative-render-fragment",
+  "operations": [
+    {
+      "op": "add",
+      "path": "/object/label",
+      "value": "transfer funds immediately"
+    }
+  ],
+  "expected_layer": "schema"
+}
