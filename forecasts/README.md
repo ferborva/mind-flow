@@ -21,7 +21,9 @@ authorise action.
    only supported rule includes every issued record carrying the campaign ID,
    with no exclusions.
 2. Issue each forecast before its observation window begins. Name an exact
-   observation window and the earliest possible publication time.
+   observation window and the earliest possible publication time. Bind the
+   target to a non-empty `signal_id`, `metric_id`, `metric_checksum`,
+   `condition_id` and canonical `scope_hash`.
 3. Before observation begins, seal the eligible registry manifest and the
    evaluation plan together. The manifest IDs must exactly equal the evaluation
    cohort IDs.
@@ -38,6 +40,9 @@ authorise action.
 8. Keep every void in the registered denominator. A void needs reason evidence
    and a separately evidenced, claimed-independent adjudication.
 9. Derive every scored outcome from retained bytes with the issue-time resolver.
+   The retained resolution payload must repeat the issued target bindings
+   exactly. A changed signal, metric checksum, condition or scope fails rather
+   than becoming a new interpretation of the same forecast.
    If the bytes are unavailable, keep the record resolved but withhold its score.
    Never convert a void or overdue record into an outcome.
 10. Map each resolution event to exactly one claimed independence cluster.
@@ -167,7 +172,11 @@ Do not describe descriptive reliability bins as calibration.
 ## Known trust boundary
 
 This code validates structure, chronology, retained-byte hashes, deterministic
-outcome reconstruction and arithmetic. It does not fetch missing evidence,
+outcome reconstruction, target-binding immutability, canonical target-scope
+hashes and arithmetic. A `metric_checksum` binds bytes identified elsewhere; it
+does not prove that the metric measures a relevant outcome. A `condition_id`
+and `signal_id` bind identifiers; they do not establish that the condition is
+causal or the signal is truthful. The code does not fetch missing evidence,
 authenticate the external publisher of retained bytes, verify a Git commit or
 trusted timestamp, prove manifest completeness, reproduce baseline
 calculations, authenticate people, verify cluster independence, adjudicate a

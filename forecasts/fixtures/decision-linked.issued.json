@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "id": "forecast.synthetic-decision.continuity.2027-q2.v1",
   "epistemic_class": "forecast",
   "forecast_use": "decision_linked",
@@ -18,13 +18,18 @@
       "cohorts": ["Fictional continuity cohort"],
       "services": ["Fictional continuity support"]
     },
+    "signal_id": "signal.synthetic-continuity",
+    "metric_id": "metric.synthetic-continuity-rate",
+    "metric_checksum": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "condition_id": "condition.synthetic-continuity",
+    "scope_hash": "sha256:86cd80cc8ed51da9b002c78b192d64a63e19a49e032af57830921a90b10a775d",
     "resolution_rule": "Resolve 1 only if the named source reports continuity below 75.0 percent for the exact scope and period. Resolve 0 otherwise. Apply only the separately declared void policy.",
     "resolution_source": "https://example.org/fictional-continuity-survey",
     "resolution_event_id": "event.synthetic-continuity.2027-q2",
     "independence_cluster_id": "cluster.synthetic-continuity.2027-q2",
     "resolver": {
       "resolver_id": "mind-flow.binary-threshold-json",
-      "resolver_version": "1.0.0",
+      "resolver_version": "1.1.0",
       "measure": "fictional-continuity",
       "observation_unit": "percent",
       "operator": "lt",

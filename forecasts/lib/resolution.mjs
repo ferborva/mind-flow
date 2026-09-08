@@ -2,12 +2,17 @@ import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 
 export const RESOLUTION_RESOLVER_ID = "mind-flow.binary-threshold-json";
-export const RESOLUTION_RESOLVER_VERSION = "1.0.0";
+export const RESOLUTION_RESOLVER_VERSION = "1.1.0";
 
 const SHA256 = /^sha256:[a-f0-9]{64}$/;
 const PAYLOAD_FIELDS = [
   "schema_version",
   "resolution_event_id",
+  "signal_id",
+  "metric_id",
+  "metric_checksum",
+  "condition_id",
+  "scope_hash",
   "measure",
   "unit",
   "scope",
@@ -108,7 +113,7 @@ export function reconstructResolutionOutcome(forecast) {
       || !isDeepStrictEqual(Object.keys(payload).sort(), [...PAYLOAD_FIELDS].sort())) {
     throw new TypeError("retained resolution payload must use the closed resolver shape");
   }
-  if (payload.schema_version !== "1.0.0") {
+  if (payload.schema_version !== "1.1.0") {
     throw new TypeError("retained resolution payload schema version is unsupported");
   }
   if (!Number.isFinite(payload.value)) {
@@ -117,6 +122,11 @@ export function reconstructResolutionOutcome(forecast) {
 
   const expected = {
     resolution_event_id: forecast.target.resolution_event_id,
+    signal_id: forecast.target.signal_id,
+    metric_id: forecast.target.metric_id,
+    metric_checksum: forecast.target.metric_checksum,
+    condition_id: forecast.target.condition_id,
+    scope_hash: forecast.target.scope_hash,
     measure: resolver.measure,
     unit: resolver.observation_unit,
     scope: forecast.target.scope,

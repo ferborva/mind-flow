@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 
 import {
@@ -41,12 +42,50 @@ const HISTORY_EVENTS = Object.freeze({
   void: ["issued", "voided"],
 });
 const SHA256 = /^sha256:[a-f0-9]{64}$/;
+const BINDING_ID = /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/;
 const MAX_ABS_UTILITY = 1_000_000_000;
 const VOID_REASONS = new Set([
   "source_retired",
   "measure_materially_changed",
   "resolution_evidence_unavailable",
 ]);
+
+function canonicalValue(value) {
+  if (Array.isArray(value)) return value.map(canonicalValue);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, canonicalValue(value[key])]),
+    );
+  }
+  return value;
+}
+
+export function forecastScopeHash(scope) {
+  const bytes = JSON.stringify(canonicalValue(scope));
+  return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
+
+function assertTargetBinding(target) {
+  if (!target?.scope || typeof target.scope !== "object" || Array.isArray(target.scope)) {
+    throw new TypeError("target.scope must be present before its scope_hash can be verified");
+  }
+  for (const field of ["signal_id", "metric_id", "condition_id"]) {
+    if (!BINDING_ID.test(target?.[field] || "")) {
+      throw new TypeError(`target.${field} must be a non-empty binding identifier`);
+    }
+  }
+  if (!SHA256.test(target?.metric_checksum || "")) {
+    throw new TypeError("target.metric_checksum must be a SHA-256 content address");
+  }
+  if (!SHA256.test(target?.scope_hash || "")) {
+    throw new TypeError("target.scope_hash must be a SHA-256 content address");
+  }
+  if (target.scope_hash !== forecastScopeHash(target.scope)) {
+    throw new Error("target.scope_hash does not match the canonical target scope");
+  }
+}
 
 function probability(value, label) {
   if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) {
@@ -360,6 +399,7 @@ export function assertForecastSemantics(forecast) {
     throw new TypeError("forecast must declare research_only or decision_linked use");
   }
   probability(forecast.probability, "forecast probability");
+  assertTargetBinding(forecast.target);
   const issuedAt = instant(forecast.issued_at, "issued_at");
   const resolveAfter = instant(forecast.resolve_after, "resolve_after");
   const resolveBy = instant(forecast.resolve_by, "resolve_by");

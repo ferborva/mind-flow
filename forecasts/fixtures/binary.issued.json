@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "id": "forecast.au-clerical-adoption.example.2027-q2.v1",
   "epistemic_class": "forecast",
   "forecast_use": "research_only",
@@ -18,13 +18,18 @@
       "cohorts": ["Fictional clerical-worker pilot cohort"],
       "services": ["Work-transition measurement"]
     },
+    "signal_id": "signal.synthetic-pilot-adoption",
+    "metric_id": "metric.synthetic-pilot-adoption-rate",
+    "metric_checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "condition_id": "condition.synthetic-work-transition",
+    "scope_hash": "sha256:f3fefad7dfe955294a64e9cd54c7021bcbe02595bcea205e84470383de0b3f74",
     "resolution_rule": "Resolve 1 only if the named source reports at least 20.0 percent for the exact scope and period. Resolve 0 if it reports below 20.0 percent. Void if the source retires or materially changes the measure before publication.",
     "resolution_source": "https://example.org/fictional-transition-survey",
     "resolution_event_id": "event.synthetic-adoption.2027-q2",
     "independence_cluster_id": "cluster.synthetic-adoption.2027-q2",
     "resolver": {
       "resolver_id": "mind-flow.binary-threshold-json",
-      "resolver_version": "1.0.0",
+      "resolver_version": "1.1.0",
       "measure": "fictional-pilot-adoption",
       "observation_unit": "percent",
       "operator": "gte",

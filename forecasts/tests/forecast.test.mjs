@@ -16,6 +16,7 @@ import {
 import {
   assertForecastSemantics,
   assertIssuedForecastImmutable,
+  forecastScopeHash,
 } from "../lib/registry.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -52,6 +53,82 @@ test("issued and resolved forecasts have a resolvable contract", () => {
   assert.ok(Date.parse(issued.resolve_after) <= Date.parse(issued.resolve_by));
   assert.doesNotThrow(() => assertForecastSemantics(issued));
   assert.doesNotThrow(() => assertForecastSemantics(resolved));
+});
+
+test("forecast targets bind one signal metric condition and exact scope", () => {
+  for (const field of [
+    "signal_id",
+    "metric_id",
+    "metric_checksum",
+    "condition_id",
+    "scope_hash",
+  ]) {
+    assert.ok(issued.target[field], `target.${field} must be populated`);
+
+    const missing = structuredClone(issued);
+    delete missing.target[field];
+    assert.equal(validate(missing), false, `schema must require target.${field}`);
+    assert.throws(
+      () => assertForecastSemantics(missing),
+      new RegExp(`target\\.${field}`),
+      `semantic validation must require target.${field}`,
+    );
+
+    const empty = structuredClone(issued);
+    empty.target[field] = "";
+    assert.equal(validate(empty), false, `schema must reject empty target.${field}`);
+    assert.throws(
+      () => assertForecastSemantics(empty),
+      new RegExp(`target\\.${field}`),
+      `semantic validation must reject empty target.${field}`,
+    );
+  }
+
+  assert.equal(issued.target.scope_hash, forecastScopeHash(issued.target.scope));
+
+  const missingScope = structuredClone(issued);
+  delete missingScope.target.scope;
+  assert.throws(() => assertForecastSemantics(missingScope), /target\.scope.*scope_hash/i);
+
+  const staleScope = structuredClone(issued);
+  staleScope.target.scope.cohorts = ["A silently changed cohort"];
+  assert.throws(() => assertForecastSemantics(staleScope), /target\.scope_hash.*scope/i);
+
+  const malformedMetricChecksum = structuredClone(issued);
+  malformedMetricChecksum.target.metric_checksum = "sha256:not-content-addressed";
+  assert.equal(validate(malformedMetricChecksum), false);
+  assert.throws(
+    () => assertForecastSemantics(malformedMetricChecksum),
+    /target\.metric_checksum.*SHA-256/i,
+  );
+
+  const malformedBindingId = structuredClone(issued);
+  malformedBindingId.target.condition_id = "condition.";
+  assert.equal(validate(malformedBindingId), false);
+  assert.throws(
+    () => assertForecastSemantics(malformedBindingId),
+    /target\.condition_id.*binding identifier/i,
+  );
+});
+
+test("all target bindings remain immutable after issue", () => {
+  for (const field of [
+    "signal_id",
+    "metric_id",
+    "metric_checksum",
+    "condition_id",
+    "scope_hash",
+  ]) {
+    const drifted = structuredClone(resolved);
+    drifted.target[field] = field.endsWith("hash") || field.endsWith("checksum")
+      ? `sha256:${"f".repeat(64)}`
+      : `${drifted.target[field]}.drifted`;
+    assert.throws(
+      () => assertIssuedForecastImmutable(issued, drifted),
+      /target/,
+      `target.${field} drift must invalidate the issued record`,
+    );
+  }
 });
 
 test("schema rejects vague, unbounded or retrospectively convenient forecasts", () => {
@@ -196,7 +273,7 @@ test("binary scores reward honest probability and compare with the baseline", ()
     outcome: 1,
     observed_value: 20,
     resolver_id: "mind-flow.binary-threshold-json",
-    resolver_version: "1.0.0",
+    resolver_version: "1.1.0",
     evidence_checksum: resolved.resolution.evidence.checksum,
     byte_integrity_verified: true,
     publisher_identity_verified: false,

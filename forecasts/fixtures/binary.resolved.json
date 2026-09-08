@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "id": "forecast.au-clerical-adoption.example.2027-q2.v1",
   "epistemic_class": "forecast",
   "forecast_use": "research_only",
@@ -18,13 +18,18 @@
       "cohorts": ["Fictional clerical-worker pilot cohort"],
       "services": ["Work-transition measurement"]
     },
+    "signal_id": "signal.synthetic-pilot-adoption",
+    "metric_id": "metric.synthetic-pilot-adoption-rate",
+    "metric_checksum": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "condition_id": "condition.synthetic-work-transition",
+    "scope_hash": "sha256:f3fefad7dfe955294a64e9cd54c7021bcbe02595bcea205e84470383de0b3f74",
     "resolution_rule": "Resolve 1 only if the named source reports at least 20.0 percent for the exact scope and period. Resolve 0 if it reports below 20.0 percent. Void if the source retires or materially changes the measure before publication.",
     "resolution_source": "https://example.org/fictional-transition-survey",
     "resolution_event_id": "event.synthetic-adoption.2027-q2",
     "independence_cluster_id": "cluster.synthetic-adoption.2027-q2",
     "resolver": {
       "resolver_id": "mind-flow.binary-threshold-json",
-      "resolver_version": "1.0.0",
+      "resolver_version": "1.1.0",
       "measure": "fictional-pilot-adoption",
       "observation_unit": "percent",
       "operator": "gte",
@@ -119,9 +124,9 @@
       "published_at": "2027-08-15T00:00:00Z",
       "retrieved_at": "2027-08-15T00:00:00Z",
       "vintage": "fictional-2027-q2",
-      "checksum": "sha256:d0cd83f0ba080523670cd9625074d662ccbfd533c6e7d5387ad68cc415c8acd6",
+      "checksum": "sha256:4e409d6b70f3d027e0e0b6ae7830b63b41d30c6e3b5eed1a57f7e9fb2bf61790",
       "retained_media_type": "application/json",
-      "retained_bytes_base64": "eyJzY2hlbWFfdmVyc2lvbiI6IjEuMC4wIiwicmVzb2x1dGlvbl9ldmVudF9pZCI6ImV2ZW50LnN5bnRoZXRpYy1hZG9wdGlvbi4yMDI3LXEyIiwibWVhc3VyZSI6ImZpY3Rpb25hbC1waWxvdC1hZG9wdGlvbiIsInVuaXQiOiJwZXJjZW50Iiwic2NvcGUiOnsiZ2VvZ3JhcGhpZXMiOlsiQXVzdHJhbGlhIl0sImNvaG9ydHMiOlsiRmljdGlvbmFsIGNsZXJpY2FsLXdvcmtlciBwaWxvdCBjb2hvcnQiXSwic2VydmljZXMiOlsiV29yay10cmFuc2l0aW9uIG1lYXN1cmVtZW50Il19LCJvYnNlcnZhdGlvbl93aW5kb3dfc3RhcnQiOiIyMDI3LTA0LTAxVDAwOjAwOjAwWiIsIm9ic2VydmF0aW9uX3dpbmRvd19lbmQiOiIyMDI3LTA2LTMwVDIzOjU5OjU5WiIsInZhbHVlIjoyMH0=",
+      "retained_bytes_base64": "eyJzY2hlbWFfdmVyc2lvbiI6IjEuMS4wIiwicmVzb2x1dGlvbl9ldmVudF9pZCI6ImV2ZW50LnN5bnRoZXRpYy1hZG9wdGlvbi4yMDI3LXEyIiwic2lnbmFsX2lkIjoic2lnbmFsLnN5bnRoZXRpYy1waWxvdC1hZG9wdGlvbiIsIm1ldHJpY19pZCI6Im1ldHJpYy5zeW50aGV0aWMtcGlsb3QtYWRvcHRpb24tcmF0ZSIsIm1ldHJpY19jaGVja3N1bSI6InNoYTI1NjpiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiIiwiY29uZGl0aW9uX2lkIjoiY29uZGl0aW9uLnN5bnRoZXRpYy13b3JrLXRyYW5zaXRpb24iLCJzY29wZV9oYXNoIjoic2hhMjU2OmYzZmVmYWQ3ZGZlOTU1Mjk0YTY0ZTljZDU0YzcwMjFiY2JlMDI1OTViY2VhMjA1ZTg0NDcwMzgzZGUwYjNmNzQiLCJtZWFzdXJlIjoiZmljdGlvbmFsLXBpbG90LWFkb3B0aW9uIiwidW5pdCI6InBlcmNlbnQiLCJzY29wZSI6eyJnZW9ncmFwaGllcyI6WyJBdXN0cmFsaWEiXSwiY29ob3J0cyI6WyJGaWN0aW9uYWwgY2xlcmljYWwtd29ya2VyIHBpbG90IGNvaG9ydCJdLCJzZXJ2aWNlcyI6WyJXb3JrLXRyYW5zaXRpb24gbWVhc3VyZW1lbnQiXX0sIm9ic2VydmF0aW9uX3dpbmRvd19zdGFydCI6IjIwMjctMDQtMDFUMDA6MDA6MDBaIiwib2JzZXJ2YXRpb25fd2luZG93X2VuZCI6IjIwMjctMDYtMzBUMjM6NTk6NTlaIiwidmFsdWUiOjIwfQ==",
       "publisher_identity_verification_status": "unverified_external_review_required"
     },
     "notes": "Synthetic positive outcome for scoring tests."

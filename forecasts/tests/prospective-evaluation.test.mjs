@@ -39,8 +39,13 @@ const validatePlan = ajv.compile(evaluationSchema);
 
 function resealResolution(record, value) {
   const payload = {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     resolution_event_id: record.target.resolution_event_id,
+    signal_id: record.target.signal_id,
+    metric_id: record.target.metric_id,
+    metric_checksum: record.target.metric_checksum,
+    condition_id: record.target.condition_id,
+    scope_hash: record.target.scope_hash,
     measure: record.target.resolver.measure,
     unit: record.target.resolver.observation_unit,
     scope: record.target.scope,

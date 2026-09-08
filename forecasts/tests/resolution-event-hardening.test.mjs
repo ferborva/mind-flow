@@ -31,15 +31,20 @@ function retainResolution(record, { value = 20 } = {}) {
   const result = structuredClone(record);
   result.target.resolver = {
     resolver_id: "mind-flow.binary-threshold-json",
-    resolver_version: "1.0.0",
+    resolver_version: "1.1.0",
     measure: "fictional-pilot-adoption",
     observation_unit: "percent",
     operator: "gte",
     threshold: 20,
   };
   const payload = {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     resolution_event_id: result.target.resolution_event_id,
+    signal_id: result.target.signal_id,
+    metric_id: result.target.metric_id,
+    metric_checksum: result.target.metric_checksum,
+    condition_id: result.target.condition_id,
+    scope_hash: result.target.scope_hash,
     measure: result.target.resolver.measure,
     unit: result.target.resolver.observation_unit,
     scope: result.target.scope,
@@ -144,6 +149,35 @@ test("resolution outcome is reconstructed from retained bytes by the frozen reso
   const tampered = structuredClone(reconstructed);
   tampered.resolution.evidence.retained_bytes_base64 = Buffer.from("{}", "utf8").toString("base64");
   assert.throws(() => assertForecastSemantics(tampered), /retained bytes.*checksum/i);
+});
+
+test("retained resolution bytes bind the issued signal metric condition and scope", () => {
+  for (const field of [
+    "signal_id",
+    "metric_id",
+    "metric_checksum",
+    "condition_id",
+    "scope_hash",
+  ]) {
+    const changed = retainResolution(resolved);
+    const payload = JSON.parse(Buffer.from(
+      changed.resolution.evidence.retained_bytes_base64,
+      "base64",
+    ).toString("utf8"));
+    payload[field] = field.endsWith("hash") || field.endsWith("checksum")
+      ? `sha256:${"f".repeat(64)}`
+      : `${payload[field]}.drifted`;
+    const bytes = Buffer.from(JSON.stringify(payload), "utf8");
+    changed.resolution.evidence.retained_bytes_base64 = bytes.toString("base64");
+    changed.resolution.evidence.checksum =
+      `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+
+    assert.throws(
+      () => assertForecastSemantics(changed),
+      new RegExp(`payload ${field} does not match the frozen target`),
+      `resolution must reject target.${field} drift`,
+    );
+  }
 });
 
 test("scoring is withheld when exact resolution bytes were not retained", () => {
