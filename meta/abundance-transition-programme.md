@@ -7,7 +7,7 @@ provenance: commissioned-proposal
 author: ren
 reviewer: fernando-bordallo
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Abundance Transition Programme
@@ -99,6 +99,19 @@ true. In particular:
 - a warning is not authority;
 - an action is not a successful outcome.
 
+The [condition agency map](../contracts/agency-map/README.md) makes the spine
+explicit: the declared goal is a value choice; conditions state what must be
+examined; signals are evidence about those conditions; metrics specify how a
+signal is calculated; and action hypotheses state how a named actor proposes a
+condition might move. The layers cannot certify one another.
+
+The public lens is a consumer-facing **IF** and a provider-facing **WHEN**. The
+IF exposes the conditions on which a person's outcome depends. The WHEN turns
+the same conditions into a proposed work list for each relevant actor. A WHEN
+is not a date, forecast, guarantee or commitment. Conditions may be concurrent,
+cyclical or dependency-bound. No actor inherits control merely because the
+condition appears on its list.
+
 ## 🛑 Non-complacency rules
 
 1. **Predictions can lose.** Every empirical claim names a counter-hypothesis,
@@ -185,6 +198,12 @@ Formalise:
 - condition migration and feedback;
 - `watch_if`, `prepare_if`, `act_if`, `pause_if`, `reverse_if`, `recover_if`
   and `graduate_if` rules.
+
+The executable [condition agency map](../contracts/agency-map/README.md)
+separates the goal, conditions, signals, metrics and action hypotheses. It also
+decomposes "who holds it" into control, influence, duty, funding, delivery,
+dependence, negotiation, verification, observation and affectedness. Its five
+public category prompts remain a starting set, not a taxonomy.
 
 The current executable prototype is the
 [condition evolution ledger](../contracts/evolution/README.md). Its valid

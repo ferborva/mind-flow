@@ -7,7 +7,7 @@ provenance: commissioned-agent-proposal
 author: Ren
 reviewer: Fernando Bordallo
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 authority: none
 ---
 
@@ -32,9 +32,11 @@ Its core question is simple:
 > **Who can do what, to what standard, where and when, if which conditions hold?**
 
 That final **IF** matters. A model may be capable of tutoring a child, helping a
-doctor or accelerating a small business. The valuable outcome exists only if
-quality, access, language, time, infrastructure, rights, safety, agency and
-delivery hold for the people concerned.
+doctor or accelerating a small business. Whether a valuable outcome
+materialises may depend on candidate conditions such as quality, access,
+language, time, infrastructure, rights, safety, agency and delivery for the
+people concerned. This list is neither exhaustive nor a claim that each
+condition is necessary in every case.
 
 This does not predict one inevitable future, declare a crisis or prescribe one
 political answer. It maps possible paths, makes the conditions behind them
@@ -107,6 +109,58 @@ condition may still defeat the outcome.
 That gives the public a stronger question than “is the future going well?”:
 
 > **Which outcome, for whom, and which condition is doing the work?**
+
+## 🔁 Turn each IF into actor-specific WHENs
+
+The declared goal comes first. It is a value choice that people may challenge,
+not a metric waiting to be maximised. From there, keep five objects separate:
+
+```text
+goal → conditions → signals → metrics → action hypotheses
+                                  ↓
+                         outcomes and harms
+                                  ↓
+                       revise, recover or stop
+```
+
+- A **condition** says what must hold for the scoped outcome.
+- A **signal** is evidence that may reveal how that condition is moving.
+- A **metric** states exactly how the signal is calculated.
+- An **action hypothesis** says what a named actor proposes might move one
+  condition, what harm could follow and what result would defeat the idea.
+
+A convenient metric cannot become the goal. A moving signal cannot prove the
+condition is true. An action that moves its intended signal may still fail the
+human outcome or cause unacceptable harm.
+
+The person facing the promise gets the **consumer IF**: “I can reach this
+outcome if these conditions hold.” Each relevant provider gets a different
+**provider WHEN**: “We could offer our part when these completion criteria hold,
+subject to the dependencies we do not control.”
+
+**A WHEN is not a date, forecast, guarantee or commitment.** It is a conditional
+plan hypothesis. Conditions may move concurrently, remain dependency-bound,
+become cyclical or fail in a different order for each actor. There is no honest
+universal sequence.
+
+“Who holds it?” does not mean assigning one owner. Ask who has control,
+influence or a duty; who could fund or deliver; who depends on or verifies it;
+and who is affected. One condition can involve all of them. A technical or
+ecological limit may have no actor able to move it. In that case the honest
+state is watch, investigate or cannot move, not an invented owner.
+
+Five prompts make a useful starting set, not a taxonomy:
+
+| Prompt | Public question |
+|---|---|
+| **Price** | Can the person and provider carry the complete cost? |
+| **Permission** | Is it allowed for this actor, person, use and place? |
+| **Proximity** | Can it physically or digitally reach the person? |
+| **Availability** | Does suitable supply and delivery capacity exist? |
+| **Capability** | Can the person meaningfully use, choose or refuse it? |
+
+Add or split conditions whenever these prompts hide a different scope, actor,
+failure mode or lived consequence.
 
 ## 🔄 Conditions are allowed to change, silently rewriting them is not
 

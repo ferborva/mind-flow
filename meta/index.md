@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Index
@@ -17,7 +17,7 @@ scheduled runs.
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 10 |
+| Research notes | 11 |
 | Dashboard snapshots | 1 |
 
 Foundation documents: **4 of 4 in place.**
@@ -101,6 +101,7 @@ Foundation documents: **4 of 4 in place.**
 
 | Note | What it covers |
 |---|---|
+| `2026-09-09-healthcare-if-validation` | Bounds the four-country healthcare example with current primary government sources, incompatible denominators and claim ceilings |
 | `2026-09-08-early-warning-action-systems` | Adapts established early-warning and anticipatory-action practice into a full IF ladder, while testing where the analogy fails |
 | `2026-09-08-integrity-audit` | Claim stop-lines, corrected poverty-gap reasoning, IF register and bounded Australia pilot |
 | `2026-09-08-thesis-debate` | Eleven proposition-level steelman and opposition cases, discriminating evidence and public debate kit |
@@ -133,6 +134,8 @@ Foundation documents: **4 of 4 in place.**
   adversarial comprehension tests.
 - `contracts/evolution/`: append-only condition-event history, deterministic
   fold and explicit cropped-history disclosure.
+- `contracts/agency-map/`: consumer IF and provider WHEN views that keep goals,
+  conditions, signals, metrics, actor relations and action hypotheses distinct.
 - `signals/`: estimand and seven-role condition portfolios with source
   dependence, scope, lead-time and public-claim ceilings.
 - `paths/`: scoped, unscored possible-path hypotheses whose edges bind complete

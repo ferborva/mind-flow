@@ -66,3 +66,11 @@ test("the complete test contract includes evolution, path, preparation and signa
     /signals\/tests\/\*\.test\.mjs/,
   );
 });
+
+test("the complete test contract includes the condition agency map", () => {
+  assert.match(packageJson.scripts.test, /npm run test:agency-map/);
+  assert.match(
+    packageJson.scripts["test:agency-map"],
+    /contracts\/agency-map\/tests\/\*\.test\.mjs/,
+  );
+});

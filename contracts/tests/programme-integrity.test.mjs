@@ -79,6 +79,14 @@ test("condition evolution is a first-class append-only programme object", () => 
   assert.match(plan, /current state.*history/is);
 });
 
+test("the programme separates goals, conditions, signals, metrics and action hypotheses", () => {
+  assert.match(programme, /contracts\/agency-map\/README\.md/);
+  assert.match(programme, /goal.*value choice.*condition.*signal.*metric.*action hypothes/is);
+  assert.match(programme, /consumer.*IF.*provider.*WHEN/is);
+  assert.match(programme, /WHEN.*not.*forecast.*commitment/is);
+  assert.match(programme, /concurrent.*dependency-bound/is);
+});
+
 test("the programme binds possible paths and the complete seven-step action ladder", () => {
   assert.match(programme, /paths\/README\.md/);
   for (const gate of [

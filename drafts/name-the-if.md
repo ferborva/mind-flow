@@ -8,10 +8,10 @@ size: medium
 themes: [abundance]
 sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation,
   2026-09-08-the-benchmark-shrug]
-research: [2026-09-07-abundance-figures]
+research: [2026-09-07-abundance-figures, 2026-09-09-healthcare-if-validation]
 audience: the Moonshots crew, and anyone who would rather use the frame than agree with it
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 > **Reading note, for Fer, not for the reader.**
@@ -36,10 +36,11 @@ updated: 2026-09-08
 > **Mine, flagged:** the title and the name *the binding if*. Naming is
 > scaffolding rather than a claim, per `foundation/editorial-guide.md`.
 >
-> **Two things must be resolved before this goes anywhere public**, both marked
-> inline: the Diamandis anecdote needs an episode and a date, and the four-country
-> contrast needs a research note behind it. Everything structural about those
-> health systems is currently from memory, his and mine.
+> **The unsourced Diamandis attribution has been removed.** The opener is now an
+> explicitly composite scene. The four-country contrast is bounded by the
+> primary-source review in
+> `research/2026-09-09-healthcare-if-validation.md`. The lived contrast remains
+> Fernando's; the system mechanics and numbers are source claims.
 
 ---
 
@@ -58,19 +59,17 @@ updated: 2026-09-08
   right now.** That single question turns a destination into something you can
   report on.
 - Worked example inside: *"you will be able to see a doctor about anything,
-  instantly, for free"*, run across four countries. Same sentence, four
-  different binding conditions, and **none of them is the one we are all working
-  on.**
+  instantly, for free"*, run across four countries. Same sentence, different
+  candidate constraints. **A country is too broad to have one binding IF.**
 
 ---
 
 ## 🤷 "It's just another model, so what"
 
-Peter Diamandis has told a story about his kids reacting to a frontier model
-release with a shrug. *It's just another model. So what.*
+Picture a parent telling their children that a frontier model has crossed
+another benchmark. They shrug. *It's just another model. So what.*
 
-<!-- GAP: episode and date needed, or this opener comes out. Currently recalled
-     from listening, not sourced. -->
+*This is a composite scene, not an attributed anecdote.*
 
 I do not think that is cynicism, and I do not think they are failing to
 appreciate the technology. I think the shrug is **accurate**, and the reason is
@@ -162,18 +161,22 @@ we talk about the future.**
 ## 🧰 The method, in four steps
 
 > Take any promise. Write it as **verb + fill in the blank + if**. Then ask:
-> which condition is binding right now, and who holds it?
+> which condition or set is binding right now, and who can move, verify or is
+> affected by each part?
 
 1. **Write the promise as a sentence.** "You will be able to see a doctor about
    anything, instantly, for free."
 2. **List the ifs.** All of them, unglamorous ones included. The starting set
    below is there to prompt you, not to constrain you.
-3. **Find the binding one.** Not the one that is hardest, or the one that is
-   most interesting to solve. The one that, today, actually stops the person in
-   front of you. Call it **the binding if.**
-4. **Ask who holds it.** You, the technology, a regulator, a counterparty, or
-   nobody in particular. The holder decides whether the answer is "act", "wait
-   and watch", or "negotiate".
+3. **Find the provisional binding set.** Not the condition that is hardest or
+   most interesting. Within the registered routes and current evidence, identify
+   the conditions that appear to defeat each route for the person in front of
+   you. Call each one **a candidate binding IF**. An unregistered route can
+   overturn the diagnosis.
+4. **Map the relationships.** Ask who controls, influences, funds, delivers,
+   verifies, depends on and is affected by each condition. That determines
+   whether a named actor can act, prepare, watch, negotiate, coordinate,
+   investigate or honestly say “cannot move”.
 
 Then repeat it whenever something changes. **A frame is only useful if you can
 run it again next week on the news.**
@@ -182,9 +185,8 @@ run it again next week on the news.**
 
 ## 🗂 A starting set of conditions
 
-Five categories that cover most of what I keep finding. **This is a starting
-set, not a taxonomy.** If it is missing something for your domain, add it, that
-is the point.
+Five prompts I keep reaching for. **This is a starting set, not a taxonomy.** If
+it is missing something for your domain, add it, that is the point.
 
 | Condition | The question it asks |
 |---|---|
@@ -194,10 +196,10 @@ is the point.
 | **Availability** - _does it exist near you_ | Supply, capacity, queue length, whether anyone is offering it at all |
 | **Capability** - _can you use it_ | Time, foundation, attention, literacy, health, someone to look after the kids |
 
-**Capability is the one we underrate most**, and it is the one technology is
-worst at removing. Solve price, permission and proximity for "learn anything"
-and the promise still fails for a person working two jobs. Freedom to and
-capacity to are different things.
+**Capability is the one I suspect we underrate most.** Solve price, permission
+and proximity for "learn anything" and the promise can still fail for a person
+working two jobs. That example is a hypothesis, not a ranking of conditions.
+Freedom to and capacity to are different things.
 
 *A note on availability.* It is doing two jobs and they behave very differently.
 "Does it exist near me" is a supply problem. "Does someone keep choosing to
@@ -208,55 +210,53 @@ Worth splitting the moment a promise depends on somebody's continued generosity.
 
 ## 🏥 One promise, run properly
 
-Take the promise I hear most often, because it is the one people feel most
-viscerally, and because the technology arguably already works. Nobody can accuse
-me of doubting the AI here.
+Take a promise I hear often, because it is one people feel viscerally. I am not
+claiming the technology already delivers the complete clinical outcome.
 
 > **You will be able to see a doctor about anything, instantly, for free.**
 
 Run it in the United States, since that is where most of this conversation
 happens.
 
-| Condition | Where it stands |
+| Condition | What we would need to establish |
 |---|---|
-| Price | **Falling hard.** Diagnosis genuinely does go towards zero, and that is a real win. Take the point in full |
-| Permission | **Binding.** The model cannot prescribe, refer or order a scan in almost any jurisdiction. Licensing is not a bug, it is a defended preference |
-| Proximity | **Binding.** Imaging, blood draws and surgery need a building and a trained pair of hands within reach of you |
-| Availability | Depends on somebody continuing to fund it |
-| Capability | Knowing you are ill and getting treated are different things, and the gap is made of the four rows above |
+| Price | Full patient, provider and public cost for the named service, including insurance, deductible, co-payment, travel and time |
+| Permission | What this model, clinician and provider may lawfully do for this use and jurisdiction |
+| Proximity | Whether every physical complement, from examination to imaging or treatment, is reachable in time |
+| Availability | Whether a suitable appointment, professional and funded delivery route actually exist |
+| Capability | Whether the person can understand, choose, use, refuse and continue the care |
 
-**Here is the punchline, and it is the whole method in one sentence: the
-condition that binds is not the one anyone is working on.** Diagnosis got
-solved and access barely moved, because price stopped being the binding if and
-permission and proximity took over, and nobody announced the handover.
-
-And note where I chose to run it. **The United States is the richest country in
-the world and price is still binding for tens of millions of people there**,
-through deductibles, networks and counties with no obstetric care at all. If the
-conditions bite there, the frame is not a complaint about poor countries.
+In 2024, **27.1 million people in the United States were uninsured for the
+whole year**. In the 2025 National Health Interview Survey early release,
+**6% of adults reported failing to obtain needed medical care because of
+cost**. These are different measures, and neither tells us which IF binds for a
+named patient. They do establish that coverage and price remain material even
+before we test permission, proximity, availability and capability.
 
 ---
 
 ## 🌍 Same sentence, four countries
 
 I have lived under three health systems and I am now on my fourth, and the
-felt difference between them is enormous. Same promise, different binding if.
+felt difference between them is enormous. That experience motivates the
+comparison, but it cannot determine a national binding IF.
 
-| Where | What actually binds |
+| Where | What current official sources let us say |
 |---|---|
-| **Spain** | Not price. You turn up and pay nothing at the point of use. What binds is availability: the specialist queue, and where in the country you live |
-| **Belgium** | Price is visible but nearly cancelled: you pay, then you are reimbursed, and you keep a reference for what things cost. What binds is friction and a thin slice of money |
-| **Australia** | Price is partly binding. Medicare rebates a set amount, plenty of GPs charge above it, and geography is a different country entirely once you leave the cities |
-| **United States** | Price, back in the lead, in the richest of the four |
+| **Spain** | The basic common service portfolio is publicly financed. At 31 December 2025, first hospital specialist consultations had a 102-day patient-weighted mean wait, and 61.5% of listed patients had an appointment more than 60 days away. |
+| **Belgium** | Recognised care often receives full or partial reimbursement. Contracted providers retain a co-payment; non-contracted providers may add a supplement. |
+| **Australia** | 81.4% of GP non-referred attendance services were bulk billed from November 2025 through January 2026. Non-bulk-billed care can leave a gap, and official workforce policy identifies geographic shortages. |
+| **United States** | 27.1 million people had no insurance at any point in 2024, while 6% of adults in the 2025 early release reported cost-related unmet need. Availability also varies by service and county. |
 
-<!-- GAP: everything in this table is from lived experience and general
-     knowledge, not from sources. Before publication it needs a research note
-     with figures and dates per country, per the provenance rule. The felt
-     contrast is mine to claim; the mechanics are not. -->
+The denominators do not match, so this is **not a country ranking**. It is a
+worked demonstration that the answer varies by person, service, place, provider
+and period. Full source definitions and claim ceilings are in
+[`research/2026-09-09-healthcare-if-validation.md`](../research/2026-09-09-healthcare-if-validation.md).
 
-**The technology in all four countries is identical. The answer is different in
-each one.** That is not a story about American healthcare, it is a demonstration
-that the conditions are national and that the promise is not.
+The underlying AI capability may be shared across borders. The deployed model,
+clinical validation, language, integration, permission, infrastructure and
+provider choices may not be. **The promise is global rhetoric. Its IFs are
+local and personal.**
 
 ---
 
@@ -274,8 +274,9 @@ country, a terminal somebody has to own, and someone carrying the loss until one
 of those falls over. *(Illustrative. I have not costed this.)*
 
 **The frame does not bottom out in a complaint, it produces the next question.**
-Every condition on your side of the promise is somebody else's project on the
-other side. That is a whole piece of its own and I will write it next.
+Every actionable condition on your side should become one or more named actors'
+conditional work hypotheses on the other side. A physical, ecological or
+unmapped condition may not. That honest remainder belongs on the map too.
 
 ---
 
@@ -305,9 +306,9 @@ Not agree with me. Use it.
 
 - **Take one promise you have made on air** and write it out as verb + fill in
   the blank + if. All the conditions, boring ones included.
-- **Name the binding one**, today, for a specific person somewhere specific.
-- **Say who holds it**, and therefore whether the next move is to act, to wait,
-  or to negotiate.
+- **Name the binding set**, today, for a specific person somewhere specific.
+- **Map who controls, influences, depends on and is affected by each one**, then
+  state which actor could act, prepare, watch, negotiate or investigate.
 - **Then do it again on the next release.** "Which condition did that just
   lower, and for whom?" is a question every model, chip rule and funding round
   can be answered with. Sometimes the answer is "none yet, and that is fine",

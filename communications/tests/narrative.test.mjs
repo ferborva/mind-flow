@@ -8,6 +8,15 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../..");
 const first = readFileSync(resolve(root, "drafts/abundance-has-an-if.md"), "utf8");
 const second = readFileSync(resolve(root, "drafts/from-if-to-when.md"), "utf8");
+const short = readFileSync(resolve(root, "drafts/name-the-if.md"), "utf8");
+const supply = readFileSync(
+  resolve(root, "drafts/every-if-is-somebodys-when.md"),
+  "utf8",
+);
+const healthcareValidation = readFileSync(
+  resolve(root, "research/2026-09-09-healthcare-if-validation.md"),
+  "utf8",
+);
 const reconstruction = readFileSync(
   resolve(root, "evidence/world-reconstruction-protocol.md"),
   "utf8",
@@ -30,6 +39,37 @@ test("the evolved write-up uses the seven-part public update", () => {
     "When will we check again?",
   ]) assert.match(second, new RegExp(question.replace("?", "\\?")));
   assert.doesNotMatch(second, /five questions every update/i);
+});
+
+test("the short public argument keeps its healthcare example inside source ceilings", () => {
+  assert.match(short, /2026-09-09-healthcare-if-validation\.md/);
+  assert.match(short, /27\.1 million.*uninsured/is);
+  assert.match(short, /6%.*needed medical care.*cost/is);
+  assert.match(short, /102(?:-day| days).*61\.5%.*60 days/is);
+  assert.match(short, /81\.4%.*bulk billed/is);
+  assert.match(short, /partial reimbursement.*co-payment.*supplement/is);
+  assert.match(short, /composite.*not.*attributed anecdote/is);
+  assert.doesNotMatch(short, /technology in all four countries is identical/i);
+  assert.doesNotMatch(short, /diagnosis genuinely does go towards zero/i);
+  assert.doesNotMatch(short, /cannot prescribe, refer or order a scan in almost any jurisdiction/i);
+  assert.match(healthcareValidation, /source-by-source claim ceiling/i);
+  assert.match(healthcareValidation, /does not establish.*binding condition/is);
+});
+
+test("the supply-side argument treats WHEN as actor-specific hypothesis, not destiny", () => {
+  assert.match(supply, /contracts\/agency-map\/README\.md/);
+  assert.match(supply, /WHEN.*not a date.*forecast.*guarantee.*commitment/is);
+  assert.match(supply, /actionable IF.*one or more.*WHEN/is);
+  assert.match(supply, /no\s+universal sequence/i);
+  assert.match(supply, /control.*influence.*duty.*fund.*deliver.*affected/is);
+  assert.match(supply, /act.*prepare.*watch.*negotiate.*coordinate.*investigate.*cannot move/is);
+  assert.doesNotMatch(supply, /a sequence you are executing/i);
+  assert.doesNotMatch(supply, /Every condition sitting on the consumer's side of it is a project sitting on somebody else's side/i);
+  assert.doesNotMatch(supply, /What you can do about it \| mostly nothing, alone \| most of it, over time/i);
+  assert.doesNotMatch(supply, /Provider:\s*We will be able to offer/i);
+  assert.match(supply, /Provider:\*{0,2}\s*We propose we could attempt to offer/i);
+  assert.doesNotMatch(short, /defeats every viable route/i);
+  assert.match(short, /registered routes.*current evidence/is);
 });
 
 test("scenario crossings do not predict or pathologise public response", () => {

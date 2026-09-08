@@ -23,6 +23,19 @@ test("the public mnemonic compiles into a complete and scoped promise", () => {
   assert.match(guide, /one sufficient route/i);
   assert.match(guide, /open world/i);
   assert.match(guide, /omitted condition/i);
+  assert.match(guide, /candidate conditions/i);
+  assert.match(guide, /neither exhaustive nor[\s\S]{0,80}necessary/i);
+  assert.doesNotMatch(guide, /valuable outcome exists only if/i);
+});
+
+test("the guide turns consumer IFs into actor-specific WHEN hypotheses", () => {
+  assert.match(guide, /goal.*condition.*signal.*metric.*action hypothes/is);
+  assert.match(guide, /consumer.*IF.*provider.*WHEN/is);
+  assert.match(guide, /WHEN.*not a date.*forecast.*guarantee.*commitment/is);
+  assert.match(guide, /price.*permission.*proximity.*availability.*capability/is);
+  assert.match(guide, /starting set, not a taxonomy/i);
+  assert.match(guide, /control.*influence.*duty.*fund.*deliver.*affected/is);
+  assert.match(guide, /concurrent.*dependency-bound.*cyclical/is);
 });
 
 test("condition evolution is visible and changes the decision question", () => {
