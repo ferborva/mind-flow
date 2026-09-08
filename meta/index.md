@@ -17,7 +17,7 @@ scheduled runs.
 | Drafts | 2 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 8 |
+| Research notes | 10 |
 | Dashboard snapshots | 1 |
 
 Foundation documents: **4 of 4 in place.**
@@ -70,7 +70,9 @@ Foundation documents: **4 of 4 in place.**
 
 | Note | What it covers |
 |---|---|
+| `2026-09-08-early-warning-action-systems` | Adapts established early-warning and anticipatory-action practice into a full IF ladder, while testing where the analogy fails |
 | `2026-09-08-integrity-audit` | Claim stop-lines, corrected poverty-gap reasoning, IF register and bounded Australia pilot |
+| `2026-09-08-thesis-debate` | Eleven proposition-level steelman and opposition cases, discriminating evidence and public debate kit |
 | `2026-09-07-abundance-figures` | Fact-check of the rant. Company profits, Musk quotes, displacement vs exposure, global income distribution |
 | `2026-09-07-decent-life-thresholds` | Decent Living Standards thresholds, what a decent life costs, capital needed for a life and the next generation |
 | `2026-09-07-labour-supply-and-cost-disease` | Reservation wage, backward-bending labour supply, Baumol's cost disease, and why his two new ideas pull against each other |
@@ -88,8 +90,12 @@ Foundation documents: **4 of 4 in place.**
 - `governance/if-protocol.md`: the proposed public grammar and condition graph.
 - `evidence/claim-ledger-2026-09-08.json`: machine-readable dispositions,
   counter-hypotheses, falsifiers and source records for 17 claims.
+- `communications/`: labels, public update templates and adversarial
+  comprehension tests.
+- `forecasts/`: immutable binary forecast contracts, baseline comparison and
+  proper scoring.
 
-All four are Ren or agent-authored commissioned proposals. They are not
+These are Ren or agent-authored commissioned proposals. They are not
 Fernando's settled views.
 
 ## Dashboard

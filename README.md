@@ -32,6 +32,8 @@ conversation.
 | `evidence/` | Claim ledger and source records for auditable public claims. |
 | `governance/` | Proposed public charter and IF Protocol. |
 | `contracts/` | Machine-readable condition and action contracts. |
+| `forecasts/` | Immutable forecasts, baselines, resolution and scoring. |
+| `communications/` | Public labels, update templates and comprehension tests. |
 | `pilots/` | Bounded validation programmes before any claim of generality. |
 | `dashboard/` | The public Observatory prototype and dated evidence snapshots. |
 | `meta/` | Index, themes, backlog of open questions, templates. |

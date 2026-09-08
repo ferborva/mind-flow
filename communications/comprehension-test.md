@@ -53,9 +53,11 @@ substitutes for these outcomes.
 
 ## 👥 Proposed test panel
 
-For a formative release test, recruit at least 30 participants across the
-following perspectives. This is enough to expose recurrent usability failures,
-not enough to estimate population opinion precisely.
+For the first formative round, target 30 participants across the following
+perspectives. This is a coverage target, not a statistically powered sample and
+not a universal usability rule. Continue recruitment when new severe failure
+modes are still appearing. A later confirmatory study must declare its expected
+effect, precision, exclusions and analysis before choosing a sample size.
 
 | Perspective | Minimum inclusion goal |
 |---|---|
@@ -268,6 +270,14 @@ equivalent across formats.
 
 ## 📏 Scoring guide
 
+The percentages below are proposed design tolerances, not validated population
+cut-offs. In a small formative panel, report the numerator and denominator
+beside every percentage and show an interval rather than implying population
+precision. A single severe misunderstanding involving safety, action authority,
+appeal or an excluded cohort can block release even when the aggregate clears a
+number. Do not tune wording against the same participants used to judge the
+final version.
+
 ### Core comprehension
 
 | Measure | Proposed release gate |
@@ -319,6 +329,8 @@ For every core comprehension measure:
 
 These gates are proposed safeguards, not statistical proof. Small subgroup
 numbers require qualitative review and follow-up rather than confident rates.
+Before a consequential public release, pre-register a separate confirmatory
+test or state plainly that only formative usability evidence exists.
 
 ## 🧮 Response coding
 
