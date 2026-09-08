@@ -180,6 +180,17 @@ compensation is an employer-cost accounting measure. Household-price deflation
 does not make employer contributions or imputations disposable worker
 purchasing power. The identity does not apply to median survey earnings.
 
+For a registered cross-country aggregate, first compute each `D_i` from
+local-currency growth indexes, then use fixed base-period employment weights:
+
+```text
+D_world = SUM_i(w_i,0 * D_i)
+w_i,0 = covered_employment_i,0 / SUM_k(covered_employment_k,0)
+```
+
+Do not aggregate cross-country compensation or output levels unless a separate
+currency-conversion or PPP estimand is registered.
+
 #### E2b. Median and distributional earnings
 
 **Question:** How did the earnings distribution move for the same defined
@@ -213,10 +224,10 @@ outcomes while retaining meaningful choice, refusal, time, privacy and appeal?
 **Resource measures:**
 
 ```text
-cash access margin
-= equivalised disposable cash resources
-- cash-priced required basket components not delivered in kind
-- debt-service flow due in the same period
+cash_access_margin(h)
+= equivalised(disposable cash resources(h), registered_scale)
+  - equivalised(required cash basket cost(h), same registered_scale)
+  - equivalised(debt-service due(h), same registered_scale)
 ```
 
 Report delivered in-kind basket coverage separately, matching each service to
@@ -234,6 +245,7 @@ cash_pass(h) = cash_margin(h) >= 0
 in_kind_pass(h, j)
 = available(h, j)
   AND eligible(h, j)
+  AND total_money_time_and_complement_cost(h, j) <= registered_limit(j)
   AND delivered(h, j)
   AND quality(h, j) >= registered_threshold(j)
 
@@ -246,6 +258,12 @@ Every component must use the same person or household, place and period.
 Missing evidence remains `unknown`, never false or satisfied. Report loss at
 each access stage rather than multiplying unlike rates into one score. A
 positive cash margin cannot offset a missing required service.
+
+Evaluate each threshold against its registered uncertainty rule. Return `true`
+only when the admissible interval lies wholly inside the passing region,
+`false` only when it lies wholly inside the failing region, and `unknown` when
+it crosses a boundary or evidence is missing. Mixed equivalisation scales or
+mixed monetary periods must fail validation.
 
 The cash margin and in-kind coverage are necessary but not sufficient. Report
 direct agency measures alongside them, including ability to choose, refuse,
@@ -497,11 +515,15 @@ A result cannot progress beyond internal research draft unless:
 
 - a separately versioned result dependency graph derives the complete required
   artifact set before validation;
+- the result bundle must content-address the exact dependency-graph version used
+  for closure. Validation fails if that graph, its source membership or its
+  transformation closure changes after result generation;
 - 100 per cent of dependency-graph input bytes are retained and hash-valid,
   with no missing referenced inputs, extra unreferenced inputs, transformations
   without code hashes, source values without row or field lineage, or claims
   with an incomplete dependency closure;
-- publisher origin has a publisher-signed artifact or checksum, an
+- publisher origin has a cryptographically signed artifact or checksum whose
+  publisher signing key is independently authenticated, an
   authenticated publisher API receipt plus an independently timestamped
   archival witness, or an independently governed archive with a verified chain
   to the publisher. Otherwise the maximum claim is `local capture reproduced`,

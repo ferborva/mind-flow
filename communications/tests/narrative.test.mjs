@@ -78,6 +78,11 @@ test("the World reconstruction protocol cannot promote arithmetic into welfare o
   assert.match(reconstruction, /first_release_status: unknown/i);
   assert.match(reconstruction, /logical digest[\s\S]*physical\s+digest/i);
   assert.match(reconstruction, /result dependency graph derives the complete required\s+artifact set/i);
+  assert.match(reconstruction, /equivalised\(disposable cash resources\(h\), registered_scale\)/i);
+  assert.match(reconstruction, /total_money_time_and_complement_cost\(h, j\)/i);
+  assert.match(reconstruction, /D_world = SUM_i\(w_i,0 \* D_i\)/i);
+  assert.match(reconstruction, /publisher signing key is independently authenticated/i);
+  assert.match(reconstruction, /content-address the exact dependency-graph version/i);
   assert.match(reconstruction, /must replace the current population label/i);
   assert.match(reconstruction, /Predicate truth is `true`, `false`, `unknown`,\s*`not-applicable` or `disputed`/i);
   assert.doesNotMatch(reconstruction, /predicate remains five-valued.*stale.*conflicted/is);
