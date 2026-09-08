@@ -5,7 +5,8 @@ type: draft
 status: drafting
 size: short
 themes: [abundance]
-sources: [2026-09-08-abundance-frame-conversation, 2026-09-01-abundance-is-conditional]
+sources: [2026-09-08-abundance-frame-conversation, 2026-09-01-abundance-is-conditional,
+  2026-09-08-the-benchmark-shrug]
 audience: the Moonshots podcast crew
 created: 2026-09-08
 updated: 2026-09-08
@@ -78,11 +79,13 @@ Short, warm, no pitch. It is an invitation to click, nothing more.
 > release, every chip rule, every national regulation becomes answerable as
 > "which condition did that just lower, for whom, and which one is binding now".
 >
-> Sometimes the honest answer is "none yet, and that is fine". Which is roughly
-> what your kids mean, Peter, when they say *it's just another model, so what*.
-> They are not being cynical. They just have no frame for what the release
-> unblocked in their own life, because most of the time it unblocked nothing
-> yet.
+> Sometimes the honest answer is "none yet, and that is fine". Which is, I
+> think, exactly what your kids mean, Peter, when they say *it's just another
+> model, so what*. They are not being cynical. **Nobody is walking around with
+> the sentence "I will be able to do X if a model tops the benchmarks by y%",
+> so the announcement has nothing to land in.** The sentences people do carry
+> are about a gap fee, a licence, a queue, eight hours a week they do not have.
+> None of those ifs say "benchmark".
 >
 > I have written it up properly here: [link]. It comes with a worked example
 > (the "see a doctor about anything, instantly, free" promise, run across four

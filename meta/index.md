@@ -12,8 +12,8 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 5 |
-| Seeds | 15 |
+| Captures | 6 |
+| Seeds | 16 |
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
@@ -31,6 +31,9 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
+- `2026-09-08-the-benchmark-shrug`, why people shrug at a benchmark, and the
+  condition categories becoming his. **processed**, 1 seed. Short, typed, and it
+  carries a provenance event: the five categories are his from here.
 - `2026-09-08-abundance-frame-conversation`, taking the if frame further and the
   two sides of the exchange. **processed**, 6 seeds. Full transcript of a spoken
   session, kept verbatim at `capture/raw/`. **Read its provenance warnings:**
@@ -64,6 +67,7 @@ Foundation documents: **4 of 4 in place.**
 | `conditions-have-owners` | ripe | abundance |
 | `agency-is-the-goal-conditions-are-the-signals` | ripe | abundance |
 | `you-cannot-sequence-the-conditions` | growing | abundance |
+| `nobody-has-that-sentence` | ripe | abundance |
 
 ## Drafts
 

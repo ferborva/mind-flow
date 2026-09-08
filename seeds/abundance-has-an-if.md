@@ -4,7 +4,8 @@ title: Abundance has an if
 type: seed
 status: ripe
 themes: [abundance]
-sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation]
+sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation,
+  2026-09-08-the-benchmark-shrug]
 created: 2026-09-01
 updated: 2026-09-08
 ---
@@ -48,7 +49,7 @@ comprehensive, it's not conclusive". The frame is the contribution, the list is
 an illustration of it. Anything downstream should treat the ifs as a
 demonstration and not as a taxonomy of his settled view.
 
-## A starting set of categories, adopted 2026-09-08
+## His condition categories, adopted 2026-09-08
 
 Five kinds of condition, offered as a starting set rather than a closed list, so
 that a reader runs the method on their own domain instead of arguing with the
@@ -67,14 +68,13 @@ worth splitting out: "does someone keep choosing to provide it" is a condition
 that can be withdrawn on a quarterly earnings call, which is the flaw the red
 team found in the first draft's remedy.
 
-<!-- PROVENANCE: the categories are MINE, proposed in conversation as price,
-     permission, proximity, provision, then extended with capability and the
-     availability / discretion split. He liked them and repeated them back with
-     one name changed, which is adoption, not authorship. His words: "I really
-     like the ones that you called out there... those are categories that we can
-     potentially offer as a high level set". Open in the backlog until he either
-     names his own set or says use these. Do not present them in his voice as
-     his invention. -->
+<!-- PROVENANCE: the categories started as MINE, proposed in conversation as
+     price, permission, proximity, provision, then extended with capability and
+     the availability / discretion split. He adopted them explicitly on
+     2026-09-08 when asked directly: "keep them as mine now". From that point
+     they are his and appear in his voice without a flag. The chain is recorded
+     because the chain always gets recorded, not because the categories are
+     still in question. Same shape as the transmission test. -->
 
 **Capability is the one that matters most to his argument**, because it is the
 condition technology is worst at removing, and it is the one the education
@@ -116,3 +116,4 @@ it.
 - Is the list of conditions meant to be exhaustive, or illustrative of a class?
   *Answered 2026-09-08: illustrative, and he does not want to defend the list.*
 - Are the five categories his, or does he want to name his own set?
+  *Answered 2026-09-08: his. "Keep them as mine now."*
