@@ -4,6 +4,11 @@ Phase 0 contracts for turning observations into owned and reversible action.
 They remain separate from the dashboard snapshot contract while the model is
 tested.
 
+The isolated [executable IF kernel](executable-if/README.md) adds immutable
+condition and signal definitions, normalized same-scope observations,
+five-state evaluation and definition-history folds. It is a synthetic,
+non-authorising prototype and is not yet part of a transition bundle.
+
 ## Artifact separation
 
 **The current split keeps evaluation, action governance, operational state,
