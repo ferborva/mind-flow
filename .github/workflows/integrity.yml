@@ -34,7 +34,7 @@ jobs:
         run: npm test
 
       - name: Reproduce the timing-contract migration
-        run: node dashboard/tools/migrate-timing-contract.mjs
+        run: node dashboard/tools/migrate-timing-contract.mjs --check
 
       - name: Rebuild the global Observatory
         run: >-

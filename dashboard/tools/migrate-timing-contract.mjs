@@ -35,6 +35,17 @@ function serialise(value) {
   return `${JSON.stringify(value, null, 1)}\n`;
 }
 
+function compareRecordIds(left, right) {
+  const parse = (value) => {
+    const match = /^(\d{4}-\d{2}-\d{2})\.r([1-9]\d*)$/.exec(value || "");
+    if (!match) throw new Error(`invalid snapshot record id ${value || "<missing>"}`);
+    return [match[1], Number(match[2])];
+  };
+  const [leftDate, leftRevision] = parse(left);
+  const [rightDate, rightRevision] = parse(right);
+  return leftDate === rightDate ? leftRevision - rightRevision : leftDate.localeCompare(rightDate);
+}
+
 const legacyPolicy = readPinned(legacyPolicyPath, EXPECTED_LEGACY_POLICY);
 const legacySnapshot = readPinned(legacySnapshotPath, EXPECTED_LEGACY_SNAPSHOT);
 const predecessor = readPinned(predecessorPath, EXPECTED_PREDECESSOR);
@@ -52,35 +63,66 @@ const policyDigest = sha256(policyBytes);
 migratedSnapshot.evidence_policy.sha256 = policyDigest;
 const snapshotBytes = Buffer.from(serialise(migratedSnapshot));
 const snapshotDigest = sha256(snapshotBytes);
-const index = {
-  schema_version: "2.0.0",
-  latest: "2026-09-08.r2",
-  snapshots: [
-    {
-      id: "2026-09-07.r1",
-      snapshot_id: legacySnapshot.value.snapshot_id,
-      schema_version: legacySnapshot.value.schema_version,
-      path: "2026-09-07.json",
-      sha256: EXPECTED_LEGACY_SNAPSHOT,
-    },
-    {
-      id: "2026-09-08.r1",
-      snapshot_id: predecessor.value.snapshot_id,
-      schema_version: predecessor.value.schema_version,
-      path: "2026-09-08.json",
-      sha256: EXPECTED_PREDECESSOR,
-    },
-    {
-      id: "2026-09-08.r2",
-      snapshot_id: predecessor.value.snapshot_id,
-      schema_version: "2.0.0",
-      path: "2026-09-08.r2.json",
-      sha256: snapshotDigest,
-    },
-  ],
-};
+const expectedEntries = [
+  {
+    id: "2026-09-07.r1",
+    snapshot_id: legacySnapshot.value.snapshot_id,
+    schema_version: legacySnapshot.value.schema_version,
+    path: "2026-09-07.json",
+    sha256: EXPECTED_LEGACY_SNAPSHOT,
+  },
+  {
+    id: "2026-09-08.r1",
+    snapshot_id: predecessor.value.snapshot_id,
+    schema_version: predecessor.value.schema_version,
+    path: "2026-09-08.json",
+    sha256: EXPECTED_PREDECESSOR,
+  },
+  {
+    id: "2026-09-08.r2",
+    snapshot_id: predecessor.value.snapshot_id,
+    schema_version: "2.0.0",
+    path: "2026-09-08.r2.json",
+    sha256: snapshotDigest,
+  },
+];
 
-writeFileSync(policyPath, policyBytes);
-writeFileSync(snapshotPath, snapshotBytes);
-writeFileSync(indexPath, serialise(index));
-process.stdout.write(`Wrote ${snapshotPath}\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`);
+function sameBytes(path, expected) {
+  return readFileSync(path).equals(expected);
+}
+
+function assertHistoricalIndex(index) {
+  for (const expected of expectedEntries) {
+    const matches = index.snapshots?.filter(({ id }) => id === expected.id) || [];
+    if (matches.length !== 1 || serialise(matches[0]) !== serialise(expected)) {
+      throw new Error(`snapshot index does not preserve exact historical entry ${expected.id}`);
+    }
+  }
+}
+
+const args = process.argv.slice(2);
+if (args.some((argument) => argument !== "--check") || args.filter((argument) => argument === "--check").length > 1) {
+  throw new Error("usage: migrate-timing-contract.mjs [--check]");
+}
+
+if (args.includes("--check")) {
+  if (!sameBytes(policyPath, policyBytes)) throw new Error("current timing policy differs from the reproducible migration");
+  if (!sameBytes(snapshotPath, snapshotBytes)) throw new Error("current r2 snapshot differs from the reproducible migration");
+  assertHistoricalIndex(JSON.parse(readFileSync(indexPath, "utf8")));
+  process.stdout.write(`Verified historical timing migration\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`);
+} else {
+  const index = JSON.parse(readFileSync(indexPath, "utf8"));
+  if (index.schema_version !== "2.0.0" || !Array.isArray(index.snapshots)) {
+    throw new Error("current snapshot index is not a version 2.0.0 record");
+  }
+  const target = expectedEntries.at(-1);
+  const positions = index.snapshots.flatMap((entry, position) => entry.id === target.id ? [position] : []);
+  if (positions.length > 1) throw new Error(`snapshot index contains duplicate ${target.id} entries`);
+  if (positions.length === 1) index.snapshots[positions[0]] = target;
+  else index.snapshots.push(target);
+  if (!index.latest || compareRecordIds(index.latest, target.id) < 0) index.latest = target.id;
+  writeFileSync(policyPath, policyBytes);
+  writeFileSync(snapshotPath, snapshotBytes);
+  writeFileSync(indexPath, serialise(index));
+  process.stdout.write(`Wrote ${snapshotPath} without rewinding later index entries\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`);
+}
