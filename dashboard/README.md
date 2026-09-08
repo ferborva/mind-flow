@@ -160,6 +160,11 @@ run `python3 dashboard/tools/fetch_snapshot.py --verify-input-manifest PATH`.
 Running the fetcher without that flag fails closed and cannot rewrite the 2.0
 record index.
 
+Raw-input verification resolves the governed evidence root and candidate file
+to real paths, rejects symbolic links and non-regular files, then opens with the
+platform no-follow flag before hashing. A lexical in-root path cannot redirect
+the build to bytes outside `dashboard/evidence/raw`.
+
 ## What the global snapshot can say
 
 The snapshot includes six available source series, two derived aggregate

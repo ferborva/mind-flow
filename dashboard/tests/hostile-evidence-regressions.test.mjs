@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  mkdtempSync,
+  readFileSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
@@ -84,6 +90,31 @@ test("captured local inputs require successful HTTP and matching media metadata"
   wrongMedia.reproducibility.raw_inputs[0].response_metadata.http_status = 200;
   wrongMedia.reproducibility.raw_inputs[0].response_metadata.content_type = "text/html";
   rejectsBuild(wrongMedia, /media.type.*content.type|content.type.*media.type/i);
+});
+
+test("raw input verification rejects symlinks that escape the governed evidence root", () => {
+  const directory = mkdtempSync(join(tmpdir(), "mind-flow-outside-evidence-"));
+  const outsidePath = join(directory, "private.bin");
+  const bytes = Buffer.from("outside governed evidence root");
+  writeFileSync(outsidePath, bytes);
+  const linkName = `hostile-symlink-${process.pid}-${Date.now()}.bin`;
+  const linkPath = join(dashboard, "evidence", "raw", linkName);
+  symlinkSync(outsidePath, linkPath);
+
+  try {
+    const rawInput = JSON.parse(readFileSync(rawManifestPath, "utf8")).raw_input;
+    rawInput.path = `evidence/raw/${linkName}`;
+    rawInput.byte_length = bytes.length;
+    rawInput.sha256 = createHash("sha256").update(bytes).digest("hex");
+    rawInput.id = `sha256:${rawInput.sha256}`;
+    const changed = structuredClone(snapshot);
+    changed.reproducibility.raw_input_status = "captured_local_hash_consistent";
+    changed.reproducibility.raw_inputs = [rawInput];
+
+    rejectsBuild(changed, /symbolic link|escapes dashboard\/evidence\/raw/i);
+  } finally {
+    unlinkSync(linkPath);
+  }
 });
 
 test("the pinned policy rejects co-mutated displayed identity, units and evidence prose", () => {

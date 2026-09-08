@@ -1,8 +1,17 @@
 #!/usr/bin/env node
 
-import { readFileSync, realpathSync, writeFileSync } from "node:fs";
+import {
+  closeSync,
+  constants,
+  fstatSync,
+  lstatSync,
+  openSync,
+  readFileSync,
+  realpathSync,
+  writeFileSync,
+} from "node:fs";
 import { createHash } from "node:crypto";
-import { dirname, resolve } from "node:path";
+import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import Ajv2020 from "ajv/dist/2020.js";
@@ -929,13 +938,30 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
 
 function verifyRawInputs(snapshot) {
   const verified = new Map();
+  const evidenceRoot = realpathSync(resolve(dashboard, "evidence", "raw"));
   for (const rawInput of snapshot.reproducibility?.raw_inputs || []) {
     const inputPath = resolve(dashboard, rawInput.path);
-    const evidenceRoot = `${resolve(dashboard, "evidence", "raw")}/`;
-    if (!inputPath.startsWith(evidenceRoot)) {
+    if (lstatSync(inputPath).isSymbolicLink()) {
+      throw new Error(`raw input ${rawInput.id} cannot be a symbolic link`);
+    }
+    const realInputPath = realpathSync(inputPath);
+    const relativeInputPath = relative(evidenceRoot, realInputPath);
+    if (relativeInputPath === ""
+        || relativeInputPath === ".."
+        || relativeInputPath.startsWith(`..${sep}`)
+        || isAbsolute(relativeInputPath)) {
       throw new Error(`raw input ${rawInput.id} path escapes dashboard/evidence/raw`);
     }
-    const bytes = readFileSync(inputPath);
+    const fileDescriptor = openSync(realInputPath, constants.O_RDONLY | constants.O_NOFOLLOW);
+    let bytes;
+    try {
+      if (!fstatSync(fileDescriptor).isFile()) {
+        throw new Error(`raw input ${rawInput.id} must be a regular file`);
+      }
+      bytes = readFileSync(fileDescriptor);
+    } finally {
+      closeSync(fileDescriptor);
+    }
     const digest = createHash("sha256").update(bytes).digest("hex");
     if (bytes.length !== rawInput.byte_length) {
       throw new Error(`raw input ${rawInput.id} byte length mismatch before transform`);
