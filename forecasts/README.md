@@ -15,6 +15,38 @@ The registry makes a future claim capable of being wrong in public. It does not
 authenticate institutions, verify source contents, establish causal value or
 authorise action.
 
+## Round 4 exact issue basis
+
+Schema `1.4.0` adds an immutable `issue_basis`. It binds the forecast to exact
+bytes for one executable IF kernel and signal registry, then resolves:
+
+- one active condition definition and its complete WHO, VERB, OBJECT, STANDARD,
+  POLARITY and PERIOD;
+- one executable predicate and immutable signal definition;
+- the complete registered metric contract, not only its metric ID;
+- the exact jurisdiction, geography, cohort, service and PERIOD scope;
+- the complete issue-time evidence-history tip; and
+- a governed five-state evaluation receipt at the forecast's `issued_at` time.
+
+The issue basis is content-addressed and checked again against both source
+artifacts. Recomputing its hash cannot legitimise a substituted definition,
+metric, scope or earlier evidence tip.
+
+### Two questions, never one confidence scale
+
+The issue-time receipt asks: **what state did the registered IF rule compute at
+issue time?** Its answer is exactly one of `true`, `false`, `unknown`, `stale`
+or `conflicted`.
+
+The forecast asks: **what probability is assigned to a separately specified
+future resolution event?** Its answer is a number strictly between zero and one.
+
+For example, the Round 4 fixture records an issue-time IF state of `true` and a
+future-event probability of `0.62`. The state is not 100 percent confidence and
+the probability does not weaken, strengthen or replace the state. Neither
+establishes empirical truth, causality, authority or permission to act. The
+machine-generated `public_claim_ceiling` must accompany any public projection.
+
 ## Fail-closed sequence
 
 1. Register a structured cohort rule before the first forecast is issued. The
@@ -191,6 +223,7 @@ or decisions about Australia and are not Fernando's views.
 
 ```bash
 node --test forecasts/tests/*.test.mjs
+node forecasts/tools/build-round-04-fixture.mjs --check
 ```
 
 The first real forecast must wait for the pilot source-feasibility review,

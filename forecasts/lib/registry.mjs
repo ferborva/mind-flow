@@ -5,6 +5,15 @@ import {
   assertFrozenResolutionResolver,
   assertResolutionOutcome,
 } from "./resolution.mjs";
+import {
+  computeEvidenceStateHash,
+  evaluateKernelCondition,
+  validateExecutableIfKernel,
+} from "../../contracts/executable-if/validate.mjs";
+import {
+  computeMetricContractChecksum,
+  validateSignalRegistry,
+} from "../../signals/validate.mjs";
 
 export const IMMUTABLE_ISSUE_FIELDS = [
   "schema_version",
@@ -27,6 +36,7 @@ export const IMMUTABLE_ISSUE_FIELDS = [
   "counter_hypotheses",
   "void_policy",
   "decision_context",
+  "issue_basis",
 ];
 
 const LIFECYCLE = new Set(["issued", "resolved", "void"]);
@@ -60,6 +70,440 @@ function canonicalValue(value) {
     );
   }
   return value;
+}
+
+function same(left, right) {
+  return isDeepStrictEqual(left, right);
+}
+
+function without(value, field) {
+  const result = structuredClone(value);
+  delete result[field];
+  return result;
+}
+
+function digest(domain, value) {
+  return `sha256:${createHash("sha256")
+    .update(`mind-flow:forecast:${domain}:v1\n${JSON.stringify(canonicalValue(value))}`, "utf8")
+    .digest("hex")}`;
+}
+
+export function forecastIssueBasisHash(issueBasis) {
+  return digest("issue-basis", without(issueBasis, "issue_basis_hash"));
+}
+
+function percent(value) {
+  return `${Number((value * 100).toFixed(6))}%`;
+}
+
+export function renderForecastClaimCeiling(forecast) {
+  const state = forecast?.issue_basis?.issue_evaluation_receipt?.computed_rule_state?.state ||
+    "unknown";
+  const use = (forecast?.forecast_use || "unclassified").replaceAll("_", "-");
+  const event = (forecast?.target?.event || "unspecified event").replace(/[.!?]+$/, "");
+  return `This ${use} forecast assigns ${percent(forecast?.probability)} to this future event: ${event}. At issue time, ${forecast?.issued_at || "unspecified"}, the executable IF rule computed ${state}. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act.`;
+}
+
+function issue(code, path, message) {
+  return { code, path, message };
+}
+
+function projectedConditionScope(definition) {
+  return {
+    jurisdictions: structuredClone(definition.scope.jurisdictions),
+    geographies: structuredClone(definition.scope.geographies),
+    cohorts: structuredClone(definition.scope.cohorts),
+    services: structuredClone(definition.scope.services),
+    period: structuredClone(definition.claim.period),
+  };
+}
+
+function projectedTargetScope(conditionScope) {
+  return {
+    geographies: structuredClone(conditionScope.geographies),
+    cohorts: structuredClone(conditionScope.cohorts),
+    services: structuredClone(conditionScope.services),
+  };
+}
+
+function projectedEvaluationReceipt(evaluation) {
+  return {
+    evaluated_at: evaluation.evaluated_at,
+    clock: structuredClone(evaluation.clock),
+    evaluator_ref: structuredClone(evaluation.evaluator_ref),
+    condition_definition_ref: structuredClone(evaluation.condition_definition_ref),
+    observation_hashes: structuredClone(evaluation.observation_hashes),
+    mechanically_valid_for_evaluation: evaluation.mechanically_valid_for_evaluation,
+    computed_rule_state: structuredClone(evaluation.computed_rule_state),
+    empirical_truth_established: false,
+    authority_effect: "none",
+    action_authorised: false,
+    publication_approved: false,
+    kernel_manifest_hash: evaluation.kernel_manifest_hash,
+    evidence_state_hash: evaluation.evidence_state_hash,
+    evaluation_hash: evaluation.evaluation_hash,
+  };
+}
+
+function evidenceStateRef(kernel) {
+  const tip = kernel.evidence_events.at(-1);
+  return {
+    kernel_id: kernel.kernel_id,
+    kernel_manifest_hash: kernel.manifest_hash,
+    event_count: kernel.evidence_events.length,
+    tip_event_id: tip.evidence_event_id,
+    tip_event_hash: tip.evidence_event_hash,
+    state_hash: computeEvidenceStateHash(kernel.current_evidence_state),
+  };
+}
+
+function exactSource(source, reference, { idField, manifestField } = {}) {
+  if (!source?.document || !source?.path || !source?.sha256) return false;
+  if (source.path !== reference?.artifact_path || source.sha256 !== reference?.artifact_sha256) {
+    return false;
+  }
+  if (idField && source.document[idField] !== reference[idField]) return false;
+  if (manifestField && source.document[manifestField] !== reference[manifestField]) return false;
+  return true;
+}
+
+function retainedSourceBytesMatch(source) {
+  if (!(source?.bytes instanceof Uint8Array)) return false;
+  const bytes = Buffer.from(source.bytes);
+  const sha256 = `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+  if (sha256 !== source.sha256) return false;
+  try {
+    return same(JSON.parse(bytes.toString("utf8")), source.document);
+  } catch {
+    return false;
+  }
+}
+
+function requiredInterpretationBoundaries(forecast) {
+  return {
+    probability_relation: "orthogonal-to-current-computed-if-state",
+    current_if_state_is_forecast_probability: false,
+    probability_establishes_empirical_truth: false,
+    probability_establishes_causality: false,
+    probability_establishes_authority: false,
+    empirical_truth_established: false,
+    causality_established: false,
+    authority_effect: "none",
+    action_authorised: false,
+    public_claim_ceiling: renderForecastClaimCeiling(forecast),
+  };
+}
+
+export function assessForecastIssueBasis(forecast, sources = {}) {
+  const errors = [];
+  const basis = forecast?.issue_basis;
+  const target = forecast?.target;
+  const externalRequested = sources.sourceKernel !== undefined ||
+    sources.sourceSignalRegistry !== undefined;
+
+  if (forecast?.schema_version !== "1.4.0" || !basis) {
+    errors.push(issue(
+      "ISSUE_BASIS_REQUIRED",
+      "/issue_basis",
+      "forecast schema 1.4.0 requires an exact issue-time basis",
+    ));
+  } else {
+    if (basis.issue_basis_hash !== forecastIssueBasisHash(basis)) {
+      errors.push(issue(
+        "ISSUE_BASIS_HASH_MISMATCH",
+        "/issue_basis/issue_basis_hash",
+        "issue basis hash does not match its canonical content",
+      ));
+    }
+    if (basis.issued_at !== forecast.issued_at ||
+        basis.issue_evaluation_receipt?.evaluated_at !== forecast.issued_at) {
+      errors.push(issue(
+        "ISSUE_TIME_MISMATCH",
+        "/issue_basis/issued_at",
+        "the condition receipt must be evaluated at the immutable forecast issue time",
+      ));
+    }
+    if (target?.condition_id !== basis.condition_definition_ref?.condition_id ||
+        !same(
+          basis.issue_evaluation_receipt?.condition_definition_ref,
+          basis.condition_definition_ref,
+        )) {
+      errors.push(issue(
+        "CONDITION_DEFINITION_REF_MISMATCH",
+        "/issue_basis/condition_definition_ref",
+        "target and issue receipt must name one exact condition definition",
+      ));
+    }
+    if (target?.signal_id !== basis.signal_definition_ref?.signal_id ||
+        target?.metric_id !== basis.metric_contract?.metric_id ||
+        target?.metric_checksum !== basis.metric_contract?.metric_checksum) {
+      errors.push(issue(
+        "FORECAST_TARGET_SUBSTITUTED",
+        "/target",
+        "target must resolve the exact issue-basis signal and metric contract",
+      ));
+    }
+    if (basis.metric_contract?.metric_checksum !==
+        computeMetricContractChecksum(basis.metric_contract || {})) {
+      errors.push(issue(
+        "METRIC_CONTRACT_HASH_MISMATCH",
+        "/issue_basis/metric_contract/metric_checksum",
+        "the issue-basis metric contract must retain its canonical registry checksum",
+      ));
+    }
+    const targetScope = basis.condition_scope
+      ? projectedTargetScope(basis.condition_scope)
+      : null;
+    if (!targetScope || !same(target?.scope, targetScope) ||
+        basis.target_scope_hash !== target?.scope_hash ||
+        target?.scope_hash !== forecastScopeHash(target?.scope)) {
+      errors.push(issue(
+        "CONDITION_SCOPE_MISMATCH",
+        "/issue_basis/condition_scope",
+        "target scope must be the exact forecast projection of the bound condition scope",
+      ));
+    }
+    const conditionStartsAt = Date.parse(basis.condition_scope?.period?.starts_at);
+    const conditionEndsAt = Date.parse(basis.condition_scope?.period?.ends_at);
+    const observationStartsAt = Date.parse(target?.observation_window_start);
+    const observationEndsAt = Date.parse(target?.observation_window_end);
+    if (![conditionStartsAt, conditionEndsAt, observationStartsAt, observationEndsAt]
+      .every(Number.isFinite) || observationStartsAt < conditionStartsAt ||
+        observationEndsAt > conditionEndsAt) {
+      errors.push(issue(
+        "FORECAST_WINDOW_OUTSIDE_CONDITION_PERIOD",
+        "/target/observation_window_start",
+        "the complete future observation window must stay inside the bound condition PERIOD",
+      ));
+    }
+    const receipt = basis.issue_evaluation_receipt;
+    if (receipt?.kernel_manifest_hash !== basis.kernel_ref?.manifest_hash ||
+        receipt?.kernel_manifest_hash !== basis.evidence_state_ref?.kernel_manifest_hash ||
+        receipt?.evidence_state_hash !== basis.evidence_state_ref?.state_hash) {
+      errors.push(issue(
+        "ISSUE_RECEIPT_INTERNAL_MISMATCH",
+        "/issue_basis/issue_evaluation_receipt",
+        "issue receipt must bind the same kernel manifest and evidence state as the issue basis",
+      ));
+    }
+    if (!same(basis.interpretation_boundaries, requiredInterpretationBoundaries(forecast))) {
+      errors.push(issue(
+        "PROBABILITY_STATE_CONFLATION",
+        "/issue_basis/interpretation_boundaries",
+        "forecast probability must remain orthogonal to current IF state, truth and authority",
+      ));
+    }
+    if (forecast.probability === 0 || forecast.probability === 1) {
+      errors.push(issue(
+        "FALSE_CERTAINTY",
+        "/probability",
+        "exact-binding forecasts must not communicate an uncertain future event as certainty",
+      ));
+    }
+  }
+
+  if (externalRequested && basis) {
+    const kernelSource = sources.sourceKernel;
+    const registrySource = sources.sourceSignalRegistry;
+    if (!retainedSourceBytesMatch(kernelSource)) {
+      errors.push(issue(
+        "KERNEL_SOURCE_BYTES_MISMATCH",
+        "/issue_basis/kernel_ref/artifact_sha256",
+        "kernel document and claimed digest must reproduce the retained source bytes",
+      ));
+    }
+    if (!retainedSourceBytesMatch(registrySource)) {
+      errors.push(issue(
+        "SIGNAL_REGISTRY_SOURCE_BYTES_MISMATCH",
+        "/issue_basis/signal_registry_ref/artifact_sha256",
+        "signal registry document and claimed digest must reproduce the retained source bytes",
+      ));
+    }
+    if (!exactSource(kernelSource, basis.kernel_ref, {
+      idField: "kernel_id",
+      manifestField: "manifest_hash",
+    })) {
+      errors.push(issue(
+        "KERNEL_ARTIFACT_REF_MISMATCH",
+        "/issue_basis/kernel_ref",
+        "kernel path, artifact hash, identity and manifest must resolve exactly",
+      ));
+    }
+    if (!exactSource(registrySource, basis.signal_registry_ref, { idField: "registry_id" }) ||
+        registrySource?.document?.schema_version !== basis.signal_registry_ref?.schema_version) {
+      errors.push(issue(
+        "SIGNAL_REGISTRY_ARTIFACT_REF_MISMATCH",
+        "/issue_basis/signal_registry_ref",
+        "signal registry path, artifact hash, identity and version must resolve exactly",
+      ));
+    }
+
+    const kernel = kernelSource?.document;
+    const registry = registrySource?.document;
+    const kernelValidation = kernel ? validateExecutableIfKernel(kernel) : null;
+    if (!kernelValidation?.machine_valid) {
+      errors.push(issue(
+        "SOURCE_KERNEL_INVALID",
+        "/issue_basis/kernel_ref",
+        "the bound executable IF kernel is not machine valid",
+      ));
+    }
+    const registryValidation = registry ? validateSignalRegistry(registry) : null;
+    if (!registryValidation?.machine_valid) {
+      errors.push(issue(
+        "SOURCE_SIGNAL_REGISTRY_INVALID",
+        "/issue_basis/signal_registry_ref",
+        "the bound signal registry is not machine valid",
+      ));
+    }
+
+    if (kernelValidation?.machine_valid && registryValidation?.machine_valid) {
+      const activeState = kernel.current_state.find(({ lifecycle, condition_definition_ref: ref }) =>
+        lifecycle === "active" && ref.condition_id === target?.condition_id);
+      const definition = kernel.events.flatMap(({ introduced_definitions: values }) => values)
+        .find(({ definition_hash: hash }) =>
+          hash === activeState?.condition_definition_ref?.definition_hash);
+      if (!activeState || !definition ||
+          !same(activeState.condition_definition_ref, basis.condition_definition_ref)) {
+        errors.push(issue(
+          "CONDITION_DEFINITION_REF_MISMATCH",
+          "/issue_basis/condition_definition_ref",
+          "the issue basis does not resolve the active immutable condition definition",
+        ));
+      } else {
+        if (!same(projectedConditionScope(definition), basis.condition_scope)) {
+          errors.push(issue(
+            "CONDITION_SCOPE_MISMATCH",
+            "/issue_basis/condition_scope",
+            "condition scope and PERIOD must reproduce the active definition exactly",
+          ));
+        }
+        const predicate = definition.predicates?.[basis.predicate_id];
+        if (!predicate || !same(predicate.signal_ref, basis.signal_definition_ref)) {
+          errors.push(issue(
+            "PREDICATE_SIGNAL_REF_MISMATCH",
+            "/issue_basis/predicate_id",
+            "predicate must resolve the exact active signal definition",
+          ));
+        } else if (target?.resolver?.operator !== predicate.operator ||
+            !same(target?.resolver?.threshold, predicate.threshold.value) ||
+            target?.resolver?.observation_unit !== predicate.threshold.unit ||
+            target?.resolver?.measure !== basis.metric_contract?.measure) {
+          errors.push(issue(
+            "RESOLUTION_RULE_MISMATCH",
+            "/target/resolver",
+            "frozen resolver must preserve the bound predicate operator, threshold, unit and measure",
+          ));
+        }
+      }
+
+      const registeredSignal = registry.signals.find(({ signal_id: id }) =>
+        id === target?.signal_id);
+      const executable = registeredSignal?.executable_binding;
+      if (!registeredSignal || !executable ||
+          !same(executable.signal_definition_ref, basis.signal_definition_ref) ||
+          !same(executable.condition_definition_ref, basis.condition_definition_ref) ||
+          !executable.predicate_ids.includes(basis.predicate_id) ||
+          !same(registeredSignal.metric_contract, basis.metric_contract)) {
+        errors.push(issue(
+          "SIGNAL_METRIC_BINDING_MISMATCH",
+          "/issue_basis/metric_contract",
+          "signal definition, predicate and complete metric contract must resolve exactly in the registry",
+        ));
+      }
+
+      const registeredSourceUris = (registeredSignal?.source_refs || []).map((sourceId) =>
+        registry.sources.find(({ source_id: id }) => id === sourceId)?.evidence_ref)
+        .filter(Boolean);
+      if (!registeredSourceUris.includes(target?.resolution_source)) {
+        errors.push(issue(
+          "RESOLUTION_SOURCE_MISMATCH",
+          "/target/resolution_source",
+          "future resolution must use a source registered for the bound signal",
+        ));
+      }
+
+      const expectedEvidenceState = evidenceStateRef(kernel);
+      const registryConditionBinding = registry.condition_bindings.find(({ condition_id: id }) =>
+        id === target?.condition_id);
+      const expectedRegistryEvidenceRef = {
+        kernel_id: expectedEvidenceState.kernel_id,
+        kernel_manifest_hash: expectedEvidenceState.kernel_manifest_hash,
+        evidence_event_count: expectedEvidenceState.event_count,
+        evidence_tip_event_id: expectedEvidenceState.tip_event_id,
+        evidence_tip_event_hash: expectedEvidenceState.tip_event_hash,
+        evidence_state_hash: expectedEvidenceState.state_hash,
+      };
+      if (!registryConditionBinding ||
+          !same(registryConditionBinding.condition_definition_ref, basis.condition_definition_ref) ||
+          !same(registryConditionBinding.evidence_state_ref, expectedRegistryEvidenceRef)) {
+        errors.push(issue(
+          "REGISTRY_CONDITION_BINDING_MISMATCH",
+          "/issue_basis/signal_registry_ref",
+          "signal registry must bind the exact condition definition and complete kernel evidence state",
+        ));
+      }
+      if (!same(expectedEvidenceState, basis.evidence_state_ref)) {
+        errors.push(issue(
+          "ISSUE_EVIDENCE_STATE_REPLAYED",
+          "/issue_basis/evidence_state_ref",
+          "issue basis must bind the complete evidence history tip of its pinned kernel snapshot",
+        ));
+      }
+      if (kernel.evidence_events.some(({ recorded_at: recordedAt }) =>
+        Date.parse(recordedAt) > Date.parse(forecast.issued_at))) {
+        errors.push(issue(
+          "ISSUE_EVIDENCE_FROM_FUTURE",
+          "/issue_basis/evidence_state_ref",
+          "issue basis cannot include evidence recorded after the forecast was issued",
+        ));
+      }
+      const expectedEvaluation = projectedEvaluationReceipt(evaluateKernelCondition(
+        kernel,
+        target.condition_id,
+        { evaluatedAt: forecast.issued_at },
+      ));
+      if (!same(expectedEvaluation, basis.issue_evaluation_receipt)) {
+        errors.push(issue(
+          "ISSUE_EVALUATION_RECEIPT_MISMATCH",
+          "/issue_basis/issue_evaluation_receipt",
+          "issue-time receipt must reproduce the governed evaluator result exactly",
+        ));
+      }
+      const expectedMetricPeriod = `${basis.condition_scope?.period?.starts_at} to ${basis.condition_scope?.period?.ends_at}`;
+      if (basis.metric_contract?.period !== expectedMetricPeriod) {
+        errors.push(issue(
+          "METRIC_PERIOD_MISMATCH",
+          "/issue_basis/metric_contract/period",
+          "metric contract PERIOD must equal the active condition PERIOD",
+        ));
+      }
+    }
+  }
+
+  const valid = errors.length === 0;
+  return {
+    issue_basis_valid: valid,
+    external_bindings_verified: externalRequested && valid,
+    issue_time_computed_rule_state:
+      basis?.issue_evaluation_receipt?.computed_rule_state?.state || null,
+    forecast_probability: forecast?.probability ?? null,
+    probability_orthogonal_to_if_state: valid,
+    empirical_truth_established: false,
+    causality_established: false,
+    authority_effect: "none",
+    action_authorised: false,
+    errors,
+  };
+}
+
+export function assertForecastIssueBasis(forecast, sources = {}) {
+  const assessment = assessForecastIssueBasis(forecast, sources);
+  if (!assessment.issue_basis_valid) {
+    throw new Error(assessment.errors.map(({ code, path, message }) =>
+      `[${code}] ${path}: ${message}`).join("\n"));
+  }
+  return assessment;
 }
 
 export function forecastScopeHash(scope) {
@@ -391,7 +835,7 @@ export function assertIssuedForecastImmutable(issued, later) {
   return true;
 }
 
-export function assertForecastSemantics(forecast) {
+export function assertForecastSemantics(forecast, sources) {
   if (!LIFECYCLE.has(forecast?.status)) {
     throw new TypeError("forecast has an invalid lifecycle status");
   }
@@ -400,6 +844,9 @@ export function assertForecastSemantics(forecast) {
   }
   probability(forecast.probability, "forecast probability");
   assertTargetBinding(forecast.target);
+  if (forecast.schema_version === "1.4.0") {
+    assertForecastIssueBasis(forecast, sources);
+  }
   const issuedAt = instant(forecast.issued_at, "issued_at");
   const resolveAfter = instant(forecast.resolve_after, "resolve_after");
   const resolveBy = instant(forecast.resolve_by, "resolve_by");

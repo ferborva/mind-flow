@@ -1,0 +1,269 @@
+{
+  "schema_version": "1.4.0",
+  "id": "forecast.worker-option.nsw.synthetic.2026.v1",
+  "epistemic_class": "forecast",
+  "forecast_use": "research_only",
+  "status": "issued",
+  "title": "Synthetic forecast of future credible-option coverage",
+  "question": "Will the registered credible-option coverage measure meet or exceed 0.90 during the exact future observation window for the bound worker scope?",
+  "issued_at": "2026-09-09T00:00:00Z",
+  "resolve_after": "2027-01-08T00:00:00Z",
+  "resolve_by": "2027-01-31T00:00:00Z",
+  "probability": 0.62,
+  "target": {
+    "event": "The registered credible-option coverage measure is at or above 0.90 for the exact scope and future observation window.",
+    "unit": "binary threshold event",
+    "scope": {
+      "geographies": [
+        "New South Wales"
+      ],
+      "cohorts": [
+        "General Clerks",
+        "Payroll Clerks"
+      ],
+      "services": [
+        "Work transition support"
+      ]
+    },
+    "signal_id": "signal.option.coverage",
+    "metric_id": "metric.option.coverage",
+    "metric_checksum": "sha256:856a1b887e8bee10a8bdf82e5a9aa61fa2467caf61c1f59aa8a0f5413df8d902",
+    "condition_id": "condition.worker-option.nsw",
+    "scope_hash": "sha256:60e7ab45c3978698d76a8f4ae6a74512efd7d85cbc35d94cc11fb69f5d121868",
+    "resolution_rule": "Resolve 1 only if retained resolution bytes report the registered metric at or above 0.90 for the exact signal, metric checksum, condition, scope and window. Resolve 0 if they report below 0.90. Void only under the predeclared evidence-backed policy.",
+    "resolution_source": "https://example.invalid/mind-flow/round-04/employer-worker-panel.synthetic.json",
+    "resolution_event_id": "event.worker-option.option-coverage.2026-future-window",
+    "independence_cluster_id": "cluster.worker-option.option-coverage.2026",
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.1.0",
+      "measure": "Share of affected workers with a credible alternative",
+      "observation_unit": "ratio",
+      "operator": "gte",
+      "threshold": 0.9
+    },
+    "observation_window_start": "2026-09-10T00:00:00Z",
+    "observation_window_end": "2026-12-31T23:59:59Z",
+    "outcome_publication_not_before": "2027-01-08T00:00:00Z"
+  },
+  "baseline": {
+    "campaign_id": "campaign.worker-option.synthetic-2026",
+    "family_id": "family.worker-option.synthetic-reference.v1",
+    "name": "Synthetic predeclared reference-class baseline",
+    "kind": "mechanical",
+    "mechanical_role": "reference_class",
+    "probability": 0.55,
+    "method": "Frozen synthetic historical-frequency rule. No empirical reference class is claimed.",
+    "declared_at": "2026-09-07T00:00:00Z",
+    "policy_snapshot": {
+      "source": "https://example.invalid/mind-flow/forecast-baselines/worker-option-reference-v1",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "worker-option-reference-policy-v1",
+      "checksum": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+    },
+    "calculation": {
+      "algorithm_id": "synthetic-historical-frequency",
+      "version": "1.0.0",
+      "input_checksums": [
+        "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+      ],
+      "checksum": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "naive_baseline": {
+    "campaign_id": "campaign.worker-option.synthetic-2026",
+    "family_id": "family.worker-option.synthetic-constant.v1",
+    "name": "Synthetic constant-probability baseline",
+    "kind": "mechanical",
+    "mechanical_role": "naive",
+    "probability": 0.5,
+    "method": "Frozen constant-probability rule used only to test the forecast contract.",
+    "declared_at": "2026-09-07T00:00:00Z",
+    "policy_snapshot": {
+      "source": "https://example.invalid/mind-flow/forecast-baselines/worker-option-naive-v1",
+      "retrieved_at": "2026-09-07T00:00:00Z",
+      "vintage": "worker-option-naive-policy-v1",
+      "checksum": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+    },
+    "calculation": {
+      "algorithm_id": "constant-probability",
+      "version": "1.0.0",
+      "input_checksums": [
+        "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+      ],
+      "checksum": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "method": {
+    "kind": "human",
+    "description": "Synthetic judgement for contract testing. It is not derived from the current IF state and is not an empirical estimate.",
+    "version": "fixture-1"
+  },
+  "data_vintages": [
+    {
+      "source": "https://example.invalid/mind-flow/signals/round-04-worker-option",
+      "retrieved_at": "2026-09-09T00:00:00Z",
+      "vintage": "registry.round-04.worker-option.synthetic",
+      "checksum": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+    }
+  ],
+  "provenance": {
+    "author": "Ren",
+    "class": "agent-proposal",
+    "issued_commit": "0000000",
+    "disclaimer": "Synthetic unverified fixture for contract testing. It is not a public forecast, empirical finding, decision or Fernando's view."
+  },
+  "assumptions": [
+    "The probability is a synthetic judgement chosen to test the contract, not an estimate derived from validated data.",
+    "The future resolution source and observation are fictional and have not been acquired.",
+    "The issue-time IF receipt and forecast probability answer different questions."
+  ],
+  "counter_hypotheses": [
+    "Future credible-option coverage falls below the registered threshold.",
+    "The metric or source changes materially and the forecast is voided rather than reinterpreted.",
+    "The current favourable IF state fails to persist through the future observation window."
+  ],
+  "void_policy": {
+    "allowed_reason_codes": [
+      "source_retired",
+      "measure_materially_changed"
+    ],
+    "evidence_required": true
+  },
+  "issue_basis": {
+    "basis_version": "1.0.0",
+    "issued_at": "2026-09-09T00:00:00Z",
+    "kernel_ref": {
+      "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+      "artifact_sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b",
+      "kernel_id": "kernel.worker-option.synthetic",
+      "manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21"
+    },
+    "signal_registry_ref": {
+      "artifact_path": "signals/fixtures/round-04.worker-option.synthetic.json",
+      "artifact_sha256": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb",
+      "registry_id": "registry.round-04.worker-option.synthetic",
+      "schema_version": "1.1.0"
+    },
+    "condition_definition_ref": {
+      "condition_id": "condition.worker-option.nsw",
+      "definition_version": "1.0.0",
+      "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+    },
+    "predicate_id": "option-coverage",
+    "signal_definition_ref": {
+      "signal_id": "signal.option.coverage",
+      "definition_version": "1.0.0",
+      "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+    },
+    "metric_contract": {
+      "metric_id": "metric.option.coverage",
+      "measure": "Share of affected workers with a credible alternative",
+      "unit": "ratio",
+      "denominator": "eligible affected workers in the exact registered scope",
+      "population": "Affected workers inside the complete registered observation scope",
+      "geography": "New South Wales, Australia",
+      "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+      "aggregation": "Eligible-worker weighted ratio",
+      "collection_process_ids": [
+        "process.synthetic-employer-worker-panel"
+      ],
+      "source_refs": [
+        "source.synthetic-employer-worker-panel"
+      ],
+      "evaluation_rule": "Apply the immutable executable predicate to exact-scope observations. Preserve missing, stale and conflicted states.",
+      "metric_checksum": "sha256:856a1b887e8bee10a8bdf82e5a9aa61fa2467caf61c1f59aa8a0f5413df8d902"
+    },
+    "condition_scope": {
+      "jurisdictions": [
+        "Australia"
+      ],
+      "geographies": [
+        "New South Wales"
+      ],
+      "cohorts": [
+        "General Clerks",
+        "Payroll Clerks"
+      ],
+      "services": [
+        "Work transition support"
+      ],
+      "period": {
+        "starts_at": "2026-01-01T00:00:00Z",
+        "ends_at": "2026-12-31T23:59:59Z"
+      }
+    },
+    "target_scope_hash": "sha256:60e7ab45c3978698d76a8f4ae6a74512efd7d85cbc35d94cc11fb69f5d121868",
+    "evidence_state_ref": {
+      "kernel_id": "kernel.worker-option.synthetic",
+      "kernel_manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+      "event_count": 11,
+      "tip_event_id": "evidence-event.august-review.added",
+      "tip_event_hash": "sha256:52a4522a5a7eb08c695ca4103eae9887937baa031db33a1a502a6f29fc695f7a",
+      "state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+    },
+    "issue_evaluation_receipt": {
+      "evaluated_at": "2026-09-09T00:00:00Z",
+      "clock": {
+        "source": "caller-supplied",
+        "trusted": false
+      },
+      "evaluator_ref": {
+        "id": "mind-flow.executable-if.evaluator",
+        "version": "1.0.0",
+        "digest": "sha256:be2034c8654754b9a02d3b3cf458d56b2c212467adf2cbe2e06d06b261f69f0b",
+        "implementation_digest": "sha256:b9d7b8f725e60fd84b6ee8861b7146c632a2d1b203ec6a0879c6938debe3cef5",
+        "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+      },
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      },
+      "observation_hashes": [
+        "sha256:1c6256d55e695d7550334d9066f45ad9f75becea5691b987bf2d6b2fb53c747d",
+        "sha256:23cafb9da9fc783b335da71e69e0d8a0b49425c7fb870a016c843d53e9d6020d",
+        "sha256:a98bf26d5e6f7c7a03d4506396c11756f86dbcdcdce6535503dab679e5373553",
+        "sha256:e9d6e96d9add46967bd8e36a523865e8a8adb72ba746aceec93ffc382f935792"
+      ],
+      "mechanically_valid_for_evaluation": true,
+      "computed_rule_state": {
+        "axis": "computed_rule_state",
+        "state": "true"
+      },
+      "empirical_truth_established": false,
+      "authority_effect": "none",
+      "action_authorised": false,
+      "publication_approved": false,
+      "kernel_manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+      "evidence_state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa",
+      "evaluation_hash": "sha256:65de9f3a480f44db48d90bb50fb89821aebe11b5192501a5e23f41dd21ade732"
+    },
+    "interpretation_boundaries": {
+      "probability_relation": "orthogonal-to-current-computed-if-state",
+      "current_if_state_is_forecast_probability": false,
+      "probability_establishes_empirical_truth": false,
+      "probability_establishes_causality": false,
+      "probability_establishes_authority": false,
+      "empirical_truth_established": false,
+      "causality_established": false,
+      "authority_effect": "none",
+      "action_authorised": false,
+      "public_claim_ceiling": "This research-only forecast assigns 62% to this future event: The registered credible-option coverage measure is at or above 0.90 for the exact scope and future observation window. At issue time, 2026-09-09T00:00:00Z, the executable IF rule computed true. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act."
+    },
+    "issue_basis_hash": "sha256:4cd2758cf5548051960c1648d1b5b398859e1433fb0f92f2508bf82b800e2e97"
+  },
+  "resolution": {
+    "status": "pending"
+  },
+  "history": [
+    {
+      "at": "2026-09-09T00:00:00Z",
+      "event": "issued",
+      "actor": "forecast test fixture",
+      "note": "Synthetic record created to test exact issue-basis joins and probability boundaries."
+    }
+  ]
+}
