@@ -46,6 +46,86 @@ test("canonical references preserve immutable definitions and native scope domai
   );
 });
 
+test("schema 1.2 adds the executable IF boundary without rewriting Round 3", () => {
+  assert.ok(bundleSchema.properties.canonical.properties.executable_if_ref);
+  assert.ok(bundleSchema.$defs.executableIfRef);
+  assert.ok(bundleSchema.properties.artifacts.items.properties.role.enum.includes(
+    "executable-if-kernel",
+  ));
+
+  const legacy = assessTransitionBundle(fixture, { rootDir: root });
+  assert.equal(legacy.machine_valid, true);
+
+  const missingKernel = clone(fixture);
+  missingKernel.schema_version = "1.2.0";
+  const result = assessTransitionBundle(missingKernel, { rootDir: root });
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.issues.some(({ code }) => code === "BUNDLE_SCHEMA_INVALID"));
+});
+
+test("a Round 4 pre-projection core validates the kernel but rejects unrelated identities", () => {
+  const attempted = clone(fixture);
+  const kernelPath = "contracts/executable-if/fixtures/kernel.synthetic.json";
+  const kernelBytes = readFileSync(resolve(root, kernelPath));
+  const kernel = JSON.parse(kernelBytes.toString("utf8"));
+  const activeDefinitionRefs = kernel.current_state
+    .filter(({ lifecycle }) => lifecycle === "active")
+    .map(({ condition_definition_ref: ref }) => ref);
+  attempted.schema_version = "1.2.0";
+  attempted.bundle_id = "bundle.round-04.kernel-bound-incoherent";
+  attempted.bundle_stage = "pre-projection-core";
+  attempted.artifacts = attempted.artifacts.filter(({ role }) => role !== "dashboard-snapshot");
+  attempted.artifacts.push({
+    role: "executable-if-kernel",
+    path: kernelPath,
+    sha256: sha256(kernelBytes),
+  });
+  attempted.canonical.executable_if_ref = {
+    artifact_role: "executable-if-kernel",
+    kernel_id: kernel.kernel_id,
+    manifest_hash: kernel.manifest_hash,
+    evaluator_ref: kernel.evaluator,
+    active_condition_definition_refs: activeDefinitionRefs,
+  };
+
+  const result = assessTransitionBundle(attempted, { rootDir: root });
+  assert.equal(result.machine_valid, true);
+  assert.equal(result.components_valid, true);
+  assert.equal(result.bundle_coherent, false);
+  assert.equal(result.executable_if.valid, true);
+  assert.ok(result.issues.some(
+    ({ code, artifact_role: role }) =>
+      code === "CONDITION_SET_MISMATCH" && role === "executable-if-kernel",
+  ));
+  assert.equal(result.gates.truth, false);
+  assert.equal(result.gates.authority, false);
+});
+
+test("hostile: the canonical executable IF reference cannot drift from kernel bytes", () => {
+  const attempted = clone(fixture);
+  const kernelPath = "contracts/executable-if/fixtures/kernel.synthetic.json";
+  const kernelBytes = readFileSync(resolve(root, kernelPath));
+  const kernel = JSON.parse(kernelBytes.toString("utf8"));
+  attempted.schema_version = "1.2.0";
+  attempted.bundle_id = "bundle.round-04.kernel-ref-drift";
+  attempted.bundle_stage = "pre-projection-core";
+  attempted.artifacts = attempted.artifacts.filter(({ role }) => role !== "dashboard-snapshot");
+  attempted.artifacts.push({ role: "executable-if-kernel", path: kernelPath, sha256: sha256(kernelBytes) });
+  attempted.canonical.executable_if_ref = {
+    artifact_role: "executable-if-kernel",
+    kernel_id: kernel.kernel_id,
+    manifest_hash: `sha256:${"0".repeat(64)}`,
+    evaluator_ref: kernel.evaluator,
+    active_condition_definition_refs: kernel.current_state
+      .filter(({ lifecycle }) => lifecycle === "active")
+      .map(({ condition_definition_ref: ref }) => ref),
+  };
+  const result = assessTransitionBundle(attempted, { rootDir: root });
+  assert.equal(result.machine_valid, false);
+  assert.equal(result.executable_if.valid, false);
+  assert.ok(result.issues.some(({ code }) => code === "EXECUTABLE_IF_REF_MISMATCH"));
+});
+
 test("README documents the core bundle and experiment-envelope boundary", () => {
   const readme = readFileSync(resolve(import.meta.dirname, "../README.md"), "utf8");
   assert.match(readme, /seven.*core/is);

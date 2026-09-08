@@ -19,6 +19,10 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 import { validateConditionAgencyMap } from "../../contracts/agency-map/validate.mjs";
+import {
+  evaluateKernelCondition,
+  validateExecutableIfKernel,
+} from "../../contracts/executable-if/validate.mjs";
 import { validateConditionEvolutionLedger } from "../../contracts/evolution/validate.mjs";
 import { validatePossiblePath } from "../../paths/validate.mjs";
 import { validateSignalRegistry } from "../../signals/validate.mjs";
@@ -48,6 +52,11 @@ const CORE_ROLES = [
   "dashboard-snapshot",
   "forecast",
 ];
+const EXECUTABLE_CORE_ROLES = [...CORE_ROLES, "executable-if-kernel"];
+
+function coreRoles(bundle) {
+  return bundle?.schema_version === "1.2.0" ? EXECUTABLE_CORE_ROLES : CORE_ROLES;
+}
 
 function issue(code, artifactRole, message) {
   return { code, artifact_role: artifactRole, message };
@@ -141,6 +150,13 @@ function validateComponent(role, document, artifactPath, evaluatedAt) {
       const result = validateConditionEvolutionLedger(document);
       return { valid: result.machine_valid && result.integrity_valid, result };
     }
+    if (role === "executable-if-kernel") {
+      const result = validateExecutableIfKernel(document);
+      return {
+        valid: result.machine_valid && result.integrity_valid && result.evidence_history_valid,
+        result,
+      };
+    }
     if (role === "signal-registry") {
       const result = validateSignalRegistry(document);
       return { valid: result.machine_valid && result.integrity_valid, result };
@@ -186,6 +202,11 @@ function conditionIds(role, document, componentResult) {
   if (role === "dashboard-snapshot") return (document.if_path?.conditions || []).map(({ id }) => id);
   if (role === "forecast") {
     return document.target?.condition_id ? [document.target.condition_id] : [];
+  }
+  if (role === "executable-if-kernel") {
+    return (componentResult?.current_definition_state || [])
+      .filter(({ lifecycle }) => lifecycle === "active")
+      .map(({ condition_id: id }) => id);
   }
   return [];
 }
@@ -234,8 +255,8 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
 
   const refs = Array.isArray(bundle?.artifacts) ? bundle.artifacts : [];
   const requiredRoles = bundle?.bundle_stage === "pre-projection-core"
-    ? CORE_ROLES.filter((role) => role !== "dashboard-snapshot")
-    : CORE_ROLES;
+    ? coreRoles(bundle).filter((role) => role !== "dashboard-snapshot")
+    : coreRoles(bundle);
   const roleCounts = new Map();
   for (const ref of refs) roleCounts.set(ref.role, (roleCounts.get(ref.role) || 0) + 1);
   for (const role of requiredRoles) {
@@ -243,6 +264,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       issues.push(issue("ARTIFACT_ROLE_CARDINALITY", role, "every required role must appear exactly once"));
     }
   }
+
   for (const [role, count] of roleCounts) {
     if (count > 1) issues.push(issue("ARTIFACT_ROLE_CARDINALITY", role, "artifact roles must be unique"));
   }
@@ -331,6 +353,40 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     if (!result.valid) {
       componentsValid = false;
       issues.push(issue("COMPONENT_VALIDATION_FAILED", role, "the fixed repository validator rejected this artifact"));
+    }
+  }
+  const executableIfRequired = bundle?.schema_version === "1.2.0";
+  let executableIfReferenceValid = !executableIfRequired;
+  const governedEvaluations = [];
+  if (executableIfRequired) {
+    const kernel = documents.get("executable-if-kernel");
+    const declared = bundle?.canonical?.executable_if_ref;
+    const activeDefinitionRefs = (componentResults["executable-if-kernel"]
+      ?.current_definition_state || [])
+      .filter(({ lifecycle }) => lifecycle === "active")
+      .map(({ condition_definition_ref: reference }) => reference)
+      .sort((left, right) => left.condition_id.localeCompare(right.condition_id));
+    const declaredRefs = [...(declared?.active_condition_definition_refs || [])]
+      .sort((left, right) => left.condition_id.localeCompare(right.condition_id));
+    executableIfReferenceValid = Boolean(kernel) &&
+      declared?.artifact_role === "executable-if-kernel" &&
+      declared?.kernel_id === kernel?.kernel_id &&
+      declared?.manifest_hash === kernel?.manifest_hash &&
+      same(declared?.evaluator_ref, kernel?.evaluator) &&
+      same(declaredRefs, activeDefinitionRefs);
+    if (!executableIfReferenceValid) {
+      referenceIntegrity = false;
+      issues.push(issue(
+        "EXECUTABLE_IF_REF_MISMATCH",
+        "executable-if-kernel",
+        "canonical executable IF reference must bind the exact kernel, evaluator and active definitions",
+      ));
+    } else {
+      for (const reference of activeDefinitionRefs) {
+        governedEvaluations.push(evaluateKernelCondition(kernel, reference.condition_id, {
+          evaluatedAt: bundle?.evaluation_clock?.evaluated_at,
+        }));
+      }
     }
   }
   const canonicalIds = bundle?.canonical?.condition_ids || [];
@@ -528,7 +584,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
         const sourceRoles = (loadedSource.document?.artifacts || [])
           .map(({ role }) => role)
           .sort();
-        const expectedRoles = CORE_ROLES
+        const expectedRoles = coreRoles(loadedSource.document)
           .filter((role) => role !== "dashboard-snapshot")
           .sort();
         if (digest(loadedSource.bytes) !== source.sha256 ||
@@ -584,7 +640,7 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
   };
 
   return {
-    schema_version: "1.1.0",
+    schema_version: bundle?.schema_version || null,
     bundle_id: bundle?.bundle_id || null,
     bundle_stage: bundle?.bundle_stage || null,
     machine_valid: machineValid,
@@ -599,6 +655,12 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
     outcome_logic: {
       valid: conditionDefinitionValid,
       declared_ref: bundle?.canonical?.outcome_logic_ref || null,
+    },
+    executable_if: {
+      required: executableIfRequired,
+      valid: executableIfReferenceValid,
+      declared_ref: bundle?.canonical?.executable_if_ref || null,
+      governed_evaluations: governedEvaluations,
     },
     scope_binding: {
       valid: scopeBindingValid,

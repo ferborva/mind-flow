@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mind-flow.org/integration/transition-bundle/1-1-0",
+  "$id": "https://mind-flow.org/integration/transition-bundle/1-2-0",
   "title": "Mind Flow transition bundle",
   "description": "A content-addressed manifest that asks whether separately validated programme artifacts describe one bounded transition. It does not establish truth, authority or permission.",
   "type": "object",
@@ -19,7 +19,7 @@
     "artifacts"
   ],
   "properties": {
-    "schema_version": { "const": "1.1.0" },
+    "schema_version": { "enum": ["1.1.0", "1.2.0"] },
     "bundle_id": { "$ref": "#/$defs/id" },
     "bundle_stage": { "enum": ["pre-projection-core", "complete-core"] },
     "classification": { "const": "research-draft" },
@@ -54,6 +54,7 @@
         },
         "outcome_logic_ref": { "$ref": "#/$defs/outcomeLogicRef" },
         "scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" },
+        "executable_if_ref": { "$ref": "#/$defs/executableIfRef" },
         "root_role": { "const": "agency-map" }
       },
       "additionalProperties": false
@@ -67,7 +68,7 @@
     "artifacts": {
       "type": "array",
       "minItems": 6,
-      "maxItems": 7,
+      "maxItems": 8,
       "items": {
         "type": "object",
         "required": ["role", "path", "sha256"],
@@ -80,7 +81,8 @@
               "possible-path",
               "preparation-register",
               "dashboard-snapshot",
-              "forecast"
+              "forecast",
+              "executable-if-kernel"
             ]
           },
           "path": {
@@ -96,20 +98,60 @@
   "allOf": [
     {
       "if": {
-        "properties": { "bundle_stage": { "const": "pre-projection-core" } },
-        "required": ["bundle_stage"]
+        "properties": {
+          "schema_version": { "const": "1.1.0" },
+          "bundle_stage": { "const": "pre-projection-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
+      },
+      "then": { "properties": { "artifacts": { "type": "array", "minItems": 6, "maxItems": 6 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": { "const": "1.1.0" },
+          "bundle_stage": { "const": "complete-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
+      },
+      "then": { "properties": { "artifacts": { "type": "array", "minItems": 7, "maxItems": 7 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": { "const": "1.2.0" },
+          "bundle_stage": { "const": "pre-projection-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
       },
       "then": {
-        "properties": { "artifacts": { "type": "array", "minItems": 6, "maxItems": 6 } }
+        "properties": {
+          "canonical": {
+            "type": "object",
+            "required": ["executable_if_ref"],
+            "properties": { "executable_if_ref": { "$ref": "#/$defs/executableIfRef" } }
+          },
+          "artifacts": { "type": "array", "minItems": 7, "maxItems": 7 }
+        }
       }
     },
     {
       "if": {
-        "properties": { "bundle_stage": { "const": "complete-core" } },
-        "required": ["bundle_stage"]
+        "properties": {
+          "schema_version": { "const": "1.2.0" },
+          "bundle_stage": { "const": "complete-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
       },
       "then": {
-        "properties": { "artifacts": { "type": "array", "minItems": 7, "maxItems": 7 } }
+        "properties": {
+          "canonical": {
+            "type": "object",
+            "required": ["executable_if_ref"],
+            "properties": { "executable_if_ref": { "$ref": "#/$defs/executableIfRef" } }
+          },
+          "artifacts": { "type": "array", "minItems": 8, "maxItems": 8 }
+        }
       }
     }
   ],
@@ -147,6 +189,63 @@
       "properties": {
         "mapping_id": { "$ref": "#/$defs/id" },
         "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+        },
+        "definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "evaluatorRef": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "digest",
+        "implementation_digest",
+        "conformance_vectors_digest"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+        },
+        "digest": { "$ref": "#/$defs/sha256" },
+        "implementation_digest": { "$ref": "#/$defs/sha256" },
+        "conformance_vectors_digest": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "executableIfRef": {
+      "type": "object",
+      "required": [
+        "artifact_role",
+        "kernel_id",
+        "manifest_hash",
+        "evaluator_ref",
+        "active_condition_definition_refs"
+      ],
+      "properties": {
+        "artifact_role": { "const": "executable-if-kernel" },
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "manifest_hash": { "$ref": "#/$defs/sha256" },
+        "evaluator_ref": { "$ref": "#/$defs/evaluatorRef" },
+        "active_condition_definition_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/conditionDefinitionRef" }
+        }
       },
       "additionalProperties": false
     },

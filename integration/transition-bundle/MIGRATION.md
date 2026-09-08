@@ -2,15 +2,14 @@
 
 ## Current verdict
 
-The component contracts expose typed scope and artifact surfaces, but they do
-not yet expose the executable IF boundary needed for a coherent synthetic core.
-The current agency-map logic hashes condition IDs only. It does not bind the
-predicates, thresholds, windows, missingness rules, signal definitions or fixed
-measurement-to-truth evaluator behind those IDs. Creating
-`fixtures/coherent.synthetic.json` now would produce false confidence.
+The executable IF boundary is available in transition-bundle schema 1.2. It
+binds typed claims, dated definitions, exact signals, evidence quality,
+evidence lifecycle, five-valued evaluation and content-addressed receipts. The
+remaining work is migration: derive every subsystem artifact from the kernel's
+active condition set and prove each cross-contract join.
 
 The current Round 03 records must not be relabelled as coherent. Their native
-condition IDs describe different examples. The next step is to derive seven
+condition IDs describe different examples. The next step is to derive eight
 new fixtures from one canonical synthetic transition, not to weaken identity
 checks or translate unrelated IDs by assertion.
 
@@ -34,7 +33,8 @@ checks or translate unrelated IDs by assertion.
 
 | Boundary | Contract now available | Remaining integration work |
 | --- | --- | --- |
-| Outcome logic | `canonical.outcome_logic_ref` binds the exact agency-map IF AST. | Add a separately hashed executable IF contract covering definitions, signals and evaluators. |
+| Executable IF | `canonical.executable_if_ref` binds kernel bytes, evaluator identity and active definitions. | Bind its scope, signals and definition lineage to every downstream artifact. |
+| Outcome logic | `canonical.outcome_logic_ref` binds the exact agency-map IF AST. | Regenerate the agency map from the active executable condition set. |
 | Scope | `canonical.scope_manifest_ref` and `scope_bindings` bind distinct agency and path native hashes to separately hashed mappings. | Extend mappings when other native contracts expose scope hashes. Keep mapping truth false until independently assessed. |
 | Evolution | Every event state, folded current state and public condition carries a recomputed `condition_definition_ref`. | Build evolution events for the canonical synthetic condition set. |
 | Preparation | Condition binding names condition ID, native version, ledger manifest and producer event ID and hash. | Point a synthetic register at the new evolution ledger. |
@@ -44,7 +44,7 @@ checks or translate unrelated IDs by assertion.
 
 ## Core resolution order
 
-The seven-artifact core must resolve in this order:
+The eight-artifact core must resolve in this order:
 
 ```text
 canonical IF definition -> evolution history -> agency options
@@ -78,22 +78,21 @@ enough, and recruitment remains blocked.
 
 ## Next delivery sequence
 
-1. Specify a fixed executable IF kernel and normalized observation contract.
-2. Bind immutable condition definitions to exact signal definitions and evaluator bytes.
-3. Extend condition evolution so definition changes remain replayable.
-4. Select one synthetic condition set and canonical scope manifest.
-5. Generate evolution, agency, signal, path, forecast and preparation fixtures
+1. Freeze the hostile-tested executable IF kernel and evidence fold. **Done.**
+2. Bind the kernel into transition-bundle schema 1.2. **Done.**
+3. Select one synthetic active condition set and canonical scope manifest.
+4. Generate evolution, agency, signal, path, forecast and preparation fixtures
    from those identities.
-6. Freeze a six-artifact pre-projection core so the dashboard can safely name
+5. Freeze a seven-artifact pre-projection core so the dashboard can safely name
    source bytes without a self-reference.
-7. Build the dashboard snapshot from that frozen source, then form the final
-   seven-artifact core with an explicit acyclic derivation reference.
-8. Add `fixtures/coherent.synthetic.json` and make the core acceptance check
+6. Build the dashboard snapshot from that frozen source, then form the final
+   eight-artifact core with an explicit acyclic derivation reference.
+7. Add `fixtures/coherent.synthetic.json` and make the core acceptance check
    green without changing its false truth, authority, action and publication
    assertions.
-9. Define a separate experiment-envelope contract after the typed fact-pack
+8. Define a separate experiment-envelope contract after the typed fact-pack
    interface lands.
-10. Only then connect empirical evidence, institutional authority and public
+9. Only then connect empirical evidence, institutional authority and public
    claims through separately reviewed gates.
 
 Run the ordinary integration safety suite with:

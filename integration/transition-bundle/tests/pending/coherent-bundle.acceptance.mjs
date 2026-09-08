@@ -54,13 +54,20 @@ test("bundle binds outcome logic while preserving native scope domains", () => {
   }
 });
 
-test("condition evolution can bind an immutable executable IF definition", () => {
+test("the Round 4 bundle binds the executable IF kernel and active definitions", () => {
   const schema = readJson(
-    "contracts/evolution/schema/condition-evolution-ledger.schema.json",
+    "integration/transition-bundle/schema/transition-bundle.schema.json",
   );
-  const state = schema.$defs.conditionState;
-  assert.ok(state.required.includes("condition_definition_ref"));
-  assert.ok(state.properties.condition_definition_ref);
+  const reference = schema.$defs.executableIfRef;
+  for (const field of [
+    "artifact_role",
+    "kernel_id",
+    "manifest_hash",
+    "evaluator_ref",
+    "active_condition_definition_refs",
+  ]) {
+    assert.ok(reference.required.includes(field), `executable IF reference is missing ${field}`);
+  }
 });
 
 test("preparation names the exact canonical condition and evolution state", () => {
