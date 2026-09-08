@@ -39,6 +39,15 @@ function requireString(value, path) {
   }
 }
 
+function isCalendarDate(value) {
+  if (typeof value !== "string" || !DATE_PATTERN.test(value)) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const parsed = new Date(Date.UTC(year, month - 1, day));
+  return parsed.getUTCFullYear() === year &&
+    parsed.getUTCMonth() === month - 1 &&
+    parsed.getUTCDate() === day;
+}
+
 function parseTimestamp(value, path, pattern = DATETIME_PATTERN) {
   if (typeof value !== "string" || !pattern.test(value) || Number.isNaN(Date.parse(value))) {
     fail("INVALID_SCHEMA", `${path} must be a valid timestamp.`, { path, value });
@@ -83,7 +92,7 @@ function seriesKey(series) {
 
 function validatePoint(point, path) {
   requireObject(point, path);
-  if (typeof point.date !== "string" || !DATE_PATTERN.test(point.date) || Number.isNaN(Date.parse(`${point.date}T00:00:00Z`))) {
+  if (!isCalendarDate(point.date)) {
     fail("INVALID_SCHEMA", `${path}.date must be an ISO date.`, { path, value: point.date });
   }
   if (point.status !== "reported-modelled-estimate") {
@@ -178,6 +187,12 @@ function validateVintage(vintage, label) {
   if (!CHECKSUM_PATTERN.test(source.checksum)) {
     fail("INVALID_SCHEMA", `${label}.source.checksum must be a SHA-256 value.`, { label });
   }
+  if (!isCalendarDate(source.released_at)) {
+    fail("INVALID_SCHEMA", `${label}.source.released_at must be a valid ISO date.`, {
+      label,
+      value: source.released_at,
+    });
+  }
   const releasedAt = parseTimestamp(`${source.released_at}T00:00:00Z`, `${label}.source.released_at`);
   const retrievedAt = parseTimestamp(source.retrieved_at, `${label}.source.retrieved_at`);
   if (retrievedAt < releasedAt) {
@@ -239,6 +254,16 @@ function validateDetector(detector) {
     !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(detector.id) ||
     typeof detector.version !== "string" ||
     !/^\d+\.\d+\.\d+$/.test(detector.version) ||
+    typeof detector.registered_by !== "string" ||
+    detector.registered_by.length === 0 ||
+    detector.target !== "descriptive-employment-review-candidate" ||
+    detector.bounded_action !== "human evidence review only; no publication or consequence" ||
+    !Number.isInteger(detector.maximum_review_candidates) ||
+    detector.maximum_review_candidates < 1 ||
+    typeof detector.false_positive_cost !== "string" ||
+    detector.false_positive_cost.length === 0 ||
+    typeof detector.false_negative_cost !== "string" ||
+    detector.false_negative_cost.length === 0 ||
     !Number.isInteger(detector.lookback_months) ||
     detector.lookback_months < 1 ||
     !Number.isInteger(detector.run_months) ||
@@ -250,6 +275,7 @@ function validateDetector(detector) {
   ) {
     fail("INVALID_DETECTOR", "Detector must be a fixed no-consequence review rule.");
   }
+  return { registeredAt: parseTimestamp(detector.registered_at, "detector.registered_at") };
 }
 
 function compareCoverage(previousValidation, currentValidation) {
@@ -264,16 +290,29 @@ function compareCoverage(previousValidation, currentValidation) {
 }
 
 function validateRunInputs({ previousVintage, currentVintage, detector, generatedAt }) {
-  validateDetector(detector);
+  const detectorValidation = validateDetector(detector);
   const previousValidation = validateVintage(previousVintage, "previousVintage");
   const currentValidation = validateVintage(currentVintage, "currentVintage");
   compareCoverage(previousValidation, currentValidation);
 
   if (
-    periodNumber(currentVintage.source.release_period) <= periodNumber(previousVintage.source.release_period) ||
+    periodNumber(currentVintage.source.release_period) !== periodNumber(previousVintage.source.release_period) + 1
+  ) {
+    fail("MISSING_VINTAGE", "Shadow rehearsal requires consecutive publication periods.", {
+      previous_period: previousVintage.source.release_period,
+      current_period: currentVintage.source.release_period,
+    });
+  }
+  if (
     currentValidation.releasedAt <= previousValidation.releasedAt
   ) {
     fail("LOOK_AHEAD_RISK", "Current vintage must follow the previous vintage in period and release time.");
+  }
+  if (detectorValidation.registeredAt >= currentValidation.releasedAt) {
+    fail("LOOK_AHEAD_RISK", "Detector registration must predate the evidence release.", {
+      registered_at: detector.registered_at,
+      released_at: currentVintage.source.released_at,
+    });
   }
   if (currentVintage.source.checksum === previousVintage.source.checksum) {
     fail("PROVENANCE_COLLISION", "Distinct release periods cannot share the same source checksum.");
@@ -430,6 +469,14 @@ function runCore({ previousVintage, currentVintage, detector, generatedAt, synth
     .sort((left, right) =>
       `${left.occupation_code}:${left.sa4_code}`.localeCompare(`${right.occupation_code}:${right.sa4_code}`),
     );
+  const candidateCount = results.filter(({ state }) => state === "review-candidate").length;
+  if (candidateCount > detector.maximum_review_candidates) {
+    fail("REVIEW_CAPACITY_EXCEEDED", "Review candidates exceed the detector's declared human capacity.", {
+      candidates: candidateCount,
+      maximum_candidates: detector.maximum_review_candidates,
+      consequence: "none",
+    });
+  }
 
   return {
     schema_version: "1.0.0",
@@ -460,8 +507,16 @@ function runCore({ previousVintage, currentVintage, detector, generatedAt, synth
         id: detector.id,
         version: detector.version,
         mode: detector.mode,
+        registered_at: detector.registered_at,
+        registered_by: detector.registered_by,
         config_checksum: computeRecordChecksum(detector),
       },
+    },
+    review_capacity: {
+      candidates: candidateCount,
+      maximum_candidates: detector.maximum_review_candidates,
+      within_limit: true,
+      bounded_action: detector.bounded_action,
     },
     revision_summary: revisionSummary(previousVintage, currentVintage, synthetic),
     results,

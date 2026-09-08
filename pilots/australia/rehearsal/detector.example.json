@@ -3,6 +3,13 @@
   "id": "annual-run-review",
   "version": "1.0.0",
   "mode": "no-consequence-review",
+  "registered_at": "2026-09-08T00:00:00Z",
+  "registered_by": "Agent proposal requiring governance approval and independent timestamping",
+  "target": "descriptive-employment-review-candidate",
+  "bounded_action": "human evidence review only; no publication or consequence",
+  "maximum_review_candidates": 50,
+  "false_positive_cost": "Human review time and possible false concern. No public or individual consequence is permitted.",
+  "false_negative_cost": "A real employment change may not receive timely human review.",
   "lookback_months": 12,
   "run_months": 3,
   "annual_change_at_or_below_percent": -10

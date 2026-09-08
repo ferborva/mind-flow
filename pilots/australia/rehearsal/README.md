@@ -31,7 +31,12 @@ const result = runShadowRehearsal({
 });
 ```
 
-The example detector is illustrative. Its threshold is not empirically validated. Freeze the detector file and its checksum before a prospective release. Do not tune it on the evaluation holdout.
+The example detector is illustrative. Its threshold is not empirically
+validated. It declares its registration time, target, bounded human-review
+action, review capacity and the costs of false concern and a missed review.
+Freeze the detector file, independently timestamp its checksum before a
+prospective release, and do not tune it on the evaluation holdout. The declared
+timestamp alone does not prove that preregistration occurred.
 
 ## Fail-closed checks
 
@@ -43,8 +48,11 @@ The engine throws a `RehearsalError` with a stable `code` when it finds:
 - latest values that disagree with the final observation;
 - duplicate or changed occupation-SA4 coverage;
 - a current period or release date that does not follow the previous vintage;
+- a missing intervening monthly publication vintage;
 - a generated time before current evidence retrieval;
 - distinct vintages sharing a checksum;
+- detector registration on or after the current evidence release;
+- more review candidates than the declared human-review capacity;
 - a detector with authority beyond `no-consequence-review`; or
 - an invalid synthetic scenario.
 
@@ -58,7 +66,16 @@ The output preserves both publisher archive checksums and calculates canonical S
 - the complete current input record; and
 - the detector configuration.
 
-The engine does not download or reopen the publisher ZIP, so it cannot prove that an extracted JSON record matches the ZIP merely because the record declares its checksum. The ingestion process must verify the downloaded archive before creating the immutable extract. Storage immutability and independent time-stamping also sit outside this module.
+The engine does not download or reopen the publisher ZIP, so it cannot prove
+that an extracted JSON record matches the ZIP merely because the record declares
+its checksum. The ingestion process must verify the downloaded archive before
+creating the immutable extract. Storage immutability and independent
+time-stamping also sit outside this module.
+
+If candidate count exceeds the detector's declared capacity, the engine fails
+with `REVIEW_CAPACITY_EXCEEDED` and preserves `consequence: none` in the error
+details. It does not rank places, discard overflow candidates or quietly raise
+the threshold.
 
 Revision results compare overlapping values in the prior and current extracts. They are diagnostic only and never replace the earlier record.
 

@@ -13,6 +13,13 @@ const DETECTOR = {
   id: "annual-run-review",
   version: "1.0.0",
   mode: "no-consequence-review",
+  registered_at: "2026-08-01T00:00:00Z",
+  registered_by: "Agent proposal for prospective rehearsal",
+  target: "descriptive-employment-review-candidate",
+  bounded_action: "human evidence review only; no publication or consequence",
+  maximum_review_candidates: 10,
+  false_positive_cost: "Human review time and possible false concern. No public or individual consequence is permitted.",
+  false_negative_cost: "A real employment change may not receive timely human review.",
   lookback_months: 12,
   run_months: 3,
   annual_change_at_or_below_percent: -10,
@@ -144,6 +151,10 @@ test("emits a no-consequence review candidate with immutable provenance", () => 
   assert.equal(result.provenance.previous.source_checksum, previous.source.checksum);
   assert.equal(result.provenance.current.record_checksum, computeRecordChecksum(current));
   assert.match(result.provenance.detector.config_checksum, /^sha256:[a-f0-9]{64}$/);
+  assert.equal(result.provenance.detector.registered_at, DETECTOR.registered_at);
+  assert.equal(result.review_capacity.maximum_candidates, 10);
+  assert.equal(result.review_capacity.candidates, 1);
+  assert.equal(result.review_capacity.within_limit, true);
   assert.deepEqual(previous, originalPrevious);
   assert.deepEqual(current, originalCurrent);
 });
@@ -317,5 +328,77 @@ test("rejects unregistered detector authority and invalid synthetic scenarios", 
         generatedAt: "2026-09-08T03:00:00Z",
       }),
     (error) => error instanceof RehearsalError && error.code === "INVALID_SCENARIO",
+  );
+});
+
+test("rejects a detector registered after the evidence release", () => {
+  const { previous, current } = fixturePair();
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: previous,
+      currentVintage: current,
+      detector: { ...DETECTOR, registered_at: "2026-09-03T00:00:00Z" },
+      generatedAt: "2026-09-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError && error.code === "LOOK_AHEAD_RISK",
+  );
+});
+
+test("fails closed when publication vintages skip a month", () => {
+  const { previous } = fixturePair();
+  const current = makeVintage({
+    period: "2026-09",
+    releasedAt: "2026-10-07",
+    retrievedAt: "2026-10-07T02:00:00Z",
+    checksumCharacter: "c",
+    dates: monthSequence(2025, 9, 13),
+    values: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 950, 900, 850],
+  });
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: previous,
+      currentVintage: current,
+      detector: DETECTOR,
+      generatedAt: "2026-10-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError && error.code === "MISSING_VINTAGE",
+  );
+});
+
+test("fails closed when review candidates exceed declared human capacity", () => {
+  const { previous, current } = fixturePair();
+  const previousSecond = structuredClone(previous.series[0]);
+  const currentSecond = structuredClone(current.series[0]);
+  previousSecond.sa4_code = "102";
+  currentSecond.sa4_code = "102";
+  previous.series.push(previousSecond);
+  current.series.push(currentSecond);
+  previous.scope.series_count = 2;
+  current.scope.series_count = 2;
+
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: previous,
+      currentVintage: current,
+      detector: { ...DETECTOR, maximum_review_candidates: 1 },
+      generatedAt: "2026-09-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError &&
+      error.code === "REVIEW_CAPACITY_EXCEEDED" &&
+      error.details.candidates === 2,
+  );
+});
+
+test("rejects impossible calendar dates rather than normalising them", () => {
+  const { previous, current } = fixturePair();
+  current.source.released_at = "2026-02-31";
+  assert.throws(
+    () => runShadowRehearsal({
+      previousVintage: previous,
+      currentVintage: current,
+      detector: DETECTOR,
+      generatedAt: "2026-09-08T03:00:00Z",
+    }),
+    (error) => error instanceof RehearsalError && error.code === "INVALID_SCHEMA",
   );
 });

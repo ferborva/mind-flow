@@ -2,10 +2,11 @@
   "name": "mind-flow",
   "private": true,
   "scripts": {
-    "test": "npm run test:contracts && npm run test:forecasts && npm run test:dashboard",
+    "test": "npm run test:contracts && npm run test:forecasts && npm run test:dashboard && npm run test:rehearsal",
     "test:contracts": "node --test contracts/tests/*.test.mjs",
     "test:forecasts": "node --test forecasts/tests/*.test.mjs",
-    "test:dashboard": "node --test dashboard/tests/*.test.mjs"
+    "test:dashboard": "node --test dashboard/tests/*.test.mjs",
+    "test:rehearsal": "node --test pilots/australia/rehearsal/tests/*.test.mjs"
   },
   "devDependencies": {
     "ajv": "8.20.0",
