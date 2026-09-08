@@ -8,6 +8,10 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../..");
 const first = readFileSync(resolve(root, "drafts/abundance-has-an-if.md"), "utf8");
 const second = readFileSync(resolve(root, "drafts/from-if-to-when.md"), "utf8");
+const reconstruction = readFileSync(
+  resolve(root, "evidence/world-reconstruction-protocol.md"),
+  "utf8",
+);
 
 test("the originating write-up preserves Fernando's argument and its visible correction boundary", () => {
   assert.match(first, /originating argument and remains in review/i);
@@ -45,4 +49,38 @@ test("IF movement and action authority are explicit", () => {
   assert.match(second, /agent-proposed preparation options/i);
   assert.match(second, /cannot authorise the option by itself/i);
   assert.doesNotMatch(second, /activates automatically|Legislate the triggers|make it irreversible/i);
+});
+
+test("the World reconstruction protocol cannot promote arithmetic into welfare or agency evidence", () => {
+  assert.match(reconstruction, /status: proposed/i);
+  assert.match(reconstruction, /I_L - I_Y = I_Y/i);
+  for (const estimand of [
+    "replication estimand",
+    "production-allocation estimand",
+    "worker purchasing-power estimand",
+    "household agency estimand",
+  ]) assert.match(reconstruction, new RegExp(estimand, "i"));
+  for (const panel of ["P0", "P1", "P2", "P3"]) {
+    assert.match(reconstruction, new RegExp(`\\b${panel}\\b`));
+  }
+  assert.match(reconstruction, /governance choices.*before.*results/is);
+  assert.match(reconstruction, /permitted public wording/i);
+  assert.match(reconstruction, /prohibited public wording/i);
+  assert.match(reconstruction, /both[\s>]*indexed to 100 in 2004/i);
+  assert.match(reconstruction, /snapshot contains no uncertainty interval/i);
+  assert.match(reconstruction, /E2a[\s\S]*E2b[\s\S]*E2c/);
+  assert.match(reconstruction, /contemporaneous market exchange rates/i);
+  assert.match(reconstruction, /same unit and period/i);
+  assert.match(reconstruction, /continuity_floor_met\(h\)/i);
+  assert.match(reconstruction, /household-price-deflated gross compensation per hour/i);
+  assert.match(reconstruction, /Evidence capabilities are typed and non-substitutable/i);
+  assert.match(reconstruction, /Forecast skill and causal identification remain orthogonal/i);
+  assert.match(reconstruction, /first_release_status: unknown/i);
+  assert.match(reconstruction, /logical digest[\s\S]*physical\s+digest/i);
+  assert.match(reconstruction, /result dependency graph derives the complete required\s+artifact set/i);
+  assert.match(reconstruction, /must replace the current population label/i);
+  assert.match(reconstruction, /Predicate truth is `true`, `false`, `unknown`,\s*`not-applicable` or `disputed`/i);
+  assert.doesNotMatch(reconstruction, /predicate remains five-valued.*stale.*conflicted/is);
+  assert.match(reconstruction, /maximum claim is `local capture\s+reproduced`/i);
+  assert.match(reconstruction, /does not authorise action/i);
 });
