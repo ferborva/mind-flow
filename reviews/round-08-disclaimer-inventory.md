@@ -64,7 +64,7 @@ before the phrase “every public document” can be considered closed.
 | `meta/abundance-transition-programme.md` | 133 | Local evidence and authority ceilings | Includes four added-series justifications; no universal classification pass claimed |
 | `dashboard/README.md` | 146 | Whole-prototype status plus repeated local authority and evidence limits | Public developer entry and build instructions; omitted from the original inventory, now explicitly in scope; strict classification pending |
 | `pilots/australia/web/index.template.html` | Not a Markdown sentence denominator | Eight source/status chips or labels plus a three-sentence footer in the reviewed template | Rendered public evidence room; omission repaired, no percentage pass inferred from a Markdown parser |
-| `dashboard/tools/render-primary-care.mjs` plus bound measurement JSON | Dynamic rendered prose, not source-code sentence counts | One binding-category diagnosis, five owner-control ceilings and row-specific limits | Five-category GP addition inspected in measurement worktree on September 10; generated final HTML requires integrated recount |
+| `dashboard/tools/render-primary-care.mjs` plus bound measurement JSON | 112 rendered lexical units; 62 narrative units in the bounded recount below | Seven explicit indicator/authority-status sentences, including five repeated owner-control limits; additional source-specific ceilings | Independently rendered from central `6d2ddfb` on September 10; not a percentage-compliance certificate |
 | `paths/README.md` | 79 | 5 opening sentences including synthetic status and truth ceiling | Technical path-contract reference, not a public scenario release |
 | `boundaries.md` | 24 | boundary reference | Concentrates necessary limitations by design; no passing percentage claimed |
 
@@ -93,6 +93,41 @@ denominator. A final rendered-text classification must include both sections,
 table cells, source labels, expandable context and footer, without counting
 hidden scripts or CSS. This inventory records that remaining integration step;
 it does not quietly exempt the evidence room or claim its gate is complete.
+
+### Integrated primary-care recount, September 10
+
+The independent checker executed `renderPrimaryCare(process.cwd())` at central
+`6d2ddfb`, including its exact reproduction check of the bound September 10 JSON.
+The inspected output includes the current positive-signal research link, excluded
+very-remote residents, broad historical kernel scope and same-publisher
+corroboration warning. It also includes all five owner roles, source dates,
+licence labels, hashes and measurement ceilings; these were not inferred only
+from the literal page template.
+
+For a reproducible bounded segmentation, replace closing `p`, `li`, `td`, `th`,
+`h2` and `summary` tags, and `br` tags, with a full stop and newline; strip the
+remaining tags, replace HTML entities with spaces, then apply `proseSentences`.
+This produces **112 display units**, including headings, values, hashes and
+other fragments. They are not 112 grammatical sentences. The narrative subset
+is units 2–6, 16–23, 32–37, 46–53, 62–68, 77–81, 86–97 and 99–109, **62 units**.
+It retains the five role-description sentences and excludes column headings,
+numeric-only observations, publisher labels, source metadata and link fragments.
+
+At least seven sentences in that subset explicitly state indicator or authority
+status: “These are retained indicators, not five personal-access diagnoses”,
+the institutional-owner/authorised-action ceiling, and five “Control not
+verified” sentences. This conservative status count alone is 7/62, **11.3%**;
+it is not a final adjudication of every evidence ceiling. Even adding all 112
+display fragments to the denominator would give 6.25%, still above the gate,
+but padding a sentence denominator with hashes would be invalid. Five additional
+“Licence unreviewed” labels remain visible outside this narrative subset.
+
+This closes the previously missing inspection of the integrated GP addition,
+not the universal metric. Source-local limitations stay next to their claims.
+The NERO template's eight status/source labels and three-sentence footer remain
+separately inventoried; browser-generated NERO table cells, selected-series
+updates and extracted public cards still require their own rendered-state
+classification. No whole-site passing percentage follows from this recount.
 
 Direct public prose comprises the five drafts, field guide, repository entry
 and public charter. The programme and paths references explain the method;
