@@ -107,6 +107,45 @@ arm parity, while integration separately checks the fact pack's canonical
 condition and scope references. Experiment validity still cannot approve
 recruitment or create truth or authority.
 
+## Condition-definition dependency map
+
+Bundle failure makes drift visible to maintainers, but a failed build does not
+tell a public reader or operator what a changed condition definition can
+affect. The deterministic, bundle-only dependency tracer closes that narrower
+communication gap:
+
+```sh
+node integration/transition-bundle/tools/trace-condition-change-impact.mjs
+```
+
+For one condition shared by the exact complete core, it lists all eight joined
+consumers, their retained artifact hashes, and the minimum revalidation
+disposition for each. Every consumer is withheld after a definition or identity
+change. In particular:
+
+- a forecast remains an immutable record and follows its registered resolution
+  or void policy. It is never silently retargeted;
+- a preparation trigger loses eligibility until its bindings and human gates
+  are reviewed again;
+- a path cannot be traversed until its branches and rival explanations are
+  rebound; and
+- a dashboard projection is withheld until its exact sources rebuild.
+
+The report also exposes two known missing consumer domains:
+`negotiation-record` and `decision-record`. The current core cannot discover
+who negotiated an `IF`, which positions changed, which dissent remains, or
+which real decisions require reconsideration. Those absences are output, not
+silently treated as empty sets. They are known examples, not an exhaustive
+repository or organisational discovery result.
+
+The dependency manifest is content-addressed and deterministically regenerated from
+the exact source-bundle bytes. Resealing an omitted consumer does not make the
+report valid because validation compares it with a fresh derivation. Its scope
+is only the eight declared links in the joined synthetic bundle. It did not
+search other repository consumers or any real organisation. It does not cover
+evidence-value changes, discover external decisions, assess whether a
+definition change is substantively better, establish truth or grant authority.
+
 ## Migration rule
 
 Do not make a fixture pass by weakening cross-checks. Regenerate one bounded,
