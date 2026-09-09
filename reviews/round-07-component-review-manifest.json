@@ -3,6 +3,8 @@
   "review_round": "round-07",
   "integration_pr": 2,
   "candidate_commit": null,
+  "candidate_tree": null,
+  "main_commit": "49c7471dcb798de3068a017ea9ada3e2708716fb",
   "purpose": "Bound the integrated repair candidate into six sequential diffs without claiming that partial stacks are independently mergeable.",
   "lanes": [
     {
@@ -10,6 +12,9 @@
       "title": "Provenance, thesis and research",
       "head_branch": "ren/round-07-01-provenance",
       "base_branch": "main",
+      "base_commit": "49c7471dcb798de3068a017ea9ada3e2708716fb",
+      "head_commit": "eb4879ea5b90e2786fb20283f7705c871e9531ae",
+      "head_tree": "1ea0e2697ff5ab98f948716538be254914dbabe0",
       "depends_on": [],
       "paths": ["capture/", "seeds/", "drafts/", "research/"],
       "check_commands": ["git diff --check"],
@@ -17,13 +22,16 @@
       "deferred_checks": [],
       "independently_mergeable": false,
       "reviewable_as_bounded_diff": true,
-      "pull_request": null
+      "pull_request": 3
     },
     {
       "id": "R07-L2",
       "title": "Governance and public communications",
       "head_branch": "ren/round-07-02-governance",
       "base_branch": "ren/round-07-01-provenance",
+      "base_commit": "eb4879ea5b90e2786fb20283f7705c871e9531ae",
+      "head_commit": "e311ec050e54332c676cbe117f3b816af4a8c808",
+      "head_tree": "6bac7b57447b94042a0edc9c52129102d50976d7",
       "depends_on": ["R07-L1"],
       "paths": ["governance/README.md", "governance/decision-record/", "governance/fixtures/", "governance/if-protocol.md", "governance/lib/", "governance/negotiation-record/", "governance/public-charter.md", "governance/public-release-governance.md", "governance/public-release-validation.mjs", "governance/records/", "governance/schema/", "governance/tools/", "governance/trusted-issuance-boundary.md", "communications/", "meta/validate-frontmatter.mjs", ".nvmrc", ".gitignore", "package.json", "package-lock.json", "CLAUDE.md"],
       "check_commands": ["npm ci", "node --test governance/negotiation-record/tests/*.test.mjs governance/decision-record/tests/*.test.mjs", "node --test communications/tests/frontmatter-contract.test.mjs communications/tests/if-public-language-contract.test.mjs communications/tests/public-experience-record.test.mjs communications/tests/transition-field-guide.test.mjs"],
@@ -31,13 +39,16 @@
       "deferred_checks": ["npm run test:governance", "npm run test:communications"],
       "independently_mergeable": false,
       "reviewable_as_bounded_diff": true,
-      "pull_request": null
+      "pull_request": 4
     },
     {
       "id": "R07-L3",
       "title": "Executable IF, evidence and path system",
       "head_branch": "ren/round-07-03-formal-system",
       "base_branch": "ren/round-07-02-governance",
+      "base_commit": "e311ec050e54332c676cbe117f3b816af4a8c808",
+      "head_commit": "013dcc11259f2ab75f447cf9b5b2d41eef52fe9d",
+      "head_tree": "4b6780557a833bb2c5ca3f6f0d240d6ed89a0954",
       "depends_on": ["R07-L2"],
       "paths": ["contracts/", "integration/", "evidence/", "forecasts/", "signals/", "options/", "paths/", "preparation/", "governance/lineage/"],
       "check_commands": ["node --test contracts/tests/condition-pathway.test.mjs contracts/tests/contracts.test.mjs contracts/tests/evaluator.test.mjs contracts/tests/lifecycle-consistency.test.mjs contracts/tests/operational-records.test.mjs contracts/tests/separation.test.mjs", "npm run test:agency-map", "npm run test:executable-if", "npm run test:evolution", "node --test evidence/claims/tests/*.test.mjs", "node --test --test-name-pattern='the closed schema|contract conformance|class determines|affected parties|hostile fixtures|public README' evidence/assumptions/tests/assumption-registry.test.mjs", "npm run test:signals", "npm run test:paths", "npm run test:options", "npm run test:preparation", "npm run test:forecasts", "node --check integration/transition-bundle/assess.mjs", "node --check integration/transition-bundle/condition-change-impact.mjs", "node --check governance/lineage/validate.mjs", "node --check governance/lineage/tools/build-round-06-lineage.mjs"],
@@ -45,13 +56,16 @@
       "deferred_checks": ["npm run test:evidence", "npm run test:integration", "npm run test:governance"],
       "independently_mergeable": false,
       "reviewable_as_bounded_diff": true,
-      "pull_request": null
+      "pull_request": 5
     },
     {
       "id": "R07-L4",
       "title": "Australia pilot and rehearsal",
       "head_branch": "ren/round-07-04-australia-pilot",
       "base_branch": "ren/round-07-03-formal-system",
+      "base_commit": "013dcc11259f2ab75f447cf9b5b2d41eef52fe9d",
+      "head_commit": "f7dadc23f856cccae695b638d6b61a1accffb76c",
+      "head_tree": "e9ae777be187d0473d827ed95dc4d735d2e33c38",
       "depends_on": ["R07-L3"],
       "paths": ["pilots/australia/"],
       "check_commands": ["node --test pilots/australia/tests/evidence-bridge.test.mjs", "node --test --test-name-pattern='verification executes|retention does not|capture verification fails|capture verification rejects|active pilot inventory' pilots/australia/tests/nero-source-capture.test.mjs", "node --test pilots/australia/rehearsal/tests/measurement-controls.test.mjs pilots/australia/rehearsal/tests/source-reacquisition.test.mjs"],
@@ -59,13 +73,16 @@
       "deferred_checks": ["npm run test:pilot", "npm run test:rehearsal"],
       "independently_mergeable": false,
       "reviewable_as_bounded_diff": true,
-      "pull_request": null
+      "pull_request": 6
     },
     {
       "id": "R07-L5",
       "title": "Observatory, dashboards and experience experiment",
       "head_branch": "ren/round-07-05-observatory",
       "base_branch": "ren/round-07-04-australia-pilot",
+      "base_commit": "f7dadc23f856cccae695b638d6b61a1accffb76c",
+      "head_commit": "711a9df015fa824b33fd78b5e187aaa9d9032853",
+      "head_tree": "e3dc9a74fbd464ef703cc0045b9e0a294a415052",
       "depends_on": ["R07-L4"],
       "paths": ["dashboard/", "experiments/"],
       "check_commands": ["npm run test:dashboard", "npm run test:experience"],
@@ -73,13 +90,16 @@
       "deferred_checks": [],
       "independently_mergeable": false,
       "reviewable_as_bounded_diff": true,
-      "pull_request": null
+      "pull_request": 7
     },
     {
       "id": "R07-L6",
       "title": "Review controls and repository integration",
       "head_branch": "ren/round-07-06-integration",
       "base_branch": "ren/round-07-05-observatory",
+      "base_commit": "711a9df015fa824b33fd78b5e187aaa9d9032853",
+      "head_commit": null,
+      "head_tree": null,
       "depends_on": ["R07-L5"],
       "paths": ["reviews/", "meta/abundance-transition-programme.md", "meta/backlog.md", "meta/index.md", "meta/review-freeze/", "meta/round-03-deep-plan.md", "meta/round-04-external-review-brief.md", "meta/round-06-external-review-brief.md", "meta/round-07-external-review-brief.md", "meta/themes.md", ".github/", "README.md"],
       "check_commands": ["npm test", "git diff --check", "git diff --exit-code && git diff --cached --exit-code && test -z \"$(git status --porcelain --untracked-files=all)\""],
@@ -87,7 +107,7 @@
       "deferred_checks": [],
       "independently_mergeable": false,
       "reviewable_as_bounded_diff": true,
-      "pull_request": null
+      "pull_request": 8
     }
   ],
   "boundaries": {
