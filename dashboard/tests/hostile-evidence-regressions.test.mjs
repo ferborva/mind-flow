@@ -15,9 +15,10 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { buildNeroBaseline } from "../tools/build-nero-baseline.mjs";
+import { isolatedRepository } from "../../contracts/tests/support/isolated-repository.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const dashboard = resolve(here, "..");
+const dashboard = resolve(isolatedRepository(resolve(here, "../..")), "dashboard");
 const root = resolve(dashboard, "..");
 const buildPath = join(dashboard, "tools", "build.mjs");
 const fetchPath = join(dashboard, "tools", "fetch_snapshot.py");
@@ -30,6 +31,10 @@ const templatePath = join(dashboard, "web", "index.template.html");
 const rawManifestPath = join(dashboard, "evidence", "fixtures", "world-bank-input.json");
 const australiaReadmePath = join(root, "pilots", "australia", "README.md");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
+
+test("mutable evidence-path checks live outside the working checkout", () => {
+  assert.notEqual(dashboard, resolve(here, ".."));
+});
 
 function rejectsBuild(value, expected, ...args) {
   const directory = mkdtempSync(join(tmpdir(), "mind-flow-hostile-"));

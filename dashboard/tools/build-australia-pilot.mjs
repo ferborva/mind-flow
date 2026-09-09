@@ -11,7 +11,7 @@ import addFormats from "ajv-formats";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const pilot = resolve(root, "pilots", "australia");
-const baselinePath = resolve(process.argv[2] || resolve(pilot, "data", "nero-clerical-2026-08.json"));
+const baselinePath = resolve(process.argv[2] || resolve(pilot, "data", "nero-clerical-2026-08.r2.json"));
 const outputPath = resolve(process.argv[3] || resolve(pilot, "web", "index.html"));
 const templatePath = resolve(pilot, "web", "index.template.html");
 const schemaPath = resolve(pilot, "schema", "nero-baseline.schema.json");
@@ -75,6 +75,17 @@ function displayProjection(baseline) {
 
 function validateSemantics(baseline, policy) {
   const errors = [];
+  if (baseline.correction) {
+    const bytes = readFileSync(resolve(pilot, "data", "nero-clerical-2026-08.json"));
+    const predecessor = JSON.parse(bytes);
+    const expected = structuredClone(predecessor);
+    expected.scope.occupation_classification_verification_status = "unverified_external_review_required";
+    const { correction, ...corrected } = baseline;
+    if (correction.supersedes_sha256 !== `sha256:${createHash("sha256").update(bytes).digest("hex")}` ||
+        !same(corrected, expected)) {
+      errors.push("classification correction must bind its unchanged predecessor measurements");
+    }
+  }
   if (!hasAllowedSource(baseline.source?.archive_url)) {
     errors.push("source host is outside the Australia evidence allowlist");
   }
