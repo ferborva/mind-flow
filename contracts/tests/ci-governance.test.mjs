@@ -95,6 +95,13 @@ test("local and CI runtime contracts pin the same Node major", () => {
   assert.match(workflow, new RegExp(`node-version:\\s*${nodeVersion}`));
 });
 
+test("the Round 08.1 seal unconditionally verifies its separate retained receipt", () => {
+  const step = workflow.match(/      - name: Verify the retained Round 8.1 repair receipt\n([\s\S]*?)(?=\n      - name:|$)/)?.[1];
+  assert.ok(step, "Round 08.1 receipt verification step is required");
+  assert.doesNotMatch(step, /\bif:|\bif\b|\|\||--allow-failed-reproduction|continue-on-error/);
+  assert.match(step, /node meta\/review-freeze\/review-freeze\.mjs verify\s+--policy=round-08\s+--manifest=meta\/review-freeze\/round-08\.1\.review-freeze\.json/);
+});
+
 test("agent-authored commits must disclose a distinct authorship identity", () => {
   assert.match(operatingManual, /agent-authored commits/i);
   assert.match(operatingManual, /distinct author identity/i);

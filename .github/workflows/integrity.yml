@@ -52,6 +52,12 @@ jobs:
           --policy=round-08
           --manifest=meta/review-freeze/round-08.review-freeze.json
 
+      - name: Verify the retained Round 8.1 repair receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-08
+          --manifest=meta/review-freeze/round-08.1.review-freeze.json
+
       - name: Reproduce the timing-contract migration
         run: node dashboard/tools/migrate-timing-contract.mjs --check
 
