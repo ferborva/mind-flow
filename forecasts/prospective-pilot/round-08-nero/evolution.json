@@ -5,15 +5,15 @@
   "generated_at": "2026-09-09T10:51:23Z",
   "source_kernel_ref": {
     "artifact_path": "forecasts/prospective-pilot/round-08-nero/kernel.json",
-    "artifact_sha256": "sha256:4efffec14064dfa8c326327ac39ce8002b0247ee1a2644fbd90d0e6f9a90e497",
+    "artifact_sha256": "sha256:c588a05a25d0133b8a386e135a27f1e7e0d3e4b538847f637c5211f6ffd81303",
     "kernel_id": "kernel.nero.5311.101.prospective",
-    "manifest_hash": "sha256:1637b649844d58e9a39df181cc1eccf148868949a1761c3a77033fdbbad41390",
+    "manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd",
     "evaluator_ref": {
       "id": "mind-flow.executable-if.evaluator",
       "version": "1.1.0",
-      "digest": "sha256:d800ff353039be1ac1f3a4742f93bfddcb263995f87caf8e971613a2014ea950",
+      "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
       "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
-      "implementation_digest": "sha256:17169ba7a6e9cc8a4433b512cbd379522f7b7c4ef7838b9c979e6d9181fba1c1",
+      "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
       "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
     }
   },
@@ -22,7 +22,7 @@
     "event_count": 1,
     "tip_sequence": 1,
     "tip_event_id": "event.nero.5311.101.stock.added",
-    "tip_event_hash": "sha256:0d7cbf09c34c82f396a5ee6fe252349159ef6940d4f3e8a7b6269c3b2b2af9dc",
+    "tip_event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa",
     "operations": [
       "added"
     ],
@@ -31,27 +31,27 @@
         "sequence": 1,
         "event_id": "event.nero.5311.101.stock.added",
         "operation": "added",
-        "event_hash": "sha256:0d7cbf09c34c82f396a5ee6fe252349159ef6940d4f3e8a7b6269c3b2b2af9dc"
+        "event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa"
       }
     ],
     "active_condition_definition_refs": [
       {
         "condition_id": "condition.nero.5311.101.stock",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:1371eff5208327e74c83f0d62cb2d27ac1012e4e4c1a768f55b7d4a6243dc1ad"
+        "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
       }
     ],
     "evidence_event_count": 1,
     "evidence_tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
-    "evidence_tip_event_hash": "sha256:98a5192d75fbe38d12890c0fb73c774d9279a2c640c0a8ad2f4e23838507a866",
-    "evidence_state_hash": "sha256:11852c8aa1e05aa8351e531cb9898c0451708ea4b74f75c10654a31a47e52112"
+    "evidence_tip_event_hash": "sha256:2822bd8a8988e44cae56b1f91c918b5b7af746b6db984782089906b2ef53d72c",
+    "evidence_state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be"
   },
   "condition_projections": [
     {
       "condition_definition_ref": {
         "condition_id": "condition.nero.5311.101.stock",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:1371eff5208327e74c83f0d62cb2d27ac1012e4e4c1a768f55b7d4a6243dc1ad"
+        "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
       },
       "source_state_version": 1,
       "source_lifecycle": "active",
@@ -59,7 +59,7 @@
         "sequence": 1,
         "event_id": "event.nero.5311.101.stock.added",
         "operation": "added",
-        "event_hash": "sha256:0d7cbf09c34c82f396a5ee6fe252349159ef6940d4f3e8a7b6269c3b2b2af9dc"
+        "event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa"
       },
       "proposition": "The modelled employment stock is at least the frozen August 2026 count 4217; this is exposure context only.",
       "claim": {
@@ -90,8 +90,8 @@
       "evidence_state_ref": {
         "event_count": 1,
         "tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
-        "tip_event_hash": "sha256:98a5192d75fbe38d12890c0fb73c774d9279a2c640c0a8ad2f4e23838507a866",
-        "state_hash": "sha256:11852c8aa1e05aa8351e531cb9898c0451708ea4b74f75c10654a31a47e52112"
+        "tip_event_hash": "sha256:2822bd8a8988e44cae56b1f91c918b5b7af746b6db984782089906b2ef53d72c",
+        "state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be"
       },
       "assessment_status": "open",
       "assessment": null,
@@ -102,14 +102,14 @@
   "current_state": {
     "as_of_sequence": 1,
     "as_of_event_id": "event.nero.5311.101.stock.added",
-    "as_of_event_hash": "sha256:0d7cbf09c34c82f396a5ee6fe252349159ef6940d4f3e8a7b6269c3b2b2af9dc",
-    "evidence_state_hash": "sha256:11852c8aa1e05aa8351e531cb9898c0451708ea4b74f75c10654a31a47e52112",
+    "as_of_event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa",
+    "evidence_state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be",
     "conditions": [
       {
         "condition_definition_ref": {
           "condition_id": "condition.nero.5311.101.stock",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:1371eff5208327e74c83f0d62cb2d27ac1012e4e4c1a768f55b7d4a6243dc1ad"
+          "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
         },
         "source_state_version": 1,
         "source_lifecycle": "active",
@@ -117,7 +117,7 @@
           "sequence": 1,
           "event_id": "event.nero.5311.101.stock.added",
           "operation": "added",
-          "event_hash": "sha256:0d7cbf09c34c82f396a5ee6fe252349159ef6940d4f3e8a7b6269c3b2b2af9dc"
+          "event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa"
         },
         "proposition": "The modelled employment stock is at least the frozen August 2026 count 4217; this is exposure context only.",
         "claim": {
@@ -148,8 +148,8 @@
         "evidence_state_ref": {
           "event_count": 1,
           "tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
-          "tip_event_hash": "sha256:98a5192d75fbe38d12890c0fb73c774d9279a2c640c0a8ad2f4e23838507a866",
-          "state_hash": "sha256:11852c8aa1e05aa8351e531cb9898c0451708ea4b74f75c10654a31a47e52112"
+          "tip_event_hash": "sha256:2822bd8a8988e44cae56b1f91c918b5b7af746b6db984782089906b2ef53d72c",
+          "state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be"
         },
         "assessment_status": "open",
         "assessment": null,
@@ -162,7 +162,7 @@
     "checkpoint_uri": "https://mind-flow.org/checkpoints/unpublished/round-04",
     "source_event_count": 1,
     "tip_event_id": "event.nero.5311.101.stock.added",
-    "tip_event_hash": "sha256:0d7cbf09c34c82f396a5ee6fe252349159ef6940d4f3e8a7b6269c3b2b2af9dc"
+    "tip_event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa"
   },
   "public_projection": {
     "history": {
@@ -178,7 +178,7 @@
         "condition_definition_ref": {
           "condition_id": "condition.nero.5311.101.stock",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:1371eff5208327e74c83f0d62cb2d27ac1012e4e4c1a768f55b7d4a6243dc1ad"
+          "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
         },
         "proposition": "The modelled employment stock is at least the frozen August 2026 count 4217; this is exposure context only.",
         "claim": {
@@ -215,7 +215,7 @@
       "action_authorised": false
     }
   },
-  "manifest_hash": "sha256:3ec5d19e6cf7c994f9a2f96e7e24b85de97318103c4f926e575655e189a08a70",
+  "manifest_hash": "sha256:f636d5f8ab666dce7c1191bec2c1ef8f43596bdd21e20c083fe1cdca0d33f1e5",
   "contract_boundary": {
     "definition_history_owner": "source-executable-if-kernel",
     "history_validity_effect": "source-binding-and-integrity-only",
