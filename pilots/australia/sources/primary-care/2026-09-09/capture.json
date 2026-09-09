@@ -1,0 +1,101 @@
+{
+  "capture_id": "australia-primary-care-2026-09-09",
+  "captured_at_utc": "2026-09-09T10:39:47.961Z",
+  "acquisition_method": "curl --fail --silent --show-error --location --dump-header HEADER --output BODY URL; each body and header pair comes from one invocation",
+  "publisher_authentication": "HTTPS official host; no independent signature or witness",
+  "artifacts": [
+    {
+      "id": "abs-patient-experiences",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/abs-patient-experiences.source.txt",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25",
+      "publisher": "Australian Bureau of Statistics",
+      "publication_date": "2025-11-18",
+      "byte_length": 376418,
+      "sha256": "sha256:5013f4f42c17b54ccca937c8d2fa01488fad31c7e0bc333ed90203016e88ecde",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/abs-patient-experiences.response-headers.txt",
+      "headers_sha256": "sha256:c4c1d25cbd07015740c35c03f6bc8cc22c04851d5d86a86714138f76ddfb9a5c",
+      "http_date": "Wed, 09 Sep 2026 10:33:09 GMT"
+    },
+    {
+      "id": "abs-health-literacy",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/abs-health-literacy.source.txt",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-health-literacy/latest-release",
+      "publisher": "Australian Bureau of Statistics",
+      "publication_date": "2019-04-29",
+      "byte_length": 316711,
+      "sha256": "sha256:fe04e792e301dc31376a751232af3a6b1d11b836697d62862c94e08dee0205a9",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/abs-health-literacy.response-headers.txt",
+      "headers_sha256": "sha256:f350a016e93e80a91644b89b1073cff791f5fa96946cb33e099c4bd11ecd23af",
+      "http_date": "Wed, 09 Sep 2026 10:33:31 GMT"
+    },
+    {
+      "id": "pc-primary-care",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care.source.txt",
+      "source_url": "https://www.pc.gov.au/ongoing/report-on-government-services/health/primary-and-community-health/",
+      "publisher": "Productivity Commission",
+      "publication_date": "2026-02-05",
+      "byte_length": 399239,
+      "sha256": "sha256:e79f7c6cc930c81c88c4f31f12c699a877bccfb395d77a2815864c81f464457c",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care.response-headers.txt",
+      "headers_sha256": "sha256:bb66e2268ba30c437c3760cb5f18c8323454645606d1c9294e325f0466862c8c",
+      "http_date": "Wed, 02 Sep 2026 01:44:04 GMT"
+    },
+    {
+      "id": "pc-primary-care-dataset",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care-dataset.csv",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "publisher": "Productivity Commission",
+      "publication_date": "2026-02-05",
+      "byte_length": 3422482,
+      "sha256": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care-dataset.response-headers.txt",
+      "headers_sha256": "sha256:4fd861236c35a9659e47966068d1da0d1ca39e684f5475bc38a1116733f977d8",
+      "http_date": "Wed, 09 Sep 2026 10:34:27 GMT"
+    },
+    {
+      "id": "mbs-telehealth",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/mbs-telehealth.source.txt",
+      "source_url": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=AN.1.1",
+      "publisher": "Australian Government Department of Health, Disability and Ageing",
+      "publication_date": null,
+      "byte_length": 61034,
+      "sha256": "sha256:fcd20ce36ee01078853509776d95627670baeeeca56054011eedcdbb57e80fd2",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/mbs-telehealth.response-headers.txt",
+      "headers_sha256": "sha256:d42205b4216e41485e0082d1561ab5a6c8f242fd255261bc8c412f092039f988",
+      "http_date": "Wed, 09 Sep 2026 10:34:32 GMT"
+    },
+    {
+      "id": "mbs-referrals",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/mbs-referrals.source.txt",
+      "source_url": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=GN.6.16",
+      "publisher": "Australian Government Department of Health, Disability and Ageing",
+      "publication_date": null,
+      "byte_length": 29730,
+      "sha256": "sha256:6fcde53d75e6a881246d44ec11ee3ed1c8c6f1c8fdb1338460631280fe0746d3",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/mbs-referrals.response-headers.txt",
+      "headers_sha256": "sha256:bde3ac662b038d9e729e6ef289da2b70a093be00b4713ec9f8f6e920d7365674",
+      "http_date": "Wed, 09 Sep 2026 10:37:20 GMT"
+    },
+    {
+      "id": "aihw-medicines",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/aihw-medicines.source.txt",
+      "source_url": "https://www.aihw.gov.au/reports/medicines/medicines-in-the-health-system",
+      "publisher": "Australian Institute of Health and Welfare",
+      "publication_date": null,
+      "byte_length": 174688,
+      "sha256": "sha256:10e5d5d8445f413dfb611f2e81eeb77302041edee20d7ee39c6ff310c96bf52d",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/aihw-medicines.response-headers.txt",
+      "headers_sha256": "sha256:991920d1b6799da5efa9e9107d85bf5306a21bcf75bbcb60553336be0657169d",
+      "http_date": "Wed, 09 Sep 2026 10:37:22 GMT"
+    }
+  ],
+  "failed_acquisitions": [
+    {
+      "url": "https://www.servicesaustralia.gov.au/who-can-claim-telehealth-services-under-mbs-or-dva?context=20",
+      "http_status": 403,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/sa-telehealth.response-headers.txt",
+      "replacement": "mbs-telehealth"
+    }
+  ],
+  "evidence_ceiling": "A reproducible extraction of what these retained official-host responses reported; no publisher signature, individual linkage, causal attribution or current appointment availability."
+}

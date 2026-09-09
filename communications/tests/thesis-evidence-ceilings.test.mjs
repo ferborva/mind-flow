@@ -9,24 +9,21 @@ const when = readFileSync(resolve(root, "drafts/every-if-is-somebodys-when.md"),
 const programme = readFileSync(resolve(root, "meta/abundance-transition-programme.md"), "utf8").replace(/\s+/g, " ");
 
 test("the IF grammar remains a proposed reporting method rather than a validated diagnosis", () => {
-  assert.match(nameTheIf, /reporting grammar/i);
-  assert.match(nameTheIf, /has not yet been shown to\s+identify the true binding condition/i);
-  assert.match(nameTheIf, /register of candidate conditions, not a\s+diagnosis or forecast/i);
+  assert.match(nameTheIf, /proposed reporting method/i);
+  assert.match(nameTheIf, /evidence boundaries.*boundaries\.md/is);
+  assert.match(nameTheIf, /available information\s+leaves the answer open/i);
   assert.doesNotMatch(nameTheIf, /Every abundance promise has the shape/i);
   assert.doesNotMatch(nameTheIf, /What you get is diagnosis/i);
 });
 
-test("the poverty paragraph retains vintage, nowcast and inference ceilings", () => {
-  assert.match(nameTheIf, /March\s+2026 World Bank Poverty and Inequality Platform vintage/i);
-  assert.match(nameTheIf, /Values after 2024 are nowcasts/i);
-  assert.match(nameTheIf, /not an\s+official World Bank global poverty line/i);
-  assert.match(nameTheIf, /do not identify who abundance rhetoric addresses/i);
+test("piece one focuses on its worked example without unsupported poverty-audience inference", () => {
+  assert.doesNotMatch(nameTheIf, /80\.0%|44\.4%/);
   assert.doesNotMatch(nameTheIf, /talking to the other fifth/i);
 });
 
 test("the supply argument keeps consumer IFs and actor WHENs linked but non-identical", () => {
   assert.match(when, /two registers are linked but non-identical/i);
-  assert.match(when, /not a\s+validated linguistic test/i);
+  assert.match(when, /not a validated linguistic test/i);
   assert.match(when, /Public, social-insurance and private delivery arrangements/i);
   assert.doesNotMatch(when, /Same conditions\. Different verb/i);
   assert.doesNotMatch(when, /there are two kinds of people/i);

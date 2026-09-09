@@ -6,43 +6,43 @@
   "sources": {
     "round_04_bundle": {
       "path": "integration/transition-bundle/fixtures/round-04.worker-option.complete.json",
-      "sha256": "sha256:cbd8aa3843b226b0e1eeeab538314741f00bf9dac62d3af82779f4b03bf8e3d8",
+      "sha256": "sha256:7875e2ff45ebe004f972d8e435da5bfaed50919a2ebc0232724e07426d08e5ca",
       "bundle_id": "bundle.round-04.worker-option.complete",
       "bundle_schema_version": "1.2.0",
       "bundle_stage": "complete-core"
     },
     "governance_context": {
       "path": "governance/lineage/fixtures/round-06.worker-transition.governance-context.synthetic.json",
-      "sha256": "sha256:b911742a07a1531c5800ec578490980fdf08803bc38dc275f97745006bd2838b",
+      "sha256": "sha256:1eb8d6959e3ea732d89cf52724f61724071dc3a38d06e6dd536cc4d90014aeff",
       "context_id": "governance-context.round-06.worker-transition.synthetic",
-      "context_hash": "sha256:87c200bce58b6a3d69873270e662e56603387f9df9dc0c4b0cce88bfe938e898"
+      "context_hash": "sha256:0dc355680468b001808119c714ebb71cfa4406d4ca0fc8a7cedf373034a50234"
     },
     "negotiation": {
       "path": "governance/negotiation-record/fixtures/worker-transition.negotiation.synthetic.json",
-      "sha256": "sha256:6a4b1f310e62f6dc43598571b8576ec2559a8ab89691549264d613c20fb056d3",
+      "sha256": "sha256:e092d6fc3d6e093afc05a197cce7b3e35969bc14756a1c039fb32adea04b72a3",
       "record_id": "negotiation.worker-transition.synthetic",
       "version": "1.0.0",
-      "record_hash": "sha256:bd84b6a41237d929e200cd8fdedcd473d18b6d4091c5af7f3b77ada5af9e5ca1"
+      "record_hash": "sha256:96e08527b979481cbe373d1d41e0d7b071379a510b045aca2132f5072859a7b3"
     },
     "decision": {
       "path": "governance/decision-record/fixtures/worker-transition.decision.synthetic.json",
-      "sha256": "sha256:b9fc22b053f8c105f6ee179efeb66c0e0e16260a7afb70966250e0a7f7dc7920",
+      "sha256": "sha256:d0972f05d0da9edae040a5f8f74ff1ee2034fa235dc7853cad74d0b40567333b",
       "record_id": "decision.worker-transition.synthetic",
       "version": "1.0.0",
-      "record_hash": "sha256:426ffd72c42751251fb4ad4412f1d95ccbf9cbb7610485c5a022c1fc0611d42c"
+      "record_hash": "sha256:d089f3f11f5423c525933957e7a688dba6db9da8627fcf9de75e8bdde52a1479"
     }
   },
   "derived_if": {
     "condition_definition_ref": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+      "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
     },
-    "bundle_evaluation_hash": "sha256:14d6a37b81c3ac6f0fd7252e37b854f06a3fbcdf761bccba39747dfc83e7f12f",
+    "bundle_evaluation_hash": "sha256:dbbe5b2edb8a9215d3cd5dec71fabf5ceb6d6de129900152e23aab5c44046ba0",
     "evaluated_at": "2026-09-09T00:00:00Z",
     "mechanically_valid_for_evaluation": true,
     "computed_rule_state": "true",
-    "governance_receipt_hash": "sha256:4965f8948f275ceabda4bc8c477dbfabebdf0fd58cc336d329851f78d4c28bec"
+    "governance_receipt_hash": "sha256:c91bc7c580ce1d902dfc8e10e61a434be89b83b2d5ca5cbd83d63081512132df"
   },
   "boundaries": {
     "empirical_truth_established": false,
@@ -56,5 +56,5 @@
     "decision_activation_state": "blocked",
     "operational_effect": false
   },
-  "lineage_hash": "sha256:6c4366e60725099654f0a1407e74e2af07f3feb00a3247721ab21b098d7ac723"
+  "lineage_hash": "sha256:ec84c00887299e4fdacc63df990ed4b74b3f3e291489c4e3c33d99decdc0c162"
 }

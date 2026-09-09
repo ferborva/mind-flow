@@ -82,13 +82,14 @@ test("the corrected record preserves immutable, honestly unverified predecessors
     `sha256:${createHash("sha256").update(readFileSync(predecessorSnapshotPath)).digest("hex")}`,
   );
   assert.equal(snapshot.correction?.source_values_changed, false);
-  assert.equal(index.latest, snapshot.record_id);
+  assert.equal(index.latest, "2026-09-09.r1");
   assert.deepEqual(index.snapshots.map(({ id }) => id), [
     "2026-09-07.r1",
     "2026-09-07.r2",
     "2026-09-08.r1",
     "2026-09-08.r2",
     snapshot.record_id,
+    "2026-09-09.r1",
   ]);
   assert.match(template, /id=["']snapshot-correction["']/);
   assert.match(template, /supersedes_record_id/);
@@ -819,7 +820,7 @@ test("the build enforces series, headline, latest and action-authority semantics
 test("the build produces a self-contained page with parseable application code", () => {
   const outDir = mkdtempSync(join(tmpdir(), "seldon-observatory-"));
   const outputPath = join(outDir, "index.html");
-  execFileSync(process.execPath, [buildPath, snapshotPath, outputPath]);
+  execFileSync(process.execPath, [buildPath, join(dashboard, "snapshots", "2026-09-09.r1.json"), outputPath]);
   const built = readFileSync(outputPath, "utf8");
 
   assert.doesNotMatch(built, /__SNAPSHOT__/);

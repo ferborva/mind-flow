@@ -111,6 +111,25 @@ subgroup observation. Source overlap stays visible in any comparison.
 
 ### First measured application
 
+The first retained-input pass keeps eight macro-context series, removes the
+eight unsupported placeholders with recorded reasons, and adds four distinctly
+named NSW primary-care series. This makes twelve available panel entries,
+not sixteen completed measurements of agency. The added series are:
+
+| Series | Category and measured population | Candidate owner |
+| --- | --- | --- |
+| GP cost-related delay | Price; survey-scope residents aged 15+ needing GP care | Practices and Commonwealth Medicare benefit setters |
+| Fully bulk-billed GP patients | Price; patients with Medicare GP attendances during the year | Practices and Commonwealth Medicare benefit setters |
+| Prescription cost-related delay | Price; survey-scope residents aged 15+ needing prescription medicines | Commonwealth PBS policy and pharmacies |
+| Urgent GP care within four hours | Availability; survey-scope residents aged 15+ who obtained urgent GP care | Practices, PHNs and workforce/service funders |
+
+The [dispositions](../pilots/australia/basket/panel-dispositions.json) preserve
+the distinction between removing a missing measure and replacing its concept.
+These populations differ. NSW context is not a rural individual's diagnosis;
+urgent users exclude people unable to obtain care. The five-direct-category,
+same-population current-access gate remains unmet. Rule parameters, spatial
+workforce context and 2018 navigation evidence do not complete it.
+
 Australia is the first bounded test: a GP consultation, a common prescription
 pathway, a referral pathway and an after-hours option. Each basket item needs
 price, permission, proximity, availability and capability evidence. The NERO

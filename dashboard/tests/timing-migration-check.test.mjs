@@ -38,7 +38,7 @@ test("the historical migration verifies both 2026-09-07 revisions without rewind
   assert.match(output, /Verified historical timing migration/);
   assert.match(output, /Original sha256:949a9d3f/);
   assert.match(output, /Correction sha256:9abcde33/);
-  assert.equal(JSON.parse(before).latest, "2026-09-08.r3");
+  assert.equal(JSON.parse(before).latest, "2026-09-09.r1");
 });
 
 test("the historical migration rejects drift in either 2026-09-07 revision", () => {
