@@ -20,3 +20,6 @@ preserved to make that chronology inspectable.
 No forecast has been issued by this registration. Final coordinator clearance
 and the frozen issue window still gate issuance. Bound source files remain at
 reviewed revision `47b3021`; any later bound change requires disclosed abandonment.
+The full resolved source revision is
+`47b3021fe602c964268143a45d4de68b8fd200e3`. This note records its expansion
+without changing the short revision string in any sealed record.
