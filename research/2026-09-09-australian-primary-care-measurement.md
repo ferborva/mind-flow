@@ -13,8 +13,10 @@ updated: 2026-09-09
 **Price demonstrably obstructed GP care for a survey-estimated subset of NSW
 residents in 2024-25. The retained data cannot identify a rural clerical
 worker's binding condition today.** The basket now has reproducible indicators
-in all five categories. Three are rule or contextual measures, so the gate for
-five direct, current access measurements remains open.
+in all five categories for the GP item. Three are rule or contextual measures,
+of the kinds expressly permitted in the brief. This supports the literal
+five-category retained-indicator gate, subject to independent review. It does
+not establish five direct, jointly measured current access conditions.
 
 This is Ren's commissioned research, not Fernando's healthcare policy or a
 clinical recommendation. The [measurement boundaries](#measurement-boundaries)
@@ -152,9 +154,14 @@ both a fee and a queue. A public-finance reading cannot identify a causal
 effect of rebates from these before-and-after descriptive series. These are
 analytical challenges, not claims of consultation with those people.
 
-The five-category direct-current-measurement gate remains unmet. Item-specific
-prescription, referral and after-hours coverage is incomplete. The current
-individual binding-condition gate remains unmet. Agency itself is unmeasured.
+The brief's one-item five-category indicator gate is supported for the GP item;
+the stronger direct-current comparison is an additional evidence ceiling, not
+a replacement gate. Workstream B's coverage of every basket item remains
+incomplete. Item-specific
+prescription, referral and after-hours coverage is incomplete. Which category
+binds today remains undetermined for each basket item and geography. The NSW
+price finding is historical and scoped to the reporting subset. Agency itself
+is unmeasured.
 The evidence supports the narrower historical and contextual statements above,
 and no clinical, publication, intervention or decision authority follows.
 
