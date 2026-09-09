@@ -1,0 +1,17 @@
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+content-length: 48101
+x-drupal-dynamic-cache: MISS
+content-language: en
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+last-modified: Wed, 09 Sep 2026 01:50:14 GMT
+etag: "1788918614"
+strict-transport-security: max-age=31536000; includeSubDomains
+x-drupal-cache: HIT
+x-lagoon: amazeeio-govcms6>sigsci-ingress-nginx>jsa-master:nginx>nginx-dc988d97b-n2wtl
+cache-control: public, max-age=3600
+expires: Wed, 09 Sep 2026 11:44:48 GMT
+date: Wed, 09 Sep 2026 10:44:48 GMT
+alt-svc: h3=":443"; ma=93600
+
