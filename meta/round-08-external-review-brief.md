@@ -36,6 +36,11 @@ against that checkout using the Round 08 policy. Reviewers should record their
 first pass before reading one another's conclusions. Previous creator or
 different-agent checks are evidence to reproduce, not votes to inherit.
 
+The progress register contains an exact 22-commit coordinator authorship
+correction. Those commits inherited Fernando's Git identity but were created
+by Ren. They are not Fernando's authorship or endorsement. Later commits use
+the corrected agent identity; published history was not rewritten.
+
 ## What changed
 
 - The programme and panel have a declared theory, condition categories,

@@ -200,3 +200,46 @@ gate, incomplete other-basket coverage, unpinned inherited macro raw inputs,
 and the retained freeze-domain/receipt-authenticity/history-weight deferrals.
 No additional honest source inference can turn these into current individual
 measurements. External review, not another internal round, is the next step.
+
+## 2026-09-09, coordinator Git authorship correction before final freeze
+
+The final history audit found 22 coordinator-created commits that inherited
+Fernando's configured Git author identity. They were created by Ren during
+this commissioned round, not authored or approved by Fernando. This is an
+authorship error, not evidence of Fernando endorsing the proposals or remedies.
+Some carry an `Agent: Ren` trailer; several merge commits do not. The exact
+affected commits are listed below so neither display names nor missing trailers
+can silently misattribute them. No claim is made about unrelated user commits.
+
+```text
+db550c53870785787449e0ff28caf7cc591d009a
+bda742d9ea5688473badcbfd58c1af6fd1548e5d
+c17125261c5d5a83ee2043970b13c6eb6a3ee72e
+2be9a98676df848a372b31f63242bdb42fd3cc80
+36728ec6e7bcd582718a589e38523ccc92a2828c
+9974f8facacaa08b77ded6b310496f9264be4292
+ccba6f356b918bf2e6313286b31132a2e74b87a5
+d90b1779ab132586f2a66824bcf7684702dd395c
+953e76f46a21e026a95aab2b0f559d19a051bf57
+9eca7d1f23660d18bc2da8c2fe0852e12de45c3d
+f0706b0cc7f15e92d568ac80ea87356cbf82ab42
+87e2e92f3f4e30a2cae4692cc9fa678887cd69ab
+ade61f93054b78ff14514d512c4c633541ecc136
+1ee68021d92092bb95e30af95bc944823a0b5349
+79f25c0ed731b5d8a5176af108bfbec331759401
+88002986146f525995d2d62c8a44ee09ef384c57
+1f8d027e9966a566fcbd5b4c22a8764903df7bfd
+3a05fb21fa750258ffed89683d356f6b820e45db
+1d728a55d35fdb32d54be395cf4bce4708a707b1
+f488313ff7e8b1f4f08f557babc64a7cd02b79c1
+e0e253b40cf80b37f6562ef5decb4208b9229c0a
+8335685c66180febfa1e82f9613fe17073641d67
+```
+
+The repository-local Git identity is now `Ren (AI agent)` with
+`ren-agent@users.noreply.github.com`. Published history is preserved, not
+force-rewritten. This disclosure is added to the final candidate; the earlier
+`db550c5` reproduction attempt is not the final review target. Reviewers should
+evaluate authorship from this correction and the captures, not the erroneous
+Git identity. The forecast's sealed source and immutable issue bytes are
+unaffected.
