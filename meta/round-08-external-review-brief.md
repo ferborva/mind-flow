@@ -54,6 +54,8 @@ different-agent checks are evidence to reproduce, not votes to inherit.
 - The NERO prospective protocol fixes one October occupation-region cell,
   baseline, source bytes, resolver, clocks and resolution procedure. Its
   registration receipt is a genuine GitHub response, separately checkable.
+  The immutable forecast was issued at 2026-09-09T11:43:39Z; all scores remain
+  withheld. A different owner checked the actual issued bytes and chronology.
 - The five public drafts were rewritten and reviewed against the captures.
   Piece one uses US healthcare, a two-sentence country contrast and an invitation.
   It introduces no remedy, crisis layer or supply-side argument. The enterprise-
@@ -87,7 +89,8 @@ national context, published eligibility rules or unlinked NERO estimates.
 Start with the [rural-worker page](../pilots/australia/basket/README.md),
 [measurement analysis](../research/2026-09-09-australian-primary-care-measurement.md),
 [positive observations](../research/2026-09-09-positive-primary-care-signals.md),
-[prospective record and resolution procedure](../forecasts/prospective-pilot/round-08-nero/README.md),
+[issued forecast](../forecasts/prospective-pilot/round-08-nero/issuance-note.md),
+[prewritten resolution procedure](../forecasts/prospective-pilot/round-08-nero/README.md),
 and [Name the If](../drafts/name-the-if.md).
 Then inspect the [programme](abundance-transition-programme.md),
 [different-owner measurement review](../reviews/round-08-measurement-independent-review.md),

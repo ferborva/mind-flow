@@ -166,3 +166,37 @@ candidate, not by pretending those closed views include them. Remote `main`
 remains `b17d4ac993bbb04467db4e0a53f27e64e8193e8a`. Forecast issuance is now
 cleared after the full-suite pass, but its actual immutable record still needs
 a separate different-owner check. No score is authorised before resolution.
+
+## 2026-09-09 11:50 UTC, issued record and pre-freeze checkpoint
+
+C issued at actual local UTC `2026-09-09T11:43:39Z`, retained in
+`forecasts/prospective-pilot/round-08-nero/issued.json`, exact SHA-256
+`bc230310d6edb9814ef350dd58f683ca26f7fd60a9a43cd48c1ed2aacf995053`.
+The measurement-lane reviewer independently checked integrated `2be9a986`:
+14 sealed dependencies remain identical to `47b3021`; the protocol and genuine
+provider receipt remain unchanged; receipt precedes issue; resolution closes
+88.511 days after issue. Both retained baseline calculations and three cohort
+anchors match their hashes. Two actual-issuance/evaluation checks passed. The
+one-member report reconstructs exactly with one pending, zero scored, no Brier
+or log-loss value and no calibration claim. This is different-agent review,
+not externally authenticated registration or institutional independence.
+
+F's different-owner final inspection confirmed both hydrated archive and local
+LFS object match the 48,613,300-byte pointer's hash and size. No Observatory
+frontend source additions or restyling were found. That review identified two
+final reproduction omissions: explicit required issuance artifacts, and CI
+measurement/output-parity commands. Two focused regressions failed before the
+repair and passed after. The frozen policy now requires the issue, sealed
+protocol, evaluation plan and exact provider response, and reruns the actual
+issued-file check. CI explicitly replays the four measurement producers and
+the ignored-output byte-parity check. Round 08 receipt verification is added
+with the later seal commit, outside the candidate that receipt identifies.
+
+The next operation is detached reproduction and freezing of this exact
+candidate, followed by independent CI. Remaining gates and workstream gaps are
+not implementation permission to invent current access data or pad prose.
+The eight-track brief records the unresolved diagnosis and universal disclaimer
+gate, incomplete other-basket coverage, unpinned inherited macro raw inputs,
+and the retained freeze-domain/receipt-authenticity/history-weight deferrals.
+No additional honest source inference can turn these into current individual
+measurements. External review, not another internal round, is the next step.
