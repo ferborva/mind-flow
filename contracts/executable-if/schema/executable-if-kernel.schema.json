@@ -159,7 +159,7 @@
         "value_kind": { "enum": ["number", "boolean"] },
         "value_range": {
           "type": "object",
-          "required": ["minimum", "maximum"],
+          "minProperties": 1,
           "properties": {
             "minimum": { "type": "number" },
             "maximum": { "type": "number" }

@@ -26,6 +26,34 @@ const conformanceVectors = JSON.parse(readFileSync(
 ));
 const clone = (value) => structuredClone(value);
 
+test("one-sided numeric domains preserve feasible pass and fail outcomes", () => {
+  function evaluate(range, operator, threshold) {
+    const item = clone(definition("condition.worker-option"));
+    const signals = clone(fixture.signals);
+    signals[0].unit = "AUD";
+    signals[0].value_range = range;
+    signals[0].signal_definition_hash = computeSignalDefinitionHash(signals[0]);
+    const predicate = item.predicates["option-coverage"];
+    predicate.signal_ref.signal_definition_hash = signals[0].signal_definition_hash;
+    predicate.threshold = { value: threshold, unit: "AUD" };
+    predicate.operator = operator;
+    item.evaluator_ref = FIXED_EVALUATOR_REF;
+    item.definition_hash = computeConditionDefinitionHash(item);
+    return evaluateCondition(item, signals, [], { evaluatedAt: "2026-06-01T00:00:00Z" }).mechanically_valid_for_evaluation;
+  }
+  for (const [range, operator, threshold] of [
+    [{ minimum: 0 }, "lte", 0], [{ minimum: 0 }, "gt", 0],
+    [{ minimum: 0 }, "gte", 1e12], [{ maximum: 0 }, "gte", 0],
+    [{ maximum: 0 }, "lt", 0], [{ maximum: 0 }, "lte", -1e12],
+  ]) assert.equal(evaluate(range, operator, threshold), true);
+  for (const [range, operator, threshold] of [
+    [{ minimum: 0 }, "gte", 0], [{ minimum: 0 }, "lt", 0],
+    [{ maximum: 0 }, "lte", 0], [{ maximum: 0 }, "gt", 0],
+    [{}, "gte", 1], [{ minimum: 1, maximum: 0 }, "lte", 0],
+    [{ minimum: Number.NaN }, "lte", 0], [{ maximum: Number.POSITIVE_INFINITY }, "gt", 0],
+  ]) assert.equal(evaluate(range, operator, threshold), false);
+});
+
 test("every condition requires a declared category and discretion belongs only to availability", () => {
   for (const category of [undefined, "optimism"]) {
     const changed = kernelThroughRevision((revised) => {
