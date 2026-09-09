@@ -1,12 +1,12 @@
 ---
 id: from-if-to-when
 title: From If to When
-subtitle: A transition plan for abundance, and the fifty-year warning
+subtitle: Conditional transition scenarios and the evidence that would change them
 type: draft
 status: review
 size: long
 themes: [abundance]
-sources: [2026-09-01-abundance-is-conditional, 2026-09-07-deflation-metric-and-labour-paradox, 2026-09-07-endorsing-the-red-team, 2026-09-09-softer-on-tax-and-remedy]
+sources: [2026-09-01-abundance-is-conditional, 2026-09-07-deflation-metric-and-labour-paradox, 2026-09-07-endorsing-the-red-team, 2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026-09-07-red-team-moonshot, 2026-09-07-labour-supply-and-cost-disease, 2026-09-07-transition-precedents-and-adkar, 2026-09-07-transition-control-system]
 provenance: commissioned-proposal
 audience: the Moonshot Mates
@@ -259,19 +259,24 @@ the same rules, and let affected communities shape the response before it is
 needed.**
 That is what turns Awareness into agency rather than fear.
 
-## 🗺 The five phases
+## 🗺 Five scenarios to test against conditions
 
-Overlapping, not clean. The dates are scenarios, not forecasts. **Each phase has
-an observable gate because a calendar cannot tell us whether society is ready.**
-I would rather be argued out of the dates than let them become promises.
+**Ask which condition is binding today and what would have to change.** These
+are Ren's scenario prompts for comparing possible responses, not a sequence.
+The earlier calendar ranges have been retired: they had no measured basis.
+Fernando's 8 September capture says conditions fall progressively, sometimes
+unintentionally, and their order cannot be planned. Any of the situations below
+could coexist, reverse or never arise. Assess them for a named population,
+service and place before discussing a response.
 
-### Phase 1 · Awareness · *now to ~2030*
+### Scenario: people cannot see which condition affects them
 
-**The job: make the transition legible.** Nothing else works until people can see
-what is happening to them, in their own sector, with numbers.
+**Candidate binding condition today: capability to interpret and use the
+available information.** Test that diagnosis with affected readers; a missing
+chart is not evidence that people lack understanding.
 
-**Gate:** sector baselines exist, exposed cohorts are named, and every warning
-has an owner and a pre-committed response.
+**What would have to change:** the relevant population can identify the
+observed barrier, its owner and what the evidence leaves unresolved.
 
 - **Government:** reactive and fragmented. Rules written per-incident. No
   measurement worth the name.
@@ -282,14 +287,17 @@ has an owner and a pre-committed response.
   curves.** What does the service cost end to end, who receives it, and how fast
   are both changing?
 
-### Phase 2 · Desire · *~2028 to 2038* · **the high-risk crossing**
+### Scenario: costs bind while an exposed cohort's income changes
 
-**The job: give people a reason to want this.** This is where Engels' Pause
-lives. Displacement is visible; price relief is not yet. Every social crossing
-in this piece happens here.
+**Candidate binding condition today: price for a specified service basket.**
+Compare the cohort's resources and complete costs before invoking a historical
+transition analogy. The outcome being tested is continued access, not whether
+people can be persuaded to welcome the change.
 
-**Gate:** the access floor holds for exposed cohorts through two consecutive
-reporting periods, not only for the national average.
+**What would have to change:** matched observations show fewer people prevented
+from using the service by cost, with travel, waiting and eligibility assessed
+alongside it. Reporting periods and acceptable uncertainty belong in a scoped
+test design, rather than being invented by a scenario.
 
 - **Government:** reaches for tax and transfers, because they can protect access
   quickly. They can bridge a shock but cannot manufacture cheap housing, care or
@@ -305,13 +313,15 @@ reporting periods, not only for the national average.
   worker-transition plans and a floor commitment. Neither side has to trust the
   other, which is the point.
 
-### Phase 3 · Knowledge · *~2035 to 2045*
+### Scenario: a technically workable service still fails to reach people
 
-**The job: learn how to actually take things to zero.** The mechanisms get built
-and tested here.
+**Candidate binding condition today: permission, proximity or availability.**
+Determine which one from the actual route to care; technical capability and a
+cheap component price alone cannot choose among them.
 
-**Gate:** at least one essential service has proven end-to-end access at quality,
-with an independent audit and a route that works for the least-served cohort.
+**What would have to change:** the complete service route becomes usable at
+the specified standard for the least-served included population, confirmed by
+independent observations of delivery and exclusions.
 
 - **Government:** becomes a **buyer of last resort for verified access.** Advance
   market commitments show how guaranteed demand can pull supply into existence,
@@ -323,12 +333,15 @@ with an independent audit and a route that works for the least-served cohort.
   Near-zero consumer cost is one candidate indicator, not the outcome itself.
 - **The relationship:** co-design. Still self-interested, now aligned.
 
-### Phase 4 · Ability · *~2042 to 2055*
+### Scenario: access improves locally but depends on fragile provision
 
-**The job: the floor actually holds at scale.**
+**Candidate binding condition today: availability, including discretion.**
+Identify which provider or funder can withdraw the service and the alternatives
+available to the affected population.
 
-**Gate:** the access guarantee survives a recession, a provider failure and a
-change of government without dropping the people it was built for.
+**What would have to change:** observed continuity and a tested alternative
+route support the claimed durability. A stress scenario names what evidence a
+provider failure or funding change would require; it cannot certify resilience.
 
 - **Government:** shifts from redistributing income to **guaranteeing access.**
   These are different jobs with different instruments.
@@ -336,22 +349,21 @@ change of government without dropping the people it was built for.
   looking like regulated utility provision, with the returns earned above it.
 - **The relationship:** stewardship, with the usual capture risks.
 
-### Phase 5 · Reinforcement · *2050 onward*
+### Scenario: access persists but people cannot challenge its terms
 
-**The job: make the floor durable and its governance correctable.** A floor that
-disappears in a downturn is not a floor. A policy that cannot be challenged,
-reversed when harmful or changed democratically is not durable agency either.
+**Candidate binding condition today: permission to challenge, exit or seek an
+alternative.** Look at the actual rights, process and practical cost for the
+people affected, including those whose experience differs from the average.
 
-**Gate:** rights, funding, delivery and appeals are durable enough that access no
-longer depends on one administration or one provider.
+**What would have to change:** the affected population can use the relevant
+review or alternative route and independently report the outcome.
 
 - Entrench the guarantees through durable funding, enforceable rights and appeals.
   Constitutional or treaty-level protection may fit some countries. The test is
   whether the floor survives political and economic stress, not which legal form
   sounds strongest.
-- **This is the phase where my "conditions are national" argument bites
-  hardest**, because the entrenchment happens country by country, and the
-  divergence becomes permanent.
+- Compare the same condition across jurisdictions and time. Persistence or
+  divergence must be observed; a scenario cannot make either permanent.
 
 ## 🧮 How the ifs evolve
 
