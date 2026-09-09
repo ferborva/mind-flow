@@ -35,12 +35,28 @@ test("Round 07 exposes six ordered, bounded component review lanes", () => {
     assert.deepEqual(lane.depends_on, index === 0 ? [] : [plan.lanes[index - 1].id]);
     assert.ok(lane.paths.length > 0);
     assert.ok(lane.check_commands.length > 0);
+    assert.match(lane.verification_scope, /^(partial|complete)-/);
     assert.equal(lane.independently_mergeable, false);
     assert.equal(lane.reviewable_as_bounded_diff, true);
   }
   assert.equal(plan.boundaries.independent_retest_completed, false);
   assert.equal(plan.boundaries.publication_authority_created, false);
   assert.equal(plan.boundaries.operational_authority_created, false);
+});
+
+test("partial lane checks disclose every deferred cross-layer suite", () => {
+  const formalLane = plan.lanes.find(({ id }) => id === "R07-L3");
+  const pilotLane = plan.lanes.find(({ id }) => id === "R07-L4");
+  assert.deepEqual(formalLane.deferred_checks, [
+    "npm run test:evidence",
+    "npm run test:integration",
+    "npm run test:governance",
+  ]);
+  assert.deepEqual(pilotLane.deferred_checks, [
+    "npm run test:pilot",
+    "npm run test:rehearsal",
+  ]);
+  assert.ok(plan.lanes.at(-1).check_commands.includes("npm test"));
 });
 
 test("every changed path belongs to exactly one component lane", () => {

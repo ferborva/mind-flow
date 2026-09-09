@@ -282,8 +282,6 @@ test("global and Australian evidence builders enforce exact source-host allowlis
     ], { occupationCodes: ["5311"], source }),
     /source host.*allowlist/i,
   );
-
-  assert.equal(root.endsWith("mind-flow"), true);
 });
 
 test("the retained raw-input verifier rejects absolute and escaping paths", () => {

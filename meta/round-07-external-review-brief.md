@@ -44,6 +44,11 @@ Each component PR is a review view, not an independently mergeable product.
 Review the six diffs in order. Then test the final integration tree as a whole.
 No path may disappear between the component stack and the frozen candidate.
 
+Some intermediate lanes deliberately defer checks that require a later lane.
+The manifest names every such suite and provides narrower checks that must pass
+at that point in the stack. A partial lane result is not a system verdict. The
+final lane must run every deferred suite through the complete `npm test` gate.
+
 ## Independent tracks
 
 1. **Provenance and public meaning.** Trace first-person substance to capture.
@@ -123,4 +128,3 @@ specified hostile checks. It cannot authenticate source publishers, clocks,
 reviewers, representatives, mandates or signatures. It cannot establish that a
 forecast is calibrated, that a remedy is desirable, or that any institution or
 population has consented. Those remain external work.
-
