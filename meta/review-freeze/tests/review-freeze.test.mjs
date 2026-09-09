@@ -21,6 +21,7 @@ import {
   ROUND_06_REVIEW_POLICY,
   canonicalHash,
   createReviewFreeze,
+  executableRecord,
   executablePath,
   reviewPolicyFor,
   resolveReviewOutput,
@@ -92,6 +93,23 @@ test("executable discovery works inside the restricted toolchain without which",
     process.env.PATH = previousPath;
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+test("an unsupported version flag is recorded honestly when executable bytes are available", () => {
+  const record = executableRecord(
+    "sh",
+    ["-c", "printf 'unsupported version probe\\n' >&2; exit 2"],
+    "/bin/sh",
+    { allowUnsupportedVersion: true },
+  );
+  assert.match(record.version, /version unavailable \(probe exit 2\)/i);
+  assert.match(record.version, /unsupported version probe/i);
+  assert.match(record.executable_sha256, /^sha256:[a-f0-9]{64}$/);
+  assert.throws(() => executableRecord(
+    "sh",
+    ["-c", "exit 2"],
+    "/bin/sh",
+  ), /version could not be recorded/i);
 });
 
 function command(cwd, argv) {

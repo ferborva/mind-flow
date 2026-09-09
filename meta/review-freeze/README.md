@@ -20,7 +20,7 @@ and review contracts:
 - ordered argv arrays for every required build command, avoiding shell parsing;
 - the Node, npm, Git, Python, unzip and shell versions and executable hashes,
   operating system, fixed command environment, checkout directory name and
-  exact package-lock bytes;
+exact package-lock bytes;
 - complete stdout and stderr bytes, digests, exit status and timing for every
   reproduction command; and
 - whether a detached checkout changed tracked files or created unexpected
@@ -43,6 +43,10 @@ behaviour inside a command remains invisible.
 The detached checkout is named `mind-flow` because a frozen Round 04 regression
 test explicitly checks that basename. Recording it turns that hidden assumption
 into a visible runtime input.
+Some POSIX shells do not implement a `--version` flag. In that case the runtime
+record preserves the nonzero probe exit and output as `version unavailable`
+while still binding the exact shell path and executable bytes. It never invents
+a shell version.
 
 The Round 04 policy intentionally preserves the brief's `npm install` command.
 That is weaker than `npm ci` as a lockfile reproduction contract. The tool

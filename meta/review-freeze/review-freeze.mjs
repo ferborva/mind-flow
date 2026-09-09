@@ -373,12 +373,26 @@ export function executablePath(name) {
   throw new Error(`${name} executable is unavailable`);
 }
 
-function executableRecord(name, versionArgs, explicitPath) {
+export function executableRecord(name, versionArgs, explicitPath, {
+  allowUnsupportedVersion = false,
+} = {}) {
   const path = explicitPath ? realpathSync(explicitPath) : executablePath(name);
   const version = spawnSync(path, versionArgs, { encoding: "utf8" });
-  if (version.status !== 0) throw new Error(`${name} version could not be recorded`);
+  if (version.error || !Number.isInteger(version.status) ||
+      (version.status !== 0 && !allowUnsupportedVersion)) {
+    throw new Error(`${name} version could not be recorded`);
+  }
+  const probeOutput = [version.stdout, version.stderr]
+    .map((value) => String(value || "").trim())
+    .filter(Boolean)
+    .join("\n");
+  if (version.status === 0 && !probeOutput) {
+    throw new Error(`${name} version could not be recorded`);
+  }
   return {
-    version: version.stdout.trim(),
+    version: version.status === 0
+      ? probeOutput
+      : `version unavailable (probe exit ${version.status}): ${probeOutput || "no probe output"}`,
     executable_path: path,
     executable_sha256: canonicalHash(readFileSync(path)),
   };
@@ -392,7 +406,9 @@ function runtimeInputs(repositoryRoot, commit) {
     git: executableRecord("git", ["--version"]),
     python3: executableRecord("python3", ["--version"]),
     unzip: executableRecord("unzip", ["-v"]),
-    sh: executableRecord("sh", ["--version"], "/bin/sh"),
+    sh: executableRecord("sh", ["--version"], "/bin/sh", {
+      allowUnsupportedVersion: true,
+    }),
     operating_system: { platform: platform(), release: release(), architecture: arch() },
     checkout_directory_name: "mind-flow",
     command_environment: structuredClone(FIXED_COMMAND_ENVIRONMENT),
