@@ -562,6 +562,20 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
       errors.push(error("PREDICATE_OPERATOR_TYPE_MISMATCH", `${path}/predicates/${predicateId}/operator`,
         "boolean signals support only eq and neq"));
     }
+    if (signal.value_kind === "number" && ["ratio", "percent"].includes(signal.unit)) {
+      const maximum = signal.unit === "ratio" ? 1 : 100;
+      const value = predicate.threshold.value;
+      const outside = value < 0 || value > maximum;
+      const vacuous = outside ||
+        (predicate.operator === "gte" && value === 0) ||
+        (predicate.operator === "lt" && value === 0) ||
+        (predicate.operator === "lte" && value === maximum) ||
+        (predicate.operator === "gt" && value === maximum);
+      if (vacuous) {
+        errors.push(error("PREDICATE_THRESHOLD_VACUOUS", `${path}/predicates/${predicateId}/threshold`,
+          "a bounded signal threshold must permit both passing and failing values in its domain"));
+      }
+    }
     if (predicate.missing_result !== "unknown" || predicate.stale_result !== "stale" ||
         predicate.conflict_result !== "conflicted") {
       errors.push(error("PREDICATE_RESULT_POLICY_INVALID", `${path}/predicates/${predicateId}`,

@@ -26,6 +26,24 @@ const conformanceVectors = JSON.parse(readFileSync(
 ));
 const clone = (value) => structuredClone(value);
 
+test("ratio threshold revisions retain both possible passing and failing values", () => {
+  for (const [operator, value] of [["gte", 0], ["gte", 1e9], ["lte", 1], ["lt", 0], ["gt", 1]]) {
+    const changed = kernelThroughRevision((revised) => {
+      revised.predicates["option-coverage"].operator = operator;
+      revised.predicates["option-coverage"].threshold.value = value;
+    });
+    const result = validateExecutableIfKernel(changed);
+    assert.equal(result.machine_valid, false, `${operator} ${value} must reject`);
+    assert.ok(result.errors.some(({ code }) => code === "PREDICATE_THRESHOLD_VACUOUS"));
+  }
+  for (const value of [0.01, 0.85, 1]) {
+    const changed = kernelThroughRevision((revised) => {
+      revised.predicates["option-coverage"].threshold.value = value;
+    });
+    assert.equal(validateExecutableIfKernel(changed).machine_valid, true);
+  }
+});
+
 function definition(id) {
   return fixture.events
     .flatMap(({ introduced_definitions: introduced }) => introduced)
