@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
@@ -60,6 +61,15 @@ test("workflow validation rejects omitted untracked files and failed-reproductio
     workflow.replace(" --untracked-files=all", "")));
   assert.throws(() => assertReproductionCannotBeWeakened(
     workflow.replace("--policy=round-07", "--policy=round-07 --allow-failed-reproduction")));
+});
+
+test("generated HTML and Observatory data are build artifacts rather than tracked source", () => {
+  const tracked = execFileSync("git", ["ls-files", "--", "dashboard/web/index.html",
+    "pilots/australia/web/index.html", "dashboard/observatory/data.js",
+    "experiments/observatory-comparison/rendered/*.html"], { cwd: root, encoding: "utf8" }).trim();
+  assert.equal(tracked, "");
+  assert.match(workflow, /actions\/upload-artifact@[a-f0-9]{40}/);
+  assert.match(workflow, /lfs:\s*true/);
 });
 
 test("local and CI runtime contracts pin the same Node major", () => {

@@ -5,6 +5,8 @@
     "node": "22.x"
   },
   "scripts": {
+    "pretest": "npm run build:artifacts",
+    "build:artifacts": "node meta/build-artifacts.mjs",
     "test": "export PYTHONDONTWRITEBYTECODE=1 && npm run test:contracts && npm run test:agency-map && npm run test:executable-if && npm run test:integration && npm run test:governance && npm run test:evolution && npm run test:evidence && npm run test:signals && npm run test:paths && npm run test:options && npm run test:preparation && npm run test:forecasts && npm run test:dashboard && npm run test:pilot && npm run test:rehearsal && npm run test:communications && npm run test:experience && npm run test:review-freeze",
     "test:contracts": "node --test contracts/tests/*.test.mjs",
     "test:agency-map": "node --test contracts/agency-map/tests/*.test.mjs",

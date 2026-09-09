@@ -58,7 +58,7 @@ jobs:
       - name: Rebuild the Australia pilot
         run: >-
           node dashboard/tools/build-australia-pilot.mjs
-          pilots/australia/data/nero-clerical-2026-08.json
+          pilots/australia/data/nero-clerical-2026-08.r2.json
           pilots/australia/web/index.html
 
       - name: Reproduce the Round 4 transition checkpoint
@@ -71,3 +71,17 @@ jobs:
 
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"
+
+      - name: Retain reproduced research interfaces
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: research-interfaces
+          if-no-files-found: error
+          path: |
+            dashboard/web/index.html
+            pilots/australia/web/index.html
+            dashboard/observatory/index.html
+            dashboard/observatory/data.js
+            dashboard/observatory/app.js
+            dashboard/observatory/styles.css
+            experiments/observatory-comparison/rendered/*.html
