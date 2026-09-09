@@ -264,7 +264,7 @@ assessment-bundle identities. It omits the seven-part public update because
 that update is a separate claim graph whose dependencies may extend beyond the
 current atlas selection.
 
-## Australian evidence boundary
+## Australia evidence room: evidence boundary
 
 The Australian pilot freezes the August 2026 NERO archive and exposes 440
 separate modelled series for five clerical occupations across 88 SA4 regions.

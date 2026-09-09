@@ -27,6 +27,8 @@ if (!/^\d{4}-\d{2}-\d{2}(?:\.r\d+)?$/.test(index.latest)) {
 return [
   ["dashboard/tools/build.mjs", `dashboard/snapshots/${index.latest}.json`, "dashboard/web/index.html"],
   ["pilots/australia/tools/correct-baseline-classification.mjs", "--check"],
+  ["pilots/australia/tools/primary-care-review.mts", "--check"],
+  ["pilots/australia/tools/current-primary-care.mts", "--check"],
   ["dashboard/tools/build-australia-pilot.mjs", "pilots/australia/data/nero-clerical-2026-08.r2.json", "pilots/australia/web/index.html"],
   ["dashboard/observatory/build.mjs"],
   ["experiments/observatory-comparison/render.mjs"],

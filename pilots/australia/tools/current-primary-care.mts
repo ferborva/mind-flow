@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { isDeepStrictEqual as same } from 'node:util';
 import { computeConditionDefinitionHash, computeEventHash, computeManifestHash, validateExecutableIfKernel } from '../../../contracts/executable-if/validate.mjs';
 import { projectExecutableIfEvolution, computeExecutableIfEvolutionManifestHash, validateExecutableIfEvolution } from '../../../contracts/evolution/project-executable-if.mjs';
+import { auditPrimaryCareThresholds } from './audit-primary-care.mts';
 
 const root = resolve(import.meta.dirname, '../../..');
 const originalPath = 'pilots/australia/basket/primary-care.kernel.r3.json';
@@ -79,7 +80,7 @@ export function assessPositiveBinding(consumer: any, kernel: any) {
     if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, errors: ['Invalid kernel'] };
     const expected = same(kernel, original) ? originalConsumer : rebindPositiveConsumer(originalConsumer, kernel);
     const valid = same(consumer, expected);
-    return { valid, errors: valid ? [] : ['Consumer values, current definition binding or evidence ceiling differ'] };
+    return { valid, errors: valid ? [] : ['Consumer values, current definition binding or evidence ceiling differ'], threshold_audit: auditPrimaryCareThresholds(kernel) };
   } catch (error) { return { valid: false, errors: [String(error)] }; }
 }
 
@@ -109,6 +110,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       if (check) { if (readFileSync(resolve(root, path), 'utf8') !== bytes(value)) throw new Error(`Retained evolution drift: ${path}`); }
       else writeFileSync(resolve(root, path), bytes(value), { flag: 'wx' });
     }
-    console.log('One persisted AU event and explicit positive-consumer rebind verified; no current access or population-comparability claim.');
+    const assessment = assessPositiveBinding(read(consumerPath), read(currentPath));
+    if (!assessment.valid) throw new Error(JSON.stringify(assessment.errors));
+    console.log(`One persisted AU event and explicit positive-consumer rebind verified. Threshold review: ${assessment.threshold_audit?.status}; no current access, empirical plausibility or population-comparability claim.`);
   } catch (error) { console.error(error); process.exitCode = 1; }
 }

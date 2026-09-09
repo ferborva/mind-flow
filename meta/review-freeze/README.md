@@ -97,8 +97,7 @@ node meta/review-freeze/review-freeze.mjs create \
   --policy=round-04 \
   --commit=HEAD \
   --output=meta/review-freeze/round-04.review-freeze.json \
-  --run \
-  --force
+  --run
 ```
 
 Verify the content address, policy, commit objects and required files:
@@ -126,6 +125,21 @@ A failing command is preserved inside a valid freeze with reproduction status
 creator reported successful local exits and no sampled drift. Receipts can be
 fabricated and the manifest coherently resealed. Independent rerun or signed CI
 attestation is required before anyone relies on that report.
+
+Never overwrite a retained freeze. For the Round 08.1 repair, reuse the unchanged
+`round-08` policy with a new `round-08.1.review-freeze.json` output and the exact
+new candidate commit. The original Round 08 receipt remains historical evidence.
+Plain verification binds LFS pointer identity, not hydrated source bytes; use
+`--checkout` at the exact candidate, detached reproduction, and source-capture
+checks for those bytes. A seal commit is not the candidate: `--checkout` there
+correctly reports the added receipt/workflow changes as drift.
+
+The current generated-output check compares against the retained
+`meta/build-artifacts.lock.json` before and after rebuilding. A consistent but
+changed builder cannot bless its own output. Intentional input or renderer
+changes require separate diff review and an explicit
+`node meta/build-artifacts.mjs --write-lock`, then `--check`. The lock is a
+reviewed comparison reference, not independent authentication of the builder.
 
 ## Trust boundary
 

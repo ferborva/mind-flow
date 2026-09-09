@@ -17,6 +17,10 @@ test('a persisted pre-event positive consumer fails after an appended definition
   assert.equal(assessPositiveBinding(consumer, after).valid, false);
   const rebound = rebindPositiveConsumer(consumer, after);
   assert.equal(assessPositiveBinding(rebound, after).valid, true);
+  const audit = assessPositiveBinding(rebound, after).threshold_audit;
+  assert.equal(audit.status, 'flagged');
+  assert.equal(audit.kernel_manifest_hash, after.manifest_hash);
+  assert.equal(audit.empirical_plausibility_established, false);
   assert.deepEqual(rebound.signals.map(x => x.observations), consumer.signals.map(x => x.observations));
   assert.equal(rebound.current_condition_truth_established, false);
   const falselyGreen = structuredClone(rebound);
