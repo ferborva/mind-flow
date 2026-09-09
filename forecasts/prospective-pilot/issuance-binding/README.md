@@ -1,8 +1,8 @@
 # Future issuance binding adapter
 
-> **This adapter does not issue, authorise or publish a forecast. The current
-> mature forecast schema cannot express five mandatory bindings or independently
-> reproduce baseline execution, so every current candidate fails closed.**
+> **This adapter does not issue, authorise or publish a forecast. Prospective
+> records now carry five previously missing bindings in the existing mature
+> schema. Baseline execution remains a separate prerequisite.**
 
 ## 🦅 TL;DR
 
@@ -42,9 +42,10 @@ This verifies retained bytes and a synthetic calculation record only. It does
 not execute the algorithm, establish empirical validity or provide an
 independent timestamp or identity.
 
-## 🚧 Why current candidates remain blocked
+## 🚧 Prospective bindings and remaining prerequisite
 
-Binary forecast schema `1.4.0` cannot carry:
+Binary forecast schema `1.4.0` now accepts an optional, closed
+`prospective_registration` object binding:
 
 1. the protocol ID, protocol-content hash or exact preregistration byte address;
 2. the sealed campaign manifest identity and hash;
@@ -56,10 +57,12 @@ The adapter also returns
 `BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED` until a separate runner
 recomputes both probabilities from those retained inputs.
 
-Those omissions return `MATURE_*_UNREPRESENTABLE` blockers. Generic prose,
-provenance text or an unrelated checksum is not accepted as a substitute. The
-next safe change is a reviewed mature-schema version with typed fields for all
-five bindings. Only then should this adapter gain a positive conformance test.
+Records without that object retain the five `MATURE_*_UNREPRESENTABLE`
+blockers. The field is immutable after issue; supplied references must exactly
+match the protocol, raw preregistration bytes and fixed mature contract. A
+partially supplied or mismatched object fails validation. No new schema family
+is introduced, and existing synthetic fixtures remain blocked. Generic prose,
+provenance text or an unrelated checksum is not accepted as a substitute.
 
 ## 🧪 Use
 

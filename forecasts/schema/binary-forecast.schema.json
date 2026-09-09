@@ -54,6 +54,7 @@
     "void_policy": { "$ref": "#/$defs/voidPolicy" },
     "decision_context": { "$ref": "#/$defs/decisionContext" },
     "issue_basis": { "$ref": "#/$defs/issueBasis" },
+    "prospective_registration": { "$ref": "#/$defs/prospectiveRegistration" },
     "resolution": { "$ref": "#/$defs/resolution" },
     "history": {
       "type": "array",
@@ -74,7 +75,7 @@
           "issue_basis": { "$ref": "#/$defs/issueBasis" }
         }
       },
-      "else": { "properties": { "issue_basis": false } }
+      "else": { "properties": { "issue_basis": false, "prospective_registration": false } }
     },
     {
       "if": { "properties": { "status": { "const": "issued" } } },
@@ -102,6 +103,44 @@
   ],
   "additionalProperties": false,
   "$defs": {
+    "prospectiveRegistration": {
+      "type": "object",
+      "required": ["protocol_id", "protocol_content_sha256", "preregistration_sha256", "campaign_manifest_id", "campaign_manifest_sha256", "target_id", "resolver", "mature_contract"],
+      "properties": {
+        "protocol_id": { "$ref": "#/$defs/bindingId" },
+        "protocol_content_sha256": { "$ref": "#/$defs/sha256" },
+        "preregistration_sha256": { "$ref": "#/$defs/sha256" },
+        "campaign_manifest_id": { "$ref": "#/$defs/bindingId" },
+        "campaign_manifest_sha256": { "$ref": "#/$defs/sha256" },
+        "target_id": { "$ref": "#/$defs/bindingId" },
+        "resolver": {
+          "type": "object",
+          "required": ["resolver_id", "resolver_version", "implementation_sha256", "parameters_sha256", "conformance_vectors_sha256", "conflict_policy", "correction_policy"],
+          "properties": {
+            "resolver_id": { "$ref": "#/$defs/bindingId" },
+            "resolver_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+            "implementation_sha256": { "$ref": "#/$defs/sha256" },
+            "parameters_sha256": { "$ref": "#/$defs/sha256" },
+            "conformance_vectors_sha256": { "$ref": "#/$defs/sha256" },
+            "conflict_policy": { "const": "void-and-disclose" },
+            "correction_policy": { "const": "withdraw-resolution-and-rescore-never-overwrite" }
+          },
+          "additionalProperties": false
+        },
+        "mature_contract": {
+          "type": "object",
+          "required": ["schema_path", "schema_sha256", "validator_path", "validator_sha256"],
+          "properties": {
+            "schema_path": { "const": "forecasts/schema/binary-forecast.schema.json" },
+            "schema_sha256": { "$ref": "#/$defs/sha256" },
+            "validator_path": { "const": "forecasts/lib/registry.mjs" },
+            "validator_sha256": { "$ref": "#/$defs/sha256" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "scope": {
       "type": "object",
       "required": ["geographies", "cohorts", "services"],
