@@ -6,16 +6,16 @@
   "sources": {
     "round_04_bundle": {
       "path": "integration/transition-bundle/fixtures/round-04.worker-option.complete.json",
-      "sha256": "sha256:e609471d9a483e1a0b1b1cbf23b58c629ba69a5f73aea911f6dc570175ef290a",
+      "sha256": "sha256:cbd8aa3843b226b0e1eeeab538314741f00bf9dac62d3af82779f4b03bf8e3d8",
       "bundle_id": "bundle.round-04.worker-option.complete",
       "bundle_schema_version": "1.2.0",
       "bundle_stage": "complete-core"
     },
     "governance_context": {
       "path": "governance/lineage/fixtures/round-06.worker-transition.governance-context.synthetic.json",
-      "sha256": "sha256:e37e8b891cafb0e595f843d4d682944f63ac5770c9f45136b60962c457d4fed5",
+      "sha256": "sha256:b911742a07a1531c5800ec578490980fdf08803bc38dc275f97745006bd2838b",
       "context_id": "governance-context.round-06.worker-transition.synthetic",
-      "context_hash": "sha256:93edaaf75b7ecdea807529ff1a476fa5245dc200e7be860938d1d702aad19262"
+      "context_hash": "sha256:87c200bce58b6a3d69873270e662e56603387f9df9dc0c4b0cce88bfe938e898"
     },
     "negotiation": {
       "path": "governance/negotiation-record/fixtures/worker-transition.negotiation.synthetic.json",
@@ -36,9 +36,9 @@
     "condition_definition_ref": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
     },
-    "bundle_evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda",
+    "bundle_evaluation_hash": "sha256:14d6a37b81c3ac6f0fd7252e37b854f06a3fbcdf761bccba39747dfc83e7f12f",
     "evaluated_at": "2026-09-09T00:00:00Z",
     "mechanically_valid_for_evaluation": true,
     "computed_rule_state": "true",
@@ -56,5 +56,5 @@
     "decision_activation_state": "blocked",
     "operational_effect": false
   },
-  "lineage_hash": "sha256:ff1bb5e381570816cb9465498fc25cac0819916106e8a5cbe8ad8a120470da3c"
+  "lineage_hash": "sha256:6c4366e60725099654f0a1407e74e2af07f3feb00a3247721ab21b098d7ac723"
 }
