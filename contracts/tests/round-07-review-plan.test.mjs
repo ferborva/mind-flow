@@ -11,7 +11,10 @@ const plan = JSON.parse(readFileSync(
 ));
 
 function changedPaths() {
-  return execFileSync("git", ["diff", "--name-only", "origin/main...HEAD"], {
+  // A sealed review audits its own immutable candidate, even after later work
+  // lands on main or HEAD. An unsealed stack still audits its working head.
+  const target = plan.candidate_commit ?? "HEAD";
+  return execFileSync("git", ["diff", "--name-only", `${plan.main_commit}...${target}`], {
     cwd: root,
     encoding: "utf8",
   }).trim().split("\n").filter(Boolean);

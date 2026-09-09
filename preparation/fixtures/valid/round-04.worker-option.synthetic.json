@@ -8,41 +8,41 @@
     {
       "id": "binding.condition.worker-option.nsw",
       "version": "1.0.0",
-      "checksum": "sha256:bfab744edce9c48a957a5266edf2477257c6d2dc5f75f2deab0f65320e22431f",
+      "checksum": "sha256:c2844f79d9fa7a8c35414047de13b048d09a71204927e1043e632659fe477455",
       "content": {
         "condition_id": "condition.worker-option.nsw",
         "public_condition": "Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z",
         "kernel": {
           "artifact_ref": {
             "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-            "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70"
+            "artifact_sha256": "sha256:f83cdd03fd60e39c9f649c249cfe9fdaeb054594d47c2c12ebe440b797933525"
           },
           "kernel_id": "kernel.worker-option.synthetic",
-          "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+          "manifest_hash": "sha256:d1316eef9f056b1b1914f5656796ebae4ab3c809939caf01114d9613c6a45dcf",
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+            "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
           }
         },
         "evolution": {
           "artifact_ref": {
             "artifact_path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
-            "artifact_sha256": "sha256:e53fe837a127cc60b098d1fbbdfc08efbeb775846da2f160dfdb9aff3867b0e2"
+            "artifact_sha256": "sha256:48587860cc04251dfc657c998b0e4f8e6fae88bb96bb718ca0a6b6b4f8d299ca"
           },
           "ledger_id": "ledger.round-04.worker-option.synthetic",
-          "manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+          "manifest_hash": "sha256:d1910958c6bcc3470f7fb5bc7a5c867dcab9ccf3f91dcc1a8e9d96403fe6ba2d",
           "source_state_version": 1,
           "history_tip_ref": {
             "sequence": 5,
             "event_id": "event.worker-option.merge",
-            "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+            "event_hash": "sha256:4939f0e4ea1021651aea8597c8a354d51708f20f41b74bfa35e24815344f6970"
           },
           "condition_source_event_ref": {
             "sequence": 5,
             "event_id": "event.worker-option.merge",
             "operation": "merge",
-            "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+            "event_hash": "sha256:4939f0e4ea1021651aea8597c8a354d51708f20f41b74bfa35e24815344f6970"
           }
         },
         "condition_scope": {
@@ -75,12 +75,12 @@
     {
       "id": "receipt.condition.worker-option.nsw.20260909",
       "version": "1.0.0",
-      "checksum": "sha256:2f25dcf73c57b3880cceab797d56640f8dfde7662ea9acd309c0bff4f79701fc",
+      "checksum": "sha256:608ed8a7536fb8dfde68b9b922d1ba230c3551b0ca02fe4ad89ba2c1b8399f86",
       "content": {
         "condition_binding_ref": {
           "id": "binding.condition.worker-option.nsw",
           "version": "1.0.0",
-          "checksum": "sha256:bfab744edce9c48a957a5266edf2477257c6d2dc5f75f2deab0f65320e22431f"
+          "checksum": "sha256:c2844f79d9fa7a8c35414047de13b048d09a71204927e1043e632659fe477455"
         },
         "evaluated_at": "2026-09-09T00:00:00Z",
         "clock": {
@@ -90,24 +90,24 @@
         "evaluator_ref": {
           "id": "mind-flow.executable-if.evaluator",
           "version": "1.1.0",
-          "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
-          "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
-          "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+          "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
+          "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
+          "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
           "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
         },
         "condition_definition_ref": {
           "condition_id": "condition.worker-option.nsw",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
         },
-        "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
-        "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda",
-        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+        "kernel_manifest_hash": "sha256:d1316eef9f056b1b1914f5656796ebae4ab3c809939caf01114d9613c6a45dcf",
+        "evaluation_hash": "sha256:dbbe5b2edb8a9215d3cd5dec71fabf5ceb6d6de129900152e23aab5c44046ba0",
+        "evidence_state_hash": "sha256:7a034eed932df80a1f784f337524e7c479284abaa2b19140910fbb9620e7c77a",
         "observation_hashes": [
-          "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
-          "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
-          "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
-          "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          "sha256:2f62425c8e83f5f11e3e0ed5d02142fe612b5cf74cc2bcce9cd68566191666c9",
+          "sha256:484d0d22072fcfa0e5711e4c5727512f1d52dd6743f249fbe33e9fd05216fa06",
+          "sha256:54b426125de5a3f52080abb39caaac2be2bfd6f99ede4e8d51048c23c05f7a96",
+          "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
         ],
         "mechanically_valid_for_evaluation": true,
         "computed_rule_state": {
@@ -181,12 +181,12 @@
         "condition_binding_ref": {
           "id": "binding.condition.worker-option.nsw",
           "version": "1.0.0",
-          "checksum": "sha256:bfab744edce9c48a957a5266edf2477257c6d2dc5f75f2deab0f65320e22431f"
+          "checksum": "sha256:c2844f79d9fa7a8c35414047de13b048d09a71204927e1043e632659fe477455"
         },
         "evaluation_receipt_ref": {
           "id": "receipt.condition.worker-option.nsw.20260909",
           "version": "1.0.0",
-          "checksum": "sha256:2f25dcf73c57b3880cceab797d56640f8dfde7662ea9acd309c0bff4f79701fc"
+          "checksum": "sha256:608ed8a7536fb8dfde68b9b922d1ba230c3551b0ca02fe4ad89ba2c1b8399f86"
         },
         "state_trigger": {
           "axis": "computed_rule_state",

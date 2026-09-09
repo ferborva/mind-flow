@@ -35,6 +35,13 @@ the bindings fails validation.
 
 ## 🗺️ Read a path in three passes
 
+Dates inside a path bound the scenario being examined. They never schedule
+the order in which conditions will fall. Read every edge as “binding condition
+today, and what would have to change”, then look for the observation that
+would establish that change for the named population. A later calendar date
+cannot satisfy an IF. The scenarios can be replaced when observations change;
+the previous path and its evidence stay in history.
+
 1. **Read the promise.** Check who is included, the action verb, the object,
    the standard, place, period and every plain-language IF.
 2. **Follow every branch.** A true result permits human consideration only. A

@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const templatePath = join(root, "pilots", "australia", "web", "index.template.html");
-const baselinePath = join(root, "pilots", "australia", "data", "nero-clerical-2026-08.json");
+const baselinePath = join(root, "pilots", "australia", "data", "nero-clerical-2026-08.r2.json");
 const policyPath = join(root, "pilots", "australia", "schema", "nero-baseline-policy.json");
 const buildPath = join(root, "dashboard", "tools", "build-australia-pilot.mjs");
 const baseline = JSON.parse(readFileSync(baselinePath, "utf8"));

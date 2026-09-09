@@ -126,6 +126,18 @@ test("claim and evidence identifiers are unique", () => {
   }
 });
 
+test("partial support also requires a direct supports link", () => {
+  const candidate = structuredClone(registry);
+  const claim = candidate.claims.find(({ support_state }) => support_state === "supported");
+  claim.support_state = "partially-supported";
+  assert.equal(validate(candidate).machine_valid, true);
+  claim.evidence_refs = claim.evidence_refs.map((reference) => ({ ...reference, relation: "context" }));
+  const result = validate(candidate);
+  assert.equal(result.schema_valid, true);
+  assert.equal(result.integrity_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "supported-without-direct-evidence"));
+});
+
 test("caller-supplied schema forks cannot relax the repository contract", () => {
   const candidate = structuredClone(registry);
   candidate.claims[0].invented_authority = "publish";

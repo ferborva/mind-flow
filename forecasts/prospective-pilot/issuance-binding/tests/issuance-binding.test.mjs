@@ -18,7 +18,9 @@ import {
 import {
   assessFutureIssuanceBinding,
   contentSha256,
+  matureForecastContractIdentity,
 } from "../validate.mjs";
+import { assertIssuedForecastImmutable as assertImmutableIssue } from "../../../lib/registry.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(here, "../../../..");
@@ -309,6 +311,107 @@ function refreshBytes(setupResult) {
   setupResult.input.preregistrationContext = externalProtocolContext(setupResult.protocol);
   return setupResult;
 }
+
+function bindProspectiveRegistration(candidate) {
+  const { protocol, forecast } = candidate;
+  forecast.prospective_registration = {
+    protocol_id: protocol.protocol_id,
+    protocol_content_sha256: protocol.registration.protocol_content_sha256,
+    preregistration_sha256: sha256(jsonBytes(protocol)),
+    campaign_manifest_id: protocol.campaign.manifest.manifest_id,
+    campaign_manifest_sha256: protocol.campaign.manifest.manifest_sha256,
+    target_id: protocol.target.target_id,
+    resolver: structuredClone(protocol.target.resolver),
+    mature_contract: matureForecastContractIdentity(),
+  };
+  return refreshBytes(candidate);
+}
+
+function executableCandidate() {
+  const candidate = setup();
+  const vectorsBytes = readFileSync(resolve(here, "../baseline-conformance.json"));
+  const vectors = JSON.parse(vectorsBytes);
+  const inputBytes = jsonBytes(vectors.input);
+  const implementationBytes = readFileSync(resolve(here, "../baseline-execution.mjs"));
+  candidate.forecast.data_vintages.push({ source: "https://example.invalid/synthetic-nero-input",
+    retrieved_at: "2026-09-06T00:00:00Z", vintage: "synthetic", checksum: sha256(inputBytes) });
+  for (const role of ["reference", "naive"]) {
+    const mature = role === "reference" ? candidate.forecast.baseline : candidate.forecast.naive_baseline;
+    const registeredKey = role === "reference" ? "baseline" : "naive_baseline";
+    mature.probability = role === "reference" ? 0.6 : 0.5;
+    mature.calculation.algorithm_id = role === "reference" ? "mind-flow.nero-two-month-direction" : "mind-flow.equal-probability";
+    mature.calculation.input_checksums = [sha256(inputBytes)];
+    const artifacts = baselineArtifacts(mature);
+    artifacts.implementation = { bytes: implementationBytes, sha256: sha256(implementationBytes) };
+    artifacts.conformanceVectors = { bytes: vectorsBytes, sha256: sha256(vectorsBytes) };
+    artifacts.parameters = { bytes: jsonBytes(vectors.parameters), sha256: sha256(jsonBytes(vectors.parameters)) };
+    artifacts.inputs = [{ bytes: inputBytes }];
+    candidate.input.matureForecastSources[`${role}BaselineArtifacts`] = artifacts;
+    candidate.protocol[registeredKey] = registeredBaseline(mature, artifacts);
+  }
+  resealProtocol(candidate.protocol);
+  for (const role of ["reference", "naive"]) {
+    candidate.input.matureForecastSources[`${role}BaselineCalculation`] =
+      calculationArtifact(candidate.protocol, candidate.forecast, role);
+  }
+  return bindProspectiveRegistration(candidate);
+}
+
+test("supported baselines are re-executed from retained inputs without claiming reviewer independence", () => {
+  const result = assess(executableCandidate());
+  assert.deepEqual(result.issues, []);
+  assert.deepEqual(result.blockers, []);
+  assert.equal(result.baseline_execution_reproduced, true);
+  assert.equal(result.binding_complete, true);
+  assert.equal(result.eligible_for_issuance_review, true);
+  assert.equal(result.baseline_execution_independently_reproduced, false);
+  assert.equal(result.independent_anchor_verified, false);
+  assert.equal(result.issuance_authorised, false);
+});
+
+test("baseline execution fails closed on wrong output, missing bytes and late input retrieval", () => {
+  for (const change of [
+    (candidate) => { candidate.forecast.baseline.probability = 0.7;
+      candidate.input.matureForecastSources.referenceBaselineCalculation = calculationArtifact(candidate.protocol, candidate.forecast, "reference"); },
+    (candidate) => { candidate.input.matureForecastSources.referenceBaselineArtifacts.inputs = []; },
+    (candidate) => { candidate.forecast.data_vintages.at(-1).retrieved_at = "2026-09-08T00:00:00Z"; },
+  ]) {
+    const candidate = executableCandidate();
+    change(candidate);
+    refreshBytes(candidate);
+    const result = assess(candidate);
+    assert.equal(result.binding_complete, false);
+    assert.equal(result.baseline_execution_reproduced, false);
+    assert.ok(issueCodes(result).includes("BASELINE_EXECUTION_REPRODUCTION_FAILED"));
+  }
+});
+
+test("typed prospective references clear representational blockers but do not assert execution or authority", () => {
+  const candidate = bindProspectiveRegistration(setup());
+  const result = assess(candidate);
+  assert.equal(result.mature_forecast_valid, true, JSON.stringify(result.issues));
+  assert.deepEqual(issueCodes(result), []);
+  assert.deepEqual(blockerCodes(result), ["BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED"]);
+  assert.equal(result.issuance_authorised, false);
+});
+
+test("prospective references cannot drift or disappear after issue", () => {
+  for (const field of ["protocol_id", "protocol_content_sha256", "preregistration_sha256",
+    "campaign_manifest_id", "campaign_manifest_sha256", "target_id", "resolver", "mature_contract"]) {
+    const candidate = bindProspectiveRegistration(setup());
+    const before = structuredClone(candidate.forecast);
+    candidate.forecast.prospective_registration[field] = field.endsWith("sha256")
+      ? `sha256:${"f".repeat(64)}` : "different";
+    refreshBytes(candidate);
+    assert.equal(assess(candidate).binding_complete, false);
+    assert.ok(issueCodes(assess(candidate)).includes("PROSPECTIVE_REGISTRATION_MISMATCH"));
+    assert.throws(() => assertImmutableIssue(before, candidate.forecast), /prospective_registration/);
+  }
+  const candidate = bindProspectiveRegistration(setup());
+  const before = structuredClone(candidate.forecast);
+  delete candidate.forecast.prospective_registration;
+  assert.throws(() => assertImmutableIssue(before, candidate.forecast), /prospective_registration/);
+});
 
 test("valid components remain blocked where the mature schema cannot carry exact issuance bindings", () => {
   const candidate = setup();

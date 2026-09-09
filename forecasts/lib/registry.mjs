@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
+import { normalizedIdentity } from "./identity.mjs";
 
 import {
   assertFrozenResolutionResolver,
@@ -37,6 +38,7 @@ export const IMMUTABLE_ISSUE_FIELDS = [
   "void_policy",
   "decision_context",
   "issue_basis",
+  "prospective_registration",
 ];
 
 const LIFECYCLE = new Set(["issued", "resolved", "void"]);
@@ -74,10 +76,6 @@ function canonicalValue(value) {
 
 function same(left, right) {
   return isDeepStrictEqual(left, right);
-}
-
-function normalizedIdentity(value) {
-  return typeof value === "string" ? value.normalize("NFKC").trim().toLowerCase() : null;
 }
 
 function without(value, field) {
@@ -859,6 +857,9 @@ export function assertIssuedForecastImmutable(issued, later) {
 }
 
 export function assertForecastSemantics(forecast, sources) {
+  if (forecast?.prospective_registration !== undefined && forecast.schema_version !== "1.4.0") {
+    throw new TypeError("prospective_registration requires exact-binding forecast schema 1.4.0");
+  }
   if (!LIFECYCLE.has(forecast?.status)) {
     throw new TypeError("forecast has an invalid lifecycle status");
   }
@@ -1044,6 +1045,9 @@ export function assertForecastSemantics(forecast, sources) {
       throw new Error("void adjudication must occur after the void evidence it adjudicates");
     }
     const adjudicatorIdentity = normalizedIdentity(adjudication.claimed_adjudicator_id);
+    if (!adjudicatorIdentity) {
+      throw new Error("claimed void adjudicator must have a nonempty printable identity");
+    }
     const forecasterIdentities = [forecast.provenance?.author, history[0]?.actor]
       .map(normalizedIdentity)
       .filter(Boolean);

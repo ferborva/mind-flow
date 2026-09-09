@@ -4,7 +4,7 @@
   "classification": "research-draft",
   "canonical_scope": {
     "source_role": "agency-map",
-    "native_scope_hash": "sha256:6a928c2888adf7b797264862e841269c19e73e7c0c96a56ccfebf77b64886508",
+    "native_scope_hash": "sha256:d0167828adb7a1456278c49f331f3e70118ac6bea02e6557b85cf7290b6e9aa8",
     "people": "Affected workers inside the complete registered observation scope",
     "verb": "navigate",
     "object": "automation-related work change",
@@ -27,7 +27,7 @@
     {
       "mapping_id": "scope-mapping.round-04.worker-option.agency-map",
       "role": "agency-map",
-      "native_scope_hash": "sha256:6a928c2888adf7b797264862e841269c19e73e7c0c96a56ccfebf77b64886508",
+      "native_scope_hash": "sha256:d0167828adb7a1456278c49f331f3e70118ac6bea02e6557b85cf7290b6e9aa8",
       "relationship": "canonical-source",
       "rationale": "The canonical scope reproduces the agency outcome scope without changing its native hash domain.",
       "unresolved_differences": [],

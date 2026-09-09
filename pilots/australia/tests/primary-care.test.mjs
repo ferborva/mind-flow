@@ -15,6 +15,10 @@ test('basket binds four pathways, five categories and three source-driven evolut
   const valid = validateExecutableIfKernel(kernel);
   assert.equal(valid.machine_valid, true, JSON.stringify(valid.errors));
   assert.equal(basket.items.length, 4);
+  assert.ok(basket.items.find(i => i.id === 'specialist-referral').missing_item_specific_categories.includes('price'));
+  for (const signal of kernel.signals.filter(s => s.unit !== 'percent')) {
+    assert.deepEqual(signal.value_range, { minimum: 0 });
+  }
   assert.deepEqual(new Set(basket.items[0].conditions.map(c => c.condition_category)), new Set(['price', 'permission', 'proximity', 'availability', 'capability']));
   assert.deepEqual(kernel.events.filter(e => e.operation !== 'added').map(e => e.operation), ['narrowed', 'definition-revised', 'split']);
   const evaluatedAt = kernel.evidence_events.at(-1).recorded_at;
@@ -26,6 +30,7 @@ test('basket binds four pathways, five categories and three source-driven evolut
   assert.ok(kernel.observations.length > 0);
   const annual = kernel.observations.find(o => o.observation_id === 'observation.au.gp-cost-delay');
   assert.equal(annual.period.start, '2024-07-01T00:00:00Z');
+  assert.deepEqual(annual.coverage, { eligible_units: 1, observed_units: 1, missing_units: 0, unit: 'Selected publisher series cell, not people or survey response coverage' });
   assert.equal(evaluateKernelCondition(kernel, 'condition.au.gp.cost', { evaluatedAt }).computed_rule_state.state, 'stale');
 });
 test('suppression and absent observations cannot become zero; zero remains zero', () => {

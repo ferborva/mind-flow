@@ -200,12 +200,12 @@ export function validateClaimLedger(ledger, {
         errors.push(error("unresolved-evidence-reference", `/claims/${index}`, `${link.evidence_id} does not resolve`));
       }
     }
-    if (claim.support_state === "supported" &&
+    if (["supported", "partially-supported"].includes(claim.support_state) &&
         !claim.evidence_refs.some(({ relation }) => relation === "supports")) {
       errors.push(error(
         "supported-without-direct-evidence",
         `/claims/${index}/evidence_refs`,
-        "a supported assessment requires a direct evidence link whose relation is supports",
+        "a supported or partially-supported assessment requires a direct evidence link whose relation is supports",
       ));
     }
     for (const authorityId of claim.publication_authority_refs) {

@@ -15,10 +15,11 @@ import test from "node:test";
 
 import { assessTransitionBundle } from "../assess.mjs";
 import { computeEvidenceStateHash } from "../../../contracts/executable-if/validate.mjs";
+import { isolatedRepository } from "../../../contracts/tests/support/isolated-repository.mjs";
 import { computeExecutableIfEvolutionManifestHash } from
   "../../../contracts/evolution/project-executable-if.mjs";
 
-const root = resolve(import.meta.dirname, "../../..");
+const root = isolatedRepository(resolve(import.meta.dirname, "../../.."));
 const fixturePath = resolve(import.meta.dirname, "../fixtures/round-03.current.json");
 const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
 const bundleSchema = JSON.parse(readFileSync(
@@ -27,7 +28,32 @@ const bundleSchema = JSON.parse(readFileSync(
 ));
 
 const clone = (value) => structuredClone(value);
+
+test("mutable bundle artifacts live outside the working checkout", () => {
+  assert.notEqual(root, resolve(import.meta.dirname, "../../.."));
+});
 const sha256 = (bytes) => `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+
+test("bundle coherence requires an evaluation no later than its as-of clock", () => {
+  const bundle = JSON.parse(readFileSync(resolve(import.meta.dirname,
+    "../fixtures/round-04.worker-option.pre-projection.json"), "utf8"));
+  assert.equal(assessTransitionBundle(bundle, { rootDir: root }).bundle_coherent, true);
+  bundle.as_of = "2026-09-08T23:59:59Z";
+  const result = assessTransitionBundle(bundle, { rootDir: root });
+  assert.equal(result.bundle_coherent, false);
+  assert.ok(result.coherence_blockers.some(({ code }) => code === "EVALUATION_AFTER_AS_OF"));
+});
+
+test("a rejected governed evaluation blocks bundle coherence", () => {
+  const bundle = JSON.parse(readFileSync(resolve(import.meta.dirname,
+    "../fixtures/round-04.worker-option.pre-projection.json"), "utf8"));
+  bundle.evaluation_clock.evaluated_at = "2026-09-01T00:00:00Z";
+  const result = assessTransitionBundle(bundle, { rootDir: root });
+  assert.ok(result.executable_if.governed_evaluations.some(
+    ({ mechanically_valid_for_evaluation }) => mechanically_valid_for_evaluation === false));
+  assert.equal(result.bundle_coherent, false);
+  assert.ok(result.coherence_blockers.some(({ code }) => code === "GOVERNED_EVALUATION_REJECTED"));
+});
 
 function executableIfRef(kernel) {
   const evidenceTip = kernel.evidence_events.at(-1);

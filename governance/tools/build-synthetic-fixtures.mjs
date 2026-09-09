@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { evaluateKernelCondition } from "../../contracts/executable-if/validate.mjs";
 
 import {
   computeGovernancePayloadHash,
@@ -109,28 +110,32 @@ const representations = Object.freeze([
 ]);
 
 function ifBinding() {
+  const kernel = JSON.parse(readFileSync(new URL(
+    "../../contracts/executable-if/fixtures/kernel.synthetic.json", import.meta.url), "utf8"));
+  const evaluation = evaluateKernelCondition(kernel, "condition.worker-option.nsw", {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+  });
+  if (!evaluation.mechanically_valid_for_evaluation) {
+    throw new Error("Synthetic governance fixture requires a valid bound IF evaluation");
+  }
   const receipt = {
     receipt_id: "receipt.condition.worker-option.nsw.20260909",
     receipt_version: "1.0.0",
     receipt_hash: null,
     condition_id: "condition.worker-option.nsw",
-    definition_version: "1.0.0",
-    definition_hash: "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
+    definition_version: evaluation.condition_definition_ref.definition_version,
+    definition_hash: evaluation.condition_definition_ref.definition_hash,
     evaluated_at: "2026-09-09T00:00:00Z",
     valid_until: "2026-10-09T00:00:00Z",
     mechanically_valid_for_evaluation: true,
-    computed_rule_state: "true",
+    computed_rule_state: evaluation.computed_rule_state.state,
     empirical_truth_established: false,
     authority_effect: "none",
     action_authorised: false,
   };
   receipt.receipt_hash = computeGovernanceReceiptHash(receipt);
   return {
-    condition_definition_ref: {
-      condition_id: "condition.worker-option.nsw",
-      definition_version: "1.0.0",
-      definition_hash: "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
-    },
+    condition_definition_ref: evaluation.condition_definition_ref,
     evaluation_receipt_ref: receipt,
     effect: "eligibility-only-not-truth-or-authority",
   };
