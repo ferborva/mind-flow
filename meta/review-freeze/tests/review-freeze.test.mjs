@@ -499,6 +499,23 @@ test("Round 07 policy binds the repair ledger, component plan and retest brief",
   assert.deepEqual(ROUND_07_REVIEW_POLICY.build_commands, ROUND_06_REVIEW_POLICY.build_commands);
 });
 
+test("Round 08 policy binds measurements and exact generated outputs without changing historical policy", () => {
+  const policy = reviewPolicyFor("round-08");
+  assert.equal(policy.reviewed_ref, "ren/round-08");
+  for (const path of policy.generated_outputs) {
+    assert.equal(policy.required_files.some((entry) => entry.path === path), false);
+    assert.doesNotMatch(path, /[*?]/);
+  }
+  const required = new Set(policy.required_files.map(({ path }) => path));
+  for (const path of ["meta/round-08-external-review-brief.md", "reviews/round-08-progress.md",
+    "pilots/australia/sources/primary-care/2026-09-09/capture.json",
+    "pilots/australia/basket/README.md", "forecasts/prospective-pilot/round-08-nero/README.md"]) {
+    assert.equal(required.has(path), true, path);
+  }
+  assert.ok(ROUND_07_REVIEW_POLICY.required_files.some(({ path }) => path === "dashboard/observatory/data.js"));
+  assert.ok(policy.build_commands.some(({ argv }) => argv.includes("meta/build-artifacts.mjs") && argv.includes("--check")));
+});
+
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
   const root = fixtureRepository();
   try {
