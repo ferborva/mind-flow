@@ -11,6 +11,7 @@ import {
   requireReconstructedResolution,
 } from "./resolution.mjs";
 import { scoreBinaryForecast } from "./scoring.mjs";
+import { assertAdjudicationIntake } from "./adjudication-intake.mjs";
 
 const SHA256 = /^sha256:[a-f0-9]{64}$/;
 const FORECAST_USES = new Set(["research_only", "decision_linked"]);
@@ -640,6 +641,7 @@ function declaredUtilityReport(records) {
 }
 
 export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
+  if (Array.isArray(forecasts)) forecasts.forEach(assertAdjudicationIntake);
   assertEvaluationPlanSemantics(plan, forecasts);
   const asOfTime = parseExactInstant(asOf, "evaluation asOf");
   const registeredAt = parseExactInstant(plan.registered_at, "evaluation plan registered_at");
@@ -718,7 +720,9 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
         ? "no_scored_outcomes"
         : scoreCoverage < plan.void_handling.minimum_score_coverage
           ? "minimum_score_coverage_not_met"
-          : null;
+          : voided.length > 0
+            ? "adjudicator_appointment_not_independently_verified"
+            : null;
 
   const withholdPerformance = performanceWithheldReason !== null;
   const scores = withholdPerformance ? [] : rawScores.map(serializableLosses);
