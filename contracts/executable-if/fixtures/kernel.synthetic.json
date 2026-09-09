@@ -9,9 +9,9 @@
   "evaluator": {
     "id": "mind-flow.executable-if.evaluator",
     "version": "1.1.0",
-    "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+    "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
     "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-    "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+    "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
     "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
   },
   "signals": [
@@ -60,7 +60,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:182f0f79a206b779411651f9a16c0adedc0bbc0aab991e594f52dd24bf48d797"
+            "definition_hash": "sha256:ab8dc85df0311c6da8e483748104c2efff1059c97c59a7ce4f42a7b03d0b3eb4"
           },
           "lifecycle": "active"
         }
@@ -168,16 +168,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
             "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:182f0f79a206b779411651f9a16c0adedc0bbc0aab991e594f52dd24bf48d797"
+          "definition_hash": "sha256:ab8dc85df0311c6da8e483748104c2efff1059c97c59a7ce4f42a7b03d0b3eb4"
         }
       ],
       "identity_change": {
@@ -186,7 +186,7 @@
       "authority_effect": "none",
       "action_authorised": false,
       "previous_event_hash": null,
-      "event_hash": "sha256:83a237c6784005a0957e7175f7bdff279ae718bdb94943c37680630a8edea7a4"
+      "event_hash": "sha256:f063d047f5a6d697a9391a993be84d756dc90cb2dbfab373e9a747f916a27e8c"
     },
     {
       "sequence": 2,
@@ -202,7 +202,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:182f0f79a206b779411651f9a16c0adedc0bbc0aab991e594f52dd24bf48d797"
+            "definition_hash": "sha256:ab8dc85df0311c6da8e483748104c2efff1059c97c59a7ce4f42a7b03d0b3eb4"
           },
           "lifecycle": "active"
         }
@@ -214,7 +214,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "1.1.0",
-            "definition_hash": "sha256:1c64510b3dd46b3f68a890a9e4950abc6054a3d6ded1962965bdfa06b421c5f0"
+            "definition_hash": "sha256:57863022cda619f626b08ec9081c2c111dbb009d20e200750164b5eb7e6c46b2"
           },
           "lifecycle": "active"
         }
@@ -321,16 +321,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
             "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:1c64510b3dd46b3f68a890a9e4950abc6054a3d6ded1962965bdfa06b421c5f0"
+          "definition_hash": "sha256:57863022cda619f626b08ec9081c2c111dbb009d20e200750164b5eb7e6c46b2"
         }
       ],
       "identity_change": {
@@ -338,8 +338,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_event_hash": "sha256:83a237c6784005a0957e7175f7bdff279ae718bdb94943c37680630a8edea7a4",
-      "event_hash": "sha256:064da58acbc1e03e0cd632dba7e2b43d0c7b2ac17e5220b3530060d4a85acec4"
+      "previous_event_hash": "sha256:f063d047f5a6d697a9391a993be84d756dc90cb2dbfab373e9a747f916a27e8c",
+      "event_hash": "sha256:ef08dc9bb8a7c308399d242b27858405854b6770bdc929bdf813e13ac32b9533"
     },
     {
       "sequence": 3,
@@ -355,7 +355,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "1.1.0",
-            "definition_hash": "sha256:1c64510b3dd46b3f68a890a9e4950abc6054a3d6ded1962965bdfa06b421c5f0"
+            "definition_hash": "sha256:57863022cda619f626b08ec9081c2c111dbb009d20e200750164b5eb7e6c46b2"
           },
           "lifecycle": "active"
         }
@@ -367,7 +367,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "2.0.0",
-            "definition_hash": "sha256:92a17396829b92c5f130cd150d065e24a4ab537d867723e0034ce47117a2146e"
+            "definition_hash": "sha256:d93368d0f48f0f47929019da15b1e416f1ec7a04fd38244bddb36e7913bbdd9c"
           },
           "lifecycle": "active"
         }
@@ -474,16 +474,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
             "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:92a17396829b92c5f130cd150d065e24a4ab537d867723e0034ce47117a2146e"
+          "definition_hash": "sha256:d93368d0f48f0f47929019da15b1e416f1ec7a04fd38244bddb36e7913bbdd9c"
         }
       ],
       "identity_change": {
@@ -491,8 +491,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_event_hash": "sha256:064da58acbc1e03e0cd632dba7e2b43d0c7b2ac17e5220b3530060d4a85acec4",
-      "event_hash": "sha256:ac035e8d35d4aac4fbdddcb1f574140623ec16b3708c7698ee58f4004a81cd6b"
+      "previous_event_hash": "sha256:ef08dc9bb8a7c308399d242b27858405854b6770bdc929bdf813e13ac32b9533",
+      "event_hash": "sha256:7db02f624d471b12c3e90c424eceba9ae64a66a6609813b71240350a33b4e3e7"
     },
     {
       "sequence": 4,
@@ -508,7 +508,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "2.0.0",
-            "definition_hash": "sha256:92a17396829b92c5f130cd150d065e24a4ab537d867723e0034ce47117a2146e"
+            "definition_hash": "sha256:d93368d0f48f0f47929019da15b1e416f1ec7a04fd38244bddb36e7913bbdd9c"
           },
           "lifecycle": "active"
         }
@@ -520,7 +520,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option",
             "definition_version": "2.0.0",
-            "definition_hash": "sha256:92a17396829b92c5f130cd150d065e24a4ab537d867723e0034ce47117a2146e"
+            "definition_hash": "sha256:d93368d0f48f0f47929019da15b1e416f1ec7a04fd38244bddb36e7913bbdd9c"
           },
           "lifecycle": "superseded"
         },
@@ -530,7 +530,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw-general",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:abc67423c6bc3c5b22037b5c2dee50d52359056d14f4c5e326fe445d97e10979"
+            "definition_hash": "sha256:8bce08963e7f8668de65c3a8e7bc67489225e6c81e446322dd0e4b9f395f0560"
           },
           "lifecycle": "active"
         },
@@ -540,7 +540,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw-payroll",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:41d4c5c069fc72493170a4681709655bd12348e815fc270fce37d20c935ab0a2"
+            "definition_hash": "sha256:fa2b098351c629cf68816f9065358f3b79d08484f6aa29fc064d89b6fd9c473d"
           },
           "lifecycle": "active"
         }
@@ -646,16 +646,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
             "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:abc67423c6bc3c5b22037b5c2dee50d52359056d14f4c5e326fe445d97e10979"
+          "definition_hash": "sha256:8bce08963e7f8668de65c3a8e7bc67489225e6c81e446322dd0e4b9f395f0560"
         },
         {
           "condition_id": "condition.worker-option.nsw-payroll",
@@ -757,16 +757,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
             "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:41d4c5c069fc72493170a4681709655bd12348e815fc270fce37d20c935ab0a2"
+          "definition_hash": "sha256:fa2b098351c629cf68816f9065358f3b79d08484f6aa29fc064d89b6fd9c473d"
         }
       ],
       "identity_change": {
@@ -781,8 +781,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_event_hash": "sha256:ac035e8d35d4aac4fbdddcb1f574140623ec16b3708c7698ee58f4004a81cd6b",
-      "event_hash": "sha256:8c2de371cd84dead5ec9378916705eb4383b022979aff218b850b184a4f1726e"
+      "previous_event_hash": "sha256:7db02f624d471b12c3e90c424eceba9ae64a66a6609813b71240350a33b4e3e7",
+      "event_hash": "sha256:ed0850924a98e7560aff08b70cf4e8d381115667e523d81ae7f5160e060bc7a7"
     },
     {
       "sequence": 5,
@@ -798,7 +798,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw-general",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:abc67423c6bc3c5b22037b5c2dee50d52359056d14f4c5e326fe445d97e10979"
+            "definition_hash": "sha256:8bce08963e7f8668de65c3a8e7bc67489225e6c81e446322dd0e4b9f395f0560"
           },
           "lifecycle": "active"
         },
@@ -808,7 +808,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw-payroll",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:41d4c5c069fc72493170a4681709655bd12348e815fc270fce37d20c935ab0a2"
+            "definition_hash": "sha256:fa2b098351c629cf68816f9065358f3b79d08484f6aa29fc064d89b6fd9c473d"
           },
           "lifecycle": "active"
         }
@@ -820,7 +820,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw-general",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:abc67423c6bc3c5b22037b5c2dee50d52359056d14f4c5e326fe445d97e10979"
+            "definition_hash": "sha256:8bce08963e7f8668de65c3a8e7bc67489225e6c81e446322dd0e4b9f395f0560"
           },
           "lifecycle": "superseded"
         },
@@ -830,7 +830,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw-payroll",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:41d4c5c069fc72493170a4681709655bd12348e815fc270fce37d20c935ab0a2"
+            "definition_hash": "sha256:fa2b098351c629cf68816f9065358f3b79d08484f6aa29fc064d89b6fd9c473d"
           },
           "lifecycle": "superseded"
         },
@@ -840,7 +840,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.worker-option.nsw",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+            "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
           },
           "lifecycle": "active"
         }
@@ -947,16 +947,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
             "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
+            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+          "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
         }
       ],
       "identity_change": {
@@ -971,8 +971,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_event_hash": "sha256:8c2de371cd84dead5ec9378916705eb4383b022979aff218b850b184a4f1726e",
-      "event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054"
+      "previous_event_hash": "sha256:ed0850924a98e7560aff08b70cf4e8d381115667e523d81ae7f5160e060bc7a7",
+      "event_hash": "sha256:4939f0e4ea1021651aea8597c8a354d51708f20f41b74bfa35e24815344f6970"
     }
   ],
   "observations": [
@@ -982,7 +982,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "option-coverage",
       "signal_ref": {
@@ -1027,7 +1027,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:53e362507037ff6632d09764c396b1d0d125880b796b1ce97cd945a8050eddb0"
+      "observation_hash": "sha256:6dc005cc0663a9b291fa49c8c8a10c8f7a937f823bc62c909653981ac29e1ab5"
     },
     {
       "observation_id": "observation.human-review.june.expired",
@@ -1035,7 +1035,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "human-review",
       "signal_ref": {
@@ -1080,7 +1080,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:38cc57a81b62bf64c74648d09a27462659182759ac3e675e5ccd23467877ef0e"
+      "observation_hash": "sha256:cad44b80f76fb7c629cbdcd1e520f7e221ef9080ed35cbeb0a9285f56e167cd8"
     },
     {
       "observation_id": "observation.option-coverage.july.original",
@@ -1088,7 +1088,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "option-coverage",
       "signal_ref": {
@@ -1133,7 +1133,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:143a98b423cc9157daacc5608db41473b7490faf29a7e9de2df491bccfb1e7e2"
+      "observation_hash": "sha256:585af599826700c9cb9079c33f641208b7ff7f7946c075ec6de4763680f44f28"
     },
     {
       "observation_id": "observation.option-coverage.july",
@@ -1141,7 +1141,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "option-coverage",
       "signal_ref": {
@@ -1186,7 +1186,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:388076978cf1529fb9dc5450e1bd2e4b5b3677aaeb2c64ae27a90347542dfeda"
+      "observation_hash": "sha256:484d0d22072fcfa0e5711e4c5727512f1d52dd6743f249fbe33e9fd05216fa06"
     },
     {
       "observation_id": "observation.human-review.july",
@@ -1194,7 +1194,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "human-review",
       "signal_ref": {
@@ -1239,7 +1239,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+      "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
     },
     {
       "observation_id": "observation.option-coverage.august",
@@ -1247,7 +1247,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "option-coverage",
       "signal_ref": {
@@ -1292,7 +1292,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:d53ecb505f99327b51a22d9ea6099bb17c973ac7c37b9d9e50aa18dd407bf6a3"
+      "observation_hash": "sha256:54b426125de5a3f52080abb39caaac2be2bfd6f99ede4e8d51048c23c05f7a96"
     },
     {
       "observation_id": "observation.human-review.august",
@@ -1300,7 +1300,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "predicate_id": "human-review",
       "signal_ref": {
@@ -1345,7 +1345,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:20eae471b101e0cf71735d6f4e64eb9a43ac8ec0ceb61c15664b9a4946628dd8"
+      "observation_hash": "sha256:2f62425c8e83f5f11e3e0ed5d02142fe612b5cf74cc2bcce9cd68566191666c9"
     }
   ],
   "evidence_events": [
@@ -1361,7 +1361,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.june.withdrawn",
-            "observation_hash": "sha256:53e362507037ff6632d09764c396b1d0d125880b796b1ce97cd945a8050eddb0"
+            "observation_hash": "sha256:6dc005cc0663a9b291fa49c8c8a10c8f7a937f823bc62c909653981ac29e1ab5"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1373,7 +1373,7 @@
       "authority_effect": "none",
       "action_authorised": false,
       "previous_evidence_event_hash": null,
-      "evidence_event_hash": "sha256:d75275abd265b74334a02d4eb0d78c3a2b25e7c08ddb92e97d242764f668547a"
+      "evidence_event_hash": "sha256:caa2a0f968807f2c7ee2efcff2526ddb592766718ead27495dbbf2c4b3b48df1"
     },
     {
       "sequence": 2,
@@ -1386,7 +1386,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.june.withdrawn",
-            "observation_hash": "sha256:53e362507037ff6632d09764c396b1d0d125880b796b1ce97cd945a8050eddb0"
+            "observation_hash": "sha256:6dc005cc0663a9b291fa49c8c8a10c8f7a937f823bc62c909653981ac29e1ab5"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1396,7 +1396,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.june.withdrawn",
-            "observation_hash": "sha256:53e362507037ff6632d09764c396b1d0d125880b796b1ce97cd945a8050eddb0"
+            "observation_hash": "sha256:6dc005cc0663a9b291fa49c8c8a10c8f7a937f823bc62c909653981ac29e1ab5"
           },
           "state_version": 2,
           "lifecycle": "withdrawn"
@@ -1407,8 +1407,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:d75275abd265b74334a02d4eb0d78c3a2b25e7c08ddb92e97d242764f668547a",
-      "evidence_event_hash": "sha256:f313a759ffad654eb6ae03719d46d61bbe012cbef83f08bb5d106d9e2b315083"
+      "previous_evidence_event_hash": "sha256:caa2a0f968807f2c7ee2efcff2526ddb592766718ead27495dbbf2c4b3b48df1",
+      "evidence_event_hash": "sha256:407f0cd5adf72c86aa927d98def35addad22dcc20ad760bc8bfee68c82708a3d"
     },
     {
       "sequence": 3,
@@ -1422,7 +1422,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.june.expired",
-            "observation_hash": "sha256:38cc57a81b62bf64c74648d09a27462659182759ac3e675e5ccd23467877ef0e"
+            "observation_hash": "sha256:cad44b80f76fb7c629cbdcd1e520f7e221ef9080ed35cbeb0a9285f56e167cd8"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1433,8 +1433,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:f313a759ffad654eb6ae03719d46d61bbe012cbef83f08bb5d106d9e2b315083",
-      "evidence_event_hash": "sha256:b77fec86c6a1d5711569de69706dc8de0d2a3422f9c16aa269bb828ee0609373"
+      "previous_evidence_event_hash": "sha256:407f0cd5adf72c86aa927d98def35addad22dcc20ad760bc8bfee68c82708a3d",
+      "evidence_event_hash": "sha256:0719a4ceb62b41976f9c358005f313fea2f1eb384e5f74054cdbc8b15492303c"
     },
     {
       "sequence": 4,
@@ -1447,7 +1447,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.june.expired",
-            "observation_hash": "sha256:38cc57a81b62bf64c74648d09a27462659182759ac3e675e5ccd23467877ef0e"
+            "observation_hash": "sha256:cad44b80f76fb7c629cbdcd1e520f7e221ef9080ed35cbeb0a9285f56e167cd8"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1457,7 +1457,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.june.expired",
-            "observation_hash": "sha256:38cc57a81b62bf64c74648d09a27462659182759ac3e675e5ccd23467877ef0e"
+            "observation_hash": "sha256:cad44b80f76fb7c629cbdcd1e520f7e221ef9080ed35cbeb0a9285f56e167cd8"
           },
           "state_version": 2,
           "lifecycle": "expired"
@@ -1468,8 +1468,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:b77fec86c6a1d5711569de69706dc8de0d2a3422f9c16aa269bb828ee0609373",
-      "evidence_event_hash": "sha256:786b0a05445b54630b76e0dd2e229ee06dff896ac1aecbfb4ba78e1f3e37d72f"
+      "previous_evidence_event_hash": "sha256:0719a4ceb62b41976f9c358005f313fea2f1eb384e5f74054cdbc8b15492303c",
+      "evidence_event_hash": "sha256:100ba64c9c4ee0ea7bfa110f0cb744ea377b3ff4fa725d462adbaf5c1b2f394e"
     },
     {
       "sequence": 5,
@@ -1483,7 +1483,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.july.original",
-            "observation_hash": "sha256:143a98b423cc9157daacc5608db41473b7490faf29a7e9de2df491bccfb1e7e2"
+            "observation_hash": "sha256:585af599826700c9cb9079c33f641208b7ff7f7946c075ec6de4763680f44f28"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1494,8 +1494,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:786b0a05445b54630b76e0dd2e229ee06dff896ac1aecbfb4ba78e1f3e37d72f",
-      "evidence_event_hash": "sha256:da404bbbf3bcfd3c89130a8a7c26de1a7c7296148c7f83fd68e6078b2ca5773a"
+      "previous_evidence_event_hash": "sha256:100ba64c9c4ee0ea7bfa110f0cb744ea377b3ff4fa725d462adbaf5c1b2f394e",
+      "evidence_event_hash": "sha256:7d3f0e553e14502b1dec2578654f7202c670dad8b82ba139f3a43e05e46f3745"
     },
     {
       "sequence": 6,
@@ -1508,7 +1508,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.july.original",
-            "observation_hash": "sha256:143a98b423cc9157daacc5608db41473b7490faf29a7e9de2df491bccfb1e7e2"
+            "observation_hash": "sha256:585af599826700c9cb9079c33f641208b7ff7f7946c075ec6de4763680f44f28"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1518,7 +1518,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.july.original",
-            "observation_hash": "sha256:143a98b423cc9157daacc5608db41473b7490faf29a7e9de2df491bccfb1e7e2"
+            "observation_hash": "sha256:585af599826700c9cb9079c33f641208b7ff7f7946c075ec6de4763680f44f28"
           },
           "state_version": 2,
           "lifecycle": "superseded"
@@ -1526,7 +1526,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.july",
-            "observation_hash": "sha256:388076978cf1529fb9dc5450e1bd2e4b5b3677aaeb2c64ae27a90347542dfeda"
+            "observation_hash": "sha256:484d0d22072fcfa0e5711e4c5727512f1d52dd6743f249fbe33e9fd05216fa06"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1536,17 +1536,17 @@
         "kind": "correction",
         "from_observation_ref": {
           "observation_id": "observation.option-coverage.july.original",
-          "observation_hash": "sha256:143a98b423cc9157daacc5608db41473b7490faf29a7e9de2df491bccfb1e7e2"
+          "observation_hash": "sha256:585af599826700c9cb9079c33f641208b7ff7f7946c075ec6de4763680f44f28"
         },
         "to_observation_ref": {
           "observation_id": "observation.option-coverage.july",
-          "observation_hash": "sha256:388076978cf1529fb9dc5450e1bd2e4b5b3677aaeb2c64ae27a90347542dfeda"
+          "observation_hash": "sha256:484d0d22072fcfa0e5711e4c5727512f1d52dd6743f249fbe33e9fd05216fa06"
         }
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:da404bbbf3bcfd3c89130a8a7c26de1a7c7296148c7f83fd68e6078b2ca5773a",
-      "evidence_event_hash": "sha256:f29dc2b580788e3789c272e95d7eb70f16a6fba487f1eea586aabcbed7e5ef7c"
+      "previous_evidence_event_hash": "sha256:7d3f0e553e14502b1dec2578654f7202c670dad8b82ba139f3a43e05e46f3745",
+      "evidence_event_hash": "sha256:9e0cb260d0919324a3af512d4d6e5bace31c8969edffa483b89384c1cb6cce66"
     },
     {
       "sequence": 7,
@@ -1560,7 +1560,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.july",
-            "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+            "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1571,8 +1571,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:f29dc2b580788e3789c272e95d7eb70f16a6fba487f1eea586aabcbed7e5ef7c",
-      "evidence_event_hash": "sha256:57b3f3df02187ed0ec207efbdee44d4950b94bc5aa888258e8a8ad3c41c59d4d"
+      "previous_evidence_event_hash": "sha256:9e0cb260d0919324a3af512d4d6e5bace31c8969edffa483b89384c1cb6cce66",
+      "evidence_event_hash": "sha256:9625f91c5b34fac10b49519a7791aa41e453927d51fc78b7da09c3299d9c1dbd"
     },
     {
       "sequence": 8,
@@ -1585,7 +1585,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.july",
-            "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+            "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1595,7 +1595,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.july",
-            "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+            "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
           },
           "state_version": 2,
           "lifecycle": "challenged"
@@ -1606,8 +1606,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:57b3f3df02187ed0ec207efbdee44d4950b94bc5aa888258e8a8ad3c41c59d4d",
-      "evidence_event_hash": "sha256:ca63e147f2ea02f0dbe745a6ab1eb6146ecac0c6ca8ebdc346ac609b498137e9"
+      "previous_evidence_event_hash": "sha256:9625f91c5b34fac10b49519a7791aa41e453927d51fc78b7da09c3299d9c1dbd",
+      "evidence_event_hash": "sha256:4099e31e5f2cbcae597cd1d3991db129de9a35b75265e82f8937b0fc6d67ef20"
     },
     {
       "sequence": 9,
@@ -1620,7 +1620,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.july",
-            "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+            "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
           },
           "state_version": 2,
           "lifecycle": "challenged"
@@ -1630,7 +1630,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.july",
-            "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+            "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
           },
           "state_version": 3,
           "lifecycle": "active"
@@ -1641,8 +1641,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:ca63e147f2ea02f0dbe745a6ab1eb6146ecac0c6ca8ebdc346ac609b498137e9",
-      "evidence_event_hash": "sha256:69877254df9268bad9ab4af0998ff8c7b3c369438f3d508356518e829a239884"
+      "previous_evidence_event_hash": "sha256:4099e31e5f2cbcae597cd1d3991db129de9a35b75265e82f8937b0fc6d67ef20",
+      "evidence_event_hash": "sha256:1e98101c7135a1280dfb734e2538c8eedbc8d6e80e4ced33dad6fc9968455170"
     },
     {
       "sequence": 10,
@@ -1656,7 +1656,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.option-coverage.august",
-            "observation_hash": "sha256:d53ecb505f99327b51a22d9ea6099bb17c973ac7c37b9d9e50aa18dd407bf6a3"
+            "observation_hash": "sha256:54b426125de5a3f52080abb39caaac2be2bfd6f99ede4e8d51048c23c05f7a96"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1667,8 +1667,8 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:69877254df9268bad9ab4af0998ff8c7b3c369438f3d508356518e829a239884",
-      "evidence_event_hash": "sha256:659b11b44c99b7ffde948f5bd83bf0bfaf3b5be483ac3dfd57589ab43a260639"
+      "previous_evidence_event_hash": "sha256:1e98101c7135a1280dfb734e2538c8eedbc8d6e80e4ced33dad6fc9968455170",
+      "evidence_event_hash": "sha256:71214f8b91dee22f9e87ea27994f7c9fd474ce777f25cfa837d05fa40216d6a5"
     },
     {
       "sequence": 11,
@@ -1682,7 +1682,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.human-review.august",
-            "observation_hash": "sha256:20eae471b101e0cf71735d6f4e64eb9a43ac8ec0ceb61c15664b9a4946628dd8"
+            "observation_hash": "sha256:2f62425c8e83f5f11e3e0ed5d02142fe612b5cf74cc2bcce9cd68566191666c9"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -1693,15 +1693,15 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "previous_evidence_event_hash": "sha256:659b11b44c99b7ffde948f5bd83bf0bfaf3b5be483ac3dfd57589ab43a260639",
-      "evidence_event_hash": "sha256:e3120e6923e43d702de7cb6c780a6870feee60d9c72c888390701373a62e73ff"
+      "previous_evidence_event_hash": "sha256:71214f8b91dee22f9e87ea27994f7c9fd474ce777f25cfa837d05fa40216d6a5",
+      "evidence_event_hash": "sha256:a072aef8a24b739b432ab66e004db8626009b1ccba6779fb1cf7020d94b7dacd"
     }
   ],
   "current_evidence_state": [
     {
       "observation_ref": {
         "observation_id": "observation.option-coverage.june.withdrawn",
-        "observation_hash": "sha256:53e362507037ff6632d09764c396b1d0d125880b796b1ce97cd945a8050eddb0"
+        "observation_hash": "sha256:6dc005cc0663a9b291fa49c8c8a10c8f7a937f823bc62c909653981ac29e1ab5"
       },
       "state_version": 2,
       "lifecycle": "withdrawn"
@@ -1709,7 +1709,7 @@
     {
       "observation_ref": {
         "observation_id": "observation.human-review.june.expired",
-        "observation_hash": "sha256:38cc57a81b62bf64c74648d09a27462659182759ac3e675e5ccd23467877ef0e"
+        "observation_hash": "sha256:cad44b80f76fb7c629cbdcd1e520f7e221ef9080ed35cbeb0a9285f56e167cd8"
       },
       "state_version": 2,
       "lifecycle": "expired"
@@ -1717,7 +1717,7 @@
     {
       "observation_ref": {
         "observation_id": "observation.option-coverage.july.original",
-        "observation_hash": "sha256:143a98b423cc9157daacc5608db41473b7490faf29a7e9de2df491bccfb1e7e2"
+        "observation_hash": "sha256:585af599826700c9cb9079c33f641208b7ff7f7946c075ec6de4763680f44f28"
       },
       "state_version": 2,
       "lifecycle": "superseded"
@@ -1725,7 +1725,7 @@
     {
       "observation_ref": {
         "observation_id": "observation.option-coverage.july",
-        "observation_hash": "sha256:388076978cf1529fb9dc5450e1bd2e4b5b3677aaeb2c64ae27a90347542dfeda"
+        "observation_hash": "sha256:484d0d22072fcfa0e5711e4c5727512f1d52dd6743f249fbe33e9fd05216fa06"
       },
       "state_version": 1,
       "lifecycle": "active"
@@ -1733,7 +1733,7 @@
     {
       "observation_ref": {
         "observation_id": "observation.human-review.july",
-        "observation_hash": "sha256:7ad4d79e0087506d692d3f7221722b68c6fafc918ed7fe5eab4f9e3f3e41cf73"
+        "observation_hash": "sha256:ad1ab0a073c24dab72a7d146896e4c6c90445fd4121079e8c9fa62fa2357a8f8"
       },
       "state_version": 3,
       "lifecycle": "active"
@@ -1741,7 +1741,7 @@
     {
       "observation_ref": {
         "observation_id": "observation.option-coverage.august",
-        "observation_hash": "sha256:d53ecb505f99327b51a22d9ea6099bb17c973ac7c37b9d9e50aa18dd407bf6a3"
+        "observation_hash": "sha256:54b426125de5a3f52080abb39caaac2be2bfd6f99ede4e8d51048c23c05f7a96"
       },
       "state_version": 1,
       "lifecycle": "active"
@@ -1749,7 +1749,7 @@
     {
       "observation_ref": {
         "observation_id": "observation.human-review.august",
-        "observation_hash": "sha256:20eae471b101e0cf71735d6f4e64eb9a43ac8ec0ceb61c15664b9a4946628dd8"
+        "observation_hash": "sha256:2f62425c8e83f5f11e3e0ed5d02142fe612b5cf74cc2bcce9cd68566191666c9"
       },
       "state_version": 1,
       "lifecycle": "active"
@@ -1762,7 +1762,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option",
         "definition_version": "2.0.0",
-        "definition_hash": "sha256:92a17396829b92c5f130cd150d065e24a4ab537d867723e0034ce47117a2146e"
+        "definition_hash": "sha256:d93368d0f48f0f47929019da15b1e416f1ec7a04fd38244bddb36e7913bbdd9c"
       },
       "lifecycle": "superseded"
     },
@@ -1772,7 +1772,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw-general",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:abc67423c6bc3c5b22037b5c2dee50d52359056d14f4c5e326fe445d97e10979"
+        "definition_hash": "sha256:8bce08963e7f8668de65c3a8e7bc67489225e6c81e446322dd0e4b9f395f0560"
       },
       "lifecycle": "superseded"
     },
@@ -1782,7 +1782,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw-payroll",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:41d4c5c069fc72493170a4681709655bd12348e815fc270fce37d20c935ab0a2"
+        "definition_hash": "sha256:fa2b098351c629cf68816f9065358f3b79d08484f6aa29fc064d89b6fd9c473d"
       },
       "lifecycle": "superseded"
     },
@@ -1792,10 +1792,10 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
       },
       "lifecycle": "active"
     }
   ],
-  "manifest_hash": "sha256:bb07dae5e670e3c08f318b603e598fc9222e7f563dcf45a74862b49bb6366807"
+  "manifest_hash": "sha256:d1316eef9f056b1b1914f5656796ebae4ab3c809939caf01114d9613c6a45dcf"
 }

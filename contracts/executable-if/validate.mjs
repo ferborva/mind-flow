@@ -466,9 +466,10 @@ export function evaluateCondition(definition, signals, observations, { evaluated
         "observation requires period start <= end <= recorded_at"));
       continue;
     }
-    if (start < Date.parse(definition.effective_from) || recorded < Date.parse(definition.effective_from)) {
+    if ((observation.classification !== "measured-observation" && start < Date.parse(definition.effective_from)) ||
+        recorded < Date.parse(definition.effective_from)) {
       errors.push(error("OBSERVATION_PREDATES_DEFINITION", path,
-        "an observation cannot support a definition before it becomes effective"));
+        "normalisation cannot predate its definition; historical measured periods retain their actual dates"));
       continue;
     }
     if (start < claimStartsAt || end > claimEndsAt) {
@@ -933,9 +934,9 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
     const introducedAt = Date.parse(definitionIntroducedAt.get(definitionKey(
       observation.condition_definition_ref)));
     if (Number.isFinite(start) && Number.isFinite(recorded) &&
-        (start < introducedAt || recorded < introducedAt)) {
+        ((observation.classification !== "measured-observation" && start < introducedAt) || recorded < introducedAt)) {
       errors.push(error("OBSERVATION_PREDATES_DEFINITION", path,
-        "an observation cannot support a definition before its introducing event"));
+        "normalisation cannot predate the introducing event; measured source periods may be historical"));
     }
     const claimStart = Date.parse(definition.claim.period.starts_at);
     const claimEnd = Date.parse(definition.claim.period.ends_at);
