@@ -88,6 +88,13 @@ nothing and posts nothing. The forecast-shaped object is a proposal, not an
 issuance event. Its preregistration remains invalid while its provider receipt
 is absent. No such object is saved as an issued record during preparation.
 
+The issuance-binding check requires exact retained bytes for the fixed binary
+comparator, its conformance tests and resolver parameters. The parameters bind
+the native NERO adapter, bounded-index implementation, ZIP/CSV parser and native
+cell regression tests. Missing or changed dependency bytes prevent a complete
+binding. This validates the reviewed local implementation, not an independent
+resolver's identity or the publisher's authenticity.
+
 Before registration, freeze the complete target, baseline parameters, resolver
 and dependency hashes, scoring implementation, campaign manifest, source-absence
 prefix and exact UTC clocks. Post that sealed protocol hash to the already

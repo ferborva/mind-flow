@@ -44,6 +44,23 @@ test("native resolver dependencies and fixed source parameters cannot drift afte
   }
 });
 
+test("a test-only later receipt completes the candidate binding without claiming issuance authority", () => {
+  const clocks = { sealAt: "2026-09-09T11:00:00Z", issueOpensAt: "2026-09-10T00:00:00Z",
+    issuedAt: "2026-09-10T01:00:00Z", sourceCommit: "a206254" };
+  const pending = prepareNeroCandidate(clocks);
+  const candidate = prepareNeroCandidate({ ...clocks, externalReceipt: {
+    source: "https://example.invalid/test-only-receipt", checksum: `sha256:${"a".repeat(64)}`,
+    registered_content_sha256: pending.protocol.registration.protocol_content_sha256,
+    registered_at: "2026-09-09T11:01:00Z", checksum_scope: "external-receipt-bytes-not-this-protocol-record",
+    verification_status: "unverified_external_review_required",
+  } });
+  const result = assessFutureIssuanceBinding(candidate.input);
+  assert.equal(result.binding_complete, true, JSON.stringify(result.issues));
+  assert.equal(result.issuance_authorised, false);
+  assert.equal(result.independent_anchor_verified, false);
+  assert.equal(candidate.protocol.registration.protocol_content_sha256, pending.protocol.registration.protocol_content_sha256);
+});
+
 test("native NERO resolution selects one exact October cell and rejects unavailable or conflicting counts", () => {
   const forecast = { target: { observation_window_start: "2026-10-01T00:00:00Z",
     signal_id: "signal.nero.5311.101.bounded-stock", condition_id: "condition.nero.5311.101.stock",
