@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Date: Wed, 09 Sep 2026 10:34:32 GMT
+Server: Apache
+Transfer-Encoding: chunked
+Content-Type: text/html;charset=UTF-8
+Set-Cookie: www9.health.gov.au=!zmzDLkVUD1mDrw7fHBEPFJGfazdB6JDtRQ0AHC5gNKCgL/e+IqSgelxyoqsAqp4u9kQq5uzj/FMvsZM=; path=/; Httponly; Secure
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+

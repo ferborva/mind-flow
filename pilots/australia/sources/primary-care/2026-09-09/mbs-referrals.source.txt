@@ -1,0 +1,408 @@
+<!--[if HTML5]><![endif]-->
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en-au" class="ie-6"><![endif]-->
+<!--[if IE 7 ]><html lang="en-au" class="ie-7"><![endif]-->
+<!--[if IE 8 ]><html lang="en-au" class="ie-8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]>
+<!-->
+<html lang="en-au">
+<!--<![endif]-->
+
+<head>
+ 	
+	
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+	<!-- Core CSS -->
+	<link href="/js_libs/cms/bootstrap.css/$FILE/bootstrap.no-icons.css?OpenElement&v=1.0" rel="stylesheet"> <!-- 25686 -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="/js_libs/cms/font-awesome.css/$FILE/font-awesome.css" rel="stylesheet"> <!-- 25686 -->
+	<link href="/js_libs/cms/dha.css/$FILE/dha.css?OpenElement&v=1.0" rel="stylesheet"> <!-- 25686 -->
+	<link href="/js_libs/cms/print.css/$FILE/print.css" rel="stylesheet" media="print"> <!-- 25686 -->
+
+	<!-- IE fixes -->
+	<!--[if lt IE 9]><link href="mbsassets/css/ie.css" rel="stylesheet"><![endif]-->
+
+	<!-- Responsive -->
+	<link href="/js_libs/cms/bootstrap-responsive.css/$FILE/bootstrap-responsive-v.2.3.2.css?OpenElement&v=1.0" rel="stylesheet">
+
+	<!-- Custom local CSS -->
+	<link href="mbsassets/css/site.css" rel="stylesheet">
+	<link href="mbsassets/css/custom.css" rel="stylesheet">
+
+	<!-- Custom Fav Icon -->
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/js_libs/cms/favicon.ico/$FILE/favicon-152.png"> <!-- 25686 -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/js_libs/cms/favicon.ico/$FILE/favicon-144.png"> <!-- 25686 -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/js_libs/cms/favicon.ico/$FILE/favicon-114.png"> <!-- 25686 -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/js_libs/cms/favicon.ico/$FILE/favicon-72.png"> <!-- 25686 -->
+	<link rel="apple-touch-icon-precomposed" href="/js_libs/cms/favicon.ico/$FILE/favicon-57.png"> <!-- 25686 -->
+	<link rel="icon" href="/mbs/mbsassets/image/favicon.ico" type="image/x-icon">
+	
+
+	<!-- DHA responsive CSS -->
+	<link href="/js_libs/cms/dha-responsive.css/$FILE/dha-responsive.css?OpenElement&v=1.0" rel="stylesheet"> <!-- 25686 -->
+
+	<!--[if lt IE 9]>
+	  <link href="https://www.health.gov.au/internet/r/publishing.nsf/AttachmentsByTitle/dha-responsive.css/$FILE/dha-responsive-ltie9.css?OpenElement&v=1.0" rel="stylesheet">
+	  <link href="mbsassets/css/site-responsive-ie.css" rel="stylesheet">
+	  <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Site responsive CSS -->
+	<link href="mbsassets/css/site-responsive.css" rel="stylesheet">
+
+	<!-- Core JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="/js_libs/cms/bootstrap.min.js/$FILE/bootstrap.min.js?OpenElement&v=1.0"></script> <!-- 25686 -->
+	<script src="/js_libs/cms/modernizr/$FILE/modernizr.custom.49735.js"></script> <!-- 25686 -->
+	<!--[if lt IE 9 ]>
+	<script src="mbsassets/js/respond.js"></script>
+	<script src="https://www.health.gov.au/internet/r/publishing.nsf/AttachmentsByTitle/placeholders.min.js/$FILE/placeholders.min.js?OpenElement&v=1.0"></script>
+	<![endif]-->
+	<script src="/js_libs/cms/rs_embhl.js/$FILE/rs_embhl.js?OpenElement&v=1.0"></script> <!-- 25686 -->
+	<script src="/js_libs/cms/dha.js/$FILE/dha.min.js?OpenElement&v=1.1"></script> <!-- 25686 -->
+
+	<!-- Highlight -->
+	<script type="text/javascript" src="mbsassets/js/jquery.highlight.js"></script>
+
+	<!-- Site JS -->
+	<script src="mbsassets/js/site.js"></script>
+
+	<title>Note GN.6.16 | Medicare Benefits Schedule</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	
+			
+			<meta name="X-Robots-Tag" value="noindex, nofollow">
+			
+
+
+</head>
+
+<body>
+
+
+
+
+
+<!--NK::Header -->  
+ <div class="header clearfix" role="banner">
+  <div class="container"> 
+   <a href="#navigation" id="skip-to-navigation" class="visuallyhidden focusable js-skip">Skip to navigation</a> 
+   <a href="#content" id="skip-to-content" class="visuallyhidden focusable js-skip">Skip to content</a>
+   <!-- Global nav --> 
+   <div class="navbar navbar-inverse global-navigation">
+    <ul class="nav" role="navigation"> 
+     <li class="dropdown visible-desktop"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="caret"></i> Follow</a> 
+      <ul class="dropdown-menu follow"> 
+       <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/xml/rssLatestNews.xml"><i class="icon-rss"></i>RSS</a></li> 
+      </ul> </li> 
+    </ul>
+    <form class="navbar-search visible-desktop input-append" method="get" action="search.cfm" name="SearchCriteria" id="MBSsearch"> 
+     <label class="visuallyhidden" for="searchinput">Search</label> 
+     <input type="text" accesskey="5" placeholder="Search the MBS" class="search span3" name="q" id="searchinput" /> 
+     <button name="Submit" class="btn" type="submit"> <i class="icon-search"></i> <span class="visuallyhidden">Search</span> </button> 
+     <div class="search-options"> 
+      <label class="radio"> <input type="radio" name="sopt" id="sopt1" value="S" checked="" />Search All </label> 
+      <label class="radio"> <input type="radio" name="sopt" id="sopt2" value="I" />Search Item numbers only </label> 
+     </div> 
+    </form>
+    <!-- End of navbar-search -->
+   </div>
+   <div class="crest"> 
+    <a href="https://www.health.gov.au" title="Department of Health and Aged Care">Department of Health and Aged Care</a> 
+    
+    
+   </div>
+   <div class="flag"> 
+    <p>Medicare Benefits Schedule</p> 
+   </div>
+  </div> 
+  <div class="navbar-wrapper"> 
+   <div class="container"> 
+    <div class="navbar navbar-inverse main-navigation" id="navigation"> 
+     <div class="navbar-inner"> 
+      <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".main-navigation-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
+      <div class="nav-collapse main-navigation-collapse collapse">
+       <ul class="nav" role="navigation" aria-labelledby="mainlabel">
+        <li class="home"><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/Home"><i class="icon-home"></i> <span class="visuallyhidden">Home</span></a></li>
+        <li class="dropdown"><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/the-mbs" class="dropdown-toggle" data-toggle="dropdown">The MBS <i class="caret"></i></a>
+         <ul class="dropdown-menu">
+          <li><a href="search.cfm">Search</a></li>
+          <li><a href="createPublication.cfm">Create publication</a></li>
+          <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/downloads">Downloads</a></li>
+          <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/a-z">A-Z index</a></li>
+         </ul></li>
+        <li class="dropdown"><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/about-the-mbs" class="dropdown-toggle" data-toggle="dropdown">About the MBS <i class="caret"></i></a>
+         <ul class="dropdown-menu">
+          <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/news">News</a></li>
+          <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/Factsheet-Current">Fact Sheets</a></li>
+          <li><a href="subscribe.cfm">Subscribe</a></li>
+         </ul></li>
+        <li class="dropdown"><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/help" class="dropdown-toggle" data-toggle="dropdown">Help <i class="caret"></i></a>
+         <ul class="dropdown-menu">
+          <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/faqs">FAQ's</a></li>
+          <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/MBS-interpretation">MBS interpretation</a></li>
+         </ul></li>
+       </ul> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div>
+ </div>
+
+<div class="content" role="main" id="content">
+	<div class="container">
+		<div class="row-fluid">
+			<div class="content-area span12">
+
+				
+
+				<div id="read">
+					<div class="row-fluid title-meta">
+						<div class="span12">
+							<h1>Medicare Benefits Schedule -  Note GN.6.16</h1>
+							
+								<p class="strapline">Search Results for Note GN.6.16</p>
+							
+						</div>
+					</div>
+
+					<p>
+						
+					</p>
+
+			<div class="results-list category-0">
+				<h3>General Explanatory Notes</h3>
+				<div class="result-content">
+                    <div class="row-fluid">
+                        <div class="span4"><p>GN.6.16</p></div>
+						<div class="span8"><p>Referral Of Patients To Specialists Or Consultant Physicians</p></div>
+					</div>
+					<div class="row-fluid">
+                        <p><p>For certain services provided by specialists and consultant physicians, the Medicare benefit payable is dependent on acceptable evidence that the service has been provided following referral from another practitioner. </p>
+<p>A reference to a referral in this Section does not refer to written requests made for pathology services or diagnostic imaging services. Information about the form of a diagnostic imaging request can be found in <strong>Note IN.0.6</strong> of the Diagnostic Imaging Services Table (Category 5) and information about the form of a pathology request can be found in <strong>Note PN.2.1</strong> of the Pathology Services Table (Category 6).</p>
+<p><strong>What is a Referral?</strong></p>
+<p>A "referral" is a request to a specialist or a consultant physician for investigation, opinion, treatment and/or management of a condition or problem of a patient or for the performance of a specific examination(s) or test(s). </p>
+<p>Subject to the exceptions in the paragraph below, for a valid "referral" to take place</p>
+<p>(i)               the referring practitioner must have undertaken a professional attendance with the patient and turned their mind to the patient's need for referral and have communicated relevant information about the patient to the specialist or consultant physician (this need not mean an attendance on the occasion of the referral);</p>
+<p>(ii)              the instrument of referral must be in writing as a letter or note to a specialist or to a consultant physician and must be signed and dated by the referring practitioner; and</p>
+<p>(iii)             the specialist or consultant physician to whom the patient is referred must have received the instrument of referral on or prior to the occasion of the professional service to which the referral relates. </p>
+<p>The exceptions to the requirements in paragraph above are that</p>
+<p>(a) sub-paragraphs (i), (ii) and (iii) do not apply to</p>
+<p>-     a pre-anaesthesia consultation by a specialist anaesthetist (items 16710-17625);</p>
+<p>(b) sub‑paragraphs (ii) and (iii) do not apply to</p>
+<p>-     a referral generated during an episode of hospital treatment, for a service provided or arranged by that hospital, where the hospital records provide evidence of a referral (including the referring practitioner's signature); or</p>
+<p>-     an emergency where the referring practitioner or the specialist or the consultant physician was of the opinion that the service be rendered as quickly as possible; and</p>
+<p>(c) sub‑paragraph (iii) does not apply to instances where a written referral was completed by a referring practitioner but was lost, stolen or destroyed. </p>
+<p><strong>Examination by Specialist Anaesthetists</strong></p>
+<p>A referral  is not required in the case of  pre-anaesthesia consultation items 17610-17625. However, for benefits to be payable at the specialist rate for consultations, other than pre-anaesthesia consultations by specialist anaesthetists (items 17640 -17655) a referral is required. </p>
+<p><strong>Who can Refer?</strong></p>
+<p>The general practitioner is regarded as the primary source of referrals.  Cross-referrals between specialists and/or consultant physicians should usually occur in consultation with the patient's general practitioner. </p>
+<p><strong>Referrals by Dentists or Optometrists or Participating Midwives or Participating Nurse Practitioners</strong></p>
+<p>For Medicare benefit purposes, a referral may be made to</p>
+<p>(i)               a recognised specialist:</p>
+<p>(a) by a registered dental practitioner, where the referral arises from a dental service; or</p>
+<p>(b) by a registered optometrist where the specialist is an ophthalmologist; or</p>
+<p>(c) by a participating midwife where the specialist is an obstetrician or a paediatrician, as clinical needs dictate.  A referral given by a participating midwife is valid until 12 months after the first service given in accordance with the referral and for I pregnancy only or</p>
+<p>(d) by a participating nurse practitioner to specialists and consultant physicians.  A referral given by a participating nurse practitioner is valid until 12 months after the first service given in accordance with the referral. </p>
+<p>(ii)              a consultant physician, by an approved dental practitioner (oral surgeon), where the referral arises out of a dental service. </p>
+<p>In any other circumstances (i.e. a referral to a consultant physician by a dentist, other than an approved oral surgeon, or an optometrist, or a referral by an optometrist to a specialist other than a specialist ophthalmologist), it is <u>not</u> a valid referral.  Any resulting consultant physician or specialist attendances will attract Medicare benefits at unreferred rates. </p>
+<p>Registered dentists and registered optometrists may refer themselves to specialists in accordance with the criteria above, and Medicare benefits are payable at the levels which apply to their referred patients. </p>
+<p><strong>Billing</strong></p>
+<p><em><strong>Routine Referrals</strong></em></p>
+<p>In addition to providing the usual information required to be shown on accounts, receipts or assignment agreement, specialists and consultant physicians must provide the following details (unless there are special circumstances as indicated in paragraph below):-</p>
+<p>-                  name and either practice address or provider number of the referring practitioner;</p>
+<p>-                  date of referral; and</p>
+<p>-                  period of referral (when other than for 12 months) expressed in months, eg "3", "6" or "18" months, or "indefinitely" should be shown.</p>
+<p>Special Circumstances</p>
+<p>(i) Lost, stolen or destroyed referrals.</p>
+<p>If a referral has been made but the letter or note of referral has been lost, stolen or destroyed, benefits will be payable at the referred rate if the account, receipt or the assignment form shows the name of the referring medical practitioner, the practice address or provider number of the referring practitioner (if either of these are known to the consultant physician or specialist) and the words 'Lost referral'.  This provision only applies to the initial attendance.  For subsequent attendances to attract Medicare benefits at the referred rate a duplicate or replacement letter of referral must be obtained by the specialist or the consultant physician.</p>
+<p>(ii) Emergencies</p>
+<p>If the referral occurred in an emergency, benefit will be payable at the referred rate if the account, receipt or assignment agreement is endorsed 'Emergency referral'.  This provision only applies to the initial attendance.  For subsequent attendances to attract Medicare benefits at the referred rate the specialist/consultant physician must obtain a letter of referral.</p>
+<p>(iii) Hospital referrals.</p>
+<p>Private Patients - Where a referral is generated during an episode of hospital treatment for a service provided or arranged by that hospital, benefits will be payable at the referred rate if the account, receipt or assignment form is endorsed 'Referral within (name of hospital)' and the patient's hospital records show evidence of the referral (including the referring practitioner's signature). However, in other instances where a medical practitioner within a hospital is involved in referring a patient (e.g. to a specialist or a consultant physician in private rooms) the normal referral arrangements apply, including the requirement for a referral letter or note and its retention by the specialist or the consultant physician billing for the service.</p>
+<p> </p>
+<p><em><strong>Public Hospital Patients</strong></em></p>
+<p>State and Territory Governments are responsible for the provision of public hospital services to eligible persons in accordance with the National Healthcare Agreement.</p>
+<p> </p>
+<p><strong>Bulk-Billing</strong></p>
+<p>Bulk-billing assignment forms should also include the same information as detailed above.</p>
+<p>However, faster processing of the claim will be facilitated where the provider number (rather than the practice address) of the referring practitioner is shown.</p>
+<p>Additionally, the bulk billing assignment form must include:</p>
+<p>(i)              the full name of the individual for whom the service was provided;</p>
+<p>(ii)             the date on which the assignment agreement was made;</p>
+<p>(iii)            indication the assignment of benefit agreement was completed prior to (pre-assignment) the provision of the professional service;</p>
+<p>(iv)            confirmation if the assignor is the patient (yes or no);</p>
+<p>(v)             the date on which the specimen was obtained;</p>
+<p>(vi)            a statement confirming the assignor’s consent;</p>
+<p>(vii)          a description of the service delivered.</p>
+<p>(viii)          be signed by the patient (or their assignor)</p>
+<p>Specifications for bulk billed assignment of benefit agreements are outlined in Part 65C of the <em>Health Insurance Regulation 2018</em>.</p>
+<p><strong>Period for which Referral is Valid</strong></p>
+<p>The referral is valid for the period specified in the referral which is taken to commence on the date of the specialist's or consultant physician's first service covered by that referral. </p>
+<p><strong><em>Specialist Referrals</em></strong></p>
+<p>Where a referral originates from a specialist or a consultant physician, the referral is valid for 3 months, except where the referred patient is an admitted patient.  For admitted patients, the referral is valid for 3 months or the duration of the admission and ceases when the patient is discharged. </p>
+<p>A referral for a specialist professional service to a patient in a hospital who is not a public patient is valid until the patient ceases to be a patient in the hospital.</p>
+<p>As it is expected that the patient's general practitioner will be kept informed of the patient's progress, a referral from a specialist or a consultant physician must include the name of the patient's general practitioners and/or practice. Where a patient is unable or unwilling to nominate a general practitioner or practice this must be stated in the referral. </p>
+<p><strong><em>Referrals by other Practitioners</em></strong></p>
+<p>Where the referral originates from a practitioner other than those listed in <em>Specialist Referrals</em>, the referral is valid for a period of 12 months, unless the referring practitioner indicates that the referral is for a period more or less than 12 months (eg. 3, 6 or 18 months or valid indefinitely). Referrals for longer than 12 months should only be used where the patient's clinical condition requires continuing care and management of a specialist or a consultant physician for a specific condition or specific conditions. </p>
+<p><strong>Definition of a Single Course of Treatment</strong></p>
+<p>A single course of treatment involves an initial attendance by a specialist or consultant physician and the continuing management/treatment up to the stage where the patient is referred back to the care of the referring practitioner.  It also includes any subsequent review of the patient's condition by the specialist or the consultant physician that may be necessary. Such a review may be initiated by either the referring practitioner or the specialist/consultant physician. </p>
+<p>The presentation of an unrelated illness, requiring the referral of the patient to the specialist's or the consultant physician's care would initiate a new course of treatment in which case a new referral would be required. </p>
+<p>The receipt by a specialist or consultant physician of a new referral following the expiration of a previous referral for the same condition(s) does not necessarily indicate the commencement of a new course of treatment involving the itemisation of an initial consultation.  In the continuing management/treatment situation the new referral is to facilitate the payment of benefits at the specialist or the consultant physician referred rates rather than the unreferred rates. </p>
+<p>However, where the referring practitioner:-</p>
+<p>(a)              deems it necessary for the patient's condition to be reviewed; and</p>
+<p>(b)              the patient is seen by the specialist or the consultant physician outside the currency of the last referral; and</p>
+<p>(c)              the patient was last seen by the specialist or the consultant physician more than 9 months earlier</p>
+<p>the attendance following the new referral initiates a new course of treatment for which Medicare benefit would be payable at the initial consultation rates. </p>
+<p><strong>Retention of Referral Letters</strong></p>
+<p>The prima facie evidence that a valid referral exists is the provision of the referral particulars on the specialist's or the consultant physician's account. </p>
+<p>A specialist or a consultant physician is required to retain the instrument of referral (and a hospital is required to retain the patient's hospital records which show evidence of a referral) for 2 years from the date the service was rendered. </p>
+<p>A specialist or a consultant physician is required, if requested by the Services Australia CEO, to produce to a medical practitioner who is an employee of Services Australia, the instrument of referral within seven days after the request is received. Where the referral originates in an emergency situation or in a hospital, the specialist or consultant physician is required to produce such information as is in his or her possession or control relating to whether the patient was so treated. </p>
+<p><strong>Attendance for Issuing of a Referral</strong></p>
+<p>Medicare benefit is attracted for an attendance on a patient even where the attendance is solely for the purpose of issuing a referral letter or note.  However, if a medical practitioner issues a referral without an attendance on the patient, no benefit is payable for any charge raised for issuing the referral. </p>
+<p><strong>Locum‑tenens Arrangements</strong></p>
+<p>It should be noted that where a non-specialist medical practitioner acts as a locum‑tenens for a specialist or consultant physician, or where a specialist acts as a locum‑tenens for a consultant physician, Medicare benefit is only payable at the level appropriate for the particular locum‑tenens, eg, general practitioner level for a general practitioner locum‑tenens and specialist level for a referred service rendered by a specialist locum tenens. </p>
+<p>Medicare benefits are not payable where a practitioner is not eligible to provide services attracting Medicare benefits acts as a locum-tenens for any practitioner who is eligible to provide services attracting Medicare benefits.  </p>
+<p>Fresh referrals are not required for locum‑tenens acting according to accepted medical practice for the principal of a practice ie referrals to the latter are accepted as applying to the former and benefit is not payable at the initial attendance rate for an attendance by a locum‑tenens if the principal has already performed an initial attendance in respect of the particular instrument of referral. </p>
+<p><strong>Self Referral</strong></p>
+<p>Medical practitioners may refer themselves to consultant physicians and specialists and Medicare benefits are payable at referred rates. </p></p>
+                        <p></p>
+                        <ul class="pager">
+                        	
+								<li class="previous">
+									<a href="fullDisplay.cfm?type=note&amp;q=GN.5.15&amp;qt=noteID"><i class="icon-arrow-left"></i> Previous - Note GN.5.15</a>
+								</li>
+							
+								<li class="next">
+									<a href="fullDisplay.cfm?type=note&amp;q=GN.7.17&amp;qt=noteID" class="toRight">Next - Note GN.7.17 <i class="icon-arrow-right"></i></a>
+								</li>
+							
+                        </ul>
+                    </div>
+				</div>
+			</div>
+		
+<hr />
+<div class="legend">
+	<h3>Legend</h3>
+	<ul>
+		
+			<li>Assist - Addition/Deletion of (Assist.)</li>
+		
+			<li>Amend - Amended Description</li>
+		
+			<li>Anaes - Anaesthetic Values Amended</li>
+		
+			<li>Emsn - EMSN Change</li>
+		
+			<li>Fee - Fee Amended</li>
+		
+			<li>Renum - Item Number Change (renumbered)</li>
+		
+			<li>New - New Item</li>
+		
+			<li>NewMin - New Item (previous Ministerial Determination)</li>
+		
+			<li>Qfe - QFE Change</li>
+		
+	</ul>	
+</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<!-- NK::Footer -->
+  <div class="feedback"> 
+    <div class="container"> 
+     <ul class="nav nav-tabs"> 
+      <li class="active"><a href="#" id="feedback" class="">Subscribe</a></li> 
+     </ul> 
+     <form class="form-horizontal subscribe-form" method="post" action="subscribe.cfm" name="subscribe-form" id="subscribe-form"> 
+      <fieldset> 
+       <legend>Subscribe to us</legend> 
+       <div class="row-fluid control-group"> 
+        <div class="controls"> 
+         <label for="emailsubscribe" class="visuallyhidden">Enter your email address</label> 
+         <input type="email" placeholder="Your E-mail address" class="search span8" name="emailsubscribe" id="emailsubscribe" required="" data-validation-error-msg="Please enter a valid email address" /> 
+         <hr /> 
+         <button class="btn btn-primary" type="submit">Subscribe</button> 
+        </div> 
+       </div> 
+      </fieldset> 
+     </form> 
+    </div> 
+   </div>
+   <div class="footer" role="contentinfo"> 
+    <div class="container"> 
+     <div class="row-fluid">
+      <div class="span4 divided"> 
+       <h1 class="flag">MBS Online</h1> 
+      </div> 
+      <div class="bottom-locked"> 
+       <div class="crest visible-desktop"> 
+        <a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/Home">MBS Online</a> 
+       </div> 
+       <p class="small-print">&copy; Commonwealth of Australia<br />ABN: 83 605 426 759</p> 
+      </div>
+      <div class="span2 divided"> 
+       <h2>Home</h2> 
+       <ul> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/Accessibility">Accessibility</a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/privacy_security">Privacy</a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/disclaimer">Disclaimer</a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/copyright">Copyright</a></li> 
+       </ul> 
+      </div> 
+      <div class="span2 divided"> 
+       <h2>The MBS</h2> 
+       <ul> 
+        <li><a href="search.cfm">Search</a></li> 
+        <li><a href="createPublication.cfm">Create publication </a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/downloads">Downloads</a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/a-z">A-Z index</a></li> 
+       </ul> 
+      </div> 
+      <div class="span2 divided"> 
+       <h2>About the MBS</h2> 
+       <ul> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/news">News</a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/factsheet-current">Fact Sheets</a></li> 
+        <li><a href="subscribe.cfm">Subscribe</a></li> 
+       </ul> 
+      </div> 
+      <div class="span2 divided"> 
+       <h2>Help</h2> 
+       <ul> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/faqs">FAQ's</a></li> 
+        <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/MBS-interpretation">MBS interpretation</a></li> 
+       </ul> 
+      </div>
+     </div> 
+     <div class="follow hidden-desktop"> 
+      <h3 class="border-bottom dark">Follow us</h3> 
+      <ul class="follow"> 
+       <li><a href="http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/AttachmentsByTitle/rss/$FILE/mbsonline.xml"><i class="icon-rss"></i><span class="visuallyhidden">RSS</span></a></li> 
+      </ul> 
+     </div> 
+    </div> 
+   </div> 
+
+
+
+</div>
+
+
+</body>
+</html>
