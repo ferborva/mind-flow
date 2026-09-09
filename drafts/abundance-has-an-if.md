@@ -17,7 +17,8 @@ updated: 2026-09-01
 > **Reading note:** This is the originating argument and remains in review. The
 > red team broke its corporate-discretion remedy. [From If to When](from-if-to-when.md)
 > keeps the diagnosis and rebuilds the transition around measures, incentives
-> and pre-committed action. This draft stays intact so the evolution is visible.
+> and pre-committed action. This draft preserves the original argument while
+> correcting claims that no longer survive review.
 
 ## 🦅 TL;DR
 
@@ -26,14 +27,14 @@ updated: 2026-09-01
 - That sentence is incomplete. The real structure is **verb + fill in the blank
   + if.** We live in a world of conditions, and the conditions are where the
   whole argument actually lives.
-- The two biggest ifs are **money** and **which country you happen to be
-  standing in.** Neither is going away on the timelines we keep talking about.
-- If labour gets displaced, money still has to reach people. **I don't think tax
-  or UBI is the answer.** The money accrues to a handful of companies, so the
-  choice is theirs to make.
-- So the question I want us arguing about is not "what should governments do".
-  It's **"what should these enormous businesses do with their profits"**, and
-  **"how much is enough for one person to own"**.
+- Two early candidate IFs are **money** and **jurisdiction.** Their importance
+  must be tested for each population and service rather than declared universal.
+- If labour is displaced, purchasing power or direct access still has to reach
+  people. Corporate discretion alone does not solve the scale, legitimacy or
+  delivery problem.
+- So the question is wider than what governments or companies should do alone.
+  It is **which portfolio of prices, earnings, ownership, transfers, public
+  provision and institutions keeps effective access ahead of loss.**
 
 ---
 
@@ -92,7 +93,7 @@ conditional structure did not move an inch. I want to call this thing **the
 missing if**, because until we put it back into the sentence we are not really
 discussing the future, we are just admiring it.
 
-## 💰 The biggest if is money
+## 💰 A first candidate IF is money
 
 The standard answer at this point is that money won't matter. Musk has been
 explicit about it, and he is careful about which term he uses:
@@ -103,57 +104,66 @@ explicit about it, and he is careful about which term he uses:
 He has put a date on it too, telling The Economist money won't matter by 2036,
 and saying that in a benign scenario probably none of us will have a job.
 
-If that were true it would remove the single biggest conditional we run our
-lives on. Right now, we can do things **if** we have the financial resources to
-do them or acquire them. **Take money out of the sentence and you have not
-solved the condition, you have deleted the one everybody understands.**
+If that were true it would remove one of the most legible access conditions in
+many market systems. Right now, many things remain available **if** we have the
+financial resources to acquire them. **Deleting money from the sentence does
+not show that effective access has been solved. It forces us to name whatever
+allocation rule replaces it.**
 
 I don't buy that it goes away, for three reasons.
 
-**Value doesn't go to zero.** There is always going to be some value attributed
-to things. Not everything is worth nothing, and we are not getting there any
-time soon.
+**Value and scarcity need not go to zero.** Even if the marginal financial cost
+of some goods collapses, scarce time, land, energy, attention, care and unique
+objects may still require allocation. Which constraints persist is an empirical
+question, not something this draft can settle in advance.
 
-**Producers still trade.** The people and companies who come together to offer
-these services and goods will do so in exchange for something. Free to the
-consumer is never free to produce.
+**Production still has inputs.** A service can be free at the point of use, and
+some digital goods can approach zero marginal cost, while infrastructure,
+energy, labour, maintenance and governance still need an allocation mechanism.
 
 **Even rationing is a token.** Say we skip money entirely and hand out
 allocations instead. The rationing is still based on some sort of token you
 receive on a regular basis. You have not removed the conditional. You have
 renamed it.
 
-So let us work under the assumption that money is still around, because I think
-it is the honest one.
+So let us test the working assumption that money remains an access condition.
+That is not a forecast. It can fail for services where price disappears or
+another constraint becomes binding.
 
 And notice who the condition already excludes. Not a minority:
 
-| Living on less than | Share of humanity, 2026 |
+| Living on less than | World Bank-derived nowcast, 2026 |
 |---|---|
 | $8.30 a day, the World Bank's upper-middle-income line | **44.4%** |
-| $30 a day, roughly a developed-world floor | **80.0%** |
+| $30 a day, an illustrative high-income comparison, not a validated floor | **80.0%** |
 
-**Four in five people alive today are on the wrong side of the money condition
-before we start.** When we say "you will be able to", we are, almost entirely,
-talking to the other fifth.
+These are income-or-consumption estimates in 2021 international dollars. They
+are not cash balances, service eligibility or direct measures of effective access.
 
-## 🌍 The second if is your passport
+**Four in five people are below this illustrative $30-a-day comparison in that
+nowcast before we test any other access condition.** This does not prove that a
+specific future service is unaffordable. It shows why an abundance promise is
+not financially credible until it names the service, price, provision route,
+population and evidence of effective access.
 
-The other half of the conditions are country based and government based.
+## 🌍 Another candidate IF is jurisdiction
+
+Another major class of conditions is jurisdictional and institutional.
 
 I keep hearing that America has to win the AI race. Careful with China. We have
-to beat China. Again and again and again. And what I am far from hearing is
-anyone uniting forces on a humanity standard, or even trying.
+to beat China. Again and again and again. What I hear far less often is a
+concrete, enforceable humanity standard shared across those rivals.
 
-**Here is the thing about technology dispersing: the technology travels, but the
-conditions attached to it stay home.** China has electric vehicles. America has
-electric vehicles. Europe has electric vehicles. They all have them under their
-own ifs. AI is dispersing across the entire world right now in exactly the same
-way, but what it is worth to you falls inside whatever your country permits to
-be done with it.
+**Capabilities can cross borders faster than the legal, physical and financial
+conditions that determine who can use them.** China, America and Europe all have
+electric vehicles, but access, price, infrastructure and regulation differ.
+AI is also diffusing unevenly. What it is worth to you depends partly on the
+conditions your jurisdiction, institutions and local infrastructure create.
 
-So each if stays bound to a particular country, until countries stop existing.
-And countries are not disappearing any time soon.
+So every consequential IF must name the governing and delivery scopes that
+could matter. Some conditions are local, some national, some transnational and
+some outside formal jurisdiction. Treating them as universal hides where
+responsibility and leverage may sit.
 
 <!-- NOTE: he raised an exodus from Earth here, new countries on the moon or
      Mars carrying the same conditions with them, then moved on. Left out of the
@@ -168,15 +178,16 @@ hands, so it can flow back to the businesses making the goods.
 
 The trap here is to say: fine, it flows back through governments and taxes.
 
-**That makes no sense to me. I don't think tax is a reasonable route for value to
-travel out of companies, through a government, and back to people.** Put us in a
-country where tax sits stable at 10%, funding the government and what the
-government runs. The leverage still isn't there. The money ends up in the
-companies' bank accounts, because that is where it accrues.
+My initial objection was that tax alone may not be a sufficient route for value
+to travel out of companies, through government and back to people. A stylised
+10% tax rate does not establish that. The answer depends on the tax base,
+incidence, avoidance, ownership, spending, public provision and cross-border
+rules. Those mechanisms need comparison rather than dismissal by example.
 
-Which gives us the concentration everyone is afraid of. Very few people
-harnessing a vast majority of the world's economic power. And if they hold the
-money, the question is unavoidable: **how does it flow back to everyone else?**
+The concentration risk is that few owners capture a large share of the gains.
+If that occurs, the question is unavoidable: **through which portfolio of
+prices, earnings, ownership, transfers and public provision could effective
+access reach everyone else?**
 
 Picture a serious slice of the population losing productive value over a few
 years, measured against technology that does the same work faster, cheaper and
@@ -198,23 +209,26 @@ something to pay with.** And these sit high in the Maslow pyramid: the house,
 the loans, the children's education, health. Even if we cure everything, health
 still gets paid for. We are straight back to the same missing if.
 
-## 🏥 Two ways money can flow back, and I have seen both
+## 🏥 Two personal system impressions, not comparative evidence
 
 Whatever the mechanism, the money has to come back out of those companies. There
 are two shapes for that, and I have lived under both.
 
 | | Belgium | Spain |
 |---|---|---|
-| At the hospital | You see exactly what it costs. You pay it. | You pay nothing. |
-| Then | Social services reimburse you. | Funded by tax, upstream. |
-| Net cost to you | Zero | Zero |
-| What you keep | **A reference for what things are worth** | No reference at all |
+| At the hospital | In my experience, a price may be visible and reimbursement may follow | In my experience, covered care may have no point-of-service charge |
+| Then | Insurance or social reimbursement may cover some or all of the charge | Funding is arranged upstream, including through tax |
+| Net cost to you | Depends on coverage and co-payment | Depends on coverage, indirect costs and excluded services |
+| What you keep | A visible price signal, not proof of social value | Less visible price information at the point of use |
 
-And if you are Belgian and you don't have the money, you still get the service.
-You just see on the bill what it would have cost.
+My recollection is that Belgian access continued even when a person lacked the
+upfront money, while the bill still displayed a charge. That is an anecdote to
+verify, not evidence about national coverage or outcomes.
 
-**Both get you to free. Only one leaves people with any sense of value.** I think
-that reference of contrast matters more than we give it credit for.
+This personal comparison does not establish which system is free, more
+efficient or more valued. It suggests a testable communication question: does
+showing cost change understanding or behaviour without deterring necessary
+care? The answer needs country-specific evidence.
 
 ## 🎯 The question I actually want us arguing about
 
@@ -261,10 +275,10 @@ threshold for myself. Most people can.
 is enough to make it optional.** That is a number. You can count how many people
 are above it today, and you can ask how we move that count.
 
-And there is an obvious place to start: **the people who should cross that line
-next are the ones losing their jobs.** If you are going to be fully replaced in
-three to five years, and we are heading for a world where you don't need to
-work, you should come out of it with enough to sustain you for life.
+One candidate priority is the people who lose work because of the transition.
+That is a distributive value choice, not a conclusion produced by displacement
+data. It needs affected-party, democratic and legal scrutiny, as do the level,
+duration and funding of any guarantee.
 
 ## 🍷 One caution on the word "anything"
 
@@ -284,7 +298,13 @@ It is a floor: what is the base quality of life we guarantee? I will be first to
 admit **defining that for humanity as a whole is close to impossible.** But it is
 at least the right question.
 
-## 🏢 The choice is the companies' to make
+## 🏢 The originating company-choice proposal
+
+> **Correction boundary:** Corporate provision is one possible mechanism, not
+> the owner of the transition and not a sufficient remedy. Voluntary action
+> alone cannot establish scale, durability, legitimacy, equal access or appeal.
+> The stronger case compares a portfolio of prices, earnings, ownership,
+> transfers, public provision and institutional rules.
 
 Here is where I want to land, and it is the part I most want pushed back on.
 
@@ -297,13 +317,16 @@ Does that mean UBI? I don't think so.
 What I would rather see is these huge companies starting service businesses that
 give the service away. Tesla gyms. SpaceX theatres. OpenAI movie making. Claude
 medical services. Free of charge, for anyone in the world, anywhere in the
-world. **Not cash transfers, but genuinely taking the cost of a service to zero**,
-so that participation stops depending on the money condition at all.
+world. **Not only cash transfers, but making selected services free at the point
+of use**, so that a direct price is less likely to block participation. This
+would shift costs and may expose other conditions. It would not make production
+costless or prove effective access.
 
-But that has to be a choice made by the enterprises, not extracted by
-governments. And right now the enterprises are waiting for governments to make
-the choice for them, while fighting each other to stay competitive. That is a
-deadlock.
+My originating proposal made this a choice for enterprises rather than
+governments. The red team broke that binary. Firms and public institutions have
+different powers and duties, and neither can self-authorise the whole answer.
+The live question is which accountable combination can fund and sustain access
+while preserving rights, competition, public legitimacy and exit.
 
 The resources accrue to you. The choice accrues to you.
 

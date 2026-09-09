@@ -51,17 +51,21 @@ updated: 2026-09-09
   firm, public institution, household, community, commons or automated system.
 - So the frame has two sides. Consumers get **"I will be able to X, if..."**.
   Providers record **"we propose we could attempt to offer X, when..."**.
+  Here **WHEN means an actor's conditional work proposal, not an expected event
+  or date.**
 - **Linked conditions, different roles.** Provider conditions may cause,
   mediate or fail to resolve a consumer condition. A WHEN records what one actor
   proposes it could attempt as those conditions change.
-- **That actor-specific WHEN register belongs in the CEO's view**, alongside the
-  corresponding registers for workers, providers, regulators and public bodies.
+- **That actor-specific WHEN register belongs in every accountable actor's
+  view.** It belongs in a CEO's view only where the institution actually assigns
+  that actor responsibility or authority.
 - “Who holds it” is not one owner field. Control, influence, duty, funding,
   delivery, dependence, verification and affectedness can sit with different
   people.
-- Which is why "what should these companies do with their profits" was the wrong
-  question. **The right one is: what would have to be true for you to offer this
-  at zero, and survive?**
+- Which is why "what should these companies do with their profits" was too narrow
+  a question. **A stronger one is: what would have to be true for you to offer
+  this at zero and sustain safe delivery, or transfer it without loss of
+  service?**
 
 ---
 
@@ -76,6 +80,14 @@ For public use, complete the shorthand on both sides:
 > **[WHO] can [VERB] [OUTCOME] to [STANDARD], in [PLACE], during [PERIOD], IF
 > [CONDITION SET].**
 
+The provider mnemonic compiles back into the same conditional form:
+
+> **[ACTOR] could [ACT, PREPARE, WATCH, NEGOTIATE, INVESTIGATE OR DECLINE] IF
+> [CONDITIONS AND SAFEGUARDS], under [AUTHORITY], until [REVIEW OR EXPIRY].**
+
+`WHEN` is the memorable prompt for that actor register. It does not change an IF
+into a forecast, make the condition likely, or imply that the action will occur.
+
 The same claim can be examined from several positions: affected person,
 provider, worker, funder, regulator, public body and others the first map may
 omit. The first piece concentrated on the affected person's IF.
@@ -88,12 +100,15 @@ move it yet.
 
 Put the two sentences next to each other:
 
-> **Consumer:** I will be able to see a doctor about anything, instantly, for
-> free - **if** I can pay, **if** it is legal here, **if** it can reach me.
+> **Consumer:** I will be able to get a named clinical need assessed to a stated
+> standard, within a stated time, with no clinical fee - **if** indirect costs
+> such as time, travel and device access remain within reach, **if** it is lawful
+> here, **if** safe and effective care can reach me.
 >
-> **Provider:** We propose we could attempt to offer a doctor for anything, instantly, for
-> free - **when** the model clears clinical standards, **when** we hold a
-> licence in each market, **when** the unit cost sits below what we can carry.
+> **Provider:** We propose we could attempt to offer that consultation to the
+> same standard and time, with no clinical fee - **when** the model clears the
+> named clinical standards, **when** we hold the required licence for the stated
+> place, **when** the unit cost sits below what the funding route can carry.
 
 **The two registers are linked but non-identical.** Provider clinical
 validation, licence and unit cost can cause, mediate or fail to resolve a
@@ -120,14 +135,15 @@ Here is why this matters more than a grammar observation.
 
 An IF list can feel honest and slightly bleak because it exposes dependence.
 **A WHEN register asks which parts can become work for each actor.** This
-programme requires every line to name a completion criterion, dependency,
-review time and explicit claim state. Whether that improves real decisions is a
-test, not a settled result.
+programme requires every register entry to name a completion criterion,
+dependency, review time and explicit claim state. Whether that improves real
+decisions is a test, not a settled result.
 
-**A WHEN is not a date, forecast, guarantee or commitment.** It is a conditional
-plan hypothesis. Conditions can move concurrently, remain dependency-bound,
-become cyclical or fail in different orders for different actors. There is no
-universal sequence and no reason to grant one actor control over the whole list.
+**A WHEN is not a date, forecast, guarantee, commitment or claim that the event
+is expected.** It is a conditional plan hypothesis. Conditions can move
+concurrently, remain dependency-bound, become cyclical or fail in different
+orders for different actors. There is no universal sequence and no reason to
+grant one actor control over the whole list.
 
 > **We propose we could attempt to offer, fill in the blank, when...**
 
@@ -241,15 +257,17 @@ requires legal, institutional and affected-party verification.
 ### A note on simply ignoring the list
 
 One stylised counter-position says many declared conditions are assumed rather
-than tested. Ship it and litigate afterwards. Make the part yourself. **Treat
-each condition as a hypothesis until evidence, rights, safety or physics says
-otherwise.** This is an argument to examine, not an attributed empirical claim.
+than tested. Ship it and litigate afterwards. Make the part yourself. **Treat an
+empirical claim about a condition's necessity as a hypothesis. Rights, consent,
+legal duties and safety safeguards remain governed constraints unless a
+legitimate process changes them. Physical limits remain physical limits.** This
+is an argument to examine, not an attributed empirical claim.
 
 I have sympathy for that, more than you might expect. Going down the vertical,
-enumerating the conditions and testing them one at a time *is* a
-first-principles approach. Challenging assumed constraints has enabled some
-innovations. Other constraints encode rights, safety, scarce resources or
-physical limits.
+enumerating the conditions and testing empirical claims one at a time *is* a
+first-principles approach. Some assumed constraints can be tested through
+bounded, reversible experiments. Other constraints encode rights, safety,
+scarce resources or physical limits.
 
 The honest version adds two columns: **what happens if this condition is false,
 and who carries that loss?** Some internal preferences can be tested through a
@@ -284,7 +302,8 @@ explicitly rather than collapsed into a business case.
 
 - **Write the promise you are making**, as the person who has to deliver it:
   *we will be able to offer, fill in the blank, when...*
-- **List every condition**, including the embarrassing internal ones.
+- **List candidate conditions inside a declared search boundary**, including
+  the embarrassing internal ones, then show omitted domains and untested routes.
 - **Map the relations:** control, influence, duty, funding, delivery,
   dependence, verification and affectedness.
 - **Choose a legitimate posture for each actor:** act, prepare, watch,
@@ -292,10 +311,13 @@ explicitly rather than collapsed into a business case.
 - **Add false, unknown, harm, expiry and review columns.** If you cannot name
   who carries the loss, you are not ready to ignore the condition.
 
-**Net: abundance is not a gift that arrives. It is a human outcome whose IFs
-meet several actors' WHEN hypotheses, or fail visibly where no legitimate move
-exists.** The optimists have been describing the moment they meet. The work is
-in the conditions, relations, evidence and consequences.
+**Net: abundance is not a gift that arrives. In this proposal, an abundance
+claim becomes operationally inspectable when a scoped human outcome, candidate
+IFs, actor-specific WHEN hypotheses and experienced results can be examined
+together.** Even every registered rule passing would not guarantee the outcome
+or prove the condition set complete. The work is in the conditions, relations,
+evidence and consequences.
 
-**Food for thought:** if you run this and find that every condition on your when
-list is internal, that is not a plan. That is a mirror 🙂
+**Food for thought:** if you run this and find that every condition on your WHEN
+list is internal, treat that as a prompt to test for omitted external
+dependencies. It may be a bounded internal plan. It may also be a mirror 🙂

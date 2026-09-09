@@ -36,11 +36,25 @@ test("the supply argument keeps consumer IFs and actor WHENs linked but non-iden
 test("programme controls are described as advisory until an issuance boundary exists", () => {
   assert.match(programme, /cannot enforce that requirement at CI, hosting, identity or\s+operational issuance boundaries/i);
   assert.match(programme, /controls are advisory library and build\s+boundaries/i);
-  assert.match(programme, /Current checkpoint: Round 04 complete synthetic core/i);
+  assert.match(programme, /Current checkpoint: development iteration 06 over the Round 04 synthetic fixture/i);
   assert.match(programme, /seven-artifact pre-projection core/i);
   assert.match(programme, /eight-artifact complete core/i);
   assert.match(programme, /truth, freshness,\s+authority and publication remain closed/i);
   assert.match(programme, /transition-bundle assessment/i);
   assert.doesNotMatch(programme, /repository is a provenance-safe system/i);
   assert.doesNotMatch(programme, /Block public issuance at a machine-readable governance boundary/i);
+});
+
+test("the programme treats goals, paths, harms and federation as governed choices", () => {
+  assert.match(programme, /could expand or contract shared(?: human)?\s+agency/is);
+  assert.match(programme, /shape, refuse, reverse[\s>]+or navigate possible transitions/is);
+  assert.match(programme, /Empirical hypotheses\s+name rivals, falsifiers and expiry/is);
+  assert.match(programme, /Value choices name the chooser, affected\s+parties, dissent and review/is);
+  assert.match(programme, /Commitments name authority, funding, safeguards,\s+review and exit/is);
+  assert.match(programme, /Paths may branch,\s+loop, stop or remain unauthorised/is);
+  assert.match(programme, /severity, adjudicator, remedy and how\s+conflicts between protections are resolved/is);
+  assert.match(programme, /historical baseline win opens only a preregistered, prospective,\s+no-consequence rehearsal/is);
+  assert.match(programme, /G0-G10 human protocol/i);
+  assert.match(programme, /small invariant core.*explicit local extensions/is);
+  assert.match(programme, /prohibit country or community league\s+tables/is);
 });

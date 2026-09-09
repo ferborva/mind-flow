@@ -122,9 +122,13 @@ hold the certificate that lets you own it.
 
 Run the abundance version and it is the same list with the nouns swapped:
 
-> I will be able to heal all my pains - **if** I have the money to request the
-> service, **and** the cure exists near me, **and** I live somewhere it is
-> legal, **and** it reaches me at a price my pocket can take.
+> I will be able to get this pain assessed and treated to a stated clinical
+> standard - **if** I can afford the full cost, **and** safe and effective care
+> exists for my case, **and** it is lawful here, **and** I can reach and use it.
+
+That is an illustration, not a complete clinical condition set. Efficacy,
+safety and quality still have to be defined and evidenced for the named person,
+service, place and period.
 
 Here is the scale of just the first one, with the denominator intact. **The March
 2026 World Bank Poverty and Inequality Platform vintage, as processed by Our
@@ -160,12 +164,13 @@ identify the true binding condition.** "Everything will be unlimited within ten
 years" is harder to evaluate when its people, scope, route and conditions remain
 unstated.
 
-**Second, the posture.** I am not asking what stands in the way. I am asking
-what has to be true. Same content, opposite direction of travel, and it is the
-difference between a critique and a candidate plan. It resembles goal-to-signal
-practices used in some product teams: go down the vertical, expose the
-conditions and test them one at a time. **We do not yet know whether this works
-better for public future claims.**
+**Second, the posture.** I am not asking only what stands in the way. I am asking
+what has to be true. Same content, a different direction of travel. That can
+turn a critique into a candidate-plan prompt once the routes, actors, evidence
+and authority are added. It resembles goal-to-signal practices used in some
+product teams: go down the vertical, expose the conditions and test them one at
+a time. **We do not yet know whether this works better for public future
+claims.**
 
 ---
 
@@ -181,19 +186,28 @@ The short form is the doorway. The inspectable public form is:
 > **[WHO] can [VERB] [OUTCOME] to [STANDARD], in [PLACE], during [PERIOD], IF
 > [CONDITION SET].**
 
+For each IF, state whether its proposed role is necessary, sufficient,
+contributing, eligibility, veto, safeguard, decision trigger or unknown. Show
+whether conditions combine through `AND`, `OR` or `NOT`, and keep alternative
+routes visible. Merely passing every registered rule does not prove the set
+complete or guarantee the outcome.
+
 1. **Write the promise as a sentence.** "You will be able to see a doctor about
    anything, instantly, for free."
-2. **List the ifs.** All of them, unglamorous ones included. The starting set
-   below is there to prompt you, not to constrain you.
+2. **List candidate ifs inside a declared search boundary.** Include the
+   unglamorous ones. Record which domains, routes and people you searched, which
+   you did not, and when. The starting set below is there to prompt you, not to
+   constrain you.
 3. **Find the provisional candidate condition set.** Not the condition that is hardest or
    most interesting. Within the registered routes and current evidence, identify
    the conditions that appear to defeat each route for the person in front of
    you. Call each one **a candidate binding IF**. An unregistered route can
    overturn the provisional reading.
 4. **Map the relationships.** Ask who controls, influences, funds, delivers,
-   verifies, depends on and is affected by each condition. That determines
-   whether a named actor can act, prepare, watch, negotiate, coordinate,
-   investigate or honestly say “cannot move”.
+   verifies, depends on and is affected by each condition. That helps generate
+   candidate postures: act, prepare, watch, negotiate, coordinate, investigate
+   or honestly say “cannot move”. Authority, capability and legitimacy still
+   require separate verification.
 
 Then repeat it whenever something changes. **Our test is whether independent
 people can run it again, reach understandable disagreements and improve a
@@ -219,11 +233,13 @@ the IF system changes. Every update should separate five axes:
 | **Actor and authority** | Did responsibility, capacity, consent or lawful permission change? |
 | **Values and loss rule** | Did the protected outcome, burdened population or acceptable trade-off change? |
 
-Keep the current evidence result in one of five states: `true`, `false`,
-`unknown`, `stale` or `conflicted`. True means the registered rule matches the
-current eligible evidence. It does not mean the claim is empirically true or
-that action is authorised. Unknown, stale and conflicted are different public
-problems and demand different next steps.
+Keep the machine-readable evidence result in one of five states: `true`,
+`false`, `unknown`, `stale` or `conflicted`. In public, render those as
+**registered rule passed**, **registered rule did not pass**, **current evidence
+does not resolve the rule**, **evidence out of date** or **sources conflict**. A
+rule passing does not mean the claim is empirically true or that action is
+authorised. The last three are different public problems and demand different
+next steps.
 
 A useful public update is almost mechanical:
 
@@ -232,9 +248,9 @@ A useful public update is almost mechanical:
 > scope, period and protected outcome. **What remains blocked:** [PATH OR
 > ACTION]. **Next observation:** [MEASURE, SOURCE AND DATE].
 
-That record matters for every path, decision and negotiation. It prevents a
-new number, a new actor or a changed value choice from being presented as if
-the original IF simply “turned green”.
+That record matters whenever an IF informs a path, decision or negotiation. It
+prevents a new number, a new actor or a changed value choice from being
+presented as if the original IF simply “turned green”.
 
 ---
 
@@ -250,6 +266,14 @@ it is missing something for your domain, add it, that is the point.
 | **Proximity** - _can it reach you_ | Physical distance, delivery, connectivity, a building you can get to |
 | **Availability** - _does it exist near you_ | Supply, capacity, queue length, whether anyone is offering it at all |
 | **Capability** - _can you use it_ | Time, foundation, attention, literacy, health, someone to look after the kids |
+
+These five prompts overlap. They are not five mutually exclusive causes and
+they are not a complete causal model. For formal evaluation, **price** may
+affect **reach** and **agency**; **permission** may affect **reach**, **agency**
+and **fairness**; and **proximity** and **availability** may involve
+**capability** and **reach**. None automatically covers **durability** or a
+declared **fairness** test. Name the mapping for each case rather than silently
+treating the two sets as interchangeable.
 
 **Capability is the one I suspect we underrate most.** Solve price, permission
 and proximity for "learn anything" and the promise can still fail for a person
@@ -310,8 +334,10 @@ and period. Full source definitions and claim ceilings are in
 
 The underlying AI capability may be shared across borders. The deployed model,
 clinical validation, language, integration, permission, infrastructure and
-provider choices may not be. **The promise is global rhetoric. Its IFs are
-local and personal.**
+provider choices may not be. **The promise is global rhetoric. Its condition
+set varies by person, service, provider, place and period.** Some conditions are
+local or personal. Others are organisational, national, transnational,
+ecological or physical.
 
 ---
 
@@ -329,9 +355,10 @@ country, a terminal somebody has to own, and someone carrying the loss until one
 of those falls over. *(Illustrative. I have not costed this.)*
 
 **The frame does not bottom out in a complaint, it produces the next question.**
-Every actionable condition on your side should become one or more named actors'
-conditional work hypotheses on the other side. A physical, ecological or
-unmapped condition may not. That honest remainder belongs on the map too.
+Each registered actionable condition on your side should become one or more
+named actors' conditional work hypotheses on the other side. A physical,
+ecological or unmapped condition may not. That honest remainder belongs on the
+map too.
 
 ---
 
@@ -346,9 +373,10 @@ diagnosis or forecast.** A binding-condition claim needs evidence that
 registered alternatives do not explain or route around the result, and an
 unregistered route can still overturn it.
 
-**Naming a condition can legitimise it.** Some ifs are real and some are
-somebody's preference wearing a compliance costume, and the method cannot tell
-them apart on its own. Asking who holds it helps. It does not settle it.
+**Naming a condition can legitimise it.** Some ifs describe physical limits,
+rights, duties or safety requirements. Others may encode contestable
+preferences. The method cannot tell them apart on its own. Asking who created
+it, who may change it and who carries the loss helps. It does not settle it.
 
 **It is not an argument against abundance.** I want that world. I am not
 predicting the conditions will hold. I am saying that until we name them, we are
@@ -361,21 +389,23 @@ not discussing the future, we are admiring it.
 Not agree with me. Use it.
 
 - **Take one promise you have made on air** and write it out as verb + fill in
-  the blank + if. All the conditions, boring ones included.
+  the blank + if. List candidate conditions inside a declared search boundary,
+  boring ones included, and show what you did not search.
 - **Name the candidate binding set**, today, for a specific person somewhere
   specific, and list the routes you have not tested.
 - **Map who controls, influences, depends on and is affected by each one**, then
   state which actor could act, prepare, watch, negotiate or investigate.
 - **Then do it again on the next release.** "Which condition did that just
-  lower, and for whom?" is a question every model, chip rule and funding round
-  can be answered with. Sometimes the answer is "none yet, and that is fine",
+  lower, and for whom?" is a question to ask of every model, chip rule and
+  funding round. Sometimes the answer is "none yet, and that is fine",
   and that answer is worth saying out loud too. For a named outcome, "no
   demonstrated change yet" is valid whenever no registered evidence connects
   the release to its conditions.
 
-**Food for thought:** the shrug your kids give a benchmark result is what
-happens when an announcement has no sentence to land in. Give people the
-sentence and the same announcement becomes checkable: *does this touch my if, or
-not?* **That is the difference between a release and news.**
+**Food for thought:** one hypothesis is that some shrugs arise when an
+announcement has no visible connection to an outcome the listener values. Give
+people the sentence and the connection becomes checkable: *does this touch my
+if, or not?* Whether that changes comprehension, relevance or decisions is the
+next test.
 
 Tell me where it breaks. I would rather have the frame shredded than admired 🚀

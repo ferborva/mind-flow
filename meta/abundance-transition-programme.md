@@ -2,10 +2,13 @@
 id: abundance-transition-programme
 title: Abundance Transition Programme
 type: programme-proposal
-status: active
+development_status: active
+adoption_status: not-adopted
+substantive_review: pending
+authority: none
 provenance: commissioned-proposal
 author: ren
-reviewer: fernando-bordallo
+requested_reviewer: fernando-bordallo
 created: 2026-09-08
 updated: 2026-09-09
 ---
@@ -19,9 +22,9 @@ updated: 2026-09-09
 
 ## 🦅 TL;DR
 
-- **The mission is to understand when technological capability becomes shared
-  and durable human agency. The programme tests bounded research questions,
-  not a universal promise.**
+- **The mission is to test whether and how changing technological capability
+  could expand or contract shared human agency under goals chosen through a
+  legitimate affected-party process. It is not a universal promise.**
 - The `IF` is the core object. Every promise, forecast, decision, negotiation
   and action must expose its people, outcome, conditions, evidence, owner,
   safeguard, falsifier and review point.
@@ -38,7 +41,7 @@ updated: 2026-09-09
 - The dependency-ordered foundation remains in the
   [Round 03 deep plan](round-03-deep-plan.md). The current challenge target and
   reviewer instructions are in the
-  [Round 04 external review brief](round-04-external-review-brief.md).
+  [Round 06 external review brief](round-06-external-review-brief.md).
 
 ---
 
@@ -50,11 +53,13 @@ knowledge. These controls check specified assertions and relationships. **They
 do not authenticate identities, source truth, reviewer independence or complete
 coverage.** The Observatory is one proposed public instrument inside it.
 
-The proposed Observatory mission is:
+The proposed Observatory mission, not yet adopted by Fernando or affected
+communities, is:
 
-> **Map the conditions under which growing technological capability becomes
-> shared, durable human agency, then make the evidence and choices legible
-> enough for people to shape the crossing together.**
+> **Map whether and how changing capability could expand or contract shared
+> agency under goals named through a legitimate affected-party process. Make
+> the evidence and options legible enough for people to shape, refuse, reverse
+> or navigate possible transitions.**
 
 The master proposition is a mission-shaped research question. It is not a
 falsifiable empirical claim on its own:
@@ -64,8 +69,10 @@ falsifiable empirical claim on its own:
 > service, place and period, while legitimate actors detect and reduce
 > distributional, institutional, operational and ecological harm?**
 
-The programme tests bounded hypotheses beneath that question. Each one must
-name its population, service, place, period, comparator, loss function and
+The programme tests bounded hypotheses beneath that question. Before doing so,
+it asks who proposed the goal, who is affected, who may reject or revise it and
+what legitimate process can adopt it. Each empirical hypothesis must then name
+its population, service, place, period, comparator, loss function and
 observation that would defeat it. The work must permit four conclusions for
 each bounded hypothesis:
 
@@ -79,7 +86,9 @@ each bounded hypothesis:
 The programme proposes one analytic chain:
 
 ```text
-promise
+contested proposed goal
+  → affected-party adoption, revision, refusal or no decision
+  → promise
   → scoped outcome
   → condition graph
   → observations and uncertainty
@@ -110,7 +119,11 @@ examined; signals are evidence about those conditions; metrics specify how a
 signal is calculated; and action hypotheses state how a named actor proposes a
 condition might move. The layers cannot certify one another.
 
-The public lens is a consumer-facing **IF** and an actor-specific **WHEN**. The
+The public lens is a consumer-facing **IF** and an actor-specific **WHEN**. Each
+IF declares whether it is necessary, sufficient, contributing, an eligibility
+rule, a veto, a safeguard, a decision trigger or still unknown. It also declares
+its AND, OR and NOT relationships and competing routes. Passing a registered
+rule does not prove the outcome or causal completeness. The
 IF exposes candidate conditions on which a person's outcome may depend. The
 WHEN records what one actor proposes it could attempt. **The two registers are
 linked but non-identical:** a provider condition may cause, mediate or fail to
@@ -120,8 +133,11 @@ actor inherits control merely because the condition appears on its list.
 
 ## 🛑 Non-complacency rules
 
-1. **Predictions can lose.** Every empirical claim names a counter-hypothesis,
-   falsifier and expiry.
+1. **Each proposition gets the right defeat condition.** Empirical hypotheses
+   name rivals, falsifiers and expiry. Value choices name the chooser, affected
+   parties, dissent and review. Commitments name authority, funding, safeguards,
+   review and exit. Rights and legal duties are not treated as hypotheses to be
+   disproved by an outcome metric.
 2. **Unknown is a result.** Missing, stale, conflicted and not integrated data
    never silently become false or safe.
 3. **Units must close.** No ratio, index or comparison ships without dimensional
@@ -131,7 +147,9 @@ actor inherits control merely because the condition appears on its list.
    an aggregate or household gain cannot offset severe loss of income security,
    time, privacy, bodily safety or practical choice for an affected person. This
    is an ethical loss rule proposed by the programme authors, not a statistical
-   fact. Affected-party and lawful decision processes must adopt or revise it.
+   fact. Each proposed stop-line must name severity, adjudicator, remedy and how
+   conflicts between protections are resolved. Affected-party and lawful
+   decision processes must adopt or revise it.
 5. **Visual confidence cannot exceed empirical confidence.** Colour, hierarchy
    and labels must preserve epistemic class.
 6. **Thresholds need loss functions.** A trigger explains the cost of misses,
@@ -154,22 +172,22 @@ for current primary-source claim ceilings.
 
 ## 🔁 The challenge loop
 
-Every material artefact passes these rounds. A failed round sends it back to
-the earliest affected step.
+Every material artefact passes these review phases. A failed phase sends it
+back to the earliest affected step.
 
-| Round | Question | Required evidence | Exit condition |
+| Phase | Question | Required evidence | Exit condition |
 |---|---|---|---|
-| **1. Thesis** | Is the claim precise enough to be wrong? | Scope, mechanism, alternatives, falsifier | Independent reader can state what would reverse it |
-| **2. Evidence** | Do the data measure the claim? | Primary sources, vintages, units, coverage, revisions | Reproduction succeeds and limitations are material, not decorative |
-| **3. Adversarial** | What is the strongest opposing account? | Counter-model, sensitivity, gaming and misuse cases | Surviving claim is narrowed or withdrawn |
-| **4. Affected-party** | Does the model recognise lived outcomes and power? | Cohort review, dissent, qualitative evidence | Participants can challenge definitions and publish disagreement |
-| **5. Methods** | Can association, prediction and causation be distinguished? | Identification, baselines, uncertainty, scoring | Method reviewer accepts the stated inference class |
-| **6. Comprehension** | Will a public reader understand and act appropriately? | Plain-language and numeracy tests | Readers identify scope, uncertainty, owner and falsifier |
-| **7. Operations** | Can the proposed response work safely in time? | Tabletop, service test, authority and funding | Reversible response meets its service level and appeal test |
+| **A. Thesis** | Is the claim precise enough to be wrong? | Scope, mechanism, alternatives, falsifier | Independent reader can state what would reverse it |
+| **B. Evidence** | Do the data measure the claim? | Primary sources, vintages, units, coverage, revisions | Reproduction succeeds and limitations are material, not decorative |
+| **C. Adversarial** | What is the strongest opposing account? | Counter-model, sensitivity, gaming and misuse cases | Surviving claim is narrowed or withdrawn |
+| **D. Affected-party** | Does the model recognise lived outcomes and power? | Cohort review, dissent, qualitative evidence | Participants can challenge definitions and publish disagreement |
+| **E. Methods** | Can association, prediction and causation be distinguished? | Identification, baselines, uncertainty, scoring | Method reviewer accepts the stated inference class |
+| **F. Comprehension** | Will a public reader understand and act appropriately? | Plain-language and numeracy tests | Readers identify scope, uncertainty, owner and falsifier |
+| **G. Operations** | Can the proposed response work safely in time? | Tabletop, service test, authority and funding | Reversible response meets its service level and appeal test |
 
 **These are proposed release gates, not a validated route to convergence.** We
 have not established their inter-rater reliability, false-reassurance rate or
-effect on public decisions. Each round therefore needs a preregistered question,
+effect on public decisions. Each phase therefore needs a preregistered question,
 independent result and visible disposition.
 
 The target is not a fixed number of iterations. The target is convergence:
@@ -177,7 +195,7 @@ The target is not a fixed number of iterations. The target is convergence:
 - no unresolved stop-line finding;
 - no material reviewer disagreement hidden;
 - no claim that gains confidence only from repetition;
-- no repeated round without a recorded hypothesis, change and result.
+- no repeated phase without a recorded hypothesis, change and result.
 
 ## 🧩 Workstreams
 
@@ -223,15 +241,32 @@ The current executable prototype is the
 [condition evolution ledger](../contracts/evolution/README.md). Its valid
 history does not determine truth or authority.
 
+The [condition-definition dependency map](../integration/transition-bundle/README.md#condition-definition-dependency-map)
+makes one dependency explicit. When this synthetic condition definition
+changes, its eight declared bundle links are withheld until they are rebound
+and revalidated. This is not a repository-wide or organisational discovery.
+The map also reports that the new negotiation and decision records are not yet
+joined to the core. A broken build is not
+enough for human governance. People need to see which commitments may have
+changed, who must reconsider them and which dissent remains unresolved.
+
 The [possible-path contract](../paths/README.md) binds each consequential edge
 to that history, the complete outcome scope, distinct signal roles, competing
 paths and explicit false and unknown branches. A valid path is still an
-unscored hypothesis, not a finding, forecast or mandate.
+unscored hypothesis, not a finding, forecast or mandate. Paths may branch,
+loop, stop or remain unauthorised. Reversible steps are preferred. An
+irreversible step needs heightened authority, harm review, recovery obligations
+and an explicit account of what cannot be restored.
 
 **Gate:** a preregistered claim sample is independently encoded by a declared
 reviewer population. The protocol must name its agreement statistic, minimum
 threshold, adjudication method and failure rule before calling agreement
 acceptable.
+
+Before any operational use, this gate also requires content-addressed
+negotiation and decision records. A condition revision must surface every
+affected commitment, preserve prior positions and dissent, and keep action
+closed until the appropriate humans reconsider it.
 
 ### C. Australia pilot
 
@@ -274,7 +309,11 @@ person-level access, agency and ecological outcomes needed to close them.
 **Gate:** sources are feasible, missingness and lag meet declared limits,
 severe individual harms cannot be offset by household gains, ecological
 materiality is assessed, and affected workers recognise the model as relevant
-to their lives.
+to their lives. The study must preregister recruitment and exclusion rules,
+representation gaps, dissent handling, compensation, data governance and stop
+conditions under the
+[G0-G10 human protocol](../reviews/public-comprehension-affected-party-protocol-round-04.md).
+Repository validation cannot substitute for consent or welfare oversight.
 
 ### D. Forecasting discipline
 
@@ -299,8 +338,12 @@ below a preregistered information floor.
 
 **Gate:** candidate forecasts beat declared naive baselines in rolling
 historical evaluation. Otherwise they remain hypotheses or scenarios. A
-baseline win alone does not establish calibration, utility, transportability or
-safe action.
+historical baseline win opens only a preregistered, prospective,
+no-consequence rehearsal. Decision-linked use additionally requires a
+prospective sample large enough for the declared coverage and calibration
+claims, comparison against both reference and naive baselines, recorded action
+utility, affected-party review and independently verified authority. No
+baseline win establishes transportability, causality or safe action.
 
 ### E. Early-action compacts
 
@@ -349,8 +392,9 @@ change the conclusion.
 
 Evolve the Observatory into two connected experiences:
 
-- a low-bandwidth public view explaining what changed, who is affected, how
-  certain it is, which IF moved and what action follows;
+- a low-bandwidth public view explaining what changed, who may be affected, how
+  uncertain it is, which IF moved, whether any authorised decision exists, who
+  may act, what remains optional and how to challenge it;
 - an evidence room with vintages, methods, uncertainty, rule evaluation,
   forecast archive, scores, downloads, corrections and dissent.
 
@@ -372,6 +416,13 @@ Design for:
 - minimum cohort sizes and disclosure protection;
 - later national nodes publishing comparable, signed aggregates without
   surrendering sovereignty or local definitions.
+
+Federation requires a small invariant core for identity, units, uncertainty,
+lineage and correction, plus explicit local extensions for definitions, law,
+institutions and affected-party priorities. Comparable does not mean
+interchangeable. The public product must prohibit country or community league
+tables unless a reviewed estimand, common denominator and legitimate purpose
+make the comparison valid.
 
 **Target gate:** no organisation can change a public conclusion, threshold or
 historical forecast without leaving a visible, attributable record. Achieving
@@ -408,17 +459,20 @@ infrastructure that the repository does not currently provide.
 The central branch is `ren/abundance-transition-program`. Work lands as small,
 reviewable commits and is pushed after each coherent checkpoint.
 
-| Checkpoint | Contents | Freeze condition |
-|---|---|---|
-| **R1 Truth** | Claim ledger, corrections, charter, epistemic labels | Stop-line claims withdrawn and tests green |
-| **R2 Contracts** | Condition and action schemas, fixtures, validation | Unknown handling and cross-references tested |
-| **R3 Pilot** | Australia source pack, scoped graph and baseline design | Data feasibility and lived-outcome review ready |
-| **R4 Forecasts** | Immutable registry, baselines and scoring | Backtest reproducible, no calibration overclaim |
-| **R5 Experience** | Public view and evidence room | Comprehension, accessibility and epistemic tests pass |
-| **R6 Rehearsal** | Shadow warning and action compact | False alarms, misses, delivery and appeals evaluated |
-| **R7 Review** | Frozen artefact, independent reviews, disposition ledger | Every material finding accepted, rejected or deferred with reasons |
+These are **review phases**, not repository fixture rounds or claims of public
+readiness.
 
-Stable checkpoints receive immutable tags such as `review/round-01`. External
+| Review phase | Contents | Freeze condition |
+|---|---|---|
+| **A. Truth** | Claim ledger, corrections, charter, epistemic labels | Stop-line claims withdrawn and tests green |
+| **B. Contracts** | Condition and action schemas, fixtures, validation | Unknown handling and cross-references tested |
+| **C. Pilot** | Australia source pack, scoped graph and baseline design | Data feasibility and lived-outcome review ready |
+| **D. Forecasts** | Immutable registry, baselines and scoring | Backtest reproducible, no calibration overclaim |
+| **E. Experience** | Public view and evidence room | Comprehension, accessibility and epistemic tests pass |
+| **F. Rehearsal** | Shadow warning and action compact | False alarms, misses, delivery and appeals evaluated |
+| **G. Review** | Frozen artefact, independent reviews, disposition ledger | Every material finding accepted, rejected or deferred with reasons |
+
+Stable checkpoints receive immutable tags such as `review/phase-A`. External
 agents review the same frozen commit independently before seeing each other's
 work. Their findings must name severity, evidence, affected claim, reproduction
 and falsifier. Consensus is not treated as truth, and agents do not approve
@@ -437,7 +491,7 @@ their own work.
 - No trigger is presented as an authorised action without real authority.
 - Reviewers receive the charter, threat model, test commands and issue format.
 
-## 🔒 Current checkpoint: Round 04 complete synthetic core
+## 🔒 Current checkpoint: development iteration 06 over the Round 04 synthetic fixture
 
 Round 04 now has a coherent seven-artifact pre-projection core and an
 eight-artifact complete core. The executable IF kernel, evolution ledger,
@@ -456,9 +510,49 @@ authority and publication remain closed.** Action remains unauthorised.
 
 The Observatory interface and proposed 2 by 2 comparison derive from the same
 pre-projection core. The interface is a synthetic prototype, not the governed
-dashboard artifact inside the complete core. The experiment proves declared
-input parity only. It cannot approve recruitment, and rendered parity has not
-been assessed.
+dashboard artifact inside the complete core. Round 05 now reproduces a
+conventional release and Observatory self-serve arm from one exact fact pack,
+then rejects visible omissions, meaning swaps, authority drift and exposure
+drift. That establishes marked-up template parity for the retained files only.
+It does not prove browser visibility, assistive output or comprehension.
+Recruitment remains blocked.
+
+The Australian pilot now retains an exact 48,613,300-byte August NERO archive,
+official-host pages and response headers. Byte snapshots of its pinned
+in-process builder and archive reproduce the numeric and identity fields of all
+440 selected occupation-region series under a narrow canonical-series
+comparison. The historical baseline file is hash-pinned separately. This opens
+local retention and bounded derivation gates only. Publisher authentication,
+classification versions, prospective chronology, model truth, causality,
+warnings, legal review and decision use remain closed.
+
+The condition-definition dependency map names all eight declared consumers in
+the joined fixture that must be revalidated when that definition changes. Its
+two unrepresented domains are known examples, not an exhaustive search. It did
+not search the rest of the repository or any real organisation, discover
+external commitments or decide that a changed condition is better.
+
+Iteration 06 adds synthetic-only negotiation and decision records. They bind an
+exact IF definition and locally content-addressed receipt, preserve declared
+positions and dissent, and block action. Their verifier now requires a
+separately supplied affected-party context because a record cannot prove that
+its own roster is complete. The repository still cannot authenticate that
+external context, identities, mandates, signatures or authority. A lineage
+record joins those records without allowing a mechanically true IF to confer
+authority. It rejects pre-context deliberation and incomplete links, but a
+valid old checkout cannot prove that no newer head was withheld.
+
+The prospective forecast package now freezes schema and validator identity,
+every executable target reference, resolver and scoring contracts, both naive
+and reference baseline artifacts and inputs, exact UTC issue, publication and
+resolution clocks, and separately supplied campaign, receipt and chronology-tip
+contexts. It issues no forecast. Its issuance adapter compares exact
+preregistration and mature-record bytes under both fixed validators. The check
+still fails closed because the mature schema cannot represent five mandatory
+bindings: protocol bytes, campaign manifest, target identity, resolver policy,
+and mature schema and validator identity. It also has not independently
+executed either baseline from the retained inputs. A reviewed schema version
+and separate reproducer are required before any prospective pilot may open.
 
 The controls are advisory library and build boundaries. Callers can bypass
 them, and no CI, hosting or operational issuance boundary currently prevents

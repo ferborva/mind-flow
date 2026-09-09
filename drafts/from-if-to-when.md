@@ -66,7 +66,7 @@ Do not promote this to posts/ until he has been through the marked sections.
 
 ## 🦅 TL;DR
 
-- My last piece argued that every abundance promise hides an **if**. This one
+- My last piece argued that many abundance promises hide an **if**. This one
   tries to answer the obvious next question: **how do the ifs actually come
   down, in what order, and over how long?**
 - **History offers one warning analogue, not a forecast.** Britain, 1780 to 1840. Output per
@@ -97,9 +97,11 @@ build anything. And the sentence is incomplete, because the real structure is
 If you have the money. If there is stock. If a supply chain reaches you. If it is
 legal where you live. If you are old enough. If you hold the certificate.
 
-The World Bank's 2025 nowcast estimates that four in five people live on less
-than $30 a day in 2021 international dollars. When we say "you will be able
-to", we risk talking mainly to the other fifth.
+The March 2026 World Bank PIP vintage's 2025 nowcast estimates that four in five
+people live on less than $30 a day in 2021 international dollars. This is an
+illustrative distribution, not an affordability test for a particular service.
+It shows why "you will be able to" is incomplete until the service, price,
+provision route, population and evidence of effective access are named.
 
 I got one big thing wrong in that piece, and I want to correct it in public
 before I build on top of it.
@@ -111,8 +113,9 @@ That comparison is illustrative, not a global financing denominator.
 
 The earlier research then made a worse mistake: it priced every person below
 $30 as if they had no income, mixed international-dollar poverty measures with
-nominal-dollar GDP, and called the result 62% of world output. The World Bank's
-2025 nowcast instead reports a 54.92% poverty gap at the $30 line. That implies a
+nominal-dollar GDP, and called the result 62% of world output. The same PIP
+vintage's 2025 nowcast instead reports a 54.92% poverty gap at the $30 line.
+That implies a
 perfect-targeting cash-equivalent shortfall of about **49.4 trillion 2021
 international dollars a year**, before implementation, behaviour or general
 equilibrium effects. It cannot be compared directly with nominal world GDP.
@@ -135,7 +138,7 @@ Robert Allen called it **Engels' Pause**, after Engels' account of the condition
 of the working class. Fifty years in which productivity and wages came apart, the
 returns went to capital, and the people producing the growth did not see it.
 
-Now the other half, which nobody quotes:
+Now the later period, which changes how the analogy should be read:
 
 | Period | Output per worker | Real wages |
 |---|---|---|
@@ -163,10 +166,9 @@ and whether the result is fair or durable, remains an empirical question.
 
 If you take nothing else from this piece, take this.
 
-Productivity gains reach most households through two market channels: **income**
-and **prices**. You either have more resources or things cost less. Governments
-add two more channels, transfers and public provision, and capital income matters
-for people who own assets.
+Candidate transmission channels include **earnings, prices, ownership income,
+transfers and usable public provision**. Their incidence differs across people,
+services, places and time. No channel is assumed to dominate.
 
 Automation can weaken labour income. The same investment is supposed to lower
 prices, grow other income, or fund the public response. So:
@@ -190,10 +192,10 @@ The reason I want a change framework beside the economic models is that the
 constraint is not only technical. People and institutions adapt at different,
 context-dependent rates, which this draft does not yet know how to forecast.
 
-ADKAR has five stages, and the whole point is that they are sequential:
-**Awareness, Desire, Knowledge, Ability, Reinforcement.** If any one is
-incomplete for a person, the change fails *at that person*, no matter how good
-the plan is.
+ADKAR proposes five stages: **Awareness, Desire, Knowledge, Ability,
+Reinforcement.** This draft uses them as prompts, not as a validated universal
+sequence or psychological diagnosis. An unresolved stage may constrain a
+particular change, but the model does not prove why a person acts or refuses.
 
 Look at what that says about the current conversation.
 
@@ -221,7 +223,8 @@ problem to test**, and it is why this has to be sequenced rather than announced.
 That makes communication part of the infrastructure, not the press release at
 the end. **Never announce abundance beside an unprotected loss.** If somebody's
 job has disappeared, asking them to celebrate the productivity number is not
-Awareness. It is evidence that the people running the transition cannot see them.
+Awareness. It is evidence that the communication system failed to represent
+their loss, whether or not the people running it understood that loss privately.
 
 Every update should answer seven things, in this order:
 
@@ -374,9 +377,10 @@ you to be treated with.
 
 If that is right, then we are underinvesting in the condition that may bind next.
 But this will not be universal. Housing, land, energy, compute and human care can
-remain scarce after a digital service becomes cheap. **The dashboard should tell
-us which if is binding, by basket, cohort and country, rather than asking one
-forecast to settle it.**
+remain scarce after a digital service becomes cheap. **The dashboard should show
+which registered rules passed, failed or lack eligible evidence, by service,
+cohort and place. It must not claim to have discovered the true binding IF or
+ask one forecast to settle it.**
 
 ### How an IF is allowed to move
 
@@ -408,9 +412,10 @@ decline. The instinct was right and the unit was wrong. A national income share
 and a household basket move differently, and dividing them hides the people we
 most need to see.
 
-**The unit of material access is a household that can still reach the floor.**
-It is not the unit of individual agency. For each household type, place and
-exposed cohort:
+**One candidate unit of material access is a household that can still reach a
+defined floor.** It is not the unit of individual agency, and household scope
+must not erase people outside households or unequal control within one. For
+each household type, place and exposed cohort:
 
 > **Access margin = disposable resources + usable public provision - local cost
 > of the decent-living basket.**
@@ -443,13 +448,13 @@ That gives us a control system rather than a collection of interesting numbers:
 | **Access coverage**, share with margin ≥ 0 | Falls for an exposed cohort while productivity rises | Evaluate a reversible bridge for income or in-kind access |
 | **Transition speed**, gross displacement, re-employment time, replacement earnings | Loss accelerates and recovery slows | Evaluate wage insurance, portable benefits and hiring-linked training |
 | **Essential basket pressure**, split by automatable and human-required items | Human-required basket outruns household resources | Evaluate a capacity plan, pay review, credential or migration reform |
-| **Zero-cost access count**, passing all five access tests | Capability rises while verified access stays flat | Evaluate outcome-based procurement and access obligations |
+| **No-point-of-use-price access count**, passing all five access tests | Capability rises while verified access stays flat | Evaluate outcome-based procurement and access obligations |
 | **Individual agency**, income security, time, privacy, refusal, switching and appeal | Household access improves while a member carries a severe loss | Pause the favourable conclusion and evaluate the loss with affected people |
 | **Concentration**, across compute, energy and service capacity | Concentration rises while access falls | Evaluate interoperability, procurement diversification and competition review |
 | **Ecological materiality**, lifecycle energy, water, materials, emissions, waste and local burden | A material burden is unassessed or exceeds its agreed ceiling | Keep the condition unknown or failed until it is assessed and governed |
 | **Preparedness**, registry coverage, delivery time, appeals and pre-funded response | Support cannot reach people inside the promised time | Evaluate funding and rehearsal of the delivery rail before more displacement |
-| **Trust and consent**, by cohort | Fairness and confidence fall ahead of economic triggers | Evaluate uncertainty disclosure, two-way forums and trusted local messengers |
-| **Cross-country access gap** | Eligibility and coverage diverge for an essential service | Evaluate mutual recognition, pooled procurement and portable eligibility |
+| **Experienced fairness and consent**, by cohort using a reviewed instrument | Reported procedural fairness falls or consent concerns rise | Evaluate co-design, correction, refusal and remedy with affected people |
+| **Cross-country access gap**, only under a reviewed common estimand | Eligibility and coverage diverge for an essential service | Evaluate mutual recognition, pooled procurement and portable eligibility without producing a league table |
 
 The exact review conditions need to be public, local and frozen **before** they
 are evaluated. Two consecutive reporting periods is an illustration, not a
@@ -463,8 +468,8 @@ Two notes on this.
 **A national average can look stable while an exposed cohort deteriorates.**
 Every one of these needs a cohort and regional cut, not just a headline.
 
-**It cannot be one happy number.** As everything automatable deflates, the
-human-required residue can get relatively *more* expensive. The gap is not a
+**It cannot be one happy number.** If prices fall for some automatable inputs,
+the human-required residue may become relatively *more* expensive. The gap is not a
 defect. It shows where scarcity and bargaining power are concentrating.
 
 ## ⚡ Five crossings we can prepare for
@@ -682,7 +687,8 @@ VERIFIED OR BOUNDED:
 - Engels' Pause figures (Allen): +46%/+12% then +90%/+123%, profit rate doubled.
 - ADKAR five stages and the sequencing principle (Prosci, Hiatt 2003).
 - Nvidia and Alphabet's combined profit is about 8.3 cents per person per day.
-- World Bank 2025 nowcast: 80.33% below $30 and a 54.92% poverty gap. The
+- March 2026 World Bank PIP vintage, 2025 nowcast: 80.33% below $30 and a
+  54.92% poverty gap. The
   implied cash-equivalent shortfall is about 49.4tn 2021 international dollars,
   not a budget estimate and not directly comparable with nominal GDP.
 - All sourced in research/.

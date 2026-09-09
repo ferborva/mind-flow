@@ -25,7 +25,7 @@ const reconstruction = readFileSync(
 test("the originating write-up preserves Fernando's argument and its visible correction boundary", () => {
   assert.match(first, /originating argument and remains in review/i);
   assert.match(first, /red team broke its corporate-discretion remedy/i);
-  assert.match(first, /This draft stays intact so the evolution is visible/i);
+  assert.match(first, /preserves the original argument while.*correcting claims/is);
 });
 
 test("the evolved write-up uses the seven-part public update", () => {

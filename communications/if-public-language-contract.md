@@ -22,10 +22,14 @@ authority: none
 
 ## 🦅 TL;DR
 
-- **A public claim is incomplete until the verb, object, conditions, scope,
-  evidence and authority are visible.**
-- An outcome, forecast, option, commitment and negotiation are different
-  claims. One cannot silently become another.
+- **A consequential public claim about a future outcome or choice is incomplete
+  until the verb, object, conditions, scope, evidence and authority boundary are
+  visible.** For an observation or inference, authority may be not applicable,
+  but the author and evidence still matter.
+- An observation, inference, scenario, outcome, forecast, option, commitment and
+  negotiation are different claims. One cannot silently become another.
+- Every IF states its proposed logical role and its `AND` or `OR` route. A list
+  does not prove that its conditions are necessary, sufficient or complete.
 - Refusal, redistribution and reduction are legitimate paths to describe. The
   language must show who may choose them, whose rights are affected and which
   IFs govern review.
@@ -47,11 +51,11 @@ The short form is:
 
 > **verb + [blank] + IF**
 
-The blank must be large enough to expose the actual public claim. The minimum
-complete form is:
+The blank must be large enough to expose the actual public claim. For a future
+outcome or choice, the minimum complete form is:
 
 > **[WHO] may [VERB] [OBJECT] IF [CONDITIONS], for [SCOPE], based on
-> [EVIDENCE], under [AUTHORITY].**
+> [EVIDENCE], under [AUTHORITY OR NOT APPLICABLE].**
 
 Where the claim concerns an outcome, add the outcome standard and period.
 Where it concerns a choice, add alternatives, safeguards, review and expiry.
@@ -63,17 +67,104 @@ challenge route.
 | `WHO` | Who is making the claim or may make the choice? |
 | `VERB` | What observable change, offer, decision or refusal is being described? |
 | `OBJECT` | What exactly is achieved, forecast, offered, promised, negotiated, refused, redistributed or reduced? |
-| `IF` | Which conditions must hold, fail or remain unresolved? |
+| `IF` | Which candidate conditions are being tested, what role does each play, and how do they combine? |
 | `SCOPE` | Which people, places, services and periods are included and excluded? |
 | `EVIDENCE` | What supports the statement, with what uncertainty and strongest alternative? |
-| `AUTHORITY` | Who may legitimately decide, commit, deliver, enforce, refuse or appeal? |
+| `AUTHORITY` | Who may legitimately decide, commit, deliver, enforce, refuse or appeal, or why is authority not applicable? |
 
 Use `Unknown` when a field is unresolved. Do not remove the field or fill it
 with a confident implication.
 
+If the claimant, decision-maker and affected population are different, name
+each one. `WHO` must never let the speaker stand in for the people carrying the
+outcome.
+
+### State the role of every IF
+
+`IF` is a prompt, not a claim that the listed conditions form a complete causal
+model. For each condition, declare its proposed role:
+
+- **necessary:** the registered route cannot pass without it;
+- **sufficient:** the condition or set is claimed to establish the scoped result;
+- **contributing:** it may change the likelihood or degree of the result;
+- **eligibility:** it determines who or what enters the registered route;
+- **veto:** its failure blocks that route under a declared rule;
+- **safeguard:** it must remain true while an option or action is considered;
+- **decision trigger:** it changes what an authorised actor may consider; or
+- **unknown:** its role has not been established.
+
+Also declare whether conditions combine through `AND`, `OR` or `NOT`, and show
+every registered alternative route. Do not use an ambiguous `UNLESS`. A logical
+role may itself be a hypothesis. Passing every registered rule neither
+guarantees the outcome nor proves that the route set or causal model is complete.
+Keep logical role separate from current evidence state.
+
+The search is open-world. Publish its boundary: domains, evidence sources,
+affected people and routes considered; known omissions; untested alternatives;
+and the search date. `All registered IFs passed` must never become `all IFs
+passed`.
+
+### Keep the two sets of five distinct
+
+The public prompts **price, permission, proximity, availability and capability**
+help people discover candidate barriers. The formal layers **capability, reach,
+agency, durability and fairness** test a different question: whether a produced
+capability reaches people, can be freely and meaningfully used, lasts, and meets
+a declared distribution rule. A public prompt may map to several formal layers.
+For example, price may affect reach and agency; availability may involve
+capability and reach; permission may involve reach, agency and fairness. Publish
+the mapping for the named case. Neither set is a complete causal taxonomy.
+
+### IF and WHEN
+
+The affected person's IF asks under which candidate conditions a scoped outcome
+may be achieved. `WHEN` is a mnemonic for one actor's conditional work proposal,
+not a date, expected event, forecast, authority or commitment. Compile it into:
+
+> **[ACTOR] could [ACT, PREPARE, WATCH, NEGOTIATE, INVESTIGATE OR DECLINE] IF
+> [CONDITIONS AND SAFEGUARDS], under [AUTHORITY], until [REVIEW OR EXPIRY].**
+
+`WHEN` is not a separate claim class. The rendered actor statement must still
+be labelled as an option, commitment, negotiation, refusal or other applicable
+class below.
+
 ---
 
-## 🗂 Eight claim classes
+## 🔎 Three evidence-layer claim classes
+
+These classes say what the record establishes before it becomes a claim about
+an outcome or choice.
+
+### A. Observation claim
+
+> **[SOURCE OR OBSERVER] reports [MEASURE AND VALUE] for [POPULATION, PLACE AND
+> PERIOD], using [METHOD AND VINTAGE], with [UNCERTAINTY AND COVERAGE].**
+
+An observation reports what the named source measured. It does not establish a
+cause, forecast, personal outcome or warranted response.
+
+### B. Inference claim
+
+> **[ANALYST] interprets [OBSERVATION] as [BOUNDED EXPLANATION] for [SCOPE],
+> because [REASON], while [STRONGEST CREDIBLE ALTERNATIVE] remains, testable by
+> [DISCRIMINATING OBSERVATION].**
+
+An inference must retain its source observations and inference class. An
+association, mechanism or interpretation is not a causal effect unless the
+design supports that claim.
+
+### C. Scenario claim
+
+> **IF [DECLARED ASSUMPTIONS], then [OUTCOME RANGE OR PATH] could occur for
+> [SCOPE] during [PERIOD]. No probability is assigned.**
+
+A scenario explores a conditional possibility. It remains a scenario even when
+its arithmetic is exact. If a probability is issued, the forecast contract and
+its proof burden apply.
+
+---
+
+## 🗂 Eight claim classes for outcomes and choices
 
 The classes below can appear together, but each keeps its own label and proof
 burden.
@@ -89,6 +180,10 @@ relevant cost, eligibility, quality, delivery, choice and remedy conditions.
 
 Public boundary: say who is outside the evidence. A population average does
 not establish an individual's outcome.
+
+`Fairness` is not a value-free empirical result. Name the distribution rule,
+who proposed or adopted it, who is affected, what dissent remains and when it
+will be reviewed.
 
 ### 2. Forecast claim
 
@@ -195,6 +290,9 @@ substitution risk, affected people, viable alternatives and restoration rule.
 
 | Evidence supports | Permitted wording | It does not establish |
 |---|---|---|
+| Observation | `the named source reports` | Explanation, forecast or response |
+| Inference | `the analyst interprets`, with its evidence class | Stronger causality than the design supports |
+| Scenario | `could occur if`, with no probability | Forecast, likelihood or inevitability |
 | Observed association | `moved with`, `differs across` | Cause |
 | Forecast | `estimated probability or range` | Inevitable outcome or required response |
 | Eligible option | `could consider if` | Approval, commitment or availability |
@@ -212,7 +310,20 @@ Do not use a smooth paragraph to hide the boundary between them.
 ## 🔄 How conditions evolve
 
 Conditions are versioned public objects. Their current wording is useful, but
-their history explains why the wording deserves trust.
+their history allows readers to inspect why the wording changed. History enables
+accountability. It does not make the current wording trustworthy by itself.
+
+Keep machine state and public language distinct:
+
+| Machine state | Public label |
+|---|---|
+| `true` | **Registered rule passed** |
+| `false` | **Registered rule did not pass** |
+| `unknown` | **Current evidence does not resolve the rule** |
+| `stale` | **Evidence out of date** |
+| `conflicted` | **Sources conflict** |
+
+None of these labels establishes causal truth, safety or authority.
 
 Maintain an **append-only condition history**. Every event records:
 
@@ -246,8 +357,8 @@ of the event.
 | `split` | One condition became two or more independently testable conditions. Every child points to the parent. |
 | `merged` | Two or more conditions became one because their distinction no longer changed evaluation or choice. Every parent remains linked. |
 | `challenged` | A named party submitted a reasoned objection to wording, evidence, scope, authority or interpretation. A challenge does not decide the result. |
-| `satisfied` | The condition passed its declared evidence rule for its stated scope and valid period. It may later fail or expire. |
-| `failed` | The condition did not pass its declared rule. This is not proof of cause or fault. |
+| `satisfied` | Machine event. Render publicly as **registered rule passed** for the stated scope and valid period. It may later fail or expire. |
+| `failed` | Machine event. Render publicly as **registered rule did not pass**. This is not proof of cause or fault. |
 | `expired` | Its evidence, authority or valid period ended. Expiry is not failure. |
 | `superseded` | A named replacement governs future evaluations. **Superseded is not deleted.** |
 | `disputed` | Credible evaluations remain incompatible after review. **Disputed is not false.** |
@@ -291,32 +402,41 @@ made**, who remains responsible and when the default will be reviewed.
 
 ## 🧭 Public rendering contract
 
-Every public version answers these questions in this order:
+Every public version answers these questions, including when it will be reviewed,
+in this order:
 
-1. **What is known?** State the observation or verified institutional event.
-2. **What remains unknown?** Include uncertainty, missing people and data lag.
-3. **What is the exact claim class?** Outcome, forecast, option, commitment,
-   negotiation, refusal, redistribution or reduction.
-4. **Which IFs matter now?** Show their current state, scope and evidence rule.
-5. **Who may challenge it?** Give the reachable route, response time and owner.
-6. **What happens if the IF fails?** State the claim, option or commitment
+1. **What human outcome, if any, is being pursued?** Name who proposed or
+   adopted it, who is affected, and which alternative goals or dissent remain
+   legitimate. If no outcome is proposed, say `Not applicable`.
+2. **What is known?** State the observation or verified institutional event.
+3. **What remains unknown?** Include uncertainty, missing people and data lag.
+4. **What is the exact claim class?** Observation, inference, scenario, outcome,
+   forecast, option, commitment, negotiation, refusal, redistribution or
+   reduction.
+5. **Which IFs matter now?** Show their role, logic, public state, scope and
+   evidence rule.
+6. **Who may challenge it?** Give the reachable route, response time and owner.
+7. **What happens if the IF fails?** State the claim, option or commitment
    consequence without inventing an automatic action.
-7. **What happens if no choice is made?** Describe the default path and its
+8. **What happens if no choice is made?** Describe the default path and its
    known, unknown and disputed effects.
-8. **When it will be reviewed?** Give the date or event, owner and treatment of
+9. **When will it be reviewed?** Give the date or event, owner and treatment of
    delay.
 
 ### Non-priming rules
 
-- Give the **same factual description** to every audience. Present the
-  strongest credible alternatives with **evidence-proportional prominence**
+- Preserve the **same facts, scope and uncertainty** for every audience. The
+  **same factual description** need not use identical wording: explanation may
+  adapt for language, accessibility and numeracy without changing meaning.
+  Present the strongest credible alternatives with **evidence-proportional prominence**
   under a predeclared display rule. Author preference receives no weight.
-- A **credible alternative** must be compatible with the scoped observations,
-  name a mechanism or source of error, state a discriminating observation and
-  remain unresolved under a predeclared display rule. Plausibility alone does
-  not earn equal visual weight. Label weak, untested, mixed, supported and
-  contradicted accounts distinctly, and retain a low-support alternative when
-  its omission would materially distort a high-consequence decision.
+- A **credible empirical or causal alternative** must be compatible with the
+  scoped observations, name a mechanism or source of error, state a
+  discriminating observation and remain unresolved under a predeclared display
+  rule. Plausibility alone does not earn equal visual weight. Label weak,
+  untested, mixed, supported and contradicted accounts distinctly, and retain a
+  low-support alternative when its omission would materially distort a
+  high-consequence decision.
 - Separate observation, inference, forecast, value choice, option, commitment
   and action. Do not slide between them through tone.
 - Use neutral actor names. Do not label people enlightened, resistant,
@@ -341,8 +461,8 @@ not pronounce the correct choice for everyone.
 
 The names and facts below are fictional.
 
-> **Observed:** A fictional service recorded a longer median wait for a defined
-> cohort. The cause is unknown.
+> **Observation claim:** A fictional service recorded a longer median wait for a
+> defined cohort. The cause is unknown.
 >
 > **Forecast claim:** The evaluation team estimates waits may remain above the
 > agreed range next quarter if demand and staffing follow the stated
@@ -386,13 +506,16 @@ need to be known and who would need authority to choose.
 
 Before public adoption, test whether readers can correctly identify:
 
-1. the claim class;
-2. what the IF does and does not establish;
-3. who has authority;
-4. whether acting, waiting or both remain uncertain;
-5. how to challenge the claim;
-6. the default if nobody chooses; and
-7. the next review.
+1. the proposed human outcome, who chose it and whose dissent remains;
+2. the claim class;
+3. each IF's proposed logical role and `AND` or `OR` route;
+4. the search boundary, known omissions and untested routes;
+5. what the IF set does and does not establish;
+6. who has authority;
+7. whether acting, waiting or both remain uncertain;
+8. how to challenge the claim;
+9. the default if nobody chooses; and
+10. the next review.
 
 If readers systematically infer inevitability, instruction, commitment or
 safety from wording that does not establish it, revise the language before
