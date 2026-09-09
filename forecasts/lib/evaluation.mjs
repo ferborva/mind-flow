@@ -12,6 +12,7 @@ import {
 } from "./resolution.mjs";
 import { scoreBinaryForecast } from "./scoring.mjs";
 import { assertAdjudicationIntake } from "./adjudication-intake.mjs";
+import { requireNeroResolutionAdmission } from "../prospective-pilot/round-08-nero/resolution-intake.mjs";
 
 const SHA256 = /^sha256:[a-f0-9]{64}$/;
 const FORECAST_USES = new Set(["research_only", "decision_linked"]);
@@ -642,6 +643,7 @@ function declaredUtilityReport(records) {
 
 export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
   if (Array.isArray(forecasts)) forecasts.forEach(assertAdjudicationIntake);
+  if (Array.isArray(forecasts)) forecasts.forEach(requireNeroResolutionAdmission);
   assertEvaluationPlanSemantics(plan, forecasts);
   const asOfTime = parseExactInstant(asOf, "evaluation asOf");
   const registeredAt = parseExactInstant(plan.registered_at, "evaluation plan registered_at");
