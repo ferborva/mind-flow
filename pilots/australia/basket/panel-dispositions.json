@@ -1,0 +1,80 @@
+{
+  "id": "round-08-signal-panel-dispositions",
+  "original_signal_count": 16,
+  "retained_macro_context": [
+    "labour-share",
+    "gdp-per-capita",
+    "poverty-30",
+    "poverty-830",
+    "participation",
+    "inflation",
+    "engels-divergence",
+    "transmission-gap"
+  ],
+  "deleted": [
+    {
+      "id": "zero-cost-count",
+      "reason": "No exhaustive end-to-end zero-cost basket count; bulk billing does not measure zero production cost."
+    },
+    {
+      "id": "baumol-gap",
+      "reason": "Human-required versus automatable baskets and weights remain unjustified."
+    },
+    {
+      "id": "access-margin",
+      "reason": "Service cost barriers do not measure household resources minus a local living basket."
+    },
+    {
+      "id": "transition-speed",
+      "reason": "NERO nowcasts are not linked displaced-worker recovery durations."
+    },
+    {
+      "id": "concentration",
+      "reason": "Spatial GP FTE distribution does not measure corporate ownership or productive-power control."
+    },
+    {
+      "id": "preparedness",
+      "reason": "Health literacy and GP waits do not measure social-protection delivery readiness."
+    },
+    {
+      "id": "trust-consent",
+      "reason": "Patient experience cannot stand in for repeated technology-transition consent."
+    },
+    {
+      "id": "cross-border-access",
+      "reason": "One-country basket does not measure cross-border eligibility differences."
+    }
+  ],
+  "added": [
+    {
+      "id": "au-gp-cost-delay",
+      "condition_category": "price",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "source_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957"
+    },
+    {
+      "id": "au-gp-fully-bulk-billed",
+      "condition_category": "price",
+      "population": "Patients with Medicare GP non-referred attendances in the year",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "source_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957"
+    },
+    {
+      "id": "au-prescription-cost-delay",
+      "condition_category": "price",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "owner": "Australian Government PBS and pharmacies",
+      "source_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957"
+    },
+    {
+      "id": "au-gp-urgent-under-four-hours",
+      "condition_category": "availability",
+      "population": "Survey-scope residents aged 15 years and over who saw a GP for urgent medical care",
+      "owner": "General practices and PHNs, with government workforce and service funding",
+      "source_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957"
+    }
+  ],
+  "not_measured_count": 0,
+  "measurements_capture_id": "australia-primary-care-2026-09-09"
+}

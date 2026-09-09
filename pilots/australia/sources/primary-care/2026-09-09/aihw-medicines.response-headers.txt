@@ -1,0 +1,20 @@
+HTTP/2 200 
+date: Wed, 09 Sep 2026 10:37:22 GMT
+content-type: text/html; charset=utf-8
+cache-control: no-cache, no-store
+pragma: no-cache
+set-cookie: .AspNetCore.Antiforgery.TtZYu8iXLoM=CfDJ8DK_svJ0rjtGvlHFUJ_aI1dyJ1hk4-ha7fXYvXbx6B2qL30_GwP4F52P9Rb6Y9768Dg9w-Um6GwRxuF9dVg38jF6gEmJ-0rcPJAX7xbXUkffpE-vkVM68XOs90qmqg31pwiwWVk5h0LU0TPPljhyVDI; path=/; secure; samesite=none; httponly
+vary: Accept-Encoding
+strict-transport-security: max-age=31536000; includeSubdomains
+request-context: appId=cid-v1:92f384d2-dd54-4a76-8fd9-a1b850023540
+x-smoothstate-location: https://www.aihw.gov.au/reports/medicines/medicines-in-the-health-system
+content-security-policy: default-src data: https: 'unsafe-inline' 'unsafe-eval'; font-src https: data: https://fonts.googleapis.com 'unsafe-inline' 'unsafe-eval'; script-src data: https: 'unsafe-inline' 'unsafe-eval' http://tableau-internal https://viz.aihw.gov.au; img-src blob: data: https: 'unsafe-inline' 'unsafe-eval'
+permissions-policy: geolocation=(self),camera=(),fullscreen=*
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+x-xss-protection: 0
+cf-cache-status: DYNAMIC
+server: cloudflare
+cf-ray: a3858ea3e948a7ef-SYD
+

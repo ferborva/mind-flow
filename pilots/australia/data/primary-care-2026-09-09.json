@@ -1,0 +1,5416 @@
+{
+  "id": "australia-primary-care-2026-09-09",
+  "as_of": "2026-09-09",
+  "provenance": "commissioned-proposal",
+  "agency_measured": false,
+  "series": [
+    {
+      "id": "gp-cost-delay",
+      "condition_category": "price",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "measurement_role": "self-reported-access-barrier",
+      "evidence_ceiling": "Reported cost-related delay or non-use; cost can coexist with other barriers. State estimate cannot identify an individual or establish the leading barrier.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 7.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 7.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 9.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 8.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 9.5,
+          "unit": "percent",
+          "published_95ci_half_width": 1.2,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 4.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 3.5,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 1.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 2.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 2.9,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 3.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 2.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 3.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 2.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 3.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 4.1,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 3.5,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 4.1,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ]
+    },
+    {
+      "id": "gp-fully-bulk-billed",
+      "condition_category": "price",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "population": "Patients with Medicare GP non-referred attendances in the year",
+      "measurement_role": "observed-claims-coverage",
+      "evidence_ceiling": "Patient-year fully bulk-billed share, not share of services or clinics, and excludes people with no claimed attendance.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 56.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 49.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 55.2,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 47.7,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 59.2,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 51.7,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 71.8,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 65.8,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 72.4,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 67.6,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 72,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 67.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 71.6,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 66.3,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 71.8,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 66.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 71.7,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 65.7,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 71.5,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 64.7,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        }
+      ]
+    },
+    {
+      "id": "gp-gap",
+      "condition_category": "price",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "population": "Patient-billed Medicare non-referred GP attendances",
+      "measurement_role": "administrative-average",
+      "evidence_ceiling": "Average gap for patient-billed services in 2024-25 dollars, not all consultations or household affordability.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 48,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 49,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 47,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 47,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 48,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 47,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 48,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 45,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 45,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 46,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 44,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 45,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 42,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 43,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Non-referred GP attendances",
+            "Unit": "$",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        }
+      ]
+    },
+    {
+      "id": "specialist-gap",
+      "condition_category": "price",
+      "owner": "Specialist practices and Australian Government Medicare benefit setters",
+      "population": "Patient-billed Medicare specialist attendances",
+      "measurement_role": "administrative-average",
+      "evidence_ceiling": "Specialist-service average, not a specific specialty, referral completion or total pathway cost.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 134,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 126,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 130,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 122,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 126,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 118,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 121,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 112,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 118,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 109,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 113,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 104,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 111,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 101,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 108,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 99,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 103,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 94,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 98,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 90,
+          "unit": "AUD-2024-25",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.32",
+            "Description1": "Specialist attendances",
+            "Unit": "$",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing Annual Medicare statistics - state; ABS Australian National Accounts: National Income Expenditure and Product"
+        }
+      ]
+    },
+    {
+      "id": "prescription-cost-delay",
+      "condition_category": "price",
+      "owner": "Australian Government PBS and pharmacies",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "measurement_role": "self-reported-access-barrier",
+      "evidence_ceiling": "All prescription medicines, not atorvastatin-specific access.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 6.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 7.5,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 9.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 10.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.3,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 7.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 6.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 5.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 3.9,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 4.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.3,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 5.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 6.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 6.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 6.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 7.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 7.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 7.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 7.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ]
+    },
+    {
+      "id": "gp-fte-remoteness",
+      "condition_category": "proximity",
+      "owner": "Australian Government workforce policy, state governments, PHNs and general practices",
+      "population": "GP FTE supply relative to resident population in each published state and remoteness stratum",
+      "measurement_role": "spatial-supply-proxy",
+      "evidence_ceiling": "Spatial supply intensity is not travel time, transport accessibility, opening hours or appointment availability. Remoteness strata are not SA4s.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "Major cities",
+          "period": "2024",
+          "value": 115.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Major cities",
+          "period": "2024",
+          "value": 111.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Inner regional",
+          "period": "2024",
+          "value": 120.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Inner regional",
+          "period": "2024",
+          "value": 117.4,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional",
+          "period": "2024",
+          "value": 77.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional",
+          "period": "2024",
+          "value": 93.8,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Remote",
+          "period": "2024",
+          "value": 91.9,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Remote",
+          "period": "2024",
+          "value": 68.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Very remote",
+          "period": "2024",
+          "value": 131.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Very remote",
+          "period": "2024",
+          "value": 72.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2024",
+          "value": 79,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2024",
+          "value": 89.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2024",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Major cities",
+          "period": "2023",
+          "value": 115.5,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Major cities",
+          "period": "2023",
+          "value": 111.8,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Inner regional",
+          "period": "2023",
+          "value": 116,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Inner regional",
+          "period": "2023",
+          "value": 113.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional",
+          "period": "2023",
+          "value": 76.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional",
+          "period": "2023",
+          "value": 91.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Remote",
+          "period": "2023",
+          "value": 89.9,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Remote",
+          "period": "2023",
+          "value": 67.4,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Very remote",
+          "period": "2023",
+          "value": 129.6,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Very remote",
+          "period": "2023",
+          "value": 70.5,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2023",
+          "value": 78,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2023",
+          "value": 87.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2023",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Major cities",
+          "period": "2022",
+          "value": 122.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Major cities",
+          "period": "2022",
+          "value": 118.9,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Inner regional",
+          "period": "2022",
+          "value": 118.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Inner regional",
+          "period": "2022",
+          "value": 114.4,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional",
+          "period": "2022",
+          "value": 79.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional",
+          "period": "2022",
+          "value": 94.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Remote",
+          "period": "2022",
+          "value": 88.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Remote",
+          "period": "2022",
+          "value": 68.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Very remote",
+          "period": "2022",
+          "value": 133.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Very remote",
+          "period": "2022",
+          "value": 66.4,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2022",
+          "value": 81.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2022",
+          "value": 89.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2022",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Major cities",
+          "period": "2021",
+          "value": 126.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Major cities",
+          "period": "2021",
+          "value": 124.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Inner regional",
+          "period": "2021",
+          "value": 123.8,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Inner regional",
+          "period": "2021",
+          "value": 119.5,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional",
+          "period": "2021",
+          "value": 86.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional",
+          "period": "2021",
+          "value": 101.6,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Remote",
+          "period": "2021",
+          "value": 91.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Remote",
+          "period": "2021",
+          "value": 75.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Very remote",
+          "period": "2021",
+          "value": 130.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Very remote",
+          "period": "2021",
+          "value": 69.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2021",
+          "value": 87.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2021",
+          "value": 96.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2021",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Major cities",
+          "period": "2020",
+          "value": 120.6,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Major cities",
+          "period": "2020",
+          "value": 117.6,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Major cities",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Inner regional",
+          "period": "2020",
+          "value": 116.8,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Inner regional",
+          "period": "2020",
+          "value": 113.4,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Inner regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional",
+          "period": "2020",
+          "value": 82.7,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional",
+          "period": "2020",
+          "value": 98.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Outer regional",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Remote",
+          "period": "2020",
+          "value": 87.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Remote",
+          "period": "2020",
+          "value": 74.1,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Very remote",
+          "period": "2020",
+          "value": 129,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Very remote",
+          "period": "2020",
+          "value": 70.2,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2020",
+          "value": 83.8,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "Outer regional; remote and very remote",
+          "period": "2020",
+          "value": 93.3,
+          "unit": "FTE-per-100000",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.19",
+            "Description2": "per 100000 people",
+            "Unit": "rate",
+            "Year": "2020",
+            "Remoteness": "Outer regional; remote and very remote",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "Derived from Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics; ABS Regional population"
+        }
+      ]
+    },
+    {
+      "id": "gp-urgent-under-four-hours",
+      "condition_category": "availability",
+      "owner": "General practices and PHNs, with government workforce and service funding",
+      "population": "Survey-scope residents aged 15 years and over who saw a GP for urgent medical care",
+      "measurement_role": "self-reported-timeliness",
+      "evidence_ceiling": "Includes people who obtained urgent GP care; excludes unmet urgent need and is not a real-time appointment feed.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 45.9,
+          "unit": "percent",
+          "published_95ci_half_width": 6,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 41.6,
+          "unit": "percent",
+          "published_95ci_half_width": 2.8,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 44.8,
+          "unit": "percent",
+          "published_95ci_half_width": 4.9,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 41.7,
+          "unit": "percent",
+          "published_95ci_half_width": 2.4,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 47.9,
+          "unit": "percent",
+          "published_95ci_half_width": 4.3,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 41.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.7,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 50,
+          "unit": "percent",
+          "published_95ci_half_width": 4.9,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 49.7,
+          "unit": "percent",
+          "published_95ci_half_width": 2.7,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 57.2,
+          "unit": "percent",
+          "published_95ci_half_width": 5.1,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 55.8,
+          "unit": "percent",
+          "published_95ci_half_width": 2.2,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 62.6,
+          "unit": "percent",
+          "published_95ci_half_width": 6.5,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 59.4,
+          "unit": "percent",
+          "published_95ci_half_width": 3,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 61.1,
+          "unit": "percent",
+          "published_95ci_half_width": 4.1,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 60.9,
+          "unit": "percent",
+          "published_95ci_half_width": 3,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 63.4,
+          "unit": "percent",
+          "published_95ci_half_width": 3.1,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 63.3,
+          "unit": "percent",
+          "published_95ci_half_width": 1.5,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 63.4,
+          "unit": "percent",
+          "published_95ci_half_width": 4.8,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 62.9,
+          "unit": "percent",
+          "published_95ci_half_width": 1.2,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 66.2,
+          "unit": "percent",
+          "published_95ci_half_width": 4.6,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 63.6,
+          "unit": "percent",
+          "published_95ci_half_width": 3.3,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ]
+    },
+    {
+      "id": "gp-unacceptable-wait",
+      "condition_category": "availability",
+      "owner": "General practices and PHNs, with government workforce and service funding",
+      "population": "Survey-scope residents aged 15 years and over who saw a GP in the previous 12 months",
+      "measurement_role": "self-reported-timeliness",
+      "evidence_ceiling": "Patient-defined unacceptable wait among GP users, not a clinical safe-wait threshold; cannot rank against cost-delay with a different denominator.",
+      "source_id": "pc-primary-care-dataset",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 27.1,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 26,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 29.3,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 28,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 32.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 29.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 25.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 23.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 18.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 16.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 20.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.3,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 18.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 21.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.5,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 18.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 22.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 19.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 20.1,
+          "unit": "percent",
+          "published_95ci_half_width": 1,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 18.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 21.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 18.9,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.44",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "Aust",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ]
+    },
+    {
+      "id": "after-hours-delay",
+      "condition_category": "availability",
+      "owner": "After-hours general practices, PHNs and government commissioners",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "measurement_role": "self-reported-combined-access-barrier",
+      "evidence_ceiling": "All reasons for delay or non-use; not pure capacity, not urgent unsociable-hours telehealth specifically.",
+      "source_id": "abs-patient-experiences",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25",
+      "source_artifact_hash": "sha256:5013f4f42c17b54ccca937c8d2fa01488fad31c7e0bc333ed90203016e88ecde",
+      "points": [
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 36.3,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selector": "Barriers to health service use: delayed or did not use; after hours GPs"
+        },
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 44.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selector": "Barriers to health service use: delayed or did not use; after hours GPs"
+        }
+      ]
+    },
+    {
+      "id": "health-system-navigation-difficulty",
+      "condition_category": "capability",
+      "owner": "Health-service organisations and governments responsible for accessible information and navigation",
+      "population": "Adults aged 18 years and over represented by ABS 2018 Health Literacy Survey; responding NHS follow-up sample",
+      "measurement_role": "self-reported-capability-context",
+      "evidence_ceiling": "2018 broad health-system navigation, not GP-specific, not a current literacy diagnosis, and not a deficit assigned to a person. No comparable trend asserted.",
+      "source_id": "abs-health-literacy",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-health-literacy/latest-release",
+      "source_artifact_hash": "sha256:fe04e792e301dc31376a751232af3a6b1d11b836697d62862c94e08dee0205a9",
+      "points": [
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2018",
+          "value": 14,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selector": "Navigating the healthcare system (Domain 7): overall difficult"
+        }
+      ]
+    },
+    {
+      "id": "telehealth-relationship-lookback",
+      "condition_category": "permission",
+      "owner": "Australian Government MBS rule setters and Services Australia administrators",
+      "population": "Non-referred MBS telehealth eligible-practitioner pathway, subject to MyMedicare alternative and listed exemptions",
+      "measurement_role": "published-rule-parameter",
+      "evidence_ceiling": "Measures a rule parameter observed at retrieval, not the proportion of people eligible, a rule-change trend or individual permission. Urgent unsociable-hours service exception retained.",
+      "source_id": "mbs-telehealth",
+      "source_url": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=AN.1.1",
+      "source_artifact_hash": "sha256:fcd20ce36ee01078853509776d95627670baeeeca56054011eedcdbb57e80fd2",
+      "points": [
+        {
+          "geography": "Aust",
+          "remoteness": "All areas",
+          "period": "2026-09-09",
+          "value": 12,
+          "unit": "months",
+          "source_selector": "AN.1.1 eligible telehealth practitioner, first face-to-face pathway"
+        }
+      ]
+    }
+  ],
+  "ecological_join": {
+    "common_geography": "New South Wales (state)",
+    "individual_linkage": false,
+    "occupation_estimates_summed": false,
+    "access_period": "2024-25",
+    "exposure_period": "2026-08",
+    "source_baseline_hash": "sha256:440c566123d3146cc2b00eef267139fc1a13dbd653c7ec9ec3c40012d857fa70",
+    "rows": [
+      {
+        "occupation_code": "5311",
+        "sa4_code": "101",
+        "sa4_name": "Capital Region",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4217,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "102",
+        "sa4_name": "Central Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 3092,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "103",
+        "sa4_name": "Central West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2074,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "104",
+        "sa4_name": "Coffs Harbour - Grafton",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1307,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "105",
+        "sa4_name": "Far West and Orana",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1216,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "106",
+        "sa4_name": "Hunter Valley exc Newcastle",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 3587,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "107",
+        "sa4_name": "Illawarra",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 3441,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "108",
+        "sa4_name": "Mid North Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1961,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "109",
+        "sa4_name": "Murray",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1254,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "110",
+        "sa4_name": "New England and North West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2261,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "111",
+        "sa4_name": "Newcastle and Lake Macquarie",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4943,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "112",
+        "sa4_name": "Richmond - Tweed",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2826,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "113",
+        "sa4_name": "Riverina",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1699,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "114",
+        "sa4_name": "Southern Highlands and Shoalhaven",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1530,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "115",
+        "sa4_name": "Sydney - Baulkham Hills and Hawkesbury",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 3485,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "116",
+        "sa4_name": "Sydney - Blacktown",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4980,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "117",
+        "sa4_name": "Sydney - City and Inner South",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 3763,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "118",
+        "sa4_name": "Sydney - Eastern Suburbs",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2291,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "119",
+        "sa4_name": "Sydney - Inner South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 6511,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "120",
+        "sa4_name": "Sydney - Inner West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2825,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "121",
+        "sa4_name": "Sydney - North Sydney and Hornsby",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4791,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "122",
+        "sa4_name": "Sydney - Northern Beaches",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2324,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "123",
+        "sa4_name": "Sydney - Outer South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4311,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "124",
+        "sa4_name": "Sydney - Outer West and Blue Mountains",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 5100,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "125",
+        "sa4_name": "Sydney - Parramatta",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 5666,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "126",
+        "sa4_name": "Sydney - Ryde",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2044,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "127",
+        "sa4_name": "Sydney - South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 5469,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5311",
+        "sa4_code": "128",
+        "sa4_name": "Sydney - Sutherland",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4070,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "101",
+        "sa4_name": "Capital Region",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 108,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "102",
+        "sa4_name": "Central Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 666,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "103",
+        "sa4_name": "Central West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 158,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "104",
+        "sa4_name": "Coffs Harbour - Grafton",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 82,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "105",
+        "sa4_name": "Far West and Orana",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 21,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "106",
+        "sa4_name": "Hunter Valley exc Newcastle",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 380,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "107",
+        "sa4_name": "Illawarra",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 614,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "108",
+        "sa4_name": "Mid North Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 100,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "109",
+        "sa4_name": "Murray",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 33,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "110",
+        "sa4_name": "New England and North West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 38,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "111",
+        "sa4_name": "Newcastle and Lake Macquarie",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 540,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "112",
+        "sa4_name": "Richmond - Tweed",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 77,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "113",
+        "sa4_name": "Riverina",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 31,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "114",
+        "sa4_name": "Southern Highlands and Shoalhaven",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 64,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "115",
+        "sa4_name": "Sydney - Baulkham Hills and Hawkesbury",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 195,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "116",
+        "sa4_name": "Sydney - Blacktown",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 436,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "117",
+        "sa4_name": "Sydney - City and Inner South",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 457,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "118",
+        "sa4_name": "Sydney - Eastern Suburbs",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 135,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "119",
+        "sa4_name": "Sydney - Inner South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 637,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "120",
+        "sa4_name": "Sydney - Inner West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 355,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "121",
+        "sa4_name": "Sydney - North Sydney and Hornsby",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 219,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "122",
+        "sa4_name": "Sydney - Northern Beaches",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 158,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "123",
+        "sa4_name": "Sydney - Outer South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 526,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "124",
+        "sa4_name": "Sydney - Outer West and Blue Mountains",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 391,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "125",
+        "sa4_name": "Sydney - Parramatta",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 837,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "126",
+        "sa4_name": "Sydney - Ryde",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 172,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "127",
+        "sa4_name": "Sydney - South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 537,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5411",
+        "sa4_code": "128",
+        "sa4_name": "Sydney - Sutherland",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 114,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "101",
+        "sa4_name": "Capital Region",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1065,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "102",
+        "sa4_name": "Central Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1648,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "103",
+        "sa4_name": "Central West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 917,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "104",
+        "sa4_name": "Coffs Harbour - Grafton",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 588,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "105",
+        "sa4_name": "Far West and Orana",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 927,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "106",
+        "sa4_name": "Hunter Valley exc Newcastle",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1100,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "107",
+        "sa4_name": "Illawarra",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1903,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "108",
+        "sa4_name": "Mid North Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1066,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "109",
+        "sa4_name": "Murray",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 732,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "110",
+        "sa4_name": "New England and North West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1103,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "111",
+        "sa4_name": "Newcastle and Lake Macquarie",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1385,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "112",
+        "sa4_name": "Richmond - Tweed",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1116,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "113",
+        "sa4_name": "Riverina",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 740,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "114",
+        "sa4_name": "Southern Highlands and Shoalhaven",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 806,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "115",
+        "sa4_name": "Sydney - Baulkham Hills and Hawkesbury",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 3174,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "116",
+        "sa4_name": "Sydney - Blacktown",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 4479,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "117",
+        "sa4_name": "Sydney - City and Inner South",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1478,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "118",
+        "sa4_name": "Sydney - Eastern Suburbs",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1356,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "119",
+        "sa4_name": "Sydney - Inner South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2802,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "120",
+        "sa4_name": "Sydney - Inner West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1496,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "121",
+        "sa4_name": "Sydney - North Sydney and Hornsby",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2104,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "122",
+        "sa4_name": "Sydney - Northern Beaches",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1376,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "123",
+        "sa4_name": "Sydney - Outer South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2377,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "124",
+        "sa4_name": "Sydney - Outer West and Blue Mountains",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1733,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "125",
+        "sa4_name": "Sydney - Parramatta",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2595,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "126",
+        "sa4_name": "Sydney - Ryde",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1109,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "127",
+        "sa4_name": "Sydney - South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 2707,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5511",
+        "sa4_code": "128",
+        "sa4_name": "Sydney - Sutherland",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1735,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "101",
+        "sa4_name": "Capital Region",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 995,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "102",
+        "sa4_name": "Central Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1118,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "103",
+        "sa4_name": "Central West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 683,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "104",
+        "sa4_name": "Coffs Harbour - Grafton",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 600,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "105",
+        "sa4_name": "Far West and Orana",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 647,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "106",
+        "sa4_name": "Hunter Valley exc Newcastle",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 767,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "107",
+        "sa4_name": "Illawarra",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 923,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "108",
+        "sa4_name": "Mid North Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 794,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "109",
+        "sa4_name": "Murray",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 547,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "110",
+        "sa4_name": "New England and North West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1264,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "111",
+        "sa4_name": "Newcastle and Lake Macquarie",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 939,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "112",
+        "sa4_name": "Richmond - Tweed",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 799,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "113",
+        "sa4_name": "Riverina",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 608,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "114",
+        "sa4_name": "Southern Highlands and Shoalhaven",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 787,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "115",
+        "sa4_name": "Sydney - Baulkham Hills and Hawkesbury",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 976,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "116",
+        "sa4_name": "Sydney - Blacktown",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 791,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "117",
+        "sa4_name": "Sydney - City and Inner South",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 741,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "118",
+        "sa4_name": "Sydney - Eastern Suburbs",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 894,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "119",
+        "sa4_name": "Sydney - Inner South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1471,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "120",
+        "sa4_name": "Sydney - Inner West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1242,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "121",
+        "sa4_name": "Sydney - North Sydney and Hornsby",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1052,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "122",
+        "sa4_name": "Sydney - Northern Beaches",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 852,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "123",
+        "sa4_name": "Sydney - Outer South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 744,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "124",
+        "sa4_name": "Sydney - Outer West and Blue Mountains",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 946,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "125",
+        "sa4_name": "Sydney - Parramatta",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1114,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "126",
+        "sa4_name": "Sydney - Ryde",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 834,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "127",
+        "sa4_name": "Sydney - South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1119,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5512",
+        "sa4_code": "128",
+        "sa4_name": "Sydney - Sutherland",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 752,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "101",
+        "sa4_name": "Capital Region",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 554,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "102",
+        "sa4_name": "Central Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 719,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "103",
+        "sa4_name": "Central West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 190,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "104",
+        "sa4_name": "Coffs Harbour - Grafton",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 78,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "105",
+        "sa4_name": "Far West and Orana",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 62,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "106",
+        "sa4_name": "Hunter Valley exc Newcastle",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 560,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "107",
+        "sa4_name": "Illawarra",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 750,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "108",
+        "sa4_name": "Mid North Coast",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 136,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "109",
+        "sa4_name": "Murray",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 113,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "110",
+        "sa4_name": "New England and North West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 134,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "111",
+        "sa4_name": "Newcastle and Lake Macquarie",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 853,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "112",
+        "sa4_name": "Richmond - Tweed",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 545,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "113",
+        "sa4_name": "Riverina",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 543,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "114",
+        "sa4_name": "Southern Highlands and Shoalhaven",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 105,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "115",
+        "sa4_name": "Sydney - Baulkham Hills and Hawkesbury",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 539,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "116",
+        "sa4_name": "Sydney - Blacktown",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1002,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "117",
+        "sa4_name": "Sydney - City and Inner South",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 585,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "118",
+        "sa4_name": "Sydney - Eastern Suburbs",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 154,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "119",
+        "sa4_name": "Sydney - Inner South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 1272,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "120",
+        "sa4_name": "Sydney - Inner West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 540,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "121",
+        "sa4_name": "Sydney - North Sydney and Hornsby",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 548,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "122",
+        "sa4_name": "Sydney - Northern Beaches",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 521,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "123",
+        "sa4_name": "Sydney - Outer South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 595,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "124",
+        "sa4_name": "Sydney - Outer West and Blue Mountains",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 800,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "125",
+        "sa4_name": "Sydney - Parramatta",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 689,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "126",
+        "sa4_name": "Sydney - Ryde",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 494,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "127",
+        "sa4_name": "Sydney - South West",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 942,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      },
+      {
+        "occupation_code": "5513",
+        "sa4_code": "128",
+        "sa4_name": "Sydney - Sutherland",
+        "exposure": {
+          "date": "2026-08-15",
+          "value": 248,
+          "status": "reported-modelled-estimate"
+        },
+        "access_geography": "NSW",
+        "access_series_id": "gp-cost-delay"
+      }
+    ],
+    "evidence_ceiling": "State-context attachment to each separate NERO SA4 occupation series. No sum, weighted synthetic state exposure, remoteness crosswalk, household record linkage or causal relationship. State access is not an SA4 estimate."
+  },
+  "binding_diagnosis": {
+    "basket_item": "gp-consultation",
+    "geography": "NSW",
+    "observed_category": "price",
+    "observation_period": "2024-25",
+    "diagnosis_as_of": "2026-09-09",
+    "scope": "The survey-estimated subset reporting GP delay or non-use due to cost",
+    "estimate_percent": 7.2,
+    "individual_binding_category": null,
+    "dominant_category": null,
+    "evidence_ceiling": "Price was an observed barrier for this subset during the survey reference period. Available annual evidence cannot establish which condition binds today for a rural clerical worker or which category dominates across different populations.",
+    "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+    "what_would_have_to_change": "A later comparable survey would need to show fewer cost-related delays; identifying the current personal bottleneck requires evidence on that person and local service conditions."
+  },
+  "gates": {
+    "five_categories_have_retained_indicators": true,
+    "five_categories_direct_current_gp_access_measures": false,
+    "current_individual_binding_condition": false
+  }
+}

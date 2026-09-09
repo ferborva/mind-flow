@@ -666,11 +666,11 @@ export function validateTimingRule(rule) {
     errors.push(problem("TIMING_RULE_KIND_INVALID", "$.kind", "Timing rule kind is unsupported."));
     return { valid: false, errors };
   }
-  if (rule.reference_period_kind !== "calendar_year") {
+  if (!["calendar_year", "australian_financial_year_ending"].includes(rule.reference_period_kind)) {
     errors.push(problem(
       "REFERENCE_PERIOD_KIND_UNSUPPORTED",
       "$.reference_period_kind",
-      "Only calendar-year reference periods are implemented in this revision.",
+      "Only calendar-year and Australian financial-year ending labels are supported.",
     ));
   }
   if (!Number.isInteger(rule.max_reference_lag_days) || rule.max_reference_lag_days < 0) {
@@ -993,7 +993,9 @@ function referenceCoverage(point, rule, asOf) {
   if (point.epistemic_class === "nowcast" && point.year === cutoffYear) {
     return "period_in_progress";
   }
-  const periodEnd = Date.parse(`${point.year + 1}-01-01T00:00:00Z`);
+  const periodEnd = rule.reference_period_kind === "australian_financial_year_ending"
+    ? Date.parse(`${point.year}-07-01T00:00:00Z`)
+    : Date.parse(`${point.year + 1}-01-01T00:00:00Z`);
   if (periodEnd > cutoff) return "invalid_unfinished_period";
   return (cutoff - periodEnd) / DAY_MS <= rule.max_reference_lag_days
     ? "within_policy_window"
