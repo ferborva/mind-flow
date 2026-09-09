@@ -94,3 +94,37 @@ The NERO-specific native resolver, basis, receipt-required preparation and
 evaluation tests passed. Integration must reproduce the full set after the
 central consumer rebind. No real sealed-protocol/provider-receipt chronology
 was reviewed at this checkpoint, and issuance is not cleared by this note.
+
+## 2026-09-09 11:27 UTC, C chronology and integrated reproduction review
+
+The same different-owner measurement-lane reviewer checked registration
+commit `3c62485` and integrated candidate
+`953e76f46a21e026a95aab2b0f559d19a051bf57`. An independent read of GitHub comment
+API entry `5601022621` returned creation and update time
+`2026-09-09T11:23:03Z`, the registered protocol hash and the declared windows.
+The retained base64 decodes to exactly 3,414 bytes, whose SHA-256 is
+`f0381ad3d5dfb06e8a44b15fac78ed04524dbcb6c6c6077b61c0e9e924140c21`.
+The receipt's timestamp agrees with that decoded response. This is a second
+agent's API observation, not independent institutional registrar verification.
+
+Both the awaiting-receipt and receipt-bearing protocols reproduce content hash
+`4538385902dfe91fe52ae01826fd8e17813a43c4d86858418792959865763b4c`.
+Their chronology is ordered: local seal `11:22:22Z`, provider receipt
+`11:23:03Z`, issuance opens `11:28:22Z`, observation starts 1 October.
+Preparation with that genuine receipt has `binding_complete: true`, no issues,
+and `issuance_authorised: false`. The reviewer did not issue a forecast or
+infer authority from the successful check.
+
+On integrated candidate `953e76f`, all 25 focused C tests pass on Node 22,
+including the previously failing generic issuance bindings. The existing IF
+suite also passes all 59 tests. The programme has the Goal / Signals / Actions
+spine, an explicit unmeasured agency goal and category/population/owner theory
+for original and added panel signals. The reviewer inspected these A-authored
+programme and category choices, but does not independently approve the numeric
+domain repairs that the reviewer authored.
+
+No blocking discrepancy was found in the reviewed C preparation, receipt
+chronology or exact native resolver. Coordinator clearance, the actual issue
+window and full-suite success still govern issuance. An issued record must be
+checked separately against these retained hashes; no score or calibration
+claim follows from this review.
