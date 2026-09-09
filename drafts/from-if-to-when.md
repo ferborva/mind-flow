@@ -9,7 +9,7 @@ themes: [abundance]
 sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 research: [2026-09-07-transition-precedents-and-adkar, 2026-09-07-transition-control-system]
 provenance: commissioned-proposal
-author: ren
+author: Ren
 audience: people examining transition options
 created: 2026-09-07
 updated: 2026-09-09
