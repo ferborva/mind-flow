@@ -102,6 +102,10 @@ observations. The event therefore does not turn an empirically established
 historical result into an unknown one. A separate synthetic test isolates the
 policy change using one fresh artifact: minimum one permits assessment, while
 minimum two withholds it. Those test observations are not added to the records.
+The rule counts distinct artifact hashes; it does not inspect whether a file
+contains the right footnotes or require a particular format. CSV plus workbook
+is the intended reviewed corroboration, not a semantic guarantee supplied by
+the count alone. No newly eligible current evidence is admitted in this repair.
 
 The current consumer check invokes the separate threshold audit. Nine active
 predicates remain contextually flagged: eight out-of-envelope flags and four
