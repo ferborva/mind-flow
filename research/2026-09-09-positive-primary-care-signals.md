@@ -15,6 +15,8 @@ authority: none
 
 Three NSW primary-care measures moved in a favorable direction between 2023-24 and 2024-25. They show narrower price barriers in their respective populations. They do not show that a particular rural worker has more choice, control or access today.
 
+The current construction revision is `pilots/australia/data/positive-signals-2026-09-09.r2.json`. It binds the reviewed basket and corrected numeric-domain evaluator without changing any source observations. The original positive artifact remains retained with its old condition references; it is not silently overwritten.
+
 | Published NSW measure | 2023-24 | 2024-25 | Observed change | Population and condition |
 | --- | ---: | ---: | ---: | --- |
 | Patients fully bulk-billed for GP attendances | 55.2% | 56.1% | +0.9 percentage points | Patients with Medicare GP attendances in the year; fewer exposed to a GP attendance charge across that year. Not people who never attended, nor all costs of care. |

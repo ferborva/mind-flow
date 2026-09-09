@@ -9,7 +9,7 @@ import { buildBasket } from './primary-care-basket.mts';
 import { computeMetricChecksum } from '../../../contracts/agency-map/validate.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
-const output = resolve(root, 'pilots/australia/data/positive-signals-2026-09-09.json');
+const output = resolve(root, 'pilots/australia/data/positive-signals-2026-09-09.r2.json');
 const schema = JSON.parse(readFileSync(resolve(root, 'contracts/agency-map/schema/condition-agency-map.schema.json'), 'utf8'));
 const ajv = new Ajv2020({ strict: true, allErrors: true });
 addFormats(ajv);
@@ -69,7 +69,15 @@ export function derivePositiveSignals() {
     };
   });
   return {
-    id: 'australia-positive-signals-2026-09-09', provenance: 'commissioned-agent-proposal',
+    id: 'australia-positive-signals-2026-09-09.r2', provenance: 'commissioned-agent-proposal',
+    construction_revision: {
+      supersedes_path: 'pilots/australia/data/positive-signals-2026-09-09.json',
+      supersedes_sha256: digest(readFileSync(resolve(root, 'pilots/australia/data/positive-signals-2026-09-09.json'))),
+      reason: 'Rebind unchanged positive observations to the independently reviewed primary-care construction revision and corrected evaluator. Original artifact remains retained, with its original condition references.',
+      source_values_changed: false,
+      basket_path: 'pilots/australia/basket/primary-care.r2.json',
+      kernel_manifest_hash: basket.kernel_manifest_hash,
+    },
     status: 'research-draft', observation_period: '2023-24 to 2024-25',
     source_capture_path: 'pilots/australia/sources/primary-care/2026-09-09/capture.json',
     source_capture_sha256: digest(readFileSync(resolve(root, 'pilots/australia/sources/primary-care/2026-09-09/capture.json'))),
