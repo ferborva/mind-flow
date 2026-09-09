@@ -166,6 +166,15 @@ Register the one-member evaluation cohort before observation begins. Its
 denominator includes this forecast whatever happens. The exercise establishes
 neither calibration nor a right, warning, service recommendation or action.
 
+`prepareNeroEvaluationPlan` prepares the existing version 1.1 evaluation plan
+after issue but before October. Its eligibility rule includes every issued
+record in this single-protocol campaign, with no exclusions. The policy anchor
+is the campaign manifest already sealed in the protocol. The later eligible
+manifest and registration anchors are separately retained local content-addressed
+bytes, not invented external timestamps or published URLs. Their URNs and
+unverified status must not be presented as an independent registry. Retain the
+exact issue checksum, plan checksum and anchor bytes together.
+
 ## Attribution
 
 Nowcast of Employment by Region and Occupation, Jobs and Skills Australia,
