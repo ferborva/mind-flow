@@ -8,12 +8,15 @@ import { prepareNeroCandidate } from "../round-08-nero/candidate.mts";
 import { assessFutureIssuanceBinding } from "../issuance-binding/validate.mjs";
 
 test("bounded employment index preserves the exact count threshold without posing as a population share", () => {
-  for (const value of [0, 4216, 4217, 4218, 100000]) {
+  for (const value of [0, 4216, 4217, 4218, 100000, Number.MAX_SAFE_INTEGER]) {
     assert.equal(boundedEmploymentIndex(value) >= 0.5, value >= 4217);
     assert.ok(boundedEmploymentIndex(value) >= 0 && boundedEmploymentIndex(value) < 1);
   }
   assert.throws(() => boundedEmploymentIndex(-1));
   assert.throws(() => boundedEmploymentIndex(Infinity));
+  assert.throws(() => boundedEmploymentIndex(NaN));
+  assert.throws(() => boundedEmploymentIndex(0.5));
+  assert.throws(() => boundedEmploymentIndex(Number.MAX_SAFE_INTEGER + 1));
 });
 
 test("the prospective NERO candidate reconstructs both baselines and remains blocked without a provider receipt", () => {
@@ -68,6 +71,9 @@ test("native NERO resolution selects one exact October cell and rejects unavaila
       measure: "bounded stock", observation_unit: "bounded employment index" } } };
   const row = ["1", "NSW", "101", "Capital Region", "5311", "General Clerks", "2026-10-15", "4217"];
   assert.equal(neroOutcomePayload([row], forecast).value, 0.5);
+  for (const cell of ["-1", "4217.0", "4.217e3", " 4217", "4217 ", "004217", "1,000", "Infinity", "9007199254740992"]) {
+    assert.throws(() => neroOutcomePayload([[...row.slice(0, -1), cell]], forecast));
+  }
   for (const rows of [[], [row, row], [[...row.slice(0, -1), ""]], [[...row.slice(0, -1), "NaN"]],
     [[...row.slice(0, 6), "2026-09-15", "4217"]]]) {
     assert.throws(() => neroOutcomePayload(rows, forecast));

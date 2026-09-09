@@ -15,4 +15,8 @@ test("one-member plan retains the only issued forecast and withholds premature p
   const report = evaluateForecastCohort(plan, [candidate.forecast], { asOf: "2026-09-10T01:02:00Z" });
   assert.equal(report.interpretation.performance_evaluable, false);
   assert.equal(report.scores.mean_brier, null);
+  assert.deepEqual(report.scores.individual, []);
+  assert.deepEqual(report.scores.events, []);
+  assert.deepEqual(report.scores.clusters, []);
+  for (const score of Object.values(report.scores.by_forecast_use)) assert.equal(score.mean_brier, null);
 });
