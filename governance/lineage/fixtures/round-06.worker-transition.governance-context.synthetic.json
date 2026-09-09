@@ -5,13 +5,13 @@
   "captured_at": "2026-09-09T00:00:00Z",
   "source_bundle_binding": {
     "bundle_id": "bundle.round-04.worker-option.complete",
-    "bundle_sha256": "sha256:cbd8aa3843b226b0e1eeeab538314741f00bf9dac62d3af82779f4b03bf8e3d8",
+    "bundle_sha256": "sha256:7875e2ff45ebe004f972d8e435da5bfaed50919a2ebc0232724e07426d08e5ca",
     "bundle_as_of": "2026-09-09T00:00:00Z",
-    "evaluation_hash": "sha256:14d6a37b81c3ac6f0fd7252e37b854f06a3fbcdf761bccba39747dfc83e7f12f",
+    "evaluation_hash": "sha256:dbbe5b2edb8a9215d3cd5dec71fabf5ceb6d6de129900152e23aab5c44046ba0",
     "condition_definition_ref": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
+      "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
     },
     "computed_rule_state": "true"
   },
@@ -151,5 +151,5 @@
     "action_authorised": false,
     "publication_approved": false
   },
-  "context_hash": "sha256:87c200bce58b6a3d69873270e662e56603387f9df9dc0c4b0cce88bfe938e898"
+  "context_hash": "sha256:f234833814d892bb42fc5e466fffc3b0b0c88c73a6bb163e2c502657fa51b76b"
 }
