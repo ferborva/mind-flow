@@ -6,7 +6,7 @@ import test from "node:test";
 const root = resolve(import.meta.dirname, "../..");
 const nameTheIf = readFileSync(resolve(root, "drafts/name-the-if.md"), "utf8");
 const when = readFileSync(resolve(root, "drafts/every-if-is-somebodys-when.md"), "utf8");
-const programme = readFileSync(resolve(root, "meta/abundance-transition-programme.md"), "utf8");
+const programme = readFileSync(resolve(root, "meta/abundance-transition-programme.md"), "utf8").replace(/\s+/g, " ");
 
 test("the IF grammar remains a proposed reporting method rather than a validated diagnosis", () => {
   assert.match(nameTheIf, /reporting grammar/i);
@@ -33,13 +33,12 @@ test("the supply argument keeps consumer IFs and actor WHENs linked but non-iden
   assert.doesNotMatch(when, /Nobody in a large company/i);
 });
 
-test("programme controls are described as advisory until an issuance boundary exists", () => {
-  assert.match(programme, /cannot enforce that requirement at CI, hosting, identity or\s+operational issuance boundaries/i);
-  assert.match(programme, /controls are advisory library and build\s+boundaries/i);
-  assert.match(programme, /Current checkpoint: development iteration 06 over the Round 04 synthetic fixture/i);
+test("the measurement programme retains advisory boundaries and advances its checkpoint", () => {
+  assert.match(programme, /controls are advisory\s+library and build boundaries/i);
+  assert.match(programme, /Current checkpoint: Round 08 measurement/i);
   assert.match(programme, /seven-artifact pre-projection core/i);
   assert.match(programme, /eight-artifact complete core/i);
-  assert.match(programme, /truth, freshness,\s+authority and publication remain closed/i);
+  assert.match(programme, /caller-supplied identities.*successful local\s+checks do not establish an operational institution/i);
   assert.match(programme, /transition-bundle assessment/i);
   assert.doesNotMatch(programme, /repository is a provenance-safe system/i);
   assert.doesNotMatch(programme, /Block public issuance at a machine-readable governance boundary/i);

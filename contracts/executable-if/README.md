@@ -77,6 +77,15 @@ Neither a source identifier nor a digest proves that a retained artifact
 supports a derived value. The measurement producer must reproduce that
 derivation from retained bytes and state its evidence ceiling.
 
+Historical measured periods may precede a newly registered definition. Their
+normalisation `recorded_at` must still follow that definition's introducing
+event, and evaluation must follow both the definition and evidence fold.
+Keep the actual historical period: `maximum_age_days` still makes old evidence
+stale. The claim period must include both the studied period and evaluation
+instant. This supports retrospective measurement without backdating a
+definition or asserting prospective knowledge. Forecast issuance has its own
+separate chronology requirements.
+
 Each observation binds:
 
 - one immutable condition definition;
