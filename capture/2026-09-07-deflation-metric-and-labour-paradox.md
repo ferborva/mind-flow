@@ -44,9 +44,10 @@ He frames it as something two different actors can act on: a thing "businesses
 target" and a thing "countries track".
 
 <!-- NOTE: this is the first time he has proposed a measurable target rather
-     than a question. It also lands directly on the arithmetic problem the
-     research raised, that redistribution is short by a factor of twenty and
-     only a collapse in cost closes the gap. He got here on his own. -->
+     than a question. A previous annotation linked it to a faulty claim that
+     redistribution was short by a factor of twenty and only cost collapse
+     could work. That research claim was withdrawn on 2026-09-08. His captured
+     proposal remains unchanged. -->
 
 ## The paradox underneath it
 

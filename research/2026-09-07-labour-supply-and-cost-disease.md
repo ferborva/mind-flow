@@ -90,12 +90,12 @@ Sources: [Baumol effect (Wikipedia)](https://en.wikipedia.org/wiki/Baumol_effect
 **It supplies the ending the piece did not have.**
 
 The current draft closes on companies choosing to give services away, and the
-research showed the reasoning for that was wrong: redistribution is short by a
-factor of twenty. The deflation metric replaces it cleanly. **Not "companies
-should be generous" but "here are two numbers to be held to".** A target for
-businesses, a tracked statistic for countries. That is a genuine
-try-it-tomorrow close, which is what the long-form checklist asks for and the
-draft currently fakes.
+research showed that two companies' profits are not a global financing plan.
+The earlier factor-of-twenty claim was based on invalid arithmetic and is
+withdrawn. The deflation metric still helps, but it cannot replace the full
+portfolio cleanly. **The stronger close is: here are service-level access,
+resource-cost and residual-scarcity measures to be held to.** Those can become
+targets for businesses and tracked statistics for countries.
 
 **And the labour paradox supplies the honest caveat**, which the checklist also
 asks for. His style guideline is blunt about this: "if there are only upsides to

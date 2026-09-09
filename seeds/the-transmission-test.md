@@ -16,6 +16,13 @@ Automating labour severs the first, using the same capital that is supposed to
 deliver the second. **So reinvestment is a complete answer only if prices fall
 faster than wages disappear, and that is a testable claim nobody is testing.**
 
+> **Evidence status, corrected 2026-09-08:** This preserves Fernando's endorsed
+> formulation, but research does not support "exactly two" as an exhaustive
+> claim. Self-employment, transfers, public provision, capital income, assets,
+> debt, household production and unpaid care also affect resources and access.
+> The useful test is whether exposed households retain effective access through
+> all relevant channels.
+
 ## In his words
 
 > If the labour channel is being deliberately automated away, one of the two
@@ -30,21 +37,19 @@ faster than wages disappear, and that is a testable claim nobody is testing.**
 
 ## Stories and evidence
 
-**It is the only falsifiable claim in the whole abundance argument.** Everything
-else is a projection. This one is a race between two measurable rates, and both
-are already instrumented in national statistics. Price indices exist. Labour
-share of income exists. Nobody has put them side by side and called it the
-scoreboard.
+**It is one falsifiable claim in the abundance argument.** A two-channel race is
+too narrow, and national price and labour-share series do not identify exposed
+households. The stronger test joins household resources, service-specific costs,
+eligibility, quality and delivery for a defined cohort, place and period.
 
 **It joins his other two ideas into one system.** The zero-cost count measures
 the price side. The labour paradox describes what happens on the wage side. The
 transmission test is the ratio between them.
 
-**History has already run this experiment once, and the answer was no.**
-Engels' Pause, Britain 1780-1840: output per worker rose 46%, real wages rose
-12%. The profit rate doubled and profit's share of national income grew at the
-expense of labour. Prices did not fall faster than wages disappeared, for
-roughly fifty years. Then 1840-1900: output +90%, real wages +123%. See
+**History provides a warning, not the result of this proposed test.** Engels'
+Pause compares output per worker and real wages in Britain. It does not directly
+test whether a defined essential-service basket became more affordable for a
+modern exposed cohort through all resource and provision channels. See
 `research/2026-09-07-transition-precedents-and-adkar.md`.
 
 ## Caveats and edges

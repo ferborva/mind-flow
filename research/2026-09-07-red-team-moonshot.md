@@ -243,9 +243,10 @@ than the piece currently claims: four in five people live below $30 a day.
 
 **Does not survive as written.**
 - *Redistribution as the remedy.* Eight cents per person per day. This is not an
-  objection from the podcast, it is arithmetic, and it is fatal to the current
-  framing. He needs to arrive at free services because redistribution is
-  impossible by a factor of twenty, not because companies ought to be generous.
+  objection from the podcast, but two firms' profits are not a sufficient
+  denominator for global policy. **Correction, 2026-09-08:** the factor-of-twenty
+  comparison used invalid poverty arithmetic and mixed PPP with nominal units.
+  It is withdrawn. The remedy needs a comparative portfolio test.
 - *Corporate discretion as the mechanism.* Mostaque has already refuted it and
   built the alternative. Concede it and engage with UBAI, or lose the section.
 
