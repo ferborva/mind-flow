@@ -1,0 +1,194 @@
+{
+  "id": "australia-primary-care.r3",
+  "recorded_at": "2026-09-09T11:19:09Z",
+  "country": "Australia",
+  "status": "research-draft",
+  "provenance": "commissioned-proposal",
+  "kernel_path": "pilots/australia/basket/primary-care.kernel.r3.json",
+  "kernel_manifest_hash": "sha256:e37c0127a2af1d2a08808f967228ae6e86b19fa1c9b79dbc6af9f576c07107d3",
+  "selection_rationale": "One GP contact, one common medicine pathway, one specialist referral and one after-hours alternative make the access promise concrete. Aggregate context is never presented as item-specific attainment.",
+  "items": [
+    {
+      "id": "gp-consultation",
+      "label": "GP consultation, including a separately scoped routine telehealth pathway",
+      "conditions": [
+        {
+          "condition_category": "price",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.cost",
+            "definition_version": "1.2.0",
+            "definition_hash": "sha256:f5009fba7f6e7bc6478d4fe121426e3940236b48098b95093475abb0dfa725eb"
+          },
+          "series_id": "gp-cost-delay",
+          "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+          "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+          "measurement_role": "self-reported-access-barrier",
+          "evidence_ceiling": "Reported cost-related delay or non-use; cost can coexist with other barriers. State estimate cannot identify an individual or establish the leading barrier."
+        },
+        {
+          "condition_category": "permission",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-routine",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+          },
+          "series_id": "telehealth-relationship-lookback",
+          "owner": "Australian Government MBS rule setters and Services Australia administrators",
+          "population": "Non-referred MBS telehealth eligible-practitioner pathway, subject to MyMedicare alternative and listed exemptions",
+          "measurement_role": "published-rule-parameter",
+          "evidence_ceiling": "Measures a rule parameter observed at retrieval, not the proportion of people eligible, a rule-change trend or individual permission. Urgent unsociable-hours service exception retained."
+        },
+        {
+          "condition_category": "proximity",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.spatial-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+          },
+          "series_id": "gp-fte-remoteness",
+          "owner": "Australian Government workforce policy, state governments, PHNs and general practices",
+          "population": "GP FTE supply relative to resident population in each published state and remoteness stratum",
+          "measurement_role": "spatial-supply-proxy",
+          "evidence_ceiling": "Spatial supply intensity is not travel time, transport accessibility, opening hours or appointment availability. Remoteness strata are not SA4s."
+        },
+        {
+          "condition_category": "availability",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          },
+          "series_id": "gp-urgent-under-four-hours",
+          "owner": "General practices and PHNs, with government workforce and service funding",
+          "population": "Survey-scope residents aged 15 years and over who saw a GP for urgent medical care",
+          "measurement_role": "self-reported-timeliness",
+          "evidence_ceiling": "Includes people who obtained urgent GP care; excludes unmet urgent need and is not a real-time appointment feed."
+        },
+        {
+          "condition_category": "capability",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.navigation-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+          },
+          "series_id": "health-system-navigation-difficulty",
+          "owner": "Health-service organisations and governments responsible for accessible information and navigation",
+          "population": "Adults aged 18 years and over represented by ABS 2018 Health Literacy Survey; responding NHS follow-up sample",
+          "measurement_role": "self-reported-capability-context",
+          "evidence_ceiling": "2018 broad health-system navigation, not GP-specific, not a current literacy diagnosis, and not a deficit assigned to a person. No comparable trend asserted."
+        }
+      ]
+    },
+    {
+      "id": "atorvastatin-prescription",
+      "label": "Prescription and community-pharmacy dispensing of atorvastatin where clinically prescribed",
+      "selection_source": "aihw-medicines",
+      "conditions": [
+        {
+          "condition_category": "price",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          },
+          "series_id": "prescription-cost-delay",
+          "owner": "Australian Government PBS and pharmacies",
+          "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+          "measurement_role": "self-reported-access-barrier",
+          "evidence_ceiling": "All prescription medicines, not atorvastatin-specific access."
+        }
+      ],
+      "missing_item_specific_categories": [
+        "price",
+        "permission",
+        "proximity",
+        "availability",
+        "capability"
+      ],
+      "note": "Atorvastatin is identified among the most-prescribed medicines by AIHW. The retained cost-delay series covers all prescribed medicines, not this drug; no dose or clinical recommendation."
+    },
+    {
+      "id": "specialist-referral",
+      "label": "GP referral followed by a Medicare specialist consultation",
+      "permission_source": "mbs-referrals",
+      "conditions": [
+        {
+          "condition_category": "price",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.specialist.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+          },
+          "series_id": "specialist-gap",
+          "owner": "Specialist practices and Australian Government Medicare benefit setters",
+          "population": "Patient-billed Medicare specialist attendances",
+          "measurement_role": "administrative-average",
+          "evidence_ceiling": "Specialist-service average, not a specific specialty, referral completion or total pathway cost."
+        }
+      ],
+      "missing_item_specific_categories": [
+        "price",
+        "permission",
+        "proximity",
+        "availability",
+        "capability"
+      ],
+      "note": "Retained referral rule explains the default12-month period and exceptions. No specialist-specific availability or completed-referral series established."
+    },
+    {
+      "id": "after-hours-gp",
+      "label": "After-hours GP consultation, with urgent unsociable-hours telehealth distinguished",
+      "conditions": [
+        {
+          "condition_category": "availability",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.after-hours.delay",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+          },
+          "series_id": "after-hours-delay",
+          "owner": "After-hours general practices, PHNs and government commissioners",
+          "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+          "measurement_role": "self-reported-combined-access-barrier",
+          "evidence_ceiling": "All reasons for delay or non-use; not pure capacity, not urgent unsociable-hours telehealth specifically."
+        },
+        {
+          "condition_category": "permission",
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-urgent",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+          },
+          "series_id": "telehealth-relationship-lookback",
+          "owner": "Australian Government MBS rule setters and Services Australia administrators",
+          "population": "Non-referred MBS telehealth eligible-practitioner pathway, subject to MyMedicare alternative and listed exemptions",
+          "measurement_role": "published-rule-parameter",
+          "evidence_ceiling": "Measures a rule parameter observed at retrieval, not the proportion of people eligible, a rule-change trend or individual permission. Urgent unsociable-hours service exception retained."
+        }
+      ],
+      "missing_item_specific_categories": [
+        "price",
+        "proximity",
+        "capability"
+      ],
+      "note": "ABS all-after-hours series is broader than the urgent unsociable-hours MBS exception. They cannot be treated as the same cohort."
+    }
+  ],
+  "evolution_ceiling": "These are source-driven research definition changes recorded together during construction, not a fabricated historical operational deployment. Existing consumers bound to prior definitions become incompatible. No observations are backdated to predate registration.",
+  "empirical_execution_blocker": "Historical measured periods are accepted by the repaired existing evaluator. Freshness windows are unchanged; annual2024-25 and2018 inputs are stale. Context-only spatial strata and unmatched urgent telehealth observations remain absent. Rule parameters are not personal eligibility.",
+  "threshold_rationale": "Zero cost-related obstruction and universal timely coverage operationalise the example promise as contestable research thresholds. Positive GP FTE tests only whether any measured supply exists, not whether it is adequate. A zero-month relationship threshold tests absence of that rule parameter, not complete eligibility.",
+  "gates": {
+    "five_categories_have_retained_indicators": true,
+    "five_categories_direct_current_gp_access_measures": false,
+    "current_individual_binding_condition": false
+  },
+  "construction_revision": {
+    "supersedes_path": "pilots/australia/basket/primary-care.r2.json",
+    "supersedes_sha256": "sha256:5135fd709e6996e9cd303ad575ac5dec4e5805c8ef17f45cb57da666dc92bffd",
+    "reason": "Independent review found numeric observations were not checked against their declared domains. Reconstruct against the evaluator that now rejects out-of-domain observations, preserving the prior one-sided domain and specialist-price corrections. All earlier artifacts and source observations remain retained unchanged. This is not an operational condition-history continuation.",
+    "source_values_changed": false,
+    "historical_observation_periods_changed": false
+  },
+  "numeric_domain_rationale": "Months of required lookback, GP FTE intensity and nonnegative patient-paid gaps cannot be negative under these definitions. No finite natural upper bound is established. Domains therefore declare minimum zero and omit maximum; ratio and percent retain intrinsic bounds. These are definition domains, not observed sample extrema.",
+  "coverage_ceiling": "Coverage1/1 counts a selected published series cell only. It establishes neither survey representativeness, response coverage nor coverage of individual access conditions."
+}

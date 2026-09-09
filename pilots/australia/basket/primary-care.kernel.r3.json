@@ -1,0 +1,2169 @@
+{
+  "schema_version": "1.1.0",
+  "kernel_id": "kernel.au.primary-care.r3",
+  "classification": "research-draft",
+  "empirical_truth_established": false,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "publication_approved": false,
+  "evaluator": {
+    "id": "mind-flow.executable-if.evaluator",
+    "version": "1.1.0",
+    "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+    "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+    "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+    "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+  },
+  "signals": [
+    {
+      "signal_id": "signal.au.gp-cost-delay",
+      "definition_version": "1.0.0",
+      "label": "gp-cost-delay",
+      "construct": "self-reported-access-barrier",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "estimand": "Reported cost-related delay or non-use; cost can coexist with other barriers. State estimate cannot identify an individual or establish the leading barrier.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "value_kind": "number",
+      "unit": "percent",
+      "signal_definition_hash": "sha256:a9ce21eafa6026c1e24e5a44f49c3232bd368781a7095a1f0f1bb550711a37d4"
+    },
+    {
+      "signal_id": "signal.au.specialist-gap",
+      "definition_version": "1.0.0",
+      "label": "specialist-gap",
+      "construct": "administrative-average",
+      "population": "Patient-billed Medicare specialist attendances",
+      "estimand": "Specialist-service average, not a specific specialty, referral completion or total pathway cost.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "value_kind": "number",
+      "unit": "AUD-2024-25",
+      "signal_definition_hash": "sha256:a5cfeb4d35b251c29d5de7f00b966fc028577d1c2fec22b57b4136464bcca4a3",
+      "value_range": {
+        "minimum": 0
+      }
+    },
+    {
+      "signal_id": "signal.au.prescription-cost-delay",
+      "definition_version": "1.0.0",
+      "label": "prescription-cost-delay",
+      "construct": "self-reported-access-barrier",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "estimand": "All prescription medicines, not atorvastatin-specific access.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "value_kind": "number",
+      "unit": "percent",
+      "signal_definition_hash": "sha256:a9427367445689f023fc3491996b441e495cda051a09a73fb42755191568b4cd"
+    },
+    {
+      "signal_id": "signal.au.gp-fte-remoteness",
+      "definition_version": "1.0.0",
+      "label": "gp-fte-remoteness",
+      "construct": "spatial-supply-proxy",
+      "population": "GP FTE supply relative to resident population in each published state and remoteness stratum",
+      "estimand": "Spatial supply intensity is not travel time, transport accessibility, opening hours or appointment availability. Remoteness strata are not SA4s.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "value_kind": "number",
+      "unit": "FTE-per-100000",
+      "signal_definition_hash": "sha256:b8a2bd0787f88494f50ce3061fc511dc291ee780dd30ce3cdca7750d0a01f9db",
+      "value_range": {
+        "minimum": 0
+      }
+    },
+    {
+      "signal_id": "signal.au.gp-urgent-under-four-hours",
+      "definition_version": "1.0.0",
+      "label": "gp-urgent-under-four-hours",
+      "construct": "self-reported-timeliness",
+      "population": "Survey-scope residents aged 15 years and over who saw a GP for urgent medical care",
+      "estimand": "Includes people who obtained urgent GP care; excludes unmet urgent need and is not a real-time appointment feed.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "value_kind": "number",
+      "unit": "percent",
+      "signal_definition_hash": "sha256:eeefe30a66179b230bb297878c099ef5bf8665a3b99a9b5643a9e4afeaff2a4c"
+    },
+    {
+      "signal_id": "signal.au.after-hours-delay",
+      "definition_version": "1.0.0",
+      "label": "after-hours-delay",
+      "construct": "self-reported-combined-access-barrier",
+      "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "estimand": "All reasons for delay or non-use; not pure capacity, not urgent unsociable-hours telehealth specifically.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25",
+      "value_kind": "number",
+      "unit": "percent",
+      "signal_definition_hash": "sha256:40b3b437733a5bbf785cc57063096d50d626e5edc7000c7425fff6b852e9c673"
+    },
+    {
+      "signal_id": "signal.au.health-system-navigation-difficulty",
+      "definition_version": "1.0.0",
+      "label": "health-system-navigation-difficulty",
+      "construct": "self-reported-capability-context",
+      "population": "Adults aged 18 years and over represented by ABS 2018 Health Literacy Survey; responding NHS follow-up sample",
+      "estimand": "2018 broad health-system navigation, not GP-specific, not a current literacy diagnosis, and not a deficit assigned to a person. No comparable trend asserted.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-health-literacy/latest-release",
+      "value_kind": "number",
+      "unit": "percent",
+      "signal_definition_hash": "sha256:797f1cb85fe80829058b689ddb6a8fab367ca51091d4b86360030dd69c4c1aa6"
+    },
+    {
+      "signal_id": "signal.au.telehealth-relationship-lookback",
+      "definition_version": "1.0.0",
+      "label": "telehealth-relationship-lookback",
+      "construct": "published-rule-parameter",
+      "population": "Non-referred MBS telehealth eligible-practitioner pathway, subject to MyMedicare alternative and listed exemptions",
+      "estimand": "Measures a rule parameter observed at retrieval, not the proportion of people eligible, a rule-change trend or individual permission. Urgent unsociable-hours service exception retained.",
+      "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=AN.1.1",
+      "value_kind": "number",
+      "unit": "months",
+      "signal_definition_hash": "sha256:29ec9b2ea0bbe1cc42af30ddb937a75759ad934ae1945f459ac0a8c0b4004a63",
+      "value_range": {
+        "minimum": 0
+      }
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "event.au.primary-care.1",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:09Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Initial explicitly unmeasured scope candidate before applying ABS survey coverage. No evaluation or access claim issued.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:3c41cdecb16a44949b907993ff0ff310c6100f5c1af50a1ece3fb66035a97636"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "definition_version": "1.0.0",
+          "condition_category": "price",
+          "proposition": "The registered gp-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the gp-cost-delay research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:09Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW"
+            ],
+            "cohorts": [
+              "Survey-scope residents aged 15 years and over",
+              "Children under 15 years"
+            ],
+            "services": [
+              "GP consultation"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.gp-cost-delay",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:a9ce21eafa6026c1e24e5a44f49c3232bd368781a7095a1f0f1bb550711a37d4"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:3c41cdecb16a44949b907993ff0ff310c6100f5c1af50a1ece3fb66035a97636"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": null,
+      "event_hash": "sha256:07967d86478b2bab0ba9822ddd316a4ac121c102b6621cc0706ab39ab1743145"
+    },
+    {
+      "sequence": 2,
+      "event_id": "event.au.primary-care.2",
+      "operation": "narrowed",
+      "recorded_at": "2026-09-09T11:19:10Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained ABS Patient Experiences scope excludes under-15s. The proposed child coverage is removed, invalidating any consumer bound to the broader definition. Source: abs-patient-experiences.",
+      "previous_states": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:3c41cdecb16a44949b907993ff0ff310c6100f5c1af50a1ece3fb66035a97636"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.cost",
+            "definition_version": "1.1.0",
+            "definition_hash": "sha256:9616779e6d9ee5693a108d14b7d4b6c0f817b7b2c2a9a3e97cd16bec4ed7e5eb"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "definition_version": "1.1.0",
+          "condition_category": "price",
+          "proposition": "The registered gp-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the gp-cost-delay research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:10Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW"
+            ],
+            "cohorts": [
+              "Survey-scope residents aged 15 years and over"
+            ],
+            "services": [
+              "GP consultation"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.gp-cost-delay",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:a9ce21eafa6026c1e24e5a44f49c3232bd368781a7095a1f0f1bb550711a37d4"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:9616779e6d9ee5693a108d14b7d4b6c0f817b7b2c2a9a3e97cd16bec4ed7e5eb"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:07967d86478b2bab0ba9822ddd316a4ac121c102b6621cc0706ab39ab1743145",
+      "event_hash": "sha256:1f87c7afcf2e126b6172263db27d98c7bc6b2b3b9046213168856db6d662f843"
+    },
+    {
+      "sequence": 3,
+      "event_id": "event.au.primary-care.3",
+      "operation": "definition-revised",
+      "recorded_at": "2026-09-09T11:19:11Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "RoGS table10A.26 supplies annual rather than monthly observations. Change prospective observation window from90 to366 days; keep zero cost-barrier threshold and exact signal. Historic2024-25 observations still cannot be projected into a newly registered period.",
+      "previous_states": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.cost",
+            "definition_version": "1.1.0",
+            "definition_hash": "sha256:9616779e6d9ee5693a108d14b7d4b6c0f817b7b2c2a9a3e97cd16bec4ed7e5eb"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "state_version": 3,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.cost",
+            "definition_version": "1.2.0",
+            "definition_hash": "sha256:f5009fba7f6e7bc6478d4fe121426e3940236b48098b95093475abb0dfa725eb"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.cost",
+          "definition_version": "1.2.0",
+          "condition_category": "price",
+          "proposition": "The registered gp-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the gp-cost-delay research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:11Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW"
+            ],
+            "cohorts": [
+              "Survey-scope residents aged 15 years and over"
+            ],
+            "services": [
+              "GP consultation"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.gp-cost-delay",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:a9ce21eafa6026c1e24e5a44f49c3232bd368781a7095a1f0f1bb550711a37d4"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 366,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 366
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:f5009fba7f6e7bc6478d4fe121426e3940236b48098b95093475abb0dfa725eb"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:1f87c7afcf2e126b6172263db27d98c7bc6b2b3b9046213168856db6d662f843",
+      "event_hash": "sha256:8756775a4d4adda405a82b771383e21ead9d71be4306ef0f9f07cfc2da090562"
+    },
+    {
+      "sequence": 4,
+      "event_id": "event.au.primary-care.4",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:12Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Initial service grouping for inspecting the official MBS relationship rule; not an assertion that all services share identical eligibility.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.telehealth-context",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:bf80d4f433f70821c0e783e119c25346abb4a7752839fe77aa08c4c08f2a8c2a"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.telehealth-context",
+          "definition_version": "1.0.0",
+          "condition_category": "permission",
+          "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the telehealth-relationship-lookback research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:12Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "MBS telehealth rule"
+            ],
+            "services": [
+              "Routine GP telehealth",
+              "Urgent unsociable-hours GP telehealth"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.telehealth-relationship-lookback",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:29ec9b2ea0bbe1cc42af30ddb937a75759ad934ae1945f459ac0a8c0b4004a63"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "months"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:bf80d4f433f70821c0e783e119c25346abb4a7752839fe77aa08c4c08f2a8c2a"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:8756775a4d4adda405a82b771383e21ead9d71be4306ef0f9f07cfc2da090562",
+      "event_hash": "sha256:817eab13fba0e8537ac878789e7cdb04f43ae224d20ee60a5dafdf1876fa3bf4"
+    },
+    {
+      "sequence": 5,
+      "event_id": "event.au.primary-care.5",
+      "operation": "split",
+      "recorded_at": "2026-09-09T11:19:13Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "MBS AN.1.1 explicitly exempts urgent unsociable-hours services from the eligible-practitioner requirement. Split the service scope; routine twelve-month observations cannot satisfy the urgent child. The MyMedicare alternative and all exemptions remain in retained source. The split preserves predicate semantics and makes the missing urgent-pathway observation visible.",
+      "previous_states": [
+        {
+          "condition_id": "condition.au.gp.telehealth-context",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:bf80d4f433f70821c0e783e119c25346abb4a7752839fe77aa08c4c08f2a8c2a"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.telehealth-context",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:bf80d4f433f70821c0e783e119c25346abb4a7752839fe77aa08c4c08f2a8c2a"
+          },
+          "lifecycle": "superseded"
+        },
+        {
+          "condition_id": "condition.au.gp.telehealth-routine",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-routine",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+          },
+          "lifecycle": "active"
+        },
+        {
+          "condition_id": "condition.au.gp.telehealth-urgent",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.telehealth-urgent",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.telehealth-routine",
+          "definition_version": "1.0.0",
+          "condition_category": "permission",
+          "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the telehealth-relationship-lookback research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:13Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "MBS telehealth rule"
+            ],
+            "services": [
+              "Routine GP telehealth"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.telehealth-relationship-lookback",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:29ec9b2ea0bbe1cc42af30ddb937a75759ad934ae1945f459ac0a8c0b4004a63"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "months"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+        },
+        {
+          "condition_id": "condition.au.gp.telehealth-urgent",
+          "definition_version": "1.0.0",
+          "condition_category": "permission",
+          "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the telehealth-relationship-lookback research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:13Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "MBS telehealth rule"
+            ],
+            "services": [
+              "Urgent unsociable-hours GP telehealth"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.telehealth-relationship-lookback",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:29ec9b2ea0bbe1cc42af30ddb937a75759ad934ae1945f459ac0a8c0b4004a63"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "months"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+        }
+      ],
+      "identity_change": {
+        "kind": "split",
+        "from_condition_ids": [
+          "condition.au.gp.telehealth-context"
+        ],
+        "to_condition_ids": [
+          "condition.au.gp.telehealth-routine",
+          "condition.au.gp.telehealth-urgent"
+        ]
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:817eab13fba0e8537ac878789e7cdb04f43ae224d20ee60a5dafdf1876fa3bf4",
+      "event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f"
+    },
+    {
+      "sequence": 6,
+      "event_id": "event.au.primary-care.6",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:14Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained primary-care series defines a bounded research condition; source role and population remain explicit in the basket. No current personal access inferred.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.timely",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.timely",
+          "definition_version": "1.0.0",
+          "condition_category": "availability",
+          "proposition": "The registered gp-urgent-under-four-hours condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the gp-urgent-under-four-hours research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:14Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW"
+            ],
+            "cohorts": [
+              "Survey-scope residents aged 15 years and over"
+            ],
+            "services": [
+              "GP urgent consultation"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.gp-urgent-under-four-hours",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:eeefe30a66179b230bb297878c099ef5bf8665a3b99a9b5643a9e4afeaff2a4c"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 100,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f",
+      "event_hash": "sha256:2e7f3322f45e88872e42fca199ccfe06463a43901a61f43c1f8f8c473ab37a2c"
+    },
+    {
+      "sequence": 7,
+      "event_id": "event.au.primary-care.7",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:15Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained primary-care series defines a bounded research condition; source role and population remain explicit in the basket. No current personal access inferred.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.spatial-context",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.spatial-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.spatial-context",
+          "definition_version": "1.0.0",
+          "condition_category": "proximity",
+          "proposition": "The registered gp-fte-remoteness condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the gp-fte-remoteness research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:15Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW remoteness strata"
+            ],
+            "cohorts": [
+              "Resident population supply context"
+            ],
+            "services": [
+              "GP spatial supply"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.gp-fte-remoteness",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:b8a2bd0787f88494f50ce3061fc511dc291ee780dd30ce3cdca7750d0a01f9db"
+              },
+              "operator": "gt",
+              "threshold": {
+                "value": 0,
+                "unit": "FTE-per-100000"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:2e7f3322f45e88872e42fca199ccfe06463a43901a61f43c1f8f8c473ab37a2c",
+      "event_hash": "sha256:251cbbe1986bdfd038cffee1872a8845314863927e632ad023fa85eab4be174d"
+    },
+    {
+      "sequence": 8,
+      "event_id": "event.au.primary-care.8",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:16Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained primary-care series defines a bounded research condition; source role and population remain explicit in the basket. No current personal access inferred.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.gp.navigation-context",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.gp.navigation-context",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.gp.navigation-context",
+          "definition_version": "1.0.0",
+          "condition_category": "capability",
+          "proposition": "The registered health-system-navigation-difficulty condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the health-system-navigation-difficulty research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:16Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "Adults represented in2018 Health Literacy Survey"
+            ],
+            "services": [
+              "Health-system navigation"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.health-system-navigation-difficulty",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:797f1cb85fe80829058b689ddb6a8fab367ca51091d4b86360030dd69c4c1aa6"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:251cbbe1986bdfd038cffee1872a8845314863927e632ad023fa85eab4be174d",
+      "event_hash": "sha256:f20fb8205512fe980d8e3c64763a2c965319bdd40ca29efd44c841a914a45fb1"
+    },
+    {
+      "sequence": 9,
+      "event_id": "event.au.primary-care.9",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:17Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained primary-care series defines a bounded research condition; source role and population remain explicit in the basket. No current personal access inferred.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.prescription.cost",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.prescription.cost",
+          "definition_version": "1.0.0",
+          "condition_category": "price",
+          "proposition": "The registered prescription-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the prescription-cost-delay research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:17Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW"
+            ],
+            "cohorts": [
+              "Survey-scope residents aged 15 years and over"
+            ],
+            "services": [
+              "Prescription medicines, aggregate context"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.prescription-cost-delay",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:a9427367445689f023fc3491996b441e495cda051a09a73fb42755191568b4cd"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:f20fb8205512fe980d8e3c64763a2c965319bdd40ca29efd44c841a914a45fb1",
+      "event_hash": "sha256:e757dd25a7e8fce2ef62121e7011eab7599326885ab9849a3424bf069daae334"
+    },
+    {
+      "sequence": 10,
+      "event_id": "event.au.primary-care.10",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:18Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained primary-care series defines a bounded research condition; source role and population remain explicit in the basket. No current personal access inferred.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.specialist.cost",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.specialist.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.specialist.cost",
+          "definition_version": "1.0.0",
+          "condition_category": "price",
+          "proposition": "The registered specialist-gap condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the specialist-gap research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:18Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "NSW"
+            ],
+            "cohorts": [
+              "Patient-billed specialist attendances"
+            ],
+            "services": [
+              "Specialist referral pathway, aggregate context"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.specialist-gap",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:a5cfeb4d35b251c29d5de7f00b966fc028577d1c2fec22b57b4136464bcca4a3"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "AUD-2024-25"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:e757dd25a7e8fce2ef62121e7011eab7599326885ab9849a3424bf069daae334",
+      "event_hash": "sha256:1a9a02b27ae966a1406a03182b443b89bbbb480783b9a40db0a980836d217413"
+    },
+    {
+      "sequence": 11,
+      "event_id": "event.au.primary-care.11",
+      "operation": "added",
+      "recorded_at": "2026-09-09T11:19:19Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Retained primary-care series defines a bounded research condition; source role and population remain explicit in the basket. No current personal access inferred.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.au.after-hours.delay",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.au.after-hours.delay",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.au.after-hours.delay",
+          "definition_version": "1.0.0",
+          "condition_category": "availability",
+          "proposition": "The registered after-hours-delay condition satisfies its explicit research threshold within the registered scope.",
+          "claim": {
+            "who": "The exact population named by the bound signal",
+            "verb": "satisfy",
+            "object": "the after-hours-delay research condition",
+            "standard": "Registered threshold only; not personal service access",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2018-01-01T00:00:00Z",
+              "ends_at": "2027-09-09T10:43:00Z"
+            }
+          },
+          "effective_from": "2026-09-09T11:19:19Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "Australia"
+            ],
+            "cohorts": [
+              "Survey-scope residents aged 15 years and over"
+            ],
+            "services": [
+              "After-hours GP consultation"
+            ]
+          },
+          "predicates": {
+            "measure": {
+              "signal_ref": {
+                "signal_id": "signal.au.after-hours-delay",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:40b3b437733a5bbf785cc57063096d50d626e5edc7000c7425fff6b852e9c673"
+              },
+              "operator": "lte",
+              "threshold": {
+                "value": 0,
+                "unit": "percent"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 90
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "measure"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:1a9a02b27ae966a1406a03182b443b89bbbb480783b9a40db0a980836d217413",
+      "event_hash": "sha256:54d8a297b4b7dbda0e1d0aed523d5b5982682431e6daab8d9894c57165b11758"
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "observation.au.gp-cost-delay",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.cost",
+        "definition_version": "1.2.0",
+        "definition_hash": "sha256:f5009fba7f6e7bc6478d4fe121426e3940236b48098b95093475abb0dfa725eb"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.gp-cost-delay",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:a9ce21eafa6026c1e24e5a44f49c3232bd368781a7095a1f0f1bb550711a37d4"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "GP consultation"
+        ]
+      },
+      "period": {
+        "start": "2024-07-01T00:00:00Z",
+        "end": "2025-06-30T23:59:59Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 7.2,
+      "unit": "percent",
+      "source_id": "source.pc-primary-care-dataset",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is 0.7 in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:780e88ee6a18751026553d8e0b63402ed05bb4c2e101844c206e569f0711b577"
+    },
+    {
+      "observation_id": "observation.au.telehealth-relationship-lookback",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.telehealth-routine",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.telehealth-relationship-lookback",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:29ec9b2ea0bbe1cc42af30ddb937a75759ad934ae1945f459ac0a8c0b4004a63"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "MBS telehealth rule"
+        ],
+        "services": [
+          "Routine GP telehealth"
+        ]
+      },
+      "period": {
+        "start": "2026-09-09T10:34:32Z",
+        "end": "2026-09-09T10:34:32Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 12,
+      "unit": "months",
+      "source_id": "source.mbs-telehealth",
+      "source_artifact_hash": "sha256:fcd20ce36ee01078853509776d95627670baeeeca56054011eedcdbb57e80fd2",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is not supplied in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:bc4f83d1debdd15c8a40933c0f100e8af03c6c539a084ed6da4872d5d42b63c1"
+    },
+    {
+      "observation_id": "observation.au.gp-urgent-under-four-hours",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.timely",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.gp-urgent-under-four-hours",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:eeefe30a66179b230bb297878c099ef5bf8665a3b99a9b5643a9e4afeaff2a4c"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "GP urgent consultation"
+        ]
+      },
+      "period": {
+        "start": "2024-07-01T00:00:00Z",
+        "end": "2025-06-30T23:59:59Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 45.9,
+      "unit": "percent",
+      "source_id": "source.pc-primary-care-dataset",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is 6 in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:e6953662e2026dcfb2598edee8eee6639d095c24ced1df8ec0b3d3106b13ec3d"
+    },
+    {
+      "observation_id": "observation.au.health-system-navigation-difficulty",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.navigation-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.health-system-navigation-difficulty",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:797f1cb85fe80829058b689ddb6a8fab367ca51091d4b86360030dd69c4c1aa6"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "Adults represented in2018 Health Literacy Survey"
+        ],
+        "services": [
+          "Health-system navigation"
+        ]
+      },
+      "period": {
+        "start": "2018-01-01T00:00:00Z",
+        "end": "2018-08-31T23:59:59Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 14,
+      "unit": "percent",
+      "source_id": "source.abs-health-literacy",
+      "source_artifact_hash": "sha256:fe04e792e301dc31376a751232af3a6b1d11b836697d62862c94e08dee0205a9",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is not supplied in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:a960a57639ad663f039e15e786fa11c7af358bcdef8834f72e61ad28f0d2b117"
+    },
+    {
+      "observation_id": "observation.au.prescription-cost-delay",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.prescription-cost-delay",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:a9427367445689f023fc3491996b441e495cda051a09a73fb42755191568b4cd"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "Prescription medicines, aggregate context"
+        ]
+      },
+      "period": {
+        "start": "2024-07-01T00:00:00Z",
+        "end": "2025-06-30T23:59:59Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 6.8,
+      "unit": "percent",
+      "source_id": "source.pc-primary-care-dataset",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is 1.1 in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:0494df08f417cb94ef38cd9cfda7102fb6fb0ec4d1dc1e3f7c24dc35e9f259da"
+    },
+    {
+      "observation_id": "observation.au.specialist-gap",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.specialist.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.specialist-gap",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:a5cfeb4d35b251c29d5de7f00b966fc028577d1c2fec22b57b4136464bcca4a3"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Patient-billed specialist attendances"
+        ],
+        "services": [
+          "Specialist referral pathway, aggregate context"
+        ]
+      },
+      "period": {
+        "start": "2024-07-01T00:00:00Z",
+        "end": "2025-06-30T23:59:59Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 134,
+      "unit": "AUD-2024-25",
+      "source_id": "source.pc-primary-care-dataset",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is not supplied in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:141ec8539fde5a6e7640f8d7cffef3a27327baab14f483d3c2456627229da26b"
+    },
+    {
+      "observation_id": "observation.au.after-hours-delay",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.after-hours.delay",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+      },
+      "predicate_id": "measure",
+      "signal_ref": {
+        "signal_id": "signal.au.after-hours-delay",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:40b3b437733a5bbf785cc57063096d50d626e5edc7000c7425fff6b852e9c673"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "After-hours GP consultation"
+        ]
+      },
+      "period": {
+        "start": "2024-07-01T00:00:00Z",
+        "end": "2025-06-30T23:59:59Z"
+      },
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "value": 36.3,
+      "unit": "percent",
+      "source_id": "source.abs-patient-experiences",
+      "source_artifact_hash": "sha256:5013f4f42c17b54ccca937c8d2fa01488fad31c7e0bc333ed90203016e88ecde",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "The kernel has no interval type; published95%CI half-width is not supplied in the external measurement artifact. Sampling and non-sampling error are not jointly quantified."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "Selected publisher series cell, not people or survey response coverage"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:9a9fa5ff051652df1af6f10949f805cabbfaacac564efc9361bffcc1f5656890"
+    }
+  ],
+  "evidence_events": [
+    {
+      "sequence": 1,
+      "evidence_event_id": "evidence.au.primary-care.1",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:23Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained pc-primary-care-dataset cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.gp-cost-delay",
+            "observation_hash": "sha256:780e88ee6a18751026553d8e0b63402ed05bb4c2e101844c206e569f0711b577"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": null,
+      "evidence_event_hash": "sha256:2501120de947d4ede2eb995d4a7d5ecc31ffc01bb013c0a3a2876393dd864493"
+    },
+    {
+      "sequence": 2,
+      "evidence_event_id": "evidence.au.primary-care.2",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:24Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained mbs-telehealth cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.telehealth-relationship-lookback",
+            "observation_hash": "sha256:bc4f83d1debdd15c8a40933c0f100e8af03c6c539a084ed6da4872d5d42b63c1"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:2501120de947d4ede2eb995d4a7d5ecc31ffc01bb013c0a3a2876393dd864493",
+      "evidence_event_hash": "sha256:cc9fc938469628856d679fbf8152dbe31531e906829d70fa735c621ae547447e"
+    },
+    {
+      "sequence": 3,
+      "evidence_event_id": "evidence.au.primary-care.3",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:25Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained pc-primary-care-dataset cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.gp-urgent-under-four-hours",
+            "observation_hash": "sha256:e6953662e2026dcfb2598edee8eee6639d095c24ced1df8ec0b3d3106b13ec3d"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:cc9fc938469628856d679fbf8152dbe31531e906829d70fa735c621ae547447e",
+      "evidence_event_hash": "sha256:c4da5e601f1df4cb25f9675fde70d888d12d355a1041117959fd7eb34c5e790c"
+    },
+    {
+      "sequence": 4,
+      "evidence_event_id": "evidence.au.primary-care.4",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:26Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained abs-health-literacy cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.health-system-navigation-difficulty",
+            "observation_hash": "sha256:a960a57639ad663f039e15e786fa11c7af358bcdef8834f72e61ad28f0d2b117"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:c4da5e601f1df4cb25f9675fde70d888d12d355a1041117959fd7eb34c5e790c",
+      "evidence_event_hash": "sha256:8cc687c1f65ce646f6aeaef07e93c9745be20070dbe19b70d138b7088a356381"
+    },
+    {
+      "sequence": 5,
+      "evidence_event_id": "evidence.au.primary-care.5",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:27Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained pc-primary-care-dataset cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.prescription-cost-delay",
+            "observation_hash": "sha256:0494df08f417cb94ef38cd9cfda7102fb6fb0ec4d1dc1e3f7c24dc35e9f259da"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:8cc687c1f65ce646f6aeaef07e93c9745be20070dbe19b70d138b7088a356381",
+      "evidence_event_hash": "sha256:23d0de0586170c60c37636b3b542a265bea425f811504dc848494de729cac3b2"
+    },
+    {
+      "sequence": 6,
+      "evidence_event_id": "evidence.au.primary-care.6",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:28Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained pc-primary-care-dataset cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.specialist-gap",
+            "observation_hash": "sha256:141ec8539fde5a6e7640f8d7cffef3a27327baab14f483d3c2456627229da26b"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:23d0de0586170c60c37636b3b542a265bea425f811504dc848494de729cac3b2",
+      "evidence_event_hash": "sha256:90d7a9cf0fa6e65eaa07ec741d7d6bed970574211dbd48ff4d51d1d4bf71d103"
+    },
+    {
+      "sequence": 7,
+      "evidence_event_id": "evidence.au.primary-care.7",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-09T11:19:29Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Normalise retained abs-patient-experiences cell without changing its historical reference period.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.au.after-hours-delay",
+            "observation_hash": "sha256:9a9fa5ff051652df1af6f10949f805cabbfaacac564efc9361bffcc1f5656890"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:90d7a9cf0fa6e65eaa07ec741d7d6bed970574211dbd48ff4d51d1d4bf71d103",
+      "evidence_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8"
+    }
+  ],
+  "current_evidence_state": [
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.gp-cost-delay",
+        "observation_hash": "sha256:780e88ee6a18751026553d8e0b63402ed05bb4c2e101844c206e569f0711b577"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.telehealth-relationship-lookback",
+        "observation_hash": "sha256:bc4f83d1debdd15c8a40933c0f100e8af03c6c539a084ed6da4872d5d42b63c1"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.gp-urgent-under-four-hours",
+        "observation_hash": "sha256:e6953662e2026dcfb2598edee8eee6639d095c24ced1df8ec0b3d3106b13ec3d"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.health-system-navigation-difficulty",
+        "observation_hash": "sha256:a960a57639ad663f039e15e786fa11c7af358bcdef8834f72e61ad28f0d2b117"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.prescription-cost-delay",
+        "observation_hash": "sha256:0494df08f417cb94ef38cd9cfda7102fb6fb0ec4d1dc1e3f7c24dc35e9f259da"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.specialist-gap",
+        "observation_hash": "sha256:141ec8539fde5a6e7640f8d7cffef3a27327baab14f483d3c2456627229da26b"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.au.after-hours-delay",
+        "observation_hash": "sha256:9a9fa5ff051652df1af6f10949f805cabbfaacac564efc9361bffcc1f5656890"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    }
+  ],
+  "current_state": [
+    {
+      "condition_id": "condition.au.gp.cost",
+      "state_version": 3,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.cost",
+        "definition_version": "1.2.0",
+        "definition_hash": "sha256:f5009fba7f6e7bc6478d4fe121426e3940236b48098b95093475abb0dfa725eb"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.gp.telehealth-context",
+      "state_version": 2,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.telehealth-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:bf80d4f433f70821c0e783e119c25346abb4a7752839fe77aa08c4c08f2a8c2a"
+      },
+      "lifecycle": "superseded"
+    },
+    {
+      "condition_id": "condition.au.gp.telehealth-routine",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.telehealth-routine",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.gp.telehealth-urgent",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.telehealth-urgent",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.gp.timely",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.timely",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.gp.spatial-context",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.spatial-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.gp.navigation-context",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.navigation-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.prescription.cost",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.specialist.cost",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.specialist.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+      },
+      "lifecycle": "active"
+    },
+    {
+      "condition_id": "condition.au.after-hours.delay",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.au.after-hours.delay",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+      },
+      "lifecycle": "active"
+    }
+  ],
+  "manifest_hash": "sha256:e37c0127a2af1d2a08808f967228ae6e86b19fa1c9b79dbc6af9f576c07107d3"
+}
