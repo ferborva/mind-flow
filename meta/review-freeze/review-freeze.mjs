@@ -167,7 +167,7 @@ const ROUND_06_REQUIRED_FILES = [
     ["forecasts/prospective-pilot/issuance-binding/schema/baseline-input-manifest.schema.json", "closed baseline input-manifest schema"],
     ["forecasts/prospective-pilot/issuance-binding/validate.mjs", "future issuance-binding validator"],
     ["forecasts/prospective-pilot/issuance-binding/tests/issuance-binding.test.mjs", "future issuance-binding regression suite"],
-    ["forecasts/tests/prospective-pilot.test.mjs", "top-level prospective pilot test entrypoint"],
+    ["forecasts/tests/round-04-exact-binding.test.mjs", "top-level exact forecast binding regression suite"],
     ["experiments/observatory-comparison/render-model.mjs", "comparison rendering model"],
     ["experiments/observatory-comparison/render.mjs", "deterministic comparison renderer"],
     ["experiments/observatory-comparison/render-parity.mjs", "rendered comparison parity validator"],

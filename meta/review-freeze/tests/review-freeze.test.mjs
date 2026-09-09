@@ -245,6 +245,12 @@ test("Round 06 policy exposes the complete new review surface and uses clean ins
   assert.throws(() => reviewPolicyFor("round-99"), /unknown review policy/i);
 
   const paths = new Set(ROUND_06_REVIEW_POLICY.required_files.map(({ path }) => path));
+  const trackedPaths = new Set(command(repositoryRoot, [
+    "git", "ls-tree", "-r", "--name-only", "HEAD",
+  ]).split("\n"));
+  for (const path of paths) {
+    assert.equal(trackedPaths.has(path), true, `${path} is not tracked at the review target`);
+  }
   for (const path of [
     "meta/round-06-external-review-brief.md",
     "meta/abundance-transition-programme.md",
