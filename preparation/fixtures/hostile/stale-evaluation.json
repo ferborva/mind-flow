@@ -1,0 +1,5 @@
+{
+  "id": "attack.stale-evaluation",
+  "operations": [{ "op": "replace", "path": "/if_evaluations/0/content/valid_until", "value": "2026-09-08T00:00:00Z" }],
+  "expected_codes": ["STALE_IF_EVALUATION", "ACTION_IF_STALE"]
+}

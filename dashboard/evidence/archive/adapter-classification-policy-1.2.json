@@ -1,0 +1,172 @@
+{
+  "policy_version": "1.2.0",
+  "entity_contracts": [
+    { "code": "OWID_WRL", "name": "World", "kind": "aggregate" },
+    { "code": "USA", "name": "United States", "kind": "country" },
+    { "code": "DEU", "name": "Germany", "kind": "country" },
+    { "code": "ESP", "name": "Spain", "kind": "country" },
+    { "code": "AUS", "name": "Australia", "kind": "country" },
+    { "code": "CHN", "name": "China", "kind": "country" },
+    { "code": "IND", "name": "India", "kind": "country" }
+  ],
+  "freshness_policy": {
+    "basis": "snapshot_as_of",
+    "signal_max_age_years": {
+      "labour-share": 1,
+      "gdp-per-capita": 1,
+      "poverty-30": 1,
+      "poverty-830": 1,
+      "participation": 1,
+      "inflation": 1,
+      "engels-divergence": 1,
+      "transmission-gap": 1
+    }
+  },
+  "public_update_contract": {
+    "derivation_id": "world-aggregate-transmission-v1",
+    "entity": "OWID_WRL",
+    "population": "World aggregate where both component series report data; country coverage varies by year",
+    "place": "World",
+    "observed_measure": "Indexed real GDP per person and labour-share times real GDP per person",
+    "observed_source_signal_ids": ["gdp-per-capita", "labour-share", "engels-divergence"],
+    "observed_uncertainty": "No interval is available in this snapshot. Source revisions, labour-share imputation and changing country coverage are not quantified.",
+    "observed_epistemic_class": "derived"
+  },
+  "class_definitions": {
+    "observed": "A directly measured value with no inferential transformation beyond recording and unit conversion.",
+    "published_statistic": "A publisher-released compiled statistic that may include estimation, imputation, aggregation and revision.",
+    "published_estimate": "A publisher-released estimate constructed from surveys, models or incomplete observations.",
+    "modelled_estimate": "A value explicitly produced by a statistical model rather than direct measurement.",
+    "nowcast": "An estimate of a current or just-ended period before the ordinary historical series is settled.",
+    "forecast": "A value projected for a future period.",
+    "derived": "A deterministic calculation from one or more classified input points; input classes must be retained."
+  },
+  "signals": {
+    "labour-share": {
+      "display_contract_sha256": "sha256:befd88ec72c7c3a7e962bf15bd0ae4e23d9043a92d05893696d57b5027e70fcf",
+      "source_url": "https://ourworldindata.org/grapher/labor-share-of-gdp",
+      "request_url": "https://ourworldindata.org/grapher/labor-share-of-gdp.csv?v=1&csvType=full&useColumnShortNames=false",
+      "adapter_id": "owid-grapher-csv",
+      "adapter_version": "1.0.0",
+      "dataset_id": "labor-share-of-gdp",
+      "selected_fields": ["Entity", "Code", "Year", "10.4.1 - Labour share of GDP (%) - SL_EMP_GTOTL"],
+      "classification_rules": [
+        { "epistemic_class": "modelled_estimate" }
+      ]
+    },
+    "gdp-per-capita": {
+      "display_contract_sha256": "sha256:b5946b77e02303789920ff7b865186451fdb55af6f80a1ba7f17c9fbcf489831",
+      "source_url": "https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.PCAP.KD",
+      "request_url": "https://api.worldbank.org/v2/country/WLD;USA;DEU;ESP;AUS;CHN;IND/indicator/NY.GDP.PCAP.KD?format=json&per_page=20000",
+      "adapter_id": "world-bank-json",
+      "adapter_version": "1.0.0",
+      "dataset_id": "NY.GDP.PCAP.KD",
+      "selected_fields": ["indicator.id", "countryiso3code", "country.id", "date", "value"],
+      "classification_rules": [
+        { "epistemic_class": "published_statistic" }
+      ]
+    },
+    "poverty-30": {
+      "display_contract_sha256": "sha256:fb530ab8187ee50bf687e29d346c919b8220b9ab359ff3d0230a23ecd63756d2",
+      "source_url": "https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day",
+      "classification_basis_url": "https://pip.worldbank.org/home",
+      "classification_basis": "PIP describes values through 2024 as estimates and values after 2024 as nowcasts.",
+      "request_url": "https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day.csv?v=1&csvType=full&useColumnShortNames=false",
+      "adapter_id": "owid-grapher-csv",
+      "adapter_version": "1.0.0",
+      "dataset_id": "poverty-share-on-less-than-30-per-day",
+      "selected_fields": ["Entity", "Code", "Year", "Share of population living on less than $30 a day"],
+      "classification_rules": [
+        { "through_year": 2024, "epistemic_class": "published_estimate" },
+        { "from_year": 2025, "epistemic_class": "nowcast" }
+      ]
+    },
+    "poverty-830": {
+      "display_contract_sha256": "sha256:a0317cd96452f790b83befe4c31b9fdebd8e5d3e7d255e7eef7d450bd7feda9a",
+      "source_url": "https://ourworldindata.org/grapher/share-living-with-less-than-upper-middle-income-poverty-line",
+      "classification_basis_url": "https://pip.worldbank.org/home",
+      "classification_basis": "PIP describes values through 2024 as estimates and values after 2024 as nowcasts.",
+      "request_url": "https://ourworldindata.org/grapher/share-living-with-less-than-upper-middle-income-poverty-line.csv?v=1&csvType=full&useColumnShortNames=false",
+      "adapter_id": "owid-grapher-csv",
+      "adapter_version": "1.0.0",
+      "dataset_id": "share-living-with-less-than-upper-middle-income-poverty-line",
+      "selected_fields": ["Entity", "Code", "Year", "Share of population living on less than $8.30 a day"],
+      "classification_rules": [
+        { "through_year": 2024, "epistemic_class": "published_estimate" },
+        { "from_year": 2025, "epistemic_class": "nowcast" }
+      ]
+    },
+    "participation": {
+      "display_contract_sha256": "sha256:444cad0c2bed4c21b74673f613e73e8474a6a954f8f2f8c59a568ffdf6e3afa2",
+      "source_url": "https://api.worldbank.org/v2/country/WLD/indicator/SL.TLF.CACT.ZS",
+      "request_url": "https://api.worldbank.org/v2/country/WLD;USA;DEU;ESP;AUS;CHN;IND/indicator/SL.TLF.CACT.ZS?format=json&per_page=20000",
+      "adapter_id": "world-bank-json",
+      "adapter_version": "1.0.0",
+      "dataset_id": "SL.TLF.CACT.ZS",
+      "selected_fields": ["indicator.id", "countryiso3code", "country.id", "date", "value"],
+      "classification_rules": [
+        { "epistemic_class": "modelled_estimate" }
+      ]
+    },
+    "inflation": {
+      "display_contract_sha256": "sha256:1cfd2affdbc09b502a3fa4ddc3a91d840d539f210ad04dca653baa312dc03a8a",
+      "source_url": "https://api.worldbank.org/v2/country/WLD/indicator/FP.CPI.TOTL.ZG",
+      "request_url": "https://api.worldbank.org/v2/country/WLD;USA;DEU;ESP;AUS;CHN;IND/indicator/FP.CPI.TOTL.ZG?format=json&per_page=20000",
+      "adapter_id": "world-bank-json",
+      "adapter_version": "1.0.0",
+      "dataset_id": "FP.CPI.TOTL.ZG",
+      "selected_fields": ["indicator.id", "countryiso3code", "country.id", "date", "value"],
+      "classification_rules": [
+        { "epistemic_class": "published_statistic" }
+      ]
+    },
+    "zero-cost-count": {
+      "display_contract_sha256": "sha256:10889716fcc4b48ce2116c82e29d3a12854a2818597192712afca40e82270aec"
+    },
+    "baumol-gap": {
+      "display_contract_sha256": "sha256:ef9aabc23a74536b587460443c848b8c00cffb16c4312e81beb11e89c530945d"
+    },
+    "access-margin": {
+      "display_contract_sha256": "sha256:870c0a84f83307e2952ad49d0b0005c63409837679f0fd297d871c2b29a0653a"
+    },
+    "transition-speed": {
+      "display_contract_sha256": "sha256:3806fdc2a965eb135d6bdd2afb8491a56aa9fd3542fb72425ae400f4b2c920f6"
+    },
+    "concentration": {
+      "display_contract_sha256": "sha256:5dec962d7bfc18ced2f468fe1ef2bcb7ab9321ca6b0b61bff67493895f5c96a7"
+    },
+    "preparedness": {
+      "display_contract_sha256": "sha256:bce0e281018d9a63d242fa97e8a5f592ab4be89410bb1153bf1aa9e1775b0486"
+    },
+    "trust-consent": {
+      "display_contract_sha256": "sha256:5978f203a0b6b0955acec4613d4075d71244f0ab52c64d41b94c8979c2ea1b5d"
+    },
+    "cross-border-access": {
+      "display_contract_sha256": "sha256:1d6634e67c2147395e659e124f26aacba78165a8fd55e83c794db5b114f7a7ab"
+    },
+    "engels-divergence": {
+      "display_contract_sha256": "sha256:64eb1965f4e1007fa321dee0f5b753337b778716a23b2c7f1cb8fb29d15f0de2",
+      "source_url": "",
+      "request_url": null,
+      "adapter_id": "engels-derived-series",
+      "adapter_version": "1.0.0",
+      "dataset_id": "labour-share+gdp-per-capita",
+      "selected_fields": ["labour-share.points", "gdp-per-capita.points"],
+      "classification_rules": [
+        { "epistemic_class": "derived" }
+      ]
+    },
+    "transmission-gap": {
+      "display_contract_sha256": "sha256:a8df9989d0272156feba018d8f40bcd45b0ec894a48671b1a01794688c96da27",
+      "source_url": "",
+      "request_url": null,
+      "adapter_id": "engels-derived-series",
+      "adapter_version": "1.0.0",
+      "dataset_id": "labour-share+gdp-per-capita",
+      "selected_fields": ["labour-share.points", "gdp-per-capita.points"],
+      "classification_rules": [
+        { "epistemic_class": "derived" }
+      ]
+    }
+  }
+}

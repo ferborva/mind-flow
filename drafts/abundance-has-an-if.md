@@ -5,11 +5,12 @@ type: draft
 status: review
 size: long
 themes: [abundance]
-sources: [2026-09-01-abundance-is-conditional]
+sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation,
+  2026-09-09-softer-on-tax-and-remedy]
 research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026-09-07-red-team-moonshot]
 audience: the Moonshot podcast crew, and anyone arguing about abundance
 created: 2026-09-01
-updated: 2026-09-01
+updated: 2026-09-09
 ---
 
 # Abundance Has an If
@@ -17,7 +18,8 @@ updated: 2026-09-01
 > **Reading note:** This is the originating argument and remains in review. The
 > red team broke its corporate-discretion remedy. [From If to When](from-if-to-when.md)
 > keeps the diagnosis and rebuilds the transition around measures, incentives
-> and pre-committed action. This draft stays intact so the evolution is visible.
+> and pre-committed action. This draft preserves the original argument while
+> correcting claims that no longer survive review.
 
 ## 🦅 TL;DR
 
@@ -26,14 +28,16 @@ updated: 2026-09-01
 - That sentence is incomplete. The real structure is **verb + fill in the blank
   + if.** We live in a world of conditions, and the conditions are where the
   whole argument actually lives.
-- The two biggest ifs are **money** and **which country you happen to be
-  standing in.** Neither is going away on the timelines we keep talking about.
-- If labour gets displaced, money still has to reach people. **I don't think tax
-  or UBI is the answer.** The money accrues to a handful of companies, so the
-  choice is theirs to make.
-- So the question I want us arguing about is not "what should governments do".
-  It's **"what should these enormous businesses do with their profits"**, and
-  **"how much is enough for one person to own"**.
+- Two ifs that came to mind first are **money** and **which country you happen
+  to be standing in.** They are illustrations, not a taxonomy. The list is not
+  the point, the frame is.
+- If labour is displaced, money still has to reach people somehow. I used to
+  have a firm answer for how. I hold a much softer view now, and I am not going
+  to hand you a solution.
+- What I am going to hand you is a method: **name the conditions, work out which
+  one is binding right now, and argue about that.** Goal, signals, actions. The
+  goal is agency. The conditions are the signals. The rest is the argument I
+  want us to have.
 
 ---
 
@@ -92,7 +96,7 @@ conditional structure did not move an inch. I want to call this thing **the
 missing if**, because until we put it back into the sentence we are not really
 discussing the future, we are just admiring it.
 
-## 💰 The biggest if is money
+## 💰 A first candidate IF is money
 
 The standard answer at this point is that money won't matter. Musk has been
 explicit about it, and he is careful about which term he uses:
@@ -103,57 +107,64 @@ explicit about it, and he is careful about which term he uses:
 He has put a date on it too, telling The Economist money won't matter by 2036,
 and saying that in a benign scenario probably none of us will have a job.
 
-If that were true it would remove the single biggest conditional we run our
-lives on. Right now, we can do things **if** we have the financial resources to
-do them or acquire them. **Take money out of the sentence and you have not
-solved the condition, you have deleted the one everybody understands.**
+If that were true it would remove one of the most legible access conditions in
+many market systems. Right now, many things remain available **if** we have the
+financial resources to acquire them. **Deleting money from the sentence does
+not show that effective access has been solved. It forces us to name whatever
+allocation rule replaces it.**
 
 I don't buy that it goes away, for three reasons.
 
-**Value doesn't go to zero.** There is always going to be some value attributed
-to things. Not everything is worth nothing, and we are not getting there any
-time soon.
+**Value and scarcity need not go to zero.** Even if the marginal financial cost
+of some goods collapses, scarce time, land, energy, attention, care and unique
+objects may still require allocation. Which constraints persist is an empirical
+question, not something this draft can settle in advance.
 
-**Producers still trade.** The people and companies who come together to offer
-these services and goods will do so in exchange for something. Free to the
-consumer is never free to produce.
+**Production still has inputs.** A service can be free at the point of use, and
+some digital goods can approach zero marginal cost, while infrastructure,
+energy, labour, maintenance and governance still need an allocation mechanism.
 
 **Even rationing is a token.** Say we skip money entirely and hand out
 allocations instead. The rationing is still based on some sort of token you
 receive on a regular basis. You have not removed the conditional. You have
 renamed it.
 
-So let us work under the assumption that money is still around, because I think
-it is the honest one.
+So let us test the working assumption that money remains an access condition.
+That is not a forecast. It can fail for services where price disappears or
+another constraint becomes binding.
 
 And notice who the condition already excludes. Not a minority:
 
-| Living on less than | Share of humanity, 2026 |
+| Living on less than | World Bank-derived nowcast, 2026 |
 |---|---|
 | $8.30 a day, the World Bank's upper-middle-income line | **44.4%** |
-| $30 a day, roughly a developed-world floor | **80.0%** |
+| $30 a day, an illustrative high-income comparison, not a validated floor | **80.0%** |
 
-**Four in five people alive today are on the wrong side of the money condition
-before we start.** When we say "you will be able to", we are, almost entirely,
-talking to the other fifth.
+These are income-or-consumption estimates in 2021 international dollars. They
+are not cash balances, service eligibility or direct measures of effective access.
 
-## 🌍 The second if is your passport
+**Four in five people are below this illustrative $30-a-day comparison in that
+nowcast before we test any other access condition.** This does not prove that a
+specific future service is unaffordable. It shows why an abundance promise is
+not financially credible until it names the service, price, provision route,
+population and evidence of effective access.
 
-The other half of the conditions are country based and government based.
+## 🌍 Another candidate IF is jurisdiction
+
+Another major class of conditions is jurisdictional and institutional.
 
 I keep hearing that America has to win the AI race. Careful with China. We have
-to beat China. Again and again and again. And what I am far from hearing is
-anyone uniting forces on a humanity standard, or even trying.
+to beat China. Again and again and again. What I hear far less often is a
+concrete, enforceable humanity standard shared across those rivals.
 
-**Here is the thing about technology dispersing: the technology travels, but the
-conditions attached to it stay home.** China has electric vehicles. America has
-electric vehicles. Europe has electric vehicles. They all have them under their
-own ifs. AI is dispersing across the entire world right now in exactly the same
-way, but what it is worth to you falls inside whatever your country permits to
-be done with it.
+**Capabilities can cross borders faster than the legal, physical and financial
+conditions that determine who can use them.** China, America and Europe all have
+electric vehicles, but access, price, infrastructure and regulation differ.
+AI is also diffusing unevenly. What it is worth to you depends partly on the
+conditions your jurisdiction, institutions and local infrastructure create.
 
-So each if stays bound to a particular country, until countries stop existing.
-And countries are not disappearing any time soon.
+So each if stays bound to somewhere, until countries stop existing. And
+countries are not disappearing any time soon.
 
 <!-- NOTE: he raised an exodus from Earth here, new countries on the moon or
      Mars carrying the same conditions with them, then moved on. Left out of the
@@ -168,15 +179,19 @@ hands, so it can flow back to the businesses making the goods.
 
 The trap here is to say: fine, it flows back through governments and taxes.
 
-**That makes no sense to me. I don't think tax is a reasonable route for value to
-travel out of companies, through a government, and back to people.** Put us in a
-country where tax sits stable at 10%, funding the government and what the
-government runs. The leverage still isn't there. The money ends up in the
-companies' bank accounts, because that is where it accrues.
+When I first wrote this I dismissed that route outright. I hold a much softer
+view now. Tax is one of the ways value can travel out of companies and back to
+people, and whether it is a good one is a question I would rather see argued
+with evidence than settled by me in a paragraph.
 
-Which gives us the concentration everyone is afraid of. Very few people
-harnessing a vast majority of the world's economic power. And if they hold the
-money, the question is unavoidable: **how does it flow back to everyone else?**
+What I am still sure of is the shape of the problem. If the money accrues to a
+few, the question is unavoidable: **how does it flow back to everyone else?**
+That is a condition. Name it, and then argue about what removes it.
+
+<!-- PROVENANCE: the softening on tax is his, 2026-09-09: "I hold a much softer
+     view on the tax view and portfolio remedy. My take is best placed at the
+     reframe and method level vs the solutioning." He did not state a
+     replacement position, so none is written here. -->
 
 Picture a serious slice of the population losing productive value over a few
 years, measured against technology that does the same work faster, cheaper and
@@ -198,23 +213,31 @@ something to pay with.** And these sit high in the Maslow pyramid: the house,
 the loans, the children's education, health. Even if we cure everything, health
 still gets paid for. We are straight back to the same missing if.
 
-## 🏥 Two ways money can flow back, and I have seen both
+## 🏥 The same condition, two ways of meeting it
 
-Whatever the mechanism, the money has to come back out of those companies. There
-are two shapes for that, and I have lived under both.
+Here is the frame doing its job on something I have lived under. Same service,
+same condition, two countries that handle it differently.
 
 | | Belgium | Spain |
 |---|---|---|
-| At the hospital | You see exactly what it costs. You pay it. | You pay nothing. |
-| Then | Social services reimburse you. | Funded by tax, upstream. |
-| Net cost to you | Zero | Zero |
-| What you keep | **A reference for what things are worth** | No reference at all |
+| At the hospital | You see a price. You pay it. | You pay nothing at the point of use. |
+| Then | Social services reimburse you. | Funded upstream, through tax. |
+| The money condition | Met after the fact | Met before you arrive |
 
-And if you are Belgian and you don't have the money, you still get the service.
-You just see on the bill what it would have cost.
+I am not going to tell you which is better. I used to have a preference, and a
+preference for one mechanism is a solution, which is not what this piece is for.
+The point is narrower: the condition does not go away in either country. It is
+met, in two different places, by two different arrangements. That is what "if"
+looks like when someone has actually done the work of removing it, and it is the
+kind of thing I want us comparing instead of promising that money will not matter.
 
-**Both get you to free. Only one leaves people with any sense of value.** I think
-that reference of contrast matters more than we give it credit for.
+<!-- PROVENANCE: his Belgium/Spain recollection is from 2026-09-01; the
+     mechanics are unverified and hedged (2026-09-08: "the feel and not the
+     mechanics"). He withdrew the preference for the visible-price model on
+     2026-09-09: "visible-price model is a solution." -->
+
+<!-- GAP: the table needs research/ backing before this reaches posts/.
+     Belgium reimbursement and Spain point-of-use rules, with sources. -->
 
 ## 🎯 The question I actually want us arguing about
 
@@ -258,13 +281,37 @@ every day, I cannot hypothetically retire whenever I like. But I can picture the
 threshold for myself. Most people can.
 
 **So stop asking whether working can become optional, and start asking how much
-is enough to make it optional.** That is a number. You can count how many people
-are above it today, and you can ask how we move that count.
+is enough to make it optional.** That is a number. In principle you can count how
+many people are above it today.
 
-And there is an obvious place to start: **the people who should cross that line
-next are the ones losing their jobs.** If you are going to be fully replaced in
-three to five years, and we are heading for a world where you don't need to
-work, you should come out of it with enough to sustain you for life.
+I am not going to lean on that number yet. It is too blurry, and every attempt to
+sharpen it turns into a solution. I raise it because it is the kind of question
+the frame produces once you take the if seriously, and because it is a better
+question than "will work be optional".
+
+<!-- PROVENANCE: 2026-09-09: "the 'enough' line is too blurry to lean on active
+     for now." The earlier passage arguing that displaced workers should cross
+     the line first (2026-09-01) leaned on it and is parked with it. Not
+     withdrawn; see the capture. -->
+
+<!-- NOTE, Ren: an earlier revision of this passage replaced his displaced-
+     workers priority with "a distributive value choice needing affected-party,
+     democratic and legal scrutiny". He never said that. Removed 2026-09-09. -->
+
+<!-- NOTE, Ren: an earlier revision (2026-09-08) put a portfolio remedy in his
+     voice: "prices, earnings, ownership, transfers, public provision and
+     institutions". He never said that either. His position (2026-09-09) is that
+     his take belongs at the reframe and method level, not the solutioning.
+     Removed 2026-09-09. -->
+
+<!-- NOTE, Ren: an earlier revision replaced "each if stays bound to a
+     particular country" with "every consequential IF must name the governing
+     and delivery scopes". That is Observatory grammar, not his. Reverted
+     2026-09-09. -->
+
+<!-- NOTE, Ren: an earlier revision rewrote the Belgium/Spain table as a
+     "testable communication question" about showing cost. He never framed it
+     that way. Replaced 2026-09-09 with the frame-illustration version above. -->
 
 ## 🍷 One caution on the word "anything"
 
@@ -284,31 +331,48 @@ It is a floor: what is the base quality of life we guarantee? I will be first to
 admit **defining that for humanity as a whole is close to impossible.** But it is
 at least the right question.
 
-## 🏢 The choice is the companies' to make
+## 🏢 Where I used to land, and why I don't any more
 
-Here is where I want to land, and it is the part I most want pushed back on.
+The first version of this piece ended with a proposal. Stop asking what
+governments should do, ask what these businesses should do. Tesla gyms. SpaceX
+theatres. Claude medical services. Free, for anyone, anywhere. The resources
+accrue to the companies, so the choice accrues to them.
 
-**We should stop asking what governments should do, and start asking what these
-businesses should do.** Not because government is irrelevant, but because the
-resources accrue to the companies, and so does the choice.
+The red team broke it, and they were right to. A free gym is still somewhere. A
+free clinic still needs a licence. And "free, as long as the company keeps
+choosing to" is an if too, one that can be withdrawn on an earnings call. I had
+spent the whole piece saying conditions stay home, then proposed a remedy made
+of things that stay home.
 
-Does that mean UBI? I don't think so.
+So I am not landing there any more. I hold a much softer view on the remedy,
+and I think my contribution is not the solution. It is the method for arguing
+about one. Run the frame on the proposal. Which if does it remove, which does it
+move, which does it add? That test is harsh on my own idea, which is how I know
+it is a real test.
 
-What I would rather see is these huge companies starting service businesses that
-give the service away. Tesla gyms. SpaceX theatres. OpenAI movie making. Claude
-medical services. Free of charge, for anyone in the world, anywhere in the
-world. **Not cash transfers, but genuinely taking the cost of a service to zero**,
-so that participation stops depending on the money condition at all.
+Run it the other way too. Every "you will be able to, if" on the consumer's side
+is somebody's "we will be able to offer this, when" on the supplier's side. The
+company giving the service away has its own conditions to meet first. That is
+where the argument about companies belongs: not what they owe, but what would
+have to be true for them to do it and survive.
 
-But that has to be a choice made by the enterprises, not extracted by
-governments. And right now the enterprises are waiting for governments to make
-the choice for them, while fighting each other to stay competitive. That is a
-deadlock.
+<!-- PROVENANCE: the red-team objections are from research/2026-09-07-red-team-
+     moonshot.md and the 2026-09-08 conversation, which he endorsed (2026-09-07:
+     "pure gold... made me reflect on my weakest points"). "Removes, moves or
+     adds an if" was proposed by Claude on 2026-09-08 and he did not object; it
+     is scaffolding here, not a claim of his. The supplier-side "when" is his,
+     2026-09-08. The withdrawal of the remedy is his, 2026-09-09. Whether "the
+     choice is the companies' to make" survives in any form is not settled; he
+     has not said. -->
 
-The resources accrue to you. The choice accrues to you.
+<!-- GAP: Fer, does "the choice is theirs" survive as a diagnosis (the money
+     accrues there) even though it no longer survives as a remedy? -->
 
 > You can't be the naughty kid that keeps everything to themselves until the
 > parent comes along and says: stop hogging the ball, share it.
+
+That line I am keeping. It was never a remedy. It was a description of where the
+ball is.
 
 ## 👉 What I want you to dig into
 
@@ -348,22 +412,29 @@ RESOLVED 2026-09-07 by research/2026-09-07-abundance-figures.md:
 
 STILL FOR FER, and the first one is now the big one:
 
-1. THE REMEDY NEEDS NEW REASONING. Nvidia and Alphabet's combined profit, spread
-   across humanity, is 8.3 cents per person per day. Lifting the 6.64bn people
-   below $30/day up to $30/day costs ~62% of global GDP. Redistribution is short
-   by a factor of twenty. His CONCLUSION (free services, cost to zero) survives
-   and is arguably the only thing that can work, but the argument that gets him
-   there has to change: not "companies should be generous" but "redistribution
-   is arithmetically impossible, so the cost has to collapse instead". That is a
-   substantive change to his argument and therefore his call, not mine.
+1. THE REMEDY. **Resolved 2026-09-09, his call made:** he holds "a much softer
+   view on the tax view and portfolio remedy" and places his take "at the
+   reframe and method level vs the solutioning". The remedy section now says so
+   and proposes nothing. The eight-cents arithmetic stands; the 62%-of-GDP
+   comparison is withdrawn (assumed zero resources below $30, mixed PPP with
+   nominal). One open question remains, marked GAP in the section: does "the
+   choice is theirs" survive as a diagnosis of where the money accrues?
 2. NAMING. "The missing if" is still mine, not his.
 3. THE BAUMOL CARD, unplayed. Demonetisation is real for manufactured and
    digital goods and has failed completely for housing, healthcare and
    education. "The smartphone got free, the rent did not." One paragraph turns
    his weakest flank into his strongest. See the red team.
 4. Sexual services item still held out of the public draft pending his call.
-5. Belgium/Spain healthcare details unverified. Fine as a mechanism
-   illustration, worth a hedge if this reaches a European audience.
+5. Belgium/Spain healthcare details unverified. Now framed as an illustration
+   of the condition being met two ways, with his preference withdrawn
+   (2026-09-09: "visible-price model is a solution"). Needs research/ backing
+   before posts/.
+6. THE "ENOUGH" LINE is parked, his words (2026-09-09): "too blurry to lean on
+   active for now". The displaced-workers-first passage is parked with it.
+7. METHOD. He wants the IFs frame driven alongside Goal / Signals / Actions
+   "as an overarching way to discuss the action plans further down and what to
+   monitor" (2026-09-09). The TL;DR now says so. The successor piece should be
+   restructured around it.
 
 See research/2026-09-07-red-team-moonshot.md for the five counter-arguments and
 which parts of the piece do not survive them.

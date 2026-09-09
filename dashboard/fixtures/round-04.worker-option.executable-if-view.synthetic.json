@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.1.0",
+  "view_id": "dashboard-view.round-04.worker-option.synthetic",
+  "generated_at": "2026-09-09T00:00:00Z",
+  "classification": "synthetic-research-fixture",
+  "public_boundary": "A computed IF state is not empirical truth, a forecast probability, or authority to act.",
+  "state_legend": [
+    {
+      "state": "true",
+      "public_label": "Supported by current registered evidence",
+      "public_meaning": "Every registered predicate is satisfied for this exact scope and period.",
+      "next_step": "Keep monitoring. Separate authority is still required before action."
+    },
+    {
+      "state": "false",
+      "public_label": "Not supported by current registered evidence",
+      "public_meaning": "At least one registered predicate fails for this exact scope and period.",
+      "next_step": "Repair the failed protection or choose an alternative path."
+    },
+    {
+      "state": "unknown",
+      "public_label": "Evidence is missing",
+      "public_meaning": "The registered evidence cannot decide at least one predicate.",
+      "next_step": "Acquire the named missing evidence before deciding."
+    },
+    {
+      "state": "stale",
+      "public_label": "Evidence is out of date",
+      "public_meaning": "The latest registered evidence exceeds its permitted age.",
+      "next_step": "Refresh the evidence and recompute the condition."
+    },
+    {
+      "state": "conflicted",
+      "public_label": "Evidence conflicts",
+      "public_meaning": "Current eligible sources disagree under the registered rule.",
+      "next_step": "Adjudicate the conflict without selecting the convenient source."
+    }
+  ],
+  "condition_views": [
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "source_binding": {
+        "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+        "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
+        "kernel_id": "kernel.worker-option.synthetic",
+        "schema_version": "1.1.0",
+        "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
+      },
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "claim_scope": {
+        "claim": {
+          "who": "Affected workers in the registered scope",
+          "verb": "retain",
+          "object": "a credible alternative and an accessible human review route",
+          "standard": "both registered protection predicates are satisfied",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-01-01T00:00:00Z",
+            "ends_at": "2026-12-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales"
+          ],
+          "cohorts": [
+            "General Clerks",
+            "Payroll Clerks"
+          ],
+          "services": [
+            "Work transition support"
+          ]
+        }
+      },
+      "evaluation_receipt": {
+        "evaluated_at": "2026-09-09T00:00:00Z",
+        "clock": {
+          "source": "caller-supplied",
+          "trusted": false
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+          "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+          "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        },
+        "observation_hashes": [
+          "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
+          "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
+          "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
+          "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+        ],
+        "mechanically_valid_for_evaluation": true,
+        "computed_rule_state": {
+          "axis": "computed_rule_state",
+          "state": "true"
+        },
+        "executable": true,
+        "errors": [],
+        "predicate_results": {
+          "option-coverage": {
+            "state": "true",
+            "observed_periods": 2,
+            "eligible_periods": 2,
+            "excluded_periods": [],
+            "errors": []
+          },
+          "human-review": {
+            "state": "true",
+            "observed_periods": 2,
+            "eligible_periods": 2,
+            "excluded_periods": [],
+            "errors": []
+          }
+        },
+        "condition_truth": {
+          "axis": "condition_truth",
+          "state": "true"
+        },
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "publication_approved": false,
+        "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+        "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda"
+      },
+      "display": {
+        "state": "true",
+        "public_label": "Supported by current registered evidence",
+        "public_meaning": "Every registered predicate is satisfied for this exact scope and period.",
+        "next_step": "Keep monitoring. Separate authority is still required before action."
+      },
+      "provenance_panel": {
+        "visibility": "always-visible",
+        "source_binding": {
+          "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+          "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
+          "kernel_id": "kernel.worker-option.synthetic",
+          "schema_version": "1.1.0",
+          "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        },
+        "claim_scope": {
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "General Clerks",
+              "Payroll Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          }
+        },
+        "clock": {
+          "evaluated_at": "2026-09-09T00:00:00Z",
+          "source": "caller-supplied",
+          "trusted": false
+        },
+        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+        "observation_hashes": [
+          "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
+          "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
+          "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
+          "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+        ],
+        "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda"
+      },
+      "context_series": [],
+      "forecast_context": [
+        {
+          "forecast_id": "forecast.worker-option.nsw.synthetic.2026.v1",
+          "public_label": "Will the registered credible-option coverage measure meet or exceed 0.90 during the exact future observation window for the bound worker scope?",
+          "probability": 0.62,
+          "semantic_role": "forecast-probability-not-condition-truth",
+          "condition_truth_effect": "none",
+          "may_set_if_state": false,
+          "issued_at": "2026-09-09T00:00:00Z",
+          "target_period": {
+            "starts_at": "2026-09-10T00:00:00Z",
+            "ends_at": "2026-12-31T23:59:59Z"
+          }
+        }
+      ]
+    }
+  ],
+  "projection_sources": {
+    "transition-bundle": {
+      "role": "transition-bundle",
+      "id": "bundle.round-04.worker-option.pre-projection",
+      "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+      "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1"
+    },
+    "possible-path": {
+      "role": "possible-path",
+      "id": "path.round-04.worker-option.synthetic",
+      "path": "paths/fixtures/round-04.worker-option.synthetic.json",
+      "sha256": "sha256:11aabf2f8216d2075d3f570a69b7d69ea83a1247fa0a63166b38b64df0ff40ba"
+    },
+    "preparation-register": {
+      "role": "preparation-register",
+      "id": "register.round-04.worker-option.synthetic",
+      "path": "preparation/fixtures/valid/round-04.worker-option.synthetic.json",
+      "sha256": "sha256:f8a8399dd6a35f6f8e7e066432cafeaec5959045c4f71225df9d5ab2cd06c2fc"
+    },
+    "forecast": {
+      "role": "forecast",
+      "id": "forecast.worker-option.nsw.synthetic.2026.v1",
+      "path": "forecasts/fixtures/round-04.worker-option.synthetic.json",
+      "sha256": "sha256:26638c751c6f3797eec5448879a423da0bb66c8d971eeddec328a1bb5dec6230"
+    }
+  },
+  "empirical_truth_established": false,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "publication_approved": false
+}

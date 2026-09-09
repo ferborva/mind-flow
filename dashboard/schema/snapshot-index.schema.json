@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/dashboard/snapshot-index.schema.json",
+  "title": "Observatory snapshot index",
+  "type": "object",
+  "required": ["schema_version", "latest", "snapshots"],
+  "properties": {
+    "schema_version": { "const": "2.0.0" },
+    "latest": { "$ref": "#/$defs/recordId" },
+    "snapshots": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "recordId": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$"
+    },
+    "entry": {
+      "type": "object",
+      "required": ["id", "snapshot_id", "schema_version", "path", "sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/recordId" },
+        "snapshot_id": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

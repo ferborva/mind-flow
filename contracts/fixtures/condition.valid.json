@@ -1,0 +1,289 @@
+{
+  "schema_version": "3.0.0",
+  "id": "condition.au-clerical-access-margin",
+  "definition_version": "2.0.0",
+  "created_at": "2026-09-08T00:00:00Z",
+  "title": "Clerical worker access-margin protection",
+  "summary": "Watch, prepare, act and recover when productivity gains stop reaching an exposed cohort as lived access.",
+  "provenance": {
+    "classification": "commissioned-proposal",
+    "authors": ["Ren"],
+    "rationale": "Synthetic Phase 0 contract created to test the IF protocol. It is not an endorsed policy."
+  },
+  "scope": {
+    "jurisdictions": ["Australia"],
+    "geographies": ["Greater Sydney"],
+    "cohorts": ["clerical and administrative workers displaced in the previous 12 months"],
+    "services": ["local decent-living basket"]
+  },
+  "evidence_requirements": [
+    { "id": "evidence.access-margin", "description": "Cohort household resources and local reference-budget evidence." },
+    { "id": "evidence.output", "description": "Revision-aware real output per capita evidence." },
+    { "id": "evidence.action-harm", "description": "Primary assessment of protective-action benefits and harms." },
+    { "id": "evidence.action-harm-review", "description": "Independent review of protective-action benefits and harms." },
+    { "id": "evidence.authority", "description": "Current administrative status of the action's legal authority." },
+    { "id": "evidence.readiness", "description": "Representative delivery-rail stress test." },
+    { "id": "evidence.appeals", "description": "Appeal volume and overturn-rate evidence." },
+    { "id": "evidence.worker-flow", "description": "Cohort re-employment and replacement-earnings evidence." }
+  ],
+  "predicates": {
+    "access-falling": {
+      "signal_id": "household-access-margin",
+      "operator": "change_lte",
+      "threshold": {
+        "value": -5,
+        "unit": "percentage-points",
+        "rationale": "Illustrative shadow threshold requiring retrospective calibration."
+      },
+      "window": {
+        "lookback": 2,
+        "unit": "quarter",
+        "minimum_observations": 2,
+        "persistence": 2,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.access-margin"],
+        "minimum_sources": 1,
+        "minimum_quality": "provisional",
+        "require_uncertainty": true,
+        "minimum_probability": 0.8
+      }
+    },
+    "output-rising": {
+      "signal_id": "real-output-per-capita",
+      "operator": "change_gt",
+      "threshold": {
+        "value": 0,
+        "unit": "percent",
+        "rationale": "Positive output separates transmission failure from general contraction."
+      },
+      "window": {
+        "lookback": 2,
+        "unit": "quarter",
+        "minimum_observations": 2,
+        "persistence": 2,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.output"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true
+      }
+    },
+    "harm-material": {
+      "signal_id": "protective-action-net-harm",
+      "operator": "gt",
+      "threshold": {
+        "value": 10,
+        "unit": "index-points",
+        "rationale": "Reverse when independently assessed harm materially exceeds protection."
+      },
+      "window": {
+        "lookback": 1,
+        "unit": "quarter",
+        "minimum_observations": 1,
+        "persistence": 1,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.action-harm", "evidence.action-harm-review"],
+        "minimum_sources": 2,
+        "minimum_quality": "validated",
+        "require_uncertainty": true,
+        "minimum_probability": 0.9
+      }
+    },
+    "authority-suspended": {
+      "signal_id": "legal-authority-suspended",
+      "operator": "eq",
+      "threshold": {
+        "value": 1,
+        "unit": "boolean",
+        "rationale": "No action may execute while its legal authority is suspended."
+      },
+      "window": {
+        "lookback": 1,
+        "unit": "day",
+        "minimum_observations": 1,
+        "persistence": 1,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.authority"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": false
+      }
+    },
+    "preparation-low-regret": {
+      "signal_id": "preparation-reversibility-risk",
+      "operator": "lte",
+      "threshold": {
+        "value": 2,
+        "unit": "risk-index-points",
+        "rationale": "Preparation must remain low-cost, reversible and unable to create the material action by another name."
+      },
+      "window": {
+        "lookback": 1,
+        "unit": "month",
+        "minimum_observations": 1,
+        "persistence": 1,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.readiness"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true
+      }
+    },
+    "delivery-slow": {
+      "signal_id": "response-delivery-time",
+      "operator": "gt",
+      "threshold": {
+        "value": 7,
+        "unit": "days",
+        "rationale": "Pause expansion when the delivery rail misses its protection window."
+      },
+      "window": {
+        "lookback": 1,
+        "unit": "month",
+        "minimum_observations": 2,
+        "persistence": 2,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.readiness"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true
+      }
+    },
+    "access-restored": {
+      "signal_id": "household-access-margin",
+      "operator": "gte",
+      "threshold": {
+        "value": 0,
+        "unit": "aud-per-week",
+        "rationale": "The exposed cohort can again reach the agreed floor."
+      },
+      "window": {
+        "lookback": 4,
+        "unit": "quarter",
+        "minimum_observations": 4,
+        "persistence": 2,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.access-margin"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true,
+        "minimum_probability": 0.8
+      }
+    },
+    "earnings-restored": {
+      "signal_id": "replacement-earnings",
+      "operator": "gte",
+      "threshold": {
+        "value": 90,
+        "unit": "percent-of-prior-real-earnings",
+        "rationale": "Employment alone is insufficient if replacement earnings remain lower."
+      },
+      "window": {
+        "lookback": 2,
+        "unit": "quarter",
+        "minimum_observations": 2,
+        "persistence": 2,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.worker-flow"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true,
+        "minimum_probability": 0.8
+      }
+    },
+    "appeals-low": {
+      "signal_id": "appeal-overturn-rate",
+      "operator": "lte",
+      "threshold": {
+        "value": 2,
+        "unit": "percent",
+        "rationale": "Low sustained error is required before temporary protection graduates."
+      },
+      "window": {
+        "lookback": 4,
+        "unit": "quarter",
+        "minimum_observations": 4,
+        "persistence": 4,
+        "maximum_age": 1
+      },
+      "evidence": {
+        "source_ids": ["evidence.appeals"],
+        "minimum_sources": 1,
+        "minimum_quality": "validated",
+        "require_uncertainty": true
+      }
+    }
+  },
+  "gates": {
+    "watch": {
+      "all": [
+        { "predicate_ref": "access-falling" },
+        { "not": { "predicate_ref": "authority-suspended" } }
+      ]
+    },
+    "prepare": {
+      "all": [
+        { "predicate_ref": "access-falling" },
+        { "predicate_ref": "preparation-low-regret" },
+        { "not": { "predicate_ref": "authority-suspended" } }
+      ]
+    },
+    "act": {
+      "veto_if": {
+        "condition": {
+          "all": [
+            { "predicate_ref": "access-falling" },
+            { "predicate_ref": "output-rising" }
+          ]
+        },
+        "blocker": {
+          "any": [
+            { "predicate_ref": "harm-material" },
+            { "predicate_ref": "authority-suspended" }
+          ]
+        }
+      }
+    },
+    "pause": { "predicate_ref": "delivery-slow" },
+    "reverse": { "predicate_ref": "harm-material" },
+    "recover": {
+      "all": [
+        { "predicate_ref": "access-restored" },
+        { "predicate_ref": "earnings-restored" }
+      ]
+    },
+    "graduate": {
+      "all": [
+        { "predicate_ref": "access-restored" },
+        { "predicate_ref": "appeals-low" }
+      ]
+    }
+  },
+  "governance": {
+    "owner": {
+      "organisation": "Seldon Observatory pilot",
+      "role": "condition steward"
+    },
+    "lifecycle": "shadow",
+    "approved_by": [],
+    "valid_from": "2026-09-08T00:00:00Z",
+    "expires_at": "2027-03-08T00:00:00Z",
+    "review_every": { "value": 1, "unit": "quarter" }
+  }
+}

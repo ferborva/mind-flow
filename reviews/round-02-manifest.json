@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_ref": "review/round-02",
+  "created_at": "2026-09-08T01:30:00Z",
+  "provenance": "Agent-produced review checkpoint commissioned by Fernando. It is not an endorsement or approval.",
+  "public_release_allowed": false,
+  "release_record": "governance/records/observatory-round-02.blocked.json",
+  "review_brief": "reviews/external-review-brief-round-02.md",
+  "test_commands": [
+    "npm ci",
+    "npm test",
+    "node dashboard/tools/build.mjs dashboard/snapshots/2026-09-07.json dashboard/web/index.html",
+    "node dashboard/tools/build-australia-pilot.mjs pilots/australia/data/nero-clerical-2026-08.json pilots/australia/web/index.html",
+    "git diff --exit-code"
+  ],
+  "known_stop_lines": [
+    "No affected-party study has been executed.",
+    "No independent statistical, accessibility, security or privacy review has passed.",
+    "No operational public challenge, correction, help or appeal service exists.",
+    "No publication authority or action authority has been granted.",
+    "The NERO detector has no prospective vintage pair or independent outcome labels.",
+    "Upstream redistribution rights and the full source-vintage chain have not passed independent review."
+  ],
+  "artifacts": [
+    {
+      "path": "drafts/abundance-has-an-if.md",
+      "role": "Original long-form thesis with visible correction history",
+      "checksum": "sha256:41a7460707abf0208ea4210a92acc85b2884d9b00e9dab100d700ce727d3b2da"
+    },
+    {
+      "path": "drafts/from-if-to-when.md",
+      "role": "Revised conditional long-form argument",
+      "checksum": "sha256:3365483d31328d2740aecba543402a6a995910061661560f0f834bdaa68f10d6"
+    },
+    {
+      "path": "research/2026-09-08-thesis-debate.md",
+      "role": "Steelman, red-team and synthesis of the thesis",
+      "checksum": "sha256:87a05134915a9122fc07f0135e6e961e89107ec38f680b4f66020fa420a86d28"
+    },
+    {
+      "path": "evidence/claim-ledger-2026-09-08.json",
+      "role": "Claim provenance, disposition, counterevidence and next-test ledger",
+      "checksum": "sha256:d827b4f7d796dc8e8363a376bf3e355d8540f4ed10fd3a74c81ac61f480096e0"
+    },
+    {
+      "path": "governance/if-protocol.md",
+      "role": "Human-readable IF grammar and state-transition protocol",
+      "checksum": "sha256:70517089800997d1466c6f1b6b81acb3b823d72c2f5c157be9ea887f70642103"
+    },
+    {
+      "path": "governance/public-charter.md",
+      "role": "Proposed public purpose, limits, rights and accountability charter",
+      "checksum": "sha256:e9ab8d93be41ea130f515fd7d98540254ff43a1354d85f67ff01addb38f66f2b"
+    },
+    {
+      "path": "governance/public-release-governance.md",
+      "role": "Fail-closed public-release governance explanation",
+      "checksum": "sha256:06fd7bfa805daf45e51537e306f1108445daa3a0f93e12a4adb5fa9e26124cf5"
+    },
+    {
+      "path": "governance/public-release-validation.mjs",
+      "role": "Semantic public-release decision boundary",
+      "checksum": "sha256:e2b084cc5020b0dc6011946707045bd427b2aa1f43ac232990388a250bc567ef"
+    },
+    {
+      "path": "governance/schema/public-release.schema.json",
+      "role": "Machine-readable release-review contract",
+      "checksum": "sha256:a0b16186f7c46c87abadaba30229ee689529eed2fc27d90ca68e76324204089e"
+    },
+    {
+      "path": "governance/records/observatory-round-02.blocked.json",
+      "role": "Honest content-addressed record with all public gates blocked",
+      "checksum": "sha256:a3a9b3b781e28b4161e11ea77990a34f13533f757f9bb0f89c6eaf041e937092"
+    },
+    {
+      "path": "communications/early-action-and-negotiation-framework.md",
+      "role": "Actor-specific watch, prepare, act, pause, reverse, recover and graduate proposals",
+      "checksum": "sha256:7b85d0dcc0a117e3bb3e092bdde140545b73279d85859f8065e697943066f82d"
+    },
+    {
+      "path": "reviews/public-comprehension-affected-party-protocol-round-04.md",
+      "role": "Proposed comprehension and affected-party study protocol, not completed review evidence",
+      "checksum": "sha256:c3a9f65561a893a16827e822966cb378c722cfc3a22f5e9a03719f5cfea4f086"
+    },
+    {
+      "path": "reviews/external-review-brief-round-02.md",
+      "role": "Independent adversarial review instructions and finding contract",
+      "checksum": "sha256:f9b828e63eaa8e45d72a5fe9770321f52a437d223bb99c33632f1e023c1a4be4"
+    },
+    {
+      "path": "dashboard/schema/snapshot.schema.json",
+      "role": "Machine-readable public update and IF-path snapshot contract",
+      "checksum": "sha256:7992467ca3c36cc7c27950d51aad6b08ad4bccfd5024aa24c055e421e3e85686"
+    },
+    {
+      "path": "dashboard/snapshots/2026-09-07.json",
+      "role": "Frozen global descriptive snapshot embedded in the review artifact",
+      "checksum": "sha256:f5736f0f33a371a1818ce9a3fcfd2a5d67b40cb6e98c2b0643e6d3d096832d32"
+    },
+    {
+      "path": "dashboard/web/index.template.html",
+      "role": "Auditable Observatory source template",
+      "checksum": "sha256:96c84b180b17a7c91f9c78a71e29a948c3472da26e419286b279fe3175446bf9"
+    },
+    {
+      "path": "dashboard/web/index.html",
+      "role": "Generated global Observatory review artifact",
+      "checksum": "sha256:5f3d6a171801689f6c672ba1f443693c7b1ab849b1c860cd83ae1cf6523ab564"
+    },
+    {
+      "path": "pilots/australia/source-manifest.json",
+      "role": "Australian pilot primary-source feasibility inventory",
+      "checksum": "sha256:1fa3b2ce1cb233c3fcdfbd1e32ab5cbd42a9b8a65cc48e30faa76ef7eb2fe413"
+    },
+    {
+      "path": "pilots/australia/if-register.json",
+      "role": "Scoped Australian transition chain and candidate condition register",
+      "checksum": "sha256:07354cc557797c7699b3ab7c9b3b7c221df2a7d149d81797e1e8338df65391dc"
+    },
+    {
+      "path": "pilots/australia/nero-backtest-and-shadow-plan.md",
+      "role": "Evidence-backed stop decision for retrospective warning validation",
+      "checksum": "sha256:53d66f9e14639105afb86c84d59e15c34b81e418d2edf323233871bb5056fb9a"
+    },
+    {
+      "path": "pilots/australia/nero-shadow-protocol.json",
+      "role": "Prospective no-consequence shadow rehearsal protocol",
+      "checksum": "sha256:a0434b08f6f6bb31235268162e44288b041f93f55f7c7a378060f10930263b46"
+    },
+    {
+      "path": "pilots/australia/rehearsal/engine.mjs",
+      "role": "Fail-closed consecutive-vintage rehearsal engine",
+      "checksum": "sha256:82a79239c5237ba2c235def3be86390dc4385ed6fe82604ab0923f4b8b38fe8d"
+    },
+    {
+      "path": "pilots/australia/rehearsal/detector.example.json",
+      "role": "Synthetic preregistration example with explicit error costs and review capacity",
+      "checksum": "sha256:d5f1c0e838180fe6c100ada7e99cacd9ba2b4b4ab5039a0ae84dffe1a583c235"
+    },
+    {
+      "path": "meta/abundance-transition-programme.md",
+      "role": "Programme objective, challenge loop, workstreams, gates and decision log",
+      "checksum": "sha256:0631834f4d3c94aefcaff04c30bd714ac6c9c7ebfc17f1758d1ed026d49f8dd7"
+    },
+    {
+      "path": "package.json",
+      "role": "Reproduction command contract",
+      "checksum": "sha256:86696f52ca77864e78dc787ef9a428dc9b1a4d9d9dc2ca744d0c38ffdb14522b"
+    },
+    {
+      "path": "package-lock.json",
+      "role": "Pinned JavaScript dependency graph",
+      "checksum": "sha256:24f052c139e6634d77229bfa73c71214f23c18cd429caec13d430949796138ff"
+    },
+    {
+      "path": "contracts/tests/public-release-governance.test.mjs",
+      "role": "Release governance and content-addressing regression tests",
+      "checksum": "sha256:72c69a59a7665077b6dcdde64d0dac13d628d4f0a98d645e83df2edfd42eb81f"
+    },
+    {
+      "path": "contracts/tests/review-manifest.test.mjs",
+      "role": "Frozen review set integrity and anti-approval regression tests",
+      "checksum": "sha256:e60b4edb97ff85d541b20bd0593af32073ec8501bed733c7e1dea69981b55e4d"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Declare an additional atom but omit its independently classified claim record.",
+  "mutations": [
+    {
+      "operation": "append",
+      "path": "/sentences/0/atomic_claim_ids",
+      "value": "claim.omitted-normative-clause"
+    }
+  ]
+}

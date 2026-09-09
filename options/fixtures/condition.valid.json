@@ -1,0 +1,24 @@
+{
+  "id": "condition.au-clerical-access-margin",
+  "definition_version": "1.0.0",
+  "scope": {
+    "jurisdictions": ["AU"],
+    "geographies": ["AU-NSW-GREATER-SYDNEY"],
+    "cohorts": ["cohort.clerical-displaced-12m"],
+    "services": ["service.local-decent-living-basket"]
+  },
+  "predicates": {
+    "access-floor": {
+      "signal_id": "measure.household-access-margin"
+    }
+  },
+  "gates": {
+    "watch": { "predicate_ref": "access-floor" },
+    "prepare": { "predicate_ref": "access-floor" },
+    "act": { "predicate_ref": "access-floor" },
+    "pause": { "predicate_ref": "access-floor" },
+    "reverse": { "predicate_ref": "access-floor" },
+    "recover": { "predicate_ref": "access-floor" },
+    "graduate": { "predicate_ref": "access-floor" }
+  }
+}

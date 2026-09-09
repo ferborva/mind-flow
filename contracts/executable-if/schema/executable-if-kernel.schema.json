@@ -1,0 +1,595 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/executable-if-kernel/1-1-0",
+  "title": "Mind Flow executable IF kernel",
+  "description": "A research-only kernel for content-addressed condition definitions, normalized observations and deterministic five-valued evaluation. Its local hash chains detect drift only against retained checkpoints. Mechanical validity does not establish empirical truth, authority, publication approval or permission to act.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kernel_id",
+    "classification",
+    "empirical_truth_established",
+    "authority_effect",
+    "action_authorised",
+    "publication_approved",
+    "evaluator",
+    "signals",
+    "events",
+    "observations",
+    "evidence_events",
+    "current_evidence_state",
+    "current_state",
+    "manifest_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.1.0" },
+    "kernel_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "research-draft" },
+    "empirical_truth_established": { "const": false },
+    "authority_effect": { "const": "none" },
+    "action_authorised": { "const": false },
+    "publication_approved": { "const": false },
+    "evaluator": { "$ref": "#/$defs/evaluatorRef" },
+    "signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/signalDefinition" }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/definitionEvent" }
+    },
+    "observations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/normalizedObservation" }
+    },
+    "evidence_events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceEvent" }
+    },
+    "current_evidence_state": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceState" }
+    },
+    "current_state": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/conditionState" }
+    },
+    "manifest_hash": { "$ref": "#/$defs/hash" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "syntheticSourceId": {
+      "type": "string",
+      "pattern": "^source\\.synthetic(?:[._-][a-z0-9]+)+$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "instant": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "nonEmpty": { "type": "string", "minLength": 1 },
+    "stringSet": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    },
+    "scope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services"],
+      "properties": {
+        "jurisdictions": { "$ref": "#/$defs/stringSet" },
+        "geographies": { "$ref": "#/$defs/stringSet" },
+        "cohorts": { "$ref": "#/$defs/stringSet" },
+        "services": { "$ref": "#/$defs/stringSet" }
+      },
+      "additionalProperties": false
+    },
+    "evaluatorRef": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "digest",
+        "schema_digest",
+        "implementation_digest",
+        "conformance_vectors_digest"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "digest": { "$ref": "#/$defs/hash" },
+        "schema_digest": { "$ref": "#/$defs/hash" },
+        "implementation_digest": { "$ref": "#/$defs/hash" },
+        "conformance_vectors_digest": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "signalRef": {
+      "type": "object",
+      "required": ["signal_id", "definition_version", "signal_definition_hash"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "$ref": "#/$defs/semver" },
+        "signal_definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "signalDefinition": {
+      "type": "object",
+      "required": [
+        "signal_id",
+        "definition_version",
+        "label",
+        "construct",
+        "population",
+        "estimand",
+        "aggregation",
+        "projection_policy",
+        "source_schema_ref",
+        "value_kind",
+        "unit",
+        "signal_definition_hash"
+      ],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "$ref": "#/$defs/semver" },
+        "label": { "$ref": "#/$defs/nonEmpty" },
+        "construct": { "$ref": "#/$defs/nonEmpty" },
+        "population": { "$ref": "#/$defs/nonEmpty" },
+        "estimand": { "$ref": "#/$defs/nonEmpty" },
+        "aggregation": { "$ref": "#/$defs/nonEmpty" },
+        "projection_policy": { "const": "exact-scope-only" },
+        "source_schema_ref": { "$ref": "#/$defs/nonEmpty" },
+        "value_kind": { "enum": ["number", "boolean"] },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "signal_definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "$ref": "#/$defs/semver" },
+        "definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "oneOf": [{ "type": "number" }, { "type": "boolean" }] },
+        "unit": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
+    },
+    "window": {
+      "type": "object",
+      "required": [
+        "lookback_days",
+        "minimum_observations",
+        "persistence",
+        "maximum_age_days"
+      ],
+      "properties": {
+        "lookback_days": { "type": "integer", "minimum": 1 },
+        "minimum_observations": { "type": "integer", "minimum": 1 },
+        "persistence": { "type": "integer", "minimum": 1 },
+        "maximum_age_days": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "sourcePolicy": {
+      "type": "object",
+      "required": [
+        "minimum_distinct_source_ids",
+        "minimum_distinct_artifact_hashes",
+        "minimum_coverage_ratio",
+        "agreement"
+      ],
+      "properties": {
+        "minimum_distinct_source_ids": { "type": "integer", "minimum": 1 },
+        "minimum_distinct_artifact_hashes": { "type": "integer", "minimum": 1 },
+        "minimum_coverage_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "agreement": { "const": "unanimous-per-period" }
+      },
+      "additionalProperties": false
+    },
+    "claimIdentity": {
+      "type": "object",
+      "required": ["who", "verb", "object", "standard", "polarity", "period"],
+      "properties": {
+        "who": { "$ref": "#/$defs/nonEmpty" },
+        "verb": { "$ref": "#/$defs/nonEmpty" },
+        "object": { "$ref": "#/$defs/nonEmpty" },
+        "standard": { "$ref": "#/$defs/nonEmpty" },
+        "polarity": { "enum": ["affirmative", "negative"] },
+        "period": {
+          "type": "object",
+          "required": ["starts_at", "ends_at"],
+          "properties": {
+            "starts_at": { "$ref": "#/$defs/instant" },
+            "ends_at": { "$ref": "#/$defs/instant" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "predicate": {
+      "type": "object",
+      "required": [
+        "signal_ref",
+        "operator",
+        "threshold",
+        "window",
+        "source_policy",
+        "missing_result",
+        "stale_result",
+        "conflict_result"
+      ],
+      "properties": {
+        "signal_ref": { "$ref": "#/$defs/signalRef" },
+        "operator": { "enum": ["gt", "gte", "lt", "lte", "eq", "neq"] },
+        "threshold": { "$ref": "#/$defs/threshold" },
+        "window": { "$ref": "#/$defs/window" },
+        "source_policy": { "$ref": "#/$defs/sourcePolicy" },
+        "missing_result": { "const": "unknown" },
+        "stale_result": { "const": "stale" },
+        "conflict_result": { "const": "conflicted" }
+      },
+      "additionalProperties": false
+    },
+    "expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["predicate_ref"],
+          "properties": { "predicate_ref": { "$ref": "#/$defs/id" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["all"],
+          "properties": {
+            "all": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/expression" }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["any"],
+          "properties": {
+            "any": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/expression" }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["not"],
+          "properties": { "not": { "$ref": "#/$defs/expression" } },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "conditionDefinition": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "definition_version",
+        "proposition",
+        "claim",
+        "effective_from",
+        "scope",
+        "predicates",
+        "truth_expression",
+        "evaluator_ref",
+        "classification",
+        "empirical_truth_established",
+        "authority_effect",
+        "action_authorised",
+        "definition_hash"
+      ],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "$ref": "#/$defs/semver" },
+        "proposition": { "$ref": "#/$defs/nonEmpty" },
+        "claim": { "$ref": "#/$defs/claimIdentity" },
+        "effective_from": { "$ref": "#/$defs/instant" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "predicates": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "#/$defs/id" },
+          "additionalProperties": { "$ref": "#/$defs/predicate" }
+        },
+        "truth_expression": { "$ref": "#/$defs/expression" },
+        "evaluator_ref": { "$ref": "#/$defs/evaluatorRef" },
+        "classification": { "const": "research-draft" },
+        "empirical_truth_established": { "const": false },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "conditionState": {
+      "type": "object",
+      "required": ["condition_id", "state_version", "condition_definition_ref", "lifecycle"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "state_version": { "type": "integer", "minimum": 1 },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "lifecycle": { "enum": ["active", "superseded"] }
+      },
+      "additionalProperties": false
+    },
+    "identityChange": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": { "kind": { "const": "none" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "from_condition_ids", "to_condition_ids"],
+          "properties": {
+            "kind": { "enum": ["split", "merge"] },
+            "from_condition_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/id" }
+            },
+            "to_condition_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/id" }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "definitionEvent": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "event_id",
+        "operation",
+        "recorded_at",
+        "recorded_by",
+        "reason",
+        "previous_states",
+        "new_states",
+        "introduced_definitions",
+        "identity_change",
+        "authority_effect",
+        "action_authorised",
+        "previous_event_hash",
+        "event_hash"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "event_id": { "$ref": "#/$defs/id" },
+        "operation": { "enum": ["added", "narrowed", "definition-revised", "split", "merge"] },
+        "recorded_at": { "$ref": "#/$defs/instant" },
+        "recorded_by": { "$ref": "#/$defs/nonEmpty" },
+        "reason": { "$ref": "#/$defs/nonEmpty" },
+        "previous_states": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/conditionState" }
+        },
+        "new_states": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/conditionState" }
+        },
+        "introduced_definitions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/conditionDefinition" }
+        },
+        "identity_change": { "$ref": "#/$defs/identityChange" },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "previous_event_hash": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "event_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "normalizedObservation": {
+      "type": "object",
+      "required": [
+        "observation_id",
+        "classification",
+        "condition_definition_ref",
+        "predicate_id",
+        "signal_ref",
+        "scope",
+        "period",
+        "recorded_at",
+        "value",
+        "unit",
+        "source_id",
+        "source_artifact_hash",
+        "source_independence",
+        "uncertainty",
+        "coverage",
+        "authority_effect",
+        "action_authorised",
+        "observation_hash"
+      ],
+      "properties": {
+        "observation_id": { "$ref": "#/$defs/id" },
+        "classification": { "const": "synthetic-observation" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "predicate_id": { "$ref": "#/$defs/id" },
+        "signal_ref": { "$ref": "#/$defs/signalRef" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "period": {
+          "type": "object",
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "$ref": "#/$defs/instant" },
+            "end": { "$ref": "#/$defs/instant" }
+          },
+          "additionalProperties": false
+        },
+        "recorded_at": { "$ref": "#/$defs/instant" },
+        "value": { "oneOf": [{ "type": "number" }, { "type": "boolean" }] },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "source_id": { "$ref": "#/$defs/syntheticSourceId" },
+        "source_artifact_hash": { "$ref": "#/$defs/hash" },
+        "source_independence": { "const": "not-verified" },
+        "uncertainty": {
+          "type": "object",
+          "required": ["status", "reason"],
+          "properties": {
+            "status": { "const": "not-quantified" },
+            "reason": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "coverage": {
+          "type": "object",
+          "required": ["eligible_units", "observed_units", "missing_units", "unit"],
+          "properties": {
+            "eligible_units": { "type": "integer", "minimum": 1 },
+            "observed_units": { "type": "integer", "minimum": 1 },
+            "missing_units": { "type": "integer", "minimum": 0 },
+            "unit": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "observation_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "observationRef": {
+      "type": "object",
+      "required": ["observation_id", "observation_hash"],
+      "properties": {
+        "observation_id": { "$ref": "#/$defs/id" },
+        "observation_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceState": {
+      "type": "object",
+      "required": ["observation_ref", "state_version", "lifecycle"],
+      "properties": {
+        "observation_ref": { "$ref": "#/$defs/observationRef" },
+        "state_version": { "type": "integer", "minimum": 1 },
+        "lifecycle": {
+          "enum": ["active", "challenged", "superseded", "withdrawn", "expired"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidenceRelation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": { "kind": { "const": "none" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "from_observation_ref", "to_observation_ref"],
+          "properties": {
+            "kind": { "const": "correction" },
+            "from_observation_ref": { "$ref": "#/$defs/observationRef" },
+            "to_observation_ref": { "$ref": "#/$defs/observationRef" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "evidenceEvent": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "evidence_event_id",
+        "operation",
+        "recorded_at",
+        "recorded_by",
+        "reason",
+        "previous_states",
+        "new_states",
+        "relation",
+        "authority_effect",
+        "action_authorised",
+        "previous_evidence_event_hash",
+        "evidence_event_hash"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "evidence_event_id": { "$ref": "#/$defs/id" },
+        "operation": {
+          "enum": [
+            "evidence-added",
+            "evidence-corrected",
+            "evidence-challenged",
+            "challenge-resolved",
+            "evidence-withdrawn",
+            "evidence-expired"
+          ]
+        },
+        "recorded_at": { "$ref": "#/$defs/instant" },
+        "recorded_by": { "$ref": "#/$defs/nonEmpty" },
+        "reason": { "$ref": "#/$defs/nonEmpty" },
+        "previous_states": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceState" }
+        },
+        "new_states": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceState" }
+        },
+        "relation": { "$ref": "#/$defs/evidenceRelation" },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "previous_evidence_event_hash": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "evidence_event_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

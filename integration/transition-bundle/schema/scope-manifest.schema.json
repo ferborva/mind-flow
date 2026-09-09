@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/integration/transition-bundle/scope-manifest/1-0-0",
+  "title": "Mind Flow canonical transition scope manifest",
+  "description": "A closed declaration of one canonical transition scope and explicit mappings from native scope-hash domains. Structural validity does not establish mapping truth or authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scope_manifest_id",
+    "classification",
+    "canonical_scope",
+    "mappings",
+    "mapping_truth_assessed",
+    "authority_effect",
+    "action_authorised"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "scope_manifest_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "research-draft" },
+    "canonical_scope": {
+      "type": "object",
+      "required": [
+        "source_role",
+        "native_scope_hash",
+        "people",
+        "verb",
+        "object",
+        "standard",
+        "place",
+        "period",
+        "jurisdictions",
+        "geographies",
+        "services",
+        "starts_at",
+        "ends_at"
+      ],
+      "properties": {
+        "source_role": { "const": "agency-map" },
+        "native_scope_hash": { "$ref": "#/$defs/sha256" },
+        "people": { "$ref": "#/$defs/nonEmptyString" },
+        "verb": { "$ref": "#/$defs/nonEmptyString" },
+        "object": { "$ref": "#/$defs/nonEmptyString" },
+        "standard": { "$ref": "#/$defs/nonEmptyString" },
+        "place": { "$ref": "#/$defs/nonEmptyString" },
+        "period": { "$ref": "#/$defs/nonEmptyString" },
+        "jurisdictions": { "$ref": "#/$defs/nonEmptyStrings" },
+        "geographies": { "$ref": "#/$defs/nonEmptyStrings" },
+        "services": { "$ref": "#/$defs/nonEmptyStrings" },
+        "starts_at": { "type": "string", "format": "date-time" },
+        "ends_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "mappings": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/mapping" }
+    },
+    "mapping_truth_assessed": { "const": false },
+    "authority_effect": { "const": "none" },
+    "action_authorised": { "const": false }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "mapping": {
+      "type": "object",
+      "required": [
+        "mapping_id",
+        "role",
+        "native_scope_hash",
+        "relationship",
+        "rationale",
+        "unresolved_differences",
+        "mapping_truth_assessed"
+      ],
+      "properties": {
+        "mapping_id": { "$ref": "#/$defs/id" },
+        "role": { "enum": ["agency-map", "possible-path"] },
+        "native_scope_hash": { "$ref": "#/$defs/sha256" },
+        "relationship": {
+          "enum": ["canonical-source", "declared-correspondence-unverified"]
+        },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "unresolved_differences": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "mapping_truth_assessed": { "const": false }
+      },
+      "additionalProperties": false
+    }
+  }
+}

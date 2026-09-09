@@ -1,0 +1,72 @@
+name: Integrity
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integrity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out complete history and review tags
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Run the complete test contract
+        run: npm test
+
+      - name: Verify the retained Round 6 review receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-06
+          --manifest=meta/review-freeze/round-06.review-freeze.json
+
+      - name: Verify the retained Round 7 review receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-07
+          --manifest=meta/review-freeze/round-07.review-freeze.json
+
+      - name: Reproduce the timing-contract migration
+        run: node dashboard/tools/migrate-timing-contract.mjs --check
+
+      - name: Rebuild the global Observatory
+        run: >-
+          node dashboard/tools/build.mjs
+          dashboard/snapshots/2026-09-08.r3.json
+          dashboard/web/index.html
+
+      - name: Rebuild the Australia pilot
+        run: >-
+          node dashboard/tools/build-australia-pilot.mjs
+          pilots/australia/data/nero-clerical-2026-08.json
+          pilots/australia/web/index.html
+
+      - name: Reproduce the Round 4 transition checkpoint
+        run: |
+          node integration/transition-bundle/tools/build-round-04-core.mjs --check
+          node dashboard/tools/build-round-04-executable-if-view.mjs --check
+          node integration/transition-bundle/tools/build-round-04-complete-core.mjs --check
+          node dashboard/observatory/build.mjs --check
+          node experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs --check
+
+      - name: Reject generated-artifact drift
+        run: test -z "$(git status --porcelain --untracked-files=all)"

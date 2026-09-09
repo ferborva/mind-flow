@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mind-flow.condition-pathway.executable-closure",
+  "authority_effect": "none",
+  "registry_projection": {
+    "kind": "canonical-json-sha256-without-self-digest",
+    "digest": "sha256:463c70873df2b06491e7e0af7b224c052efae871dd45568da8c964bdef892645"
+  },
+  "dependencies": [
+    {
+      "path": "contracts/condition-pathway.mjs",
+      "digest": "sha256:6a2135f17a2d5d71531ef9e666c0bb4a35fc6bd662ec10090f14b5450d7a505c"
+    },
+    {
+      "path": "contracts/semantic-validation.mjs",
+      "digest": "sha256:f1a7aec3930fa998381927dd8d24f0f20dcb65b6bff70b592993c8bf741529f1"
+    },
+    {
+      "path": "contracts/evaluator.mjs",
+      "digest": "sha256:3f90b03300a00aee1a3d749e600b6d986680ce15d9f5e54c2011d6cbaf07464e"
+    },
+    {
+      "path": "options/validation.mjs",
+      "digest": "sha256:4efa8e74dc2f6cf3c8321d7eb2a388937bdb0b42b5f6f696606b8b3527195a4e"
+    },
+    {
+      "path": "contracts/schema/evaluator-manifest.schema.json",
+      "digest": "sha256:34dc42fdddacf0a5858ec6209c626a7fb86df6feab9ec4bb187997dffe954ea4"
+    },
+    {
+      "path": "contracts/schema/evaluator-registry.schema.json",
+      "digest": "sha256:d751db21c7e8c7f22fb883297775d5a2a8626bbba115ef7d801995936fb1496c"
+    },
+    {
+      "path": "contracts/schema/condition-pathway-definition.schema.json",
+      "digest": "sha256:480f47a71458fab64462c0a197108176a920229a67812e518cf4afec6557c828"
+    },
+    {
+      "path": "contracts/schema/condition-pathway-assessment.schema.json",
+      "digest": "sha256:97992e483cf69ffc00296001b43e41b9baf047dbad5ffa719e2c30867bf2d1cb"
+    },
+    {
+      "path": "contracts/schema/condition-contract.schema.json",
+      "digest": "sha256:50270e7841e60661ed7eaba8e3504595c1ecb78881954646b91a5a0e4a68813c"
+    },
+    {
+      "path": "contracts/schema/predicate-observation.schema.json",
+      "digest": "sha256:accde7f06a2af8116653c4b2aefeebb9712b3cd84f19ffdd93a8796eb7f0d2c5"
+    },
+    {
+      "path": "contracts/schema/evaluation-run.schema.json",
+      "digest": "sha256:a55a4ad27f93b65f75fde5e48ce2a762e0e105fb42085db5d1d8c8ef43f82305"
+    },
+    {
+      "path": "contracts/schema/evaluation-attempt.schema.json",
+      "digest": "sha256:1dec5698f4dbaa0f95b53c47ed050ce3d138d6db41fd61799ea31cf5589f74df"
+    },
+    {
+      "path": "contracts/schema/correction-record.schema.json",
+      "digest": "sha256:325f15a6bb32e45806606702f7a963f77ddc50e64c4aae67f85b33bc7bb5db98"
+    },
+    {
+      "path": "contracts/schema/action-contract.schema.json",
+      "digest": "sha256:bbd5f4adf2c6a5f2afe470905cd6c9b8ab53c05ce1302485aa3c588af0624426"
+    },
+    {
+      "path": "contracts/schema/action-lifecycle-state.schema.json",
+      "digest": "sha256:d98f2bdad03f2c6befcb0173dc687df96b88d75e45b00b9ae44ae4d7eb286bdf"
+    },
+    {
+      "path": "contracts/schema/transition-proposal.schema.json",
+      "digest": "sha256:c3ba5b97667f2ee722e41a3c2f652d0d652e3179d5bead57af4bb9a21977d1c1"
+    },
+    {
+      "path": "contracts/schema/owner-transition-event.schema.json",
+      "digest": "sha256:79d8b801c201dd16ad71f245ce77ac29287e1b11dc7e0f5beb27d76f233f2b62"
+    },
+    {
+      "path": "options/schema/conditional-option.schema.json",
+      "digest": "sha256:e54663ca08f2fd8df0d0f019deb44f109a5ff52ac77bde19a3bad5fe7a556ea8"
+    },
+    {
+      "path": "package-lock.json",
+      "digest": "sha256:0bde227a8a85e8aeec4d52157610060b9b8b4b58e056b5c6367cdec239c78f1c"
+    }
+  ]
+}

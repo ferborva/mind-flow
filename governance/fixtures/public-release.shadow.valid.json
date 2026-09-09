@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0.0",
+  "id": "release.mind-flow-shadow-review",
+  "artifact": {
+    "kind": "dashboard",
+    "id": "dashboard.mind-flow-prototype",
+    "version": "1.0.0",
+    "checksum": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+    "title": "Mind Flow dashboard prototype"
+  },
+  "release_stage": "shadow-review",
+  "circulation": "restricted",
+  "operational_effect": false,
+  "assessed_at": "2026-09-08T00:30:00Z",
+  "gates": {
+    "authority": {
+      "status": "incomplete",
+      "summary": "No publication or operational authority has been granted.",
+      "evidence_refs": ["review.publication-authority"],
+      "gaps": ["A real publication owner and decision are required before public release."]
+    },
+    "affected_party_review": {
+      "status": "incomplete",
+      "summary": "Affected-party review has not started.",
+      "evidence_refs": ["review.affected-party"],
+      "gaps": ["Recruit affected participants, protect dissent and publish the response."]
+    },
+    "uncertainty": {
+      "status": "incomplete",
+      "summary": "Primary-view uncertainty disclosure awaits review.",
+      "evidence_refs": ["review.uncertainty"],
+      "gaps": ["Verify unknown, stale and conflicted states render without false confidence."]
+    },
+    "challenge": {
+      "status": "incomplete",
+      "summary": "The public challenge route is only a proposal.",
+      "evidence_refs": ["review.challenge-mechanism"],
+      "gaps": ["Name an independent owner, response service level and public disposition process."]
+    },
+    "accessibility": {
+      "status": "incomplete",
+      "summary": "Accessibility, plain-language, translation and low-bandwidth review are pending.",
+      "evidence_refs": ["review.accessibility"],
+      "gaps": ["Complete review with affected users across required access modes."]
+    },
+    "security_privacy": {
+      "status": "incomplete",
+      "summary": "Security and privacy reviews are pending.",
+      "evidence_refs": ["review.security", "review.privacy"],
+      "gaps": ["Complete threat, data-minimisation, re-identification and abuse review."]
+    },
+    "correction": {
+      "status": "incomplete",
+      "summary": "A public correction and withdrawal procedure is not yet operational.",
+      "evidence_refs": ["review.correction-process"],
+      "gaps": ["Provide a versioned ledger, owner, response deadline and takedown path."]
+    },
+    "source_vintage": {
+      "status": "incomplete",
+      "summary": "Source-vintage verification is pending even though the fixture source is current.",
+      "evidence_refs": ["review.source-vintage"],
+      "gaps": ["Review every source checksum, retrieval time, vintage, licence and maximum age."]
+    }
+  },
+  "evidence_register": [
+    {
+      "id": "review.publication-authority",
+      "kind": "publication-authority",
+      "coverage": ["publication-owner", "decision-scope", "expiry"],
+      "uri": "https://example.org/reviews/publication-authority",
+      "checksum": "sha256:1010101010101010101010101010101010101010101010101010101010101010",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending publication authority" },
+      "summary": "Placeholder evidence only. It records that no publication authority exists."
+    },
+    {
+      "id": "review.operational-authority",
+      "kind": "operational-authority",
+      "coverage": ["lawful-basis", "operational-owner", "funding", "appeal", "exit-test"],
+      "uri": "https://example.org/reviews/operational-authority",
+      "checksum": "sha256:2020202020202020202020202020202020202020202020202020202020202020",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending operational authority" },
+      "summary": "Placeholder evidence only. No operational mandate is claimed."
+    },
+    {
+      "id": "review.affected-party",
+      "kind": "affected-party-review",
+      "coverage": ["framing", "thresholds", "dissent", "response"],
+      "uri": "https://example.org/reviews/affected-party",
+      "checksum": "sha256:3030303030303030303030303030303030303030303030303030303030303030",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending affected-party review lead" },
+      "summary": "No participant review has been completed."
+    },
+    {
+      "id": "review.uncertainty",
+      "kind": "uncertainty-disclosure",
+      "coverage": ["missingness", "intervals", "unknown-stale-conflicted", "calibrated-language"],
+      "uri": "https://example.org/reviews/uncertainty",
+      "checksum": "sha256:4040404040404040404040404040404040404040404040404040404040404040",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending uncertainty reviewer" },
+      "summary": "No disclosure review has passed."
+    },
+    {
+      "id": "review.challenge-mechanism",
+      "kind": "challenge-mechanism",
+      "coverage": ["submission-route", "independent-review", "response-sla", "disposition-record"],
+      "uri": "https://example.org/reviews/challenge-mechanism",
+      "checksum": "sha256:5050505050505050505050505050505050505050505050505050505050505050",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending challenge-process reviewer" },
+      "summary": "No independent challenge mechanism has passed review."
+    },
+    {
+      "id": "review.accessibility",
+      "kind": "accessibility-review",
+      "coverage": ["plain-language", "disability-access", "translation", "low-bandwidth", "numeracy"],
+      "uri": "https://example.org/reviews/accessibility",
+      "checksum": "sha256:6060606060606060606060606060606060606060606060606060606060606060",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending accessibility reviewer" },
+      "summary": "No accessibility review has passed."
+    },
+    {
+      "id": "review.security",
+      "kind": "security-review",
+      "coverage": ["threat-model", "abuse-cases", "vulnerability-response"],
+      "uri": "https://example.org/reviews/security",
+      "checksum": "sha256:7070707070707070707070707070707070707070707070707070707070707070",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending security reviewer" },
+      "summary": "No security review has passed."
+    },
+    {
+      "id": "review.privacy",
+      "kind": "privacy-review",
+      "coverage": ["data-minimisation", "re-identification", "consent-retention"],
+      "uri": "https://example.org/reviews/privacy",
+      "checksum": "sha256:8080808080808080808080808080808080808080808080808080808080808080",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending privacy reviewer" },
+      "summary": "No privacy review has passed."
+    },
+    {
+      "id": "review.correction-process",
+      "kind": "correction-process",
+      "coverage": ["public-ledger", "correction-route", "withdrawal", "response-sla"],
+      "uri": "https://example.org/reviews/correction-process",
+      "checksum": "sha256:9090909090909090909090909090909090909090909090909090909090909090",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending correction-process reviewer" },
+      "summary": "No correction process has passed review."
+    },
+    {
+      "id": "review.source-vintage",
+      "kind": "source-vintage-review",
+      "coverage": ["source-id", "checksum", "retrieval", "vintage", "licence", "maximum-age"],
+      "uri": "https://example.org/reviews/source-vintage",
+      "checksum": "sha256:1212121212121212121212121212121212121212121212121212121212121212",
+      "outcome": "pending",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "valid_through": "2026-10-08T00:00:00Z",
+      "reviewer": { "organisation": "Unassigned in synthetic fixture", "role": "pending source-vintage reviewer" },
+      "summary": "No source-vintage review has passed."
+    }
+  ],
+  "sources": [{
+    "id": "source.synthetic-dashboard-snapshot",
+    "uri": "https://example.org/sources/synthetic-dashboard-snapshot",
+    "retrieved_at": "2026-09-07T00:00:00Z",
+    "vintage_date": "2026-09-01",
+    "maximum_age_days": 30,
+    "checksum": "sha256:abababababababababababababababababababababababababababababababab",
+    "licence": "Synthetic fixture only"
+  }],
+  "decision": {
+    "status": "draft",
+    "rationale": "Restricted shadow review is allowed. Public release and operational use remain blocked.",
+    "approved_by": []
+  },
+  "provenance": {
+    "classification": "commissioned-proposal",
+    "authors": ["Ren"],
+    "rationale": "Synthetic governance fixture for validating release controls. It records no real approval."
+  }
+}

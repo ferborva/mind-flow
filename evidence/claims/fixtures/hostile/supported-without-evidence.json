@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Mark a claim supported while binding no direct supporting evidence.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/evidence_refs",
+      "value": []
+    }
+  ]
+}

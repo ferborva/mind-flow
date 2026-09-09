@@ -1,0 +1,35 @@
+{
+  "policy_version": "1.0.0",
+  "publication_status": "research_draft_unverified",
+  "source_bytes_status": "not_retained_unverified",
+  "source": {
+    "publisher": "Jobs and Skills Australia",
+    "title": "Nowcast of Employment by Region and Occupation",
+    "licence": "CC BY 4.0",
+    "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+    "archive_name": "2026-08_nero.zip",
+    "release_period": "2026-08",
+    "released_at": "2026-09-02",
+    "release_availability": {
+      "kind": "first-seen-interval",
+      "not_seen_as_of_utc": null,
+      "first_seen_at_utc": "2026-09-08T01:01:48Z",
+      "evidence": "The archive was first recorded during retrieval. No independently evidenced earlier absence check or exact publisher UTC timestamp is available, so prospective chronology remains unknown for this vintage."
+    },
+    "retrieved_at": "2026-09-08T01:01:48Z",
+    "checksum": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446"
+  },
+  "display": {
+    "title": "Australian clerical employment by occupation and SA4",
+    "epistemic_class": "modelled-estimate",
+    "measurement_type": "modelled-nowcast",
+    "scope": {
+      "occupation_classification": "ANZSCO 2013 version 1.3, 4-digit",
+      "geography_classification": "ASGS 2021 SA4, place of residence",
+      "occupation_codes": ["5311", "5511", "5512", "5513", "5411"]
+    },
+    "public_warning": "NERO occupation and region estimates must not be summed or combined. Direction and scale within each separate series are more informative than precise values.",
+    "interpretation_limit": "This descriptive modelled nowcast does not measure AI adoption, work redesign, individual worker flows, household access, agency or causation.",
+    "revision_policy": "Each release is a new vintage. Do not overwrite prior vintages or silently splice classification versions."
+  }
+}

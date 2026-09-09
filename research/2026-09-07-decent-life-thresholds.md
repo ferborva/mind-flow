@@ -6,6 +6,7 @@ status: active
 themes: [abundance]
 supports: [how-much-is-enough, everything-is-limited]
 retrieved: 2026-09-07
+corrected: 2026-09-08
 ---
 
 # What a decent life costs, and how much is enough to fund one forever
@@ -14,7 +15,9 @@ Fer asked two questions. What would a high quality life look like for 80-90% of
 humans, and how much capital would cover it for one person's life and bootstrap
 their children's.
 
-Both are answerable. The answers are not comfortable.
+Both can be bounded, but the first version overstated what the evidence could
+answer. This file now preserves the useful arithmetic while withdrawing the
+invalid global comparisons.
 
 ## 🦅 TL;DR
 
@@ -22,20 +25,18 @@ Both are answerable. The answers are not comfortable.
   thresholds. It is called Decent Living Standards, and it is far more modest
   than anything the abundance conversation imagines: 30m² of floor space, 50
   litres of water a day, nine years of schooling, one fridge, one phone.
-- **The empirical line for "a developed-world floor" is about $30 a day.** 80% of
-  humanity lives below it.
-- **Funding $30/day in perpetuity takes about $365,000 per person.** A
-  comfortable $70/day takes about $850,000.
-- **A perpetual endowment does bootstrap the next generation**, automatically,
-  as long as the draw stays at or below ~3.5% and family size stays near
-  replacement. The maths is unsentimental about large families.
+- **$30 a day is a useful user-set comparison line, not an empirically validated
+  developed-world floor.** The World Bank's 2025 nowcast places 80.33% below it.
+- **A simple capitalisation of $30/day at a 3% draw gives $365,000.** That is an
+  arithmetic scenario, not a guaranteed perpetual endowment.
+- **Intergenerational outcomes depend on uncertain returns, sequence risk,
+  fees, tax, withdrawals and household structure.** One deterministic path
+  cannot prove that an endowment bootstraps descendants.
 - **His intuition converges on roughly $1.1m per person.** That is almost exactly
   the millionaire threshold, and we can count them: **57.5 million people, 0.69%
   of humanity.**
-- **The killer: divide all the household wealth on Earth equally, and the
-  perpetual income it throws off is about $5 a day per person.** Below the World
-  Bank's upper-middle-income poverty line. The endowment model cannot be
-  globalised on today's capital stock.
+- **Correction:** the original global capital and GDP comparisons mixed nominal
+  dollar stocks with 2021-PPP welfare flows. Those conclusions are withdrawn.
 
 ---
 
@@ -81,23 +82,23 @@ ones:
 | Extreme poverty | 3.00 | 1,095 | World Bank, 2021 PPP |
 | Lower-middle-income | 4.20 | 1,533 | World Bank |
 | Upper-middle-income | 8.30 | 3,030 | World Bank |
-| **Developed-world floor** | **30.00** | **10,950** | Common OWID/analyst threshold |
+| **User-set comparison line** | **30.00** | **10,950** | Available through PIP and OWID, not an official poverty line |
 | Comfortable | 70.00 | 25,550 | Illustrative, not an official line |
 
-The $30/day line is the one that matches Fer's question about 80-90% of
-humanity, because **80.0% of the world lives below it.** Lifting 80% of humanity
-to a decent life means moving 6.64 billion people across that line.
+The $30/day line matches Fer's question numerically because the World Bank's
+2025 nowcast places **80.33% of the world below it.** It does not, by itself,
+define a decent life across countries. The same nowcast reports a 54.92%
+poverty gap, which measures how far the population is below the line rather
+than treating everybody below it as having zero resources.
 
 Source: [World Bank 2025 poverty line revision](https://blogs.worldbank.org/en/opendata/the-world-bank-s-new-global-poverty-lines-in-2021-prices),
 [OWID share below $30/day](https://ourworldindata.org/grapher/poverty-share-on-less-than-30-per-day)
 
 ## 🏦 How much capital funds that forever
 
-The withdrawal-rate literature is settled enough to use. For a 30-year
-retirement a 3% draw survived 100% of historical periods and 4% survived 96%.
-Morningstar's 2026 figure for a safe *starting* rate is 3.9%. For funds intended
-to last indefinitely, the FIRE and endowment literature converges on **3% to
-3.5%**.
+Withdrawal-rate evidence is conditional on asset mix, country, fees, tax,
+sequence, horizon and historical sample. For exploration, this section uses 3%
+and 4% as explicit assumptions. **It does not establish a safe perpetual rate.**
 
 Using 3% for perpetual and 4% for a single lifetime:
 
@@ -115,8 +116,8 @@ Source: [White Coat Investor on safe withdrawal rates](https://www.whitecoatinve
 
 ## 👨‍👩‍👧 Does it bootstrap the children?
 
-This was the sharper half of his question, and the answer is yes, with one
-condition that bites.
+This was the sharper half of his question. A deterministic illustration can
+show which assumptions matter, but it cannot answer yes or no.
 
 A perpetual endowment grows at (real return − withdrawal rate). Global equities
 have returned roughly 5% real over the long run. Over a 30-year generation:
@@ -129,11 +130,10 @@ have returned roughly 5% real over the long run. Over a 30-year generation:
 
 Derived: (1 + 5% − draw)^30, divided by children per couple.
 
-**So a 3% to 3.5% draw funds a person for life and their descendants
-indefinitely, at replacement fertility.** Push the draw to 4% and have three
-children per couple and the family drops below its own floor within a
-generation. The mechanism that makes dynastic wealth self-sustaining is not
-generosity. It is arithmetic, and it has a fertility term in it.
+**Under this one smooth-return model, lower draws and fewer beneficiaries make
+the fund easier to sustain.** Real returns do not arrive smoothly, however.
+Sequence risk, fees, taxation, longevity, shocks and changing household needs
+can reverse the result.
 
 **Note on the real return.** 5% real is a long-run global equity figure, not a
 guarantee, and an endowment for the displaced would likely be held more
@@ -145,8 +145,8 @@ marginal.
 Putting it together, for a self-sustaining, generation-crossing endowment at a
 comfortable standard:
 
-> **Roughly $730,000 to $850,000 per person in invested capital, plus somewhere
-> to live.**
+> **Illustrative range: $730,000 to $850,000 per person in invested capital,
+> plus somewhere to live, given the stated spending and draw assumptions.**
 
 Add a paid-off home and Fer's own bracket, the point at which he would never
 need to work again, lands at **about $1.1 million**.
@@ -168,53 +168,37 @@ in 140.**
 Source: [UBS Global Wealth Report 2026](https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html),
 [Yahoo Finance summary](https://finance.yahoo.com/economy/articles/ubs-global-wealth-report-2026-144708720.html)
 
-## ⚠️ The number that breaks the model
+## ⚠️ The global comparison the first version got wrong
 
-Now scale it, which is the test his argument has to survive.
+The original version capitalised a 2021-PPP consumption line, compared the
+result with nominal-dollar GDP, and divided a loosely sourced nominal household
+wealth range by the global population. **Those unit comparisons are invalid and
+their conclusions are withdrawn.**
 
-**Endowing 80% of humanity at $30/day, in perpetuity:**
-
-| Draw | Capital required | As a multiple of global GDP |
-|---|---|---|
-| 3% | **$2,425 trillion** | **20.5x** |
-| 4% | $1,819 trillion | 15.4x |
-
-Derived: 6.64bn people × $10,950/year ÷ draw. Global GDP $118.18tn, IMF WEO
-April 2026.
-
-**And the sanity check that settles it.** Take every dollar of household wealth
-on Earth, roughly $450-550 trillion, and split it equally across 8.3 billion
-people. Each person gets $54,000 to $66,000. At a 3% perpetual draw that yields:
-
-> **Between $4.46 and $5.45 per person per day.**
-
-Below the World Bank's $8.30 upper-middle-income poverty line. **Perfect global
-equality of capital does not fund a decent life.**
-
-<!-- NOTE: the $450-550tn range is derived, not directly sourced. UBS reports
-     growth rates (+4.2% 2023, +4.6% 2024, +10.8% 2025) but the media release
-     does not state the aggregate, and the full report is paywalled. The range
-     brackets every plausible value and the conclusion holds across all of it,
-     which is why it is stated as a range rather than a point. Worth pinning
-     down if this number goes into a published piece. -->
+A defensible global resource-feasibility test needs quantities in compatible
+units, current consumption distributions, public and household provision,
+actual marginal resource requirements, productive capacity and behavioural
+responses. The World Bank poverty gap can estimate a cash-equivalent shortfall
+in international dollars. It cannot tell us the programme cost or prove that
+redistribution, production or cost reduction is sufficient on its own.
 
 ## 🧭 What this means for his argument
 
 Three consequences, and he will like two of them.
 
 **1. His `if` framing gets stronger.** The money condition is not a rhetorical
-device. Four in five people are on the wrong side of it, and the arithmetic says
-no plausible redistribution moves them.
+device. Four in five people fall below a $30 comparison line, while the depth
+and lived consequence vary substantially.
 
-**2. His threshold question gets a real answer.** "How much is enough" is
-roughly $1.1m, work is already optional for 0.69% of humanity, and both numbers
-are checkable. That converts his best idea from a rhetorical question into a
-measurable programme.
+**2. His threshold question becomes testable, not answered.** Roughly $1.1m is
+one personal scenario, and millionaire counts are observable. Neither proves
+that work is optional, because wealth composition, obligations, location,
+health and household needs differ.
 
-**3. His remedy has to change its reasoning.** Redistribution cannot get there,
-by a factor of twenty. The only arithmetic that closes a gap this size is the
-cost of a decent life falling, not the funding for it rising. Which is what he
-proposes at the end anyway. **He should arrive at free services because
-redistribution is impossible, not because companies ought to be nicer.**
+**3. His remedy has to become a portfolio and a test.** Lower real costs,
+earnings, ownership, transfers, public provision and institutional design can
+all change access. The work is to model their conditions, interactions and
+failure modes rather than declare one route arithmetically inevitable.
 
-That is a harder, better argument, and it is the one the numbers support.
+That is a harder, better argument, and it stays inside what the evidence can
+support.

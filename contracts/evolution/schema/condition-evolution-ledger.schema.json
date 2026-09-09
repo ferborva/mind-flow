@@ -1,0 +1,913 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/evolution/condition-evolution-ledger/1-1-0",
+  "title": "Seldon Observatory condition evolution ledger",
+  "description": "A closed, append-only event chain whose current condition state is deterministically foldable. Structural validity has no truth or authority effect.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "canonicalisation",
+    "ledger_id",
+    "generated_at",
+    "history",
+    "events",
+    "current_state",
+    "publication_anchor",
+    "public_projection",
+    "manifest_hash",
+    "contract_boundary"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.1\\.[0-9]+$" },
+    "canonicalisation": { "$ref": "#/$defs/canonicalisation" },
+    "ledger_id": { "$ref": "#/$defs/id" },
+    "generated_at": { "$ref": "#/$defs/instant" },
+    "history": { "$ref": "#/$defs/history" },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "current_state": { "$ref": "#/$defs/currentState" },
+    "publication_anchor": { "$ref": "#/$defs/publicationAnchor" },
+    "public_projection": { "$ref": "#/$defs/publicProjection" },
+    "manifest_hash": { "$ref": "#/$defs/hash" },
+    "contract_boundary": {
+      "type": "object",
+      "required": [
+        "history_validity_effect",
+        "condition_truth_effect",
+        "authority_effect",
+        "action_authorisation_effect"
+      ],
+      "properties": {
+        "history_validity_effect": { "const": "structural-and-integrity-only" },
+        "condition_truth_effect": { "const": "none" },
+        "authority_effect": { "const": "none" },
+        "action_authorisation_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "safePositiveInteger": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "safeNonNegativeInteger": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "semver": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "instant": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "canonicalisation": {
+      "type": "object",
+      "required": ["profile", "hash_algorithm", "domain_separation", "safe_integer_max"],
+      "properties": {
+        "profile": { "const": "mind-flow-canonical-json-v1" },
+        "hash_algorithm": { "const": "sha-256" },
+        "domain_separation": { "const": true },
+        "safe_integer_max": { "const": 9007199254740991 }
+      },
+      "additionalProperties": false
+    },
+    "externalReference": {
+      "type": "object",
+      "required": ["record_uri", "checksum"],
+      "properties": {
+        "record_uri": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "checksum": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services"],
+      "properties": {
+        "jurisdictions": { "$ref": "#/$defs/nonEmptyUniqueStrings" },
+        "geographies": { "$ref": "#/$defs/nonEmptyUniqueStrings" },
+        "cohorts": { "$ref": "#/$defs/nonEmptyUniqueStrings" },
+        "services": { "$ref": "#/$defs/nonEmptyUniqueStrings" }
+      },
+      "additionalProperties": false
+    },
+    "nonEmptyUniqueStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "evidenceReference": {
+      "type": "object",
+      "required": ["evidence_id", "version", "checksum", "role"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "checksum": { "$ref": "#/$defs/hash" },
+        "role": { "enum": ["supports", "contradicts", "context", "method"] }
+      },
+      "additionalProperties": false
+    },
+    "assessment": {
+      "type": "object",
+      "required": [
+        "assessment_id",
+        "version",
+        "checksum",
+        "evaluator_id",
+        "method_id",
+        "threshold_id",
+        "evaluated_at",
+        "evidence_ids"
+      ],
+      "properties": {
+        "assessment_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "checksum": { "$ref": "#/$defs/hash" },
+        "evaluator_id": { "$ref": "#/$defs/id" },
+        "method_id": { "$ref": "#/$defs/id" },
+        "threshold_id": { "$ref": "#/$defs/id" },
+        "evaluated_at": { "$ref": "#/$defs/instant" },
+        "evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "conditionState": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "condition_version",
+        "condition_definition_ref",
+        "wording",
+        "rendered_if",
+        "scope",
+        "evidence",
+        "status",
+        "unresolved_challenge_ids",
+        "assessment"
+      ],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "condition_version": { "$ref": "#/$defs/safePositiveInteger" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "wording": { "$ref": "#/$defs/nonEmptyString" },
+        "rendered_if": { "$ref": "#/$defs/nonEmptyString" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "evidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceReference" }
+        },
+        "status": {
+          "enum": [
+            "open",
+            "challenged",
+            "disputed",
+            "satisfied",
+            "failed",
+            "expired",
+            "superseded",
+            "withdrawn"
+          ]
+        },
+        "unresolved_challenge_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "assessment": {
+          "oneOf": [{ "$ref": "#/$defs/assessment" }, { "type": "null" }]
+        }
+      },
+      "additionalProperties": false
+    },
+    "producer": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "event_version",
+        "event_hash",
+        "sequence",
+        "effective_at",
+        "recorded_at"
+      ],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/id" },
+        "event_version": { "$ref": "#/$defs/semver" },
+        "event_hash": { "$ref": "#/$defs/hash" },
+        "sequence": { "$ref": "#/$defs/safePositiveInteger" },
+        "effective_at": { "$ref": "#/$defs/instant" },
+        "recorded_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "baseCondition": {
+      "type": "object",
+      "required": ["state", "producer"],
+      "properties": {
+        "state": { "$ref": "#/$defs/conditionState" },
+        "producer": { "$ref": "#/$defs/producer" }
+      },
+      "additionalProperties": false
+    },
+    "currentState": {
+      "type": "object",
+      "required": ["as_of_sequence", "as_of_event_id", "as_of_event_hash", "conditions"],
+      "properties": {
+        "as_of_sequence": { "$ref": "#/$defs/safePositiveInteger" },
+        "as_of_event_id": { "$ref": "#/$defs/id" },
+        "as_of_event_hash": { "$ref": "#/$defs/hash" },
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/conditionState" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "publicationAnchor": {
+      "type": "object",
+      "required": [
+        "verification_status",
+        "checkpoint_uri",
+        "event_count",
+        "tip_event_id",
+        "tip_event_version",
+        "tip_hash"
+      ],
+      "properties": {
+        "verification_status": { "const": "not-verified-by-local-validator" },
+        "checkpoint_uri": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "event_count": { "$ref": "#/$defs/safePositiveInteger" },
+        "tip_event_id": { "$ref": "#/$defs/id" },
+        "tip_event_version": { "$ref": "#/$defs/semver" },
+        "tip_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "base": {
+      "type": "object",
+      "required": [
+        "after_sequence",
+        "after_event_id",
+        "after_event_version",
+        "tip_hash",
+        "tip_effective_at",
+        "tip_recorded_at",
+        "state_hash",
+        "conditions"
+      ],
+      "properties": {
+        "after_sequence": { "$ref": "#/$defs/safeNonNegativeInteger" },
+        "after_event_id": {
+          "oneOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }]
+        },
+        "after_event_version": {
+          "oneOf": [{ "$ref": "#/$defs/semver" }, { "type": "null" }]
+        },
+        "tip_hash": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "tip_effective_at": {
+          "oneOf": [{ "$ref": "#/$defs/instant" }, { "type": "null" }]
+        },
+        "tip_recorded_at": {
+          "oneOf": [{ "$ref": "#/$defs/instant" }, { "type": "null" }]
+        },
+        "state_hash": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "conditions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/baseCondition" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "omittedRange": {
+      "type": "object",
+      "required": ["from_sequence", "through_sequence"],
+      "properties": {
+        "from_sequence": { "$ref": "#/$defs/safePositiveInteger" },
+        "through_sequence": { "$ref": "#/$defs/safePositiveInteger" }
+      },
+      "additionalProperties": false
+    },
+    "history": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "mode",
+            "omitted_event_count",
+            "omitted_ranges",
+            "omission_reason",
+            "external_record",
+            "base"
+          ],
+          "properties": {
+            "mode": { "const": "complete" },
+            "omitted_event_count": { "const": 0 },
+            "omitted_ranges": { "type": "array", "maxItems": 0 },
+            "omission_reason": { "type": "null" },
+            "external_record": { "type": "null" },
+            "base": { "$ref": "#/$defs/base" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "mode",
+            "omitted_event_count",
+            "omitted_ranges",
+            "omission_reason",
+            "external_record",
+            "base"
+          ],
+          "properties": {
+            "mode": { "const": "cropped" },
+            "omitted_event_count": { "$ref": "#/$defs/safePositiveInteger" },
+            "omitted_ranges": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/omittedRange" }
+            },
+            "omission_reason": { "$ref": "#/$defs/nonEmptyString" },
+            "external_record": { "$ref": "#/$defs/externalReference" },
+            "base": { "$ref": "#/$defs/base" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "parentEvent": {
+      "type": "object",
+      "required": ["event_id", "event_version", "event_hash"],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/id" },
+        "event_version": { "$ref": "#/$defs/semver" },
+        "event_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "identityMapping": {
+      "type": "object",
+      "required": ["from_condition_ids", "to_condition_ids"],
+      "properties": {
+        "from_condition_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "to_condition_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "identityChange": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "mappings"],
+          "properties": {
+            "kind": { "const": "none" },
+            "mappings": { "type": "array", "maxItems": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "mappings",
+            "semantic_effect",
+            "partition_dimension",
+            "coverage_mode",
+            "overlap_mode",
+            "uncovered_members"
+          ],
+          "properties": {
+            "kind": { "const": "split" },
+            "semantic_effect": { "const": "scope-partition-only" },
+            "partition_dimension": {
+              "enum": ["jurisdictions", "geographies", "cohorts", "services"]
+            },
+            "coverage_mode": {
+              "enum": ["exhaustive", "intentionally-partial"]
+            },
+            "overlap_mode": { "enum": ["disjoint", "declared-overlap"] },
+            "uncovered_members": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/nonEmptyString" }
+            },
+            "mappings": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": { "$ref": "#/$defs/identityMapping" }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "mappings", "semantic_effect"],
+          "properties": {
+            "kind": { "const": "merge" },
+            "semantic_effect": { "const": "identity-consolidation-only" },
+            "mappings": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": { "$ref": "#/$defs/identityMapping" }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "challengeEvidence": {
+      "type": "object",
+      "required": ["evidence_id", "version", "checksum"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "checksum": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "challenge": {
+      "type": "object",
+      "required": [
+        "challenge_id",
+        "statement",
+        "statement_sha256",
+        "raised_by",
+        "raised_at",
+        "evidence_refs"
+      ],
+      "properties": {
+        "challenge_id": { "$ref": "#/$defs/id" },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "statement_sha256": { "$ref": "#/$defs/hash" },
+        "raised_by": { "$ref": "#/$defs/id" },
+        "raised_at": { "$ref": "#/$defs/instant" },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/challengeEvidence" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "challengeResolution": {
+      "type": "object",
+      "required": [
+        "challenge_id",
+        "outcome",
+        "statement",
+        "statement_sha256",
+        "resolved_by",
+        "resolved_at",
+        "evidence_refs"
+      ],
+      "properties": {
+        "challenge_id": { "$ref": "#/$defs/id" },
+        "outcome": { "enum": ["upheld", "partially-upheld", "rejected", "withdrawn"] },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "statement_sha256": { "$ref": "#/$defs/hash" },
+        "resolved_by": { "$ref": "#/$defs/id" },
+        "resolved_at": { "$ref": "#/$defs/instant" },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/challengeEvidence" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "challenges": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["disposition", "entries", "resolutions"],
+          "properties": {
+            "disposition": { "const": "none" },
+            "entries": { "type": "array", "maxItems": 0 },
+            "resolutions": { "type": "array", "maxItems": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["disposition", "entries", "resolutions"],
+          "properties": {
+            "disposition": { "const": "recorded" },
+            "entries": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/challenge" }
+            },
+            "resolutions": { "type": "array", "maxItems": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["disposition", "entries", "resolutions"],
+          "properties": {
+            "disposition": { "const": "resolved" },
+            "entries": { "type": "array", "maxItems": 0 },
+            "resolutions": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/challengeResolution" }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "actor": {
+      "type": "object",
+      "required": ["actor_id", "display_name", "capacity"],
+      "properties": {
+        "actor_id": { "$ref": "#/$defs/id" },
+        "display_name": { "$ref": "#/$defs/nonEmptyString" },
+        "capacity": {
+          "enum": [
+            "author",
+            "researcher",
+            "affected-party",
+            "reviewer",
+            "governance-steward"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenanceReference": {
+      "type": "object",
+      "required": ["source_id", "source_uri", "checksum"],
+      "properties": {
+        "source_id": { "$ref": "#/$defs/id" },
+        "source_uri": { "type": "string", "format": "uri" },
+        "checksum": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["classification", "source_refs"],
+      "properties": {
+        "classification": {
+          "enum": ["captured", "research-derived", "commissioned-proposal", "governance-record"]
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/provenanceReference" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "affectedWindow": {
+      "type": "object",
+      "required": ["from", "through"],
+      "properties": {
+        "from": { "$ref": "#/$defs/instant" },
+        "through": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "retroactivity": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "status",
+            "reason",
+            "affected_window",
+            "superseded_publication_refs",
+            "affected_decision_refs",
+            "public_notice"
+          ],
+          "properties": {
+            "status": { "const": "not-retroactive" },
+            "reason": { "type": "null" },
+            "affected_window": { "type": "null" },
+            "superseded_publication_refs": { "type": "array", "maxItems": 0 },
+            "affected_decision_refs": { "type": "array", "maxItems": 0 },
+            "public_notice": { "type": "null" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "status",
+            "reason",
+            "affected_window",
+            "superseded_publication_refs",
+            "affected_decision_refs",
+            "public_notice"
+          ],
+          "properties": {
+            "status": { "const": "retrospective-correction" },
+            "reason": { "$ref": "#/$defs/nonEmptyString" },
+            "affected_window": { "$ref": "#/$defs/affectedWindow" },
+            "superseded_publication_refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/externalReference" }
+            },
+            "affected_decision_refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/externalReference" }
+            },
+            "public_notice": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "publicChallenge": {
+      "type": "object",
+      "required": ["challenge_id", "details_status", "statement_sha256", "raised_at"],
+      "properties": {
+        "challenge_id": { "$ref": "#/$defs/id" },
+        "details_status": { "enum": ["redacted-hash-only", "omitted-unverified"] },
+        "statement_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "raised_at": {
+          "oneOf": [{ "$ref": "#/$defs/instant" }, { "type": "null" }]
+        }
+      },
+      "additionalProperties": false
+    },
+    "publicResolution": {
+      "type": "object",
+      "required": ["challenge_id", "outcome", "details_status", "statement_sha256", "resolved_at"],
+      "properties": {
+        "challenge_id": { "$ref": "#/$defs/id" },
+        "outcome": { "enum": ["upheld", "partially-upheld", "rejected", "withdrawn"] },
+        "details_status": { "const": "redacted-hash-only" },
+        "statement_sha256": { "$ref": "#/$defs/hash" },
+        "resolved_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "publicChange": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "event_id",
+        "operation",
+        "condition_ids",
+        "identity_change",
+        "actor_id",
+        "reason",
+        "effective_at",
+        "recorded_at",
+        "retroactivity",
+        "challenge_ids",
+        "resolution_ids",
+        "challenge_records",
+        "resolution_records"
+      ],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/safePositiveInteger" },
+        "event_id": { "$ref": "#/$defs/id" },
+        "operation": { "$ref": "#/$defs/nonEmptyString" },
+        "condition_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "identity_change": { "$ref": "#/$defs/identityChange" },
+        "actor_id": { "$ref": "#/$defs/id" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "effective_at": { "$ref": "#/$defs/instant" },
+        "recorded_at": { "$ref": "#/$defs/instant" },
+        "retroactivity": { "$ref": "#/$defs/retroactivity" },
+        "challenge_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "resolution_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "challenge_records": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/publicChallenge" }
+        },
+        "resolution_records": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/publicResolution" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "publicCondition": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "condition_version",
+        "condition_definition_ref",
+        "rendered_if",
+        "status",
+        "status_label",
+        "unresolved_challenges",
+        "last_change"
+      ],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "condition_version": { "$ref": "#/$defs/safePositiveInteger" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "rendered_if": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "$ref": "#/$defs/nonEmptyString" },
+        "status_label": { "$ref": "#/$defs/nonEmptyString" },
+        "unresolved_challenges": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/publicChallenge" }
+        },
+        "last_change": {
+          "type": "object",
+          "required": ["event_id", "actor_id", "reason", "effective_at", "recorded_at"],
+          "properties": {
+            "event_id": { "$ref": "#/$defs/id" },
+            "actor_id": { "$ref": "#/$defs/id" },
+            "reason": { "$ref": "#/$defs/nonEmptyString" },
+            "effective_at": { "$ref": "#/$defs/instant" },
+            "recorded_at": { "$ref": "#/$defs/instant" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "publicProjection": {
+      "type": "object",
+      "required": ["history", "boundaries", "changes", "current_conditions"],
+      "properties": {
+        "history": {
+          "type": "object",
+          "required": ["status", "notice", "omitted_event_count"],
+          "properties": {
+            "status": { "enum": ["complete", "cropped-unverified"] },
+            "notice": { "$ref": "#/$defs/nonEmptyString" },
+            "omitted_event_count": { "$ref": "#/$defs/safeNonNegativeInteger" }
+          },
+          "additionalProperties": false
+        },
+        "boundaries": {
+          "type": "object",
+          "required": ["condition_truth_assessed", "authority_granted", "action_authorised", "challenge_details_disclosure"],
+          "properties": {
+            "condition_truth_assessed": { "const": false },
+            "authority_granted": { "const": false },
+            "action_authorised": { "const": false },
+            "challenge_details_disclosure": { "const": "hash-only-redacted" }
+          },
+          "additionalProperties": false
+        },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/publicChange" }
+        },
+        "current_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/publicCondition" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "event_id",
+        "event_version",
+        "operation",
+        "parent_events",
+        "previous_states",
+        "new_states",
+        "identity_change",
+        "actor",
+        "provenance",
+        "reason",
+        "effective_at",
+        "recorded_at",
+        "retroactivity",
+        "challenges",
+        "chain_predecessor",
+        "previous_event_hash",
+        "event_hash"
+      ],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/safePositiveInteger" },
+        "event_id": { "$ref": "#/$defs/id" },
+        "event_version": { "$ref": "#/$defs/semver" },
+        "operation": {
+          "enum": [
+            "added",
+            "narrowed",
+            "split",
+            "merged",
+            "challenged",
+            "satisfied",
+            "failed",
+            "expired",
+            "superseded",
+            "disputed",
+            "withdrawn"
+          ]
+        },
+        "parent_events": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/parentEvent" }
+        },
+        "previous_states": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/conditionState" }
+        },
+        "new_states": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/conditionState" }
+        },
+        "identity_change": { "$ref": "#/$defs/identityChange" },
+        "actor": { "$ref": "#/$defs/actor" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "effective_at": { "$ref": "#/$defs/instant" },
+        "recorded_at": { "$ref": "#/$defs/instant" },
+        "retroactivity": { "$ref": "#/$defs/retroactivity" },
+        "challenges": { "$ref": "#/$defs/challenges" },
+        "chain_predecessor": {
+          "oneOf": [{ "$ref": "#/$defs/parentEvent" }, { "type": "null" }]
+        },
+        "previous_event_hash": {
+          "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }]
+        },
+        "event_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

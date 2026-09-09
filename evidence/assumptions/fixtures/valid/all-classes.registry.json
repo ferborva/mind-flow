@@ -1,0 +1,358 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "assumption-registry.fixture.all-classes",
+  "registry_version": "1.0.0",
+  "as_of": "2026-09-08",
+  "truth_assessment": "not_performed_by_contract_validation",
+  "assumptions": [
+    {
+      "assumption_id": "assumption.evidence-controls-detect-material-corruption",
+      "version": "1.0.0",
+      "exact_statement": "The governed evidence controls will detect material corruption of a decision-relevant snapshot before public release.",
+      "class": "bounded_hypothesis",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["public dashboard readers"],
+        "systems": ["Mind Flow evidence pipeline"],
+        "valid_from": "2026-09-08",
+        "valid_until": "2027-09-08",
+        "exclusions": ["Claims outside the governed evidence manifest"]
+      },
+      "stewardship": {
+        "owner_ref": "role.evidence-steward",
+        "owner_type": "role",
+        "status": "under_review",
+        "accountability": "Maintain attacks, reproduce failures and publish unresolved limitations."
+      },
+      "parties": {
+        "affected": [
+          {
+            "party_id": "public.dashboard-readers",
+            "description": "People who may rely on public dashboard claims",
+            "representation_state": "not_consulted"
+          },
+          {
+            "party_id": "maintainers.evidence",
+            "description": "Maintainers responsible for evidence controls",
+            "representation_state": "directly_consulted"
+          }
+        ],
+        "benefited": [
+          {
+            "party_id": "public.dashboard-readers",
+            "description": "People who may rely on public dashboard claims",
+            "representation_state": "not_consulted"
+          }
+        ],
+        "burdened": [
+          {
+            "party_id": "maintainers.evidence",
+            "description": "Maintainers responsible for evidence controls",
+            "representation_state": "directly_consulted"
+          }
+        ]
+      },
+      "evidence_refs": [
+        {
+          "ref_id": "review.round-03.internal",
+          "kind": "internal_review",
+          "locator": "reviews/round-03-internal-adversarial-register.md",
+          "verification_state": "repository_local",
+          "relevance": "Records evidence-kernel and timing attacks found by internal agents."
+        }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "falsifier",
+        "testable_prediction": "Every declared attack fails the governed build with its expected error code.",
+        "observation_that_would_falsify": "A material corruption passes the frozen clean-checkout challenge pack.",
+        "test_method": "Run the external-review challenge pack against a frozen release tag."
+      },
+      "decision_dependencies": [
+        {
+          "decision_id": "decision.public-evidence-release",
+          "relationship": "blocks_until_resolved",
+          "consequence_if_wrong": "The public may treat forged or stale evidence as decision-grade.",
+          "handling": "fail_closed"
+        }
+      ],
+      "timebox": {
+        "expires_on": "2027-09-08",
+        "next_review_on": "2026-12-08"
+      },
+      "replacements": {
+        "replaces": [],
+        "replaced_by": []
+      },
+      "public_disposition": {
+        "state": "publish_as_hypothesis",
+        "plain_language": "Hypothesis: the controls are designed to catch material evidence corruption, but independent reproduction is still required.",
+        "rationale": "Readers need the intended control claim and the unresolved validation boundary together."
+      },
+      "source_findings": ["I03-EV-01"]
+    },
+    {
+      "assumption_id": "assumption.repository-output-never-authorises-action",
+      "version": "1.0.0",
+      "exact_statement": "No repository-computed condition, option or dashboard state may itself authorise, activate or withdraw a real-world intervention.",
+      "class": "hard_safeguard",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["people affected by candidate interventions"],
+        "systems": ["Mind Flow decision and action boundaries"],
+        "valid_from": "2026-09-08",
+        "valid_until": null,
+        "exclusions": []
+      },
+      "stewardship": {
+        "owner_ref": "role.governance-steward",
+        "owner_type": "role",
+        "status": "active",
+        "accountability": "Block operational interpretation until external authority and readiness are independently verified."
+      },
+      "parties": {
+        "affected": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People affected by any candidate intervention",
+            "representation_state": "not_consulted"
+          },
+          {
+            "party_id": "operators.delivery",
+            "description": "Operators who may be asked to deliver an intervention",
+            "representation_state": "not_consulted"
+          }
+        ],
+        "benefited": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People affected by any candidate intervention",
+            "representation_state": "not_consulted"
+          }
+        ],
+        "burdened": [
+          {
+            "party_id": "operators.delivery",
+            "description": "Operators who may be asked to deliver an intervention",
+            "representation_state": "not_consulted"
+          }
+        ]
+      },
+      "evidence_refs": [
+        {
+          "ref_id": "review.round-03.action-boundary",
+          "kind": "internal_review",
+          "locator": "reviews/round-03-internal-adversarial-register.md#public-action-boundary-attacks",
+          "verification_state": "repository_local",
+          "relevance": "Shows how repository records can self-attest operational authority."
+        }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Does any output appear to grant authority or direct action without an external verified commitment?",
+        "process": "Adversarially inspect machine records, public copy, crops, exports and lifecycle transitions before release.",
+        "decision_rule": "Block release if a reasonable reader could mistake proposal or eligibility for authority."
+      },
+      "decision_dependencies": [
+        {
+          "decision_id": "decision.activate-real-world-intervention",
+          "relationship": "constrains",
+          "consequence_if_wrong": "People could be subjected to unauthorised or unsupported action.",
+          "handling": "fail_closed"
+        }
+      ],
+      "timebox": {
+        "expires_on": null,
+        "next_review_on": "2026-12-08"
+      },
+      "replacements": {
+        "replaces": [],
+        "replaced_by": []
+      },
+      "public_disposition": {
+        "state": "publish_as_safeguard",
+        "plain_language": "Safeguard: this system can surface evidence and proposals, but it cannot authorise or activate real-world action.",
+        "rationale": "The public boundary must remain visible wherever an action option appears."
+      },
+      "source_findings": ["I03-AC-01"]
+    },
+    {
+      "assumption_id": "assumption.affected-parties-set-burden-tradeoffs",
+      "version": "1.0.0",
+      "exact_statement": "Affected parties should determine whether the distribution of benefits, burdens and residual risks is acceptable within rights constraints.",
+      "class": "legitimate_value_decision",
+      "scope": {
+        "jurisdictions": ["each intervention jurisdiction"],
+        "populations": ["affected, benefited and burdened parties"],
+        "systems": ["Mind Flow option governance"],
+        "valid_from": "2026-09-08",
+        "valid_until": null,
+        "exclusions": ["Tradeoffs prohibited by binding rights or law"]
+      },
+      "stewardship": {
+        "owner_ref": "role.legitimacy-steward",
+        "owner_type": "role",
+        "status": "proposed",
+        "accountability": "Define a legitimate process without substituting project judgement for affected-party choice."
+      },
+      "parties": {
+        "affected": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People who would experience the intervention or its spillovers",
+            "representation_state": "not_consulted"
+          },
+          {
+            "party_id": "institutions.delivery",
+            "description": "Institutions responsible for delivery and remedy",
+            "representation_state": "not_consulted"
+          }
+        ],
+        "benefited": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People who would experience the intervention or its spillovers",
+            "representation_state": "not_consulted"
+          }
+        ],
+        "burdened": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People who would experience the intervention or its spillovers",
+            "representation_state": "not_consulted"
+          },
+          {
+            "party_id": "institutions.delivery",
+            "description": "Institutions responsible for delivery and remedy",
+            "representation_state": "not_consulted"
+          }
+        ]
+      },
+      "evidence_refs": [
+        {
+          "ref_id": "review.round-03.cross-actor",
+          "kind": "internal_review",
+          "locator": "reviews/round-03-internal-adversarial-register.md#public-action-boundary-attacks",
+          "verification_state": "repository_local",
+          "relevance": "Shows that one actor cannot attest to another actor's readiness or agreement."
+        }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Who has standing to accept the burdens and residual risks of this option?",
+        "process": "Use an independently designed deliberative process with direct routes for burdened parties, dissent and appeal.",
+        "decision_rule": "Do not describe the tradeoff as accepted until the mandated process records scoped agreement and dissent."
+      },
+      "decision_dependencies": [
+        {
+          "decision_id": "decision.accept-distributional-tradeoff",
+          "relationship": "blocks_until_resolved",
+          "consequence_if_wrong": "Project authors could impose their preferences on people carrying the burden.",
+          "handling": "explicit_deliberation"
+        }
+      ],
+      "timebox": {
+        "expires_on": null,
+        "next_review_on": "2026-12-08"
+      },
+      "replacements": {
+        "replaces": [],
+        "replaced_by": []
+      },
+      "public_disposition": {
+        "state": "publish_as_value_choice",
+        "plain_language": "Value choice: people carrying an intervention's risks and burdens should have standing in deciding whether the tradeoff is acceptable.",
+        "rationale": "This is a governance commitment requiring legitimate agreement, not an empirical result."
+      },
+      "source_findings": ["I03-AC-03"]
+    },
+    {
+      "assumption_id": "assumption.current-representation-is-legitimate",
+      "version": "1.0.0",
+      "exact_statement": "We do not yet know whether the current candidate representation of affected parties is legitimate, complete or authorised.",
+      "class": "explicit_unknown",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["affected, benefited and burdened parties"],
+        "systems": ["Mind Flow consultation and governance design"],
+        "valid_from": "2026-09-08",
+        "valid_until": "2027-03-08",
+        "exclusions": []
+      },
+      "stewardship": {
+        "owner_ref": "role.legitimacy-steward",
+        "owner_type": "role",
+        "status": "under_review",
+        "accountability": "Keep the legitimacy gap visible and commission affected-party review."
+      },
+      "parties": {
+        "affected": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People whose interests the project may claim to represent",
+            "representation_state": "unknown"
+          },
+          {
+            "party_id": "maintainers.governance",
+            "description": "Maintainers designing candidate participation processes",
+            "representation_state": "directly_consulted"
+          }
+        ],
+        "benefited": [
+          {
+            "party_id": "public.affected-people",
+            "description": "People whose interests the project may claim to represent",
+            "representation_state": "unknown"
+          }
+        ],
+        "burdened": [
+          {
+            "party_id": "maintainers.governance",
+            "description": "Maintainers designing candidate participation processes",
+            "representation_state": "directly_consulted"
+          }
+        ]
+      },
+      "evidence_refs": [],
+      "counterevidence_refs": [
+        {
+          "ref_id": "review.round-03.residual-legitimacy",
+          "kind": "internal_review",
+          "locator": "reviews/round-03-internal-adversarial-register.md#external-review-challenge-pack",
+          "verification_state": "repository_local",
+          "relevance": "Names legitimacy and representation as residuals that code cannot establish."
+        }
+      ],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Do affected and burdened people recognise the process and representatives as legitimate for this scope?",
+        "process": "Commission independent stakeholder mapping, publish omissions and invite direct challenge from affected parties.",
+        "decision_rule": "Keep legitimacy unknown until scoped mandates, dissent and representation gaps are independently recorded."
+      },
+      "decision_dependencies": [
+        {
+          "decision_id": "decision.claim-affected-party-agreement",
+          "relationship": "blocks_until_resolved",
+          "consequence_if_wrong": "Candidate representation could be misreported as consent or legitimacy.",
+          "handling": "fail_closed"
+        }
+      ],
+      "timebox": {
+        "expires_on": "2027-03-08",
+        "next_review_on": "2026-11-08"
+      },
+      "replacements": {
+        "replaces": [],
+        "replaced_by": []
+      },
+      "public_disposition": {
+        "state": "publish_as_unknown",
+        "plain_language": "Unknown: the project has not established that its current affected-party representation is legitimate or complete.",
+        "rationale": "Silence would let readers confuse candidate stakeholder mapping with real representation."
+      },
+      "source_findings": ["I03-AC-03"]
+    }
+  ]
+}

@@ -1,0 +1,777 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/forecasts/binary-forecast.schema.json",
+  "title": "Binary forecast record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "epistemic_class",
+    "forecast_use",
+    "status",
+    "title",
+    "question",
+    "issued_at",
+    "resolve_after",
+    "resolve_by",
+    "probability",
+    "target",
+    "baseline",
+    "naive_baseline",
+    "method",
+    "data_vintages",
+    "provenance",
+    "assumptions",
+    "counter_hypotheses",
+    "void_policy",
+    "resolution",
+    "history"
+  ],
+  "properties": {
+    "schema_version": { "enum": ["1.3.0", "1.4.0"] },
+    "id": { "type": "string", "pattern": "^forecast\\.[a-z0-9][a-z0-9.-]+\\.v[0-9]+$" },
+    "epistemic_class": { "const": "forecast" },
+    "forecast_use": { "enum": ["research_only", "decision_linked"] },
+    "status": { "enum": ["issued", "resolved", "void"] },
+    "title": { "type": "string", "minLength": 1 },
+    "question": { "type": "string", "minLength": 1 },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "resolve_after": { "type": "string", "format": "date-time" },
+    "resolve_by": { "type": "string", "format": "date-time" },
+    "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "target": { "$ref": "#/$defs/target" },
+    "baseline": { "$ref": "#/$defs/baseline" },
+    "naive_baseline": { "$ref": "#/$defs/baseline" },
+    "method": { "$ref": "#/$defs/method" },
+    "data_vintages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/contentAddressedEvidence" }
+    },
+    "provenance": { "$ref": "#/$defs/provenance" },
+    "assumptions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "counter_hypotheses": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "void_policy": { "$ref": "#/$defs/voidPolicy" },
+    "decision_context": { "$ref": "#/$defs/decisionContext" },
+    "issue_basis": { "$ref": "#/$defs/issueBasis" },
+    "resolution": { "$ref": "#/$defs/resolution" },
+    "history": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/historyEntry" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["schema_version"],
+        "properties": { "schema_version": { "const": "1.4.0" } }
+      },
+      "then": {
+        "required": ["issue_basis"],
+        "properties": {
+          "probability": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+          "issue_basis": { "$ref": "#/$defs/issueBasis" }
+        }
+      },
+      "else": { "properties": { "issue_basis": false } }
+    },
+    {
+      "if": { "properties": { "status": { "const": "issued" } } },
+      "then": { "properties": { "resolution": { "$ref": "#/$defs/pendingResolution" } } }
+    },
+    {
+      "if": { "properties": { "status": { "const": "resolved" } } },
+      "then": { "properties": { "resolution": { "$ref": "#/$defs/resolvedResolution" } } }
+    },
+    {
+      "if": { "properties": { "status": { "const": "void" } } },
+      "then": { "properties": { "resolution": { "$ref": "#/$defs/voidResolution" } } }
+    },
+    {
+      "if": {
+        "required": ["forecast_use"],
+        "properties": { "forecast_use": { "const": "decision_linked" } }
+      },
+      "then": {
+        "required": ["decision_context"],
+        "properties": { "decision_context": { "$ref": "#/$defs/decisionContext" } }
+      },
+      "else": { "properties": { "decision_context": false } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "required": ["geographies", "cohorts", "services"],
+      "properties": {
+        "geographies": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "cohorts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "services": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "event",
+        "unit",
+        "scope",
+        "signal_id",
+        "metric_id",
+        "metric_checksum",
+        "condition_id",
+        "scope_hash",
+        "resolution_rule",
+        "resolution_source",
+        "resolution_event_id",
+        "independence_cluster_id",
+        "resolver",
+        "observation_window_start",
+        "observation_window_end",
+        "outcome_publication_not_before"
+      ],
+      "properties": {
+        "event": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "scope": { "$ref": "#/$defs/scope" },
+        "signal_id": { "$ref": "#/$defs/bindingId" },
+        "metric_id": { "$ref": "#/$defs/bindingId" },
+        "metric_checksum": { "$ref": "#/$defs/sha256" },
+        "condition_id": { "$ref": "#/$defs/bindingId" },
+        "scope_hash": { "$ref": "#/$defs/sha256" },
+        "resolution_rule": { "type": "string", "minLength": 1 },
+        "resolution_source": { "type": "string", "format": "uri" },
+        "resolution_event_id": { "type": "string", "minLength": 1 },
+        "independence_cluster_id": { "type": "string", "minLength": 1 },
+        "resolver": { "$ref": "#/$defs/resolver" },
+        "observation_window_start": { "type": "string", "format": "date-time" },
+        "observation_window_end": { "type": "string", "format": "date-time" },
+        "outcome_publication_not_before": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "resolver": {
+      "type": "object",
+      "required": [
+        "resolver_id",
+        "resolver_version",
+        "measure",
+        "observation_unit",
+        "operator",
+        "threshold"
+      ],
+      "properties": {
+        "resolver_id": { "const": "mind-flow.binary-threshold-json" },
+        "resolver_version": { "const": "1.1.0" },
+        "measure": { "type": "string", "minLength": 1 },
+        "observation_unit": { "type": "string", "minLength": 1 },
+        "operator": { "enum": ["gt", "gte", "lt", "lte", "eq"] },
+        "threshold": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "bindingId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "artifactPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/bindingId" },
+        "definition_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "signalDefinitionRef": {
+      "type": "object",
+      "required": ["signal_id", "definition_version", "signal_definition_hash"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/bindingId" },
+        "definition_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "signal_definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "kernelArtifactRef": {
+      "type": "object",
+      "required": ["artifact_path", "artifact_sha256", "kernel_id", "manifest_hash"],
+      "properties": {
+        "artifact_path": { "$ref": "#/$defs/artifactPath" },
+        "artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "kernel_id": { "$ref": "#/$defs/bindingId" },
+        "manifest_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "signalRegistryArtifactRef": {
+      "type": "object",
+      "required": ["artifact_path", "artifact_sha256", "registry_id", "schema_version"],
+      "properties": {
+        "artifact_path": { "$ref": "#/$defs/artifactPath" },
+        "artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "registry_id": { "$ref": "#/$defs/bindingId" },
+        "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+      },
+      "additionalProperties": false
+    },
+    "metricContract": {
+      "type": "object",
+      "required": [
+        "metric_id", "measure", "unit", "denominator", "population", "geography",
+        "period", "aggregation", "collection_process_ids", "source_refs",
+        "evaluation_rule", "metric_checksum"
+      ],
+      "properties": {
+        "metric_id": { "$ref": "#/$defs/bindingId" },
+        "measure": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "denominator": { "type": "string", "minLength": 1 },
+        "population": { "type": "string", "minLength": 1 },
+        "geography": { "type": "string", "minLength": 1 },
+        "period": { "type": "string", "minLength": 1 },
+        "aggregation": { "type": "string", "minLength": 1 },
+        "collection_process_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/bindingId" }
+        },
+        "source_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/bindingId" }
+        },
+        "evaluation_rule": { "type": "string", "minLength": 1 },
+        "metric_checksum": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "conditionScope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services", "period"],
+      "properties": {
+        "jurisdictions": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "geographies": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "cohorts": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "services": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "period": {
+          "type": "object",
+          "required": ["starts_at", "ends_at"],
+          "properties": {
+            "starts_at": { "type": "string", "format": "date-time" },
+            "ends_at": { "type": "string", "format": "date-time" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "evaluatorRef": {
+      "type": "object",
+      "required": ["id", "version", "digest", "schema_digest", "implementation_digest", "conformance_vectors_digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/bindingId" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "digest": { "$ref": "#/$defs/sha256" },
+        "schema_digest": { "$ref": "#/$defs/sha256" },
+        "implementation_digest": { "$ref": "#/$defs/sha256" },
+        "conformance_vectors_digest": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceStateRef": {
+      "type": "object",
+      "required": [
+        "kernel_id", "kernel_manifest_hash", "event_count", "tip_event_id",
+        "tip_event_hash", "state_hash"
+      ],
+      "properties": {
+        "kernel_id": { "$ref": "#/$defs/bindingId" },
+        "kernel_manifest_hash": { "$ref": "#/$defs/sha256" },
+        "event_count": { "type": "integer", "minimum": 1 },
+        "tip_event_id": { "$ref": "#/$defs/bindingId" },
+        "tip_event_hash": { "$ref": "#/$defs/sha256" },
+        "state_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "computedRuleState": {
+      "type": "object",
+      "required": ["axis", "state"],
+      "properties": {
+        "axis": { "const": "computed_rule_state" },
+        "state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] }
+      },
+      "additionalProperties": false
+    },
+    "issueEvaluationReceipt": {
+      "type": "object",
+      "required": [
+        "evaluated_at", "clock", "evaluator_ref", "condition_definition_ref",
+        "observation_hashes", "mechanically_valid_for_evaluation", "computed_rule_state",
+        "empirical_truth_established", "authority_effect", "action_authorised",
+        "publication_approved", "kernel_manifest_hash", "evidence_state_hash", "evaluation_hash"
+      ],
+      "properties": {
+        "evaluated_at": { "type": "string", "format": "date-time" },
+        "clock": {
+          "type": "object",
+          "required": ["source", "trusted"],
+          "properties": {
+            "source": { "const": "caller-supplied" },
+            "trusted": { "const": false }
+          },
+          "additionalProperties": false
+        },
+        "evaluator_ref": { "$ref": "#/$defs/evaluatorRef" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "observation_hashes": {
+          "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" }
+        },
+        "mechanically_valid_for_evaluation": { "type": "boolean" },
+        "computed_rule_state": { "$ref": "#/$defs/computedRuleState" },
+        "empirical_truth_established": { "const": false },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "publication_approved": { "const": false },
+        "kernel_manifest_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_state_hash": { "$ref": "#/$defs/sha256" },
+        "evaluation_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "interpretationBoundaries": {
+      "type": "object",
+      "required": [
+        "probability_relation", "current_if_state_is_forecast_probability",
+        "probability_establishes_empirical_truth", "probability_establishes_causality",
+        "probability_establishes_authority", "empirical_truth_established",
+        "causality_established", "authority_effect", "action_authorised",
+        "public_claim_ceiling"
+      ],
+      "properties": {
+        "probability_relation": { "const": "orthogonal-to-current-computed-if-state" },
+        "current_if_state_is_forecast_probability": { "const": false },
+        "probability_establishes_empirical_truth": { "const": false },
+        "probability_establishes_causality": { "const": false },
+        "probability_establishes_authority": { "const": false },
+        "empirical_truth_established": { "const": false },
+        "causality_established": { "const": false },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "public_claim_ceiling": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "issueBasis": {
+      "type": "object",
+      "required": [
+        "basis_version", "issued_at", "kernel_ref", "signal_registry_ref",
+        "condition_definition_ref", "predicate_id", "signal_definition_ref",
+        "metric_contract", "condition_scope", "target_scope_hash",
+        "evidence_state_ref", "issue_evaluation_receipt",
+        "interpretation_boundaries", "issue_basis_hash"
+      ],
+      "properties": {
+        "basis_version": { "const": "1.0.0" },
+        "issued_at": { "type": "string", "format": "date-time" },
+        "kernel_ref": { "$ref": "#/$defs/kernelArtifactRef" },
+        "signal_registry_ref": { "$ref": "#/$defs/signalRegistryArtifactRef" },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "predicate_id": { "$ref": "#/$defs/bindingId" },
+        "signal_definition_ref": { "$ref": "#/$defs/signalDefinitionRef" },
+        "metric_contract": { "$ref": "#/$defs/metricContract" },
+        "condition_scope": { "$ref": "#/$defs/conditionScope" },
+        "target_scope_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_state_ref": { "$ref": "#/$defs/evidenceStateRef" },
+        "issue_evaluation_receipt": { "$ref": "#/$defs/issueEvaluationReceipt" },
+        "interpretation_boundaries": { "$ref": "#/$defs/interpretationBoundaries" },
+        "issue_basis_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "baseline": {
+      "type": "object",
+      "required": [
+        "campaign_id",
+        "family_id",
+        "name",
+        "kind",
+        "mechanical_role",
+        "probability",
+        "method",
+        "declared_at",
+        "policy_snapshot",
+        "calculation"
+      ],
+      "properties": {
+        "campaign_id": { "type": "string", "minLength": 1 },
+        "family_id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "kind": { "const": "mechanical" },
+        "mechanical_role": { "enum": ["naive", "reference_class"] },
+        "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "declared_at": { "type": "string", "format": "date-time" },
+        "policy_snapshot": { "$ref": "#/$defs/contentAddressedEvidence" },
+        "calculation": {
+          "type": "object",
+          "required": [
+            "algorithm_id",
+            "version",
+            "input_checksums",
+            "checksum",
+            "verification_status"
+          ],
+          "properties": {
+            "algorithm_id": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "input_checksums": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+            },
+            "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+            "verification_status": { "const": "unverified_external_review_required" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "method": {
+      "type": "object",
+      "required": ["kind", "description", "version"],
+      "properties": {
+        "kind": { "enum": ["human", "model", "ensemble"] },
+        "description": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "contentAddressedEvidence": {
+      "type": "object",
+      "required": ["source", "retrieved_at", "vintage", "checksum"],
+      "properties": {
+        "source": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "published_at": { "type": "string", "format": "date-time" },
+        "vintage": { "type": "string", "minLength": 1 },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "retained_media_type": { "const": "application/json" },
+        "retained_bytes_base64": {
+          "type": "string",
+          "minLength": 4,
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "publisher_identity_verification_status": {
+          "const": "unverified_external_review_required"
+        }
+      },
+      "dependentRequired": {
+        "retained_media_type": ["retained_bytes_base64", "publisher_identity_verification_status"],
+        "retained_bytes_base64": ["retained_media_type", "publisher_identity_verification_status"],
+        "publisher_identity_verification_status": ["retained_media_type", "retained_bytes_base64"]
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["author", "class", "issued_commit", "disclaimer"],
+      "properties": {
+        "author": { "type": "string", "minLength": 1 },
+        "class": { "enum": ["agent-proposal", "human-judgement", "institutional-forecast"] },
+        "issued_commit": { "type": "string", "pattern": "^[a-f0-9]{7,40}$" },
+        "disclaimer": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "voidPolicy": {
+      "type": "object",
+      "required": ["allowed_reason_codes", "evidence_required"],
+      "properties": {
+        "allowed_reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "source_retired",
+              "measure_materially_changed",
+              "resolution_evidence_unavailable"
+            ]
+          }
+        },
+        "evidence_required": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "accountableOwner": {
+      "type": "object",
+      "required": [
+        "claimed_owner_id",
+        "name",
+        "role",
+        "acknowledged_at",
+        "acknowledgement_evidence",
+        "verification_status"
+      ],
+      "properties": {
+        "claimed_owner_id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "acknowledged_at": { "type": "string", "format": "date-time" },
+        "acknowledgement_evidence": { "$ref": "#/$defs/contentAddressedEvidence" },
+        "verification_status": { "const": "unverified_external_review_required" }
+      },
+      "additionalProperties": false
+    },
+    "forecastPolicy": {
+      "type": "object",
+      "required": [
+        "probability_threshold",
+        "action_at_or_above",
+        "action_below",
+        "role"
+      ],
+      "properties": {
+        "probability_threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+        "action_at_or_above": { "type": "string", "minLength": 1 },
+        "action_below": { "type": "string", "minLength": 1 },
+        "role": { "const": "evaluation_only_human_authorisation_required" }
+      },
+      "additionalProperties": false
+    },
+    "noModelBaseline": {
+      "type": "object",
+      "required": ["policy_id", "version", "action", "declared_at", "policy_snapshot"],
+      "properties": {
+        "policy_id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "action": { "type": "string", "minLength": 1 },
+        "declared_at": { "type": "string", "format": "date-time" },
+        "policy_snapshot": { "$ref": "#/$defs/contentAddressedEvidence" }
+      },
+      "additionalProperties": false
+    },
+    "utilityEntry": {
+      "type": "object",
+      "required": ["action", "outcome", "value"],
+      "properties": {
+        "action": { "type": "string", "minLength": 1 },
+        "outcome": { "enum": [0, 1] },
+        "value": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "utilityModel": {
+      "type": "object",
+      "required": [
+        "scale_id",
+        "unit",
+        "perspective",
+        "lower_bound",
+        "upper_bound",
+        "basis",
+        "entries"
+      ],
+      "properties": {
+        "scale_id": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "perspective": { "type": "string", "minLength": 1 },
+        "lower_bound": { "type": "number", "minimum": -1000000000, "maximum": 1000000000 },
+        "upper_bound": { "type": "number", "minimum": -1000000000, "maximum": 1000000000 },
+        "basis": {
+          "type": "object",
+          "required": ["class", "declared_at", "evidence"],
+          "properties": {
+            "class": {
+              "enum": ["agent_hypothesis", "affected_party_governed", "authorised_policy"]
+            },
+            "declared_at": { "type": "string", "format": "date-time" },
+            "evidence": { "$ref": "#/$defs/contentAddressedEvidence" }
+          },
+          "additionalProperties": false
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "$ref": "#/$defs/utilityEntry" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionContext": {
+      "type": "object",
+      "required": [
+        "decision_id",
+        "claimed_accountable_owner",
+        "decision_due_at",
+        "eligible_actions",
+        "forecast_policy",
+        "no_model_baseline",
+        "utility_model",
+        "outcome_interference"
+      ],
+      "properties": {
+        "decision_id": { "type": "string", "minLength": 1 },
+        "claimed_accountable_owner": { "$ref": "#/$defs/accountableOwner" },
+        "decision_due_at": { "type": "string", "format": "date-time" },
+        "eligible_actions": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "forecast_policy": { "$ref": "#/$defs/forecastPolicy" },
+        "no_model_baseline": { "$ref": "#/$defs/noModelBaseline" },
+        "utility_model": { "$ref": "#/$defs/utilityModel" },
+        "outcome_interference": {
+          "enum": ["action_cannot_affect_target", "action_may_affect_target"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionObservation": {
+      "type": "object",
+      "required": [
+        "decided_at",
+        "action_taken",
+        "claimed_authoriser_id",
+        "forecast_consulted",
+        "authority_verification_status",
+        "evidence"
+      ],
+      "properties": {
+        "decided_at": { "type": "string", "format": "date-time" },
+        "action_taken": { "type": "string", "minLength": 1 },
+        "claimed_authoriser_id": { "type": "string", "minLength": 1 },
+        "forecast_consulted": { "type": "boolean" },
+        "authority_verification_status": { "const": "unverified_external_review_required" },
+        "evidence": {
+          "type": "object",
+          "$ref": "#/$defs/contentAddressedEvidence",
+          "required": ["published_at"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "pendingResolution": {
+      "type": "object",
+      "required": ["status"],
+      "properties": { "status": { "const": "pending" } },
+      "additionalProperties": false
+    },
+    "resolvedResolution": {
+      "type": "object",
+      "required": ["status", "outcome", "resolved_at", "evidence"],
+      "properties": {
+        "status": { "const": "resolved" },
+        "outcome": { "enum": [0, 1] },
+        "resolved_at": { "type": "string", "format": "date-time" },
+        "evidence": {
+          "type": "object",
+          "$ref": "#/$defs/contentAddressedEvidence",
+          "required": ["published_at"]
+        },
+        "decision_observation": { "$ref": "#/$defs/decisionObservation" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "voidResolution": {
+      "type": "object",
+      "required": [
+        "status",
+        "outcome",
+        "voided_at",
+        "reason_code",
+        "reason",
+        "evidence",
+        "adjudication"
+      ],
+      "properties": {
+        "status": { "const": "void" },
+        "outcome": { "type": "null" },
+        "voided_at": { "type": "string", "format": "date-time" },
+        "reason_code": {
+          "enum": [
+            "source_retired",
+            "measure_materially_changed",
+            "resolution_evidence_unavailable"
+          ]
+        },
+        "reason": { "type": "string", "minLength": 1 },
+        "evidence": {
+          "type": "object",
+          "$ref": "#/$defs/contentAddressedEvidence",
+          "required": ["published_at"]
+        },
+        "adjudication": {
+          "type": "object",
+          "required": [
+            "claimed_adjudicator_id",
+            "independent_of_forecaster",
+            "decision",
+            "verification_status",
+            "evidence"
+          ],
+          "properties": {
+            "claimed_adjudicator_id": { "type": "string", "minLength": 1 },
+            "independent_of_forecaster": { "const": true },
+            "decision": { "const": "accepted_void" },
+            "verification_status": { "const": "unverified_external_review_required" },
+            "evidence": {
+              "type": "object",
+              "$ref": "#/$defs/contentAddressedEvidence",
+              "required": ["published_at"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "decision_observation": { "$ref": "#/$defs/decisionObservation" }
+      },
+      "additionalProperties": false
+    },
+    "resolution": {
+      "oneOf": [
+        { "$ref": "#/$defs/pendingResolution" },
+        { "$ref": "#/$defs/resolvedResolution" },
+        { "$ref": "#/$defs/voidResolution" }
+      ]
+    },
+    "historyEntry": {
+      "type": "object",
+      "required": ["at", "event", "actor"],
+      "properties": {
+        "at": { "type": "string", "format": "date-time" },
+        "event": { "enum": ["issued", "resolved", "voided"] },
+        "actor": { "type": "string", "minLength": 1 },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

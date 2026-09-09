@@ -1,0 +1,14 @@
+{
+  "name": "snapshot-authored-owner-forgery",
+  "operations": [
+    {
+      "op": "add",
+      "path": "/owner",
+      "value": {
+        "organisation": "Self-asserted authority",
+        "role": "claimed owner"
+      }
+    }
+  ],
+  "expected_layer": "schema"
+}

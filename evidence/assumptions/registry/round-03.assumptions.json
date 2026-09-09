@@ -1,0 +1,440 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "assumption-registry.round-03",
+  "registry_version": "1.0.0",
+  "as_of": "2026-09-08",
+  "truth_assessment": "not_performed_by_contract_validation",
+  "assumptions": [
+    {
+      "assumption_id": "assumption.source-bound-evidence-integrity",
+      "version": "1.0.0",
+      "exact_statement": "A separately governed source, classification and derivation manifest can detect material mutation, substitution or unsupported provenance before public release.",
+      "class": "bounded_hypothesis",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["public evidence users"],
+        "systems": ["snapshot capture, classification, derivation and record indexing"],
+        "valid_from": "2026-09-08",
+        "valid_until": "2027-03-08",
+        "exclusions": ["Upstream facts whose original response bytes were not retained"]
+      },
+      "stewardship": {
+        "owner_ref": "role.evidence-steward",
+        "owner_type": "role",
+        "status": "under_review",
+        "accountability": "Freeze the manifest, retain hostile fixtures and seek independent reproduction."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.evidence-users", "description": "People relying on public evidence claims", "representation_state": "not_consulted" },
+          { "party_id": "maintainers.evidence", "description": "People maintaining evidence controls", "representation_state": "directly_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.evidence-users", "description": "People relying on public evidence claims", "representation_state": "not_consulted" }
+        ],
+        "burdened": [
+          { "party_id": "maintainers.evidence", "description": "People maintaining evidence controls", "representation_state": "directly_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.containments", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md", "verification_state": "repository_local", "relevance": "Records current internal containments and their required falsification tests." }
+      ],
+      "counterevidence_refs": [
+        { "ref_id": "review.round-03.evidence-attacks", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#evidence-kernel-attacks", "verification_state": "repository_local", "relevance": "Five malicious snapshots passed the earlier global build." }
+      ],
+      "challenge": {
+        "kind": "falsifier",
+        "testable_prediction": "Every manifest mutation, source substitution and unrecomputed derived value is rejected with a specific error.",
+        "observation_that_would_falsify": "Any declared neighbouring mutation passes a clean-checkout build against the frozen release.",
+        "test_method": "Run the frozen malicious snapshots plus generated neighbouring attacks under independent review."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.publish-evidence-snapshot", "relationship": "blocks_until_resolved", "consequence_if_wrong": "Mutated or unsupported claims may be presented as decision-grade evidence.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": "2027-03-08", "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_hypothesis",
+        "plain_language": "Hypothesis: the new evidence controls are intended to reject source, classification and derivation corruption, but independent reproduction is still outstanding.",
+        "rationale": "The design claim is useful only when paired with its failure history and open test."
+      },
+      "source_findings": ["I03-EV-01", "I03-EV-02", "I03-EV-03", "I03-EV-04", "I03-EV-06", "I03-TM-02", "I03-TM-07", "I03-TM-10", "I03-TM-12", "I03-TM-15"]
+    },
+    {
+      "assumption_id": "assumption.epistemic-class-stays-adjacent",
+      "version": "1.0.0",
+      "exact_statement": "Every public rendering of a claim must keep its evidence class, timing basis and publication eligibility adjacent enough to survive crop, reflow, print, copy and export.",
+      "class": "hard_safeguard",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["public dashboard readers"],
+        "systems": ["cards, charts, comparison views, print, copy and machine exports"],
+        "valid_from": "2026-09-08",
+        "valid_until": null,
+        "exclusions": []
+      },
+      "stewardship": {
+        "owner_ref": "role.public-meaning-steward",
+        "owner_type": "role",
+        "status": "active",
+        "accountability": "Block public release when context can be separated from a claim."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.dashboard-readers", "description": "People interpreting public claims", "representation_state": "not_consulted" },
+          { "party_id": "maintainers.interface", "description": "People maintaining every rendering surface", "representation_state": "directly_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.dashboard-readers", "description": "People interpreting public claims", "representation_state": "not_consulted" }
+        ],
+        "burdened": [
+          { "party_id": "maintainers.interface", "description": "People maintaining every rendering surface", "representation_state": "directly_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.adjacency-attacks", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md", "verification_state": "repository_local", "relevance": "Records class borrowing, hidden clocks and cropped action-boundary attacks." }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Can any supported viewport or export preserve the claim while losing its epistemic or authority qualifier?",
+        "process": "Review cards, SVG endpoints, compare, mobile, 400 percent zoom, print, copy and machine exports.",
+        "decision_rule": "Block the affected surface if the qualifier is missing, borrowed or separable from the claim."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.release-public-interface", "relationship": "constrains", "consequence_if_wrong": "A bounded claim may be consumed as observed fact or authorised instruction.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": null, "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_safeguard",
+        "plain_language": "Safeguard: a number or action label must travel with the context needed to interpret it correctly.",
+        "rationale": "Correct source data cannot protect a reader after the interface strips away its meaning."
+      },
+      "source_findings": ["I03-EV-05", "I03-TM-14", "I03-TM-17"]
+    },
+    {
+      "assumption_id": "assumption.point-level-timing-is-decision-adequate",
+      "version": "1.0.0",
+      "exact_statement": "Point-level source binding, role-aware timing and retained execution evidence can make the timing assessment adequate for bounded publication decisions.",
+      "class": "bounded_hypothesis",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["people relying on time-sensitive signals"],
+        "systems": ["external observations, derivations, assessments and scoped exports"],
+        "valid_from": "2026-09-08",
+        "valid_until": "2027-03-08",
+        "exclusions": ["Sources with unresolved acquisition or release intervals"]
+      },
+      "stewardship": {
+        "owner_ref": "role.timing-steward",
+        "owner_type": "role",
+        "status": "under_review",
+        "accountability": "Attack point joins, clocks, role assignments, operands and export boundaries."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.signal-users", "description": "People interpreting time-sensitive signals", "representation_state": "not_consulted" },
+          { "party_id": "maintainers.timing", "description": "People maintaining timing contracts", "representation_state": "directly_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.signal-users", "description": "People interpreting time-sensitive signals", "representation_state": "not_consulted" }
+        ],
+        "burdened": [
+          { "party_id": "maintainers.timing", "description": "People maintaining timing contracts", "representation_state": "directly_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.timing-containments", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#timing-and-record-attacks", "verification_state": "repository_local", "relevance": "Documents internally contained timing attacks and the remaining independent-review requirement." }
+      ],
+      "counterevidence_refs": [
+        { "ref_id": "review.round-03.timing-failures", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#timing-and-record-attacks", "verification_state": "repository_local", "relevance": "A green first implementation hid multiple timing and record failures." }
+      ],
+      "challenge": {
+        "kind": "falsifier",
+        "testable_prediction": "Every governed point reports its own source binding, role, interval, lineage and publication eligibility without borrowing another point's state.",
+        "observation_that_would_falsify": "A role swap, omitted operand, invented clock, point substitution or dangling export passes the frozen challenge pack.",
+        "test_method": "Generate point-targeted mutations and compare the assessment bundle with independently recomputed source and derivation records."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.publish-time-sensitive-signal", "relationship": "blocks_until_resolved", "consequence_if_wrong": "A stale, unresolved or misbound point may appear current and actionable.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": "2027-03-08", "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_hypothesis",
+        "plain_language": "Hypothesis: point-level timing controls can support bounded publication decisions once independent attacks reproduce their behaviour.",
+        "rationale": "Internal test coverage is evidence about implementation behaviour, not proof that the model is complete."
+      },
+      "source_findings": ["I03-TM-01", "I03-TM-03", "I03-TM-04", "I03-TM-05", "I03-TM-06", "I03-TM-08", "I03-TM-09", "I03-TM-11", "I03-TM-13", "I03-TM-16", "I03-TM-18"]
+    },
+    {
+      "assumption_id": "assumption.transition-resolution-prevents-unsafe-state-change",
+      "version": "1.0.0",
+      "exact_statement": "A stateful transition resolver with independent safety, candidate-phase, concurrent-duty and exit axes can prevent gate results from causing unsafe lifecycle changes.",
+      "class": "bounded_hypothesis",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["people affected by candidate interventions"],
+        "systems": ["condition evaluation and intervention lifecycle proposals"],
+        "valid_from": "2026-09-08",
+        "valid_until": "2027-03-08",
+        "exclusions": ["External authorisation and operational delivery"]
+      },
+      "stewardship": {
+        "owner_ref": "role.decision-kernel-steward",
+        "owner_type": "role",
+        "status": "under_review",
+        "accountability": "Exercise every lifecycle transition, conflict and concurrent duty against prior state."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.affected-people", "description": "People affected by lifecycle changes", "representation_state": "not_consulted" },
+          { "party_id": "operators.delivery", "description": "People responsible for safe service transitions", "representation_state": "not_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.affected-people", "description": "People affected by lifecycle changes", "representation_state": "not_consulted" }
+        ],
+        "burdened": [
+          { "party_id": "operators.delivery", "description": "People responsible for safe service transitions", "representation_state": "not_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.if-attacks", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#if-kernel-attacks", "verification_state": "repository_local", "relevance": "Defines counterexamples for missing prepare, hidden concurrency, stateless withdrawal and conflicting exits." }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "falsifier",
+        "testable_prediction": "Every reachable combination yields explicit safety, candidate-phase, concurrent-duty and exit outputs without automatic activation or withdrawal.",
+        "observation_that_would_falsify": "Any lifecycle matrix row silently withdraws support, hides a concurrent duty or graduates through a conflict.",
+        "test_method": "Exhaustively evaluate the lifecycle transition matrix, including unknown and conflicting predicate states."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.propose-lifecycle-transition", "relationship": "blocks_until_resolved", "consequence_if_wrong": "A computed result could suppress needed support or conceal a safety duty.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": "2027-03-08", "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_hypothesis",
+        "plain_language": "Hypothesis: the transition resolver can expose safe candidate states and concurrent duties without activating or withdrawing anything.",
+        "rationale": "The model is testable, but it remains a proposal generator rather than an authority."
+      },
+      "source_findings": ["I03-IF-01", "I03-IF-03", "I03-IF-04", "I03-IF-05"]
+    },
+    {
+      "assumption_id": "assumption.truth-eligibility-authority-are-separate",
+      "version": "1.0.0",
+      "exact_statement": "Predicate truth, condition eligibility and legitimate authority are separate states, and no repository record may infer the latter from either of the former.",
+      "class": "hard_safeguard",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["people affected by candidate actions"],
+        "systems": ["conditions, options, dashboards, exports and public communications"],
+        "valid_from": "2026-09-08",
+        "valid_until": null,
+        "exclusions": []
+      },
+      "stewardship": {
+        "owner_ref": "role.governance-steward",
+        "owner_type": "role",
+        "status": "active",
+        "accountability": "Keep every repository output proposal-only and verify the external commitment boundary separately."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.affected-people", "description": "People affected by candidate actions", "representation_state": "not_consulted" },
+          { "party_id": "authorities.external", "description": "Legitimate authorities accountable for real decisions", "representation_state": "not_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.affected-people", "description": "People affected by candidate actions", "representation_state": "not_consulted" }
+        ],
+        "burdened": [
+          { "party_id": "authorities.external", "description": "Legitimate authorities accountable for real decisions", "representation_state": "not_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.authority-attacks", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md", "verification_state": "repository_local", "relevance": "Shows calculated gate truth and synthetic commitments can masquerade as permission." }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Could any reader or downstream system interpret this output as permission to act?",
+        "process": "Trace every state name, action phrase, export field and lifecycle edge through public and machine surfaces.",
+        "decision_rule": "Block output that collapses truth, eligibility, commitment or authority into one state."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.authorise-intervention", "relationship": "constrains", "consequence_if_wrong": "A software assertion could masquerade as a lawful and legitimate mandate.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": null, "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_safeguard",
+        "plain_language": "Safeguard: a condition can evaluate as true and an option can be eligible while nobody has authorised, funded or activated it.",
+        "rationale": "The distinction is a permanent safety boundary, not an empirical forecast."
+      },
+      "source_findings": ["I03-IF-02", "I03-AC-01", "I03-AC-04"]
+    },
+    {
+      "assumption_id": "assumption.complete-readiness-bundle-precedes-action",
+      "version": "1.0.0",
+      "exact_statement": "Any real intervention requires separately verified, mutually scoped and unexpired authority, consent, funding, service capacity, help, appeal, expiry and stop mechanisms before activation.",
+      "class": "hard_safeguard",
+      "scope": {
+        "jurisdictions": ["each intervention jurisdiction"],
+        "populations": ["people affected by candidate interventions"],
+        "systems": ["external operational commitment and delivery"],
+        "valid_from": "2026-09-08",
+        "valid_until": null,
+        "exclusions": []
+      },
+      "stewardship": {
+        "owner_ref": "role.operational-readiness-steward",
+        "owner_type": "role",
+        "status": "proposed",
+        "accountability": "Define the external commitment envelope and prevent partial bundles from appearing ready."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.affected-people", "description": "People affected by intervention delivery or withdrawal", "representation_state": "not_consulted" },
+          { "party_id": "operators.delivery", "description": "People accountable for funded and safe delivery", "representation_state": "not_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.affected-people", "description": "People affected by intervention delivery or withdrawal", "representation_state": "not_consulted" }
+        ],
+        "burdened": [
+          { "party_id": "public.affected-people", "description": "People affected by intervention delivery or withdrawal", "representation_state": "not_consulted" },
+          { "party_id": "operators.delivery", "description": "People accountable for funded and safe delivery", "representation_state": "not_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.readiness-attacks", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#public-action-boundary-attacks", "verification_state": "repository_local", "relevance": "Shows that free text and one verified authority cannot establish complete operational readiness." }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Is every required commitment independently verified for the same actor, scope, population and validity interval?",
+        "process": "Verify each commitment with its accountable actor and test missing, mismatched, expired, disputed and revoked states.",
+        "decision_rule": "Remain proposal-only if any commitment is absent, mismatched, expired, disputed or unverifiable."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.activate-real-world-intervention", "relationship": "constrains", "consequence_if_wrong": "A partially ready intervention could expose people to service failure without remedy.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": null, "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_safeguard",
+        "plain_language": "Safeguard: no action is ready until every required actor and commitment is independently verified for the same scope and time.",
+        "rationale": "A partial bundle can be structurally neat and operationally unsafe."
+      },
+      "source_findings": ["I03-AC-02", "I03-AC-04", "I03-AC-05"]
+    },
+    {
+      "assumption_id": "assumption.affected-parties-govern-acceptable-tradeoffs",
+      "version": "1.0.0",
+      "exact_statement": "Within binding rights and law, affected and burdened parties should have decisive standing over whether an intervention's distribution of benefits, burdens and residual risks is acceptable.",
+      "class": "legitimate_value_decision",
+      "scope": {
+        "jurisdictions": ["each intervention jurisdiction"],
+        "populations": ["affected, benefited and burdened parties"],
+        "systems": ["option design, consent, dissent, appeal and governance"],
+        "valid_from": "2026-09-08",
+        "valid_until": null,
+        "exclusions": ["Choices prohibited by binding rights or law"]
+      },
+      "stewardship": {
+        "owner_ref": "role.legitimacy-steward",
+        "owner_type": "role",
+        "status": "proposed",
+        "accountability": "Commission a legitimate process and preserve disagreement rather than declaring consensus."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.affected-people", "description": "People experiencing direct effects and spillovers", "representation_state": "unknown" },
+          { "party_id": "institutions.delivery", "description": "Institutions carrying delivery duties and costs", "representation_state": "not_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.affected-people", "description": "People experiencing direct effects and spillovers", "representation_state": "unknown" }
+        ],
+        "burdened": [
+          { "party_id": "public.affected-people", "description": "People experiencing direct effects and spillovers", "representation_state": "unknown" },
+          { "party_id": "institutions.delivery", "description": "Institutions carrying delivery duties and costs", "representation_state": "not_consulted" }
+        ]
+      },
+      "evidence_refs": [
+        { "ref_id": "review.round-03.cross-actor-attack", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#public-action-boundary-attacks", "verification_state": "repository_local", "relevance": "Demonstrates that one actor cannot declare another actor ready or agreed." }
+      ],
+      "counterevidence_refs": [],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "Who has standing to accept this distribution of benefit, burden and residual risk?",
+        "process": "Co-design the decision process with affected parties, publish representation gaps and preserve dissent, veto and appeal routes.",
+        "decision_rule": "Do not describe a tradeoff as accepted until the mandated process records scoped agreement and unresolved dissent."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.accept-distributional-tradeoff", "relationship": "blocks_until_resolved", "consequence_if_wrong": "Project authors could substitute their values for those carrying the consequences.", "handling": "explicit_deliberation" }
+      ],
+      "timebox": { "expires_on": null, "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_value_choice",
+        "plain_language": "Value choice: people carrying an intervention's consequences should have decisive standing over whether its tradeoffs are acceptable.",
+        "rationale": "The project must expose this normative commitment instead of presenting it as a discovered fact."
+      },
+      "source_findings": ["I03-AC-03"]
+    },
+    {
+      "assumption_id": "assumption.legitimacy-and-real-delivery-unverified",
+      "version": "1.0.0",
+      "exact_statement": "The project does not yet know whether candidate representatives, mandates, consent, lawfulness, burden allocation or delivery capacity are legitimate and real for any operational scope.",
+      "class": "explicit_unknown",
+      "scope": {
+        "jurisdictions": ["global"],
+        "populations": ["affected, benefited and burdened parties"],
+        "systems": ["external legitimacy, commitment and real-world delivery"],
+        "valid_from": "2026-09-08",
+        "valid_until": "2027-03-08",
+        "exclusions": []
+      },
+      "stewardship": {
+        "owner_ref": "role.external-validation-steward",
+        "owner_type": "role",
+        "status": "under_review",
+        "accountability": "Keep external residuals visible and seek evidence from the people and institutions involved."
+      },
+      "parties": {
+        "affected": [
+          { "party_id": "public.affected-people", "description": "People the project may claim to represent or support", "representation_state": "unknown" },
+          { "party_id": "institutions.external", "description": "Institutions whose mandate, capacity or commitments would be required", "representation_state": "not_consulted" }
+        ],
+        "benefited": [
+          { "party_id": "public.affected-people", "description": "People the project may claim to represent or support", "representation_state": "unknown" }
+        ],
+        "burdened": [
+          { "party_id": "public.affected-people", "description": "People the project may claim to represent or support", "representation_state": "unknown" },
+          { "party_id": "institutions.external", "description": "Institutions whose mandate, capacity or commitments would be required", "representation_state": "not_consulted" }
+        ]
+      },
+      "evidence_refs": [],
+      "counterevidence_refs": [
+        { "ref_id": "review.round-03.external-residuals", "kind": "internal_review", "locator": "reviews/round-03-internal-adversarial-register.md#external-review-challenge-pack", "verification_state": "repository_local", "relevance": "Explicitly states that code cannot establish legitimacy, consent, representation, lawfulness, burden fairness or real delivery." }
+      ],
+      "challenge": {
+        "kind": "review_mechanism",
+        "review_question": "What evidence would the affected people and accountable external institutions accept as establishing each residual for this exact scope?",
+        "process": "Commission independent legal, legitimacy, representation, commitment and delivery reviews with affected-party challenge routes.",
+        "decision_rule": "Keep each residual unknown and block operational claims until its accountable external reviewer records a scoped determination."
+      },
+      "decision_dependencies": [
+        { "decision_id": "decision.claim-operational-readiness", "relationship": "blocks_until_resolved", "consequence_if_wrong": "Repository completeness could be mistaken for legitimacy, lawfulness or real delivery capacity.", "handling": "fail_closed" }
+      ],
+      "timebox": { "expires_on": "2027-03-08", "next_review_on": "2026-10-08" },
+      "replacements": { "replaces": [], "replaced_by": [] },
+      "public_disposition": {
+        "state": "publish_as_unknown",
+        "plain_language": "Unknown: this repository has not established real mandates, legitimacy, consent, lawfulness, fair burden sharing or delivery capacity.",
+        "rationale": "These are external social and institutional facts that code cannot self-attest."
+      },
+      "source_findings": ["I03-AC-03", "I03-AC-04"]
+    }
+  ]
+}

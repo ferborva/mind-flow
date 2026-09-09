@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "scope_manifest_id": "scope-manifest.round-04.worker-option.synthetic",
+  "classification": "research-draft",
+  "canonical_scope": {
+    "source_role": "agency-map",
+    "native_scope_hash": "sha256:6a928c2888adf7b797264862e841269c19e73e7c0c96a56ccfebf77b64886508",
+    "people": "Affected workers inside the complete registered observation scope",
+    "verb": "navigate",
+    "object": "automation-related work change",
+    "standard": "without involuntary loss of real earnings or essential conditions, while retaining a credible alternative and accessible human review",
+    "place": "New South Wales, Australia",
+    "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+    "jurisdictions": [
+      "Australia"
+    ],
+    "geographies": [
+      "New South Wales"
+    ],
+    "services": [
+      "Work transition support"
+    ],
+    "starts_at": "2026-01-01T00:00:00Z",
+    "ends_at": "2026-12-31T23:59:59Z"
+  },
+  "mappings": [
+    {
+      "mapping_id": "scope-mapping.round-04.worker-option.agency-map",
+      "role": "agency-map",
+      "native_scope_hash": "sha256:6a928c2888adf7b797264862e841269c19e73e7c0c96a56ccfebf77b64886508",
+      "relationship": "canonical-source",
+      "rationale": "The canonical scope reproduces the agency outcome scope without changing its native hash domain.",
+      "unresolved_differences": [],
+      "mapping_truth_assessed": false
+    },
+    {
+      "mapping_id": "scope-mapping.round-04.worker-option.possible-path",
+      "role": "possible-path",
+      "native_scope_hash": "sha256:6297bdb10971769c2ddb5f2edbbaf44ba733bf34d3e2e2969efd67d2a4822e3e",
+      "relationship": "declared-correspondence-unverified",
+      "rationale": "The possible path uses the same public outcome fields and condition, represented in its own closed native scope.",
+      "unresolved_differences": [
+        "The two contracts use different native scope shapes and hashes; structural equality does not establish real-world mapping truth."
+      ],
+      "mapping_truth_assessed": false
+    }
+  ],
+  "mapping_truth_assessed": false,
+  "authority_effect": "none",
+  "action_authorised": false
+}

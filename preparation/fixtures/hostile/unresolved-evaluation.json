@@ -1,0 +1,5 @@
+{
+  "id": "attack.unresolved-evaluation",
+  "operations": [{ "op": "replace", "path": "/actions/0/if_binding/evaluation_ref/id", "value": "evaluation.missing" }],
+  "expected_codes": ["UNRESOLVED_REFERENCE"]
+}

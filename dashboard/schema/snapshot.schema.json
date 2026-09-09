@@ -1,23 +1,47 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mind-flow.local/dashboard/snapshot.schema.json",
-  "title": "Seldon Observatory snapshot",
+  "title": "Abundance Transition Observatory snapshot",
   "type": "object",
   "required": [
     "schema_version",
+    "record_id",
     "snapshot_id",
+    "as_of",
     "generated_at",
     "generator",
+    "publication_status",
+    "evidence_policy",
+    "reproducibility",
     "entities",
-    "signals"
+    "signals",
+    "public_update",
+    "if_path",
+    "source_transition_bundle",
+    "possible_path_refs"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
+    "schema_version": { "const": "2.1.0" },
+    "record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
     "snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "as_of": { "type": "string", "format": "date-time", "pattern": "Z$" },
     "generated_at": { "type": "string", "format": "date-time" },
     "generator": { "type": "string" },
+    "publication_status": { "enum": ["research_draft_unverified", "publishable"] },
+    "evidence_policy": {
+      "type": "object",
+      "required": ["id", "version", "sha256"],
+      "properties": {
+        "id": { "const": "adapter-classification-policy" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
     "title": { "type": "string" },
     "notes": { "type": "string" },
+    "correction": { "$ref": "#/$defs/correction" },
+    "reproducibility": { "$ref": "#/$defs/reproducibility" },
     "entities": {
       "type": "array",
       "items": {
@@ -35,23 +59,509 @@
       "type": "array",
       "items": { "$ref": "#/$defs/signal" }
     },
-    "crises": {
+    "public_update": { "$ref": "#/$defs/publicUpdate" },
+    "if_path": { "$ref": "#/$defs/ifPath" },
+    "source_transition_bundle": { "$ref": "#/$defs/sourceTransitionBundle" },
+    "possible_path_refs": {
       "type": "array",
-      "items": { "$ref": "#/$defs/crisis" }
-    },
-    "playbooks": {
-      "type": "object",
-      "additionalProperties": { "$ref": "#/$defs/playbook" }
+      "maxItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/artifactReference" }
     }
   },
-  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_transition_bundle": {
+            "type": "object",
+            "properties": { "binding_state": { "const": "unbound_prototype" } },
+            "required": ["binding_state"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "publication_status": { "const": "research_draft_unverified" },
+          "possible_path_refs": { "type": "array", "maxItems": 0 }
+        }
+      },
+      "else": {
+        "properties": {
+          "publication_status": { "const": "research_draft_unverified" },
+          "possible_path_refs": { "type": "array", "minItems": 1 }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
   "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "nullableNonEmptyString": { "anyOf": [{ "$ref": "#/$defs/nonEmptyString" }, { "type": "null" }] },
+    "artifactReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+(?:\\.[0-9]+)?$" },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "sourceTransitionBundle": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["binding_state", "reason"],
+          "properties": {
+            "binding_state": { "const": "unbound_prototype" },
+            "reason": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["binding_state", "bundle_id", "schema_version", "path", "sha256"],
+          "properties": {
+            "binding_state": { "const": "bound" },
+            "bundle_id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+            "schema_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+            "path": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+            },
+            "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "correction": {
+      "type": "object",
+      "required": ["kind", "supersedes_record_id", "supersedes_snapshot_id", "supersedes_snapshot_sha256", "issued_on", "summary", "changes", "changed_fields", "source_values_changed"],
+      "properties": {
+        "kind": { "const": "corrected_revision" },
+        "supersedes_record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
+        "supersedes_snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "supersedes_snapshot_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "issued_on": { "type": "string", "format": "date" },
+        "summary": { "$ref": "#/$defs/nonEmptyString" },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "changed_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        },
+        "source_values_changed": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "ifPath": {
+      "type": "object",
+      "required": ["path_id", "provenance", "claim", "conditions", "decision"],
+      "properties": {
+        "path_id": { "$ref": "#/$defs/nonEmptyString" },
+        "provenance": { "$ref": "#/$defs/proposalProvenance" },
+        "claim": {
+          "type": "object",
+          "required": ["who", "verb", "outcome", "standard", "place", "period", "status"],
+          "properties": {
+            "who": { "$ref": "#/$defs/nonEmptyString" },
+            "verb": { "$ref": "#/$defs/nonEmptyString" },
+            "outcome": { "$ref": "#/$defs/nonEmptyString" },
+            "standard": { "$ref": "#/$defs/nonEmptyString" },
+            "place": { "$ref": "#/$defs/nonEmptyString" },
+            "period": { "$ref": "#/$defs/nonEmptyString" },
+            "status": { "enum": ["unresolved", "supported", "narrowed", "contradicted", "expired"] }
+          },
+          "additionalProperties": false
+        },
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "position", "question", "state", "previous_state", "evidence_grade", "summary", "because", "source_signal_ids", "strongest_challenge", "next_observation"],
+            "properties": {
+              "id": { "$ref": "#/$defs/nonEmptyString" },
+              "label": { "$ref": "#/$defs/nonEmptyString" },
+              "position": { "type": "integer", "minimum": 1 },
+              "question": { "$ref": "#/$defs/nonEmptyString" },
+              "state": { "$ref": "#/$defs/conditionState" },
+              "previous_state": { "anyOf": [{ "$ref": "#/$defs/conditionState" }, { "type": "null" }] },
+              "evidence_grade": { "$ref": "#/$defs/nonEmptyString" },
+              "summary": { "$ref": "#/$defs/nonEmptyString" },
+              "because": { "$ref": "#/$defs/nonEmptyString" },
+              "source_signal_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+              "strongest_challenge": { "$ref": "#/$defs/nonEmptyString" },
+              "next_observation": {
+                "type": "object",
+                "required": ["event", "on", "owner", "failure_handling"],
+                "properties": {
+                  "event": { "$ref": "#/$defs/nonEmptyString" },
+                  "on": { "type": ["string", "null"], "format": "date" },
+                  "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
+                  "failure_handling": { "$ref": "#/$defs/nonEmptyString" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "decision": {
+          "type": "object",
+          "required": ["result", "summary", "eligible_actions"],
+          "properties": {
+            "result": { "enum": ["no_decision", "watch", "act", "pause", "reverse", "recover", "graduate"] },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "eligible_actions": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "conditionState": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+    "proposalProvenance": {
+      "type": "object",
+      "required": ["status", "producer", "review_state"],
+      "properties": {
+        "status": { "const": "agent_proposal" },
+        "producer": { "$ref": "#/$defs/nonEmptyString" },
+        "review_state": { "const": "requires_fernando_review" }
+      },
+      "additionalProperties": false
+    },
+    "publicUpdate": {
+      "type": "object",
+      "required": [
+        "update_id",
+        "epistemic_class",
+        "provenance",
+        "scope",
+        "observed",
+        "affected",
+        "inferred",
+        "condition_change",
+        "action",
+        "falsifier",
+        "next_check",
+        "lineage"
+      ],
+      "properties": {
+        "update_id": { "$ref": "#/$defs/nonEmptyString" },
+        "epistemic_class": { "const": "mixed" },
+        "provenance": { "$ref": "#/$defs/proposalProvenance" },
+        "scope": {
+          "type": "object",
+          "required": ["entity", "population", "place", "period"],
+          "properties": {
+            "entity": { "$ref": "#/$defs/nonEmptyString" },
+            "population": { "$ref": "#/$defs/nonEmptyString" },
+            "place": { "$ref": "#/$defs/nonEmptyString" },
+            "period": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "observed": {
+          "type": "object",
+          "required": ["summary", "measure", "source_signal_ids", "record_id", "uncertainty", "epistemic_class"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "measure": { "$ref": "#/$defs/nonEmptyString" },
+            "source_signal_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+            "record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
+            "uncertainty": { "$ref": "#/$defs/nonEmptyString" },
+            "epistemic_class": { "$ref": "#/$defs/epistemicClass" }
+          },
+          "additionalProperties": false
+        },
+        "affected": {
+          "type": "object",
+          "required": ["status", "summary", "excluded_or_unresolved"],
+          "properties": {
+            "status": { "enum": ["known", "partial", "unknown"] },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "excluded_or_unresolved": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          },
+          "additionalProperties": false
+        },
+        "inferred": {
+          "type": "object",
+          "required": ["summary", "inference_class", "method", "strongest_alternatives"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "inference_class": { "enum": ["descriptive", "associational", "causal", "forecast", "scenario"] },
+            "method": { "$ref": "#/$defs/nonEmptyString" },
+            "strongest_alternatives": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } }
+          },
+          "additionalProperties": false
+        },
+        "condition_change": {
+          "type": "object",
+          "required": ["changed", "summary", "condition_ids", "state", "evidence_grade"],
+          "properties": {
+            "changed": { "type": "boolean" },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "condition_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+            "state": { "$ref": "#/$defs/conditionState" },
+            "evidence_grade": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "action": {
+          "type": "object",
+          "required": ["summary", "authorization_state", "owner", "authority", "help_route", "appeal_route"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "authorization_state": { "enum": ["none", "proposed"] },
+            "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "authority": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "help_route": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "appeal_route": { "$ref": "#/$defs/nullableNonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "falsifier": {
+          "type": "object",
+          "required": ["summary", "test", "implication"],
+          "properties": {
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "test": { "$ref": "#/$defs/nonEmptyString" },
+            "implication": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "next_check": {
+          "type": "object",
+          "required": ["on", "owner", "event", "related_to_inference", "failure_handling"],
+          "properties": {
+            "on": { "type": ["string", "null"], "format": "date" },
+            "owner": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "event": { "$ref": "#/$defs/nonEmptyString" },
+            "related_to_inference": { "type": "boolean" },
+            "failure_handling": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "lineage": {
+          "type": "object",
+          "required": ["derivation_id", "entity", "from_year", "through_year", "source_points", "derived_points", "raw_input_ids"],
+          "properties": {
+            "derivation_id": { "const": "world-aggregate-transmission-v1" },
+            "entity": { "$ref": "#/$defs/nonEmptyString" },
+            "from_year": { "type": "integer" },
+            "through_year": { "type": "integer" },
+            "source_points": { "type": "array", "minItems": 4, "uniqueItems": true, "items": { "$ref": "#/$defs/lineagePoint" } },
+            "derived_points": { "type": "array", "minItems": 4, "uniqueItems": true, "items": { "$ref": "#/$defs/lineagePoint" } },
+            "raw_input_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "lineagePoint": {
+      "type": "object",
+      "required": ["signal_id", "entity", "year", "value", "epistemic_class", "role"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/nonEmptyString" },
+        "entity": { "$ref": "#/$defs/nonEmptyString" },
+        "measure": { "$ref": "#/$defs/nonEmptyString" },
+        "year": { "type": "integer" },
+        "role": { "enum": ["baseline", "endpoint"] },
+        "value": { "type": "number" },
+        "epistemic_class": { "$ref": "#/$defs/epistemicClass" },
+        "input_epistemic_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/epistemicClass" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "epistemicClass": {
+      "enum": ["observed", "published_statistic", "published_estimate", "derived", "modelled_estimate", "nowcast", "forecast"]
+    },
+    "epistemicRule": {
+      "type": "object",
+      "required": ["epistemic_class", "source_vintage", "uncertainty", "resolution_rule"],
+      "properties": {
+        "from_year": { "type": "integer" },
+        "through_year": { "type": "integer" },
+        "epistemic_class": { "$ref": "#/$defs/epistemicClass" },
+        "source_vintage": { "$ref": "#/$defs/nonEmptyString" },
+        "uncertainty": { "$ref": "#/$defs/nonEmptyString" },
+        "resolution_rule": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "adapter": {
+      "type": "object",
+      "required": ["id", "version", "dataset_id", "selected_fields", "epistemic_rules"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "dataset_id": { "$ref": "#/$defs/nonEmptyString" },
+        "selected_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "epistemic_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/epistemicRule" }
+        },
+        "timing_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["claim", "field_pointer"],
+            "properties": {
+              "claim": { "enum": ["publisher_vintage", "publisher_release"] },
+              "field_pointer": { "type": "string", "pattern": "^/(?:[^~/]|~0|~1)+(?:/(?:[^~/]|~0|~1)+)*$" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rawInput": {
+      "type": "object",
+      "required": ["id", "sha256", "path", "byte_length", "media_type", "source_url", "retrieved_at", "acquired_at", "response_metadata", "adapter"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "path": { "type": "string", "pattern": "^evidence/raw/[A-Za-z0-9._/-]+$" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "$ref": "#/$defs/nonEmptyString" },
+        "source_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "acquired_at": { "type": "string", "format": "date-time" },
+        "response_metadata": {
+          "type": "object",
+          "required": ["http_status", "content_type", "etag", "last_modified"],
+          "properties": {
+            "http_status": { "type": "integer", "minimum": 200, "maximum": 299 },
+            "content_type": { "$ref": "#/$defs/nonEmptyString" },
+            "etag": { "$ref": "#/$defs/nullableNonEmptyString" },
+            "last_modified": { "$ref": "#/$defs/nullableNonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "adapter": { "$ref": "#/$defs/adapter" }
+      },
+      "additionalProperties": false
+    },
+    "reproducibility": {
+      "type": "object",
+      "required": ["raw_input_status", "snapshot_rebuild_status", "raw_inputs", "availability_receipts", "residual_gap"],
+      "properties": {
+        "raw_input_status": { "enum": ["not_pinned", "captured_local_hash_consistent"] },
+        "snapshot_rebuild_status": { "const": "not_verified" },
+        "raw_inputs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/rawInput" }
+        },
+        "availability_receipts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/availabilityReceipt" }
+        },
+        "residual_gap": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "raw_input_status": { "const": "not_pinned" } },
+            "required": ["raw_input_status"]
+          },
+          "then": { "properties": { "raw_inputs": { "type": "array", "maxItems": 0 } } }
+        },
+        {
+          "if": {
+            "properties": { "raw_input_status": { "const": "captured_local_hash_consistent" } },
+            "required": ["raw_input_status"]
+          },
+          "then": { "properties": { "raw_inputs": { "type": "array", "minItems": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "availabilityReceipt": {
+      "type": "object",
+      "required": ["id", "kind", "target_url", "observed_at", "acquired_at", "producer", "outcome"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "kind": { "const": "absence_receipt" },
+        "target_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "observed_at": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "acquired_at": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "producer": {
+          "type": "object",
+          "required": ["id", "version"],
+          "properties": {
+            "id": { "$ref": "#/$defs/nonEmptyString" },
+            "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" }
+          },
+          "additionalProperties": false
+        },
+        "outcome": {
+          "type": "object",
+          "required": ["kind", "http_status"],
+          "properties": {
+            "kind": { "const": "http_not_found" },
+            "http_status": { "enum": [404, 410] }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "point": {
-      "type": "array",
-      "prefixItems": [{ "type": "integer" }, { "type": "number" }],
-      "items": false,
-      "minItems": 2,
-      "maxItems": 2
+      "oneOf": [
+        {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer" },
+            { "type": "number" },
+            { "enum": ["observed", "published_statistic", "published_estimate", "modelled_estimate", "nowcast", "forecast"] }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer" },
+            { "type": "number" },
+            { "const": "derived" },
+            {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/epistemicClass" }
+            }
+          ],
+          "items": false,
+          "minItems": 4,
+          "maxItems": 4
+        }
+      ]
     },
     "series": {
       "type": "object",
@@ -65,13 +575,40 @@
     },
     "source": {
       "type": "object",
-      "required": ["name", "url", "retrieved"],
+      "required": ["name", "url", "timing"],
       "properties": {
         "name": { "type": "string" },
-        "url": { "type": "string" },
+        "url": {
+          "anyOf": [
+            { "const": "" },
+            { "type": "string", "format": "uri", "pattern": "^https://" }
+          ]
+        },
         "retrieved": { "type": "string" },
-        "note": { "type": "string" }
+        "timing": { "$ref": "https://mind-flow.local/dashboard/source-timing.schema.json" },
+        "note": { "type": "string" },
+        "adapter": { "$ref": "#/$defs/adapter" },
+        "raw_input_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        }
       },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "timing": {
+                "type": "object",
+                "properties": { "kind": { "const": "external_dataset" } },
+                "required": ["kind"]
+              }
+            },
+            "required": ["timing"]
+          },
+          "else": { "properties": { "retrieved": false } }
+        }
+      ],
       "additionalProperties": false
     },
     "signal": {
@@ -94,7 +631,7 @@
         "id": { "type": "string" },
         "name": { "type": "string" },
         "family": { "type": "string" },
-        "status": { "enum": ["measured", "derived", "not_measured", "unavailable"] },
+        "status": { "enum": ["available", "not_measured", "unavailable"] },
         "unit": { "type": "string" },
         "precision": { "type": "integer", "minimum": 0 },
         "direction": { "enum": ["up_is_good", "down_is_good", "neutral"] },
@@ -107,51 +644,21 @@
         "series": { "type": "array", "items": { "$ref": "#/$defs/series" } },
         "latest": {
           "type": "object",
-          "required": ["entity", "year", "value"],
+          "required": ["entity", "year", "value", "epistemic_class"],
           "properties": {
             "entity": { "type": "string" },
             "year": { "type": "integer" },
-            "value": { "type": "number" }
+            "value": { "type": "number" },
+            "epistemic_class": { "$ref": "#/$defs/epistemicClass" },
+            "input_epistemic_classes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/epistemicClass" }
+            }
           },
           "additionalProperties": false
         }
-      },
-      "additionalProperties": false
-    },
-    "crisis": {
-      "type": "object",
-      "required": ["id", "name", "condition", "status", "leading_signals", "actions"],
-      "properties": {
-        "id": { "type": "string" },
-        "name": { "type": "string" },
-        "condition": { "type": "string" },
-        "status": { "enum": ["unscored", "watch", "activated"] },
-        "why_it_matters": { "type": "string" },
-        "movement": { "type": "string" },
-        "communication": { "type": "string" },
-        "leading_signals": { "type": "array", "items": { "type": "string" } },
-        "actions": {
-          "type": "object",
-          "required": ["prepare", "protect", "recover"],
-          "properties": {
-            "prepare": { "type": "string" },
-            "protect": { "type": "string" },
-            "recover": { "type": "string" }
-          },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    },
-    "playbook": {
-      "type": "object",
-      "required": ["label", "now", "warning", "crisis"],
-      "properties": {
-        "label": { "type": "string" },
-        "principle": { "type": "string" },
-        "now": { "type": "array", "items": { "type": "string" } },
-        "warning": { "type": "array", "items": { "type": "string" } },
-        "crisis": { "type": "array", "items": { "type": "string" } }
       },
       "additionalProperties": false
     }

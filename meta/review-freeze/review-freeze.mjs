@@ -1,0 +1,1168 @@
+#!/usr/bin/env node
+
+import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
+import {
+  accessSync,
+  closeSync,
+  constants,
+  fsyncSync,
+  mkdtempSync,
+  mkdirSync,
+  openSync,
+  lstatSync,
+  readFileSync,
+  readdirSync,
+  readlinkSync,
+  realpathSync,
+  renameSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from "node:fs";
+import { arch, platform, release, tmpdir } from "node:os";
+import { delimiter, dirname, isAbsolute, relative, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const defaultRepositoryRoot = resolve(here, "../..");
+const freezeSchemaPath = resolve(here, "review-freeze.schema.json");
+const freezeSchemaBytes = readFileSync(freezeSchemaPath);
+const freezeSchema = JSON.parse(freezeSchemaBytes.toString("utf8"));
+const ajv = new Ajv2020({ allErrors: true, strict: true });
+addFormats(ajv);
+const validateFreezeSchema = ajv.compile(freezeSchema);
+const MAX_COMMAND_OUTPUT_BYTES = 64 * 1024 * 1024;
+const DEFAULT_COMMAND_TIMEOUT_MS = 120_000;
+const HASH = /^sha256:[a-f0-9]{64}$/;
+const COMMIT = /^[a-f0-9]{40,64}$/;
+const CLOSED_PATH = /^[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)*$/;
+
+const ROUND_04_REQUIRED_FILES = [
+  ["meta/round-04-external-review-brief.md", "review charter and stop lines"],
+  ["drafts/abundance-has-an-if.md", "first principal write-up"],
+  ["drafts/from-if-to-when.md", "second principal write-up"],
+  ["research/2026-09-09-transition-crisis-point-register.md", "crisis-point register"],
+  ["research/2026-09-09-round-04-claim-evidence-audit.md", "claim-evidence audit"],
+  ["communications/if-public-language-contract.md", "public IF language contract"],
+  ["reviews/public-comprehension-affected-party-protocol-round-04.md", "human review protocol"],
+  ["package.json", "test command contract"],
+  ["package-lock.json", "dependency lock"],
+  ["integration/transition-bundle/assess.mjs", "transition-bundle assessor"],
+  ["integration/transition-bundle/schema/transition-bundle.schema.json", "transition-bundle schema"],
+  ["integration/transition-bundle/schema/scope-manifest.schema.json", "scope-manifest schema"],
+  ["integration/transition-bundle/tools/build-round-04-core.mjs", "pre-projection core builder"],
+  ["integration/transition-bundle/tools/build-round-04-complete-core.mjs", "complete-core builder"],
+  ["integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json", "frozen pre-projection core"],
+  ["integration/transition-bundle/fixtures/round-04.worker-option.complete.json", "frozen complete core"],
+  ["integration/transition-bundle/fixtures/round-04.worker-option.scope-manifest.json", "scope mapping manifest"],
+  ["contracts/executable-if/schema/executable-if-kernel.schema.json", "executable IF schema"],
+  ["contracts/executable-if/validate.mjs", "executable IF validator"],
+  ["contracts/executable-if/fixtures/kernel.synthetic.json", "synthetic executable IF kernel"],
+  ["contracts/evolution/schema/executable-if-evolution.schema.json", "executable evolution schema"],
+  ["contracts/evolution/validate.mjs", "evolution validator"],
+  ["contracts/evolution/fixtures/round-04.worker-option.synthetic.json", "synthetic evolution projection"],
+  ["signals/schema/signal-registry.schema.json", "signal registry schema"],
+  ["signals/validate.mjs", "signal registry validator"],
+  ["signals/fixtures/round-04.worker-option.synthetic.json", "synthetic signal registry"],
+  ["contracts/agency-map/schema/condition-agency-map.schema.json", "agency map schema"],
+  ["contracts/agency-map/validate.mjs", "agency map validator"],
+  ["contracts/agency-map/fixtures/round-04.worker-option.synthetic.json", "synthetic agency map"],
+  ["paths/schema/possible-path.schema.json", "possible-path schema"],
+  ["paths/validate.mjs", "possible-path validator"],
+  ["paths/fixtures/round-04.worker-option.synthetic.json", "synthetic possible path"],
+  ["preparation/schema/preparation-register-1.2.schema.json", "preparation register schema"],
+  ["preparation/schema/preparation-action-1.2.schema.json", "preparation action schema"],
+  ["preparation/lib/validate-v12.mjs", "preparation source-binding validator"],
+  ["preparation/fixtures/valid/round-04.worker-option.synthetic.json", "synthetic preparation register"],
+  ["forecasts/schema/binary-forecast.schema.json", "forecast schema"],
+  ["forecasts/lib/registry.mjs", "forecast validator"],
+  ["forecasts/fixtures/round-04.worker-option.synthetic.json", "synthetic forecast"],
+  ["dashboard/schema/executable-if-view.schema.json", "dashboard IF projection schema"],
+  ["dashboard/tools/build-round-04-executable-if-view.mjs", "dashboard IF projection builder"],
+  ["dashboard/fixtures/round-04.worker-option.executable-if-view.synthetic.json", "synthetic dashboard projection"],
+  ["dashboard/observatory/build.mjs", "Observatory build check"],
+  ["dashboard/observatory/index.html", "Observatory document"],
+  ["dashboard/observatory/app.js", "Observatory behaviour"],
+  ["dashboard/observatory/data.js", "Observatory data projection"],
+  ["dashboard/observatory/styles.css", "Observatory presentation"],
+  ["experiments/observatory-comparison/validate.mjs", "comparison validator"],
+  ["experiments/observatory-comparison/schema/experiment-manifest.schema.json", "comparison manifest schema"],
+  ["experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs", "comparison fixture builder"],
+  ["experiments/observatory-comparison/fixtures/manifest.synthetic.json", "synthetic comparison manifest"],
+  ["experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json", "shared comparison facts"],
+].map(([path, role]) => ({ path, role }));
+
+const ROUND_04_BUILD_COMMANDS = [
+  ["install-dependencies", ["npm", "install"]],
+  ["full-test-suite", ["npm", "test"]],
+  ["pre-projection-core-check", ["node", "integration/transition-bundle/tools/build-round-04-core.mjs", "--check"]],
+  ["dashboard-if-view-check", ["node", "dashboard/tools/build-round-04-executable-if-view.mjs", "--check"]],
+  ["complete-core-check", ["node", "integration/transition-bundle/tools/build-round-04-complete-core.mjs", "--check"]],
+  ["observatory-check", ["node", "dashboard/observatory/build.mjs", "--check"]],
+  ["comparison-fixtures-check", ["node", "experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs", "--check"]],
+].map(([command_id, argv]) => ({ command_id, argv, cwd: ".", timeout_ms: 900_000 }));
+
+const ROUND_06_REQUIRED_FILES = [
+  ...ROUND_04_REQUIRED_FILES.map(({ path, role }) => ({ path, role })),
+  ...[
+    ["meta/round-06-external-review-brief.md", "Round 06 independent-review charter"],
+    ["meta/abundance-transition-programme.md", "programme mission, gates and workstreams"],
+    ["meta/review-freeze/review-freeze.mjs", "review-freeze policy and verifier"],
+    ["meta/review-freeze/review-freeze.schema.json", "review-freeze closed schema"],
+    ["meta/review-freeze/tests/review-freeze.test.mjs", "review-freeze regression suite"],
+    ["drafts/name-the-if.md", "public introduction to condition naming"],
+    ["drafts/every-if-is-somebodys-when.md", "public account of condition ownership and timing"],
+    ["communications/transition-field-guide.md", "public transition field guide"],
+    ["communications/early-action-and-negotiation-framework.md", "early-action and negotiation framework"],
+    ["communications/labels-and-headlines.md", "public label and headline constraints"],
+    ["communications/public-experience-contract.md", "public experience contract"],
+    ["pilots/australia/evidence-bridge-protocol.md", "Australia evidence-bridge protocol"],
+    ["pilots/australia/source-manifest.json", "Australia source registry and evidence ceilings"],
+    ["pilots/australia/sources/nero/2026-08/capture.json", "retained NERO source-capture manifest"],
+    ["pilots/australia/sources/nero/2026-08/2026-08_nero.zip", "retained NERO source archive"],
+    ["pilots/australia/sources/nero/2026-08/ATTRIBUTION.md", "NERO source attribution and reuse limits"],
+    ["pilots/australia/sources/nero/2026-08/archive.response-headers.txt", "retained NERO archive response headers"],
+    ["pilots/australia/sources/nero/2026-08/nero-landing.html", "retained NERO landing page"],
+    ["pilots/australia/sources/nero/2026-08/nero-landing.response-headers.txt", "retained NERO landing response headers"],
+    ["pilots/australia/sources/nero/2026-08/copyright-and-disclaimer.html", "retained NERO copyright and disclaimer page"],
+    ["pilots/australia/sources/nero/2026-08/copyright-and-disclaimer.response-headers.txt", "retained NERO copyright response headers"],
+    ["pilots/australia/schema/nero-source-capture.schema.json", "NERO source-capture schema"],
+    ["pilots/australia/tools/verify-nero-source-capture.mjs", "NERO source-capture verifier"],
+    ["pilots/australia/tests/nero-source-capture.test.mjs", "NERO source-capture regression suite"],
+    ["pilots/australia/schema/nero-baseline.schema.json", "NERO baseline schema"],
+    ["pilots/australia/schema/nero-baseline-policy.json", "NERO baseline derivation policy"],
+    ["pilots/australia/data/nero-clerical-2026-08.json", "retained NERO dashboard baseline"],
+    ["dashboard/tools/build-nero-baseline.mjs", "deterministic NERO baseline builder"],
+    ["dashboard/tests/nero-baseline.test.mjs", "NERO baseline regression suite"],
+    ["integration/transition-bundle/condition-change-impact.mjs", "condition-change impact assessor"],
+    ["integration/transition-bundle/tools/trace-condition-change-impact.mjs", "condition-change impact trace tool"],
+    ["integration/transition-bundle/tests/condition-change-impact.test.mjs", "condition-change impact regression suite"],
+    ["governance/README.md", "governance package boundary"],
+    ["governance/schema/governance-record-common.schema.json", "shared governance record schema"],
+    ["governance/lib/record-contract.mjs", "shared governance record contract"],
+    ["governance/tools/build-synthetic-fixtures.mjs", "synthetic governance fixture builder"],
+    ["governance/negotiation-record/README.md", "negotiation-record boundary"],
+    ["governance/negotiation-record/schema/negotiation-record.schema.json", "negotiation-record schema"],
+    ["governance/negotiation-record/validate.mjs", "negotiation-record validator"],
+    ["governance/negotiation-record/fixtures/worker-transition.negotiation.synthetic.json", "synthetic negotiation record"],
+    ["governance/negotiation-record/tests/negotiation-record.test.mjs", "negotiation-record regression suite"],
+    ["governance/decision-record/README.md", "decision-record boundary"],
+    ["governance/decision-record/schema/decision-record.schema.json", "decision-record schema"],
+    ["governance/decision-record/validate.mjs", "decision-record validator"],
+    ["governance/decision-record/fixtures/worker-transition.decision.synthetic.json", "synthetic decision record"],
+    ["governance/decision-record/tests/decision-record.test.mjs", "decision-record regression suite"],
+    ["governance/lineage/README.md", "governance lineage boundary"],
+    ["governance/lineage/schema/external-governance-context.schema.json", "external governance-context schema"],
+    ["governance/lineage/schema/governance-lineage.schema.json", "governance lineage schema"],
+    ["governance/lineage/validate.mjs", "governance lineage validator"],
+    ["governance/lineage/tools/build-round-06-lineage.mjs", "Round 06 governance lineage builder"],
+    ["governance/lineage/fixtures/round-06.worker-transition.governance-context.synthetic.json", "synthetic external governance context"],
+    ["governance/lineage/fixtures/round-06.worker-transition.lineage.synthetic.json", "synthetic governance lineage record"],
+    ["governance/lineage/tests/round-06-lineage.test.mjs", "governance lineage regression suite"],
+    ["forecasts/prospective-pilot/README.md", "prospective forecast pilot contract"],
+    ["forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json", "prospective pilot preregistration schema"],
+    ["forecasts/prospective-pilot/examples/preregistration.template.json", "prospective pilot preregistration template"],
+    ["forecasts/prospective-pilot/validate.mjs", "prospective pilot validator"],
+    ["forecasts/prospective-pilot/tests/protocol.test.mjs", "prospective pilot protocol regression suite"],
+    ["forecasts/prospective-pilot/issuance-binding/README.md", "future issuance-binding boundary"],
+    ["forecasts/prospective-pilot/issuance-binding/schema/baseline-calculation.schema.json", "closed baseline calculation schema"],
+    ["forecasts/prospective-pilot/issuance-binding/schema/baseline-input-manifest.schema.json", "closed baseline input-manifest schema"],
+    ["forecasts/prospective-pilot/issuance-binding/validate.mjs", "future issuance-binding validator"],
+    ["forecasts/prospective-pilot/issuance-binding/tests/issuance-binding.test.mjs", "future issuance-binding regression suite"],
+    ["forecasts/tests/round-04-exact-binding.test.mjs", "top-level exact forecast binding regression suite"],
+    ["experiments/observatory-comparison/render-model.mjs", "comparison rendering model"],
+    ["experiments/observatory-comparison/render.mjs", "deterministic comparison renderer"],
+    ["experiments/observatory-comparison/render-parity.mjs", "rendered comparison parity validator"],
+    ["experiments/observatory-comparison/rendered/conventional-release.html", "rendered conventional comparison arm"],
+    ["experiments/observatory-comparison/rendered/observatory-self-serve.html", "rendered Observatory comparison arm"],
+    ["experiments/observatory-comparison/rendered/render-manifest.json", "rendered comparison manifest"],
+    ["experiments/observatory-comparison/schema/fact-pack.schema.json", "closed shared fact-pack schema"],
+    ["experiments/observatory-comparison/tests/rendered-parity.test.mjs", "rendered comparison parity regression suite"],
+    ["dashboard/observatory/tests/observatory.test.mjs", "Observatory regression suite"],
+  ].map(([path, role]) => ({ path, role })),
+];
+
+const ROUND_06_BUILD_COMMANDS = [
+  ["install-dependencies-clean", ["npm", "ci"]],
+  ["full-test-suite", ["npm", "test"]],
+  ...ROUND_04_BUILD_COMMANDS.slice(2).map(({ command_id, argv }) => [command_id, argv]),
+  ["nero-source-capture-check", ["node", "pilots/australia/tools/verify-nero-source-capture.mjs"]],
+  ["governance-fixtures-check", ["node", "governance/tools/build-synthetic-fixtures.mjs", "--check"]],
+  ["governance-lineage-tests", ["node", "--test", "governance/lineage/tests/round-06-lineage.test.mjs"]],
+  ["governance-lineage-check", ["node", "governance/lineage/tools/build-round-06-lineage.mjs", "--check"]],
+  ["forecast-issuance-binding-tests", ["node", "--test", "forecasts/prospective-pilot/issuance-binding/tests/issuance-binding.test.mjs"]],
+  ["comparison-render-check", ["node", "experiments/observatory-comparison/render.mjs", "--check"]],
+  ["comparison-render-parity-tests", ["node", "--test", "experiments/observatory-comparison/tests/rendered-parity.test.mjs"]],
+].map(([command_id, argv]) => ({ command_id, argv, cwd: ".", timeout_ms: 900_000 }));
+
+const ROUND_07_REQUIRED_FILES = [
+  ...ROUND_06_REQUIRED_FILES.map(({ path, role }) => ({ path, role })),
+  ...[
+    ["meta/round-07-external-review-brief.md", "Round 07 independent-retest charter"],
+    ["reviews/round-06-disposition-ledger.json", "Round 06 coordinator disposition ledger"],
+    ["reviews/round-07-component-review-manifest.json", "bounded component review plan"],
+    ["contracts/tests/round-06-review-disposition.test.mjs", "disposition completeness regression suite"],
+    ["contracts/tests/round-07-review-plan.test.mjs", "component review coverage regression suite"],
+  ].map(([path, role]) => ({ path, role })),
+];
+
+export const ROUND_04_REVIEW_POLICY = Object.freeze({
+  schema_version: "1.0.0",
+  policy_id: "review-freeze.round-04",
+  policy_version: "1.0.0",
+  review_round: "round-04",
+  reviewed_ref: "ren/abundance-transition-program",
+  required_files: ROUND_04_REQUIRED_FILES,
+  build_commands: ROUND_04_BUILD_COMMANDS,
+});
+
+export const ROUND_06_REVIEW_POLICY = Object.freeze({
+  schema_version: "1.0.0",
+  policy_id: "review-freeze.round-06",
+  policy_version: "1.0.0",
+  review_round: "round-06",
+  reviewed_ref: "ren/abundance-transition-program",
+  required_files: ROUND_06_REQUIRED_FILES,
+  build_commands: ROUND_06_BUILD_COMMANDS,
+});
+
+export const ROUND_07_REVIEW_POLICY = Object.freeze({
+  schema_version: "1.0.0",
+  policy_id: "review-freeze.round-07",
+  policy_version: "1.0.0",
+  review_round: "round-07",
+  reviewed_ref: "ren/abundance-transition-program",
+  required_files: ROUND_07_REQUIRED_FILES,
+  build_commands: ROUND_06_BUILD_COMMANDS,
+});
+
+export function reviewPolicyFor(reviewRound = "round-04") {
+  if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
+  if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
+  if (reviewRound === "round-07") return ROUND_07_REVIEW_POLICY;
+  throw new Error(`unknown review policy: ${reviewRound}`);
+}
+
+const BOUNDARIES = Object.freeze({
+  review_effect: "input-integrity-only",
+  review_approval: "not-granted",
+  empirical_truth_established: false,
+  scope_mapping_truth_established: false,
+  legal_authority_created: false,
+  action_authorised: false,
+  publication_approved: false,
+  recruitment_approved: false,
+  operator_clock_authenticated: false,
+  safe_to_execute_on_host: false,
+});
+
+const EXECUTION_BOUNDARY = Object.freeze({
+  process_sandboxed: false,
+  network_isolated: false,
+  host_filesystem_isolated: false,
+  dependency_tree_content_addressed: false,
+  registry_responses_retained: false,
+  mutation_observation: "pre-and-post-command-snapshot-only",
+  untrusted_code_containment: "none",
+});
+
+const FIXED_COMMAND_ENVIRONMENT = Object.freeze({
+  PATH: "$REVIEW_SANDBOX/.review-toolchain",
+  CI: "1",
+  LANG: "C",
+  LC_ALL: "C",
+  TZ: "UTC",
+  npm_config_audit: "false",
+  npm_config_fund: "false",
+  npm_config_update_notifier: "false",
+  npm_config_cache: "$REVIEW_SANDBOX/.npm-cache",
+  npm_config_userconfig: "$REVIEW_SANDBOX/.npm-cache/empty-user.npmrc",
+  npm_config_globalconfig: "$REVIEW_SANDBOX/.npm-cache/empty-global.npmrc",
+  npm_config_registry: "https://registry.npmjs.org",
+  npm_config_replace_registry_host: "always",
+  npm_config_script_shell: "/bin/sh",
+});
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) {
+    return `[${Array.from(value, (item) => canonicalJson(item) ?? "null").join(",")}]`;
+  }
+  if (value && typeof value === "object" && !Buffer.isBuffer(value)) {
+    return `{${Object.keys(value).sort().flatMap((key) => {
+      const encoded = canonicalJson(value[key]);
+      return encoded === undefined ? [] : [`${JSON.stringify(key)}:${encoded}`];
+    }).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+export function canonicalHash(value) {
+  const bytes = Buffer.isBuffer(value) ? value : Buffer.from(canonicalJson(value));
+  return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
+
+export function writeReviewFreezeAtomically(outputPath, manifest) {
+  const bytes = `${JSON.stringify(manifest, null, 2)}\n`;
+  const parent = dirname(outputPath);
+  let temporaryPath;
+  let descriptor;
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    temporaryPath = resolve(
+      parent,
+      `.review-freeze-${process.pid}-${Date.now()}-${attempt}.tmp`,
+    );
+    try {
+      descriptor = openSync(temporaryPath, "wx", 0o600);
+      break;
+    } catch (error) {
+      if (error.code !== "EEXIST" || attempt === 9) throw error;
+    }
+  }
+
+  try {
+    writeFileSync(descriptor, bytes, "utf8");
+    fsyncSync(descriptor);
+    closeSync(descriptor);
+    descriptor = undefined;
+    renameSync(temporaryPath, outputPath);
+    temporaryPath = undefined;
+    const directoryDescriptor = openSync(parent, "r");
+    try {
+      fsyncSync(directoryDescriptor);
+    } finally {
+      closeSync(directoryDescriptor);
+    }
+  } finally {
+    if (descriptor !== undefined) closeSync(descriptor);
+    if (temporaryPath !== undefined) rmSync(temporaryPath, { force: true });
+  }
+}
+
+function gitEnvironment(gitPath) {
+  return {
+    PATH: `${dirname(gitPath)}:/usr/bin:/bin`,
+    LANG: "C",
+    LC_ALL: "C",
+    TZ: "UTC",
+    GIT_CONFIG_NOSYSTEM: "1",
+    GIT_CONFIG_GLOBAL: "/dev/null",
+    GIT_CONFIG_SYSTEM: "/dev/null",
+    GIT_OPTIONAL_LOCKS: "0",
+    GIT_TERMINAL_PROMPT: "0",
+  };
+}
+
+function git(repositoryRoot, args, options = {}) {
+  const gitPath = executablePath("git");
+  const result = spawnSync(gitPath, args, {
+    cwd: repositoryRoot,
+    env: gitEnvironment(gitPath),
+    encoding: options.binary ? null : "utf8",
+    maxBuffer: MAX_COMMAND_OUTPUT_BYTES,
+  });
+  if (result.status !== 0) {
+    throw new Error(`git ${args.join(" ")} failed: ${String(result.stderr || result.stdout).trim()}`);
+  }
+  return options.binary ? result.stdout : result.stdout.trim();
+}
+
+function exactCommit(repositoryRoot, commit) {
+  const resolved = git(repositoryRoot, ["rev-parse", "--verify", `${commit}^{commit}`]);
+  if (!COMMIT.test(resolved)) throw new Error("reviewed commit did not resolve to a full Git object ID");
+  return resolved;
+}
+
+function closedPath(path, label) {
+  if (typeof path !== "string" || isAbsolute(path) || !CLOSED_PATH.test(path) ||
+      path.split("/").some((part) => part === "" || part === "." || part === "..")) {
+    throw new Error(`${label} must be a closed repository-relative path`);
+  }
+  return path;
+}
+
+export function resolveReviewOutput(repositoryRoot, path, { force = false } = {}) {
+  closedPath(path, "output path");
+  if (!path.endsWith(".json")) throw new Error("output path must end in .json");
+  const root = realpathSync(repositoryRoot);
+  const candidate = resolve(root, path);
+  const parent = realpathSync(dirname(candidate));
+  const fromRoot = relative(root, candidate);
+  const parentFromRoot = relative(root, parent);
+  if (fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot) ||
+      parentFromRoot === ".." || parentFromRoot.startsWith(`..${sep}`) ||
+      isAbsolute(parentFromRoot)) {
+    throw new Error("output path escapes the repository");
+  }
+  try {
+    const existing = lstatSync(candidate);
+    if (existing.isSymbolicLink() || !existing.isFile()) {
+      throw new Error("output path must not be a symlink or non-file");
+    }
+    if (!force) throw new Error("output path already exists; pass --force to replace it");
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+  return candidate;
+}
+
+function fileAtCommit(repositoryRoot, commit, path) {
+  closedPath(path, "required file");
+  return git(repositoryRoot, ["show", `${commit}:${path}`], { binary: true });
+}
+
+function fileRecord(repositoryRoot, commit, required) {
+  const bytes = fileAtCommit(repositoryRoot, commit, required.path);
+  return {
+    path: required.path,
+    role: required.role,
+    git_blob_oid: git(repositoryRoot, ["rev-parse", `${commit}:${required.path}`]),
+    sha256: canonicalHash(bytes),
+    byte_length: bytes.length,
+  };
+}
+
+export function executablePath(name) {
+  if (name === "node") return realpathSync(process.execPath);
+  for (const directory of (process.env.PATH || "").split(delimiter)) {
+    if (!directory) continue;
+    const candidate = resolve(directory, name);
+    try {
+      accessSync(candidate, constants.X_OK);
+      return realpathSync(candidate);
+    } catch {
+      // Try the next fixed PATH entry.
+    }
+  }
+  throw new Error(`${name} executable is unavailable`);
+}
+
+export function executableRecord(name, versionArgs, explicitPath, {
+  allowUnsupportedVersion = false,
+} = {}) {
+  const path = explicitPath ? realpathSync(explicitPath) : executablePath(name);
+  const version = spawnSync(path, versionArgs, { encoding: "utf8" });
+  if (version.error || !Number.isInteger(version.status) ||
+      (version.status !== 0 && !allowUnsupportedVersion)) {
+    throw new Error(`${name} version could not be recorded`);
+  }
+  const probeOutput = [version.stdout, version.stderr]
+    .map((value) => String(value || "").trim())
+    .filter(Boolean)
+    .join("\n");
+  if (version.status === 0 && !probeOutput) {
+    throw new Error(`${name} version could not be recorded`);
+  }
+  return {
+    version: version.status === 0
+      ? probeOutput
+      : `version unavailable (probe exit ${version.status}): ${probeOutput || "no probe output"}`,
+    executable_path: path,
+    executable_sha256: canonicalHash(readFileSync(path)),
+  };
+}
+
+function runtimeInputs(repositoryRoot, commit) {
+  const lockBytes = fileAtCommit(repositoryRoot, commit, "package-lock.json");
+  return {
+    node: executableRecord("node", ["--version"]),
+    npm: executableRecord("npm", ["--version"]),
+    git: executableRecord("git", ["--version"]),
+    python3: executableRecord("python3", ["--version"]),
+    unzip: executableRecord("unzip", ["-v"]),
+    sh: executableRecord("sh", ["--version"], "/bin/sh", {
+      allowUnsupportedVersion: true,
+    }),
+    operating_system: { platform: platform(), release: release(), architecture: arch() },
+    checkout_directory_name: "mind-flow",
+    command_environment: structuredClone(FIXED_COMMAND_ENVIRONMENT),
+    package_lock: {
+      path: "package-lock.json",
+      sha256: canonicalHash(lockBytes),
+      byte_length: lockBytes.length,
+    },
+  };
+}
+
+function commandRecord(command) {
+  if (!command || typeof command.command_id !== "string" || !Array.isArray(command.argv) ||
+      command.argv.length === 0 || command.argv.some((part) => typeof part !== "string" || part.length === 0)) {
+    throw new Error("review commands require an ID and non-empty argv array");
+  }
+  const cwd = command.cwd === "." || command.cwd === undefined
+    ? "."
+    : closedPath(command.cwd, "command cwd");
+  const timeout = command.timeout_ms ?? DEFAULT_COMMAND_TIMEOUT_MS;
+  if (!Number.isInteger(timeout) || timeout < 1_000 || timeout > 3_600_000) {
+    throw new Error("review command timeout_ms must be an integer from 1000 to 3600000");
+  }
+  const record = {
+    command_id: command.command_id,
+    argv: [...command.argv],
+    cwd,
+    timeout_ms: timeout,
+  };
+  return { ...record, command_contract_sha256: canonicalHash(record) };
+}
+
+function streamRecord(bytes) {
+  return {
+    sha256: canonicalHash(bytes),
+    byte_length: bytes.length,
+    bytes_base64: bytes.toString("base64"),
+  };
+}
+
+function listTree(repositoryRoot, commit) {
+  const output = git(repositoryRoot, ["ls-tree", "-r", "-z", commit], { binary: true });
+  const records = [];
+  let start = 0;
+  for (let index = 0; index <= output.length; index += 1) {
+    if (index !== output.length && output[index] !== 0) continue;
+    if (index === start) {
+      start = index + 1;
+      continue;
+    }
+    const entry = output.subarray(start, index);
+    const tab = entry.indexOf(0x09);
+    if (tab < 0) throw new Error("Git tree entry has no path separator");
+    const metadata = entry.subarray(0, tab).toString("ascii");
+    const pathBytes = entry.subarray(tab + 1);
+    const path = pathBytes.toString("utf8");
+    if (Buffer.from(path, "utf8").compare(pathBytes) !== 0) {
+      throw new Error("Git tree contains a non-UTF-8 path");
+    }
+    const [mode, type, oid] = metadata.split(" ");
+    closedPath(path, "tracked tree path");
+    records.push({ mode, type, oid, path });
+    start = index + 1;
+  }
+  return records;
+}
+
+function trackedTreeInventory(repositoryRoot, commit) {
+  return listTree(repositoryRoot, commit).map(({ mode, type, oid, path }) => {
+    if (type !== "blob" || !["100644", "100755", "120000"].includes(mode)) {
+      throw new Error(`unsupported tracked object ${type} ${mode} at ${path}`);
+    }
+    const bytes = fileAtCommit(repositoryRoot, commit, path);
+    return {
+      path,
+      mode,
+      git_type: type,
+      git_oid: oid,
+      sha256: canonicalHash(bytes),
+      byte_length: bytes.length,
+    };
+  });
+}
+
+function materializeCommit(repositoryRoot, commit, destination, runtime) {
+  if (canonicalHash(readFileSync(runtime.git.executable_path)) !== runtime.git.executable_sha256) {
+    throw new Error("Git differs from its recorded executable bytes");
+  }
+  const cloned = spawnSync(runtime.git.executable_path, [
+    "clone",
+    "--quiet",
+    "--local",
+    "--no-hardlinks",
+    "--no-checkout",
+    repositoryRoot,
+    destination,
+  ], {
+    env: gitEnvironment(runtime.git.executable_path),
+    encoding: "utf8",
+    maxBuffer: MAX_COMMAND_OUTPUT_BYTES,
+  });
+  if (cloned.status !== 0) {
+    throw new Error(`exact review repository could not be cloned: ${cloned.stderr || cloned.stdout}`);
+  }
+  const checkedOut = spawnSync(runtime.git.executable_path, ["checkout", "--quiet", "--detach", commit], {
+    cwd: destination,
+    env: gitEnvironment(runtime.git.executable_path),
+    encoding: "utf8",
+    maxBuffer: MAX_COMMAND_OUTPUT_BYTES,
+  });
+  if (checkedOut.status !== 0) {
+    throw new Error(`exact reviewed commit could not be checked out: ${checkedOut.stderr || checkedOut.stdout}`);
+  }
+}
+
+function runCommand(command, sandbox, environment, runtime) {
+  const executableRecord = runtime[command.argv[0]];
+  if (!executableRecord?.executable_path ||
+      canonicalHash(readFileSync(executableRecord.executable_path)) !==
+        executableRecord.executable_sha256) {
+    throw new Error(`${command.argv[0]} differs from its recorded executable bytes`);
+  }
+  const executable = executableRecord.executable_path;
+  const cwd = resolve(sandbox, command.cwd);
+  const fromSandbox = relative(sandbox, cwd);
+  if (fromSandbox === ".." || fromSandbox.startsWith(`..${sep}`) || isAbsolute(fromSandbox)) {
+    throw new Error("command cwd escapes the review sandbox");
+  }
+  const env = {
+    PATH: process.env.PATH || "/usr/bin:/bin",
+    ...Object.fromEntries(Object.entries(environment).map(([key, value]) => [
+      key,
+      value.replaceAll("$REVIEW_SANDBOX", sandbox),
+    ])),
+  };
+  const startedAt = new Date().toISOString();
+  const result = spawnSync(executable, command.argv.slice(1), {
+    cwd,
+    env,
+    encoding: null,
+    timeout: command.timeout_ms,
+    maxBuffer: MAX_COMMAND_OUTPUT_BYTES,
+  });
+  const finishedAt = new Date().toISOString();
+  return {
+    command_id: command.command_id,
+    command_contract_sha256: command.command_contract_sha256,
+    started_at: startedAt,
+    finished_at: finishedAt,
+    exit_code: result.status,
+    signal: result.signal,
+    stdout: streamRecord(result.stdout || Buffer.alloc(0)),
+    stderr: streamRecord(result.stderr || Buffer.alloc(0)),
+    spawn_error: result.error ? String(result.error.message || result.error) : null,
+  };
+}
+
+function prepareRuntimeControls(sandbox, runtime) {
+  const cache = resolve(sandbox, ".npm-cache");
+  const toolchain = resolve(sandbox, ".review-toolchain");
+  mkdirSync(cache, { recursive: true });
+  rmSync(toolchain, { recursive: true, force: true });
+  mkdirSync(toolchain, { recursive: true });
+  writeFileSync(resolve(cache, "empty-user.npmrc"), "", "utf8");
+  writeFileSync(resolve(cache, "empty-global.npmrc"), "", "utf8");
+  for (const name of ["node", "npm", "git", "python3", "unzip", "sh"]) {
+    symlinkSync(runtime[name].executable_path, resolve(toolchain, name));
+  }
+}
+
+function runtimeControlsUnchanged(sandbox, runtime) {
+  const toolchain = resolve(sandbox, ".review-toolchain");
+  return ["node", "npm", "git", "python3", "unzip", "sh"].every((name) => {
+    try {
+      const link = resolve(toolchain, name);
+      return lstatSync(link).isSymbolicLink() &&
+        realpathSync(link) === runtime[name].executable_path &&
+        canonicalHash(readFileSync(realpathSync(link))) === runtime[name].executable_sha256;
+    } catch {
+      return false;
+    }
+  });
+}
+
+function retainedBytes(path, mode) {
+  if (mode === "120000") return Buffer.from(readlinkSync(path));
+  return readFileSync(path);
+}
+
+function trackedModeMatches(path, mode) {
+  const stat = lstatSync(path);
+  if (mode === "120000") return stat.isSymbolicLink();
+  if (!stat.isFile() || stat.isSymbolicLink()) return false;
+  const executable = (stat.mode & 0o111) !== 0;
+  return mode === "100755" ? executable : !executable;
+}
+
+function trackedTreeUnchanged(repositoryRoot, commit, sandbox) {
+  const changed = [];
+  for (const entry of listTree(repositoryRoot, commit)) {
+    if (entry.type !== "blob") continue;
+    const target = resolve(sandbox, entry.path);
+    try {
+      if (!trackedModeMatches(target, entry.mode) ||
+          canonicalHash(retainedBytes(target, entry.mode)) !== canonicalHash(
+        fileAtCommit(repositoryRoot, commit, entry.path),
+      )) changed.push(entry.path);
+    } catch {
+      changed.push(entry.path);
+    }
+  }
+  return changed;
+}
+
+function unexpectedPaths(root, trackedPaths) {
+  const unexpected = [];
+  const visit = (directory, prefix = "") => {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (path === ".git" || path.startsWith(".git/") ||
+          path === "node_modules" || path.startsWith("node_modules/") ||
+          path === ".npm-cache" || path.startsWith(".npm-cache/") ||
+          path === ".review-toolchain" || path.startsWith(".review-toolchain/")) continue;
+      if (entry.isDirectory()) visit(resolve(directory, entry.name), path);
+      else if (!trackedPaths.has(path)) unexpected.push(path);
+    }
+  };
+  visit(root);
+  return unexpected.sort();
+}
+
+function reproduce(repositoryRoot, commit, commands, runtime) {
+  const parent = mkdtempSync(resolve(tmpdir(), "mind-flow-review-freeze-"));
+  const sandbox = resolve(parent, runtime.checkout_directory_name);
+  try {
+    materializeCommit(repositoryRoot, commit, sandbox, runtime);
+    const initialChanged = trackedTreeUnchanged(repositoryRoot, commit, sandbox);
+    if (initialChanged.length) {
+      throw new Error(`detached checkout differs before execution: ${initialChanged.join(", ")}`);
+    }
+    const commandRuns = commands.map((command) => {
+      prepareRuntimeControls(sandbox, runtime);
+      const before = trackedTreeUnchanged(repositoryRoot, commit, sandbox);
+      if (before.length) throw new Error(`tracked tree drift before ${command.command_id}`);
+      const run = runCommand(command, sandbox, runtime.command_environment, runtime);
+      const after = trackedTreeUnchanged(repositoryRoot, commit, sandbox);
+      return {
+        ...run,
+        tracked_tree_unchanged_before: true,
+        tracked_tree_unchanged_after: after.length === 0,
+        runtime_controls_unchanged: runtimeControlsUnchanged(sandbox, runtime),
+      };
+    });
+    const changed = trackedTreeUnchanged(repositoryRoot, commit, sandbox);
+    const trackedPaths = new Set(listTree(repositoryRoot, commit).map(({ path }) => path));
+    const unexpected = unexpectedPaths(sandbox, trackedPaths);
+    const passed = commandRuns.every(({
+      exit_code,
+      spawn_error: error,
+      tracked_tree_unchanged_before: before,
+      tracked_tree_unchanged_after: after,
+      runtime_controls_unchanged: controls,
+    }) => exit_code === 0 && error === null && before && after && controls) &&
+      changed.length === 0 && unexpected.length === 0;
+    return {
+      status: passed ? "passed" : "failed",
+      detached_checkout: true,
+      execution_boundary: structuredClone(EXECUTION_BOUNDARY),
+      command_runs: commandRuns,
+      post_run_tracked_tree_unchanged: changed.length === 0,
+      changed_tracked_paths: changed,
+      unexpected_paths: unexpected,
+    };
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+}
+
+function policyProjection(policy) {
+  return {
+    schema_version: policy.schema_version,
+    policy_id: policy.policy_id,
+    policy_version: policy.policy_version,
+    review_round: policy.review_round,
+    reviewed_ref: policy.reviewed_ref,
+    required_files: policy.required_files,
+    build_commands: policy.build_commands.map(commandRecord),
+  };
+}
+
+export function createReviewFreeze({
+  repositoryRoot = defaultRepositoryRoot,
+  commit = "HEAD",
+  policy = ROUND_04_REVIEW_POLICY,
+  createdAt,
+  executeCommands = false,
+} = {}) {
+  const reviewedCommit = exactCommit(repositoryRoot, commit);
+  const tree = git(repositoryRoot, ["rev-parse", `${reviewedCommit}^{tree}`]);
+  const commitTime = git(repositoryRoot, ["show", "-s", "--format=%cI", reviewedCommit]);
+  const gitObjectFormat = git(repositoryRoot, ["rev-parse", "--show-object-format"]);
+  const requiredFiles = policy.required_files.map((required) =>
+    fileRecord(repositoryRoot, reviewedCommit, required));
+  const trackedTree = trackedTreeInventory(repositoryRoot, reviewedCommit);
+  const buildCommands = policy.build_commands.map(commandRecord);
+  const runtime = runtimeInputs(repositoryRoot, reviewedCommit);
+  const reproduction = executeCommands
+    ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime)
+    : {
+        status: "not-run",
+        detached_checkout: true,
+        execution_boundary: structuredClone(EXECUTION_BOUNDARY),
+        command_runs: [],
+        post_run_tracked_tree_unchanged: null,
+        changed_tracked_paths: [],
+        unexpected_paths: [],
+      };
+  const freezeCreatedAt = createdAt ?? new Date().toISOString();
+  const generatorBytes = readFileSync(fileURLToPath(import.meta.url));
+  const reviewedGenerator = requiredFiles.find(({ path }) =>
+    path === "meta/review-freeze/review-freeze.mjs");
+  const reviewedGeneratorSchema = requiredFiles.find(({ path }) =>
+    path === "meta/review-freeze/review-freeze.schema.json");
+  const manifest = {
+    schema_version: "1.0.0",
+    freeze_id: `${policy.review_round}.review-inputs`,
+    status: "review-inputs-frozen",
+    created_at: freezeCreatedAt,
+    generator: {
+      id: "mind-flow.review-freeze",
+      version: "1.0.0",
+      path: "meta/review-freeze/review-freeze.mjs",
+      sha256: reviewedGenerator?.sha256 ?? canonicalHash(generatorBytes),
+      schema_path: "meta/review-freeze/review-freeze.schema.json",
+      schema_sha256: reviewedGeneratorSchema?.sha256 ?? canonicalHash(freezeSchemaBytes),
+    },
+    review_target: {
+      ref: policy.reviewed_ref,
+      commit: reviewedCommit,
+      tree,
+      commit_time: commitTime,
+      git_object_format: gitObjectFormat,
+    },
+    policy: {
+      id: policy.policy_id,
+      version: policy.policy_version,
+      checksum: canonicalHash(policyProjection(policy)),
+    },
+    tracked_tree: trackedTree,
+    required_files: requiredFiles,
+    build_commands: buildCommands,
+    runtime_inputs: runtime,
+    reproduction,
+    creator_reported_local_reproduction_passed: reproduction.status === "passed" &&
+      reproduction.post_run_tracked_tree_unchanged === true &&
+      reproduction.unexpected_paths.length === 0 &&
+      reproduction.command_runs.every((run) =>
+        run.tracked_tree_unchanged_before === true &&
+        run.tracked_tree_unchanged_after === true &&
+        run.runtime_controls_unchanged === true),
+    boundaries: structuredClone(BOUNDARIES),
+  };
+  return { ...manifest, freeze_hash: canonicalHash(manifest) };
+}
+
+function issue(code, path, message) {
+  return { code, path, message };
+}
+
+function same(left, right) {
+  return canonicalJson(left) === canonicalJson(right);
+}
+
+function verifyStream(stream, path, errors) {
+  try {
+    const encoded = stream?.bytes_base64 || "";
+    const bytes = Buffer.from(encoded, "base64");
+    if (bytes.toString("base64") !== encoded ||
+        !HASH.test(stream?.sha256 || "") || stream.byte_length !== bytes.length ||
+        stream.sha256 !== canonicalHash(bytes)) {
+      errors.push(issue("COMMAND_OUTPUT_DRIFT", path, "retained command output bytes do not match their digest and length"));
+    }
+  } catch (error) {
+    errors.push(issue("COMMAND_OUTPUT_DRIFT", path, error.message));
+  }
+}
+
+export function verifyReviewFreeze(manifest, {
+  repositoryRoot = defaultRepositoryRoot,
+  policy = ROUND_04_REVIEW_POLICY,
+  requireWorkingTree = false,
+  requireRuntimeParity = false,
+  requireGeneratorParity = false,
+} = {}) {
+  const errors = [];
+  if (!validateFreezeSchema(manifest)) {
+    for (const error of validateFreezeSchema.errors ?? []) {
+      errors.push(issue(
+        "FREEZE_SCHEMA_INVALID",
+        error.instancePath || "/",
+        error.message || "review freeze does not match its closed schema",
+      ));
+    }
+  }
+  const withoutHash = Object.fromEntries(
+    Object.entries(manifest || {}).filter(([key]) => key !== "freeze_hash"),
+  );
+  if (!HASH.test(manifest?.freeze_hash || "") || manifest.freeze_hash !== canonicalHash(withoutHash)) {
+    errors.push(issue("FREEZE_HASH_MISMATCH", "/freeze_hash", "freeze content differs from its content address"));
+  }
+  if (manifest?.schema_version !== "1.0.0" || manifest?.status !== "review-inputs-frozen") {
+    errors.push(issue("FREEZE_SCHEMA_INVALID", "/", "review freeze identity or status is invalid"));
+  }
+  if (!same(manifest?.boundaries, BOUNDARIES)) {
+    errors.push(issue("BOUNDARY_MISMATCH", "/boundaries", "a review freeze cannot create approval, truth, authority, action, publication or recruitment permission"));
+  }
+  const generator = {
+    id: "mind-flow.review-freeze",
+    version: "1.0.0",
+    path: "meta/review-freeze/review-freeze.mjs",
+    sha256: canonicalHash(readFileSync(fileURLToPath(import.meta.url))),
+    schema_path: "meta/review-freeze/review-freeze.schema.json",
+    schema_sha256: canonicalHash(freezeSchemaBytes),
+  };
+  if (requireGeneratorParity && !same(manifest?.generator, generator)) {
+    errors.push(issue("GENERATOR_DRIFT", "/generator", "generator identity or bytes differ from the verifier"));
+  }
+  const requiredEntries = Array.isArray(manifest?.required_files)
+    ? manifest.required_files
+    : [];
+  const requiredByPath = new Map(requiredEntries.map((entry) => [entry?.path, entry]));
+  const policyRequiresGenerator = policy.required_files.some(({ path }) =>
+    path === generator.path);
+  const policyRequiresSchema = policy.required_files.some(({ path }) =>
+    path === generator.schema_path);
+  if ((policyRequiresGenerator &&
+      manifest?.generator?.sha256 !== requiredByPath.get(generator.path)?.sha256) ||
+      (policyRequiresSchema &&
+      manifest?.generator?.schema_sha256 !== requiredByPath.get(generator.schema_path)?.sha256)) {
+    errors.push(issue(
+      "GENERATOR_TARGET_DRIFT",
+      "/generator",
+      "generator or schema identity does not match its required bytes in the reviewed commit",
+    ));
+  }
+  if (!same(manifest?.policy, {
+    id: policy.policy_id,
+    version: policy.policy_version,
+    checksum: canonicalHash(policyProjection(policy)),
+  })) {
+    errors.push(issue("REVIEW_POLICY_MISMATCH", "/policy", "freeze policy identity or content has drifted"));
+  }
+  if (manifest?.freeze_id !== `${policy.review_round}.review-inputs`) {
+    errors.push(issue("REVIEW_POLICY_MISMATCH", "/freeze_id", "freeze identity does not match the selected review round"));
+  }
+  const expectedCommands = policy.build_commands.map(commandRecord);
+  if (!same(manifest?.build_commands, expectedCommands)) {
+    errors.push(issue("REVIEW_POLICY_MISMATCH", "/build_commands", "required build commands were removed, reordered or changed"));
+  }
+  if (!same(
+    (manifest?.required_files || []).map(({ path, role }) => ({ path, role })),
+    policy.required_files,
+  )) {
+    errors.push(issue("REVIEW_POLICY_MISMATCH", "/required_files", "required review files were removed, reordered or relabelled"));
+  }
+
+  const commit = manifest?.review_target?.commit;
+  try {
+    const exact = exactCommit(repositoryRoot, commit);
+    const tree = git(repositoryRoot, ["rev-parse", `${exact}^{tree}`]);
+    const commitTime = git(repositoryRoot, ["show", "-s", "--format=%cI", exact]);
+    const objectFormat = git(repositoryRoot, ["rev-parse", "--show-object-format"]);
+    if (exact !== commit || tree !== manifest.review_target.tree ||
+        commitTime !== manifest.review_target.commit_time ||
+        objectFormat !== manifest.review_target.git_object_format ||
+        manifest.review_target.ref !== policy.reviewed_ref) {
+      errors.push(issue("REVIEW_COMMIT_MISMATCH", "/review_target", "reviewed commit or complete tree differs from the freeze"));
+    }
+    const createdAt = Date.parse(manifest?.created_at);
+    const committedAt = Date.parse(commitTime);
+    if (!Number.isFinite(createdAt) || createdAt < committedAt || createdAt > Date.now() + 300_000) {
+      errors.push(issue(
+        "FREEZE_CHRONOLOGY_INVALID",
+        "/created_at",
+        "freeze creation time precedes the reviewed commit or is more than five minutes in the verifier future",
+      ));
+    }
+    for (const [index, required] of policy.required_files.entries()) {
+      const expected = fileRecord(repositoryRoot, exact, required);
+      if (!same(manifest.required_files?.[index], expected)) {
+        errors.push(issue("REVIEWED_FILE_DRIFT", `/required_files/${index}`, `${required.path} differs from the reviewed commit`));
+      }
+    }
+    const expectedTrackedTree = trackedTreeInventory(repositoryRoot, exact);
+    if (!same(manifest?.tracked_tree, expectedTrackedTree)) {
+      errors.push(issue(
+        "TRACKED_TREE_DRIFT",
+        "/tracked_tree",
+        "canonical SHA-256 path, mode, type and content inventory differs from the reviewed commit",
+      ));
+    }
+    const lock = fileAtCommit(repositoryRoot, exact, "package-lock.json");
+    if (requireRuntimeParity) {
+      const currentRuntime = runtimeInputs(repositoryRoot, exact);
+      const executableNames = ["node", "npm", "git", "python3", "unzip", "sh"];
+      const runtimeMatches = executableNames.every((name) =>
+        same(manifest?.runtime_inputs?.[name], currentRuntime[name])) &&
+        same(manifest?.runtime_inputs?.operating_system, currentRuntime.operating_system);
+      if (!runtimeMatches) {
+        errors.push(issue(
+          "RUNTIME_INPUT_DRIFT",
+          "/runtime_inputs",
+          "recorded executable bytes, versions or operating system differ from this verifier environment",
+        ));
+      }
+    }
+    if (manifest?.runtime_inputs?.checkout_directory_name !== "mind-flow" ||
+        !same(manifest?.runtime_inputs?.command_environment, FIXED_COMMAND_ENVIRONMENT)) {
+      errors.push(issue("RUNTIME_INPUT_DRIFT", "/runtime_inputs/command_environment", "fixed command environment differs from the review policy"));
+    }
+    if (!same(manifest?.runtime_inputs?.package_lock, {
+      path: "package-lock.json",
+      sha256: canonicalHash(lock),
+      byte_length: lock.length,
+    })) {
+      errors.push(issue("RUNTIME_INPUT_DRIFT", "/runtime_inputs/package_lock", "dependency lock differs from the reviewed commit"));
+    }
+    if (requireWorkingTree) {
+      const head = exactCommit(repositoryRoot, "HEAD");
+      const status = git(repositoryRoot, ["status", "--porcelain=v1", "--untracked-files=all"]);
+      if (head !== exact || status !== "") {
+        errors.push(issue("REVIEW_COMMIT_MISMATCH", "/review_target/commit", "working checkout is not the exact clean reviewed commit"));
+      }
+      for (const [index, expected] of (manifest.required_files || []).entries()) {
+        try {
+          const path = resolve(repositoryRoot, expected.path);
+          const fromRoot = relative(repositoryRoot, path);
+          if (fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot) ||
+              canonicalHash(readFileSync(path)) !== expected.sha256) {
+            errors.push(issue("REVIEWED_FILE_DRIFT", `/required_files/${index}`, `${expected.path} differs in the working checkout`));
+          }
+        } catch (error) {
+          errors.push(issue("REVIEWED_FILE_DRIFT", `/required_files/${index}`, error.message));
+        }
+      }
+    }
+  } catch (error) {
+    errors.push(issue("REVIEW_COMMIT_MISMATCH", "/review_target", error.message));
+  }
+
+  const reproduction = manifest?.reproduction;
+  const runs = Array.isArray(reproduction?.command_runs)
+    ? reproduction.command_runs
+    : [];
+  if (!Array.isArray(reproduction?.command_runs)) {
+    errors.push(issue(
+      "REPRODUCTION_MISMATCH",
+      "/reproduction/command_runs",
+      "command receipts must be an ordered array",
+    ));
+  }
+  for (const [index, run] of runs.entries()) {
+    const command = manifest.build_commands?.[index];
+    if (!command || run.command_contract_sha256 !== command.command_contract_sha256) {
+      errors.push(issue("COMMAND_RECEIPT_MISMATCH", `/reproduction/command_runs/${index}`, "command run does not resolve to the frozen command contract"));
+    }
+    if (run.command_id !== command?.command_id) {
+      errors.push(issue("COMMAND_RECEIPT_MISMATCH", `/reproduction/command_runs/${index}/command_id`, "command receipt order or identity differs from the frozen commands"));
+    }
+    verifyStream(run.stdout, `/reproduction/command_runs/${index}/stdout`, errors);
+    verifyStream(run.stderr, `/reproduction/command_runs/${index}/stderr`, errors);
+    const started = Date.parse(run.started_at);
+    const finished = Date.parse(run.finished_at);
+    const captured = Date.parse(manifest.created_at);
+    if (!Number.isFinite(started) || !Number.isFinite(finished) ||
+        started > finished || finished > captured ||
+        (run.exit_code !== null && run.signal !== null) ||
+        (run.exit_code === 0 && (run.signal !== null || run.spawn_error !== null))) {
+      errors.push(issue(
+        "COMMAND_RECEIPT_MISMATCH",
+        `/reproduction/command_runs/${index}`,
+        "command receipt chronology or exit, signal and spawn state is impossible",
+      ));
+    }
+  }
+  const isNotRun = reproduction?.status === "not-run";
+  const receiptCountIsValid = isNotRun
+    ? runs.length === 0
+    : runs.length === expectedCommands.length;
+  const commandsPassed = receiptCountIsValid && runs.every(({ exit_code: code, spawn_error: error }) =>
+    code === 0 && error === null);
+  const trackedTreeStateIsValid = isNotRun
+    ? reproduction?.post_run_tracked_tree_unchanged === null &&
+      reproduction?.changed_tracked_paths?.length === 0 &&
+      reproduction?.unexpected_paths?.length === 0
+    : reproduction?.post_run_tracked_tree_unchanged ===
+      (reproduction?.changed_tracked_paths?.length === 0);
+  const expectedReproductionStatus = isNotRun
+    ? "not-run"
+    : commandsPassed && reproduction?.post_run_tracked_tree_unchanged === true &&
+      reproduction?.unexpected_paths?.length === 0 && runs.every((run) =>
+        run.tracked_tree_unchanged_before === true &&
+        run.tracked_tree_unchanged_after === true &&
+        run.runtime_controls_unchanged === true)
+      ? "passed"
+      : "failed";
+  if (!receiptCountIsValid || !trackedTreeStateIsValid ||
+      reproduction?.status !== expectedReproductionStatus ||
+      reproduction?.detached_checkout !== true ||
+      !same(reproduction?.execution_boundary, EXECUTION_BOUNDARY)) {
+    errors.push(issue("REPRODUCTION_MISMATCH", "/reproduction", "reproduction state is inconsistent with its frozen commands, receipts or tree evidence"));
+  }
+  const expectedLocalReport = reproduction?.status === "passed" &&
+    reproduction?.post_run_tracked_tree_unchanged === true &&
+    reproduction?.unexpected_paths?.length === 0 && runs.every((run) =>
+      run.tracked_tree_unchanged_before === true &&
+      run.tracked_tree_unchanged_after === true &&
+      run.runtime_controls_unchanged === true);
+  if (manifest?.creator_reported_local_reproduction_passed !== expectedLocalReport) {
+    errors.push(issue("REPRODUCTION_MISMATCH", "/creator_reported_local_reproduction_passed", "creator-reported local result must be derived from retained receipts"));
+  }
+  return { valid: errors.length === 0, errors };
+}
+
+function parseOption(arguments_, name, fallback) {
+  const prefix = `--${name}=`;
+  return arguments_.find((argument) => argument.startsWith(prefix))?.slice(prefix.length) ?? fallback;
+}
+
+function usage() {
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const [operation, ...arguments_] = process.argv.slice(2);
+  try {
+    if (operation === "create") {
+      const output = parseOption(arguments_, "output");
+      if (!output) throw new Error("create requires --output=<path>");
+      const manifest = createReviewFreeze({
+        repositoryRoot: defaultRepositoryRoot,
+        commit: parseOption(arguments_, "commit", "HEAD"),
+        policy: reviewPolicyFor(parseOption(arguments_, "policy", "round-04")),
+        executeCommands: arguments_.includes("--run"),
+      });
+      const outputPath = resolveReviewOutput(defaultRepositoryRoot, output, {
+        force: arguments_.includes("--force"),
+      });
+      writeReviewFreezeAtomically(outputPath, manifest);
+      process.stdout.write(`${manifest.freeze_hash} ${manifest.review_target.commit} ${manifest.reproduction.status}\n`);
+      if (manifest.reproduction.status === "failed") process.exitCode = 2;
+    } else if (operation === "verify") {
+      const manifestPath = parseOption(arguments_, "manifest");
+      if (!manifestPath) throw new Error("verify requires --manifest=<path>");
+      const manifest = JSON.parse(readFileSync(resolve(defaultRepositoryRoot, manifestPath), "utf8"));
+      const result = verifyReviewFreeze(manifest, {
+        repositoryRoot: defaultRepositoryRoot,
+        policy: reviewPolicyFor(parseOption(arguments_, "policy", "round-04")),
+        requireWorkingTree: arguments_.includes("--checkout"),
+        requireRuntimeParity: arguments_.includes("--runtime-parity"),
+        requireGeneratorParity: arguments_.includes("--generator-parity"),
+      });
+      if (!result.valid) {
+        for (const error of result.errors) {
+          process.stderr.write(`${error.code} ${error.path}: ${error.message}\n`);
+        }
+        process.exitCode = 1;
+      } else if (
+        manifest.reproduction.status !== "passed" &&
+        !arguments_.includes("--allow-failed-reproduction")
+      ) {
+        process.stderr.write(
+          `integrity verified, but reproduction did not pass: ${manifest.reproduction.status}\n`,
+        );
+        process.exitCode = 2;
+      } else {
+        process.stdout.write(
+          `verified ${manifest.freeze_hash} reproduction=${manifest.reproduction.status}\n`,
+        );
+      }
+    } else {
+      process.stderr.write(usage());
+      process.exitCode = 1;
+    }
+  } catch (error) {
+    process.stderr.write(`review freeze failed: ${error.message}\n`);
+    process.exitCode = 1;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "id": "attack.cross-scale-command",
+  "operations": [{ "op": "replace", "path": "/actions/3/actor/authority_boundary/may_command_other_actors", "value": true }],
+  "expected_codes": ["SCHEMA_NONCONFORMANT"]
+}

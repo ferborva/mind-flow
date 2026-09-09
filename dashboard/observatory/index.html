@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#07100f">
+    <meta name="description" content="A research prototype for inspecting executable IF conditions, evidence, forecasts, paths and authority boundaries.">
+    <title>The Transition Observatory · Programme iteration 06</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./data.js"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body data-projection-state="pending" aria-busy="true">
+    <a class="skip-link" href="#main-content">Skip to observatory</a>
+    <div class="projection-pending" id="observatory-pending" role="status" aria-live="polite" tabindex="-1">
+      <strong>Projection pending.</strong>
+      <span>No condition, forecast, gate or action claim is available unless the local application and data projection complete.</span>
+    </div>
+    <div class="data-error" id="observatory-error" role="alert" tabindex="-1" hidden></div>
+    <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <header class="masthead">
+      <a class="identity" href="#overview" aria-label="Transition Observatory home">
+        <span class="identity-mark" aria-hidden="true">Φ</span>
+        <span><b>The Transition Observatory</b><small>Human agency through change</small></span>
+      </a>
+      <div class="masthead-meta">
+        <span id="round-label">Round</span>
+        <span class="classification" id="classification-label">Loading source</span>
+        <time id="as-of"></time>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <aside class="epistemic-banner" role="note" aria-label="Demonstration boundary">
+        <strong>Demonstration only.</strong>
+        <span id="demonstration-boundary"></span>
+      </aside>
+      <aside class="consultation-warning" role="note" aria-labelledby="consultation-title">
+        <strong id="consultation-title">Affected-party review</strong>
+        <span id="consultation-status"></span>
+      </aside>
+      <dl class="status-strip" aria-label="Prototype version status">
+        <div><dt>Programme iteration</dt><dd id="programme-iteration"></dd></div>
+        <div><dt>Data fixture</dt><dd id="data-fixture"></dd></div>
+        <div><dt>Interface study</dt><dd id="interface-study"></dd></div>
+        <div><dt>Public release</dt><dd id="public-release"></dd></div>
+      </dl>
+      <section class="hero" id="overview" aria-labelledby="hero-title">
+        <div class="hero-intro reveal">
+          <p class="eyebrow">An instrument for navigable futures</p>
+          <h1 id="hero-title">Make the <em>IF</em><br>visible.</h1>
+          <p class="lede">Inspect candidate conditions for people to move through technological change with meaningful choice, without pretending the set is complete.</p>
+        </div>
+
+        <article class="condition-console reveal" aria-labelledby="condition-title">
+          <div class="console-head">
+            <div>
+              <p class="section-index">01 / Executable condition</p>
+              <h2 id="condition-title">The repository example claim</h2>
+            </div>
+            <div class="state-seal" data-current-state>···</div>
+          </div>
+          <dl class="grammar" id="grammar-grid">
+            <div><dt>Who</dt><dd data-grammar="who"></dd></div>
+            <div><dt>Verb</dt><dd data-grammar="verb"></dd></div>
+            <div><dt>Outcome</dt><dd data-grammar="outcome"></dd></div>
+            <div><dt>Standard</dt><dd data-grammar="standard"></dd></div>
+            <div><dt>Place</dt><dd data-grammar="place"></dd></div>
+            <div><dt>Period</dt><dd data-grammar="period"></dd></div>
+          </dl>
+          <div class="if-clause">
+            <span>IF</span>
+            <p data-grammar="if"></p>
+          </div>
+        </article>
+
+        <div class="truth-bar reveal" aria-label="Sample rule output, invented forecast and authority summary">
+          <article class="truth-cell current-cell">
+            <p class="label">Sample rule output, not a finding</p>
+            <div class="state-readout"><strong data-current-state></strong></div>
+            <p id="current-evidence-note"></p>
+          </article>
+          <article class="truth-cell forecast-cell">
+            <div class="probability-ring" id="probability-ring" aria-hidden="true"><b id="probability-number"></b></div>
+            <div><p class="label">Invented test value, not an estimate</p><strong id="forecast-short"></strong><p>Different question, not a truth score.</p></div>
+          </article>
+          <article class="truth-cell authority-cell">
+            <p class="label">Decision boundary</p>
+            <strong id="authority-status"></strong>
+            <p id="authority-note"></p>
+          </article>
+          <article class="truth-cell next-cell">
+            <p class="label">Fixture preparation review date</p>
+            <strong><time id="next-check-date"></time></strong>
+            <p id="next-check-note"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section gate-section" id="gates" aria-labelledby="gates-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">02 / Programme gates</p><h2 id="gates-title">What the local fixture checks. What remains closed.</h2></div>
+          <p>Local reproducibility is not progress through a readiness scale. It cannot lend status to truth, freshness, authority or publication.</p>
+        </header>
+        <div class="gate-groups">
+          <section class="gate-group reveal" aria-labelledby="real-gates-title">
+            <div class="gate-group-head">
+              <h3 id="real-gates-title">Real-world release gates</h3>
+              <p id="real-gate-summary"></p>
+            </div>
+            <div class="gate-grid real-gate-grid" id="real-world-gate-grid"></div>
+          </section>
+          <section class="gate-group reveal" aria-labelledby="local-gates-title">
+            <div class="gate-group-head">
+              <h3 id="local-gates-title">Software checks on sample files</h3>
+              <p id="local-gate-summary"></p>
+            </div>
+            <div class="gate-grid" id="local-gate-grid"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="section state-section" id="states" aria-labelledby="states-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">03 / Branch explorer</p><h2 id="states-title">Five possible software outputs and example follow-up questions.</h2></div>
+          <p>Explore the repository example. This changes only the hypothetical view, never the sample calculation.</p>
+        </header>
+        <div class="state-switcher reveal" id="state-switcher" role="group" aria-label="Explore IF state branches"></div>
+        <article class="branch-display reveal" aria-live="polite" aria-atomic="true" id="branch-display">
+          <div class="branch-coordinate"><span>STATE</span><b id="branch-state"></b></div>
+          <div><p class="branch-kicker" id="branch-recovery"></p><h3 id="branch-action"></h3><p id="branch-explanation"></p></div>
+          <p class="scenario-flag" id="scenario-flag">Scenario view only</p>
+        </article>
+      </section>
+
+      <section class="section evolution-section" id="evolution" aria-labelledby="evolution-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">04 / IF evolution</p><h2 id="evolution-title">The condition is versioned.</h2></div>
+          <p>Trace change without silently changing meaning. Definition, evidence, paths and human values evolve on separate axes.</p>
+        </header>
+        <div class="axis-layout reveal">
+          <div class="axis-tabs" id="axis-tabs" role="tablist" aria-label="IF evolution axes"></div>
+          <article class="axis-panel" id="axis-panel" role="tabpanel" tabindex="0" aria-labelledby="axis-definition" aria-live="polite"></article>
+          <div class="orbital-map" aria-hidden="true">
+            <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
+            <div class="orbit-core">IF</div>
+            <span class="axis-point point-definition">D</span><span class="axis-point point-evidence">E</span>
+            <span class="axis-point point-path">P</span><span class="axis-point point-values">V</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section crossings-section" id="crossings" aria-labelledby="crossings-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">05 / Non-true decision gates</p><h2 id="crossings-title">How the prototype blocks a candidate route.</h2></div>
+          <p>These are example follow-up questions for non-true sample states. They are not crisis findings or instructions.</p>
+        </header>
+        <div class="crossing-track reveal" id="crossing-track"></div>
+      </section>
+
+      <section class="section path-section" id="paths" aria-labelledby="paths-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">06 / Possible paths</p><h2 id="paths-title">One candidate. Named competing hypotheses.</h2></div>
+          <p>Open-world navigation means preserving rival explanations and an explicit route to abandonment.</p>
+        </header>
+        <div class="path-grid reveal" id="path-grid"></div>
+      </section>
+
+      <section class="section preparation-section" id="preparation" aria-labelledby="preparation-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">07 / Reversible preparation</p><h2 id="preparation-title">Unapproved preparation example, currently blocked.</h2></div>
+          <p>No real review service exists here. The repository example has a narrow test trigger, human gates and a stop rule.</p>
+        </header>
+        <article class="preparation-card reveal">
+          <div class="prep-status"><span id="prep-eligibility"></span><strong id="prep-title"></strong><p id="prep-sentence"></p></div>
+          <dl class="prep-facts" id="prep-facts"></dl>
+          <div class="control-columns"><div><h3>Conditions that would require independent approval</h3><ul id="start-controls"></ul></div><div><h3>Example stop conditions</h3><ul id="stop-controls"></ul></div></div>
+        </article>
+      </section>
+
+      <section class="section signal-section" id="signals" aria-labelledby="signals-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">08 / Measurement field</p><h2 id="signals-title">Know what is measured. Name what is missing.</h2></div>
+          <p id="source-status"></p>
+        </header>
+        <div class="metric-grid reveal" id="metric-grid"></div>
+        <div class="gap-strip reveal" id="gap-strip"></div>
+      </section>
+
+      <section class="section provenance-section" id="provenance" aria-labelledby="provenance-title">
+        <header class="section-head reveal">
+          <div><p class="section-index">09 / Provenance</p><h2 id="provenance-title">Local file lineage, not source authentication.</h2></div>
+          <p>A matching hash shows only that retained repository bytes did not change. It does not authenticate a publisher or make the contents true.</p>
+        </header>
+        <details class="provenance-ledger reveal">
+          <summary>Inspect the Round 4 repository-example files <span id="artifact-count"></span></summary>
+          <div id="provenance-list"></div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p><span aria-hidden="true">Φ</span> The Transition Observatory</p>
+      <p>Research draft · Synthetic fixture · No empirical finding · No authority</p>
+    </footer>
+
+    <noscript>
+      <section class="noscript" role="alert" aria-label="Projection unavailable">
+        <strong>Projection unavailable.</strong>
+        <span>This observatory needs JavaScript to project its local source bundle. No condition, forecast, gate or action claim has been loaded.</span>
+      </section>
+    </noscript>
+  </body>
+</html>

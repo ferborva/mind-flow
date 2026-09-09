@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Reuse one atomic claim identifier for a different claim.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/1/claim_id",
+      "value": "claim.employment-fell"
+    }
+  ]
+}

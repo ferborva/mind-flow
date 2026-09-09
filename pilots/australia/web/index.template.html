@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Australia pilot | Abundance Transition Observatory</title>
+<style>
+:root{
+  color-scheme:dark;--plane:#070b12;--surface:#0d1521;--surface-2:#121d2c;
+  --ink:#edf4ff;--muted:#9bacc2;--quiet:#71839b;--line:#26354a;
+  --blue:#61a8ff;--cyan:#62d9e8;--amber:#ffc55c;--shadow:0 24px 70px rgba(0,0,0,.3)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+  radial-gradient(circle at 80% -10%,rgba(97,168,255,.16),transparent 32rem),
+  linear-gradient(180deg,#080d15,var(--plane));color:var(--ink);
+  font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--cyan)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font:600 10px ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--blue)}
+.mast{padding:28px 0 38px;border-bottom:1px solid var(--line)}
+.authority{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:24px}
+.authority span{border:1px solid var(--amber);color:var(--amber);border-radius:3px;padding:5px 8px;
+  font:600 10px ui-monospace,monospace;letter-spacing:.1em}
+.authority .block{border-color:#ff8181;color:#ff9a9a}
+h1,h2,h3{font-family:"Arial Narrow",Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(36px,6vw,68px);line-height:.96;margin:13px 0 18px;max-width:15ch}
+.lead{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:68ch;margin:0}
+.lead strong{color:var(--ink)}
+.scope-line{display:flex;gap:22px;flex-wrap:wrap;margin:28px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
+.scope-line div{min-width:130px}.scope-line dt{font:500 9px ui-monospace,monospace;color:var(--quiet);letter-spacing:.12em;text-transform:uppercase}
+.scope-line dd{margin:3px 0 0;color:var(--muted);font-size:12px}
+.controls{position:sticky;top:0;z-index:10;background:rgba(7,11,18,.92);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);padding:12px 0}
+.control-row{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+label{display:grid;gap:5px;font:600 9px ui-monospace,monospace;letter-spacing:.11em;color:var(--quiet)}
+select{width:100%;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 10px;font:13px ui-monospace,monospace}
+.model-chip{border:1px solid var(--blue);color:var(--blue);border-radius:99px;padding:7px 11px;white-space:nowrap;font:600 10px ui-monospace,monospace}
+main{padding:38px 0 90px}
+.identity{display:flex;align-items:start;justify-content:space-between;gap:24px;margin-bottom:20px}
+.identity h2{font-size:clamp(27px,4vw,44px);line-height:1.05;margin:5px 0}
+.identity p{color:var(--muted);margin:0}
+.estimate{text-align:right;white-space:nowrap}.estimate strong{display:block;font:600 clamp(32px,5vw,52px) ui-monospace,monospace;color:var(--cyan)}
+.estimate span{color:var(--quiet);font-size:12px}
+.warning{padding:15px 18px;border-left:3px solid var(--amber);background:rgba(255,197,92,.07);color:var(--muted);margin:18px 0 24px}
+.warning strong{color:var(--ink)}
+.update{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 58px}
+.update article{background:linear-gradient(145deg,var(--surface),rgba(18,29,44,.72));border:1px solid var(--line);border-radius:9px;padding:16px;min-height:138px}
+.update h3{font:600 9px ui-monospace,monospace;letter-spacing:.13em;color:var(--blue);margin:0 0 9px}
+.update p{font-size:12.5px;color:var(--muted);margin:0}.update strong{color:var(--ink)}
+.section{margin:0 0 64px}.section-head{display:grid;grid-template-columns:1fr minmax(260px,.55fr);gap:28px;align-items:end;margin-bottom:20px}
+.section-head h2{font-size:clamp(28px,4vw,46px);line-height:1;margin:7px 0 0}.section-head p{color:var(--muted);margin:0}
+.if-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.if-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:18px;min-height:170px;overflow:hidden}
+.if-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.if-card .num{font:500 9px ui-monospace,monospace;color:var(--quiet)}
+.if-card h3{font-size:20px;margin:11px 0 7px}.if-card p{font-size:12px;color:var(--muted);margin:0 0 15px}
+.if-card .state{font:600 10px ui-monospace,monospace;color:var(--amber)}
+.evidence-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.5fr);gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:22px;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 4px;font-size:21px}.panel .sub{margin:0 0 18px;color:var(--quiet);font-size:12px}
+#series-chart{width:100%;height:auto;min-height:310px;display:block}
+#series-chart text{fill:var(--quiet);font:10px ui-monospace,monospace}
+.changes{display:grid;gap:10px}.change{padding:16px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px}
+.change span{display:block;font:500 9px ui-monospace,monospace;color:var(--quiet);letter-spacing:.1em}
+.change strong{display:block;font:600 27px ui-monospace,monospace;margin-top:5px}
+.change small{color:var(--muted)}
+.table-wrap{overflow:auto;max-height:440px;border:1px solid var(--line);border-radius:9px}
+table{width:100%;border-collapse:collapse;font:12px ui-monospace,monospace;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}th{position:sticky;top:0;background:var(--surface-2);color:var(--quiet);font-size:9px;letter-spacing:.1em}
+.explanations{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.explanation{border:1px solid var(--line);border-radius:9px;padding:17px;background:var(--surface)}
+.explanation h3{font-size:17px;margin:0 0 6px}.explanation p{font-size:12px;color:var(--muted);margin:0}
+.contract{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.contract div{background:var(--surface);padding:15px}.contract dt{font:500 9px ui-monospace,monospace;color:var(--quiet);letter-spacing:.1em}.contract dd{margin:5px 0 0;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+footer{border-top:1px solid var(--line);padding:28px 0 50px;color:var(--quiet);font-size:12px}
+@media(max-width:900px){.update{grid-template-columns:repeat(2,1fr)}.if-grid{grid-template-columns:repeat(2,1fr)}.evidence-grid{grid-template-columns:1fr}.explanations{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.control-row,.section-head{grid-template-columns:1fr}.update,.if-grid,.explanations,.contract{grid-template-columns:1fr}.identity{display:block}.estimate{text-align:left;margin-top:14px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap">
+  <div class="authority" aria-label="Publication status">
+    <span>AUSTRALIA PILOT</span><span>MODELLED ESTIMATE</span><span>AGENT PROPOSAL</span><span class="block">UNVERIFIED SOURCE BYTES</span><span class="block">NOT AN AI EFFECT</span>
+  </div>
+  <div class="eyebrow">Abundance Transition Observatory / evidence room</div>
+  <h1>Watch one transition without inventing the rest.</h1>
+  <p class="lead"><strong>This pilot lets you inspect one occupation-region series at a time.</strong>
+    It shows what the NERO model estimated, then makes the missing IFs impossible to ignore.</p>
+  <dl class="scope-line">
+    <div><dt>Vintage</dt><dd id="vintage">Loading</dd></div>
+    <div><dt>Measure</dt><dd>Employed-person nowcast</dd></div>
+    <div><dt>Classification</dt><dd>ANZSCO 2013 v1.3 / ASGS 2021 SA4</dd></div>
+    <div><dt>Series</dt><dd id="series-count">Loading</dd></div>
+  </dl>
+</div></header>
+
+<div class="controls"><div class="wrap control-row">
+  <label>OCCUPATION<select id="occupation-select"></select></label>
+  <label>REGION OF RESIDENCE<select id="region-select"></select></label>
+  <span class="model-chip">MODELLED SERIES, NOT AN OBSERVED COUNT</span>
+</div></div>
+
+<main class="wrap">
+  <section aria-labelledby="series-title">
+    <div class="identity">
+      <div><div class="eyebrow">Selected evidence unit</div><h2 id="series-title">Loading series</h2><p id="series-place"></p></div>
+      <div class="estimate"><strong id="latest-value">Loading</strong><span id="latest-date">modelled employed persons</span><span class="byte-status">UNVERIFIED SOURCE BYTES</span></div>
+    </div>
+    <div class="warning"><strong>NERO estimates must not be summed or combined.</strong> Direction and scale within this separate series are more informative than the precise value. Smoothing may conceal rapid changes.</div>
+    <div class="update" aria-live="polite">
+      <article><h3>WHAT THE DATA SHOW</h3><p id="u-observed"></p></article>
+      <article><h3>AFFECTED</h3><p id="u-affected"></p></article>
+      <article><h3>INFERRED</h3><p id="u-inferred"></p></article>
+      <article><h3>IF CHANGED</h3><p><strong>None validated.</strong> Employment movement alone does not establish capability, adoption, access, agency, durability or fairness.</p></article>
+      <article><h3>ACTION AND OWNER</h3><p><strong>No authorised action.</strong> Agent proposal: the pilot research team preserves this vintage and seeks independent worker-flow evidence.</p></article>
+      <article><h3>FALSIFIER</h3><p>A later vintage may revise this path. Labour Force, vacancies, earnings or worker evidence may contradict its interpretation.</p></article>
+      <article><h3>NEXT CHECK</h3><p><strong>7 October 2026, planned.</strong> Compare the September NERO vintage without overwriting this one. <a href="https://www.jobsandskills.gov.au/data/nero" rel="noopener" target="_blank">Release source</a>.</p></article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="if-title">
+    <div class="section-head"><div><div class="eyebrow">The Five IF Chain</div><h2 id="if-title">One signal cannot complete the promise.</h2></div><p>Every layer needs independent evidence for this occupation, place, population and period. Unknown is a result, not reassurance.</p></div>
+    <div class="if-grid">
+      <article class="if-card"><span class="num">IF 01</span><h3>Capability</h3><p>Can a named system perform a useful task safely and reliably in the work context?</p><span class="state">UNKNOWN</span></article>
+      <article class="if-card"><span class="num">IF 02</span><h3>Reach</h3><p>Was it actually deployed for this occupation, at what intensity and under which controls?</p><span class="state">UNKNOWN</span></article>
+      <article class="if-card"><span class="num">IF 03</span><h3>Agency</h3><p>Did workers gain meaningful choices, voice, time, refusal rights or credible alternatives?</p><span class="state">UNKNOWN</span></article>
+      <article class="if-card"><span class="num">IF 04</span><h3>Durability</h3><p>Did household security and essential access persist through the work transition?</p><span class="state">UNKNOWN</span></article>
+      <article class="if-card"><span class="num">IF 05</span><h3>Fairness</h3><p>Who received gains and burdens, with what participation, remedy and distribution?</p><span class="state">UNKNOWN</span></article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="evidence-title">
+    <div class="section-head"><div><div class="eyebrow">Source-native evidence</div><h2 id="evidence-title">Inspect the path, not a verdict.</h2></div><p>The line preserves 25 monthly model outputs. The comparisons are arithmetic from the same vintage, not statistical tests or alerts.</p></div>
+    <div class="evidence-grid">
+      <div class="panel"><h3>Recent modelled path</h3><p class="sub" id="chart-subtitle"></p><p class="sub" id="chart-byte-status"><strong>UNVERIFIED SOURCE BYTES</strong> for every plotted value.</p><svg id="series-chart" viewBox="0 0 760 340" role="img"><title>Selected NERO occupation-region series</title></svg></div>
+      <aside class="changes">
+        <div class="change"><span>12 MONTH COMPARISON</span><strong id="change-12">Not available</strong><small id="change-12-range"></small></div>
+        <div class="change"><span>60 MONTH COMPARISON</span><strong id="change-60">Not available</strong><small id="change-60-range"></small></div>
+        <div class="change"><span>EPISTEMIC CLASS</span><strong style="font-size:18px">Modelled estimate</strong><small>Experimental, smoothed and revised with new inputs.</small></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="alternatives-title">
+    <div class="section-head"><div><div class="eyebrow">Competing explanations</div><h2 id="alternatives-title">What else could move this line?</h2></div><p>None of these is a decorative caveat. A causal claim must separate them with an appropriate design.</p></div>
+    <div class="explanations">
+      <article class="explanation"><h3>Local demand</h3><p>Business cycles, industry mix and employer demand can change employment without AI deployment.</p></article>
+      <article class="explanation"><h3>Population</h3><p>Migration, commuting and residence changes can alter a place-of-residence series.</p></article>
+      <article class="explanation"><h3>Work location</h3><p>The estimate follows where people live, not where the employing business operates.</p></article>
+      <article class="explanation"><h3>Substitution</h3><p>Outsourcing, offshoring and non-generative software may alter the occupation independently.</p></article>
+      <article class="explanation"><h3>Classification</h3><p>Occupation recoding and the ANZSCO to OSCA transition can create artificial breaks.</p></article>
+      <article class="explanation"><h3>The model itself</h3><p>Smoothing, revisions and patterns learned from history can miss novel structural change.</p></article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="table-title">
+    <div class="section-head"><div><div class="eyebrow">Observation record</div><h2 id="table-title">Every displayed month.</h2></div><p>No interpolation, composite, ranking or cross-series total is created here.</p></div>
+    <div class="table-wrap"><table id="series-table"><thead><tr><th>Reference month</th><th>Modelled employed persons · UNVERIFIED SOURCE BYTES</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="section" id="source-contract" aria-labelledby="source-title">
+    <div class="section-head"><div><div class="eyebrow">Provenance</div><h2 id="source-title">The source contract.</h2></div><p>This record fixes the vintage. Future releases become new records and may revise the historical path.</p></div>
+    <dl class="contract">
+      <div><dt>Publisher</dt><dd id="source-publisher"></dd></div><div><dt>Source</dt><dd><a id="source-link" rel="noopener" target="_blank"></a></dd></div>
+      <div><dt>Released</dt><dd id="source-released"></dd></div><div><dt>Retrieved</dt><dd id="source-retrieved"></dd></div>
+      <div><dt>Archive</dt><dd id="source-archive"></dd></div><div><dt>Local capture checksum</dt><dd id="source-checksum" class="mono"></dd></div>
+      <div><dt>Licence</dt><dd id="source-licence"></dd></div><div><dt>Measurement limit</dt><dd id="source-limit"></dd></div>
+      <div><dt>Publication</dt><dd id="source-publication"></dd></div><div><dt>Source bytes</dt><dd id="source-byte-status">UNVERIFIED SOURCE BYTES</dd></div>
+    </dl>
+    <p><a class="model-chip" id="export-evidence" download="australia-nero-evidence-unverified.json">Export selected evidence · UNVERIFIED SOURCE BYTES</a></p>
+  </section>
+</main>
+
+<footer><div class="wrap"><strong>Prototype and agent proposal.</strong> This page is an evidence-room demonstration. It is not an official statistical product, forecast, worker assessment, AI-effect estimate or authority to intervene.</div></footer>
+
+<script id="nero-data" type="application/json">__NERO_BASELINE__</script>
+<script>
+(function(){
+"use strict";
+var data=JSON.parse(document.getElementById("nero-data").textContent);
+var occupation=document.getElementById("occupation-select");
+var region=document.getElementById("region-select");
+
+function unique(items,key){var seen={};return items.filter(function(item){var value=item[key];if(seen[value])return false;seen[value]=1;return true;});}
+function option(value,label){var item=document.createElement("option");item.value=value;item.textContent=label;return item;}
+function number(value){return value==null?"Not available":Number(value).toLocaleString("en-AU");}
+function sourceBytesLabel(){return "UNVERIFIED SOURCE BYTES";}
+function month(date){return new Date(date+"T00:00:00Z").toLocaleDateString("en-AU",{year:"numeric",month:"short",timeZone:"UTC"});}
+function monthIndex(date){var bits=date.split("-");return Number(bits[0])*12+Number(bits[1])-1;}
+function displayObservations(series){var latest=monthIndex(series.latest.date);return series.recent_observations.filter(function(point){return monthIndex(point.date)>=latest-24;});}
+function selected(){return data.series.find(function(item){return item.occupation_code===occupation.value&&item.sa4_code===region.value;});}
+function describe(change){
+  if(!change||change.percent==null)return "Not available";
+  var word=change.absolute>0?"higher":change.absolute<0?"lower":"unchanged";
+  return Math.abs(change.percent).toFixed(1)+"% "+word;
+}
+function fillOccupations(){
+  unique(data.series,"occupation_code").forEach(function(item){occupation.appendChild(option(item.occupation_code,item.occupation_code+" / "+item.occupation_name));});
+  if([].some.call(occupation.options,function(item){return item.value==="5311";}))occupation.value="5311";
+}
+function fillRegions(preferred){
+  region.innerHTML="";
+  unique(data.series.filter(function(item){return item.occupation_code===occupation.value;}),"sa4_code")
+    .sort(function(a,b){return a.sa4_name.localeCompare(b.sa4_name);})
+    .forEach(function(item){region.appendChild(option(item.sa4_code,item.sa4_code+" / "+item.sa4_name));});
+  if(preferred&&[].some.call(region.options,function(item){return item.value===preferred;}))region.value=preferred;
+}
+function set(id,text){document.getElementById(id).textContent=text;}
+function renderChange(change,valueId,rangeId){
+  set(valueId,describe(change)+" · "+sourceBytesLabel());
+  set(rangeId,change?number(change.from_value)+" in "+month(change.from_date)+" to current vintage":"Comparison unavailable in this vintage");
+}
+function renderChart(series){
+  var svg=document.getElementById("series-chart"),NS="http://www.w3.org/2000/svg";svg.innerHTML="";
+  var title=document.createElementNS(NS,"title");title.textContent=series.occupation_name+" in "+series.sa4_name+", recent NERO modelled estimates";svg.appendChild(title);
+  var points=displayObservations(series).filter(function(point){return point.value!=null;});
+  if(points.length<2)return;
+  var W=760,H=340,m={l:62,r:22,t:25,b:38},values=points.map(function(point){return point.value;});
+  var lo=Math.min.apply(null,values),hi=Math.max.apply(null,values),pad=Math.max(1,(hi-lo)*.16);lo-=pad;hi+=pad;
+  function x(i){return m.l+i/(points.length-1)*(W-m.l-m.r);}
+  function y(value){return m.t+(hi-value)/(hi-lo)*(H-m.t-m.b);}
+  function node(tag,attrs,text){var item=document.createElementNS(NS,tag);Object.keys(attrs).forEach(function(key){item.setAttribute(key,attrs[key]);});if(text)item.textContent=text;return item;}
+  for(var tick=0;tick<=4;tick+=1){var value=lo+(hi-lo)*tick/4,py=y(value);svg.appendChild(node("line",{x1:m.l,x2:W-m.r,y1:py,y2:py,stroke:"#26354a"}));svg.appendChild(node("text",{x:m.l-9,y:py+4,"text-anchor":"end"},Math.round(value).toLocaleString("en-AU")));}
+  svg.appendChild(node("path",{d:points.map(function(point,index){return(index?"L":"M")+x(index).toFixed(1)+" "+y(point.value).toFixed(1);}).join(" "),fill:"none",stroke:"#62d9e8","stroke-width":"3","stroke-linecap":"round"}));
+  [0,points.length-1].forEach(function(index){svg.appendChild(node("text",{x:x(index),y:H-9,"text-anchor":index?"end":"start"},month(points[index].date)));});
+}
+function renderTable(series){
+  var body=document.querySelector("#series-table tbody");body.innerHTML="";
+  displayObservations(series).slice().reverse().forEach(function(point){var row=document.createElement("tr");[month(point.date),number(point.value)+" · "+sourceBytesLabel(),point.status].forEach(function(value){var cell=document.createElement("td");cell.textContent=value;row.appendChild(cell);});body.appendChild(row);});
+}
+var evidenceExportUrl=null;
+function currentEvidenceExport(series){
+  return {
+    schema_version:data.schema_version,id:data.id,
+    publication_status:data.publication_status,
+    source_bytes_status:data.source_bytes_status,
+    source_bytes_warning:sourceBytesLabel(),
+    source:data.source,scope:data.scope,
+    public_warning:data.public_warning,interpretation_limit:data.interpretation_limit,
+    revision_policy:data.revision_policy,series:series
+  };
+}
+function refreshEvidenceExport(series){
+  if(evidenceExportUrl)URL.revokeObjectURL(evidenceExportUrl);
+  evidenceExportUrl=URL.createObjectURL(new Blob([JSON.stringify(currentEvidenceExport(series),null,2)],{type:"application/json"}));
+  document.getElementById("export-evidence").href=evidenceExportUrl;
+}
+function render(){
+  var series=selected();if(!series)return;
+  set("series-title",series.occupation_name);set("series-place",series.sa4_name+" / "+series.state_name+" / region of residence");
+  set("latest-value",number(series.latest.value));set("latest-date",month(series.latest.date)+" / modelled employed persons · "+sourceBytesLabel());
+  set("u-observed","NERO modelled "+number(series.latest.value)+" employed persons ["+sourceBytesLabel()+"] for "+series.occupation_name+" living in "+series.sa4_name+" in "+month(series.latest.date)+".");
+  set("u-affected","The evidence unit is one occupation-region model series. It does not identify individual workers, households or employers.");
+  set("u-inferred","Within this vintage, the series is "+describe(series.change_12m)+" than 12 months earlier ["+sourceBytesLabel()+"]. This does not explain why.");
+  set("chart-subtitle",series.occupation_code+" / "+series.sa4_code+" / "+displayObservations(series).length+" recent monthly model outputs / no cross-series aggregation");
+  renderChange(series.change_12m,"change-12","change-12-range");renderChange(series.change_60m,"change-60","change-60-range");
+  renderChart(series);renderTable(series);refreshEvidenceExport(series);
+}
+function renderSource(){
+  set("vintage",data.source.release_period+" / released "+data.source.released_at);
+  set("series-count",data.scope.series_count+" kept separate");
+  set("source-publisher",data.source.publisher);set("source-released",data.source.released_at);set("source-retrieved",data.source.retrieved_at);
+  set("source-archive",data.source.archive_name);set("source-checksum",data.source.checksum+" · local consistency only, not publisher authentication");set("source-licence",data.source.licence);set("source-limit",data.interpretation_limit);
+  set("source-publication",data.publication_status);set("source-byte-status",sourceBytesLabel()+" · archive bytes are not retained and no publisher receipt is available");
+  var link=document.getElementById("source-link");link.href=data.source.archive_url;link.textContent=data.source.title;
+}
+fillOccupations();fillRegions("117");renderSource();render();
+occupation.onchange=function(){fillRegions();render();};region.onchange=render;
+})();
+</script>
+</body>
+</html>

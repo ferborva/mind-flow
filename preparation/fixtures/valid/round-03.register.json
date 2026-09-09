@@ -1,0 +1,2792 @@
+{
+  "schema_version": "1.1.0",
+  "register_id": "preparation.round-03",
+  "as_of": "2026-09-08T00:00:00Z",
+  "authorisation_effect": "none",
+  "evidence_truth_assessed": false,
+  "if_expressions": [
+    {
+      "id": "if.individual-transition-file",
+      "version": "1.0.0",
+      "checksum": "sha256:7cc06a0e585ce1d2eca6d4b28a5ea0b0b3421c5776e048fd3a2010174f523821",
+      "content": {
+        "plain_language": "Disposable cash after essential costs is below zero",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Example region"
+          ],
+          "cohorts": [
+            "participating worker"
+          ],
+          "services": [
+            "income navigation"
+          ],
+          "exclusions": [
+            "people outside the voluntary pilot"
+          ],
+          "affected_party_ids": [
+            "party.participating-individual"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "cash-access-margin",
+              "population": "participating worker",
+              "geography": "Example region",
+              "statistical_unit": "participating worker",
+              "denominator": "enrolled participating workers",
+              "period": "two consecutive monthly observations",
+              "aggregation": "participant-level"
+            }
+          ]
+        },
+        "clauses": [
+          {
+            "clause_id": "income-access-below-floor",
+            "statement": "Disposable cash after essential costs is below zero.",
+            "measure": "cash-access-margin",
+            "operator": "lt",
+            "threshold": {
+              "value": 0,
+              "unit": "aud-per-week"
+            },
+            "window": {
+              "value": 2,
+              "unit": "month",
+              "minimum_observations": 2
+            },
+            "evidence_requirement": "provisional",
+            "minimum_independent_sources": 1
+          }
+        ],
+        "logic": {
+          "clause_ref": "income-access-below-floor"
+        },
+        "condition_binding": {
+          "condition_id": "condition.individual-transition-file",
+          "condition_version": 1,
+          "ledger_ref": "urn:mind-flow:condition-ledger:individual-transition-file",
+          "ledger_manifest_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "ledger_tip_event_id": "event.individual-transition-file.created",
+          "ledger_tip_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "producer_event_id": "event.individual-transition-file.created",
+          "producer_event_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "verification_state": "external-unverified",
+          "verified_at": null,
+          "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
+        }
+      }
+    },
+    {
+      "id": "if.community-service-drill",
+      "version": "1.0.0",
+      "checksum": "sha256:8ff63744afefc2946f7fa4664244c02981feace7201b17f9e1730d699470b81b",
+      "content": {
+        "plain_language": "Verified available response places are below registered demand",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Example local area"
+          ],
+          "cohorts": [
+            "participating residents"
+          ],
+          "services": [
+            "community service navigation"
+          ],
+          "exclusions": [
+            "services not enrolled in the drill"
+          ],
+          "affected_party_ids": [
+            "party.participating-residents"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "response-capacity-ratio",
+              "population": "participating residents",
+              "geography": "Example local area",
+              "statistical_unit": "service-capacity reading",
+              "denominator": "registered local service demand",
+              "period": "current month",
+              "aggregation": "local-area"
+            }
+          ]
+        },
+        "clauses": [
+          {
+            "clause_id": "response-capacity-gap",
+            "statement": "Verified available response places are below registered demand.",
+            "measure": "response-capacity-ratio",
+            "operator": "lt",
+            "threshold": {
+              "value": 1,
+              "unit": "ratio"
+            },
+            "window": {
+              "value": 1,
+              "unit": "month",
+              "minimum_observations": 2
+            },
+            "evidence_requirement": "provisional",
+            "minimum_independent_sources": 2
+          }
+        ],
+        "logic": {
+          "clause_ref": "response-capacity-gap"
+        },
+        "condition_binding": {
+          "condition_id": "condition.community-service-drill",
+          "condition_version": 1,
+          "ledger_ref": "urn:mind-flow:condition-ledger:community-service-drill",
+          "ledger_manifest_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "ledger_tip_event_id": "event.community-service-drill.created",
+          "ledger_tip_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "producer_event_id": "event.community-service-drill.created",
+          "producer_event_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "verification_state": "external-unverified",
+          "verified_at": null,
+          "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
+        }
+      }
+    },
+    {
+      "id": "if.institution-retention-rule",
+      "version": "1.0.0",
+      "checksum": "sha256:53220282566bc010d2d950bc015afd37f15d36057ee94b38195bbb3038c5609b",
+      "content": {
+        "plain_language": "Retention creates material rights risk without necessary benefit",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Example service network"
+          ],
+          "cohorts": [
+            "pilot participants"
+          ],
+          "services": [
+            "transition case management"
+          ],
+          "exclusions": [
+            "records under an independently verified legal hold"
+          ],
+          "affected_party_ids": [
+            "party.pilot-participants"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "rights-risk-test",
+              "population": "pilot participants",
+              "geography": "Example service network",
+              "statistical_unit": "retained identifiable record",
+              "denominator": "retained identifiable pilot records",
+              "period": "current quarter",
+              "aggregation": "service-network"
+            }
+          ]
+        },
+        "clauses": [
+          {
+            "clause_id": "retention-rights-risk",
+            "statement": "Retention creates material rights risk without necessary benefit.",
+            "measure": "rights-risk-test",
+            "operator": "gte",
+            "threshold": {
+              "value": 1,
+              "unit": "material-risk-test"
+            },
+            "window": {
+              "value": 1,
+              "unit": "quarter",
+              "minimum_observations": 2
+            },
+            "evidence_requirement": "validated",
+            "minimum_independent_sources": 2
+          }
+        ],
+        "logic": {
+          "clause_ref": "retention-rights-risk"
+        },
+        "condition_binding": {
+          "condition_id": "condition.institution-retention-rule",
+          "condition_version": 1,
+          "ledger_ref": "urn:mind-flow:condition-ledger:institution-retention-rule",
+          "ledger_manifest_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "ledger_tip_event_id": "event.institution-retention-rule.created",
+          "ledger_tip_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+          "producer_event_id": "event.institution-retention-rule.created",
+          "producer_event_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+          "verification_state": "external-unverified",
+          "verified_at": null,
+          "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
+        }
+      }
+    },
+    {
+      "id": "if.country-emergency-containment",
+      "version": "1.0.0",
+      "checksum": "sha256:27a8f69c8414e5ffbba02ca006578255c9f3865ba963bb1709f9835b38c6211d",
+      "content": {
+        "plain_language": "(A material payment-integrity failure is imminent AND A less restrictive manual continuity route is available)",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "national"
+          ],
+          "cohorts": [
+            "affected payment recipients"
+          ],
+          "services": [
+            "public transition payments"
+          ],
+          "exclusions": [
+            "unaffected payment channels"
+          ],
+          "affected_party_ids": [
+            "party.payment-recipients"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "payment-integrity-risk",
+              "population": "affected payment recipients",
+              "geography": "national",
+              "statistical_unit": "payment channel check",
+              "denominator": "public transition payment channels",
+              "period": "current day",
+              "aggregation": "national-payment-system"
+            },
+            {
+              "construct": "rights-route-readiness",
+              "population": "affected payment recipients",
+              "geography": "national",
+              "statistical_unit": "manual continuity route",
+              "denominator": "affected public transition payment recipients",
+              "period": "current day",
+              "aggregation": "national-service-route"
+            }
+          ]
+        },
+        "clauses": [
+          {
+            "clause_id": "payment-failure-imminent",
+            "statement": "A material payment-integrity failure is imminent.",
+            "measure": "payment-integrity-risk",
+            "operator": "gte",
+            "threshold": {
+              "value": 0.9,
+              "unit": "probability"
+            },
+            "window": {
+              "value": 1,
+              "unit": "day",
+              "minimum_observations": 2
+            },
+            "evidence_requirement": "provisional",
+            "minimum_independent_sources": 2
+          },
+          {
+            "clause_id": "rights-route-available",
+            "statement": "A less restrictive manual continuity route is available.",
+            "measure": "rights-route-readiness",
+            "operator": "eq",
+            "threshold": {
+              "value": 1,
+              "unit": "ready"
+            },
+            "window": {
+              "value": 1,
+              "unit": "day",
+              "minimum_observations": 1
+            },
+            "evidence_requirement": "provisional",
+            "minimum_independent_sources": 1
+          }
+        ],
+        "logic": {
+          "all": [
+            {
+              "clause_ref": "payment-failure-imminent"
+            },
+            {
+              "clause_ref": "rights-route-available"
+            }
+          ]
+        },
+        "condition_binding": {
+          "condition_id": "condition.country-emergency-containment",
+          "condition_version": 1,
+          "ledger_ref": "urn:mind-flow:condition-ledger:country-emergency-containment",
+          "ledger_manifest_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "ledger_tip_event_id": "event.country-emergency-containment.created",
+          "ledger_tip_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+          "producer_event_id": "event.country-emergency-containment.created",
+          "producer_event_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+          "verification_state": "external-unverified",
+          "verified_at": null,
+          "verification_tool": "Canonical condition-ledger verification not performed for this synthetic fixture."
+        }
+      }
+    }
+  ],
+  "if_evaluations": [
+    {
+      "id": "evaluation.individual-transition-file.20260908",
+      "version": "1.0.0",
+      "checksum": "sha256:14dda367ce16d109a653e7eba05b23a13c2ae2accf9677346ead29d3b23f16e6",
+      "content": {
+        "expression_ref": {
+          "id": "if.individual-transition-file",
+          "version": "1.0.0",
+          "checksum": "sha256:7cc06a0e585ce1d2eca6d4b28a5ea0b0b3421c5776e048fd3a2010174f523821"
+        },
+        "evidence_bundle_ref": {
+          "id": "evidence.access-and-capacity",
+          "version": "1.0.0",
+          "checksum": "sha256:5c64e281ba4a28a6c7d1a64473031b6e5e4c0f62a1846a4a26fcd16c8024305d"
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Example region"
+          ],
+          "cohorts": [
+            "participating worker"
+          ],
+          "services": [
+            "income navigation"
+          ],
+          "exclusions": [
+            "people outside the voluntary pilot"
+          ],
+          "affected_party_ids": [
+            "party.participating-individual"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "cash-access-margin",
+              "population": "participating worker",
+              "geography": "Example region",
+              "statistical_unit": "participating worker",
+              "denominator": "enrolled participating workers",
+              "period": "two consecutive monthly observations",
+              "aggregation": "participant-level"
+            }
+          ]
+        },
+        "evaluated_at": "2026-09-07T12:00:00Z",
+        "valid_until": "2026-10-08T00:00:00Z",
+        "result": "true",
+        "clause_results": [
+          {
+            "clause_ref": "income-access-below-floor",
+            "result": "true",
+            "evidence_refs": [
+              "evidence.household-access-test"
+            ]
+          }
+        ],
+        "uncertainty": "Synthetic fixture. External facts and participant identity remain unverified.",
+        "evaluator": "deterministic fixture evaluator 1.0.0",
+        "external_verification": "not-performed",
+        "authorisation_effect": "none"
+      }
+    },
+    {
+      "id": "evaluation.community-service-drill.20260908",
+      "version": "1.0.0",
+      "checksum": "sha256:224c07b7d44e4abfefa39e711025d5d81e5da0f5ce9527aa6e544cc4c56a16d2",
+      "content": {
+        "expression_ref": {
+          "id": "if.community-service-drill",
+          "version": "1.0.0",
+          "checksum": "sha256:8ff63744afefc2946f7fa4664244c02981feace7201b17f9e1730d699470b81b"
+        },
+        "evidence_bundle_ref": {
+          "id": "evidence.access-and-capacity",
+          "version": "1.0.0",
+          "checksum": "sha256:5c64e281ba4a28a6c7d1a64473031b6e5e4c0f62a1846a4a26fcd16c8024305d"
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Example local area"
+          ],
+          "cohorts": [
+            "participating residents"
+          ],
+          "services": [
+            "community service navigation"
+          ],
+          "exclusions": [
+            "services not enrolled in the drill"
+          ],
+          "affected_party_ids": [
+            "party.participating-residents"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "response-capacity-ratio",
+              "population": "participating residents",
+              "geography": "Example local area",
+              "statistical_unit": "service-capacity reading",
+              "denominator": "registered local service demand",
+              "period": "current month",
+              "aggregation": "local-area"
+            }
+          ]
+        },
+        "evaluated_at": "2026-09-07T12:00:00Z",
+        "valid_until": "2026-10-08T00:00:00Z",
+        "result": "true",
+        "clause_results": [
+          {
+            "clause_ref": "response-capacity-gap",
+            "result": "true",
+            "evidence_refs": [
+              "evidence.capacity-test",
+              "evidence.capacity-cross-check"
+            ]
+          }
+        ],
+        "uncertainty": "Synthetic fixture. Local demand and capacity readings remain unverified.",
+        "evaluator": "deterministic fixture evaluator 1.0.0",
+        "external_verification": "not-performed",
+        "authorisation_effect": "none"
+      }
+    },
+    {
+      "id": "evaluation.institution-retention-rule.20260908",
+      "version": "1.0.0",
+      "checksum": "sha256:374f9f0007b527946a6f6632057498b65eec02044f7e3643d550c606b71dff98",
+      "content": {
+        "expression_ref": {
+          "id": "if.institution-retention-rule",
+          "version": "1.0.0",
+          "checksum": "sha256:53220282566bc010d2d950bc015afd37f15d36057ee94b38195bbb3038c5609b"
+        },
+        "evidence_bundle_ref": {
+          "id": "evidence.rights-risk",
+          "version": "1.0.0",
+          "checksum": "sha256:9f784f0a3fe5d50403d43a603ecfa311019e15b7c8668ff0dd87716f7e4b250e"
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Example service network"
+          ],
+          "cohorts": [
+            "pilot participants"
+          ],
+          "services": [
+            "transition case management"
+          ],
+          "exclusions": [
+            "records under an independently verified legal hold"
+          ],
+          "affected_party_ids": [
+            "party.pilot-participants"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "rights-risk-test",
+              "population": "pilot participants",
+              "geography": "Example service network",
+              "statistical_unit": "retained identifiable record",
+              "denominator": "retained identifiable pilot records",
+              "period": "current quarter",
+              "aggregation": "service-network"
+            }
+          ]
+        },
+        "evaluated_at": "2026-09-07T12:00:00Z",
+        "valid_until": "2026-09-22T00:00:00Z",
+        "result": "true",
+        "clause_results": [
+          {
+            "clause_ref": "retention-rights-risk",
+            "result": "true",
+            "evidence_refs": [
+              "evidence.rights-audit",
+              "evidence.participant-consent"
+            ]
+          }
+        ],
+        "uncertainty": "Synthetic fixture. The independent reproduction references are illustrative.",
+        "evaluator": "deterministic fixture evaluator 1.0.0",
+        "external_verification": "not-performed",
+        "authorisation_effect": "none"
+      }
+    },
+    {
+      "id": "evaluation.country-emergency-containment.20260908",
+      "version": "1.0.0",
+      "checksum": "sha256:7d4bfe332244dc27cc50c92352f167920626cb64494a2c711b1bc7b71390b628",
+      "content": {
+        "expression_ref": {
+          "id": "if.country-emergency-containment",
+          "version": "1.0.0",
+          "checksum": "sha256:27a8f69c8414e5ffbba02ca006578255c9f3865ba963bb1709f9835b38c6211d"
+        },
+        "evidence_bundle_ref": {
+          "id": "evidence.emergency-integrity",
+          "version": "1.0.0",
+          "checksum": "sha256:210d0f256e5cc8ceebf3e11337880e41e973e93b80793f23fb1ce07f2adb46b2"
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "national"
+          ],
+          "cohorts": [
+            "affected payment recipients"
+          ],
+          "services": [
+            "public transition payments"
+          ],
+          "exclusions": [
+            "unaffected payment channels"
+          ],
+          "affected_party_ids": [
+            "party.payment-recipients"
+          ],
+          "evidence_scopes": [
+            {
+              "construct": "payment-integrity-risk",
+              "population": "affected payment recipients",
+              "geography": "national",
+              "statistical_unit": "payment channel check",
+              "denominator": "public transition payment channels",
+              "period": "current day",
+              "aggregation": "national-payment-system"
+            },
+            {
+              "construct": "rights-route-readiness",
+              "population": "affected payment recipients",
+              "geography": "national",
+              "statistical_unit": "manual continuity route",
+              "denominator": "affected public transition payment recipients",
+              "period": "current day",
+              "aggregation": "national-service-route"
+            }
+          ]
+        },
+        "evaluated_at": "2026-09-07T23:00:00Z",
+        "valid_until": "2026-09-09T00:00:00Z",
+        "result": "true",
+        "clause_results": [
+          {
+            "clause_ref": "payment-failure-imminent",
+            "result": "true",
+            "evidence_refs": [
+              "evidence.payment-telemetry",
+              "evidence.payment-cross-check"
+            ]
+          },
+          {
+            "clause_ref": "rights-route-available",
+            "result": "true",
+            "evidence_refs": [
+              "evidence.continuity-drill"
+            ]
+          }
+        ],
+        "uncertainty": "Synthetic fixture. Emergency probability and route readiness require live authentication.",
+        "evaluator": "deterministic fixture evaluator 1.0.0",
+        "external_verification": "not-performed",
+        "authorisation_effect": "none"
+      }
+    }
+  ],
+  "evidence_bundles": [
+    {
+      "id": "evidence.access-and-capacity",
+      "version": "1.0.0",
+      "checksum": "sha256:5c64e281ba4a28a6c7d1a64473031b6e5e4c0f62a1846a4a26fcd16c8024305d",
+      "content": {
+        "quality": "provisional",
+        "as_of": "2026-09-07T12:00:00Z",
+        "sources": [
+          {
+            "evidence_id": "evidence.household-access-test",
+            "role": "observation",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-household",
+            "finding": "A synthetic household margin is below the declared floor.",
+            "limitation": "Not a real person or population estimate.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.household-access-test",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.household-access-test.1",
+                "measure": "cash-access-margin",
+                "value": -10,
+                "unit": "aud-per-week",
+                "observed_at": "2026-08-01T00:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "cash-access-margin",
+                  "population": "participating worker",
+                  "geography": "Example region",
+                  "statistical_unit": "participating worker",
+                  "denominator": "enrolled participating workers",
+                  "period": "two consecutive monthly observations",
+                  "aggregation": "participant-level"
+                }
+              },
+              {
+                "observation_id": "observation.household-access-test.2",
+                "measure": "cash-access-margin",
+                "value": -20,
+                "unit": "aud-per-week",
+                "observed_at": "2026-09-01T00:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "cash-access-margin",
+                  "population": "participating worker",
+                  "geography": "Example region",
+                  "statistical_unit": "participating worker",
+                  "denominator": "enrolled participating workers",
+                  "period": "two consecutive monthly observations",
+                  "aggregation": "participant-level"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [
+              {
+                "measure": "evidence-readiness-rate",
+                "unit": "proportion",
+                "arm": "without-action",
+                "estimate": 0.3,
+                "lower": 0.19999999999999998,
+                "upper": 0.4
+              },
+              {
+                "measure": "evidence-readiness-rate",
+                "unit": "proportion",
+                "arm": "with-action",
+                "estimate": 0.7,
+                "lower": 0.6,
+                "upper": 0.7999999999999999
+              }
+            ],
+            "harm_estimates": [
+              {
+                "harm_id": "harm.individual-transition-file.action",
+                "party_id": "party.participating-individual",
+                "arm": "action",
+                "likelihood": 0.2,
+                "severity_weight": 0.4,
+                "dimension_id": "dimension.control-loss"
+              },
+              {
+                "harm_id": "harm.individual-transition-file.inaction",
+                "party_id": "party.participating-individual",
+                "arm": "inaction",
+                "likelihood": 0.3,
+                "severity_weight": 0.4,
+                "dimension_id": "dimension.control-loss"
+              }
+            ]
+          },
+          {
+            "evidence_id": "evidence.capacity-test",
+            "role": "administrative-record",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-provider-register",
+            "finding": "Synthetic registered demand exceeds listed service places.",
+            "limitation": "No external service provider verification.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.capacity-test",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.capacity-test.1",
+                "measure": "response-capacity-ratio",
+                "value": 0.8,
+                "unit": "ratio",
+                "observed_at": "2026-09-07T10:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "response-capacity-ratio",
+                  "population": "participating residents",
+                  "geography": "Example local area",
+                  "statistical_unit": "service-capacity reading",
+                  "denominator": "registered local service demand",
+                  "period": "current month",
+                  "aggregation": "local-area"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [
+              {
+                "measure": "navigation-readiness-rate",
+                "unit": "proportion",
+                "arm": "without-action",
+                "estimate": 0.3,
+                "lower": 0.19999999999999998,
+                "upper": 0.4
+              },
+              {
+                "measure": "navigation-readiness-rate",
+                "unit": "proportion",
+                "arm": "with-action",
+                "estimate": 0.6,
+                "lower": 0.5,
+                "upper": 0.7
+              }
+            ],
+            "harm_estimates": [
+              {
+                "harm_id": "harm.community-service-drill.action",
+                "party_id": "party.participating-residents",
+                "arm": "action",
+                "likelihood": 0.30000000000000004,
+                "severity_weight": 0.6,
+                "dimension_id": "dimension.participant-time-distress"
+              },
+              {
+                "harm_id": "harm.community-service-drill.inaction",
+                "party_id": "party.participating-residents",
+                "arm": "inaction",
+                "likelihood": 0.4,
+                "severity_weight": 0.6,
+                "dimension_id": "dimension.participant-time-distress"
+              }
+            ]
+          },
+          {
+            "evidence_id": "evidence.capacity-cross-check",
+            "role": "evaluation",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-resident-check",
+            "finding": "Synthetic residents report failure to obtain a listed place.",
+            "limitation": "No authenticated resident sample or denominator.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.capacity-cross-check",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000003",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.capacity-cross-check.1",
+                "measure": "response-capacity-ratio",
+                "value": 0.7,
+                "unit": "ratio",
+                "observed_at": "2026-09-07T11:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "response-capacity-ratio",
+                  "population": "participating residents",
+                  "geography": "Example local area",
+                  "statistical_unit": "service-capacity reading",
+                  "denominator": "registered local service demand",
+                  "period": "current month",
+                  "aggregation": "local-area"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          },
+          {
+            "evidence_id": "evidence.individual-consent",
+            "role": "affected-party-testimony",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-individual-consent",
+            "finding": "The fixture records voluntary participation by the individual.",
+            "limitation": "Identity and consent are not authenticated.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.individual-consent",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000004",
+            "party_ids": [
+              "party.participating-individual"
+            ],
+            "observations": [],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          },
+          {
+            "evidence_id": "evidence.community-listening",
+            "role": "affected-party-testimony",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-community-listening",
+            "finding": "The fixture records a community listening response.",
+            "limitation": "Representativeness and identity are not authenticated.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.community-listening",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000005",
+            "party_ids": [
+              "party.participating-residents"
+            ],
+            "observations": [],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          }
+        ],
+        "limitations": [
+          "Synthetic data cannot establish empirical truth or programme effectiveness."
+        ],
+        "uncertainty": "Magnitude, prevalence and causal mechanism are unknown.",
+        "external_verification": "not-performed"
+      }
+    },
+    {
+      "id": "evidence.rights-risk",
+      "version": "1.0.0",
+      "checksum": "sha256:9f784f0a3fe5d50403d43a603ecfa311019e15b7c8668ff0dd87716f7e4b250e",
+      "content": {
+        "quality": "validated",
+        "as_of": "2026-09-07T12:00:00Z",
+        "sources": [
+          {
+            "evidence_id": "evidence.rights-audit",
+            "role": "evaluation",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-rights-audit",
+            "finding": "The fixture records a material rights-risk result.",
+            "limitation": "Illustrative validation, not a real audit.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.rights-audit",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000006",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.rights-audit.1",
+                "measure": "rights-risk-test",
+                "value": 1,
+                "unit": "material-risk-test",
+                "observed_at": "2026-09-07T10:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "rights-risk-test",
+                  "population": "pilot participants",
+                  "geography": "Example service network",
+                  "statistical_unit": "retained identifiable record",
+                  "denominator": "retained identifiable pilot records",
+                  "period": "current quarter",
+                  "aggregation": "service-network"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [
+              {
+                "measure": "rights-risk-rate",
+                "unit": "proportion",
+                "arm": "without-action",
+                "estimate": 0.8,
+                "lower": 0.7000000000000001,
+                "upper": 0.9
+              },
+              {
+                "measure": "rights-risk-rate",
+                "unit": "proportion",
+                "arm": "with-action",
+                "estimate": 0.3,
+                "lower": 0.19999999999999998,
+                "upper": 0.4
+              }
+            ],
+            "harm_estimates": [
+              {
+                "harm_id": "harm.institution-delete-transition-data.action",
+                "party_id": "party.pilot-participants",
+                "arm": "action",
+                "likelihood": 0.3,
+                "severity_weight": 1,
+                "dimension_id": "dimension.data-retention-rights"
+              },
+              {
+                "harm_id": "harm.institution-delete-transition-data.inaction",
+                "party_id": "party.pilot-participants",
+                "arm": "inaction",
+                "likelihood": 0.6,
+                "severity_weight": 0.8,
+                "dimension_id": "dimension.data-retention-rights"
+              }
+            ]
+          },
+          {
+            "evidence_id": "evidence.participant-consent",
+            "role": "affected-party-testimony",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-participants",
+            "finding": "The fixture records specific consent to irreversible deletion.",
+            "limitation": "Illustrative identity and consent evidence.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.participant-consent",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000007",
+            "party_ids": [
+              "party.pilot-participants"
+            ],
+            "observations": [
+              {
+                "observation_id": "observation.participant-consent.1",
+                "measure": "rights-risk-test",
+                "value": 1,
+                "unit": "material-risk-test",
+                "observed_at": "2026-09-07T11:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "rights-risk-test",
+                  "population": "pilot participants",
+                  "geography": "Example service network",
+                  "statistical_unit": "retained identifiable record",
+                  "denominator": "retained identifiable pilot records",
+                  "period": "current quarter",
+                  "aggregation": "service-network"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          }
+        ],
+        "limitations": [
+          "Validated describes the internal fixture quality tier, not real-world truth."
+        ],
+        "uncertainty": "Legal holds and downstream copies may prevent complete deletion.",
+        "external_verification": "not-performed"
+      }
+    },
+    {
+      "id": "evidence.emergency-integrity",
+      "version": "1.0.0",
+      "checksum": "sha256:210d0f256e5cc8ceebf3e11337880e41e973e93b80793f23fb1ce07f2adb46b2",
+      "content": {
+        "quality": "provisional",
+        "as_of": "2026-09-07T23:00:00Z",
+        "sources": [
+          {
+            "evidence_id": "evidence.payment-telemetry",
+            "role": "observation",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-payment-platform",
+            "finding": "The fixture reports imminent payment-integrity failure.",
+            "limitation": "Telemetry may share a common failure mode.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.payment-telemetry",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000008",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.payment-telemetry.1",
+                "measure": "payment-integrity-risk",
+                "value": 0.95,
+                "unit": "probability",
+                "observed_at": "2026-09-07T22:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "payment-integrity-risk",
+                  "population": "affected payment recipients",
+                  "geography": "national",
+                  "statistical_unit": "payment channel check",
+                  "denominator": "public transition payment channels",
+                  "period": "current day",
+                  "aggregation": "national-payment-system"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [
+              {
+                "measure": "payment-continuity-rate",
+                "unit": "proportion",
+                "arm": "without-action",
+                "estimate": 0.2,
+                "lower": 0.1,
+                "upper": 0.30000000000000004
+              },
+              {
+                "measure": "payment-continuity-rate",
+                "unit": "proportion",
+                "arm": "with-action",
+                "estimate": 0.7,
+                "lower": 0.6,
+                "upper": 0.7999999999999999
+              }
+            ],
+            "harm_estimates": [
+              {
+                "harm_id": "harm.country-payment-containment.action",
+                "party_id": "party.payment-recipients",
+                "arm": "action",
+                "likelihood": 0.4,
+                "severity_weight": 0.8,
+                "dimension_id": "dimension.payment-access-continuity"
+              },
+              {
+                "harm_id": "harm.country-payment-containment.inaction",
+                "party_id": "party.payment-recipients",
+                "arm": "inaction",
+                "likelihood": 0.8,
+                "severity_weight": 1,
+                "dimension_id": "dimension.payment-access-continuity"
+              }
+            ]
+          },
+          {
+            "evidence_id": "evidence.payment-cross-check",
+            "role": "administrative-record",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-clearing-check",
+            "finding": "A separate fixture check reports the same failure.",
+            "limitation": "Institutional independence is asserted, not verified.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.payment-cross-check",
+            "artifact_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000009",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.payment-cross-check.1",
+                "measure": "payment-integrity-risk",
+                "value": 0.96,
+                "unit": "probability",
+                "observed_at": "2026-09-07T22:30:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "payment-integrity-risk",
+                  "population": "affected payment recipients",
+                  "geography": "national",
+                  "statistical_unit": "payment channel check",
+                  "denominator": "public transition payment channels",
+                  "period": "current day",
+                  "aggregation": "national-payment-system"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          },
+          {
+            "evidence_id": "evidence.continuity-drill",
+            "role": "evaluation",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-continuity-team",
+            "finding": "A manual continuity route completed a synthetic drill.",
+            "limitation": "Drill performance may not generalise to national load.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.continuity-drill",
+            "artifact_checksum": "sha256:000000000000000000000000000000000000000000000000000000000000000a",
+            "party_ids": [],
+            "observations": [
+              {
+                "observation_id": "observation.continuity-drill.1",
+                "measure": "rights-route-readiness",
+                "value": 1,
+                "unit": "ready",
+                "observed_at": "2026-09-07T21:00:00Z",
+                "valid_until": "2026-10-15T00:00:00Z",
+                "evidence_scope": {
+                  "construct": "rights-route-readiness",
+                  "population": "affected payment recipients",
+                  "geography": "national",
+                  "statistical_unit": "manual continuity route",
+                  "denominator": "affected public transition payment recipients",
+                  "period": "current day",
+                  "aggregation": "national-service-route"
+                }
+              }
+            ],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          },
+          {
+            "evidence_id": "evidence.emergency-necessity",
+            "role": "evaluation",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-necessity-review",
+            "finding": "The fixture records a necessity and proportionality assessment.",
+            "limitation": "The assessor, authority and affected-party coverage are not authenticated.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.emergency-necessity",
+            "artifact_checksum": "sha256:000000000000000000000000000000000000000000000000000000000000000b",
+            "party_ids": [
+              "party.payment-recipients"
+            ],
+            "observations": [],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          },
+          {
+            "evidence_id": "evidence.payment-recipient-testimony",
+            "role": "affected-party-testimony",
+            "trust_state": "unverified",
+            "independence_group": "group.synthetic-payment-recipients",
+            "finding": "The fixture records a response attributed to affected payment recipients.",
+            "limitation": "Identity, representativeness and consent are not authenticated.",
+            "artifact_ref": "urn:mind-flow:synthetic-evidence:evidence.payment-recipient-testimony",
+            "artifact_checksum": "sha256:000000000000000000000000000000000000000000000000000000000000000c",
+            "party_ids": [
+              "party.payment-recipients"
+            ],
+            "observations": [],
+            "artifact_state": "synthetic-fixture",
+            "outcome_estimates": [],
+            "harm_estimates": []
+          }
+        ],
+        "limitations": [
+          "Emergency evidence is intentionally provisional and must expire quickly."
+        ],
+        "uncertainty": "Failure probability, blast radius and route capacity remain uncertain.",
+        "external_verification": "not-performed"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "schema_version": "1.1.0",
+      "action_id": "action.individual-transition-file",
+      "version": "1.0.0",
+      "record_kind": "proposal",
+      "authorisation_effect": "none",
+      "public_sentence": "Proposal: prepare a private transition evidence file within jurisdictions: Australia; geographies: Example region; cohorts: participating worker; services: income navigation; affected parties: party.participating-individual IF Disposable cash after essential costs is below zero. This record does not authorise action.",
+      "scale": "individual",
+      "actor": {
+        "actor_id": "actor.participating-individual",
+        "name": "Participating individual",
+        "scale": "individual",
+        "authority_boundary": {
+          "cannot_control": [
+            "employer decisions",
+            "community participation",
+            "institutional eligibility",
+            "country policy"
+          ],
+          "may_command_other_actors": false,
+          "capabilities": [
+            {
+              "capability_id": "capability.individual-transition-file",
+              "verbs": [
+                "prepare"
+              ],
+              "object_classes": [
+                "information"
+              ],
+              "jurisdictions": [
+                "Australia"
+              ],
+              "geographies": [
+                "Example region"
+              ],
+              "services": [
+                "income navigation"
+              ],
+              "basis_ref": "urn:mind-flow:synthetic-capability:action.individual-transition-file"
+            }
+          ]
+        }
+      },
+      "verb": "prepare",
+      "object": {
+        "object_id": "object.private-transition-file",
+        "class": "information",
+        "description": "a private transition evidence file"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Example region"
+        ],
+        "cohorts": [
+          "participating worker"
+        ],
+        "services": [
+          "income navigation"
+        ],
+        "exclusions": [
+          "people outside the voluntary pilot"
+        ],
+        "affected_party_ids": [
+          "party.participating-individual"
+        ],
+        "evidence_scopes": [
+          {
+            "construct": "cash-access-margin",
+            "population": "participating worker",
+            "geography": "Example region",
+            "statistical_unit": "participating worker",
+            "denominator": "enrolled participating workers",
+            "period": "two consecutive monthly observations",
+            "aggregation": "participant-level"
+          }
+        ]
+      },
+      "if_binding": {
+        "expression_ref": {
+          "id": "if.individual-transition-file",
+          "version": "1.0.0",
+          "checksum": "sha256:7cc06a0e585ce1d2eca6d4b28a5ea0b0b3421c5776e048fd3a2010174f523821"
+        },
+        "evaluation_ref": {
+          "id": "evaluation.individual-transition-file.20260908",
+          "version": "1.0.0",
+          "checksum": "sha256:14dda367ce16d109a653e7eba05b23a13c2ae2accf9677346ead29d3b23f16e6"
+        },
+        "required_result": "true",
+        "effect": "eligibility-only-not-authority"
+      },
+      "evidence_bundle_ref": {
+        "id": "evidence.access-and-capacity",
+        "version": "1.0.0",
+        "checksum": "sha256:5c64e281ba4a28a6c7d1a64473031b6e5e4c0f62a1846a4a26fcd16c8024305d"
+      },
+      "accountable_owner": {
+        "owner_id": "owner.participating-individual",
+        "organisation": "Self",
+        "role": "file controller",
+        "accountability_route": "https://example.org/individual/remedy",
+        "identity_state": "caller-asserted-unverified"
+      },
+      "authority_evidence": {
+        "state": "caller-asserted-unverified",
+        "reporting_basis": "caller-asserted-not-authenticated",
+        "basis": "Personal control over one private file",
+        "instrument_ref": null,
+        "verification_ref": null,
+        "effect": "evidence-only-not-authority"
+      },
+      "affected_party_governance": {
+        "discovery_method": "Self-identification within a voluntary one-person fixture.",
+        "coverage_state": "provisional-publicly-challengeable",
+        "known_omissions": [],
+        "challenge_route": "https://example.org/individual/remedy",
+        "objections": [],
+        "necessity_evaluations": []
+      },
+      "affected_party_dispositions": [
+        {
+          "party_id": "party.participating-individual",
+          "party": "Participating individual",
+          "relationships": [
+            "affected",
+            "benefited",
+            "burdened"
+          ],
+          "disposition": "consented",
+          "evidence_ref": "evidence.individual-consent",
+          "response": "Participation remains voluntary and revocable.",
+          "safeguard": "The file remains private unless the person elects to share it.",
+          "challenge_route": "https://example.org/individual/remedy",
+          "necessity_evaluation_ref": null
+        }
+      ],
+      "resources": {
+        "funding": {
+          "status": "secured",
+          "source": "No-cost local template",
+          "amount": 0,
+          "currency": "AUD",
+          "valid_through": "2026-12-31T00:00:00Z"
+        },
+        "capacity": {
+          "status": "available",
+          "required": [
+            {
+              "resource_id": "resource.thirty-minutes",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.private-storage",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "available": [
+            {
+              "resource_id": "resource.thirty-minutes",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.private-storage",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "gap": [],
+          "readiness_checked_at": "2026-09-07T12:00:00Z",
+          "readiness_valid_until": "2026-10-08T00:00:00Z"
+        }
+      },
+      "cross_actor_dependencies": [
+        {
+          "actor_id": "actor.income-navigation-provider",
+          "actor_scale": "institution",
+          "contribution": "Publish the evidence fields accepted for later assessment.",
+          "commitment_state": "offered",
+          "failure_effect": "Keep the file private and do not infer eligibility."
+        }
+      ],
+      "controls": {
+        "start_conditions": [
+          {
+            "control_id": "control.individual-transition-file.if-true.1",
+            "gate": "if-true",
+            "effect": "allow-start",
+            "condition": "The bound IF evaluation is current and true.",
+            "evidence_refs": [
+              "evaluation.individual-transition-file.20260908"
+            ],
+            "responsible_owner_ref": "owner.participating-individual"
+          },
+          {
+            "control_id": "control.individual-transition-file.resources-ready.2",
+            "gate": "resources-ready",
+            "effect": "allow-start",
+            "condition": "Required funding and capacity remain available.",
+            "evidence_refs": [
+              "evaluation.individual-transition-file.20260908"
+            ],
+            "responsible_owner_ref": "owner.participating-individual"
+          },
+          {
+            "control_id": "control.individual-transition-file.consent-current.3",
+            "gate": "consent-current",
+            "effect": "allow-start",
+            "condition": "Consent remains current and revocable.",
+            "evidence_refs": [
+              "evaluation.individual-transition-file.20260908"
+            ],
+            "responsible_owner_ref": "owner.participating-individual"
+          }
+        ],
+        "stop_conditions": [
+          {
+            "control_id": "control.individual-transition-file.safeguard-failed.1",
+            "gate": "safeguard-failed",
+            "effect": "stop",
+            "condition": "Stop when a registered rights safeguard fails.",
+            "evidence_refs": [
+              "evaluation.individual-transition-file.20260908"
+            ],
+            "responsible_owner_ref": "owner.participating-individual"
+          }
+        ],
+        "review_conditions": [
+          {
+            "control_id": "control.individual-transition-file.scheduled-review.1",
+            "gate": "scheduled-review",
+            "effect": "require-review",
+            "condition": "Review at the predeclared checkpoint.",
+            "evidence_refs": [
+              "evaluation.individual-transition-file.20260908"
+            ],
+            "responsible_owner_ref": "owner.participating-individual"
+          },
+          {
+            "control_id": "control.individual-transition-file.post-action-review.2",
+            "gate": "post-action-review",
+            "effect": "require-review",
+            "condition": "Complete an independently reviewable post-action assessment.",
+            "evidence_refs": [
+              "evaluation.individual-transition-file.20260908"
+            ],
+            "responsible_owner_ref": "owner.participating-individual"
+          }
+        ]
+      },
+      "reversibility": {
+        "class": "reversible",
+        "rationale": "The person can stop and delete their copy.",
+        "residual_harm": "A shared copy may persist outside their control.",
+        "default_rule": "reversible-unless-higher-gate-passed"
+      },
+      "recovery_path": {
+        "owner_ref": "owner.participating-individual",
+        "steps": [
+          "Withdraw sharing permission.",
+          "Delete controlled copies.",
+          "Request deletion of external copies."
+        ],
+        "funding_reserved": true,
+        "capacity_reserved": true,
+        "complete_within": {
+          "value": 2,
+          "unit": "day"
+        },
+        "remedy_route": "https://example.org/individual/remedy",
+        "reserved_amount": 100,
+        "currency": "AUD",
+        "complete_by": "2026-09-10T00:00:00Z",
+        "funding_valid_through": "2026-09-10T00:00:00Z",
+        "capacity_valid_through": "2026-09-10T00:00:00Z"
+      },
+      "inaction_comparator": {
+        "baseline": "The person creates no file and relies on records held by other actors.",
+        "horizon": {
+          "value": 3,
+          "unit": "month"
+        },
+        "expected_outcomes": [
+          {
+            "outcome_id": "evidence-readiness",
+            "measure": "evidence-readiness-rate",
+            "unit": "proportion",
+            "direction": "higher-is-better",
+            "without_action": {
+              "estimate": 0.3,
+              "lower": 0.19999999999999998,
+              "upper": 0.4
+            },
+            "with_action": {
+              "estimate": 0.7,
+              "lower": 0.6,
+              "upper": 0.7999999999999999
+            },
+            "evidence_refs": [
+              "evidence.household-access-test"
+            ]
+          }
+        ],
+        "action_harms": [
+          {
+            "harm_id": "harm.individual-transition-file.action",
+            "party_id": "party.participating-individual",
+            "likelihood": 0.2,
+            "evidence_refs": [
+              "evidence.household-access-test"
+            ],
+            "severity_weight": 0.4,
+            "dimension_id": "dimension.control-loss"
+          }
+        ],
+        "inaction_harms": [
+          {
+            "harm_id": "harm.individual-transition-file.inaction",
+            "party_id": "party.participating-individual",
+            "likelihood": 0.3,
+            "evidence_refs": [
+              "evidence.household-access-test"
+            ],
+            "severity_weight": 0.4,
+            "dimension_id": "dimension.control-loss"
+          }
+        ],
+        "comparison": "action-appears-safer",
+        "confidence": "low",
+        "authorisation_effect": "none",
+        "comparison_method": "paired-party-dimension-with-noncompensable-veto",
+        "severity_scale_ref": "urn:mind-flow:synthetic-severity-weights:v1",
+        "harm_taxonomy": {
+          "taxonomy_ref": "urn:mind-flow:harm-taxonomy:action.individual-transition-file:v1",
+          "overlap_policy": "declared-mutually-exclusive-dimensions",
+          "dimensions": [
+            {
+              "dimension_id": "dimension.control-loss",
+              "label": "Loss of control over personal transition information",
+              "non_compensable": true,
+              "action_veto_threshold": 0.5
+            }
+          ]
+        }
+      },
+      "generated_at": "2026-09-08T00:00:00Z",
+      "review_by": "2026-10-08T00:00:00Z",
+      "decision_use": "research-only"
+    },
+    {
+      "schema_version": "1.1.0",
+      "action_id": "action.community-service-drill",
+      "version": "1.0.0",
+      "record_kind": "proposal",
+      "authorisation_effect": "none",
+      "public_sentence": "Proposal: pilot a voluntary local service-navigation drill within jurisdictions: Australia; geographies: Example local area; cohorts: participating residents; services: community service navigation; affected parties: party.participating-residents IF Verified available response places are below registered demand. This record does not authorise action.",
+      "scale": "community",
+      "actor": {
+        "actor_id": "actor.local-coalition",
+        "name": "Candidate local coalition",
+        "scale": "community",
+        "authority_boundary": {
+          "cannot_control": [
+            "resident participation",
+            "provider commitments",
+            "government funding"
+          ],
+          "may_command_other_actors": false,
+          "capabilities": [
+            {
+              "capability_id": "capability.community-service-drill",
+              "verbs": [
+                "pilot"
+              ],
+              "object_classes": [
+                "capability"
+              ],
+              "jurisdictions": [
+                "Australia"
+              ],
+              "geographies": [
+                "Example local area"
+              ],
+              "services": [
+                "community service navigation"
+              ],
+              "basis_ref": "urn:mind-flow:synthetic-capability:action.community-service-drill"
+            }
+          ]
+        }
+      },
+      "verb": "pilot",
+      "object": {
+        "object_id": "object.local-navigation-drill",
+        "class": "capability",
+        "description": "a voluntary local service-navigation drill"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Example local area"
+        ],
+        "cohorts": [
+          "participating residents"
+        ],
+        "services": [
+          "community service navigation"
+        ],
+        "exclusions": [
+          "services not enrolled in the drill"
+        ],
+        "affected_party_ids": [
+          "party.participating-residents"
+        ],
+        "evidence_scopes": [
+          {
+            "construct": "response-capacity-ratio",
+            "population": "participating residents",
+            "geography": "Example local area",
+            "statistical_unit": "service-capacity reading",
+            "denominator": "registered local service demand",
+            "period": "current month",
+            "aggregation": "local-area"
+          }
+        ]
+      },
+      "if_binding": {
+        "expression_ref": {
+          "id": "if.community-service-drill",
+          "version": "1.0.0",
+          "checksum": "sha256:8ff63744afefc2946f7fa4664244c02981feace7201b17f9e1730d699470b81b"
+        },
+        "evaluation_ref": {
+          "id": "evaluation.community-service-drill.20260908",
+          "version": "1.0.0",
+          "checksum": "sha256:224c07b7d44e4abfefa39e711025d5d81e5da0f5ce9527aa6e544cc4c56a16d2"
+        },
+        "required_result": "true",
+        "effect": "eligibility-only-not-authority"
+      },
+      "evidence_bundle_ref": {
+        "id": "evidence.access-and-capacity",
+        "version": "1.0.0",
+        "checksum": "sha256:5c64e281ba4a28a6c7d1a64473031b6e5e4c0f62a1846a4a26fcd16c8024305d"
+      },
+      "accountable_owner": {
+        "owner_id": "owner.local-coalition",
+        "organisation": "Candidate local coalition",
+        "role": "drill coordinator",
+        "accountability_route": "https://example.org/community/challenge",
+        "identity_state": "caller-asserted-unverified"
+      },
+      "authority_evidence": {
+        "state": "caller-asserted-unverified",
+        "reporting_basis": "caller-asserted-not-authenticated",
+        "basis": "Voluntary coordination proposal only",
+        "instrument_ref": null,
+        "verification_ref": null,
+        "effect": "evidence-only-not-authority"
+      },
+      "affected_party_governance": {
+        "discovery_method": "Resident mapping plus an open challenge route in the synthetic pilot.",
+        "coverage_state": "provisional-publicly-challengeable",
+        "known_omissions": [],
+        "challenge_route": "https://example.org/community/challenge",
+        "objections": [],
+        "necessity_evaluations": []
+      },
+      "affected_party_dispositions": [
+        {
+          "party_id": "party.participating-residents",
+          "party": "Participating residents",
+          "relationships": [
+            "affected",
+            "benefited",
+            "burdened"
+          ],
+          "disposition": "heard",
+          "evidence_ref": "evidence.community-listening",
+          "response": "Shorten the drill and retain walk-in access.",
+          "safeguard": "No service eligibility changes and withdrawal remains immediate.",
+          "challenge_route": "https://example.org/community/challenge",
+          "necessity_evaluation_ref": null
+        }
+      ],
+      "resources": {
+        "funding": {
+          "status": "secured",
+          "source": "Illustrative community grant",
+          "amount": 10000,
+          "currency": "AUD",
+          "valid_through": "2026-12-31T00:00:00Z"
+        },
+        "capacity": {
+          "status": "available",
+          "required": [
+            {
+              "resource_id": "resource.two-navigators",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.accessible-venue",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "available": [
+            {
+              "resource_id": "resource.two-navigators",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.accessible-venue",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "gap": [],
+          "readiness_checked_at": "2026-09-07T12:00:00Z",
+          "readiness_valid_until": "2026-10-08T00:00:00Z"
+        }
+      },
+      "cross_actor_dependencies": [
+        {
+          "actor_id": "actor.local-service-providers",
+          "actor_scale": "institution",
+          "contribution": "Confirm opening hours and escalation routes.",
+          "commitment_state": "requested",
+          "failure_effect": "Do not start the drill."
+        }
+      ],
+      "controls": {
+        "start_conditions": [
+          {
+            "control_id": "control.community-service-drill.if-true.1",
+            "gate": "if-true",
+            "effect": "allow-start",
+            "condition": "The bound IF evaluation is current and true.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          },
+          {
+            "control_id": "control.community-service-drill.resources-ready.2",
+            "gate": "resources-ready",
+            "effect": "allow-start",
+            "condition": "Required funding and capacity remain available.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          },
+          {
+            "control_id": "control.community-service-drill.dependencies-committed.3",
+            "gate": "dependencies-committed",
+            "effect": "allow-start",
+            "condition": "Every start-critical external dependency is committed.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          },
+          {
+            "control_id": "control.community-service-drill.affected-parties-cleared.4",
+            "gate": "affected-parties-cleared",
+            "effect": "allow-start",
+            "condition": "Affected-party coverage, objections and safeguards satisfy the registered gate.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          }
+        ],
+        "stop_conditions": [
+          {
+            "control_id": "control.community-service-drill.safeguard-failed.1",
+            "gate": "safeguard-failed",
+            "effect": "stop",
+            "condition": "Stop when a registered rights safeguard fails.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          }
+        ],
+        "review_conditions": [
+          {
+            "control_id": "control.community-service-drill.scheduled-review.1",
+            "gate": "scheduled-review",
+            "effect": "require-review",
+            "condition": "Review at the predeclared checkpoint.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          },
+          {
+            "control_id": "control.community-service-drill.post-action-review.2",
+            "gate": "post-action-review",
+            "effect": "require-review",
+            "condition": "Complete an independently reviewable post-action assessment.",
+            "evidence_refs": [
+              "evaluation.community-service-drill.20260908"
+            ],
+            "responsible_owner_ref": "owner.local-coalition"
+          }
+        ]
+      },
+      "reversibility": {
+        "class": "partially-reversible",
+        "rationale": "The drill can stop, but participant time cannot be returned.",
+        "residual_harm": "Time, distress and disclosed information may persist.",
+        "default_rule": "reversible-unless-higher-gate-passed"
+      },
+      "recovery_path": {
+        "owner_ref": "owner.local-coalition",
+        "steps": [
+          "Stop the drill.",
+          "Restore the ordinary navigation path.",
+          "Offer participant remedy."
+        ],
+        "funding_reserved": true,
+        "capacity_reserved": true,
+        "complete_within": {
+          "value": 1,
+          "unit": "day"
+        },
+        "remedy_route": "https://example.org/community/challenge",
+        "reserved_amount": 10000,
+        "currency": "AUD",
+        "complete_by": "2026-09-09T00:00:00Z",
+        "funding_valid_through": "2026-09-09T00:00:00Z",
+        "capacity_valid_through": "2026-09-09T00:00:00Z"
+      },
+      "inaction_comparator": {
+        "baseline": "No drill occurs and the current untested navigation route remains.",
+        "horizon": {
+          "value": 3,
+          "unit": "month"
+        },
+        "expected_outcomes": [
+          {
+            "outcome_id": "navigation-readiness",
+            "measure": "navigation-readiness-rate",
+            "unit": "proportion",
+            "direction": "higher-is-better",
+            "without_action": {
+              "estimate": 0.3,
+              "lower": 0.19999999999999998,
+              "upper": 0.4
+            },
+            "with_action": {
+              "estimate": 0.6,
+              "lower": 0.5,
+              "upper": 0.7
+            },
+            "evidence_refs": [
+              "evidence.capacity-test"
+            ]
+          }
+        ],
+        "action_harms": [
+          {
+            "harm_id": "harm.community-service-drill.action",
+            "party_id": "party.participating-residents",
+            "likelihood": 0.30000000000000004,
+            "evidence_refs": [
+              "evidence.capacity-test"
+            ],
+            "severity_weight": 0.6,
+            "dimension_id": "dimension.participant-time-distress"
+          }
+        ],
+        "inaction_harms": [
+          {
+            "harm_id": "harm.community-service-drill.inaction",
+            "party_id": "party.participating-residents",
+            "likelihood": 0.4,
+            "evidence_refs": [
+              "evidence.capacity-test"
+            ],
+            "severity_weight": 0.6,
+            "dimension_id": "dimension.participant-time-distress"
+          }
+        ],
+        "comparison": "action-appears-safer",
+        "confidence": "low",
+        "authorisation_effect": "none",
+        "comparison_method": "paired-party-dimension-with-noncompensable-veto",
+        "severity_scale_ref": "urn:mind-flow:synthetic-severity-weights:v1",
+        "harm_taxonomy": {
+          "taxonomy_ref": "urn:mind-flow:harm-taxonomy:action.community-service-drill:v1",
+          "overlap_policy": "declared-mutually-exclusive-dimensions",
+          "dimensions": [
+            {
+              "dimension_id": "dimension.participant-time-distress",
+              "label": "Participant time and distress burden",
+              "non_compensable": true,
+              "action_veto_threshold": 0.5
+            }
+          ]
+        }
+      },
+      "generated_at": "2026-09-08T00:00:00Z",
+      "review_by": "2026-10-08T00:00:00Z",
+      "decision_use": "research-only"
+    },
+    {
+      "schema_version": "1.1.0",
+      "action_id": "action.institution-delete-transition-data",
+      "version": "1.0.0",
+      "record_kind": "proposal",
+      "authorisation_effect": "none",
+      "public_sentence": "Proposal: protect participants through irreversible deletion of scoped identifiable records within jurisdictions: Australia; geographies: Example service network; cohorts: pilot participants; services: transition case management; affected parties: party.pilot-participants IF Retention creates material rights risk without necessary benefit. This record does not authorise action.",
+      "scale": "institution",
+      "actor": {
+        "actor_id": "actor.example-service-network",
+        "name": "Candidate service network",
+        "scale": "institution",
+        "authority_boundary": {
+          "cannot_control": [
+            "participant consent",
+            "legal holds",
+            "copies held by other institutions",
+            "country law"
+          ],
+          "may_command_other_actors": false,
+          "capabilities": [
+            {
+              "capability_id": "capability.institution-delete-transition-data",
+              "verbs": [
+                "protect"
+              ],
+              "object_classes": [
+                "institutional-rule"
+              ],
+              "jurisdictions": [
+                "Australia"
+              ],
+              "geographies": [
+                "Example service network"
+              ],
+              "services": [
+                "transition case management"
+              ],
+              "basis_ref": "https://example.org/institution/retention-instrument"
+            }
+          ]
+        }
+      },
+      "verb": "protect",
+      "object": {
+        "object_id": "object.delete-transition-data",
+        "class": "institutional-rule",
+        "description": "participants through irreversible deletion of scoped identifiable records"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Example service network"
+        ],
+        "cohorts": [
+          "pilot participants"
+        ],
+        "services": [
+          "transition case management"
+        ],
+        "exclusions": [
+          "records under an independently verified legal hold"
+        ],
+        "affected_party_ids": [
+          "party.pilot-participants"
+        ],
+        "evidence_scopes": [
+          {
+            "construct": "rights-risk-test",
+            "population": "pilot participants",
+            "geography": "Example service network",
+            "statistical_unit": "retained identifiable record",
+            "denominator": "retained identifiable pilot records",
+            "period": "current quarter",
+            "aggregation": "service-network"
+          }
+        ]
+      },
+      "if_binding": {
+        "expression_ref": {
+          "id": "if.institution-retention-rule",
+          "version": "1.0.0",
+          "checksum": "sha256:53220282566bc010d2d950bc015afd37f15d36057ee94b38195bbb3038c5609b"
+        },
+        "evaluation_ref": {
+          "id": "evaluation.institution-retention-rule.20260908",
+          "version": "1.0.0",
+          "checksum": "sha256:374f9f0007b527946a6f6632057498b65eec02044f7e3643d550c606b71dff98"
+        },
+        "required_result": "true",
+        "effect": "eligibility-only-not-authority"
+      },
+      "evidence_bundle_ref": {
+        "id": "evidence.rights-risk",
+        "version": "1.0.0",
+        "checksum": "sha256:9f784f0a3fe5d50403d43a603ecfa311019e15b7c8668ff0dd87716f7e4b250e"
+      },
+      "accountable_owner": {
+        "owner_id": "owner.network-privacy-officer",
+        "organisation": "Candidate service network",
+        "role": "privacy officer",
+        "accountability_route": "https://example.org/institution/privacy-challenge",
+        "identity_state": "caller-asserted-unverified"
+      },
+      "authority_evidence": {
+        "state": "caller-asserted-verified-with-independent-review",
+        "reporting_basis": "caller-asserted-not-authenticated",
+        "basis": "Illustrative records-control authority plus independent rights review",
+        "instrument_ref": "https://example.org/institution/retention-instrument",
+        "verification_ref": "https://example.org/institution/authority-verification",
+        "independent_review_ref": "https://example.org/independent/rights-review",
+        "effect": "evidence-only-not-authority"
+      },
+      "affected_party_governance": {
+        "discovery_method": "Data-flow mapping, participant register and independent rights review in the synthetic fixture.",
+        "coverage_state": "provisional-publicly-challengeable",
+        "known_omissions": [],
+        "challenge_route": "https://example.org/institution/privacy-challenge",
+        "objections": [],
+        "necessity_evaluations": []
+      },
+      "affected_party_dispositions": [
+        {
+          "party_id": "party.pilot-participants",
+          "party": "Pilot participants",
+          "relationships": [
+            "affected",
+            "benefited",
+            "burdened"
+          ],
+          "disposition": "consented",
+          "evidence_ref": "evidence.participant-consent",
+          "response": "Deletion is limited to the consented record classes.",
+          "safeguard": "Export a participant-controlled copy before deletion if requested.",
+          "challenge_route": "https://example.org/institution/privacy-challenge",
+          "necessity_evaluation_ref": null
+        }
+      ],
+      "resources": {
+        "funding": {
+          "status": "secured",
+          "source": "Illustrative privacy remediation reserve",
+          "amount": 50000,
+          "currency": "AUD",
+          "valid_through": "2026-12-31T00:00:00Z"
+        },
+        "capacity": {
+          "status": "available",
+          "required": [
+            {
+              "resource_id": "resource.records-engineer",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.independent-deletion-verifier",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.participant-support",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "available": [
+            {
+              "resource_id": "resource.records-engineer",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.independent-deletion-verifier",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.participant-support",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "gap": [],
+          "readiness_checked_at": "2026-09-07T12:00:00Z",
+          "readiness_valid_until": "2026-10-08T00:00:00Z"
+        }
+      },
+      "cross_actor_dependencies": [
+        {
+          "actor_id": "actor.independent-rights-reviewer",
+          "actor_scale": "institution",
+          "contribution": "Verify authority, consent scope and deletion evidence.",
+          "commitment_state": "committed",
+          "failure_effect": "Do not perform deletion."
+        }
+      ],
+      "controls": {
+        "start_conditions": [
+          {
+            "control_id": "control.institution-delete-transition-data.if-true.1",
+            "gate": "if-true",
+            "effect": "allow-start",
+            "condition": "The bound IF evaluation is current and true.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          },
+          {
+            "control_id": "control.institution-delete-transition-data.resources-ready.2",
+            "gate": "resources-ready",
+            "effect": "allow-start",
+            "condition": "Required funding and capacity remain available.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          },
+          {
+            "control_id": "control.institution-delete-transition-data.dependencies-committed.3",
+            "gate": "dependencies-committed",
+            "effect": "allow-start",
+            "condition": "Every start-critical external dependency is committed.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          },
+          {
+            "control_id": "control.institution-delete-transition-data.affected-parties-cleared.4",
+            "gate": "affected-parties-cleared",
+            "effect": "allow-start",
+            "condition": "Affected-party coverage, objections and safeguards satisfy the registered gate.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          },
+          {
+            "control_id": "control.institution-delete-transition-data.authority-verified.5",
+            "gate": "authority-verified",
+            "effect": "allow-start",
+            "condition": "The relevant authority claim has an independently reviewable basis.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          }
+        ],
+        "stop_conditions": [
+          {
+            "control_id": "control.institution-delete-transition-data.safeguard-failed.1",
+            "gate": "safeguard-failed",
+            "effect": "stop",
+            "condition": "Stop when a registered rights safeguard fails.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          }
+        ],
+        "review_conditions": [
+          {
+            "control_id": "control.institution-delete-transition-data.scheduled-review.1",
+            "gate": "scheduled-review",
+            "effect": "require-review",
+            "condition": "Review at the predeclared checkpoint.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          },
+          {
+            "control_id": "control.institution-delete-transition-data.post-action-review.2",
+            "gate": "post-action-review",
+            "effect": "require-review",
+            "condition": "Complete an independently reviewable post-action assessment.",
+            "evidence_refs": [
+              "evaluation.institution-retention-rule.20260908"
+            ],
+            "responsible_owner_ref": "owner.network-privacy-officer"
+          }
+        ]
+      },
+      "reversibility": {
+        "class": "irreversible",
+        "rationale": "Secure deletion cannot restore the original record.",
+        "residual_harm": "Loss of a record may impair later review despite a participant-controlled export.",
+        "default_rule": "reversible-unless-higher-gate-passed"
+      },
+      "recovery_path": {
+        "owner_ref": "owner.network-privacy-officer",
+        "steps": [
+          "Preserve a consented participant-controlled export before deletion.",
+          "Issue a deletion certificate.",
+          "Fund independent remedy for scope errors."
+        ],
+        "funding_reserved": true,
+        "capacity_reserved": true,
+        "complete_within": {
+          "value": 30,
+          "unit": "day"
+        },
+        "remedy_route": "https://example.org/institution/privacy-challenge",
+        "reserved_amount": 50000,
+        "currency": "AUD",
+        "complete_by": "2026-10-08T00:00:00Z",
+        "funding_valid_through": "2026-10-08T00:00:00Z",
+        "capacity_valid_through": "2026-10-08T00:00:00Z"
+      },
+      "inaction_comparator": {
+        "baseline": "The institution retains the scoped identifiable records under current controls.",
+        "horizon": {
+          "value": 1,
+          "unit": "year"
+        },
+        "expected_outcomes": [
+          {
+            "outcome_id": "rights-risk",
+            "measure": "rights-risk-rate",
+            "unit": "proportion",
+            "direction": "lower-is-better",
+            "without_action": {
+              "estimate": 0.8,
+              "lower": 0.7000000000000001,
+              "upper": 0.9
+            },
+            "with_action": {
+              "estimate": 0.3,
+              "lower": 0.19999999999999998,
+              "upper": 0.4
+            },
+            "evidence_refs": [
+              "evidence.rights-audit",
+              "evidence.participant-consent"
+            ]
+          }
+        ],
+        "action_harms": [
+          {
+            "harm_id": "harm.institution-delete-transition-data.action",
+            "party_id": "party.pilot-participants",
+            "likelihood": 0.3,
+            "evidence_refs": [
+              "evidence.rights-audit"
+            ],
+            "severity_weight": 1,
+            "dimension_id": "dimension.data-retention-rights"
+          }
+        ],
+        "inaction_harms": [
+          {
+            "harm_id": "harm.institution-delete-transition-data.inaction",
+            "party_id": "party.pilot-participants",
+            "likelihood": 0.6,
+            "evidence_refs": [
+              "evidence.rights-audit"
+            ],
+            "severity_weight": 0.8,
+            "dimension_id": "dimension.data-retention-rights"
+          }
+        ],
+        "comparison": "action-appears-safer",
+        "confidence": "low",
+        "authorisation_effect": "none",
+        "comparison_method": "paired-party-dimension-with-noncompensable-veto",
+        "severity_scale_ref": "urn:mind-flow:synthetic-severity-weights:v1",
+        "harm_taxonomy": {
+          "taxonomy_ref": "urn:mind-flow:harm-taxonomy:action.institution-delete-transition-data:v1",
+          "overlap_policy": "declared-mutually-exclusive-dimensions",
+          "dimensions": [
+            {
+              "dimension_id": "dimension.data-retention-rights",
+              "label": "Rights harm from retaining or deleting transition data",
+              "non_compensable": true,
+              "action_veto_threshold": 0.5
+            }
+          ]
+        }
+      },
+      "generated_at": "2026-09-08T00:00:00Z",
+      "review_by": "2026-09-22T00:00:00Z",
+      "decision_use": "research-only"
+    },
+    {
+      "schema_version": "1.1.0",
+      "action_id": "action.country-payment-containment",
+      "version": "1.0.0",
+      "record_kind": "proposal",
+      "authorisation_effect": "none",
+      "public_sentence": "Proposal: pause a failing automated payment channel while maintaining a manual rights-preserving route within jurisdictions: Australia; geographies: national; cohorts: affected payment recipients; services: public transition payments; affected parties: party.payment-recipients IF (A material payment-integrity failure is imminent AND A less restrictive manual continuity route is available). This record does not authorise action.",
+      "scale": "country",
+      "actor": {
+        "actor_id": "actor.candidate-national-authority",
+        "name": "Candidate national payment authority",
+        "scale": "country",
+        "authority_boundary": {
+          "cannot_control": [
+            "recipient choices",
+            "independent reviewer findings",
+            "delivery institution capacity"
+          ],
+          "may_command_other_actors": false,
+          "capabilities": [
+            {
+              "capability_id": "capability.country-payment-containment",
+              "verbs": [
+                "pause"
+              ],
+              "object_classes": [
+                "emergency-containment"
+              ],
+              "jurisdictions": [
+                "Australia"
+              ],
+              "geographies": [
+                "national"
+              ],
+              "services": [
+                "public transition payments"
+              ],
+              "basis_ref": "https://example.gov.au/payments/emergency-instrument"
+            }
+          ]
+        }
+      },
+      "verb": "pause",
+      "object": {
+        "object_id": "object.payment-channel-containment",
+        "class": "emergency-containment",
+        "description": "a failing automated payment channel while maintaining a manual rights-preserving route"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "national"
+        ],
+        "cohorts": [
+          "affected payment recipients"
+        ],
+        "services": [
+          "public transition payments"
+        ],
+        "exclusions": [
+          "unaffected payment channels"
+        ],
+        "affected_party_ids": [
+          "party.payment-recipients"
+        ],
+        "evidence_scopes": [
+          {
+            "construct": "payment-integrity-risk",
+            "population": "affected payment recipients",
+            "geography": "national",
+            "statistical_unit": "payment channel check",
+            "denominator": "public transition payment channels",
+            "period": "current day",
+            "aggregation": "national-payment-system"
+          },
+          {
+            "construct": "rights-route-readiness",
+            "population": "affected payment recipients",
+            "geography": "national",
+            "statistical_unit": "manual continuity route",
+            "denominator": "affected public transition payment recipients",
+            "period": "current day",
+            "aggregation": "national-service-route"
+          }
+        ]
+      },
+      "if_binding": {
+        "expression_ref": {
+          "id": "if.country-emergency-containment",
+          "version": "1.0.0",
+          "checksum": "sha256:27a8f69c8414e5ffbba02ca006578255c9f3865ba963bb1709f9835b38c6211d"
+        },
+        "evaluation_ref": {
+          "id": "evaluation.country-emergency-containment.20260908",
+          "version": "1.0.0",
+          "checksum": "sha256:7d4bfe332244dc27cc50c92352f167920626cb64494a2c711b1bc7b71390b628"
+        },
+        "required_result": "true",
+        "effect": "eligibility-only-not-authority"
+      },
+      "evidence_bundle_ref": {
+        "id": "evidence.emergency-integrity",
+        "version": "1.0.0",
+        "checksum": "sha256:210d0f256e5cc8ceebf3e11337880e41e973e93b80793f23fb1ce07f2adb46b2"
+      },
+      "accountable_owner": {
+        "owner_id": "owner.candidate-payment-officer",
+        "organisation": "Candidate national payment authority",
+        "role": "emergency payment continuity officer",
+        "accountability_route": "https://example.gov.au/payments/challenge",
+        "identity_state": "caller-asserted-unverified"
+      },
+      "authority_evidence": {
+        "state": "caller-asserted-verified",
+        "reporting_basis": "caller-asserted-not-authenticated",
+        "basis": "Illustrative emergency continuity instrument",
+        "instrument_ref": "https://example.gov.au/payments/emergency-instrument",
+        "verification_ref": "https://example.gov.au/payments/authority-verification",
+        "effect": "evidence-only-not-authority"
+      },
+      "affected_party_governance": {
+        "discovery_method": "Payment-channel dependency map plus recipient-representative challenge route in the synthetic fixture.",
+        "coverage_state": "provisional-publicly-challengeable",
+        "known_omissions": [],
+        "challenge_route": "https://example.gov.au/payments/challenge",
+        "objections": [],
+        "necessity_evaluations": [
+          {
+            "evaluation_id": "necessity.payment-containment.recipients",
+            "party_id": "party.payment-recipients",
+            "scope": {
+              "jurisdictions": [
+                "Australia"
+              ],
+              "geographies": [
+                "national"
+              ],
+              "cohorts": [
+                "affected payment recipients"
+              ],
+              "services": [
+                "public transition payments"
+              ],
+              "exclusions": [
+                "unaffected payment channels"
+              ],
+              "affected_party_ids": [
+                "party.payment-recipients"
+              ],
+              "evidence_scopes": [
+                {
+                  "construct": "payment-integrity-risk",
+                  "population": "affected payment recipients",
+                  "geography": "national",
+                  "statistical_unit": "payment channel check",
+                  "denominator": "public transition payment channels",
+                  "period": "current day",
+                  "aggregation": "national-payment-system"
+                },
+                {
+                  "construct": "rights-route-readiness",
+                  "population": "affected payment recipients",
+                  "geography": "national",
+                  "statistical_unit": "manual continuity route",
+                  "denominator": "affected public transition payment recipients",
+                  "period": "current day",
+                  "aggregation": "national-service-route"
+                }
+              ]
+            },
+            "evidence_ref": "evidence.emergency-necessity",
+            "threat": "Imminent nationwide payment-integrity failure",
+            "alternatives_considered": [
+              {
+                "alternative_id": "alternative.manual-continuity-route",
+                "description": "Pause only the affected automated channel and retain manual access.",
+                "disposition": "selected",
+                "reason": "Selected as the least restrictive route while containment remains necessary."
+              },
+              {
+                "alternative_id": "alternative.unrestricted-automated-processing",
+                "description": "Continue unrestricted automated processing without the manual continuity route.",
+                "disposition": "rejected",
+                "reason": "Does not preserve the registered rights safeguard during the stated threat."
+              }
+            ],
+            "least_restrictive_alternative_id": "alternative.manual-continuity-route",
+            "dissent": {
+              "status": "none-recorded",
+              "search_method": "Publish the proposal and testimony route for party challenge before and during containment.",
+              "records": []
+            },
+            "valid_from": "2026-09-08T00:00:00Z",
+            "expires_at": "2026-09-15T00:00:00Z",
+            "appeal_route": "https://example.gov.au/payments/challenge",
+            "reviewer_ref": "reviewer.independent-public-payments"
+          }
+        ]
+      },
+      "affected_party_dispositions": [
+        {
+          "party_id": "party.payment-recipients",
+          "party": "Affected payment recipients",
+          "relationships": [
+            "affected",
+            "benefited",
+            "burdened"
+          ],
+          "disposition": "heard",
+          "evidence_ref": "evidence.payment-recipient-testimony",
+          "response": "Maintain payment access through the least restrictive manual route.",
+          "safeguard": "No eligibility change, human appeal and accessible payment alternatives remain open.",
+          "challenge_route": "https://example.gov.au/payments/challenge",
+          "necessity_evaluation_ref": "necessity.payment-containment.recipients"
+        }
+      ],
+      "resources": {
+        "funding": {
+          "status": "secured",
+          "source": "Illustrative emergency continuity appropriation",
+          "amount": 1000000,
+          "currency": "AUD",
+          "valid_through": "2026-10-15T00:00:00Z"
+        },
+        "capacity": {
+          "status": "available",
+          "required": [
+            {
+              "resource_id": "resource.manual-payment-operations",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.accessible-help-line",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.independent-incident-reviewer",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "available": [
+            {
+              "resource_id": "resource.manual-payment-operations",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.accessible-help-line",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            },
+            {
+              "resource_id": "resource.independent-incident-reviewer",
+              "quantity": 1,
+              "unit": "declared-capability-unit"
+            }
+          ],
+          "gap": [],
+          "readiness_checked_at": "2026-09-07T23:00:00Z",
+          "readiness_valid_until": "2026-10-15T00:00:00Z"
+        }
+      },
+      "cross_actor_dependencies": [
+        {
+          "actor_id": "actor.payment-delivery-institutions",
+          "actor_scale": "institution",
+          "contribution": "Operate the manual continuity route without changing eligibility.",
+          "commitment_state": "committed",
+          "failure_effect": "Do not pause the automated channel unless an equivalent rights-preserving route is available."
+        }
+      ],
+      "controls": {
+        "start_conditions": [
+          {
+            "control_id": "control.country-payment-containment.if-true.1",
+            "gate": "if-true",
+            "effect": "allow-start",
+            "condition": "The bound IF evaluation is current and true.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.resources-ready.2",
+            "gate": "resources-ready",
+            "effect": "allow-start",
+            "condition": "Required funding and capacity remain available.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.dependencies-committed.3",
+            "gate": "dependencies-committed",
+            "effect": "allow-start",
+            "condition": "Every start-critical external dependency is committed.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.affected-parties-cleared.4",
+            "gate": "affected-parties-cleared",
+            "effect": "allow-start",
+            "condition": "Affected-party coverage, objections and safeguards satisfy the registered gate.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.authority-verified.5",
+            "gate": "authority-verified",
+            "effect": "allow-start",
+            "condition": "The relevant authority claim has an independently reviewable basis.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.alternative-route-ready.6",
+            "gate": "alternative-route-ready",
+            "effect": "allow-start",
+            "condition": "The less restrictive continuity route is ready.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          }
+        ],
+        "stop_conditions": [
+          {
+            "control_id": "control.country-payment-containment.threat-ended.1",
+            "gate": "threat-ended",
+            "effect": "stop",
+            "condition": "Stop when the registered imminent threat ends.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.safeguard-failed.2",
+            "gate": "safeguard-failed",
+            "effect": "stop",
+            "condition": "Stop when a registered rights safeguard fails.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.resources-failed.3",
+            "gate": "resources-failed",
+            "effect": "stop",
+            "condition": "Stop when required funding or capacity fails.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.sunset-reached.4",
+            "gate": "sunset-reached",
+            "effect": "stop",
+            "condition": "Stop at the predeclared containment sunset.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          }
+        ],
+        "review_conditions": [
+          {
+            "control_id": "control.country-payment-containment.scheduled-review.1",
+            "gate": "scheduled-review",
+            "effect": "require-review",
+            "condition": "Review at the predeclared checkpoint.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          },
+          {
+            "control_id": "control.country-payment-containment.post-action-review.2",
+            "gate": "post-action-review",
+            "effect": "require-review",
+            "condition": "Complete an independently reviewable post-action assessment.",
+            "evidence_refs": [
+              "evaluation.country-emergency-containment.20260908"
+            ],
+            "responsible_owner_ref": "owner.candidate-payment-officer"
+          }
+        ]
+      },
+      "reversibility": {
+        "class": "emergency-containment",
+        "rationale": "A short pause is reversible, but delayed or failed payments can cause irreversible harm.",
+        "residual_harm": "Recipients may experience delay, stigma or access failure during the switch.",
+        "default_rule": "reversible-unless-higher-gate-passed"
+      },
+      "recovery_path": {
+        "owner_ref": "owner.candidate-payment-officer",
+        "steps": [
+          "Restore the automated channel only after integrity checks pass.",
+          "Reconcile delayed or failed payments.",
+          "Provide direct remedy and publish the retrospective review."
+        ],
+        "funding_reserved": true,
+        "capacity_reserved": true,
+        "complete_within": {
+          "value": 30,
+          "unit": "day"
+        },
+        "remedy_route": "https://example.gov.au/payments/challenge",
+        "reserved_amount": 1000000,
+        "currency": "AUD",
+        "complete_by": "2026-10-15T00:00:00Z",
+        "funding_valid_through": "2026-10-15T00:00:00Z",
+        "capacity_valid_through": "2026-10-15T00:00:00Z"
+      },
+      "inaction_comparator": {
+        "baseline": "The failing automated channel continues while operators monitor it.",
+        "horizon": {
+          "value": 7,
+          "unit": "day"
+        },
+        "expected_outcomes": [
+          {
+            "outcome_id": "payment-continuity",
+            "measure": "payment-continuity-rate",
+            "unit": "proportion",
+            "direction": "higher-is-better",
+            "without_action": {
+              "estimate": 0.2,
+              "lower": 0.1,
+              "upper": 0.30000000000000004
+            },
+            "with_action": {
+              "estimate": 0.7,
+              "lower": 0.6,
+              "upper": 0.7999999999999999
+            },
+            "evidence_refs": [
+              "evidence.payment-telemetry",
+              "evidence.payment-cross-check",
+              "evidence.continuity-drill"
+            ]
+          }
+        ],
+        "action_harms": [
+          {
+            "harm_id": "harm.country-payment-containment.action",
+            "party_id": "party.payment-recipients",
+            "likelihood": 0.4,
+            "evidence_refs": [
+              "evidence.payment-telemetry"
+            ],
+            "severity_weight": 0.8,
+            "dimension_id": "dimension.payment-access-continuity"
+          }
+        ],
+        "inaction_harms": [
+          {
+            "harm_id": "harm.country-payment-containment.inaction",
+            "party_id": "party.payment-recipients",
+            "likelihood": 0.8,
+            "evidence_refs": [
+              "evidence.payment-telemetry"
+            ],
+            "severity_weight": 1,
+            "dimension_id": "dimension.payment-access-continuity"
+          }
+        ],
+        "comparison": "action-appears-safer",
+        "confidence": "low",
+        "authorisation_effect": "none",
+        "comparison_method": "paired-party-dimension-with-noncompensable-veto",
+        "severity_scale_ref": "urn:mind-flow:synthetic-severity-weights:v1",
+        "harm_taxonomy": {
+          "taxonomy_ref": "urn:mind-flow:harm-taxonomy:action.country-payment-containment:v1",
+          "overlap_policy": "declared-mutually-exclusive-dimensions",
+          "dimensions": [
+            {
+              "dimension_id": "dimension.payment-access-continuity",
+              "label": "Payment access and service continuity harm",
+              "non_compensable": true,
+              "action_veto_threshold": 0.5
+            }
+          ]
+        }
+      },
+      "emergency_exception": {
+        "threat": "Imminent nationwide payment-integrity failure",
+        "necessity": "A temporary pause is asserted necessary to prevent propagation while preserving payments manually.",
+        "least_restrictive_alternative": "Pause only the affected automated channel and retain manual access.",
+        "proportionality": "The pause is limited to the affected channel, recipients and seven-day maximum.",
+        "starts_at": "2026-09-08T00:00:00Z",
+        "ends_at": "2026-09-15T00:00:00Z",
+        "rights_safeguards": [
+          "No eligibility change.",
+          "Human appeal and accessible payment alternatives remain open."
+        ],
+        "independent_reviewer": {
+          "reviewer_id": "reviewer.independent-public-payments",
+          "organisation": "Illustrative independent public payments reviewer",
+          "relationship": "independent",
+          "verification_ref": "https://example.gov.au/payments/reviewer-verification",
+          "identity_state": "caller-asserted-unverified",
+          "selection_control": "external-to-acting-body",
+          "conflict_checks": {
+            "employment": "none-declared",
+            "financial": "none-declared",
+            "reporting": "none-declared",
+            "appointment_control": "external-to-acting-body"
+          },
+          "conflict_disclosure": "Caller asserts no employment, financial, appointment-control or reporting conflict with the acting body; external verification has not been performed.",
+          "independence_state": "caller-asserted-unverified"
+        },
+        "retrospective_review_by": "2026-10-15T00:00:00Z",
+        "renewal_requires_new_record": true
+      },
+      "generated_at": "2026-09-08T00:00:00Z",
+      "review_by": "2026-09-09T00:00:00Z",
+      "decision_use": "research-only"
+    }
+  ]
+}

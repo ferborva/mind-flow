@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/replacement-lineage.json",
+  "attack": "Record a replacement edge while leaving the source claim active.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/publication_disposition",
+      "value": "blocked"
+    }
+  ]
+}

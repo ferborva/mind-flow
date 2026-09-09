@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Change a counterclaim without changing its bound hash.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/challenge/counterclaim/statement",
+      "value": "Employment rose in the registered cohort and period."
+    }
+  ]
+}

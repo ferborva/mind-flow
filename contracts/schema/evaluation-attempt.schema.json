@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/evaluation-attempt/2-0-0",
+  "title": "Seldon Observatory incomplete evaluation attempt",
+  "description": "An append-only operational record for a partial or failed evaluation. It is not a certified evaluation run and cannot authorize action.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "attempt_status",
+    "condition_definition",
+    "started_at",
+    "recorded_at",
+    "predicate_results",
+    "gate_results",
+    "errors",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^2\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "attempt_status": { "enum": ["partial", "failed"] },
+    "condition_definition": { "$ref": "#/$defs/definitionReference" },
+    "started_at": { "type": "string", "format": "date-time" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "predicate_results": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/id" },
+      "additionalProperties": { "$ref": "#/$defs/predicateResult" }
+    },
+    "gate_results": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/gate" },
+      "additionalProperties": { "$ref": "#/$defs/gateResult" }
+    },
+    "errors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/attemptError" }
+    },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "attempt_status": { "const": "partial" } },
+        "required": ["attempt_status"]
+      },
+      "then": {
+        "properties": {
+          "predicate_results": { "type": "object", "minProperties": 1 },
+          "gate_results": { "type": "object", "minProperties": 1, "maxProperties": 6 }
+        }
+      },
+      "else": {
+        "properties": {
+          "gate_results": { "type": "object", "maxProperties": 0 }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "predicateTruthState": {
+      "description": "Truth state of one evidence-resolved predicate. This is not a binding, lifecycle or measurement state.",
+      "enum": ["true", "false", "unknown", "stale", "conflicted"]
+    },
+    "gateTruthState": {
+      "description": "Truth state produced by combining predicate-truth inputs for one gate.",
+      "enum": ["true", "false", "unknown", "stale", "conflicted"]
+    },
+    "gate": { "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"] },
+    "definitionReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "predicateResult": {
+      "type": "object",
+      "required": ["observation_id", "state", "reason"],
+      "properties": {
+        "observation_id": { "$ref": "#/$defs/id" },
+        "state": { "$ref": "#/$defs/predicateTruthState" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "traceEntry": {
+      "type": "object",
+      "required": ["predicate_ref", "state", "path"],
+      "properties": {
+        "predicate_ref": { "$ref": "#/$defs/id" },
+        "state": { "$ref": "#/$defs/predicateTruthState" },
+        "path": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "gateResult": {
+      "type": "object",
+      "required": ["state", "trace", "decisive_predicates", "uncertain_predicates", "skipped_predicates", "errors"],
+      "properties": {
+        "state": { "$ref": "#/$defs/gateTruthState" },
+        "trace": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/traceEntry" } },
+        "decisive_predicates": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "uncertain_predicates": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "skipped_predicates": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "errors": { "type": "array", "maxItems": 0 }
+      },
+      "additionalProperties": false
+    },
+    "attemptError": {
+      "type": "object",
+      "required": ["code", "stage", "message", "retryable"],
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]+$" },
+        "stage": { "enum": ["input", "predicate", "gate", "persistence", "unknown"] },
+        "message": { "$ref": "#/$defs/nonEmptyString" },
+        "retryable": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["producer", "evaluator"],
+      "properties": {
+        "producer": {
+          "type": "object",
+          "required": ["organisation", "role"],
+          "properties": {
+            "organisation": { "$ref": "#/$defs/nonEmptyString" },
+            "role": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "evaluator": {
+          "type": "object",
+          "required": ["id", "version", "digest"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+            "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

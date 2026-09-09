@@ -1,0 +1,11 @@
+{
+  "id": "hostile.undeclared-field",
+  "operations": [
+    {
+      "op": "add",
+      "path": "/assumptions/0/schema_passed_so_true",
+      "value": true
+    }
+  ],
+  "expected_codes": ["SCHEMA_NONCONFORMANT"]
+}

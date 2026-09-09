@@ -1,148 +1,305 @@
-# dashboard
+# Abundance Transition Observatory
 
-**Seldon Observatory.** Instrumentation for the transition. A portal for arguing
-about the signals rather than the slogans.
+> **Status:** Agent-built research prototype. Public release is blocked pending
+> Fernando's substantive approval, affected-party comprehension testing,
+> independent statistical review, accessibility review and release governance.
 
-Original v1 artifact: https://claude.ai/code/artifact/4a869745-1f2f-46c8-a1cb-7d80ba9f0bdb
+The Observatory is a public reasoning surface for a difficult transition. It
+separates what was observed, who may be affected, what is inferred, which IF
+condition changed, whether any authorised decision exists, who may act, what
+remains optional, how to challenge the record, what would falsify the reading,
+and when evidence will be checked again.
 
-The current v2 build is `web/index.html` in this repository.
+It does not predict history, assign a single transition score, or confer policy
+authority. The visual language can evoke long-range systems thinking. The
+claims still have to survive ordinary evidence, democratic consent and
+accountability.
 
-## The one architectural decision
+## Three prototype surfaces
 
-**The page never talks to a data provider. It renders a snapshot.**
+| Surface | Purpose | Claim limit |
+|---|---|---|
+| `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an explicitly unbound typed possible-path boundary |
+| `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
+| `observatory/index.html` | **Transition Observatory, programme iteration 06 over the Round 04 synthetic fixture** | Interactive projection of the exact synthetic seven-artifact pre-projection core, with five-state branches, a separate forecast, reversible preparation and no authority |
 
+None of these surfaces is approved for public warning or operational action. The
+global snapshot schema accepts only `none` and `proposed` action states. It
+rejects operational state claims even when their metadata looks complete,
+because no trusted external authority-verification boundary exists yet.
+
+The programme iteration 06 Observatory uses invented Round 04 fixture data to test whether a complex
+transition record can remain inspectable. Its mechanically computed `true`
+state is not an empirical finding. Its 62% forecast concerns a future event and
+is not a confidence score for the current IF. Its source bundle, forecast and
+preparation proposal are hash-bound, while truth, freshness, authority and
+publication remain closed. Its gate horizon presents local fixture checks and
+real-world release gates in separate groups, with the four closed real-world
+gates first. Local reproduction is not a readiness score. The page leads with a
+dominant demonstration warning and states that the named NSW workers and
+households have not reviewed it.
+
+## Architecture
+
+The page never fetches live evidence. It renders one content-addressed record:
+
+```text
+retained response bytes + adapter extraction
+-> governed snapshot record
+-> build-time validation and timing assessment
+-> self-contained HTML
 ```
-open registries  →  tools/fetch_snapshot.py  →  snapshots/YYYY-MM-DD.json  →  web/index.html
-   (the world)          (runs here)                 (the contract)              (renders)
-```
 
-Three reasons, in order.
+This preserves the evidence envelope used for a claim. `tools/build.mjs` performs
+build-time JSON Schema and semantic validation before embedding a snapshot. It
+verifies a separately hash-pinned adapter and classification policy, every
+record-index identity/path/digest and correction link, complete raw-input coverage for local-hash claims,
+byte-to-series equivalence, derived arithmetic, timing and the seven-part
+update. The default public build accepts only the latest indexed record. It also
+rejects missing signal references and false authority claims. A non-empty
+possible-path reference is rendered only after the build resolves a
+content-addressed transition bundle, re-hashes the repository-contained path
+artifact, applies the repository-owned path validator and proves exact `WHO +
+VERB + OBJECT + STANDARD + PLACE + PERIOD + IF` alignment.
 
-1. **Provenance.** Every figure in this repo carries a source and a retrieval
-   date. A live dashboard silently changes underneath the argument that cited it.
-   A snapshot is dated, checkable and quotable: if someone disputes a number in a
-   piece, hand them the exact file the claim was written against.
-2. **The page is sandboxed.** A published artifact cannot make network calls to
-   data hosts. Live was never on the table there.
-3. **Reproducibility.** A snapshot is a file. Diff it, archive it, replay it.
+`snapshot_id` names the evidence cut-off date. `record_id` names an immutable
+revision of that dated claim record. This distinction permits a same-day
+correction such as `2026-09-08.r2` without overwriting `2026-09-08.r1`. A later
+correction keeps the original evidence-date identity while `generated_at` and
+`correction.issued_on` record when the correction was actually produced.
+Record `2026-09-08.r3` adds the transition-bundle boundary without rewriting
+the frozen `r2` bytes.
 
-## Layout
+The current snapshot is explicitly `research_draft_unverified`: its transformed
+values are frozen, but its upstream response bytes were not retained. Every
+visible evidence value and JSON export therefore says `UNVERIFIED SOURCE BYTES`.
+Even retained bytes can establish only `captured_local_hash_consistent` status,
+not publisher authenticity. `--mode=publishable` always fails with
+`MISSING_TRUSTED_ACQUISITION_BOUNDARY` until a separately verifiable receipt
+system exists. Captured inputs must also carry 2xx HTTP and matching media
+metadata.
 
-| Path | What it is |
+There is no single truthful freshness clock. The schema 2.1 snapshot retains
+the schema 2.0 timing contract, which keeps **reference
+period**, **publisher vintage**, **publisher release**, **retrieval**, **byte
+acquisition**, **derived computation** and **record generation** separate.
+Build-time assessments use exact selected point lineage. An unknown clock stays
+unknown and must not make a value look fresh. A recent retrieval cannot freshen
+an old reference period, and a derived result cannot borrow the newest point in
+a source it did not use. External observations are assessed separately for each
+entity, measure and year. Derived lineage marks baseline, comparator and endpoint
+roles, so an intentionally historical baseline cannot make a current endpoint
+look stale. Unbound derived points say `TIMING NOT ASSESSED FOR THIS POINT`.
+Legacy calendar retrieval dates are **reported and unverified retrieval
+metadata**, not verified byte acquisition. Local publisher dates become bounded
+civil-date intervals using recognised IANA timezones. Non-existent local dates
+fail validation. Internal computation and assessment clocks remain unknown
+until retained execution artifacts and a governed producer registry exist.
+Caller assertions cannot promote them.
+
+Assessment output separates assessment execution, structural lineage, input
+timing readiness, evidence readiness and publication eligibility. A successful
+assessment therefore does not imply ready evidence or permission to publish.
+Each generated bundle is validated against
+`schema/timing-assessment-set.schema.json`, names and hashes its evaluator, has
+a canonical content address, and binds the record bytes, policy bytes, evidence
+cut-off and record generation time. Historical records are validated through
+the content-addressed `schema/snapshot-schema-registry.json`, not the latest
+schema alone.
+
+`tools/fetch_snapshot.py` is now a verifier for frozen v1.8 raw-input fixtures.
+Its live writer is retired until a replacement satisfies the 2.0 timing and
+acquisition contract. This means the current global record is a migration of a
+frozen predecessor, not a new source fetch.
+
+The browser cannot load arbitrary local snapshots. A changed snapshot must go
+through the build and test path.
+
+### Executable IF dashboard projection
+
+`schema/executable-if-view.schema.json` defines a bounded projection contract
+for the executable IF kernel. `tools/validate-executable-if-view.mjs` validates
+an in-memory view plus retained kernel bytes. It never shells out, reads the
+latest snapshot index or invents a second truth evaluator.
+
+The projection must recompute the complete evaluation receipt and display that
+exact `computed_rule_state`. Its public legend keeps `true`, `false`, `unknown`,
+`stale` and `conflicted` distinct, with a different explanation and next step
+for each. Source identity, exact claim and scope, evaluation clock, evidence
+state and observation hashes are always visible.
+
+Macro series are context only. They cannot satisfy predicates or alter the IF
+state. Forecast probabilities are also orthogonal to current condition truth,
+including probabilities of zero or one. A computed state remains neither an
+empirical truth claim nor authority to act.
+
+## Seven-part public update
+
+Schema 2.0 requires one bounded `public_update` and exact source/derived-point
+lineage:
+
+1. **Observed:** the source-native or derived result and its uncertainty.
+2. **Affected:** the defined population, or an explicit unknown.
+3. **Inferred:** the bounded interpretation and inference class.
+4. **IF changed:** the named condition and whether it changed state.
+5. **Action and owner:** authority, owner, help and appeal, or explicit absence.
+6. **Falsifier:** evidence that would narrow, reverse or withdraw the reading.
+7. **Next check:** the dated, owned review, or a statement that none is governed.
+
+The current global update is about the World aggregate. Selecting another place
+does not relabel that update. Evidence panels never substitute World data when
+the chosen place has no observation.
+
+The required `if_path` adds a scoped `WHO + VERB + OUTCOME + STANDARD + PLACE +
+PERIOD + IF` record. Every condition carries a state, reason, evidence grade,
+strongest challenge and next observation. The current five conditions are all
+unknown, so the registered decision is `no_decision`.
+
+## Repository map
+
+| Path | Role |
 |---|---|
-| `schema/SCHEMA.md` | The contract. Read this first. |
-| `schema/snapshot.schema.json` | Machine-readable JSON Schema |
-| `tools/fetch_snapshot.py` | Pulls the signals, writes a dated snapshot |
-| `tools/build.mjs` | Safely embeds one snapshot into the template |
-| `snapshots/` | Dated snapshots plus `index.json` |
-| `web/index.template.html` | The page, with a `__SNAPSHOT__` placeholder |
-| `web/index.html` | Built page with a snapshot baked in. **Generated, do not edit.** |
-| `tests/dashboard.test.mjs` | Contract and self-contained-build tests |
+| `schema/SCHEMA.md` | Human-readable snapshot contract |
+| `schema/snapshot.schema.json` | Machine-readable contract |
+| `schema/source-timing.schema.json` | External, derived and instrument-gap clock contract |
+| `schema/timing-assessment-set.schema.json` | Closed build-time assessment output contract |
+| `schema/snapshot-schema-registry.json` | Content-addressed historical schema registry |
+| `schema/snapshot-index.schema.json` | Immutable record-index contract |
+| `schema/archive/snapshot-1.5.schema.json` | Frozen first public prototype schema |
+| `schema/archive/snapshot-1.8.schema.json` | Frozen predecessor schema, retained for migration audit |
+| `schema/archive/snapshot-2.0.schema.json` | Frozen timing-correction schema, retained for migration audit |
+| `evidence/adapter-classification-policy.json` | Pinned source, selector and evidence-class policy |
+| `evidence/archive/adapter-classification-policy-1.2.json` | Frozen predecessor policy |
+| `timing/validation.mjs` | Clock, evidence-binding and exact-lineage assessment kernel |
+| `tools/fetch_snapshot.py` | Verifies frozen raw-input manifests; live writing is retired |
+| `tools/migrate-timing-contract.mjs` | Deterministically creates the 2.0 correction and record index |
+| `tools/transition-bundle-binding.mjs` | Resolves bundle-bound path artifacts and creates the derived public projection |
+| `tools/validate-executable-if-view.mjs` | Purely validates a receipt-bound executable IF dashboard projection |
+| `schema/executable-if-view.schema.json` | Contract for five-state IF display, provenance and context separation |
+| `tools/build.mjs` | Validates and embeds one global snapshot |
+| `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
+| `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
+| `observatory/build.mjs` | Builds the programme iteration 06 static Observatory from its coherent Round 04 pre-projection core |
+| `observatory/` | Generated programme iteration 06 experience, local source projection and focused tests |
+| `snapshots/` | Dated global snapshots and index |
+| `web/index.template.html` | Global page source |
+| `web/index.html` | Generated global page. Do not edit directly |
+| `tests/` | Schema, semantics, generated-page and Australian-pilot tests |
 
-## Refreshing
+## Build and test
 
 ```bash
-python3 dashboard/tools/fetch_snapshot.py          # today's snapshot
 node dashboard/tools/build.mjs \
-  dashboard/snapshots/2026-09-07.json dashboard/web/index.html
-node --test dashboard/tests/dashboard.test.mjs
+  dashboard/snapshots/2026-09-08.r3.json dashboard/web/index.html
+node dashboard/tools/build-australia-pilot.mjs \
+  pilots/australia/data/nero-clerical-2026-08.json \
+  pilots/australia/web/index.html
+node dashboard/observatory/build.mjs --check
+npm test
 ```
 
-Then republish `web/index.html` to the same artifact URL. **This is a natural
-scheduled-run job**: refresh, rebuild, republish, and note in the commit what
-moved.
+The build and tests use frozen local evidence. The timing migration tool exists
+to reproduce the historical `r2` record, not to create the active `r3` record.
+To verify a retained legacy fixture,
+run `python3 dashboard/tools/fetch_snapshot.py --verify-input-manifest PATH`.
+Running the fetcher without that flag fails closed and cannot rewrite the 2.0
+record index.
 
-Edit `index.template.html`, never `index.html`.
+Raw-input verification resolves the governed evidence root and candidate file
+to real paths, rejects symbolic links and non-regular files, then opens with the
+platform no-follow flag before hashing. A lexical in-root path cannot redirect
+the build to bytes outside `dashboard/evidence/raw`.
 
-## Future compatibility
+## What the global snapshot can say
 
-Any snapshot validating against schema **1.x** renders in any 1.x build of the
-page, without a rebuild. The page reads whatever is in `signals` and lays it out;
-it does not know signal names in advance.
+The snapshot includes six available source series, two derived aggregate
+comparisons and eight deliberately unmeasured or unavailable instruments.
+Available does not mean directly observed or decision-ready. Each point is
+labelled as a published statistic, published estimate, modelled estimate,
+nowcast, forecast, direct observation or derived value. The labour-income
+comparison, for example, compares indexed output per person with constructed aggregate labour
+income per person. It is not a household purchasing-power measure, causal AI
+estimate or cohort outcome.
 
-Two ways to render a different snapshot:
+The missing instruments are visible because omission can create false
+confidence. They include household access, transition speed, productive-power
+concentration, response readiness, trust and cross-border access. Missingness
+is an instrumentation backlog, not a neutral or safe state.
 
-- **Bake it in.** Rebuild as above. This is what the published page shows.
-- **Load it in the browser.** The page has a **Load snapshot…** control that
-  reads a local JSON file. Nothing is uploaded. A future snapshot can be checked
-  against the live page before it is ever published.
+## Scenarios, possible paths and actions
 
-Adding a signal is a fetcher change plus a snapshot. If it needed a page change,
-the contract is broken and that is a bug in the page.
+- Scenario arithmetic uses explicit example assumptions or user-entered inputs.
+  It is not seeded silently from observations and is not a forecast.
+- The current World snapshot has no registered typed possible-path assessment.
+  It therefore displays no crisis path, forecast, option or action card.
+- The current snapshot does not bind a complete condition-evolution ledger.
+  The interface says so beside the IF map. Its current state cannot prove how
+  wording, scope or evidence changed, so no history-based decision is eligible.
+- Free-text failure modes and actor playbooks were removed because labels alone
+  could not bind hypotheses, discriminators, condition gates or authority.
+- A non-empty possible-path reference passes only when the declared transition
+  bundle and typed path bytes are repository-contained and checksum-exact, the
+  fixed path validator accepts every required role and graph invariant, and the
+  bundle-native scope, canonical conditions and complete dashboard IF scope
+  match. Symlinks, drift and prose substitutes fail closed.
+- The displayed path is a build-derived projection. Its source bundle remains
+  `research-draft`, grants no authority and cannot turn a hypothesis into a
+  finding, forecast or command.
+- A public signal cannot become an operational action without a separate owner,
+  authority, review, expiry, help route and appeal path.
 
-## What is in the first snapshot
+The atlas download is deliberately a **selection-only artifact with external
+record binding**. It contains only the selected series and their point timing
+assessments, while preserving the source record, policy, evaluator and
+assessment-bundle identities. It omits the seven-part public update because
+that update is a separate claim graph whose dependencies may extend beyond the
+current atlas selection.
 
-Audience: **people with agency over the crossing.** The page moves from the
-observed trajectory to five foreseeable crisis points, phase-specific playbooks,
-a transparent scenario lab, and the underlying evidence.
+## Australian evidence boundary
 
-| Signal | Status | Source |
-|---|---|---|
-| The Engels divergence | derived | Output vs labour income per capita, both indexed |
-| The transmission gap | derived | Annual growth difference, in percentage points |
-| Labour share of GDP | measured | OWID / ILOSTAT, SDG 10.4.1 |
-| GDP per capita | measured | World Bank, NY.GDP.PCAP.KD |
-| Consumer price inflation | measured | World Bank, FP.CPI.TOTL.ZG |
-| Living on less than $30/day | measured | OWID / World Bank PIP |
-| Living on less than $8.30/day | measured | OWID / World Bank PIP |
-| Labour force participation | measured | World Bank / ILO |
-| **Zero-cost count** | **not measured** | **No registry publishes this** |
-| **The Baumol gap** | **not measured** | Constructible, not yet constructed |
-| **Household access margin** | **not measured** | Requires joined local budgets and resources |
-| **Transition speed** | **not measured** | Requires cohort worker-flow data |
-| **Productive-power concentration** | **not measured** | No joined capacity registry |
-| **Response readiness** | **not measured** | Requires delivery stress tests |
-| **Trust and consent** | **not measured** | Requires repeated cohort measures |
-| **Cross-border access variance** | **not measured** | Requires comparable service-level rules |
+The Australian pilot freezes the August 2026 NERO archive and exposes 440
+separate modelled series for five clerical occupations across 88 SA4 regions.
+Jobs and Skills Australia says occupation and region estimates must not be
+summed or combined, so the interface does neither.
 
-## The empty panels are the point
+The historical Australia baseline remains pinned as
+`research_draft_unverified` with `not_retained_unverified` source bytes because
+that describes the state when it was created. A later capture now retains the
+exact 48,613,300-byte archive, official landing and licence pages, and response
+headers. Byte snapshots of a pinned in-process builder and archive reproduce
+the canonical numeric-and-identity projection of all 440 baseline series. The
+historical file is independently hash-pinned. This establishes local artifact
+integrity and bounded derivation only. It does not certify the historical
+metadata or prose, authenticate the publisher, establish classification
+versions or prospective chronology, validate modelled estimates as direct
+observations, or permit a warning.
 
-Every `not_measured` signal renders as a visible void with the reason attached.
-These are not omissions. Together they are an instrumentation backlog.
+This archive cannot support a historical warning backtest. It has no
+as-published vintage panel, first-release revisions, uncertainty interval or
+independent target labels. It can support a prospective, no-consequence shadow
+rehearsal after governance gates pass. See
+`../pilots/australia/nero-backtest-and-shadow-plan.md`.
 
-The zero-cost count is the metric this whole argument turns on, and nobody
-publishes it. **A dashboard that quietly dropped its own blind spot would be
-lying by composition.** Showing the hole is also the honest way to claim the
-metric is novel: it is not tracked because it does not exist yet, and defining
-it (which basket, what threshold, does advertiser-funded count) is unfinished
-work sitting in `meta/backlog.md`.
+## Known release blockers
 
-## Provenance
+- The seven-part update has not passed comprehension testing with affected
+  workers, community organisations, policy decision-makers or general readers.
+- No approved action owner, authority, help route or appeal path exists.
+- Global indicators do not carry complete point-of-claim uncertainty and
+  revision metadata.
+- The IF path is now a validated decision record, but the current claim still
+  lacks an approved cohort, geography, horizon and outcome threshold. All five
+  conditions therefore remain `unknown` and no action is eligible.
+- Keyboard, screen-reader, contrast, reduced-motion and mobile behaviour need
+  rendered accessibility verification.
+- Privacy, security, data-governance and correction processes need independent
+  review.
+- The prospective Australian rehearsal has not accumulated future vintages or
+  independent outcome evidence.
 
-A dashboard is **research, not his substance**. Series are third-party facts with
-sources and dates. The derived signal states its method and its caveats in the
-snapshot, and the page renders both. Nothing here becomes an opinion of Fer's
-unless he says it in a capture.
+## Provenance and editorial authority
 
-## The v1.0.0 correction
-
-v1.0.0 shipped a "transmission test" that added consumer price inflation to the
-change in labour share. Different units, and on the data the labour term
-contributed under 8%: **the headline was inflation in a costume, and it rendered
-FAILING in red against a comparison the data did not support.**
-
-Replaced with the Engels comparison, which is dimensionally consistent and is the
-test history actually ran. The answer changed: World 2004-2025 shows output per
-capita +44.3% against labour income per capita +40.8%, a 3.5 index-point gap.
-**Britain's was roughly ten times that. This is not an Engels' Pause.**
-
-The correction is stated on the page, not just here. See
-`research/2026-09-07-red-team-the-observatory.md`.
-
-## Known limits
-
-- **No cohort cuts.** A national average can pass while a displaced cohort
-  fails. That is exactly what happened during Engels' Pause. This is the most
-  important missing thing.
-- **Headline CPI is a poor stand-in** for a decent-living basket. The basket
-  question is unresolved and it changes the transmission test's answer.
-- **Labour share reports with a long lag**, so recent years are thin and the
-  most recent transmission reading rests on fewer countries than it looks.
-- **Asset ownership is arguably a third transmission channel** and is not here.
-- **No uncertainty on anything.** Every point renders as a fact with no interval.
-  The largest remaining weakness.
-- **No empirical forecast.** The scenario lab projects user-supplied rates. It
-  is intentionally labelled as a scenario and carries no probability.
-- **No concentration series.** Compute, market share, capital ownership. A hole,
-  given the parent argument is about concentration.
-- **The seven entities need a stated rationale** or a proper panel.
+The code, research and wording are agent proposals. Source series remain
+third-party facts with dates and caveats. Nothing in this dashboard becomes
+Fernando's view until he reviews and adopts it. Corrections remain visible in
+the page and repository history.

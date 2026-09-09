@@ -1,0 +1,1321 @@
+{
+  "schema_version": "1.0.0",
+  "id": "agency-map.australian-clerical-transition.synthetic",
+  "provenance": "commissioned-agent-proposal",
+  "created_at": "2026-09-09T00:00:00Z",
+  "as_of": "2026-09-09T00:00:00Z",
+  "authority_effect": "none",
+  "condition_truth_assessed": false,
+  "actor_identity_verified": false,
+  "control_verified": false,
+  "forecast_produced": false,
+  "commitment_created": false,
+  "action_authorised": false,
+  "goal": {
+    "statement": "People gain durable practical agency as technological capability expands.",
+    "classification": "value-choice",
+    "selection_authority": "external-unverified"
+  },
+  "outcome_scope": {
+    "people": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+    "verb": "reach",
+    "object": "comparable or preferred paid work",
+    "standard": "no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition",
+    "place": "Australia",
+    "period": "2027-01-01 through 2029-12-31",
+    "jurisdictions": [
+      "Australia"
+    ],
+    "geographies": [
+      "Australia"
+    ],
+    "services": [
+      "clerical-employment",
+      "clerical-transition-support"
+    ],
+    "starts_at": "2027-01-01T00:00:00Z",
+    "ends_at": "2029-12-31T23:59:59Z",
+    "affected_actor_refs": [
+      "actor.affected-clerical-workers"
+    ],
+    "condition_ids": [
+      "condition.transition-option-ready",
+      "condition.employment-offer-exists",
+      "condition.protection-capacity-ready"
+    ],
+    "condition_logic": {
+      "all": [
+        {
+          "condition_ref": "condition.transition-option-ready"
+        },
+        {
+          "condition_ref": "condition.employment-offer-exists"
+        },
+        {
+          "condition_ref": "condition.protection-capacity-ready"
+        }
+      ]
+    },
+    "scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615"
+  },
+  "condition_loci": [
+    "technical",
+    "organisational",
+    "market",
+    "legal-institutional",
+    "infrastructure",
+    "ecological",
+    "personal-capacity",
+    "shared-system",
+    "unknown"
+  ],
+  "actors": [
+    {
+      "actor_ref": "actor.affected-clerical-workers",
+      "label": "Affected clerical workers",
+      "actor_class": "affected-people",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "challenge",
+          "object_class": "record",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    },
+    {
+      "actor_ref": "actor.employer-coalition",
+      "label": "Participating employer coalition",
+      "actor_class": "enterprise",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "prepare",
+          "object_class": "work-design",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-employment"
+          ],
+          "status": "caller-asserted"
+        },
+        {
+          "verb": "offer",
+          "object_class": "employment",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-employment"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    },
+    {
+      "actor_ref": "actor.worker-transition-provider",
+      "label": "Candidate worker transition provider",
+      "actor_class": "institution",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "prepare",
+          "object_class": "service",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        },
+        {
+          "verb": "deliver",
+          "object_class": "service",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        },
+        {
+          "verb": "offer",
+          "object_class": "service",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    },
+    {
+      "actor_ref": "actor.australian-government-candidate",
+      "label": "Candidate Australian public authority",
+      "actor_class": "government",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "fund",
+          "object_class": "programme",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        },
+        {
+          "verb": "establish",
+          "object_class": "appeal-service",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        },
+        {
+          "verb": "offer",
+          "object_class": "programme",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    },
+    {
+      "actor_ref": "actor.independent-verifier-candidate",
+      "label": "Candidate independent verifier",
+      "actor_class": "institution",
+      "identity_verification": "external-unverified",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "capabilities": [
+        {
+          "verb": "audit",
+          "object_class": "record",
+          "geographies": [
+            "Australia"
+          ],
+          "services": [
+            "clerical-employment",
+            "clerical-transition-support"
+          ],
+          "status": "caller-asserted"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "signal_ref": "signal.option-readiness",
+      "label": "Transition option delivery readiness",
+      "condition_id": "condition.transition-option-ready",
+      "role": "readiness",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.option-readiness",
+        "measure": "workers with a rehearsed accessible and rejectable option",
+        "unit": "proportion",
+        "denominator": "all scoped workers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level before any cohort summary",
+        "direction": "increase",
+        "collection_process_id": "process.synthetic.option-readiness",
+        "source_refs": [
+          "https://example.invalid/evidence/option-readiness"
+        ],
+        "evaluation_rule": "Count a worker only after accessibility, refusal and appeal checks all pass.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:d5884e71fe75110381db96badd4a3a5973b74ffb8020774aa0a8e0735aec9e6f"
+      }
+    },
+    {
+      "signal_ref": "signal.option-counter",
+      "label": "Failed or rejected transition option rate",
+      "condition_id": "condition.transition-option-ready",
+      "role": "counter",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.option-counter",
+        "measure": "transition options rejected or failing a delivery check",
+        "unit": "proportion",
+        "denominator": "all scoped workers offered an option",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level before any cohort summary",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic.option-counter",
+        "source_refs": [
+          "https://example.invalid/evidence/option-counter"
+        ],
+        "evaluation_rule": "Retain refusals and failed checks in the denominator and publish reasons separately.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:44c99169f2097d163de38b6ac792fe66327f40c6c1be8ebb184253ed727e3079"
+      }
+    },
+    {
+      "signal_ref": "signal.option-harm",
+      "label": "Information harm from transition offers",
+      "condition_id": "condition.transition-option-ready",
+      "role": "information-harm",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.option-harm",
+        "measure": "workers reporting anxiety, stigma, coercion or false certainty caused by an offer",
+        "unit": "proportion",
+        "denominator": "all scoped workers receiving transition information",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level with severe cases retained separately",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic.option-harm",
+        "source_refs": [
+          "https://example.invalid/evidence/option-harm"
+        ],
+        "evaluation_rule": "Report every severe case separately before any cohort rate.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:6fe1523d8a8a98a5dcf141d2acfbd488cc30545c8d5b4b38f0c8f2da01aae7fd"
+      }
+    },
+    {
+      "signal_ref": "signal.offer-flow",
+      "label": "Comparable offer flow",
+      "condition_id": "condition.employment-offer-exists",
+      "role": "leading",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.offer-flow",
+        "measure": "independently reviewed comparable offers available per worker",
+        "unit": "offers per worker",
+        "denominator": "all scoped workers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker reachable labour market",
+        "direction": "increase",
+        "collection_process_id": "process.synthetic.offer-flow",
+        "source_refs": [
+          "https://example.invalid/evidence/offer-flow"
+        ],
+        "evaluation_rule": "Count an offer only when pay, hours, conditions, location and worker eligibility are independently checked.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:3fda2eec9b43d7725922582fa7452d5a13ce98505a4807d2de855c8d0af390d9"
+      }
+    },
+    {
+      "signal_ref": "signal.offer-counter",
+      "label": "Offer withdrawal and quality failure",
+      "condition_id": "condition.employment-offer-exists",
+      "role": "counter",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.offer-counter",
+        "measure": "offers withdrawn or failing the registered quality standard",
+        "unit": "proportion",
+        "denominator": "all offers presented to scoped workers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "offer level linked to worker scope",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic.offer-counter",
+        "source_refs": [
+          "https://example.invalid/evidence/offer-counter"
+        ],
+        "evaluation_rule": "Retain withdrawn and failed offers rather than deleting them from the denominator.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:fe235942a12d8ad6cce40f9ab39b61748e9092cfca0b04721cede13a9bbc0068"
+      }
+    },
+    {
+      "signal_ref": "signal.offer-harm",
+      "label": "Stigma or pressure caused by offer labelling",
+      "condition_id": "condition.employment-offer-exists",
+      "role": "information-harm",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.offer-harm",
+        "measure": "workers reporting stigma, pressure or loss of choice caused by offer labelling",
+        "unit": "proportion",
+        "denominator": "all scoped workers shown labelled offers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level with severe cases retained separately",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic.offer-harm",
+        "source_refs": [
+          "https://example.invalid/evidence/offer-harm"
+        ],
+        "evaluation_rule": "Report severe loss-of-choice cases separately before any summary.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:28eca5941666437a1b9dd061715a983b804407d992760e2bf57d077e978715db"
+      }
+    },
+    {
+      "signal_ref": "signal.protection-readiness",
+      "label": "Funded protection and appeal capacity",
+      "condition_id": "condition.protection-capacity-ready",
+      "role": "readiness",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.protection-readiness",
+        "measure": "funded service and appeal capacity relative to registered demand",
+        "unit": "capacity ratio",
+        "denominator": "registered peak service and appeal demand",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "service component with the minimum ratio controlling",
+        "direction": "increase",
+        "collection_process_id": "process.synthetic.protection-readiness",
+        "source_refs": [
+          "https://example.invalid/evidence/protection-readiness"
+        ],
+        "evaluation_rule": "Require funding, staff, appeals and recovery capacity to pass separately.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:71e6b0495d034f784b57f9e02f5b51e9f1034f9024e84efb7623377c9d107864"
+      }
+    },
+    {
+      "signal_ref": "signal.protection-counter",
+      "label": "Service failure and unmet appeal load",
+      "condition_id": "condition.protection-capacity-ready",
+      "role": "counter",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.protection-counter",
+        "measure": "service failures and appeals unresolved inside the service level",
+        "unit": "cases per 100 served workers",
+        "denominator": "all scoped workers served or appealing",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "case level with unresolved cases retained",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic.protection-counter",
+        "source_refs": [
+          "https://example.invalid/evidence/protection-counter"
+        ],
+        "evaluation_rule": "Count every missed service level and unresolved appeal without offsetting across people.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:bd93e635385939b7b6c66ec0611a87b0ec81e09b37da38d3ed0e3371240d26fa"
+      }
+    },
+    {
+      "signal_ref": "signal.protection-harm",
+      "label": "Information harm from protection messaging",
+      "condition_id": "condition.protection-capacity-ready",
+      "role": "information-harm",
+      "verification": "external-unverified",
+      "metric": {
+        "metric_id": "metric.protection-harm",
+        "measure": "workers reporting anxiety, stigma or false reassurance from protection messaging",
+        "unit": "proportion",
+        "denominator": "all scoped workers receiving protection messaging",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level with severe cases retained separately",
+        "direction": "decrease",
+        "collection_process_id": "process.synthetic.protection-harm",
+        "source_refs": [
+          "https://example.invalid/evidence/protection-harm"
+        ],
+        "evaluation_rule": "Report severe cases and false reassurance before any cohort rate.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:569baaf18f84ddbe997a9108d82df65a260461787b8987fd966b704d2de12ff7"
+      }
+    }
+  ],
+  "condition_ledger_ref": {
+    "ledger_id": "ledger.australian-clerical-transition",
+    "ledger_version": "1.0.0",
+    "tip_event_id": "event.round-03.synthetic",
+    "tip_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "uri": "https://example.invalid/condition-ledgers/australian-clerical-transition.json",
+    "verification": "external-unverified"
+  },
+  "conditions": [
+    {
+      "condition_id": "condition.transition-option-ready",
+      "ledger_anchor": {
+        "condition_id": "condition.transition-option-ready",
+        "condition_version": "1.0.0",
+        "tip_event_id": "event.transition-option.synthetic",
+        "tip_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "public_if_clause": "each affected worker has a funded, accessible and genuinely rejectable transition option before role change",
+      "category_prompts": [
+        "price",
+        "proximity",
+        "capability",
+        "other"
+      ],
+      "locus": "shared-system",
+      "signal_refs": [
+        "signal.option-readiness",
+        "signal.option-counter",
+        "signal.option-harm"
+      ],
+      "relations": [
+        {
+          "actor_ref": "actor.affected-clerical-workers",
+          "roles": [
+            "affected"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.employer-coalition",
+          "roles": [
+            "controls",
+            "duty-bears",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.worker-transition-provider",
+          "roles": [
+            "influences",
+            "delivers",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.australian-government-candidate",
+          "roles": [
+            "funds",
+            "influences"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.independent-verifier-candidate",
+          "roles": [
+            "verifies",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        }
+      ]
+    },
+    {
+      "condition_id": "condition.employment-offer-exists",
+      "ledger_anchor": {
+        "condition_id": "condition.employment-offer-exists",
+        "condition_version": "1.0.0",
+        "tip_event_id": "event.employment-offer.synthetic",
+        "tip_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "public_if_clause": "comparable or preferred employment offers exist in the worker's reachable labour market",
+      "category_prompts": [
+        "availability",
+        "proximity"
+      ],
+      "locus": "market",
+      "signal_refs": [
+        "signal.offer-flow",
+        "signal.offer-counter",
+        "signal.offer-harm"
+      ],
+      "relations": [
+        {
+          "actor_ref": "actor.affected-clerical-workers",
+          "roles": [
+            "affected"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.employer-coalition",
+          "roles": [
+            "influences",
+            "negotiates",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.worker-transition-provider",
+          "roles": [
+            "depends-on",
+            "negotiates",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.australian-government-candidate",
+          "roles": [
+            "influences",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.independent-verifier-candidate",
+          "roles": [
+            "verifies",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        }
+      ]
+    },
+    {
+      "condition_id": "condition.protection-capacity-ready",
+      "ledger_anchor": {
+        "condition_id": "condition.protection-capacity-ready",
+        "condition_version": "1.0.0",
+        "tip_event_id": "event.protection-capacity.synthetic",
+        "tip_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "public_if_clause": "funding, delivery capacity, appeal and recovery remain available for the complete transition period",
+      "category_prompts": [
+        "price",
+        "permission",
+        "availability",
+        "other"
+      ],
+      "locus": "legal-institutional",
+      "signal_refs": [
+        "signal.protection-readiness",
+        "signal.protection-counter",
+        "signal.protection-harm"
+      ],
+      "relations": [
+        {
+          "actor_ref": "actor.affected-clerical-workers",
+          "roles": [
+            "affected"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.employer-coalition",
+          "roles": [
+            "depends-on",
+            "negotiates"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.worker-transition-provider",
+          "roles": [
+            "influences",
+            "depends-on",
+            "delivers"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.australian-government-candidate",
+          "roles": [
+            "controls",
+            "duty-bears",
+            "funds",
+            "verifies"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        },
+        {
+          "actor_ref": "actor.independent-verifier-candidate",
+          "roles": [
+            "verifies",
+            "observes"
+          ],
+          "evidence_refs": [],
+          "verification": "external-unverified"
+        }
+      ]
+    }
+  ],
+  "provider_plans": [
+    {
+      "plan_id": "plan.transition-provider.synthetic",
+      "actor_ref": "actor.worker-transition-provider",
+      "offered_verb": "offer",
+      "offered_object": "a funded and rejectable transition service",
+      "object_class": "service",
+      "standard": "the scoped delivery and appeal criteria",
+      "place": "Australia",
+      "period": "2027-01-01 through 2029-12-31",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "geographies": [
+        "Australia"
+      ],
+      "services": [
+        "clerical-transition-support"
+      ],
+      "starts_at": "2027-01-01T00:00:00Z",
+      "ends_at": "2029-12-31T23:59:59Z",
+      "ordering": "concurrent-or-dependency-bound",
+      "when_clauses": [
+        {
+          "condition_id": "condition.transition-option-ready",
+          "condition_anchor_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "mode": "prepare",
+          "completion_criterion": "A rehearsed service meets the registered capacity, accessibility, refusal and appeal criteria.",
+          "completion_test": {
+            "measure": "registered transition-option checks passed",
+            "operator": "all-of",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        },
+        {
+          "condition_id": "condition.employment-offer-exists",
+          "condition_anchor_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "mode": "negotiate",
+          "completion_criterion": "Participating employers register enough independently quality-reviewed offers for the scoped cohort.",
+          "completion_test": {
+            "measure": "registered offer-flow standard met",
+            "operator": "human-review",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [
+            "actor.employer-coalition"
+          ],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        },
+        {
+          "condition_id": "condition.protection-capacity-ready",
+          "condition_anchor_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "mode": "coordinate",
+          "completion_criterion": "A separately authorised body verifies funding, capacity, appeal and recovery through the complete period.",
+          "completion_test": {
+            "measure": "funding capacity appeal and recovery checks passed",
+            "operator": "all-of",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [
+            "actor.australian-government-candidate"
+          ],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        }
+      ]
+    },
+    {
+      "plan_id": "plan.employer-coalition.synthetic",
+      "actor_ref": "actor.employer-coalition",
+      "offered_verb": "offer",
+      "offered_object": "redesigned paid work and transition options",
+      "object_class": "employment",
+      "standard": "the scoped earnings, conditions and refusal criteria",
+      "place": "Australia",
+      "period": "2027-01-01 through 2029-12-31",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "geographies": [
+        "Australia"
+      ],
+      "services": [
+        "clerical-employment"
+      ],
+      "starts_at": "2027-01-01T00:00:00Z",
+      "ends_at": "2029-12-31T23:59:59Z",
+      "ordering": "concurrent-or-dependency-bound",
+      "when_clauses": [
+        {
+          "condition_id": "condition.transition-option-ready",
+          "condition_anchor_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "mode": "act",
+          "completion_criterion": "Each participating employer funds an accessible option before any scoped role change.",
+          "completion_test": {
+            "measure": "worker-level funded-option checks passed",
+            "operator": "all-of",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        },
+        {
+          "condition_id": "condition.employment-offer-exists",
+          "condition_anchor_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "mode": "prepare",
+          "completion_criterion": "Offer quality, earnings, hours and reach are independently assessed for the scoped cohort.",
+          "completion_test": {
+            "measure": "offer quality and reach review passed",
+            "operator": "human-review",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        },
+        {
+          "condition_id": "condition.protection-capacity-ready",
+          "condition_anchor_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "mode": "negotiate",
+          "completion_criterion": "A lawful funding and recovery compact covers the complete obligation.",
+          "completion_test": {
+            "measure": "funding and recovery compact review passed",
+            "operator": "human-review",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [
+            "actor.australian-government-candidate"
+          ],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        }
+      ]
+    },
+    {
+      "plan_id": "plan.public-authority.synthetic",
+      "actor_ref": "actor.australian-government-candidate",
+      "offered_verb": "offer",
+      "offered_object": "a transition protection and appeal compact",
+      "object_class": "programme",
+      "standard": "the scoped funding, continuity, appeal and recovery criteria",
+      "place": "Australia",
+      "period": "2027-01-01 through 2029-12-31",
+      "jurisdictions": [
+        "Australia"
+      ],
+      "geographies": [
+        "Australia"
+      ],
+      "services": [
+        "clerical-transition-support"
+      ],
+      "starts_at": "2027-01-01T00:00:00Z",
+      "ends_at": "2029-12-31T23:59:59Z",
+      "ordering": "concurrent-or-dependency-bound",
+      "when_clauses": [
+        {
+          "condition_id": "condition.transition-option-ready",
+          "condition_anchor_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "mode": "coordinate",
+          "completion_criterion": "Delivery and employer dependencies are jointly rehearsed under affected-party review.",
+          "completion_test": {
+            "measure": "joint rehearsal and affected-party review passed",
+            "operator": "human-review",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [
+            "actor.worker-transition-provider",
+            "actor.employer-coalition"
+          ],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        },
+        {
+          "condition_id": "condition.employment-offer-exists",
+          "condition_anchor_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "mode": "watch",
+          "completion_criterion": "Independent offer-flow evidence meets the registered scope and quality rule.",
+          "completion_test": {
+            "measure": "offer-flow evidence review passed",
+            "operator": "human-review",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        },
+        {
+          "condition_id": "condition.protection-capacity-ready",
+          "condition_anchor_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "mode": "act",
+          "completion_criterion": "Lawful authority, appropriation, capacity, appeal and recovery are independently verified.",
+          "completion_test": {
+            "measure": "authority appropriation capacity appeal and recovery checks passed",
+            "operator": "all-of",
+            "threshold": true,
+            "unit": "pass-fail",
+            "verifier_actor_ref": "actor.independent-verifier-candidate",
+            "verification": "external-unverified"
+          },
+          "evidence_refs": [],
+          "dependency_actor_refs": [],
+          "next_review": "2026-12-01T00:00:00Z",
+          "claim_state": "proposal-only"
+        }
+      ]
+    }
+  ],
+  "action_hypotheses": [
+    {
+      "hypothesis_id": "action-hypothesis.prepare-transition-service",
+      "actor_ref": "actor.worker-transition-provider",
+      "verb": "prepare",
+      "object": "a reversible transition-support rehearsal",
+      "object_class": "service",
+      "geography": "Australia",
+      "service": "clerical-transition-support",
+      "target_condition_id": "condition.transition-option-ready",
+      "intended_signal_ref": "signal.option-readiness",
+      "expected_direction": "increase",
+      "counter_signal_refs": [
+        "signal.option-counter"
+      ],
+      "harm_signal_refs": [
+        "signal.option-harm"
+      ],
+      "mechanism": "Rehearsal may expose delivery gaps before a worker faces a role change.",
+      "falsifier": "Readiness does not improve, or rejection, burden or information harm increases under the preregistered comparison.",
+      "expires_at": "2026-12-01T00:00:00Z",
+      "reversibility": "reversible",
+      "status": "proposal-only",
+      "authority_verification": "external-unverified",
+      "action_authorised": false
+    },
+    {
+      "hypothesis_id": "action-hypothesis.prepare-work-redesign",
+      "actor_ref": "actor.employer-coalition",
+      "verb": "prepare",
+      "object": "a reversible work-redesign trial",
+      "object_class": "work-design",
+      "geography": "Australia",
+      "service": "clerical-employment",
+      "target_condition_id": "condition.employment-offer-exists",
+      "intended_signal_ref": "signal.offer-flow",
+      "expected_direction": "increase",
+      "counter_signal_refs": [
+        "signal.offer-counter"
+      ],
+      "harm_signal_refs": [
+        "signal.offer-harm"
+      ],
+      "mechanism": "A trial may identify viable redesigned work before changing scoped roles.",
+      "falsifier": "Comparable offer flow does not increase, or withdrawal, quality failure, pressure or stigma rises.",
+      "expires_at": "2026-12-01T00:00:00Z",
+      "reversibility": "reversible",
+      "status": "proposal-only",
+      "authority_verification": "external-unverified",
+      "action_authorised": false
+    },
+    {
+      "hypothesis_id": "action-hypothesis.fund-protection-capacity",
+      "actor_ref": "actor.australian-government-candidate",
+      "verb": "fund",
+      "object": "a bounded transition-protection rehearsal",
+      "object_class": "programme",
+      "geography": "Australia",
+      "service": "clerical-transition-support",
+      "target_condition_id": "condition.protection-capacity-ready",
+      "intended_signal_ref": "signal.protection-readiness",
+      "expected_direction": "increase",
+      "counter_signal_refs": [
+        "signal.protection-counter"
+      ],
+      "harm_signal_refs": [
+        "signal.protection-harm"
+      ],
+      "mechanism": "Reserved resources may make a future lawful compact more deliverable without activating it.",
+      "falsifier": "Capacity does not improve, funding crowds out a better option, or service failure and information harm rise.",
+      "expires_at": "2026-12-01T00:00:00Z",
+      "reversibility": "reversible",
+      "status": "proposal-only",
+      "authority_verification": "external-unverified",
+      "action_authorised": false
+    }
+  ],
+  "public_projection": {
+    "goal": "People gain durable practical agency as technological capability expands. This is a value choice, not a directly measured state.",
+    "freshness": {
+      "as_of": "2026-09-09T00:00:00Z",
+      "runtime_evaluation_required": true
+    },
+    "affected_parties": [
+      {
+        "actor_ref": "actor.affected-clerical-workers",
+        "label": "Affected clerical workers",
+        "identity_verification": "external-unverified"
+      }
+    ],
+    "consumer_if": {
+      "status": "unscored outcome hypothesis",
+      "statement": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces may reach comparable or preferred paid work at no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition, in Australia, during 2027-01-01 through 2029-12-31, if all of (each affected worker has a funded, accessible and genuinely rejectable transition option before role change; and comparable or preferred employment offers exist in the worker's reachable labour market; and funding, delivery capacity, appeal and recovery remain available for the complete transition period)."
+    },
+    "signal_contracts": [
+      {
+        "signal_ref": "signal.offer-counter",
+        "condition_id": "condition.employment-offer-exists",
+        "role": "counter",
+        "label": "Offer withdrawal and quality failure",
+        "measure": "offers withdrawn or failing the registered quality standard",
+        "unit": "proportion",
+        "denominator": "all offers presented to scoped workers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "offer level linked to worker scope",
+        "direction": "decrease",
+        "metric_checksum": "sha256:fe235942a12d8ad6cce40f9ab39b61748e9092cfca0b04721cede13a9bbc0068",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.offer-flow",
+        "condition_id": "condition.employment-offer-exists",
+        "role": "leading",
+        "label": "Comparable offer flow",
+        "measure": "independently reviewed comparable offers available per worker",
+        "unit": "offers per worker",
+        "denominator": "all scoped workers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker reachable labour market",
+        "direction": "increase",
+        "metric_checksum": "sha256:3fda2eec9b43d7725922582fa7452d5a13ce98505a4807d2de855c8d0af390d9",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.offer-harm",
+        "condition_id": "condition.employment-offer-exists",
+        "role": "information-harm",
+        "label": "Stigma or pressure caused by offer labelling",
+        "measure": "workers reporting stigma, pressure or loss of choice caused by offer labelling",
+        "unit": "proportion",
+        "denominator": "all scoped workers shown labelled offers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level with severe cases retained separately",
+        "direction": "decrease",
+        "metric_checksum": "sha256:28eca5941666437a1b9dd061715a983b804407d992760e2bf57d077e978715db",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.option-counter",
+        "condition_id": "condition.transition-option-ready",
+        "role": "counter",
+        "label": "Failed or rejected transition option rate",
+        "measure": "transition options rejected or failing a delivery check",
+        "unit": "proportion",
+        "denominator": "all scoped workers offered an option",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level before any cohort summary",
+        "direction": "decrease",
+        "metric_checksum": "sha256:44c99169f2097d163de38b6ac792fe66327f40c6c1be8ebb184253ed727e3079",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.option-harm",
+        "condition_id": "condition.transition-option-ready",
+        "role": "information-harm",
+        "label": "Information harm from transition offers",
+        "measure": "workers reporting anxiety, stigma, coercion or false certainty caused by an offer",
+        "unit": "proportion",
+        "denominator": "all scoped workers receiving transition information",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level with severe cases retained separately",
+        "direction": "decrease",
+        "metric_checksum": "sha256:6fe1523d8a8a98a5dcf141d2acfbd488cc30545c8d5b4b38f0c8f2da01aae7fd",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.option-readiness",
+        "condition_id": "condition.transition-option-ready",
+        "role": "readiness",
+        "label": "Transition option delivery readiness",
+        "measure": "workers with a rehearsed accessible and rejectable option",
+        "unit": "proportion",
+        "denominator": "all scoped workers",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level before any cohort summary",
+        "direction": "increase",
+        "metric_checksum": "sha256:d5884e71fe75110381db96badd4a3a5973b74ffb8020774aa0a8e0735aec9e6f",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.protection-counter",
+        "condition_id": "condition.protection-capacity-ready",
+        "role": "counter",
+        "label": "Service failure and unmet appeal load",
+        "measure": "service failures and appeals unresolved inside the service level",
+        "unit": "cases per 100 served workers",
+        "denominator": "all scoped workers served or appealing",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "case level with unresolved cases retained",
+        "direction": "decrease",
+        "metric_checksum": "sha256:bd93e635385939b7b6c66ec0611a87b0ec81e09b37da38d3ed0e3371240d26fa",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.protection-harm",
+        "condition_id": "condition.protection-capacity-ready",
+        "role": "information-harm",
+        "label": "Information harm from protection messaging",
+        "measure": "workers reporting anxiety, stigma or false reassurance from protection messaging",
+        "unit": "proportion",
+        "denominator": "all scoped workers receiving protection messaging",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "worker level with severe cases retained separately",
+        "direction": "decrease",
+        "metric_checksum": "sha256:569baaf18f84ddbe997a9108d82df65a260461787b8987fd966b704d2de12ff7",
+        "verification": "external-unverified"
+      },
+      {
+        "signal_ref": "signal.protection-readiness",
+        "condition_id": "condition.protection-capacity-ready",
+        "role": "readiness",
+        "label": "Funded protection and appeal capacity",
+        "measure": "funded service and appeal capacity relative to registered demand",
+        "unit": "capacity ratio",
+        "denominator": "registered peak service and appeal demand",
+        "population": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+        "geography": "Australia",
+        "period": "2027-01-01 through 2029-12-31",
+        "aggregation": "service component with the minimum ratio controlling",
+        "direction": "increase",
+        "metric_checksum": "sha256:71e6b0495d034f784b57f9e02f5b51e9f1034f9024e84efb7623377c9d107864",
+        "verification": "external-unverified"
+      }
+    ],
+    "provider_when_plans": [
+      {
+        "actor_ref": "actor.australian-government-candidate",
+        "status": "conditional plan hypothesis, not forecast or commitment",
+        "statement": "Candidate Australian public authority proposes that it could offer a transition protection and appeal compact at the scoped funding, continuity, appeal and recovery criteria, in Australia, from 2027-01-01T00:00:00Z through 2029-12-31T23:59:59Z, when each affected worker has a funded, accessible and genuinely rejectable transition option before role change [coordinate]; and when comparable or preferred employment offers exist in the worker's reachable labour market [watch]; and when funding, delivery capacity, appeal and recovery remain available for the complete transition period [act]. Capability and identity remain caller-asserted and unverified. This is a conditional plan hypothesis, not a forecast or commitment.",
+        "condition_moves": [
+          "condition.transition-option-ready: coordinate",
+          "condition.employment-offer-exists: watch",
+          "condition.protection-capacity-ready: act"
+        ],
+        "conditions": [
+          {
+            "condition_id": "condition.transition-option-ready",
+            "mode": "coordinate",
+            "completion_criterion": "Delivery and employer dependencies are jointly rehearsed under affected-party review.",
+            "completion_test": "joint rehearsal and affected-party review passed human-review true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [
+              "actor.worker-transition-provider",
+              "actor.employer-coalition"
+            ],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          },
+          {
+            "condition_id": "condition.employment-offer-exists",
+            "mode": "watch",
+            "completion_criterion": "Independent offer-flow evidence meets the registered scope and quality rule.",
+            "completion_test": "offer-flow evidence review passed human-review true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          },
+          {
+            "condition_id": "condition.protection-capacity-ready",
+            "mode": "act",
+            "completion_criterion": "Lawful authority, appropriation, capacity, appeal and recovery are independently verified.",
+            "completion_test": "authority appropriation capacity appeal and recovery checks passed all-of true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          }
+        ]
+      },
+      {
+        "actor_ref": "actor.employer-coalition",
+        "status": "conditional plan hypothesis, not forecast or commitment",
+        "statement": "Participating employer coalition proposes that it could offer redesigned paid work and transition options at the scoped earnings, conditions and refusal criteria, in Australia, from 2027-01-01T00:00:00Z through 2029-12-31T23:59:59Z, when each affected worker has a funded, accessible and genuinely rejectable transition option before role change [act]; and when comparable or preferred employment offers exist in the worker's reachable labour market [prepare]; and when funding, delivery capacity, appeal and recovery remain available for the complete transition period [negotiate]. Capability and identity remain caller-asserted and unverified. This is a conditional plan hypothesis, not a forecast or commitment.",
+        "condition_moves": [
+          "condition.transition-option-ready: act",
+          "condition.employment-offer-exists: prepare",
+          "condition.protection-capacity-ready: negotiate"
+        ],
+        "conditions": [
+          {
+            "condition_id": "condition.transition-option-ready",
+            "mode": "act",
+            "completion_criterion": "Each participating employer funds an accessible option before any scoped role change.",
+            "completion_test": "worker-level funded-option checks passed all-of true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          },
+          {
+            "condition_id": "condition.employment-offer-exists",
+            "mode": "prepare",
+            "completion_criterion": "Offer quality, earnings, hours and reach are independently assessed for the scoped cohort.",
+            "completion_test": "offer quality and reach review passed human-review true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          },
+          {
+            "condition_id": "condition.protection-capacity-ready",
+            "mode": "negotiate",
+            "completion_criterion": "A lawful funding and recovery compact covers the complete obligation.",
+            "completion_test": "funding and recovery compact review passed human-review true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [
+              "actor.australian-government-candidate"
+            ],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          }
+        ]
+      },
+      {
+        "actor_ref": "actor.worker-transition-provider",
+        "status": "conditional plan hypothesis, not forecast or commitment",
+        "statement": "Candidate worker transition provider proposes that it could offer a funded and rejectable transition service at the scoped delivery and appeal criteria, in Australia, from 2027-01-01T00:00:00Z through 2029-12-31T23:59:59Z, when each affected worker has a funded, accessible and genuinely rejectable transition option before role change [prepare]; and when comparable or preferred employment offers exist in the worker's reachable labour market [negotiate]; and when funding, delivery capacity, appeal and recovery remain available for the complete transition period [coordinate]. Capability and identity remain caller-asserted and unverified. This is a conditional plan hypothesis, not a forecast or commitment.",
+        "condition_moves": [
+          "condition.transition-option-ready: prepare",
+          "condition.employment-offer-exists: negotiate",
+          "condition.protection-capacity-ready: coordinate"
+        ],
+        "conditions": [
+          {
+            "condition_id": "condition.transition-option-ready",
+            "mode": "prepare",
+            "completion_criterion": "A rehearsed service meets the registered capacity, accessibility, refusal and appeal criteria.",
+            "completion_test": "registered transition-option checks passed all-of true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          },
+          {
+            "condition_id": "condition.employment-offer-exists",
+            "mode": "negotiate",
+            "completion_criterion": "Participating employers register enough independently quality-reviewed offers for the scoped cohort.",
+            "completion_test": "registered offer-flow standard met human-review true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [
+              "actor.employer-coalition"
+            ],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          },
+          {
+            "condition_id": "condition.protection-capacity-ready",
+            "mode": "coordinate",
+            "completion_criterion": "A separately authorised body verifies funding, capacity, appeal and recovery through the complete period.",
+            "completion_test": "funding capacity appeal and recovery checks passed all-of true pass-fail; verifier actor.independent-verifier-candidate",
+            "dependency_actor_refs": [
+              "actor.australian-government-candidate"
+            ],
+            "next_review": "2026-12-01T00:00:00Z",
+            "verification": "external-unverified"
+          }
+        ]
+      }
+    ],
+    "action_hypotheses": [
+      {
+        "hypothesis_id": "action-hypothesis.fund-protection-capacity",
+        "status": "proposal-only; not authorised",
+        "statement": "Candidate Australian public authority proposes fund a bounded transition-protection rehearsal as a hypothesis that signal.protection-readiness would increase for condition.protection-capacity-ready.",
+        "falsifier": "Capacity does not improve, funding crowds out a better option, or service failure and information harm rise."
+      },
+      {
+        "hypothesis_id": "action-hypothesis.prepare-transition-service",
+        "status": "proposal-only; not authorised",
+        "statement": "Candidate worker transition provider proposes prepare a reversible transition-support rehearsal as a hypothesis that signal.option-readiness would increase for condition.transition-option-ready.",
+        "falsifier": "Readiness does not improve, or rejection, burden or information harm increases under the preregistered comparison."
+      },
+      {
+        "hypothesis_id": "action-hypothesis.prepare-work-redesign",
+        "status": "proposal-only; not authorised",
+        "statement": "Participating employer coalition proposes prepare a reversible work-redesign trial as a hypothesis that signal.offer-flow would increase for condition.employment-offer-exists.",
+        "falsifier": "Comparable offer flow does not increase, or withdrawal, quality failure, pressure or stigma rises."
+      }
+    ],
+    "boundary": "Structural consistency does not establish condition truth, actor identity, control, consent, commitment or authority. No action is authorised."
+  }
+}

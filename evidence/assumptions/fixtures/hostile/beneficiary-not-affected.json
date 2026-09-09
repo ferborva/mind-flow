@@ -1,0 +1,11 @@
+{
+  "id": "hostile.beneficiary-not-affected",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/0/parties/benefited/0/party_id",
+      "value": "public.omitted-beneficiary"
+    }
+  ],
+  "expected_codes": ["PARTY_NOT_AFFECTED"]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.1.0",
+  "instrument_id": "instrument.observatory-self-serve.synthetic-v1",
+  "instrument_kind": "observatory-self-serve",
+  "classification": "synthetic-unrendered-specification",
+  "source_transition_bundle_ref": {
+    "bundle_id": "bundle.round-04.worker-option.pre-projection",
+    "bundle_stage": "pre-projection-core",
+    "schema_version": "1.2.0",
+    "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+    "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1"
+  },
+  "fact_pack_ref": {
+    "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+    "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
+    "sha256": "sha256:8f712db6bc77c93264f8c7e16dfc2722b53d8b078b0f81422e441fea333818b2"
+  },
+  "render_contract": {
+    "claim_ids": [
+      "claim.synthetic-computed-if-state",
+      "claim.synthetic-transition-path",
+      "claim.synthetic-future-probability"
+    ],
+    "condition_ids": [
+      "condition.worker-option.nsw"
+    ],
+    "state_legend_states": [
+      "true",
+      "false",
+      "unknown",
+      "stale",
+      "conflicted"
+    ],
+    "boundary_ids": [
+      "no-real-service",
+      "no-real-warning",
+      "no-action-authority",
+      "uncertainty",
+      "strongest-challenge",
+      "correction-route"
+    ],
+    "source_scope_clock_visible": true,
+    "may_add_facts": false,
+    "may_add_urgency": false,
+    "may_hide_nondecisive_states": false,
+    "may_use_probability_as_state": false,
+    "may_imply_authority": false,
+    "output_capture_required": true
+  },
+  "presentation_boundary": {
+    "fact_effect": "none",
+    "truth_effect": "none",
+    "authority_effect": "none",
+    "aesthetic_preference_role": "descriptive-only-not-success",
+    "confidence_role": "calibration-and-harm-monitor-only"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/transition-proposal/1-0-0",
+  "title": "Action transition proposal",
+  "description": "A deterministic, non-authorising proposal derived from one action, one completed evaluation run and one prior operational state. It never records an owner event.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "action_ref",
+    "evaluation_run_ref",
+    "prior_state_ref",
+    "generated_at",
+    "proposal",
+    "basis_gate_state",
+    "proposed_lifecycle",
+    "authority_effect",
+    "automatic_transition",
+    "automatic_support_withdrawal",
+    "concurrent_duties",
+    "transition_conflicts"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "action_ref": { "$ref": "#/$defs/artifactReference" },
+    "evaluation_run_ref": { "$ref": "#/$defs/evaluationRunReference" },
+    "prior_state_ref": { "$ref": "#/$defs/priorStateReference" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "proposal": {
+      "enum": [
+        "hold",
+        "hold_for_review",
+        "hold_for_new_contract",
+        "consider_watching",
+        "continue_watching",
+        "consider_preparation",
+        "continue_preparation",
+        "consider_activation",
+        "consider_resume",
+        "continue_active",
+        "consider_pause",
+        "consider_precautionary_pause",
+        "consider_reversal",
+        "continue_reversal",
+        "consider_recovery",
+        "continue_recovery",
+        "continue_with_recovery",
+        "consider_graduation",
+        "consider_recovery_exit",
+        "await_recovery_evidence"
+      ]
+    },
+    "basis_gate_state": {
+      "enum": ["true", "false", "unknown", "stale", "conflicted"],
+      "description": "The exact five-valued truth state of the action record's bound gate in the pinned evaluation run. A hold caused by false evidence remains distinguishable from unknown, stale or conflicted evidence."
+    },
+    "proposed_lifecycle": { "$ref": "#/$defs/lifecycle" },
+    "authority_effect": { "const": "none" },
+    "automatic_transition": { "const": false },
+    "automatic_support_withdrawal": { "const": false },
+    "concurrent_duties": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["watch", "recover"] }
+    },
+    "transition_conflicts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": ["act_and_graduate", "recover_and_graduate", "graduate_without_existing_action"]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/version" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "evaluationRunReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^3\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "priorStateReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum", "lifecycle", "trust_state"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "trust_state": { "const": "unverified-external" }
+      },
+      "additionalProperties": false
+    },
+    "lifecycle": {
+      "enum": ["inactive", "watching", "preparing", "active", "paused", "reversing", "recovering", "graduated"]
+    }
+  }
+}

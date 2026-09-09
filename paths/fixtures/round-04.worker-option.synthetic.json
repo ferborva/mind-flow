@@ -1,0 +1,505 @@
+{
+  "schema_version": "1.2",
+  "path_id": "path.round-04.worker-option.synthetic",
+  "classification": "synthetic-example-not-a-finding",
+  "title": "A worker-controlled route through automation-related work change",
+  "hypothesis_summary": "A reversible support rehearsal may help affected workers preserve meaningful choice while institutions learn where access, refusal, review and communication safeguards fail.",
+  "epistemic_contract": {
+    "kind": "possible-path-hypothesis",
+    "world_model": "open-world",
+    "quantification": "unscored",
+    "selection_status": "one-revisable-path-among-named-and-unnamed-possibilities",
+    "truth_status": "not-assessed"
+  },
+  "outcome_scope": {
+    "who": "Affected workers inside the complete registered observation scope",
+    "verb": "navigate",
+    "object": "automation-related work change",
+    "standard": "without involuntary loss of real earnings or essential conditions, while retaining a credible alternative and accessible human review",
+    "place": "New South Wales, Australia",
+    "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+    "if_conditions": [
+      {
+        "condition_id": "condition.worker-option.nsw",
+        "public_condition": "Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z"
+      }
+    ],
+    "scope_hash": "sha256:6297bdb10971769c2ddb5f2edbbaf44ba733bf34d3e2e2969efd67d2a4822e3e"
+  },
+  "source_refs": {
+    "kernel": {
+      "id": "kernel.worker-option.synthetic",
+      "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+      "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
+      "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
+    },
+    "evolution": {
+      "id": "ledger.round-04.worker-option.synthetic",
+      "artifact_path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
+      "artifact_sha256": "sha256:e53fe837a127cc60b098d1fbbdfc08efbeb775846da2f160dfdb9aff3867b0e2",
+      "manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77"
+    },
+    "signal_registry": {
+      "id": "registry.round-04.worker-option.synthetic",
+      "artifact_path": "signals/fixtures/round-04.worker-option.synthetic.json",
+      "artifact_sha256": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+    },
+    "agency_map": {
+      "id": "agency-map.round-04.worker-option.synthetic",
+      "artifact_path": "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json",
+      "artifact_sha256": "sha256:79cf8091f2609c35b8be90afb2d9a3d7d1dcd3efbbe5842b79154f23f0ed4235",
+      "outcome_scope_hash": "sha256:6a928c2888adf7b797264862e841269c19e73e7c0c96a56ccfebf77b64886508"
+    }
+  },
+  "condition_anchors": [
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+      "ledger_manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+      "condition_version": 1,
+      "as_of_sequence": 5,
+      "as_of_event_id": "event.worker-option.merge",
+      "as_of_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f",
+      "rendered_if": "IF Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z",
+      "verification": "external-unverified-anchor",
+      "canonical_binding": {
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        },
+        "evolution_manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+        "history_tip_ref": {
+          "sequence": 5,
+          "event_id": "event.worker-option.merge",
+          "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+        },
+        "condition_source_event_ref": {
+          "sequence": 5,
+          "event_id": "event.worker-option.merge",
+          "operation": "merge",
+          "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+        },
+        "evidence_state_ref": {
+          "kernel_id": "kernel.worker-option.synthetic",
+          "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+          "event_count": 11,
+          "tip_event_id": "evidence-event.august-review.added",
+          "tip_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04",
+          "state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
+        },
+        "evaluation_ref": {
+          "evaluated_at": "2026-09-09T00:00:00Z",
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          },
+          "observation_hashes": [
+            "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
+            "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
+            "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
+            "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          ],
+          "mechanically_valid_for_evaluation": true,
+          "computed_rule_state": {
+            "axis": "computed_rule_state",
+            "state": "true"
+          },
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+          "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+          "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda"
+        }
+      },
+      "canonical_binding_hash": "sha256:8b588066ce776a60337630f6e93e99c4f07abbea389992fa25a3a36932ec73e7"
+    }
+  ],
+  "graph": {
+    "entry_node_id": "node.worker-option.context",
+    "nodes": [
+      {
+        "node_id": "node.worker-option.context",
+        "kind": "context",
+        "label": "Automation-related work change reaches the registered worker scope",
+        "affected_population_ids": [
+          "population.affected-workers.nsw"
+        ]
+      },
+      {
+        "node_id": "node.worker-option.protected-outcome",
+        "kind": "outcome",
+        "label": "Affected workers reach the chosen protection standard after human review",
+        "affected_population_ids": [
+          "population.affected-workers.nsw"
+        ]
+      },
+      {
+        "node_id": "node.worker-option.blocked",
+        "kind": "abandonment",
+        "label": "This candidate route stops while evidence, freshness or disagreement is resolved",
+        "affected_population_ids": [
+          "population.affected-workers.nsw"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "edge.worker-option.consider-protected-route",
+        "from_node_id": "node.worker-option.context",
+        "to_node_id": "node.worker-option.protected-outcome",
+        "kind": "consequential-decision",
+        "label": "Consider the protected route only after the exact IF receipt is reviewed",
+        "condition_bindings": [
+          {
+            "condition_id": "condition.worker-option.nsw",
+            "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+            "ledger_manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+            "condition_version": 1,
+            "as_of_sequence": 5,
+            "as_of_event_id": "event.worker-option.merge",
+            "as_of_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f",
+            "outcome_scope_hash": "sha256:6297bdb10971769c2ddb5f2edbbaf44ba733bf34d3e2e2969efd67d2a4822e3e",
+            "canonical_binding_hash": "sha256:8b588066ce776a60337630f6e93e99c4f07abbea389992fa25a3a36932ec73e7"
+          }
+        ],
+        "branches": {
+          "if_true": {
+            "target_node_id": "node.worker-option.protected-outcome",
+            "action": "human-decision-required",
+            "recovery": "human-review",
+            "public_explanation": "The registered rule matches its synthetic evidence. A human must still assess empirical truth, values, consent and authority."
+          },
+          "if_false": {
+            "target_node_id": "node.worker-option.blocked",
+            "action": "block-edge-traversal",
+            "recovery": "repair-or-alternate",
+            "public_explanation": "The registered predicates do not hold. Stop this route and examine alternatives or repair the failed protection."
+          },
+          "if_unknown": {
+            "target_node_id": "node.worker-option.blocked",
+            "action": "block-edge-traversal",
+            "recovery": "acquire-missing-evidence",
+            "public_explanation": "Eligible evidence is insufficient. Stop this route and collect the missing observations without presuming safety."
+          },
+          "if_stale": {
+            "target_node_id": "node.worker-option.blocked",
+            "action": "block-edge-traversal",
+            "recovery": "refresh-and-re-evaluate",
+            "public_explanation": "Eligible evidence is too old. Stop this route, reacquire evidence and evaluate again."
+          },
+          "if_conflicted": {
+            "target_node_id": "node.worker-option.blocked",
+            "action": "block-edge-traversal",
+            "recovery": "adjudicate-conflict",
+            "public_explanation": "Eligible evidence conflicts. Stop this route and adjudicate the disagreement without averaging it away."
+          }
+        }
+      }
+    ]
+  },
+  "condition_evolution_policies": [
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
+      "ledger_manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+      "anchor_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f",
+      "history_requirement": "complete-append-only-hash-bound",
+      "on_event": [
+        {
+          "operation": "added",
+          "disposition": "fail-closed",
+          "reason": "added changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "narrowed",
+          "disposition": "fail-closed",
+          "reason": "narrowed changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "definition-revised",
+          "disposition": "fail-closed",
+          "reason": "definition-revised changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "split",
+          "disposition": "fail-closed",
+          "reason": "split changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "merge",
+          "disposition": "fail-closed",
+          "reason": "merge changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "challenged",
+          "disposition": "fail-closed",
+          "reason": "challenged changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "satisfied",
+          "disposition": "fail-closed",
+          "reason": "satisfied changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "failed",
+          "disposition": "fail-closed",
+          "reason": "failed changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "expired",
+          "disposition": "fail-closed",
+          "reason": "expired changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "superseded",
+          "disposition": "fail-closed",
+          "reason": "superseded changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "disputed",
+          "disposition": "fail-closed",
+          "reason": "disputed changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        },
+        {
+          "operation": "withdrawn",
+          "disposition": "fail-closed",
+          "reason": "withdrawn changes or may change the evidence needed to defend this candidate path.",
+          "next_action": "re-register-and-review"
+        }
+      ]
+    }
+  ],
+  "competing_paths": [
+    {
+      "path_id": "path.competitor.in-place-redesign",
+      "label": "Work is redesigned in place with protected roles",
+      "selection_reason": "It could preserve the chosen outcome without occupational transition support as the main mechanism.",
+      "incompatible_claim": "Most adaptation occurs inside retained roles rather than through the candidate support route.",
+      "discriminating_observations": [
+        {
+          "observation_id": "observation.role-retention-mechanism",
+          "construct": "Worker-level role retention, task redesign and use of transition support",
+          "possible_path_pattern": "Affected workers voluntarily use a credible option and accessible review route.",
+          "competing_path_pattern": "Affected workers retain redesigned roles and rarely use transition support.",
+          "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+          "source_plan": "Pre-register consented worker observations and independently audited employer task records. No source is acquired here.",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "path_id": "path.competitor.unsupported-contraction",
+      "label": "Work contracts without a protected route",
+      "selection_reason": "It tests whether apparent adaptation hides exits, lost earnings or constrained choice.",
+      "incompatible_claim": "Affected workers leave or lose work without the registered option and review safeguards.",
+      "discriminating_observations": [
+        {
+          "observation_id": "observation.unsupported-exit-mechanism",
+          "construct": "Worker exits, real earnings, essential conditions and registered support exposure",
+          "possible_path_pattern": "Affected workers retain the chosen standard with a recorded credible option and review route.",
+          "competing_path_pattern": "Affected workers exit without the safeguards or do not retain the chosen standard.",
+          "period": "2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z",
+          "source_plan": "Acquire consented longitudinal worker records with independent access and harm audits. No source is acquired here.",
+          "status": "unresolved"
+        }
+      ]
+    }
+  ],
+  "strongest_competing_path_id": "path.competitor.in-place-redesign",
+  "signal_portfolio": {
+    "condition_ids": [
+      "condition.worker-option.nsw"
+    ],
+    "portfolio_status": "research-only-unverified",
+    "roles": [
+      {
+        "role": "leading",
+        "status": "unresolved",
+        "unresolved_reason": "No validated precursor is registered."
+      },
+      {
+        "role": "confirming",
+        "status": "assigned",
+        "signal_ids": [
+          "signal.option.coverage"
+        ],
+        "registered_signal_refs": [
+          {
+            "signal_id": "signal.option.coverage",
+            "metric_id": "metric.option.coverage",
+            "metric_checksum": "sha256:856a1b887e8bee10a8bdf82e5a9aa61fa2467caf61c1f59aa8a0f5413df8d902",
+            "binding_kind": "executable-predicate"
+          }
+        ]
+      },
+      {
+        "role": "counter",
+        "status": "assigned",
+        "signal_ids": [
+          "signal.worker-option.counter.synthetic"
+        ],
+        "registered_signal_refs": [
+          {
+            "signal_id": "signal.worker-option.counter.synthetic",
+            "metric_id": "metric.worker-option.counter.synthetic",
+            "metric_checksum": "sha256:e5913de7acd3b6ebd1b0c29162386737f5bb2644cfaed0f407be9d67a17086d9",
+            "binding_kind": "supplemental-observation"
+          }
+        ]
+      },
+      {
+        "role": "outcome",
+        "status": "unresolved",
+        "unresolved_reason": "The chosen human outcome has no independently validated measure."
+      },
+      {
+        "role": "readiness",
+        "status": "assigned",
+        "signal_ids": [
+          "signal.human-review.available"
+        ],
+        "registered_signal_refs": [
+          {
+            "signal_id": "signal.human-review.available",
+            "metric_id": "metric.human-review.available",
+            "metric_checksum": "sha256:f23b8c2b25cf35f3998dbbc2b57c69b4ca99630fd9dab6c7bbd60bdf92239071",
+            "binding_kind": "executable-predicate"
+          }
+        ]
+      },
+      {
+        "role": "intervention-exposure",
+        "status": "unresolved",
+        "unresolved_reason": "The proposed rehearsal has not started and no governed exposure record exists."
+      },
+      {
+        "role": "information-harm",
+        "status": "assigned",
+        "signal_ids": [
+          "signal.worker-option.information-harm.synthetic"
+        ],
+        "registered_signal_refs": [
+          {
+            "signal_id": "signal.worker-option.information-harm.synthetic",
+            "metric_id": "metric.worker-option.information-harm.synthetic",
+            "metric_checksum": "sha256:4acf65e20ddc27b9105a443705ad8e7ca327afbe7222196c71842b9353934e14",
+            "binding_kind": "supplemental-observation"
+          }
+        ]
+      }
+    ]
+  },
+  "population_accounting": {
+    "affected_populations": [
+      {
+        "population_id": "population.affected-workers.nsw",
+        "label": "General Clerks and Payroll Clerks in the registered New South Wales scope",
+        "effect_channel": "Work, real earnings, essential conditions, choice, review access and information harm",
+        "voice_status": "not-consulted"
+      },
+      {
+        "population_id": "population.dependent-households",
+        "label": "Households that depend on earnings from affected workers",
+        "effect_channel": "Income stability, care responsibilities and mobility burden",
+        "voice_status": "not-consulted"
+      }
+    ],
+    "omissions": {
+      "status": "identified",
+      "entries": [
+        {
+          "population_id": "population.omitted.precarious-workers",
+          "label": "Workers with temporary, visa-linked, casual or otherwise precarious bargaining positions",
+          "omission_reason": "The registered aggregate scope does not separately represent constraints on refusal, appeal or mobility.",
+          "consequence": "A route described as voluntary for the aggregate may remain coercive for these workers.",
+          "remedy": "Co-design separate refusal, continuity and review tests with affected workers and qualified advocates before use.",
+          "public_notice": "Workers with precarious bargaining positions are not adequately represented by this synthetic path."
+        }
+      ],
+      "search_method": "Synthetic enumeration across worker, household, employer, service, legal-status and communication channels.",
+      "search_limitations": "No affected-party consultation or representative sampling has occurred. Further omissions are expected."
+    }
+  },
+  "gaming_and_reflexivity": [
+    {
+      "risk_id": "risk.option-relabeling",
+      "mechanism": "A provider or employer could relabel constrained redeployment as a credible option.",
+      "early_observation": "Audit refusal, appeal use, adverse employment events and worker comprehension before interpreting coverage.",
+      "response": "Pause the path, retain records and require worker-accessible independent review.",
+      "residual_unknown": "Informal coercion may remain hidden even when formal refusal is recorded."
+    },
+    {
+      "risk_id": "risk.communication-certainty",
+      "mechanism": "Publishing a favourable rule state could be mistaken for empirical truth, entitlement or permission.",
+      "early_observation": "Test whether affected people can distinguish rule state, evidence quality, freshness and authority.",
+      "response": "Withdraw or redesign communication when misunderstanding or pressure rises.",
+      "residual_unknown": "Public interpretation may change as institutions respond to the signal."
+    }
+  ],
+  "intervention_state": {
+    "state": "proposed-not-started",
+    "exposure_status": "none",
+    "evidence_status": "synthetic-unverified",
+    "last_checked_at": "2026-09-09T00:00:00Z"
+  },
+  "expiry": {
+    "expires_at": "2026-12-31T23:59:59Z",
+    "disposition": "abandon-unless-reregistered",
+    "reason": "Evidence, definitions, worker preferences and institutional capability may change."
+  },
+  "abandonment": {
+    "default": "stop-and-retain-history",
+    "triggers": [
+      {
+        "trigger_id": "trigger.non-true-or-invalid-state",
+        "condition": "The exact IF receipt is false, unknown, stale, conflicted or mechanically invalid.",
+        "disposition": "abandon-path-and-retain-record",
+        "reason": "No consequential route may inherit assurance from missing, old or disputed evidence."
+      },
+      {
+        "trigger_id": "trigger.unrepresented-harm",
+        "condition": "An affected or omitted population reports material harm that the registered scope does not cover.",
+        "disposition": "abandon-path-and-retain-record",
+        "reason": "Aggregate progress cannot silently trade away an under-represented population."
+      }
+    ],
+    "public_notice": "Stopping this candidate path does not establish a competitor. It records what failed and what must be learned next."
+  },
+  "governance": {
+    "auto_action": false,
+    "authority_status": "externally-unverified",
+    "action_authorised": false,
+    "human_decision_required": true,
+    "owner_ref": null,
+    "authority_next_check": "Name and independently verify a lawful owner with affected-party challenge before any decision-linked use."
+  },
+  "provenance": {
+    "author_class": "commissioned-agent-proposal",
+    "evidence_status": "synthetic-unverified",
+    "created_at": "2026-09-09T00:00:00Z",
+    "updated_at": "2026-09-09T00:00:00Z"
+  },
+  "public_claim_ceiling": "Synthetic possible path, not a finding: Affected workers inside the complete registered observation scope may navigate automation-related work change to the following standard: without involuntary loss of real earnings or essential conditions, while retaining a credible alternative and accessible human review, in New South Wales, Australia, during 2026-01-01T00:00:00Z to 2026-12-31T23:59:59Z, only if Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z. Affected populations: General Clerks and Payroll Clerks in the registered New South Wales scope; Households that depend on earnings from affected workers. Scope omissions: Workers with precarious bargaining positions are not adequately represented by this synthetic path. Named competing paths: Work is redesigned in place with protected roles; Work contracts without a protected route. This open-world hypothesis is unscored and grants no action authority."
+}

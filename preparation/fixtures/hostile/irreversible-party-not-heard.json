@@ -1,0 +1,5 @@
+{
+  "id": "attack.irreversible-party-not-heard",
+  "operations": [{ "op": "replace", "path": "/actions/2/affected_party_dispositions/0/disposition", "value": "not-contacted" }],
+  "expected_codes": ["IRREVERSIBLE_PARTY_GATE_UNMET"]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1.0",
+  "script_id": "script.observatory-comparison.synthetic-v1",
+  "classification": "synthetic-research-material",
+  "review_state": "not-independently-reviewed",
+  "fact_pack_ref": {
+    "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+    "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
+    "sha256": "sha256:8f712db6bc77c93264f8c7e16dfc2722b53d8b078b0f81422e441fea333818b2"
+  },
+  "facilitator_prompts": [
+    "What is directly observed, and what is a mechanical result, inference, scenario or forecast?",
+    "Who and what are inside the exact scope and period?",
+    "Which of the five IF states is displayed, and which receipt computed it?",
+    "What can each named actor lawfully choose, and what remains outside their authority?",
+    "Which beneficial, adverse, refusal and recovery paths remain open?"
+  ],
+  "prohibited_prompts": [
+    "Do not ask participants to endorse the transition thesis.",
+    "Do not imply that a real warning, service, recommendation or authority exists.",
+    "Do not add facts, urgency, probability, emotional framing or examples not present in the shared fact pack."
+  ],
+  "facilitation_boundary": {
+    "may_add_facts": false,
+    "may_add_urgency": false,
+    "may_add_probability": false,
+    "may_set_if_state": false,
+    "may_recommend_action": false
+  }
+}

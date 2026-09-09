@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/replacement-lineage.json",
+  "attack": "Replace a claim with an absent claim record.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/replacement_lineage/0/replacement_claim_id",
+      "value": "claim.missing"
+    }
+  ]
+}

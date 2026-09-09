@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.2.0",
+  "register_id": "register.round-04.worker-option.synthetic",
+  "as_of": "2026-09-09T00:00:00Z",
+  "authorisation_effect": "none",
+  "evidence_truth_assessed": false,
+  "condition_bindings": [
+    {
+      "id": "binding.condition.worker-option.nsw",
+      "version": "1.0.0",
+      "checksum": "sha256:bfab744edce9c48a957a5266edf2477257c6d2dc5f75f2deab0f65320e22431f",
+      "content": {
+        "condition_id": "condition.worker-option.nsw",
+        "public_condition": "Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z",
+        "kernel": {
+          "artifact_ref": {
+            "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+            "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70"
+          },
+          "kernel_id": "kernel.worker-option.synthetic",
+          "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          }
+        },
+        "evolution": {
+          "artifact_ref": {
+            "artifact_path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
+            "artifact_sha256": "sha256:e53fe837a127cc60b098d1fbbdfc08efbeb775846da2f160dfdb9aff3867b0e2"
+          },
+          "ledger_id": "ledger.round-04.worker-option.synthetic",
+          "manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+          "source_state_version": 1,
+          "history_tip_ref": {
+            "sequence": 5,
+            "event_id": "event.worker-option.merge",
+            "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+          },
+          "condition_source_event_ref": {
+            "sequence": 5,
+            "event_id": "event.worker-option.merge",
+            "operation": "merge",
+            "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+          }
+        },
+        "condition_scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "New South Wales"
+          ],
+          "cohorts": [
+            "General Clerks",
+            "Payroll Clerks"
+          ],
+          "services": [
+            "Work transition support"
+          ],
+          "period": {
+            "starts_at": "2026-01-01T00:00:00Z",
+            "ends_at": "2026-12-31T23:59:59Z"
+          }
+        },
+        "scope_relationship": "exact",
+        "verification_state": "bundle-verification-required",
+        "authority_effect": "none",
+        "action_authorised": false
+      }
+    }
+  ],
+  "evaluation_receipts": [
+    {
+      "id": "receipt.condition.worker-option.nsw.20260909",
+      "version": "1.0.0",
+      "checksum": "sha256:2f25dcf73c57b3880cceab797d56640f8dfde7662ea9acd309c0bff4f79701fc",
+      "content": {
+        "condition_binding_ref": {
+          "id": "binding.condition.worker-option.nsw",
+          "version": "1.0.0",
+          "checksum": "sha256:bfab744edce9c48a957a5266edf2477257c6d2dc5f75f2deab0f65320e22431f"
+        },
+        "evaluated_at": "2026-09-09T00:00:00Z",
+        "clock": {
+          "source": "caller-supplied",
+          "trusted": false
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+          "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+          "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        },
+        "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+        "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda",
+        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+        "observation_hashes": [
+          "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
+          "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
+          "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
+          "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+        ],
+        "mechanically_valid_for_evaluation": true,
+        "computed_rule_state": {
+          "axis": "computed_rule_state",
+          "state": "true"
+        },
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "publication_approved": false
+      }
+    }
+  ],
+  "evidence_bundles": [
+    {
+      "id": "evidence.preparation.worker-option.nsw",
+      "version": "1.0.0",
+      "checksum": "sha256:a4cddbfd627aab0af665ea9d6a8cd84403787012df4b20fc2505fb89421750aa",
+      "content": {
+        "purpose": "preparation-only",
+        "truth_effect": "none",
+        "as_of": "2026-09-09T00:00:00Z",
+        "sources": [
+          "Synthetic rehearsal assumptions supplied by the fixture author, not observed implementation evidence."
+        ],
+        "limitations": [
+          "No provider, verifier, funding, capacity, consent, empirical benefit or authority has been authenticated."
+        ],
+        "external_verification": "not-performed"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "schema_version": "1.2.0",
+      "action_id": "action.prepare-worker-option-support",
+      "version": "1.0.0",
+      "record_kind": "proposal",
+      "authorisation_effect": "none",
+      "public_sentence": "Proposal: prepare a private worker-controlled option and human-review support file IF the computed IF state is false, unknown, stale, conflicted. Re-evaluate before starting. Eligibility is not authority. This record does not authorise action.",
+      "decision_use": "research-only",
+      "scale": "individual",
+      "actor": {
+        "actor_id": "actor.affected-worker.candidate",
+        "name": "A candidate affected worker",
+        "identity_state": "candidate-unverified",
+        "authority_boundary": "May prepare their own private support file; may not represent peers, command providers or commit public resources."
+      },
+      "verb": "prepare",
+      "object": {
+        "object_id": "object.worker-option-support-file",
+        "class": "capability",
+        "description": "a private worker-controlled option and human-review support file"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "if_binding": {
+        "condition_binding_ref": {
+          "id": "binding.condition.worker-option.nsw",
+          "version": "1.0.0",
+          "checksum": "sha256:bfab744edce9c48a957a5266edf2477257c6d2dc5f75f2deab0f65320e22431f"
+        },
+        "evaluation_receipt_ref": {
+          "id": "receipt.condition.worker-option.nsw.20260909",
+          "version": "1.0.0",
+          "checksum": "sha256:2f25dcf73c57b3880cceab797d56640f8dfde7662ea9acd309c0bff4f79701fc"
+        },
+        "state_trigger": {
+          "axis": "computed_rule_state",
+          "eligible_states": [
+            "false",
+            "unknown",
+            "stale",
+            "conflicted"
+          ],
+          "blocked_states": [
+            "true"
+          ],
+          "re_evaluate_before_start": true
+        },
+        "effect": "eligibility-only-not-authority"
+      },
+      "evidence_bundle_ref": {
+        "id": "evidence.preparation.worker-option.nsw",
+        "version": "1.0.0",
+        "checksum": "sha256:a4cddbfd627aab0af665ea9d6a8cd84403787012df4b20fc2505fb89421750aa"
+      },
+      "affected_party_governance": {
+        "coverage_state": "provisional-publicly-challengeable",
+        "known_omissions": [
+          "Workers outside the registered occupations and geography are not represented."
+        ],
+        "challenge_route": "https://mind-flow.org/challenges/unpublished/worker-option-support",
+        "consent_state": "not-established"
+      },
+      "resources": {
+        "reporting_basis": "caller-asserted-not-authenticated",
+        "funding_status": "unfunded",
+        "capacity_status": "unavailable"
+      },
+      "controls": {
+        "start_conditions": [
+          {
+            "gate": "if-state-eligible",
+            "test": "A newly computed receipt is in an eligible state.",
+            "failure_effect": "Do not start."
+          },
+          {
+            "gate": "receipt-current",
+            "test": "The receipt uses the current definition and evidence tips.",
+            "failure_effect": "Recompute before considering the proposal."
+          },
+          {
+            "gate": "resources-ready",
+            "test": "The worker confirms private time and support capacity are available.",
+            "failure_effect": "Do not start."
+          },
+          {
+            "gate": "human-approval",
+            "test": "The affected worker freely chooses to proceed.",
+            "failure_effect": "Do not start."
+          }
+        ],
+        "stop_conditions": [
+          {
+            "gate": "condition-state-changed",
+            "test": "The computed IF state changes.",
+            "failure_effect": "Stop and reassess the trigger."
+          },
+          {
+            "gate": "receipt-invalidated",
+            "test": "Any receipt binding or source is invalidated.",
+            "failure_effect": "Stop and recompute."
+          },
+          {
+            "gate": "safeguard-failed",
+            "test": "Privacy, voluntariness or review safeguards fail.",
+            "failure_effect": "Stop and protect the worker."
+          }
+        ],
+        "review_conditions": [
+          {
+            "gate": "weekly-worker-review",
+            "test": "The worker reviews usefulness and any information harm.",
+            "failure_effect": "Revise or abandon the rehearsal."
+          }
+        ]
+      },
+      "reversibility": {
+        "class": "reversible",
+        "rationale": "The private draft can be paused or deleted without changing employment, services or public entitlements.",
+        "residual_harm": "The rehearsal could still create anxiety, false confidence or privacy risk.",
+        "default_rule": "reversible-unless-higher-gate-passed"
+      },
+      "inaction_comparator": {
+        "baseline": "Do not create the rehearsal file and retain the current support arrangements.",
+        "comparison": "uncertain",
+        "confidence": "low",
+        "limitations": [
+          "No observed causal evidence compares this preparation with inaction."
+        ],
+        "authorisation_effect": "none"
+      },
+      "generated_at": "2026-09-09T00:00:00Z",
+      "review_by": "2026-09-16T00:00:00Z"
+    }
+  ]
+}

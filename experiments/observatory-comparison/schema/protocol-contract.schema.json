@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/protocol-contract/1-1-0",
+  "title": "Structured comparison protocol proposal",
+  "type": "object",
+  "required": ["schema_version", "protocol_id", "status", "design", "analysis", "contract_boundary"],
+  "properties": {
+    "schema_version": { "const": "1.1.0" },
+    "protocol_id": { "const": "protocol.observatory-comparison.v1" },
+    "status": { "const": "proposed-not-preregistered-or-approved" },
+    "design": {
+      "type": "object",
+      "required": ["kind", "allocation_unit", "allocation_method", "allocation_ratio_by_instrument", "allocation_concealment", "strata", "assignment_implementation_state"],
+      "properties": {
+        "kind": { "const": "two-by-two-interface-by-deliberation-randomised-comparison" },
+        "allocation_unit": { "const": "participant" },
+        "allocation_method": { "const": "random-stratified" },
+        "allocation_ratio_by_instrument": {
+          "type": "object",
+          "required": ["conventional-release", "release-plus-deliberation", "observatory-self-serve", "observatory-plus-deliberation"],
+          "properties": {
+            "conventional-release": { "const": 1 },
+            "release-plus-deliberation": { "const": 1 },
+            "observatory-self-serve": { "const": 1 },
+            "observatory-plus-deliberation": { "const": 1 }
+          },
+          "additionalProperties": false
+        },
+        "allocation_concealment": { "const": "until-participant-begins-assigned-instrument" },
+        "strata": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": { "enum": ["directly-affected", "low-numeracy-or-digital-confidence", "limited-english", "assistive-technology"] }
+        },
+        "assignment_implementation_state": { "const": "not-implemented" }
+      },
+      "additionalProperties": false
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["outcome_contract_id", "estimand_id", "primary_endpoint", "intention_to_treat", "smallest_effect_worth_detecting", "power_plan", "multiplicity_plan", "missingness_plan", "attrition_allowance", "contamination_plan", "preregistration_state"],
+      "properties": {
+        "outcome_contract_id": { "const": "outcomes.observatory-comparison.synthetic-v1" },
+        "estimand_id": { "const": "estimand.complete-boundary-reconstruction-risk-difference" },
+        "primary_endpoint": { "const": "complete-unaided-boundary-reconstruction" },
+        "intention_to_treat": { "const": true },
+        "smallest_effect_worth_detecting": { "type": "null" },
+        "power_plan": { "const": "not-specified" },
+        "multiplicity_plan": { "const": "not-specified" },
+        "missingness_plan": { "const": "not-specified" },
+        "attrition_allowance": { "type": "null" },
+        "contamination_plan": { "const": "not-specified" },
+        "preregistration_state": { "const": "not-preregistered" }
+      },
+      "additionalProperties": false
+    },
+    "contract_boundary": {
+      "type": "object",
+      "required": ["truth_effect", "causal_effect", "ethics_effect", "recruitment_effect"],
+      "properties": {
+        "truth_effect": { "const": "none" },
+        "causal_effect": { "const": "none-before-completed-analysis" },
+        "ethics_effect": { "const": "none" },
+        "recruitment_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

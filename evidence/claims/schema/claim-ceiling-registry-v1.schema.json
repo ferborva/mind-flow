@@ -1,0 +1,291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/evidence/claims/claim-ceiling-registry/1-0-0",
+  "title": "Mind Flow claim evidence ceiling registry v1",
+  "description": "A closed contract for the measurement boundary and maximum warranted inference of major claims. Machine validity does not establish truth, evidence quality or publishability.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "registry_id",
+    "created_at",
+    "validation_scope",
+    "claims",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "registry_id": { "$ref": "#/$defs/id" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "validation_scope": {
+      "type": "object",
+      "required": ["machine_checks", "truth", "publishability"],
+      "properties": {
+        "machine_checks": { "const": "shape-references-and-declared-boundaries-only" },
+        "truth": { "const": "not-determined-by-machine-validity" },
+        "publishability": { "const": "not-determined-by-machine-validity" }
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidence" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "boundaryStatus": {
+      "enum": ["defined", "unknown", "not-applicable"]
+    },
+    "estimand": {
+      "type": "object",
+      "required": ["status", "measure_type", "description"],
+      "properties": {
+        "status": { "$ref": "#/$defs/boundaryStatus" },
+        "measure_type": {
+          "enum": [
+            "count",
+            "proportion",
+            "mean",
+            "association",
+            "causal-effect",
+            "predictive-performance",
+            "classification-agreement",
+            "semantic-equivalence",
+            "governance-enforcement",
+            "other",
+            "not-applicable"
+          ]
+        },
+        "description": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "denominator": {
+      "type": "object",
+      "required": ["status", "statistical_unit", "description"],
+      "properties": {
+        "status": { "$ref": "#/$defs/boundaryStatus" },
+        "statistical_unit": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "scopeDimension": {
+      "type": "object",
+      "required": ["status", "description"],
+      "properties": {
+        "status": { "$ref": "#/$defs/boundaryStatus" },
+        "description": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": ["population", "geography", "time"],
+      "properties": {
+        "population": { "$ref": "#/$defs/scopeDimension" },
+        "geography": { "$ref": "#/$defs/scopeDimension" },
+        "time": { "$ref": "#/$defs/scopeDimension" }
+      },
+      "additionalProperties": false
+    },
+    "inferenceCeiling": {
+      "type": "object",
+      "required": ["level", "permitted_statement", "prohibited_inferences"],
+      "properties": {
+        "level": {
+          "enum": [
+            "unsupported",
+            "source-report-only",
+            "descriptive",
+            "associational",
+            "causal",
+            "forecast",
+            "normative"
+          ]
+        },
+        "permitted_statement": { "$ref": "#/$defs/nonEmptyString" },
+        "prohibited_inferences": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidenceLink": {
+      "type": "object",
+      "required": ["evidence_id", "relation"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "relation": { "enum": ["supports", "context", "limits", "contradicts"] }
+      },
+      "additionalProperties": false
+    },
+    "counterevidence": {
+      "type": "object",
+      "required": ["statement", "evidence_refs"],
+      "properties": {
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "registeredFalsifier": {
+      "type": "object",
+      "required": [
+        "status",
+        "statement",
+        "decision_rule",
+        "evidence_needed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "status": { "const": "registered-not-tested" },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "decision_rule": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_needed": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "claim_id",
+        "statement",
+        "origin_locations",
+        "epistemic_class",
+        "support_state",
+        "claim_verdict",
+        "estimand",
+        "denominator",
+        "scope",
+        "inference_ceiling",
+        "evidence_refs",
+        "counterevidence",
+        "registered_falsifier",
+        "open_evidence_needs"
+      ],
+      "properties": {
+        "claim_id": { "$ref": "#/$defs/id" },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "origin_locations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "epistemic_class": {
+          "enum": [
+            "value-choice",
+            "mission",
+            "definition",
+            "source-observation",
+            "published-statistic",
+            "derived-result",
+            "modelled-estimate",
+            "causal-hypothesis",
+            "forecast",
+            "scenario",
+            "option",
+            "commitment",
+            "unknown"
+          ]
+        },
+        "support_state": {
+          "enum": [
+            "supported",
+            "partially-supported",
+            "unsupported",
+            "conflicted",
+            "insufficient-evidence",
+            "not-evidence-applicable"
+          ]
+        },
+        "claim_verdict": { "enum": ["keep", "narrow", "withdraw", "unknown"] },
+        "estimand": { "$ref": "#/$defs/estimand" },
+        "denominator": { "$ref": "#/$defs/denominator" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "inference_ceiling": { "$ref": "#/$defs/inferenceCeiling" },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceLink" }
+        },
+        "counterevidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/counterevidence" }
+        },
+        "registered_falsifier": { "$ref": "#/$defs/registeredFalsifier" },
+        "open_evidence_needs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "evidence_id",
+        "source_class",
+        "uri",
+        "captured_at",
+        "artifact_status",
+        "claim_ceiling"
+      ],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "source_class": {
+          "enum": [
+            "primary-source",
+            "publisher-model-output",
+            "secondary-processed-series",
+            "project-research",
+            "project-review",
+            "project-governance"
+          ]
+        },
+        "uri": { "type": "string", "format": "uri-reference", "minLength": 1 },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "artifact_status": { "enum": ["retained-reference-only", "repository-file"] },
+        "claim_ceiling": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

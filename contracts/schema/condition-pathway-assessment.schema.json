@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/condition-pathway-assessment/1-0-0",
+  "title": "Condition pathway assessment",
+  "description": "A deterministic, non-authorising assessment of which possible paths are consistent with checksum-pinned IF evaluations.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "assessment_version",
+    "assessed_at",
+    "pathway_definition",
+    "evaluation_inputs",
+    "branch_assessments",
+    "cross_branch",
+    "claim_boundary",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "$ref": "#/$defs/id" },
+    "assessment_version": { "$ref": "#/$defs/version" },
+    "assessed_at": { "type": "string", "format": "date-time" },
+    "pathway_definition": { "$ref": "#/$defs/pathwayReference" },
+    "evaluation_inputs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evaluationInput" } },
+    "branch_assessments": { "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/branchAssessment" } },
+    "cross_branch": { "$ref": "#/$defs/crossBranch" },
+    "claim_boundary": { "$ref": "#/$defs/claimBoundary" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "gate": { "enum": ["watch", "prepare", "act", "pause", "reverse", "recover", "graduate"] },
+    "gateTruthState": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+    "artifactReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/version" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "pathwayReference": { "$ref": "#/$defs/artifactReference" },
+    "evaluationInput": {
+      "type": "object",
+      "required": ["condition_definition", "evaluation_run"],
+      "properties": {
+        "condition_definition": { "$ref": "#/$defs/artifactReference" },
+        "evaluation_run": { "$ref": "#/$defs/artifactReference" }
+      },
+      "additionalProperties": false
+    },
+    "gateTruth": {
+      "type": "object",
+      "required": ["test_ref", "gate", "state", "evaluation_run_ref"],
+      "properties": {
+        "test_ref": { "$ref": "#/$defs/id" },
+        "gate": { "$ref": "#/$defs/gate" },
+        "state": { "$ref": "#/$defs/gateTruthState" },
+        "evaluation_run_ref": { "$ref": "#/$defs/artifactReference" }
+      },
+      "additionalProperties": false
+    },
+    "axes": {
+      "type": "object",
+      "required": [
+        "definition_lifecycle",
+        "gate_truth",
+        "binding_interpretation",
+        "path_observation",
+        "migration_evidence",
+        "operational_action"
+      ],
+      "properties": {
+        "definition_lifecycle": { "enum": ["draft", "shadow", "retired"] },
+        "gate_truth": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/gateTruth" } },
+        "binding_interpretation": { "enum": ["hypothesis-only", "descriptive-association", "causal-estimate"] },
+        "path_observation": { "enum": ["consistent-with", "not-consistent-with", "underdetermined", "not-assessed"] },
+        "migration_evidence": { "const": "not-assessed" },
+        "operational_action": { "enum": ["none", "candidate-only"] }
+      },
+      "additionalProperties": false
+    },
+    "forecastRelation": {
+      "type": "object",
+      "required": ["status", "probability_effect"],
+      "properties": {
+        "status": { "enum": ["not-issued", "not-estimable", "linked"] },
+        "probability_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    },
+    "branchAssessment": {
+      "type": "object",
+      "required": ["branch_ref", "kind", "axes", "forecast_relation", "early_warning_readiness", "next_discriminating_predicates"],
+      "properties": {
+        "branch_ref": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["positive", "adverse", "measurement-alternative", "recovery"] },
+        "axes": { "$ref": "#/$defs/axes" },
+        "forecast_relation": { "$ref": "#/$defs/forecastRelation" },
+        "early_warning_readiness": { "enum": ["not-ready", "shadow-ready"] },
+        "next_discriminating_predicates": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } }
+      },
+      "additionalProperties": false
+    },
+    "crossBranch": {
+      "type": "object",
+      "required": ["simultaneously_consistent", "discriminating_predicates", "selection_effect"],
+      "properties": {
+        "simultaneously_consistent": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "discriminating_predicates": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "selection_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    },
+    "claimBoundary": {
+      "type": "object",
+      "required": ["probability_effect", "forecast_effect", "causal_effect", "authority_effect"],
+      "properties": {
+        "probability_effect": { "const": "none" },
+        "forecast_effect": { "const": "reference-only" },
+        "causal_effect": { "const": "none" },
+        "authority_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["classification", "evaluator", "external_truth"],
+      "properties": {
+        "classification": { "const": "repository-computed" },
+        "evaluator": {
+          "type": "object",
+          "required": ["id", "version", "digest_kind", "digest"],
+          "properties": {
+            "id": { "const": "mind-flow.condition-pathway" },
+            "version": { "const": "1.0.0" },
+            "digest_kind": { "const": "executable-manifest-sha256" },
+            "digest": { "$ref": "#/$defs/checksum" }
+          },
+          "additionalProperties": false
+        },
+        "external_truth": { "const": "unverified" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

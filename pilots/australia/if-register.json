@@ -1,0 +1,317 @@
+{
+  "schema_version": "1.0.0",
+  "status": "agent_analysis",
+  "as_at": "2026-09-08",
+  "title": "Australia pilot conditional decision register",
+  "purpose": "Make the verb, protected object and IF conditions inspectable, falsifiable, reversible and time-bounded.",
+  "canonical_form": {
+    "template": "[verb] [protected or advanced object] IF [observable conditions, window and uncertainty rule], BY [bounded reversible action], UNTIL [review or expiry condition].",
+    "required_fields": [
+      "verb",
+      "object",
+      "population",
+      "geography",
+      "if_all",
+      "if_any",
+      "counterevidence",
+      "bounded_interpretation",
+      "action",
+      "owner",
+      "review_window",
+      "expiry",
+      "uncertainty_rule",
+      "false_positive_cost",
+      "false_negative_cost",
+      "status"
+    ],
+    "prohibitions": [
+      "Do not treat modelled exposure as realised adoption.",
+      "Do not treat temporal sequence or correlation as causation.",
+      "Do not hide a missing condition inside a composite score.",
+      "Do not allow a condition to persist without expiry and review.",
+      "Do not use a condition to withdraw the continuity floor or coerce an individual."
+    ]
+  },
+  "condition_states": [
+    "unknown",
+    "unmeasured",
+    "measured_below_threshold",
+    "measured_near_threshold",
+    "measured_above_threshold",
+    "conflicted",
+    "stale",
+    "suppressed",
+    "invalidated"
+  ],
+  "threshold_policy": {
+    "status": "must_be_preregistered",
+    "rule": "Do not invent universal numeric crisis thresholds in the prototype. Set source-specific thresholds before observing outcomes, with baseline distribution, practical significance, uncertainty, warning lead time and error costs.",
+    "minimum_signal": "At least two independent measures from different collection processes for escalation beyond evidence review.",
+    "precision": "Agent proposal: publish an estimate at relative standard error at or below 25%; mark 25% to 50% directional; suppress above 50%, unavailable or disclosure-blocked. Statistical and ABS review required."
+  },
+  "reference_registry": [
+    { "id": "future-adoption-panel", "type": "planned_data_source", "status": "missing", "description": "Monthly employer-verified occupation-region AI deployment panel." },
+    { "id": "future-redesign-panel", "type": "planned_data_source", "status": "missing", "description": "Quarterly matched employer-worker task and work-design panel." },
+    { "id": "future-employer-worker-panel", "type": "planned_data_source", "status": "missing", "description": "Governed employer-worker panel with an auditable, non-NERO worker-flow outcome at an exact occupation, geography and period." },
+    { "id": "future-floor-pulse", "type": "planned_data_source", "status": "missing", "description": "Monthly or quarterly cohort continuity-floor pulse." },
+    { "id": "future-agency-module", "type": "planned_data_source", "status": "missing", "description": "Co-designed, validated direct agency module." },
+    { "id": "future-intervention-register", "type": "planned_data_source", "status": "missing", "description": "Programme eligibility, capacity, timing, take-up and quality register." },
+    { "id": "future-employer-service-panel", "type": "planned_data_source", "status": "missing", "description": "Quality-adjusted productivity and service-value panel." },
+    { "id": "domain_source_selected_from_manifest", "type": "dynamic_reference", "status": "available_by_domain", "description": "A source-manifest item selected before analysis for the relevant floor domain." },
+    { "id": "pilot-publication-policy", "type": "internal_control", "status": "draft", "description": "Predeclared uncertainty, suppression, coverage and disclosure rules." },
+    { "id": "preregistered-causal-study", "type": "planned_study", "status": "missing", "description": "Ethical counterfactual evaluation registered before outcomes are examined." },
+    { "id": "pilot-governance-log", "type": "internal_control", "status": "draft", "description": "Time-stamped independent review and decision record." }
+  ],
+  "conditions": [
+    {
+      "id": "IF-01-exposure-priority",
+      "verb": "Study",
+      "object": "high-exposure work",
+      "population": "Each of ANZSCO 5311, 5511, 5512, 5513 and 5411 separately",
+      "geography": "Australia, with SA4 employment context",
+      "if_all": [
+        { "indicator": "JSA Augmentability or Automatability", "test": "Occupation score meets a predeclared study-priority threshold", "window": "Current JSA study vintage", "source_id": "jsa-genai-capacity-2025" },
+        { "indicator": "NERO employment", "test": "A publishable employment series exists for the occupation and region", "window": "Latest three vintages", "source_id": "jsa-nero-2026-08" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Exposure score is stale after material model-capability or task-taxonomy change", "Cohort classification cannot be mapped consistently"],
+      "bounded_interpretation": "The cohort is a priority for measurement and worker engagement, not a prediction of deployment or loss.",
+      "action": "Recruit voluntary worker and employer panels and document current task bundles.",
+      "owner": "Pilot statistical and worker-research leads",
+      "review_window": "Quarterly",
+      "expiry": "On a new validated exposure study or classification break",
+      "uncertainty_rule": "Display source assumptions and no probability language.",
+      "false_positive_cost": "Research burden and misplaced attention.",
+      "false_negative_cost": "Failure to establish a pre-deployment baseline.",
+      "status": "measurable_now_context_only"
+    },
+    {
+      "id": "IF-02-realised-adoption",
+      "verb": "Recognise",
+      "object": "realised AI adoption",
+      "population": "Scoped workers and their employing organisations",
+      "geography": "Occupation by SA4 or state",
+      "if_all": [
+        { "indicator": "Employer-verified deployment", "test": "A named system is in production in a named workflow with a deployment date", "window": "Current month or quarter", "source_id": "future-adoption-panel" },
+        { "indicator": "Worker-verified use", "test": "Affected workers report use or workflow interaction, with participation and non-response reported", "window": "Same month or quarter", "source_id": "future-redesign-panel" },
+        { "indicator": "Task intensity", "test": "Usage frequency or affected task share exceeds a predeclared minimum", "window": "Same month or quarter", "source_id": "future-adoption-panel" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Pilot or procurement only", "Tool available but not used", "Industry-level adoption without occupational evidence", "Worker evidence materially conflicts with employer evidence"],
+      "bounded_interpretation": "A deployment is active in the measured workflow and cohort. No downstream effect is implied.",
+      "action": "Begin prospective redesign and outcome measurement from the deployment date.",
+      "owner": "Employer-worker panel governance group",
+      "review_window": "Monthly",
+      "expiry": "After one reporting period without corroboration or when deployment ends",
+      "uncertainty_rule": "Require both employer and worker evidence; report participation and missingness.",
+      "false_positive_cost": "Incorrect attribution of ordinary change to AI.",
+      "false_negative_cost": "Missed baseline and delayed support.",
+      "status": "unmeasured_blocking"
+    },
+    {
+      "id": "IF-03-work-redesign",
+      "verb": "Classify",
+      "object": "work redesign",
+      "population": "Workers in a verified deployment workflow",
+      "geography": "Organisation and linked occupation-region",
+      "if_all": [
+        { "indicator": "Before-and-after task inventory", "test": "A material, predeclared change in task time or responsibility is observed", "window": "Pre-deployment baseline to two consecutive post-deployment quarters", "source_id": "future-redesign-panel" },
+        { "indicator": "Independent worker and employer reports", "test": "Direction of change is corroborated or conflict is explicitly retained", "window": "Same period", "source_id": "future-redesign-panel" },
+        { "indicator": "Decision rights", "test": "Human review, override, monitoring and accountability are recorded", "window": "Same period", "source_id": "future-redesign-panel" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Change predates deployment", "Concurrent outsourcing or software replacement explains the redesign", "Only job-ad text changed"],
+      "bounded_interpretation": "The measured workflow changed after deployment; causal attribution still depends on a comparison design.",
+      "action": "Label the redesign mode, examine worker distributional effects and test alternative explanations.",
+      "owner": "Work-design research lead with worker representatives",
+      "review_window": "Quarterly",
+      "expiry": "After two quarters unless reconfirmed",
+      "uncertainty_rule": "Retain disagreement and missingness rather than averaging it away.",
+      "false_positive_cost": "Intervening in ordinary organisational change.",
+      "false_negative_cost": "Normalising harmful redesign before it is visible.",
+      "status": "unmeasured_blocking"
+    },
+    {
+      "id": "IF-04-worker-flow-review",
+      "verb": "Investigate",
+      "object": "adverse worker-flow change",
+      "population": "One scoped occupation, never an aggregate of NERO occupation series",
+      "geography": "One SA4 or state",
+      "if_all": [
+        { "indicator": "NERO employed-person estimate", "test": "A sustained deviation exceeds a preregistered practical and uncertainty threshold", "window": "At least three monthly observations", "source_id": "jsa-nero-2026-08" },
+        { "indicator": "Audited independent worker-flow outcome", "test": "A separately collected outcome matches the exact occupation, geography and overlapping period, and its lineage audit shows it is not a NERO input or derivative", "window": "Preregistered warning and outcome window", "source_id": "future-employer-worker-panel", "independence_class": "potentially_independent_after_audit", "compatibility_gate": ["same occupation", "same geography", "overlapping time", "same worker-flow construct"] },
+        { "indicator": "Series validity", "test": "No suppression, classification break or material unreconciled revision", "window": "All contributing vintages", "source_id": "jsa-nero-2026-08" }
+      ],
+      "if_any": [],
+      "context_only": [
+        { "source_id": "abs-lfs-detailed-2026-03", "dependence_class": "partially_dependent", "scope": "State by occupation", "use": "Broad coherence context only; cannot satisfy independent corroboration for an occupation-SA4 NERO signal." },
+        { "source_id": "abs-longitudinal-lfs-2603", "dependence_class": "partially_dependent", "scope": "Restricted worker-flow sample with geography to be verified", "use": "Transition context only; cannot validate NERO employment levels or satisfy an exact occupation-SA4 corroboration gate." },
+        { "source_id": "abs-job-mobility-2026", "dependence_class": "different_survey_construct_scope_mismatch", "scope": "Annual and broader than occupation-SA4 in public outputs", "use": "Worker-flow context only unless a preregistered extract passes every compatibility gate." }
+      ],
+      "counterevidence": ["Population or migration shift explains movement", "Seasonal pattern", "Occupation recoding", "NERO revision reverses the signal", "LFS context contradicts the direction", "Candidate corroborator shares a NERO input", "Population, geography, period or construct does not match"],
+      "bounded_interpretation": "NERO may identify a descriptive review candidate. Independent worker-flow change remains unknown until a non-derived source passes every scope-compatibility gate, and the cause remains unknown.",
+      "action": "Convene a time-bounded evidence review, collect local qualitative evidence and test confounders.",
+      "owner": "Pilot statistical lead",
+      "review_window": "Within 10 business days",
+      "expiry": "After 30 days unless confirmed with refreshed evidence",
+      "uncertainty_rule": "LFS-family evidence and other NERO inputs may provide context but never independent corroboration. Require audited non-derived evidence at the same occupation, geography, construct and overlapping time. Display revisions and never aggregate NERO series.",
+      "false_positive_cost": "False alarm, stigma and wasted response capacity.",
+      "false_negative_cost": "Delayed training, income or employment support.",
+      "status": "unmeasured_blocking",
+      "next_observation": "Freeze the first governed employer-worker panel extract that covers one named occupation-SA4 and overlapping period, then publish its field lineage and test independence, population, geography, time and construct compatibility before evaluating corroboration."
+    },
+    {
+      "id": "IF-05a-cohort-continuity-floor-review",
+      "verb": "Protect",
+      "object": "the six-domain continuity floor for the affected cohort",
+      "population": "Scoped workers and their households only; no broader-population fallback",
+      "geography": "The same national, state or SA4 scope as the affected cohort, only where linkage, precision and disclosure gates pass",
+      "if_all": [
+        { "indicator": "Direct cohort floor breach", "test": "At least one direct access or cash-flow measure for the scoped workers and their households worsens beyond a preregistered threshold", "window": "Same cohort transition period", "source_id": "future-floor-pulse" },
+        { "indicator": "Cohort-place linkage", "test": "Every floor observation is linked to the named occupation and geography without substituting a local-population aggregate", "window": "Every release", "source_id": "future-floor-pulse" },
+        { "indicator": "Precision and coverage", "test": "Estimate passes uncertainty and disclosure rules and exclusions are visible", "window": "Every release", "source_id": "pilot-publication-policy" }
+      ],
+      "if_any": [],
+      "context_only": [
+        { "source_id": "abs-gss-2025", "scope": "Use only when an occupation-linked cohort estimate passes access, precision and disclosure review; otherwise local-population context." },
+        { "source_id": "domain_source_selected_from_manifest", "scope": "Source-native place context; cannot set the affected-cohort state without a valid cohort link." }
+      ],
+      "counterevidence": ["Broader local access improves while the affected cohort deteriorates", "Spending changes without access deterioration", "Policy eligibility or reporting change explains administrative series", "AER jurisdiction absent", "Retrospective window predates labour transition"],
+      "bounded_interpretation": "Affected-cohort continuity is unknown until a direct measure covers the same workers or a representative cohort sample, geography and period. A broader place result cannot make the cohort state positive.",
+      "action": "Offer voluntary, non-stigmatising support and investigate service capacity. Do not reduce other support.",
+      "owner": "Cohort floor-domain owner and worker-community governance group",
+      "review_window": "Within 10 business days after a valid release",
+      "expiry": "At the next direct measure or after 90 days, whichever comes first",
+      "uncertainty_rule": "Missing occupation or household linkage remains unmeasured. No local, state or national aggregate may be substituted. A direct cohort access measure and compatible independent domain evidence are required; price or spending alone cannot satisfy this condition.",
+      "false_positive_cost": "Misdirected services and cohort stigma.",
+      "false_negative_cost": "Loss of housing, food, energy, mobility, healthcare or connectivity before support arrives.",
+      "status": "unmeasured_blocking",
+      "next_observation": "Collect the first governed cohort continuity-floor pulse for one named occupation and geography, report its respondent denominator, linkage coverage, non-response, period, precision and disclosure result, then compare it with independently sourced domain evidence for the same scope."
+    },
+    {
+      "id": "IF-05b-place-continuity-context",
+      "verb": "Describe",
+      "object": "the six-domain continuity floor for the broader place",
+      "population": "Source-native local, state or national population, explicitly not the affected occupation cohort",
+      "geography": "National or state for GSS unless SA4 cells pass precision and disclosure; source-native geography for domain context",
+      "if_all": [
+        { "indicator": "Direct place floor measure", "test": "At least one direct access or cash-flow measure changes beyond a preregistered threshold", "window": "Source-native reference period", "source_id": "abs-gss-2025" },
+        { "indicator": "Independent domain context", "test": "A different official collection supports the same domain and direction for a compatible place and period", "window": "Nearest overlapping period", "source_id": "domain_source_selected_from_manifest" },
+        { "indicator": "Precision and coverage", "test": "Estimate passes uncertainty and disclosure rules and exclusions are visible", "window": "Every release", "source_id": "pilot-publication-policy" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Spending changes without access deterioration", "Policy eligibility or reporting change explains administrative series", "Place boundaries or periods do not match"],
+      "bounded_interpretation": "A floor domain may be under pressure in the measured place and period. This is context only and cannot establish the affected cohort's state or an AI cause.",
+      "action": "Publish bounded place context for evidence review. Do not infer, target or alter cohort support from it.",
+      "owner": "Place floor-domain owner and community governance group",
+      "review_window": "At each valid source release",
+      "expiry": "At the next direct measure or after 90 days, whichever comes first",
+      "uncertainty_rule": "Keep population, geography and period source-native. Never use this place condition as a fallback for IF-05a.",
+      "false_positive_cost": "Place stigma and misdirected services.",
+      "false_negative_cost": "Failure to notice broad service pressure that deserves separate investigation.",
+      "status": "baseline_only_not_cohort_evidence",
+      "next_observation": "Publish the next source-native place estimate with its population denominator, geography, period, precision, disclosure status and independent domain comparison; keep IF-05a unknown unless its separate cohort evidence arrives."
+    },
+    {
+      "id": "IF-06-agency-support",
+      "verb": "Expand",
+      "object": "credible worker choices",
+      "population": "Workers affected by verified adoption or redesign",
+      "geography": "Programme site, occupation and region",
+      "if_all": [
+        { "indicator": "Direct agency module", "test": "Control, meaningful options, voice, time autonomy and ability to refuse are measured and validated", "window": "Baseline and quarterly", "source_id": "future-agency-module" },
+        { "indicator": "Option reality", "test": "At least two materially distinct pathways have verified eligibility, capacity, timing and income implications", "window": "At point of decision", "source_id": "future-intervention-register" },
+        { "indicator": "Continuity protection", "test": "No pathway requires an avoidable breach of the continuity floor", "window": "Forecast transition period", "source_id": "future-floor-pulse" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Options exist only on paper", "Training lacks places or job pathways", "Consent is tied to loss of entitlements", "Proxy measures conflict with direct worker reports"],
+      "bounded_interpretation": "The programme offers measured, feasible alternatives. It does not prove that every person experiences agency.",
+      "action": "Fund navigators, paid learning time, portable support and worker-led negotiation of redesign.",
+      "owner": "Worker transition programme owner",
+      "review_window": "Quarterly and at each pathway decision",
+      "expiry": "When programme capacity, eligibility or labour demand changes",
+      "uncertainty_rule": "Keep component measures visible. Do not publish a single agency score until construct validation succeeds.",
+      "false_positive_cost": "Presenting constrained choices as empowerment.",
+      "false_negative_cost": "Withholding useful options and worker power.",
+      "status": "unmeasured_blocking"
+    },
+    {
+      "id": "IF-07-abundance-pathway",
+      "verb": "Invest",
+      "object": "shared gains from augmentation",
+      "population": "Workers and service users in a verified deployment",
+      "geography": "Programme site with occupation and region context",
+      "if_all": [
+        { "indicator": "Verified productivity or service gain", "test": "Quality-adjusted output or service access improves against a credible comparison", "window": "At least two post-deployment quarters", "source_id": "future-employer-service-panel" },
+        { "indicator": "Worker distribution", "test": "Hours, pay, security, workload and agency do not materially deteriorate, with subgroup results", "window": "Same period", "source_id": "future-redesign-panel" },
+        { "indicator": "Floor distribution", "test": "No affected subgroup shows a credible continuity-floor deterioration", "window": "Same or nearest valid period", "source_id": "future-floor-pulse" },
+        { "indicator": "Public or user value", "test": "Service quality, price, access or time saved improves for users", "window": "Same period", "source_id": "future-employer-service-panel" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Output rises through work intensification", "Gains accrue only to owners or managers", "Quality, safety or access falls", "A subgroup bears unmeasured costs"],
+      "bounded_interpretation": "This deployment is consistent with shared augmentation gains in the measured period and population.",
+      "action": "Scale gradually with gain-sharing, monitoring, worker veto or pause rights and periodic revalidation.",
+      "owner": "Joint employer-worker-public governance board",
+      "review_window": "Quarterly",
+      "expiry": "After one quarter without complete distributional evidence",
+      "uncertainty_rule": "Require absolute and distributional results, not average productivity alone.",
+      "false_positive_cost": "Scaling extraction or degraded service as abundance.",
+      "false_negative_cost": "Failing to spread a genuinely beneficial design.",
+      "status": "unmeasured_future_path"
+    },
+    {
+      "id": "IF-08-causal-language",
+      "verb": "Attribute",
+      "object": "an outcome to AI-enabled redesign",
+      "population": "A defined deployment cohort and comparison population",
+      "geography": "Predeclared programme and comparison regions or organisations",
+      "if_all": [
+        { "indicator": "Exposure and intervention timing", "test": "Deployment timing and affected workers or tasks are observed, not inferred", "window": "Before and after deployment", "source_id": "future-adoption-panel" },
+        { "indicator": "Counterfactual design", "test": "Phased deployment, matched comparison, difference-in-differences or randomised design is valid and ethical", "window": "Full study period", "source_id": "preregistered-causal-study" },
+        { "indicator": "Design diagnostics", "test": "Parallel trends, spillovers, attrition, anticipation, treatment heterogeneity and sensitivity checks pass", "window": "Full study period", "source_id": "preregistered-causal-study" },
+        { "indicator": "Independent review", "test": "Statistical, worker and ethics reviewers approve the bounded claim", "window": "Before publication", "source_id": "pilot-governance-log" }
+      ],
+      "if_any": [],
+      "counterevidence": ["Concurrent restructuring", "Differential pre-trends", "Unobserved treatment crossover", "Selective attrition", "Material conflicting measures"],
+      "bounded_interpretation": "Only the preregistered outcome, population, intervention and period may use causal language.",
+      "action": "Publish effect size, uncertainty, assumptions, heterogeneity, harms and replication materials permitted by privacy rules.",
+      "owner": "Independent evaluation lead",
+      "review_window": "At each causal publication",
+      "expiry": "At material intervention, population or measurement change",
+      "uncertainty_rule": "No causal language when any required condition is missing or invalidated.",
+      "false_positive_cost": "Misguided policy, stigma and loss of trust.",
+      "false_negative_cost": "Delayed adoption of effective protections or beneficial redesign.",
+      "status": "unmeasured_blocking"
+    }
+  ],
+  "condition_evolution_rules": [
+    {
+      "event": "new_data",
+      "required_action": "Re-evaluate each atomic condition, counterevidence item, uncertainty state and expiry. Do not only refresh the headline."
+    },
+    {
+      "event": "source_revision",
+      "required_action": "Preserve the previous vintage, recompute affected states and publish whether the decision would have changed."
+    },
+    {
+      "event": "classification_break",
+      "required_action": "Set affected conditions to conflicted or stale until a reviewed concordance is available."
+    },
+    {
+      "event": "missing_or_suppressed_value",
+      "required_action": "Set the state to unmeasured or suppressed. Never inherit the previous green state without a visible stale flag and expiry."
+    },
+    {
+      "event": "counterevidence",
+      "required_action": "Move the condition to conflicted and suspend escalation until the conflict is resolved or the action is independently justified as precautionary and reversible."
+    },
+    {
+      "event": "action_taken",
+      "required_action": "Record action timing, eligibility, take-up and service quality so intervention effects are not mistaken for underlying transition effects."
+    },
+    {
+      "event": "condition_expiry",
+      "required_action": "Return to unmeasured unless fresh evidence satisfies the condition."
+    }
+  ]
+}

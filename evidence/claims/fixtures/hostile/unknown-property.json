@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Inject an undeclared root property into the closed schema.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/machine_says_true",
+      "value": true
+    }
+  ]
+}
