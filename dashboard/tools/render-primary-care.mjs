@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { deriveReviewedMeasurements } from '../../pilots/australia/tools/primary-care-review.mts';
+import { SMALL_BASE_THRESHOLD, withRetainedNumerator } from '../../pilots/australia/tools/measurement-depth.mts';
 
 const categories = ['price', 'permission', 'proximity', 'availability', 'capability'];
 const hosts = new Set(['assets.pc.gov.au', 'www.abs.gov.au', 'www9.health.gov.au']);
@@ -12,6 +13,13 @@ function link(url, label) {
   const source = new URL(url);
   if (source.protocol !== 'https:' || source.username || source.password || source.port || !hosts.has(source.hostname)) throw new Error('Primary-care source host is not allowed');
   return `<a href="${escapeHtml(url)}" rel="noopener" target="_blank">${escapeHtml(label)}</a>`;
+}
+export function formatObservation(point) {
+  if (point.numerator != null && (!Number.isFinite(point.numerator) || point.numerator < 0)) throw new Error('Invalid measurement numerator');
+  const flag = point.numerator != null && point.numerator < SMALL_BASE_THRESHOLD ? `Small base (${point.numerator} ${point.numerator_unit ?? 'observations'}; below ${SMALL_BASE_THRESHOLD}): ` : '';
+  const units = { percent: '%', months: ' months', 'FTE-per-100000': ' FTE per 100,000' };
+  const interval = point.published_95ci_half_width == null ? '' : ` (95% CI ±${point.published_95ci_half_width} percentage points)`;
+  return `${flag}${point.value}${units[point.unit] ?? ` ${point.unit}`}${interval}`;
 }
 export function renderPrimaryCare(root) {
   const dataPath = 'pilots/australia/data/primary-care-2026-09-10.json';
@@ -32,9 +40,7 @@ export function renderPrimaryCare(root) {
     const points = series.points.filter(point => point.period === period && point.geography === geography);
     if (!points.length) throw new Error(`Missing GP display observation ${category}`);
     const values = points.map(point => {
-      const value = `${point.value}${point.unit === 'percent' ? '%' : ` ${point.unit === 'months' ? 'months' : 'FTE per 100,000'}`}`;
-      const interval = point.published_95ci_half_width == null ? '' : ` (95% CI ±${point.published_95ci_half_width} percentage points)`;
-      return `${category === 'proximity' ? `${point.remoteness}: ` : ''}${value}${interval}`;
+      return `${category === 'proximity' ? `${point.remoteness}: ` : ''}${formatObservation(withRetainedNumerator(point))}`;
     }).join('; ');
     const source = derived.source_reviews.find(source => source.id === series.source_id);
     if (!source) throw new Error(`Missing GP source ${category}`);
@@ -46,6 +52,7 @@ export function renderPrimaryCare(root) {
   return `<section class="section" id="primary-care" aria-labelledby="primary-care-title">
 <div class="section-head"><div><div class="eyebrow">Essential-access basket / GP consultation</div><h2 id="primary-care-title">Five conditions, different evidence.</h2></div><p>${escapeHtml(diagnosis.public_summary)}</p></div>
 <p>These are retained indicators, not five personal-access diagnoses. Price and urgent-care estimates cover different survey subsets; the 2018 capability context is national, and the permission row is a rule parameter observed at retrieval. Owner roles describe institutions, not verified control or authorised action.</p>
+<p>Small base flags precede values with retained numerators below ${SMALL_BASE_THRESHOLD}. This display caution is not a significance test. Survey respondent numerators are not retained; a missing flag does not establish a large sample. FTE is workload, not a count of doctors.</p>
 <div class="table-wrap"><table id="gp-condition-table"><thead><tr><th>Condition</th><th>Observation and period</th><th>Population and measurement limit</th><th>Owner role</th><th>Retained source</th></tr></thead><tbody>${rows}</tbody></table></div>
 <p>${escapeHtml(derived.series.find(s => s.id === 'gp-fte-remoteness').rate_denominator_definition)} ${escapeHtml(derived.coverage_ceiling)} The other three basket items still lack complete item-specific coverage.</p>
 <p>${escapeHtml(derived.ecological_join.evidence_ceiling)} The August 2026 NERO model is attached as separate ecological context, not individual evidence.</p>

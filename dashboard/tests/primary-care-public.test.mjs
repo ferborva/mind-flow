@@ -5,7 +5,19 @@ import { tmpdir } from 'node:os';
 import { resolve, dirname } from 'node:path';
 import test from 'node:test';
 import { renderPrimaryCare, escapeHtml } from '../tools/render-primary-care.mjs';
+import * as renderer from '../tools/render-primary-care.mjs';
 const root = resolve(import.meta.dirname, '../..');
+
+test('small numerators are flagged before the observation, including zero and non-proximity cells', () => {
+  assert.match(renderPrimaryCare(root), /Very remote: Small base \(9 FTE; below 10\): 131\.7/);
+  assert.equal(typeof renderer.formatObservation, 'function');
+  for (const numerator of [0, 1, 9, 9.9]) {
+    assert.match(renderer.formatObservation({ value: 6.2, unit: 'percent', numerator, numerator_unit: 'respondents' }), /^Small base .*: 6\.2%/);
+  }
+  assert.doesNotMatch(renderer.formatObservation({ value: 6.2, unit: 'percent', numerator: 10 }), /Small base/);
+  assert.doesNotMatch(renderer.formatObservation({ value: 6.2, unit: 'percent' }), /Small base/);
+  assert.throws(() => renderer.formatObservation({ value: 6.2, unit: 'percent', numerator: -1 }), /numerator/);
+});
 
 test('actual generated Australia page exposes five GP conditions, source periods, owners and unknown binding', () => {
   const out = resolve(mkdtempSync(resolve(tmpdir(), 'gp-public-review-')), 'index.html');
