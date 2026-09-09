@@ -168,6 +168,17 @@ rerun are reported in the new receipt, which is authoritative for its own test
 count. `git diff --check`, frontmatter validation and retained output parity
 also passed before the seal. No passing run is substituted for a failed one.
 
+The later candidate `634c8d467da6001ff023d38ed57331d00a3ad939` passed its full
+CI test step but [failed retained output parity](https://github.com/ferborva/mind-flow/actions/runs/34414108590)
+after the final additive-audit correction changed the Observatory validation
+context. The lock correctly rejected that different output. Only `data.js`
+differed: expected `b1379ad62be4383cb54a00aa82c422c510f530276a95e60403062d32e5bcf13c`,
+rebuilt `e589e31edd5fe6b73c2e2532c6a1ce02c72ee7d1ee805a7167021bd7847a5115`.
+Its detached freeze attempt was interrupted with exit 130 before any receipt
+was created. The failed CI record is retained; no failed receipt was overwritten
+or declared passing. The final candidate explicitly updates the lock after
+reviewing this context-only difference, then reruns both checks and reproduction.
+
 Browser and in-app preview were unavailable in this environment. Generated
 HTML content and bindings were tested; pixel-level visual QA and accessibility
 review are not claimed. No human participant, affected-party, clinical, legal,
