@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.2.0",
+  "id": "option.au-clerical-continuity",
+  "option_version": "1.2.0",
+  "claim_class": "agent-proposed-option",
+  "authorisation_state": "never-authorised",
+  "actor_ref": "candidate.actor.australian-government",
+  "actor_class": "government",
+  "bound_gate": "act",
+  "verb": "protect",
+  "object": {
+    "class": "service-continuity",
+    "vocabulary_ref": "option-object.income-housing-healthcare-continuity",
+    "service_ref": "local decent-living basket"
+  },
+  "scope": {
+    "jurisdictions": ["Australia"],
+    "geographies": ["Greater Sydney"],
+    "cohorts": ["clerical and administrative workers displaced in the previous 12 months"],
+    "services": ["local decent-living basket"]
+  },
+  "protected_outcome": {
+    "outcome_ref": "candidate.outcome.household-access-floor",
+    "condition_predicate_ref": "access-falling",
+    "measure_ref": "household-access-margin",
+    "operator": "change_lte",
+    "direction": "decrease",
+    "threshold": {
+      "value": -5,
+      "unit": "percentage-points"
+    }
+  },
+  "condition_definition_ref": {
+    "id": "condition.au-clerical-access-margin",
+    "version": "2.0.0",
+    "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+  },
+  "gate_requirements": {
+    "watch": {
+      "path": "#/gates/watch",
+      "relation": "observe-when",
+      "trigger_truth_state": "true"
+    },
+    "prepare": {
+      "path": "#/gates/prepare",
+      "relation": "enable-when",
+      "trigger_truth_state": "true"
+    },
+    "act": {
+      "path": "#/gates/act",
+      "relation": "enable-when",
+      "trigger_truth_state": "true"
+    },
+    "pause": {
+      "path": "#/gates/pause",
+      "relation": "block-when",
+      "trigger_truth_state": "true"
+    },
+    "reverse": {
+      "path": "#/gates/reverse",
+      "relation": "block-when",
+      "trigger_truth_state": "true"
+    },
+    "recover": {
+      "path": "#/gates/recover",
+      "relation": "coexist-when",
+      "trigger_truth_state": "true"
+    },
+    "graduate": {
+      "path": "#/gates/graduate",
+      "relation": "end-when",
+      "trigger_truth_state": "true"
+    }
+  },
+  "readiness_dependencies": {
+    "authority": {
+      "kind": "authority",
+      "state": "unknown"
+    },
+    "consent": {
+      "kind": "consent",
+      "state": "candidate",
+      "candidate_ref": {
+        "id": "candidate.dependency.worker-consent-process",
+        "trust_state": "unverified-candidate",
+        "checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    },
+    "funding": {
+      "kind": "funding",
+      "state": "unknown"
+    },
+    "service": {
+      "kind": "service",
+      "state": "unknown"
+    },
+    "help": {
+      "kind": "help",
+      "state": "unknown"
+    },
+    "appeal": {
+      "kind": "appeal",
+      "state": "unknown"
+    }
+  },
+  "cross_actor_dependencies": [
+    {
+      "id": "dependency.worker-consent",
+      "relation": "consent",
+      "actor_ref": "candidate.actor.clerical-workers",
+      "actor_class": "worker",
+      "gate_ref": "act",
+      "state": "unknown"
+    }
+  ],
+  "dissent": {
+    "status": "unknown",
+    "records": []
+  },
+  "review": {
+    "review_due_at": "2026-12-08T00:00:00Z",
+    "criteria_refs": [
+      "criterion.access-preserved",
+      "criterion.no-material-net-harm"
+    ]
+  },
+  "expires_at": "2027-03-07T00:00:00Z",
+  "expiry_effect": "withdraw-proposal",
+  "provenance": {
+    "classification": "unverified-agent-provenance",
+    "proposer_type": "agent",
+    "proposer_ref": "candidate.agent.ren",
+    "generated_at": "2026-09-08T00:00:00Z",
+    "source_claims": [
+      {
+        "id": "candidate.source.early-action-framework",
+        "trust_state": "unverified",
+        "checksum": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    ]
+  }
+}

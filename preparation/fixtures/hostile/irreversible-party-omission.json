@@ -1,0 +1,5 @@
+{
+  "id": "attack.irreversible-party-omission",
+  "operations": [{ "op": "add", "path": "/actions/2/affected_party_governance/known_omissions/0", "value": "downstream archive operators" }],
+  "expected_codes": ["IRREVERSIBLE_PARTY_COVERAGE_INCOMPLETE"]
+}

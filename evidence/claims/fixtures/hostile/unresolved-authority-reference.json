@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Attach a nonexistent publication authority record.",
+  "mutations": [
+    {
+      "operation": "append",
+      "path": "/claims/0/publication_authority_refs",
+      "value": "authority.missing"
+    }
+  ]
+}

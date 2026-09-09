@@ -1,0 +1,116 @@
+{
+  "schema_version": "3.0.0",
+  "id": "evaluation.au-clerical-access-margin.20260908t0000z",
+  "run_status": "completed",
+  "condition_definition": { "id": "condition.au-clerical-access-margin", "version": "2.0.0", "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7" },
+  "evaluated_at": "2026-09-08T00:00:00Z",
+  "predicate_results": {
+    "access-falling": { "observation_id": "observation.access-falling.2026q2", "state": "true", "reason": "The access-margin estimate fell by more than five percentage points in both observed quarters." },
+    "output-rising": { "observation_id": "observation.output-rising.2026q2", "state": "true", "reason": "Revision-aware real output per capita increased across the two-quarter window." },
+    "harm-material": { "observation_id": "observation.harm-material.2026q2", "state": "conflicted", "reason": "The primary assessment is below the harm threshold, while the independent review is above it; neither dominates under the declared method." },
+    "authority-suspended": { "observation_id": "observation.authority-suspended.20260907", "state": "false", "reason": "The synthetic authority register contains no suspension notice at the observation cut-off." },
+    "preparation-low-regret": { "observation_id": "observation.preparation-low-regret.202608", "state": "true", "reason": "The readiness rehearsal remained below the declared cost and reversibility risk ceiling and produced no material service effect." },
+    "delivery-slow": { "observation_id": "observation.delivery-slow.202608", "state": "false", "reason": "Both delivery-rail tests completed within the seven-day threshold." },
+    "access-restored": { "observation_id": "observation.access-restored.2026q2", "state": "true", "reason": "The estimated cohort access margin remained non-negative for the required persistence window." },
+    "earnings-restored": { "observation_id": "observation.earnings-restored.2026q2", "state": "unknown", "reason": "No revision-stable replacement-earnings observations are available for either required quarter." },
+    "appeals-low": { "observation_id": "observation.appeals-low.2026q1", "state": "stale", "reason": "The last complete four-quarter appeal series is older than the one-quarter maximum age." }
+  },
+  "gate_results": {
+    "watch": {
+      "state": "true",
+      "trace": [
+        { "predicate_ref": "access-falling", "state": "true", "path": "$.all[0]" },
+        { "predicate_ref": "authority-suspended", "state": "false", "path": "$.all[1].not" }
+      ],
+      "decisive_predicates": ["access-falling", "authority-suspended"],
+      "uncertain_predicates": [],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "prepare": {
+      "state": "true",
+      "trace": [
+        { "predicate_ref": "access-falling", "state": "true", "path": "$.all[0]" },
+        { "predicate_ref": "preparation-low-regret", "state": "true", "path": "$.all[1]" },
+        { "predicate_ref": "authority-suspended", "state": "false", "path": "$.all[2].not" }
+      ],
+      "decisive_predicates": ["access-falling", "preparation-low-regret", "authority-suspended"],
+      "uncertain_predicates": [],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "act": {
+      "state": "conflicted",
+      "trace": [
+        { "predicate_ref": "harm-material", "state": "conflicted", "path": "$.veto_if.blocker.any[0]" },
+        { "predicate_ref": "authority-suspended", "state": "false", "path": "$.veto_if.blocker.any[1]" },
+        { "predicate_ref": "access-falling", "state": "true", "path": "$.veto_if.condition.all[0]" },
+        { "predicate_ref": "output-rising", "state": "true", "path": "$.veto_if.condition.all[1]" }
+      ],
+      "decisive_predicates": ["harm-material"],
+      "uncertain_predicates": ["harm-material"],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "pause": {
+      "state": "false",
+      "trace": [{ "predicate_ref": "delivery-slow", "state": "false", "path": "$" }],
+      "decisive_predicates": ["delivery-slow"],
+      "uncertain_predicates": [],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "reverse": {
+      "state": "conflicted",
+      "trace": [{ "predicate_ref": "harm-material", "state": "conflicted", "path": "$" }],
+      "decisive_predicates": ["harm-material"],
+      "uncertain_predicates": ["harm-material"],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "recover": {
+      "state": "unknown",
+      "trace": [
+        { "predicate_ref": "access-restored", "state": "true", "path": "$.all[0]" },
+        { "predicate_ref": "earnings-restored", "state": "unknown", "path": "$.all[1]" }
+      ],
+      "decisive_predicates": ["earnings-restored"],
+      "uncertain_predicates": ["earnings-restored"],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "graduate": {
+      "state": "stale",
+      "trace": [
+        { "predicate_ref": "access-restored", "state": "true", "path": "$.all[0]" },
+        { "predicate_ref": "appeals-low", "state": "stale", "path": "$.all[1]" }
+      ],
+      "decisive_predicates": ["appeals-low"],
+      "uncertain_predicates": ["appeals-low"],
+      "skipped_predicates": [],
+      "errors": []
+    }
+  },
+  "condition_resolution": {
+    "input_state_axis": "gate_truth",
+    "safety_control": "precautionary_hold",
+    "candidate_phase": "prepare",
+    "concurrent_duties": ["watch"],
+    "exit_candidate": "none",
+    "candidate_phase_eligible": false,
+    "concurrent_duties_eligible": { "watch": true, "recover": false },
+    "exit_candidate_eligible": false,
+    "true_gates": ["watch", "prepare"],
+    "blocking_gates": ["reverse"],
+    "unresolved_hard_safeguards": ["reverse"],
+    "transition_conflicts": []
+  },
+  "provenance": {
+    "producer": { "organisation": "Seldon Observatory pilot", "role": "shadow evaluation service" },
+    "evaluator": {
+      "id": "mind-flow.condition-evaluator",
+      "version": "3.0.0",
+      "digest": "sha256:712214e1af7a3313b8b413cb601fb201191a26c9161b7ac8952f53fea292a3dc"
+    }
+  }
+}

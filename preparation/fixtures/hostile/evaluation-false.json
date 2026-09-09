@@ -1,0 +1,5 @@
+{
+  "id": "attack.evaluation-false",
+  "operations": [{ "op": "replace", "path": "/if_evaluations/0/content/result", "value": "false" }],
+  "expected_codes": ["EVALUATION_RESULT_MISMATCH"]
+}

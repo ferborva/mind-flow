@@ -1,0 +1,532 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/schema/signal-registry-1.0.0.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "status",
+    "authority",
+    "operational_effect",
+    "as_of",
+    "condition_bindings",
+    "sources",
+    "signals",
+    "portfolios"
+  ],
+  "properties": {
+    "schema_version": { "enum": ["1.0.0", "1.1.0"] },
+    "registry_id": { "$ref": "#/$defs/id" },
+    "status": { "const": "agent-proposal" },
+    "authority": { "const": "none" },
+    "operational_effect": { "const": false },
+    "as_of": { "type": "string", "format": "date-time" },
+    "condition_bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/conditionBinding" }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/signal" }
+    },
+    "portfolios": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/portfolio" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9.-]{2,127}$"
+    },
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "role": {
+      "enum": [
+        "leading",
+        "confirming",
+        "counter",
+        "outcome",
+        "readiness",
+        "intervention-exposure",
+        "information-harm"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "construct_id",
+        "population",
+        "geography",
+        "statistical_unit",
+        "period",
+        "unit",
+        "denominator",
+        "aggregation_level"
+      ],
+      "properties": {
+        "construct_id": { "$ref": "#/$defs/id" },
+        "population": { "$ref": "#/$defs/nonEmpty" },
+        "geography": { "$ref": "#/$defs/nonEmpty" },
+        "statistical_unit": { "$ref": "#/$defs/nonEmpty" },
+        "period": { "$ref": "#/$defs/nonEmpty" },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "denominator": { "$ref": "#/$defs/nonEmpty" },
+        "aggregation_level": { "$ref": "#/$defs/nonEmpty" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "label",
+        "publisher",
+        "collection_process_id",
+        "depends_on_source_ids",
+        "evidence_ref",
+        "artifact_binding"
+      ],
+      "properties": {
+        "source_id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmpty" },
+        "publisher": { "$ref": "#/$defs/nonEmpty" },
+        "collection_process_id": { "$ref": "#/$defs/id" },
+        "depends_on_source_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "evidence_ref": { "type": "string", "format": "uri" },
+        "artifact_binding": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["status", "checksum", "next_acquisition"],
+              "properties": {
+                "status": { "const": "not-acquired" },
+                "checksum": { "type": "null" },
+                "next_acquisition": { "$ref": "#/$defs/nonEmpty" }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["status", "checksum", "byte_length", "retrieved_at", "next_acquisition"],
+              "properties": {
+                "status": { "const": "acquired-external-bytes" },
+                "checksum": { "$ref": "#/$defs/sha256" },
+                "byte_length": { "type": "integer", "minimum": 1 },
+                "retrieved_at": { "type": "string", "format": "date-time" },
+                "next_acquisition": { "type": "null" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "definition_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "sourceEventRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "event_id", "event_hash"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "event_id": { "$ref": "#/$defs/id" },
+        "event_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "evidenceStateRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kernel_id",
+        "kernel_manifest_hash",
+        "evidence_event_count",
+        "evidence_tip_event_id",
+        "evidence_tip_event_hash",
+        "evidence_state_hash"
+      ],
+      "properties": {
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "kernel_manifest_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_event_count": { "type": "integer", "minimum": 1 },
+        "evidence_tip_event_id": { "$ref": "#/$defs/id" },
+        "evidence_tip_event_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_state_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "conditionBinding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["condition_id", "ledger_ref", "binding_status", "ledger_tip_event_id", "ledger_tip_hash", "next_binding"],
+          "properties": {
+            "condition_id": { "$ref": "#/$defs/id" },
+            "ledger_ref": { "type": "string", "format": "uri" },
+            "binding_status": { "const": "external-unverified" },
+            "ledger_tip_event_id": { "type": "null" },
+            "ledger_tip_hash": { "type": "null" },
+            "next_binding": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "condition_id",
+            "ledger_ref",
+            "binding_status",
+            "ledger_manifest_hash",
+            "ledger_tip_event_id",
+            "ledger_tip_hash",
+            "condition_definition_ref",
+            "condition_source_event_ref",
+            "evidence_state_ref",
+            "next_binding"
+          ],
+          "properties": {
+            "condition_id": { "$ref": "#/$defs/id" },
+            "ledger_ref": { "type": "string", "format": "uri" },
+            "binding_status": { "const": "locally-verified-complete" },
+            "ledger_manifest_hash": { "$ref": "#/$defs/sha256" },
+            "ledger_tip_event_id": { "$ref": "#/$defs/id" },
+            "ledger_tip_hash": { "$ref": "#/$defs/sha256" },
+            "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+            "condition_source_event_ref": { "$ref": "#/$defs/sourceEventRef" },
+            "evidence_state_ref": { "$ref": "#/$defs/evidenceStateRef" },
+            "next_binding": { "type": "null" }
+          }
+        }
+      ]
+    },
+    "executableSignalBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "signal_definition_ref", "condition_definition_ref", "predicate_ids"],
+      "properties": {
+        "kind": { "const": "executable-predicate" },
+        "signal_definition_ref": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["signal_id", "definition_version", "signal_definition_hash"],
+          "properties": {
+            "signal_id": { "$ref": "#/$defs/id" },
+            "definition_version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+            "signal_definition_hash": { "$ref": "#/$defs/sha256" }
+          }
+        },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "predicate_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "supplementalSignalBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "purpose", "condition_definition_ref", "truth_expression_effect"],
+      "properties": {
+        "kind": { "const": "supplemental-observation" },
+        "purpose": { "enum": ["counter", "information-harm"] },
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "truth_expression_effect": { "const": "none" }
+      }
+    },
+    "metricContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id", "measure", "unit", "denominator", "population",
+        "geography", "period", "aggregation", "collection_process_ids",
+        "source_refs", "evaluation_rule", "metric_checksum"
+      ],
+      "properties": {
+        "metric_id": { "$ref": "#/$defs/id" },
+        "measure": { "$ref": "#/$defs/nonEmpty" },
+        "unit": { "$ref": "#/$defs/nonEmpty" },
+        "denominator": { "$ref": "#/$defs/nonEmpty" },
+        "population": { "$ref": "#/$defs/nonEmpty" },
+        "geography": { "$ref": "#/$defs/nonEmpty" },
+        "period": { "$ref": "#/$defs/nonEmpty" },
+        "aggregation": { "$ref": "#/$defs/nonEmpty" },
+        "collection_process_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "source_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "evaluation_rule": { "$ref": "#/$defs/nonEmpty" },
+        "metric_checksum": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "conditionLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["condition_id", "ledger_ref", "evidence_role", "edge_type", "scope"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "ledger_ref": { "type": "string", "format": "uri" },
+        "evidence_role": { "$ref": "#/$defs/role" },
+        "edge_type": {
+          "enum": ["necessary", "sufficient-route", "enabling", "inhibiting", "correlated-only", "decision-rule"]
+        },
+        "scope": { "$ref": "#/$defs/scope" }
+      }
+    },
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signal_id",
+        "label",
+        "status",
+        "construct",
+        "estimand",
+        "epistemic_class",
+        "source_refs",
+        "condition_links",
+        "timing",
+        "uncertainty",
+        "missingness",
+        "exclusions",
+        "confounders",
+        "negative_controls",
+        "gaming",
+        "reflexivity",
+        "value_of_information",
+        "public_claim_ceiling",
+        "claim_permissions"
+      ],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmpty" },
+        "status": { "enum": ["candidate", "shadow", "suspended", "retired"] },
+        "construct": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["construct_id", "name", "definition", "statistical_unit"],
+          "properties": {
+            "construct_id": { "$ref": "#/$defs/id" },
+            "name": { "$ref": "#/$defs/nonEmpty" },
+            "definition": { "$ref": "#/$defs/nonEmpty" },
+            "statistical_unit": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "estimand": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["quantity", "population", "geography", "period", "unit", "denominator", "aggregation_level"],
+          "properties": {
+            "quantity": { "$ref": "#/$defs/nonEmpty" },
+            "population": { "$ref": "#/$defs/nonEmpty" },
+            "geography": { "$ref": "#/$defs/nonEmpty" },
+            "period": { "$ref": "#/$defs/nonEmpty" },
+            "unit": { "$ref": "#/$defs/nonEmpty" },
+            "denominator": { "$ref": "#/$defs/nonEmpty" },
+            "aggregation_level": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "epistemic_class": {
+          "enum": ["source-observation", "modelled-estimate", "derived-estimate", "proxy", "participant-report", "measurement-health"]
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "condition_links": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/conditionLink" }
+        },
+        "timing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cadence", "publication_lag_max_days", "prospective_decision_lead_min_days", "revision_behaviour"],
+          "properties": {
+            "cadence": { "$ref": "#/$defs/nonEmpty" },
+            "publication_lag_max_days": { "type": ["integer", "null"], "minimum": 0 },
+            "prospective_decision_lead_min_days": { "type": ["integer", "null"], "minimum": 0 },
+            "revision_behaviour": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "uncertainty": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["representation", "interval_available", "known_limits"],
+          "properties": {
+            "representation": { "$ref": "#/$defs/nonEmpty" },
+            "interval_available": { "type": "boolean" },
+            "known_limits": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/nonEmpty" }
+            }
+          }
+        },
+        "missingness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mechanism", "reporting_rule"],
+          "properties": {
+            "mechanism": { "$ref": "#/$defs/nonEmpty" },
+            "reporting_rule": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "exclusions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmpty" }
+        },
+        "confounders": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmpty" }
+        },
+        "negative_controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmpty" }
+        },
+        "gaming": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["risks", "detection", "suspension_rule"],
+          "properties": {
+            "risks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmpty" } },
+            "detection": { "$ref": "#/$defs/nonEmpty" },
+            "suspension_rule": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "reflexivity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["risk", "monitor"],
+          "properties": {
+            "risk": { "$ref": "#/$defs/nonEmpty" },
+            "monitor": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "value_of_information": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["decision_ref", "learning_value", "next_observation"],
+          "properties": {
+            "decision_ref": { "type": ["string", "null"], "minLength": 1 },
+            "learning_value": { "$ref": "#/$defs/nonEmpty" },
+            "next_observation": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "public_claim_ceiling": { "$ref": "#/$defs/nonEmpty" },
+        "claim_permissions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["causal_claim", "individual_inference", "operational_effect"],
+          "properties": {
+            "causal_claim": { "type": "boolean" },
+            "individual_inference": { "type": "boolean" },
+            "operational_effect": { "type": "boolean" }
+          }
+        },
+        "metric_contract": { "$ref": "#/$defs/metricContract" },
+        "executable_binding": { "$ref": "#/$defs/executableSignalBinding" },
+        "supplemental_binding": { "$ref": "#/$defs/supplementalSignalBinding" }
+      }
+    },
+    "roleAssignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "signal_ids"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "signal_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "unresolvedRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "reason", "next_acquisition"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "reason": { "$ref": "#/$defs/nonEmpty" },
+        "next_acquisition": { "$ref": "#/$defs/nonEmpty" }
+      }
+    },
+    "portfolio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition_id",
+        "ledger_ref",
+        "scope",
+        "decision_context",
+        "role_assignments",
+        "unresolved_roles",
+        "public_disposition"
+      ],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "ledger_ref": { "type": "string", "format": "uri" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "decision_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["use", "owner_ref", "minimum_useful_lead_days"],
+          "properties": {
+            "use": { "enum": ["research-only", "shadow-decision", "public-decision"] },
+            "owner_ref": { "type": ["string", "null"], "minLength": 1 },
+            "minimum_useful_lead_days": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "role_assignments": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/roleAssignment" }
+        },
+        "unresolved_roles": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/unresolvedRole" }
+        },
+        "public_disposition": { "enum": ["internal-only", "methods-only", "public-with-unknowns"] }
+      }
+    }
+  }
+}

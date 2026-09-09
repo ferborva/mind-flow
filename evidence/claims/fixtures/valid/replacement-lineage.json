@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.0.0",
+  "ledger_id": "claim-ledger.replacement-example",
+  "created_at": "2026-09-08T11:00:00Z",
+  "policy_ref": {
+    "id": "claim-firewall-policy-v2",
+    "version": "2.0.0",
+    "checksum": "sha256:4371deb7d0b3e5a643ae42b6f26071d817eb9d39d2f80e1df076b526021ed673"
+  },
+  "validation_scope": {
+    "machine_checks": "schema-hashes-references-expiry-and-lineage-only",
+    "truth": "not-determined-by-machine-validity",
+    "publishability": "not-determined-by-machine-validity"
+  },
+  "sentences": [
+    {
+      "sentence_id": "sentence.forecast-old",
+      "statement": "The model predicts a crisis.",
+      "statement_hash": "sha256:93891b9c8cae749a07eda51acc391187079a0ebfbbe11b050fdfcd05a96b84f8",
+      "atomic_claim_ids": ["claim.forecast-old"]
+    },
+    {
+      "sentence_id": "sentence.scenario-new",
+      "statement": "The model reports an unvalidated scenario.",
+      "statement_hash": "sha256:f306ff5d274b15613f7a547dc272f636e0fe8de21a344d1d4042bce9d75b9fa0",
+      "atomic_claim_ids": ["claim.scenario-new"]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim.forecast-old",
+      "sentence_id": "sentence.forecast-old",
+      "source_span": {
+        "start_codepoint": 0,
+        "end_codepoint_exclusive": 28
+      },
+      "statement": "The model predicts a crisis.",
+      "statement_hash": "sha256:93891b9c8cae749a07eda51acc391187079a0ebfbbe11b050fdfcd05a96b84f8",
+      "epistemic_class": "forecast",
+      "provenance_role": "project-derived",
+      "support_state": "unsupported",
+      "publication_disposition": "superseded",
+      "publication_authority_refs": [],
+      "evidence_refs": [],
+      "challenge": {
+        "counterclaim": {
+          "statement": "The model does not predict a crisis.",
+          "statement_hash": "sha256:93cfc781afea2d2c5db38efb00aced2a9523387e40a7d533e09cc240f6cec61f",
+          "evidence_refs": []
+        },
+        "falsifier": {
+          "kind": "empirical-test",
+          "statement": "Prospective scoring fails to beat the registered baseline.",
+          "statement_hash": "sha256:4acc949e61ac0dd4512283013ec6dca6dfb16556319c7a86d56d237dd1aee468",
+          "evidence_refs": []
+        }
+      },
+      "expires_at": "2026-09-01T00:00:00Z",
+      "review_refs": ["review.forecast-old"]
+    },
+    {
+      "claim_id": "claim.scenario-new",
+      "sentence_id": "sentence.scenario-new",
+      "source_span": {
+        "start_codepoint": 0,
+        "end_codepoint_exclusive": 42
+      },
+      "statement": "The model reports an unvalidated scenario.",
+      "statement_hash": "sha256:f306ff5d274b15613f7a547dc272f636e0fe8de21a344d1d4042bce9d75b9fa0",
+      "epistemic_class": "scenario",
+      "provenance_role": "project-derived",
+      "support_state": "not-assessed",
+      "publication_disposition": "internal-draft",
+      "publication_authority_refs": [],
+      "evidence_refs": [],
+      "challenge": {
+        "counterclaim": {
+          "statement": "The scenario remains unvalidated.",
+          "statement_hash": "sha256:8bbc997d3cdb36ced18d07e9d6edab27c338e83033e2481b256a83950dceac24",
+          "evidence_refs": []
+        },
+        "falsifier": {
+          "kind": "empirical-test",
+          "statement": "Prospective scoring shows bounded predictive skill.",
+          "statement_hash": "sha256:97f79809f141b2d07738a05255afa4b5cc970a194f463cec0a435811dde16a82",
+          "evidence_refs": []
+        }
+      },
+      "expires_at": "2026-12-31T23:59:59Z",
+      "review_refs": ["review.scenario-new"]
+    }
+  ],
+  "evidence": [],
+  "authorities": [],
+  "reviews": [
+    {
+      "review_id": "review.forecast-old",
+      "claim_id": "claim.forecast-old",
+      "reviewer": {
+        "identity": "reviewer:forecast-methods-01",
+        "role": "forecast reviewer"
+      },
+      "disposition": "superseded",
+      "reviewed_at": "2026-09-08T11:05:00Z",
+      "valid_through": "2026-12-31T23:59:59Z",
+      "rationale": "No prospective scoring supports a forecast classification."
+    },
+    {
+      "review_id": "review.scenario-new",
+      "claim_id": "claim.scenario-new",
+      "reviewer": {
+        "identity": "reviewer:forecast-methods-01",
+        "role": "forecast reviewer"
+      },
+      "disposition": "accepted-with-conditions",
+      "reviewed_at": "2026-09-08T11:10:00Z",
+      "valid_through": "2026-12-31T23:59:59Z",
+      "rationale": "The narrower wording accurately describes an unscored model scenario."
+    }
+  ],
+  "replacement_lineage": [
+    {
+      "replacement_id": "replacement.forecast-to-scenario",
+      "replaced_claim_id": "claim.forecast-old",
+      "replacement_claim_id": "claim.scenario-new",
+      "reason": "Prospective evidence was unavailable, so forecast language was withdrawn.",
+      "recorded_at": "2026-09-08T11:15:00Z",
+      "review_ref": "review.forecast-old"
+    }
+  ]
+}

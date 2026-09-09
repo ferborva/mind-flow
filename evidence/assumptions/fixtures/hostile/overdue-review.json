@@ -1,0 +1,11 @@
+{
+  "id": "hostile.overdue-review",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/assumptions/0/timebox/next_review_on",
+      "value": "2026-09-01"
+    }
+  ],
+  "expected_codes": ["REVIEW_OVERDUE"]
+}

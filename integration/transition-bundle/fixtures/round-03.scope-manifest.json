@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "scope_manifest_id": "scope-manifest.round-03.current",
+  "classification": "research-draft",
+  "canonical_scope": {
+    "source_role": "agency-map",
+    "native_scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615",
+    "people": "Australian employees in ANZSCO 5311 General Clerks roles at participating workplaces",
+    "verb": "reach",
+    "object": "comparable or preferred paid work",
+    "standard": "no involuntary loss of real hourly earnings or essential employment conditions attributable to the transition",
+    "place": "Australia",
+    "period": "2027-01-01 through 2029-12-31",
+    "jurisdictions": [
+      "Australia"
+    ],
+    "geographies": [
+      "Australia"
+    ],
+    "services": [
+      "clerical-employment",
+      "clerical-transition-support"
+    ],
+    "starts_at": "2027-01-01T00:00:00Z",
+    "ends_at": "2029-12-31T23:59:59Z"
+  },
+  "mappings": [
+    {
+      "mapping_id": "scope-mapping.round-03.agency-map",
+      "role": "agency-map",
+      "native_scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615",
+      "relationship": "canonical-source",
+      "rationale": "The canonical scope preserves the agency-map outcome scope without rewriting its native hash domain.",
+      "unresolved_differences": [],
+      "mapping_truth_assessed": false
+    },
+    {
+      "mapping_id": "scope-mapping.round-03.possible-path",
+      "role": "possible-path",
+      "native_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010",
+      "relationship": "declared-correspondence-unverified",
+      "rationale": "The possible path names the same people, employment destination, standard, place and period in its own native contract.",
+      "unresolved_differences": [
+        "The agency map uses reach while the possible path uses transition as its verb.",
+        "The possible path condition identities do not match the agency-map condition identities.",
+        "The possible path has no native structured jurisdiction, geography, service or timestamp fields."
+      ],
+      "mapping_truth_assessed": false
+    }
+  ],
+  "mapping_truth_assessed": false,
+  "authority_effect": "none",
+  "action_authorised": false
+}

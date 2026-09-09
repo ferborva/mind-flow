@@ -1,0 +1,69 @@
+{
+  "schema_version": "4.0.0",
+  "id": "action.au-clerical-access-bridge",
+  "action_version": "2.0.0",
+  "condition_definition": {
+    "id": "condition.au-clerical-access-margin",
+    "version": "2.0.0",
+    "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+  },
+  "gate": "act",
+  "required_gate_truth_state": "true",
+  "verb": "protect",
+  "object": "income, housing and healthcare continuity for the scoped cohort",
+  "rationale": "Stabilise lived access before asking displaced people to retrain or relocate.",
+  "record_lifecycle": "shadow",
+  "owner": {
+    "organisation": "Example Australian delivery authority",
+    "role": "transition protection accountable officer"
+  },
+  "authority": {
+    "basis": "Hypothetical authority recorded only to test the contract shape",
+    "instrument": "Unapproved Transition Protection Pilot proposal",
+    "reference": "https://example.gov.au/authority/transition-protection",
+    "constraints": [
+      "Use only the cohort and geography declared by the condition contract.",
+      "Do not infer eligibility from protected attributes.",
+      "Pause or reverse through the referenced condition gates."
+    ]
+  },
+  "funding": {
+    "status": "conditional",
+    "source": "No commitment. Illustrative funding path for the test fixture.",
+    "valid_through": "2027-03-08T00:00:00Z"
+  },
+  "sla": {
+    "acknowledge_within": { "value": 4, "unit": "hour" },
+    "activate_within": { "value": 2, "unit": "day" },
+    "update_every": { "value": 1, "unit": "week" }
+  },
+  "appeal": {
+    "channel": "Independent pilot review desk",
+    "route": "https://example.gov.au/transition-protection/appeal",
+    "acknowledge_within": { "value": 2, "unit": "day" },
+    "independent_reviewer": {
+      "organisation": "Example independent social protection reviewer",
+      "role": "appeal decision officer"
+    }
+  },
+  "reversibility": {
+    "pause": "pause",
+    "reverse": "reverse",
+    "recover": "recover",
+    "graduate": "graduate"
+  },
+  "verification": {
+    "outcome_signal_ids": ["household-access-margin", "replacement-earnings", "appeal-overturn-rate"],
+    "success": "The cohort access margin is non-negative without material eligibility error or avoidable net harm.",
+    "review_within": { "value": 1, "unit": "quarter" }
+  },
+  "communications": {
+    "audiences": ["affected workers", "households", "local delivery partners"],
+    "message": "Access has fallen for this cohort while output has grown. The named protection activates now, here is how to receive it or appeal, and the next evidence update is due within one week.",
+    "help_route": "https://example.gov.au/transition-protection/help",
+    "next_update_within": { "value": 1, "unit": "week" }
+  },
+  "approved_by": [],
+  "valid_from": "2026-09-08T00:00:00Z",
+  "expires_at": "2027-03-08T00:00:00Z"
+}

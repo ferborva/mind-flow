@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "id": "correction.earnings-restored.2026q2.c1",
+  "correction_type": "processing",
+  "corrects": {
+    "kind": "predicate-observation",
+    "id": "observation.earnings-restored.2026q2",
+    "checksum": "sha256:4305fbb35fb69dccb821144f925fd26b8d77a39f7bb9e2b33e6a7771976223af"
+  },
+  "replacement": {
+    "kind": "predicate-observation",
+    "id": "observation.earnings-restored.2026q2.c1",
+    "checksum": "sha256:255bd58bac8ea5badc8abacceb367acd3328123d921f9819049bfd41b4857a15"
+  },
+  "invalidates": [{
+    "kind": "evaluation-run",
+    "id": "evaluation.au-clerical-access-margin.20260908t0000z",
+    "checksum": "sha256:56fd1ee974301b4db305a9b6605203d7440de8ae5bd617a946a4265a8875e031"
+  }],
+  "reason": "A synthetic linkage-job defect hid both replacement-earnings quarters. The original observation and every run that consumed it remain preserved but superseded or invalidated.",
+  "recorded_at": "2026-09-08T00:10:00Z",
+  "provenance": {
+    "producer": { "organisation": "Seldon Observatory pilot", "role": "correction steward" },
+    "method": "two-person correction review 1.0",
+    "reviewed_by": { "organisation": "Seldon Observatory pilot", "role": "independent fixture reviewer" }
+  }
+}

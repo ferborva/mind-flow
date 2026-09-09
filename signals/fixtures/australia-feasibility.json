@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "registry.australia-clerical-feasibility",
+  "status": "agent-proposal",
+  "authority": "none",
+  "operational_effect": false,
+  "as_of": "2026-09-08T12:00:00Z",
+  "condition_bindings": [
+    {
+      "condition_id": "condition.worker-flow-review",
+      "ledger_ref": "urn:mind-flow:condition-ledger:worker-flow-review",
+      "binding_status": "external-unverified",
+      "ledger_tip_event_id": null,
+      "ledger_tip_hash": null,
+      "next_binding": "Create and locally verify a complete condition-evolution ledger before decision-linked use."
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "source.lfs",
+      "label": "ABS Labour Force Survey family",
+      "publisher": "Australian Bureau of Statistics",
+      "collection_process_id": "process.abs-lfs",
+      "depends_on_source_ids": [],
+      "evidence_ref": "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release",
+      "artifact_binding": {
+        "status": "not-acquired",
+        "checksum": null,
+        "next_acquisition": "Acquire the exact registered extract and hash its bytes before analysis."
+      }
+    },
+    {
+      "source_id": "source.nero",
+      "label": "NERO August 2026 vintage",
+      "publisher": "Jobs and Skills Australia",
+      "collection_process_id": "process.jsa-nero-model-v3",
+      "depends_on_source_ids": ["source.lfs"],
+      "evidence_ref": "https://www.jobsandskills.gov.au/data/nero/nero-methodology",
+      "artifact_binding": {
+        "status": "not-acquired",
+        "checksum": null,
+        "next_acquisition": "Bind the frozen August 2026 ZIP and methodology bytes used by the feasibility rehearsal."
+      }
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "signal.nero-employment",
+      "label": "NERO modelled employment estimate",
+      "status": "candidate",
+      "construct": {
+        "construct_id": "construct.modelled-employment-level",
+        "name": "Modelled employed-person level",
+        "definition": "The NERO vintage estimate for one occupation and one resident SA4, retained without aggregation.",
+        "statistical_unit": "employed person estimate"
+      },
+      "estimand": {
+        "quantity": "modelled employed-person level",
+        "population": "ANZSCO 5311 General Clerks",
+        "geography": "one ASGS 2021 SA4 by residence",
+        "period": "monthly NERO reference month",
+        "unit": "modelled employed persons",
+        "denominator": "not applicable to a level estimate",
+        "aggregation_level": "occupation by resident SA4"
+      },
+      "epistemic_class": "modelled-estimate",
+      "source_refs": ["source.nero"],
+      "condition_links": [
+        {
+          "condition_id": "condition.worker-flow-review",
+          "ledger_ref": "urn:mind-flow:condition-ledger:worker-flow-review",
+          "evidence_role": "leading",
+          "edge_type": "correlated-only",
+          "scope": {
+            "construct_id": "construct.modelled-employment-level",
+            "population": "ANZSCO 5311 General Clerks",
+            "geography": "one ASGS 2021 SA4 by residence",
+            "statistical_unit": "employed person estimate",
+            "period": "monthly NERO reference month",
+            "unit": "modelled employed persons",
+            "denominator": "not applicable to a level estimate",
+            "aggregation_level": "occupation by resident SA4"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly when published",
+        "publication_lag_max_days": null,
+        "prospective_decision_lead_min_days": null,
+        "revision_behaviour": "New vintages may revise history; retain each as-published vintage and never overwrite the earlier path."
+      },
+      "uncertainty": {
+        "representation": "Method limitations and vintage movement; no public point interval is registered here.",
+        "interval_available": false,
+        "known_limits": [
+          "Experimental model smoothing may miss structural breaks.",
+          "Counts below the publisher minimum are part of the measurement process, not observed jobs."
+        ]
+      },
+      "missingness": {
+        "mechanism": "Publisher suppression, unavailable combinations and unobserved model error.",
+        "reporting_rule": "Keep missing and suppressed states distinct from zero and from no material change."
+      },
+      "exclusions": [
+        "workplace geography",
+        "individual transitions",
+        "hours, earnings and reasons for change"
+      ],
+      "confounders": [
+        "seasonality",
+        "population and migration change",
+        "occupation recoding",
+        "macro demand",
+        "model revision"
+      ],
+      "negative_controls": [
+        "predeclared comparison occupations without the hypothesised exposure",
+        "vintage revisions before any workplace deployment event"
+      ],
+      "gaming": {
+        "risks": ["selecting occupations or vintages after observing the largest movement"],
+        "detection": "Freeze the cohort, vintage and threshold before inspecting the candidate window.",
+        "suspension_rule": "Suspend interpretation when selection or revision lineage cannot be reconstructed."
+      },
+      "reflexivity": {
+        "risk": "Public warning language could affect hiring, worker confidence or reporting.",
+        "monitor": "Keep this candidate internal and record any disclosure before later outcomes."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Tests whether a prospective descriptive review candidate can be reproduced.",
+        "next_observation": "Acquire an independent, scope-compatible worker-flow outcome and exact release-timing evidence."
+      },
+      "public_claim_ceiling": "NERO modelled employment estimate may be described only as modelled-estimate evidence about modelled employed-person level for ANZSCO 5311 General Clerks, one ASGS 2021 SA4 by residence, during monthly NERO reference month. It does not establish causality, individual outcomes or action authority.",
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      }
+    },
+    {
+      "signal_id": "signal.lfs-coherence",
+      "label": "LFS-family coherence context",
+      "status": "candidate",
+      "construct": {
+        "construct_id": "construct.survey-employment-context",
+        "name": "Survey employment context",
+        "definition": "A Labour Force Survey family estimate retained only as partially dependent context for NERO.",
+        "statistical_unit": "employed person estimate"
+      },
+      "estimand": {
+        "quantity": "survey employment context",
+        "population": "ANZSCO 5311 General Clerks",
+        "geography": "one ASGS 2021 SA4 by residence",
+        "period": "registered overlapping survey period",
+        "unit": "estimated employed persons",
+        "denominator": "survey population under the selected extract",
+        "aggregation_level": "occupation and geography subject to verified extract availability"
+      },
+      "epistemic_class": "source-observation",
+      "source_refs": ["source.lfs"],
+      "condition_links": [
+        {
+          "condition_id": "condition.worker-flow-review",
+          "ledger_ref": "urn:mind-flow:condition-ledger:worker-flow-review",
+          "evidence_role": "counter",
+          "edge_type": "correlated-only",
+          "scope": {
+            "construct_id": "construct.survey-employment-context",
+            "population": "ANZSCO 5311 General Clerks",
+            "geography": "one ASGS 2021 SA4 by residence",
+            "statistical_unit": "employed person estimate",
+            "period": "registered overlapping survey period",
+            "unit": "estimated employed persons",
+            "denominator": "survey population under the selected extract",
+            "aggregation_level": "occupation and geography subject to verified extract availability"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "source-native release cadence",
+        "publication_lag_max_days": null,
+        "prospective_decision_lead_min_days": null,
+        "revision_behaviour": "Retain the selected extract, weights and revision vintage."
+      },
+      "uncertainty": {
+        "representation": "Use publisher sampling-error measures for the exact extract when available.",
+        "interval_available": false,
+        "known_limits": ["The exact occupation-SA4 extract has not been established as available or sufficiently precise."]
+      },
+      "missingness": {
+        "mechanism": "Sampling, non-response, rotation and unavailable public cells.",
+        "reporting_rule": "Unavailable or imprecise cells remain unknown and cannot be inferred from broader geography."
+      },
+      "exclusions": ["NERO-independent confirmation", "individual worker attribution"],
+      "confounders": ["survey rotation", "classification change", "seasonality"],
+      "negative_controls": ["broader geography direction retained only as context"],
+      "gaming": {
+        "risks": ["choosing the LFS cut that best agrees with NERO"],
+        "detection": "Preregister the extract and compatibility test before observing agreement.",
+        "suspension_rule": "Suspend if extract lineage, weights or scope cannot be reproduced."
+      },
+      "reflexivity": {
+        "risk": "Selective reporting could create false corroboration.",
+        "monitor": "Report disagreement and unavailable cells with the same display rule as agreement."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Checks broad coherence and measurement disagreement without adding independent evidence.",
+        "next_observation": "Secure a non-LFS-family outcome with compatible construct, population, geography and time."
+      },
+      "public_claim_ceiling": "LFS-family coherence context may be described only as source-observation evidence about survey employment context for ANZSCO 5311 General Clerks, one ASGS 2021 SA4 by residence, during registered overlapping survey period. It does not establish causality, individual outcomes or action authority.",
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      }
+    }
+  ],
+  "portfolios": [
+    {
+      "condition_id": "condition.worker-flow-review",
+      "ledger_ref": "urn:mind-flow:condition-ledger:worker-flow-review",
+      "scope": {
+        "construct_id": "construct.modelled-employment-level",
+        "population": "ANZSCO 5311 General Clerks",
+        "geography": "one ASGS 2021 SA4 by residence",
+        "statistical_unit": "employed person estimate",
+        "period": "monthly NERO reference month",
+        "unit": "modelled employed persons",
+        "denominator": "not applicable to a level estimate",
+        "aggregation_level": "occupation by resident SA4"
+      },
+      "decision_context": {
+        "use": "research-only",
+        "owner_ref": null,
+        "minimum_useful_lead_days": 0
+      },
+      "role_assignments": [
+        { "role": "leading", "signal_ids": ["signal.nero-employment"] }
+      ],
+      "unresolved_roles": [
+        { "role": "confirming", "reason": "No non-LFS-family measure has passed exact scope compatibility and lineage review.", "next_acquisition": "Acquire and audit an independent worker-flow outcome for the frozen occupation, SA4 and period." },
+        { "role": "counter", "reason": "LFS-family context is source-dependent and its exact occupation-SA4 availability, period and precision are unverified.", "next_acquisition": "Preregister a compatible counter-signal or retain the LFS-family result outside this scoped portfolio." },
+        { "role": "outcome", "reason": "No governed person or job transition outcome is bound to this candidate.", "next_acquisition": "Specify the outcome estimand and secure an approved linked or panel source." },
+        { "role": "readiness", "reason": "No intervention is nominated, so readiness cannot be inferred.", "next_acquisition": "Name a legitimate decision and measure its delivery prerequisites before forecasting." },
+        { "role": "intervention-exposure", "reason": "No programme or workplace intervention exposure is recorded.", "next_acquisition": "Create a governed deployment or programme exposure register." },
+        { "role": "information-harm", "reason": "No trial has measured anxiety, stigma, false certainty or rushed action from this signal.", "next_acquisition": "Test the communication against a simpler release before any public warning use." }
+      ],
+      "public_disposition": "methods-only"
+    }
+  ]
+}

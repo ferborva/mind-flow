@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/preparation/preparation-action/1-2-0",
+  "title": "Executable-IF-bound early-action proposal",
+  "description": "A non-authorising proposal whose eligibility is derived from one exact executable IF receipt.",
+  "type": "object",
+  "required": [
+    "schema_version", "action_id", "version", "record_kind", "authorisation_effect",
+    "public_sentence", "decision_use", "scale", "actor", "verb", "object", "scope",
+    "if_binding", "evidence_bundle_ref", "affected_party_governance", "resources",
+    "controls", "reversibility", "inaction_comparator", "generated_at", "review_by"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.2.0" },
+    "action_id": { "$ref": "#/$defs/id" },
+    "version": { "$ref": "#/$defs/semver" },
+    "record_kind": { "const": "proposal" },
+    "authorisation_effect": { "const": "none" },
+    "public_sentence": { "type": "string", "minLength": 1 },
+    "decision_use": { "enum": ["research-only", "shadow-decision", "public-decision"] },
+    "scale": { "enum": ["individual", "community", "institution", "country"] },
+    "actor": {
+      "type": "object",
+      "required": ["actor_id", "name", "identity_state", "authority_boundary"],
+      "properties": {
+        "actor_id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/nonEmpty" },
+        "identity_state": { "const": "candidate-unverified" },
+        "authority_boundary": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
+    },
+    "verb": { "enum": ["assess", "consult", "coordinate", "fund", "pause", "pilot", "prepare", "protect", "provide", "recover", "review", "reverse"] },
+    "object": {
+      "type": "object",
+      "required": ["object_id", "class", "description"],
+      "properties": {
+        "object_id": { "$ref": "#/$defs/id" },
+        "class": { "enum": ["information", "capability", "service-continuity", "safeguard", "institutional-rule", "emergency-containment"] },
+        "description": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
+    },
+    "scope": { "$ref": "#/$defs/scope" },
+    "if_binding": {
+      "type": "object",
+      "required": ["condition_binding_ref", "evaluation_receipt_ref", "state_trigger", "effect"],
+      "properties": {
+        "condition_binding_ref": { "$ref": "#/$defs/pinnedRef" },
+        "evaluation_receipt_ref": { "$ref": "#/$defs/pinnedRef" },
+        "state_trigger": {
+          "type": "object",
+          "required": ["axis", "eligible_states", "blocked_states", "re_evaluate_before_start"],
+          "properties": {
+            "axis": { "const": "computed_rule_state" },
+            "eligible_states": { "$ref": "#/$defs/stateList" },
+            "blocked_states": { "$ref": "#/$defs/stateList" },
+            "re_evaluate_before_start": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "effect": { "const": "eligibility-only-not-authority" }
+      },
+      "additionalProperties": false
+    },
+    "evidence_bundle_ref": { "$ref": "#/$defs/pinnedRef" },
+    "affected_party_governance": {
+      "type": "object",
+      "required": ["coverage_state", "known_omissions", "challenge_route", "consent_state"],
+      "properties": {
+        "coverage_state": { "const": "provisional-publicly-challengeable" },
+        "known_omissions": { "type": "array", "items": { "$ref": "#/$defs/nonEmpty" } },
+        "challenge_route": { "type": "string", "format": "uri" },
+        "consent_state": { "const": "not-established" }
+      },
+      "additionalProperties": false
+    },
+    "resources": {
+      "type": "object",
+      "required": ["reporting_basis", "funding_status", "capacity_status"],
+      "properties": {
+        "reporting_basis": { "const": "caller-asserted-not-authenticated" },
+        "funding_status": { "enum": ["secured", "conditional", "unfunded"] },
+        "capacity_status": { "enum": ["available", "conditional", "unavailable"] }
+      },
+      "additionalProperties": false
+    },
+    "controls": {
+      "type": "object",
+      "required": ["start_conditions", "stop_conditions", "review_conditions"],
+      "properties": {
+        "start_conditions": { "$ref": "#/$defs/controlList" },
+        "stop_conditions": { "$ref": "#/$defs/controlList" },
+        "review_conditions": { "$ref": "#/$defs/controlList" }
+      },
+      "additionalProperties": false
+    },
+    "reversibility": {
+      "type": "object",
+      "required": ["class", "rationale", "residual_harm", "default_rule"],
+      "properties": {
+        "class": { "enum": ["reversible", "partially-reversible", "irreversible", "emergency-containment"] },
+        "rationale": { "$ref": "#/$defs/nonEmpty" },
+        "residual_harm": { "$ref": "#/$defs/nonEmpty" },
+        "default_rule": { "const": "reversible-unless-higher-gate-passed" }
+      },
+      "additionalProperties": false
+    },
+    "inaction_comparator": {
+      "type": "object",
+      "required": ["baseline", "comparison", "confidence", "limitations", "authorisation_effect"],
+      "properties": {
+        "baseline": { "$ref": "#/$defs/nonEmpty" },
+        "comparison": { "enum": ["action-appears-safer", "inaction-appears-safer", "similar", "uncertain"] },
+        "confidence": { "enum": ["low", "medium", "high"] },
+        "limitations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "authorisation_effect": { "const": "none" }
+      },
+      "additionalProperties": false
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "review_by": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "semver": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "nonEmpty": { "type": "string", "minLength": 1 },
+    "pinnedRef": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/semver" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": ["jurisdictions", "geographies", "cohorts", "services"],
+      "properties": {
+        "jurisdictions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "geographies": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "cohorts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+        "services": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } }
+      },
+      "additionalProperties": false
+    },
+    "stateList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["true", "false", "unknown", "stale", "conflicted"] }
+    },
+    "controlList": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["gate", "test", "failure_effect"],
+        "properties": {
+          "gate": { "$ref": "#/$defs/id" },
+          "test": { "$ref": "#/$defs/nonEmpty" },
+          "failure_effect": { "$ref": "#/$defs/nonEmpty" }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

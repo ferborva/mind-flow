@@ -1,0 +1,5 @@
+{
+  "id": "attack.tampered-expression",
+  "operations": [{ "op": "replace", "path": "/if_expressions/0/content/clauses/0/threshold/value", "value": 100 }],
+  "expected_codes": ["CONTENT_CHECKSUM_MISMATCH"]
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.1.0",
+  "bundle_id": "bundle.round-03.current",
+  "bundle_stage": "complete-core",
+  "classification": "research-draft",
+  "as_of": "2026-09-09T00:00:00Z",
+  "evaluation_clock": {
+    "evaluated_at": "2026-09-09T00:00:00Z",
+    "source": "operator-supplied",
+    "trusted": false
+  },
+  "authority_effect": "none",
+  "publication_approved": false,
+  "action_authorised": false,
+  "canonical": {
+    "condition_ids": [
+      "condition.transition-option-ready",
+      "condition.employment-offer-exists",
+      "condition.protection-capacity-ready"
+    ],
+    "outcome_logic_ref": {
+      "artifact_role": "agency-map",
+      "json_pointer": "/outcome_scope/condition_logic",
+      "sha256": "sha256:080df08c385987f05ed0964d0398d53792642014dcf7f4f29cb50a950cc89290"
+    },
+    "scope_manifest_ref": {
+      "scope_manifest_id": "scope-manifest.round-03.current",
+      "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+      "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+    },
+    "root_role": "agency-map"
+  },
+  "scope_bindings": [
+    {
+      "role": "agency-map",
+      "canonical_scope_manifest_ref": {
+        "scope_manifest_id": "scope-manifest.round-03.current",
+        "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+        "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+      },
+      "native_scope_hash": "sha256:092f687b67735657baab1d7d18adbc40bf216efce5402cc5cbb218c684dba615",
+      "mapping_ref": {
+        "mapping_id": "scope-mapping.round-03.agency-map",
+        "sha256": "sha256:e5439008c7b0a4736aabcb2712eb15bad54ad5d159136b58e0e438cd463d1a38"
+      }
+    },
+    {
+      "role": "possible-path",
+      "canonical_scope_manifest_ref": {
+        "scope_manifest_id": "scope-manifest.round-03.current",
+        "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+        "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+      },
+      "native_scope_hash": "sha256:d450a250f2dd80721769e9997e838b9d0ec5be0053c965bf436d14e79b86a010",
+      "mapping_ref": {
+        "mapping_id": "scope-mapping.round-03.possible-path",
+        "sha256": "sha256:5ab2900886f0c7029f457b648c079bb375b81a0563066fc9ed93d7c823ca3d9e"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "agency-map",
+      "path": "contracts/agency-map/fixtures/australian-clerical-agency.synthetic.json",
+      "sha256": "sha256:b1b088e9d09c14467ccc3baf23faa4de61eec621d93af33acc354a935121a322"
+    },
+    {
+      "role": "evolution-ledger",
+      "path": "contracts/evolution/fixtures/valid/all-operations.json",
+      "sha256": "sha256:1c1ff91e2bdf5f4fbe5f2797d7654e39c141e26f0e4fa436db1e0e6df6a6c8f7"
+    },
+    {
+      "role": "signal-registry",
+      "path": "signals/fixtures/australia-feasibility.json",
+      "sha256": "sha256:203f8149cc345dcb2dec9d8f7dd97260eaded8465353954e7550528792910a54"
+    },
+    {
+      "role": "possible-path",
+      "path": "paths/fixtures/australian-clerical-transition.synthetic.json",
+      "sha256": "sha256:d75f32fef703e0a20f25e6af47a0ba45e69906a9fdecf3c0b8da63ed8bb45530"
+    },
+    {
+      "role": "preparation-register",
+      "path": "preparation/fixtures/valid/round-03.register.json",
+      "sha256": "sha256:ce2d06db57bd36dd8d0131bc0d2051163d753b82d4a1073e36d002915bb53496"
+    },
+    {
+      "role": "dashboard-snapshot",
+      "path": "dashboard/snapshots/2026-09-08.r3.json",
+      "sha256": "sha256:80f7b37011618719b25cc1b710f60a8c41e832d76e311ba884514e342693816b"
+    },
+    {
+      "role": "forecast",
+      "path": "forecasts/fixtures/decision-linked.issued.json",
+      "sha256": "sha256:fa7abb8baf38b81b43b83b0eae463bca7aeeb1ab24c83a97fc9da6d56cf83e07"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "2.0.0",
+  "id": "attempt.au-clerical-access-margin.20260908t000001z",
+  "attempt_status": "partial",
+  "condition_definition": {
+    "id": "condition.au-clerical-access-margin",
+    "version": "2.0.0",
+    "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+  },
+  "started_at": "2026-09-08T00:00:01Z",
+  "recorded_at": "2026-09-08T00:00:30Z",
+  "predicate_results": {
+    "access-falling": { "observation_id": "observation.access-falling.2026q2", "state": "true", "reason": "The access-margin estimate fell by more than five percentage points in both observed quarters." },
+    "output-rising": { "observation_id": "observation.output-rising.2026q2", "state": "true", "reason": "Revision-aware real output per capita increased across the two-quarter window." },
+    "harm-material": { "observation_id": "observation.harm-material.2026q2", "state": "conflicted", "reason": "The primary assessment is below the harm threshold, while the independent review is above it; neither dominates under the declared method." },
+    "authority-suspended": { "observation_id": "observation.authority-suspended.20260907", "state": "false", "reason": "The synthetic authority register contains no suspension notice at the observation cut-off." }
+  },
+  "gate_results": {
+    "watch": {
+      "state": "true",
+      "trace": [
+        { "predicate_ref": "access-falling", "state": "true", "path": "$.all[0]" },
+        { "predicate_ref": "authority-suspended", "state": "false", "path": "$.all[1].not" }
+      ],
+      "decisive_predicates": ["access-falling", "authority-suspended"],
+      "uncertain_predicates": [],
+      "skipped_predicates": [],
+      "errors": []
+    },
+    "act": {
+      "state": "conflicted",
+      "trace": [
+        { "predicate_ref": "harm-material", "state": "conflicted", "path": "$.veto_if.blocker.any[0]" },
+        { "predicate_ref": "authority-suspended", "state": "false", "path": "$.veto_if.blocker.any[1]" },
+        { "predicate_ref": "access-falling", "state": "true", "path": "$.veto_if.condition.all[0]" },
+        { "predicate_ref": "output-rising", "state": "true", "path": "$.veto_if.condition.all[1]" }
+      ],
+      "decisive_predicates": ["harm-material"],
+      "uncertain_predicates": ["harm-material"],
+      "skipped_predicates": [],
+      "errors": []
+    }
+  },
+  "errors": [{
+    "code": "ENGINE_INTERRUPTED",
+    "stage": "gate",
+    "message": "The synthetic worker stopped before evaluating the remaining gates.",
+    "retryable": true
+  }],
+  "provenance": {
+    "producer": { "organisation": "Seldon Observatory pilot", "role": "shadow evaluation service" },
+    "evaluator": {
+      "id": "mind-flow.condition-evaluator",
+      "version": "2.0.0",
+      "digest": "sha256:66d8e67b6095f466ed12490a311d536123e265995caae94dbf1d2a1266912d57"
+    }
+  }
+}

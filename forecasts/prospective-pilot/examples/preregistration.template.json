@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_type": "prospective-no-consequence-forecast-preregistration",
+  "status": "draft-template",
+  "protocol_id": null,
+  "contract": {
+    "schema_path": "forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json",
+    "schema_sha256": null,
+    "validator_path": "forecasts/prospective-pilot/validate.mjs",
+    "validator_sha256": null
+  },
+  "registration": {
+    "registered_at": null,
+    "protocol_content_sha256": null,
+    "verification_status": "not-submitted",
+    "external_receipt": null
+  },
+  "campaign": {
+    "campaign_id": null,
+    "manifest": {
+      "manifest_id": null,
+      "campaign_id": null,
+      "status": "unsealed",
+      "eligibility_rule": "all-preregistered-campaign-protocols",
+      "exclusions": "none",
+      "protocol_ids": [],
+      "sealed_at": null,
+      "manifest_sha256": null,
+      "verification_status": "not-submitted"
+    }
+  },
+  "target": {
+    "registration_status": "unresolved",
+    "target_id": null,
+    "question": null,
+    "event_definition": null,
+    "outcome_type": "binary",
+    "unit": null,
+    "observation_window": {
+      "starts_at": null,
+      "ends_at": null
+    },
+    "resolution_rule": null,
+    "resolution_source_id": null,
+    "resolution_source_uri": null,
+    "resolution_event_id": null,
+    "independence_cluster_id": null,
+    "condition_definition_ref": null,
+    "signal_definition_ref": null,
+    "metric_id": null,
+    "metric_checksum": null,
+    "scope": null,
+    "scope_hash": null,
+    "kernel_ref": null,
+    "signal_registry_ref": null,
+    "resolver": {
+      "resolver_id": null,
+      "resolver_version": null,
+      "implementation_sha256": null,
+      "parameters_sha256": null,
+      "conformance_vectors_sha256": null,
+      "conflict_policy": null,
+      "correction_policy": null
+    }
+  },
+  "baseline": {
+    "registration_status": "unresolved",
+    "baseline_role": null,
+    "baseline_id": null,
+    "target_id": null,
+    "kind": "mechanical",
+    "algorithm_id": null,
+    "algorithm_version": null,
+    "input_source_ids": [],
+    "input_policy": null,
+    "calculation_timing": null,
+    "implementation_sha256": null,
+    "conformance_vectors_sha256": null,
+    "parameters_sha256": null,
+    "input_manifest_sha256": null,
+    "input_vintage_cutoff_at": null,
+    "missing_input_policy": null,
+    "rounding_policy": null,
+    "output_probability": null,
+    "output_policy": "record-only-in-separate-issued-forecast"
+  },
+  "naive_baseline": {
+    "registration_status": "unresolved",
+    "baseline_role": null,
+    "baseline_id": null,
+    "target_id": null,
+    "kind": "mechanical",
+    "algorithm_id": null,
+    "algorithm_version": null,
+    "input_source_ids": [],
+    "input_policy": null,
+    "calculation_timing": null,
+    "implementation_sha256": null,
+    "conformance_vectors_sha256": null,
+    "parameters_sha256": null,
+    "input_manifest_sha256": null,
+    "input_vintage_cutoff_at": null,
+    "missing_input_policy": null,
+    "rounding_policy": null,
+    "output_probability": null,
+    "output_policy": "record-only-in-separate-issued-forecast"
+  },
+  "clocks": {
+    "registration_status": "unresolved",
+    "time_standard": "rfc3339-utc",
+    "clock_authority_verification": "unverified_external_review_required",
+    "preregistered_at": null,
+    "issue_opens_at": null,
+    "issue_closes_at": null,
+    "observation_starts_at": null,
+    "observation_ends_at": null,
+    "outcome_publication_not_before": null,
+    "resolve_after": null,
+    "resolution_closes_at": null
+  },
+  "source_chronology": {
+    "policy": "append-only-absence-to-retained-presence",
+    "required_source_ids": [],
+    "preregistered_event_count": 0,
+    "preregistered_tip_sha256": null,
+    "events": []
+  },
+  "revision_policy": {
+    "target": "immutable-after-preregistration-new-protocol-required",
+    "baseline": "immutable-after-preregistration-new-protocol-required",
+    "issue_and_close_clocks": "immutable-after-preregistration-new-protocol-required",
+    "campaign_manifest": "immutable-after-seal-new-campaign-manifest-required",
+    "source_chronology": "local-hash-chain-external-tip-anchor-required-after-each-append",
+    "material_correction": "withdraw-and-supersede-never-overwrite",
+    "post_issue": "issued-forecast-record-immutable"
+  },
+  "scoring": {
+    "primary": "brier",
+    "secondary": ["log_loss"],
+    "baseline_id": null,
+    "naive_baseline_id": null,
+    "baseline_comparison": "predeclared-reference-and-naive-baselines",
+    "score_timing": "after-resolution-close-and-retained-outcome-bytes",
+    "missing_resolution": "withhold-score-and-disclose",
+    "voided": "retain-in-manifest-exclude-from-score-and-disclose",
+    "reporting_denominator": "all-manifest-protocols",
+    "calibration_claim": "prohibited-for-single-pilot",
+    "aggregation": "mean-over-resolved-nonvoid-manifest-protocols",
+    "log_loss_probability_floor": 0.000001,
+    "implementation_sha256": null,
+    "conformance_vectors_sha256": null,
+    "void_adjudication": "independent-review-required-before-exclusion"
+  },
+  "forecast_issuance": {
+    "status": "not-issued",
+    "probability": null,
+    "issued_at": null,
+    "record_policy": "separate-immutable-forecast-record-required"
+  },
+  "authority": {
+    "mode": "no-consequence",
+    "authority_effect": "none",
+    "action_authorised": false,
+    "operational_effect": false,
+    "decision_use": "prohibited",
+    "causal_truth_established": false,
+    "permitted_use": "protocol-rehearsal-and-scoring-method-only",
+    "public_claim_ceiling": "This document issues no forecast, establishes no empirical or causal truth, grants no authority and permits no action."
+  }
+}

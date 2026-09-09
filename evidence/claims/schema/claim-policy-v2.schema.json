@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/evidence/claims/policy/2-0-0",
+  "title": "Mind Flow claim firewall policy v2",
+  "description": "The closed policy contract paired with claim-ledger v2. Changes require a new policy and schema version.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "policy_id",
+    "version",
+    "purpose",
+    "hash_contract",
+    "closed_expiry_dispositions",
+    "publication_rule",
+    "truth_rule",
+    "atomicity_rule",
+    "challenge_rule",
+    "lineage_rule"
+  ],
+  "properties": {
+    "schema_version": { "const": "2.0.0" },
+    "policy_id": { "const": "claim-firewall-policy-v2" },
+    "version": { "const": "2.0.0" },
+    "purpose": {
+      "const": "Bind exact public-language atoms to explicit epistemic, provenance, support, review and publication records without treating structural validity as truth or authority."
+    },
+    "hash_contract": {
+      "const": "sha256 over the exact UTF-8 bytes of each statement with no whitespace or Unicode normalisation"
+    },
+    "closed_expiry_dispositions": {
+      "const": ["blocked", "withdrawn", "superseded"]
+    },
+    "publication_rule": {
+      "const": "approved-by-governance-record is a recorded disposition only; a machine-valid ledger does not authenticate the authority record or determine publishability"
+    },
+    "truth_rule": {
+      "const": "support_state records an assessment; it does not establish truth"
+    },
+    "atomicity_rule": {
+      "const": "each atomic claim has one epistemic_class, one provenance_role, one support_state and one publication_disposition; a source sentence may reference multiple atomic claims"
+    },
+    "challenge_rule": {
+      "const": "every atomic claim binds a counterclaim and a falsifier or explicit governance revision condition"
+    },
+    "lineage_rule": {
+      "const": "replacement edges are directed, acyclic, review-bound and preserve both immutable claims"
+    }
+  },
+  "additionalProperties": false
+}

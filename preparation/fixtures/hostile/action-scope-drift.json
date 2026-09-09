@@ -1,0 +1,5 @@
+{
+  "id": "attack.action-scope-drift",
+  "operations": [{ "op": "replace", "path": "/actions/0/scope/geographies/0", "value": "Different region" }],
+  "expected_codes": ["ACTION_SCOPE_MISMATCH"]
+}

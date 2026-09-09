@@ -1,0 +1,5 @@
+{
+  "id": "attack.authority-reporting-hidden",
+  "operations": [{ "op": "remove", "path": "/actions/2/authority_evidence/reporting_basis" }],
+  "expected_codes": ["SCHEMA_NONCONFORMANT"]
+}

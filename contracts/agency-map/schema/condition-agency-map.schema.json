@@ -1,0 +1,557 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.example/schemas/condition-agency-map.schema.json",
+  "title": "Condition agency map",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "id", "provenance", "created_at", "as_of",
+    "authority_effect", "condition_truth_assessed", "actor_identity_verified",
+    "control_verified", "forecast_produced", "commitment_created",
+    "action_authorised", "goal", "outcome_scope", "condition_loci", "actors",
+    "signals", "condition_ledger_ref", "conditions", "provider_plans",
+    "action_hypotheses", "public_projection"
+  ],
+  "properties": {
+    "schema_version": {"enum": ["1.0.0", "1.1.0"]},
+    "id": {"type": "string", "pattern": "^agency-map\\.[a-z0-9.-]+$"},
+    "provenance": {"const": "commissioned-agent-proposal"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "as_of": {"type": "string", "format": "date-time"},
+    "authority_effect": {"const": "none"},
+    "condition_truth_assessed": {"const": false},
+    "actor_identity_verified": {"const": false},
+    "control_verified": {"const": false},
+    "forecast_produced": {"const": false},
+    "commitment_created": {"const": false},
+    "action_authorised": {"const": false},
+    "goal": {"$ref": "#/$defs/goal"},
+    "outcome_scope": {"$ref": "#/$defs/outcomeScope"},
+    "condition_loci": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/locus"}
+    },
+    "actors": {
+      "type": "array", "minItems": 2,
+      "items": {"$ref": "#/$defs/actor"}
+    },
+    "signals": {
+      "type": "array", "minItems": 1,
+      "items": {"$ref": "#/$defs/signal"}
+    },
+    "signal_registry_ref": {"$ref": "#/$defs/signalRegistryRef"},
+    "condition_ledger_ref": {"$ref": "#/$defs/ledgerRef"},
+    "conditions": {
+      "type": "array", "minItems": 1,
+      "items": {"$ref": "#/$defs/condition"}
+    },
+    "provider_plans": {
+      "type": "array", "minItems": 1,
+      "items": {"$ref": "#/$defs/providerPlan"}
+    },
+    "action_hypotheses": {
+      "type": "array", "minItems": 1,
+      "items": {"$ref": "#/$defs/actionHypothesis"}
+    },
+    "public_projection": {"$ref": "#/$defs/publicProjection"}
+  },
+  "$defs": {
+    "nonEmpty": {"type": "string", "minLength": 1},
+    "identifier": {"type": "string", "pattern": "^[a-z][a-z0-9.-]+$"},
+    "sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "uri": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "stringSet": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"$ref": "#/$defs/nonEmpty"}
+    },
+    "conditionDefinitionRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+        "definition_version": {"type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"},
+        "definition_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "sourceEventRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "event_id", "operation", "event_hash"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 1},
+        "event_id": {"$ref": "#/$defs/identifier"},
+        "operation": {"enum": ["added", "narrowed", "definition-revised", "split", "merge"]},
+        "event_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "historyTipRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "event_id", "event_hash"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 1},
+        "event_id": {"$ref": "#/$defs/identifier"},
+        "event_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "evidenceStateRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kernel_id", "kernel_manifest_hash", "event_count", "tip_event_id", "tip_event_hash", "state_hash"],
+      "properties": {
+        "kernel_id": {"$ref": "#/$defs/identifier"},
+        "kernel_manifest_hash": {"$ref": "#/$defs/sha256"},
+        "event_count": {"type": "integer", "minimum": 1},
+        "tip_event_id": {"$ref": "#/$defs/identifier"},
+        "tip_event_hash": {"$ref": "#/$defs/sha256"},
+        "state_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "canonicalBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_definition_ref", "evolution_ref", "history_tip_ref", "condition_source_event_ref", "evidence_state_ref"],
+      "properties": {
+        "condition_definition_ref": {"$ref": "#/$defs/conditionDefinitionRef"},
+        "evolution_ref": {
+          "type": "object", "additionalProperties": false,
+          "required": ["ledger_id", "schema_version", "manifest_hash"],
+          "properties": {
+            "ledger_id": {"$ref": "#/$defs/identifier"},
+            "schema_version": {"const": "2.0.0"},
+            "manifest_hash": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "history_tip_ref": {"$ref": "#/$defs/historyTipRef"},
+        "condition_source_event_ref": {"$ref": "#/$defs/sourceEventRef"},
+        "evidence_state_ref": {"$ref": "#/$defs/evidenceStateRef"}
+      }
+    },
+    "signalRegistryRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["registry_id", "schema_version", "artifact_path", "artifact_sha256"],
+      "properties": {
+        "registry_id": {"$ref": "#/$defs/identifier"},
+        "schema_version": {"const": "1.1.0"},
+        "artifact_path": {"$ref": "#/$defs/nonEmpty"},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "registeredMetricRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["registry_id", "signal_id", "metric_id", "metric_checksum", "binding_kind", "projection_profile"],
+      "properties": {
+        "registry_id": {"$ref": "#/$defs/identifier"},
+        "signal_id": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"},
+        "metric_id": {"type": "string", "pattern": "^metric\\.[a-z0-9.-]+$"},
+        "metric_checksum": {"$ref": "#/$defs/sha256"},
+        "binding_kind": {"enum": ["executable-predicate", "supplemental-observation"]},
+        "projection_profile": {"const": "signal-registry-estimand-to-agency-metric-v1"}
+      }
+    },
+    "goal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["statement", "classification", "selection_authority"],
+      "properties": {
+        "statement": {"$ref": "#/$defs/nonEmpty"},
+        "classification": {"const": "value-choice"},
+        "selection_authority": {"const": "external-unverified"}
+      }
+    },
+    "outcomeScope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["people", "verb", "object", "standard", "place", "period", "jurisdictions", "geographies", "services", "starts_at", "ends_at", "affected_actor_refs", "condition_ids", "condition_logic", "scope_hash"],
+      "properties": {
+        "people": {"$ref": "#/$defs/nonEmpty"},
+        "verb": {"$ref": "#/$defs/nonEmpty"},
+        "object": {"$ref": "#/$defs/nonEmpty"},
+        "standard": {"$ref": "#/$defs/nonEmpty"},
+        "place": {"$ref": "#/$defs/nonEmpty"},
+        "period": {"$ref": "#/$defs/nonEmpty"},
+        "jurisdictions": {"$ref": "#/$defs/stringSet"},
+        "geographies": {"$ref": "#/$defs/stringSet"},
+        "services": {"$ref": "#/$defs/stringSet"},
+        "starts_at": {"type": "string", "format": "date-time"},
+        "ends_at": {"type": "string", "format": "date-time"},
+        "affected_actor_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"}
+        },
+        "condition_ids": {"$ref": "#/$defs/stringSet"},
+        "condition_logic": {"$ref": "#/$defs/conditionLogic"},
+        "scope_hash": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "conditionLogic": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["condition_ref"],
+          "properties": {
+            "condition_ref": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["all"],
+          "properties": {
+            "all": {
+              "type": "array", "minItems": 2,
+              "items": {"$ref": "#/$defs/conditionLogic"}
+            }
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["any"],
+          "properties": {
+            "any": {
+              "type": "array", "minItems": 2,
+              "items": {"$ref": "#/$defs/conditionLogic"}
+            }
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["not"],
+          "properties": {"not": {"$ref": "#/$defs/conditionLogic"}}
+        }
+      ]
+    },
+    "actor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actor_ref", "label", "actor_class", "identity_verification", "jurisdictions", "capabilities"],
+      "properties": {
+        "actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+        "label": {"$ref": "#/$defs/nonEmpty"},
+        "actor_class": {
+          "enum": ["affected-people", "community", "enterprise", "institution", "government", "regulator", "worker-representative", "unknown"]
+        },
+        "identity_verification": {"const": "external-unverified"},
+        "jurisdictions": {"$ref": "#/$defs/stringSet"},
+        "capabilities": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["verb", "object_class", "geographies", "services", "status"],
+            "properties": {
+              "verb": {"$ref": "#/$defs/nonEmpty"},
+              "object_class": {"$ref": "#/$defs/nonEmpty"},
+              "geographies": {"$ref": "#/$defs/stringSet"},
+              "services": {"$ref": "#/$defs/stringSet"},
+              "status": {"const": "caller-asserted"}
+            }
+          }
+        }
+      }
+    },
+    "signal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["signal_ref", "label", "condition_id", "role", "verification", "metric"],
+      "properties": {
+        "signal_ref": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"},
+        "label": {"$ref": "#/$defs/nonEmpty"},
+        "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+        "role": {"enum": ["leading", "confirming", "counter", "outcome", "readiness", "intervention-exposure", "information-harm"]},
+        "verification": {"const": "external-unverified"},
+        "metric": {"$ref": "#/$defs/metric"},
+        "registered_metric_ref": {"$ref": "#/$defs/registeredMetricRef"}
+      }
+    },
+    "metric": {
+      "type": "object", "additionalProperties": false,
+      "required": ["metric_id", "measure", "unit", "denominator", "population", "geography", "period", "aggregation", "direction", "collection_process_id", "source_refs", "evaluation_rule", "verification", "metric_checksum"],
+      "properties": {
+        "metric_id": {"type": "string", "pattern": "^metric\\.[a-z0-9.-]+$"},
+        "measure": {"$ref": "#/$defs/nonEmpty"},
+        "unit": {"$ref": "#/$defs/nonEmpty"},
+        "denominator": {"$ref": "#/$defs/nonEmpty"},
+        "population": {"$ref": "#/$defs/nonEmpty"},
+        "geography": {"$ref": "#/$defs/nonEmpty"},
+        "period": {"$ref": "#/$defs/nonEmpty"},
+        "aggregation": {"$ref": "#/$defs/nonEmpty"},
+        "direction": {"enum": ["increase", "decrease", "maintain", "two-sided", "unknown"]},
+        "collection_process_id": {"$ref": "#/$defs/identifier"},
+        "source_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/uri"}
+        },
+        "evaluation_rule": {"$ref": "#/$defs/nonEmpty"},
+        "verification": {"const": "external-unverified"},
+        "metric_checksum": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "ledgerRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ledger_id", "ledger_version", "tip_event_id", "tip_hash", "uri", "verification"],
+      "properties": {
+        "ledger_id": {"$ref": "#/$defs/identifier"},
+        "ledger_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "tip_event_id": {"$ref": "#/$defs/identifier"},
+        "tip_hash": {"$ref": "#/$defs/sha256"},
+        "uri": {"$ref": "#/$defs/uri"},
+        "verification": {"const": "external-unverified"}
+      }
+    },
+    "locus": {
+      "enum": ["technical", "organisational", "market", "legal-institutional", "infrastructure", "ecological", "personal-capacity", "shared-system", "unknown"]
+    },
+    "relationRole": {
+      "enum": ["controls", "influences", "depends-on", "duty-bears", "funds", "delivers", "verifies", "affected", "negotiates", "observes"]
+    },
+    "condition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_id", "ledger_anchor", "public_if_clause", "category_prompts", "locus", "signal_refs", "relations"],
+      "properties": {
+        "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+        "ledger_anchor": {
+          "type": "object", "additionalProperties": false,
+          "required": ["condition_id", "condition_version", "tip_event_id", "tip_hash"],
+          "properties": {
+            "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+            "condition_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+            "tip_event_id": {"$ref": "#/$defs/identifier"},
+            "tip_hash": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "public_if_clause": {"$ref": "#/$defs/nonEmpty"},
+        "category_prompts": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"enum": ["price", "permission", "proximity", "availability", "capability", "other"]}
+        },
+        "locus": {"$ref": "#/$defs/locus"},
+        "signal_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"}
+        },
+        "canonical_binding": {"$ref": "#/$defs/canonicalBinding"},
+        "relations": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["actor_ref", "roles", "evidence_refs", "verification"],
+            "properties": {
+              "actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+              "roles": {
+                "type": "array", "minItems": 1, "uniqueItems": true,
+                "items": {"$ref": "#/$defs/relationRole"}
+              },
+              "evidence_refs": {
+                "type": "array", "uniqueItems": true,
+                "items": {"$ref": "#/$defs/uri"}
+              },
+              "verification": {"const": "external-unverified"}
+            }
+          }
+        }
+      }
+    },
+    "whenClause": {
+      "type": "object", "additionalProperties": false,
+      "required": ["condition_id", "condition_anchor_hash", "mode", "completion_criterion", "completion_test", "evidence_refs", "dependency_actor_refs", "next_review", "claim_state"],
+      "properties": {
+        "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+        "condition_anchor_hash": {"$ref": "#/$defs/sha256"},
+        "mode": {"enum": ["act", "prepare", "watch", "negotiate", "coordinate", "escalate-for-authority", "cannot-move", "investigate"]},
+        "completion_criterion": {"$ref": "#/$defs/nonEmpty"},
+        "completion_test": {
+          "type": "object", "additionalProperties": false,
+          "required": ["measure", "operator", "threshold", "unit", "verifier_actor_ref", "verification"],
+          "properties": {
+            "measure": {"$ref": "#/$defs/nonEmpty"},
+            "operator": {"enum": ["gt", "gte", "lt", "lte", "eq", "all-of", "human-review"]},
+            "threshold": {
+              "oneOf": [
+                {"type": "number"},
+                {"type": "string"},
+                {"type": "boolean"}
+              ]
+            },
+            "unit": {"$ref": "#/$defs/nonEmpty"},
+            "verifier_actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+            "verification": {"const": "external-unverified"}
+          }
+        },
+        "evidence_refs": {
+          "type": "array", "uniqueItems": true,
+          "items": {"$ref": "#/$defs/uri"}
+        },
+        "dependency_actor_refs": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"}
+        },
+        "next_review": {"type": "string", "format": "date-time"},
+        "claim_state": {"const": "proposal-only"}
+      }
+    },
+    "providerPlan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["plan_id", "actor_ref", "offered_verb", "offered_object", "object_class", "standard", "place", "period", "jurisdictions", "geographies", "services", "starts_at", "ends_at", "ordering", "when_clauses"],
+      "properties": {
+        "plan_id": {"type": "string", "pattern": "^plan\\.[a-z0-9.-]+$"},
+        "actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+        "offered_verb": {"$ref": "#/$defs/nonEmpty"},
+        "offered_object": {"$ref": "#/$defs/nonEmpty"},
+        "object_class": {"$ref": "#/$defs/nonEmpty"},
+        "standard": {"$ref": "#/$defs/nonEmpty"},
+        "place": {"$ref": "#/$defs/nonEmpty"},
+        "period": {"$ref": "#/$defs/nonEmpty"},
+        "jurisdictions": {"$ref": "#/$defs/stringSet"},
+        "geographies": {"$ref": "#/$defs/stringSet"},
+        "services": {"$ref": "#/$defs/stringSet"},
+        "starts_at": {"type": "string", "format": "date-time"},
+        "ends_at": {"type": "string", "format": "date-time"},
+        "ordering": {"const": "concurrent-or-dependency-bound"},
+        "when_clauses": {
+          "type": "array", "minItems": 1,
+          "items": {"$ref": "#/$defs/whenClause"}
+        }
+      }
+    },
+    "actionHypothesis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["hypothesis_id", "actor_ref", "verb", "object", "object_class", "geography", "service", "target_condition_id", "intended_signal_ref", "expected_direction", "counter_signal_refs", "harm_signal_refs", "mechanism", "falsifier", "expires_at", "reversibility", "status", "authority_verification", "action_authorised"],
+      "properties": {
+        "hypothesis_id": {"type": "string", "pattern": "^action-hypothesis\\.[a-z0-9.-]+$"},
+        "actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+        "verb": {"$ref": "#/$defs/nonEmpty"},
+        "object": {"$ref": "#/$defs/nonEmpty"},
+        "object_class": {"$ref": "#/$defs/nonEmpty"},
+        "geography": {"$ref": "#/$defs/nonEmpty"},
+        "service": {"$ref": "#/$defs/nonEmpty"},
+        "target_condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+        "intended_signal_ref": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"},
+        "expected_direction": {"enum": ["increase", "decrease", "maintain", "unknown"]},
+        "counter_signal_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"}
+        },
+        "harm_signal_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"}
+        },
+        "mechanism": {"$ref": "#/$defs/nonEmpty"},
+        "falsifier": {"$ref": "#/$defs/nonEmpty"},
+        "expires_at": {"type": "string", "format": "date-time"},
+        "reversibility": {"enum": ["reversible", "partially-reversible", "irreversible"]},
+        "status": {"const": "proposal-only"},
+        "authority_verification": {"const": "external-unverified"},
+        "action_authorised": {"const": false}
+      }
+    },
+    "publicProjection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["goal", "freshness", "affected_parties", "consumer_if", "signal_contracts", "provider_when_plans", "action_hypotheses", "boundary"],
+      "properties": {
+        "goal": {"$ref": "#/$defs/nonEmpty"},
+        "freshness": {
+          "type": "object", "additionalProperties": false,
+          "required": ["as_of", "runtime_evaluation_required"],
+          "properties": {
+            "as_of": {"type": "string", "format": "date-time"},
+            "runtime_evaluation_required": {"const": true}
+          }
+        },
+        "affected_parties": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["actor_ref", "label", "identity_verification"],
+            "properties": {
+              "actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+              "label": {"$ref": "#/$defs/nonEmpty"},
+              "identity_verification": {"const": "external-unverified"}
+            }
+          }
+        },
+        "consumer_if": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "statement"],
+          "properties": {
+            "status": {"const": "unscored outcome hypothesis"},
+            "statement": {"$ref": "#/$defs/nonEmpty"},
+            "basis": {
+              "type": "object", "additionalProperties": false,
+              "required": ["condition_definition_refs", "evidence_state_refs", "condition_truth_assessed", "authority_effect"],
+              "properties": {
+                "condition_definition_refs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/conditionDefinitionRef"}},
+                "evidence_state_refs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidenceStateRef"}},
+                "condition_truth_assessed": {"const": false},
+                "authority_effect": {"const": "none"}
+              }
+            }
+          }
+        },
+        "signal_contracts": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["signal_ref", "condition_id", "role", "label", "measure", "unit", "denominator", "population", "geography", "period", "aggregation", "direction", "metric_checksum", "verification"],
+            "properties": {
+              "signal_ref": {"type": "string", "pattern": "^signal\\.[a-z0-9.-]+$"},
+              "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+              "role": {"enum": ["leading", "confirming", "counter", "outcome", "readiness", "intervention-exposure", "information-harm"]},
+              "label": {"$ref": "#/$defs/nonEmpty"},
+              "measure": {"$ref": "#/$defs/nonEmpty"},
+              "unit": {"$ref": "#/$defs/nonEmpty"},
+              "denominator": {"$ref": "#/$defs/nonEmpty"},
+              "population": {"$ref": "#/$defs/nonEmpty"},
+              "geography": {"$ref": "#/$defs/nonEmpty"},
+              "period": {"$ref": "#/$defs/nonEmpty"},
+              "aggregation": {"$ref": "#/$defs/nonEmpty"},
+              "direction": {"enum": ["increase", "decrease", "maintain", "two-sided", "unknown"]},
+              "metric_checksum": {"$ref": "#/$defs/sha256"},
+              "registered_metric_checksum": {"$ref": "#/$defs/sha256"},
+              "binding_kind": {"enum": ["executable-predicate", "supplemental-observation"]},
+              "verification": {"const": "external-unverified"}
+            }
+          }
+        },
+        "provider_when_plans": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["actor_ref", "status", "statement", "condition_moves", "conditions"],
+            "properties": {
+              "actor_ref": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"},
+              "status": {"const": "conditional plan hypothesis, not forecast or commitment"},
+              "statement": {"$ref": "#/$defs/nonEmpty"},
+              "condition_moves": {"$ref": "#/$defs/stringSet"},
+              "conditions": {
+                "type": "array", "minItems": 1,
+                "items": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["condition_id", "mode", "completion_criterion", "completion_test", "dependency_actor_refs", "next_review", "verification"],
+                  "properties": {
+                    "condition_id": {"type": "string", "pattern": "^condition\\.[a-z0-9.-]+$"},
+                    "mode": {"enum": ["act", "prepare", "watch", "negotiate", "coordinate", "escalate-for-authority", "cannot-move", "investigate"]},
+                    "completion_criterion": {"$ref": "#/$defs/nonEmpty"},
+                    "completion_test": {"$ref": "#/$defs/nonEmpty"},
+                    "dependency_actor_refs": {
+                      "type": "array", "uniqueItems": true,
+                      "items": {"type": "string", "pattern": "^actor\\.[a-z0-9.-]+$"}
+                    },
+                    "next_review": {"type": "string", "format": "date-time"},
+                    "verification": {"const": "external-unverified"}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "action_hypotheses": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["hypothesis_id", "status", "statement", "falsifier"],
+            "properties": {
+              "hypothesis_id": {"type": "string", "pattern": "^action-hypothesis\\.[a-z0-9.-]+$"},
+              "status": {"const": "proposal-only; not authorised"},
+              "statement": {"$ref": "#/$defs/nonEmpty"},
+              "falsifier": {"$ref": "#/$defs/nonEmpty"}
+            }
+          }
+        },
+        "boundary": {"$ref": "#/$defs/nonEmpty"}
+      }
+    }
+  }
+}

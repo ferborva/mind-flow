@@ -1,0 +1,35 @@
+{
+  "profile": "mind-flow-canonical-json-v1",
+  "domain_prefix": "mind-flow:condition-evolution:v1",
+  "vectors": [
+    {
+      "kind": "challenge-statement",
+      "input": "A challenge with exact UTF-8 bytes.",
+      "expected_hash": "sha256:df56b78c0d36a9e5ebdd0f4edf5668b6fde91850793d935259518b81b87e8adb"
+    },
+    {
+      "kind": "condition-definition",
+      "fixture": "fixtures/valid/all-operations.json",
+      "selector": "event.01.added.new_states[0]",
+      "expected_hash": "sha256:405ca86c09c2f9def59a8e19e567c81028398ce23c746ea11db32578bd5951f3"
+    },
+    {
+      "kind": "event",
+      "fixture": "fixtures/valid/all-operations.json",
+      "selector": "event.01.added",
+      "expected_hash": "sha256:3fd3975ef731e34c189323dd5c6abc1a8725e122ce158058cfe606a680841fda"
+    },
+    {
+      "kind": "base-state",
+      "fixture": "fixtures/valid/cropped-history.json",
+      "selector": "history.base.conditions",
+      "expected_hash": "sha256:f6b386086fd1e3bcffcd0c898f8ecf7b1c75e872ea7901b6324299e29c3cdd3e"
+    },
+    {
+      "kind": "ledger-manifest",
+      "fixture": "fixtures/valid/all-operations.json",
+      "selector": "$",
+      "expected_hash": "sha256:2e98a50089fe0c0e4693f0ef941acfebb6cd6c97464d5d84f34a0afade398841"
+    }
+  ]
+}

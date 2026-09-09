@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Bind the ledger to a checksum that does not match the exact policy bytes.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/policy_ref/checksum",
+      "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

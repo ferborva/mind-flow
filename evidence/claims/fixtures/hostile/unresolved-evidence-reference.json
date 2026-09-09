@@ -1,0 +1,11 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Point a claim at evidence absent from the ledger.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/evidence_refs/0/evidence_id",
+      "value": "evidence.missing"
+    }
+  ]
+}

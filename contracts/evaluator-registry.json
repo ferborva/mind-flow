@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "authority_effect": "none",
+  "evaluators": [
+    {
+      "id": "mind-flow.condition-evaluator",
+      "version": "2.0.0",
+      "digest": "sha256:66d8e67b6095f466ed12490a311d536123e265995caae94dbf1d2a1266912d57"
+    },
+    {
+      "id": "mind-flow.condition-evaluator",
+      "version": "3.0.0",
+      "digest": "sha256:712214e1af7a3313b8b413cb601fb201191a26c9161b7ac8952f53fea292a3dc"
+    },
+    {
+      "id": "mind-flow.condition-evaluator",
+      "version": "3.0.1",
+      "digest": "sha256:3f90b03300a00aee1a3d749e600b6d986680ce15d9f5e54c2011d6cbaf07464e"
+    },
+    {
+      "id": "mind-flow.condition-pathway",
+      "version": "1.0.0",
+      "digest_kind": "executable-manifest-sha256",
+      "digest": "sha256:c217d27084c498ba98441824bee6ad115ae87367d8269345e0d1a7a7b6d8ad9b"
+    }
+  ]
+}

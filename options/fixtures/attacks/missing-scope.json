@@ -1,0 +1,10 @@
+{
+  "name": "missing-included-cohort-scope",
+  "operations": [
+    {
+      "op": "remove",
+      "path": "/scope/cohorts"
+    }
+  ],
+  "expected_layer": "schema"
+}

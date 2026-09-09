@@ -1,0 +1,10 @@
+{
+  "id": "hostile.missing-burdened-parties",
+  "operations": [
+    {
+      "op": "remove",
+      "path": "/assumptions/2/parties/burdened"
+    }
+  ],
+  "expected_codes": ["SCHEMA_NONCONFORMANT"]
+}

@@ -1,0 +1,505 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { isDeepStrictEqual } from "node:util";
+
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
+
+const DEFAULT_SCHEMA_BYTES = readFileSync(
+  new URL("./schema/signal-registry.schema.json", import.meta.url),
+);
+const DEFAULT_SCHEMA_SHA256 = "5586bcdaeaa9b95a7727e071b2a43d85f223335d2eacb3b870f5fa30e4a3e599";
+const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
+if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
+  throw new Error("signal-registry schema bytes do not match the validator's pinned contract digest");
+}
+const DEFAULT_SCHEMA = JSON.parse(DEFAULT_SCHEMA_BYTES.toString("utf8"));
+
+const ROLES = [
+  "leading",
+  "confirming",
+  "counter",
+  "outcome",
+  "readiness",
+  "intervention-exposure",
+  "information-harm",
+];
+const METRIC_HASH_DOMAIN = "mind-flow:signal-registry:metric-contract:v1";
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+export function computeMetricContractChecksum(metric) {
+  const material = structuredClone(metric);
+  delete material.metric_checksum;
+  return `sha256:${createHash("sha256")
+    .update(`${METRIC_HASH_DOMAIN}\n${canonicalJson(material)}`, "utf8")
+    .digest("hex")}`;
+}
+
+function issue(code, path, message, keyword = "integrity") {
+  return { code, path, message, keyword };
+}
+
+function duplicateIssues(items, key, path) {
+  const seen = new Set();
+  const errors = [];
+  for (const [index, item] of items.entries()) {
+    if (seen.has(item[key])) {
+      errors.push(issue("DUPLICATE_ID", `/${path}/${index}/${key}`, `${item[key]} is duplicated`));
+    }
+    seen.add(item[key]);
+  }
+  return errors;
+}
+
+function sameScope(left, right) {
+  return [
+    "construct_id",
+    "population",
+    "geography",
+    "statistical_unit",
+    "period",
+    "unit",
+    "denominator",
+    "aggregation_level",
+  ].every((field) => left[field] === right[field]);
+}
+
+export function renderPublicClaimCeiling(signal) {
+  return `${signal.label} may be described only as ${signal.epistemic_class} evidence about ${signal.estimand.quantity} for ${signal.estimand.population}, ${signal.estimand.geography}, during ${signal.estimand.period}. It does not establish causality, individual outcomes or action authority.`;
+}
+
+function lineageClosure(sourceId, sourceById, visiting = new Set()) {
+  if (visiting.has(sourceId)) return { ids: new Set([sourceId]), cycle: true };
+  const source = sourceById.get(sourceId);
+  if (!source) return { ids: new Set([sourceId]), cycle: false };
+
+  const nextVisiting = new Set(visiting).add(sourceId);
+  const ids = new Set([sourceId]);
+  let cycle = false;
+  for (const dependencyId of source.depends_on_source_ids) {
+    const dependency = lineageClosure(dependencyId, sourceById, nextVisiting);
+    for (const id of dependency.ids) ids.add(id);
+    cycle ||= dependency.cycle;
+  }
+  return { ids, cycle };
+}
+
+function sourceFamilies(signal, sourceById) {
+  const sourceIds = new Set();
+  const processes = new Set();
+  const evidenceUris = new Set();
+  const artifactChecksums = new Set();
+  let artifactsAcquired = true;
+  for (const sourceRef of signal.source_refs) {
+    const closure = lineageClosure(sourceRef, sourceById);
+    for (const id of closure.ids) {
+      sourceIds.add(id);
+      const source = sourceById.get(id);
+      if (source) {
+        processes.add(source.collection_process_id);
+        evidenceUris.add(source.evidence_ref);
+        if (source.artifact_binding.status !== "acquired-external-bytes") {
+          artifactsAcquired = false;
+        } else {
+          artifactChecksums.add(source.artifact_binding.checksum);
+        }
+      }
+    }
+  }
+  return { sourceIds, processes, evidenceUris, artifactChecksums, artifactsAcquired };
+}
+
+function intersects(left, right) {
+  return [...left].some((item) => right.has(item));
+}
+
+export function validateSignalRegistry(registry) {
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  addFormats(ajv);
+  const validateSchema = ajv.compile(DEFAULT_SCHEMA);
+  const schemaValid = validateSchema(registry);
+  const errors = (validateSchema.errors ?? []).map((item) => ({
+    ...item,
+    code: "SCHEMA_INVALID",
+    path: item.instancePath,
+    message: item.message ?? "schema validation failed",
+  }));
+
+  if (registry?.authority !== "none"
+      || registry?.operational_effect !== false
+      || (registry?.signals || []).some((signal) =>
+        signal?.claim_permissions?.causal_claim !== false
+        || signal?.claim_permissions?.individual_inference !== false
+        || signal?.claim_permissions?.operational_effect !== false)) {
+    errors.push(issue(
+      "AUTHORITY_BOUNDARY_INVALID",
+      "/authority",
+      "signal registries cannot establish causality, individual inference or action authority",
+    ));
+  }
+
+  if (!schemaValid) {
+    return {
+      machine_valid: false,
+      schema_valid: false,
+      integrity_valid: false,
+      truth_determined: false,
+      causality_determined: false,
+      action_authority_determined: false,
+      errors,
+    };
+  }
+
+  errors.push(...duplicateIssues(registry.sources, "source_id", "sources"));
+  errors.push(...duplicateIssues(registry.signals, "signal_id", "signals"));
+  errors.push(...duplicateIssues(registry.portfolios, "condition_id", "portfolios"));
+  errors.push(...duplicateIssues(registry.condition_bindings, "condition_id", "condition_bindings"));
+
+  const sourceById = new Map(registry.sources.map((source) => [source.source_id, source]));
+  const signalById = new Map(registry.signals.map((signal) => [signal.signal_id, signal]));
+  const conditionById = new Map(registry.condition_bindings.map((binding) => [
+    binding.condition_id,
+    binding,
+  ]));
+
+  if (registry.schema_version === "1.1.0") {
+    errors.push(...duplicateIssues(
+      registry.signals.map(({ metric_contract: contract }) => contract).filter(Boolean),
+      "metric_id",
+      "signals/metric_contracts",
+    ));
+    for (const [bindingIndex, binding] of registry.condition_bindings.entries()) {
+      if (binding.binding_status !== "locally-verified-complete" ||
+          binding.condition_definition_ref?.condition_id !== binding.condition_id) {
+        errors.push(issue(
+          "LOCAL_CONDITION_BINDING_MISMATCH",
+          `/condition_bindings/${bindingIndex}`,
+          "v1.1 condition bindings must preserve one exact definition, ledger tip and evidence state",
+        ));
+      }
+    }
+    const executableRefs = new Set();
+    for (const [signalIndex, signal] of registry.signals.entries()) {
+      const metric = signal.metric_contract;
+      const expectedProcesses = [...new Set(signal.source_refs.map((sourceId) =>
+        sourceById.get(sourceId)?.collection_process_id).filter(Boolean))].sort();
+      const metricProcesses = [...new Set(metric?.collection_process_ids || [])].sort();
+      const expectedSourceRefs = [...new Set(signal.source_refs)].sort();
+      const metricSourceRefs = [...new Set(metric?.source_refs || [])].sort();
+      if (!metric || metric.metric_checksum !== computeMetricContractChecksum(metric)) {
+        errors.push(issue(
+          "METRIC_CONTRACT_HASH_MISMATCH",
+          `/signals/${signalIndex}/metric_contract`,
+          "a v1.1 metric contract must be present and hash-bind its complete measurement rule",
+        ));
+      } else if (metric.measure !== signal.estimand.quantity ||
+          metric.unit !== signal.estimand.unit ||
+          metric.denominator !== signal.estimand.denominator ||
+          metric.population !== signal.estimand.population ||
+          metric.geography !== signal.estimand.geography ||
+          metric.period !== signal.estimand.period ||
+          metric.aggregation !== signal.estimand.aggregation_level ||
+          !isDeepStrictEqual(metricProcesses, expectedProcesses) ||
+          !isDeepStrictEqual(metricSourceRefs, expectedSourceRefs)) {
+        errors.push(issue(
+          "METRIC_ESTIMAND_MISMATCH",
+          `/signals/${signalIndex}/metric_contract`,
+          "the canonical metric must reproduce the signal estimand and source lineage exactly",
+        ));
+      }
+      const binding = signal.executable_binding;
+      const supplemental = signal.supplemental_binding;
+      const refKey = binding
+        ? `${binding.signal_definition_ref?.signal_id}@${binding.signal_definition_ref?.definition_version}`
+        : null;
+      const linkedConditionIds = new Set(signal.condition_links.map(({ condition_id: id }) => id));
+      if ((binding === undefined) === (supplemental === undefined)) {
+        errors.push(issue(
+          "SIGNAL_BINDING_KIND_MISMATCH",
+          `/signals/${signalIndex}`,
+          "a v1.1 signal must be exactly one of executable predicate evidence or a supplemental observation",
+        ));
+      } else if (binding && (binding.signal_definition_ref?.signal_id !== signal.signal_id ||
+          binding.condition_definition_ref?.condition_id === undefined ||
+          !linkedConditionIds.has(binding.condition_definition_ref.condition_id) ||
+          !conditionById.has(binding.condition_definition_ref.condition_id) ||
+          !isDeepStrictEqual(
+            conditionById.get(binding.condition_definition_ref.condition_id)?.condition_definition_ref,
+            binding.condition_definition_ref,
+          ) || executableRefs.has(refKey))) {
+        errors.push(issue(
+          "EXECUTABLE_SIGNAL_BINDING_MISMATCH",
+          `/signals/${signalIndex}/executable_binding`,
+          "an executable signal must bind its own immutable definition and one exact registered condition",
+        ));
+      } else if (supplemental) {
+        const exactCondition = conditionById.get(
+          supplemental.condition_definition_ref?.condition_id,
+        );
+        const matchingLink = signal.condition_links.some((link) =>
+          link.condition_id === supplemental.condition_definition_ref?.condition_id &&
+          link.evidence_role === supplemental.purpose);
+        if (supplemental.truth_expression_effect !== "none" || !exactCondition || !matchingLink ||
+            !isDeepStrictEqual(
+              exactCondition.condition_definition_ref,
+              supplemental.condition_definition_ref,
+            )) {
+          errors.push(issue(
+            "SUPPLEMENTAL_SIGNAL_BINDING_MISMATCH",
+            `/signals/${signalIndex}/supplemental_binding`,
+            "supplemental evidence must bind one exact condition and matching non-predicate evidence role",
+          ));
+        }
+      }
+      if (refKey) executableRefs.add(refKey);
+    }
+  }
+
+  for (const [sourceIndex, source] of registry.sources.entries()) {
+    for (const dependencyId of source.depends_on_source_ids) {
+      if (!sourceById.has(dependencyId)) {
+        errors.push(issue(
+          "UNRESOLVED_SOURCE_DEPENDENCY",
+          `/sources/${sourceIndex}/depends_on_source_ids`,
+          `${dependencyId} does not resolve`,
+        ));
+      }
+    }
+    if (lineageClosure(source.source_id, sourceById).cycle) {
+      errors.push(issue(
+        "SOURCE_LINEAGE_CYCLE",
+        `/sources/${sourceIndex}/depends_on_source_ids`,
+        `${source.source_id} participates in a source-lineage cycle`,
+      ));
+    }
+  }
+
+  for (const [signalIndex, signal] of registry.signals.entries()) {
+    for (const sourceRef of signal.source_refs) {
+      if (!sourceById.has(sourceRef)) {
+        errors.push(issue(
+          "UNRESOLVED_SIGNAL_SOURCE",
+          `/signals/${signalIndex}/source_refs`,
+          `${sourceRef} does not resolve`,
+        ));
+      }
+    }
+    for (const [permission, permitted] of Object.entries(signal.claim_permissions)) {
+      if (permitted) {
+        errors.push(issue(
+          "CLAIM_PERMISSION_FORBIDDEN",
+          `/signals/${signalIndex}/claim_permissions/${permission}`,
+          `a ${signal.status} signal cannot assert ${permission}`,
+        ));
+      }
+    }
+    if (signal.public_claim_ceiling !== renderPublicClaimCeiling(signal)) {
+      errors.push(issue(
+        "PUBLIC_CLAIM_CEILING_MISMATCH",
+        `/signals/${signalIndex}/public_claim_ceiling`,
+        "the public claim ceiling must be generated from typed epistemic and scope boundaries",
+      ));
+    }
+    for (const [linkIndex, link] of signal.condition_links.entries()) {
+      const expectedScope = {
+        construct_id: signal.construct.construct_id,
+        population: signal.estimand.population,
+        geography: signal.estimand.geography,
+        statistical_unit: signal.construct.statistical_unit,
+        period: signal.estimand.period,
+        unit: signal.estimand.unit,
+        denominator: signal.estimand.denominator,
+        aggregation_level: signal.estimand.aggregation_level,
+      };
+      if (!sameScope(link.scope, expectedScope)) {
+        errors.push(issue(
+          "ESTIMAND_SCOPE_MISMATCH",
+          `/signals/${signalIndex}/condition_links/${linkIndex}/scope`,
+          "the condition link must preserve the signal estimand population, geography and statistical unit",
+        ));
+      }
+    }
+  }
+
+  for (const [portfolioIndex, portfolio] of registry.portfolios.entries()) {
+    const conditionBinding = conditionById.get(portfolio.condition_id);
+    if (!conditionBinding) {
+      errors.push(issue(
+        "UNRESOLVED_CONDITION_BINDING",
+        `/portfolios/${portfolioIndex}/condition_id`,
+        `${portfolio.condition_id} does not resolve to a declared condition binding`,
+      ));
+    } else if (conditionBinding.ledger_ref !== portfolio.ledger_ref) {
+      errors.push(issue(
+        "CONDITION_LEDGER_MISMATCH",
+        `/portfolios/${portfolioIndex}/ledger_ref`,
+        "portfolio and condition binding do not name the same evolution ledger",
+      ));
+    }
+    if (portfolio.decision_context.use !== "research-only"
+      && conditionBinding?.binding_status !== "locally-verified-complete") {
+      errors.push(issue(
+        "CONDITION_LEDGER_UNVERIFIED",
+        `/portfolios/${portfolioIndex}/decision_context/use`,
+        "decision use requires a locally verified complete condition-evolution ledger",
+      ));
+    }
+    const declaredRoles = [
+      ...portfolio.role_assignments.map(({ role }) => role),
+      ...portfolio.unresolved_roles.map(({ role }) => role),
+    ];
+    const roleCounts = new Map(ROLES.map((role) => [
+      role,
+      declaredRoles.filter((candidate) => candidate === role).length,
+    ]));
+    if (declaredRoles.length !== ROLES.length
+      || [...roleCounts.values()].some((count) => count !== 1)) {
+      errors.push(issue(
+        "ROLE_COVERAGE_INVALID",
+        `/portfolios/${portfolioIndex}`,
+        "each role must be assigned once or declared unresolved once",
+      ));
+    }
+
+    if (portfolio.decision_context.use !== "research-only"
+      && !portfolio.decision_context.owner_ref) {
+      errors.push(issue(
+        "DECISION_OWNER_REQUIRED",
+        `/portfolios/${portfolioIndex}/decision_context/owner_ref`,
+        "decision-linked use requires an external human or institutional owner reference",
+      ));
+    }
+
+    const assignedByRole = new Map();
+    const rolesBySignal = new Map();
+    for (const [assignmentIndex, assignment] of portfolio.role_assignments.entries()) {
+      const assignedSignals = [];
+      for (const signalId of assignment.signal_ids) {
+        const signal = signalById.get(signalId);
+        if (!signal) {
+          errors.push(issue(
+            "UNRESOLVED_PORTFOLIO_SIGNAL",
+            `/portfolios/${portfolioIndex}/role_assignments/${assignmentIndex}/signal_ids`,
+            `${signalId} does not resolve`,
+          ));
+          continue;
+        }
+        assignedSignals.push(signal);
+        const priorRoles = rolesBySignal.get(signalId) ?? new Set();
+        priorRoles.add(assignment.role);
+        rolesBySignal.set(signalId, priorRoles);
+        if (["suspended", "retired"].includes(signal.status)) {
+          errors.push(issue(
+            "SIGNAL_STATUS_INELIGIBLE",
+            `/portfolios/${portfolioIndex}/role_assignments/${assignmentIndex}/signal_ids`,
+            `${signalId} is ${signal.status} and cannot fill an active portfolio role`,
+          ));
+        }
+        const matchingLink = signal.condition_links.find((link) => (
+          link.condition_id === portfolio.condition_id
+          && link.ledger_ref === portfolio.ledger_ref
+          && link.evidence_role === assignment.role
+        ));
+        if (!matchingLink) {
+          errors.push(issue(
+            "ROLE_LINK_MISMATCH",
+            `/portfolios/${portfolioIndex}/role_assignments/${assignmentIndex}`,
+            `${signalId} does not declare this condition, ledger and role`,
+          ));
+          continue;
+        }
+        if (!sameScope(matchingLink.scope, portfolio.scope)) {
+          errors.push(issue(
+            "CONDITION_SCOPE_MISMATCH",
+            `/signals/${registry.signals.indexOf(signal)}/condition_links`,
+            `${signalId} changes the portfolio population, geography or statistical unit`,
+          ));
+        }
+        if (portfolio.decision_context.use !== "research-only"
+          && assignment.role === "leading") {
+          const lead = signal.timing.prospective_decision_lead_min_days;
+          if (lead === null || lead < portfolio.decision_context.minimum_useful_lead_days) {
+            errors.push(issue(
+              "INSUFFICIENT_DECISION_LEAD",
+              `/signals/${registry.signals.indexOf(signal)}/timing/prospective_decision_lead_min_days`,
+              `${signalId} does not arrive early enough for the registered decision`,
+            ));
+          }
+        }
+      }
+      assignedByRole.set(assignment.role, [
+        ...(assignedByRole.get(assignment.role) ?? []),
+        ...assignedSignals,
+      ]);
+    }
+    for (const [signalId, roles] of rolesBySignal.entries()) {
+      if (roles.size > 1) {
+        errors.push(issue(
+          "SIGNAL_ROLE_REUSE",
+          `/portfolios/${portfolioIndex}/role_assignments`,
+          `${signalId} is assigned across multiple evidence roles`,
+        ));
+      }
+    }
+    if (portfolio.public_disposition === "public-with-unknowns") {
+      const assignedSignals = [...assignedByRole.values()].flat();
+      const hasUnacquiredLineage = assignedSignals.some((signal) =>
+        !sourceFamilies(signal, sourceById).artifactsAcquired);
+      const hasIneligibleStatus = assignedSignals.some((signal) => signal.status !== "shadow");
+      if (conditionBinding?.binding_status !== "locally-verified-complete"
+        || hasUnacquiredLineage
+        || hasIneligibleStatus) {
+        errors.push(issue(
+          "PUBLIC_DISPOSITION_UNVERIFIED",
+          `/portfolios/${portfolioIndex}/public_disposition`,
+          "public use requires a locally verified complete condition history, acquired source lineage and shadow-eligible signals",
+        ));
+      }
+    }
+
+    const leading = assignedByRole.get("leading") ?? [];
+    const confirming = assignedByRole.get("confirming") ?? [];
+    for (const leadSignal of leading) {
+      const leadFamilies = sourceFamilies(leadSignal, sourceById);
+      for (const confirmingSignal of confirming) {
+        const confirmingFamilies = sourceFamilies(confirmingSignal, sourceById);
+        if (!leadFamilies.artifactsAcquired || !confirmingFamilies.artifactsAcquired) {
+          errors.push(issue(
+            "CONFIRMATION_SOURCE_UNVERIFIED",
+            `/portfolios/${portfolioIndex}/role_assignments`,
+            "independent confirmation requires acquired bytes for every leading and confirming source lineage",
+          ));
+        }
+        if (intersects(leadFamilies.sourceIds, confirmingFamilies.sourceIds)
+          || intersects(leadFamilies.processes, confirmingFamilies.processes)
+          || intersects(leadFamilies.evidenceUris, confirmingFamilies.evidenceUris)
+          || intersects(leadFamilies.artifactChecksums, confirmingFamilies.artifactChecksums)) {
+          errors.push(issue(
+            "CONFIRMATION_NOT_INDEPENDENT",
+            `/portfolios/${portfolioIndex}/role_assignments`,
+            `${confirmingSignal.signal_id} shares source lineage or a collection process with ${leadSignal.signal_id}`,
+          ));
+        }
+      }
+    }
+  }
+
+  const integrityValid = errors.length === 0;
+  return {
+    machine_valid: schemaValid && integrityValid,
+    schema_valid: schemaValid,
+    integrity_valid: integrityValid,
+    truth_determined: false,
+    causality_determined: false,
+    action_authority_determined: false,
+    errors,
+  };
+}

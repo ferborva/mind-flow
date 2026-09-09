@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pathway.au-clerical-evidence-transition",
+  "definition_version": "1.0.0",
+  "created_at": "2026-09-08T00:00:00Z",
+  "public_term": "possible-path",
+  "title": "Australian clerical evidence transition paths",
+  "summary": "A shadow comparison of several paths that can fit the same bounded IF evidence without becoming a forecast, verdict or command.",
+  "scope": {
+    "jurisdictions": ["Australia"],
+    "geographies": ["Greater Sydney"],
+    "cohorts": ["clerical and administrative workers displaced in the previous 12 months"],
+    "services": ["local decent-living basket"]
+  },
+  "condition_definitions": [
+    {
+      "id": "condition.au-clerical-access-margin",
+      "version": "2.0.0",
+      "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+    }
+  ],
+  "branches": [
+    {
+      "id": "path.positive-preparation",
+      "kind": "positive",
+      "title": "Preparation remains possible",
+      "public_statement": "Preparation may remain warranted IF falling access and low-regret readiness conditions hold, while unresolved safeguards still prevent material action.",
+      "binding_interpretation": { "class": "hypothesis-only", "evidence_refs": [] },
+      "gate_tests": [
+        {
+          "id": "test.prepare-true",
+          "condition_definition": {
+            "id": "condition.au-clerical-access-margin",
+            "version": "2.0.0",
+            "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+          },
+          "gate": "prepare",
+          "expected_states": ["true"]
+        },
+        {
+          "id": "test.positive-reverse-conflicted",
+          "condition_definition": {
+            "id": "condition.au-clerical-access-margin",
+            "version": "2.0.0",
+            "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+          },
+          "gate": "reverse",
+          "expected_states": ["conflicted"]
+        }
+      ],
+      "next_discriminating_predicates": ["harm-material", "preparation-low-regret"],
+      "forecast_relation": { "status": "not-issued", "forecast_ref": null },
+      "early_warning": {
+        "readiness": "not-ready",
+        "detector_ref": null,
+        "loss_function_ref": null,
+        "performance_evidence_ref": null,
+        "review_capacity_ref": null,
+        "lead_time_evidence_ref": null,
+        "authority_effect": "none"
+      },
+      "operational_action": { "status": "none", "authority_effect": "none", "option_refs": [] }
+    },
+    {
+      "id": "path.adverse-evidence-strain",
+      "kind": "adverse",
+      "title": "Evidence disagreement strains confidence",
+      "public_statement": "Confidence may weaken IF materially different harm assessments remain unresolved and public communication fails to preserve that disagreement.",
+      "binding_interpretation": { "class": "hypothesis-only", "evidence_refs": [] },
+      "gate_tests": [
+        {
+          "id": "test.reverse-conflicted",
+          "condition_definition": {
+            "id": "condition.au-clerical-access-margin",
+            "version": "2.0.0",
+            "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+          },
+          "gate": "reverse",
+          "expected_states": ["conflicted"]
+        }
+      ],
+      "next_discriminating_predicates": ["harm-material"],
+      "forecast_relation": { "status": "not-estimable", "forecast_ref": null },
+      "early_warning": {
+        "readiness": "not-ready",
+        "detector_ref": null,
+        "loss_function_ref": null,
+        "performance_evidence_ref": null,
+        "review_capacity_ref": null,
+        "lead_time_evidence_ref": null,
+        "authority_effect": "none"
+      },
+      "operational_action": { "status": "none", "authority_effect": "none", "option_refs": [] }
+    },
+    {
+      "id": "path.measurement-alternative",
+      "kind": "measurement-alternative",
+      "title": "Measurement conflict explains the apparent crossing",
+      "public_statement": "The apparent transition may remain a measurement dispute IF the action gate stays conflicted because its harm evidence cannot be resolved under the declared method.",
+      "binding_interpretation": { "class": "hypothesis-only", "evidence_refs": [] },
+      "gate_tests": [
+        {
+          "id": "test.act-conflicted",
+          "condition_definition": {
+            "id": "condition.au-clerical-access-margin",
+            "version": "2.0.0",
+            "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+          },
+          "gate": "act",
+          "expected_states": ["conflicted"]
+        }
+      ],
+      "next_discriminating_predicates": ["harm-material", "output-rising"],
+      "forecast_relation": { "status": "not-estimable", "forecast_ref": null },
+      "early_warning": {
+        "readiness": "not-ready",
+        "detector_ref": null,
+        "loss_function_ref": null,
+        "performance_evidence_ref": null,
+        "review_capacity_ref": null,
+        "lead_time_evidence_ref": null,
+        "authority_effect": "none"
+      },
+      "operational_action": { "status": "none", "authority_effect": "none", "option_refs": [] }
+    },
+    {
+      "id": "path.recovery-continuity",
+      "kind": "recovery",
+      "title": "Recovery evidence becomes complete",
+      "public_statement": "Recovery may become consistent with the evidence IF both access and replacement earnings remain restored through their declared windows.",
+      "binding_interpretation": { "class": "hypothesis-only", "evidence_refs": [] },
+      "gate_tests": [
+        {
+          "id": "test.recover-true",
+          "condition_definition": {
+            "id": "condition.au-clerical-access-margin",
+            "version": "2.0.0",
+            "checksum": "sha256:f8db50ac8afd274b0bdfb8e2bee37b35caf8e6149391e64c26a9cf00cc4a00e7"
+          },
+          "gate": "recover",
+          "expected_states": ["true"]
+        }
+      ],
+      "next_discriminating_predicates": ["earnings-restored"],
+      "forecast_relation": { "status": "not-issued", "forecast_ref": null },
+      "early_warning": {
+        "readiness": "not-ready",
+        "detector_ref": null,
+        "loss_function_ref": null,
+        "performance_evidence_ref": null,
+        "review_capacity_ref": null,
+        "lead_time_evidence_ref": null,
+        "authority_effect": "none"
+      },
+      "operational_action": { "status": "none", "authority_effect": "none", "option_refs": [] }
+    }
+  ],
+  "participation_safeguards": {
+    "affected_groups": {
+      "status": "required-unverified",
+      "evidence_refs": [],
+      "note": "Affected clerical workers have not independently reviewed this synthetic pathway definition."
+    },
+    "dissent_routes": {
+      "status": "required-unverified",
+      "evidence_refs": [],
+      "note": "No externally verified dissent route is attached to this shadow definition."
+    },
+    "jurisdictional_authority": {
+      "status": "required-unverified",
+      "evidence_refs": [],
+      "note": "No Australian government authority or commitment is claimed."
+    },
+    "indigenous_data_governance": {
+      "status": "required-unverified",
+      "evidence_refs": [],
+      "note": "No Indigenous data governance review is claimed. Any relevant extension requires the authority of affected Aboriginal and Torres Strait Islander communities."
+    }
+  },
+  "claim_boundary": {
+    "probability_effect": "none",
+    "forecast_effect": "reference-only",
+    "causal_effect": "none",
+    "authority_effect": "none"
+  },
+  "governance": {
+    "lifecycle": "shadow",
+    "valid_from": "2026-09-08T00:00:00Z",
+    "expires_at": "2026-12-07T00:00:00Z",
+    "authority_effect": "none"
+  },
+  "provenance": {
+    "classification": "agent-proposal",
+    "authors": ["OpenAI Codex review programme"],
+    "rationale": "Synthetic pathway fixture for testing typed IF evolution without claiming probability, causation or action authority."
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "id": "attack.irreversible-evidence-weak",
+  "operations": [{ "op": "replace", "path": "/evidence_bundles/1/content/quality", "value": "provisional" }],
+  "expected_codes": ["IRREVERSIBLE_EVIDENCE_TOO_WEAK"]
+}

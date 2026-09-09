@@ -1,0 +1,54 @@
+{
+  "profile": "mind-flow.executable-if.conformance",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "all-true",
+      "expression": { "all": [{ "predicate_ref": "a" }, { "predicate_ref": "b" }] },
+      "states": { "a": "true", "b": "true" },
+      "expected": "true"
+    },
+    {
+      "id": "all-false-decisive",
+      "expression": { "all": [{ "predicate_ref": "a" }, { "predicate_ref": "b" }] },
+      "states": { "a": "false", "b": "unknown" },
+      "expected": "false"
+    },
+    {
+      "id": "all-shared-conflict",
+      "expression": { "all": [{ "predicate_ref": "a" }, { "predicate_ref": "b" }] },
+      "states": { "a": "conflicted", "b": "conflicted" },
+      "expected": "conflicted"
+    },
+    {
+      "id": "all-mixed-unresolved",
+      "expression": { "all": [{ "predicate_ref": "a" }, { "predicate_ref": "b" }] },
+      "states": { "a": "stale", "b": "conflicted" },
+      "expected": "unknown"
+    },
+    {
+      "id": "any-true-decisive",
+      "expression": { "any": [{ "predicate_ref": "a" }, { "predicate_ref": "b" }] },
+      "states": { "a": "true", "b": "stale" },
+      "expected": "true"
+    },
+    {
+      "id": "any-all-false",
+      "expression": { "any": [{ "predicate_ref": "a" }, { "predicate_ref": "b" }] },
+      "states": { "a": "false", "b": "false" },
+      "expected": "false"
+    },
+    {
+      "id": "not-preserves-unknown",
+      "expression": { "not": { "predicate_ref": "a" } },
+      "states": { "a": "unknown" },
+      "expected": "unknown"
+    },
+    {
+      "id": "not-inverts-true",
+      "expression": { "not": { "predicate_ref": "a" } },
+      "states": { "a": "true" },
+      "expected": "false"
+    }
+  ]
+}

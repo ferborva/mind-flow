@@ -1,0 +1,5 @@
+{
+  "id": "attack.irreversible-authority-weak",
+  "operations": [{ "op": "replace", "path": "/actions/2/authority_evidence/state", "value": "caller-asserted-verified" }],
+  "expected_codes": ["IRREVERSIBLE_AUTHORITY_TOO_WEAK"]
+}

@@ -1,0 +1,5 @@
+{
+  "id": "attack.emergency-funding-expires",
+  "operations": [{ "op": "replace", "path": "/actions/3/resources/funding/valid_through", "value": "2026-09-10T00:00:00Z" }],
+  "expected_codes": ["EMERGENCY_FUNDING_EXPIRES_EARLY"]
+}

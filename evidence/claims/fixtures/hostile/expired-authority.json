@@ -1,0 +1,30 @@
+{
+  "$base": "../valid/compound-sentence.json",
+  "attack": "Use an expired publication authority record for a current recorded disposition.",
+  "mutations": [
+    {
+      "operation": "set",
+      "path": "/claims/0/publication_disposition",
+      "value": "approved-by-governance-record"
+    },
+    {
+      "operation": "append",
+      "path": "/claims/0/publication_authority_refs",
+      "value": "authority.expired-publication"
+    },
+    {
+      "operation": "append",
+      "path": "/authorities",
+      "value": {
+        "authority_id": "authority.expired-publication",
+        "kind": "publication",
+        "issuer": "Example publication body",
+        "scope": "Example claim publication",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_through": "2026-09-08T11:59:59Z",
+        "record_uri": "authority://expired-publication/001",
+        "checksum": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+      }
+    }
+  ]
+}

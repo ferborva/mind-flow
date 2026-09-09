@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/contracts/correction-record/1-0-0",
+  "title": "Seldon Observatory correction record",
+  "description": "An append-only edge from an incorrect artifact to its replacement, with explicit downstream invalidation. Storage immutability is outside this schema.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "correction_type",
+    "corrects",
+    "replacement",
+    "invalidates",
+    "reason",
+    "recorded_at",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "correction_type": { "enum": ["source-data", "processing", "method", "administrative"] },
+    "corrects": { "$ref": "#/$defs/artifactReference" },
+    "replacement": { "$ref": "#/$defs/artifactReference" },
+    "invalidates": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/artifactReference" }
+    },
+    "reason": { "$ref": "#/$defs/nonEmptyString" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "artifactKind": { "enum": ["predicate-observation", "evaluation-run", "evaluation-attempt"] },
+    "artifactReference": {
+      "type": "object",
+      "required": ["kind", "id", "checksum"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/artifactKind" },
+        "id": { "$ref": "#/$defs/id" },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["producer", "method", "reviewed_by"],
+      "properties": {
+        "producer": {
+          "type": "object",
+          "required": ["organisation", "role"],
+          "properties": {
+            "organisation": { "$ref": "#/$defs/nonEmptyString" },
+            "role": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "method": { "$ref": "#/$defs/nonEmptyString" },
+        "reviewed_by": {
+          "type": "object",
+          "required": ["organisation", "role"],
+          "properties": {
+            "organisation": { "$ref": "#/$defs/nonEmptyString" },
+            "role": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

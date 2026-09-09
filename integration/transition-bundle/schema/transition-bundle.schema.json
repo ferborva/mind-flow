@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/integration/transition-bundle/1-2-0",
+  "title": "Mind Flow transition bundle",
+  "description": "A content-addressed manifest that asks whether separately validated programme artifacts describe one bounded transition. It does not establish truth, authority or permission.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "bundle_stage",
+    "classification",
+    "as_of",
+    "evaluation_clock",
+    "authority_effect",
+    "publication_approved",
+    "action_authorised",
+    "canonical",
+    "scope_bindings",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": { "enum": ["1.1.0", "1.2.0"] },
+    "bundle_id": { "$ref": "#/$defs/id" },
+    "bundle_stage": { "enum": ["pre-projection-core", "complete-core"] },
+    "classification": { "const": "research-draft" },
+    "as_of": { "type": "string", "format": "date-time" },
+    "evaluation_clock": {
+      "type": "object",
+      "required": ["evaluated_at", "source", "trusted"],
+      "properties": {
+        "evaluated_at": { "type": "string", "format": "date-time" },
+        "source": { "const": "operator-supplied" },
+        "trusted": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "authority_effect": { "const": "none" },
+    "publication_approved": { "const": false },
+    "action_authorised": { "const": false },
+    "canonical": {
+      "type": "object",
+      "required": [
+        "condition_ids",
+        "outcome_logic_ref",
+        "scope_manifest_ref",
+        "root_role"
+      ],
+      "properties": {
+        "condition_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "outcome_logic_ref": { "$ref": "#/$defs/outcomeLogicRef" },
+        "scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" },
+        "executable_if_ref": { "$ref": "#/$defs/executableIfRef" },
+        "root_role": { "const": "agency-map" }
+      },
+      "additionalProperties": false
+    },
+    "scope_bindings": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/scopeBinding" }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["role", "path", "sha256"],
+        "properties": {
+          "role": {
+            "enum": [
+              "agency-map",
+              "evolution-ledger",
+              "signal-registry",
+              "possible-path",
+              "preparation-register",
+              "dashboard-snapshot",
+              "forecast",
+              "executable-if-kernel"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+          },
+          "sha256": { "$ref": "#/$defs/sha256" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": { "const": "1.1.0" },
+          "bundle_stage": { "const": "pre-projection-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
+      },
+      "then": { "properties": { "artifacts": { "type": "array", "minItems": 6, "maxItems": 6 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": { "const": "1.1.0" },
+          "bundle_stage": { "const": "complete-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
+      },
+      "then": { "properties": { "artifacts": { "type": "array", "minItems": 7, "maxItems": 7 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": { "const": "1.2.0" },
+          "bundle_stage": { "const": "pre-projection-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
+      },
+      "then": {
+        "properties": {
+          "canonical": {
+            "type": "object",
+            "required": ["executable_if_ref"],
+            "properties": { "executable_if_ref": { "$ref": "#/$defs/executableIfRef" } }
+          },
+          "artifacts": { "type": "array", "minItems": 7, "maxItems": 7 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": { "const": "1.2.0" },
+          "bundle_stage": { "const": "complete-core" }
+        },
+        "required": ["schema_version", "bundle_stage"]
+      },
+      "then": {
+        "properties": {
+          "canonical": {
+            "type": "object",
+            "required": ["executable_if_ref"],
+            "properties": { "executable_if_ref": { "$ref": "#/$defs/executableIfRef" } }
+          },
+          "artifacts": { "type": "array", "minItems": 8, "maxItems": 8 }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+    },
+    "outcomeLogicRef": {
+      "type": "object",
+      "required": ["artifact_role", "json_pointer", "sha256"],
+      "properties": {
+        "artifact_role": { "const": "agency-map" },
+        "json_pointer": { "const": "/outcome_scope/condition_logic" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "scopeManifestRef": {
+      "type": "object",
+      "required": ["scope_manifest_id", "path", "sha256"],
+      "properties": {
+        "scope_manifest_id": { "$ref": "#/$defs/id" },
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "mappingRef": {
+      "type": "object",
+      "required": ["mapping_id", "sha256"],
+      "properties": {
+        "mapping_id": { "$ref": "#/$defs/id" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+        },
+        "definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "evaluatorRef": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "digest",
+        "schema_digest",
+        "implementation_digest",
+        "conformance_vectors_digest"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+        },
+        "digest": { "$ref": "#/$defs/sha256" },
+        "schema_digest": { "$ref": "#/$defs/sha256" },
+        "implementation_digest": { "$ref": "#/$defs/sha256" },
+        "conformance_vectors_digest": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "executableIfRef": {
+      "type": "object",
+      "required": [
+        "artifact_role",
+        "kernel_id",
+        "manifest_hash",
+        "evaluator_ref",
+        "active_condition_definition_refs",
+        "evidence_state_ref"
+      ],
+      "properties": {
+        "artifact_role": { "const": "executable-if-kernel" },
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "manifest_hash": { "$ref": "#/$defs/sha256" },
+        "evaluator_ref": { "$ref": "#/$defs/evaluatorRef" },
+        "active_condition_definition_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/conditionDefinitionRef" }
+        },
+        "evidence_state_ref": { "$ref": "#/$defs/evidenceStateRef" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceStateRef": {
+      "type": "object",
+      "required": [
+        "kernel_id",
+        "kernel_manifest_hash",
+        "evidence_event_count",
+        "evidence_tip_event_id",
+        "evidence_tip_event_hash",
+        "evidence_state_hash"
+      ],
+      "properties": {
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "kernel_manifest_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_event_count": { "type": "integer", "minimum": 1 },
+        "evidence_tip_event_id": { "$ref": "#/$defs/id" },
+        "evidence_tip_event_hash": { "$ref": "#/$defs/sha256" },
+        "evidence_state_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "scopeBinding": {
+      "type": "object",
+      "required": [
+        "role",
+        "canonical_scope_manifest_ref",
+        "native_scope_hash",
+        "mapping_ref"
+      ],
+      "properties": {
+        "role": { "enum": ["agency-map", "possible-path"] },
+        "canonical_scope_manifest_ref": { "$ref": "#/$defs/scopeManifestRef" },
+        "native_scope_hash": { "$ref": "#/$defs/sha256" },
+        "mapping_ref": { "$ref": "#/$defs/mappingRef" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

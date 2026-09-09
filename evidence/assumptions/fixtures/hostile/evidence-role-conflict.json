@@ -1,0 +1,17 @@
+{
+  "id": "hostile.evidence-role-conflict",
+  "operations": [
+    {
+      "op": "add",
+      "path": "/assumptions/0/counterevidence_refs/0",
+      "value": {
+        "ref_id": "review.round-03.internal",
+        "kind": "internal_review",
+        "locator": "reviews/round-03-internal-adversarial-register.md",
+        "verification_state": "repository_local",
+        "relevance": "The same reference is silently counted on both sides."
+      }
+    }
+  ],
+  "expected_codes": ["EVIDENCE_ROLE_CONFLICT"]
+}

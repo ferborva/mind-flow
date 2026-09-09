@@ -1,0 +1,1795 @@
+{
+  "schema_version": "1.1.0",
+  "kernel_id": "kernel.worker-option.synthetic",
+  "classification": "research-draft",
+  "empirical_truth_established": false,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "publication_approved": false,
+  "evaluator": {
+    "id": "mind-flow.executable-if.evaluator",
+    "version": "1.1.0",
+    "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+    "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+    "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+    "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+  },
+  "signals": [
+    {
+      "signal_id": "signal.option.coverage",
+      "definition_version": "1.0.0",
+      "label": "Credible option coverage",
+      "construct": "Share of affected workers with a credible alternative",
+      "population": "Affected workers inside the complete registered observation scope",
+      "estimand": "Share of affected workers with a credible alternative",
+      "aggregation": "Eligible-worker weighted ratio",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "synthetic:test-panel/1.0.0",
+      "value_kind": "number",
+      "unit": "ratio",
+      "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+    },
+    {
+      "signal_id": "signal.human-review.available",
+      "definition_version": "1.0.0",
+      "label": "Human review available",
+      "construct": "Whether an accessible human review route exists",
+      "population": "Affected workers inside the complete registered observation scope",
+      "estimand": "Whether an accessible human review route exists",
+      "aggregation": "All eligible scope cells report the same Boolean state",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "synthetic:test-panel/1.0.0",
+      "value_kind": "boolean",
+      "unit": "boolean",
+      "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "event.worker-option.added",
+      "operation": "added",
+      "recorded_at": "2026-01-01T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic added event for executable IF contract testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:3281263ef51a9babf79747c1efec637453ad4c17150cfb0d243c42856c76ad4b"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.worker-option",
+          "definition_version": "1.0.0",
+          "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-01-01T00:00:00Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales",
+              "Queensland"
+            ],
+            "cohorts": [
+              "General Clerks",
+              "Payroll Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          },
+          "predicates": {
+            "option-coverage": {
+              "signal_ref": {
+                "signal_id": "signal.option.coverage",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.8,
+                "unit": "ratio"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            },
+            "human-review": {
+              "signal_ref": {
+                "signal_id": "signal.human-review.available",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+              },
+              "operator": "eq",
+              "threshold": {
+                "value": true,
+                "unit": "boolean"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "all": [
+              {
+                "predicate_ref": "option-coverage"
+              },
+              {
+                "predicate_ref": "human-review"
+              }
+            ]
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:3281263ef51a9babf79747c1efec637453ad4c17150cfb0d243c42856c76ad4b"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": null,
+      "event_hash": "sha256:a7dd3018adc97a05aeb8d5ab7130783ecd93edc456ea94359391ab8f51443b3e"
+    },
+    {
+      "sequence": 2,
+      "event_id": "event.worker-option.narrowed",
+      "operation": "narrowed",
+      "recorded_at": "2026-02-01T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic narrowed event for executable IF contract testing.",
+      "previous_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:3281263ef51a9babf79747c1efec637453ad4c17150cfb0d243c42856c76ad4b"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "1.1.0",
+            "definition_hash": "sha256:321a561f3c79a59eaf010b613ca4287577a0f07795b7539c00438f14ef9a7b20"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.worker-option",
+          "definition_version": "1.1.0",
+          "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-02-01T00:00:00Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "General Clerks",
+              "Payroll Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          },
+          "predicates": {
+            "option-coverage": {
+              "signal_ref": {
+                "signal_id": "signal.option.coverage",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.8,
+                "unit": "ratio"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            },
+            "human-review": {
+              "signal_ref": {
+                "signal_id": "signal.human-review.available",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+              },
+              "operator": "eq",
+              "threshold": {
+                "value": true,
+                "unit": "boolean"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "all": [
+              {
+                "predicate_ref": "option-coverage"
+              },
+              {
+                "predicate_ref": "human-review"
+              }
+            ]
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:321a561f3c79a59eaf010b613ca4287577a0f07795b7539c00438f14ef9a7b20"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:a7dd3018adc97a05aeb8d5ab7130783ecd93edc456ea94359391ab8f51443b3e",
+      "event_hash": "sha256:046b05a3657de2eb338b35a4eede30895a40ab7fc6cab9c02ba73bb99befce65"
+    },
+    {
+      "sequence": 3,
+      "event_id": "event.worker-option.revised",
+      "operation": "definition-revised",
+      "recorded_at": "2026-03-01T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic definition-revised event for executable IF contract testing.",
+      "previous_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "1.1.0",
+            "definition_hash": "sha256:321a561f3c79a59eaf010b613ca4287577a0f07795b7539c00438f14ef9a7b20"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 3,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "2.0.0",
+            "definition_hash": "sha256:c74f5efee0e6303f13d776e03d1adead314c10509d59ad84c42a5927ef22eadd"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.worker-option",
+          "definition_version": "2.0.0",
+          "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-03-01T00:00:00Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "General Clerks",
+              "Payroll Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          },
+          "predicates": {
+            "option-coverage": {
+              "signal_ref": {
+                "signal_id": "signal.option.coverage",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.9,
+                "unit": "ratio"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            },
+            "human-review": {
+              "signal_ref": {
+                "signal_id": "signal.human-review.available",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+              },
+              "operator": "eq",
+              "threshold": {
+                "value": true,
+                "unit": "boolean"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "all": [
+              {
+                "predicate_ref": "option-coverage"
+              },
+              {
+                "predicate_ref": "human-review"
+              }
+            ]
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:c74f5efee0e6303f13d776e03d1adead314c10509d59ad84c42a5927ef22eadd"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:046b05a3657de2eb338b35a4eede30895a40ab7fc6cab9c02ba73bb99befce65",
+      "event_hash": "sha256:e470fd1918d168f058089daeea8335655da38d35d92f396fc7b482cf5a18a0f8"
+    },
+    {
+      "sequence": 4,
+      "event_id": "event.worker-option.split",
+      "operation": "split",
+      "recorded_at": "2026-04-01T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic split event for executable IF contract testing.",
+      "previous_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 3,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "2.0.0",
+            "definition_hash": "sha256:c74f5efee0e6303f13d776e03d1adead314c10509d59ad84c42a5927ef22eadd"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.worker-option",
+          "state_version": 4,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option",
+            "definition_version": "2.0.0",
+            "definition_hash": "sha256:c74f5efee0e6303f13d776e03d1adead314c10509d59ad84c42a5927ef22eadd"
+          },
+          "lifecycle": "superseded"
+        },
+        {
+          "condition_id": "condition.worker-option.nsw-general",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw-general",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:323797c79a5681bc49b6ce17fbc2a9b9da46d19f171732fd6e233e3914ee77ff"
+          },
+          "lifecycle": "active"
+        },
+        {
+          "condition_id": "condition.worker-option.nsw-payroll",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw-payroll",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7194c50e125607df90fcaa680741daabb3a28f9b220d2fe1992d91d9415819ca"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.worker-option.nsw-general",
+          "definition_version": "1.0.0",
+          "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-04-01T00:00:00Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "General Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          },
+          "predicates": {
+            "option-coverage": {
+              "signal_ref": {
+                "signal_id": "signal.option.coverage",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.9,
+                "unit": "ratio"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            },
+            "human-review": {
+              "signal_ref": {
+                "signal_id": "signal.human-review.available",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+              },
+              "operator": "eq",
+              "threshold": {
+                "value": true,
+                "unit": "boolean"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "all": [
+              {
+                "predicate_ref": "option-coverage"
+              },
+              {
+                "predicate_ref": "human-review"
+              }
+            ]
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:323797c79a5681bc49b6ce17fbc2a9b9da46d19f171732fd6e233e3914ee77ff"
+        },
+        {
+          "condition_id": "condition.worker-option.nsw-payroll",
+          "definition_version": "1.0.0",
+          "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-04-01T00:00:00Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "Payroll Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          },
+          "predicates": {
+            "option-coverage": {
+              "signal_ref": {
+                "signal_id": "signal.option.coverage",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.9,
+                "unit": "ratio"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            },
+            "human-review": {
+              "signal_ref": {
+                "signal_id": "signal.human-review.available",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+              },
+              "operator": "eq",
+              "threshold": {
+                "value": true,
+                "unit": "boolean"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "all": [
+              {
+                "predicate_ref": "option-coverage"
+              },
+              {
+                "predicate_ref": "human-review"
+              }
+            ]
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:7194c50e125607df90fcaa680741daabb3a28f9b220d2fe1992d91d9415819ca"
+        }
+      ],
+      "identity_change": {
+        "kind": "split",
+        "from_condition_ids": [
+          "condition.worker-option"
+        ],
+        "to_condition_ids": [
+          "condition.worker-option.nsw-general",
+          "condition.worker-option.nsw-payroll"
+        ]
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:e470fd1918d168f058089daeea8335655da38d35d92f396fc7b482cf5a18a0f8",
+      "event_hash": "sha256:065456a7a936f5cc11051b9af3a6bf85d802b348e0d88d57669876ff922f1983"
+    },
+    {
+      "sequence": 5,
+      "event_id": "event.worker-option.merge",
+      "operation": "merge",
+      "recorded_at": "2026-05-01T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic merge event for executable IF contract testing.",
+      "previous_states": [
+        {
+          "condition_id": "condition.worker-option.nsw-general",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw-general",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:323797c79a5681bc49b6ce17fbc2a9b9da46d19f171732fd6e233e3914ee77ff"
+          },
+          "lifecycle": "active"
+        },
+        {
+          "condition_id": "condition.worker-option.nsw-payroll",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw-payroll",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7194c50e125607df90fcaa680741daabb3a28f9b220d2fe1992d91d9415819ca"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "condition_id": "condition.worker-option.nsw-general",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw-general",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:323797c79a5681bc49b6ce17fbc2a9b9da46d19f171732fd6e233e3914ee77ff"
+          },
+          "lifecycle": "superseded"
+        },
+        {
+          "condition_id": "condition.worker-option.nsw-payroll",
+          "state_version": 2,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw-payroll",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7194c50e125607df90fcaa680741daabb3a28f9b220d2fe1992d91d9415819ca"
+          },
+          "lifecycle": "superseded"
+        },
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.worker-option.nsw",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.worker-option.nsw",
+          "definition_version": "1.0.0",
+          "proposition": "Affected workers have a credible alternative and an accessible human review route.",
+          "claim": {
+            "who": "Affected workers in the registered scope",
+            "verb": "retain",
+            "object": "a credible alternative and an accessible human review route",
+            "standard": "both registered protection predicates are satisfied",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-01-01T00:00:00Z",
+              "ends_at": "2026-12-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-05-01T00:00:00Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "New South Wales"
+            ],
+            "cohorts": [
+              "General Clerks",
+              "Payroll Clerks"
+            ],
+            "services": [
+              "Work transition support"
+            ]
+          },
+          "predicates": {
+            "option-coverage": {
+              "signal_ref": {
+                "signal_id": "signal.option.coverage",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.9,
+                "unit": "ratio"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            },
+            "human-review": {
+              "signal_ref": {
+                "signal_id": "signal.human-review.available",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+              },
+              "operator": "eq",
+              "threshold": {
+                "value": true,
+                "unit": "boolean"
+              },
+              "window": {
+                "lookback_days": 90,
+                "minimum_observations": 2,
+                "persistence": 2,
+                "maximum_age_days": 30
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 0.8,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "all": [
+              {
+                "predicate_ref": "option-coverage"
+              },
+              {
+                "predicate_ref": "human-review"
+              }
+            ]
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+            "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+            "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        }
+      ],
+      "identity_change": {
+        "kind": "merge",
+        "from_condition_ids": [
+          "condition.worker-option.nsw-general",
+          "condition.worker-option.nsw-payroll"
+        ],
+        "to_condition_ids": [
+          "condition.worker-option.nsw"
+        ]
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": "sha256:065456a7a936f5cc11051b9af3a6bf85d802b348e0d88d57669876ff922f1983",
+      "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "observation.option-coverage.june.withdrawn",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "option-coverage",
+      "signal_ref": {
+        "signal_id": "signal.option.coverage",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-06-01T00:00:00Z",
+        "end": "2026-06-30T00:00:00Z"
+      },
+      "recorded_at": "2026-07-01T00:00:00Z",
+      "value": 0.91,
+      "unit": "ratio",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:00d5868383bb243b0b9381d1cae433a8bad429c6c46c2a3ef79aa064977027d3"
+    },
+    {
+      "observation_id": "observation.human-review.june.expired",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "human-review",
+      "signal_ref": {
+        "signal_id": "signal.human-review.available",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-06-01T00:00:00Z",
+        "end": "2026-06-30T00:00:00Z"
+      },
+      "recorded_at": "2026-07-01T00:00:00Z",
+      "value": true,
+      "unit": "boolean",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:bb2bc976d4405b9c2b3e02e46ecad1929e6bed0a87a45091720169f4fc4201bd"
+    },
+    {
+      "observation_id": "observation.option-coverage.july.original",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "option-coverage",
+      "signal_ref": {
+        "signal_id": "signal.option.coverage",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-31T00:00:00Z"
+      },
+      "recorded_at": "2026-08-01T00:00:00Z",
+      "value": 0.91,
+      "unit": "ratio",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:ea663cac4eda6014b6a04c96bf16fece3704e5364eaa30ef9efc97736f9db20e"
+    },
+    {
+      "observation_id": "observation.option-coverage.july",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "option-coverage",
+      "signal_ref": {
+        "signal_id": "signal.option.coverage",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-31T00:00:00Z"
+      },
+      "recorded_at": "2026-08-03T00:00:00Z",
+      "value": 0.94,
+      "unit": "ratio",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91"
+    },
+    {
+      "observation_id": "observation.human-review.july",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "human-review",
+      "signal_ref": {
+        "signal_id": "signal.human-review.available",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-31T00:00:00Z"
+      },
+      "recorded_at": "2026-08-01T00:00:00Z",
+      "value": true,
+      "unit": "boolean",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+    },
+    {
+      "observation_id": "observation.option-coverage.august",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "option-coverage",
+      "signal_ref": {
+        "signal_id": "signal.option.coverage",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:6a88f1d5df35604dd204072f9285bc2d3871c6961e771402264ef15383949308"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-08-01T00:00:00Z",
+        "end": "2026-08-31T00:00:00Z"
+      },
+      "recorded_at": "2026-09-01T00:00:00Z",
+      "value": 0.95,
+      "unit": "ratio",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c"
+    },
+    {
+      "observation_id": "observation.human-review.august",
+      "classification": "synthetic-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "predicate_id": "human-review",
+      "signal_ref": {
+        "signal_id": "signal.human-review.available",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:402205bea9559fc6f522208bbbed6ed258c9ef987a58c16604cb5c7860cc88d1"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "New South Wales"
+        ],
+        "cohorts": [
+          "General Clerks",
+          "Payroll Clerks"
+        ],
+        "services": [
+          "Work transition support"
+        ]
+      },
+      "period": {
+        "start": "2026-08-01T00:00:00Z",
+        "end": "2026-08-31T00:00:00Z"
+      },
+      "recorded_at": "2026-09-01T00:00:00Z",
+      "value": true,
+      "unit": "boolean",
+      "source_id": "source.synthetic-employer-worker-panel",
+      "source_artifact_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Invented test data has no real-world sampling or measurement uncertainty."
+      },
+      "coverage": {
+        "eligible_units": 100,
+        "observed_units": 100,
+        "missing_units": 0,
+        "unit": "synthetic affected workers"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418"
+    }
+  ],
+  "evidence_events": [
+    {
+      "sequence": 1,
+      "evidence_event_id": "evidence-event.june-option.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-07-02T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-added event for evidence-lifecycle testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.june.withdrawn",
+            "observation_hash": "sha256:00d5868383bb243b0b9381d1cae433a8bad429c6c46c2a3ef79aa064977027d3"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": null,
+      "evidence_event_hash": "sha256:87637757cdf12d01271c9ec62dc55c8e2685c26a56a54131ce4e8b0811c8724b"
+    },
+    {
+      "sequence": 2,
+      "evidence_event_id": "evidence-event.june-option.withdrawn",
+      "operation": "evidence-withdrawn",
+      "recorded_at": "2026-07-03T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-withdrawn event for evidence-lifecycle testing.",
+      "previous_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.june.withdrawn",
+            "observation_hash": "sha256:00d5868383bb243b0b9381d1cae433a8bad429c6c46c2a3ef79aa064977027d3"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.june.withdrawn",
+            "observation_hash": "sha256:00d5868383bb243b0b9381d1cae433a8bad429c6c46c2a3ef79aa064977027d3"
+          },
+          "state_version": 2,
+          "lifecycle": "withdrawn"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:87637757cdf12d01271c9ec62dc55c8e2685c26a56a54131ce4e8b0811c8724b",
+      "evidence_event_hash": "sha256:bff1e559999db51eeebd8f9af19cdba0218dc56f3fb27d86f326af211c6583d6"
+    },
+    {
+      "sequence": 3,
+      "evidence_event_id": "evidence-event.june-review.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-07-04T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-added event for evidence-lifecycle testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.june.expired",
+            "observation_hash": "sha256:bb2bc976d4405b9c2b3e02e46ecad1929e6bed0a87a45091720169f4fc4201bd"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:bff1e559999db51eeebd8f9af19cdba0218dc56f3fb27d86f326af211c6583d6",
+      "evidence_event_hash": "sha256:ffdd0f06cc6ba18c519a1b66665b1930261982492be4b02850f4f472027c31fd"
+    },
+    {
+      "sequence": 4,
+      "evidence_event_id": "evidence-event.june-review.expired",
+      "operation": "evidence-expired",
+      "recorded_at": "2026-07-05T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-expired event for evidence-lifecycle testing.",
+      "previous_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.june.expired",
+            "observation_hash": "sha256:bb2bc976d4405b9c2b3e02e46ecad1929e6bed0a87a45091720169f4fc4201bd"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.june.expired",
+            "observation_hash": "sha256:bb2bc976d4405b9c2b3e02e46ecad1929e6bed0a87a45091720169f4fc4201bd"
+          },
+          "state_version": 2,
+          "lifecycle": "expired"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:ffdd0f06cc6ba18c519a1b66665b1930261982492be4b02850f4f472027c31fd",
+      "evidence_event_hash": "sha256:3238ee527261ac413e72744ab73351a21d42abcb4ef6fab5e0d20b151d0613d8"
+    },
+    {
+      "sequence": 5,
+      "evidence_event_id": "evidence-event.july-option.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-08-02T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-added event for evidence-lifecycle testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.july.original",
+            "observation_hash": "sha256:ea663cac4eda6014b6a04c96bf16fece3704e5364eaa30ef9efc97736f9db20e"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:3238ee527261ac413e72744ab73351a21d42abcb4ef6fab5e0d20b151d0613d8",
+      "evidence_event_hash": "sha256:6851aa9744202030673bbfce18ed0475c6e5fa8b4fb2aac0b3aca1124080aab2"
+    },
+    {
+      "sequence": 6,
+      "evidence_event_id": "evidence-event.july-option.corrected",
+      "operation": "evidence-corrected",
+      "recorded_at": "2026-08-04T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-corrected event for evidence-lifecycle testing.",
+      "previous_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.july.original",
+            "observation_hash": "sha256:ea663cac4eda6014b6a04c96bf16fece3704e5364eaa30ef9efc97736f9db20e"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.july.original",
+            "observation_hash": "sha256:ea663cac4eda6014b6a04c96bf16fece3704e5364eaa30ef9efc97736f9db20e"
+          },
+          "state_version": 2,
+          "lifecycle": "superseded"
+        },
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.july",
+            "observation_hash": "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "correction",
+        "from_observation_ref": {
+          "observation_id": "observation.option-coverage.july.original",
+          "observation_hash": "sha256:ea663cac4eda6014b6a04c96bf16fece3704e5364eaa30ef9efc97736f9db20e"
+        },
+        "to_observation_ref": {
+          "observation_id": "observation.option-coverage.july",
+          "observation_hash": "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91"
+        }
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:6851aa9744202030673bbfce18ed0475c6e5fa8b4fb2aac0b3aca1124080aab2",
+      "evidence_event_hash": "sha256:044e5512bcafef8aba273134469f087290def361e6dd5f12d32e492ced2a9f1d"
+    },
+    {
+      "sequence": 7,
+      "evidence_event_id": "evidence-event.july-review.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-08-05T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-added event for evidence-lifecycle testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.july",
+            "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:044e5512bcafef8aba273134469f087290def361e6dd5f12d32e492ced2a9f1d",
+      "evidence_event_hash": "sha256:210658eefb20c5c638b8ac232c13c867707dc7a76c7c58cb11ba97f773f47338"
+    },
+    {
+      "sequence": 8,
+      "evidence_event_id": "evidence-event.july-review.challenged",
+      "operation": "evidence-challenged",
+      "recorded_at": "2026-08-06T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-challenged event for evidence-lifecycle testing.",
+      "previous_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.july",
+            "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.july",
+            "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          },
+          "state_version": 2,
+          "lifecycle": "challenged"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:210658eefb20c5c638b8ac232c13c867707dc7a76c7c58cb11ba97f773f47338",
+      "evidence_event_hash": "sha256:ce45520287bc8acc2d0a03d8a1e24e1146d4c7a1fcb100d5bba45e35254b3b9c"
+    },
+    {
+      "sequence": 9,
+      "evidence_event_id": "evidence-event.july-review.resolved",
+      "operation": "challenge-resolved",
+      "recorded_at": "2026-08-07T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic challenge-resolved event for evidence-lifecycle testing.",
+      "previous_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.july",
+            "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          },
+          "state_version": 2,
+          "lifecycle": "challenged"
+        }
+      ],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.july",
+            "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+          },
+          "state_version": 3,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:ce45520287bc8acc2d0a03d8a1e24e1146d4c7a1fcb100d5bba45e35254b3b9c",
+      "evidence_event_hash": "sha256:f96cec31811d51cf0d4ec071871a164b59b41706292d894967b07cc13eb96e83"
+    },
+    {
+      "sequence": 10,
+      "evidence_event_id": "evidence-event.august-option.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-02T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-added event for evidence-lifecycle testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.option-coverage.august",
+            "observation_hash": "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:f96cec31811d51cf0d4ec071871a164b59b41706292d894967b07cc13eb96e83",
+      "evidence_event_hash": "sha256:5e2e5652364d7819ae3f570daa2b32f1a6da46ef090ffff5a1ccff4bd59ef576"
+    },
+    {
+      "sequence": 11,
+      "evidence_event_id": "evidence-event.august-review.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-03T00:00:00Z",
+      "recorded_by": "Ren (Codex agent)",
+      "reason": "Synthetic evidence-added event for evidence-lifecycle testing.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.human-review.august",
+            "observation_hash": "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": "sha256:5e2e5652364d7819ae3f570daa2b32f1a6da46ef090ffff5a1ccff4bd59ef576",
+      "evidence_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04"
+    }
+  ],
+  "current_evidence_state": [
+    {
+      "observation_ref": {
+        "observation_id": "observation.option-coverage.june.withdrawn",
+        "observation_hash": "sha256:00d5868383bb243b0b9381d1cae433a8bad429c6c46c2a3ef79aa064977027d3"
+      },
+      "state_version": 2,
+      "lifecycle": "withdrawn"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.human-review.june.expired",
+        "observation_hash": "sha256:bb2bc976d4405b9c2b3e02e46ecad1929e6bed0a87a45091720169f4fc4201bd"
+      },
+      "state_version": 2,
+      "lifecycle": "expired"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.option-coverage.july.original",
+        "observation_hash": "sha256:ea663cac4eda6014b6a04c96bf16fece3704e5364eaa30ef9efc97736f9db20e"
+      },
+      "state_version": 2,
+      "lifecycle": "superseded"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.option-coverage.july",
+        "observation_hash": "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.human-review.july",
+        "observation_hash": "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+      },
+      "state_version": 3,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.option-coverage.august",
+        "observation_hash": "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    },
+    {
+      "observation_ref": {
+        "observation_id": "observation.human-review.august",
+        "observation_hash": "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    }
+  ],
+  "current_state": [
+    {
+      "condition_id": "condition.worker-option",
+      "state_version": 4,
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option",
+        "definition_version": "2.0.0",
+        "definition_hash": "sha256:c74f5efee0e6303f13d776e03d1adead314c10509d59ad84c42a5927ef22eadd"
+      },
+      "lifecycle": "superseded"
+    },
+    {
+      "condition_id": "condition.worker-option.nsw-general",
+      "state_version": 2,
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw-general",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:323797c79a5681bc49b6ce17fbc2a9b9da46d19f171732fd6e233e3914ee77ff"
+      },
+      "lifecycle": "superseded"
+    },
+    {
+      "condition_id": "condition.worker-option.nsw-payroll",
+      "state_version": 2,
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw-payroll",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7194c50e125607df90fcaa680741daabb3a28f9b220d2fe1992d91d9415819ca"
+      },
+      "lifecycle": "superseded"
+    },
+    {
+      "condition_id": "condition.worker-option.nsw",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      },
+      "lifecycle": "active"
+    }
+  ],
+  "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
+}
