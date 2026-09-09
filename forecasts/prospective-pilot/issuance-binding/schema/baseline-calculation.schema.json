@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/forecasts/prospective-baseline-calculation.schema.json",
+  "title": "Prospective baseline calculation record",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "baseline_role",
+    "protocol_id",
+    "protocol_content_sha256",
+    "campaign_id",
+    "target_id",
+    "baseline_id",
+    "algorithm_id",
+    "algorithm_version",
+    "implementation_sha256",
+    "conformance_vectors_sha256",
+    "parameters_sha256",
+    "input_source_ids",
+    "input_policy",
+    "input_manifest_sha256",
+    "input_checksums",
+    "input_vintage_cutoff_at",
+    "missing_input_policy",
+    "rounding_policy",
+    "calculated_at",
+    "output_probability",
+    "verification_status"
+  ],
+  "properties": {
+    "artifact_type": { "const": "prospective-baseline-calculation" },
+    "schema_version": { "const": "1.0.0" },
+    "baseline_role": { "enum": ["reference_class", "naive"] },
+    "protocol_id": { "$ref": "#/$defs/id" },
+    "protocol_content_sha256": { "$ref": "#/$defs/sha256" },
+    "campaign_id": { "$ref": "#/$defs/id" },
+    "target_id": { "$ref": "#/$defs/id" },
+    "baseline_id": { "$ref": "#/$defs/id" },
+    "algorithm_id": { "$ref": "#/$defs/id" },
+    "algorithm_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "implementation_sha256": { "$ref": "#/$defs/sha256" },
+    "conformance_vectors_sha256": { "$ref": "#/$defs/sha256" },
+    "parameters_sha256": { "$ref": "#/$defs/sha256" },
+    "input_source_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "input_policy": { "const": "predeclared-sources-only-no-post-issue-data" },
+    "input_manifest_sha256": { "$ref": "#/$defs/sha256" },
+    "input_checksums": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sha256" }
+    },
+    "input_vintage_cutoff_at": { "type": "string", "format": "date-time" },
+    "missing_input_policy": { "const": "withhold-baseline-and-forecast" },
+    "rounding_policy": { "const": "round-to-six-decimals-half-even" },
+    "calculated_at": { "type": "string", "format": "date-time" },
+    "output_probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "verification_status": { "const": "unverified_external_review_required" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

@@ -1,0 +1,643 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/forecasts/prospective-pilot-preregistration.schema.json",
+  "title": "Prospective no-consequence forecast pilot preregistration",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "protocol_type",
+    "status",
+    "protocol_id",
+    "contract",
+    "registration",
+    "campaign",
+    "target",
+    "baseline",
+    "naive_baseline",
+    "clocks",
+    "source_chronology",
+    "revision_policy",
+    "scoring",
+    "forecast_issuance",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "protocol_type": { "const": "prospective-no-consequence-forecast-preregistration" },
+    "status": { "enum": ["draft-template", "preregistered-unverified"] },
+    "protocol_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+    "contract": { "$ref": "#/$defs/contract" },
+    "registration": { "$ref": "#/$defs/registration" },
+    "campaign": { "$ref": "#/$defs/campaign" },
+    "target": { "$ref": "#/$defs/target" },
+    "baseline": { "$ref": "#/$defs/baseline" },
+    "naive_baseline": { "$ref": "#/$defs/baseline" },
+    "clocks": { "$ref": "#/$defs/clocks" },
+    "source_chronology": { "$ref": "#/$defs/sourceChronology" },
+    "revision_policy": { "$ref": "#/$defs/revisionPolicy" },
+    "scoring": { "$ref": "#/$defs/scoring" },
+    "forecast_issuance": { "$ref": "#/$defs/forecastIssuance" },
+    "authority": { "$ref": "#/$defs/authority" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "nullableDateTime": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    },
+    "nullableId": {
+      "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }]
+    },
+    "nullableText": {
+      "anyOf": [
+        { "type": "string", "minLength": 1 },
+        { "type": "null" }
+      ]
+    },
+    "contract": {
+      "type": "object",
+      "required": ["schema_path", "schema_sha256", "validator_path", "validator_sha256"],
+      "properties": {
+        "schema_path": {
+          "const": "forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json"
+        },
+        "schema_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "validator_path": { "const": "forecasts/prospective-pilot/validate.mjs" },
+        "validator_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        }
+      },
+      "additionalProperties": false
+    },
+    "registration": {
+      "type": "object",
+      "required": [
+        "registered_at",
+        "protocol_content_sha256",
+        "verification_status",
+        "external_receipt"
+      ],
+      "properties": {
+        "registered_at": { "$ref": "#/$defs/nullableDateTime" },
+        "protocol_content_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "verification_status": {
+          "enum": ["not-submitted", "unverified_external_review_required"]
+        },
+        "external_receipt": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": [
+                "source",
+                "checksum",
+                "registered_content_sha256",
+                "registered_at",
+                "checksum_scope",
+                "verification_status"
+              ],
+              "properties": {
+                "source": { "type": "string", "format": "uri", "pattern": "^https://" },
+                "checksum": { "$ref": "#/$defs/sha256" },
+                "registered_content_sha256": {
+                  "$ref": "#/$defs/sha256"
+                },
+                "registered_at": { "type": "string", "format": "date-time" },
+                "checksum_scope": {
+                  "const": "external-receipt-bytes-not-this-protocol-record"
+                },
+                "verification_status": {
+                  "const": "unverified_external_review_required"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "campaign": {
+      "type": "object",
+      "required": ["campaign_id", "manifest"],
+      "properties": {
+        "campaign_id": { "$ref": "#/$defs/nullableId" },
+        "manifest": { "$ref": "#/$defs/campaignManifest" }
+      },
+      "additionalProperties": false
+    },
+    "campaignManifest": {
+      "type": "object",
+      "required": [
+        "manifest_id",
+        "campaign_id",
+        "status",
+        "eligibility_rule",
+        "exclusions",
+        "protocol_ids",
+        "sealed_at",
+        "manifest_sha256",
+        "verification_status"
+      ],
+      "properties": {
+        "manifest_id": { "$ref": "#/$defs/nullableId" },
+        "campaign_id": { "$ref": "#/$defs/nullableId" },
+        "status": { "enum": ["unsealed", "sealed"] },
+        "eligibility_rule": { "const": "all-preregistered-campaign-protocols" },
+        "exclusions": { "const": "none" },
+        "protocol_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "sealed_at": { "$ref": "#/$defs/nullableDateTime" },
+        "manifest_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "verification_status": {
+          "enum": ["not-submitted", "unverified_external_review_required"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "registration_status",
+        "target_id",
+        "question",
+        "event_definition",
+        "outcome_type",
+        "unit",
+        "observation_window",
+        "resolution_rule",
+        "resolution_source_id",
+        "resolution_source_uri",
+        "resolution_event_id",
+        "independence_cluster_id",
+        "condition_definition_ref",
+        "signal_definition_ref",
+        "metric_id",
+        "metric_checksum",
+        "scope",
+        "scope_hash",
+        "kernel_ref",
+        "signal_registry_ref",
+        "resolver"
+      ],
+      "properties": {
+        "registration_status": { "enum": ["unresolved", "fixed_before_issue"] },
+        "target_id": { "$ref": "#/$defs/nullableId" },
+        "question": { "$ref": "#/$defs/nullableText" },
+        "event_definition": { "$ref": "#/$defs/nullableText" },
+        "outcome_type": { "const": "binary" },
+        "unit": { "$ref": "#/$defs/nullableText" },
+        "observation_window": {
+          "type": "object",
+          "required": ["starts_at", "ends_at"],
+          "properties": {
+            "starts_at": { "$ref": "#/$defs/nullableDateTime" },
+            "ends_at": { "$ref": "#/$defs/nullableDateTime" }
+          },
+          "additionalProperties": false
+        },
+        "resolution_rule": { "$ref": "#/$defs/nullableText" },
+        "resolution_source_id": { "$ref": "#/$defs/nullableId" },
+        "resolution_source_uri": {
+          "anyOf": [
+            { "type": "string", "format": "uri", "pattern": "^https://" },
+            { "type": "null" }
+          ]
+        },
+        "resolution_event_id": { "$ref": "#/$defs/nullableText" },
+        "independence_cluster_id": { "$ref": "#/$defs/nullableId" },
+        "condition_definition_ref": {
+          "anyOf": [{ "$ref": "#/$defs/conditionDefinitionRef" }, { "type": "null" }]
+        },
+        "signal_definition_ref": {
+          "anyOf": [{ "$ref": "#/$defs/signalDefinitionRef" }, { "type": "null" }]
+        },
+        "metric_id": { "$ref": "#/$defs/nullableId" },
+        "metric_checksum": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "scope": {
+          "anyOf": [{ "$ref": "#/$defs/scope" }, { "type": "null" }]
+        },
+        "scope_hash": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "kernel_ref": {
+          "anyOf": [{ "$ref": "#/$defs/kernelRef" }, { "type": "null" }]
+        },
+        "signal_registry_ref": {
+          "anyOf": [{ "$ref": "#/$defs/signalRegistryRef" }, { "type": "null" }]
+        },
+        "resolver": { "$ref": "#/$defs/resolver" }
+      },
+      "additionalProperties": false
+    },
+    "baseline": {
+      "type": "object",
+      "required": [
+        "registration_status",
+        "baseline_role",
+        "baseline_id",
+        "target_id",
+        "kind",
+        "algorithm_id",
+        "algorithm_version",
+        "input_source_ids",
+        "input_policy",
+        "calculation_timing",
+        "implementation_sha256",
+        "conformance_vectors_sha256",
+        "parameters_sha256",
+        "input_manifest_sha256",
+        "input_vintage_cutoff_at",
+        "missing_input_policy",
+        "rounding_policy",
+        "output_probability",
+        "output_policy"
+      ],
+      "properties": {
+        "registration_status": { "enum": ["unresolved", "fixed_before_issue"] },
+        "baseline_role": {
+          "anyOf": [
+            { "enum": ["reference_class", "naive"] },
+            { "type": "null" }
+          ]
+        },
+        "baseline_id": { "$ref": "#/$defs/nullableId" },
+        "target_id": { "$ref": "#/$defs/nullableId" },
+        "kind": { "const": "mechanical" },
+        "algorithm_id": { "$ref": "#/$defs/nullableId" },
+        "algorithm_version": {
+          "anyOf": [
+            { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+            { "type": "null" }
+          ]
+        },
+        "input_source_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "input_policy": {
+          "anyOf": [
+            { "const": "predeclared-sources-only-no-post-issue-data" },
+            { "type": "null" }
+          ]
+        },
+        "calculation_timing": {
+          "anyOf": [
+            { "const": "before-forecast-issue" },
+            { "type": "null" }
+          ]
+        },
+        "implementation_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "conformance_vectors_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "parameters_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "input_manifest_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "input_vintage_cutoff_at": { "$ref": "#/$defs/nullableDateTime" },
+        "missing_input_policy": {
+          "anyOf": [
+            { "const": "withhold-baseline-and-forecast" },
+            { "type": "null" }
+          ]
+        },
+        "rounding_policy": {
+          "anyOf": [
+            { "const": "round-to-six-decimals-half-even" },
+            { "type": "null" }
+          ]
+        },
+        "output_probability": { "type": "null" },
+        "output_policy": { "const": "record-only-in-separate-issued-forecast" }
+      },
+      "additionalProperties": false
+    },
+    "resolver": {
+      "type": "object",
+      "required": [
+        "resolver_id",
+        "resolver_version",
+        "implementation_sha256",
+        "parameters_sha256",
+        "conformance_vectors_sha256",
+        "conflict_policy",
+        "correction_policy"
+      ],
+      "properties": {
+        "resolver_id": { "$ref": "#/$defs/nullableId" },
+        "resolver_version": {
+          "anyOf": [
+            { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+            { "type": "null" }
+          ]
+        },
+        "implementation_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "parameters_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "conformance_vectors_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "conflict_policy": {
+          "anyOf": [{ "const": "void-and-disclose" }, { "type": "null" }]
+        },
+        "correction_policy": {
+          "anyOf": [
+            { "const": "withdraw-resolution-and-rescore-never-overwrite" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "clocks": {
+      "type": "object",
+      "required": [
+        "registration_status",
+        "time_standard",
+        "clock_authority_verification",
+        "preregistered_at",
+        "issue_opens_at",
+        "issue_closes_at",
+        "observation_starts_at",
+        "observation_ends_at",
+        "outcome_publication_not_before",
+        "resolve_after",
+        "resolution_closes_at"
+      ],
+      "properties": {
+        "registration_status": { "enum": ["unresolved", "fixed_before_issue"] },
+        "time_standard": { "const": "rfc3339-utc" },
+        "clock_authority_verification": {
+          "const": "unverified_external_review_required"
+        },
+        "preregistered_at": { "$ref": "#/$defs/nullableDateTime" },
+        "issue_opens_at": { "$ref": "#/$defs/nullableDateTime" },
+        "issue_closes_at": { "$ref": "#/$defs/nullableDateTime" },
+        "observation_starts_at": { "$ref": "#/$defs/nullableDateTime" },
+        "observation_ends_at": { "$ref": "#/$defs/nullableDateTime" },
+        "outcome_publication_not_before": { "$ref": "#/$defs/nullableDateTime" },
+        "resolve_after": { "$ref": "#/$defs/nullableDateTime" },
+        "resolution_closes_at": { "$ref": "#/$defs/nullableDateTime" }
+      },
+      "additionalProperties": false
+    },
+    "sourceChronology": {
+      "type": "object",
+      "required": [
+        "policy",
+        "required_source_ids",
+        "preregistered_event_count",
+        "preregistered_tip_sha256",
+        "events"
+      ],
+      "properties": {
+        "policy": { "const": "append-only-absence-to-retained-presence" },
+        "required_source_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "preregistered_event_count": { "type": "integer", "minimum": 0 },
+        "preregistered_tip_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "events": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/sourceEvent" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceEvent": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "source_id",
+        "state",
+        "observed_at",
+        "artifact_sha256",
+        "previous_event_sha256",
+        "event_sha256",
+        "verification_status"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "source_id": { "$ref": "#/$defs/id" },
+        "state": {
+          "enum": ["reported_absent", "reported_present_checksum_only"]
+        },
+        "observed_at": { "type": "string", "format": "date-time" },
+        "artifact_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "previous_event_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "event_sha256": { "$ref": "#/$defs/sha256" },
+        "verification_status": {
+          "const": "unverified_external_review_required"
+        }
+      },
+      "additionalProperties": false
+    },
+    "revisionPolicy": {
+      "type": "object",
+      "required": [
+        "target",
+        "baseline",
+        "issue_and_close_clocks",
+        "campaign_manifest",
+        "source_chronology",
+        "material_correction",
+        "post_issue"
+      ],
+      "properties": {
+        "target": { "const": "immutable-after-preregistration-new-protocol-required" },
+        "baseline": { "const": "immutable-after-preregistration-new-protocol-required" },
+        "issue_and_close_clocks": { "const": "immutable-after-preregistration-new-protocol-required" },
+        "campaign_manifest": { "const": "immutable-after-seal-new-campaign-manifest-required" },
+        "source_chronology": {
+          "const": "local-hash-chain-external-tip-anchor-required-after-each-append"
+        },
+        "material_correction": { "const": "withdraw-and-supersede-never-overwrite" },
+        "post_issue": { "const": "issued-forecast-record-immutable" }
+      },
+      "additionalProperties": false
+    },
+    "scoring": {
+      "type": "object",
+      "required": [
+        "primary",
+        "secondary",
+        "baseline_id",
+        "naive_baseline_id",
+        "baseline_comparison",
+        "score_timing",
+        "missing_resolution",
+        "voided",
+        "reporting_denominator",
+        "calibration_claim",
+        "aggregation",
+        "log_loss_probability_floor",
+        "implementation_sha256",
+        "conformance_vectors_sha256",
+        "void_adjudication"
+      ],
+      "properties": {
+        "primary": { "const": "brier" },
+        "secondary": {
+          "type": "array",
+          "const": ["log_loss"]
+        },
+        "baseline_id": { "$ref": "#/$defs/nullableId" },
+        "naive_baseline_id": { "$ref": "#/$defs/nullableId" },
+        "baseline_comparison": { "const": "predeclared-reference-and-naive-baselines" },
+        "score_timing": { "const": "after-resolution-close-and-retained-outcome-bytes" },
+        "missing_resolution": { "const": "withhold-score-and-disclose" },
+        "voided": { "const": "retain-in-manifest-exclude-from-score-and-disclose" },
+        "reporting_denominator": { "const": "all-manifest-protocols" },
+        "calibration_claim": { "const": "prohibited-for-single-pilot" },
+        "aggregation": { "const": "mean-over-resolved-nonvoid-manifest-protocols" },
+        "log_loss_probability_floor": { "const": 0.000001 },
+        "implementation_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "conformance_vectors_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "void_adjudication": {
+          "const": "independent-review-required-before-exclusion"
+        }
+      },
+      "additionalProperties": false
+    },
+    "forecastIssuance": {
+      "type": "object",
+      "required": ["status", "probability", "issued_at", "record_policy"],
+      "properties": {
+        "status": { "const": "not-issued" },
+        "probability": { "type": "null" },
+        "issued_at": { "type": "null" },
+        "record_policy": { "const": "separate-immutable-forecast-record-required" }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "mode",
+        "authority_effect",
+        "action_authorised",
+        "operational_effect",
+        "decision_use",
+        "causal_truth_established",
+        "permitted_use",
+        "public_claim_ceiling"
+      ],
+      "properties": {
+        "mode": { "const": "no-consequence" },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false },
+        "operational_effect": { "const": false },
+        "decision_use": { "const": "prohibited" },
+        "causal_truth_established": { "const": false },
+        "permitted_use": { "const": "protocol-rehearsal-and-scoring-method-only" },
+        "public_claim_ceiling": {
+          "const": "This document issues no forecast, establishes no empirical or causal truth, grants no authority and permits no action."
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": ["geographies", "cohorts", "services"],
+      "properties": {
+        "geographies": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "cohorts": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "services": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "signalDefinitionRef": {
+      "type": "object",
+      "required": ["signal_id", "definition_version", "signal_definition_hash"],
+      "properties": {
+        "signal_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "signal_definition_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "kernelRef": {
+      "type": "object",
+      "required": ["artifact_path", "artifact_sha256", "kernel_id", "manifest_hash"],
+      "properties": {
+        "artifact_path": { "type": "string", "minLength": 1 },
+        "artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "kernel_id": { "$ref": "#/$defs/id" },
+        "manifest_hash": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "signalRegistryRef": {
+      "type": "object",
+      "required": ["artifact_path", "artifact_sha256", "registry_id", "schema_version"],
+      "properties": {
+        "artifact_path": { "type": "string", "minLength": 1 },
+        "artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "registry_id": { "$ref": "#/$defs/id" },
+        "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

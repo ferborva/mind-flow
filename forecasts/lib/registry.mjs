@@ -506,6 +506,24 @@ export function assertForecastIssueBasis(forecast, sources = {}) {
   return assessment;
 }
 
+export function assertForecastWithRetainedSources(forecast, sources) {
+  if (forecast?.schema_version === "1.4.0" &&
+      (sources?.sourceKernel === undefined ||
+       sources?.sourceSignalRegistry === undefined)) {
+    throw new Error(
+      "forecast schema 1.4.0 requires exact retained kernel and signal-registry sources",
+    );
+  }
+  assertForecastSemantics(forecast, sources);
+  if (forecast?.schema_version === "1.4.0") {
+    const assessment = assessForecastIssueBasis(forecast, sources);
+    if (!assessment.external_bindings_verified) {
+      throw new Error("forecast retained-source bindings were not verified");
+    }
+  }
+  return true;
+}
+
 export function forecastScopeHash(scope) {
   const bytes = JSON.stringify(canonicalValue(scope));
   return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;

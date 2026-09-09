@@ -11,6 +11,7 @@ import addFormats from "ajv-formats";
 import {
   assessForecastIssueBasis,
   assertForecastSemantics,
+  assertForecastWithRetainedSources,
   forecastIssueBasisHash,
   forecastScopeHash,
   renderForecastClaimCeiling,
@@ -81,6 +82,14 @@ test("Round 4 forecast binds one exact issue-time IF basis without conflating pr
     fixture.issue_basis.interpretation_boundaries.public_claim_ceiling,
     renderForecastClaimCeiling(fixture),
   );
+});
+
+test("mature retained-source validation cannot silently degrade to local semantics", () => {
+  assert.throws(
+    () => assertForecastWithRetainedSources(fixture),
+    /requires exact retained kernel and signal-registry sources/i,
+  );
+  assert.doesNotThrow(() => assertForecastWithRetainedSources(fixture, sources));
 });
 
 test("hostile: a resealed condition-definition substitution fails external resolution", () => {
