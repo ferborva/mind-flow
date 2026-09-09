@@ -20,7 +20,7 @@ export function proseSentences(markdown) {
 export function firstPersonSentences(markdown) {
   const headings = [...markdown.matchAll(/^#{1,6} (.+)$/gm)].map((match) => match[1]);
   return [...proseSentences(markdown), ...headings].filter((sentence) =>
-    /\b(?:I|I'm|I've|I'd|My|my|me|We|we|Our|our|us)\b/.test(sentence));
+    /\b(?:I|I'm|I've|I'd|My|my|me|We|we|Our|our|us)\b/.test(sentence.replace(/\bOur World in Data\b/g, "OWID")));
 }
 
 export function sentenceDigest(sentence) {

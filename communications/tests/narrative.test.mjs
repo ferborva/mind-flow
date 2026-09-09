@@ -23,10 +23,16 @@ const reconstruction = readFileSync(
 );
 
 test("the originating write-up preserves Fernando's argument and its visible correction boundary", () => {
-  assert.match(first, /originating argument and remains in review/i);
-  assert.match(first, /provenance and correction record/i);
+  assert.match(first, /status: review/);
+  assert.match(first, /research:.*2026-09-10-abundance-editorial-source-check/);
   assert.match(first, /much softer view on tax and the portfolio remedy/i);
-  assert.match(first, /enough.*line is parked/is);
+  assert.doesNotMatch(first, /how much is enough|displaced workers.*first/is);
+  assert.match(first, /Cabernet Sauvignon/);
+  assert.match(first, /heal all my pains/);
+  assert.match(first, /44\.4%/);
+  assert.match(first, /80\.0%/);
+  assert.match(first, /historical upstream raw response is not retained/);
+  assert.doesNotMatch(first, /That is the position in the .*capture|working assumption in the original argument/i);
   assert.match(first, /GAP: Fer, does "the choice is theirs" survive as a diagnosis/i);
 });
 

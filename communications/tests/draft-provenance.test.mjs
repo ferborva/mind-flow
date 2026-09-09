@@ -21,6 +21,7 @@ test("named third-person attribution is screened alongside first-person wording"
 test("first-person screening recognises contractions and headings without treating US as a speaker", () => {
   assert.deepEqual(firstPersonSentences("## My new policy\n\nI've changed my mind. The US reports coverage."),
     ["I've changed my mind.", "My new policy"]);
+  assert.deepEqual(firstPersonSentences("Our World in Data reports a nowcast."), []);
 });
 
 test("an unreviewed personal claim or fabricated source snippet fails the audit", () => {

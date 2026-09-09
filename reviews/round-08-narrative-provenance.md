@@ -37,6 +37,36 @@ is exactly 5% on this parser, and separate short messages have their own scope.
 This is different-agent review within the commissioned team, not Fernando's
 endorsement, public comprehension testing or independent human consultation.
 
+## PR 15 Track 1 restoration, creator disposition, 2026-09-10
+
+The abundance essay restores the supported desire for abundance, concrete
+Chinese/swimming/skating examples, gun-permission illustration, healing-pain
+IF sentence, country and humanity-standard discussion, Belgium/Spain mechanism
+illustration, and Cabernet/time limits. The public draft no longer narrates
+its own capture or describes its own argument from outside. The new version
+requires a fresh different-owner semantic review; the September 9 read above
+does not certify these added paragraphs.
+
+The 44.4%/80.0% table returns with research frontmatter, PPP and nowcast labels,
+and a visible unpinned-upstream limitation. The restored Musk phrase is short
+and attributed; a primary WEF transcript also shows him naming conditions,
+so the essay does not construct an opponent who never names any. Longer quotes
+and the unsupported money-by-2036 assertion remain out. Source checking and
+the failed fresh CSV retrieval are recorded in the linked research note.
+
+The requested naughty-kid/share-the-ball ending is **not restored as a current
+position**. It concludes the September 1 enterprise-remedy argument, and the
+September 9 capture leaves even the narrower enterprise-choice diagnosis
+unsettled. Restoring it as merely an illustration would answer the surviving
+GAP by editorial implication. The old “that line I am keeping” was itself
+unsupported. The original capture and Git history retain the passage.
+
+Five concrete closing questions return, but not the old enough-threshold,
+guaranteed-floor or what-companies-should-choose questions as live priorities.
+The enough line is parked and solutioning is open under the later stance.
+The replacement questions stay within the captured frame, country comparison
+and G/S/A method; their wording is ghostwriting for separate semantic review.
+
 ## Piece one: Name the If
 
 The argument comes through seeds `nobody-has-that-sentence`,
@@ -113,16 +143,20 @@ review above is a historical checkpoint, not approval of later edits.
 | drafts/from-if-to-when.md | 5548b8e3aec178ecdb7adefaf84a2288b6ffef65f05662036e660b9f43130332 | capture/2026-09-08-abundance-frame-conversation.md | I don't think the sequencing is something that can actually be planned for to bring down conditions. That's something that's progressive and sometimes not forecasted or unintended. |
 | drafts/message-to-the-moonshot-mates.md | a401433c85a357c75110d73aaf3b275688799964d2749539910218c072808388 | capture/2026-09-08-abundance-frame-conversation.md | ultimately, I will send them a written piece. |
 | drafts/message-to-the-moonshot-mates.md | 7d5d41a54c213d0b7754c5a25bd4ad7ba641ede006e3a99079cb2d92adae0bdb | capture/2026-09-08-abundance-frame-conversation.md | participants: Fer, Claude |
-| drafts/abundance-has-an-if.md | f1af1d6bb3c10d4d397672410b9c0e94d3909988cf22ee3e77d698707fbd2900 | capture/2026-09-01-abundance-is-conditional.md | what I would like to explore |
+| drafts/abundance-has-an-if.md | a0f2fa25cbdcdf12862730da1b71423814f93c8a84920bc579e9e6da82b13c61 | capture/2026-09-01-abundance-is-conditional.md | Because we really do want to have this world of abundance. |
 | drafts/abundance-has-an-if.md | b623414db5e23b65504df5d601cc0234c8868f6ef6de06e2d28704a112e17130 | capture/2026-09-01-abundance-is-conditional.md | I'm starting a new idea flow here after thinking a lot |
-| drafts/abundance-has-an-if.md | 011c83922dc929e4d65d9f76362ed451423481171cb37ccadc1b612b96f2a7f2 | capture/2026-09-01-abundance-is-conditional.md | extreme agency |
+| drafts/abundance-has-an-if.md | ffdbbc27ec35da381dd80fb6305dc56a4bdb3536938571f5c1db61fa13baf1ae | capture/2026-09-01-abundance-is-conditional.md | I can learn Chinese. |
+| drafts/abundance-has-an-if.md | 251cd3b1df15272d75b5ccd939b752f020c85a73f39f5c7ce42579996244e7d0 | capture/2026-09-01-abundance-is-conditional.md | I can learn how to swim. |
+| drafts/abundance-has-an-if.md | bc1109a7954eecb51cd8fabf55df80a5325a3713542eb770f09b676abe63c1c1 | capture/2026-09-01-abundance-is-conditional.md | I can learn how to roller skate. |
+| drafts/abundance-has-an-if.md | e69216dd8b6463eff9717385888562c18811637192b1cdfa216f7ade9924ff55 | capture/2026-09-01-abundance-is-conditional.md | The bit he finds more interesting is when they talk |
 | drafts/abundance-has-an-if.md | 7049a9f3916df51fdef348a661a27afdf54d93e9204ca5dcf397f372225fd8fa | capture/2026-09-08-abundance-frame-conversation.md | I will be able to verb |
-| drafts/abundance-has-an-if.md | 178ae6515768174a2e8ab97cb13b293a36235184454085622422027df0f60430 | capture/2026-09-01-abundance-is-conditional.md | if there is a supply chain that can actually get it to you |
-| drafts/abundance-has-an-if.md | 2b7b0e13462b45ba59b9ae52bd2d6e01576244354e7dcb07f622d70b44d1275c | capture/2026-09-01-abundance-is-conditional.md | if it's legal where you live |
-| drafts/abundance-has-an-if.md | 42b83c6f383b4fd65ca50f1414d72738798b6737cb72c37c9c58e7078cb48db7 | capture/2026-09-08-the-benchmark-shrug.md | Keep them as mine now. |
+| drafts/abundance-has-an-if.md | a889b28984c7ab45c6e1fefebae67aaff2c23aa8b87eaa035ad8145851453087 | capture/2026-09-01-abundance-is-conditional.md | I will be able to heal all my pains, |
+| drafts/abundance-has-an-if.md | c9cbe1cc20d3a7cb00836f05b3944f77d143480666de1ef30cea1e574ec14deb | capture/2026-09-01-abundance-is-conditional.md | I'm far from hearing them uniting forces on a |
+| drafts/abundance-has-an-if.md | 4c2ae5a45df131a42f997da2716f9444dcd547a0ae3b4e49ba972ec2920f4b2a | capture/2026-09-09-softer-on-tax-and-remedy.md | placed at the reframe and method level vs the solutioning |
 | drafts/abundance-has-an-if.md | 45ecfc7dc49a0e4266e6b3194945c045cd1c54f6c9f6bc49bb5e409863b69e0c | capture/2026-09-09-softer-on-tax-and-remedy.md | I hold a much softer view on the tax view and portfolio remedy. |
-| drafts/abundance-has-an-if.md | b301434a6255d86b531fab001baf8e1f9d90c8c5c34eeb2f60e60f5c7ca36098 | capture/2026-09-09-softer-on-tax-and-remedy.md | placed at the reframe and method level vs the solutioning |
-| drafts/abundance-has-an-if.md | 59c3414f8e2d558e6540d479bb7907b292af1283c61ae19ba91d00d458c82dd3 | capture/2026-09-08-abundance-frame-conversation.md | focus on the reframe and invite them |
+| drafts/abundance-has-an-if.md | 59c3414f8e2d558e6540d479bb7907b292af1283c61ae19ba91d00d458c82dd3 | capture/2026-09-01-abundance-is-conditional.md | actually ask them to dig into it. |
+| drafts/abundance-has-an-if.md | f70008381c55e34cafba7912926159c1180dc46f48171404b48492577e79f86c | capture/2026-09-08-abundance-frame-conversation.md | then please share what your conditions are within the abundance thesis |
+| drafts/abundance-has-an-if.md | b0e859c374e7db538f6d2380722413b6f8d1376f11c805708f322f64c4c5b8c1 | capture/2026-09-01-abundance-is-conditional.md | actually ask them to dig into it. |
 | drafts/every-if-is-somebodys-when.md | b4000727d9856c610b217ca1cc185e1fcdf4286f4c6e14a9c28c504a19774e24 | capture/2026-09-08-abundance-frame-conversation.md | there's a duality |
 | drafts/every-if-is-somebodys-when.md | 1a9209962558650c98491f8e947fa3ae061bc172ebc6fe35df6a50c84623543c | capture/2026-09-08-abundance-frame-conversation.md | I, as an enterprise, will be able to offer fill in the blank |
 | drafts/every-if-is-somebodys-when.md | 31dcc3acab419ada5fda3fe9093aa84707accc7d4a26ccd962629107076d84c5 | capture/2026-09-08-abundance-frame-conversation.md | When I can do this and this and this |
