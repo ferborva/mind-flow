@@ -8,12 +8,15 @@ import { prepareNeroCandidate } from "../round-08-nero/candidate.mts";
 import { assessFutureIssuanceBinding } from "../issuance-binding/validate.mjs";
 
 test("bounded employment index preserves the exact count threshold without posing as a population share", () => {
-  for (const value of [0, 4216, 4217, 4218, 100000]) {
+  for (const value of [0, 4216, 4217, 4218, 100000, Number.MAX_SAFE_INTEGER]) {
     assert.equal(boundedEmploymentIndex(value) >= 0.5, value >= 4217);
     assert.ok(boundedEmploymentIndex(value) >= 0 && boundedEmploymentIndex(value) < 1);
   }
   assert.throws(() => boundedEmploymentIndex(-1));
   assert.throws(() => boundedEmploymentIndex(Infinity));
+  assert.throws(() => boundedEmploymentIndex(NaN));
+  assert.throws(() => boundedEmploymentIndex(0.5));
+  assert.throws(() => boundedEmploymentIndex(Number.MAX_SAFE_INTEGER + 1));
 });
 
 test("the prospective NERO candidate reconstructs both baselines and remains blocked without a provider receipt", () => {
@@ -44,6 +47,23 @@ test("native resolver dependencies and fixed source parameters cannot drift afte
   }
 });
 
+test("a test-only later receipt completes the candidate binding without claiming issuance authority", () => {
+  const clocks = { sealAt: "2026-09-09T11:00:00Z", issueOpensAt: "2026-09-10T00:00:00Z",
+    issuedAt: "2026-09-10T01:00:00Z", sourceCommit: "a206254" };
+  const pending = prepareNeroCandidate(clocks);
+  const candidate = prepareNeroCandidate({ ...clocks, externalReceipt: {
+    source: "https://example.invalid/test-only-receipt", checksum: `sha256:${"a".repeat(64)}`,
+    registered_content_sha256: pending.protocol.registration.protocol_content_sha256,
+    registered_at: "2026-09-09T11:01:00Z", checksum_scope: "external-receipt-bytes-not-this-protocol-record",
+    verification_status: "unverified_external_review_required",
+  } });
+  const result = assessFutureIssuanceBinding(candidate.input);
+  assert.equal(result.binding_complete, true, JSON.stringify(result.issues));
+  assert.equal(result.issuance_authorised, false);
+  assert.equal(result.independent_anchor_verified, false);
+  assert.equal(candidate.protocol.registration.protocol_content_sha256, pending.protocol.registration.protocol_content_sha256);
+});
+
 test("native NERO resolution selects one exact October cell and rejects unavailable or conflicting counts", () => {
   const forecast = { target: { observation_window_start: "2026-10-01T00:00:00Z",
     signal_id: "signal.nero.5311.101.bounded-stock", condition_id: "condition.nero.5311.101.stock",
@@ -51,6 +71,9 @@ test("native NERO resolution selects one exact October cell and rejects unavaila
       measure: "bounded stock", observation_unit: "bounded employment index" } } };
   const row = ["1", "NSW", "101", "Capital Region", "5311", "General Clerks", "2026-10-15", "4217"];
   assert.equal(neroOutcomePayload([row], forecast).value, 0.5);
+  for (const cell of ["-1", "4217.0", "4.217e3", " 4217", "4217 ", "004217", "1,000", "Infinity", "9007199254740992"]) {
+    assert.throws(() => neroOutcomePayload([[...row.slice(0, -1), cell]], forecast));
+  }
   for (const rows of [[], [row, row], [[...row.slice(0, -1), ""]], [[...row.slice(0, -1), "NaN"]],
     [[...row.slice(0, 6), "2026-09-15", "4217"]]]) {
     assert.throws(() => neroOutcomePayload(rows, forecast));

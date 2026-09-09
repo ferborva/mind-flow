@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_type": "prospective-no-consequence-forecast-preregistration",
+  "status": "preregistered-unverified",
+  "protocol_id": "protocol.nero.5311.101.october-2026.v1",
+  "contract": {
+    "schema_path": "forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json",
+    "schema_sha256": "sha256:330d2316dc5cfe70d4e2ff933cb48be3cc31a4240292a3220c82e6b4e398605a",
+    "validator_path": "forecasts/prospective-pilot/validate.mjs",
+    "validator_sha256": "sha256:d9befa4100d3822b03e7ca3bb1b7155c19380c73fe871772ab4d654c8f10f200"
+  },
+  "registration": {
+    "registered_at": "2026-09-09T11:22:22Z",
+    "protocol_content_sha256": "sha256:4538385902dfe91fe52ae01826fd8e17813a43c4d86858418792959865763b4c",
+    "verification_status": "unverified_external_review_required",
+    "external_receipt": null
+  },
+  "campaign": {
+    "campaign_id": "campaign.nero.5311.101.october-2026",
+    "manifest": {
+      "manifest_id": "manifest.nero.5311.101.october-2026.v1",
+      "campaign_id": "campaign.nero.5311.101.october-2026",
+      "status": "sealed",
+      "eligibility_rule": "all-preregistered-campaign-protocols",
+      "exclusions": "none",
+      "protocol_ids": [
+        "protocol.nero.5311.101.october-2026.v1"
+      ],
+      "sealed_at": "2026-09-09T11:22:22Z",
+      "manifest_sha256": "sha256:cb309fb9ad47a91d70ea77f09cb42513cc26aa86d8ca7514b9b794d4048b1de1",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "target": {
+    "registration_status": "fixed_before_issue",
+    "target_id": "target.nero.5311.101.october-2026",
+    "question": "Will the first retained October 2026 NERO release report at least 4217 employed persons for occupation 5311, General Clerks, in SA4 101, Capital Region?",
+    "event_definition": "The first retained October 2026 NERO value for General Clerks in Capital Region is at least 4217.",
+    "outcome_type": "binary",
+    "unit": "binary event on a modelled employment stock",
+    "observation_window": {
+      "starts_at": "2026-10-01T00:00:00Z",
+      "ends_at": "2026-10-31T23:59:59Z"
+    },
+    "resolution_rule": "Retain the first October archive and first-presence receipt. Select exactly one CSV cell with anzsco4_code 5311, sa4_code 101 and date 2026-10-15. Derive x/(x+4217). Resolve 1 iff this is at least 0.5 (equivalently x>=4217), else 0. No substitutions or later-vintage shopping; apply the prewritten resolution and void procedure.",
+    "resolution_source_id": "source.jsa.nero",
+    "resolution_source_uri": "https://www.jobsandskills.gov.au/data/nero",
+    "resolution_event_id": "event.nero.5311.101.2026-10",
+    "independence_cluster_id": "cluster.nero-model.2026",
+    "condition_definition_ref": {
+      "condition_id": "condition.nero.5311.101.stock",
+      "definition_version": "1.0.0",
+      "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
+    },
+    "signal_definition_ref": {
+      "signal_id": "signal.nero.5311.101.bounded-stock",
+      "definition_version": "1.0.0",
+      "signal_definition_hash": "sha256:361498a86ae4d864095c6bd82bdfe8f1690c0142b3b598be2f83d5b48a3b950c"
+    },
+    "metric_id": "metric.nero.5311.101.bounded-stock",
+    "metric_checksum": "sha256:74653e30e1968475d1cbf6f4a99105d5e84506b979c4c7d567621243186a3b30",
+    "scope": {
+      "geographies": [
+        "SA4 101: Capital Region"
+      ],
+      "cohorts": [
+        "ANZSCO4 5311: General Clerks"
+      ],
+      "services": [
+        "Modelled employment stock, exposure context only"
+      ]
+    },
+    "scope_hash": "sha256:6d030cc7b97c63a56053954030a62cf9630af44e0c792cbc0f42395ab8af5699",
+    "kernel_ref": {
+      "artifact_path": "forecasts/prospective-pilot/round-08-nero/kernel.json",
+      "artifact_sha256": "sha256:c588a05a25d0133b8a386e135a27f1e7e0d3e4b538847f637c5211f6ffd81303",
+      "kernel_id": "kernel.nero.5311.101.prospective",
+      "manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd"
+    },
+    "signal_registry_ref": {
+      "artifact_path": "forecasts/prospective-pilot/round-08-nero/registry.json",
+      "artifact_sha256": "sha256:475469766e6d84f7c99ea1afb055fce5441c5e547fe438dbb284dba90a18536a",
+      "registry_id": "registry.nero.5311.101.prospective",
+      "schema_version": "1.1.0"
+    },
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.1.0",
+      "implementation_sha256": "sha256:eeaf2eb48ca4bc16dc5b79a979f79cdeb11d9e30a8817f389d0d82d4c0b6e265",
+      "parameters_sha256": "sha256:70e83066bfc7c31e8b00ef9ff191b7d4376c86912edf20d6997e5e93613fdc64",
+      "conformance_vectors_sha256": "sha256:b47dbc9f05bd9ca83b9582a5023925683f26600769e2cc517286517235ffd991",
+      "conflict_policy": "void-and-disclose",
+      "correction_policy": "withdraw-resolution-and-rescore-never-overwrite"
+    }
+  },
+  "baseline": {
+    "registration_status": "fixed_before_issue",
+    "baseline_role": "reference_class",
+    "baseline_id": "family.nero.reference.v1",
+    "target_id": "target.nero.5311.101.october-2026",
+    "kind": "mechanical",
+    "algorithm_id": "mind-flow.nero-two-month-direction",
+    "algorithm_version": "1.0.0",
+    "input_source_ids": [
+      "source.jsa.nero"
+    ],
+    "input_policy": "predeclared-sources-only-no-post-issue-data",
+    "calculation_timing": "before-forecast-issue",
+    "implementation_sha256": "sha256:f23e72c346e1f3473f54a20e51d776ac5c15a3cde032aa597257b42581e0b18a",
+    "conformance_vectors_sha256": "sha256:351f57486341f429224deccbc72d90c9345815ae039601eaf708cf348a2a250d",
+    "parameters_sha256": "sha256:72bc7246da7f20a8a8f7fc058fae99f3ec23ad44f00e7eae05451b2067103c78",
+    "input_manifest_sha256": "sha256:c53c95660b1727de866cb39bc9a6d45e613192ccd738b121f187c114df9163ab",
+    "input_vintage_cutoff_at": "2026-09-09T10:51:23Z",
+    "missing_input_policy": "withhold-baseline-and-forecast",
+    "rounding_policy": "round-to-six-decimals-half-even",
+    "output_probability": null,
+    "output_policy": "record-only-in-separate-issued-forecast"
+  },
+  "naive_baseline": {
+    "registration_status": "fixed_before_issue",
+    "baseline_role": "naive",
+    "baseline_id": "family.nero.naive.v1",
+    "target_id": "target.nero.5311.101.october-2026",
+    "kind": "mechanical",
+    "algorithm_id": "mind-flow.equal-probability",
+    "algorithm_version": "1.0.0",
+    "input_source_ids": [
+      "source.jsa.nero"
+    ],
+    "input_policy": "predeclared-sources-only-no-post-issue-data",
+    "calculation_timing": "before-forecast-issue",
+    "implementation_sha256": "sha256:f23e72c346e1f3473f54a20e51d776ac5c15a3cde032aa597257b42581e0b18a",
+    "conformance_vectors_sha256": "sha256:351f57486341f429224deccbc72d90c9345815ae039601eaf708cf348a2a250d",
+    "parameters_sha256": "sha256:72bc7246da7f20a8a8f7fc058fae99f3ec23ad44f00e7eae05451b2067103c78",
+    "input_manifest_sha256": "sha256:ae253a23d33b8c82e00a112d7fa75d194ee3af3c1448865b113e7afeae51c340",
+    "input_vintage_cutoff_at": "2026-09-09T10:51:23Z",
+    "missing_input_policy": "withhold-baseline-and-forecast",
+    "rounding_policy": "round-to-six-decimals-half-even",
+    "output_probability": null,
+    "output_policy": "record-only-in-separate-issued-forecast"
+  },
+  "clocks": {
+    "registration_status": "fixed_before_issue",
+    "time_standard": "rfc3339-utc",
+    "clock_authority_verification": "unverified_external_review_required",
+    "preregistered_at": "2026-09-09T11:22:22Z",
+    "issue_opens_at": "2026-09-09T11:28:22Z",
+    "issue_closes_at": "2026-09-30T00:00:00Z",
+    "observation_starts_at": "2026-10-01T00:00:00Z",
+    "observation_ends_at": "2026-10-31T23:59:59Z",
+    "outcome_publication_not_before": "2026-11-01T00:00:00Z",
+    "resolve_after": "2026-11-01T00:00:00Z",
+    "resolution_closes_at": "2026-12-07T00:00:00Z"
+  },
+  "source_chronology": {
+    "policy": "append-only-absence-to-retained-presence",
+    "required_source_ids": [
+      "source.jsa.nero"
+    ],
+    "preregistered_event_count": 1,
+    "preregistered_tip_sha256": "sha256:0ef5df19ab1721e56742b3f98969770416021c45dbaa3a2fae9bd91023cbd2a6",
+    "events": [
+      {
+        "sequence": 1,
+        "source_id": "source.jsa.nero",
+        "state": "reported_absent",
+        "observed_at": "2026-09-09T10:44:49Z",
+        "artifact_sha256": null,
+        "previous_event_sha256": null,
+        "verification_status": "unverified_external_review_required",
+        "event_sha256": "sha256:0ef5df19ab1721e56742b3f98969770416021c45dbaa3a2fae9bd91023cbd2a6"
+      }
+    ]
+  },
+  "revision_policy": {
+    "target": "immutable-after-preregistration-new-protocol-required",
+    "baseline": "immutable-after-preregistration-new-protocol-required",
+    "issue_and_close_clocks": "immutable-after-preregistration-new-protocol-required",
+    "campaign_manifest": "immutable-after-seal-new-campaign-manifest-required",
+    "source_chronology": "local-hash-chain-external-tip-anchor-required-after-each-append",
+    "material_correction": "withdraw-and-supersede-never-overwrite",
+    "post_issue": "issued-forecast-record-immutable"
+  },
+  "scoring": {
+    "primary": "brier",
+    "secondary": [
+      "log_loss"
+    ],
+    "baseline_id": "family.nero.reference.v1",
+    "naive_baseline_id": "family.nero.naive.v1",
+    "baseline_comparison": "predeclared-reference-and-naive-baselines",
+    "score_timing": "after-resolution-close-and-retained-outcome-bytes",
+    "missing_resolution": "withhold-score-and-disclose",
+    "voided": "retain-in-manifest-exclude-from-score-and-disclose",
+    "reporting_denominator": "all-manifest-protocols",
+    "calibration_claim": "prohibited-for-single-pilot",
+    "aggregation": "mean-over-resolved-nonvoid-manifest-protocols",
+    "log_loss_probability_floor": 0.000001,
+    "implementation_sha256": "sha256:770c4b459a7e1e73fc4e7e9a25764c4d9facdf6db2cbd4a894f47a241ce0e044",
+    "conformance_vectors_sha256": "sha256:518de29fb9a6d38bdf0ef268961db230eec089fbb6f9066f1bf419c107ac9cb7",
+    "void_adjudication": "independent-review-required-before-exclusion"
+  },
+  "forecast_issuance": {
+    "status": "not-issued",
+    "probability": null,
+    "issued_at": null,
+    "record_policy": "separate-immutable-forecast-record-required"
+  },
+  "authority": {
+    "mode": "no-consequence",
+    "authority_effect": "none",
+    "action_authorised": false,
+    "operational_effect": false,
+    "decision_use": "prohibited",
+    "causal_truth_established": false,
+    "permitted_use": "protocol-rehearsal-and-scoring-method-only",
+    "public_claim_ceiling": "This document issues no forecast, establishes no empirical or causal truth, grants no authority and permits no action."
+  }
+}

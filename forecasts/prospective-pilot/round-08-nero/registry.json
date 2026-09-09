@@ -10,26 +10,26 @@
       "condition_id": "condition.nero.5311.101.stock",
       "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.nero.5311.101.prospective.assessment-overlay",
       "binding_status": "locally-verified-complete",
-      "ledger_manifest_hash": "sha256:9930a7066b4b1375502dec38234dc45201a33ab15145176c713989d54cf9ee40",
+      "ledger_manifest_hash": "sha256:f636d5f8ab666dce7c1191bec2c1ef8f43596bdd21e20c083fe1cdca0d33f1e5",
       "ledger_tip_event_id": "event.nero.5311.101.stock.added",
-      "ledger_tip_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35",
+      "ledger_tip_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa",
       "condition_definition_ref": {
         "condition_id": "condition.nero.5311.101.stock",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+        "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
       },
       "condition_source_event_ref": {
         "sequence": 1,
         "event_id": "event.nero.5311.101.stock.added",
-        "event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35"
+        "event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa"
       },
       "evidence_state_ref": {
         "kernel_id": "kernel.nero.5311.101.prospective",
-        "kernel_manifest_hash": "sha256:1d21b550873d6c20553b9b22272a665b0d973228f008434732867e8c1707d622",
+        "kernel_manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd",
         "evidence_event_count": 1,
         "evidence_tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
-        "evidence_tip_event_hash": "sha256:e7d6a84e0d1134c1ac9db21f36942f20249f357d886effad8fd5ccb97f3471cd",
-        "evidence_state_hash": "sha256:c954a38a84dd6689476d569eb7d1ccd33b518bce1d7e7e6044399febba3bc324"
+        "evidence_tip_event_hash": "sha256:2822bd8a8988e44cae56b1f91c918b5b7af746b6db984782089906b2ef53d72c",
+        "evidence_state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be"
       },
       "next_binding": null
     }
@@ -156,7 +156,7 @@
         "condition_definition_ref": {
           "condition_id": "condition.nero.5311.101.stock",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+          "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
         },
         "predicate_ids": [
           "stock-threshold"

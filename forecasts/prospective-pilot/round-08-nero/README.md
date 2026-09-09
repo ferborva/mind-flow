@@ -88,6 +88,13 @@ nothing and posts nothing. The forecast-shaped object is a proposal, not an
 issuance event. Its preregistration remains invalid while its provider receipt
 is absent. No such object is saved as an issued record during preparation.
 
+The issuance-binding check requires exact retained bytes for the fixed binary
+comparator, its conformance tests and resolver parameters. The parameters bind
+the native NERO adapter, bounded-index implementation, ZIP/CSV parser and native
+cell regression tests. Missing or changed dependency bytes prevent a complete
+binding. This validates the reviewed local implementation, not an independent
+resolver's identity or the publisher's authenticity.
+
 Before registration, freeze the complete target, baseline parameters, resolver
 and dependency hashes, scoring implementation, campaign manifest, source-absence
 prefix and exact UTC clocks. Post that sealed protocol hash to the already
@@ -158,6 +165,15 @@ Scoring stays withheld until resolution close and retained outcome evidence.
 Register the one-member evaluation cohort before observation begins. Its
 denominator includes this forecast whatever happens. The exercise establishes
 neither calibration nor a right, warning, service recommendation or action.
+
+`prepareNeroEvaluationPlan` prepares the existing version 1.1 evaluation plan
+after issue but before October. Its eligibility rule includes every issued
+record in this single-protocol campaign, with no exclusions. The policy anchor
+is the campaign manifest already sealed in the protocol. The later eligible
+manifest and registration anchors are separately retained local content-addressed
+bytes, not invented external timestamps or published URLs. Their URNs and
+unverified status must not be presented as an independent registry. Retain the
+exact issue checksum, plan checksum and anchor bytes together.
 
 ## Attribution
 

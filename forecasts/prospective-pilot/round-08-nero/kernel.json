@@ -9,9 +9,9 @@
   "evaluator": {
     "id": "mind-flow.executable-if.evaluator",
     "version": "1.1.0",
-    "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
-    "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-    "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
+    "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+    "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+    "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
     "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
   },
   "signals": [
@@ -50,7 +50,7 @@
           "condition_definition_ref": {
             "condition_id": "condition.nero.5311.101.stock",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+            "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
           },
           "lifecycle": "active"
         }
@@ -122,16 +122,16 @@
           "evaluator_ref": {
             "id": "mind-flow.executable-if.evaluator",
             "version": "1.1.0",
-            "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
-            "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
-            "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
             "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
           },
           "classification": "research-draft",
           "empirical_truth_established": false,
           "authority_effect": "none",
           "action_authorised": false,
-          "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+          "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
         }
       ],
       "identity_change": {
@@ -140,7 +140,7 @@
       "authority_effect": "none",
       "action_authorised": false,
       "previous_event_hash": null,
-      "event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35"
+      "event_hash": "sha256:707f51353a379aceb400a652a29d73ab0d7028c875a85aa244cb44e98f23f6aa"
     }
   ],
   "observations": [
@@ -150,7 +150,7 @@
       "condition_definition_ref": {
         "condition_id": "condition.nero.5311.101.stock",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+        "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
       },
       "predicate_id": "stock-threshold",
       "signal_ref": {
@@ -194,7 +194,7 @@
       },
       "authority_effect": "none",
       "action_authorised": false,
-      "observation_hash": "sha256:e002be72b036cbbb414fd793afae72270ced67af3dc54c3ce375808cf9dbafec"
+      "observation_hash": "sha256:f5660c1be2ce6319f29ce334cbe2751c07dc663e39d16eb9200ff354af0f3dc6"
     }
   ],
   "evidence_events": [
@@ -210,7 +210,7 @@
         {
           "observation_ref": {
             "observation_id": "observation.nero.5311.101.2026-08",
-            "observation_hash": "sha256:e002be72b036cbbb414fd793afae72270ced67af3dc54c3ce375808cf9dbafec"
+            "observation_hash": "sha256:f5660c1be2ce6319f29ce334cbe2751c07dc663e39d16eb9200ff354af0f3dc6"
           },
           "state_version": 1,
           "lifecycle": "active"
@@ -222,14 +222,14 @@
       "authority_effect": "none",
       "action_authorised": false,
       "previous_evidence_event_hash": null,
-      "evidence_event_hash": "sha256:e7d6a84e0d1134c1ac9db21f36942f20249f357d886effad8fd5ccb97f3471cd"
+      "evidence_event_hash": "sha256:2822bd8a8988e44cae56b1f91c918b5b7af746b6db984782089906b2ef53d72c"
     }
   ],
   "current_evidence_state": [
     {
       "observation_ref": {
         "observation_id": "observation.nero.5311.101.2026-08",
-        "observation_hash": "sha256:e002be72b036cbbb414fd793afae72270ced67af3dc54c3ce375808cf9dbafec"
+        "observation_hash": "sha256:f5660c1be2ce6319f29ce334cbe2751c07dc663e39d16eb9200ff354af0f3dc6"
       },
       "state_version": 1,
       "lifecycle": "active"
@@ -242,10 +242,10 @@
       "condition_definition_ref": {
         "condition_id": "condition.nero.5311.101.stock",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+        "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
       },
       "lifecycle": "active"
     }
   ],
-  "manifest_hash": "sha256:1d21b550873d6c20553b9b22272a665b0d973228f008434732867e8c1707d622"
+  "manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd"
 }
