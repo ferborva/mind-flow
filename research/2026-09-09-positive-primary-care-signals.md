@@ -1,7 +1,7 @@
 ---
 id: positive-primary-care-signals-2026-09-09
 title: Three measured improvements, with no personal agency claim
-type: research-report
+type: research
 status: review
 provenance: commissioned-agent-proposal
 author: Ren

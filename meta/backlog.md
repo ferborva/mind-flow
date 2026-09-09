@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Backlog
@@ -30,12 +30,11 @@ The three at the top are the ones that block writing. The rest can wait.
       `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
       contribution at the frame and method level, not the solution. He has not
       said whether the enterprise-choice claim still describes the problem.
-- [ ] **Does the sequencing concession kill the dated phases?** He said the
-      order conditions fall in cannot be planned. `from-if-to-when` runs on five
-      named phases with dates to 2055. My read is that the phases survive as
-      scenarios and the dashboard does the diagnosis, but he said both things
-      twenty minutes apart and never noticed. **The single most consequential
-      open question in the repo.**
+- [x] **Does the sequencing concession kill the dated phases?** Resolved by
+      Fernando's Round 08 commission on 2026-09-09: dated phases are scenarios,
+      never schedules. The transition draft now asks which condition binds
+      today and what would have to change. This does not answer the separate
+      enterprise-choice GAP above.
 - [x] **Are the five condition categories his?** Resolved 2026-09-08: "keep them
       as mine now". Price, permission, proximity, availability, capability, with
       discretion split out. They appear in his voice from here. Chain recorded
