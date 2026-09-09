@@ -63,6 +63,22 @@ The full suite discovers the nested tests. The policy also runs the most
 material lineage, issuance-binding and rendered-parity attacks explicitly so
 their receipts remain easy to locate in a large full-suite transcript.
 
+Round 08 moves retained inputs above 5 MB to Git LFS without rewriting older
+Git history. The tree inventory still binds the exact committed pointer bytes.
+Detached reproduction hydrates only the pointer's SHA-256 and size from the
+source repository's local LFS object cache, then checks those content bytes
+before and after commands. Missing or changed objects fail closed; there is no
+implicit network fetch. Run `git lfs pull` before creating a freeze in a fresh
+checkout. A working-checkout verification also compares hydrated bytes to the
+committed pointer, not to the pointer's text hash.
+
+Policies may name exact generated output paths, bound by their policy checksum.
+Only those paths are exempt from unexpected-file checks; ignore patterns are
+not exemptions. The Round 08 build contract regenerates and checks them.
+Historical policies remain unchanged, including the generated files tracked in
+their original candidates. Their coverage tests use the immutable retained
+Round 07 candidate, rather than requiring those old files in a new tree.
+
 When the selected policy requires the generator and schema, their recorded
 hashes must equal those files in the reviewed commit. Generator parity with the
 reviewer's local executable remains a separate optional check.

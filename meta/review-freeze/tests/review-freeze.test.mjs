@@ -32,6 +32,10 @@ import {
 } from "../review-freeze.mjs";
 
 const repositoryRoot = resolve(import.meta.dirname, "../../..");
+// Historical policies retain the generated files that were tracked then.
+// Their coverage is checked at the retained candidate, never today's HEAD.
+const historicalCandidate = JSON.parse(readFileSync(resolve(repositoryRoot,
+  "meta/review-freeze/round-07.review-freeze.json"), "utf8")).review_target.commit;
 
 test("freeze schema and audit keep integrity separate from review approval", () => {
   const schema = JSON.parse(readFileSync(resolve(
@@ -202,10 +206,59 @@ function fixturePolicy(commands = [{
   };
 }
 
+test("detached reproduction hydrates retained LFS bytes and rejects missing or altered objects", () => {
+  const root = fixtureRepository();
+  try {
+    const bytes = Buffer.from("retained source fixture\n");
+    const oid = canonicalHash(bytes).slice(7);
+    const pointer = `version https://git-lfs.github.com/spec/v1\noid sha256:${oid}\nsize ${bytes.length}\n`;
+    write(resolve(root, "source.dat"), pointer);
+    command(root, ["git", "add", "source.dat"]);
+    command(root, ["git", "-c", "user.name=Freeze Test", "-c", "user.email=freeze@example.invalid", "commit", "--quiet", "-m", "retained pointer"]);
+    const policy = fixturePolicy([{
+      command_id: "retained-byte-check",
+      argv: ["node", "-e", "const fs = require('node:fs'); if (fs.readFileSync('source.dat', 'utf8') !== 'retained source fixture\\n') process.exit(2)"],
+    }]);
+    policy.required_files.push({ path: "source.dat", role: "retained input" });
+    const objectPath = resolve(root, ".git/lfs/objects", oid.slice(0, 2), oid.slice(2, 4), oid);
+    mkdirSync(resolve(objectPath, ".."), { recursive: true });
+    write(objectPath, bytes);
+    const manifest = createReviewFreeze({ repositoryRoot: root, policy, executeCommands: true });
+    assert.equal(manifest.reproduction.status, "passed");
+    assert.equal(manifest.required_files.at(-1).sha256, canonicalHash(Buffer.from(pointer)));
+    write(objectPath, "changed source\n");
+    assert.throws(() => createReviewFreeze({ repositoryRoot: root, policy, executeCommands: true }), /LFS.*(hash|size|bytes)/i);
+    rmSync(objectPath);
+    assert.throws(() => createReviewFreeze({ repositoryRoot: root, policy, executeCommands: true }), /LFS.*(missing|unavailable)/i);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("only policy-bound generated outputs are expected in detached reproduction", () => {
+  const root = fixtureRepository();
+  try {
+    const policy = fixturePolicy([{
+      command_id: "render",
+      argv: ["node", "-e", "require('node:fs').writeFileSync('rendered.html', '<p>fixture</p>')"],
+    }]);
+    const rejected = createReviewFreeze({ repositoryRoot: root, policy, executeCommands: true });
+    assert.equal(rejected.reproduction.status, "failed");
+    assert.deepEqual(rejected.reproduction.unexpected_paths, ["rendered.html"]);
+    policy.generated_outputs = ["rendered.html"];
+    const accepted = createReviewFreeze({ repositoryRoot: root, policy, executeCommands: true });
+    assert.equal(accepted.reproduction.status, "passed");
+    assert.notEqual(accepted.policy.checksum, rejected.policy.checksum);
+    assert.equal(verifyReviewFreeze(accepted, { repositoryRoot: root, policy: fixturePolicy(policy.build_commands) }).valid, false);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("Round 04 policy freezes the brief, build surface and complete review target", () => {
   const manifest = createReviewFreeze({
     repositoryRoot,
-    commit: "HEAD",
+    commit: historicalCandidate,
     policy: ROUND_04_REVIEW_POLICY,
     executeCommands: false,
   });
@@ -354,7 +407,7 @@ test("CLI verification fails closed for coherent failed and not-run receipts", (
 
     const notRun = createReviewFreeze({
       repositoryRoot,
-      commit: "HEAD",
+      commit: historicalCandidate,
       policy: ROUND_06_REVIEW_POLICY,
       executeCommands: false,
     });
@@ -394,7 +447,7 @@ test("Round 06 policy exposes the complete new review surface and uses clean ins
 
   const paths = new Set(ROUND_06_REVIEW_POLICY.required_files.map(({ path }) => path));
   const trackedPaths = new Set(command(repositoryRoot, [
-    "git", "ls-tree", "-r", "--name-only", "HEAD",
+    "git", "ls-tree", "-r", "--name-only", historicalCandidate,
   ]).split("\n"));
   for (const path of paths) {
     assert.equal(trackedPaths.has(path), true, `${path} is not tracked at the review target`);
