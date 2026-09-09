@@ -38,7 +38,7 @@ test("the evolved write-up uses the seven-part public update", () => {
     "Which IF changed?",
     "What happens now?",
     "What would change this reading?",
-    "When will we check again?",
+    "When is the next check?",
   ]) assert.match(second, new RegExp(question.replace("?", "\\?")));
   assert.doesNotMatch(second, /five questions every update/i);
   assert.match(second, /One claim in this debate can be stated so it could fail/i);

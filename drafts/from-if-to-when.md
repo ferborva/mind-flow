@@ -122,7 +122,7 @@ the evidence and open questions easy to find.
 4. **Which IF changed?** Say whether evidence, definition or an alternative route changed.
 5. **What happens now?** Name the next authorised step or the evidence still needed.
 6. **What would change this reading?** Give the competing explanation and its test.
-7. **When will we check again?** Record the date, responsible person and next source.
+7. **When is the next check?** Record the date, responsible person and next source.
 
 For a rural clerical worker, the useful page would say which condition stands
 between the relevant population and a GP appointment, who holds it, how the
