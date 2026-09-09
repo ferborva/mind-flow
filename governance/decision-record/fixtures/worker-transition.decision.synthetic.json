@@ -11,21 +11,21 @@
     "negotiation_ref": {
       "record_id": "negotiation.worker-transition.synthetic",
       "version": "1.0.0",
-      "record_hash": "sha256:96e08527b979481cbe373d1d41e0d7b071379a510b045aca2132f5072859a7b3"
+      "record_hash": "sha256:37b47f0aafac4fc56ef0dc859839091f629afe9ef9eea96490ccd19fd3dd14db"
     },
     "if_binding": {
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
+        "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
       },
       "evaluation_receipt_ref": {
         "receipt_id": "receipt.condition.worker-option.nsw.20260909",
         "receipt_version": "1.0.0",
-        "receipt_hash": "sha256:c91bc7c580ce1d902dfc8e10e61a434be89b83b2d5ca5cbd83d63081512132df",
+        "receipt_hash": "sha256:e22a8500d51cac729c081025bc4567f9d3bf00dd33c4625a32e0b7ee010227ed",
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2",
+        "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706",
         "evaluated_at": "2026-09-09T00:00:00Z",
         "valid_until": "2026-10-09T00:00:00Z",
         "mechanically_valid_for_evaluation": true,
@@ -325,7 +325,7 @@
       "publication_approved": false
     }
   },
-  "payload_hash": "sha256:a66d38661c0b20a55759d08946c892eff1cf02f591aceaafc3cd8f1e55ad44e7",
+  "payload_hash": "sha256:c42ed0eaff80c5e061b7dd54149489a7f6981c6f11b883f536293bd1749fbaba",
   "signatures": [
     {
       "signature_id": "signature.synthetic.1",
@@ -335,7 +335,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:a66d38661c0b20a55759d08946c892eff1cf02f591aceaafc3cd8f1e55ad44e7",
+      "signed_payload_hash": "sha256:c42ed0eaff80c5e061b7dd54149489a7f6981c6f11b883f536293bd1749fbaba",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:1",
       "identity_verification": "not-authenticated",
@@ -349,7 +349,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:a66d38661c0b20a55759d08946c892eff1cf02f591aceaafc3cd8f1e55ad44e7",
+      "signed_payload_hash": "sha256:c42ed0eaff80c5e061b7dd54149489a7f6981c6f11b883f536293bd1749fbaba",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:2",
       "identity_verification": "not-authenticated",
@@ -363,7 +363,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:a66d38661c0b20a55759d08946c892eff1cf02f591aceaafc3cd8f1e55ad44e7",
+      "signed_payload_hash": "sha256:c42ed0eaff80c5e061b7dd54149489a7f6981c6f11b883f536293bd1749fbaba",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:3",
       "identity_verification": "not-authenticated",
@@ -377,12 +377,12 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:a66d38661c0b20a55759d08946c892eff1cf02f591aceaafc3cd8f1e55ad44e7",
+      "signed_payload_hash": "sha256:c42ed0eaff80c5e061b7dd54149489a7f6981c6f11b883f536293bd1749fbaba",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:4",
       "identity_verification": "not-authenticated",
       "signed_at": "2026-09-11T03:15:00Z"
     }
   ],
-  "record_hash": "sha256:d089f3f11f5423c525933957e7a688dba6db9da8627fcf9de75e8bdde52a1479"
+  "record_hash": "sha256:62f761d47d2b30ffcf1c962b8bb0cc1fe44e00b48e1a041a7b95f8df48be6ee4"
 }

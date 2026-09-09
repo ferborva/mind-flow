@@ -12,15 +12,15 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2"
+        "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
       },
       "evaluation_receipt_ref": {
         "receipt_id": "receipt.condition.worker-option.nsw.20260909",
         "receipt_version": "1.0.0",
-        "receipt_hash": "sha256:c91bc7c580ce1d902dfc8e10e61a434be89b83b2d5ca5cbd83d63081512132df",
+        "receipt_hash": "sha256:e22a8500d51cac729c081025bc4567f9d3bf00dd33c4625a32e0b7ee010227ed",
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2",
+        "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706",
         "evaluated_at": "2026-09-09T00:00:00Z",
         "valid_until": "2026-10-09T00:00:00Z",
         "mechanically_valid_for_evaluation": true,
@@ -349,7 +349,7 @@
       "publication_approved": false
     }
   },
-  "payload_hash": "sha256:f04a48bd7542570814c829afd4b7db7416091bdd66b612b7974bf8ce889a95f5",
+  "payload_hash": "sha256:41053fd912aa05dd2e9c48c5155a9b2167e90bb353521d156a3547de3dd8eda9",
   "signatures": [
     {
       "signature_id": "signature.synthetic.1",
@@ -359,7 +359,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:f04a48bd7542570814c829afd4b7db7416091bdd66b612b7974bf8ce889a95f5",
+      "signed_payload_hash": "sha256:41053fd912aa05dd2e9c48c5155a9b2167e90bb353521d156a3547de3dd8eda9",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:1",
       "identity_verification": "not-authenticated",
@@ -373,7 +373,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:f04a48bd7542570814c829afd4b7db7416091bdd66b612b7974bf8ce889a95f5",
+      "signed_payload_hash": "sha256:41053fd912aa05dd2e9c48c5155a9b2167e90bb353521d156a3547de3dd8eda9",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:2",
       "identity_verification": "not-authenticated",
@@ -387,7 +387,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:f04a48bd7542570814c829afd4b7db7416091bdd66b612b7974bf8ce889a95f5",
+      "signed_payload_hash": "sha256:41053fd912aa05dd2e9c48c5155a9b2167e90bb353521d156a3547de3dd8eda9",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:3",
       "identity_verification": "not-authenticated",
@@ -401,12 +401,12 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:f04a48bd7542570814c829afd4b7db7416091bdd66b612b7974bf8ce889a95f5",
+      "signed_payload_hash": "sha256:41053fd912aa05dd2e9c48c5155a9b2167e90bb353521d156a3547de3dd8eda9",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:4",
       "identity_verification": "not-authenticated",
       "signed_at": "2026-09-10T03:15:00Z"
     }
   ],
-  "record_hash": "sha256:96e08527b979481cbe373d1d41e0d7b071379a510b045aca2132f5072859a7b3"
+  "record_hash": "sha256:37b47f0aafac4fc56ef0dc859839091f629afe9ef9eea96490ccd19fd3dd14db"
 }

@@ -8,12 +8,12 @@
     "bundle_stage": "pre-projection-core",
     "schema_version": "1.2.0",
     "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-    "sha256": "sha256:743e6b4796dd4c7a181628815d553b46974a23e5e7f59b2beb2f18d4edbc779f"
+    "sha256": "sha256:e1f34dfbb13e9398afd4a024646cd37f8480c02988e011f56d0153a5e95888ec"
   },
   "fact_pack_ref": {
     "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
     "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-    "sha256": "sha256:587a1a356774e1d9ad7ae423e0b1f0f310455371c60545abf2347ac5e2289c16"
+    "sha256": "sha256:e7d12f31ba14c835e4995650e4a2d3add0126a34e10e40c4f42a2b8627b78059"
   },
   "render_contract": {
     "claim_ids": [

@@ -21,10 +21,10 @@ const fixture = JSON.parse(readFileSync(
 const expectedIfBinding = {
   condition_id: "condition.worker-option.nsw",
   definition_version: "1.0.0",
-  definition_hash: "sha256:f5e2e2a299529dc890c70ef36b2e95ba9408b0e6a4d76a249b8b60810e9781e2",
+  definition_hash: "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706",
   receipt_id: "receipt.condition.worker-option.nsw.20260909",
   receipt_version: "1.0.0",
-  receipt_hash: "sha256:c91bc7c580ce1d902dfc8e10e61a434be89b83b2d5ca5cbd83d63081512132df",
+  receipt_hash: "sha256:e22a8500d51cac729c081025bc4567f9d3bf00dd33c4625a32e0b7ee010227ed",
   evaluated_at: "2026-09-09T00:00:00Z",
   valid_until: "2026-10-09T00:00:00Z",
   mechanically_valid_for_evaluation: true,

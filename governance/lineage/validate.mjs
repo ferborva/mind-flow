@@ -72,30 +72,30 @@ const UNVERIFIED_TRUST_BOUNDARIES = Object.freeze({
 export const FIXED_SOURCE_REFS = Object.freeze({
   round_04_bundle: Object.freeze({
     path: "integration/transition-bundle/fixtures/round-04.worker-option.complete.json",
-    sha256: "sha256:7875e2ff45ebe004f972d8e435da5bfaed50919a2ebc0232724e07426d08e5ca",
+    sha256: "sha256:23037c362730c7735bf11f2c26c4a50a9cb208b29e7660594d4b042c3fe95958",
     bundle_id: "bundle.round-04.worker-option.complete",
     bundle_schema_version: "1.2.0",
     bundle_stage: "complete-core",
   }),
   governance_context: Object.freeze({
     path: "governance/lineage/fixtures/round-06.worker-transition.governance-context.synthetic.json",
-    sha256: "sha256:1eb8d6959e3ea732d89cf52724f61724071dc3a38d06e6dd536cc4d90014aeff",
+    sha256: "sha256:8082977b4e9d2e75310c52aae1d45b0ee46ae7f1438fec482743d8b0cb455847",
     context_id: "governance-context.round-06.worker-transition.synthetic",
-    context_hash: "sha256:0dc355680468b001808119c714ebb71cfa4406d4ca0fc8a7cedf373034a50234",
+    context_hash: "sha256:6db415381c97294ba3a8c72d18473a23a899ada78d0c694557a11bdae8e1d363",
   }),
   negotiation: Object.freeze({
     path: "governance/negotiation-record/fixtures/worker-transition.negotiation.synthetic.json",
-    sha256: "sha256:e092d6fc3d6e093afc05a197cce7b3e35969bc14756a1c039fb32adea04b72a3",
+    sha256: "sha256:290604fd04fa86a4b694299af51e3184834ef3fb591bde0ede70d0dd718284c4",
     record_id: "negotiation.worker-transition.synthetic",
     version: "1.0.0",
-    record_hash: "sha256:96e08527b979481cbe373d1d41e0d7b071379a510b045aca2132f5072859a7b3",
+    record_hash: "sha256:37b47f0aafac4fc56ef0dc859839091f629afe9ef9eea96490ccd19fd3dd14db",
   }),
   decision: Object.freeze({
     path: "governance/decision-record/fixtures/worker-transition.decision.synthetic.json",
-    sha256: "sha256:d0972f05d0da9edae040a5f8f74ff1ee2034fa235dc7853cad74d0b40567333b",
+    sha256: "sha256:4d204839a27e35470dde49b5e81f860bbbf1acafa0b25baf0727c4aa5a0237d3",
     record_id: "decision.worker-transition.synthetic",
     version: "1.0.0",
-    record_hash: "sha256:d089f3f11f5423c525933957e7a688dba6db9da8627fcf9de75e8bdde52a1479",
+    record_hash: "sha256:62f761d47d2b30ffcf1c962b8bb0cc1fe44e00b48e1a041a7b95f8df48be6ee4",
   }),
 });
 
