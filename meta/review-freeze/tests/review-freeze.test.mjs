@@ -84,10 +84,10 @@ test("executable discovery works inside the restricted toolchain without which",
   const root = mkdtempSync(resolve(tmpdir(), "mind-flow-toolchain-test-"));
   const previousPath = process.env.PATH;
   try {
-    const gitPath = command(repositoryRoot, ["which", "git"]);
-    symlinkSync(realpathSync(gitPath), resolve(root, "git"));
+    const gitPath = executablePath("git");
+    symlinkSync(gitPath, resolve(root, "git"));
     process.env.PATH = root;
-    assert.equal(executablePath("git"), realpathSync(gitPath));
+    assert.equal(executablePath("git"), gitPath);
   } finally {
     process.env.PATH = previousPath;
     rmSync(root, { recursive: true, force: true });
