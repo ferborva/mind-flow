@@ -1,0 +1,26 @@
+{
+  "parameters": {
+    "occupation_code": "5311",
+    "sa4_code": "101",
+    "first_month": "2026-01",
+    "last_month": "2026-05",
+    "horizon_months": 2
+  },
+  "input": {
+    "series": [{
+      "occupation_code": "5311",
+      "sa4_code": "101",
+      "recent_observations": [
+        { "date": "2026-01-15", "value": 10 },
+        { "date": "2026-02-15", "value": 12 },
+        { "date": "2026-03-15", "value": 11 },
+        { "date": "2026-04-15", "value": 9 },
+        { "date": "2026-05-15", "value": 13 }
+      ]
+    }]
+  },
+  "expected": {
+    "mind-flow.nero-two-month-direction": 0.6,
+    "mind-flow.equal-probability": 0.5
+  }
+}

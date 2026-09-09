@@ -53,9 +53,24 @@ Binary forecast schema `1.4.0` now accepts an optional, closed
 4. resolver implementation, parameter and conformance hashes plus correction policies; or
 5. the mature schema and semantic-validator byte identities used at issue.
 
-The adapter also returns
-`BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED` until a separate runner
-recomputes both probabilities from those retained inputs.
+The adapter re-executes the two fixed NERO algorithms in
+`baseline-execution.mjs`, using exact input bytes, parameters and conformance
+vectors. Both implementation and vectors must match the locally supported
+versions, so caller-supplied code is never executed. The single NERO input
+digest must appear once in the frozen data-vintage list with a retrieval clock
+no later than the registered cutoff. Missing data, duplicate series/months,
+nonconsecutive months, unsupported versions or a changed computed probability
+fail closed. Other algorithms retain the legacy
+`BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED` blocker.
+
+The reference algorithm counts nonnegative two-month changes in the declared
+contiguous interval and applies Laplace smoothing `(successes + 1) / (n + 2)`.
+The naive algorithm returns `0.5` after validating the same input window.
+Rounding uses exact rational arithmetic, six decimal places and half-even ties.
+Overlapping changes in one smoothed, revised vintage are not independent trials
+and the result is not calibrated confidence. It is a preregistered mechanical
+comparator. The primary-source extraction and target suitability still require
+review.
 
 Records without that object retain the five `MATURE_*_UNREPRESENTABLE`
 blockers. The field is immutable after issue; supplied references must exactly
@@ -92,8 +107,12 @@ const result = assessFutureIssuanceBinding({
 });
 ```
 
-`machine_valid`, `binding_complete`, `eligible_for_issuance_review` and
-`issuance_authorised` remain `false` while blockers exist. The result also fixes
+`machine_valid`, `binding_complete` and `eligible_for_issuance_review` remain
+`false` while blockers or errors exist. Local execution can clear the mechanical
+prerequisite, reported as `baseline_execution_reproduced`; it never flips
+`baseline_execution_independently_reproduced` or `independent_anchor_verified`
+to true. Another reviewer must actually rerun the candidate before issue.
+`issuance_authorised` is always `false`. The result also fixes
 empirical truth, causal truth, authority, action and publication to `false`.
 `records_structurally_valid_with_supplied_context` means only that local
 validators accepted the records and caller-supplied context. It is not an

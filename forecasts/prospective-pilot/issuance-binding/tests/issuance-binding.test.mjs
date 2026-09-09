@@ -327,6 +327,65 @@ function bindProspectiveRegistration(candidate) {
   return refreshBytes(candidate);
 }
 
+function executableCandidate() {
+  const candidate = setup();
+  const vectorsBytes = readFileSync(resolve(here, "../baseline-conformance.json"));
+  const vectors = JSON.parse(vectorsBytes);
+  const inputBytes = jsonBytes(vectors.input);
+  const implementationBytes = readFileSync(resolve(here, "../baseline-execution.mjs"));
+  candidate.forecast.data_vintages.push({ source: "https://example.invalid/synthetic-nero-input",
+    retrieved_at: "2026-09-06T00:00:00Z", vintage: "synthetic", checksum: sha256(inputBytes) });
+  for (const role of ["reference", "naive"]) {
+    const mature = role === "reference" ? candidate.forecast.baseline : candidate.forecast.naive_baseline;
+    const registeredKey = role === "reference" ? "baseline" : "naive_baseline";
+    mature.probability = role === "reference" ? 0.6 : 0.5;
+    mature.calculation.algorithm_id = role === "reference" ? "mind-flow.nero-two-month-direction" : "mind-flow.equal-probability";
+    mature.calculation.input_checksums = [sha256(inputBytes)];
+    const artifacts = baselineArtifacts(mature);
+    artifacts.implementation = { bytes: implementationBytes, sha256: sha256(implementationBytes) };
+    artifacts.conformanceVectors = { bytes: vectorsBytes, sha256: sha256(vectorsBytes) };
+    artifacts.parameters = { bytes: jsonBytes(vectors.parameters), sha256: sha256(jsonBytes(vectors.parameters)) };
+    artifacts.inputs = [{ bytes: inputBytes }];
+    candidate.input.matureForecastSources[`${role}BaselineArtifacts`] = artifacts;
+    candidate.protocol[registeredKey] = registeredBaseline(mature, artifacts);
+  }
+  resealProtocol(candidate.protocol);
+  for (const role of ["reference", "naive"]) {
+    candidate.input.matureForecastSources[`${role}BaselineCalculation`] =
+      calculationArtifact(candidate.protocol, candidate.forecast, role);
+  }
+  return bindProspectiveRegistration(candidate);
+}
+
+test("supported baselines are re-executed from retained inputs without claiming reviewer independence", () => {
+  const result = assess(executableCandidate());
+  assert.deepEqual(result.issues, []);
+  assert.deepEqual(result.blockers, []);
+  assert.equal(result.baseline_execution_reproduced, true);
+  assert.equal(result.binding_complete, true);
+  assert.equal(result.eligible_for_issuance_review, true);
+  assert.equal(result.baseline_execution_independently_reproduced, false);
+  assert.equal(result.independent_anchor_verified, false);
+  assert.equal(result.issuance_authorised, false);
+});
+
+test("baseline execution fails closed on wrong output, missing bytes and late input retrieval", () => {
+  for (const change of [
+    (candidate) => { candidate.forecast.baseline.probability = 0.7;
+      candidate.input.matureForecastSources.referenceBaselineCalculation = calculationArtifact(candidate.protocol, candidate.forecast, "reference"); },
+    (candidate) => { candidate.input.matureForecastSources.referenceBaselineArtifacts.inputs = []; },
+    (candidate) => { candidate.forecast.data_vintages.at(-1).retrieved_at = "2026-09-08T00:00:00Z"; },
+  ]) {
+    const candidate = executableCandidate();
+    change(candidate);
+    refreshBytes(candidate);
+    const result = assess(candidate);
+    assert.equal(result.binding_complete, false);
+    assert.equal(result.baseline_execution_reproduced, false);
+    assert.ok(issueCodes(result).includes("BASELINE_EXECUTION_REPRODUCTION_FAILED"));
+  }
+});
+
 test("typed prospective references clear representational blockers but do not assert execution or authority", () => {
   const candidate = bindProspectiveRegistration(setup());
   const result = assess(candidate);
