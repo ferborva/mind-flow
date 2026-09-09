@@ -174,18 +174,18 @@ function clusterLevelScores(events) {
   );
 }
 
-function aggregateRegisteredScores(rawScores, resolvedForecasts) {
+function aggregateRegisteredScores(rawScores, resolvedForecasts, withhold = false) {
   const events = eventLevelScores(rawScores);
   const clusters = clusterLevelScores(events);
   return {
-    aggregate: aggregateScores(clusters, {
+    aggregate: aggregateScores(withhold ? [] : clusters, {
       resolvedForecasts,
       scoredForecasts: rawScores.length,
       scoredEvents: events.length,
       scoredClusters: clusters.length,
     }),
-    events,
-    clusters,
+    events: withhold ? [] : events,
+    clusters: withhold ? [] : clusters,
   };
 }
 
@@ -504,7 +504,7 @@ export function evaluateDeclaredUtility(forecast) {
   };
 }
 
-function reliabilityBins(events, plan) {
+function reliabilityBins(events, plan, withhold = false) {
   const enoughTotal = events.length >= plan.reliability.minimum_resolved_forecasts;
   const independentClusters = new Set(
     events.map((event) => event.claimed_independence_cluster_id),
@@ -523,7 +523,7 @@ function reliabilityBins(events, plan) {
     ).size;
     const enoughIndependentBin = independentClusterCount >=
       plan.reliability.minimum_independent_clusters_per_bin;
-    const publishRates = enoughTotal && enoughIndependent && enoughBin && enoughIndependentBin;
+    const publishRates = !withhold && enoughTotal && enoughIndependent && enoughBin && enoughIndependentBin;
     const clusterGroups = [...groupedBy(records, "claimed_independence_cluster_id").values()];
     return {
       lower,
@@ -538,7 +538,7 @@ function reliabilityBins(events, plan) {
       observed_frequency: publishRates
         ? mean(clusterGroups.map((cluster) => mean(cluster.map((record) => record.outcome))))
         : null,
-      status: publishRates
+      status: withhold ? "withheld_ineligible_cohort" : publishRates
         ? "descriptive_rate_claimed_clusters"
         : enoughTotal && !enoughIndependent
           ? "withheld_dependent_n"
@@ -547,7 +547,7 @@ function reliabilityBins(events, plan) {
   });
 
   return {
-    status: enoughTotal && enoughIndependent
+    status: withhold ? "withheld_ineligible_cohort" : enoughTotal && enoughIndependent
       ? "descriptive_diagnostic_only_claimed_clusters"
       : enoughTotal
         ? "withheld_dependent_n"
@@ -565,7 +565,9 @@ function reliabilityBins(events, plan) {
     minimum_independent_clusters_per_bin:
       plan.reliability.minimum_independent_clusters_per_bin,
     bins,
-    note: enoughTotal && enoughIndependent
+    note: withhold
+      ? "Cohort performance is ineligible. Scores and reliability rates are withheld."
+      : enoughTotal && enoughIndependent
       ? "Predeclared reliability bins aggregate registered events within unverified claimed clusters. They are descriptive diagnostics only and do not establish independence or calibration."
       : enoughTotal
         ? "Registered event count was met but the independent-cluster floor was not. Reliability rates and calibration language are withheld."
@@ -704,15 +706,6 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
       });
     }
   }
-  const scores = rawScores.map(serializableLosses);
-  const registeredScores = aggregateRegisteredScores(rawScores, resolved.length);
-  const scoresByUse = Object.fromEntries(
-    [...FORECAST_USES].map((use) => {
-      const useRawScores = rawScores.filter((score) => score.forecast_use === use);
-      const useResolvedCount = resolved.filter((record) => record.forecast_use === use).length;
-      return [use, aggregateRegisteredScores(useRawScores, useResolvedCount).aggregate];
-    }),
-  );
   const scoredIds = new Set(rawScores.map((score) => score.forecast_id));
   const scoredResolved = resolved.filter((forecast) => scoredIds.has(forecast.id));
   const lifecycleComplete = pending.length === 0 && overdue.length === 0;
@@ -726,6 +719,17 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
         : scoreCoverage < plan.void_handling.minimum_score_coverage
           ? "minimum_score_coverage_not_met"
           : null;
+
+  const withholdPerformance = performanceWithheldReason !== null;
+  const scores = withholdPerformance ? [] : rawScores.map(serializableLosses);
+  const registeredScores = aggregateRegisteredScores(rawScores, resolved.length, withholdPerformance);
+  const scoresByUse = Object.fromEntries(
+    [...FORECAST_USES].map((use) => {
+      const useRawScores = rawScores.filter((score) => score.forecast_use === use);
+      const useResolvedCount = resolved.filter((record) => record.forecast_use === use).length;
+      return [use, aggregateRegisteredScores(useRawScores, useResolvedCount, withholdPerformance).aggregate];
+    }),
+  );
 
   const useCounts = Object.fromEntries(
     [...FORECAST_USES].map((use) => [use, forecasts.filter((record) => record.forecast_use === use).length]),
@@ -834,17 +838,18 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
       clusters: registeredScores.clusters.map(serializableLosses),
       by_forecast_use: scoresByUse,
     },
-    reliability: reliabilityBins(registeredScores.events, plan),
+    reliability: reliabilityBins(eventLevelScores(rawScores), plan, withholdPerformance),
     reliability_by_forecast_use: Object.fromEntries(
       [...FORECAST_USES].map((use) => [
         use,
         reliabilityBins(
           eventLevelScores(rawScores.filter((score) => score.forecast_use === use)),
           plan,
+          withholdPerformance,
         ),
       ]),
     ),
-    declared_utility_arithmetic: declaredUtilityReport(scoredResolved),
+    declared_utility_arithmetic: declaredUtilityReport(withholdPerformance ? [] : scoredResolved),
     interpretation: {
       action_authorised: false,
       causal_truth_established: false,
