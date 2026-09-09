@@ -23,7 +23,7 @@ The pilot should therefore make two products distinct:
 1. **A factual observation layer:** source-native measures, vintages, uncertainty and revisions.
 2. **An explicitly conditional reasoning layer:** IF statements that describe what evidence would change a forecast or action, without presenting those conditions as facts.
 
-The machine-readable [source manifest](source-manifest.json), [scorecard](pilot-scorecard.json) and [IF register](if-register.json) are normative companions to this note. A [frozen August 2026 NERO baseline](data/README.md) is locally recomputable without aggregating occupations or regions, but only if the same external archive can be recovered. The original source bytes and publisher authenticity were not retained.
+The machine-readable [source manifest](source-manifest.json), [scorecard](pilot-scorecard.json) and [IF register](if-register.json) are normative companions to this note. Before the later retention event, the [frozen August 2026 NERO baseline](data/README.md) was locally recomputable only if the same external archive could be recovered. Exact source bytes are now retained in a later checksum-pinned capture, and byte snapshots of the pinned in-process builder and archive reproduce the numeric and identity fields for all 440 selected series. Publisher authenticity, classification versions, exact release time and prospective chronology remain unverified, and the historical baseline record is not rewritten.
 
 ## Pilot question
 

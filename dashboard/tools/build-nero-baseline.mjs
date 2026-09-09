@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { createReadStream, createWriteStream } from "node:fs";
+import {
+  closeSync,
+  createReadStream,
+  createWriteStream,
+  openSync,
+  readSync,
+  statSync,
+} from "node:fs";
 import { once } from "node:events";
 import { basename, resolve } from "node:path";
 import { createInterface } from "node:readline";
-import { spawn } from "node:child_process";
+import { Readable, Transform } from "node:stream";
 import { pathToFileURL } from "node:url";
+import { createInflateRaw } from "node:zlib";
 
 const DEFAULT_OCCUPATIONS = Object.freeze(["5311", "5511", "5512", "5513", "5411"]);
 const AUSTRALIA_SOURCE_HOSTS = new Set(["www.jobsandskills.gov.au"]);
@@ -20,6 +28,18 @@ const EXPECTED_COLUMNS = Object.freeze([
   "date",
   "nsc_emp",
 ]);
+const ZIP_LOCAL_SIGNATURE = 0x04034b50;
+const ZIP_CENTRAL_SIGNATURE = 0x02014b50;
+const ZIP_END_SIGNATURE = 0x06054b50;
+const ZIP_MAX_END_SIZE = 65_557;
+
+const CRC32_TABLE = Object.freeze(Array.from({ length: 256 }, (_, index) => {
+  let value = index;
+  for (let bit = 0; bit < 8; bit += 1) {
+    value = (value >>> 1) ^ ((value & 1) ? 0xedb88320 : 0);
+  }
+  return value >>> 0;
+}));
 
 function compareText(left, right) {
   return String(left).localeCompare(String(right), "en", { numeric: true });
@@ -55,6 +75,149 @@ export function parseCsvLine(line) {
   if (quoted) throw new Error("unterminated quoted CSV field");
   fields.push(field.replace(/\r$/, ""));
   return fields;
+}
+
+function readRange(path, start, length) {
+  if (!Number.isSafeInteger(start) || start < 0 || !Number.isSafeInteger(length) || length < 0) {
+    throw new Error("ZIP range must use non-negative safe integers");
+  }
+  const buffer = Buffer.alloc(length);
+  const descriptor = openSync(path, "r");
+  try {
+    const bytesRead = readSync(descriptor, buffer, 0, length, start);
+    if (bytesRead !== length) throw new Error("ZIP ended before the declared range");
+  } finally {
+    closeSync(descriptor);
+  }
+  return buffer;
+}
+
+function zipEntries(path) {
+  const size = statSync(path).size;
+  const tailSize = Math.min(size, ZIP_MAX_END_SIZE);
+  const tailStart = size - tailSize;
+  const tail = readRange(path, tailStart, tailSize);
+  let endOffset = -1;
+  for (let offset = tail.length - 22; offset >= 0; offset -= 1) {
+    if (tail.readUInt32LE(offset) === ZIP_END_SIGNATURE &&
+        offset + 22 + tail.readUInt16LE(offset + 20) === tail.length) {
+      endOffset = offset;
+      break;
+    }
+  }
+  if (endOffset < 0) throw new Error("ZIP end-of-central-directory record is missing");
+
+  const diskNumber = tail.readUInt16LE(endOffset + 4);
+  const centralDisk = tail.readUInt16LE(endOffset + 6);
+  const diskEntries = tail.readUInt16LE(endOffset + 8);
+  const totalEntries = tail.readUInt16LE(endOffset + 10);
+  const centralSize = tail.readUInt32LE(endOffset + 12);
+  const centralOffset = tail.readUInt32LE(endOffset + 16);
+  if (diskNumber !== 0 || centralDisk !== 0 || diskEntries !== totalEntries) {
+    throw new Error("multi-disk ZIP archives are unsupported");
+  }
+  if (totalEntries === 0xffff || centralSize === 0xffffffff || centralOffset === 0xffffffff) {
+    throw new Error("ZIP64 archives are unsupported");
+  }
+  if (centralOffset + centralSize > tailStart + endOffset) {
+    throw new Error("ZIP central directory exceeds the archive boundary");
+  }
+
+  const central = readRange(path, centralOffset, centralSize);
+  const entries = [];
+  const paths = new Set();
+  let cursor = 0;
+  for (let index = 0; index < totalEntries; index += 1) {
+    if (cursor + 46 > central.length || central.readUInt32LE(cursor) !== ZIP_CENTRAL_SIGNATURE) {
+      throw new Error("ZIP central directory entry is malformed");
+    }
+    const flags = central.readUInt16LE(cursor + 8);
+    const compression_method = central.readUInt16LE(cursor + 10);
+    const crc32 = central.readUInt32LE(cursor + 16);
+    const compressed_byte_length = central.readUInt32LE(cursor + 20);
+    const uncompressed_byte_length = central.readUInt32LE(cursor + 24);
+    const nameLength = central.readUInt16LE(cursor + 28);
+    const extraLength = central.readUInt16LE(cursor + 30);
+    const commentLength = central.readUInt16LE(cursor + 32);
+    const local_header_offset = central.readUInt32LE(cursor + 42);
+    const next = cursor + 46 + nameLength + extraLength + commentLength;
+    if (next > central.length) throw new Error("ZIP central directory fields exceed its boundary");
+    if ((flags & 0x1) !== 0) throw new Error("encrypted ZIP members are unsupported");
+    if (![0, 8].includes(compression_method)) {
+      throw new Error(`unsupported ZIP compression method ${compression_method}`);
+    }
+    const memberPath = central.subarray(cursor + 46, cursor + 46 + nameLength).toString("utf8");
+    if (!memberPath || memberPath.includes("\u0000") || paths.has(memberPath)) {
+      throw new Error("ZIP member paths must be non-empty and unique");
+    }
+    paths.add(memberPath);
+
+    const local = readRange(path, local_header_offset, 30);
+    if (local.readUInt32LE(0) !== ZIP_LOCAL_SIGNATURE ||
+        local.readUInt16LE(8) !== compression_method) {
+      throw new Error(`ZIP local header mismatch for ${memberPath}`);
+    }
+    const localNameLength = local.readUInt16LE(26);
+    const localExtraLength = local.readUInt16LE(28);
+    const localName = readRange(path, local_header_offset + 30, localNameLength).toString("utf8");
+    if (localName !== memberPath) throw new Error(`ZIP local name mismatch for ${memberPath}`);
+    const data_offset = local_header_offset + 30 + localNameLength + localExtraLength;
+    if (data_offset + compressed_byte_length > centralOffset) {
+      throw new Error(`ZIP member data exceeds the archive boundary: ${memberPath}`);
+    }
+    entries.push({
+      path: memberPath,
+      compression_method,
+      crc32,
+      compressed_byte_length,
+      uncompressed_byte_length,
+      data_offset,
+    });
+    cursor = next;
+  }
+  if (cursor !== central.length) throw new Error("ZIP central directory has trailing bytes");
+  return entries;
+}
+
+function verifiedEntryStream(path, entry) {
+  let total = 0;
+  let crc = 0xffffffff;
+  const source = entry.compressed_byte_length === 0
+    ? Readable.from([])
+    : createReadStream(path, {
+      start: entry.data_offset,
+      end: entry.data_offset + entry.compressed_byte_length - 1,
+    });
+  const content = entry.compression_method === 8 ? source.pipe(createInflateRaw()) : source;
+  return content.pipe(new Transform({
+    transform(chunk, _encoding, callback) {
+      total += chunk.length;
+      for (const byte of chunk) crc = (crc >>> 8) ^ CRC32_TABLE[(crc ^ byte) & 0xff];
+      callback(null, chunk);
+    },
+    flush(callback) {
+      const checksum = (crc ^ 0xffffffff) >>> 0;
+      if (total !== entry.uncompressed_byte_length) {
+        callback(new Error(`ZIP member size mismatch for ${entry.path}`));
+      } else if (checksum !== entry.crc32) {
+        callback(new Error(`ZIP member CRC mismatch for ${entry.path}`));
+      } else {
+        callback();
+      }
+    },
+  }));
+}
+
+export async function inspectZipArchive(path, { verifyContent = false } = {}) {
+  const entries = zipEntries(path);
+  if (verifyContent) {
+    for (const entry of entries) {
+      for await (const _chunk of verifiedEntryStream(path, entry)) {
+        // Drain each member to recompute its declared length and CRC.
+      }
+    }
+  }
+  return entries;
 }
 
 function parseMonth(date) {
@@ -273,12 +436,11 @@ async function sha256(path) {
   return `sha256:${hash.digest("hex")}`;
 }
 
-async function rowsFromZip(path) {
-  const process = spawn("unzip", ["-p", path, "*.csv"], { stdio: ["ignore", "pipe", "pipe"] });
-  let errorOutput = "";
-  process.stderr.setEncoding("utf8");
-  process.stderr.on("data", (chunk) => { errorOutput += chunk; });
-  const lines = createInterface({ input: process.stdout, crlfDelay: Infinity });
+export async function rowsFromZip(path) {
+  const entries = await inspectZipArchive(path);
+  const csvEntries = entries.filter((entry) => !entry.path.endsWith("/") && /\.csv$/i.test(entry.path));
+  if (csvEntries.length !== 1) throw new Error("NERO ZIP must contain exactly one CSV member");
+  const lines = createInterface({ input: verifiedEntryStream(path, csvEntries[0]), crlfDelay: Infinity });
   let headerSeen = false;
 
   async function* generate() {
@@ -293,8 +455,7 @@ async function rowsFromZip(path) {
       }
       yield fields;
     }
-    const [code] = await once(process, "close");
-    if (code !== 0) throw new Error(`unzip failed (${code}): ${errorOutput.trim()}`);
+    if (!headerSeen) throw new Error("NERO CSV is empty");
   }
 
   return generate();
@@ -326,6 +487,15 @@ function parseArguments(argv) {
 }
 
 async function main() {
+  if (process.argv[2] === "--inspect-zip") {
+    if (process.argv.length !== 4) throw new Error("--inspect-zip requires exactly one archive path");
+    const entries = await inspectZipArchive(resolve(process.argv[3]), { verifyContent: true });
+    process.stdout.write(`${JSON.stringify(entries.map(({ path, uncompressed_byte_length }) => ({
+      path,
+      uncompressed_byte_length,
+    })))}\n`);
+    return;
+  }
   const args = parseArguments(process.argv.slice(2));
   const sourcePath = resolve(args.source);
   const occupationCodes = args.occupations

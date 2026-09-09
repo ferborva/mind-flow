@@ -1,16 +1,19 @@
 # Frozen public baselines
 
-This directory contains small, reviewable extracts built from official source
-archives. It does not contain unit-record microdata or unrestricted copies of
-large source files.
+This directory contains reviewable extracts built from official source
+archives. The pilot also retains one checksum-pinned 48,613,300-byte NERO
+archive under `../sources/nero/2026-08/`. It does not contain unit-record
+microdata.
 
 ## NERO clerical baseline, August 2026
 
 `nero-clerical-2026-08.json` contains 440 separate modelled employment series:
-five scoped ANZSCO 4-digit occupations by 88 ASGS 2021 SA4 regions. Each series
-retains its own identity, latest estimate, 12-month and 60-month comparison,
-and the recent monthly observations plus any older comparison anchor needed to
-recompute the 60-month value.
+five occupation codes by 88 region codes. The retained landing page establishes
+ANZSCO 4-digit and ASGS SA4 levels, but this capture does not establish the
+exact classification versions or whether geography is place of residence. The
+more specific labels in the historical baseline remain unverified historical
+metadata. Each series retains its identity, latest estimate, 12-month and
+60-month comparison, and the observations needed to recompute them.
 
 **Do not sum or combine occupation or region estimates.** Jobs and Skills
 Australia warns that doing so can be inaccurate or misleading. NERO is
@@ -22,12 +25,12 @@ flows, household continuity or agency. It cannot attribute a change to AI.
 
 ### Reproduce
 
-Download the official August 2026 archive linked in the data record, then run:
+Use the retained August 2026 archive, then run:
 
 ```bash
 node dashboard/tools/build-nero-baseline.mjs \
-  --source /path/to/2026-08_nero.zip \
-  --output pilots/australia/data/nero-clerical-2026-08.json \
+  --source pilots/australia/sources/nero/2026-08/2026-08_nero.zip \
+  --output /tmp/mind-flow-nero-clerical-2026-08.json \
   --release-period 2026-08 \
   --released-at 2026-09-02 \
   --retrieved-at 2026-09-08T01:01:48Z \
@@ -35,20 +38,41 @@ node dashboard/tools/build-nero-baseline.mjs \
   --recent-months 25
 ```
 
-The output stores a local archive SHA-256 checksum. It detects changes to the
-locally captured archive but does not authenticate publisher origin. The public
-record remains `research_draft_unverified` and `not_retained_unverified`. A new
-source release creates a new dated file rather than overwriting this vintage.
+Write reproduction output to a new temporary file. Do not overwrite the frozen
+historical baseline. The output stores a local archive SHA-256 checksum. It detects changes to the
+locally captured archive but does not authenticate publisher origin. The
+historical baseline remains `research_draft_unverified` and
+`not_retained_unverified` because those fields describe its evidence state when
+it was built. A later capture does not rewrite that history. A new source
+release creates a new dated file rather than overwriting this vintage.
 
 The archive was [temporarily re-acquired on 8 September 2026](../reproductions/nero-reacquisition-2026-09-08.json).
 Its byte length and SHA-256 digest matched the earlier local capture exactly.
 The frozen build recipe also reproduced every derived field across all 440
 series. Its output differed only in the temporary archive filename,
 release-availability explanation and JSON key order. The archive was not
-committed or retained, no publisher signature or independent witness was
-available, and its exact release time remains unknown. This supports capture
-continuity and deterministic extraction only. It does not upgrade the evidence
-for condition truth, causal inference, prospective chronology or decision use.
+committed or retained in that event, no publisher signature or independent
+witness was available, and its exact release time remains unknown.
+
+An [exact-byte capture](../sources/nero/2026-08/capture.json) was retained later
+on 8 September 2026 UTC with the official landing page, licence page and response
+headers. Run `node pilots/australia/tools/verify-nero-source-capture.mjs` to
+validate the closed capture schema, pinned file digests, HTTP metadata,
+landing-to-archive link, in-process ZIP CRC and size recomputation, attribution
+notice and a fresh reconstruction of all 440 frozen series. The verifier runs
+private byte snapshots of the exact pinned builder and archive. It compares
+only the canonical `series` projection, while the whole historical baseline is
+hash-pinned separately. This proves that the archive and builder reproduce the
+stored numeric and identity fields. It does not certify the historical source,
+scope, warning or interpretation prose.
+
+The [attribution notice](../sources/nero/2026-08/ATTRIBUTION.md) records the
+publisher-specified attribution and exclusions. Redistribution relies on the
+retained publisher statement and has not received legal review. Retained
+headers and bodies are not cryptographically bound to single requests. None of
+this authenticates the publisher independently, establishes prospective
+chronology or classification versions, determines condition truth, supports a
+causal or warning claim, or authorises decision use.
 
 `source.released_at` is the publisher's descriptive calendar date. It is not a
 UTC availability timestamp and cannot prove that a detector ran before the
@@ -83,6 +107,8 @@ whole-archive comparisons, 12,321 of 33,000 in the negative-control era and
 
 ```bash
 node --test dashboard/tests/nero-baseline.test.mjs
+node --test pilots/australia/tests/nero-source-capture.test.mjs
 ```
 
-The schema is `../schema/nero-baseline.schema.json`.
+The schemas are `../schema/nero-baseline.schema.json` and
+`../schema/nero-source-capture.schema.json`.

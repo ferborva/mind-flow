@@ -1,0 +1,308 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/pilots/australia/nero-source-capture.schema.json",
+  "title": "Retained NERO source capture",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "capture_id",
+    "captured_at_utc",
+    "status",
+    "source",
+    "clocks",
+    "source_native_scope",
+    "acquisition_evidence",
+    "artifacts",
+    "archive_structure",
+    "evidence_claims",
+    "baseline_binding",
+    "redistribution",
+    "derivation",
+    "boundaries",
+    "maximum_claim"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "capture_id": { "const": "jsa-nero-2026-08-retained-20260908t223329z" },
+    "captured_at_utc": { "const": "2026-09-08T22:33:29Z" },
+    "status": { "const": "retained-official-host-bytes-unverified-publisher" },
+    "source": {
+      "type": "object",
+      "required": [
+        "publisher_identity_claim",
+        "archive_url",
+        "landing_url",
+        "copyright_url",
+        "release_period",
+        "publisher_release_date",
+        "licence_claim",
+        "licence_review_status"
+      ],
+      "properties": {
+        "publisher_identity_claim": { "const": "Jobs and Skills Australia" },
+        "archive_url": {
+          "const": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip"
+        },
+        "landing_url": { "const": "https://www.jobsandskills.gov.au/data/nero" },
+        "copyright_url": { "const": "https://www.jobsandskills.gov.au/copyright-and-disclaimer" },
+        "release_period": { "const": "2026-08" },
+        "publisher_release_date": { "const": "2026-09-02" },
+        "licence_claim": {
+          "const": "CC BY 4.0 with publisher-stated exclusions and attribution"
+        },
+        "licence_review_status": { "const": "publisher-stated-not-legally-reviewed" }
+      },
+      "additionalProperties": false
+    },
+    "clocks": {
+      "type": "object",
+      "required": [
+        "publisher_release_calendar_date",
+        "archive_http_response_date_utc",
+        "landing_http_response_date_utc",
+        "copyright_http_response_date_utc",
+        "recorder_capture_completed_at_utc",
+        "last_modified_interpretation",
+        "prospective_chronology_state"
+      ],
+      "properties": {
+        "publisher_release_calendar_date": { "const": "2026-09-02" },
+        "archive_http_response_date_utc": { "const": "2026-09-08T22:32:26Z" },
+        "landing_http_response_date_utc": { "const": "2026-09-08T22:33:15Z" },
+        "copyright_http_response_date_utc": { "const": "2026-09-08T22:33:15Z" },
+        "recorder_capture_completed_at_utc": { "const": "2026-09-08T22:33:29Z" },
+        "last_modified_interpretation": { "const": "transport-metadata-only-not-release-time" },
+        "prospective_chronology_state": { "const": "unknown" }
+      },
+      "additionalProperties": false
+    },
+    "source_native_scope": {
+      "type": "object",
+      "required": ["measure", "cadence", "occupation", "geography", "aggregation_rule"],
+      "properties": {
+        "measure": { "const": "modelled employment estimate" },
+        "cadence": { "const": "monthly" },
+        "occupation": {
+          "type": "object",
+          "required": ["classification", "level", "version"],
+          "properties": {
+            "classification": { "const": "ANZSCO" },
+            "level": { "const": "4-digit" },
+            "version": { "const": "not-established-by-this-capture" }
+          },
+          "additionalProperties": false
+        },
+        "geography": {
+          "type": "object",
+          "required": ["classification", "level", "place_basis"],
+          "properties": {
+            "classification": { "const": "ASGS" },
+            "level": { "const": "SA4" },
+            "place_basis": { "const": "not-established-by-this-capture" }
+          },
+          "additionalProperties": false
+        },
+        "aggregation_rule": {
+          "const": "Do not sum or combine occupations or regions."
+        }
+      },
+      "additionalProperties": false
+    },
+    "acquisition_evidence": {
+      "const": {
+        "response_headers_retained": true,
+        "response_bodies_retained": true,
+        "http_status_content_type_and_length_checked": true,
+        "landing_archive_link_checked": true,
+        "single_request_cryptographic_binding": false
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/artifact" }
+    },
+    "archive_structure": {
+      "type": "object",
+      "required": ["integrity_test", "members"],
+      "properties": {
+        "integrity_test": { "const": "in-process-crc-and-size-recomputation" },
+        "members": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/archiveMember" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_claims": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "$ref": "#/$defs/evidenceClaim" }
+    },
+    "baseline_binding": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "archive_checksum",
+        "selected_occupation_codes",
+        "region_count",
+        "series_count"
+      ],
+      "properties": {
+        "path": { "const": "data/nero-clerical-2026-08.json" },
+        "sha256": { "const": "sha256:440c566123d3146cc2b00eef267139fc1a13dbd653c7ec9ec3c40012d857fa70" },
+        "archive_checksum": { "const": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446" },
+        "selected_occupation_codes": {
+          "const": ["5311", "5511", "5512", "5513", "5411"]
+        },
+        "region_count": { "const": 88 },
+        "series_count": { "const": 440 }
+      },
+      "additionalProperties": false
+    },
+    "redistribution": {
+      "const": {
+        "notice_path": "sources/nero/2026-08/ATTRIBUTION.md",
+        "notice_sha256": "sha256:5138131049735c436cba95536c92fe4e4c67a64234372bf3d009e959148d2ed0",
+        "publisher_attribution": "Nowcast of Employment by Region and Occupation, Jobs and Skills Australia, Commonwealth of Australia. Used under Creative Commons BY 4.0 licence.",
+        "publisher_attribution_applied": true,
+        "excluded_material_classes": [
+          "Commonwealth Coat of Arms",
+          "Jobs and Skills Australia logo",
+          "images or photographs",
+          "trademark-protected material",
+          "third-party material",
+          "material otherwise noted"
+        ],
+        "archive_contains_excluded_material_verified": false,
+        "legal_review_complete": false,
+        "status": "publisher-licence-relied-upon-pending-legal-review"
+      }
+    },
+    "derivation": {
+      "type": "object",
+      "required": [
+        "tool_path",
+        "tool_sha256",
+        "arguments",
+        "comparison_profile",
+        "expected_projection_sha256"
+      ],
+      "properties": {
+        "tool_path": { "const": "dashboard/tools/build-nero-baseline.mjs" },
+        "tool_sha256": { "const": "sha256:40f60ec2a3800442f02484464c38972086ead2fd6c13818af0a3d5c7fdea3cef" },
+        "arguments": {
+          "type": "object",
+          "required": [
+            "source_path",
+            "release_period",
+            "released_at",
+            "retrieved_at",
+            "archive_url",
+            "recent_months",
+            "occupations"
+          ],
+          "properties": {
+            "source_path": { "const": "pilots/australia/sources/nero/2026-08/2026-08_nero.zip" },
+            "release_period": { "const": "2026-08" },
+            "released_at": { "const": "2026-09-02" },
+            "retrieved_at": { "const": "2026-09-08T01:01:48Z" },
+            "archive_url": {
+              "const": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip"
+            },
+            "recent_months": { "const": 25 },
+            "occupations": { "const": ["5311", "5511", "5512", "5513", "5411"] }
+          },
+          "additionalProperties": false
+        },
+        "comparison_profile": {
+          "const": "canonical-series-projection-v1"
+        },
+        "expected_projection_sha256": {
+          "const": "sha256:86aead0ed8f5eaf8812b5a7e348ef0e070bb9a8ffdeea1068120962583d01dcb"
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "publisher_signature_verified",
+        "independent_witness_verified",
+        "responses_bound_to_single_requests",
+        "exact_publisher_release_time_utc",
+        "prospective_chronology_established",
+        "condition_truth_determined",
+        "causal_claim_permitted",
+        "warning_claim_permitted",
+        "decision_use_permitted"
+      ],
+      "properties": {
+        "publisher_signature_verified": { "const": false },
+        "independent_witness_verified": { "const": false },
+        "responses_bound_to_single_requests": { "const": false },
+        "exact_publisher_release_time_utc": { "const": null },
+        "prospective_chronology_established": { "const": false },
+        "condition_truth_determined": { "const": false },
+        "causal_claim_permitted": { "const": false },
+        "warning_claim_permitted": { "const": false },
+        "decision_use_permitted": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "maximum_claim": {
+      "const": "Retained exact bytes from HTTPS retrievals at the registered official-host URLs match the recorded digests; retained response metadata has the expected HTTP status, content type and length; the landing page links the archive; and byte snapshots of the pinned in-process builder and archive reproduce the numeric and identity fields for all 440 baseline series. The attribution notice records the publisher-stated licence, exclusions and required attribution. This does not cryptographically bind headers and bodies to single requests, authenticate the publisher independently, establish an exact publisher release time or prospective chronology, establish the occupation classification version or geography place basis, validate the estimates as direct observations, determine any condition truth, support a causal or warning claim, complete legal review, or authorise decision use."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "artifact": {
+      "type": "object",
+      "required": ["role", "path", "source_url", "media_type", "byte_length", "sha256"],
+      "properties": {
+        "role": {
+          "enum": [
+            "archive",
+            "archive-response-headers",
+            "landing-page",
+            "landing-response-headers",
+            "copyright-page",
+            "copyright-response-headers"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^sources/nero/2026-08/[A-Za-z0-9._-]+$"
+        },
+        "source_url": { "type": "string", "format": "uri", "pattern": "^https://www\\.jobsandskills\\.gov\\.au/" },
+        "media_type": { "enum": ["application/zip", "text/html", "text/plain"] },
+        "byte_length": { "type": "integer", "minimum": 1, "maximum": 67108864 },
+        "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "archiveMember": {
+      "type": "object",
+      "required": ["path", "uncompressed_byte_length"],
+      "properties": {
+        "path": { "$ref": "#/$defs/nonEmptyString" },
+        "uncompressed_byte_length": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "evidenceClaim": {
+      "type": "object",
+      "required": ["role", "literal"],
+      "properties": {
+        "role": { "enum": ["landing-page", "copyright-page", "archive-response-headers"] },
+        "literal": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

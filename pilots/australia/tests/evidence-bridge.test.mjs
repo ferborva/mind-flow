@@ -47,3 +47,9 @@ test("the prospective bridge identifies treatment, outcomes, rivals and public l
   assert.match(protocol, /cannot withdraw.*service|service.*cannot be withdrawn/i);
   assert.match(protocol, /evidence-added.*evidence-challenged.*definition-revised.*scope-changed.*expired/is);
 });
+
+test("the bridge keeps executable truth separate from scope and lifecycle", () => {
+  assert.match(protocol, /five-valued truth state(?: change)?:\s*`true`,\s*`false`,\s*`unknown`,\s*`stale`\s*or\s*`conflicted`/i);
+  assert.doesNotMatch(protocol, /truth state(?: change)?:[^?]*`not-applicable`/is);
+  assert.match(protocol, /out-of-scope.*scope\/lifecycle|scope\/lifecycle.*out-of-scope/i);
+});

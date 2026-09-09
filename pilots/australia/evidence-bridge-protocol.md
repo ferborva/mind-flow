@@ -205,8 +205,9 @@ answer:
 
 1. What exact proposition changed?
 2. Did its scope, definition, observation or evidence quality change?
-3. Did its five-valued truth state change: `true`, `false`, `unknown`,
-   `conflicted` or `not-applicable`?
+3. Did its five-valued truth state change: `true`, `false`, `unknown`, `stale`
+   or `conflicted`? Out-of-scope or not-applicable is a scope/lifecycle
+   disposition, not a predicate truth value.
 4. Which possible paths gained or lost compatibility?
 5. Which forecasts require reissue or invalidation?
 6. Which actions became eligible, ineligible or unchanged?

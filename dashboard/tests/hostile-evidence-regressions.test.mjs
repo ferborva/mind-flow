@@ -71,10 +71,12 @@ test("local hashes never become publisher authentication wording", () => {
   ]) assert.match(template, new RegExp(`${epistemicClass}:`), `coverage omits ${epistemicClass}`);
 });
 
-test("the Australian feasibility note does not overstate an unretained archive as reproducible", () => {
+test("the Australian feasibility note keeps later source retention inside its claim ceiling", () => {
   const note = readFileSync(australiaReadmePath, "utf8");
   assert.doesNotMatch(note, /proves that one public source can be reduced reproducibly/i);
-  assert.match(note, /locally recomputable.*archive can be recovered/i);
+  assert.match(note, /exact source bytes are now retained/i);
+  assert.match(note, /publisher authenticity.*remain unverified/i);
+  assert.match(note, /historical baseline record is not rewritten/i);
 });
 
 test("captured local inputs require successful HTTP and matching media metadata", () => {
