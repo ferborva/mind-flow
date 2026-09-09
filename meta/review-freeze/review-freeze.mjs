@@ -414,6 +414,21 @@ function fileAtCommit(repositoryRoot, commit, path) {
   return git(repositoryRoot, ["show", `${commit}:${path}`], { binary: true });
 }
 
+function lfsPointer(bytes) {
+  const text = bytes.toString("utf8");
+  if (!text.startsWith("version https://git-lfs.github.com/spec/v1\n")) return null;
+  const match = /^version https:\/\/git-lfs.github.com\/spec\/v1\noid sha256:([a-f0-9]{64})\nsize ([1-9][0-9]*|0)\n$/.exec(text);
+  if (!match || !Number.isSafeInteger(Number(match[2]))) throw new Error("invalid retained LFS pointer");
+  return { oid: match[1], size: Number(match[2]) };
+}
+
+function retainedFileMatches(committedBytes, materializedBytes) {
+  const pointer = lfsPointer(committedBytes);
+  return pointer
+    ? materializedBytes.length === pointer.size && canonicalHash(materializedBytes) === `sha256:${pointer.oid}`
+    : canonicalHash(committedBytes) === canonicalHash(materializedBytes);
+}
+
 function fileRecord(repositoryRoot, commit, required) {
   const bytes = fileAtCommit(repositoryRoot, commit, required.path);
   return {
@@ -589,6 +604,26 @@ function materializeCommit(repositoryRoot, commit, destination, runtime) {
   if (checkedOut.status !== 0) {
     throw new Error(`exact reviewed commit could not be checked out: ${checkedOut.stderr || checkedOut.stdout}`);
   }
+  // Clone does not inherit the source repository's LFS cache or filter config.
+  // Materialize only the object named by the committed pointer, offline.
+  const commonGitDirectory = resolve(repositoryRoot, git(repositoryRoot, ["rev-parse", "--git-common-dir"]));
+  for (const entry of listTree(repositoryRoot, commit)) {
+    if (entry.type !== "blob" || !["100644", "100755"].includes(entry.mode)) continue;
+    const committedBytes = fileAtCommit(repositoryRoot, commit, entry.path);
+    const pointer = lfsPointer(committedBytes);
+    if (!pointer) continue;
+    const objectPath = resolve(commonGitDirectory, "lfs/objects", pointer.oid.slice(0, 2), pointer.oid.slice(2, 4), pointer.oid);
+    let bytes;
+    try {
+      const stat = lstatSync(objectPath);
+      if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("not a regular object");
+      bytes = readFileSync(objectPath);
+    } catch (error) {
+      throw new Error(`retained LFS object unavailable for ${entry.path}: ${error.message}`);
+    }
+    if (!retainedFileMatches(committedBytes, bytes)) throw new Error(`retained LFS object hash or size differs for ${entry.path}`);
+    writeFileSync(resolve(destination, entry.path), bytes);
+  }
 }
 
 function runCommand(command, sandbox, environment, runtime) {
@@ -680,9 +715,8 @@ function trackedTreeUnchanged(repositoryRoot, commit, sandbox) {
     const target = resolve(sandbox, entry.path);
     try {
       if (!trackedModeMatches(target, entry.mode) ||
-          canonicalHash(retainedBytes(target, entry.mode)) !== canonicalHash(
-        fileAtCommit(repositoryRoot, commit, entry.path),
-      )) changed.push(entry.path);
+          !retainedFileMatches(fileAtCommit(repositoryRoot, commit, entry.path),
+            retainedBytes(target, entry.mode))) changed.push(entry.path);
     } catch {
       changed.push(entry.path);
     }
@@ -707,7 +741,7 @@ function unexpectedPaths(root, trackedPaths) {
   return unexpected.sort();
 }
 
-function reproduce(repositoryRoot, commit, commands, runtime) {
+function reproduce(repositoryRoot, commit, commands, runtime, generatedOutputs = []) {
   const parent = mkdtempSync(resolve(tmpdir(), "mind-flow-review-freeze-"));
   const sandbox = resolve(parent, runtime.checkout_directory_name);
   try {
@@ -731,6 +765,7 @@ function reproduce(repositoryRoot, commit, commands, runtime) {
     });
     const changed = trackedTreeUnchanged(repositoryRoot, commit, sandbox);
     const trackedPaths = new Set(listTree(repositoryRoot, commit).map(({ path }) => path));
+    for (const path of generatedOutputs) trackedPaths.add(closedPath(path, "generated output"));
     const unexpected = unexpectedPaths(sandbox, trackedPaths);
     const passed = commandRuns.every(({
       exit_code,
@@ -763,6 +798,7 @@ function policyProjection(policy) {
     reviewed_ref: policy.reviewed_ref,
     required_files: policy.required_files,
     build_commands: policy.build_commands.map(commandRecord),
+    ...(policy.generated_outputs ? { generated_outputs: policy.generated_outputs.map((path) => closedPath(path, "generated output")) } : {}),
   };
 }
 
@@ -783,7 +819,7 @@ export function createReviewFreeze({
   const buildCommands = policy.build_commands.map(commandRecord);
   const runtime = runtimeInputs(repositoryRoot, reviewedCommit);
   const reproduction = executeCommands
-    ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime)
+    ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime, policy.generated_outputs)
     : {
         status: "not-run",
         detached_checkout: true,
@@ -1014,7 +1050,7 @@ export function verifyReviewFreeze(manifest, {
           const path = resolve(repositoryRoot, expected.path);
           const fromRoot = relative(repositoryRoot, path);
           if (fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot) ||
-              canonicalHash(readFileSync(path)) !== expected.sha256) {
+              !retainedFileMatches(fileAtCommit(repositoryRoot, exact, expected.path), readFileSync(path))) {
             errors.push(issue("REVIEWED_FILE_DRIFT", `/required_files/${index}`, `${expected.path} differs in the working checkout`));
           }
         } catch (error) {
