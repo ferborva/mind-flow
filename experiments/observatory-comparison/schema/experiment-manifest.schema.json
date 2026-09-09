@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/experiment-manifest/1-1-0",
+  "title": "Observatory comparison research manifest",
+  "description": "A closed, content-addressed proposal manifest. Conformance can establish declared input parity, not rendered parity, ethics approval, empirical truth or recruitment authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "classification",
+    "protocol_ref",
+    "source_transition_bundle",
+    "fact_pack",
+    "arms",
+    "safety",
+    "contract_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.1.0" },
+    "manifest_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "synthetic-research-proposal" },
+    "protocol_ref": { "$ref": "#/$defs/protocolRef" },
+    "source_transition_bundle": { "$ref": "#/$defs/sourceBundleRef" },
+    "fact_pack": { "$ref": "#/$defs/factPackRef" },
+    "arms": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/arm" }
+    },
+    "safety": { "$ref": "#/$defs/safety" },
+    "contract_boundary": {
+      "type": "object",
+      "required": ["truth_effect", "authority_effect", "ethics_approval_effect", "recruitment_effect", "parity_effect", "source_projection_effect"],
+      "properties": {
+        "truth_effect": { "const": "none" },
+        "authority_effect": { "const": "none" },
+        "ethics_approval_effect": { "const": "none" },
+        "recruitment_effect": { "const": "none" },
+        "parity_effect": { "const": "declared-input-binding-only" },
+        "source_projection_effect": { "const": "coherent-pre-projection-core-only" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "nonEmpty": { "type": "string", "minLength": 1 },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.(?:json|md)$" },
+    "protocolRef": {
+      "type": "object",
+      "required": ["artifact_id", "artifact_type", "path", "sha256"],
+      "properties": {
+        "artifact_id": { "const": "protocol.observatory-comparison.v1" },
+        "artifact_type": { "const": "research-protocol-contract" },
+        "path": { "const": "experiments/observatory-comparison/fixtures/protocol-contract.synthetic.json" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "instrumentRef": {
+      "type": "object",
+      "required": ["artifact_id", "artifact_type", "path", "sha256"],
+      "properties": {
+        "artifact_id": { "$ref": "#/$defs/id" },
+        "artifact_type": { "const": "instrument-specification" },
+        "path": { "type": "string", "pattern": "^experiments/observatory-comparison/fixtures/instrument-[A-Za-z0-9._-]+\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "scriptRef": {
+      "type": "object",
+      "required": ["artifact_id", "artifact_type", "path", "sha256"],
+      "properties": {
+        "artifact_id": { "$ref": "#/$defs/id" },
+        "artifact_type": { "const": "deliberation-script" },
+        "path": { "type": "string", "pattern": "^experiments/observatory-comparison/fixtures/[A-Za-z0-9._-]+\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "outcomeRef": {
+      "type": "object",
+      "required": ["artifact_id", "artifact_type", "path", "sha256"],
+      "properties": {
+        "artifact_id": { "$ref": "#/$defs/id" },
+        "artifact_type": { "const": "outcome-contract" },
+        "path": { "type": "string", "pattern": "^experiments/observatory-comparison/fixtures/[A-Za-z0-9._-]+\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "sourceBundleRef": {
+      "type": "object",
+      "required": ["bundle_id", "bundle_stage", "schema_version", "path", "sha256"],
+      "properties": {
+        "bundle_id": { "$ref": "#/$defs/id" },
+        "bundle_stage": { "const": "pre-projection-core" },
+        "schema_version": { "const": "1.2.0" },
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "factPackRef": {
+      "type": "object",
+      "required": ["fact_pack_id", "path", "sha256"],
+      "properties": {
+        "fact_pack_id": { "$ref": "#/$defs/id" },
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "arm": {
+      "type": "object",
+      "required": ["arm_id", "instrument_kind", "instrument_ref", "fact_pack_ref", "deliberation_script_ref", "outcome_contract_ref", "allocation_weight"],
+      "properties": {
+        "arm_id": { "$ref": "#/$defs/id" },
+        "instrument_kind": { "enum": ["conventional-release", "release-plus-deliberation", "observatory-self-serve", "observatory-plus-deliberation"] },
+        "instrument_ref": { "$ref": "#/$defs/instrumentRef" },
+        "fact_pack_ref": { "$ref": "#/$defs/factPackRef" },
+        "deliberation_script_ref": { "anyOf": [{ "$ref": "#/$defs/scriptRef" }, { "type": "null" }] },
+        "outcome_contract_ref": { "$ref": "#/$defs/outcomeRef" },
+        "allocation_weight": { "const": 1 }
+      },
+      "additionalProperties": false
+    },
+    "stopRule": {
+      "type": "object",
+      "required": ["rule_id", "measure", "operator", "threshold", "strata", "effect", "compensation_across_strata"],
+      "properties": {
+        "rule_id": { "$ref": "#/$defs/id" },
+        "measure": { "$ref": "#/$defs/id" },
+        "operator": { "enum": ["any", "gt", "gte", "eq"] },
+        "threshold": { "type": "number" },
+        "strata": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["all-participants", "directly-affected", "low-numeracy", "limited-english", "assistive-technology"] }
+        },
+        "effect": { "const": "pause-and-independent-review" },
+        "compensation_across_strata": { "const": "forbidden" }
+      },
+      "additionalProperties": false
+    },
+    "safety": {
+      "type": "object",
+      "required": [
+        "approval_state",
+        "recruitment_state",
+        "participant_data_collection",
+        "ethics_review",
+        "privacy_review",
+        "independent_monitor",
+        "support_route",
+        "stop_rules"
+      ],
+      "properties": {
+        "approval_state": { "const": "not-approved" },
+        "recruitment_state": { "const": "blocked" },
+        "participant_data_collection": { "const": "disabled" },
+        "ethics_review": { "const": "pending" },
+        "privacy_review": { "const": "pending" },
+        "independent_monitor": {
+          "type": "object",
+          "required": ["identity_state", "monitor_id"],
+          "properties": {
+            "identity_state": { "const": "unverified" },
+            "monitor_id": { "type": "null" }
+          },
+          "additionalProperties": false
+        },
+        "support_route": {
+          "type": "object",
+          "required": ["state", "route"],
+          "properties": {
+            "state": { "const": "pending" },
+            "route": { "type": "null" }
+          },
+          "additionalProperties": false
+        },
+        "stop_rules": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/stopRule" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/deliberation-script/1-1-0",
+  "title": "Fixed neutral deliberation script",
+  "type": "object",
+  "required": ["schema_version", "script_id", "classification", "review_state", "fact_pack_ref", "facilitator_prompts", "prohibited_prompts", "facilitation_boundary"],
+  "properties": {
+    "schema_version": { "const": "1.1.0" },
+    "script_id": { "$ref": "#/$defs/id" },
+    "classification": { "const": "synthetic-research-material" },
+    "review_state": { "const": "not-independently-reviewed" },
+    "fact_pack_ref": { "$ref": "#/$defs/factPackRef" },
+    "facilitator_prompts": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+    "prohibited_prompts": { "type": "array", "minItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmpty" } },
+    "facilitation_boundary": {
+      "type": "object",
+      "required": ["may_add_facts", "may_add_urgency", "may_add_probability", "may_set_if_state", "may_recommend_action"],
+      "properties": {
+        "may_add_facts": { "const": false },
+        "may_add_urgency": { "const": false },
+        "may_add_probability": { "const": false },
+        "may_set_if_state": { "const": false },
+        "may_recommend_action": { "const": false }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "nonEmpty": { "type": "string", "pattern": ".*\\S.*" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "factPackRef": {
+      "type": "object",
+      "required": ["fact_pack_id", "path", "sha256"],
+      "properties": {
+        "fact_pack_id": { "$ref": "#/$defs/id" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

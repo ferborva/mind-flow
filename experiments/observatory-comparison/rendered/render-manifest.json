@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "rendered-comparison.round-05.worker-option.synthetic",
+  "classification": "synthetic-rendered-research-prototype",
+  "source_experiment_manifest_ref": {
+    "path": "experiments/observatory-comparison/fixtures/manifest.synthetic.json",
+    "sha256": "sha256:6afd4cdf37975fe33e07a0d83cfbf26d65433ff78387d6889db4d3e147e63074"
+  },
+  "fact_pack_ref": {
+    "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+    "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
+    "sha256": "sha256:8f712db6bc77c93264f8c7e16dfc2722b53d8b078b0f81422e441fea333818b2"
+  },
+  "arms": [
+    {
+      "arm_id": "arm.conventional-release",
+      "instrument_kind": "conventional-release",
+      "instrument_ref": {
+        "artifact_id": "instrument.conventional-release.synthetic-v1",
+        "artifact_type": "instrument-specification",
+        "path": "experiments/observatory-comparison/fixtures/instrument-conventional.synthetic.json",
+        "sha256": "sha256:2cec2cc53c8f620b721fe716b51923b73e890b63a8f8a6c66c35f85ca1f91163"
+      },
+      "fact_pack_ref": {
+        "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+        "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
+        "sha256": "sha256:8f712db6bc77c93264f8c7e16dfc2722b53d8b078b0f81422e441fea333818b2"
+      },
+      "rendered_output_ref": {
+        "path": "experiments/observatory-comparison/rendered/conventional-release.html",
+        "sha256": "sha256:6d5dd4b5ea8f340729cec221d9354ed133af8b8206b849772db9cb19456adcc4"
+      },
+      "material_digest": "sha256:cf6970fd277e0514212d471f9f86ab6dd34d46fcfa781cc2b1cbf44e0021c57b",
+      "material_ids": [
+        "scope.who",
+        "scope.verb",
+        "scope.object",
+        "scope.standard",
+        "scope.place",
+        "scope.period",
+        "scope.jurisdictions",
+        "scope.geographies",
+        "scope.services",
+        "if.question",
+        "if.current-state",
+        "if.state-basis",
+        "if.strongest-challenge",
+        "if.next-observation",
+        "if.evaluation-clock",
+        "if.empirical-truth",
+        "forecast.probability",
+        "forecast.semantic-boundary",
+        "authority.boundary",
+        "authority.affected-party-status",
+        "provenance.source-bundle",
+        "provenance.definition",
+        "provenance.evidence",
+        "provenance.evaluation",
+        "correction.route",
+        "claim.claim.synthetic-computed-if-state",
+        "claim.claim.synthetic-transition-path",
+        "claim.claim.synthetic-future-probability",
+        "state.true",
+        "state.false",
+        "state.unknown",
+        "state.stale",
+        "state.conflicted"
+      ],
+      "exposure_contract": {
+        "mode": "fixed-window",
+        "seconds": 480,
+        "enforcement_state": "prototype-not-activated-for-participants"
+      }
+    },
+    {
+      "arm_id": "arm.observatory-self-serve",
+      "instrument_kind": "observatory-self-serve",
+      "instrument_ref": {
+        "artifact_id": "instrument.observatory-self-serve.synthetic-v1",
+        "artifact_type": "instrument-specification",
+        "path": "experiments/observatory-comparison/fixtures/instrument-observatory-self-serve.synthetic.json",
+        "sha256": "sha256:fcd315b16ccf02965ecdee041b9f95152da07b7790a73a56529591875506a915"
+      },
+      "fact_pack_ref": {
+        "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
+        "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
+        "sha256": "sha256:8f712db6bc77c93264f8c7e16dfc2722b53d8b078b0f81422e441fea333818b2"
+      },
+      "rendered_output_ref": {
+        "path": "experiments/observatory-comparison/rendered/observatory-self-serve.html",
+        "sha256": "sha256:b22dfef55ffc36850abae8290442aa4452c5e3277770bfbf0ebc807c3ad37787"
+      },
+      "material_digest": "sha256:cf6970fd277e0514212d471f9f86ab6dd34d46fcfa781cc2b1cbf44e0021c57b",
+      "material_ids": [
+        "scope.who",
+        "scope.verb",
+        "scope.object",
+        "scope.standard",
+        "scope.place",
+        "scope.period",
+        "scope.jurisdictions",
+        "scope.geographies",
+        "scope.services",
+        "if.question",
+        "if.current-state",
+        "if.state-basis",
+        "if.strongest-challenge",
+        "if.next-observation",
+        "if.evaluation-clock",
+        "if.empirical-truth",
+        "forecast.probability",
+        "forecast.semantic-boundary",
+        "authority.boundary",
+        "authority.affected-party-status",
+        "provenance.source-bundle",
+        "provenance.definition",
+        "provenance.evidence",
+        "provenance.evaluation",
+        "correction.route",
+        "claim.claim.synthetic-computed-if-state",
+        "claim.claim.synthetic-transition-path",
+        "claim.claim.synthetic-future-probability",
+        "state.true",
+        "state.false",
+        "state.unknown",
+        "state.stale",
+        "state.conflicted"
+      ],
+      "exposure_contract": {
+        "mode": "fixed-window",
+        "seconds": 480,
+        "enforcement_state": "prototype-not-activated-for-participants"
+      }
+    }
+  ],
+  "parity_contract": {
+    "material_fact_effect": "exact-visible-projection-only",
+    "state_meaning_effect": "exact-source-branch-projection-only",
+    "forecast_effect": "context-only-not-current-if-state",
+    "authority_effect": "none",
+    "comprehension_assessed": false,
+    "recruitment_allowed": false,
+    "template_parity_authorises_recruitment": false
+  }
+}

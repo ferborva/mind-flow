@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "schemas": [
+    {
+      "snapshot_schema_version": "1.2.0",
+      "path": "archive/snapshot-1.2.schema.json",
+      "sha256": "sha256:7848c2f2fea331e936c5903a2263a2540d7fd1d9bc8f6f505528f206e5ff67ad",
+      "dependencies": []
+    },
+    {
+      "snapshot_schema_version": "1.5.0",
+      "path": "archive/snapshot-1.5.schema.json",
+      "sha256": "sha256:c0eca0461b2302771652aed8b466ed2c32dacef351b9dd51c93284a24d235227",
+      "dependencies": []
+    },
+    {
+      "snapshot_schema_version": "1.6.0",
+      "path": "archive/snapshot-1.6.schema.json",
+      "sha256": "sha256:1923030d1a69a0350081e872f67569a0566b0f365ca6789a1f74a2220b015162",
+      "dependencies": [
+        {
+          "path": "archive/snapshot-1.5.schema.json",
+          "sha256": "sha256:c0eca0461b2302771652aed8b466ed2c32dacef351b9dd51c93284a24d235227"
+        }
+      ]
+    },
+    {
+      "snapshot_schema_version": "1.8.0",
+      "path": "archive/snapshot-1.8.schema.json",
+      "sha256": "sha256:039e38fafc32f719093be175e5fbdd40f7c40ee60338fbfda640fcf5be50b2b0",
+      "dependencies": []
+    },
+    {
+      "snapshot_schema_version": "2.0.0",
+      "path": "archive/snapshot-2.0.schema.json",
+      "sha256": "sha256:25701b8bd97a97b1ccee6ff7ba5991497a53ee6884e54c1b62d1ef09e2c7ea63",
+      "dependencies": [
+        {
+          "path": "source-timing.schema.json",
+          "sha256": "sha256:1c12fc29751d5715708fb23124116f2730d1e394e0c2c2b175e3c28cf2d4ad31"
+        }
+      ]
+    },
+    {
+      "snapshot_schema_version": "2.1.0",
+      "path": "snapshot.schema.json",
+      "sha256": "sha256:dc40c5fdffd88202b5e49e62a0fc9135a8d163e198b449e3a7399f7895767bf1",
+      "dependencies": [
+        {
+          "path": "source-timing.schema.json",
+          "sha256": "sha256:1c12fc29751d5715708fb23124116f2730d1e394e0c2c2b175e3c28cf2d4ad31"
+        }
+      ]
+    }
+  ]
+}

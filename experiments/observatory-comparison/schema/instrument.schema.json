@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/experiments/observatory-comparison/instrument/1-1-0",
+  "title": "Synthetic comparison instrument specification",
+  "type": "object",
+  "required": ["schema_version", "instrument_id", "instrument_kind", "classification", "source_transition_bundle_ref", "fact_pack_ref", "render_contract", "presentation_boundary"],
+  "properties": {
+    "schema_version": { "const": "1.1.0" },
+    "instrument_id": { "$ref": "#/$defs/id" },
+    "instrument_kind": { "enum": ["conventional-release", "release-plus-deliberation", "observatory-self-serve", "observatory-plus-deliberation"] },
+    "classification": { "const": "synthetic-unrendered-specification" },
+    "source_transition_bundle_ref": { "$ref": "#/$defs/sourceBundleRef" },
+    "fact_pack_ref": { "$ref": "#/$defs/factPackRef" },
+    "render_contract": {
+      "type": "object",
+      "required": ["claim_ids", "condition_ids", "state_legend_states", "boundary_ids", "source_scope_clock_visible", "may_add_facts", "may_add_urgency", "may_hide_nondecisive_states", "may_use_probability_as_state", "may_imply_authority", "output_capture_required"],
+      "properties": {
+        "claim_ids": { "$ref": "#/$defs/idArray" },
+        "condition_ids": { "$ref": "#/$defs/idArray" },
+        "state_legend_states": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "enum": ["true", "false", "unknown", "stale", "conflicted"] }
+        },
+        "boundary_ids": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": { "enum": ["no-real-service", "no-real-warning", "no-action-authority", "uncertainty", "strongest-challenge", "correction-route"] }
+        },
+        "source_scope_clock_visible": { "const": true },
+        "may_add_facts": { "const": false },
+        "may_add_urgency": { "const": false },
+        "may_hide_nondecisive_states": { "const": false },
+        "may_use_probability_as_state": { "const": false },
+        "may_imply_authority": { "const": false },
+        "output_capture_required": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "presentation_boundary": {
+      "type": "object",
+      "required": ["fact_effect", "truth_effect", "authority_effect", "aesthetic_preference_role", "confidence_role"],
+      "properties": {
+        "fact_effect": { "const": "none" },
+        "truth_effect": { "const": "none" },
+        "authority_effect": { "const": "none" },
+        "aesthetic_preference_role": { "const": "descriptive-only-not-success" },
+        "confidence_role": { "const": "calibration-and-harm-monitor-only" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "idArray": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "sourceBundleRef": {
+      "type": "object",
+      "required": ["bundle_id", "bundle_stage", "schema_version", "path", "sha256"],
+      "properties": {
+        "bundle_id": { "$ref": "#/$defs/id" },
+        "bundle_stage": { "const": "pre-projection-core" },
+        "schema_version": { "const": "1.2.0" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "factPackRef": {
+      "type": "object",
+      "required": ["fact_pack_id", "path", "sha256"],
+      "properties": {
+        "fact_pack_id": { "$ref": "#/$defs/id" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
