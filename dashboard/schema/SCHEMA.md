@@ -31,10 +31,10 @@ lineage and the meaning of evidence time. The current build requires schema
 2.1.0. Version 2.1 adds a required transition-bundle binding state and governed
 resolution for typed possible paths. It retains the 2.0 timing contract, one
 complete seven-part public update, exact selected point lineage and one scoped
-IF path. The
-frozen predecessors remain available as `archive/snapshot-1.5.schema.json` and
-`archive/snapshot-1.8.schema.json`; the prior contract is frozen as
-`archive/snapshot-2.0.schema.json`. The content-addressed
+IF path. The frozen predecessors remain available as
+`archive/snapshot-1.2.schema.json`, `archive/snapshot-1.5.schema.json`,
+`archive/snapshot-1.6.schema.json` and `archive/snapshot-1.8.schema.json`; the
+prior contract is frozen as `archive/snapshot-2.0.schema.json`. The content-addressed
 `snapshot-schema-registry.json` binds each historical version to the exact
 schema bytes and dependencies used to validate it.
 
@@ -94,6 +94,14 @@ file and digest resolves, and same-date corrections form a contiguous chain.
 The record date remains the evidence date. A correction may be produced later;
 its `generated_at` records the exact revision time and `issued_on` records that
 revision date.
+
+The archive begins with the exact schema 1.2 bytes originally published for
+`2026-09-07.r1`. The later schema 1.5 rewrite is represented as
+`2026-09-07.r2` under the narrow schema 1.6 correction envelope. Removing that
+envelope and restoring its schema version reproduces the prior rewritten bytes;
+the envelope binds those retained payload values to the original r1 digest.
+The next-day correction binds the exact r2 record, so neither historical payload
+can silently replace the other.
 
 ## Entities and selection
 
@@ -342,10 +350,14 @@ understood, or an action is legitimate.
 5. Rebuild the page.
 6. Pass the separate public-release governance gates before publication.
 
-The retired v1.8 live fetch path cannot emit a 2.0 record. Run
-`tools/migrate-timing-contract.mjs` only to reproduce the current same-day
-correction. A future live adapter needs its own retained-byte acquisition,
-timing extraction and record-index writer with new red tests.
+The retired v1.8 live fetch path cannot emit a 2.0 record. The historical
+`tools/migrate-timing-contract.mjs` is retained as audit code, not as a current
+record generator. Its check mode pins both the original `2026-09-07.r1` bytes
+and the explicit `2026-09-07.r2` correction, proves that the correction retains
+the displaced 1.5 payload, and reproducibly verifies the later 2.0 migration
+without rewinding newer index entries. A future live adapter needs its own
+retained-byte acquisition, timing extraction and record-index writer with new
+red tests.
 
 The machine-readable sources of truth are `snapshot.schema.json`,
 `source-timing.schema.json` and `snapshot-index.schema.json`. This document

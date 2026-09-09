@@ -82,6 +82,10 @@ test("Round 4 forecast binds one exact issue-time IF basis without conflating pr
     fixture.issue_basis.interpretation_boundaries.public_claim_ceiling,
     renderForecastClaimCeiling(fixture),
   );
+  assert.match(
+    fixture.issue_basis.interpretation_boundaries.public_claim_ceiling,
+    new RegExp(`provenance class: ${fixture.provenance.class}`, "i"),
+  );
 });
 
 test("mature retained-source validation cannot silently degrade to local semantics", () => {

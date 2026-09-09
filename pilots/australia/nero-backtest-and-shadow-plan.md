@@ -1,3 +1,14 @@
+---
+id: nero-backtest-and-shadow-plan
+title: NERO warning backtest and shadow rehearsal
+type: pilot-protocol-proposal
+status: proposed
+provenance: agent-analysis
+author: Ren
+created: 2026-09-08
+updated: 2026-09-09
+---
+
 # NERO warning backtest and shadow rehearsal
 
 > **Status:** Agent analysis, 8 September 2026. This plan tests evidence and operating readiness. It does not validate an AI, crisis or household warning.

@@ -78,6 +78,13 @@ therefore creates a different statement identity.
 Review records state a disposition, rationale and validity window. They record
 an assessment and do not prove that the reviewer is independent.
 
+Every claim outside the closed dispositions (`blocked`, `withdrawn` and
+`superseded`) must reference at least one `accepted` or
+`accepted-with-conditions` review that has begun and has not expired at the
+caller-supplied assessment time. A `supported` assessment must also
+carry a direct claim evidence link with relation `supports`; context,
+counterevidence and falsifier inputs do not satisfy that requirement.
+
 Replacement never overwrites a claim. A directed lineage edge names the old and
 new immutable claim IDs, reason, time and review. The validator rejects missing
 endpoints, self-replacement, cycles, a source not marked `superseded`, or a
@@ -94,6 +101,10 @@ authentication or permission.
 The caller supplies the assessment time. A production system must provide a
 trusted clock and authenticate all evidence, review and authority artifacts
 outside this validator.
+Missing timestamps, malformed timestamps and impossible calendar instants fail
+closed with `ASSESSMENT_TIME_INVALID`. This check establishes only that the
+caller supplied an exact parseable instant. It does not authenticate the clock
+or prove when the assessment actually ran.
 
 ## Test
 

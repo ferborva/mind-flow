@@ -1,3 +1,13 @@
+---
+id: second-pass-thesis-evidence
+title: Round 03 second-pass thesis and evidence audit
+type: external-review-second-pass
+status: submitted-open-findings
+provenance: independent-agent-adversarial-review
+reviewed_on: 2026-09-09
+authority: none
+---
+
 # Second-pass thesis and evidence audit
 
 **Scope:** `drafts/name-the-if.md`, `drafts/every-if-is-somebodys-when.md`, and

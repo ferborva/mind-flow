@@ -369,6 +369,7 @@ button.ctl[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent
 .condition-card details{margin-top:13px;border-top:1px solid var(--rule);padding-top:10px}.condition-card summary{cursor:pointer;color:var(--accent);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.08em}
 .condition-card details p{margin:7px 0 0;font-size:11px;color:var(--ink-3);white-space:pre-line}
 .if-claim{border-left:3px solid var(--accent);background:var(--surface-2);padding:14px 16px;margin:0 0 15px;color:var(--ink-2);font-size:13px}
+.if-provenance-status{margin:0 0 12px;color:var(--ink-3);font:500 10px "IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
 .condition-decision{border:1px dashed var(--axis);padding:12px 14px;margin:15px 0 0;color:var(--ink-2);font-size:12px;border-radius:5px}
 .path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:12px;margin-top:14px}
 .path-card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
@@ -493,7 +494,8 @@ footer{max-width:none;display:flex;justify-content:space-between;gap:24px;flex-w
           not evidence that people received a durable, fair increase in agency.</p>
       </div>
       <p class="if-claim" id="if-claim" aria-live="polite">Loading the registered claim and scope…</p>
-      <p class="plain-warning" id="condition-history-status" aria-live="polite"><strong>Condition history is not bound to this snapshot.</strong> The current state does not prove how the wording, scope or evidence changed. No history-based decision is eligible.</p>
+      <p class="if-provenance-status" id="if-provenance-status" aria-live="polite">Loading IF-path provenance…</p>
+      <p class="plain-warning" id="condition-history-status" aria-live="polite"><strong>History unavailable.</strong> Condition history is not bound to this snapshot. The current state does not prove how the wording, scope or evidence changed. No history-based decision is eligible.</p>
       <div class="condition-grid" id="condition-grid"></div>
       <p class="condition-decision" id="condition-decision" aria-live="polite">Loading the registered decision…</p>
     </section>
@@ -999,13 +1001,15 @@ function renderCoverage(){
 }
 
 function renderConditionMap(){
-  var path=snap.if_path,claimHost=document.getElementById("if-claim"),grid=document.getElementById("condition-grid"),decision=document.getElementById("condition-decision");
+  var path=snap.if_path,claimHost=document.getElementById("if-claim"),provenanceHost=document.getElementById("if-provenance-status"),grid=document.getElementById("condition-grid"),decision=document.getElementById("condition-decision");
   grid.innerHTML="";
   if(!path){
     claimHost.textContent="No validated IF path is included in this snapshot.";
+    provenanceHost.textContent="Path provenance: unavailable. No validated IF path is present.";
     decision.textContent="NO DECISION. Missing IF-path contract.";return;
   }
-  var claim=path.claim;
+  var claim=path.claim,provenance=path.provenance||{};
+  provenanceHost.textContent="Path provenance: "+epistemicLabel(provenance.status)+". Producer: "+(provenance.producer||"Not recorded")+". Review: "+epistemicLabel(provenance.review_state)+".";
   claimHost.textContent="WHO: "+claim.who+" · VERB: "+claim.verb+" · OUTCOME: "+claim.outcome+" · STANDARD: "+claim.standard+" · PLACE: "+claim.place+" · PERIOD: "+claim.period+" · STATUS: "+claim.status.toUpperCase();
   path.conditions.slice().sort(function(a,b){return a.position-b.position;}).forEach(function(condition){
     var card=el("article","condition-card");

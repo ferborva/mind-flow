@@ -1,3 +1,14 @@
+---
+id: public-release-governance
+title: Public release governance contract
+type: governance-design
+status: proposed
+provenance: agent-analysis
+author: Ren
+created: 2026-09-08
+updated: 2026-09-09
+---
+
 # Public release governance contract
 
 This contract turns part of the Public Charter's release checklist into a

@@ -290,11 +290,12 @@
     },
     "evaluatorRef": {
       "type": "object",
-      "required": ["id", "version", "digest", "implementation_digest", "conformance_vectors_digest"],
+      "required": ["id", "version", "digest", "schema_digest", "implementation_digest", "conformance_vectors_digest"],
       "properties": {
         "id": { "$ref": "#/$defs/bindingId" },
         "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
         "digest": { "$ref": "#/$defs/sha256" },
+        "schema_digest": { "$ref": "#/$defs/sha256" },
         "implementation_digest": { "$ref": "#/$defs/sha256" },
         "conformance_vectors_digest": { "$ref": "#/$defs/sha256" }
       },

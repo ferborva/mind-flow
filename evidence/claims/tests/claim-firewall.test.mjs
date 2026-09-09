@@ -102,6 +102,19 @@ test("a supported assessment must bind direct supporting evidence", () => {
   assert.ok(result.errors.some(({ keyword }) => keyword === "minItems"));
 });
 
+test("context-only evidence cannot support a supported assessment", () => {
+  const fixture = structuredClone(readFixture("valid", "compound-sentence.json"));
+  fixture.claims[0].evidence_refs = fixture.claims[0].evidence_refs.map((reference) => ({
+    ...reference,
+    relation: "context",
+  }));
+
+  const result = validate(fixture);
+  assert.equal(result.schema_valid, true);
+  assert.equal(result.integrity_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "supported-without-direct-evidence"));
+});
+
 test("replacement lineage binds immutable old and new atomic claims", () => {
   const result = validate(readFixture("valid", "replacement-lineage.json"));
 
@@ -171,6 +184,31 @@ test("expired claims fail closed unless blocked, withdrawn or superseded", () =>
   assert.ok(result.errors.some(({ code }) => code === "expired-claim-not-closed"));
 });
 
+test("every non-closed claim requires a current accepting review", () => {
+  const acceptedFixture = structuredClone(readFixture("valid", "compound-sentence.json"));
+  acceptedFixture.reviews[0].disposition = "accepted";
+  assert.equal(validate(acceptedFixture).machine_valid, true);
+
+  for (const mutate of [
+    (review) => { review.disposition = "pending"; },
+    (review) => { review.reviewed_at = "2026-09-09T00:00:00Z"; },
+    (review) => { review.valid_through = assessedAt; },
+  ]) {
+    const fixture = structuredClone(readFixture("valid", "compound-sentence.json"));
+    const openClaim = fixture.claims[0];
+    const review = fixture.reviews.find(({ review_id: reviewId }) =>
+      openClaim.review_refs.includes(reviewId));
+    mutate(review);
+
+    const result = validate(fixture);
+    assert.equal(result.schema_valid, true);
+    assert.equal(result.integrity_valid, false);
+    assert.ok(
+      result.errors.some(({ code }) => code === "non-closed-claim-without-current-acceptance"),
+    );
+  }
+});
+
 test("replacement lineage rejects missing claims, self-replacement and cycles", () => {
   for (const name of [
     "replacement-missing-claim.json",
@@ -224,6 +262,28 @@ test("co-mutating the policy and its ledger checksum cannot weaken fail-closed r
   });
   assert.equal(result.machine_valid, false);
   assert.ok(result.errors.some(({ code }) => code.startsWith("policy-schema-")));
+});
+
+test("a missing or invalid assessment clock fails closed with a typed error", () => {
+  for (const invalidAssessedAt of [
+    undefined,
+    "not-an-instant",
+    "2026-02-30T12:00:00Z",
+  ]) {
+    const result = validateClaimLedger(readFixture("valid", "compound-sentence.json"), {
+      schema,
+      policy,
+      policySchema,
+      policyBytes,
+      assessedAt: invalidAssessedAt,
+    });
+    assert.equal(result.machine_valid, false, String(invalidAssessedAt));
+    assert.equal(result.integrity_valid, false, String(invalidAssessedAt));
+    assert.ok(
+      result.errors.some(({ code }) => code === "ASSESSMENT_TIME_INVALID"),
+      String(invalidAssessedAt),
+    );
+  }
 });
 
 test("all hostile fixtures are rejected", () => {

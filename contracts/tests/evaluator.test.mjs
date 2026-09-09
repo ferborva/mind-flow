@@ -104,7 +104,7 @@ const expectedVetoIf = {
 };
 
 test("five-valued NOT, ALL and ANY truth tables are explicit and complete", () => {
-  assert.equal(EVALUATOR_VERSION, "3.0.0");
+  assert.equal(EVALUATOR_VERSION, "3.0.1");
   assert.deepEqual(PREDICATE_TRUTH_STATES, ["true", "false", "unknown", "stale", "conflicted"]);
   assert.deepEqual(GATE_TRUTH_STATES, PREDICATE_TRUTH_STATES);
   assert.deepEqual(STATES, ["true", "false", "unknown", "stale", "conflicted"]);

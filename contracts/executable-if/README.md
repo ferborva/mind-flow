@@ -32,9 +32,9 @@ content-addressed signal definition
 The normative evaluator profile is
 [`evaluator-semantics.json`](evaluator-semantics.json). The kernel and every
 condition definition must name its exact identifier, version, semantics digest,
-implementation digest and conformance-vector digest. This makes implementation
-drift visible. It does not make the implementation correct or the publisher
-authentic.
+schema digest, implementation digest and conformance-vector digest. This makes
+contract or implementation drift visible. It does not make the implementation
+correct or the publisher authentic.
 
 ## Five states, three separate questions
 
@@ -99,9 +99,10 @@ WHO + VERB + OBJECT + STANDARD + POLARITY + PERIOD
 Scope supplies the registered places, cohorts and services. The claim period
 supplies its public time boundary, while `effective_from` supplies the earliest
 time a particular definition version can be used. A definition revision may
-improve thresholds, windows or logic, but it cannot invert or silently replace
-the typed claim.
-Changing the claim requires a new identity and an explicit relationship.
+improve thresholds, windows and source policies. It cannot change the truth
+expression, predicate set, predicate-to-signal binding or which operator direction
+passes. Those are semantic anchors for the typed claim. Changing one requires a
+new condition identity and an explicit relationship.
 
 ## Evolution contract
 
@@ -138,6 +139,12 @@ history. A correction cannot change the condition, predicate, signal, scope,
 period, unit or source identity. A different cell is new evidence, not a
 correction.
 
+All contract instants use exact `YYYY-MM-DDTHH:mm:ssZ` form. Governed evaluation
+uses the complete current definition and evidence folds, so `evaluated_at` must
+not predate the latest event in either fold. This blocks a current snapshot from
+silently reading evidence or lifecycle decisions recorded in its future. The clock
+is still caller supplied and unauthenticated.
+
 This prototype does not yet authenticate event actors, model disputed claims
 between institutions, impose a retention service, or encode who has authority
 to resolve a challenge. Those are integration gates, not implied capabilities.
@@ -157,6 +164,17 @@ publication_approved: false
 
 Those are safety ceilings for this synthetic kernel, not claims about the
 world.
+
+`normalizedObservation.classification` is fixed to `synthetic-observation`, so
+its `source_id` must use the `source.synthetic.*` namespace. The shared ID type
+is deliberately unchanged. `recorded_by` and `signals[].source_schema_ref`
+remain general strings because their enclosing event and signal contracts are
+research-draft, not synthetic-only. Narrowing them here would block future real
+records. All three fields remain caller claims, not authenticated provenance.
+
+Missing, stale and conflicting predicate results are fixed respectively to
+`unknown`, `stale` and `conflicted`. A definition cannot turn absent or disputed
+evidence into a passing result.
 
 Evaluation returns `mechanically_valid_for_evaluation` and
 `computed_rule_state`. Temporary `executable` and `condition_truth` aliases are

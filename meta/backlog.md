@@ -25,6 +25,11 @@ script.
 
 The three at the top are the ones that block writing. The rest can wait.
 
+- [ ] **Does "the money accrues to companies, so the choice is theirs" survive
+      as a diagnosis?** The remedy and tax positions softened in
+      `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
+      contribution at the frame and method level, not the solution. He has not
+      said whether the enterprise-choice claim still describes the problem.
 - [ ] **Does the sequencing concession kill the dated phases?** He said the
       order conditions fall in cannot be planned. `from-if-to-when` runs on five
       named phases with dates to 2055. My read is that the phases survive as
@@ -143,12 +148,13 @@ The three at the top are the ones that block writing. The rest can wait.
       $132.2bn net profit, about a third of a billion a day each.
 - [x] **The Musk attributions.** Resolved 2026-09-07. All three verified and now
       quoted properly. Musk distinguishes universal HIGH income from universal
-      BASIC income, which supports rather than undercuts Fer's anti-UBI line.
-- [~] **The remedy needs new reasoning.** *He solved this himself on 2026-09-07.*
-      The zero-cost count and deflation rate replace "companies should be
-      generous" with two numbers businesses can target and countries can track.
-      Remaining decision is whether he wants that swapped into the draft's
-      closing section, which is a rewrite of the last third.
+      BASIC income. Fernando's own tax and UBI position later softened, so this
+      source does not settle his remedy.
+- [x] **Keep the remedy open.** Resolved 2026-09-09 in
+      `capture/2026-09-09-softer-on-tax-and-remedy.md`: Fernando's contribution
+      is the frame and method, not a selected solution. The zero-cost count and
+      deflation rate remain candidate signals. The portfolio and visible-price
+      routes remain proposals, not his position.
       Original framing of the problem: The combined profit
       of Nvidia and Alphabet, spread across humanity, is 8.3 cents per person per
       day. **Correction, 2026-09-08:** the prior 62%-of-GDP comparison treated
@@ -156,8 +162,7 @@ The three at the top are the ones that block writing. The rest can wait.
       units. It is withdrawn. The World Bank 2025 nowcast reports a 54.92%
       poverty gap at $30, implying about 49.4tn 2021 international dollars per
       year as a perfect-targeting cash-equivalent shortfall, not a programme
-      budget. His remedy now needs a portfolio case rather than an "only cost
-      collapse works" claim. His call, because it changes his argument.
+      budget. The evidence does not select a remedy.
 - [ ] **The concept name.** Still open. "The missing if" is mine.
 - [ ] **The Baumol paragraph.** Demonetisation has worked for manufactured and
       digital goods and failed completely for housing, healthcare and education.

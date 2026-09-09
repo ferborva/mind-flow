@@ -34,8 +34,8 @@ const schemaFiles = {
   lineage: new URL("./schema/governance-lineage.schema.json", import.meta.url),
 };
 const schemaDigests = {
-  common: "34e1475fc3a0db226e6c4dc1c4675fe7d91a81d2e158c3312d221eb21764642e",
-  context: "9bb5f6f830c3de003d25c6e80f535703a70f10d1444da3fdc3e82af517664876",
+  common: "f1ae03fee24d05b63460fdc953416256083741b92f8431a7106afa6f723b04f7",
+  context: "3845b2d2549588f15dcb2108eb64e56654ca4300da2ea6c1021e845522c38a91",
   lineage: "39eec336e97aa36797efa38df7f492c006c571eed5f5ea4304be47740ef9410e",
 };
 const schemaDocuments = {};
@@ -72,30 +72,30 @@ const UNVERIFIED_TRUST_BOUNDARIES = Object.freeze({
 export const FIXED_SOURCE_REFS = Object.freeze({
   round_04_bundle: Object.freeze({
     path: "integration/transition-bundle/fixtures/round-04.worker-option.complete.json",
-    sha256: "sha256:4533372fb8b1b1e6e097bb1d09ca53c12984cd8881f7b8986f2d59ff95685aa3",
+    sha256: "sha256:e609471d9a483e1a0b1b1cbf23b58c629ba69a5f73aea911f6dc570175ef290a",
     bundle_id: "bundle.round-04.worker-option.complete",
     bundle_schema_version: "1.2.0",
     bundle_stage: "complete-core",
   }),
   governance_context: Object.freeze({
     path: "governance/lineage/fixtures/round-06.worker-transition.governance-context.synthetic.json",
-    sha256: "sha256:61d06b094612b196872c69de536a28820d26848ca4a7a1d340866bd97269cd01",
+    sha256: "sha256:e37e8b891cafb0e595f843d4d682944f63ac5770c9f45136b60962c457d4fed5",
     context_id: "governance-context.round-06.worker-transition.synthetic",
-    context_hash: "sha256:748f1fcc0765106a92da788a80ce74325f569256e485806570fcba01e34f36bb",
+    context_hash: "sha256:93edaaf75b7ecdea807529ff1a476fa5245dc200e7be860938d1d702aad19262",
   }),
   negotiation: Object.freeze({
     path: "governance/negotiation-record/fixtures/worker-transition.negotiation.synthetic.json",
-    sha256: "sha256:698215045015505bbcce4351c7698ced727a17130a3e046815441685f9123e58",
+    sha256: "sha256:6a4b1f310e62f6dc43598571b8576ec2559a8ab89691549264d613c20fb056d3",
     record_id: "negotiation.worker-transition.synthetic",
     version: "1.0.0",
-    record_hash: "sha256:c12f2826a2e8717f7799b64ce7c51592656e0a764cf2a381922c1556afe77ad5",
+    record_hash: "sha256:bd84b6a41237d929e200cd8fdedcd473d18b6d4091c5af7f3b77ada5af9e5ca1",
   }),
   decision: Object.freeze({
     path: "governance/decision-record/fixtures/worker-transition.decision.synthetic.json",
-    sha256: "sha256:13b44ef500dd5735af66d5c8544a2613a81ee307f7e40b1f75ba536e62927c7d",
+    sha256: "sha256:b9fc22b053f8c105f6ee179efeb66c0e0e16260a7afb70966250e0a7f7dc7920",
     record_id: "decision.worker-transition.synthetic",
     version: "1.0.0",
-    record_hash: "sha256:2450b633f29ecc98576d15efed657bf09fb7b40cec8ceb29bd03a3eb39de7dcd",
+    record_hash: "sha256:426ffd72c42751251fb4ad4412f1d95ccbf9cbb7610485c5a022c1fc0611d42c",
   }),
 });
 
@@ -543,6 +543,7 @@ export function validateGovernanceLineage(lineage, {
     participants: context.participants,
     affected_consumers: context.affected_consumers,
     representations: context.representations,
+    deliberation_scope: context.deliberation_scope,
   } : null;
 
   if (derivedIf && context) {

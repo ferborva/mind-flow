@@ -365,7 +365,7 @@ for (const item of evidenceEvents) {
 }
 
 const kernel = {
-  schema_version: "1.0.0",
+  schema_version: "1.1.0",
   kernel_id: "kernel.worker-option.synthetic",
   classification: "research-draft",
   empirical_truth_established: false,

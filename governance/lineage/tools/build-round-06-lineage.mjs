@@ -81,6 +81,16 @@ export function buildRound06Lineage() {
     participants: structuredClone(negotiation.payload.participants),
     affected_consumers: structuredClone(negotiation.payload.affected_consumers),
     representations: structuredClone(negotiation.payload.representations),
+    deliberation_scope: {
+      position_ids: [
+        "position.affected-workers.synthetic",
+        "position.worker-households.synthetic",
+        "position.transition-provider.synthetic",
+        "position.public-authority.synthetic",
+      ],
+      dissent_ids: ["dissent.household-continuity.synthetic"],
+      unresolved_dissent_ids: ["dissent.household-continuity.synthetic"],
+    },
     if_binding: structuredClone(negotiation.payload.if_binding),
     boundaries: {
       empirical_truth_established: false,

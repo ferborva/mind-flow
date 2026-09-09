@@ -201,14 +201,36 @@ export function validateSnapshotIndex(index, records = [], schemas = {}) {
       ));
     }
     const first = revisions[0];
+    const firstSnapshot = parsedSnapshots[first?.position];
+    const firstCorrection = firstSnapshot?.correction;
     if (first?.revision === 1 &&
-        Number(parsedSnapshots[first.position]?.schema_version?.split(".")[0]) >= 2 &&
-        parsedSnapshots[first.position]?.correction) {
+        Number(firstSnapshot?.schema_version?.split(".")[0]) >= 2 &&
+        firstCorrection) {
       errors.push(problem(
         "SNAPSHOT_INDEX_UNEXPECTED_CORRECTION",
         `$.snapshots[${first.position}]`,
         "A schema 2.x first revision begins a new evidence date and cannot correct another date.",
       ));
+    }
+    if (first?.revision === 1 && first.position > 0 && firstCorrection &&
+        Number(firstSnapshot?.schema_version?.split(".")[0]) < 2) {
+      const previousEntry = entries[first.position - 1];
+      if (firstCorrection.supersedes_snapshot_id !== previousEntry.snapshot_id ||
+          (firstCorrection.supersedes_record_id !== undefined &&
+           firstCorrection.supersedes_record_id !== previousEntry.id)) {
+        errors.push(problem(
+          "SNAPSHOT_INDEX_CORRECTION_CHAIN_INVALID",
+          `$.snapshots[${first.position}]`,
+          "A legacy cross-date correction must supersede the immediately prior indexed record.",
+        ));
+      }
+      if (firstCorrection.supersedes_snapshot_sha256 !== previousEntry.sha256) {
+        errors.push(problem(
+          "SNAPSHOT_INDEX_PREDECESSOR_DIGEST_MISMATCH",
+          `$.snapshots[${first.position}]`,
+          "A legacy cross-date correction must bind the exact bytes of the immediately prior indexed record.",
+        ));
+      }
     }
     for (let index = 1; index < revisions.length; index += 1) {
       const previous = revisions[index - 1];

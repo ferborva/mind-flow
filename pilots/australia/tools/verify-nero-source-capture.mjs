@@ -119,7 +119,7 @@ const EXPECTED_BASELINE_HASH =
   "sha256:440c566123d3146cc2b00eef267139fc1a13dbd653c7ec9ec3c40012d857fa70";
 const PINNED_DERIVATION = Object.freeze({
   tool_path: "dashboard/tools/build-nero-baseline.mjs",
-  tool_sha256: "sha256:40f60ec2a3800442f02484464c38972086ead2fd6c13818af0a3d5c7fdea3cef",
+  tool_sha256: "sha256:d2d7e63359277fc20ee1f937b295f99d3958225f1be435a2b1b19d8bb4d4dc7d",
   comparison_profile: "canonical-series-projection-v1",
   expected_projection_sha256:
     "sha256:86aead0ed8f5eaf8812b5a7e348ef0e070bb9a8ffdeea1068120962583d01dcb",

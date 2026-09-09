@@ -15,7 +15,7 @@
  "correction": {
   "kind": "corrected_revision",
   "supersedes_snapshot_id": "2026-09-08",
-  "supersedes_snapshot_sha256": "sha256:80cdae407821c49df33dc4fd1e5e630fc23d269f543cacc512c4705cd11bfb1f",
+  "supersedes_snapshot_sha256": "sha256:914ee626869892795a57c0e9b9ee31f73e48aefa9f7e65a2419350374006158c",
   "issued_on": "2026-09-09",
   "summary": "Adds an explicit fail-closed transition-bundle boundary without changing source values or inventing a possible path.",
   "changes": [

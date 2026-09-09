@@ -6,12 +6,12 @@ type: draft
 status: review
 size: long
 themes: [abundance]
-sources: [2026-09-01-abundance-is-conditional, 2026-09-07-deflation-metric-and-labour-paradox, 2026-09-07-endorsing-the-red-team]
+sources: [2026-09-01-abundance-is-conditional, 2026-09-07-deflation-metric-and-labour-paradox, 2026-09-07-endorsing-the-red-team, 2026-09-09-softer-on-tax-and-remedy]
 research: [2026-09-07-abundance-figures, 2026-09-07-decent-life-thresholds, 2026-09-07-red-team-moonshot, 2026-09-07-labour-supply-and-cost-disease, 2026-09-07-transition-precedents-and-adkar, 2026-09-07-transition-control-system]
 provenance: commissioned-proposal
 audience: the Moonshot Mates
 created: 2026-09-07
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 <!-- PROVENANCE WARNING, read before doing anything with this file.
@@ -31,7 +31,8 @@ His, verified:
   - the zero-cost count and deflation rate as a metric
   - the free-labour paradox
   - the transmission test (endorsed 2026-09-07)
-  - "the enterprises must choose", now superseded by his own metric
+  - his contribution belongs at the IF frame and method level, not in choosing
+    a solution; whether the enterprise-choice diagnosis survives remains open
 
 Mine, proposed for his approval:
   - the five-phase structure, every phase name, and the readiness gates
@@ -39,6 +40,8 @@ Mine, proposed for his approval:
   - the ADKAR mapping and the cohort-desynchronisation argument
   - the government/business interaction arc
   - the "binding if may migrate from money to permission" hypothesis
+  - the portfolio of possible transmission routes and every policy or remedy
+    proposal; Fernando has not selected among them
   - the linked household-access and individual-agency views, the five-part
     access test, and the required ecological materiality assessment
   - the seven-part communication contract
@@ -73,9 +76,10 @@ Do not promote this to posts/ until he has been through the marked sections.
   worker rose 46%. Real wages rose 12%. The profit rate doubled. That is fifty
   years of a gap related to the one we are worried about, and it has a name: **Engels'
   Pause.**
-- Then it inverted. 1840 to 1900: output up 90%, **real wages up 123%.** The
-  catch-up was real. It arrived a lifetime late.
-- **There is one falsifiable claim at the centre of this debate:** reinvestment
+- **On the series most often cited, wages caught up after 1840.** From 1840 to
+  1900, output rose 90% and real wages rose 123%. That path arrived a lifetime
+  after the measured pause; it is not a universal transition clock.
+- **One claim in this debate can be stated so it could fail:** reinvestment
   is a complete answer only when gains reach exposed households faster than
   access disappears. Prices and wages are two channels, but transfers, capital
   income and public provision count too.
@@ -120,11 +124,12 @@ perfect-targeting cash-equivalent shortfall of about **49.4 trillion 2021
 international dollars a year**, before implementation, behaviour or general
 equilibrium effects. It cannot be compared directly with nominal world GDP.
 
-So the moral framing was still incomplete, but not for the reason first given.
-**Durable access needs a portfolio: lower real resource costs, stronger earnings
-and ownership, transfers, public provision, shorter required working time and
-institutions that distribute productive power.** Cost collapse is one powerful
-route. The evidence does not make it the only one.
+So the moral framing was still incomplete, but the arithmetic does not select a
+remedy. Lower real resource costs, stronger earnings and ownership, transfers,
+public provision, shorter required working time and institutional changes are
+candidate routes with different evidence, trade-offs and decision rights.
+**I am not choosing among those routes here. My contribution is the IF frame:
+name the goal, expose the conditions, watch the signals and test the actions.**
 
 ## ⏳ The last time we ran this experiment
 

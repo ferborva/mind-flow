@@ -76,6 +76,10 @@ function same(left, right) {
   return isDeepStrictEqual(left, right);
 }
 
+function normalizedIdentity(value) {
+  return typeof value === "string" ? value.normalize("NFKC").trim().toLowerCase() : null;
+}
+
 function without(value, field) {
   const result = structuredClone(value);
   delete result[field];
@@ -100,8 +104,9 @@ export function renderForecastClaimCeiling(forecast) {
   const state = forecast?.issue_basis?.issue_evaluation_receipt?.computed_rule_state?.state ||
     "unknown";
   const use = (forecast?.forecast_use || "unclassified").replaceAll("_", "-");
+  const provenanceClass = forecast?.provenance?.class || "unclassified";
   const event = (forecast?.target?.event || "unspecified event").replace(/[.!?]+$/, "");
-  return `This ${use} forecast assigns ${percent(forecast?.probability)} to this future event: ${event}. At issue time, ${forecast?.issued_at || "unspecified"}, the executable IF rule computed ${state}. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act.`;
+  return `This ${use} forecast assigns ${percent(forecast?.probability)} to this future event: ${event}. Provenance class: ${provenanceClass}. At issue time, ${forecast?.issued_at || "unspecified"}, the executable IF rule computed ${state}. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act.`;
 }
 
 function issue(code, path, message) {
@@ -1033,6 +1038,17 @@ export function assertForecastSemantics(forecast, sources) {
     );
     if (adjudicationEvidence.publishedAt < issuedAt || adjudicationEvidence.retrievedAt > voidedAt) {
       throw new Error("void adjudication evidence must be published after issue and retrieved by void time");
+    }
+    if (adjudicationEvidence.publishedAt < voidEvidence.publishedAt ||
+        adjudicationEvidence.retrievedAt < voidEvidence.retrievedAt) {
+      throw new Error("void adjudication must occur after the void evidence it adjudicates");
+    }
+    const adjudicatorIdentity = normalizedIdentity(adjudication.claimed_adjudicator_id);
+    const forecasterIdentities = [forecast.provenance?.author, history[0]?.actor]
+      .map(normalizedIdentity)
+      .filter(Boolean);
+    if (forecasterIdentities.includes(adjudicatorIdentity)) {
+      throw new Error("claimed void adjudicator must be distinct from the forecaster");
     }
     const observation = forecast.resolution.decision_observation;
     if (!decision && observation !== undefined) {

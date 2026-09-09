@@ -19,7 +19,8 @@ import {
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const oldR1Path = join(dashboard, "snapshots", "2026-09-08.json");
-const oldLegacyPath = join(dashboard, "snapshots", "2026-09-07.json");
+const originalLegacyPath = join(dashboard, "snapshots", "2026-09-07.json");
+const correctedLegacyPath = join(dashboard, "snapshots", "2026-09-07.r2.json");
 const oldR2Path = join(dashboard, "snapshots", "2026-09-08.r2.json");
 const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r3.json");
 const indexPath = join(dashboard, "snapshots", "index.json");
@@ -65,23 +66,58 @@ function loadSnapshotSchemas() {
 const snapshotSchemas = loadSnapshotSchemas();
 const validateIndex = (index, records) => validateSnapshotIndex(index, records, snapshotSchemas);
 
-test("frozen v1.5, v1.8 and v2.0 records remain byte-identical beside the v2.1 correction", () => {
+test("the original record and every correction remain byte-bound in the append-only chain", () => {
   assert.equal(
-    digest(readFileSync(oldLegacyPath)),
-    "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
+    digest(readFileSync(originalLegacyPath)),
+    "sha256:949a9d3f695f0bc2e619a3344a0c17516cf8309b3c48a27021d67e0d96772053",
+  );
+  const correctedLegacy = JSON.parse(readFileSync(correctedLegacyPath, "utf8"));
+  assert.equal(correctedLegacy.record_id, "2026-09-07.r2");
+  assert.equal(correctedLegacy.correction.supersedes_record_id, "2026-09-07.r1");
+  assert.equal(
+    correctedLegacy.correction.supersedes_snapshot_sha256,
+    digest(readFileSync(originalLegacyPath)),
+  );
+  assert.equal(
+    digest(readFileSync(correctedLegacyPath)),
+    "sha256:9abcde332aadcc4f1339cb25e0917ec169d236b686fde443a54a19fbfc15beac",
+  );
+  assert.equal(
+    correctedLegacy.reproducibility.raw_input_status,
+    "not_pinned",
+  );
+  assert.equal(
+    correctedLegacy.correction.source_values_changed,
+    false,
+  );
+  assert.equal(
+    JSON.parse(readFileSync(oldR1Path, "utf8")).correction.supersedes_snapshot_sha256,
+    digest(readFileSync(correctedLegacyPath)),
   );
   assert.equal(
     digest(readFileSync(oldR1Path)),
-    "sha256:f09f5b7c2cf2187bd6997921b0b48b2b9857dbf110520167037ff7b00ef8fd35",
+    "sha256:aa5d46b1588aaa384f48f62a0a67a43b2a200b896a1e548e84dc4f9834c4a14d",
   );
   assert.equal(
     digest(readFileSync(oldR2Path)),
-    "sha256:80cdae407821c49df33dc4fd1e5e630fc23d269f543cacc512c4705cd11bfb1f",
+    "sha256:914ee626869892795a57c0e9b9ee31f73e48aefa9f7e65a2419350374006158c",
   );
   const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
   assert.equal(snapshot.record_id, "2026-09-08.r3");
   assert.equal(snapshot.correction.supersedes_record_id, "2026-09-08.r2");
   assert.equal(snapshot.correction.supersedes_snapshot_sha256, digest(readFileSync(oldR2Path)));
+});
+
+test("the rewritten legacy payload remains distinguishable from its correction envelope", () => {
+  const correctedLegacy = JSON.parse(readFileSync(correctedLegacyPath, "utf8"));
+  const priorRewrittenPayload = structuredClone(correctedLegacy);
+  priorRewrittenPayload.schema_version = "1.5.0";
+  delete priorRewrittenPayload.record_id;
+  delete priorRewrittenPayload.correction;
+  assert.equal(
+    digest(Buffer.from(`${JSON.stringify(priorRewrittenPayload, null, 1)}\n`)),
+    "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
+  );
 });
 
 test("the v2.1 snapshot and timing graph fail closed under their governed policy", () => {
@@ -146,6 +182,7 @@ test("the record index permits same-day corrections without rewriting history", 
   assert.equal(index.latest, "2026-09-08.r3");
   assert.deepEqual(index.snapshots.map(({ id }) => id), [
     "2026-09-07.r1",
+    "2026-09-07.r2",
     "2026-09-08.r1",
     "2026-09-08.r2",
     "2026-09-08.r3",
@@ -189,6 +226,23 @@ test("the record index rejects false latest pointers and duplicate identities", 
   }));
   assert.ok(validateIndex(traversal, traversalRecords).errors.some(
     ({ code }) => code === "SNAPSHOT_INDEX_PATH_INVALID",
+  ));
+
+  const crossDateForgery = structuredClone(index);
+  const crossDatePosition = crossDateForgery.snapshots.findIndex(
+    ({ id }) => id === "2026-09-08.r1",
+  );
+  const forgedCrossDateSnapshot = JSON.parse(records[crossDatePosition].bytes.toString("utf8"));
+  forgedCrossDateSnapshot.correction.supersedes_snapshot_sha256 =
+    crossDateForgery.snapshots[0].sha256;
+  const forgedCrossDateBytes = Buffer.from(JSON.stringify(forgedCrossDateSnapshot));
+  crossDateForgery.snapshots[crossDatePosition].sha256 = digest(forgedCrossDateBytes);
+  const forgedCrossDateRecords = records.map((record, position) => position === crossDatePosition
+    ? { entry: crossDateForgery.snapshots[position], bytes: forgedCrossDateBytes }
+    : { entry: crossDateForgery.snapshots[position], bytes: record.bytes });
+  assert.ok(validateIndex(crossDateForgery, forgedCrossDateRecords).errors.some(
+    ({ code, path }) => code === "SNAPSHOT_INDEX_PREDECESSOR_DIGEST_MISMATCH" &&
+      path === `$.snapshots[${crossDatePosition}]`,
   ));
 
   const fork = structuredClone(index);

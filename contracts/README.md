@@ -185,7 +185,14 @@ shadow mode until retrospective calibration and affected-community review.
 
 ## Integrity and semantic validation
 
-JSON Schema validates each artifact's shape. `semantic-validation.mjs` validates
+`semantic-validation.mjs` is an advisory compatibility validator for the
+legacy condition, action and lifecycle artifact family. Existing option and
+condition-pathway callers still consume those shapes; they are not
+demonstrably compatible with the newer executable-IF kernel or programme-bundle
+validators, so this pass does not silently reroute them. New issuance or public
+projection paths must not treat this module as an enforced boundary.
+
+JSON Schema validates each legacy artifact's shape. `semantic-validation.mjs` validates
 the relationships that Schema cannot establish alone: definition references,
 gate and observation references, checksums, date order, evidence timing,
 coverage minimums, source and quality policy, uncertainty bounds, probability
@@ -353,8 +360,10 @@ action record, one checksum-bound prior action state and the completed
 evaluation run. The prior state must not postdate the evaluation, and the
 proposal must not predate it. The resulting
 `transition-proposal.schema.json` artifact pins all three inputs and records its
-generation time, proposed lifecycle, conflicts and concurrent duties. It does
-not accept, predict or embed an owner event.
+generation time, proposed lifecycle, conflicts and concurrent duties. Its
+`basis_gate_state` repeats the exact five-valued truth state of the gate bound
+by the action, so `false`, `unknown`, `stale` and `conflicted` cannot collapse
+into an unexplained hold. It does not accept, predict or embed an owner event.
 
 Consequential proposals require all seven valid gate results, no evaluation
 errors, exact recomputation of the stored resolution and eligibility on the

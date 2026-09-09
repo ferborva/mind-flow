@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 const HASH = /^sha256:[a-f0-9]{64}$/;
 const DECISIVE_STATE = "true";
+const MAX_UNAUTHENTICATED_RECEIPT_VALIDITY_MS = 30 * 24 * 60 * 60 * 1000;
 const BOUNDARIES = Object.freeze({
   empirical_truth_established: false,
   affected_party_consent_established: false,
@@ -133,6 +134,17 @@ function referenceProblems(record, expectedIfBinding) {
       "evaluation receipt hash must content-address every retained receipt field",
     ));
   }
+  const evaluatedAt = Date.parse(receipt?.evaluated_at);
+  const validUntil = Date.parse(receipt?.valid_until);
+  if (Number.isFinite(evaluatedAt) && Number.isFinite(validUntil) &&
+      (validUntil < evaluatedAt ||
+       validUntil - evaluatedAt > MAX_UNAUTHENTICATED_RECEIPT_VALIDITY_MS)) {
+    errors.push(issue(
+      "IF_RECEIPT_VALIDITY_WINDOW_EXCEEDED",
+      "/payload/if_binding/evaluation_receipt_ref/valid_until",
+      "an unauthenticated receipt may remain current for at most 30 days after evaluation",
+    ));
+  }
   if (receipt?.mechanically_valid_for_evaluation !== true ||
       receipt?.empirical_truth_established !== false ||
       receipt?.authority_effect !== "none" ||
@@ -176,6 +188,7 @@ function temporalProblems(record, asOf) {
     timeline?.reconsider_at,
     timeline?.expires_at,
     authority?.expires_at,
+    ...(payload?.representations || []).map(({ mandate_expires_at: value }) => value),
     ...(payload?.positions || []).map(({ recorded_at: value }) => value),
     ...(payload?.dissent || []).map(({ recorded_at: value }) => value),
     ...(record?.signatures || []).map(({ signed_at: value }) => value),
@@ -189,6 +202,7 @@ function temporalProblems(record, asOf) {
     return errors;
   }
   const asOfTime = Date.parse(asOf);
+  const evaluatedAt = Date.parse(receipt.evaluated_at);
   if (Date.parse(receipt.evaluated_at) > Date.parse(payload.created_at) ||
       Date.parse(receipt.valid_until) < Date.parse(payload.created_at) ||
       Date.parse(timeline.valid_from) > Date.parse(payload.created_at) ||
@@ -247,12 +261,26 @@ function temporalProblems(record, asOf) {
         "required attestations must follow record creation and precede expiry and verification",
       ));
     }
+    if (Number.isFinite(signedAt) && signedAt < evaluatedAt) {
+      errors.push(issue(
+        "ATTESTATION_PREDATES_IF_EVALUATION",
+        `/signatures/${index}/signed_at`,
+        "an attestation cannot predate the IF evaluation that the record relies on",
+      ));
+    }
   }
   for (const [kind, entries] of [
     ["positions", payload?.positions || []],
     ["dissent", payload?.dissent || []],
   ]) {
     for (const [index, entry] of entries.entries()) {
+      if (Date.parse(entry.recorded_at) < evaluatedAt) {
+        errors.push(issue(
+          "DELIBERATION_PREDATES_IF_EVALUATION",
+          `/payload/${kind}/${index}/recorded_at`,
+          "positions and dissent cannot predate the IF evaluation used by the deliberation",
+        ));
+      }
       if (Date.parse(entry.recorded_at) > Date.parse(payload.created_at) ||
           Date.parse(entry.recorded_at) > asOfTime) {
         errors.push(issue(
@@ -261,6 +289,23 @@ function temporalProblems(record, asOf) {
           "positions and dissent must be recorded no later than record creation and verification",
         ));
       }
+    }
+  }
+  for (const [index, representation] of (payload?.representations || []).entries()) {
+    const expiresAt = Date.parse(representation.mandate_expires_at);
+    if (expiresAt < Date.parse(payload.created_at)) {
+      errors.push(issue(
+        "REPRESENTATION_TIME_INVALID",
+        `/payload/representations/${index}/mandate_expires_at`,
+        "a representation mandate must remain current when the record is created",
+      ));
+    }
+    if (asOfTime > expiresAt) {
+      errors.push(issue(
+        "REPRESENTATION_EXPIRED",
+        `/payload/representations/${index}/mandate_expires_at`,
+        "an expired representation cannot support a current governance record",
+      ));
     }
   }
   return errors;
@@ -308,6 +353,9 @@ function representationProblems(payload, expectedGovernanceContext) {
     ));
   }
   const participantIds = new Set((payload?.participants || []).map(({ actor_id: id }) => id));
+  const actionOwnerId = payload?.action_candidate?.owner_actor_id ?? payload?.action?.owner_actor_id;
+  const authorityHolderId = payload?.authority?.holder_actor_id;
+  const routeIds = [];
   for (const [index, representation] of (payload?.representations || []).entries()) {
     if (!participantIds.has(representation.representative_actor_id)) {
       errors.push(issue(
@@ -316,6 +364,25 @@ function representationProblems(payload, expectedGovernanceContext) {
         "an affected-party representative must be a named participant",
       ));
     }
+    const route = representation.challenge_route;
+    routeIds.push(route?.route_id);
+    const receivers = route?.receiving_actor_ids || [];
+    if (receivers.some((id) => !participantIds.has(id)) ||
+        receivers.includes(representation.representative_actor_id) ||
+        !receivers.includes(actionOwnerId) || !receivers.includes(authorityHolderId)) {
+      errors.push(issue(
+        "CHALLENGE_ROUTE_INVALID",
+        `/payload/representations/${index}/challenge_route`,
+        "a challenge route must reach the action owner and authority holder through other retained participants",
+      ));
+    }
+  }
+  if (new Set(routeIds).size !== routeIds.length) {
+    errors.push(issue(
+      "CHALLENGE_ROUTE_INVALID",
+      "/payload/representations",
+      "each representation requires a distinct challenge route identity",
+    ));
   }
   if (!expectedGovernanceContext || typeof expectedGovernanceContext !== "object") {
     errors.push(issue(
@@ -334,6 +401,38 @@ function representationProblems(payload, expectedGovernanceContext) {
         "recorded governance scope differs from the separately supplied expected context",
       ));
     }
+  }
+  return errors;
+}
+
+function responsibilityProblems(payload, action) {
+  const errors = [];
+  const participants = payload?.participants || [];
+  const rolesByActor = new Map(participants.map(({ actor_id: id, roles }) => [id, roles || []]));
+  const representativeIds = (payload?.representations || [])
+    .map(({ representative_actor_id: id }) => id);
+  const actionOwnerId = action?.owner_actor_id;
+  const authorityHolderId = payload?.authority?.holder_actor_id;
+  const responsibilityIds = [...representativeIds, actionOwnerId, authorityHolderId];
+  if (new Set(responsibilityIds).size !== responsibilityIds.length) {
+    errors.push(issue(
+      "ACTOR_RESPONSIBILITY_COLLISION",
+      "/payload/participants",
+      "affected-party representatives, the candidate action owner and the authority holder must be distinct actors",
+    ));
+  }
+  const actorsWithRole = (role) => participants
+    .filter(({ roles }) => roles?.includes(role))
+    .map(({ actor_id: id }) => id);
+  if (!exactSet(actorsWithRole("affected-party-representative"), representativeIds) ||
+      !exactSet(actorsWithRole("candidate-action-owner"), [actionOwnerId]) ||
+      !exactSet(actorsWithRole("candidate-authority-holder"), [authorityHolderId]) ||
+      participants.some(({ actor_id: id }) => !rolesByActor.get(id)?.includes("negotiator"))) {
+    errors.push(issue(
+      "SEMANTIC_ROLE_COVERAGE_INVALID",
+      "/payload/participants",
+      "roles must identify exactly the retained representatives, action owner and authority holder, and every participant must be a negotiator",
+    ));
   }
   return errors;
 }
@@ -383,7 +482,7 @@ function boundaryProblems(payload) {
   return errors;
 }
 
-function actionProblems(action) {
+function actionProblems(action, payload) {
   const errors = [];
   const lowRegretVerbs = new Set(["assess", "consult", "prepare", "review", "rehearse"]);
   if (!lowRegretVerbs.has(action?.verb) ||
@@ -411,6 +510,31 @@ function actionProblems(action) {
       "/payload/action/stop_conditions",
       "reversible action must stop on IF drift, affected-party challenge, harm or authority/signature invalidation",
     ));
+  }
+  const participantIds = new Set((payload?.participants || []).map(({ actor_id: id }) => id));
+  const representativeIds = (payload?.representations || [])
+    .map(({ representative_actor_id: id }) => id);
+  const remedyOwnerId = action?.reversibility?.remedy_owner_actor_id;
+  if (!participantIds.has(remedyOwnerId)) {
+    errors.push(issue(
+      "ACTION_REMEDY_OWNER_INVALID",
+      "/payload/action/reversibility/remedy_owner_actor_id",
+      "the remedy owner must be a retained participant accountable for rollback and recovery",
+    ));
+  }
+  for (const [index, stop] of (action?.stop_conditions || []).entries()) {
+    const invokers = stop?.invoker_actor_ids || [];
+    const unknownInvoker = invokers.some((id) => !participantIds.has(id));
+    const affectedPartyControl = ["affected-party-challenge", "harm-detected"]
+      .includes(stop?.trigger_id);
+    if (unknownInvoker || (affectedPartyControl &&
+        representativeIds.some((id) => !invokers.includes(id)))) {
+      errors.push(issue(
+        "ACTION_STOP_INVOKER_INVALID",
+        `/payload/action/stop_conditions/${index}/invoker_actor_ids`,
+        "stop invokers must be retained participants, and every representative can invoke affected-party and harm stops",
+      ));
+    }
   }
   return errors;
 }
@@ -452,9 +576,10 @@ export function baseRecordProblems(record, {
     ...referenceProblems(record, expectedIfBinding),
     ...temporalProblems(record, asOf),
     ...representationProblems(record?.payload, expectedGovernanceContext),
+    ...responsibilityProblems(record?.payload, action),
     ...signatureProblems(record, expectedSignerIds),
     ...boundaryProblems(record?.payload),
-    ...actionProblems(action),
+    ...actionProblems(action, record?.payload),
     ...reconsiderationProblems(record?.payload, kind),
   ];
 }

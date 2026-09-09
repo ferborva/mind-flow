@@ -53,6 +53,17 @@ test("three-decline denominator starts only after three eligible comparisons", (
   assert.equal(audit.later_era.three_decline.numerator, 0);
 });
 
+test("blank numeric cells cannot be parsed as zero-valued decline observations", () => {
+  for (const value of ["", "   "]) {
+    assert.throws(
+      () => auditDeclineRuns([
+        { occupation_code: "5311", sa4_code: "101", date: "2022-01-15", value },
+      ]),
+      /invalid NERO value/i,
+    );
+  }
+});
+
 test("boundary-month eligibility produces the declared NERO denominators", () => {
   const audit = auditDeclineRuns(monthlyRows(440, 132), {
     negativeControlStart: "2016-09-15",

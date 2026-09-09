@@ -63,6 +63,10 @@ function finishEra(era) {
 function normaliseRow(row) {
   const occupationCode = String(row.occupation_code);
   const sa4Code = String(row.sa4_code);
+  if (row.value === null || row.value === undefined ||
+      (typeof row.value === "string" && row.value.trim() === "")) {
+    throw new Error(`Invalid NERO value for ${occupationCode}:${sa4Code}:${row.date}`);
+  }
   const value = Number(row.value);
   monthNumber(row.date);
   if (!/^\d{4}$/.test(occupationCode) || !/^\d{3}$/.test(sa4Code)) {

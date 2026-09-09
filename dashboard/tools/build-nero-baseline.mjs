@@ -285,9 +285,12 @@ function normaliseRow(fields, releaseMonth) {
   const month = parseMonth(date);
   if (month > releaseMonth) throw new Error(`NERO date ${date} is later than release period`);
 
+  const valueText = rawValue === null || rawValue === undefined
+    ? ""
+    : String(rawValue).trim();
   let value = null;
-  if (rawValue !== "") {
-    value = Number(rawValue);
+  if (valueText !== "") {
+    value = Number(valueText);
     if (!Number.isFinite(value) || value < 0) {
       throw new Error(`invalid employment value ${rawValue}`);
     }
@@ -417,6 +420,8 @@ export function buildNeroBaseline(rows, options = {}) {
     },
     scope: {
       occupation_classification: "ANZSCO 2013 version 1.3, 4-digit",
+      occupation_classification_verification_status:
+        "unverified_external_review_required",
       geography_classification: "ASGS 2021 SA4, place of residence",
       occupation_codes: occupationCodes,
       series_count: series.length,

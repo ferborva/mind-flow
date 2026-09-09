@@ -15,7 +15,7 @@
  "correction": {
   "kind": "corrected_revision",
   "supersedes_snapshot_id": "2026-09-07",
-  "supersedes_snapshot_sha256": "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
+    "supersedes_snapshot_sha256": "sha256:9abcde332aadcc4f1339cb25e0917ec169d236b686fde443a54a19fbfc15beac",
   "issued_on": "2026-09-08",
   "summary": "Corrects evidence classifications, adapter selectors, derived-input lineage and removes untyped crisis and playbook prose without changing source values.",
   "changes": [
@@ -33,9 +33,10 @@
    "notes",
    "playbooks",
    "possible_path_refs",
-   "public_update",
-   "publication_status",
-   "schema_version",
+      "public_update",
+      "publication_status",
+      "record_id",
+      "schema_version",
    "signals",
    "snapshot_id"
   ],

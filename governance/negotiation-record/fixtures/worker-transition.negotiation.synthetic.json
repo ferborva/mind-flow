@@ -12,17 +12,17 @@
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
       },
       "evaluation_receipt_ref": {
         "receipt_id": "receipt.condition.worker-option.nsw.20260909",
         "receipt_version": "1.0.0",
-        "receipt_hash": "sha256:6f315cd2a8a4c1847aaa068294100aa134cb20c9842f5cb04db6b9b29639d410",
+        "receipt_hash": "sha256:4965f8948f275ceabda4bc8c477dbfabebdf0fd58cc336d329851f78d4c28bec",
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e",
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
         "evaluated_at": "2026-09-09T00:00:00Z",
-        "valid_until": "2026-12-31T23:59:59Z",
+        "valid_until": "2026-10-09T00:00:00Z",
         "mechanically_valid_for_evaluation": true,
         "computed_rule_state": "true",
         "empirical_truth_established": false,
@@ -63,7 +63,7 @@
         "actor_id": "actor.public-authority-candidate.synthetic",
         "label": "Synthetic candidate public authority",
         "roles": [
-          "candidate-decision-owner",
+          "candidate-authority-holder",
           "negotiator"
         ],
         "identity_verification": "synthetic-unverified"
@@ -90,8 +90,18 @@
         "representative_actor_id": "actor.worker-representative.synthetic",
         "selection_basis": "Synthetic placeholder. No election, sampling or identity check occurred.",
         "mandate_scope": "Record worker safeguards, objections and requested changes only.",
+        "mandate_expires_at": "2026-10-01T00:00:00Z",
         "mandate_verification": "synthetic-unverified",
-        "consent_established": false
+        "consent_established": false,
+        "challenge_route": {
+          "route_id": "challenge.affected-workers.synthetic",
+          "receiving_actor_ids": [
+            "actor.transition-provider.synthetic",
+            "actor.public-authority-candidate.synthetic"
+          ],
+          "channel_description": "Synthetic dual-recipient route. No live channel or response service exists.",
+          "effect": "pause-and-record-only"
+        }
       },
       {
         "representation_id": "representation.worker-households.synthetic",
@@ -99,8 +109,18 @@
         "representative_actor_id": "actor.household-representative.synthetic",
         "selection_basis": "Synthetic placeholder. No household mandate or identity check occurred.",
         "mandate_scope": "Record household continuity concerns and objections only.",
+        "mandate_expires_at": "2026-10-01T00:00:00Z",
         "mandate_verification": "synthetic-unverified",
-        "consent_established": false
+        "consent_established": false,
+        "challenge_route": {
+          "route_id": "challenge.worker-households.synthetic",
+          "receiving_actor_ids": [
+            "actor.transition-provider.synthetic",
+            "actor.public-authority-candidate.synthetic"
+          ],
+          "channel_description": "Synthetic dual-recipient route. No live channel or response service exists.",
+          "effect": "pause-and-record-only"
+        }
       }
     ],
     "positions": [
@@ -202,6 +222,7 @@
       "reversibility": {
         "class": "reversible",
         "irreversible_effects_prohibited": true,
+        "remedy_owner_actor_id": "actor.transition-provider.synthetic",
         "rollback_plan": "Stop the rehearsal, revoke access and delete participant-controlled copies on request.",
         "residual_harm": "The rehearsal may still create anxiety, privacy loss or false confidence."
       },
@@ -209,22 +230,46 @@
         {
           "trigger_id": "if-binding-changed",
           "condition": "The definition, receipt or computed IF state changes.",
-          "response": "Stop and require a new negotiation against a fresh exact receipt."
+          "response": "Stop and require a new negotiation against a fresh exact receipt.",
+          "invoker_actor_ids": [
+            "actor.worker-representative.synthetic",
+            "actor.household-representative.synthetic",
+            "actor.transition-provider.synthetic",
+            "actor.public-authority-candidate.synthetic"
+          ]
         },
         {
           "trigger_id": "affected-party-challenge",
           "condition": "An affected consumer or representative challenges scope, safety or representation.",
-          "response": "Pause, preserve the challenge and reconsider before resumption."
+          "response": "Pause, preserve the challenge and reconsider before resumption.",
+          "invoker_actor_ids": [
+            "actor.worker-representative.synthetic",
+            "actor.household-representative.synthetic",
+            "actor.transition-provider.synthetic",
+            "actor.public-authority-candidate.synthetic"
+          ]
         },
         {
           "trigger_id": "harm-detected",
           "condition": "Privacy, coercion, income, conditions, care or information harm is reported.",
-          "response": "Stop exposure, protect affected people and assess recovery."
+          "response": "Stop exposure, protect affected people and assess recovery.",
+          "invoker_actor_ids": [
+            "actor.worker-representative.synthetic",
+            "actor.household-representative.synthetic",
+            "actor.transition-provider.synthetic",
+            "actor.public-authority-candidate.synthetic"
+          ]
         },
         {
           "trigger_id": "authority-or-signature-invalid",
           "condition": "Claimed authority, mandate or a required signature expires or is withdrawn.",
-          "response": "Stop. The record grants no fallback authority."
+          "response": "Stop. The record grants no fallback authority.",
+          "invoker_actor_ids": [
+            "actor.worker-representative.synthetic",
+            "actor.household-representative.synthetic",
+            "actor.transition-provider.synthetic",
+            "actor.public-authority-candidate.synthetic"
+          ]
         }
       ]
     },
@@ -304,7 +349,7 @@
       "publication_approved": false
     }
   },
-  "payload_hash": "sha256:1c80ad0c181ea053840b0e144609315af98fc0bb9737cd716b919ca4264e3df3",
+  "payload_hash": "sha256:07dae0e92fdbb4199c0913ce2ebfc077fbdad0736a5d7e833d9ebf66902b8f23",
   "signatures": [
     {
       "signature_id": "signature.synthetic.1",
@@ -314,7 +359,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:1c80ad0c181ea053840b0e144609315af98fc0bb9737cd716b919ca4264e3df3",
+      "signed_payload_hash": "sha256:07dae0e92fdbb4199c0913ce2ebfc077fbdad0736a5d7e833d9ebf66902b8f23",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:1",
       "identity_verification": "not-authenticated",
@@ -328,7 +373,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:1c80ad0c181ea053840b0e144609315af98fc0bb9737cd716b919ca4264e3df3",
+      "signed_payload_hash": "sha256:07dae0e92fdbb4199c0913ce2ebfc077fbdad0736a5d7e833d9ebf66902b8f23",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:2",
       "identity_verification": "not-authenticated",
@@ -342,7 +387,7 @@
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:1c80ad0c181ea053840b0e144609315af98fc0bb9737cd716b919ca4264e3df3",
+      "signed_payload_hash": "sha256:07dae0e92fdbb4199c0913ce2ebfc077fbdad0736a5d7e833d9ebf66902b8f23",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:3",
       "identity_verification": "not-authenticated",
@@ -352,16 +397,16 @@
       "signature_id": "signature.synthetic.4",
       "signer_actor_id": "actor.public-authority-candidate.synthetic",
       "signer_roles": [
-        "candidate-decision-owner",
+        "candidate-authority-holder",
         "negotiator"
       ],
       "attestation": "record-accuracy-not-agreement",
-      "signed_payload_hash": "sha256:1c80ad0c181ea053840b0e144609315af98fc0bb9737cd716b919ca4264e3df3",
+      "signed_payload_hash": "sha256:07dae0e92fdbb4199c0913ce2ebfc077fbdad0736a5d7e833d9ebf66902b8f23",
       "signature_method": "synthetic-placeholder",
       "signature_value": "synthetic:not-cryptographic:4",
       "identity_verification": "not-authenticated",
       "signed_at": "2026-09-10T03:15:00Z"
     }
   ],
-  "record_hash": "sha256:c12f2826a2e8717f7799b64ce7c51592656e0a764cf2a381922c1556afe77ad5"
+  "record_hash": "sha256:bd84b6a41237d929e200cd8fdedcd473d18b6d4091c5af7f3b77ada5af9e5ca1"
 }

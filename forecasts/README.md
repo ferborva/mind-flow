@@ -62,9 +62,15 @@ machine-generated `public_claim_ceiling` must accompany any public projection.
 4. Store issue-record, plan, registry-manifest, baseline-calculation and evidence
    SHA-256 values. Retain the exact resolution bytes used by the frozen resolver.
    A checksum proves byte identity, not truth or publisher identity.
-5. Reject input vintages retrieved after issue. Resolution evidence must declare
-   a publication time at or after the frozen publication boundary and be
-   retrieved no later than resolution.
+5. Reject input vintages retrieved after issue. A source retrieved after a
+   registered `input_vintage_cutoff_at` is not made eligible merely by claiming
+   an older vintage. The cutoff governs eligible source knowledge; a baseline
+   calculation may run after that cutoff, but must still finish before issue.
+   This is the intended policy boundary. The current retained baseline input
+   manifest binds digests but not per-input retrieval clocks, so the issuance
+   adapter cannot independently establish this chronology and remains blocked.
+   Resolution evidence must declare a publication time at or after the frozen
+   publication boundary and be retrieved no later than resolution.
 6. Never overwrite issued substance. History begins at issue and only appends a
    matching resolution or void event.
 7. Resolve only inside the declared window. Report issued records left after
@@ -146,13 +152,26 @@ The evaluator reports:
 - `withheld_unreconstructed`: resolved records whose exact bytes were not
   available for deterministic reconstruction;
 - `void_rate`: voids divided by all registered records.
+- `post_publication_voids`: voids recorded on or after the target's earliest
+  declared outcome-publication boundary.
 
 The plan freezes a minimum score coverage of at least 80 percent. A cohort below
 that floor, including an all-void cohort, can finish its lifecycle but is not
 performance-evaluable.
-Void evidence and claimed-independent adjudication remain public. The registry
-cannot itself verify that the adjudicator is independent, so the authority
-status remains unverified.
+Any post-publication void also withholds `performance_evaluable`, even when the
+remaining score coverage meets the registered floor, because outcome-informed
+selective exclusion has not been ruled out.
+Void adjudication evidence must not predate the evidence for the void, and the
+claimed adjudicator identity must differ from the forecast author and issuing
+actor. These are structural checks only. They do not authenticate identity or
+establish actual independence, so the authority status remains unverified.
+
+Every derived evaluation report lists its distinct `input_provenance_classes`
+and repeats each source forecast's epistemic class, use and complete provenance
+object. Every machine-generated public claim ceiling names `provenance.class`.
+This prevents a downstream report from silently stripping the fixture
+disclaimer or authorship boundary. It still does not authenticate those
+caller-supplied fields.
 
 ## Reliability and dependence
 

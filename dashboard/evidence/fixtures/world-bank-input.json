@@ -2,7 +2,7 @@
   "raw_input": {
     "id": "sha256:0ee45b32ae12dbb4fe2e4399c7fdaddf465e8c4edcd7ebe31112e861cf755792",
     "sha256": "0ee45b32ae12dbb4fe2e4399c7fdaddf465e8c4edcd7ebe31112e861cf755792",
-    "path": "../raw/world-bank-sample.json",
+    "path": "evidence/raw/world-bank-sample.json",
     "byte_length": 218,
     "media_type": "application/json",
     "source_url": "https://api.worldbank.org/v2/country/WLD/indicator/SL.TLF.CACT.ZS",

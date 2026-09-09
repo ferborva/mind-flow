@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import {
   mkdtempSync,
   readFileSync,
+  rmSync,
   symlinkSync,
   unlinkSync,
   writeFileSync,
@@ -254,7 +255,7 @@ test("global and Australian evidence builders enforce exact source-host allowlis
   manifest.raw_input.source_url = "https://attacker.example/data";
   const directory = mkdtempSync(join(tmpdir(), "mind-flow-hostile-source-"));
   const manifestPath = join(directory, "manifest.json");
-  const rawPath = resolve(dirname(rawManifestPath), manifest.raw_input.path);
+  const rawPath = resolve(dashboard, manifest.raw_input.path);
   manifest.raw_input.path = rawPath;
   writeFileSync(manifestPath, JSON.stringify(manifest));
   assert.throws(
@@ -283,4 +284,30 @@ test("global and Australian evidence builders enforce exact source-host allowlis
   );
 
   assert.equal(root.endsWith("mind-flow"), true);
+});
+
+test("the retained raw-input verifier rejects absolute and escaping paths", () => {
+  const manifest = JSON.parse(readFileSync(rawManifestPath, "utf8"));
+  const directory = mkdtempSync(join(tmpdir(), "mind-flow-hostile-path-"));
+  try {
+    const absolute = structuredClone(manifest);
+    absolute.raw_input.path = resolve(dashboard, manifest.raw_input.path);
+    const absolutePath = join(directory, "absolute.json");
+    writeFileSync(absolutePath, JSON.stringify(absolute));
+    assert.throws(
+      () => execFileSync("python3", [fetchPath, "--verify-input-manifest", absolutePath], { stdio: "pipe" }),
+      /raw input path.*repository-relative|absolute.*not allowed/i,
+    );
+
+    const escaping = structuredClone(manifest);
+    escaping.raw_input.path = "../outside.json";
+    const escapingPath = join(directory, "escaping.json");
+    writeFileSync(escapingPath, JSON.stringify(escaping));
+    assert.throws(
+      () => execFileSync("python3", [fetchPath, "--verify-input-manifest", escapingPath], { stdio: "pipe" }),
+      /raw input path.*escape|outside.*base/i,
+    );
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
 });

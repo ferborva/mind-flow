@@ -4,7 +4,7 @@
   "authority_effect": "none",
   "registry_projection": {
     "kind": "canonical-json-sha256-without-self-digest",
-    "digest": "sha256:59e7f241b7936a7202207740cfb7f168e963835f86ea95e0099a797f37e0328a"
+    "digest": "sha256:463c70873df2b06491e7e0af7b224c052efae871dd45568da8c964bdef892645"
   },
   "dependencies": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "path": "contracts/evaluator.mjs",
-      "digest": "sha256:712214e1af7a3313b8b413cb601fb201191a26c9161b7ac8952f53fea292a3dc"
+      "digest": "sha256:3f90b03300a00aee1a3d749e600b6d986680ce15d9f5e54c2011d6cbaf07464e"
     },
     {
       "path": "options/validation.mjs",
@@ -69,7 +69,7 @@
     },
     {
       "path": "contracts/schema/transition-proposal.schema.json",
-      "digest": "sha256:0f509867c857ce83ace4e622d485d26495241410896ca1419fbd9e1fb70d0741"
+      "digest": "sha256:c3ba5b97667f2ee722e41a3c2f652d0d652e3179d5bead57af4bb9a21977d1c1"
     },
     {
       "path": "contracts/schema/owner-transition-event.schema.json",
@@ -81,7 +81,7 @@
     },
     {
       "path": "package-lock.json",
-      "digest": "sha256:24f052c139e6634d77229bfa73c71214f23c18cd429caec13d430949796138ff"
+      "digest": "sha256:0bde227a8a85e8aeec4d52157610060b9b8b4b58e056b5c6367cdec239c78f1c"
     }
   ]
 }

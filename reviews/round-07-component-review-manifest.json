@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "review_round": "round-07",
+  "integration_pr": 2,
+  "candidate_commit": null,
+  "purpose": "Bound the integrated repair candidate into six sequential diffs without claiming that partial stacks are independently mergeable.",
+  "lanes": [
+    {
+      "id": "R07-L1",
+      "title": "Provenance, thesis and research",
+      "head_branch": "ren/round-07-01-provenance",
+      "base_branch": "main",
+      "depends_on": [],
+      "paths": ["capture/", "seeds/", "drafts/", "research/"],
+      "check_commands": ["git diff --check"],
+      "independently_mergeable": false,
+      "reviewable_as_bounded_diff": true,
+      "pull_request": null
+    },
+    {
+      "id": "R07-L2",
+      "title": "Governance and public communications",
+      "head_branch": "ren/round-07-02-governance",
+      "base_branch": "ren/round-07-01-provenance",
+      "depends_on": ["R07-L1"],
+      "paths": ["governance/", "communications/", ".nvmrc", "package.json", "package-lock.json"],
+      "check_commands": ["npm ci", "npm run test:governance", "npm run test:communications"],
+      "independently_mergeable": false,
+      "reviewable_as_bounded_diff": true,
+      "pull_request": null
+    },
+    {
+      "id": "R07-L3",
+      "title": "Executable IF, evidence and path system",
+      "head_branch": "ren/round-07-03-formal-system",
+      "base_branch": "ren/round-07-02-governance",
+      "depends_on": ["R07-L2"],
+      "paths": ["contracts/", "integration/", "evidence/", "forecasts/", "signals/", "options/", "paths/", "preparation/"],
+      "check_commands": ["npm run test:contracts", "npm run test:executable-if", "npm run test:evolution", "npm run test:evidence", "npm run test:signals", "npm run test:paths", "npm run test:options", "npm run test:preparation", "npm run test:forecasts", "npm run test:integration"],
+      "independently_mergeable": false,
+      "reviewable_as_bounded_diff": true,
+      "pull_request": null
+    },
+    {
+      "id": "R07-L4",
+      "title": "Australia pilot and rehearsal",
+      "head_branch": "ren/round-07-04-australia-pilot",
+      "base_branch": "ren/round-07-03-formal-system",
+      "depends_on": ["R07-L3"],
+      "paths": ["pilots/australia/"],
+      "check_commands": ["npm run test:pilot", "npm run test:rehearsal"],
+      "independently_mergeable": false,
+      "reviewable_as_bounded_diff": true,
+      "pull_request": null
+    },
+    {
+      "id": "R07-L5",
+      "title": "Observatory, dashboards and experience experiment",
+      "head_branch": "ren/round-07-05-observatory",
+      "base_branch": "ren/round-07-04-australia-pilot",
+      "depends_on": ["R07-L4"],
+      "paths": ["dashboard/", "experiments/"],
+      "check_commands": ["npm run test:dashboard", "npm run test:experience"],
+      "independently_mergeable": false,
+      "reviewable_as_bounded_diff": true,
+      "pull_request": null
+    },
+    {
+      "id": "R07-L6",
+      "title": "Review controls and repository integration",
+      "head_branch": "ren/round-07-06-integration",
+      "base_branch": "ren/round-07-05-observatory",
+      "depends_on": ["R07-L5"],
+      "paths": ["reviews/", "meta/", ".github/", ".gitignore", "CLAUDE.md", "README.md"],
+      "check_commands": ["npm test", "git diff --check", "git status --porcelain --untracked-files=all"],
+      "independently_mergeable": false,
+      "reviewable_as_bounded_diff": true,
+      "pull_request": null
+    }
+  ],
+  "boundaries": {
+    "integration_pr_is_complete_view": true,
+    "component_prs_are_sequential_review_views": true,
+    "independent_retest_completed": false,
+    "affected_party_review_completed": false,
+    "publication_authority_created": false,
+    "operational_authority_created": false
+  }
+}

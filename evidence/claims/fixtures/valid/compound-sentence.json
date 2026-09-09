@@ -198,10 +198,10 @@
         "identity": "reviewer:governance-01",
         "role": "governance reviewer"
       },
-      "disposition": "pending",
+      "disposition": "accepted-with-conditions",
       "reviewed_at": "2026-09-08T10:40:00Z",
       "valid_through": "2026-12-31T23:59:59Z",
-      "rationale": "No authority, proportionality or intervention evidence has been established."
+      "rationale": "Accepted only as an internal option draft. No authority, proportionality or intervention evidence has been established."
     }
   ],
   "replacement_lineage": []

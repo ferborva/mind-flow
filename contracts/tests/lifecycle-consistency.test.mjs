@@ -241,6 +241,37 @@ test("a transition proposal binds one action, completed run and prior state with
   ), { valid: true, errors: [] });
 });
 
+test("a held action proposal preserves whether its basis gate was false, unknown or stale", () => {
+  const { activeCondition, activeObservations, activeRun } = activeConditionAndRun();
+  const approved = approvedAction(activeCondition);
+  const state = priorState(approved);
+
+  for (const basisGateState of ["false", "unknown", "stale"]) {
+    const predicateStates = Object.fromEntries(
+      activeObservations.map(({ predicate_ref: predicateRef, state: observationState }) => [
+        predicateRef,
+        predicateRef === "access-falling" ? basisGateState : observationState,
+      ]),
+    );
+    const evaluated = evaluateGates(activeCondition, predicateStates);
+    const matchingRun = clone(activeRun);
+    matchingRun.id = `${activeRun.id}.${basisGateState}`;
+    matchingRun.gate_results = clone(evaluated.gates);
+    matchingRun.condition_resolution = clone(evaluated.condition_resolution);
+
+    const proposal = proposeTransition(
+      evaluated,
+      approved,
+      state,
+      matchingRun,
+      "2026-09-08T00:00:30Z",
+    );
+    assert.equal(proposal.proposal, "hold");
+    assert.equal(proposal.basis_gate_state, basisGateState);
+    assert.equal(validateProposalSchema(proposal), true, ajv.errorsText(validateProposalSchema.errors));
+  }
+});
+
 test("the owner event follows and exactly enacts the computed proposal", () => {
   const { activeCondition, activeObservations, activeRun, evaluated } = activeConditionAndRun();
   const approved = approvedAction(activeCondition);

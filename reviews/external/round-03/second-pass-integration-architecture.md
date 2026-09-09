@@ -1,3 +1,13 @@
+---
+id: second-pass-integration-architecture
+title: Round 03 second-pass integration architecture audit
+type: external-review-second-pass
+status: submitted-open-findings
+provenance: independent-agent-adversarial-review
+reviewed_on: 2026-09-09
+authority: none
+---
+
 # Second-pass integration architecture audit
 
 **Review date:** 2026-09-09  
@@ -468,7 +478,7 @@ Evidence scopes are not always equal to outcome scope. The safe rule is:
 
 ## Validator rules
 
-`integration/transition-bundle/validate.mjs` should implement these rules in
+`integration/transition-bundle/assess.mjs` should implement these rules in
 this order.
 
 ### A. Resolve trusted local bytes
@@ -623,7 +633,7 @@ green integration test should not be interpreted as a green deployment gate.
 
 ## Exact TDD acceptance tests
 
-Create `integration/transition-bundle/tests/programme-bundle.test.mjs` and begin
+Create `integration/transition-bundle/tests/transition-bundle.test.mjs` and begin
 with these failures before implementing the validator.
 
 ### P0 identity, scope and IF tests
@@ -736,10 +746,10 @@ integrated projection, not a parallel hand-maintained world.
 
 Add only:
 
-- `integration/transition-bundle/schema/programme-transition-bundle.schema.json`
+- `integration/transition-bundle/schema/transition-bundle.schema.json`
 - `integration/transition-bundle/validator-registry.json`
-- `integration/transition-bundle/validate.mjs`
-- `integration/transition-bundle/tests/programme-bundle.test.mjs`
+- `integration/transition-bundle/assess.mjs`
+- `integration/transition-bundle/tests/transition-bundle.test.mjs`
 - `integration/transition-bundle/README.md`
 
 The first test should use current fixtures as the expected failing cross-system

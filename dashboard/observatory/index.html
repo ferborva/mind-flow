@@ -11,9 +11,13 @@
     <script src="./data.js"></script>
     <script src="./app.js" defer></script>
   </head>
-  <body>
+  <body data-projection-state="pending" aria-busy="true">
     <a class="skip-link" href="#main-content">Skip to observatory</a>
-    <div class="data-error" id="observatory-error" role="alert" hidden></div>
+    <div class="projection-pending" id="observatory-pending" role="status" aria-live="polite" tabindex="-1">
+      <strong>Projection pending.</strong>
+      <span>No condition, forecast, gate or action claim is available unless the local application and data projection complete.</span>
+    </div>
+    <div class="data-error" id="observatory-error" role="alert" tabindex="-1" hidden></div>
     <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
 
     <header class="masthead">
@@ -31,14 +35,17 @@
     <main id="main-content" tabindex="-1">
       <aside class="epistemic-banner" role="note" aria-label="Demonstration boundary">
         <strong>Demonstration only.</strong>
-        <span>All observations and the 62% forecast are invented test data. The clock is not trusted. REGISTERED RULE PASSED means only that the sample rule ran on sample inputs. No real condition, warning, service, decision or authority exists.</span>
+        <span id="demonstration-boundary"></span>
       </aside>
-      <p class="consultation-warning">This example names NSW clerical workers and households. None have reviewed the goal, threshold, labels or proposed response.</p>
+      <aside class="consultation-warning" role="note" aria-labelledby="consultation-title">
+        <strong id="consultation-title">Affected-party review</strong>
+        <span id="consultation-status"></span>
+      </aside>
       <dl class="status-strip" aria-label="Prototype version status">
-        <div><dt>Programme iteration</dt><dd id="programme-iteration">06</dd></div>
-        <div><dt>Data fixture</dt><dd id="data-fixture">04, synthetic</dd></div>
-        <div><dt>Interface study</dt><dd id="interface-study">05</dd></div>
-        <div><dt>Public release</dt><dd id="public-release">none</dd></div>
+        <div><dt>Programme iteration</dt><dd id="programme-iteration"></dd></div>
+        <div><dt>Data fixture</dt><dd id="data-fixture"></dd></div>
+        <div><dt>Interface study</dt><dd id="interface-study"></dd></div>
+        <div><dt>Public release</dt><dd id="public-release"></dd></div>
       </dl>
       <section class="hero" id="overview" aria-labelledby="hero-title">
         <div class="hero-intro reveal">
@@ -101,14 +108,14 @@
           <section class="gate-group reveal" aria-labelledby="real-gates-title">
             <div class="gate-group-head">
               <h3 id="real-gates-title">Real-world release gates</h3>
-              <p><strong>0 of 4 real-world gates met.</strong> Does this reflect real conditions? Not tested. Is it current? Unknown. Has anyone authorised action? No.</p>
+              <p id="real-gate-summary"></p>
             </div>
             <div class="gate-grid real-gate-grid" id="real-world-gate-grid"></div>
           </section>
           <section class="gate-group reveal" aria-labelledby="local-gates-title">
             <div class="gate-group-head">
               <h3 id="local-gates-title">Software checks on sample files</h3>
-              <p><strong>6 local code checks passed on invented data.</strong> These are not evidence gates and must not be combined with the 0/4 real-world status.</p>
+              <p id="local-gate-summary"></p>
             </div>
             <div class="gate-grid" id="local-gate-grid"></div>
           </section>
@@ -199,6 +206,11 @@
       <p>Research draft · Synthetic fixture · No empirical finding · No authority</p>
     </footer>
 
-    <noscript><p class="noscript">This observatory needs JavaScript to project its local, hash-bound Round 4 source bundle.</p></noscript>
+    <noscript>
+      <section class="noscript" role="alert" aria-label="Projection unavailable">
+        <strong>Projection unavailable.</strong>
+        <span>This observatory needs JavaScript to project its local source bundle. No condition, forecast, gate or action claim has been loaded.</span>
+      </section>
+    </noscript>
   </body>
 </html>

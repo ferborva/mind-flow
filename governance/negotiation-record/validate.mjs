@@ -21,7 +21,7 @@ const negotiationSchemaBytes = readFileSync(
   new URL("./schema/negotiation-record.schema.json", import.meta.url),
 );
 const schemaDigests = {
-  common: "34e1475fc3a0db226e6c4dc1c4675fe7d91a81d2e158c3312d221eb21764642e",
+  common: "f1ae03fee24d05b63460fdc953416256083741b92f8431a7106afa6f723b04f7",
   negotiation: "67c58eaf268703dd8bf657ed94c9eed4ba01ae9f397c11d281bf1f58cc37c256",
 };
 for (const [name, bytes] of [
@@ -44,7 +44,7 @@ function distinct(values) {
   return [...new Set(values)];
 }
 
-function negotiationProblems(record) {
+function negotiationProblems(record, expectedGovernanceContext) {
   const errors = [];
   const payload = record?.payload;
   const participantIds = (payload?.participants || []).map(({ actor_id: id }) => id);
@@ -70,7 +70,7 @@ function negotiationProblems(record) {
   }
   for (const [index, dissent] of (payload?.dissent || []).entries()) {
     const position = positionById.get(dissent.position_id);
-    if (!position || position.actor_id !== dissent.actor_id ||
+    if (!position || position.actor_id !== dissent.actor_id || position.status === "withdrawn" ||
         !dissent.affected_consumer_ids?.every((id) => consumerIds.includes(id))) {
       errors.push(issue(
         "DISSENT_REFERENCE_INVALID",
@@ -87,6 +87,30 @@ function negotiationProblems(record) {
       "DISSENT_PRESERVATION_INVALID",
       "/payload/outcome/unresolved_dissent_ids",
       "outcome must preserve every unresolved dissent identity",
+    ));
+  }
+  const agreementStatus = payload?.outcome?.agreement_status;
+  const contradictsDissentState =
+    (unresolved.length === 0 && agreementStatus === "provisional-with-unresolved-dissent") ||
+    (unresolved.length > 0 && agreementStatus === "provisional");
+  if (contradictsDissentState) {
+    errors.push(issue(
+      "DISSENT_OUTCOME_STATE_INVALID",
+      "/payload/outcome/agreement_status",
+      "the agreement status must distinguish unresolved dissent from a record with no unresolved dissent",
+    ));
+  }
+  const externalScope = expectedGovernanceContext?.deliberation_scope;
+  const positionIds = (payload?.positions || []).map(({ position_id: id }) => id);
+  const dissentIds = (payload?.dissent || []).map(({ dissent_id: id }) => id);
+  if (!externalScope ||
+      !sameSet(positionIds, externalScope.position_ids || []) ||
+      !sameSet(dissentIds, externalScope.dissent_ids || []) ||
+      !sameSet(unresolved, externalScope.unresolved_dissent_ids || [])) {
+    errors.push(issue(
+      "DELIBERATION_SCOPE_MISMATCH",
+      "/payload/positions",
+      "positions, dissent and unresolved dissent must exactly match the separately supplied external context",
     ));
   }
   const blocking = (payload?.dissent || [])
@@ -142,7 +166,7 @@ export function validateNegotiationRecord(record, {
     action: payload?.action_candidate,
   });
   if (!errors.some(({ code }) => code === "SCHEMA_INVALID")) {
-    errors.push(...negotiationProblems(record));
+    errors.push(...negotiationProblems(record, expectedGovernanceContext));
   }
   const machineValid = errors.length === 0;
   const activationEligible = machineValid &&
@@ -152,6 +176,7 @@ export function validateNegotiationRecord(record, {
   return {
     machine_valid: machineValid,
     activation_eligible: activationEligible,
+    context_authenticated: false,
     errors,
     boundaries: boundariesForResult(payload),
   };

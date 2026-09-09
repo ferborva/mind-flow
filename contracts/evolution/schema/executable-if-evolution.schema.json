@@ -62,11 +62,12 @@
     },
     "evaluatorRef": {
       "type": "object",
-      "required": ["id", "version", "digest", "implementation_digest", "conformance_vectors_digest"],
+      "required": ["id", "version", "digest", "schema_digest", "implementation_digest", "conformance_vectors_digest"],
       "properties": {
         "id": { "$ref": "#/$defs/id" },
         "version": { "$ref": "#/$defs/semver" },
         "digest": { "$ref": "#/$defs/hash" },
+        "schema_digest": { "$ref": "#/$defs/hash" },
         "implementation_digest": { "$ref": "#/$defs/hash" },
         "conformance_vectors_digest": { "$ref": "#/$defs/hash" }
       },

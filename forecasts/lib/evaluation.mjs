@@ -658,6 +658,12 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
 
   const resolved = forecasts.filter((forecast) => forecast.status === "resolved");
   const voided = forecasts.filter((forecast) => forecast.status === "void");
+  const postPublicationVoids = voided.filter((forecast) =>
+    parseExactInstant(forecast.resolution.voided_at, `${forecast.id} voided_at`) >=
+      parseExactInstant(
+        forecast.target.outcome_publication_not_before,
+        `${forecast.id} outcome_publication_not_before`,
+      ));
   const unresolved = forecasts.filter((forecast) => forecast.status === "issued");
   const overdue = unresolved.filter((forecast) =>
     parseExactInstant(forecast.resolve_by, `${forecast.id} resolve_by`) < asOfTime);
@@ -709,6 +715,17 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
   );
   const scoredIds = new Set(rawScores.map((score) => score.forecast_id));
   const scoredResolved = resolved.filter((forecast) => scoredIds.has(forecast.id));
+  const lifecycleComplete = pending.length === 0 && overdue.length === 0;
+  const scoreCoverage = forecasts.length ? rounded(rawScores.length / forecasts.length) : 0;
+  const performanceWithheldReason = !lifecycleComplete
+    ? "lifecycle_incomplete"
+    : postPublicationVoids.length > 0
+      ? "post_publication_voids_present"
+      : rawScores.length === 0
+        ? "no_scored_outcomes"
+        : scoreCoverage < plan.void_handling.minimum_score_coverage
+          ? "minimum_score_coverage_not_met"
+          : null;
 
   const useCounts = Object.fromEntries(
     [...FORECAST_USES].map((use) => [use, forecasts.filter((record) => record.forecast_use === use).length]),
@@ -727,6 +744,23 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
     plan_id: plan.id,
     registered_at: plan.registered_at,
     evaluated_as_of: asOf,
+    report_provenance: {
+      kind: "derived-forecast-evaluation-report",
+      plan_id: plan.id,
+      evaluated_as_of: asOf,
+      input_provenance_classes: [...new Set(
+        forecasts.map((forecast) => forecast.provenance?.class ?? "unclassified"),
+      )].sort(),
+      source_forecasts: forecasts.map((forecast) => ({
+        forecast_id: forecast.id,
+        epistemic_class: forecast.epistemic_class,
+        forecast_use: forecast.forecast_use,
+        provenance: structuredClone(forecast.provenance),
+      })),
+      source_authenticity_verified: false,
+      empirical_truth_established: false,
+      action_authorised: false,
+    },
     registration: {
       claimed_commit: plan.claimed_registered_commit,
       verification_status: plan.registration_anchor.verification_status,
@@ -747,7 +781,8 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
       pending: pending.length,
       overdue_unresolved: overdue.length,
       void: voided.length,
-      score_coverage: forecasts.length ? rounded(rawScores.length / forecasts.length) : 0,
+      post_publication_voids: postPublicationVoids.length,
+      score_coverage: scoreCoverage,
       void_rate: forecasts.length ? rounded(voided.length / forecasts.length) : 0,
       minimum_score_coverage: plan.void_handling.minimum_score_coverage,
       by_forecast_use: useCounts,
@@ -814,10 +849,9 @@ export function evaluateForecastCohort(plan, forecasts, { asOf } = {}) {
       action_authorised: false,
       causal_truth_established: false,
       predictive_skill_established: false,
-      lifecycle_complete: pending.length === 0 && overdue.length === 0,
-      performance_evaluable:
-        pending.length === 0 && overdue.length === 0 && rawScores.length > 0 &&
-        rawScores.length / forecasts.length >= plan.void_handling.minimum_score_coverage,
+      lifecycle_complete: lifecycleComplete,
+      performance_evaluable: performanceWithheldReason === null,
+      performance_withheld_reason: performanceWithheldReason,
       note: "Scores are evidence about registered predictive performance only. Separate authority, causal and action contracts still apply.",
     },
   };

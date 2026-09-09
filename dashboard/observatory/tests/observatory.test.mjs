@@ -48,6 +48,143 @@ function contrastRatio(foreground, background) {
   return (values[0] + 0.05) / (values[1] + 0.05);
 }
 
+function loadGeneratedData() {
+  const window = {};
+  vm.runInNewContext(
+    readFileSync(join(observatoryRoot, "data.js"), "utf8"),
+    { window },
+  );
+  return structuredClone(window.OBSERVATORY_DATA);
+}
+
+function createRenderHarness() {
+  const bySelector = new Map();
+  const currentStateNodes = [createElement("strong"), createElement("strong")];
+
+  function descendants(root) {
+    return root.children.flatMap((child) => [child, ...descendants(child)]);
+  }
+
+  function matches(element, selector) {
+    if (selector === "button") return element.tagName === "BUTTON";
+    const stateButton = selector.match(/^button\[data-state="([^"]+)"\]$/);
+    return stateButton
+      ? element.tagName === "BUTTON" && element.dataset.state === stateButton[1]
+      : false;
+  }
+
+  function createElement(tagName = "div") {
+    const attributes = new Map();
+    const styleValues = new Map();
+    return {
+      tagName: tagName.toUpperCase(),
+      children: [],
+      className: "",
+      classList: { add() {} },
+      dataset: {},
+      hidden: false,
+      textContent: "",
+      style: {
+        setProperty(name, value) { styleValues.set(name, value); },
+        getPropertyValue(name) { return styleValues.get(name); },
+      },
+      append(...children) { this.children.push(...children); },
+      replaceChildren(...children) { this.children = [...children]; },
+      addEventListener() {},
+      focus() {},
+      setAttribute(name, value) { attributes.set(name, String(value)); },
+      getAttribute(name) { return attributes.get(name); },
+      querySelector(selector) {
+        return descendants(this).find((element) => matches(element, selector)) ?? null;
+      },
+      querySelectorAll(selector) {
+        return descendants(this).filter((element) => matches(element, selector));
+      },
+    };
+  }
+
+  const body = createElement("body");
+  body.dataset.projectionState = "pending";
+  const error = createElement("div");
+  error.hidden = true;
+  bySelector.set("#observatory-error", error);
+
+  const document = {
+    body,
+    createElement,
+    querySelector(selector) {
+      if (selector === "[data-current-state]") return currentStateNodes[0];
+      if (!bySelector.has(selector)) bySelector.set(selector, createElement());
+      return bySelector.get(selector);
+    },
+    querySelectorAll(selector) {
+      if (selector === "[data-current-state]") return currentStateNodes;
+      if (selector === ".reveal") return [];
+      return [];
+    },
+  };
+
+  return { body, bySelector, currentStateNodes, document, error };
+}
+
+function renderWithData(data) {
+  const harness = createRenderHarness();
+  const window = {
+    OBSERVATORY_DATA: data,
+    matchMedia: () => ({ matches: true }),
+  };
+  vm.runInNewContext(
+    readFileSync(join(observatoryRoot, "app.js"), "utf8"),
+    { document: harness.document, window },
+  );
+  return harness;
+}
+
+test("the static shell stays pending when the application never executes", () => {
+  const html = readFileSync(join(observatoryRoot, "index.html"), "utf8");
+  const css = readFileSync(join(observatoryRoot, "styles.css"), "utf8");
+
+  assert.match(html, /<body[^>]*data-projection-state="pending"[^>]*aria-busy="true"/i);
+  assert.match(html, /id="observatory-pending"[^>]*role="status"/i);
+  assert.doesNotMatch(html, /62% forecast|0 of 4 real-world gates met|6 local code checks passed/i);
+  assert.match(
+    css,
+    /\[data-projection-state="pending"\][\s\S]*?main[\s\S]*?display:\s*none/i,
+  );
+  assert.match(
+    html,
+    /<noscript>[\s\S]*projection unavailable[\s\S]*no condition, forecast, gate or action claim/i,
+  );
+});
+
+test("valid fixture drift cannot leave stale forecast or gate claims in the shell", () => {
+  const data = loadGeneratedData();
+  data.forecast.probability = 0.37;
+  data.programmeGates.find(({ id }) => id === "integrity").state = "closed";
+
+  const rendered = renderWithData(data);
+
+  assert.equal(rendered.body.dataset.projectionState, "ready");
+  assert.equal(rendered.body.getAttribute("aria-busy"), "false");
+  assert.equal(rendered.bySelector.get("#probability-number").textContent, "TEST 37%");
+  assert.match(rendered.bySelector.get("#forecast-short").textContent, /37%/);
+  assert.match(rendered.bySelector.get("#real-gate-summary").textContent, /0 of 4/);
+  assert.match(rendered.bySelector.get("#local-gate-summary").textContent, /5 of 6/);
+});
+
+test("invalid fixture drift fails closed before the page becomes ready", () => {
+  const data = loadGeneratedData();
+  data.forecast.probability = 1.37;
+
+  const rendered = renderWithData(data);
+
+  assert.equal(rendered.body.dataset.projectionState, "failed");
+  assert.equal(rendered.body.getAttribute("aria-busy"), "false");
+  assert.equal(rendered.error.hidden, false);
+  assert.match(rendered.error.textContent, /could not be verified/i);
+  assert.equal(rendered.bySelector.has("#probability-number"), false);
+});
+
 test("the Round 4 projection builds reproducibly from exact bundle artifacts", () => {
   execFileSync(process.execPath, [join(observatoryRoot, "build.mjs"), "--check"], {
     cwd: repoRoot,
@@ -223,6 +360,7 @@ test("static experience is accessible, responsive and dependency-free", () => {
   const css = readFileSync(join(observatoryRoot, "styles.css"), "utf8");
   const js = readFileSync(join(observatoryRoot, "app.js"), "utf8");
   const readme = readFileSync(join(observatoryRoot, "README.md"), "utf8");
+  const rendered = renderWithData(loadGeneratedData());
 
   assert.match(html, /<main id="main-content"/);
   assert.match(html, /role="alert"/);
@@ -243,8 +381,8 @@ test("static experience is accessible, responsive and dependency-free", () => {
   assert.match(html, /Local file lineage, not source authentication/i);
   assert.match(html, /Non-true decision gates/);
   assert.match(html, /What the local fixture checks\. What remains closed\./i);
-  assert.match(html, /clock is not trusted/i);
-  assert.match(html, /No real condition, warning, service, decision or authority exists/i);
+  assert.match(rendered.bySelector.get("#demonstration-boundary").textContent, /clock is not trusted/i);
+  assert.match(rendered.bySelector.get("#demonstration-boundary").textContent, /No real condition, warning, service, decision or authority exists/i);
   assert.match(html, /id="local-gate-grid"/);
   assert.match(html, /id="real-world-gate-grid"/);
   assert.doesNotMatch(html + js, /readiness score/i);
@@ -257,14 +395,21 @@ test("static experience is accessible, responsive and dependency-free", () => {
   assert.match(js, /validationContextManifestSha256/);
   assert.match(js, /INVENTED TEST VALUE/);
   assert.match(html, /DEMONSTRATION ONLY/i);
-  assert.match(html, /All observations and the 62% forecast are invented test data/i);
-  assert.match(html, /None have reviewed the goal, threshold, labels or proposed response/i);
+  assert.doesNotMatch(html, /62% forecast/i);
+  assert.match(rendered.bySelector.get("#demonstration-boundary").textContent, /All observations and the 62% forecast are invented test data/i);
+  assert.match(rendered.bySelector.get("#consultation-status").textContent, /None have reviewed the goal, threshold, labels or proposed response/i);
+  assert.match(html, /<aside class="consultation-warning" role="note" aria-labelledby="consultation-title">/i);
+  assert.ok(
+    html.indexOf("consultation-warning") < html.indexOf("status-strip"),
+    "affected-party review status must precede projected results",
+  );
   assert.match(html, /<title>The Transition Observatory · Programme iteration 06<\/title>/i);
   assert.match(readme, /^# The Transition Observatory · Programme iteration 06/m);
   assert.doesNotMatch(html + readme, /Transition Observatory · Round 04/i);
   assert.match(html, /aria-label="Sample rule output, invented forecast and authority summary"/i);
-  assert.match(html, /0 of 4 real-world gates met/i);
-  assert.match(html, /6 local code checks passed on invented data/i);
+  assert.doesNotMatch(html, /0 of 4 real-world gates|6 local code checks/i);
+  assert.match(rendered.bySelector.get("#real-gate-summary").textContent, /0 of 4 real-world gates established/i);
+  assert.match(rendered.bySelector.get("#local-gate-summary").textContent, /6 of 6 local sample-file code checks reproduced/i);
   assert.ok(
     html.indexOf("real-world-gate-grid") < html.indexOf("local-gate-grid"),
     "real-world blockers must precede local software checks",
@@ -293,7 +438,11 @@ test("missing generated data fails closed with an accessible diagnostic", () => 
   const js = readFileSync(join(observatoryRoot, "app.js"), "utf8");
   const alert = { hidden: true, textContent: "" };
   const document = {
-    body: { dataset: {} },
+    body: {
+      dataset: {},
+      attributes: new Map(),
+      setAttribute(name, value) { this.attributes.set(name, value); },
+    },
     querySelector: (selector) => selector === "#observatory-error" ? alert : null,
   };
 

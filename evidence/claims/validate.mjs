@@ -11,6 +11,29 @@ function error(code, path, message, keyword = "integrity") {
   return { code, path, message, keyword };
 }
 
+function exactAssessmentInstant(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(Z|[+-]\d{2}:\d{2})$/.exec(
+    typeof value === "string" ? value : "",
+  );
+  if (!match) return null;
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText, zone] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const calendar = new Date(0);
+  calendar.setUTCHours(0, 0, 0, 0);
+  calendar.setUTCFullYear(year, month - 1, day);
+  const calendarValid = calendar.getUTCFullYear() === year &&
+    calendar.getUTCMonth() === month - 1 && calendar.getUTCDate() === day;
+  const zoneHour = zone === "Z" ? 0 : Number(zone.slice(1, 3));
+  const zoneMinute = zone === "Z" ? 0 : Number(zone.slice(4, 6));
+  const parsed = Date.parse(value);
+  if (!calendarValid || Number(hourText) > 23 || Number(minuteText) > 59 ||
+      Number(secondText) > 59 || zoneHour > 23 || zoneMinute > 59 ||
+      !Number.isFinite(parsed)) return null;
+  return parsed;
+}
+
 function duplicateErrors(items, idKey, collection) {
   const seen = new Set();
   const errors = [];
@@ -30,6 +53,13 @@ function evidenceLinks(claim) {
     ...claim.challenge.counterclaim.evidence_refs,
     ...claim.challenge.falsifier.evidence_refs,
   ];
+}
+
+function isCurrentAcceptingReview(review, claimId, assessmentTime) {
+  return review?.claim_id === claimId &&
+    ["accepted", "accepted-with-conditions"].includes(review.disposition) &&
+    Date.parse(review.reviewed_at) <= assessmentTime &&
+    Date.parse(review.valid_through) > assessmentTime;
 }
 
 function findReplacementCycles(edges) {
@@ -83,6 +113,15 @@ export function validateClaimLedger(ledger, {
     message: item.message ?? "policy schema validation failed",
   })));
   const schemaValid = ledgerSchemaValid && policySchemaValid;
+  const assessmentTime = exactAssessmentInstant(assessedAt);
+  if (assessmentTime === null) {
+    errors.push(error(
+      "ASSESSMENT_TIME_INVALID",
+      "/assessedAt",
+      "assessedAt must be an exact RFC 3339 instant on a real calendar date",
+      "assessment-time",
+    ));
+  }
 
   if (!schemaValid) {
     return {
@@ -151,14 +190,23 @@ export function validateClaimLedger(ledger, {
     if (end <= start || codepoints.slice(start, end).join("") !== claim.statement) {
       errors.push(error("source-span-mismatch", `/claims/${index}/source_span`, "source span does not select the exact claim statement"));
     }
-    if (!policy.closed_expiry_dispositions.includes(claim.publication_disposition)
-      && Date.parse(claim.expires_at) <= Date.parse(assessedAt)) {
+    if (assessmentTime !== null &&
+      !policy.closed_expiry_dispositions.includes(claim.publication_disposition) &&
+      Date.parse(claim.expires_at) <= assessmentTime) {
       errors.push(error("expired-claim-not-closed", `/claims/${index}/expires_at`, "expired claim must fail closed"));
     }
     for (const link of evidenceLinks(claim)) {
       if (!evidence.has(link.evidence_id)) {
         errors.push(error("unresolved-evidence-reference", `/claims/${index}`, `${link.evidence_id} does not resolve`));
       }
+    }
+    if (claim.support_state === "supported" &&
+        !claim.evidence_refs.some(({ relation }) => relation === "supports")) {
+      errors.push(error(
+        "supported-without-direct-evidence",
+        `/claims/${index}/evidence_refs`,
+        "a supported assessment requires a direct evidence link whose relation is supports",
+      ));
     }
     for (const authorityId of claim.publication_authority_refs) {
       const authority = authorities.get(authorityId);
@@ -173,8 +221,8 @@ export function validateClaimLedger(ledger, {
         if (authority.kind !== "publication") {
           errors.push(error("publication-authority-wrong-kind", `/claims/${index}/publication_authority_refs`, `${authorityId} is not a publication authority record`));
         }
-        if (Date.parse(authority.valid_from) > Date.parse(assessedAt)
-          || Date.parse(authority.valid_through) <= Date.parse(assessedAt)) {
+        if (assessmentTime !== null && (Date.parse(authority.valid_from) > assessmentTime
+          || Date.parse(authority.valid_through) <= assessmentTime)) {
           errors.push(error("publication-authority-not-current", `/claims/${index}/publication_authority_refs`, `${authorityId} is not current at assessment time`));
         }
       }
@@ -186,6 +234,16 @@ export function validateClaimLedger(ledger, {
       } else if (review.claim_id !== claim.claim_id) {
         errors.push(error("review-claim-mismatch", `/claims/${index}/review_refs`, `${reviewId} reviews another claim`));
       }
+    }
+    if (assessmentTime !== null &&
+        !policy.closed_expiry_dispositions.includes(claim.publication_disposition) &&
+        !claim.review_refs.some((reviewId) =>
+          isCurrentAcceptingReview(reviews.get(reviewId), claim.claim_id, assessmentTime))) {
+      errors.push(error(
+        "non-closed-claim-without-current-acceptance",
+        `/claims/${index}/review_refs`,
+        "a non-closed claim requires a current accepted or accepted-with-conditions review",
+      ));
     }
   }
 

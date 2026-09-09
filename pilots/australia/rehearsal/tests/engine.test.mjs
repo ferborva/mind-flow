@@ -7,6 +7,7 @@ import {
   runShadowRehearsal,
   runSyntheticPipelineRehearsal,
 } from "../engine.mjs";
+import { buildNeroBaseline } from "../../../../dashboard/tools/build-nero-baseline.mjs";
 
 const DETECTOR = {
   schema_version: "1.0.0",
@@ -132,6 +133,36 @@ function fixturePair() {
   return { previous, current };
 }
 
+function builderSource({ period, releasedAt, notSeenAt, firstSeenAt, checksumCharacter }) {
+  return {
+    archive_url: `https://www.jobsandskills.gov.au/${period}_nero.zip`,
+    archive_name: `${period}_nero.zip`,
+    release_period: period,
+    released_at: releasedAt,
+    retrieved_at: firstSeenAt,
+    checksum: `sha256:${checksumCharacter.repeat(64)}`,
+    release_availability: {
+      kind: "first-seen-interval",
+      not_seen_as_of_utc: notSeenAt,
+      first_seen_at_utc: firstSeenAt,
+      evidence: "Hostile fixture bounded first-seen interval.",
+    },
+  };
+}
+
+function builderRows(dates, values) {
+  return dates.map((date, index) => [
+    String(index + 1),
+    "NSW",
+    "101",
+    "Capital Region",
+    "5311",
+    "General Clerks",
+    date,
+    String(values[index]),
+  ]);
+}
+
 test("emits a no-consequence review candidate with immutable provenance", () => {
   const { previous, current } = fixturePair();
   const originalPrevious = structuredClone(previous);
@@ -200,6 +231,77 @@ test("fails visibly when a series lacks detector history", () => {
       }),
     (error) => error instanceof RehearsalError && error.code === "INSUFFICIENT_HISTORY",
   );
+});
+
+test("the frozen builder shape reaches the rehearsal engine through its verified contiguous tail", () => {
+  const previousValues = Array(61).fill(1000);
+  const currentValues = Array(61).fill(1000);
+  currentValues.splice(-3, 3, 950, 900, 850);
+  const previous = buildNeroBaseline(
+    builderRows(monthSequence(2021, 7, 61), previousValues),
+    {
+      occupationCodes: ["5311"],
+      recentMonths: 25,
+      source: builderSource({
+        period: "2026-07",
+        releasedAt: "2026-08-05",
+        notSeenAt: "2026-08-05T00:00:00Z",
+        firstSeenAt: "2026-08-05T01:00:00Z",
+        checksumCharacter: "a",
+      }),
+    },
+  );
+  const current = buildNeroBaseline(
+    builderRows(monthSequence(2021, 8, 61), currentValues),
+    {
+      occupationCodes: ["5311"],
+      recentMonths: 25,
+      source: builderSource({
+        period: "2026-08",
+        releasedAt: "2026-09-02",
+        notSeenAt: "2026-09-02T00:00:00Z",
+        firstSeenAt: "2026-09-02T01:00:00Z",
+        checksumCharacter: "b",
+      }),
+    },
+  );
+
+  assert.equal(
+    current.scope.occupation_classification_verification_status,
+    "unverified_external_review_required",
+  );
+  assert.equal(current.series[0].recent_observations.length, 26);
+  assert.equal(current.series[0].recent_observations[0].date, "2021-08-15");
+  assert.equal(current.series[0].recent_observations[1].date, "2024-08-15");
+  const result = runShadowRehearsal({
+    previousVintage: previous,
+    currentVintage: current,
+    detector: DETECTOR,
+    generatedAt: "2026-09-02T02:00:00Z",
+  });
+  assert.equal(result.results[0].state, "review-candidate");
+  assert.equal(result.results[0].signal.annual_change_percent, -15);
+  assert.equal(result.results[0].signal.consecutive_declines, 3);
+});
+
+test("the builder treats whitespace-only employment cells as unavailable, never zero", () => {
+  const baseline = buildNeroBaseline([
+    ["1", "NSW", "101", "Capital Region", "5311", "General Clerks", "2026-08-15", "   "],
+  ], {
+    occupationCodes: ["5311"],
+    source: builderSource({
+      period: "2026-08",
+      releasedAt: "2026-09-02",
+      notSeenAt: "2026-09-02T00:00:00Z",
+      firstSeenAt: "2026-09-02T01:00:00Z",
+      checksumCharacter: "b",
+    }),
+  });
+  assert.deepEqual(baseline.series[0].latest, {
+    date: "2026-08-15",
+    value: null,
+    status: "suppressed-or-unavailable",
+  });
 });
 
 test("fails visibly on schema and series-coverage errors", () => {

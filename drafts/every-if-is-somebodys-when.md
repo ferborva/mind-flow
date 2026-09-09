@@ -50,7 +50,8 @@ updated: 2026-09-09
   coordination or maintenance**, not a gift arriving. The provider may be a
   firm, public institution, household, community, commons or automated system.
 - So the frame has two sides. Consumers get **"I will be able to X, if..."**.
-  Providers record **"we propose we could attempt to offer X, when..."**.
+  Providers record **"we will be able to offer X, when..."**. This is a working
+  sentence, not a promise, until the actor, authority and commitment are real.
   Here **WHEN means an actor's conditional work proposal, not an expected event
   or date.**
 - **Linked conditions, different roles.** Provider conditions may cause,
@@ -105,7 +106,7 @@ Put the two sentences next to each other:
 > such as time, travel and device access remain within reach, **if** it is lawful
 > here, **if** safe and effective care can reach me.
 >
-> **Provider:** We propose we could attempt to offer that consultation to the
+> **Provider:** We will be able to offer that consultation to the
 > same standard and time, with no clinical fee - **when** the model clears the
 > named clinical standards, **when** we hold the required licence for the stated
 > place, **when** the unit cost sits below what the funding route can carry.
@@ -145,11 +146,11 @@ concurrently, remain dependency-bound, become cyclical or fail in different
 orders for different actors. There is no universal sequence and no reason to
 grant one actor control over the whole list.
 
-> **We propose we could attempt to offer, fill in the blank, when...**
+> **We will be able to offer, fill in the blank, when...**
 
 Try it on the biggest promise in the room:
 
-> **We propose we could attempt to offer free and effectively infinite AI compute to the
+> **We will be able to offer free and effectively infinite AI compute to the
 > world, when...**
 
 Now the list becomes a candidate engineering decomposition:

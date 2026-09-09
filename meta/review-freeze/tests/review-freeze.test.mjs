@@ -4,6 +4,7 @@ import {
   mkdtempSync,
   mkdirSync,
   readFileSync,
+  readdirSync,
   realpathSync,
   rmSync,
   symlinkSync,
@@ -19,6 +20,7 @@ import addFormats from "ajv-formats";
 import {
   ROUND_04_REVIEW_POLICY,
   ROUND_06_REVIEW_POLICY,
+  ROUND_07_REVIEW_POLICY,
   canonicalHash,
   createReviewFreeze,
   executableRecord,
@@ -26,6 +28,7 @@ import {
   reviewPolicyFor,
   resolveReviewOutput,
   verifyReviewFreeze,
+  writeReviewFreezeAtomically,
 } from "../review-freeze.mjs";
 
 const repositoryRoot = resolve(import.meta.dirname, "../../..");
@@ -76,6 +79,27 @@ test("CLI output stays inside the repository and does not overwrite by default",
     assert.equal(resolveReviewOutput(root, "review/freeze.json", { force: true }), output);
     assert.throws(() => resolveReviewOutput(root, "../outside.json"), /closed repository-relative/i);
     assert.throws(() => resolveReviewOutput(root, resolve(root, "outside.json")), /closed repository-relative/i);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("canonical hashes follow JSON omission and array-null semantics", () => {
+  assert.equal(canonicalHash({ a: 1, omitted: undefined }), canonicalHash({ a: 1 }));
+  assert.equal(
+    canonicalHash([1, undefined, , 3]),
+    canonicalHash([1, null, null, 3]),
+  );
+});
+
+test("review-freeze manifests are published through an atomic same-directory write", () => {
+  const root = mkdtempSync(resolve(tmpdir(), "mind-flow-freeze-atomic-"));
+  try {
+    const output = resolve(root, "freeze.json");
+    const manifest = { freeze_id: "atomic-test", nested: { value: true } };
+    writeReviewFreezeAtomically(output, manifest);
+    assert.deepEqual(JSON.parse(readFileSync(output, "utf8")), manifest);
+    assert.deepEqual(readdirSync(root), ["freeze.json"]);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -273,9 +297,79 @@ test("the retained Round 04 historical freeze still verifies against its immutab
   );
 });
 
+test("the retained Round 06 historical freeze is pinned and verifies against its immutable target", () => {
+  const manifest = JSON.parse(readFileSync(resolve(
+    repositoryRoot,
+    "meta/review-freeze/round-06.review-freeze.json",
+  ), "utf8"));
+  assert.equal(
+    manifest.review_target.commit,
+    "318d095c219d1bbec947876cebd982bbc55841d1",
+  );
+  assert.equal(
+    manifest.freeze_hash,
+    "sha256:a867ead6bfd743241581af438ecf4dfbea5ccedac0be36d3781ebf32212c69b3",
+  );
+  assert.equal(manifest.reproduction.status, "passed");
+  assert.deepEqual(
+    verifyReviewFreeze(manifest, { repositoryRoot, policy: ROUND_06_REVIEW_POLICY }),
+    { valid: true, errors: [] },
+  );
+});
+
+test("CLI verification fails closed for coherent failed and not-run receipts", () => {
+  const source = JSON.parse(readFileSync(resolve(
+    repositoryRoot,
+    "meta/review-freeze/round-06.review-freeze.json",
+  ), "utf8"));
+  const temporaryRoot = mkdtempSync(resolve(tmpdir(), "mind-flow-freeze-cli-"));
+  try {
+    const failed = structuredClone(source);
+    failed.reproduction.status = "failed";
+    failed.reproduction.command_runs[0].exit_code = 7;
+    failed.creator_reported_local_reproduction_passed = false;
+    reseal(failed);
+    const failedPath = resolve(temporaryRoot, "failed.json");
+    write(failedPath, `${JSON.stringify(failed)}\n`);
+
+    const notRun = createReviewFreeze({
+      repositoryRoot,
+      commit: "HEAD",
+      policy: ROUND_06_REVIEW_POLICY,
+      executeCommands: false,
+    });
+    const notRunPath = resolve(temporaryRoot, "not-run.json");
+    write(notRunPath, `${JSON.stringify(notRun)}\n`);
+
+    for (const manifestPath of [failedPath, notRunPath]) {
+      const rejected = spawnSync(process.execPath, [
+        resolve(repositoryRoot, "meta/review-freeze/review-freeze.mjs"),
+        "verify",
+        "--policy=round-06",
+        `--manifest=${manifestPath}`,
+      ], { cwd: repositoryRoot, encoding: "utf8" });
+      assert.equal(rejected.status, 2, rejected.stderr || rejected.stdout);
+      assert.match(rejected.stderr, /reproduction did not pass/i);
+
+      const inspected = spawnSync(process.execPath, [
+        resolve(repositoryRoot, "meta/review-freeze/review-freeze.mjs"),
+        "verify",
+        "--policy=round-06",
+        `--manifest=${manifestPath}`,
+        "--allow-failed-reproduction",
+      ], { cwd: repositoryRoot, encoding: "utf8" });
+      assert.equal(inspected.status, 0, inspected.stderr || inspected.stdout);
+      assert.match(inspected.stdout, /reproduction=(failed|not-run)/i);
+    }
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
 test("Round 06 policy exposes the complete new review surface and uses clean install semantics", () => {
   assert.equal(reviewPolicyFor("round-04"), ROUND_04_REVIEW_POLICY);
   assert.equal(reviewPolicyFor("round-06"), ROUND_06_REVIEW_POLICY);
+  assert.equal(reviewPolicyFor("round-07"), ROUND_07_REVIEW_POLICY);
   assert.throws(() => reviewPolicyFor("round-99"), /unknown review policy/i);
 
   const paths = new Set(ROUND_06_REVIEW_POLICY.required_files.map(({ path }) => path));
@@ -317,6 +411,19 @@ test("Round 06 policy exposes the complete new review surface and uses clean ins
     argv.includes("experiments/observatory-comparison/render.mjs")), true);
   assert.equal(commands.some((argv) =>
     argv.includes("experiments/observatory-comparison/tests/rendered-parity.test.mjs")), true);
+});
+
+test("Round 07 policy binds the repair ledger, component plan and retest brief", () => {
+  assert.equal(ROUND_07_REVIEW_POLICY.review_round, "round-07");
+  const paths = new Set(ROUND_07_REVIEW_POLICY.required_files.map(({ path }) => path));
+  for (const path of [
+    "meta/round-07-external-review-brief.md",
+    "reviews/round-06-disposition-ledger.json",
+    "reviews/round-07-component-review-manifest.json",
+    "contracts/tests/round-06-review-disposition.test.mjs",
+    "contracts/tests/round-07-review-plan.test.mjs",
+  ]) assert.equal(paths.has(path), true, `${path} is absent from the Round 07 policy`);
+  assert.deepEqual(ROUND_07_REVIEW_POLICY.build_commands, ROUND_06_REVIEW_POLICY.build_commands);
 });
 
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {

@@ -2,6 +2,7 @@
 id: abundance-transition-programme
 title: Abundance Transition Programme
 type: programme-proposal
+status: proposed
 development_status: active
 adoption_status: not-adopted
 substantive_review: pending
@@ -23,8 +24,9 @@ updated: 2026-09-09
 ## 🦅 TL;DR
 
 - **The mission is to test whether and how changing technological capability
-  could expand or contract shared human agency under goals chosen through a
-  legitimate affected-party process. It is not a universal promise.**
+  could expand or contract shared human agency under goals that would need to
+  be set by an affected-party process not yet designed. It is not a universal
+  promise.**
 - The `IF` is the core object. Every promise, forecast, decision, negotiation
   and action must expose its people, outcome, conditions, evidence, owner,
   safeguard, falsifier and review point.
@@ -57,7 +59,7 @@ The proposed Observatory mission, not yet adopted by Fernando or affected
 communities, is:
 
 > **Map whether and how changing capability could expand or contract shared
-> agency under goals named through a legitimate affected-party process. Make
+> agency under goals named through an affected-party process not yet designed. Make
 > the evidence and options legible enough for people to shape, refuse, reverse
 > or navigate possible transitions.**
 

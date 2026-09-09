@@ -11,13 +11,16 @@ const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
 const legacyPolicyPath = resolve(dashboard, "evidence", "archive", "adapter-classification-policy-1.2.json");
 const policyPath = resolve(dashboard, "evidence", "adapter-classification-policy.json");
-const legacySnapshotPath = resolve(dashboard, "snapshots", "2026-09-07.json");
+const originalLegacySnapshotPath = resolve(dashboard, "snapshots", "2026-09-07.json");
+const correctedLegacySnapshotPath = resolve(dashboard, "snapshots", "2026-09-07.r2.json");
 const predecessorPath = resolve(dashboard, "snapshots", "2026-09-08.json");
 const snapshotPath = resolve(dashboard, "snapshots", "2026-09-08.r2.json");
 const indexPath = resolve(dashboard, "snapshots", "index.json");
 const EXPECTED_LEGACY_POLICY = "sha256:780ad6a23adfca588049841ab648d159a2c95e3e19e848bddfb82b784b56474f";
-const EXPECTED_LEGACY_SNAPSHOT = "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2";
-const EXPECTED_PREDECESSOR = "sha256:f09f5b7c2cf2187bd6997921b0b48b2b9857dbf110520167037ff7b00ef8fd35";
+const EXPECTED_ORIGINAL_LEGACY_SNAPSHOT = "sha256:949a9d3f695f0bc2e619a3344a0c17516cf8309b3c48a27021d67e0d96772053";
+const EXPECTED_CORRECTED_LEGACY_SNAPSHOT = "sha256:9abcde332aadcc4f1339cb25e0917ec169d236b686fde443a54a19fbfc15beac";
+const EXPECTED_REWRITTEN_LEGACY_PAYLOAD = "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2";
+const EXPECTED_PREDECESSOR = "sha256:aa5d46b1588aaa384f48f62a0a67a43b2a200b896a1e548e84dc4f9834c4a14d";
 const REVISION_AT = "2026-09-08T09:49:00Z";
 
 function sha256(bytes) {
@@ -46,8 +49,32 @@ function compareRecordIds(left, right) {
   return leftDate === rightDate ? leftRevision - rightRevision : leftDate.localeCompare(rightDate);
 }
 
+function assertLegacyCorrection(original, corrected) {
+  const correction = corrected.value.correction;
+  if (corrected.value.record_id !== "2026-09-07.r2" ||
+      corrected.value.snapshot_id !== original.value.snapshot_id ||
+      correction?.supersedes_record_id !== "2026-09-07.r1" ||
+      correction?.supersedes_snapshot_id !== original.value.snapshot_id ||
+      correction?.supersedes_snapshot_sha256 !== EXPECTED_ORIGINAL_LEGACY_SNAPSHOT ||
+      correction?.source_values_changed !== false) {
+    throw new Error("2026-09-07.r2.json is not an honest correction of the pinned original revision");
+  }
+  const rewrittenPayload = structuredClone(corrected.value);
+  rewrittenPayload.schema_version = "1.5.0";
+  delete rewrittenPayload.record_id;
+  delete rewrittenPayload.correction;
+  const rewrittenDigest = sha256(Buffer.from(serialise(rewrittenPayload)));
+  if (rewrittenDigest !== EXPECTED_REWRITTEN_LEGACY_PAYLOAD) {
+    throw new Error(
+      `2026-09-07.r2.json no longer preserves the rewritten payload: expected ${EXPECTED_REWRITTEN_LEGACY_PAYLOAD}, received ${rewrittenDigest}`,
+    );
+  }
+}
+
 const legacyPolicy = readPinned(legacyPolicyPath, EXPECTED_LEGACY_POLICY);
-const legacySnapshot = readPinned(legacySnapshotPath, EXPECTED_LEGACY_SNAPSHOT);
+const originalLegacySnapshot = readPinned(originalLegacySnapshotPath, EXPECTED_ORIGINAL_LEGACY_SNAPSHOT);
+const correctedLegacySnapshot = readPinned(correctedLegacySnapshotPath, EXPECTED_CORRECTED_LEGACY_SNAPSHOT);
+assertLegacyCorrection(originalLegacySnapshot, correctedLegacySnapshot);
 const predecessor = readPinned(predecessorPath, EXPECTED_PREDECESSOR);
 const migratedSnapshot = migrateSnapshot18(predecessor.value, {
   recordId: "2026-09-08.r2",
@@ -66,10 +93,17 @@ const snapshotDigest = sha256(snapshotBytes);
 const expectedEntries = [
   {
     id: "2026-09-07.r1",
-    snapshot_id: legacySnapshot.value.snapshot_id,
-    schema_version: legacySnapshot.value.schema_version,
+    snapshot_id: originalLegacySnapshot.value.snapshot_id,
+    schema_version: originalLegacySnapshot.value.schema_version,
     path: "2026-09-07.json",
-    sha256: EXPECTED_LEGACY_SNAPSHOT,
+    sha256: EXPECTED_ORIGINAL_LEGACY_SNAPSHOT,
+  },
+  {
+    id: "2026-09-07.r2",
+    snapshot_id: correctedLegacySnapshot.value.snapshot_id,
+    schema_version: correctedLegacySnapshot.value.schema_version,
+    path: "2026-09-07.r2.json",
+    sha256: EXPECTED_CORRECTED_LEGACY_SNAPSHOT,
   },
   {
     id: "2026-09-08.r1",
@@ -109,7 +143,9 @@ if (args.includes("--check")) {
   if (!sameBytes(policyPath, policyBytes)) throw new Error("current timing policy differs from the reproducible migration");
   if (!sameBytes(snapshotPath, snapshotBytes)) throw new Error("current r2 snapshot differs from the reproducible migration");
   assertHistoricalIndex(JSON.parse(readFileSync(indexPath, "utf8")));
-  process.stdout.write(`Verified historical timing migration\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`);
+  process.stdout.write(
+    `Verified historical timing migration\nOriginal ${EXPECTED_ORIGINAL_LEGACY_SNAPSHOT}\nCorrection ${EXPECTED_CORRECTED_LEGACY_SNAPSHOT}\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`,
+  );
 } else {
   const index = JSON.parse(readFileSync(indexPath, "utf8"));
   if (index.schema_version !== "2.0.0" || !Array.isArray(index.snapshots)) {
@@ -124,5 +160,7 @@ if (args.includes("--check")) {
   writeFileSync(policyPath, policyBytes);
   writeFileSync(snapshotPath, snapshotBytes);
   writeFileSync(indexPath, serialise(index));
-  process.stdout.write(`Wrote ${snapshotPath} without rewinding later index entries\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`);
+  process.stdout.write(
+    `Wrote ${snapshotPath} without rewinding later index entries\nOriginal ${EXPECTED_ORIGINAL_LEGACY_SNAPSHOT}\nCorrection ${EXPECTED_CORRECTED_LEGACY_SNAPSHOT}\nPolicy ${policyDigest}\nSnapshot ${snapshotDigest}\n`,
+  );
 }

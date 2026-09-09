@@ -13,7 +13,7 @@ import {
 const DEFAULT_SCHEMA_BYTES = readFileSync(
   new URL("./schema/possible-path.schema.json", import.meta.url),
 );
-const DEFAULT_SCHEMA_SHA256 = "ff90c81d4f67bc922564c682c02b83e95546bfcd64f52c379e6b3e2b60928a5c";
+const DEFAULT_SCHEMA_SHA256 = "85d9703b285913253fe4ef30ea66a312e1d8532f28327b0fd6abcb790dac6bce";
 const actualSchemaSha256 = createHash("sha256").update(DEFAULT_SCHEMA_BYTES).digest("hex");
 if (actualSchemaSha256 !== DEFAULT_SCHEMA_SHA256) {
   throw new Error("possible-path schema bytes do not match the validator's pinned contract digest");

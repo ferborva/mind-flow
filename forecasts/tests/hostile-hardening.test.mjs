@@ -114,6 +114,47 @@ function hardenedPlan(records) {
   return { ...plan, registered_plan_checksum: evaluationPlanChecksum(plan) };
 }
 
+function voidedRecord({
+  id = "forecast.hostile-void.v1",
+  voidedAt = "2026-10-01T00:00:00Z",
+  evidenceAt = voidedAt,
+  adjudicationAt = voidedAt,
+  adjudicatorId = "claimed-independent-reviewer",
+} = {}) {
+  const record = structuredClone(issued);
+  record.id = id;
+  record.status = "void";
+  record.resolution = {
+    status: "void",
+    outcome: null,
+    voided_at: voidedAt,
+    reason_code: "source_retired",
+    reason: "Claimed source retirement.",
+    evidence: {
+      source: "https://example.org/retirement",
+      published_at: evidenceAt,
+      retrieved_at: evidenceAt,
+      vintage: "retirement-v1",
+      checksum: `sha256:${"c".repeat(64)}`,
+    },
+    adjudication: {
+      claimed_adjudicator_id: adjudicatorId,
+      independent_of_forecaster: true,
+      decision: "accepted_void",
+      verification_status: "unverified_external_review_required",
+      evidence: {
+        source: "https://example.org/retirement/review",
+        published_at: adjudicationAt,
+        retrieved_at: adjudicationAt,
+        vintage: "review-v1",
+        checksum: `sha256:${"d".repeat(64)}`,
+      },
+    },
+  };
+  record.history.push({ at: voidedAt, event: "voided", actor: "test" });
+  return record;
+}
+
 test("an evaluation cannot select a caller-supplied subset without a pre-issue rule and sealed manifest", () => {
   const omitted = structuredClone(resolved);
   omitted.id = "forecast.hostile-omitted.v1";
@@ -152,37 +193,7 @@ test("a perfectly correct baseline cannot crash scoring", () => {
 });
 
 test("an all-void cohort is lifecycle complete but not performance evaluable", () => {
-  const voided = structuredClone(issued);
-  voided.id = "forecast.hostile-void.v1";
-  voided.status = "void";
-  voided.resolution = {
-    status: "void",
-    outcome: null,
-    voided_at: "2026-10-01T00:00:00Z",
-    reason_code: "source_retired",
-    reason: "Claimed source retirement.",
-    evidence: {
-      source: "https://example.org/retirement",
-      published_at: "2026-10-01T00:00:00Z",
-      retrieved_at: "2026-10-01T00:00:00Z",
-      vintage: "retirement-v1",
-      checksum: `sha256:${"c".repeat(64)}`,
-    },
-    adjudication: {
-      claimed_adjudicator_id: "claimed-independent-reviewer",
-      independent_of_forecaster: true,
-      decision: "accepted_void",
-      verification_status: "unverified_external_review_required",
-      evidence: {
-        source: "https://example.org/retirement/review",
-        published_at: "2026-10-01T00:00:00Z",
-        retrieved_at: "2026-10-01T00:00:00Z",
-        vintage: "review-v1",
-        checksum: `sha256:${"d".repeat(64)}`,
-      },
-    },
-  };
-  voided.history.push({ at: voided.resolution.voided_at, event: "voided", actor: "test" });
+  const voided = voidedRecord();
   const report = evaluateForecastCohort(hardenedPlan([voided]), [voided], {
     asOf: "2027-08-15T00:00:00Z",
   });
@@ -206,6 +217,53 @@ test("an all-void cohort is lifecycle complete but not performance evaluable", (
   assert.equal(mixed.cohort.score_coverage, 0.5);
   assert.equal(mixed.interpretation.lifecycle_complete, true);
   assert.equal(mixed.interpretation.performance_evaluable, false);
+});
+
+test("an exact five-record cohort cannot hide a selective post-publication void at the coverage floor", () => {
+  const scored = Array.from({ length: 4 }, (_, index) => {
+    const record = structuredClone(resolved);
+    record.id = `forecast.hostile-selective-void.scored-${index + 1}.v1`;
+    record.target.resolution_event_id = `event.hostile-selective-void.${index + 1}`;
+    record.target.independence_cluster_id = `cluster.hostile-selective-void.${index + 1}`;
+    resealResolution(record);
+    return record;
+  });
+  const selectivelyVoided = voidedRecord({
+    id: "forecast.hostile-selective-void.excluded.v1",
+    voidedAt: "2027-08-16T00:00:00Z",
+  });
+  const cohort = [...scored, selectivelyVoided];
+
+  const report = evaluateForecastCohort(hardenedPlan(cohort), cohort, {
+    asOf: "2027-08-17T00:00:00Z",
+  });
+
+  assert.equal(report.cohort.registered, 5);
+  assert.equal(report.cohort.scored, 4);
+  assert.equal(report.cohort.score_coverage, 0.8);
+  assert.equal(report.cohort.post_publication_voids, 1);
+  assert.equal(report.interpretation.performance_evaluable, false);
+  assert.equal(
+    report.interpretation.performance_withheld_reason,
+    "post_publication_voids_present",
+  );
+});
+
+test("void adjudication must follow its evidence and be claimed by someone other than the forecaster", () => {
+  const prematureAdjudication = voidedRecord({
+    evidenceAt: "2026-10-01T00:00:00Z",
+    adjudicationAt: "2026-09-30T00:00:00Z",
+  });
+  assert.throws(
+    () => assertForecastSemantics(prematureAdjudication),
+    /adjudication.*after.*void evidence/i,
+  );
+
+  const selfAdjudicated = voidedRecord({ adjudicatorId: issued.provenance.author });
+  assert.throws(
+    () => assertForecastSemantics(selfAdjudicated),
+    /adjudicator.*forecaster/i,
+  );
 });
 
 test("declared utility arithmetic is stratified away from unconsulted decisions", () => {
@@ -313,6 +371,21 @@ test("public evaluation output retains baseline and registration trust boundarie
   const report = evaluateForecastCohort(hardenedPlan([resolved]), [resolved], {
     asOf: "2027-08-15T00:00:00Z",
   });
+  assert.deepEqual(report.report_provenance, {
+    kind: "derived-forecast-evaluation-report",
+    plan_id: "forecast-evaluation.hostile.v1",
+    evaluated_as_of: "2027-08-15T00:00:00Z",
+    input_provenance_classes: ["agent-proposal"],
+    source_forecasts: [{
+      forecast_id: resolved.id,
+      epistemic_class: resolved.epistemic_class,
+      forecast_use: resolved.forecast_use,
+      provenance: resolved.provenance,
+    }],
+    source_authenticity_verified: false,
+    empirical_truth_established: false,
+    action_authorised: false,
+  });
   assert.equal(report.registration.verification_status, "unverified_external_review_required");
   assert.equal(report.baseline_contract.campaign_id, "campaign.synthetic-transition-2027");
   assert.equal(
@@ -323,4 +396,25 @@ test("public evaluation output retains baseline and registration trust boundarie
     report.baseline_contract.naive.calculation_verification_status,
     "unverified_external_review_required",
   );
+});
+
+test("report provenance lists every distinct input class without lifting small-n ceilings", () => {
+  const human = structuredClone(resolved);
+  human.id = "forecast.hostile-human-provenance.v1";
+  human.provenance.class = "human-judgement";
+  human.target.resolution_event_id = "event.hostile-human-provenance.v1";
+  human.target.independence_cluster_id = "cluster.hostile-human-provenance.v1";
+  resealResolution(human);
+
+  const records = [resolved, human];
+  const report = evaluateForecastCohort(hardenedPlan(records), records, {
+    asOf: "2027-08-15T00:00:00Z",
+  });
+  assert.deepEqual(
+    report.report_provenance.input_provenance_classes,
+    ["agent-proposal", "human-judgement"],
+  );
+  assert.equal(report.reliability.status, "withheld_small_n");
+  assert.equal(report.reliability.calibration_established, false);
+  assert.equal(report.interpretation.predictive_skill_established, false);
 });

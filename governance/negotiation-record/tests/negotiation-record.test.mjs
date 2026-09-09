@@ -18,12 +18,12 @@ const fixture = JSON.parse(readFileSync(
 const expectedIfBinding = {
   condition_id: "condition.worker-option.nsw",
   definition_version: "1.0.0",
-  definition_hash: "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e",
+  definition_hash: "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
   receipt_id: "receipt.condition.worker-option.nsw.20260909",
   receipt_version: "1.0.0",
-  receipt_hash: "sha256:6f315cd2a8a4c1847aaa068294100aa134cb20c9842f5cb04db6b9b29639d410",
+  receipt_hash: "sha256:4965f8948f275ceabda4bc8c477dbfabebdf0fd58cc336d329851f78d4c28bec",
   evaluated_at: "2026-09-09T00:00:00Z",
-  valid_until: "2026-12-31T23:59:59Z",
+  valid_until: "2026-10-09T00:00:00Z",
   mechanically_valid_for_evaluation: true,
   computed_rule_state: "true",
   empirical_truth_established: false,
@@ -35,6 +35,11 @@ const expectedGovernanceContext = {
   participants: fixture.payload.participants,
   affected_consumers: fixture.payload.affected_consumers,
   representations: fixture.payload.representations,
+  deliberation_scope: {
+    position_ids: fixture.payload.positions.map(({ position_id: id }) => id),
+    dissent_ids: fixture.payload.dissent.map(({ dissent_id: id }) => id),
+    unresolved_dissent_ids: fixture.payload.outcome.unresolved_dissent_ids,
+  },
 };
 
 function clone() {
@@ -54,6 +59,20 @@ function validate(record, asOf = "2026-09-15T00:00:00Z") {
     expectedGovernanceContext,
     asOf,
   });
+}
+
+function governanceContextFor(record, overrides = {}) {
+  return {
+    participants: record.payload.participants,
+    affected_consumers: record.payload.affected_consumers,
+    representations: record.payload.representations,
+    deliberation_scope: {
+      position_ids: record.payload.positions.map(({ position_id: id }) => id),
+      dissent_ids: record.payload.dissent.map(({ dissent_id: id }) => id),
+      unresolved_dissent_ids: record.payload.outcome.unresolved_dissent_ids,
+    },
+    ...overrides,
+  };
 }
 
 function expectError(record, code, asOf) {
@@ -202,6 +221,190 @@ test("hostile: positions and unresolved blocking dissent cannot be erased or byp
   bypassedDissent.payload.outcome.blocking_reasons = ["authority-unverified"];
   reseal(bypassedDissent);
   expectError(bypassedDissent, "DISSENT_GATE_INVALID");
+});
+
+test("hostile: coordinated position and dissent renaming cannot escape external context", () => {
+  const renamed = clone();
+  renamed.payload.positions[1].position_id = "position.substitute.synthetic";
+  renamed.payload.dissent[0].position_id = "position.substitute.synthetic";
+  renamed.payload.dissent[0].dissent_id = "dissent.substitute.synthetic";
+  renamed.payload.outcome.unresolved_dissent_ids = ["dissent.substitute.synthetic"];
+  reseal(renamed);
+  expectError(renamed, "DELIBERATION_SCOPE_MISMATCH");
+});
+
+test("hostile: semantic governance responsibilities cannot collapse onto one actor", () => {
+  const representativeOwnsAction = clone();
+  representativeOwnsAction.payload.action_candidate.owner_actor_id =
+    "actor.worker-representative.synthetic";
+  reseal(representativeOwnsAction);
+  expectError(representativeOwnsAction, "ACTOR_RESPONSIBILITY_COLLISION");
+
+  const ownerClaimsAuthority = clone();
+  ownerClaimsAuthority.payload.authority.holder_actor_id =
+    "actor.transition-provider.synthetic";
+  reseal(ownerClaimsAuthority);
+  expectError(ownerClaimsAuthority, "ACTOR_RESPONSIBILITY_COLLISION");
+});
+
+test("hostile: roles use a closed vocabulary and every responsibility needs its semantic role", () => {
+  const invented = clone();
+  invented.payload.participants[2].roles.push("benevolent-overseer");
+  invented.signatures[2].signer_roles.push("benevolent-overseer");
+  reseal(invented);
+  const inventedContext = {
+    ...expectedGovernanceContext,
+    participants: invented.payload.participants,
+  };
+  assert.ok(validateNegotiationRecord(invented, {
+    expectedIfBinding,
+    expectedGovernanceContext: inventedContext,
+    asOf: "2026-09-15T00:00:00Z",
+  }).errors.some(({ code }) => code === "SCHEMA_INVALID"));
+
+  const missingRole = clone();
+  missingRole.payload.participants[2].roles = ["negotiator"];
+  missingRole.signatures[2].signer_roles = ["negotiator"];
+  reseal(missingRole);
+  const missingRoleContext = {
+    ...expectedGovernanceContext,
+    participants: missingRole.payload.participants,
+  };
+  const result = validateNegotiationRecord(missingRole, {
+    expectedIfBinding,
+    expectedGovernanceContext: missingRoleContext,
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.ok(result.errors.some(({ code }) => code === "SEMANTIC_ROLE_COVERAGE_INVALID"),
+    JSON.stringify(result.errors));
+});
+
+test("hostile: a self-asserted receipt cannot choose its own distant freshness horizon", () => {
+  const record = clone();
+  const receipt = record.payload.if_binding.evaluation_receipt_ref;
+  receipt.valid_until = "2026-10-10T00:00:01Z";
+  receipt.receipt_hash = computeGovernanceReceiptHash(receipt);
+  reseal(record);
+  const substitutedExpectation = {
+    ...expectedIfBinding,
+    receipt_hash: receipt.receipt_hash,
+    valid_until: receipt.valid_until,
+  };
+  const result = validateNegotiationRecord(record, {
+    expectedIfBinding: substitutedExpectation,
+    expectedGovernanceContext,
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.ok(result.errors.some(({ code }) => code === "IF_RECEIPT_VALIDITY_WINDOW_EXCEEDED"),
+    JSON.stringify(result.errors));
+});
+
+test("validator output exposes that record context is not authenticated", () => {
+  assert.equal(validate(fixture).context_authenticated, false);
+});
+
+test("hostile: deliberation and attestations cannot predate the IF evaluation", () => {
+  for (const [mutate, code] of [
+    [
+      (record) => { record.payload.positions[0].recorded_at = "2026-09-08T23:59:59Z"; },
+      "DELIBERATION_PREDATES_IF_EVALUATION",
+    ],
+    [
+      (record) => { record.payload.dissent[0].recorded_at = "2026-09-08T23:59:59Z"; },
+      "DELIBERATION_PREDATES_IF_EVALUATION",
+    ],
+    [
+      (record) => { record.signatures[0].signed_at = "2026-09-08T23:59:59Z"; },
+      "ATTESTATION_PREDATES_IF_EVALUATION",
+    ],
+  ]) {
+    const record = clone();
+    mutate(record);
+    reseal(record);
+    expectError(record, code);
+  }
+});
+
+test("hostile: representation expiry and challenge routes are machine-enforced", () => {
+  const expired = clone();
+  expired.payload.representations[0].mandate_expires_at = "2026-09-14T00:00:00Z";
+  reseal(expired);
+  const expiredResult = validateNegotiationRecord(expired, {
+    expectedIfBinding,
+    expectedGovernanceContext: governanceContextFor(expired),
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.ok(expiredResult.errors.some(({ code }) => code === "REPRESENTATION_EXPIRED"),
+    JSON.stringify(expiredResult.errors));
+
+  const unknownReceiver = clone();
+  unknownReceiver.payload.representations[0].challenge_route = {
+    route_id: "challenge.affected-workers.synthetic",
+    receiving_actor_ids: ["actor.unknown.synthetic"],
+    channel_description: "Synthetic route only.",
+    effect: "pause-and-record-only",
+  };
+  reseal(unknownReceiver);
+  const routeResult = validateNegotiationRecord(unknownReceiver, {
+    expectedIfBinding,
+    expectedGovernanceContext: governanceContextFor(unknownReceiver),
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.ok(routeResult.errors.some(({ code }) => code === "CHALLENGE_ROUTE_INVALID"),
+    JSON.stringify(routeResult.errors));
+});
+
+test("hostile: stop invokers and the remedy owner remain explicit and accountable", () => {
+  const weakStop = clone();
+  const challenged = weakStop.payload.action_candidate.stop_conditions
+    .find(({ trigger_id: id }) => id === "affected-party-challenge");
+  challenged.invoker_actor_ids = ["actor.transition-provider.synthetic"];
+  reseal(weakStop);
+  const stopResult = validateNegotiationRecord(weakStop, {
+    expectedIfBinding,
+    expectedGovernanceContext,
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.ok(stopResult.errors.some(({ code }) => code === "ACTION_STOP_INVOKER_INVALID"),
+    JSON.stringify(stopResult.errors));
+
+  const orphanedRemedy = clone();
+  orphanedRemedy.payload.action_candidate.reversibility.remedy_owner_actor_id =
+    "actor.unknown.synthetic";
+  reseal(orphanedRemedy);
+  const remedyResult = validateNegotiationRecord(orphanedRemedy, {
+    expectedIfBinding,
+    expectedGovernanceContext,
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.ok(remedyResult.errors.some(({ code }) => code === "ACTION_REMEDY_OWNER_INVALID"),
+    JSON.stringify(remedyResult.errors));
+});
+
+test("hostile: dissent cannot attach to a withdrawn position", () => {
+  const record = clone();
+  record.payload.positions[1].status = "withdrawn";
+  reseal(record);
+  expectError(record, "DISSENT_REFERENCE_INVALID");
+});
+
+test("fully resolved dissent remains visible without manufacturing agreement", () => {
+  const record = clone();
+  record.payload.dissent[0].status = "accommodated";
+  record.payload.dissent[0].blocks_activation = false;
+  record.payload.outcome.agreement_status = "provisional";
+  record.payload.outcome.unresolved_dissent_ids = [];
+  record.payload.outcome.blocking_reasons = ["authority-unverified"];
+  record.payload.outcome.public_explanation =
+    "The recorded dissent was accommodated. Authority remains unverified, so activation is blocked.";
+  reseal(record);
+  const result = validateNegotiationRecord(record, {
+    expectedIfBinding,
+    expectedGovernanceContext: governanceContextFor(record),
+    asOf: "2026-09-15T00:00:00Z",
+  });
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(result.activation_eligible, false);
 });
 
 test("hostile: expiry and boundary escalation fail closed", () => {

@@ -125,6 +125,17 @@ test("Round 06 binds exact retained sources and remains synthetic, blocked and n
     "condition.worker-option.nsw");
   assert.equal(result.derived_if.computed_rule_state, "true");
   assert.equal(record.lineage_hash, computeGovernanceLineageHash(record));
+  const context = readJson(repositoryRoot, record.sources.governance_context.path);
+  assert.deepEqual(context.deliberation_scope, {
+    position_ids: [
+      "position.affected-workers.synthetic",
+      "position.worker-households.synthetic",
+      "position.transition-provider.synthetic",
+      "position.public-authority.synthetic",
+    ],
+    dissent_ids: ["dissent.household-continuity.synthetic"],
+    unresolved_dissent_ids: ["dissent.household-continuity.synthetic"],
+  });
 });
 
 test("the deterministic builder reproduces context and lineage bytes", () => {

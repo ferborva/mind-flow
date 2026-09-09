@@ -31,7 +31,8 @@ updated: 2026-09-08
   it.
 - Every proposed trigger must identify its owner, authority, funding,
   safeguards, appeal route, review date and exit test.
-- Affected people are participants in decisions, not audiences to be managed.
+- This charter proposes that affected people be able to participate in
+  decisions. No such process exists yet.
 
 ---
 

@@ -39,6 +39,12 @@ test("the evolved write-up uses the seven-part public update", () => {
     "When will we check again?",
   ]) assert.match(second, new RegExp(question.replace("?", "\\?")));
   assert.doesNotMatch(second, /five questions every update/i);
+  assert.match(second, /One claim in this debate can be stated so it could fail/i);
+  assert.match(second, /On the series most often cited, wages caught up after 1840/i);
+  assert.doesNotMatch(second, /There is one falsifiable claim at the centre/i);
+  assert.doesNotMatch(second, /Then it inverted|The catch-up was real/i);
+  assert.match(second, /arithmetic does not select a\s+remedy/i);
+  assert.match(second, /not choosing among those routes here/i);
 });
 
 test("the short public argument keeps its healthcare example inside source ceilings", () => {
@@ -66,8 +72,8 @@ test("the supply-side argument treats WHEN as actor-specific hypothesis, not des
   assert.doesNotMatch(supply, /a sequence you are executing/i);
   assert.doesNotMatch(supply, /Every condition sitting on the consumer's side of it is a project sitting on somebody else's side/i);
   assert.doesNotMatch(supply, /What you can do about it \| mostly nothing, alone \| most of it, over time/i);
-  assert.doesNotMatch(supply, /Provider:\s*We will be able to offer/i);
-  assert.match(supply, /Provider:\*{0,2}\s*We propose we could attempt to offer/i);
+  assert.match(supply, /Provider:\*{0,2}\s*We will be able to offer/i);
+  assert.match(supply, /working\s+sentence.*not a promise/is);
   assert.doesNotMatch(short, /defeats every viable route/i);
   assert.match(short, /registered routes.*current evidence/is);
 });

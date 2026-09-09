@@ -1,3 +1,13 @@
+---
+id: second-pass-public-experience
+title: Round 03 second-pass public experience audit
+type: external-review-second-pass
+status: submitted-open-findings
+provenance: independent-agent-adversarial-review
+reviewed_on: 2026-09-09
+authority: none
+---
+
 ## Verdict
 
 The prototype is not yet a public doorway. It is an unusually honest research console, but a non-expert first encounters governance warnings, technical metadata and a highly salient derived macro number before understanding the goal, their relevance, current IF states or legitimate next steps.
@@ -29,7 +39,7 @@ The action card states that no authorised action follows, but does not separatel
 
 This contradicts the project’s own rule that no automated action is not a safety finding.
 
-Evidence: [dashboard template](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:420), [renderer](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:1358), [field guide](/Users/fbordallo/ai/repositories/mind-flow/communications/transition-field-guide.md:243).
+Evidence: [dashboard template](../../../dashboard/web/index.template.html#L420), [renderer](../../../dashboard/web/index.template.html#L1358), [field guide](../../../communications/transition-field-guide.md#L243).
 
 ### P0-R2: Affected readers have no working challenge or help route
 
@@ -37,7 +47,7 @@ The interface promises correction and challenge, but the challenge service is ex
 
 A consequential public instrument cannot ask for trust while affected people cannot correct scope, contest an inference or reach a human.
 
-Evidence: [accountability section](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:530).
+Evidence: [accountability section](../../../dashboard/web/index.template.html#L530).
 
 ## P1 findings
 
@@ -47,7 +57,7 @@ At widths below 520px, seven update cards become one column. `ACTION AND OWNER` 
 
 The first mobile viewport therefore contains almost no current result or action.
 
-Evidence: [responsive CSS](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:331), [DOM order](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:388).
+Evidence: [responsive CSS](../../../dashboard/web/index.template.html#L331), [DOM order](../../../dashboard/web/index.template.html#L388).
 
 ### P1-2: The public goal is not visible as a contestable value choice
 
@@ -60,7 +70,7 @@ Evidence: [responsive CSS](/Users/fbordallo/ai/repositories/mind-flow/dashboard/
 
 The actual agency goal appears near the end of the field guide, not in the dashboard’s first layer. This lets a normative project appear technical.
 
-Evidence: [dashboard hero](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:396), [field-guide destination](/Users/fbordallo/ai/repositories/mind-flow/communications/transition-field-guide.md:317).
+Evidence: [dashboard hero](../../../dashboard/web/index.template.html#L396), [field-guide destination](../../../communications/transition-field-guide.md#L317).
 
 ### P1-3: The large derived number becomes a practical transition score
 
@@ -68,7 +78,7 @@ The project rejects a single transition score, but the first substantive visual 
 
 The visible derivation label helps. It does not neutralise hierarchy. Readers will anchor on `-3.5` despite unquantified uncertainty, poor personal applicability and no decision meaning.
 
-Evidence: [verdict CSS](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:277), [verdict renderer](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:1115).
+Evidence: [verdict CSS](../../../dashboard/web/index.template.html#L277), [verdict renderer](../../../dashboard/web/index.template.html#L1115).
 
 ### P1-4: Confidence remains hidden or collapsed
 
@@ -89,7 +99,7 @@ The guide defines leading, confirming, counter, outcome, readiness, exposure and
 
 A public reader cannot tell which evidence role is present or missing for each IF.
 
-Evidence: [field-guide signal roles](/Users/fbordallo/ai/repositories/mind-flow/communications/transition-field-guide.md:202), [dashboard inventory](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:442).
+Evidence: [field-guide signal roles](../../../communications/transition-field-guide.md#L202), [dashboard inventory](../../../dashboard/web/index.template.html#L442).
 
 ### P1-6: Actor-specific WHENs are not rendered
 
@@ -107,7 +117,7 @@ Readers encounter:
 
 These can be useful lenses, but without an explicit relationship they look like competing taxonomies. A reader cannot know which set defines the IF, evaluates access or assigns work.
 
-Evidence: [dashboard condition route](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:461), [service funnel](/Users/fbordallo/ai/repositories/mind-flow/dashboard/web/index.template.html:450), [field-guide prompts](/Users/fbordallo/ai/repositories/mind-flow/communications/transition-field-guide.md:152).
+Evidence: [dashboard condition route](../../../dashboard/web/index.template.html#L461), [service funnel](../../../dashboard/web/index.template.html#L450), [field-guide prompts](../../../communications/transition-field-guide.md#L152).
 
 ### P1-8: Harms are not a first-class current state
 

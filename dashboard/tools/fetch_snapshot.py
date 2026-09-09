@@ -101,8 +101,12 @@ def verify_adapter_contract(adapter):
 def verify_raw_input(raw_input, base_dir):
     verify_source_url(raw_input.get("source_url"))
     path = raw_input["path"]
-    if not os.path.isabs(path):
-        path = os.path.normpath(os.path.join(base_dir, path))
+    if os.path.isabs(path):
+        raise RuntimeError("raw input path must be repository-relative; absolute paths are not allowed")
+    governed_root = os.path.realpath(base_dir)
+    path = os.path.realpath(os.path.join(governed_root, path))
+    if os.path.commonpath([governed_root, path]) != governed_root:
+        raise RuntimeError("raw input path must not escape its governed base directory")
     with open(path, "rb") as handle:
         raw = handle.read()
     digest = hashlib.sha256(raw).hexdigest()
@@ -226,7 +230,7 @@ def worldbank(indicator, source):
 def transform_verified_manifest(path):
     with open(path, encoding="utf-8") as handle:
         raw_input = json.load(handle)["raw_input"]
-    raw = verify_raw_input(raw_input, os.path.dirname(os.path.abspath(path)))
+    raw = verify_raw_input(raw_input, DASHBOARD_DIR)
     adapter = raw_input["adapter"]
     if adapter["id"] == "world-bank-json":
         return transform_worldbank(raw, adapter)

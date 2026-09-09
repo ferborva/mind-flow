@@ -22,7 +22,7 @@ an external authority.
 | Stage | Required proof | Boundary |
 |---|---|---|
 | Round 04 | Exact complete-bundle bytes and every referenced component | Coherence is not truth or authority |
-| Context | Exact locally pinned participants, affected consumers, representations and IF receipt | Self-asserted synthetic identities and mandates only |
+| Context | Exact locally pinned participants, affected consumers, representations, deliberation identities and IF receipt | Self-asserted synthetic identities and mandates only |
 | Negotiation | Valid signed record against the external context | Signatures attest accuracy, not agreement |
 | Decision | Exact negotiation hash and chronology after all negotiation signatures | Selected action remains blocked |
 
@@ -31,7 +31,13 @@ symbolic links, non-files, oversized files, digest drift and invalid JSON. The
 lineage and context have separate domain-separated content hashes.
 
 Deliberation entries cannot predate context capture. The decision must follow the
-negotiation and all negotiation signatures. A passed IF means only that the pinned
+negotiation and all negotiation signatures, with equal timestamps rejected. The
+external context fixes the exact position, dissent and unresolved-dissent IDs.
+Representatives, the action owner and the authority holder must be different
+actors with exact roles from a closed vocabulary. Representation expiry,
+challenge routes, remedy ownership and stop invokers are retained explicitly.
+Positions, dissent and attestations cannot predate the IF evaluation. A passed
+IF means only that the pinned
 rule evaluated to `true` for its inputs. It cannot establish empirical truth,
 consent, authority, publication approval or permission to act.
 
@@ -59,3 +65,8 @@ remain unauthenticated. The result exposes each of these facts under
 `verification_boundaries`, and always reports `action_blocked: true`. Review-due,
 expired, drifted or incomplete records fail closed. Operational action requires a
 separate, externally verified authority process that this package does not provide.
+
+The record validators also expose `context_authenticated: false`. In the absence
+of an authenticated issuer policy, the IF receipt validity window is capped at
+30 days from evaluation. The cap is only a safety ceiling, not a claim that the
+underlying evidence remains fresh for that long.

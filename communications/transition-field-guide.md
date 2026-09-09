@@ -69,7 +69,8 @@ Those outcomes depend on conditions:
 Each condition creates branches. Conditions also interact. Cheap capability
 without reliable electricity is not access. Training without available roles
 is not transition. A payment without reachable delivery may not protect a
-household. Choice without a viable alternative is not meaningful agency.
+household. This project counts choice without a viable alternative as not being
+agency; readers may draw the line elsewhere.
 
 The point is not to predict Mara from a national average. It is to expose the
 conditions that separate the possible paths, learn which path is forming, and

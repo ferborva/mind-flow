@@ -150,6 +150,35 @@ function validatePoint(point, path) {
   }
 }
 
+function declaredComparisonValues(series) {
+  const values = new Map();
+  for (const change of [series.change_12m, series.change_60m]) {
+    if (isObject(change) && isCalendarDate(change.from_date) &&
+        Number.isInteger(change.from_value) && change.from_value >= 0) {
+      values.set(change.from_date, change.from_value);
+    }
+  }
+  return values;
+}
+
+function verifiedTrailingObservations(series, path) {
+  const observations = series.recent_observations;
+  let start = observations.length - 1;
+  while (start > 0 &&
+      monthNumber(observations[start].date) === monthNumber(observations[start - 1].date) + 1) {
+    start -= 1;
+  }
+  const detached = observations.slice(0, start);
+  const comparisons = declaredComparisonValues(series);
+  if (detached.some((point) => comparisons.get(point.date) !== point.value)) {
+    fail("MISSING_HISTORY", `${path} is not a verified contiguous trailing history.`, {
+      path,
+      detached_dates: detached.map(({ date }) => date),
+    });
+  }
+  return observations.slice(start);
+}
+
 function validateSeries(series, path) {
   requireObject(series, path);
   for (const field of ["occupation_code", "occupation_name", "state_name", "sa4_code", "sa4_name"]) {
@@ -175,8 +204,8 @@ function validateSeries(series, path) {
     }
     seenDates.add(point.date);
     const currentMonth = monthNumber(point.date);
-    if (previousMonth !== undefined && currentMonth !== previousMonth + 1) {
-      fail("MISSING_HISTORY", `${path} is not a contiguous monthly history.`, {
+    if (previousMonth !== undefined && currentMonth <= previousMonth) {
+      fail("MISSING_HISTORY", `${path} history must be strictly increasing.`, {
         path,
         previous_date: series.recent_observations[index - 1].date,
         current_date: point.date,
@@ -194,6 +223,7 @@ function validateSeries(series, path) {
   ) {
     fail("INVALID_SCHEMA", `${path}.latest must match the final recent observation.`, { path });
   }
+  verifiedTrailingObservations(series, path);
 }
 
 function validateVintage(vintage, label) {
@@ -252,6 +282,15 @@ function validateVintage(vintage, label) {
     vintage.scope.geography_classification !== GEOGRAPHY_CLASSIFICATION
   ) {
     fail("INVALID_SCHEMA", `${label} uses an unsupported classification.`, { label });
+  }
+  if (vintage.scope.occupation_classification_verification_status !== undefined &&
+      vintage.scope.occupation_classification_verification_status !==
+        "unverified_external_review_required") {
+    fail(
+      "INVALID_SCHEMA",
+      `${label}.scope occupation classification must remain explicitly unverified.`,
+      { label },
+    );
   }
   if (!Array.isArray(vintage.scope.occupation_codes) || vintage.scope.occupation_codes.length === 0) {
     fail("INVALID_SCHEMA", `${label}.scope.occupation_codes must not be empty.`, { label });
@@ -409,7 +448,7 @@ function consecutiveDeclines(observations) {
 }
 
 function evaluateSeries(series, detector, releasePeriod, synthetic) {
-  const observations = series.recent_observations;
+  const observations = verifiedTrailingObservations(series, `series ${seriesKey(series)}`);
   const requiredPoints = Math.max(detector.lookback_months, detector.run_months) + 1;
   if (observations.length < requiredPoints) {
     fail("INSUFFICIENT_HISTORY", "A series lacks the registered detector history.", {
@@ -527,6 +566,10 @@ function provenanceRecord(vintage) {
     record_checksum: computeRecordChecksum(vintage),
     evidence_class: vintage.epistemic_class,
     measurement_type: vintage.measurement_type,
+    occupation_classification: vintage.scope.occupation_classification,
+    occupation_classification_verification_status:
+      vintage.scope.occupation_classification_verification_status ??
+        "not-recorded-legacy-baseline",
   };
 }
 

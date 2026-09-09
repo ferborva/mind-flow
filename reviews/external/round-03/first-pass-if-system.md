@@ -1,3 +1,14 @@
+---
+id: first-pass-if-system
+title: Independent Round 03 IF-system first pass
+type: external-review-first-pass
+status: submitted-open-findings
+provenance: independent-blind-agent-review
+reviewed_commit: f5b3b643e80e0f16d7dadd13805df6accf9526ed
+reviewed_on: 2026-09-09
+authority: none
+---
+
 ## Independent review: `f5b3b643`
 
 Reviewed exact archived blobs only. I did not inspect prohibited review files, external reviews, agent summaries, or other branches.

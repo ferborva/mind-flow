@@ -194,7 +194,7 @@
       ],
       "properties": {
         "tool_path": { "const": "dashboard/tools/build-nero-baseline.mjs" },
-        "tool_sha256": { "const": "sha256:40f60ec2a3800442f02484464c38972086ead2fd6c13818af0a3d5c7fdea3cef" },
+        "tool_sha256": { "const": "sha256:d2d7e63359277fc20ee1f937b295f99d3958225f1be435a2b1b19d8bb4d4dc7d" },
         "arguments": {
           "type": "object",
           "required": [

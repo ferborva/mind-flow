@@ -19,6 +19,7 @@ const HASH_DOMAIN = "mind-flow:executable-if:v1";
 const DAY_MS = 86_400_000;
 const SCOPE_AXES = ["jurisdictions", "geographies", "cohorts", "services"];
 const NON_DECISIVE = new Set(["unknown", "stale", "conflicted"]);
+const STRICT_UTC_SECOND = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/;
 
 function canonicalJson(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
@@ -45,6 +46,7 @@ export const FIXED_EVALUATOR_REF = Object.freeze({
   id: semantics.id,
   version: semantics.version,
   digest: digest("evaluator-semantics", semantics),
+  schema_digest: digest("evaluator-schema", schema),
   implementation_digest: digest("evaluator-implementation", implementationSource),
   conformance_vectors_digest: digest("evaluator-conformance-vectors", conformanceVectors),
 });
@@ -128,6 +130,21 @@ function error(code, path, message) {
   return { code, path, message };
 }
 
+function isStrictUtcInstant(value) {
+  if (typeof value !== "string") return false;
+  const match = STRICT_UTC_SECOND.exec(value);
+  if (!match || !Number.isFinite(Date.parse(value))) return false;
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText] = match;
+  const [year, month, day, hour, minute, second] = [
+    yearText, monthText, dayText, hourText, minuteText, secondText,
+  ].map(Number);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return month >= 1 && month <= 12 && day >= 1 && day <= daysInMonth[month - 1] &&
+    hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59 &&
+    second >= 0 && second <= 59;
+}
+
 function parseVersion(value) {
   return value.split(".").map(Number);
 }
@@ -206,6 +223,18 @@ function evaluateOperator(operator, value, threshold) {
   if (operator === "eq") return value === threshold;
   if (operator === "neq") return value !== threshold;
   throw new Error(`unsupported operator ${operator}`);
+}
+
+function predicateDirection(predicate) {
+  if (["gt", "gte"].includes(predicate.operator)) return "higher-passes";
+  if (["lt", "lte"].includes(predicate.operator)) return "lower-passes";
+  if (typeof predicate.threshold.value === "boolean") {
+    const passesWhenTrue = predicate.operator === "eq"
+      ? predicate.threshold.value
+      : !predicate.threshold.value;
+    return passesWhenTrue ? "true-passes" : "false-passes";
+  }
+  return predicate.operator === "eq" ? "equal-passes" : "unequal-passes";
 }
 
 function reduceTruth(kind, states) {
@@ -353,15 +382,15 @@ export function evaluateCondition(definition, signals, observations, { evaluated
       "condition definition must use the fixed evaluator semantics"));
   }
   validateDefinitionSemantics(definition, signalMap, errors, "/definition");
-  if (typeof evaluatedAt !== "string" || !Number.isFinite(Date.parse(evaluatedAt)) ||
-      !evaluatedAt.endsWith("Z")) {
+  if (!isStrictUtcInstant(evaluatedAt)) {
     errors.push(error("EVALUATION_TIME_INVALID", "/evaluated_at",
-      "evaluatedAt must be a UTC date-time"));
+      "evaluatedAt must be a real UTC instant in exact YYYY-MM-DDTHH:mm:ssZ form"));
   }
-  if (!Number.isFinite(Date.parse(definition.effective_from)) || !definition.effective_from.endsWith("Z")) {
+  if (!isStrictUtcInstant(definition.effective_from)) {
     errors.push(error("DEFINITION_EFFECTIVE_TIME_INVALID", "/definition/effective_from",
-      "definition effective_from must be a UTC date-time"));
-  } else if (Date.parse(evaluatedAt) < Date.parse(definition.effective_from)) {
+      "definition effective_from must use exact UTC-second form"));
+  } else if (isStrictUtcInstant(evaluatedAt) &&
+      Date.parse(evaluatedAt) < Date.parse(definition.effective_from)) {
     errors.push(error("EVALUATION_BEFORE_DEFINITION", "/evaluated_at",
       "a condition cannot be evaluated before its definition becomes effective"));
   }
@@ -415,9 +444,10 @@ export function evaluateCondition(definition, signals, observations, { evaluated
     const start = Date.parse(observation.period.start);
     const end = Date.parse(observation.period.end);
     const recorded = Date.parse(observation.recorded_at);
-    if (![start, end, recorded].every(Number.isFinite)) {
+    if (![observation.period.start, observation.period.end, observation.recorded_at]
+      .every(isStrictUtcInstant)) {
       errors.push(error("OBSERVATION_TIME_INVALID", path,
-        "observation period and recorded_at must be valid UTC date-times"));
+        "observation period and recorded_at must use exact UTC-second form"));
       continue;
     }
     if (start > end || end > recorded) {
@@ -505,9 +535,10 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
   }
   const claimStart = Date.parse(definition.claim?.period?.starts_at);
   const claimEnd = Date.parse(definition.claim?.period?.ends_at);
-  if (!Number.isFinite(claimStart) || !Number.isFinite(claimEnd) || claimStart > claimEnd) {
+  if (!isStrictUtcInstant(definition.claim?.period?.starts_at) ||
+      !isStrictUtcInstant(definition.claim?.period?.ends_at) || claimStart > claimEnd) {
     errors.push(error("CONDITION_CLAIM_PERIOD_INVALID", `${path}/claim/period`,
-      "typed claim period requires valid ordered UTC boundaries"));
+      "typed claim period requires ordered exact UTC-second boundaries"));
   }
   const refs = expressionRefs(definition.truth_expression);
   if (new Set(refs).size !== refs.length ||
@@ -530,6 +561,11 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
     if (signal.value_kind === "boolean" && !["eq", "neq"].includes(predicate.operator)) {
       errors.push(error("PREDICATE_OPERATOR_TYPE_MISMATCH", `${path}/predicates/${predicateId}/operator`,
         "boolean signals support only eq and neq"));
+    }
+    if (predicate.missing_result !== "unknown" || predicate.stale_result !== "stale" ||
+        predicate.conflict_result !== "conflicted") {
+      errors.push(error("PREDICATE_RESULT_POLICY_INVALID", `${path}/predicates/${predicateId}`,
+        "missing, stale and conflicting evidence have fixed non-decisive results"));
     }
     if (predicate.window.persistence > predicate.window.minimum_observations) {
       errors.push(error("PERSISTENCE_EXCEEDS_MINIMUM", `${path}/predicates/${predicateId}/window`,
@@ -623,6 +659,31 @@ function validateEvolutionOperation(event, prior, introduced, errors, path) {
       if (!same(newDefinition.scope, oldDefinition.scope)) {
         errors.push(error("DEFINITION_REVISION_SCOPE_CHANGED", path,
           "scope changes require narrowed, split or merge"));
+      }
+      if (!same(newDefinition.truth_expression, oldDefinition.truth_expression)) {
+        errors.push(error("CONDITION_TRUTH_LOGIC_CHANGED", `${path}/introduced_definitions`,
+          "a definition revision cannot change the claim's truth-expression structure"));
+      }
+      const oldPredicateIds = Object.keys(oldDefinition.predicates).sort();
+      const newPredicateIds = Object.keys(newDefinition.predicates).sort();
+      for (const predicateId of oldPredicateIds) {
+        const beforePredicate = oldDefinition.predicates[predicateId];
+        const afterPredicate = newDefinition.predicates[predicateId];
+        if (!afterPredicate) continue;
+        if (!sameRef(afterPredicate.signal_ref, beforePredicate.signal_ref)) {
+          errors.push(error("PREDICATE_SIGNAL_CHANGED",
+            `${path}/introduced_definitions/predicates/${predicateId}/signal_ref`,
+            "a definition revision cannot silently change the construct measured by a predicate"));
+        }
+        if (predicateDirection(afterPredicate) !== predicateDirection(beforePredicate)) {
+          errors.push(error("PREDICATE_DIRECTION_CHANGED",
+            `${path}/introduced_definitions/predicates/${predicateId}/operator`,
+            "a definition revision cannot reverse which direction satisfies a predicate"));
+        }
+      }
+      if (!same(oldPredicateIds, newPredicateIds)) {
+        errors.push(error("CONDITION_TRUTH_LOGIC_CHANGED", `${path}/introduced_definitions/predicates`,
+          "a definition revision cannot add, remove or rename claim predicates"));
       }
       if (same(definitionSemantics(newDefinition), definitionSemantics(oldDefinition))) {
         errors.push(error("DEFINITION_REVISION_NO_CHANGE", path,
@@ -822,9 +883,10 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
     const start = Date.parse(observation.period.start);
     const end = Date.parse(observation.period.end);
     const recorded = Date.parse(observation.recorded_at);
-    if (![start, end, recorded].every(Number.isFinite)) {
+    if (![observation.period.start, observation.period.end, observation.recorded_at]
+      .every(isStrictUtcInstant)) {
       errors.push(error("OBSERVATION_TIME_INVALID", path,
-        "observation period and recorded_at must be valid UTC date-times"));
+        "observation period and recorded_at must use exact UTC-second form"));
     } else if (start > end || end > recorded) {
       errors.push(error("OBSERVATION_CHRONOLOGY_INVALID", path,
         "observation requires period start <= end <= recorded_at"));
@@ -1187,6 +1249,27 @@ export function evaluateKernelCondition(kernel, conditionId, { evaluatedAt }) {
     return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
       error("KERNEL_INVALID", "/", "governed evaluation requires a machine-valid kernel"),
       ...validation.errors,
+    ]);
+  }
+  if (!isStrictUtcInstant(evaluatedAt)) {
+    return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
+      error("EVALUATION_TIME_INVALID", "/evaluated_at",
+        "evaluatedAt must be a real UTC instant in exact YYYY-MM-DDTHH:mm:ssZ form"),
+    ]);
+  }
+  const evaluatedMs = Date.parse(evaluatedAt);
+  const latestDefinitionEvent = kernel.events.at(-1);
+  if (latestDefinitionEvent && evaluatedMs < Date.parse(latestDefinitionEvent.recorded_at)) {
+    return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
+      error("EVALUATION_BEFORE_DEFINITION_STATE", "/evaluated_at",
+        "governed evaluation cannot use a definition-state fold recorded in its future"),
+    ]);
+  }
+  const latestEvidenceEvent = kernel.evidence_events.at(-1);
+  if (latestEvidenceEvent && evaluatedMs < Date.parse(latestEvidenceEvent.recorded_at)) {
+    return rejectedKernelEvaluation(kernel, conditionId, evaluatedAt, [
+      error("EVALUATION_BEFORE_EVIDENCE_STATE", "/evaluated_at",
+        "governed evaluation cannot use an evidence-state fold recorded in its future"),
     ]);
   }
   const state = validation.current_definition_state.find((candidate) =>

@@ -64,6 +64,9 @@
       ],
       "properties": {
         "occupation_classification": { "const": "ANZSCO 2013 version 1.3, 4-digit" },
+        "occupation_classification_verification_status": {
+          "const": "unverified_external_review_required"
+        },
         "geography_classification": { "const": "ASGS 2021 SA4, place of residence" },
         "occupation_codes": {
           "type": "array",

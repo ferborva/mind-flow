@@ -47,7 +47,7 @@ const participants = Object.freeze([
   {
     actor_id: "actor.public-authority-candidate.synthetic",
     label: "Synthetic candidate public authority",
-    roles: ["candidate-decision-owner", "negotiator"],
+    roles: ["candidate-authority-holder", "negotiator"],
     identity_verification: "synthetic-unverified",
   },
 ]);
@@ -74,8 +74,18 @@ const representations = Object.freeze([
     representative_actor_id: "actor.worker-representative.synthetic",
     selection_basis: "Synthetic placeholder. No election, sampling or identity check occurred.",
     mandate_scope: "Record worker safeguards, objections and requested changes only.",
+    mandate_expires_at: "2026-10-01T00:00:00Z",
     mandate_verification: "synthetic-unverified",
     consent_established: false,
+    challenge_route: {
+      route_id: "challenge.affected-workers.synthetic",
+      receiving_actor_ids: [
+        "actor.transition-provider.synthetic",
+        "actor.public-authority-candidate.synthetic",
+      ],
+      channel_description: "Synthetic dual-recipient route. No live channel or response service exists.",
+      effect: "pause-and-record-only",
+    },
   },
   {
     representation_id: "representation.worker-households.synthetic",
@@ -83,8 +93,18 @@ const representations = Object.freeze([
     representative_actor_id: "actor.household-representative.synthetic",
     selection_basis: "Synthetic placeholder. No household mandate or identity check occurred.",
     mandate_scope: "Record household continuity concerns and objections only.",
+    mandate_expires_at: "2026-10-01T00:00:00Z",
     mandate_verification: "synthetic-unverified",
     consent_established: false,
+    challenge_route: {
+      route_id: "challenge.worker-households.synthetic",
+      receiving_actor_ids: [
+        "actor.transition-provider.synthetic",
+        "actor.public-authority-candidate.synthetic",
+      ],
+      channel_description: "Synthetic dual-recipient route. No live channel or response service exists.",
+      effect: "pause-and-record-only",
+    },
   },
 ]);
 
@@ -95,9 +115,9 @@ function ifBinding() {
     receipt_hash: null,
     condition_id: "condition.worker-option.nsw",
     definition_version: "1.0.0",
-    definition_hash: "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e",
+    definition_hash: "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
     evaluated_at: "2026-09-09T00:00:00Z",
-    valid_until: "2026-12-31T23:59:59Z",
+    valid_until: "2026-10-09T00:00:00Z",
     mechanically_valid_for_evaluation: true,
     computed_rule_state: "true",
     empirical_truth_established: false,
@@ -109,7 +129,7 @@ function ifBinding() {
     condition_definition_ref: {
       condition_id: "condition.worker-option.nsw",
       definition_version: "1.0.0",
-      definition_hash: "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e",
+      definition_hash: "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
     },
     evaluation_receipt_ref: receipt,
     effect: "eligibility-only-not-truth-or-authority",
@@ -117,6 +137,7 @@ function ifBinding() {
 }
 
 function action(actionId) {
+  const invokerActorIds = participants.map(({ actor_id: id }) => id);
   return {
     action_id: actionId,
     owner_actor_id: "actor.transition-provider.synthetic",
@@ -137,6 +158,7 @@ function action(actionId) {
     reversibility: {
       class: "reversible",
       irreversible_effects_prohibited: true,
+      remedy_owner_actor_id: "actor.transition-provider.synthetic",
       rollback_plan: "Stop the rehearsal, revoke access and delete participant-controlled copies on request.",
       residual_harm: "The rehearsal may still create anxiety, privacy loss or false confidence.",
     },
@@ -145,21 +167,25 @@ function action(actionId) {
         trigger_id: "if-binding-changed",
         condition: "The definition, receipt or computed IF state changes.",
         response: "Stop and require a new negotiation against a fresh exact receipt.",
+        invoker_actor_ids: invokerActorIds,
       },
       {
         trigger_id: "affected-party-challenge",
         condition: "An affected consumer or representative challenges scope, safety or representation.",
         response: "Pause, preserve the challenge and reconsider before resumption.",
+        invoker_actor_ids: invokerActorIds,
       },
       {
         trigger_id: "harm-detected",
         condition: "Privacy, coercion, income, conditions, care or information harm is reported.",
         response: "Stop exposure, protect affected people and assess recovery.",
+        invoker_actor_ids: invokerActorIds,
       },
       {
         trigger_id: "authority-or-signature-invalid",
         condition: "Claimed authority, mandate or a required signature expires or is withdrawn.",
         response: "Stop. The record grants no fallback authority.",
+        invoker_actor_ids: invokerActorIds,
       },
     ],
   };

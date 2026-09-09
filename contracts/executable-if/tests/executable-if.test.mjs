@@ -38,8 +38,24 @@ function observationsFor(id) {
   );
 }
 
+function kernelThroughRevision(mutate) {
+  const changed = clone(fixture);
+  changed.events = changed.events.slice(0, 3);
+  changed.observations = [];
+  changed.evidence_events = [];
+  changed.current_evidence_state = [];
+  const revision = changed.events.at(-1);
+  const revised = revision.introduced_definitions[0];
+  mutate(revised, changed);
+  revised.definition_hash = computeConditionDefinitionHash(revised);
+  revision.new_states[0].condition_definition_ref.definition_hash = revised.definition_hash;
+  changed.current_state = clone(revision.new_states);
+  return resealKernel(changed);
+}
+
 test("the synthetic kernel is closed, reproducible and non-authorising", () => {
   const result = validateExecutableIfKernel(fixture);
+  assert.equal(fixture.schema_version, "1.1.0");
   assert.equal(result.schema_valid, true);
   assert.equal(result.integrity_valid, true);
   assert.equal(result.history_valid, true);
@@ -50,6 +66,15 @@ test("the synthetic kernel is closed, reproducible and non-authorising", () => {
   assert.equal(result.action_authorised, false);
   assert.equal(result.publication_approved, false);
   assert.deepEqual(fixture.evaluator, FIXED_EVALUATOR_REF);
+});
+
+test("a synthetic observation cannot claim a non-synthetic provenance source ID", () => {
+  const substituted = clone(fixture);
+  substituted.observations[0].source_id = "source.official-labour-register";
+
+  const result = validateExecutableIfKernel(substituted);
+  assert.equal(result.schema_valid, false);
+  assert.ok(result.errors.some(({ path }) => path.endsWith("/source_id")));
 });
 
 test("every signal and condition definition is immutable and content addressed", () => {
@@ -237,6 +262,7 @@ test("five-valued logic never coerces unknown, stale or conflicted to false", ()
 
 test("the evaluator binds its semantics, implementation and conformance vectors", () => {
   assert.match(FIXED_EVALUATOR_REF.digest, /^sha256:[a-f0-9]{64}$/);
+  assert.match(FIXED_EVALUATOR_REF.schema_digest, /^sha256:[a-f0-9]{64}$/);
   assert.match(FIXED_EVALUATOR_REF.implementation_digest, /^sha256:[a-f0-9]{64}$/);
   assert.match(FIXED_EVALUATOR_REF.conformance_vectors_digest, /^sha256:[a-f0-9]{64}$/);
   for (const vector of conformanceVectors.cases) {
@@ -382,6 +408,88 @@ test("hostile: standalone evaluation rejects unsealed condition semantics", () =
   });
   assert.equal(result.executable, false);
   assert.ok(result.errors.some(({ code }) => code === "DEFINITION_HASH_MISMATCH"));
+});
+
+test("hostile: a revision cannot invert an unchanged claim with NOT", () => {
+  const changed = kernelThroughRevision((revised) => {
+    revised.truth_expression = { not: revised.truth_expression };
+  });
+  const result = validateExecutableIfKernel(changed);
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "CONDITION_TRUTH_LOGIC_CHANGED"));
+});
+
+test("hostile: a revision cannot reverse a predicate operator direction", () => {
+  const changed = kernelThroughRevision((revised) => {
+    revised.predicates["option-coverage"].operator = "lte";
+  });
+  const result = validateExecutableIfKernel(changed);
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "PREDICATE_DIRECTION_CHANGED"));
+});
+
+test("hostile: a revision cannot silently swap the signal measured by a predicate", () => {
+  const changed = kernelThroughRevision((revised, kernel) => {
+    const substitute = clone(kernel.signals[0]);
+    substitute.signal_id = "signal.synthetic-harm.ratio";
+    substitute.label = "Synthetic harm ratio";
+    substitute.construct = "A different construct with a compatible numeric type";
+    substitute.estimand = substitute.construct;
+    substitute.signal_definition_hash = computeSignalDefinitionHash(substitute);
+    kernel.signals.push(substitute);
+    revised.predicates["option-coverage"].signal_ref = {
+      signal_id: substitute.signal_id,
+      definition_version: substitute.definition_version,
+      signal_definition_hash: substitute.signal_definition_hash,
+    };
+  });
+  const result = validateExecutableIfKernel(changed);
+  assert.equal(result.machine_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "PREDICATE_SIGNAL_CHANGED"));
+});
+
+test("hostile: standalone evaluation cannot redefine the missing predicate result", () => {
+  const active = clone(definition("condition.worker-option.nsw"));
+  active.predicates["option-coverage"].missing_result = "true";
+  active.definition_hash = computeConditionDefinitionHash(active);
+  const result = evaluateCondition(active, fixture.signals, [], {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+  });
+  assert.equal(result.mechanically_valid_for_evaluation, false);
+  assert.equal(result.condition_truth.state, "unknown");
+  assert.ok(result.errors.some(({ code }) => code === "PREDICATE_RESULT_POLICY_INVALID"));
+});
+
+test("hostile: alternate spellings of an evaluation instant are rejected", () => {
+  const result = evaluateCondition(
+    definition("condition.worker-option.nsw"),
+    fixture.signals,
+    observationsFor("condition.worker-option.nsw"),
+    { evaluatedAt: "2026-09-09T00:00:00.000Z" },
+  );
+  assert.equal(result.mechanically_valid_for_evaluation, false);
+  assert.ok(result.errors.some(({ code }) => code === "EVALUATION_TIME_INVALID"));
+});
+
+test("hostile: governed evaluation cannot use evidence state recorded in its future", () => {
+  const beforeLatestEvidence = evaluateKernelCondition(fixture, "condition.worker-option.nsw", {
+    evaluatedAt: "2026-09-02T12:00:00Z",
+  });
+  assert.equal(beforeLatestEvidence.mechanically_valid_for_evaluation, false);
+  assert.ok(beforeLatestEvidence.errors.some(
+    ({ code }) => code === "EVALUATION_BEFORE_EVIDENCE_STATE",
+  ));
+
+  const futureLedger = clone(fixture);
+  futureLedger.evidence_events.at(-1).recorded_at = "2026-09-10T00:00:00Z";
+  resealKernel(futureLedger);
+  const futureEvent = evaluateKernelCondition(futureLedger, "condition.worker-option.nsw", {
+    evaluatedAt: "2026-09-09T00:00:00Z",
+  });
+  assert.equal(futureEvent.mechanically_valid_for_evaluation, false);
+  assert.ok(futureEvent.errors.some(
+    ({ code }) => code === "EVALUATION_BEFORE_EVIDENCE_STATE",
+  ));
 });
 
 test("hostile: an observation cannot bypass evidence-event governance", () => {
@@ -760,7 +868,7 @@ test("hostile: a merge cannot fabricate Cartesian scope cells", () => {
   const secondState = makeState(qldPayroll, 1);
   const targetState = makeState(falseUnion, 1);
   const kernel = {
-    schema_version: "1.0.0",
+    schema_version: fixture.schema_version,
     kernel_id: "kernel.cartesian.hostile",
     classification: "research-draft",
     empirical_truth_established: false,

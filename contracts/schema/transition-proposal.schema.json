@@ -12,6 +12,7 @@
     "prior_state_ref",
     "generated_at",
     "proposal",
+    "basis_gate_state",
     "proposed_lifecycle",
     "authority_effect",
     "automatic_transition",
@@ -49,6 +50,10 @@
         "consider_recovery_exit",
         "await_recovery_evidence"
       ]
+    },
+    "basis_gate_state": {
+      "enum": ["true", "false", "unknown", "stale", "conflicted"],
+      "description": "The exact five-valued truth state of the action record's bound gate in the pinned evaluation run. A hold caused by false evidence remains distinguishable from unknown, stale or conflicted evidence."
     },
     "proposed_lifecycle": { "$ref": "#/$defs/lifecycle" },
     "authority_effect": { "const": "none" },

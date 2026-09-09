@@ -14,6 +14,7 @@ import {
   validateEvaluationAttempt,
   validateEvaluationBundle,
 } from "../semantic-validation.mjs";
+import { EVALUATOR_VERSION } from "../evaluator.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const contracts = resolve(here, "..");
@@ -48,15 +49,24 @@ test("evaluation provenance is pinned to the evaluator registry", () => {
   const digest = `sha256:${createHash("sha256")
     .update(readFileSync(join(contracts, "evaluator.mjs")))
     .digest("hex")}`;
-  const registered = evaluatorRegistry.evaluators.find(
+  const registeredHistorical = evaluatorRegistry.evaluators.find(
     (entry) => entry.id === completedRun.provenance.evaluator.id &&
       entry.version === completedRun.provenance.evaluator.version,
   );
-  assert.equal(registered.digest, digest);
-  assert.notEqual(registered.digest_kind, "executable-manifest-sha256");
-  assert.deepEqual(completedRun.provenance.evaluator, registered);
+  const registeredCurrent = evaluatorRegistry.evaluators.find(
+    (entry) => entry.id === "mind-flow.condition-evaluator" &&
+      entry.version === EVALUATOR_VERSION,
+  );
+  assert.equal(registeredCurrent.digest, digest);
+  assert.notEqual(registeredHistorical.digest_kind, "executable-manifest-sha256");
+  assert.deepEqual(completedRun.provenance.evaluator, registeredHistorical);
+  assert.notEqual(
+    registeredHistorical.version,
+    registeredCurrent.version,
+    "published evaluator identities must remain immutable when source bytes evolve",
+  );
   const duplicate = clone(evaluatorRegistry);
-  duplicate.evaluators.push({ ...registered, digest: `sha256:${"0".repeat(64)}` });
+  duplicate.evaluators.push({ ...registeredHistorical, digest: `sha256:${"0".repeat(64)}` });
   assert.equal(
     validateEvaluatorRegistrySchema(duplicate),
     true,

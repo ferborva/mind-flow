@@ -9,6 +9,14 @@
     "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
     "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "instant": { "type": "string", "format": "date-time" },
+    "participantRole": {
+      "enum": [
+        "affected-party-representative",
+        "candidate-action-owner",
+        "candidate-authority-holder",
+        "negotiator"
+      ]
+    },
     "stringSet": {
       "type": "array",
       "minItems": 1,
@@ -77,7 +85,12 @@
       "properties": {
         "actor_id": { "$ref": "#/$defs/id" },
         "label": { "$ref": "#/$defs/nonEmpty" },
-        "roles": { "$ref": "#/$defs/stringSet" },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/participantRole" }
+        },
         "identity_verification": {
           "enum": ["synthetic-unverified", "externally-verified"]
         }
@@ -103,8 +116,10 @@
         "representative_actor_id",
         "selection_basis",
         "mandate_scope",
+        "mandate_expires_at",
         "mandate_verification",
-        "consent_established"
+        "consent_established",
+        "challenge_route"
       ],
       "properties": {
         "representation_id": { "$ref": "#/$defs/id" },
@@ -112,10 +127,27 @@
         "representative_actor_id": { "$ref": "#/$defs/id" },
         "selection_basis": { "$ref": "#/$defs/nonEmpty" },
         "mandate_scope": { "$ref": "#/$defs/nonEmpty" },
+        "mandate_expires_at": { "$ref": "#/$defs/instant" },
         "mandate_verification": {
           "enum": ["synthetic-unverified", "externally-verified"]
         },
-        "consent_established": { "const": false }
+        "consent_established": { "const": false },
+        "challenge_route": {
+          "type": "object",
+          "required": [
+            "route_id",
+            "receiving_actor_ids",
+            "channel_description",
+            "effect"
+          ],
+          "properties": {
+            "route_id": { "$ref": "#/$defs/id" },
+            "receiving_actor_ids": { "$ref": "#/$defs/stringSet" },
+            "channel_description": { "$ref": "#/$defs/nonEmpty" },
+            "effect": { "const": "pause-and-record-only" }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     },
@@ -213,12 +245,14 @@
           "required": [
             "class",
             "irreversible_effects_prohibited",
+            "remedy_owner_actor_id",
             "rollback_plan",
             "residual_harm"
           ],
           "properties": {
             "class": { "enum": ["reversible", "irreversible"] },
             "irreversible_effects_prohibited": { "type": "boolean" },
+            "remedy_owner_actor_id": { "$ref": "#/$defs/id" },
             "rollback_plan": { "$ref": "#/$defs/nonEmpty" },
             "residual_harm": { "$ref": "#/$defs/nonEmpty" }
           },
@@ -229,11 +263,12 @@
           "minItems": 4,
           "items": {
             "type": "object",
-            "required": ["trigger_id", "condition", "response"],
+            "required": ["trigger_id", "condition", "response", "invoker_actor_ids"],
             "properties": {
               "trigger_id": { "$ref": "#/$defs/id" },
               "condition": { "$ref": "#/$defs/nonEmpty" },
-              "response": { "$ref": "#/$defs/nonEmpty" }
+              "response": { "$ref": "#/$defs/nonEmpty" },
+              "invoker_actor_ids": { "$ref": "#/$defs/stringSet" }
             },
             "additionalProperties": false
           }
@@ -423,7 +458,11 @@
             },
             "activation_state": { "enum": ["blocked", "eligible-for-authority-review"] },
             "blocking_reasons": { "$ref": "#/$defs/stringSet" },
-            "unresolved_dissent_ids": { "$ref": "#/$defs/stringSet" },
+            "unresolved_dissent_ids": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/nonEmpty" }
+            },
             "public_explanation": { "$ref": "#/$defs/nonEmpty" }
           },
           "additionalProperties": false
@@ -520,7 +559,11 @@
           "properties": {
             "position_refs": { "$ref": "#/$defs/stringSet" },
             "dissent_refs": { "$ref": "#/$defs/stringSet" },
-            "unresolved_dissent_refs": { "$ref": "#/$defs/stringSet" }
+            "unresolved_dissent_refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/nonEmpty" }
+            }
           },
           "additionalProperties": false
         },

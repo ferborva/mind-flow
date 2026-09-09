@@ -184,5 +184,10 @@ node meta/review-freeze/review-freeze.mjs verify \
   --manifest=meta/review-freeze/round-06.review-freeze.json
 ```
 
-The freeze records full command output and may be valid even when reproduction
-fails. Inspect `reproduction.status`; integrity of a failing receipt is not a pass.
+Expected historical freeze hash:
+`sha256:a867ead6bfd743241581af438ecf4dfbea5ccedac0be36d3781ebf32212c69b3`.
+
+The freeze records full command output and may be internally valid even when
+reproduction fails. The verifier exits non-zero unless `reproduction.status` is
+`passed`. `--allow-failed-reproduction` is only for forensic inspection. It does
+not convert a failing or unexecuted reproduction into a pass.

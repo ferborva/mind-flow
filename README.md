@@ -29,13 +29,21 @@ conversation.
 | `drafts/` | Pieces in progress. |
 | `posts/` | Finished pieces, short and medium. |
 | `books/` | Longer collections, once enough posts cluster. |
+| `research/` | Source-backed research, claim audits and competing explanations. |
 | `evidence/` | Claim ledger and source records for auditable public claims. |
 | `governance/` | Proposed public charter and IF Protocol. |
 | `contracts/` | Machine-readable condition and action contracts. |
+| `integration/` | Exact cross-contract bundles and change-impact checks. |
 | `forecasts/` | Immutable forecasts, baselines, resolution and scoring. |
+| `signals/` | Versioned signal portfolios bound to explicit conditions. |
+| `paths/` | Rival-path hypotheses, branch conditions and disconfirming evidence. |
+| `options/` | Reversible options and the gates that constrain them. |
+| `preparation/` | Conditional preparation actions for people and institutions. |
 | `communications/` | Public labels, update templates and comprehension tests. |
 | `pilots/` | Bounded validation programmes before any claim of generality. |
 | `dashboard/` | The public Observatory prototype and dated evidence snapshots. |
+| `experiments/` | Comparative tests of whether the Observatory helps or harms. |
+| `reviews/` | Internal and external adversarial findings and dispositions. |
 | `meta/` | Index, themes, backlog of open questions, templates. |
 
 `CLAUDE.md` is the operating manual: how Claude works this repository between

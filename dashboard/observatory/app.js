@@ -3,15 +3,55 @@
 
   const failClosed = () => {
     document.body.dataset.projectionState = "failed";
+    document.body.setAttribute("aria-busy", "false");
     const alert = document.querySelector("#observatory-error");
     if (!alert) return;
     alert.hidden = false;
     alert.textContent = "This projection could not be verified. Rebuild it from a coherent source bundle before interpreting any state or path.";
+    alert.focus?.();
+  };
+
+  const projectionInvariant = (value, message) => {
+    if (!value) throw new Error(`Invalid observatory projection: ${message}`);
+  };
+
+  const assertProjectionData = (data) => {
+    projectionInvariant(data && typeof data === "object", "data is unavailable");
+    projectionInvariant(data.meta?.bundleCoherent === true, "bundle is not coherent");
+    projectionInvariant(data.meta?.status && typeof data.meta.status === "object", "status is unavailable");
+    projectionInvariant(Array.isArray(data.states) && data.states.length > 0, "states are unavailable");
+    projectionInvariant(
+      data.states.some(({ id }) => id === data.condition?.currentState),
+      "current state is outside the registered state set",
+    );
+    projectionInvariant(
+      Number.isFinite(data.forecast?.probability) && data.forecast.probability >= 0 && data.forecast.probability <= 1,
+      "forecast probability is outside the unit interval",
+    );
+    projectionInvariant(Array.isArray(data.programmeGates) && data.programmeGates.length > 0, "gates are unavailable");
+    projectionInvariant(
+      new Set(data.programmeGates.map(({ id }) => id)).size === data.programmeGates.length,
+      "gate identifiers are not unique",
+    );
+    projectionInvariant(
+      data.programmeGates.every((gate) =>
+        ["local-fixture", "real-world"].includes(gate.class) &&
+        ["closed", "local-check-reproduced", "established"].includes(gate.state)),
+      "a gate has an unsupported class or state",
+    );
+    projectionInvariant(
+      data.authority?.effect === "none" && data.authority.actionAuthorised === false,
+      "the research prototype cannot project authority",
+    );
+    projectionInvariant(
+      Array.isArray(data.evolution?.actorValues?.affectedPopulations),
+      "affected populations are unavailable",
+    );
   };
 
   try {
   const data = window.OBSERVATORY_DATA;
-  if (!data) throw new Error("Observatory data is unavailable");
+  assertProjectionData(data);
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -57,6 +97,17 @@
     `Synthetic fixture · ${data.condition.observationCount} hash-bound observations · empirical truth ${data.condition.empiricalTruthEstablished ? "established" : "not established"}`,
   );
   const percentage = Math.round(data.forecast.probability * 100);
+  text(
+    "#demonstration-boundary",
+    `All observations and the ${percentage}% forecast are invented test data. The clock is not trusted. ${currentState.publicLabel.toUpperCase()} means only that the sample rule ran on sample inputs. No real condition, warning, service, decision or authority exists.`,
+  );
+  const affectedPopulations = data.evolution.actorValues.affectedPopulations;
+  const affectedLabels = affectedPopulations.map(({ label }) => label).join("; ");
+  const noneConsulted = affectedPopulations.every(({ voice_status: voiceStatus }) => voiceStatus === "not-consulted");
+  text(
+    "#consultation-status",
+    `This example names ${affectedLabels || "no verified affected population"}. ${noneConsulted ? "None have reviewed the goal, threshold, labels or proposed response." : "Review status differs across the named populations and must be inspected in the source record."} No fixture status creates consent or authority.`,
+  );
   text("#probability-number", `TEST ${percentage}%`);
   $("#probability-ring").style.setProperty("--probability", `${percentage * 3.6}deg`);
   text("#forecast-short", `INVENTED TEST VALUE: ${percentage}% (not an estimate)`);
@@ -65,6 +116,19 @@
   const nextCheck = text("#next-check-date", formatDate(data.preparation.reviewBy));
   nextCheck.dateTime = data.preparation.reviewBy;
   text("#next-check-note", "Proposal checkpoint only. Evidence must be re-evaluated before starting.");
+
+  const realWorldGates = data.programmeGates.filter(({ class: gateClass }) => gateClass === "real-world");
+  const establishedRealWorldGates = realWorldGates.filter(({ state }) => state === "established").length;
+  const localFixtureGates = data.programmeGates.filter(({ class: gateClass }) => gateClass === "local-fixture");
+  const reproducedLocalGates = localFixtureGates.filter(({ state }) => state === "local-check-reproduced").length;
+  text(
+    "#real-gate-summary",
+    `${establishedRealWorldGates} of ${realWorldGates.length} real-world gates established. A local projection cannot establish real conditions, freshness, authority or publication approval.`,
+  );
+  text(
+    "#local-gate-summary",
+    `${reproducedLocalGates} of ${localFixtureGates.length} local sample-file code checks reproduced. These are not evidence gates and must not be combined with the real-world gate status.`,
+  );
 
   data.programmeGates.forEach((gate) => {
     const gateGrid = gate.class === "local-fixture"
@@ -306,6 +370,8 @@
   } else {
     $$(".reveal").forEach((element) => element.classList.add("is-visible"));
   }
+  document.body.dataset.projectionState = "ready";
+  document.body.setAttribute("aria-busy", "false");
   } catch {
     failClosed();
   }

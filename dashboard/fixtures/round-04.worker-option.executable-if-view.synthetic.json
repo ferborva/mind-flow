@@ -41,15 +41,15 @@
       "condition_id": "condition.worker-option.nsw",
       "source_binding": {
         "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-        "artifact_sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b",
+        "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
         "kernel_id": "kernel.worker-option.synthetic",
-        "schema_version": "1.0.0",
-        "manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21"
+        "schema_version": "1.1.0",
+        "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
       },
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
       },
       "claim_scope": {
         "claim": {
@@ -87,21 +87,22 @@
         },
         "evaluator_ref": {
           "id": "mind-flow.executable-if.evaluator",
-          "version": "1.0.0",
-          "digest": "sha256:be2034c8654754b9a02d3b3cf458d56b2c212467adf2cbe2e06d06b261f69f0b",
-          "implementation_digest": "sha256:b9d7b8f725e60fd84b6ee8861b7146c632a2d1b203ec6a0879c6938debe3cef5",
+          "version": "1.1.0",
+          "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
+          "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
+          "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
           "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
         },
         "condition_definition_ref": {
           "condition_id": "condition.worker-option.nsw",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
         },
         "observation_hashes": [
-          "sha256:1c6256d55e695d7550334d9066f45ad9f75becea5691b987bf2d6b2fb53c747d",
-          "sha256:23cafb9da9fc783b335da71e69e0d8a0b49425c7fb870a016c843d53e9d6020d",
-          "sha256:a98bf26d5e6f7c7a03d4506396c11756f86dbcdcdce6535503dab679e5373553",
-          "sha256:e9d6e96d9add46967bd8e36a523865e8a8adb72ba746aceec93ffc382f935792"
+          "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
+          "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
+          "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
+          "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
         ],
         "mechanically_valid_for_evaluation": true,
         "computed_rule_state": {
@@ -134,9 +135,9 @@
         "authority_effect": "none",
         "action_authorised": false,
         "publication_approved": false,
-        "kernel_manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
-        "evidence_state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa",
-        "evaluation_hash": "sha256:65de9f3a480f44db48d90bb50fb89821aebe11b5192501a5e23f41dd21ade732"
+        "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+        "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda"
       },
       "display": {
         "state": "true",
@@ -148,15 +149,15 @@
         "visibility": "always-visible",
         "source_binding": {
           "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-          "artifact_sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b",
+          "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
           "kernel_id": "kernel.worker-option.synthetic",
-          "schema_version": "1.0.0",
-          "manifest_hash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21"
+          "schema_version": "1.1.0",
+          "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
         },
         "condition_definition_ref": {
           "condition_id": "condition.worker-option.nsw",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
         },
         "claim_scope": {
           "claim": {
@@ -191,14 +192,14 @@
           "source": "caller-supplied",
           "trusted": false
         },
-        "evidence_state_hash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa",
+        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
         "observation_hashes": [
-          "sha256:1c6256d55e695d7550334d9066f45ad9f75becea5691b987bf2d6b2fb53c747d",
-          "sha256:23cafb9da9fc783b335da71e69e0d8a0b49425c7fb870a016c843d53e9d6020d",
-          "sha256:a98bf26d5e6f7c7a03d4506396c11756f86dbcdcdce6535503dab679e5373553",
-          "sha256:e9d6e96d9add46967bd8e36a523865e8a8adb72ba746aceec93ffc382f935792"
+          "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
+          "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
+          "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
+          "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
         ],
-        "evaluation_hash": "sha256:65de9f3a480f44db48d90bb50fb89821aebe11b5192501a5e23f41dd21ade732"
+        "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda"
       },
       "context_series": [],
       "forecast_context": [
@@ -223,25 +224,25 @@
       "role": "transition-bundle",
       "id": "bundle.round-04.worker-option.pre-projection",
       "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-      "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225"
+      "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1"
     },
     "possible-path": {
       "role": "possible-path",
       "id": "path.round-04.worker-option.synthetic",
       "path": "paths/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:77fdc6a075fd0331630e55009716969852dc3624f1eda553c2eb02b3022bcd8a"
+      "sha256": "sha256:11aabf2f8216d2075d3f570a69b7d69ea83a1247fa0a63166b38b64df0ff40ba"
     },
     "preparation-register": {
       "role": "preparation-register",
       "id": "register.round-04.worker-option.synthetic",
       "path": "preparation/fixtures/valid/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:925f03ffae576529d005b0eb661097f8bb732fd3bc657383866f3a5ce995f6ec"
+      "sha256": "sha256:f8a8399dd6a35f6f8e7e066432cafeaec5959045c4f71225df9d5ab2cd06c2fc"
     },
     "forecast": {
       "role": "forecast",
       "id": "forecast.worker-option.nsw.synthetic.2026.v1",
       "path": "forecasts/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:0e132cdd23c6c611ce32fa0ca74de9a2f93bcce155153f5626c4d88437c156e7"
+      "sha256": "sha256:26638c751c6f3797eec5448879a423da0bb66c8d971eeddec328a1bb5dec6230"
     }
   },
   "empirical_truth_established": false,

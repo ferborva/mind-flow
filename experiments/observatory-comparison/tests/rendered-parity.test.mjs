@@ -51,6 +51,16 @@ test("both mock-ups lead with their fictional, non-release boundary", () => {
   }
 });
 
+test("both mock-ups style the plural state material category they render", () => {
+  const manifest = readJson(renderManifestPath);
+  for (const arm of manifest.arms) {
+    const html = readFileSync(resolve(repositoryRoot, arm.rendered_output_ref.path), "utf8");
+    assert.match(html, /\.states\{/);
+    assert.doesNotMatch(html, /\.state\{/);
+    assert.match(html, /class="material states"/);
+  }
+});
+
 test("visible fact omission fails even when embedded metadata is unchanged", async () => {
   const { assessRenderedParity } = await import(parityModule);
   const manifest = readJson(renderManifestPath);

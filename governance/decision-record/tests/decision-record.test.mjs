@@ -21,12 +21,12 @@ const fixture = JSON.parse(readFileSync(
 const expectedIfBinding = {
   condition_id: "condition.worker-option.nsw",
   definition_version: "1.0.0",
-  definition_hash: "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e",
+  definition_hash: "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
   receipt_id: "receipt.condition.worker-option.nsw.20260909",
   receipt_version: "1.0.0",
-  receipt_hash: "sha256:6f315cd2a8a4c1847aaa068294100aa134cb20c9842f5cb04db6b9b29639d410",
+  receipt_hash: "sha256:4965f8948f275ceabda4bc8c477dbfabebdf0fd58cc336d329851f78d4c28bec",
   evaluated_at: "2026-09-09T00:00:00Z",
-  valid_until: "2026-12-31T23:59:59Z",
+  valid_until: "2026-10-09T00:00:00Z",
   mechanically_valid_for_evaluation: true,
   computed_rule_state: "true",
   empirical_truth_established: false,
@@ -38,6 +38,11 @@ const expectedGovernanceContext = {
   participants: negotiation.payload.participants,
   affected_consumers: negotiation.payload.affected_consumers,
   representations: negotiation.payload.representations,
+  deliberation_scope: {
+    position_ids: negotiation.payload.positions.map(({ position_id: id }) => id),
+    dissent_ids: negotiation.payload.dissent.map(({ dissent_id: id }) => id),
+    unresolved_dissent_ids: negotiation.payload.outcome.unresolved_dissent_ids,
+  },
 };
 
 function clone() {
@@ -216,4 +221,53 @@ test("hostile: a decision cannot predate the negotiation or its attestations", (
   record.payload.negotiation_ref.record_hash = lateNegotiation.record_hash;
   reseal(record);
   expectError(record, "NEGOTIATION_CHRONOLOGY_INVALID", undefined, lateNegotiation);
+});
+
+test("hostile: a decision cannot share its creation instant with the final negotiation attestation", () => {
+  const record = clone();
+  record.payload.created_at = "2026-09-10T03:15:00Z";
+  record.payload.reconsideration.valid_from = record.payload.created_at;
+  for (const signature of record.signatures) signature.signed_at = record.payload.created_at;
+  reseal(record);
+  expectError(record, "NEGOTIATION_CHRONOLOGY_INVALID");
+});
+
+test("validator output exposes that record context is not authenticated", () => {
+  assert.equal(validate(fixture).context_authenticated, false);
+});
+
+test("a decision can preserve a source negotiation with no unresolved dissent", () => {
+  const resolvedSource = structuredClone(negotiation);
+  resolvedSource.payload.dissent[0].status = "accommodated";
+  resolvedSource.payload.dissent[0].blocks_activation = false;
+  resolvedSource.payload.outcome.agreement_status = "provisional";
+  resolvedSource.payload.outcome.unresolved_dissent_ids = [];
+  resolvedSource.payload.outcome.blocking_reasons = ["authority-unverified"];
+  resolvedSource.payload.outcome.public_explanation =
+    "The recorded dissent was accommodated. Authority remains unverified.";
+  reseal(resolvedSource);
+
+  const record = clone();
+  record.payload.negotiation_ref.record_hash = resolvedSource.record_hash;
+  record.payload.deliberation.unresolved_dissent_refs = [];
+  record.payload.decision.blocking_reasons = ["authority-unverified"];
+  reseal(record);
+  const resolvedContext = {
+    participants: resolvedSource.payload.participants,
+    affected_consumers: resolvedSource.payload.affected_consumers,
+    representations: resolvedSource.payload.representations,
+    deliberation_scope: {
+      position_ids: resolvedSource.payload.positions.map(({ position_id: id }) => id),
+      dissent_ids: resolvedSource.payload.dissent.map(({ dissent_id: id }) => id),
+      unresolved_dissent_ids: [],
+    },
+  };
+  const result = validateDecisionRecord(record, {
+    expectedIfBinding,
+    expectedGovernanceContext: resolvedContext,
+    sourceNegotiation: resolvedSource,
+    asOf: "2026-09-16T00:00:00Z",
+  });
+  assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(result.activation_eligible, false);
 });

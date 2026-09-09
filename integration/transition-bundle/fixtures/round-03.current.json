@@ -87,7 +87,7 @@
     {
       "role": "dashboard-snapshot",
       "path": "dashboard/snapshots/2026-09-08.r3.json",
-      "sha256": "sha256:40618e0e60dde72dd4c64c813665d29b0bc6e3fdf7d7e913a9a45d8bf70f7c38"
+      "sha256": "sha256:80f7b37011618719b25cc1b710f60a8c41e832d76e311ba884514e342693816b"
     },
     {
       "role": "forecast",

@@ -17,12 +17,12 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Check out complete history and review tags
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 
       - name: Use Node.js 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
@@ -32,6 +32,12 @@ jobs:
 
       - name: Run the complete test contract
         run: npm test
+
+      - name: Verify the retained Round 6 review receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-06
+          --manifest=meta/review-freeze/round-06.review-freeze.json
 
       - name: Reproduce the timing-contract migration
         run: node dashboard/tools/migrate-timing-contract.mjs --check
@@ -57,4 +63,4 @@ jobs:
           node experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs --check
 
       - name: Reject generated-artifact drift
-        run: git diff --exit-code
+        run: test -z "$(git status --porcelain --untracked-files=all)"

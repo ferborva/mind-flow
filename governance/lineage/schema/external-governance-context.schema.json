@@ -12,6 +12,7 @@
     "participants",
     "affected_consumers",
     "representations",
+    "deliberation_scope",
     "if_binding",
     "boundaries",
     "context_hash"
@@ -55,6 +56,20 @@
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/representation" }
+    },
+    "deliberation_scope": {
+      "type": "object",
+      "required": ["position_ids", "dissent_ids", "unresolved_dissent_ids"],
+      "properties": {
+        "position_ids": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/stringSet" },
+        "dissent_ids": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/stringSet" },
+        "unresolved_dissent_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/nonEmpty" }
+        }
+      },
+      "additionalProperties": false
     },
     "if_binding": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/ifBinding" },
     "boundaries": { "$ref": "#/$defs/closedBoundaries" },

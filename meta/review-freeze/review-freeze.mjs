@@ -4,14 +4,18 @@ import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
   accessSync,
+  closeSync,
   constants,
+  fsyncSync,
   mkdtempSync,
   mkdirSync,
+  openSync,
   lstatSync,
   readFileSync,
   readdirSync,
   readlinkSync,
   realpathSync,
+  renameSync,
   rmSync,
   symlinkSync,
   writeFileSync,
@@ -195,6 +199,17 @@ const ROUND_06_BUILD_COMMANDS = [
   ["comparison-render-parity-tests", ["node", "--test", "experiments/observatory-comparison/tests/rendered-parity.test.mjs"]],
 ].map(([command_id, argv]) => ({ command_id, argv, cwd: ".", timeout_ms: 900_000 }));
 
+const ROUND_07_REQUIRED_FILES = [
+  ...ROUND_06_REQUIRED_FILES.map(({ path, role }) => ({ path, role })),
+  ...[
+    ["meta/round-07-external-review-brief.md", "Round 07 independent-retest charter"],
+    ["reviews/round-06-disposition-ledger.json", "Round 06 coordinator disposition ledger"],
+    ["reviews/round-07-component-review-manifest.json", "bounded component review plan"],
+    ["contracts/tests/round-06-review-disposition.test.mjs", "disposition completeness regression suite"],
+    ["contracts/tests/round-07-review-plan.test.mjs", "component review coverage regression suite"],
+  ].map(([path, role]) => ({ path, role })),
+];
+
 export const ROUND_04_REVIEW_POLICY = Object.freeze({
   schema_version: "1.0.0",
   policy_id: "review-freeze.round-04",
@@ -215,9 +230,20 @@ export const ROUND_06_REVIEW_POLICY = Object.freeze({
   build_commands: ROUND_06_BUILD_COMMANDS,
 });
 
+export const ROUND_07_REVIEW_POLICY = Object.freeze({
+  schema_version: "1.0.0",
+  policy_id: "review-freeze.round-07",
+  policy_version: "1.0.0",
+  review_round: "round-07",
+  reviewed_ref: "ren/abundance-transition-program",
+  required_files: ROUND_07_REQUIRED_FILES,
+  build_commands: ROUND_06_BUILD_COMMANDS,
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
+  if (reviewRound === "round-07") return ROUND_07_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
@@ -262,10 +288,14 @@ const FIXED_COMMAND_ENVIRONMENT = Object.freeze({
 });
 
 function canonicalJson(value) {
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (Array.isArray(value)) {
+    return `[${Array.from(value, (item) => canonicalJson(item) ?? "null").join(",")}]`;
+  }
   if (value && typeof value === "object" && !Buffer.isBuffer(value)) {
-    return `{${Object.keys(value).sort().map((key) =>
-      `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
+    return `{${Object.keys(value).sort().flatMap((key) => {
+      const encoded = canonicalJson(value[key]);
+      return encoded === undefined ? [] : [`${JSON.stringify(key)}:${encoded}`];
+    }).join(",")}}`;
   }
   return JSON.stringify(value);
 }
@@ -273,6 +303,43 @@ function canonicalJson(value) {
 export function canonicalHash(value) {
   const bytes = Buffer.isBuffer(value) ? value : Buffer.from(canonicalJson(value));
   return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
+
+export function writeReviewFreezeAtomically(outputPath, manifest) {
+  const bytes = `${JSON.stringify(manifest, null, 2)}\n`;
+  const parent = dirname(outputPath);
+  let temporaryPath;
+  let descriptor;
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    temporaryPath = resolve(
+      parent,
+      `.review-freeze-${process.pid}-${Date.now()}-${attempt}.tmp`,
+    );
+    try {
+      descriptor = openSync(temporaryPath, "wx", 0o600);
+      break;
+    } catch (error) {
+      if (error.code !== "EEXIST" || attempt === 9) throw error;
+    }
+  }
+
+  try {
+    writeFileSync(descriptor, bytes, "utf8");
+    fsyncSync(descriptor);
+    closeSync(descriptor);
+    descriptor = undefined;
+    renameSync(temporaryPath, outputPath);
+    temporaryPath = undefined;
+    const directoryDescriptor = openSync(parent, "r");
+    try {
+      fsyncSync(directoryDescriptor);
+    } finally {
+      closeSync(directoryDescriptor);
+    }
+  } finally {
+    if (descriptor !== undefined) closeSync(descriptor);
+    if (temporaryPath !== undefined) rmSync(temporaryPath, { force: true });
+  }
 }
 
 function gitEnvironment(gitPath) {
@@ -1039,8 +1106,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06] [--checkout] [--runtime-parity] [--generator-parity]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -1058,10 +1125,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       const outputPath = resolveReviewOutput(defaultRepositoryRoot, output, {
         force: arguments_.includes("--force"),
       });
-      writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`, {
-        encoding: "utf8",
-        mode: 0o600,
-      });
+      writeReviewFreezeAtomically(outputPath, manifest);
       process.stdout.write(`${manifest.freeze_hash} ${manifest.review_target.commit} ${manifest.reproduction.status}\n`);
       if (manifest.reproduction.status === "failed") process.exitCode = 2;
     } else if (operation === "verify") {
@@ -1080,7 +1144,19 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
           process.stderr.write(`${error.code} ${error.path}: ${error.message}\n`);
         }
         process.exitCode = 1;
-      } else process.stdout.write(`verified ${manifest.freeze_hash}\n`);
+      } else if (
+        manifest.reproduction.status !== "passed" &&
+        !arguments_.includes("--allow-failed-reproduction")
+      ) {
+        process.stderr.write(
+          `integrity verified, but reproduction did not pass: ${manifest.reproduction.status}\n`,
+        );
+        process.exitCode = 2;
+      } else {
+        process.stdout.write(
+          `verified ${manifest.freeze_hash} reproduction=${manifest.reproduction.status}\n`,
+        );
+      }
     } else {
       process.stderr.write(usage());
       process.exitCode = 1;

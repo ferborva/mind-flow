@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/dashboard/archive/snapshot-1.6.schema.json",
+  "title": "Abundance Transition Observatory corrected snapshot",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_id",
+    "snapshot_id",
+    "generated_at",
+    "generator",
+    "correction",
+    "reproducibility",
+    "entities",
+    "signals",
+    "public_update",
+    "if_path"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.6.0" },
+    "record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
+    "snapshot_id": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/snapshot_id" },
+    "generated_at": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/generated_at" },
+    "generator": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/generator" },
+    "title": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/title" },
+    "notes": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/notes" },
+    "correction": { "$ref": "#/$defs/correction" },
+    "reproducibility": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/reproducibility" },
+    "entities": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/entities" },
+    "signals": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/signals" },
+    "public_update": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/public_update" },
+    "if_path": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/if_path" },
+    "crises": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/crises" },
+    "playbooks": { "$ref": "https://mind-flow.local/dashboard/snapshot.schema.json#/properties/playbooks" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "correction": {
+      "type": "object",
+      "required": [
+        "kind",
+        "supersedes_record_id",
+        "supersedes_snapshot_id",
+        "supersedes_snapshot_sha256",
+        "issued_on",
+        "summary",
+        "changes",
+        "changed_fields",
+        "source_values_changed"
+      ],
+      "properties": {
+        "kind": { "const": "corrected_revision" },
+        "supersedes_record_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.r[1-9][0-9]*$" },
+        "supersedes_snapshot_id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "supersedes_snapshot_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "issued_on": { "type": "string", "format": "date" },
+        "summary": { "$ref": "#/$defs/nonEmptyString" },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "changed_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        },
+        "source_values_changed": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

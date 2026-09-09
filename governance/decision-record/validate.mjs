@@ -23,7 +23,7 @@ const decisionSchemaBytes = readFileSync(
   new URL("./schema/decision-record.schema.json", import.meta.url),
 );
 const schemaDigests = {
-  common: "34e1475fc3a0db226e6c4dc1c4675fe7d91a81d2e158c3312d221eb21764642e",
+  common: "f1ae03fee24d05b63460fdc953416256083741b92f8431a7106afa6f723b04f7",
   decision: "c9e074335dce77bb149f97ac91bb00d2799b579e6e651777486d3080fd434d34",
 };
 for (const [name, bytes] of [
@@ -133,8 +133,8 @@ function sourceProblems(
   }
   const latestSourceSignature = Math.max(...sourceNegotiation.signatures
     .map(({ signed_at: value }) => Date.parse(value)));
-  if (Date.parse(sourceNegotiation.payload.created_at) > Date.parse(record?.payload?.created_at) ||
-      latestSourceSignature > Date.parse(record?.payload?.created_at)) {
+  if (Date.parse(sourceNegotiation.payload.created_at) >= Date.parse(record?.payload?.created_at) ||
+      latestSourceSignature >= Date.parse(record?.payload?.created_at)) {
     errors.push(issue(
       "NEGOTIATION_CHRONOLOGY_INVALID",
       "/payload/negotiation_ref",
@@ -247,6 +247,7 @@ export function validateDecisionRecord(record, {
   return {
     machine_valid: machineValid,
     activation_eligible: activationEligible,
+    context_authenticated: false,
     errors,
     boundaries: boundariesForResult(payload),
   };

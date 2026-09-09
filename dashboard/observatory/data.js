@@ -47,7 +47,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:74b1901e50d79fbe4288b90be45c20b0e1bb22b264885bc5b3d60575086bd439"
+        "sha256": "sha256:79cf8091f2609c35b8be90afb2d9a3d7d1dcd3efbbe5842b79154f23f0ed4235"
       },
       {
         "path": "contracts/agency-map/README.md",
@@ -83,7 +83,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:5465cf4e2844af6af0fbc745b70b2bb884849fd04245215efc6122c139549377"
+        "sha256": "sha256:e53fe837a127cc60b098d1fbbdfc08efbeb775846da2f160dfdb9aff3867b0e2"
       },
       {
         "path": "contracts/evolution/fixtures/valid/all-operations.json",
@@ -107,7 +107,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "contracts/evolution/schema/executable-if-evolution.schema.json",
-        "sha256": "sha256:85b76e63d83ec5b730c85cd00bffbeab2a6d2f85edde2b22c409e9464d80f51b"
+        "sha256": "sha256:91942cfab0ef724b76aa06c7d5d76fd032be50cad2e2580e0c865c1a0cf10107"
       },
       {
         "path": "contracts/evolution/tests/condition-evolution.test.mjs",
@@ -127,35 +127,35 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "contracts/executable-if/evaluator-semantics.json",
-        "sha256": "sha256:19bc777c1cf6b7dc0b86b79a5b6a8fab7882faa9bab55e17aacc3946ddadf387"
+        "sha256": "sha256:0adebe4b5f7de826c3aa469c264bf2c8fa4a1e2949b140f4fe612e8aea3b64d9"
       },
       {
         "path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-        "sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b"
+        "sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70"
       },
       {
         "path": "contracts/executable-if/README.md",
-        "sha256": "sha256:5028e72ee6dfa14c3fd09a0acd4f6412894a2e595d438b05dc22a04d5df5aae1"
+        "sha256": "sha256:d5ff1f184916d7a7685de134ae74f30495f52fb941325e28f9b18eb8d2c37296"
       },
       {
         "path": "contracts/executable-if/schema/executable-if-kernel.schema.json",
-        "sha256": "sha256:8da1eeac594cc659cc312868978e828cd961688b1f3fd248d762d0679e9b464c"
+        "sha256": "sha256:cb9ad428607607ec0d5290e0cae8784cb372b9e940ce27c12329c4f17b5fe89f"
       },
       {
         "path": "contracts/executable-if/tests/executable-if.test.mjs",
-        "sha256": "sha256:9fb1c1b6fa79df858bc031c0e55711b0bc0254996a38863a93c0681e22793f34"
+        "sha256": "sha256:bf4eb37cedb15cf7d05de4ef3aec0802205fef4b37d2ff01586ffd9ce45ebe7b"
       },
       {
         "path": "contracts/executable-if/tools/build-synthetic-fixture.mjs",
-        "sha256": "sha256:fc2fbe449770616eb6b4bd43fbe1a2fc57be69222fdffba2b5b12ec86ab787a2"
+        "sha256": "sha256:28d1cbeb40080e57fa40f79bc62291f7efb178b8d0eb77e5a1e1bb9e9f13a739"
       },
       {
         "path": "contracts/executable-if/validate.mjs",
-        "sha256": "sha256:ded5129f2de92ff4850f5d73356387e84bb3abfd5bfe00b2b6d16ae4099db47d"
+        "sha256": "sha256:433071824f9707b9d02aee0cf6c0ef94452ffb8dc4c95543ea4491ee30e0d49a"
       },
       {
         "path": "dashboard/observatory/app.js",
-        "sha256": "sha256:498def98886157a4400758776d5c68e9a057d90ccbb0d00681df37a141014275"
+        "sha256": "sha256:f79302beb6f7278ebdcbd8c7a02bb053a93fbb2def9acea4681b53abd3309061"
       },
       {
         "path": "dashboard/observatory/build.mjs",
@@ -163,15 +163,23 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "dashboard/observatory/index.html",
-        "sha256": "sha256:51e45c03d4e98ff6efd71ae6d006487bb0270300a567863b29454165918f1252"
+        "sha256": "sha256:5f9aa0d4202103efcbce19444d1e3e3e9f7fd7dc6bb85687fbdd1b855b854bcc"
       },
       {
         "path": "dashboard/observatory/styles.css",
-        "sha256": "sha256:6fc612b327c00b36f8eccc3f5e8899eb8fc5ab2191bfc2d53802254edfc5332a"
+        "sha256": "sha256:10ef0d1e40ab3dbcb3e179d6365897137a651cd0885eba4d2a64d4f0e2e11025"
+      },
+      {
+        "path": "dashboard/schema/archive/snapshot-1.2.schema.json",
+        "sha256": "sha256:7848c2f2fea331e936c5903a2263a2540d7fd1d9bc8f6f505528f206e5ff67ad"
       },
       {
         "path": "dashboard/schema/archive/snapshot-1.5.schema.json",
         "sha256": "sha256:c0eca0461b2302771652aed8b466ed2c32dacef351b9dd51c93284a24d235227"
+      },
+      {
+        "path": "dashboard/schema/archive/snapshot-1.6.schema.json",
+        "sha256": "sha256:1923030d1a69a0350081e872f67569a0566b0f365ca6789a1f74a2220b015162"
       },
       {
         "path": "dashboard/schema/archive/snapshot-1.8.schema.json",
@@ -187,7 +195,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "dashboard/schema/SCHEMA.md",
-        "sha256": "sha256:b4534b341c5082cef66cbcd2d351145abc24cb472c0b79807f8f257e689c2039"
+        "sha256": "sha256:6bded40e3b1c713ca6f4c29d6ba0823461849fe8fac970b5ce06ab53c3e5ad3b"
       },
       {
         "path": "dashboard/schema/snapshot-index.schema.json",
@@ -195,7 +203,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "dashboard/schema/snapshot-schema-registry.json",
-        "sha256": "sha256:f10198f3c4a5b8e077c089025e3ccf0131894f3efc354de7768ff9b40d29c988"
+        "sha256": "sha256:0540d7b87a3722d7ac0da9d7d93a9f9a13d65df2a2fdeb4c6cfbfd5f66f1415a"
       },
       {
         "path": "dashboard/schema/snapshot.schema.json",
@@ -215,7 +223,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "dashboard/tools/build-nero-baseline.mjs",
-        "sha256": "sha256:40f60ec2a3800442f02484464c38972086ead2fd6c13818af0a3d5c7fdea3cef"
+        "sha256": "sha256:d2d7e63359277fc20ee1f937b295f99d3958225f1be435a2b1b19d8bb4d4dc7d"
       },
       {
         "path": "dashboard/tools/build-round-04-executable-if-view.mjs",
@@ -227,11 +235,11 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "dashboard/tools/fetch_snapshot.py",
-        "sha256": "sha256:a7ae1fb69f6419fee847a741a52a3ca1de3463a009e9a64d90b64647824ff147"
+        "sha256": "sha256:071f10de2e6b076eb3f87d978a5ffdce5ce5f9af5b4e33f6700a09a2e47d4f75"
       },
       {
         "path": "dashboard/tools/migrate-timing-contract.mjs",
-        "sha256": "sha256:924a7d6496e3c3396a8fa77598678365c94f6e8adb92058c7ddbfeb7bc81d5de"
+        "sha256": "sha256:01e7ddc0b5f36d32efb045ef19afa70ecff5554ac6a4bf5d02663d5c61e1fed4"
       },
       {
         "path": "dashboard/tools/transition-bundle-binding.mjs",
@@ -263,15 +271,15 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "forecasts/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:0e132cdd23c6c611ce32fa0ca74de9a2f93bcce155153f5626c4d88437c156e7"
+        "sha256": "sha256:26638c751c6f3797eec5448879a423da0bb66c8d971eeddec328a1bb5dec6230"
       },
       {
         "path": "forecasts/lib/evaluation.mjs",
-        "sha256": "sha256:dd65cec3c6f73aa2a1994e41848d3cd0afc9317e86f19b2cefb4bdafb4850975"
+        "sha256": "sha256:f3590137c45dc1c71be2afdb4947e166d66981b5324cf033964c60b7c5894c7e"
       },
       {
         "path": "forecasts/lib/registry.mjs",
-        "sha256": "sha256:b67b4e598b14ef2ae5807df8f82b4a42446a19c6674228b38f19d30d285bf7a8"
+        "sha256": "sha256:540ce4175a8fa60087a2c1d179b3e5c4a1f461350d14eb9997540e01e8e49044"
       },
       {
         "path": "forecasts/lib/resolution.mjs",
@@ -323,11 +331,11 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "forecasts/README.md",
-        "sha256": "sha256:36cac009131b81ea4c9a147af29f2b6b9bbecb8d68ba7075ee1a1b1fb360a4a6"
+        "sha256": "sha256:5ecfe276bc8e0eff62ee05991d58e15d3e5040bb333212ac7587641fe881ac9a"
       },
       {
         "path": "forecasts/schema/binary-forecast.schema.json",
-        "sha256": "sha256:b3dead84ca9fdde1c0f81c7fd5fbbb761f5b87b9457f50602069670a0701a67e"
+        "sha256": "sha256:61754385c54fba4fea78c90fb16a93b86352cdab8010f203bde53e20dde23715"
       },
       {
         "path": "forecasts/schema/evaluation-plan.schema.json",
@@ -339,7 +347,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "forecasts/tests/hostile-hardening.test.mjs",
-        "sha256": "sha256:c959923d40b6c110ad93fe7365721dd9582853f1359525960350ee977bb7560b"
+        "sha256": "sha256:bfae3acbe6098e43a27a5188650299d93d93e5490bb514434d4b2922dadadb0d"
       },
       {
         "path": "forecasts/tests/prospective-evaluation.test.mjs",
@@ -351,7 +359,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "forecasts/tests/round-04-exact-binding.test.mjs",
-        "sha256": "sha256:09820e8f16301e57c425876ab86bfa278adefaa6d847d172d229bc09886b5532"
+        "sha256": "sha256:47cff2cfdb21ee80efb4bf9bfd9a057a07574d01fdb384bb573122c9749cffb3"
       },
       {
         "path": "forecasts/tools/build-round-04-fixture.mjs",
@@ -367,7 +375,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "integration/transition-bundle/fixtures/round-03.current.json",
-        "sha256": "sha256:96a2d0c9c54c26b5dba7380cc063f6151c70c53c7135948b6bdffffe2b528656"
+        "sha256": "sha256:41ecdab113ac7adc7307ce83ab6e01df7d757c6b7e78b78bb345f80cd581971d"
       },
       {
         "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
@@ -375,15 +383,15 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.complete.json",
-        "sha256": "sha256:4533372fb8b1b1e6e097bb1d09ca53c12984cd8881f7b8986f2d59ff95685aa3"
+        "sha256": "sha256:e609471d9a483e1a0b1b1cbf23b58c629ba69a5f73aea911f6dc570175ef290a"
       },
       {
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225"
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1"
       },
       {
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.scope-manifest.json",
-        "sha256": "sha256:8e49d311626a8ba418c01f447bac235cff258da35ce62d3a9e5120ca100a37cc"
+        "sha256": "sha256:7933b9f51bd8d4d1b5e327dc7fdcd42f07851debf1527f05e746d357317e22f2"
       },
       {
         "path": "integration/transition-bundle/MIGRATION.md",
@@ -399,7 +407,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "integration/transition-bundle/schema/transition-bundle.schema.json",
-        "sha256": "sha256:580056c6176eaedcf7d25bde0add04f2c65979ae7c7257ad678db45662941771"
+        "sha256": "sha256:963d10b3962ee16318f8a2a620a9b3f8d9e72f4765c883111b11278dc36a8f76"
       },
       {
         "path": "integration/transition-bundle/tests/coherent-round-04.test.mjs",
@@ -423,7 +431,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "integration/transition-bundle/tests/transition-bundle.test.mjs",
-        "sha256": "sha256:df2ba45c50c56aa2eba84e170662a1c03256873e373bf128fed3f68a90325935"
+        "sha256": "sha256:563240b1fb0694c72c51457e19534e1352bce008363d2fa09790b3a37ca77c75"
       },
       {
         "path": "integration/transition-bundle/tools/assess.mjs",
@@ -443,11 +451,11 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "package-lock.json",
-        "sha256": "sha256:24f052c139e6634d77229bfa73c71214f23c18cd429caec13d430949796138ff"
+        "sha256": "sha256:0bde227a8a85e8aeec4d52157610060b9b8b4b58e056b5c6367cdec239c78f1c"
       },
       {
         "path": "package.json",
-        "sha256": "sha256:e170fb9cae4cc3d1d09270836c476728cf4452c53912e9752f174a09655166a3"
+        "sha256": "sha256:330f015dc9db51b5bd024bf538b7efee373956cba96940f7e26fe21ec22f3930"
       },
       {
         "path": "paths/fixtures/australian-clerical-transition.synthetic.json",
@@ -455,7 +463,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "paths/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:77fdc6a075fd0331630e55009716969852dc3624f1eda553c2eb02b3022bcd8a"
+        "sha256": "sha256:11aabf2f8216d2075d3f570a69b7d69ea83a1247fa0a63166b38b64df0ff40ba"
       },
       {
         "path": "paths/README.md",
@@ -463,7 +471,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "paths/schema/possible-path.schema.json",
-        "sha256": "sha256:ff90c81d4f67bc922564c682c02b83e95546bfcd64f52c379e6b3e2b60928a5c"
+        "sha256": "sha256:85d9703b285913253fe4ef30ea66a312e1d8532f28327b0fd6abcb790dac6bce"
       },
       {
         "path": "paths/tests/possible-path.test.mjs",
@@ -475,7 +483,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "paths/validate.mjs",
-        "sha256": "sha256:32c6fa4275a5dbdeca46a9d246812581a2c06d9b6b2aa71a3e963c71e76066d7"
+        "sha256": "sha256:3bc2b2ca49834212ec4e82e0982ef9060a5578dddc5a11eb14e6eb4d596834c8"
       },
       {
         "path": "preparation/fixtures/hostile/action-scope-drift.json",
@@ -567,7 +575,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "preparation/fixtures/valid/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:925f03ffae576529d005b0eb661097f8bb732fd3bc657383866f3a5ce995f6ec"
+        "sha256": "sha256:f8a8399dd6a35f6f8e7e066432cafeaec5959045c4f71225df9d5ab2cd06c2fc"
       },
       {
         "path": "preparation/lib/validate-v12.mjs",
@@ -591,7 +599,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "preparation/schema/preparation-register-1.2.schema.json",
-        "sha256": "sha256:38eec628d6d728cf6984bd5437a60775ed50944e2593aaab239bf48e2450cf07"
+        "sha256": "sha256:f03fbc7a761bbf01b8683c0e0b24da9053acc60eb693bddce0082d888de68450"
       },
       {
         "path": "preparation/schema/preparation-register.schema.json",
@@ -623,7 +631,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "path": "signals/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+        "sha256": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
       },
       {
         "path": "signals/README.md",
@@ -646,7 +654,7 @@ window.OBSERVATORY_DATA = {
         "sha256": "sha256:cca581d919d04e3e470b150beac4cacfbdc289c0ab1e592d7902f2b446fb801a"
       }
     ],
-    "manifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+    "manifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
   },
   "programmeGates": [
     {
@@ -659,14 +667,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "integrity",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.integrity",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -679,14 +687,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "scope",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.scope",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -699,14 +707,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "history",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.history",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -719,14 +727,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "truth",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.truth",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -739,14 +747,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "freshness",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.freshness",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -759,14 +767,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "evidence",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.evidence",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -779,14 +787,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "forecast",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.forecast",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -799,14 +807,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "preparation",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.preparation",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -819,14 +827,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "authority",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.authority",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     },
     {
@@ -839,14 +847,14 @@ window.OBSERVATORY_DATA = {
       "source": {
         "gateId": "publication",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
-        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "sha256": "sha256:6f03a355c7c1185251a476d9d6b2dcaf0429411027e2a299004b596d62a280e1",
         "assessmentOutputPath": "gates.publication",
         "assessor": {
           "path": "integration/transition-bundle/assess.mjs",
           "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
           "scope": "entrypoint-in-conservative-validation-context"
         },
-        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+        "validationContextManifestSha256": "sha256:c6e7cfdac206ca5e4d71fcd17194f99d7960b71c688320035a7bf9838210178b"
       }
     }
   ],
@@ -855,7 +863,7 @@ window.OBSERVATORY_DATA = {
     "definition": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
     },
     "proposition": "Affected workers have a credible alternative and an accessible human review route.",
     "renderedIf": "Affected workers in the registered scope retain a credible alternative and an accessible human review route, at the standard that both registered protection predicates are satisfied, from 2026-01-01T00:00:00Z through 2026-12-31T23:59:59Z",
@@ -886,7 +894,7 @@ window.OBSERVATORY_DATA = {
     "currentState": "true",
     "mechanicallyValid": true,
     "empiricalTruthEstablished": false,
-    "evaluationHash": "sha256:65de9f3a480f44db48d90bb50fb89821aebe11b5192501a5e23f41dd21ade732",
+    "evaluationHash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda",
     "evaluatedAt": "2026-09-09T00:00:00Z",
     "evaluationSource": "recomputed-from-executable-if-kernel",
     "observationCount": 4,
@@ -954,7 +962,7 @@ window.OBSERVATORY_DATA = {
       "endsAt": "2026-12-31T23:59:59Z"
     },
     "relationToCurrentState": "orthogonal-to-current-computed-if-state",
-    "claimCeiling": "This research-only forecast assigns 62% to this future event: The registered credible-option coverage measure is at or above 0.90 for the exact scope and future observation window. At issue time, 2026-09-09T00:00:00Z, the executable IF rule computed true. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act.",
+    "claimCeiling": "This research-only forecast assigns 62% to this future event: The registered credible-option coverage measure is at or above 0.90 for the exact scope and future observation window. Provenance class: agent-proposal. At issue time, 2026-09-09T00:00:00Z, the executable IF rule computed true. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act.",
     "method": {
       "kind": "human",
       "description": "Synthetic judgement for contract testing. It is not derived from the current IF state and is not an empirical estimate.",
@@ -1093,12 +1101,12 @@ window.OBSERVATORY_DATA = {
       ],
       "historyStatus": "complete-source-bound",
       "definitionVersion": "1.0.0",
-      "definitionHash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      "definitionHash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
     },
     "evidence": {
       "eventCount": 11,
       "tipEventId": "evidence-event.august-review.added",
-      "stateHash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa",
+      "stateHash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
       "sourceStatus": "not-acquired"
     },
     "path": {
@@ -1297,13 +1305,13 @@ window.OBSERVATORY_DATA = {
             {
               "condition_id": "condition.worker-option.nsw",
               "ledger_ref": "urn:mind-flow:evolution:ledger.round-04.worker-option.synthetic",
-              "ledger_manifest_hash": "sha256:fd258eecb21ecdc57f157f3b4b7f4b9db85f548bab52398b2c1e063eb753c7c2",
+              "ledger_manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
               "condition_version": 1,
               "as_of_sequence": 5,
               "as_of_event_id": "event.worker-option.merge",
-              "as_of_event_hash": "sha256:fa558c5398a40fae22eeabe65b6d987b15b013786b5e1c6c698b7abfe67340c6",
+              "as_of_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f",
               "outcome_scope_hash": "sha256:6297bdb10971769c2ddb5f2edbbaf44ba733bf34d3e2e2969efd67d2a4822e3e",
-              "canonical_binding_hash": "sha256:ab20df9059dc86bb7f919ba403d975107dfefca21467954d1942620c1a9fb875"
+              "canonical_binding_hash": "sha256:8b588066ce776a60337630f6e93e99c4f07abbea389992fa25a3a36932ec73e7"
             }
           ],
           "branches": {
@@ -1514,43 +1522,43 @@ window.OBSERVATORY_DATA = {
       {
         "role": "agency-map",
         "path": "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:74b1901e50d79fbe4288b90be45c20b0e1bb22b264885bc5b3d60575086bd439"
+        "sha256": "sha256:79cf8091f2609c35b8be90afb2d9a3d7d1dcd3efbbe5842b79154f23f0ed4235"
       },
       {
         "role": "evolution-ledger",
         "path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:5465cf4e2844af6af0fbc745b70b2bb884849fd04245215efc6122c139549377"
+        "sha256": "sha256:e53fe837a127cc60b098d1fbbdfc08efbeb775846da2f160dfdb9aff3867b0e2"
       },
       {
         "role": "signal-registry",
         "path": "signals/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+        "sha256": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
       },
       {
         "role": "possible-path",
         "path": "paths/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:77fdc6a075fd0331630e55009716969852dc3624f1eda553c2eb02b3022bcd8a"
+        "sha256": "sha256:11aabf2f8216d2075d3f570a69b7d69ea83a1247fa0a63166b38b64df0ff40ba"
       },
       {
         "role": "preparation-register",
         "path": "preparation/fixtures/valid/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:925f03ffae576529d005b0eb661097f8bb732fd3bc657383866f3a5ce995f6ec"
+        "sha256": "sha256:f8a8399dd6a35f6f8e7e066432cafeaec5959045c4f71225df9d5ab2cd06c2fc"
       },
       {
         "role": "forecast",
         "path": "forecasts/fixtures/round-04.worker-option.synthetic.json",
-        "sha256": "sha256:0e132cdd23c6c611ce32fa0ca74de9a2f93bcce155153f5626c4d88437c156e7"
+        "sha256": "sha256:26638c751c6f3797eec5448879a423da0bb66c8d971eeddec328a1bb5dec6230"
       },
       {
         "role": "executable-if-kernel",
         "path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-        "sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b"
+        "sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70"
       }
     ],
     "rootRole": "agency-map",
     "kernelId": "kernel.worker-option.synthetic",
-    "kernelManifestHash": "sha256:c248487bfa576fa7fd7f5aff532192f6b83e32a1743dc6fc90842d4c0d4fcf21",
+    "kernelManifestHash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
     "evidenceTipEventId": "evidence-event.august-review.added",
-    "evidenceStateHash": "sha256:54ec8fe8edb58bc8b66a5253870a1846f1be47d508d4276b7200ce9c2fcc63fa"
+    "evidenceStateHash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
   }
 };

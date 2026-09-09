@@ -164,11 +164,12 @@
             },
             "evaluator_ref": {
               "type": "object",
-              "required": ["id", "version", "digest", "implementation_digest", "conformance_vectors_digest"],
+              "required": ["id", "version", "digest", "schema_digest", "implementation_digest", "conformance_vectors_digest"],
               "properties": {
                 "id": { "$ref": "#/$defs/id" },
                 "version": { "$ref": "#/$defs/semver" },
                 "digest": { "$ref": "#/$defs/checksum" },
+                "schema_digest": { "$ref": "#/$defs/checksum" },
                 "implementation_digest": { "$ref": "#/$defs/checksum" },
                 "conformance_vectors_digest": { "$ref": "#/$defs/checksum" }
               },

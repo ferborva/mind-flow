@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
@@ -15,7 +15,9 @@ const dashboard = resolve(here, "..");
 const templatePath = join(dashboard, "web", "index.template.html");
 const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r3.json");
 const predecessorSnapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
-const legacySnapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
+const originalLegacySnapshotPath = join(dashboard, "snapshots", "2026-09-07.json");
+const correctedLegacySnapshotPath = join(dashboard, "snapshots", "2026-09-07.r2.json");
+const firstNextDaySnapshotPath = join(dashboard, "snapshots", "2026-09-08.json");
 const snapshotIndexPath = join(dashboard, "snapshots", "index.json");
 const schemaPath = join(dashboard, "schema", "snapshot.schema.json");
 const timingSchemaPath = join(dashboard, "schema", "source-timing.schema.json");
@@ -33,16 +35,41 @@ const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 const evidencePolicy = JSON.parse(readFileSync(evidencePolicyPath, "utf8"));
 
 test("the corrected record preserves immutable, honestly unverified predecessors", () => {
-  const legacyBytes = readFileSync(legacySnapshotPath);
-  const legacy = JSON.parse(legacyBytes);
+  const originalLegacyBytes = readFileSync(originalLegacySnapshotPath);
+  const correctedLegacyBytes = readFileSync(correctedLegacySnapshotPath);
+  const correctedLegacy = JSON.parse(correctedLegacyBytes);
+  const firstNextDay = JSON.parse(readFileSync(firstNextDaySnapshotPath, "utf8"));
   const index = JSON.parse(readFileSync(snapshotIndexPath, "utf8"));
   assert.equal(
-    createHash("sha256").update(legacyBytes).digest("hex"),
-    "f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
-    "the superseded public evidence record must remain byte-for-byte immutable",
+    createHash("sha256").update(originalLegacyBytes).digest("hex"),
+    "949a9d3f695f0bc2e619a3344a0c17516cf8309b3c48a27021d67e0d96772053",
+    "the original public evidence record must remain byte-for-byte immutable",
   );
-  assert.equal(legacy.reproducibility.raw_input_status, "not_pinned");
-  assert.equal(legacy.reproducibility.snapshot_rebuild_status, "not_verified");
+  assert.equal(
+    correctedLegacy.correction.supersedes_snapshot_sha256,
+    `sha256:${createHash("sha256").update(originalLegacyBytes).digest("hex")}`,
+  );
+  assert.equal(
+    firstNextDay.correction.supersedes_snapshot_sha256,
+    `sha256:${createHash("sha256").update(correctedLegacyBytes).digest("hex")}`,
+  );
+  assert.equal(
+    correctedLegacy.correction.supersedes_record_id,
+    "2026-09-07.r1",
+  );
+  assert.equal(
+    correctedLegacy.reproducibility.raw_input_status,
+    "not_pinned",
+  );
+  assert.equal(
+    correctedLegacy.reproducibility.snapshot_rebuild_status,
+    "not_verified",
+  );
+  assert.notEqual(
+    createHash("sha256").update(correctedLegacyBytes).digest("hex"),
+    "f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2",
+    "the explicit correction envelope must have its own content address",
+  );
   assert.equal(snapshot.correction?.supersedes_record_id, "2026-09-08.r2");
   assert.equal(snapshot.correction?.supersedes_snapshot_id, snapshot.snapshot_id);
   assert.equal(
@@ -53,6 +80,7 @@ test("the corrected record preserves immutable, honestly unverified predecessors
   assert.equal(index.latest, snapshot.record_id);
   assert.deepEqual(index.snapshots.map(({ id }) => id), [
     "2026-09-07.r1",
+    "2026-09-07.r2",
     "2026-09-08.r1",
     "2026-09-08.r2",
     snapshot.record_id,
@@ -161,6 +189,13 @@ test("the observatory leads with status, public meaning, IFs, paths, action and 
   assert.match(template, /id=["']condition-history-status["']/);
   assert.match(template, /condition history is not bound to this snapshot/i);
   assert.match(template, /current state does not prove how the wording, scope or evidence changed/i);
+  assert.match(
+    template,
+    /<p class="plain-warning" id="condition-history-status"[^>]*>\s*<strong>History unavailable\.<\/strong>/i,
+  );
+  assert.match(template, /id=["']if-provenance-status["'][^>]*aria-live=["']polite["']/i);
+  assert.match(template, /path\.provenance/);
+  assert.match(template, /Path provenance:/i);
   assert.match(template, /registered route requires five layers.*may still omit others/i);
   assert.doesNotMatch(template, /promise holds only if five layers hold/i);
   assert.match(template, /function renderConditionMap\(/);
@@ -427,7 +462,7 @@ test("published statistics and estimates are not presented as direct observation
   }
 });
 
-test("content-addressed raw input is verified before an adapter transforms it", () => {
+test("content-addressed raw input is verified before an adapter transforms it", (t) => {
   const transformed = JSON.parse(execFileSync(
     "python3",
     [fetchSnapshotPath, "--verify-input-manifest", rawInputManifestPath],
@@ -443,12 +478,13 @@ test("content-addressed raw input is verified before an adapter transforms it", 
   assert.ok(fixture.raw_input.adapter.version);
   assert.ok(fixture.raw_input.adapter.selected_fields.includes("value"));
 
-  const outDir = mkdtempSync(join(tmpdir(), "seldon-raw-evidence-"));
+  const outDir = mkdtempSync(join(dashboard, "evidence", "raw", ".seldon-test-"));
+  t.after(() => rmSync(outDir, { recursive: true, force: true }));
   const mutatedRawPath = join(outDir, "mutated.json");
-  const sourceRawPath = resolve(dirname(rawInputManifestPath), fixture.raw_input.path);
+  const sourceRawPath = resolve(dashboard, fixture.raw_input.path);
   copyFileSync(sourceRawPath, mutatedRawPath);
   writeFileSync(mutatedRawPath, `${readFileSync(mutatedRawPath, "utf8")}not-json`);
-  fixture.raw_input.path = "mutated.json";
+  fixture.raw_input.path = relative(dashboard, mutatedRawPath);
   const mutatedManifestPath = join(outDir, "manifest.json");
   writeFileSync(mutatedManifestPath, JSON.stringify(fixture));
   assert.throws(
@@ -461,7 +497,7 @@ test("content-addressed raw input is verified before an adapter transforms it", 
   );
 
   const unsupported = structuredClone(fixture);
-  unsupported.raw_input.path = mutatedRawPath;
+  unsupported.raw_input.path = relative(dashboard, mutatedRawPath);
   unsupported.raw_input.sha256 = fixture.raw_input.sha256;
   unsupported.raw_input.adapter.version = "999.0.0";
   const unsupportedManifestPath = join(outDir, "unsupported.json");
@@ -483,7 +519,7 @@ test("content-addressed raw input is verified before an adapter transforms it", 
   const wrongIndicatorDigest = createHash("sha256").update(wrongIndicatorBytes).digest("hex");
   const wrongIndicatorPath = join(outDir, "wrong-indicator.json");
   writeFileSync(wrongIndicatorPath, wrongIndicatorBytes);
-  wrongIndicator.raw_input.path = wrongIndicatorPath;
+  wrongIndicator.raw_input.path = relative(dashboard, wrongIndicatorPath);
   wrongIndicator.raw_input.id = `sha256:${wrongIndicatorDigest}`;
   wrongIndicator.raw_input.sha256 = wrongIndicatorDigest;
   wrongIndicator.raw_input.byte_length = wrongIndicatorBytes.length;

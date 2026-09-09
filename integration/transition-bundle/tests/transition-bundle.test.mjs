@@ -110,6 +110,7 @@ test("schema 1.2 adds the executable IF boundary without rewriting Round 3", () 
   assert.ok(bundleSchema.properties.canonical.properties.executable_if_ref);
   assert.ok(bundleSchema.$defs.executableIfRef);
   assert.ok(bundleSchema.$defs.executableIfRef.required.includes("evidence_state_ref"));
+  assert.ok(bundleSchema.$defs.evaluatorRef.required.includes("schema_digest"));
   assert.ok(bundleSchema.properties.artifacts.items.properties.role.enum.includes(
     "executable-if-kernel",
   ));
@@ -121,6 +122,13 @@ test("schema 1.2 adds the executable IF boundary without rewriting Round 3", () 
   missingKernel.schema_version = "1.2.0";
   const result = assessTransitionBundle(missingKernel, { rootDir: root });
   assert.equal(result.machine_valid, false);
+  assert.ok(result.issues.some(({ code }) => code === "BUNDLE_SCHEMA_INVALID"));
+});
+
+test("hostile: the canonical evaluator reference cannot omit its schema digest", () => {
+  const { attempted } = round4Attempt();
+  delete attempted.canonical.executable_if_ref.evaluator_ref.schema_digest;
+  const result = assessTransitionBundle(attempted, { rootDir: root });
   assert.ok(result.issues.some(({ code }) => code === "BUNDLE_SCHEMA_INVALID"));
 });
 

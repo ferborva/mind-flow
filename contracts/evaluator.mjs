@@ -9,7 +9,7 @@ import { isDeepStrictEqual } from "node:util";
  * layer. This module only combines those states without erasing uncertainty.
  */
 
-export const EVALUATOR_VERSION = "3.0.0";
+export const EVALUATOR_VERSION = "3.0.1";
 
 export const PREDICATE_TRUTH_STATES = Object.freeze([
   "true",
@@ -765,6 +765,7 @@ function transitionRecord(
     prior_state_ref: priorStateRef,
     generated_at: generatedAt,
     proposal,
+    basis_gate_state: run.gate_results[action.gate].state,
     proposed_lifecycle: proposedLifecycle,
     authority_effect: "none",
     automatic_transition: false,

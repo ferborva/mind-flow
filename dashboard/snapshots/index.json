@@ -5,30 +5,37 @@
   {
    "id": "2026-09-07.r1",
    "snapshot_id": "2026-09-07",
-   "schema_version": "1.5.0",
+   "schema_version": "1.2.0",
    "path": "2026-09-07.json",
-   "sha256": "sha256:f6d5586b0fc60d76d6ade46ee380e74f250a8aabfae3b4a921781f0f0f3fc4f2"
+   "sha256": "sha256:949a9d3f695f0bc2e619a3344a0c17516cf8309b3c48a27021d67e0d96772053"
+  },
+  {
+   "id": "2026-09-07.r2",
+   "snapshot_id": "2026-09-07",
+   "schema_version": "1.6.0",
+   "path": "2026-09-07.r2.json",
+   "sha256": "sha256:9abcde332aadcc4f1339cb25e0917ec169d236b686fde443a54a19fbfc15beac"
   },
   {
    "id": "2026-09-08.r1",
    "snapshot_id": "2026-09-08",
    "schema_version": "1.8.0",
    "path": "2026-09-08.json",
-   "sha256": "sha256:f09f5b7c2cf2187bd6997921b0b48b2b9857dbf110520167037ff7b00ef8fd35"
+   "sha256": "sha256:aa5d46b1588aaa384f48f62a0a67a43b2a200b896a1e548e84dc4f9834c4a14d"
   },
   {
    "id": "2026-09-08.r2",
    "snapshot_id": "2026-09-08",
    "schema_version": "2.0.0",
    "path": "2026-09-08.r2.json",
-   "sha256": "sha256:80cdae407821c49df33dc4fd1e5e630fc23d269f543cacc512c4705cd11bfb1f"
+   "sha256": "sha256:914ee626869892795a57c0e9b9ee31f73e48aefa9f7e65a2419350374006158c"
   },
   {
    "id": "2026-09-08.r3",
    "snapshot_id": "2026-09-08",
    "schema_version": "2.1.0",
    "path": "2026-09-08.r3.json",
-   "sha256": "sha256:40618e0e60dde72dd4c64c813665d29b0bc6e3fdf7d7e913a9a45d8bf70f7c38"
+   "sha256": "sha256:80f7b37011618719b25cc1b710f60a8c41e832d76e311ba884514e342693816b"
   }
  ]
 }

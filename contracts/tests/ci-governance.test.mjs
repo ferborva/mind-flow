@@ -8,6 +8,10 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
 const workflow = readFileSync(resolve(root, ".github", "workflows", "integrity.yml"), "utf8");
 const packageJson = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
+const rootReadme = readFileSync(resolve(root, "README.md"), "utf8");
+const reviewsReadme = readFileSync(resolve(root, "reviews", "README.md"), "utf8");
+const nodeVersion = readFileSync(resolve(root, ".nvmrc"), "utf8").trim();
+const operatingManual = readFileSync(resolve(root, "CLAUDE.md"), "utf8");
 const snapshotIndex = JSON.parse(readFileSync(
   resolve(root, "dashboard", "snapshots", "index.json"),
   "utf8",
@@ -27,7 +31,39 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
     "CI must rebuild the snapshot declared latest by the governed index",
   );
   assert.match(workflow, /node dashboard\/tools\/build-australia-pilot\.mjs/);
-  assert.match(workflow, /git diff --exit-code/);
+  assert.match(
+    workflow,
+    /node meta\/review-freeze\/review-freeze\.mjs verify[\s\S]*--policy=round-06[\s\S]*round-06\.review-freeze\.json/,
+    "CI must verify the retained Round 06 receipt",
+  );
+  assert.match(workflow, /git status --porcelain/);
+  assert.doesNotMatch(workflow, /git diff --exit-code/);
+  assert.doesNotMatch(workflow, /uses:\s*[^\s]+@v\d+\b/, "CI actions must not use moving major tags");
+  for (const action of ["actions/checkout", "actions/setup-node"]) {
+    assert.match(
+      workflow,
+      new RegExp(`uses:\\s*${action.replace("/", "\\/")}@[a-f0-9]{40}\\b`),
+      `${action} must be pinned to an immutable commit SHA`,
+    );
+  }
+});
+
+test("local and CI runtime contracts pin the same Node major", () => {
+  assert.equal(nodeVersion, "22");
+  assert.equal(packageJson.engines.node, "22.x");
+  assert.match(workflow, new RegExp(`node-version:\\s*${nodeVersion}`));
+});
+
+test("agent-authored commits must disclose a distinct authorship identity", () => {
+  assert.match(operatingManual, /agent-authored commits/i);
+  assert.match(operatingManual, /distinct author identity/i);
+  assert.match(operatingManual, /agent:\s*ren/i);
+});
+
+test("the one-change cadence is scoped to scheduled editorial runs", () => {
+  assert.match(operatingManual, /scheduled editorial runs/i);
+  assert.match(operatingManual, /programme engineering and\s+review work/i);
+  assert.match(operatingManual, /small,\s+reviewable commits/i);
 });
 
 test("the complete test contract includes claim and assumption governance", () => {
@@ -73,6 +109,24 @@ test("the complete test contract includes the condition agency map", () => {
     packageJson.scripts["test:agency-map"],
     /contracts\/agency-map\/tests\/\*\.test\.mjs/,
   );
+});
+
+test("repository and review maps expose the complete review surface", () => {
+  for (const directory of [
+    "research/",
+    "integration/",
+    "options/",
+    "paths/",
+    "preparation/",
+    "experiments/",
+    "signals/",
+    "reviews/",
+  ]) assert.equal(rootReadme.includes(`\`${directory}\``), true, `${directory} is absent`);
+
+  for (const round of ["02", "03", "04", "05", "06", "07"]) {
+    assert.match(reviewsReadme, new RegExp(`\\| ${round} \\|`));
+  }
+  assert.match(reviewsReadme, /Round 05 was an internal integration checkpoint/i);
 });
 
 test("the complete test contract includes and reproduces the Round 4 Observatory", () => {
