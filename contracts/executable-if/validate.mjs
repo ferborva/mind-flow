@@ -383,6 +383,12 @@ function signalRange(signal) {
   return { minimum, maximum };
 }
 
+function observationWithinDomain(signal, value) {
+  if (signal.value_kind !== 'number') return true;
+  const range = signalRange(signal);
+  return Boolean(range && Number.isFinite(value) && value >= range.minimum && value <= range.maximum);
+}
+
 export function evaluateCondition(definition, signals, observations, { evaluatedAt }) {
   const signalMap = new Map(signals.map((signal) => [signalKey(signal), signal]));
   const predicateResults = {};
@@ -446,6 +452,11 @@ export function evaluateCondition(definition, signals, observations, { evaluated
     if (observation.unit !== signal.unit || !typeMatches(signal.value_kind, observation.value)) {
       errors.push(error("OBSERVATION_TYPE_OR_UNIT_MISMATCH", path,
         "observation type and unit must match its exact signal definition"));
+      continue;
+    }
+    if (!observationWithinDomain(signal, observation.value)) {
+      errors.push(error("OBSERVATION_VALUE_OUTSIDE_DOMAIN", `${path}/value`,
+        "numeric observation must lie inside its declared or intrinsic signal domain"));
       continue;
     }
     if (!observation.coverage || observation.coverage.eligible_units < 1 ||
@@ -923,6 +934,10 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
     if (!signal || observation.unit !== signal.unit || !typeMatches(signal.value_kind, observation.value)) {
       errors.push(error("OBSERVATION_TYPE_OR_UNIT_MISMATCH", path,
         "observation type and unit must match its exact signal definition"));
+    }
+    if (signal && !observationWithinDomain(signal, observation.value)) {
+      errors.push(error("OBSERVATION_VALUE_OUTSIDE_DOMAIN", `${path}/value`,
+        "numeric observation must lie inside its declared or intrinsic signal domain"));
     }
     const start = Date.parse(observation.period.start);
     const end = Date.parse(observation.period.end);

@@ -27,7 +27,10 @@ revising the same claim.
 
 Numeric predicates must leave possible passing and failing values. Ratios have
 an intrinsic range of 0 to 1, percentages 0 to 100. Other numeric signals declare
-`value_range: {minimum, maximum}` with finite, ordered bounds. A declared range
+`value_range` with at least one finite bound (`minimum`, `maximum`, or both).
+An omitted endpoint is unbounded, so nonnegative money, duration or workforce
+intensity need no invented upper limit. Two supplied bounds must be ordered.
+A declared range
 may narrow, never expand, an intrinsic range. These bounds establish logical
 plausibility, not empirical justification for the selected threshold. A count's
 maximum needs a documented population or physical bound, not a number chosen
