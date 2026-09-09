@@ -61,3 +61,36 @@ provider-receipt chronology review. No forecast is scored. E has rewritten the
 five drafts with capture-backed first-person provenance; the universal strict
 disclaimer target is not yet met. The enterprise-choice GAP and enough line
 remain open and parked respectively. No publication or intervention occurred.
+
+## 2026-09-09 11:23 UTC, different-owner C preparation review
+
+Ren's measurement-lane agent reviewed forecast-owner commit
+`47b3021fe602c964268143a45d4de68b8fd200e3`, reading the candidate constructor,
+basis, native resolver, evaluation-plan constructor and prewritten procedure.
+This is different-agent review, not human or institutional independence. The
+reviewer did not author C; the review does not approve the reviewer's own
+numeric-domain repairs or B/D measurements.
+
+The exact reviewed native resolver SHA-256 is
+`8af0941d1139cfce3fda58e12a78a090af4c1dc7e79a8bb01628a6aa6e09f6c7`;
+procedure README is
+`2ed459d36adf1f43ee08f96bb8f0c4580704eceb2319b43e7ef9aa82079250dc`;
+candidate constructor is
+`9ac315bcb9b1fed089729370ea282b84a913fb45c9f0e8fa0caec85f6ecbb672`.
+
+The native resolver consumes the complete verified ZIP stream, requires a
+unique October cell with frozen occupation/SA4/date/labels, rejects malformed,
+negative and unsafe integer counts, and preserves the threshold at 4,217.
+The 0.72 primary probability equals its registered reference baseline, so no
+improvement claim follows. The procedure specifies first-release retention,
+separate corrections, unavailable-data handling, an independently claimed
+adjudicator for voids and the post-publication performance guard. Scoring stays
+withheld. These are code/procedure observations, not proof of publisher
+authenticity or a future resolution's correctness.
+
+Node 22 ran 25 focused tests: 22 passed and 3 generic issuance-binding tests
+failed with `SOURCE_KERNEL_INVALID` against stale synthetic fixture bindings.
+The NERO-specific native resolver, basis, receipt-required preparation and
+evaluation tests passed. Integration must reproduce the full set after the
+central consumer rebind. No real sealed-protocol/provider-receipt chronology
+was reviewed at this checkpoint, and issuance is not cleared by this note.
