@@ -19,6 +19,19 @@
     "series"
   ],
   "properties": {
+    "correction": {
+      "type": "object",
+      "required": ["record_id", "supersedes_record_id", "supersedes_sha256", "corrected_on", "code", "measurement_changed"],
+      "properties": {
+        "record_id": { "const": "nero-clerical-2026-08.r2" },
+        "supersedes_record_id": { "const": "nero-clerical-2026-08" },
+        "supersedes_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "corrected_on": { "type": "string", "format": "date" },
+        "code": { "const": "classification-verification-status-required" },
+        "measurement_changed": { "const": false }
+      },
+      "additionalProperties": false
+    },
     "schema_version": { "const": "1.0.0" },
     "id": { "type": "string", "pattern": "^nero-clerical-baseline-[0-9]{4}-[0-9]{2}$" },
     "title": { "$ref": "#/$defs/nonEmptyString" },
