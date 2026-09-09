@@ -1146,4 +1146,3 @@ inside the same sentence.
 - [Transition control system](2026-09-07-transition-control-system.md)
 - [Public charter proposal](../governance/public-charter.md)
 - [IF Protocol proposal](../governance/if-protocol.md)
-
