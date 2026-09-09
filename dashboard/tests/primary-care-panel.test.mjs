@@ -4,8 +4,18 @@ import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { transformPrimaryCare } from '../tools/primary-care-panel.mts';
+import { transformPrimaryCare, buildPrimaryCarePanel } from '../tools/primary-care-panel.mts';
 import { validateTimingRule, assessPointTiming } from '../timing/validation.mjs';
+
+test('every added panel series declares its distinct reason for inclusion', () => {
+  const { dispositions } = buildPrimaryCarePanel();
+  assert.equal(dispositions.added.length, 4);
+  for (const series of dispositions.added) {
+    assert.equal(typeof series.justification, 'string', series.id);
+    assert.ok(series.justification.length > 150, series.id);
+  }
+  assert.equal(new Set(dispositions.added.map(s => s.justification)).size, 4);
+});
 
 test('financial-year timing uses June end rather than December end', () => {
   const rule = { kind: 'external_dataset', reference_period_kind: 'australian_financial_year_ending', max_reference_lag_days: 366, release_cadence: { kind: 'unknown', reason: 'Annual source, exact next release unknown' } };

@@ -123,6 +123,26 @@ not sixteen completed measurements of agency. The added series are:
 | Prescription cost-related delay | Price; survey-scope residents aged 15+ needing prescription medicines | Commonwealth PBS policy and pharmacies |
 | Urgent GP care within four hours | Availability; survey-scope residents aged 15+ who obtained urgent GP care | Practices, PHNs and workforce/service funders |
 
+**Why GP cost delay earns a place.** Reported delay or non-use because of cost
+observes a price barrier, including people who needed care but did not obtain
+it. A fee schedule alone cannot show that outcome. This is an annual survey
+estimate, not household affordability or evidence that price dominates.
+
+**Why fully bulk-billed patients earn a separate place.** Administrative claims
+show whether patients incurred a GP gap during the year. This complements,
+rather than replicates, self-reported delay. Non-users are absent: an improving
+share cannot establish access among people with no claimed attendance.
+
+**Why prescription cost delay earns a place.** Obtaining a consultation does
+not establish access to the prescribed medicine. This measures a distinct
+downstream price barrier among people needing medicines. The aggregate does
+not establish access to atorvastatin, a particular dose or an individual course.
+
+**Why urgent GP timeliness earns a place.** Price indicators need a timely-access
+counterpart, so lower cost is not treated as sufficient access. Reported waits
+among urgent users are closer to experienced delivery than workforce totals.
+Unmet urgent need is excluded, and four hours is not a universal clinical standard.
+
 The [dispositions](../pilots/australia/basket/panel-dispositions.json) preserve
 the distinction between removing a missing measure and replacing its concept.
 These populations differ. NSW context is not a rural individual's diagnosis;

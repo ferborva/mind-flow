@@ -243,12 +243,13 @@ a read-through. The big ones:
       is honest and pre-empts the obvious attack, and his own guideline says
       only-upsides reads as propaganda. But publicly reversing his own argument
       is his call.
-- [ ] **The five phases and the dates.** Mine, and the dates are defensible but
-      arbitrary. Does he want them argued or removed?
-- [ ] **The four crossings and the movement forecasts.** Mine, speculative, and
-      the least evidenced part of the piece.
-- [ ] **Phase 5 entrenchment, "constitutional or treaty-level".** A political
-      position he has never stated.
+- [x] **The five phases and dates, retired in Round 08.** The dated schedule,
+      four crossings and movement forecasts were removed from the draft;
+      conditions may coexist, reverse or never arise. No decision to restore
+      them is being requested.
+- [x] **Phase 5 entrenchment, retired with the schedule.** The unsupported
+      constitutional/treaty-level position is no longer in his draft. Any
+      future proposal would need separate attribution and evidence.
 
 ### From the second rant, 2026-09-07
 

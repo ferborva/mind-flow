@@ -4,6 +4,8 @@ title: When an IF Becomes Somebody's WHEN
 subtitle: The other side of a conditional promise
 type: draft
 status: review
+provenance: commissioned-proposal
+author: Ren
 size: medium
 themes: [abundance]
 sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
