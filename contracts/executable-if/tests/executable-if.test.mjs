@@ -26,6 +26,40 @@ const conformanceVectors = JSON.parse(readFileSync(
 ));
 const clone = (value) => structuredClone(value);
 
+test("numeric observations respect intrinsic and one-sided domains in both evaluators", () => {
+  for (const [unit, range, value, accepted] of [
+    ['ratio', undefined, 2, false], ['percent', undefined, 101, false],
+    ['AUD', { minimum: 0 }, -1, false], ['AUD', { minimum: 0 }, 1e12, true],
+    ['AUD', { maximum: 0 }, 1, false], ['AUD', { maximum: 0 }, -1e12, true],
+  ]) {
+    const item = clone(definition('condition.worker-option.nsw'));
+    const signals = clone(fixture.signals);
+    signals[0].unit = unit;
+    if (range) signals[0].value_range = range;
+    signals[0].signal_definition_hash = computeSignalDefinitionHash(signals[0]);
+    item.predicates['option-coverage'].signal_ref.signal_definition_hash = signals[0].signal_definition_hash;
+    item.predicates['option-coverage'].threshold = { value: range?.maximum === 0 ? -1 : 0.8, unit };
+    item.evaluator_ref = FIXED_EVALUATOR_REF;
+    item.definition_hash = computeConditionDefinitionHash(item);
+    const observations = observationsFor(item.condition_id).filter(o => o.predicate_id === 'option-coverage').map(original => {
+      const observation = clone(original);
+      observation.condition_definition_ref.definition_hash = item.definition_hash;
+      observation.signal_ref = item.predicates['option-coverage'].signal_ref;
+      observation.unit = unit; observation.value = value;
+      observation.observation_hash = computeObservationHash(observation);
+      return observation;
+    });
+    assert.ok(observations.length > 0);
+    const result = evaluateCondition(item, signals, observations, { evaluatedAt: '2026-09-09T00:00:00Z' });
+    assert.equal(result.mechanically_valid_for_evaluation, accepted, `${unit} ${value}: ${JSON.stringify(result.errors)}`);
+    if (!accepted) assert.ok(result.errors.some(e => e.code === 'OBSERVATION_VALUE_OUTSIDE_DOMAIN'));
+  }
+  const changed = clone(fixture);
+  changed.observations[0].value = 2;
+  const result = validateExecutableIfKernel(resealKernel(changed));
+  assert.ok(result.errors.some(e => e.code === 'OBSERVATION_VALUE_OUTSIDE_DOMAIN'));
+});
+
 test("one-sided numeric domains preserve feasible pass and fail outcomes", () => {
   function evaluate(range, operator, threshold) {
     const item = clone(definition("condition.worker-option"));
