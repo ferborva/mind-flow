@@ -4,7 +4,8 @@ import { normalizedIdentity } from "./identity.mjs";
 // Substring rejection is deliberately conservative and may reject distinct people.
 // Passing it neither authenticates a person nor establishes their appointment.
 function comparisonSkeleton(value) {
-  return normalizedIdentity(value)?.replace(/[\p{P}\p{White_Space}]/gu, "") || "";
+  return normalizedIdentity(value)?.normalize("NFD").replace(/\p{Mn}/gu, "")
+    .replace(/[\p{P}\p{White_Space}]/gu, "") || "";
 }
 
 export function assertAdjudicationIntake(forecast) {
