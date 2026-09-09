@@ -1,3 +1,13 @@
+---
+id: round-08-nero-registration-receipt
+title: NERO registration receipt and source revision
+type: internal-review
+status: draft
+provenance: agent-authored-research
+created: 2026-09-09
+updated: 2026-09-09
+---
+
 # Registration receipt, not issuance
 
 The exact 3,414-byte JSON response body returned by GitHub's comment API is
@@ -20,3 +30,6 @@ preserved to make that chronology inspectable.
 No forecast has been issued by this registration. Final coordinator clearance
 and the frozen issue window still gate issuance. Bound source files remain at
 reviewed revision `47b3021`; any later bound change requires disclosed abandonment.
+The full resolved source revision is
+`47b3021fe602c964268143a45d4de68b8fd200e3`. This note records its expansion
+without changing the short revision string in any sealed record.
