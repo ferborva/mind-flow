@@ -82,6 +82,13 @@ test("CI explicitly replays retained Round 08 measurements and ignored artifact 
   ]) assert.equal(workflow.includes(command), true, command);
 });
 
+test("the Round 08 seal unconditionally verifies its retained receipt in CI", () => {
+  const step = workflow.match(/      - name: Verify the retained Round 8 review receipt\n([\s\S]*?)(?=\n      - name:|$)/)?.[1];
+  assert.ok(step, "Round 08 receipt verification step is required");
+  assert.doesNotMatch(step, /\bif:|\bif\b|\|\||--allow-failed-reproduction|continue-on-error/);
+  assert.match(step, /node meta\/review-freeze\/review-freeze\.mjs verify\s+--policy=round-08\s+--manifest=meta\/review-freeze\/round-08\.review-freeze\.json/);
+});
+
 test("local and CI runtime contracts pin the same Node major", () => {
   assert.equal(nodeVersion, "22");
   assert.equal(packageJson.engines.node, "22.x");
