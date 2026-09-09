@@ -13,7 +13,7 @@ Review findings remain provisional until they are resolved, tested, and accepted
 | 04 | Integrated contract review candidate | [`../meta/round-04-external-review-brief.md`](../meta/round-04-external-review-brief.md) | [`../meta/review-freeze/round-04.review-freeze.json`](../meta/review-freeze/round-04.review-freeze.json) | Incorporated into Round 06 |
 | 05 | Internal integration checkpoint | None | None | No external review was claimed |
 | 06 | Completed adversarial review | [`../meta/round-06-external-review-brief.md`](../meta/round-06-external-review-brief.md) | [`../meta/review-freeze/round-06.review-freeze.json`](../meta/review-freeze/round-06.review-freeze.json) | [`round-06-disposition-ledger.json`](round-06-disposition-ledger.json) |
-| 07 | Repair candidate for independent retest | [`../meta/round-07-external-review-brief.md`](../meta/round-07-external-review-brief.md) | Must be created after the reviewable component stack exists | [`round-07-component-review-manifest.json`](round-07-component-review-manifest.json) |
+| 07 | Repair candidate for independent retest | [`../meta/round-07-external-review-brief.md`](../meta/round-07-external-review-brief.md) | [`../meta/review-freeze/round-07.review-freeze.json`](../meta/review-freeze/round-07.review-freeze.json) | [`round-07-component-review-manifest.json`](round-07-component-review-manifest.json) |
 
 Round 05 was an internal integration checkpoint, not a missing external review.
 The Round 06 freeze pins the reviewed bytes at commit
@@ -22,6 +22,7 @@ remain blocked while Round 07 repairs are developed and independently retested.
 The Round 07 manifest divides the integration tree into six sequential,
 path-bounded review lanes. Those lanes improve reviewability but do not make a
 partial stack independently mergeable or grant approval.
+The Round 07 receipt pins candidate `5da6a1a0df6c43d6e76200f71f9298615c9c9f88`.
 
 The review views are PRs
 [#3](https://github.com/ferborva/mind-flow/pull/3),

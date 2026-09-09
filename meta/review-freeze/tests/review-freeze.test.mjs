@@ -317,6 +317,26 @@ test("the retained Round 06 historical freeze is pinned and verifies against its
   );
 });
 
+test("the retained Round 07 freeze is pinned and verifies against its immutable target", () => {
+  const manifest = JSON.parse(readFileSync(resolve(
+    repositoryRoot,
+    "meta/review-freeze/round-07.review-freeze.json",
+  ), "utf8"));
+  assert.equal(
+    manifest.review_target.commit,
+    "5da6a1a0df6c43d6e76200f71f9298615c9c9f88",
+  );
+  assert.equal(
+    manifest.freeze_hash,
+    "sha256:e975ab1d7694d9ffea91465d447fc556c977c56d08b70408f0b2127f05e1ee6a",
+  );
+  assert.equal(manifest.reproduction.status, "passed");
+  assert.deepEqual(
+    verifyReviewFreeze(manifest, { repositoryRoot, policy: ROUND_07_REVIEW_POLICY }),
+    { valid: true, errors: [] },
+  );
+});
+
 test("CLI verification fails closed for coherent failed and not-run receipts", () => {
   const source = JSON.parse(readFileSync(resolve(
     repositoryRoot,

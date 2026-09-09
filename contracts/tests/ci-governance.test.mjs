@@ -36,6 +36,11 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
     /node meta\/review-freeze\/review-freeze\.mjs verify[\s\S]*--policy=round-06[\s\S]*round-06\.review-freeze\.json/,
     "CI must verify the retained Round 06 receipt",
   );
+  assert.match(
+    workflow,
+    /node meta\/review-freeze\/review-freeze\.mjs verify[\s\S]*--policy=round-07[\s\S]*round-07\.review-freeze\.json/,
+    "CI must verify the retained Round 07 receipt",
+  );
   assert.match(workflow, /git status --porcelain/);
   assert.doesNotMatch(workflow, /git diff --exit-code/);
   assert.doesNotMatch(workflow, /uses:\s*[^\s]+@v\d+\b/, "CI actions must not use moving major tags");

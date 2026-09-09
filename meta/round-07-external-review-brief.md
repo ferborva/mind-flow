@@ -16,9 +16,13 @@ Determine whether the Round 06 findings are locally contained in the repair
 candidate. Do not infer that a passing review approves publication, public
 recruitment, operational use, negotiation, warning or intervention.
 
-The exact candidate commit and freeze hash are published in the Round 07
-review-freeze wrapper after the candidate commit exists. Review that immutable
-commit, not the moving integration branch.
+Review candidate commit
+`5da6a1a0df6c43d6e76200f71f9298615c9c9f88`, frozen as
+`sha256:e975ab1d7694d9ffea91465d447fc556c977c56d08b70408f0b2127f05e1ee6a`.
+The final component head is
+`f66a03fe5581bc0ad57f0ef655e619741e7f021b`; both commits resolve to tree
+`5129cf79057e4f8635cba226dab1e9023d230f76`. Review those immutable objects,
+not the moving integration branch.
 
 ## Why this round exists
 
