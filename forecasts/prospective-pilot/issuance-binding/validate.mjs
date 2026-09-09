@@ -542,7 +542,7 @@ function assessIssueWindow(protocol, forecast, errors) {
 
 function currentSchemaBlockers(protocol, forecast) {
   if (!protocol || !forecast) return [];
-  return [
+  const blockers = [
     issue(
       "MATURE_PROTOCOL_REFERENCE_UNREPRESENTABLE",
       "/matureForecast",
@@ -574,6 +574,24 @@ function currentSchemaBlockers(protocol, forecast) {
       "retained baseline bytes match their registered digests, but no independent runner has reproduced either probability",
     ),
   ];
+  return forecast.prospective_registration === undefined ? blockers : blockers.slice(-1);
+}
+
+function assessProspectiveRegistration(protocol, forecast, addresses, errors) {
+  if (forecast?.prospective_registration === undefined) return;
+  const expected = {
+    protocol_id: protocol?.protocol_id,
+    protocol_content_sha256: protocol?.registration?.protocol_content_sha256,
+    preregistration_sha256: addresses.preregistration_sha256,
+    campaign_manifest_id: protocol?.campaign?.manifest?.manifest_id,
+    campaign_manifest_sha256: protocol?.campaign?.manifest?.manifest_sha256,
+    target_id: protocol?.target?.target_id,
+    resolver: protocol?.target?.resolver,
+    mature_contract: matureForecastContractIdentity(),
+  };
+  mismatch(errors, isDeepStrictEqual(forecast.prospective_registration, expected),
+    "PROSPECTIVE_REGISTRATION_MISMATCH", "/matureForecast/prospective_registration",
+    "typed prospective registration must exactly bind protocol bytes, campaign, target, resolver and the fixed mature contract");
 }
 
 export function assessFutureIssuanceBinding({
@@ -612,6 +630,7 @@ export function assessFutureIssuanceBinding({
 
   let baselineBindingsValid = false;
   if (parsedProtocol.document && parsedForecast.document) {
+    assessProspectiveRegistration(parsedProtocol.document, parsedForecast.document, contentAddresses, errors);
     assessCampaign(parsedProtocol.document, parsedForecast.document, errors);
     assessTarget(
       parsedProtocol.document,

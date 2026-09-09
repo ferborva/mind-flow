@@ -38,6 +38,7 @@ export const IMMUTABLE_ISSUE_FIELDS = [
   "void_policy",
   "decision_context",
   "issue_basis",
+  "prospective_registration",
 ];
 
 const LIFECYCLE = new Set(["issued", "resolved", "void"]);
@@ -856,6 +857,9 @@ export function assertIssuedForecastImmutable(issued, later) {
 }
 
 export function assertForecastSemantics(forecast, sources) {
+  if (forecast?.prospective_registration !== undefined && forecast.schema_version !== "1.4.0") {
+    throw new TypeError("prospective_registration requires exact-binding forecast schema 1.4.0");
+  }
   if (!LIFECYCLE.has(forecast?.status)) {
     throw new TypeError("forecast has an invalid lifecycle status");
   }

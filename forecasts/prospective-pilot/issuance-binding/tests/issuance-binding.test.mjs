@@ -18,7 +18,9 @@ import {
 import {
   assessFutureIssuanceBinding,
   contentSha256,
+  matureForecastContractIdentity,
 } from "../validate.mjs";
+import { assertIssuedForecastImmutable as assertImmutableIssue } from "../../../lib/registry.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(here, "../../../..");
@@ -309,6 +311,48 @@ function refreshBytes(setupResult) {
   setupResult.input.preregistrationContext = externalProtocolContext(setupResult.protocol);
   return setupResult;
 }
+
+function bindProspectiveRegistration(candidate) {
+  const { protocol, forecast } = candidate;
+  forecast.prospective_registration = {
+    protocol_id: protocol.protocol_id,
+    protocol_content_sha256: protocol.registration.protocol_content_sha256,
+    preregistration_sha256: sha256(jsonBytes(protocol)),
+    campaign_manifest_id: protocol.campaign.manifest.manifest_id,
+    campaign_manifest_sha256: protocol.campaign.manifest.manifest_sha256,
+    target_id: protocol.target.target_id,
+    resolver: structuredClone(protocol.target.resolver),
+    mature_contract: matureForecastContractIdentity(),
+  };
+  return refreshBytes(candidate);
+}
+
+test("typed prospective references clear representational blockers but do not assert execution or authority", () => {
+  const candidate = bindProspectiveRegistration(setup());
+  const result = assess(candidate);
+  assert.equal(result.mature_forecast_valid, true, JSON.stringify(result.issues));
+  assert.deepEqual(issueCodes(result), []);
+  assert.deepEqual(blockerCodes(result), ["BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED"]);
+  assert.equal(result.issuance_authorised, false);
+});
+
+test("prospective references cannot drift or disappear after issue", () => {
+  for (const field of ["protocol_id", "protocol_content_sha256", "preregistration_sha256",
+    "campaign_manifest_id", "campaign_manifest_sha256", "target_id", "resolver", "mature_contract"]) {
+    const candidate = bindProspectiveRegistration(setup());
+    const before = structuredClone(candidate.forecast);
+    candidate.forecast.prospective_registration[field] = field.endsWith("sha256")
+      ? `sha256:${"f".repeat(64)}` : "different";
+    refreshBytes(candidate);
+    assert.equal(assess(candidate).binding_complete, false);
+    assert.ok(issueCodes(assess(candidate)).includes("PROSPECTIVE_REGISTRATION_MISMATCH"));
+    assert.throws(() => assertImmutableIssue(before, candidate.forecast), /prospective_registration/);
+  }
+  const candidate = bindProspectiveRegistration(setup());
+  const before = structuredClone(candidate.forecast);
+  delete candidate.forecast.prospective_registration;
+  assert.throws(() => assertImmutableIssue(before, candidate.forecast), /prospective_registration/);
+});
 
 test("valid components remain blocked where the mature schema cannot carry exact issuance bindings", () => {
   const candidate = setup();
