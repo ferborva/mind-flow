@@ -18,7 +18,7 @@
   "fact_pack": {
     "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
     "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-    "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
+    "sha256": "sha256:4d97ae0f68ad723e4e008f550f33be5a5b9b1b30d3ee51a085bca4f933ccf46f"
   },
   "arms": [
     {
@@ -28,12 +28,12 @@
         "artifact_id": "instrument.conventional-release.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-conventional.synthetic.json",
-        "sha256": "sha256:1b7fcfe9499f242d7d7784977763f9798d46e239395f4034bb14c11848d56bf1"
+        "sha256": "sha256:dd0853b29d5d2e9c0db47ac372fa6450d4ea93524a23f9d300be8e6ab10925f2"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
+        "sha256": "sha256:4d97ae0f68ad723e4e008f550f33be5a5b9b1b30d3ee51a085bca4f933ccf46f"
       },
       "deliberation_script_ref": null,
       "outcome_contract_ref": {
@@ -51,18 +51,18 @@
         "artifact_id": "instrument.release-plus-deliberation.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-release-deliberation.synthetic.json",
-        "sha256": "sha256:35e280b3a509011556a8e0f49ea673e1d74e19b3e3f87f6849762c1f9e6b245f"
+        "sha256": "sha256:84340ecf1710438b4a4e9ab3870579583503e3387eb67b6fc72b72ec58f5761c"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
+        "sha256": "sha256:4d97ae0f68ad723e4e008f550f33be5a5b9b1b30d3ee51a085bca4f933ccf46f"
       },
       "deliberation_script_ref": {
         "artifact_id": "script.observatory-comparison.synthetic-v1",
         "artifact_type": "deliberation-script",
         "path": "experiments/observatory-comparison/fixtures/deliberation-script.synthetic.json",
-        "sha256": "sha256:f1885e3fed1071e4b320505197e75ba474df5f90f55cf73551b10f0dbda4eeda"
+        "sha256": "sha256:ca5d0876de846803ebe392424fce7b9524cc9b7377a5f05f2d3f7562dfa2e2de"
       },
       "outcome_contract_ref": {
         "artifact_id": "outcomes.observatory-comparison.synthetic-v1",
@@ -79,12 +79,12 @@
         "artifact_id": "instrument.observatory-self-serve.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-observatory-self-serve.synthetic.json",
-        "sha256": "sha256:ec36c5050725409ff715ddc1f153dce363dc678c9f4c6ba9e7c5b08b2f38a558"
+        "sha256": "sha256:8735ea6104330376d7c6ac3520595b63f201ef22e24f0755db39ef160090f2e6"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
+        "sha256": "sha256:4d97ae0f68ad723e4e008f550f33be5a5b9b1b30d3ee51a085bca4f933ccf46f"
       },
       "deliberation_script_ref": null,
       "outcome_contract_ref": {
@@ -102,18 +102,18 @@
         "artifact_id": "instrument.observatory-plus-deliberation.synthetic-v1",
         "artifact_type": "instrument-specification",
         "path": "experiments/observatory-comparison/fixtures/instrument-observatory-deliberation.synthetic.json",
-        "sha256": "sha256:4b6898cf649ed5e80d6c8c22c50e9e98dc6fba29934da05bc4ccae081d845e4f"
+        "sha256": "sha256:f30b73f6f536e21adba5bb793300ab0196010b752c957b53eb7ac9c0a656fcce"
       },
       "fact_pack_ref": {
         "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
         "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-        "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
+        "sha256": "sha256:4d97ae0f68ad723e4e008f550f33be5a5b9b1b30d3ee51a085bca4f933ccf46f"
       },
       "deliberation_script_ref": {
         "artifact_id": "script.observatory-comparison.synthetic-v1",
         "artifact_type": "deliberation-script",
         "path": "experiments/observatory-comparison/fixtures/deliberation-script.synthetic.json",
-        "sha256": "sha256:f1885e3fed1071e4b320505197e75ba474df5f90f55cf73551b10f0dbda4eeda"
+        "sha256": "sha256:ca5d0876de846803ebe392424fce7b9524cc9b7377a5f05f2d3f7562dfa2e2de"
       },
       "outcome_contract_ref": {
         "artifact_id": "outcomes.observatory-comparison.synthetic-v1",

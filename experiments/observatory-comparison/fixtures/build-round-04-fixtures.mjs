@@ -80,6 +80,13 @@ const stateLegend = ["true", "false", "unknown", "stale", "conflicted"].map((sta
   };
 });
 const displayedState = stateLegend.find(({ state }) => state === receipt.computed_rule_state.state);
+const affectedPopulations = possiblePath.document.population_accounting.affected_populations;
+if (!affectedPopulations.length
+  || affectedPopulations.some(({ voice_status: voiceStatus }) => voiceStatus !== "not-consulted")) {
+  throw new Error("Round 4 possible path must retain explicitly unconsulted affected populations");
+}
+const affectedPartyStatement = `Affected-party status: ${affectedPopulations
+  .map(({ label }) => label).join("; ")} have not reviewed the goal, threshold, labels or proposed response.`;
 
 const factPack = {
   schema_version: "1.1.0",
@@ -95,6 +102,19 @@ const factPack = {
   decision_context: {
     scope: scopeManifest.document.canonical_scope,
     mapping_truth_assessed: false,
+    affected_party_consultation: {
+      status: "not-consulted",
+      review_completed: false,
+      population_ids: affectedPopulations.map(({ population_id: populationId }) => populationId),
+      unreviewed_fields: ["goal", "threshold", "labels", "proposed-response"],
+      public_statement: affectedPartyStatement,
+      source_ref: {
+        artifact_role: "possible-path",
+        path: possiblePath.path,
+        sha256: possiblePath.sha256,
+        json_pointer: "/population_accounting/affected_populations",
+      },
+    },
     no_real_service: true,
     no_real_warning: true,
     no_action_authority: true,

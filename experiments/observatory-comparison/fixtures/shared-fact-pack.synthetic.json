@@ -74,6 +74,27 @@
       "ends_at": "2026-12-31T23:59:59Z"
     },
     "mapping_truth_assessed": false,
+    "affected_party_consultation": {
+      "status": "not-consulted",
+      "review_completed": false,
+      "population_ids": [
+        "population.affected-workers.nsw",
+        "population.dependent-households"
+      ],
+      "unreviewed_fields": [
+        "goal",
+        "threshold",
+        "labels",
+        "proposed-response"
+      ],
+      "public_statement": "Affected-party status: General Clerks and Payroll Clerks in the registered New South Wales scope; Households that depend on earnings from affected workers have not reviewed the goal, threshold, labels or proposed response.",
+      "source_ref": {
+        "artifact_role": "possible-path",
+        "path": "paths/fixtures/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:77fdc6a075fd0331630e55009716969852dc3624f1eda553c2eb02b3022bcd8a",
+        "json_pointer": "/population_accounting/affected_populations"
+      }
+    },
     "no_real_service": true,
     "no_real_warning": true,
     "no_action_authority": true

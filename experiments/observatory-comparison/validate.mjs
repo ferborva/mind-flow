@@ -308,6 +308,32 @@ export function assessFactPackSemantics(factPack, {
       return null;
     }
   };
+  const consultation = factPack?.decision_context?.affected_party_consultation;
+  const consultationSource = resolveProjection(consultation?.source_ref);
+  const affectedPopulations = Array.isArray(consultationSource?.value)
+    ? consultationSource.value
+    : [];
+  const expectedConsultationStatement = affectedPopulations.length > 0
+    ? `Affected-party status: ${affectedPopulations.map(({ label }) => label).join("; ")} have not reviewed the goal, threshold, labels or proposed response.`
+    : null;
+  if (consultation?.source_ref?.json_pointer
+      !== "/population_accounting/affected_populations"
+    || affectedPopulations.length === 0
+    || affectedPopulations.some(({ voice_status: voiceStatus }) =>
+      voiceStatus !== "not-consulted")
+    || consultation?.status !== "not-consulted"
+    || consultation?.review_completed !== false
+    || !isDeepStrictEqual(consultation?.population_ids,
+      affectedPopulations.map(({ population_id: populationId }) => populationId))
+    || !isDeepStrictEqual(consultation?.unreviewed_fields,
+      ["goal", "threshold", "labels", "proposed-response"])
+    || consultation?.public_statement !== expectedConsultationStatement) {
+    errors.push(error(
+      "AFFECTED_PARTY_CONTEXT_MISMATCH",
+      "$.decision_context.affected_party_consultation",
+      "The fact pack must preserve the source-bound not-consulted status of every named affected population.",
+    ));
+  }
   for (const [index, entry] of legend.entries()) {
     const resolved = resolveProjection(entry?.source_ref);
     const candidateEdgeIndexes = (resolved?.document?.graph?.edges || [])

@@ -13,7 +13,7 @@
   "fact_pack_ref": {
     "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
     "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-    "sha256": "sha256:f38092403e5042baac261f66659a64b3fb9ae3bc4a36d3bab2c7b78d4b631315"
+    "sha256": "sha256:4d97ae0f68ad723e4e008f550f33be5a5b9b1b30d3ee51a085bca4f933ccf46f"
   },
   "render_contract": {
     "claim_ids": [

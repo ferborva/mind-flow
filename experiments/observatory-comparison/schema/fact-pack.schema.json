@@ -36,10 +36,26 @@
     },
     "decision_context": {
       "type": "object",
-      "required": ["scope", "mapping_truth_assessed", "no_real_service", "no_real_warning", "no_action_authority"],
+      "required": ["scope", "mapping_truth_assessed", "affected_party_consultation", "no_real_service", "no_real_warning", "no_action_authority"],
       "properties": {
         "scope": { "$ref": "#/$defs/canonicalScope" },
         "mapping_truth_assessed": { "const": false },
+        "affected_party_consultation": {
+          "type": "object",
+          "required": ["status", "review_completed", "population_ids", "unreviewed_fields", "public_statement", "source_ref"],
+          "properties": {
+            "status": { "const": "not-consulted" },
+            "review_completed": { "const": false },
+            "population_ids": { "$ref": "#/$defs/idArray" },
+            "unreviewed_fields": {
+              "type": "array",
+              "const": ["goal", "threshold", "labels", "proposed-response"]
+            },
+            "public_statement": { "$ref": "#/$defs/nonEmpty" },
+            "source_ref": { "$ref": "#/$defs/sourceRef" }
+          },
+          "additionalProperties": false
+        },
         "no_real_service": { "const": true },
         "no_real_warning": { "const": true },
         "no_action_authority": { "const": true }

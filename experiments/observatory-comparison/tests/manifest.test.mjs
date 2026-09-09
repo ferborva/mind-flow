@@ -132,6 +132,35 @@ test("the fact pack binds the source bundle's exact condition and scope contract
   assert.ok(result.errors.some(({ code }) => code === "SOURCE_CANONICAL_CONTRACT_INVALID"));
 });
 
+test("affected-party legitimacy is explicit, source-bound and cannot be upgraded", async () => {
+  const { assessFactPackSemantics } = await import(validatorPath);
+  const manifest = readJson(fixturePath);
+  const source = readJson(resolve(repositoryRoot, manifest.source_transition_bundle.path));
+  const factPack = readJson(resolve(repositoryRoot, manifest.fact_pack.path));
+  const consultation = factPack.decision_context.affected_party_consultation;
+
+  assert.equal(consultation.status, "not-consulted");
+  assert.equal(consultation.review_completed, false);
+  assert.deepEqual(consultation.unreviewed_fields,
+    ["goal", "threshold", "labels", "proposed-response"]);
+  assert.match(consultation.public_statement,
+    /have not reviewed the goal, threshold, labels or proposed response/i);
+  assert.equal(assessFactPackSemantics(factPack, {
+    rootDir: repositoryRoot,
+    sourceBundle: source,
+  }).valid, true);
+
+  const upgraded = structuredClone(factPack);
+  upgraded.decision_context.affected_party_consultation.status = "consulted";
+  const result = assessFactPackSemantics(upgraded, {
+    rootDir: repositoryRoot,
+    sourceBundle: source,
+  });
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some(({ code }) =>
+    code === "FACT_PACK_SCHEMA_INVALID" || code === "AFFECTED_PARTY_CONTEXT_MISMATCH"));
+});
+
 test("the shared facts bind exact Round 4 definition, scope, receipt and five-state semantics", async () => {
   const {
     assessExecutableIfFactBinding,

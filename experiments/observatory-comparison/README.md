@@ -5,7 +5,8 @@ type: experiment-proposal
 status: proposed
 provenance: commissioned-agent-proposal
 author: Ren
-reviewer: Fernando Bordallo
+requested_reviewer: Fernando Bordallo
+adoption_status: not-adopted
 created: 2026-09-08
 updated: 2026-09-09
 authority: none
@@ -37,10 +38,12 @@ Run a balanced 2×2 randomised comparison of interface and facilitation:
    the IF, path, action-boundary and evidence views, followed by the identical
    discussion used in arm 2.
 
-Every arm receives the same facts, uncertainty, scope, source, correction and
-decision context. Difference in visual confidence, emotional framing, examples,
-facilitator time or factual detail is a protocol violation. The Observatory may
-lose. If facilitated deliberation provides the benefit without the interface,
+Every arm receives the same facts, uncertainty, scope, source, decision context,
+correction, section order and planned viewing time. The conventional and Observatory visual
+systems are the treatment. Added facts, urgency, recommendations, examples,
+facilitator time or omitted boundaries are protocol violations. Perceived
+authority and emotional response are measured outcomes, not assumed parity.
+The Observatory may lose. If facilitated deliberation provides the benefit without the interface,
 prefer the simpler instrument or narrow the Observatory to provenance and
 forecast memory.
 
@@ -62,8 +65,16 @@ retained bytes, the comparator set and all six complete safety stop lines.
 
 This proves only **declared input binding**. It does not prove that a renderer,
 facilitator or deployed interface presented the inputs faithfully. Rendered
-fact parity requires captured outputs and an independent comparison that this
-prototype does not perform.
+fact parity requires captured browser and assistive-technology outputs plus an
+independent comparison that this prototype does not perform.
+
+Round 05 adds a bounded template-parity prototype under `rendered/`. It projects
+the exact shared fact pack into conventional and Observatory self-serve HTML,
+then verifies every marked-up material item, five-state meaning, forecast
+boundary, authority boundary, source binding and shared planned 480-second
+viewing time. It does not verify computed visibility, clipping, reading order,
+contrast, zoom or assistive output. The timer is inactive. Comprehension remains
+unassessed and recruitment remains blocked.
 
 The manifest pins the coherent seven-artifact Round 4 pre-projection core and
 runs its independent assessor. The shared fact pack reproduces its exact active
