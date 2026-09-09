@@ -61,8 +61,9 @@ Nothing skips a stage without a note in the file saying why.
 sourced facts, with a source link and date on every figure, feeding drafts
 without ever becoming his substance.
 
-`dashboard/` is the instrument built on top of `research/`: a fetcher that pulls
-open-registry data into dated snapshots, and a page that renders them. The page
+`dashboard/` is an instrument built on top of `research/`, and it belongs to the
+abundance thread rather than to the repo: a fetcher that pulls open-registry
+data into dated snapshots, and a page that renders them. The page
 never calls a data provider, so a snapshot stays a quotable object rather than a
 number that shifts under an argument. Refresh, rebuild, republish is a natural
 scheduled-run job. See `dashboard/README.md`.
@@ -129,6 +130,25 @@ one meaningful step, not to churn. In priority order:
 **One substantive change per run.** Then commit with a message saying what
 moved and why. If nothing is ready to advance, do the housekeeping, add
 questions to the backlog, and stop. An honest no-op is fine.
+
+**More than one thread runs at a time.** He talks about several things, and they
+arrive at different speeds. The priority list above is thread-blind, and read
+literally it always advances whichever thread already has the most material,
+which starves every newer one by construction. So:
+
+- The priority order decides *what kind* of work to do. Then, among the
+  candidates at that priority, **prefer the thread that has gone longest without
+  a run.** `meta/index.md` has a per-thread table for exactly this.
+- **A raw capture always wins**, whatever thread it belongs to. Step 1 is not
+  subject to the tiebreaker.
+- **Do not open a draft on a thread just to keep it even.** Starvation is a
+  reason to look at a thread first, never a reason to write past a gap. If the
+  neglected thread has nothing ready, say so in the commit message and move on.
+
+Threads are not a directory yet. They are the theme slug in the frontmatter, and
+`meta/themes.md` decides when one is real. Flat directories are fine while a
+stage holds under about twenty files; past that, or when a third thread lands,
+group by thread inside the stage rather than reshaping the pipeline.
 
 Never rewrite a published post in a scheduled run without a reason recorded in
 the commit message. His finished words stay finished.

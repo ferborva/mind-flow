@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-01
+updated: 2026-09-09
 ---
 
 # Backlog
@@ -171,12 +171,59 @@ a read-through. The big ones:
 - [ ] **Who are the Moonshot crew?** Names, format, and what he wants from them:
       a reply, an episode, an argument?
 
+### From the collaboration kernel dump, 2026-09-09
+
+The single most valuable answer in this section is the first one.
+
+- [ ] **What did you actually say to your sister?** He tells the setup - tiny
+      shared hospital office, three other paediatric surgeons, every proposal
+      pushed back - and then says "so I told her a similar story" and never
+      tells it. The transcript fills the hole with a role play that is mine, not
+      his. His version is the best story in the thread and right now it does not
+      exist in the repo.
+- [ ] **The other people he has coached.** He says several, and gives no
+      situations and no outcomes. Two more would turn a piece of advice into a
+      pattern. One where it did not work would make it credible.
+- [ ] **Define "the collaboration enablement side of the kernel."** His phrase,
+      said mid-sentence and never defined. Is it the two principles, or is there
+      a third thing under it? It is also the best candidate name for the whole
+      framework.
+- [ ] **Does coherent action have a collaboration layer?** He walks diagnosis
+      and guiding policy in detail and pushes execution away twice. Deliberate,
+      because execution works differently, or just not got to yet?
+- [ ] **What retires a pattern?** He parked this as execution. Without an answer
+      the progressive seven-to-six path has no defence against shipping an
+      eighth standard, which is the actual mechanism of legacy sprawl.
+- [ ] **Where does asking before proposing backfire?** A real emergency, a
+      hostile stakeholder, someone who is themselves the diagnosis. A framework
+      with no stated failure case reads as marketing, and his own long-form
+      guideline says only-upsides reads as propaganda.
+- [ ] **Say the secretary answer again, in your own words.** He raised the
+      objection, I answered it, he agreed - and the turn carrying his agreement
+      is the most badly garbled in the transcript. The seed is held at growing
+      until this is replaced. Do not publish that reasoning as his before then.
+- [ ] **Does the ask scale?** Three surgeons in a room is not thirty people
+      across four teams. Is there a headcount where "give me your two cents"
+      stops working?
+- [ ] **Rumelt attribution.** *Good Strategy, Bad Strategy* is named in the
+      conversation. Does he want the book cited in a published piece, or the
+      kernel treated as common ground?
+- [ ] **Research: procedural justice.** Cited in the conversation, by me,
+      unsourced, and it is the strongest external support the heard-not-obeyed
+      principle could have. Needs a proper `research/` note with sources and
+      dates before any draft leans on it. Same for consultation theatre as the
+      named failure mode.
+
 ### First material
 
 - [x] **The first real conversation.** 2026-09-01, the abundance rant. Six seeds
       and a draft out of one sitting. The machinery works.
-- [ ] **The second one.** Anything at all. A theme needs three separate captures
-      before it is real, and abundance currently has one.
+- [x] **The second one.** 2026-09-09, the collaboration kernel dump. Seven
+      seeds out of one sitting, and it is a second thread rather than more of
+      the first. He said so himself when he opened it.
+- [ ] **The third thread.** Two threads is a pair; three is a body of work, and
+      it is the point at which the flat directory layout stops being readable.
+      See the structure note in `meta/index.md`.
 
 ## Answered
 

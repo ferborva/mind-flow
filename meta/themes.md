@@ -1,6 +1,6 @@
 ---
 title: Themes
-updated: 2026-09-07
+updated: 2026-09-09
 ---
 
 # Themes
@@ -47,7 +47,30 @@ _(none yet)_
 Candidates from a single capture. Recorded so the next sighting is recognised,
 not promoted early.
 
-_(none yet)_
+### collaboration
+**The strategy kernel is not only a way to think, it is the order in which you
+are allowed to talk to people.** Rumelt's diagnosis, guiding policy, coherent
+action, run socially: ask for two cents rather than time because everyone is
+time poor, let people be heard without being obeyed, and go and borrow the
+guiding policy from whoever owns the principles rather than inventing it alone.
+Underneath it is a diagnosis of the individual contributor to lead transition:
+the frame used to arrive with the problem, and now producing it is the job.
+First seen: 2026-09-09-collaboration-kernel
+Seeds: the-kernel-is-a-collaboration-protocol, everyone-is-time-poor,
+heard-not-obeyed, the-frame-is-the-job, borrow-the-guiding-policy,
+principle-versus-execution, the-synthesist-not-the-secretary
+Pieces: none yet
+
+<!-- NOTE: one capture, so below threshold by the rule, and the rule holds even
+     though this is obviously a second thread rather than a stray idea. He said
+     so himself when he opened the conversation: not the abundance reframe,
+     something running in parallel. Seven seeds out of one sitting matches the
+     first abundance capture's six, which is the only comparison available.
+     What would promote it: two more captures. What would sharpen it fastest:
+     the story of what he actually said to his sister, and the two or three
+     other people he says he has coached through the same thing. Candidate
+     name from his own mouth, mid-sentence and undefined: "the collaboration
+     enablement side of the kernel". -->
 
 ---
 
