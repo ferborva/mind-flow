@@ -51,4 +51,3 @@ test("every changed path belongs to exactly one component lane", () => {
     assert.equal(owners.length, 1, `${path} has ${owners.length} review-lane owners`);
   }
 });
-

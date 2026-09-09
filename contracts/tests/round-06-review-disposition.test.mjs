@@ -48,11 +48,10 @@ test("Round 06 ledger disposes every P1 and P2 without claiming external closure
   assert.equal(ledger.boundaries.affected_party_review_completed, false);
 });
 
-test("an open P1 keeps the Round 07 freeze blocked", () => {
+test("the Round 07 freeze state follows unresolved P1 findings", () => {
   const openP1 = ledger.findings.filter(({ severity, resolution_status: status }) =>
     severity === "P1" && !status.startsWith("locally-contained"));
-  assert.ok(openP1.some(({ id }) => id === "R06-F2-03"));
-  assert.equal(ledger.round_07_freeze_allowed, false);
+  assert.equal(ledger.round_07_freeze_allowed, openP1.length === 0);
 });
 
 test("Round 06 ledger explicitly disposes every reported P3", () => {
