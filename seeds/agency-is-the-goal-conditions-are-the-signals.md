@@ -4,9 +4,9 @@ title: Agency is the goal, conditions are the signals
 type: seed
 status: ripe
 themes: [abundance]
-sources: [2026-09-08-abundance-frame-conversation]
+sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Agency is the goal, conditions are the signals
@@ -37,6 +37,20 @@ that it moves one.
 <!-- NOTE: transcribed as "goal signal metric... GSA or GSM... GSMA". He means
      Goals / Signals / Metrics, the framework Google published alongside HEART.
      Attribution needs checking before it appears in a piece. -->
+
+Confirmed and promoted a day later, when asked where his take belongs after
+withdrawing the remedy:
+
+> Driving through the "IFs" framework would simplify things. That put side by
+> side the Goal Signals Actions framework as an overaching way to discuss the
+> action plans further down and what to monitor should help
+> from: 2026-09-09-softer-on-tax-and-remedy
+
+So the pairing is his, and it is structural: the IFs frame drives, and Goal /
+Signals / Actions is the overarching way to discuss action plans and monitoring.
+He says "Actions" where Google says "Metrics"; that is his variant and it is the
+one to use in his voice. This also answers the third gap below: the method
+belongs with the frame, not only in the observatory machinery.
 
 ## Stories and evidence
 
@@ -70,4 +84,6 @@ selection is undeclared.
   becomes concrete or stays a schema, and he did not answer it.
 - Confirm the framework's provenance and name before publishing it as Google's.
 - Does the metrics layer belong in piece one at all, or is it observatory
-  machinery? Current plan says the piece stays at the reframe.
+  machinery? *Answered 2026-09-09: it belongs alongside the frame, as the
+  overarching way to discuss action plans and monitoring. How much of it goes in
+  piece one versus the successor is still a drafting call.*
