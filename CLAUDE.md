@@ -130,16 +130,58 @@ one meaningful step, not to churn. In priority order:
 moved and why. If nothing is ready to advance, do the housekeeping, add
 questions to the backlog, and stop. An honest no-op is fine.
 
+That cadence governs scheduled editorial runs. Programme engineering and
+review work may span coordinated changes, but it still lands as small,
+reviewable commits with explicit dependencies and reproduction checks.
+
+**Agent-authored commits use a distinct author identity.** Never put Fernando's
+Git author identity on work produced by an agent. Agent commits also carry the
+trailer `Agent: Ren` (or the actual agent name), so provenance remains visible
+when commits are copied, rebased or reviewed outside this repository.
+
 Never rewrite a published post in a scheduled run without a reason recorded in
 the commit message. His finished words stay finished.
 
 ## Frontmatter
 
-Every content file carries YAML frontmatter. Templates in `meta/templates/`.
+Markdown belongs to one of four metadata classes. The distinction is part of
+the provenance boundary, not a formatting preference.
+
+1. **Pipeline content** in `capture/`, `seeds/`, `drafts/`, `posts/` and
+   `books/` carries frontmatter. Its `id` matches the filename. Seeds, drafts
+   and posts name at least one source capture.
+2. A **programme artefact** is authored analysis, research, a protocol, a
+   review, a charter or a public guide outside the pipeline. It carries
+   frontmatter, but its stable `id` may differ from the filename because other
+   machine-readable records can cite it across moves.
+3. A **repository register** is one of `meta/index.md`, `meta/themes.md` or
+   `meta/backlog.md`. Its path is its identity and its deliberately small
+   frontmatter is not publication metadata.
+4. An **operator and navigation document** is `CLAUDE.md`, `AGENTS.md`, a
+   `README.md`, `SCHEMA.md`, `MIGRATION.md` or `ATTRIBUTION.md`. Its path and
+   heading are its identity, so it may omit frontmatter. Imported documents in
+   `foundation/` retain the metadata supplied with them and are never rewritten
+   merely to satisfy a repository convention.
+
+The allowed programme types are: `communications-proposal`,
+`public-guide-proposal`, `governance-proposal`, `governance-design`,
+`technical-proposal`, `statistical-protocol`, `pilot-protocol-proposal`,
+`programme-proposal`, `research`, `research-note`, `research-synthesis`,
+`research-audit`, `research-and-programme-proposal`, `experiment-proposal`,
+`internal-review`, `internal-review-proposal`, `external-agent-review`,
+`external-review-request`, `external-review-first-pass`,
+`external-review-second-pass`, `review-brief`, `review-charter`,
+`review-proposal`, `review-register`, `review-synthesis` and
+`amendment-proposal`. Pipeline and foundation types remain `capture`, `seed`,
+`draft`, `post`, `chapter` and `foundation`.
+
+Templates live in `meta/templates/`. The frontmatter linter runs inside
+`npm run test:communications` and can be invoked directly with
+`node meta/validate-frontmatter.mjs`.
 
 ```yaml
 ---
-id: 2026-08-31-slug          # matches the filename
+id: 2026-08-31-slug          # matches the filename for pipeline content
 title: Human readable title
 type: capture | seed | draft | post | chapter
 status: raw | processed | drafting | review | ready | published
@@ -148,13 +190,18 @@ themes: [theme-slug]          # see meta/themes.md
 sources: [capture-id, ...]    # required for seed, draft, post
 research: [research-id, ...]  # optional, external facts the piece cites
 provenance: commissioned-proposal   # only when it is NOT his substance
-created: 2026-08-31
-updated: 2026-08-31
+created: 2026-08-31           # content origination, not first Git commit
+updated: 2026-08-31           # last substantive content change
 ---
 ```
 
 `sources` is not optional and not decorative. It is how the provenance rule is
 enforced. A post with an empty `sources` list is a bug.
+
+For programme artefacts, `id`, `title`, `type` and `status` are required, as is
+one ISO date recording creation, receipt, retrieval, review or source date.
+When both `created` and `updated` exist, `updated` cannot precede `created`.
+Mechanical commits, moves and generated rebuilds do not change either date.
 
 `provenance: commissioned-proposal` marks the exception. Sometimes he asks for a
 piece that argues something he has not said yet, because he wants to react to a

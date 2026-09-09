@@ -1,0 +1,323 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "public-experience.prototype.2026-09-09",
+  "as_of": "2026-09-09T00:00:00Z",
+  "evaluation_clock": {
+    "source": "operator-supplied",
+    "trusted": false
+  },
+  "publication_state": "research-prototype-blocked",
+  "first_screen_order": [
+    "status",
+    "current-read",
+    "scope",
+    "if-status",
+    "action-help-safety",
+    "monitoring",
+    "goal",
+    "evidence-state",
+    "path-status",
+    "what-would-change"
+  ],
+  "authority": {
+    "observatory_authority": "none",
+    "policy_authority": "none",
+    "service_status": "none"
+  },
+  "goal": {
+    "claim_class": "value-choice",
+    "summary": "Expand real choices and continuity as technological capability grows.",
+    "proposed_by": "the project authors and agents",
+    "affected_party_adoption": "not-completed",
+    "alternatives_and_dissent": "legitimate"
+  },
+  "current_read": {
+    "conclusion_state": "no-transition-conclusion",
+    "summary": "The frozen world aggregate does not establish progress, crisis, personal effect or a technology cause.",
+    "evidence_state": {
+      "record_class": "derived",
+      "source_authenticity": "unverified",
+      "measurement_quality": "mixed",
+      "applicability": "unknown",
+      "inference_strength": "descriptive-only",
+      "decision_readiness": "none",
+      "timing_readiness": "frozen",
+      "uncertainty_summary": "Source revision, model, coverage and population uncertainty are not quantified sufficiently for a decision."
+    }
+  },
+  "scope": {
+    "population": "Separately published world aggregates with unverified coverage compatibility",
+    "place": "World",
+    "period": "2004 to 2025",
+    "applicability_statement": "This record does not describe an individual, occupation, household or community."
+  },
+  "conditions": [
+    {
+      "id": "capability",
+      "label": "Capability",
+      "state": "unknown",
+      "public_if": "If a named system performs a useful task safely and reliably in the declared context.",
+      "logical_role": "necessary",
+      "evidence_roles": [
+        { "role": "leading", "status": "missing", "summary": "No scoped leading signal." },
+        { "role": "confirming", "status": "missing", "summary": "No independent confirmation." },
+        { "role": "counter", "status": "missing", "summary": "No registered counter signal." },
+        { "role": "outcome", "status": "missing", "summary": "No scoped human outcome." },
+        { "role": "readiness", "status": "missing", "summary": "No response readiness evidence." },
+        { "role": "intervention-exposure", "status": "not-applicable", "summary": "No intervention is active." },
+        { "role": "information-harm", "status": "missing", "summary": "No communication-harm measure." }
+      ],
+      "actor_mapping": {
+        "status": "mapped",
+        "reason": "A proposed research actor can investigate, but no control or authority is verified."
+      }
+    },
+    {
+      "id": "reach",
+      "label": "Reach",
+      "state": "unknown",
+      "public_if": "If suitable capability can reach the named people at an acceptable complete cost and service level.",
+      "logical_role": "necessary",
+      "evidence_roles": [
+        { "role": "leading", "status": "missing", "summary": "No scoped leading signal." },
+        { "role": "confirming", "status": "missing", "summary": "No independent confirmation." },
+        { "role": "counter", "status": "missing", "summary": "No registered counter signal." },
+        { "role": "outcome", "status": "missing", "summary": "No scoped human outcome." },
+        { "role": "readiness", "status": "missing", "summary": "No response readiness evidence." },
+        { "role": "intervention-exposure", "status": "not-applicable", "summary": "No intervention is active." },
+        { "role": "information-harm", "status": "missing", "summary": "No communication-harm measure." }
+      ],
+      "actor_mapping": {
+        "status": "mapped",
+        "reason": "A proposed research actor can investigate, but no control or authority is verified."
+      }
+    },
+    {
+      "id": "agency",
+      "label": "Agency",
+      "state": "unknown",
+      "public_if": "If the outcome expands meaningful choice without coercion, forced dependence or hidden loss of rights.",
+      "logical_role": "necessary",
+      "evidence_roles": [
+        { "role": "leading", "status": "missing", "summary": "No scoped leading signal." },
+        { "role": "confirming", "status": "missing", "summary": "No independent confirmation." },
+        { "role": "counter", "status": "missing", "summary": "No registered counter signal." },
+        { "role": "outcome", "status": "missing", "summary": "No scoped human outcome." },
+        { "role": "readiness", "status": "missing", "summary": "No response readiness evidence." },
+        { "role": "intervention-exposure", "status": "not-applicable", "summary": "No intervention is active." },
+        { "role": "information-harm", "status": "missing", "summary": "No communication-harm measure." }
+      ],
+      "actor_mapping": {
+        "status": "mapped",
+        "reason": "A proposed research actor can investigate, but no control or authority is verified."
+      }
+    },
+    {
+      "id": "durability",
+      "label": "Durability",
+      "state": "unknown",
+      "public_if": "If the valuable outcome persists through the named shocks, market changes and policy changes.",
+      "logical_role": "necessary",
+      "evidence_roles": [
+        { "role": "leading", "status": "missing", "summary": "No scoped leading signal." },
+        { "role": "confirming", "status": "missing", "summary": "No independent confirmation." },
+        { "role": "counter", "status": "missing", "summary": "No registered counter signal." },
+        { "role": "outcome", "status": "missing", "summary": "No scoped human outcome." },
+        { "role": "readiness", "status": "missing", "summary": "No response readiness evidence." },
+        { "role": "intervention-exposure", "status": "not-applicable", "summary": "No intervention is active." },
+        { "role": "information-harm", "status": "missing", "summary": "No communication-harm measure." }
+      ],
+      "actor_mapping": {
+        "status": "mapped",
+        "reason": "A proposed research actor can investigate, but no control or authority is verified."
+      }
+    },
+    {
+      "id": "fairness",
+      "label": "Fairness",
+      "state": "unknown",
+      "public_if": "If gains and burdens are distributed with voice, remedy and dignity for the scoped people.",
+      "logical_role": "necessary",
+      "evidence_roles": [
+        { "role": "leading", "status": "missing", "summary": "No scoped leading signal." },
+        { "role": "confirming", "status": "missing", "summary": "No independent confirmation." },
+        { "role": "counter", "status": "missing", "summary": "No registered counter signal." },
+        { "role": "outcome", "status": "missing", "summary": "No scoped human outcome." },
+        { "role": "readiness", "status": "missing", "summary": "No response readiness evidence." },
+        { "role": "intervention-exposure", "status": "not-applicable", "summary": "No intervention is active." },
+        { "role": "information-harm", "status": "missing", "summary": "No communication-harm measure." }
+      ],
+      "actor_mapping": {
+        "status": "mapped",
+        "reason": "A proposed research actor can investigate, but no control or authority is verified."
+      }
+    }
+  ],
+  "actors": [
+    {
+      "id": "actor.proposed-research-team",
+      "label": "Proposed research team",
+      "relation": "investigates",
+      "identity_state": "unverified"
+    }
+  ],
+  "actor_when_hypotheses": [
+    {
+      "id": "when.research.capability",
+      "actor_id": "actor.proposed-research-team",
+      "condition_id": "capability",
+      "claim_class": "action-hypothesis",
+      "action_mode": "investigate",
+      "public_when": "The proposed research team could investigate capability when the scoped study and independent review criteria are approved.",
+      "completion_criteria": "A scoped capability question, evidence method, counter-test and independent reviewer are registered.",
+      "dependencies": [],
+      "authority_state": "none",
+      "commitment_state": "not-committed",
+      "reversibility": "reversible",
+      "review_on": "2026-10-01",
+      "expires_on": "2026-10-09",
+      "harm_refs": ["harm.acting", "harm.waiting", "harm.information"]
+    },
+    {
+      "id": "when.research.reach",
+      "actor_id": "actor.proposed-research-team",
+      "condition_id": "reach",
+      "claim_class": "action-hypothesis",
+      "action_mode": "investigate",
+      "public_when": "The proposed research team could investigate reach when a service, population and complete-cost boundary are approved.",
+      "completion_criteria": "The service, population, place, cost components, service level and counter-test are registered.",
+      "dependencies": [],
+      "authority_state": "none",
+      "commitment_state": "not-committed",
+      "reversibility": "reversible",
+      "review_on": "2026-10-01",
+      "expires_on": "2026-10-09",
+      "harm_refs": ["harm.acting", "harm.waiting", "harm.information"]
+    },
+    {
+      "id": "when.research.agency",
+      "actor_id": "actor.proposed-research-team",
+      "condition_id": "agency",
+      "claim_class": "action-hypothesis",
+      "action_mode": "investigate",
+      "public_when": "The proposed research team could investigate agency when affected people approve the outcome questions and safeguards.",
+      "completion_criteria": "Choice, refusal, switching, voice, dependency, privacy and remedy measures are registered with affected-party review.",
+      "dependencies": [],
+      "authority_state": "none",
+      "commitment_state": "not-committed",
+      "reversibility": "reversible",
+      "review_on": "2026-10-01",
+      "expires_on": "2026-10-09",
+      "harm_refs": ["harm.acting", "harm.waiting", "harm.information"]
+    },
+    {
+      "id": "when.research.durability",
+      "actor_id": "actor.proposed-research-team",
+      "condition_id": "durability",
+      "claim_class": "action-hypothesis",
+      "action_mode": "investigate",
+      "public_when": "The proposed research team could investigate durability when a persistence window, stress cases and recovery threshold are approved.",
+      "completion_criteria": "The persistence period, stress cases, reversal evidence and recovery threshold are registered.",
+      "dependencies": [],
+      "authority_state": "none",
+      "commitment_state": "not-committed",
+      "reversibility": "reversible",
+      "review_on": "2026-10-01",
+      "expires_on": "2026-10-09",
+      "harm_refs": ["harm.acting", "harm.waiting", "harm.information"]
+    },
+    {
+      "id": "when.research.fairness",
+      "actor_id": "actor.proposed-research-team",
+      "condition_id": "fairness",
+      "claim_class": "action-hypothesis",
+      "action_mode": "investigate",
+      "public_when": "The proposed research team could investigate fairness when affected groups approve the distribution and remedy questions.",
+      "completion_criteria": "Distribution, burden, participation, dignity, exclusion and remedy measures are registered with affected-party review.",
+      "dependencies": [],
+      "authority_state": "none",
+      "commitment_state": "not-committed",
+      "reversibility": "reversible",
+      "review_on": "2026-10-01",
+      "expires_on": "2026-10-09",
+      "harm_refs": ["harm.acting", "harm.waiting", "harm.information"]
+    }
+  ],
+  "harms": [
+    {
+      "id": "harm.experienced",
+      "type": "experienced",
+      "state": "unknown",
+      "summary": "This aggregate does not establish whether a scoped person or cohort experienced harm.",
+      "evidence_refs": []
+    },
+    {
+      "id": "harm.acting",
+      "type": "acting",
+      "state": "not-assessed",
+      "summary": "No material action is proposed or authorised, and action harm is not assessed.",
+      "evidence_refs": []
+    },
+    {
+      "id": "harm.waiting",
+      "type": "waiting",
+      "state": "unknown",
+      "summary": "The absence of Observatory action does not establish that waiting is safe.",
+      "evidence_refs": []
+    },
+    {
+      "id": "harm.information",
+      "type": "information",
+      "state": "not-assessed",
+      "summary": "Anxiety, stigma, false certainty and harmful action caused by this communication are not assessed.",
+      "evidence_refs": []
+    }
+  ],
+  "dissent": {
+    "status": "open",
+    "public_statement": "People may reject the goal, conditions, evidence or proposed method without being classified as a problem.",
+    "challenge_route_id": "route.challenge"
+  },
+  "routes": [
+    {
+      "id": "route.help",
+      "type": "help",
+      "availability": "unavailable",
+      "verified": false,
+      "public_statement": "No Observatory-linked help or challenge service exists.",
+      "uri": null,
+      "owner": null
+    },
+    {
+      "id": "route.challenge",
+      "type": "challenge",
+      "availability": "unavailable",
+      "verified": false,
+      "public_statement": "No Observatory-linked help or challenge service exists.",
+      "uri": null,
+      "owner": null
+    }
+  ],
+  "monitoring": {
+    "status": "inactive",
+    "next_check_on": null,
+    "owner": null,
+    "public_statement": "Monitoring inactive. No governed check, owner or service cadence is scheduled."
+  },
+  "condition_evolution": {
+    "binding_status": "not-bound",
+    "events": [],
+    "public_statement": "Condition evolution is not bound to this record. Current wording cannot establish a trustworthy history."
+  },
+  "path_status": {
+    "positive": "not-established",
+    "adverse": "not-established",
+    "refusal_or_reduction": "legitimate-candidate",
+    "recovery": "not-established",
+    "public_statement": "No positive or adverse path is established. Refusal, reduction and no-deployment remain legitimate candidate paths."
+  },
+  "falsifier": {
+    "plain_label": "What would change this reading?",
+    "summary": "A scoped reconstruction with distributional human outcomes, uncertainty and independent counterevidence could narrow, reverse or retire the reading."
+  }
+}

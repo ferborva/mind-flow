@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/communications/public-experience.schema.json",
+  "title": "Public experience prototype record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_id",
+    "as_of",
+    "evaluation_clock",
+    "publication_state",
+    "first_screen_order",
+    "authority",
+    "goal",
+    "current_read",
+    "scope",
+    "conditions",
+    "actors",
+    "actor_when_hypotheses",
+    "harms",
+    "dissent",
+    "routes",
+    "monitoring",
+    "condition_evolution",
+    "path_status",
+    "falsifier"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "record_id": { "type": "string", "minLength": 1 },
+    "as_of": { "type": "string", "format": "date-time" },
+    "evaluation_clock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "trusted"],
+      "properties": {
+        "source": { "const": "operator-supplied" },
+        "trusted": { "const": false }
+      }
+    },
+    "publication_state": { "const": "research-prototype-blocked" },
+    "first_screen_order": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "status",
+          "current-read",
+          "scope",
+          "if-status",
+          "action-help-safety",
+          "monitoring",
+          "goal",
+          "evidence-state",
+          "path-status",
+          "what-would-change"
+        ]
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observatory_authority", "policy_authority", "service_status"],
+      "properties": {
+        "observatory_authority": { "const": "none" },
+        "policy_authority": { "const": "none" },
+        "service_status": { "const": "none" }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_class",
+        "summary",
+        "proposed_by",
+        "affected_party_adoption",
+        "alternatives_and_dissent"
+      ],
+      "properties": {
+        "claim_class": { "const": "value-choice" },
+        "summary": { "type": "string", "minLength": 20 },
+        "proposed_by": { "type": "string", "minLength": 1 },
+        "affected_party_adoption": { "const": "not-completed" },
+        "alternatives_and_dissent": { "const": "legitimate" }
+      }
+    },
+    "current_read": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conclusion_state", "summary", "evidence_state"],
+      "properties": {
+        "conclusion_state": { "const": "no-transition-conclusion" },
+        "summary": { "type": "string", "minLength": 20 },
+        "evidence_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "record_class",
+            "source_authenticity",
+            "measurement_quality",
+            "applicability",
+            "inference_strength",
+            "decision_readiness",
+            "timing_readiness",
+            "uncertainty_summary"
+          ],
+          "properties": {
+            "record_class": {
+              "enum": ["observed", "derived", "modelled", "forecast", "unknown"]
+            },
+            "source_authenticity": { "const": "unverified" },
+            "measurement_quality": {
+              "enum": ["unknown", "mixed", "bounded", "disputed"]
+            },
+            "applicability": { "const": "unknown" },
+            "inference_strength": { "const": "descriptive-only" },
+            "decision_readiness": { "const": "none" },
+            "timing_readiness": { "enum": ["frozen", "unknown", "stale"] },
+            "uncertainty_summary": { "type": "string", "minLength": 20 }
+          }
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["population", "place", "period", "applicability_statement"],
+      "properties": {
+        "population": { "type": "string", "minLength": 1 },
+        "place": { "type": "string", "minLength": 1 },
+        "period": { "type": "string", "minLength": 1 },
+        "applicability_statement": { "type": "string", "minLength": 20 }
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/condition" }
+    },
+    "actors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/actor" }
+    },
+    "actor_when_hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/actorWhen" }
+    },
+    "harms": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/harm" }
+    },
+    "dissent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "public_statement", "challenge_route_id"],
+      "properties": {
+        "status": { "const": "open" },
+        "public_statement": { "type": "string", "minLength": 20 },
+        "challenge_route_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "routes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/unavailableRoute" }
+    },
+    "monitoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "next_check_on", "owner", "public_statement"],
+      "properties": {
+        "status": { "const": "inactive" },
+        "next_check_on": { "type": "null" },
+        "owner": { "type": "null" },
+        "public_statement": { "type": "string", "minLength": 20 }
+      }
+    },
+    "condition_evolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_status", "events", "public_statement"],
+      "properties": {
+        "binding_status": { "const": "not-bound" },
+        "events": { "type": "array", "maxItems": 0 },
+        "public_statement": { "type": "string", "minLength": 20 }
+      }
+    },
+    "path_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive", "adverse", "refusal_or_reduction", "recovery", "public_statement"],
+      "properties": {
+        "positive": { "const": "not-established" },
+        "adverse": { "const": "not-established" },
+        "refusal_or_reduction": { "const": "legitimate-candidate" },
+        "recovery": { "const": "not-established" },
+        "public_statement": { "type": "string", "minLength": 20 }
+      }
+    },
+    "falsifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plain_label", "summary"],
+      "properties": {
+        "plain_label": { "const": "What would change this reading?" },
+        "summary": { "type": "string", "minLength": 20 }
+      }
+    }
+  },
+  "$defs": {
+    "evidenceRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "status", "summary"],
+      "properties": {
+        "role": {
+          "enum": [
+            "leading",
+            "confirming",
+            "counter",
+            "outcome",
+            "readiness",
+            "intervention-exposure",
+            "information-harm"
+          ]
+        },
+        "status": { "enum": ["present", "missing", "unknown", "not-applicable"] },
+        "summary": { "type": "string", "minLength": 8 }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "state",
+        "public_if",
+        "logical_role",
+        "evidence_roles",
+        "actor_mapping"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "label": { "type": "string", "minLength": 1 },
+        "state": {
+          "enum": ["unknown", "satisfied", "failed", "disputed", "expired"]
+        },
+        "public_if": { "type": "string", "minLength": 20 },
+        "logical_role": {
+          "enum": ["necessary", "sufficient-route", "enabling", "inhibiting", "correlated", "decision-rule"]
+        },
+        "evidence_roles": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": { "$ref": "#/$defs/evidenceRole" }
+        },
+        "actor_mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": { "enum": ["mapped", "no-actor-identified"] },
+            "reason": { "type": "string", "minLength": 12 }
+          }
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "relation", "identity_state"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^actor\\.[a-z0-9.-]+$" },
+        "label": { "type": "string", "minLength": 1 },
+        "relation": {
+          "enum": ["affected", "controls", "influences", "duty", "funds", "delivers", "verifies", "investigates"]
+        },
+        "identity_state": { "const": "unverified" }
+      }
+    },
+    "actorWhen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "actor_id",
+        "condition_id",
+        "claim_class",
+        "action_mode",
+        "public_when",
+        "completion_criteria",
+        "dependencies",
+        "authority_state",
+        "commitment_state",
+        "reversibility",
+        "review_on",
+        "expires_on",
+        "harm_refs"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^when\\.[a-z0-9.-]+$" },
+        "actor_id": { "type": "string", "minLength": 1 },
+        "condition_id": { "type": "string", "minLength": 1 },
+        "claim_class": { "const": "action-hypothesis" },
+        "action_mode": { "const": "investigate" },
+        "public_when": { "type": "string", "minLength": 20 },
+        "completion_criteria": { "type": "string", "minLength": 20 },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "authority_state": { "const": "none" },
+        "commitment_state": { "const": "not-committed" },
+        "reversibility": { "const": "reversible" },
+        "review_on": { "type": "string", "format": "date" },
+        "expires_on": { "type": "string", "format": "date" },
+        "harm_refs": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "harm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "state", "summary", "evidence_refs"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^harm\\.[a-z0-9.-]+$" },
+        "type": { "enum": ["experienced", "acting", "waiting", "information"] },
+        "state": { "enum": ["unknown", "not-assessed", "plausible", "observed", "disputed"] },
+        "summary": { "type": "string", "minLength": 12 },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "unavailableRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "availability", "verified", "public_statement", "uri", "owner"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^route\\.[a-z0-9.-]+$" },
+        "type": { "enum": ["help", "challenge"] },
+        "availability": { "const": "unavailable" },
+        "verified": { "const": false },
+        "public_statement": { "type": "string", "minLength": 20 },
+        "uri": { "type": "null" },
+        "owner": { "type": "null" }
+      }
+    }
+  }
+}

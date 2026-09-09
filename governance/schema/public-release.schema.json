@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.org/governance/public-release/1-0-0",
+  "title": "Seldon Observatory public release governance record",
+  "description": "A machine-readable review record that separates non-public prototypes, restricted shadow review, limited public signals and operational actions.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "artifact",
+    "release_stage",
+    "circulation",
+    "operational_effect",
+    "assessed_at",
+    "gates",
+    "evidence_register",
+    "sources",
+    "decision",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.0\\.[0-9]+$" },
+    "id": { "$ref": "#/$defs/id" },
+    "artifact": { "$ref": "#/$defs/artifactReference" },
+    "release_stage": { "$ref": "#/$defs/releaseStage" },
+    "circulation": { "enum": ["internal", "restricted", "public"] },
+    "operational_effect": { "type": "boolean" },
+    "assessed_at": { "type": "string", "format": "date-time" },
+    "gates": {
+      "type": "object",
+      "required": [
+        "authority",
+        "affected_party_review",
+        "uncertainty",
+        "challenge",
+        "accessibility",
+        "security_privacy",
+        "correction",
+        "source_vintage"
+      ],
+      "properties": {
+        "authority": { "$ref": "#/$defs/gateAssessment" },
+        "affected_party_review": { "$ref": "#/$defs/gateAssessment" },
+        "uncertainty": { "$ref": "#/$defs/gateAssessment" },
+        "challenge": { "$ref": "#/$defs/gateAssessment" },
+        "accessibility": { "$ref": "#/$defs/gateAssessment" },
+        "security_privacy": { "$ref": "#/$defs/gateAssessment" },
+        "correction": { "$ref": "#/$defs/gateAssessment" },
+        "source_vintage": { "$ref": "#/$defs/gateAssessment" }
+      },
+      "additionalProperties": false
+    },
+    "evidence_register": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/reviewEvidence" }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceRecord" }
+    },
+    "action_contract": { "$ref": "#/$defs/versionedReference" },
+    "decision": { "$ref": "#/$defs/decision" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "releaseStage": { "enum": ["internal-prototype", "shadow-review", "limited-public-signal", "operational-action"] },
+    "versionedReference": {
+      "type": "object",
+      "required": ["id", "version", "checksum"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      },
+      "additionalProperties": false
+    },
+    "artifactReference": {
+      "type": "object",
+      "required": ["kind", "id", "version", "checksum", "title"],
+      "properties": {
+        "kind": { "enum": ["dashboard", "forecast", "public-signal", "action-compact", "dataset", "document"] },
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "title": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "gateAssessment": {
+      "type": "object",
+      "required": ["status", "summary", "evidence_refs", "gaps"],
+      "properties": {
+        "status": { "enum": ["complete", "incomplete"] },
+        "summary": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "gaps": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [{
+        "if": {
+          "properties": { "status": { "const": "complete" } },
+          "required": ["status"]
+        },
+        "then": {
+          "properties": {
+            "evidence_refs": { "type": "array", "minItems": 1 },
+            "gaps": { "type": "array", "maxItems": 0 }
+          }
+        },
+        "else": {
+          "properties": { "gaps": { "type": "array", "minItems": 1 } }
+        }
+      }]
+    },
+    "reviewEvidence": {
+      "type": "object",
+      "required": ["id", "kind", "coverage", "uri", "checksum", "outcome", "reviewed_at", "valid_through", "reviewer", "summary"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "enum": [
+            "publication-authority",
+            "operational-authority",
+            "affected-party-review",
+            "uncertainty-disclosure",
+            "challenge-mechanism",
+            "accessibility-review",
+            "security-review",
+            "privacy-review",
+            "correction-process",
+            "source-vintage-review"
+          ]
+        },
+        "coverage": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "publication-owner", "decision-scope", "expiry",
+              "lawful-basis", "operational-owner", "funding", "appeal", "exit-test",
+              "framing", "thresholds", "dissent", "response",
+              "missingness", "intervals", "unknown-stale-conflicted", "calibrated-language",
+              "submission-route", "independent-review", "response-sla", "disposition-record",
+              "plain-language", "disability-access", "translation", "low-bandwidth", "numeracy",
+              "threat-model", "abuse-cases", "vulnerability-response",
+              "data-minimisation", "re-identification", "consent-retention",
+              "public-ledger", "correction-route", "withdrawal",
+              "source-id", "checksum", "retrieval", "vintage", "licence", "maximum-age"
+            ]
+          }
+        },
+        "uri": { "type": "string", "format": "uri" },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "outcome": { "enum": ["passed", "failed", "pending"] },
+        "reviewed_at": { "type": "string", "format": "date-time" },
+        "valid_through": { "type": "string", "format": "date-time" },
+        "reviewer": { "$ref": "#/$defs/actor" },
+        "summary": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "sourceRecord": {
+      "type": "object",
+      "required": ["id", "uri", "retrieved_at", "vintage_date", "maximum_age_days", "checksum", "licence"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "uri": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "vintage_date": { "type": "string", "format": "date" },
+        "maximum_age_days": { "type": "integer", "minimum": 0 },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "licence": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": ["organisation", "role"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "required": ["organisation", "role", "evidence_ref"],
+      "properties": {
+        "organisation": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_ref": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "required": ["status", "rationale", "approved_by"],
+      "properties": {
+        "status": { "enum": ["draft", "blocked", "approved", "withdrawn"] },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "decided_at": { "type": "string", "format": "date-time" },
+        "approved_by": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/approval" } }
+      },
+      "additionalProperties": false,
+      "allOf": [{
+        "if": {
+          "properties": { "status": { "const": "approved" } },
+          "required": ["status"]
+        },
+        "then": {
+          "required": ["decided_at"],
+          "properties": {
+            "decided_at": { "type": "string", "format": "date-time" },
+            "approved_by": { "type": "array", "minItems": 1 }
+          }
+        },
+        "else": {
+          "properties": { "approved_by": { "type": "array", "maxItems": 0 } }
+        }
+      }]
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["classification", "authors", "rationale"],
+      "properties": {
+        "classification": { "enum": ["captured", "endorsed", "commissioned-proposal", "institutional-record"] },
+        "authors": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
