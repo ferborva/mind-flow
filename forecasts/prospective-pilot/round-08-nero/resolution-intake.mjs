@@ -13,7 +13,11 @@ if (digest(issuedBytes) !== "sha256:bc230310d6edb9814ef350dd58f683ca26f7fd60a9a4
   throw new Error("NERO original issued bytes changed; intake cannot proceed");
 }
 const original = JSON.parse(issuedBytes);
-const protocol = JSON.parse(readFileSync(new URL("./preregistration.json", import.meta.url)));
+const protocolBytes = readFileSync(new URL("./preregistration.json", import.meta.url));
+if (digest(protocolBytes) !== original.prospective_registration.preregistration_sha256) {
+  throw new Error("NERO retained preregistration differs from the immutable issued binding");
+}
+const protocol = JSON.parse(protocolBytes);
 const admitted = new WeakMap();
 const filename = "2026-10_nero.zip";
 
