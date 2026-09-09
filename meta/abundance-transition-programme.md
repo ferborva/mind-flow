@@ -127,8 +127,14 @@ The [dispositions](../pilots/australia/basket/panel-dispositions.json) preserve
 the distinction between removing a missing measure and replacing its concept.
 These populations differ. NSW context is not a rural individual's diagnosis;
 urgent users exclude people unable to obtain care. The five-direct-category,
-same-population current-access gate remains unmet. Rule parameters, spatial
-workforce context and 2018 navigation evidence do not complete it.
+same-population current-access diagnostic standard remains unmet. This is a
+stronger standard than the brief's gate: its explicit candidates include
+eligibility rules, workforce distribution and health literacy. The GP basket
+has reproducible retained indicators in all five categories, which satisfies
+that literal at-least-one-item measurement gate at indicator level. It does
+not establish five direct current-access measures or a personal diagnosis.
+The broader workstream request for all five categories on every basket item
+remains incomplete for the prescription, referral and after-hours pathways.
 
 Australia is the first bounded test: a GP consultation, a common prescription
 pathway, a referral pathway and an after-hours option. Each basket item needs

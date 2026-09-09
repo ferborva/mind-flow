@@ -14,7 +14,21 @@ updated: 2026-09-09
 Reviewed B head `27913ba`, independently of its author, on 2026-09-09.
 These are five constructed opposing perspectives, not interviews or endorsements
 by practitioners, affected people or statistical agencies. The review does not
-approve publication or claim the five-category measurement gate passed.
+approve publication. The gate interpretation below separates the brief's
+explicit indicator candidates from a stronger personal-diagnosis standard.
+
+## Literal brief and stronger diagnostic standard
+
+Section 5 requires at least one basket item with five categories measured from
+retained bytes and reproducible derivation. Workstream B explicitly suggests
+eligibility rules, GP workforce distribution and health literacy as candidates.
+The GP basket therefore meets that indicator-level gate with the five retained
+series types, including proxies and rule parameters. Requiring all five to be
+direct, current and person-linked would silently strengthen Fernando's gate.
+The stronger standard remains necessary for a current individual binding
+diagnosis and is not established. The broader Workstream B request for five
+categories for *each* basket item also remains incomplete for the other three
+pathways. These are distinct findings, not a blanket pass or failure.
 
 ## Reproduction and source-statistician lens
 
