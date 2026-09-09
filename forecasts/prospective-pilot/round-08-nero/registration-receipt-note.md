@@ -1,3 +1,13 @@
+---
+id: round-08-nero-registration-receipt
+title: NERO registration receipt and source revision
+type: internal-review
+status: draft
+provenance: agent-authored-research
+created: 2026-09-09
+updated: 2026-09-09
+---
+
 # Registration receipt, not issuance
 
 The exact 3,414-byte JSON response body returned by GitHub's comment API is
