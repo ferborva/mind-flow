@@ -20,6 +20,8 @@ This is Ren's commissioned research, not Fernando's healthcare policy or a
 clinical recommendation. The [measurement boundaries](#measurement-boundaries)
 apply to every number below.
 
+Independent review prompted an explicit construction revision, `pilots/australia/basket/primary-care.r2.json`, with `primary-care.kernel.r2.json`. Original basket, kernel and dashboard snapshot bytes remain retained. Nonnegative months, monetary gaps and workforce intensity now have one-sided domains rather than unsupported finite maxima. Specialist pathway price is explicitly missing because the all-specialty mean is not that pathway's price. Coverage of one selected cell out of one is not survey representativeness. No source value or observation period changed.
+
 ## What the retained sources measure
 
 | Category | Measure and population | Current evidence ceiling |
