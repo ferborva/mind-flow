@@ -1,0 +1,15 @@
+HTTP/2 200 
+content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+content-length: 1024226
+date: Wed, 09 Sep 2026 22:16:28 GMT
+last-modified: Tue, 27 Jan 2026 01:30:08 GMT
+etag: "de55ff8ecebf8ca59661a99ed2afda55"
+x-amz-server-side-encryption: AES256
+x-amz-version-id: dhbsbDjTKGQMTdhUt6hXYhyRTwePk28I
+accept-ranges: bytes
+server: AmazonS3
+x-cache: Miss from cloudfront
+via: 1.1 f10eedb52fc0d82204e85d20112deafa.cloudfront.net (CloudFront)
+x-amz-cf-pop: SYD62-P2
+x-amz-cf-id: CST42ryfKIuUoflA3Q_W5IV5IO9dkAp_4R8i6VIqa0ZJrzgwL08z5w==
+
