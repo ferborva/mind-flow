@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import { renderPrimaryCare } from "./render-primary-care.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
@@ -194,7 +195,8 @@ try {
     throw new Error(`baseline semantic validation failed: ${semanticErrors.join("; ")}`);
   }
   const serialised = JSON.stringify(baseline).replaceAll("</", "<\\/");
-  writeFileSync(outputPath, template.replace("__NERO_BASELINE__", serialised), "utf8");
+  if (template.split('__PRIMARY_CARE__').length !== 2) throw new Error('Expected one primary-care placeholder');
+  writeFileSync(outputPath, template.replace("__NERO_BASELINE__", serialised).replace('__PRIMARY_CARE__', renderPrimaryCare(root)), "utf8");
   process.stdout.write(`Built ${outputPath} from ${baselinePath}\n`);
 } catch (error) {
   process.stderr.write(`Australia pilot build failed: ${error.message}\n`);
