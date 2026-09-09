@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "reproduction.nero-decline-audit.2026-09-08t043546z",
+  "provenance": {
+    "classification": "agent-run-reproduction",
+    "operator": "Ren, Codex agent",
+    "started_from_clean_committed_tool": true,
+    "tool_commit": "87a346f5a85a700c613de68883bcd8a5c85794d3",
+    "runtime": "Node.js v26.0.0 on macOS 26.6.2",
+    "run_at_utc": "2026-09-08T04:35:46Z"
+  },
+  "source": {
+    "landing_page": "https://www.jobsandskills.gov.au/data/nero",
+    "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+    "retrieval_method": "Headless browser download from the official landing page because the publisher returned HTTP 403 to the command-line client.",
+    "archive_byte_length": 48613300,
+    "archive_sha256": "a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+    "archive_hash_matches_frozen_baseline": true,
+    "csv_member": "2026-08_nero/2026-08_shiny_df.csv",
+    "csv_byte_length": 372698746,
+    "csv_sha256": "7c1efd44b8f6692f32e92267cdbbb386abb87c0aa621d00b83cbde4136d325d1"
+  },
+  "command": "node pilots/australia/tools/decline-audit.mjs <extracted-checksum-matched-csv>",
+  "scope": {
+    "occupation_codes": ["5311", "5411", "5511", "5512", "5513"],
+    "series_count": 440,
+    "negative_control_start_inclusive": "2016-09-15",
+    "negative_control_end_inclusive": "2022-11-15"
+  },
+  "results": {
+    "whole_archive": {
+      "three_consecutive_declines": {
+        "numerator": 21485,
+        "denominator": 56760,
+        "share": 0.378524,
+        "first_eligible_date": "2015-12-15",
+        "last_eligible_date": "2026-08-15"
+      }
+    },
+    "pre_negative_control_era": {
+      "three_consecutive_declines": {
+        "numerator": 1534,
+        "denominator": 3960,
+        "share": 0.387374,
+        "first_eligible_date": "2015-12-15",
+        "last_eligible_date": "2016-08-15"
+      }
+    },
+    "negative_control_era": {
+      "three_consecutive_declines": {
+        "numerator": 12321,
+        "denominator": 33000,
+        "share": 0.373364,
+        "first_eligible_date": "2016-09-15",
+        "last_eligible_date": "2022-11-15"
+      }
+    },
+    "later_era": {
+      "three_consecutive_declines": {
+        "numerator": 7630,
+        "denominator": 19800,
+        "share": 0.385354,
+        "first_eligible_date": "2022-12-15",
+        "last_eligible_date": "2026-08-15"
+      }
+    }
+  },
+  "comparison": {
+    "record": "pilots/australia/nero-warning-audit-2026-08.json",
+    "numerators_match": true,
+    "denominators_match": true,
+    "shares_match_at_six_decimal_places": true,
+    "eligibility_dates_match": true
+  },
+  "claim_limit": "This independently reproduces the corrected descriptive run-rule arithmetic from the currently served checksum-matched archive. It does not establish historical as-published vintages, independent event labels, warning accuracy, AI adoption, causation, release chronology or public-action fitness.",
+  "residual_risk": "The archive was re-downloaded from a mutable publisher URL. The matching SHA-256 establishes byte identity with the frozen baseline record, but no publisher signature or archived response metadata was available."
+}

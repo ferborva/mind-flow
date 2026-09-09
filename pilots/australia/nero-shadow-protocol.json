@@ -1,0 +1,432 @@
+{
+  "schema_version": "1.0.0",
+  "status": "agent_analysis",
+  "as_at": "2026-09-08",
+  "title": "NERO prospective shadow warning protocol",
+  "mode": "no_consequence_shadow_rehearsal",
+  "current_authority": {
+    "may_do": [
+      "Archive official source vintages",
+      "Measure revisions and schema change",
+      "Generate private review candidates from predeclared rules",
+      "Rehearse evidence review and bounded support planning",
+      "Publish methods and aggregate feasibility findings after review"
+    ],
+    "must_not_do": [
+      "Describe a signal as an AI, job-loss or crisis warning",
+      "Attribute a change to AI",
+      "Rank or target an individual",
+      "Withdraw benefits, employment, services or support",
+      "Trigger public action from NERO alone",
+      "Replace or mutate a prior vintage"
+    ]
+  },
+  "target_tiers": [
+    {
+      "tier": 0,
+      "name": "data_quality_event",
+      "definition": "A schema, coverage, model-version, release-timing or revision event that may invalidate a signal.",
+      "status": "shadow_ready_after_second_vintage"
+    },
+    {
+      "tier": 1,
+      "name": "employment_trend_review_candidate",
+      "definition": "One separate occupation-SA4 modelled series satisfies a fixed descriptive rule.",
+      "status": "shadow_ready",
+      "interpretation_limit": "A reason to review evidence, not an adverse event or causal claim."
+    },
+    {
+      "tier": 2,
+      "name": "independent_worker_flow_event",
+      "definition": "A predeclared worker-flow outcome is observed in an audited non-derived source at the same occupation, geography and overlapping period. LFS-family evidence is context only.",
+      "status": "blocked_by_outcome_source"
+    },
+    {
+      "tier": 3,
+      "name": "continuity_or_agency_event",
+      "definition": "A direct household continuity-floor or agency outcome is observed for the cohort and period.",
+      "status": "blocked_by_outcome_source"
+    },
+    {
+      "tier": 4,
+      "name": "ai_attributable_event",
+      "definition": "Observed AI adoption and work redesign have a credible counterfactual causal link to a worker or household outcome.",
+      "status": "blocked_by_adoption_redesign_and_causal_design"
+    }
+  ],
+  "source_schedule": {
+    "official_release_page": "https://www.jobsandskills.gov.au/data/nero",
+    "expected_releases_as_at_2026_09_08": [
+      { "reference_period": "2026-09", "planned_release_date": "2026-10-07" },
+      { "reference_period": "2026-10", "planned_release_date": "2026-11-04" },
+      { "reference_period": "2026-11", "planned_release_date": "2026-12-02" }
+    ],
+    "rule": "Check the official page before and after the expected release. Record either a verified publisher UTC timestamp or the conservative interval from the last UTC absence observation to the first UTC presence observation, retaining both evidence records. A date alone never enters chronology. A delay is data, not permission to reuse the prior status as current."
+  },
+  "scope": {
+    "occupation_classification": "ANZSCO 2013 version 1.3, 4-digit",
+    "geography_classification": "ASGS 2021 SA4, place of residence",
+    "occupation_codes": ["5311", "5411", "5511", "5512", "5513"],
+    "sa4_count_expected": 88,
+    "series_count_expected": 440,
+    "aggregation_rule": "Never sum or combine NERO occupations or regions. Evaluate every occupation-SA4 series separately.",
+    "classification_break_rule": "A new occupation or geography version creates a new series family. Do not splice without a reviewed, versioned concordance and break flag."
+  },
+  "immutable_records": {
+    "vintage": {
+      "required_fields": [
+        "source_url",
+        "archive_name",
+        "release_period",
+        "publisher_release_date",
+        "release_availability",
+        "retrieved_timestamp_utc",
+        "archive_bytes",
+        "archive_sha256",
+        "contained_file_names",
+        "contained_file_sha256",
+        "schema",
+        "row_count",
+        "date_min",
+        "date_max",
+        "occupation_classification",
+        "geography_classification",
+        "model_version_if_published",
+        "correction_or_revision_note",
+        "licence"
+      ],
+      "immutability_rule": "Write a new release-period and retrieval-version record. Never overwrite, repair in place or silently deduplicate."
+    },
+    "series_observation": {
+      "primary_key": ["archive_sha256", "occupation_code", "sa4_code", "reference_date"],
+      "required_fields": ["modelled_employment", "source_row_status"],
+      "prohibited_fields": ["inferred_adoption", "inferred_job_loss", "inferred_crisis"]
+    },
+    "shadow_decision": {
+      "primary_key": ["protocol_version", "release_period", "detector_id", "occupation_code", "sa4_code"],
+      "required_fields": [
+        "computed_at",
+        "eligible",
+        "ineligibility_reason",
+        "signal_value",
+        "threshold_version",
+        "state",
+        "episode_id",
+        "evidence_vintages",
+        "bounded_interpretation",
+        "review_due_at",
+        "review_outcome"
+      ],
+      "allowed_states": ["unavailable", "below_condition", "near_condition", "review_candidate", "conflicted", "stale", "invalidated"]
+    },
+    "outcome": {
+      "required_fields": [
+        "target_tier",
+        "definition_version",
+        "occupation_code",
+        "geography",
+        "event_onset",
+        "observation_window",
+        "release_availability",
+        "source_vintage",
+        "source_is_nero_input",
+        "independence_class",
+        "uncertainty",
+        "adjudicator",
+        "adjudicated_before_signal_unblinding"
+      ]
+    }
+  },
+  "as_of_rule": {
+    "selection": "For a decision at time r, use only source vintages whose evidenced availability is wholly at or before r and the first published NERO estimate then available. If an availability interval overlaps r or lacks a lower bound needed to prove registration order, chronology is unknown and the decision fails closed.",
+    "baseline_window": "Every rolling feature must end before or at the current reference period and must come from the same as-of release.",
+    "publication_time": "Measure lead time from a verified publisher UTC timestamp. When only a bounded first-seen interval exists, publish conservative lower and upper lead-time bounds rather than a point estimate. Never invent midnight UTC from a calendar date or use the middle of the reference month.",
+    "late_or_corrected_source": "Add as new information at its actual availability time. Do not rewrite the earlier shadow decision.",
+    "missing": "Emit unavailable. Do not forward-fill an alert or green state."
+  },
+  "detector_registration": {
+    "status": "must_be_frozen_before_2026_10_07_release",
+    "required_fields": [
+      "detector_id",
+      "version",
+      "target_tier",
+      "eligible_series",
+      "minimum_history",
+      "features",
+      "thresholds",
+      "alert_episode_start",
+      "cooldown",
+      "reset",
+      "forecast_horizon",
+      "bounded_action",
+      "false_positive_cost",
+      "false_negative_cost",
+      "maximum_review_capacity"
+    ],
+    "candidate_families": [
+      {
+        "id": "annual_change",
+        "feature": "As-of 12-month percentage change",
+        "risk": "Common persistent trends create many repeated flags."
+      },
+      {
+        "id": "rolling_slope",
+        "feature": "Slope over a preregistered trailing window",
+        "risk": "Strong smoothing can make a slow path appear precise and persistent."
+      },
+      {
+        "id": "seasonal_acceleration",
+        "feature": "Change in trend relative to a trailing seasonal baseline",
+        "risk": "Later revisions can move both the current and baseline values."
+      },
+      {
+        "id": "run_plus_magnitude",
+        "feature": "A declared run length plus a minimum cumulative decline",
+        "risk": "Direction alone has very high alert burden in the frozen history."
+      },
+      {
+        "id": "two_source_review",
+        "feature": "NERO trend plus a preregistered non-NERO measure",
+        "risk": "Comparator independence and resolution must be explicit."
+      }
+    ],
+    "selection_rule": "Register all candidates and thresholds before the holdout. Do not report only the best-performing rule.",
+    "episode_rule": "Consecutive flagged months for one series count as one episode until the preregistered reset condition is met."
+  },
+  "revision_tests": [
+    { "id": "first_to_next", "formula": "estimate(t, vintage_r_plus_1) - estimate(t, first_vintage_r)" },
+    { "id": "first_to_latest", "formula": "estimate(t, latest_available_vintage) - estimate(t, first_vintage_r)" },
+    { "id": "relative_revision", "formula": "absolute(first_to_latest) / maximum(absolute(first_release_estimate), epsilon)" },
+    { "id": "growth_sign_flip", "formula": "sign(change_as_first_published) differs from sign(change_as_latest)" },
+    { "id": "alert_flip", "formula": "shadow_state_as_first_published differs from recomputed_state_as_latest" },
+    { "id": "stabilisation_time", "formula": "first vintage after which later revisions remain within the preregistered tolerance" }
+  ],
+  "smoothing_tests": [
+    {
+      "id": "synthetic_step",
+      "type": "rehearsal_only",
+      "method": "Inject known one-month level breaks of several declared magnitudes into a copy of a series and measure detector delay.",
+      "claim_limit": "Tests pipeline and detector mechanics, not NERO's response to a real shock because it bypasses the JSA model."
+    },
+    {
+      "id": "synthetic_ramp",
+      "type": "rehearsal_only",
+      "method": "Inject gradual declines over declared windows and measure repeated-alert burden and episode handling.",
+      "claim_limit": "Tests rules, not empirical predictive accuracy."
+    },
+    {
+      "id": "observed_first_release_response",
+      "type": "prospective_empirical",
+      "method": "After a separately verified real event, compare first-published NERO path, later revisions and event onset.",
+      "claim_limit": "Valid only after event definition and independence review."
+    }
+  ],
+  "comparator_registry": [
+    {
+      "id": "abs-lfs",
+      "source": "ABS Labour Force Survey",
+      "role": "Broad occupation or state coherence and worker-transition triangulation",
+      "independence_class": "partially_dependent",
+      "reason": "NERO uses and reconciles to LFS inputs.",
+      "scope_compatibility": "No public monthly occupation-SA4 cell",
+      "may_validate": "Different transition constructs with explicit dependence caveat",
+      "must_not_validate": "Independent accuracy, corroboration or escalation of NERO employment levels"
+    },
+    {
+      "id": "jsa-ivi",
+      "source": "JSA Internet Vacancy Index",
+      "role": "Labour-demand context",
+      "independence_class": "model_input",
+      "reason": "JSA lists online vacancy information among NERO inputs.",
+      "scope_compatibility": "Different labour-demand construct",
+      "may_validate": "No independent NERO claim",
+      "must_not_validate": "Employment-level or warning accuracy"
+    },
+    {
+      "id": "abs-census-2026",
+      "source": "ABS 2026 Census of Population and Housing",
+      "url": "https://www.abs.gov.au/census/guide-census-data/2026-census-product-guide/latest-release",
+      "role": "Prospective external point benchmark close to August 2026",
+      "independence_class": "external_to_frozen_august_archive",
+      "reference_date": "2026-08-11",
+      "employment_data_planned": "2027-10",
+      "scope_compatibility": "Unknown until the released table is checked for the same occupation and geography",
+      "may_validate": "Compatible occupation-geography level or rank estimates if the required cells are released",
+      "must_not_validate": "Warning lead time, AI attribution, household continuity or agency"
+    },
+    {
+      "id": "abs-job-mobility",
+      "source": "ABS Job Mobility",
+      "role": "Annual separations, engagements, retrenchment and job-change context",
+      "independence_class": "different_survey_construct_scope_mismatch",
+      "scope_compatibility": "Annual and broader than monthly occupation-SA4 in public output",
+      "may_validate": "Broad worker-flow direction as context where definitions and periods align",
+      "must_not_validate": "Monthly occupation-SA4 employment warning accuracy"
+    },
+    {
+      "id": "dss-payments",
+      "source": "DSS quarterly payment aggregates",
+      "role": "Downstream local safety-net context",
+      "independence_class": "administratively_independent",
+      "scope_compatibility": "Local place but no occupation-specific worker flow",
+      "may_validate": "Predeclared local support-pressure outcome after policy and population controls",
+      "must_not_validate": "Occupation-specific flow or AI causality"
+    },
+    {
+      "id": "future-employer-worker-panel",
+      "source": "Prospective governed employer-worker deployment, task and payroll panel",
+      "role": "Direct adoption, redesign and worker-flow outcome",
+      "independence_class": "potentially_independent_after_audit",
+      "status": "missing",
+      "scope_compatibility": "Potential site, occupation and period match; geography and representativeness require preregistered audit",
+      "may_validate": "Site and occupation outcomes with credible treatment and comparison design",
+      "must_not_validate": "National population without representative sampling"
+    }
+  ],
+  "corroboration_gate": {
+    "required_independence": "The candidate source is not a NERO input, not derived from a NERO input for the tested outcome, and passes a published field-lineage audit.",
+    "required_scope": ["same occupation", "same geography", "overlapping time", "same worker-flow construct"],
+    "context_only_classes": ["model_input", "partially_dependent", "different_survey_construct_scope_mismatch"],
+    "failure_rule": "Shared-input agreement or broader state, occupation or place agreement cannot satisfy escalation. If any independence or scope field is missing, the corroborated state is unknown.",
+    "current_state": "unknown",
+    "next_observation": "Freeze the first governed employer-worker panel extract for one named occupation-SA4 and overlapping release period, then publish its source lineage and compatibility decision before viewing its direction."
+  },
+  "evaluation": {
+    "split": "Contiguous time blocks by actual release vintage. Never random row splits.",
+    "model_versions": "Evaluate each NERO version separately and treat changes as breaks.",
+    "base_rate": "Report independent event episodes divided by eligible series-episodes. Do not use NERO decline frequency as event prevalence.",
+    "metrics": [
+      "Event episode count and prevalence",
+      "Sensitivity with clustered confidence interval",
+      "False-negative rate with clustered confidence interval",
+      "Precision with clustered confidence interval for alerting policies with at least one predicted positive; otherwise undefined",
+      "False-discovery rate with clustered confidence interval",
+      "Specificity and false-positive rate under a defensible non-event sample",
+      "Alert episodes per 100 eligible series per month",
+      "First-alert lead-time distribution from publication timestamp",
+      "Detection delay",
+      "Alert duration and repeat burden",
+      "First-to-next and first-to-latest revision",
+      "Alert flip rate after revision",
+      "Missing, suppressed and stale rate",
+      "Probability calibration if applicable",
+      "Net decision value under preregistered error costs"
+    ],
+    "uncertainty": "Use cluster-aware or block-resampling methods for serial and spatial dependence. Publish numerator, denominator and effective sample assumptions.",
+    "strata": ["occupation", "state", "SA4", "series-size risk", "NERO model version", "event type"],
+    "simple_baselines": [
+      { "id": "no-alert", "comparison": "Net decision utility under the preregistered loss matrix", "precision": "undefined because there are no predicted positives" },
+      { "id": "seasonal-persistence", "comparison": "Metric-specific forecast and decision performance" },
+      { "id": "fixed-annual-change", "comparison": "Metric-specific alert and decision performance" },
+      { "id": "broad-state-occupation-trend", "comparison": "Metric-specific alert and decision performance at its declared broader scope" }
+    ],
+    "decision_utility": {
+      "primary_comparator_for_no_alert": "Net utility equals the negative sum of false-positive cost and false-negative cost over resolved eligible outcomes.",
+      "required_registration": ["bounded action", "false-positive loss", "false-negative loss", "event definition", "horizon", "eligible sample", "clustering", "censoring rule", "stopping rule"],
+      "censoring": "Keep unresolved outcomes out of confusion-matrix counts, report them separately, and return insufficient evidence when none are resolved.",
+      "implementation": "pilots/australia/tools/decision-utility.mjs"
+    },
+    "lead_time_formula": "independent_event_onset_timestamp - alert_publication_timestamp",
+    "look_ahead_test": "Re-run every decision from the immutable as-of panel and fail if any feature or comparator was published later.",
+    "multiple_testing": "Report all preregistered detectors and control family selection. Do not search thresholds across the holdout and publish only the winner."
+  },
+  "error_adjudication": {
+    "true_positive": "A new alert episode is followed by the preregistered independent event within horizon H.",
+    "false_positive": "A new alert episode is not followed by that event within H after outcome observation is complete.",
+    "false_negative": "A target event occurs without an alert in the preregistered warning window.",
+    "true_negative": "An eligible sampled non-alert period has no event, using a scheme that prevents abundant ordinary months from dominating accuracy.",
+    "no_alert_precision": "Undefined because true positives plus false positives equals zero. Compare no-alert through preregistered net decision utility instead.",
+    "rules": [
+      "Adjudicate event definitions without seeing detector identity where judgement is required.",
+      "Do not relabel conflicted or missing outcomes as negatives.",
+      "Keep uncertain events separate and run sensitivity bounds.",
+      "Record concurrent shocks and alternative explanations.",
+      "Price the two error types for the bounded action before evaluation."
+    ]
+  },
+  "monthly_run": [
+    { "order": 1, "action": "Retrieve and hash the original archive on actual release day." },
+    { "order": 2, "action": "Validate archive, schema, classifications, row coverage, dates and duplicate keys." },
+    { "order": 3, "action": "Freeze a vintage record before transformation." },
+    { "order": 4, "action": "Diff all overlapping observations and calculate revision diagnostics." },
+    { "order": 5, "action": "Run only the frozen detector version on the as-of panel." },
+    { "order": 6, "action": "Collapse persistent flags into episodes and enforce cooldown and reset." },
+    { "order": 7, "action": "Write an immutable private shadow decision with no external consequence." },
+    { "order": 8, "action": "Freeze same-day comparator vintages and independence classifications." },
+    { "order": 9, "action": "Complete human review and log time, disagreement, missing evidence and capacity." },
+    { "order": 10, "action": "Attach later outcomes without mutating the original signal or decision." }
+  ],
+  "rehearsal_scenarios": [
+    "Rapid employment break hidden by smoothing",
+    "Slow decline producing repeated flags",
+    "Later revision reversing a review candidate",
+    "Missing or delayed monthly release",
+    "Occupation or geography classification break",
+    "State-wide recession affecting all five cohorts",
+    "Local employer closure unrelated to AI",
+    "NERO decline with stable household continuity",
+    "Household continuity deterioration without NERO decline",
+    "Beneficial augmentation with better worker and service outcomes"
+  ],
+  "review_milestones": [
+    {
+      "condition": "Two frozen vintages",
+      "permitted_result": "First revision diff and schema comparison",
+      "prohibited_result": "Accuracy or warning claim"
+    },
+    {
+      "condition": "Three consecutive frozen vintages",
+      "permitted_result": "Revision smoke test, operational rehearsal and alert-load report",
+      "prohibited_result": "Crisis validation"
+    },
+    {
+      "condition": "Twelve consecutive frozen vintages",
+      "permitted_result": "First-release revision curves, annual alert stability and process reliability",
+      "prohibited_result": "Causal AI warning unless all higher-tier evidence also exists"
+    },
+    {
+      "condition": "ABS releases compatible 2026 Census employment data",
+      "expected_date": "2027-10",
+      "permitted_result": "External point-estimate and rank comparison for the frozen August 2026 NERO archive",
+      "prohibited_result": "Lead-time, adoption, continuity or agency validation"
+    },
+    {
+      "condition": "Effective independent event sample reaches preregistered precision",
+      "permitted_result": "Out-of-time warning evaluation at the applicable target tier",
+      "prohibited_result": "Extrapolation beyond validated population, geography, outcome and action"
+    }
+  ],
+  "go_gates": {
+    "monthly_shadow": [
+      "Protocol, detector, target and error costs frozen before next release",
+      "Immutable archive and decision records implemented",
+      "Schema and classification changes fail visibly",
+      "Expected alert burden is within named human review capacity",
+      "All outputs are private, non-causal and have no individual consequence"
+    ],
+    "limited_public_review_signal": [
+      "Independent target at compatible population, geography and time",
+      "Effective event sample meets preregistered confidence precision after dependence adjustment",
+      "Sensitivity and precision beat applicable alerting baselines and action requirements; no-alert is compared only through preregistered net decision utility",
+      "Alert episode burden is within review capacity",
+      "Lower-tail lead time exceeds bounded-action mobilisation time",
+      "Revision alert-flip rate is within a preregistered action-cost tolerance",
+      "Performance remains acceptable for small series and every scoped occupation",
+      "Reasonable specifications and confounder checks do not reverse the conclusion",
+      "Independent statistical, worker and ethics review approves exact language"
+    ]
+  },
+  "stop_conditions": [
+    "A later archive is used to reconstruct an earlier information set",
+    "A NERO model input is labelled independent truth",
+    "Thresholds or outcomes are changed after holdout inspection",
+    "Overlapping alert months are counted as independent events",
+    "Reference date substitutes for publication date in lead time",
+    "Missing or suppressed data inherit an earlier status",
+    "Aggregate performance hides failure in small series or a scoped occupation",
+    "The signal is described as AI adoption, displacement, household crisis or causation",
+    "The proposed action can withdraw support or target a person or place",
+    "Observed warning lead time is shorter than action mobilisation time"
+  ],
+  "public_label_if_eventually_authorised": "This modelled employment series met a pre-registered review condition. It does not show why employment changed and is not evidence of AI adoption or household crisis."
+}

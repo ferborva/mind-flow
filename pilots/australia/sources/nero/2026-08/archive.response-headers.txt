@@ -1,0 +1,13 @@
+HTTP/2 200 
+last-modified: Tue, 01 Sep 2026 22:16:38 GMT
+etag: "6a974ec6-2e5c7b4"
+x-lagoon: amazeeio-govcms6>sigsci-ingress-nginx>jsa-master:nginx>nginx-99dfbcb44-5gfxr
+strict-transport-security: max-age=31536000; includeSubDomains
+content-type: application/zip
+content-length: 48613300
+accept-ranges: bytes
+cache-control: max-age=21600
+expires: Wed, 09 Sep 2026 04:32:26 GMT
+date: Tue, 08 Sep 2026 22:32:26 GMT
+alt-svc: h3=":443"; ma=93600
+

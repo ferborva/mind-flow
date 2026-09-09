@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/pilots/australia/nero-baseline.schema.json",
+  "title": "Australia NERO clerical baseline",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "publication_status",
+    "source_bytes_status",
+    "epistemic_class",
+    "measurement_type",
+    "source",
+    "scope",
+    "public_warning",
+    "interpretation_limit",
+    "revision_policy",
+    "series"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "type": "string", "pattern": "^nero-clerical-baseline-[0-9]{4}-[0-9]{2}$" },
+    "title": { "$ref": "#/$defs/nonEmptyString" },
+    "publication_status": { "const": "research_draft_unverified" },
+    "source_bytes_status": { "const": "not_retained_unverified" },
+    "epistemic_class": { "const": "modelled-estimate" },
+    "measurement_type": { "const": "modelled-nowcast" },
+    "source": {
+      "type": "object",
+      "required": [
+        "publisher",
+        "title",
+        "licence",
+        "archive_url",
+        "archive_name",
+        "release_period",
+        "released_at",
+        "release_availability",
+        "retrieved_at",
+        "checksum"
+      ],
+      "properties": {
+        "publisher": { "const": "Jobs and Skills Australia" },
+        "title": { "const": "Nowcast of Employment by Region and Occupation" },
+        "licence": { "const": "CC BY 4.0" },
+        "archive_url": { "type": "string", "format": "uri", "pattern": "^https://www\\.jobsandskills\\.gov\\.au/" },
+        "archive_name": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}_nero\\.zip$" },
+        "release_period": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" },
+        "released_at": { "type": "string", "format": "date" },
+        "release_availability": { "$ref": "#/$defs/releaseAvailability" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "occupation_classification",
+        "geography_classification",
+        "occupation_codes",
+        "series_count"
+      ],
+      "properties": {
+        "occupation_classification": { "const": "ANZSCO 2013 version 1.3, 4-digit" },
+        "occupation_classification_verification_status": {
+          "const": "unverified_external_review_required"
+        },
+        "geography_classification": { "const": "ASGS 2021 SA4, place of residence" },
+        "occupation_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[0-9]{4}$" }
+        },
+        "series_count": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "public_warning": { "$ref": "#/$defs/nonEmptyString" },
+    "interpretation_limit": { "$ref": "#/$defs/nonEmptyString" },
+    "revision_policy": { "$ref": "#/$defs/nonEmptyString" },
+    "series": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/series" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "releaseAvailability": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "timestamp_utc", "evidence"],
+          "properties": {
+            "kind": { "const": "verified-publisher-timestamp" },
+            "timestamp_utc": { "type": "string", "format": "date-time", "pattern": "Z$" },
+            "evidence": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "not_seen_as_of_utc", "first_seen_at_utc", "evidence"],
+          "properties": {
+            "kind": { "const": "first-seen-interval" },
+            "not_seen_as_of_utc": {
+              "anyOf": [
+                { "type": "string", "format": "date-time", "pattern": "Z$" },
+                { "type": "null" }
+              ]
+            },
+            "first_seen_at_utc": { "type": "string", "format": "date-time", "pattern": "Z$" },
+            "evidence": { "$ref": "#/$defs/nonEmptyString" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "point": {
+      "type": "object",
+      "required": ["date", "value", "status"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "value": { "type": ["integer", "null"], "minimum": 0 },
+        "status": { "enum": ["reported-modelled-estimate", "suppressed-or-unavailable"] }
+      },
+      "additionalProperties": false
+    },
+    "change": {
+      "type": ["object", "null"],
+      "required": ["from_date", "from_value", "absolute", "percent"],
+      "properties": {
+        "from_date": { "type": "string", "format": "date" },
+        "from_value": { "type": "integer", "minimum": 0 },
+        "absolute": { "type": "integer" },
+        "percent": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "series": {
+      "type": "object",
+      "required": [
+        "occupation_code",
+        "occupation_name",
+        "state_name",
+        "sa4_code",
+        "sa4_name",
+        "latest",
+        "change_12m",
+        "change_60m",
+        "recent_observations"
+      ],
+      "properties": {
+        "occupation_code": { "type": "string", "pattern": "^[0-9]{4}$" },
+        "occupation_name": { "$ref": "#/$defs/nonEmptyString" },
+        "state_name": { "$ref": "#/$defs/nonEmptyString" },
+        "sa4_code": { "type": "string", "pattern": "^[0-9]{3}$" },
+        "sa4_name": { "$ref": "#/$defs/nonEmptyString" },
+        "latest": { "$ref": "#/$defs/point" },
+        "change_12m": { "$ref": "#/$defs/change" },
+        "change_60m": { "$ref": "#/$defs/change" },
+        "recent_observations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/point" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

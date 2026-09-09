@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0.0",
+  "capture_id": "jsa-nero-2026-08-retained-20260908t223329z",
+  "captured_at_utc": "2026-09-08T22:33:29Z",
+  "status": "retained-official-host-bytes-unverified-publisher",
+  "source": {
+    "publisher_identity_claim": "Jobs and Skills Australia",
+    "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+    "landing_url": "https://www.jobsandskills.gov.au/data/nero",
+    "copyright_url": "https://www.jobsandskills.gov.au/copyright-and-disclaimer",
+    "release_period": "2026-08",
+    "publisher_release_date": "2026-09-02",
+    "licence_claim": "CC BY 4.0 with publisher-stated exclusions and attribution",
+    "licence_review_status": "publisher-stated-not-legally-reviewed"
+  },
+  "clocks": {
+    "publisher_release_calendar_date": "2026-09-02",
+    "archive_http_response_date_utc": "2026-09-08T22:32:26Z",
+    "landing_http_response_date_utc": "2026-09-08T22:33:15Z",
+    "copyright_http_response_date_utc": "2026-09-08T22:33:15Z",
+    "recorder_capture_completed_at_utc": "2026-09-08T22:33:29Z",
+    "last_modified_interpretation": "transport-metadata-only-not-release-time",
+    "prospective_chronology_state": "unknown"
+  },
+  "source_native_scope": {
+    "measure": "modelled employment estimate",
+    "cadence": "monthly",
+    "occupation": {
+      "classification": "ANZSCO",
+      "level": "4-digit",
+      "version": "not-established-by-this-capture"
+    },
+    "geography": {
+      "classification": "ASGS",
+      "level": "SA4",
+      "place_basis": "not-established-by-this-capture"
+    },
+    "aggregation_rule": "Do not sum or combine occupations or regions."
+  },
+  "acquisition_evidence": {
+    "response_headers_retained": true,
+    "response_bodies_retained": true,
+    "http_status_content_type_and_length_checked": true,
+    "landing_archive_link_checked": true,
+    "single_request_cryptographic_binding": false
+  },
+  "artifacts": [
+    {
+      "role": "archive",
+      "path": "sources/nero/2026-08/2026-08_nero.zip",
+      "source_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+      "media_type": "application/zip",
+      "byte_length": 48613300,
+      "sha256": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446"
+    },
+    {
+      "role": "archive-response-headers",
+      "path": "sources/nero/2026-08/archive.response-headers.txt",
+      "source_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+      "media_type": "text/plain",
+      "byte_length": 455,
+      "sha256": "sha256:2e84ad5ec610856e5603006b242271a3f5183b808d56b342d6082be4b175dce9"
+    },
+    {
+      "role": "landing-page",
+      "path": "sources/nero/2026-08/nero-landing.html",
+      "source_url": "https://www.jobsandskills.gov.au/data/nero",
+      "media_type": "text/html",
+      "byte_length": 48101,
+      "sha256": "sha256:e83dabf3e8b268a85008a30eefd0301b517780d39187428a808f019918edc9fb"
+    },
+    {
+      "role": "landing-response-headers",
+      "path": "sources/nero/2026-08/nero-landing.response-headers.txt",
+      "source_url": "https://www.jobsandskills.gov.au/data/nero",
+      "media_type": "text/plain",
+      "byte_length": 575,
+      "sha256": "sha256:d7d173ab9a129c6dc81e2a6065b332b3507fa511ea57cefdea71dc79a5172f24"
+    },
+    {
+      "role": "copyright-page",
+      "path": "sources/nero/2026-08/copyright-and-disclaimer.html",
+      "source_url": "https://www.jobsandskills.gov.au/copyright-and-disclaimer",
+      "media_type": "text/html",
+      "byte_length": 39970,
+      "sha256": "sha256:862e9f5eb508b5608251039e0a0a78944f116a529be91cf58aae2ebb2bd531d5"
+    },
+    {
+      "role": "copyright-response-headers",
+      "path": "sources/nero/2026-08/copyright-and-disclaimer.response-headers.txt",
+      "source_url": "https://www.jobsandskills.gov.au/copyright-and-disclaimer",
+      "media_type": "text/plain",
+      "byte_length": 575,
+      "sha256": "sha256:59c6ef9b06e3abaf046cf10faefa54a11bcce349ebf1de38ea7b0ab4be4e4ea7"
+    }
+  ],
+  "archive_structure": {
+    "integrity_test": "in-process-crc-and-size-recomputation",
+    "members": [
+      {
+        "path": "2026-08_nero/",
+        "uncompressed_byte_length": 0
+      },
+      {
+        "path": "2026-08_nero/2026-08_shiny_df.csv",
+        "uncompressed_byte_length": 372698746
+      },
+      {
+        "path": "2026-08_nero/2026-08_shiny_df.rds",
+        "uncompressed_byte_length": 16419664
+      }
+    ]
+  },
+  "evidence_claims": [
+    {
+      "role": "landing-page",
+      "literal": "August 2026 data was released on 2nd September 2026."
+    },
+    {
+      "role": "landing-page",
+      "literal": "The Nowcast of Employment by Region and Occupation or NERO provides estimates of employment in 355 occupations across 88 regions in Australia."
+    },
+    {
+      "role": "landing-page",
+      "literal": "NERO is designed specifically for estimating employment numbers at the ANZSCO 4-digit and ASGS SA4 level."
+    },
+    {
+      "role": "landing-page",
+      "literal": "Estimates should not be summed or combined to generate aggregated results across geographies or occupation groups"
+    },
+    {
+      "role": "landing-page",
+      "literal": "the content of NERO is licensed under the Creative Commons Attribution 4.0 International Licence"
+    },
+    {
+      "role": "landing-page",
+      "literal": "Nowcast of Employment by Region and Occupation, Jobs and Skills Australia, Commonwealth of Australia. Used under Creative Commons BY 4.0 licence."
+    },
+    {
+      "role": "copyright-page",
+      "literal": "All content on the Jobs and Skills Australia website is provided under a&nbsp;Creative Commons Attribution 4.0&nbsp;International Licence"
+    },
+    {
+      "role": "archive-response-headers",
+      "literal": "content-length: 48613300"
+    }
+  ],
+  "baseline_binding": {
+    "path": "data/nero-clerical-2026-08.json",
+    "sha256": "sha256:440c566123d3146cc2b00eef267139fc1a13dbd653c7ec9ec3c40012d857fa70",
+    "archive_checksum": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+    "selected_occupation_codes": ["5311", "5511", "5512", "5513", "5411"],
+    "region_count": 88,
+    "series_count": 440
+  },
+  "redistribution": {
+    "notice_path": "sources/nero/2026-08/ATTRIBUTION.md",
+    "notice_sha256": "sha256:5138131049735c436cba95536c92fe4e4c67a64234372bf3d009e959148d2ed0",
+    "publisher_attribution": "Nowcast of Employment by Region and Occupation, Jobs and Skills Australia, Commonwealth of Australia. Used under Creative Commons BY 4.0 licence.",
+    "publisher_attribution_applied": true,
+    "excluded_material_classes": [
+      "Commonwealth Coat of Arms",
+      "Jobs and Skills Australia logo",
+      "images or photographs",
+      "trademark-protected material",
+      "third-party material",
+      "material otherwise noted"
+    ],
+    "archive_contains_excluded_material_verified": false,
+    "legal_review_complete": false,
+    "status": "publisher-licence-relied-upon-pending-legal-review"
+  },
+  "derivation": {
+    "tool_path": "dashboard/tools/build-nero-baseline.mjs",
+    "tool_sha256": "sha256:d2d7e63359277fc20ee1f937b295f99d3958225f1be435a2b1b19d8bb4d4dc7d",
+    "arguments": {
+      "source_path": "pilots/australia/sources/nero/2026-08/2026-08_nero.zip",
+      "release_period": "2026-08",
+      "released_at": "2026-09-02",
+      "retrieved_at": "2026-09-08T01:01:48Z",
+      "archive_url": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+      "recent_months": 25,
+      "occupations": [
+        "5311",
+        "5511",
+        "5512",
+        "5513",
+        "5411"
+      ]
+    },
+    "comparison_profile": "canonical-series-projection-v1",
+    "expected_projection_sha256": "sha256:86aead0ed8f5eaf8812b5a7e348ef0e070bb9a8ffdeea1068120962583d01dcb"
+  },
+  "boundaries": {
+    "publisher_signature_verified": false,
+    "independent_witness_verified": false,
+    "responses_bound_to_single_requests": false,
+    "exact_publisher_release_time_utc": null,
+    "prospective_chronology_established": false,
+    "condition_truth_determined": false,
+    "causal_claim_permitted": false,
+    "warning_claim_permitted": false,
+    "decision_use_permitted": false
+  },
+  "maximum_claim": "Retained exact bytes from HTTPS retrievals at the registered official-host URLs match the recorded digests; retained response metadata has the expected HTTP status, content type and length; the landing page links the archive; and byte snapshots of the pinned in-process builder and archive reproduce the numeric and identity fields for all 440 baseline series. The attribution notice records the publisher-stated licence, exclusions and required attribution. This does not cryptographically bind headers and bodies to single requests, authenticate the publisher independently, establish an exact publisher release time or prospective chronology, establish the occupation classification version or geography place basis, validate the estimates as direct observations, determine any condition truth, support a causal or warning claim, complete legal review, or authorise decision use."
+}
