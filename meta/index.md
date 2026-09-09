@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Index
@@ -17,7 +17,7 @@ scheduled runs.
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 7 |
+| Research notes | 8 |
 | Dashboard snapshots | 1 |
 
 Foundation documents: **4 of 4 in place.**
@@ -74,9 +74,9 @@ Foundation documents: **4 of 4 in place.**
 - `name-the-if`, medium, **drafting**, ~1,700 words. The frame as an instrument:
   the shrug, the missing if, the reversal, five condition categories, the
   healthcare promise run across four countries, and the invitation. No remedy,
-  no crisis layer, no supply side. **This is the one he sends.** Two blockers
-  marked inline: the Diamandis anecdote needs a source, the four-country table
-  needs a research note.
+  no crisis layer, no supply side. **This is the one he sends.** One blocker
+  left: the Diamandis anecdote needs a source. The four-country table is now
+  sourced, and the research corrected a row I had written from memory.
 - `every-if-is-somebodys-when`, medium, **drafting**, ~1,500 words. Round two.
   Consumer's if against provider's when, the CEO's condition list, and sorting
   conditions by who holds them. **Quietly replaces the broken ending of
@@ -101,6 +101,7 @@ Foundation documents: **4 of 4 in place.**
 
 | Note | What it covers |
 |---|---|
+| `2026-09-09-four-country-access-conditions` | What binds the "see a doctor" promise in Spain, Belgium, Australia and the US, plus the state of AI prescribing law. Corrects the Spain row of the draft's own table |
 | `2026-09-07-abundance-figures` | Fact-check of the rant. Company profits, Musk quotes, displacement vs exposure, global income distribution |
 | `2026-09-07-decent-life-thresholds` | Decent Living Standards thresholds, what a decent life costs, capital needed for a life and the next generation |
 | `2026-09-07-labour-supply-and-cost-disease` | Reservation wage, backward-bending labour supply, Baumol's cost disease, and why his two new ideas pull against each other |

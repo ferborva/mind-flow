@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Backlog
@@ -46,10 +46,11 @@ The three at the top are the ones that block writing. The rest can wait.
 - [ ] **The Diamandis anecdote needs a source.** "Dad, it's just another model,
       so what." It is proposed as the opening line of piece one, so it cannot be
       a paraphrase of a half-remembered episode.
-- [ ] **Belgium, Spain, Australia, and the US as the breaker.** He wants the
-      healthcare example centred on the US with two sentences of contrast. He
-      says himself he knows the feel of the three systems and not the mechanics.
-      Research note needed before any figure reaches a draft.
+- [x] **Belgium, Spain, Australia, and the US as the breaker.** Done 2026-09-09,
+      `research/2026-09-09-four-country-access-conditions.md`. **It corrected a
+      row I had written from memory:** Spain's out-of-pocket share is 20.9%,
+      above Belgium's 17-18%, so "in Spain money is not a condition" is false
+      once you leave the consulting room. Two live questions out of it, below.
 - [ ] **Does the Atlassian example stay attributed?** His employer, its internal
       compliance posture, in a public repo. His words and mild, but it is the
       first time work has appeared here as evidence. Keep, anonymise to "a large
@@ -100,6 +101,19 @@ The three at the top are the ones that block writing. The rest can wait.
       profits", which is the section the red team broke. If he agrees, that
       draft's last third gets rewritten and pointed here. It is a rewrite of a
       piece in review, so it is his call.
+- [ ] **Does he want the correction left visible in the piece?** The draft now
+      says, in his voice, "here is the thing I got wrong when I first wrote this
+      table". It demonstrates the method better than the original claim did and
+      it matches his own rule about only-upsides reading as propaganda. But it
+      is an admission of error in a piece he is sending to people he wants to
+      persuade, and that is his call, not mine. Cut instructions are in the
+      draft's reading note.
+- [ ] **Spain's split condition is a seed waiting to happen.** Price removed at
+      the consultation and returning at the pharmacy counter is a condition
+      handover inside one country, which is the load-bearing-shift argument in
+      miniature and much easier to feel than the abstract version. Worth asking
+      whether he has lived that specific experience, because if he has, it is
+      his story rather than my finding.
 - [ ] **Is the healthcare example the right one to lead with?** It is the one he
       picked, and it puts him one line away from an argument about American
       healthcare, which is the misreading the four-country table is there to

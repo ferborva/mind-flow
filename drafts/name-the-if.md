@@ -8,7 +8,7 @@ size: medium
 themes: [abundance]
 sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation,
   2026-09-08-the-benchmark-shrug]
-research: [2026-09-07-abundance-figures]
+research: [2026-09-07-abundance-figures, 2026-09-09-four-country-access-conditions]
 audience: the Moonshots crew, and anyone who would rather use the frame than agree with it
 created: 2026-09-08
 updated: 2026-09-08
@@ -36,10 +36,18 @@ updated: 2026-09-08
 > **Mine, flagged:** the title and the name *the binding if*. Naming is
 > scaffolding rather than a claim, per `foundation/editorial-guide.md`.
 >
-> **Two things must be resolved before this goes anywhere public**, both marked
-> inline: the Diamandis anecdote needs an episode and a date, and the four-country
-> contrast needs a research note behind it. Everything structural about those
-> health systems is currently from memory, his and mine.
+> **One thing left before this goes anywhere public:** the Diamandis anecdote
+> needs an episode and a date, or the opener comes out.
+>
+> The four-country contrast is now sourced in
+> `research/2026-09-09-four-country-access-conditions.md`, and the research
+> corrected one row I had written from memory. Spain's out-of-pocket share is
+> higher than Belgium's, not lower. **I have left the correction visible in the
+> piece rather than quietly fixing the table**, because it demonstrates the
+> method better than the original claim did, and because his own guideline says
+> a piece with only upsides reads as propaganda. If he would rather not open
+> with an admission of error in his own voice, cut the two paragraphs beginning
+> "And here is the thing I got wrong" and the table still stands.
 
 ---
 
@@ -219,11 +227,13 @@ happens.
 
 | Condition | Where it stands |
 |---|---|
-| Price | **Falling hard.** Diagnosis genuinely does go towards zero, and that is a real win. Take the point in full |
-| Permission | **Binding.** The model cannot prescribe, refer or order a scan in almost any jurisdiction. Licensing is not a bug, it is a defended preference |
-| Proximity | **Binding.** Imaging, blood draws and surgery need a building and a trained pair of hands within reach of you |
+| Price | **Falling hard** on the diagnosis, and that is a real win, take it in full. Still binding on everything after it: 8.3% of Americans had no insurance in 2025, and the average single deductible is $1,886 before anyone helps you |
+| Permission | **Binding, and being renegotiated as we speak.** The model cannot prescribe, refer or order a scan in most of the country. Delaware banned nonhuman licensure outright in April. Utah is piloting autonomous prescription renewals. Idaho and Iowa have bills creating a licensed AI provider category. Licensing is not a bug, it is a defended preference, and preferences move |
+| Proximity | **Binding, and getting worse while the technology gets better.** 34.6% of US counties are maternity care deserts, with no obstetric clinician and no birthing facility. 96 labour and delivery units closed across 35 states between 2024 and early 2026 |
 | Availability | Depends on somebody continuing to fund it |
 | Capability | Knowing you are ill and getting treated are different things, and the gap is made of the four rows above |
+
+*Sources for every figure in this section: `research/2026-09-09-four-country-access-conditions.md`.*
 
 **Here is the punchline, and it is the whole method in one sentence: the
 condition that binds is not the one anyone is working on.** Diagnosis got
@@ -244,15 +254,26 @@ felt difference between them is enormous. Same promise, different binding if.
 
 | Where | What actually binds |
 |---|---|
-| **Spain** | Not price. You turn up and pay nothing at the point of use. What binds is availability: the specialist queue, and where in the country you live |
-| **Belgium** | Price is visible but nearly cancelled: you pay, then you are reimbursed, and you keep a reference for what things cost. What binds is friction and a thin slice of money |
-| **Australia** | Price is partly binding. Medicare rebates a set amount, plenty of GPs charge above it, and geography is a different country entirely once you leave the cities |
-| **United States** | Price, back in the lead, in the richest of the four |
+| **Spain** | Not price, at the door. You turn up and pay nothing. What binds is availability: 102 days is the average wait for a specialist consultation, and four million people are in that queue |
+| **Belgium** | Price is visible and nearly cancelled: you pay, you are reimbursed, and you keep a reference for what things cost. With a Global Medical File and the right status a GP visit costs you €1, and there is an annual cap |
+| **Australia** | Price binds where it matters most. Fewer than half of GPs now bulk bill every adult, and **92% of specialist patients pay out of pocket**, on the referral that leads to the scan and the treatment |
+| **United States** | Price, back in the lead in the richest of the four, and proximity right behind it |
 
-<!-- GAP: everything in this table is from lived experience and general
-     knowledge, not from sources. Before publication it needs a research note
-     with figures and dates per country, per the provenance rule. The felt
-     contrast is mine to claim; the mechanics are not. -->
+**And here is the thing I got wrong when I first wrote this table**, which is
+worth leaving in. I had Spain down as the country where money simply is not a
+condition. It is not that clean. **Spain's out-of-pocket share of health
+spending is 20.9%, which is higher than Belgium's**, and half of it is medicines
+and another third is dental. The consultation is free. The thing the doctor
+tells you to do next is not.
+
+**That is the whole method happening inside one country.** Take price out at the
+door and it reappears two steps downstream, at the pharmacy counter, where
+nobody was looking for it.
+
+*Every figure in this section is sourced in
+`research/2026-09-09-four-country-access-conditions.md`. The Spanish and Belgian
+shares come from different methodologies, so read them as a pattern rather than
+a precise ranking.*
 
 **The technology in all four countries is identical. The answer is different in
 each one.** That is not a story about American healthcare, it is a demonstration
