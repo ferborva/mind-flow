@@ -454,8 +454,17 @@ test("a six-artifact pre-projection core is an acyclic dashboard source", () => 
   assert.equal(assessment.publication_approved, false);
 });
 
-test("individually valid Round 03 components cannot masquerade as one coherent transition", () => {
-  const assessment = assessTransitionBundle(fixture, { rootDir: root });
+test("individually valid historical and current components cannot masquerade as one coherent transition", () => {
+  // The historical bundle remains immutable. Its old dashboard is correctly
+  // withheld by latest-only rendering, so use the current valid dashboard to
+  // test cross-component incoherence independently of that historical refusal.
+  const mixed = clone(fixture);
+  const index = JSON.parse(readFileSync(resolve(root, "dashboard/snapshots/index.json"), "utf8"));
+  const path = `dashboard/snapshots/${index.latest}.json`;
+  const reference = mixed.artifacts.find(({ role }) => role === "dashboard-snapshot");
+  reference.path = path;
+  reference.sha256 = sha256(readFileSync(resolve(root, path)));
+  const assessment = assessTransitionBundle(mixed, { rootDir: root });
 
   assert.equal(assessment.machine_valid, true);
   assert.equal(assessment.components_valid, true);
