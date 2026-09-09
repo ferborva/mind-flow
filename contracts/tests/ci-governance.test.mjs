@@ -72,6 +72,16 @@ test("generated HTML and Observatory data are build artifacts rather than tracke
   assert.match(workflow, /lfs:\s*true/);
 });
 
+test("CI explicitly replays retained Round 08 measurements and ignored artifact parity", () => {
+  for (const command of [
+    "node pilots/australia/tools/primary-care.mts --check",
+    "node pilots/australia/tools/primary-care-basket.mts --check",
+    "node pilots/australia/tools/positive-signals.mts --check",
+    "node dashboard/tools/primary-care-panel.mts --check",
+    "node meta/build-artifacts.mjs --check",
+  ]) assert.equal(workflow.includes(command), true, command);
+});
+
 test("local and CI runtime contracts pin the same Node major", () => {
   assert.equal(nodeVersion, "22");
   assert.equal(packageJson.engines.node, "22.x");

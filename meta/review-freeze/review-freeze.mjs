@@ -274,6 +274,10 @@ export const ROUND_08_REVIEW_POLICY = Object.freeze({
       ["forecasts/prospective-pilot/round-08-nero/README.md", "prospective target and prewritten resolution procedure"],
       ["forecasts/prospective-pilot/round-08-nero/candidate.mts", "prospective preparation and evidence bindings"],
       ["forecasts/prospective-pilot/round-08-nero/resolver.mts", "source-native October resolution adapter"],
+      ["forecasts/prospective-pilot/round-08-nero/issued.json", "immutable prospective issuance"],
+      ["forecasts/prospective-pilot/round-08-nero/preregistration.json", "sealed prospective protocol"],
+      ["forecasts/prospective-pilot/round-08-nero/evaluation-plan.json", "pre-observation evaluation cohort"],
+      ["forecasts/prospective-pilot/round-08-nero/registration-provider-response.base64.txt", "exact retained external registration response"],
     ].map(([path, role]) => ({ path, role })),
   ],
   build_commands: [
@@ -284,6 +288,7 @@ export const ROUND_08_REVIEW_POLICY = Object.freeze({
       ["positive-condition-signals-check", ["node", "pilots/australia/tools/positive-signals.mts", "--check"]],
       ["primary-care-panel-check", ["node", "dashboard/tools/primary-care-panel.mts", "--check"]],
       ["generated-artifact-byte-parity", ["node", "meta/build-artifacts.mjs", "--check"]],
+      ["retained-prospective-issuance-check", ["node", "--test", "forecasts/prospective-pilot/tests/round-08-nero-issued.test.mjs"]],
     ].map(([command_id, argv]) => ({ command_id, argv, cwd: ".", timeout_ms: 900_000 })),
   ],
 });

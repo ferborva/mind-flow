@@ -69,6 +69,14 @@ jobs:
           node dashboard/observatory/build.mjs --check
           node experiments/observatory-comparison/fixtures/build-round-04-fixtures.mjs --check
 
+      - name: Reproduce retained Round 8 measurements and artifact byte parity
+        run: |
+          node pilots/australia/tools/primary-care.mts --check
+          node pilots/australia/tools/primary-care-basket.mts --check
+          node pilots/australia/tools/positive-signals.mts --check
+          node dashboard/tools/primary-care-panel.mts --check
+          node meta/build-artifacts.mjs --check
+
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"
 

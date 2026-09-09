@@ -509,11 +509,16 @@ test("Round 08 policy binds measurements and exact generated outputs without cha
   const required = new Set(policy.required_files.map(({ path }) => path));
   for (const path of ["meta/round-08-external-review-brief.md", "reviews/round-08-progress.md",
     "pilots/australia/sources/primary-care/2026-09-09/capture.json",
-    "pilots/australia/basket/README.md", "forecasts/prospective-pilot/round-08-nero/README.md"]) {
+    "pilots/australia/basket/README.md", "forecasts/prospective-pilot/round-08-nero/README.md",
+    "forecasts/prospective-pilot/round-08-nero/issued.json",
+    "forecasts/prospective-pilot/round-08-nero/preregistration.json",
+    "forecasts/prospective-pilot/round-08-nero/evaluation-plan.json",
+    "forecasts/prospective-pilot/round-08-nero/registration-provider-response.base64.txt"]) {
     assert.equal(required.has(path), true, path);
   }
   assert.ok(ROUND_07_REVIEW_POLICY.required_files.some(({ path }) => path === "dashboard/observatory/data.js"));
   assert.ok(policy.build_commands.some(({ argv }) => argv.includes("meta/build-artifacts.mjs") && argv.includes("--check")));
+  assert.ok(policy.build_commands.some(({ argv }) => argv.includes("forecasts/prospective-pilot/tests/round-08-nero-issued.test.mjs")));
 });
 
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
