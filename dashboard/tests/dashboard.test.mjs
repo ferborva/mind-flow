@@ -9,9 +9,10 @@ import { fileURLToPath } from "node:url";
 
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import { isolatedRepository } from "../../contracts/tests/support/isolated-repository.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const dashboard = resolve(here, "..");
+const dashboard = resolve(isolatedRepository(resolve(here, "../..")), "dashboard");
 const templatePath = join(dashboard, "web", "index.template.html");
 const snapshotPath = join(dashboard, "snapshots", "2026-09-08.r3.json");
 const predecessorSnapshotPath = join(dashboard, "snapshots", "2026-09-08.r2.json");
@@ -33,6 +34,10 @@ const buildText = readFileSync(buildPath, "utf8");
 const template = readFileSync(templatePath, "utf8");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 const evidencePolicy = JSON.parse(readFileSync(evidencePolicyPath, "utf8"));
+
+test("mutable dashboard evidence lives outside the working checkout", () => {
+  assert.notEqual(dashboard, resolve(here, ".."));
+});
 
 test("the corrected record preserves immutable, honestly unverified predecessors", () => {
   const originalLegacyBytes = readFileSync(originalLegacySnapshotPath);

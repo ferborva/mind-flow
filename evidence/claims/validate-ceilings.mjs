@@ -87,12 +87,12 @@ export function validateClaimCeilingRegistry(registry) {
       ));
     }
 
-    if (claim.support_state === "supported"
+    if (["supported", "partially-supported"].includes(claim.support_state)
       && !claim.evidence_refs.some(({ relation }) => relation === "supports")) {
       errors.push(error(
         "supported-without-direct-evidence",
         `/claims/${index}/evidence_refs`,
-        "a supported claim requires an evidence link whose relation is supports",
+        "a supported or partially-supported claim requires an evidence link whose relation is supports",
       ));
     }
 

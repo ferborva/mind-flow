@@ -13,10 +13,15 @@ import { assessTransitionBundle } from "../assess.mjs";
 import { computeEvidenceStateHash } from
   "../../../contracts/executable-if/validate.mjs";
 import { checksumJson } from "../../../preparation/lib/validate.mjs";
+import { isolatedRepository } from "../../../contracts/tests/support/isolated-repository.mjs";
 
-const root = resolve(import.meta.dirname, "../../..");
-const fixtureDirectory = resolve(import.meta.dirname, "../fixtures");
+const root = isolatedRepository(resolve(import.meta.dirname, "../../.."));
+const fixtureDirectory = resolve(root, "integration/transition-bundle/fixtures");
 const round3 = readJson("integration/transition-bundle/fixtures/round-03.current.json");
+
+test("mutable preparation artifacts live outside the working checkout", () => {
+  assert.notEqual(root, resolve(import.meta.dirname, "../../.."));
+});
 
 function readJson(path) {
   return JSON.parse(readFileSync(resolve(root, path), "utf8"));

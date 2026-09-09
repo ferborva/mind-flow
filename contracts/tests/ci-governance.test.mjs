@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { assertReproductionCannotBeWeakened } from "./support/workflow-assertions.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
@@ -41,7 +43,7 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
     /node meta\/review-freeze\/review-freeze\.mjs verify[\s\S]*--policy=round-07[\s\S]*round-07\.review-freeze\.json/,
     "CI must verify the retained Round 07 receipt",
   );
-  assert.match(workflow, /git status --porcelain/);
+  assertReproductionCannotBeWeakened(workflow);
   assert.doesNotMatch(workflow, /git diff --exit-code/);
   assert.doesNotMatch(workflow, /uses:\s*[^\s]+@v\d+\b/, "CI actions must not use moving major tags");
   for (const action of ["actions/checkout", "actions/setup-node"]) {
@@ -51,6 +53,23 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
       `${action} must be pinned to an immutable commit SHA`,
     );
   }
+});
+
+test("workflow validation rejects omitted untracked files and failed-reproduction overrides", () => {
+  assert.doesNotThrow(() => assertReproductionCannotBeWeakened(workflow));
+  assert.throws(() => assertReproductionCannotBeWeakened(
+    workflow.replace(" --untracked-files=all", "")));
+  assert.throws(() => assertReproductionCannotBeWeakened(
+    workflow.replace("--policy=round-07", "--policy=round-07 --allow-failed-reproduction")));
+});
+
+test("generated HTML and Observatory data are build artifacts rather than tracked source", () => {
+  const tracked = execFileSync("git", ["ls-files", "--", "dashboard/web/index.html",
+    "pilots/australia/web/index.html", "dashboard/observatory/data.js",
+    "experiments/observatory-comparison/rendered/*.html"], { cwd: root, encoding: "utf8" }).trim();
+  assert.equal(tracked, "");
+  assert.match(workflow, /actions\/upload-artifact@[a-f0-9]{40}/);
+  assert.match(workflow, /lfs:\s*true/);
 });
 
 test("local and CI runtime contracts pin the same Node major", () => {

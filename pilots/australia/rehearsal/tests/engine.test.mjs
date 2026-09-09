@@ -80,6 +80,7 @@ function makeVintage({
     },
     scope: {
       occupation_classification: "ANZSCO 2013 version 1.3, 4-digit",
+      occupation_classification_verification_status: "unverified_external_review_required",
       geography_classification: "ASGS 2021 SA4, place of residence",
       occupation_codes: [occupationCode],
       series_count: 1,
@@ -214,6 +215,19 @@ test("emits below-condition without inventing a warning or consequence", () => {
     JSON.stringify(result),
     /AI caused|crisis detected|causal effect|job[- ]loss warning/i,
   );
+});
+
+test("classification verification status cannot be omitted from either vintage", () => {
+  for (const which of ["previous", "current"]) {
+    const pair = fixturePair();
+    delete pair[which].scope.occupation_classification_verification_status;
+    assert.throws(() => runShadowRehearsal({
+      previousVintage: pair.previous,
+      currentVintage: pair.current,
+      detector: DETECTOR,
+      generatedAt: "2026-09-08T03:00:00Z",
+    }), (error) => error.code === "INVALID_SCHEMA" && /classification/.test(error.message));
+  }
 });
 
 test("fails visibly when a series lacks detector history", () => {

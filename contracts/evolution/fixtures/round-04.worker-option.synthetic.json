@@ -5,15 +5,15 @@
   "generated_at": "2026-09-09T00:00:00Z",
   "source_kernel_ref": {
     "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-    "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
+    "artifact_sha256": "sha256:cd8be337c5efede4a21fdb205da4a6626f4558a19511bac835609b0abf078f4b",
     "kernel_id": "kernel.worker-option.synthetic",
-    "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+    "manifest_hash": "sha256:bb07dae5e670e3c08f318b603e598fc9222e7f563dcf45a74862b49bb6366807",
     "evaluator_ref": {
       "id": "mind-flow.executable-if.evaluator",
       "version": "1.1.0",
       "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
-      "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
-      "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+      "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
+      "implementation_digest": "sha256:c56a98750c937e778517d3737f46c5dc9dde48828029baf1bf46fb2607029092",
       "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
     }
   },
@@ -22,7 +22,7 @@
     "event_count": 5,
     "tip_sequence": 5,
     "tip_event_id": "event.worker-option.merge",
-    "tip_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f",
+    "tip_event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054",
     "operations": [
       "added",
       "narrowed",
@@ -35,51 +35,51 @@
         "sequence": 1,
         "event_id": "event.worker-option.added",
         "operation": "added",
-        "event_hash": "sha256:a7dd3018adc97a05aeb8d5ab7130783ecd93edc456ea94359391ab8f51443b3e"
+        "event_hash": "sha256:83a237c6784005a0957e7175f7bdff279ae718bdb94943c37680630a8edea7a4"
       },
       {
         "sequence": 2,
         "event_id": "event.worker-option.narrowed",
         "operation": "narrowed",
-        "event_hash": "sha256:046b05a3657de2eb338b35a4eede30895a40ab7fc6cab9c02ba73bb99befce65"
+        "event_hash": "sha256:064da58acbc1e03e0cd632dba7e2b43d0c7b2ac17e5220b3530060d4a85acec4"
       },
       {
         "sequence": 3,
         "event_id": "event.worker-option.revised",
         "operation": "definition-revised",
-        "event_hash": "sha256:e470fd1918d168f058089daeea8335655da38d35d92f396fc7b482cf5a18a0f8"
+        "event_hash": "sha256:ac035e8d35d4aac4fbdddcb1f574140623ec16b3708c7698ee58f4004a81cd6b"
       },
       {
         "sequence": 4,
         "event_id": "event.worker-option.split",
         "operation": "split",
-        "event_hash": "sha256:065456a7a936f5cc11051b9af3a6bf85d802b348e0d88d57669876ff922f1983"
+        "event_hash": "sha256:8c2de371cd84dead5ec9378916705eb4383b022979aff218b850b184a4f1726e"
       },
       {
         "sequence": 5,
         "event_id": "event.worker-option.merge",
         "operation": "merge",
-        "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+        "event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054"
       }
     ],
     "active_condition_definition_refs": [
       {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
       }
     ],
     "evidence_event_count": 11,
     "evidence_tip_event_id": "evidence-event.august-review.added",
-    "evidence_tip_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04",
-    "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
+    "evidence_tip_event_hash": "sha256:e3120e6923e43d702de7cb6c780a6870feee60d9c72c888390701373a62e73ff",
+    "evidence_state_hash": "sha256:471fba67189007f13052c6fa2f791ec5c4de4e6bf9082ad52ad168a22333261d"
   },
   "condition_projections": [
     {
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
       },
       "source_state_version": 1,
       "source_lifecycle": "active",
@@ -87,7 +87,7 @@
         "sequence": 5,
         "event_id": "event.worker-option.merge",
         "operation": "merge",
-        "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+        "event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054"
       },
       "proposition": "Affected workers have a credible alternative and an accessible human review route.",
       "claim": {
@@ -119,8 +119,8 @@
       "evidence_state_ref": {
         "event_count": 11,
         "tip_event_id": "evidence-event.august-review.added",
-        "tip_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04",
-        "state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
+        "tip_event_hash": "sha256:e3120e6923e43d702de7cb6c780a6870feee60d9c72c888390701373a62e73ff",
+        "state_hash": "sha256:471fba67189007f13052c6fa2f791ec5c4de4e6bf9082ad52ad168a22333261d"
       },
       "assessment_status": "open",
       "assessment": null,
@@ -131,14 +131,14 @@
   "current_state": {
     "as_of_sequence": 5,
     "as_of_event_id": "event.worker-option.merge",
-    "as_of_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f",
-    "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
+    "as_of_event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054",
+    "evidence_state_hash": "sha256:471fba67189007f13052c6fa2f791ec5c4de4e6bf9082ad52ad168a22333261d",
     "conditions": [
       {
         "condition_definition_ref": {
           "condition_id": "condition.worker-option.nsw",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
         },
         "source_state_version": 1,
         "source_lifecycle": "active",
@@ -146,7 +146,7 @@
           "sequence": 5,
           "event_id": "event.worker-option.merge",
           "operation": "merge",
-          "event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+          "event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054"
         },
         "proposition": "Affected workers have a credible alternative and an accessible human review route.",
         "claim": {
@@ -178,8 +178,8 @@
         "evidence_state_ref": {
           "event_count": 11,
           "tip_event_id": "evidence-event.august-review.added",
-          "tip_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04",
-          "state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
+          "tip_event_hash": "sha256:e3120e6923e43d702de7cb6c780a6870feee60d9c72c888390701373a62e73ff",
+          "state_hash": "sha256:471fba67189007f13052c6fa2f791ec5c4de4e6bf9082ad52ad168a22333261d"
         },
         "assessment_status": "open",
         "assessment": null,
@@ -192,7 +192,7 @@
     "checkpoint_uri": "https://mind-flow.org/checkpoints/unpublished/round-04",
     "source_event_count": 5,
     "tip_event_id": "event.worker-option.merge",
-    "tip_event_hash": "sha256:62053b6aba5e1d3384e027d636f8d417eb5a65f07bd9adf11a4968967ab4a25f"
+    "tip_event_hash": "sha256:afa12355deb140720db12eab7a6bf53850a84e17f6c5b0ca79fd71df22156054"
   },
   "public_projection": {
     "history": {
@@ -212,7 +212,7 @@
         "condition_definition_ref": {
           "condition_id": "condition.worker-option.nsw",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          "definition_hash": "sha256:42eef030f1aefec31a5632f0572528198a847d144de19613ec1f53aac1fbb464"
         },
         "proposition": "Affected workers have a credible alternative and an accessible human review route.",
         "claim": {
@@ -250,7 +250,7 @@
       "action_authorised": false
     }
   },
-  "manifest_hash": "sha256:3dffbbc95b25a854beac8758fd61f0c3f073321ba866c90a9aef56f88c012c77",
+  "manifest_hash": "sha256:325784e53acfb3fe95fae23e61eda39f315757b9bd545d23c2b9e9ac9fad4a31",
   "contract_boundary": {
     "definition_history_owner": "source-executable-if-kernel",
     "history_validity_effect": "source-binding-and-integrity-only",

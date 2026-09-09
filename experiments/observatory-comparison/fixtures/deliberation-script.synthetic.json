@@ -6,7 +6,7 @@
   "fact_pack_ref": {
     "fact_pack_id": "fact-pack.observatory-comparison.synthetic-v1",
     "path": "experiments/observatory-comparison/fixtures/shared-fact-pack.synthetic.json",
-    "sha256": "sha256:8f712db6bc77c93264f8c7e16dfc2722b53d8b078b0f81422e441fea333818b2"
+    "sha256": "sha256:fe61f1080c4ddb42761556033edd8907da22bd3a787fbb605b394dc83dab1cda"
   },
   "facilitator_prompts": [
     "What is directly observed, and what is a mechanical result, inference, scenario or forecast?",
