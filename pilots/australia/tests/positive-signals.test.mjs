@@ -7,6 +7,8 @@ test('three favorable observations preserve actual populations, owners and uncer
   assert.equal(result.signals.length, 3);
   assert.deepEqual(result.signals.map(s => s.change_percentage_points), [0.9, -2.1, -2.6]);
   assert.equal(result.agency_measured, false);
+  assert.equal(result.construction_revision.source_values_changed, false);
+  assert.equal(result.construction_revision.basket_path, 'pilots/australia/basket/primary-care.r3.json');
   for (const signal of result.signals) {
     assert.equal(signal.status, 'measured');
     assert.equal(signal.favorable_observed_direction, true);

@@ -1,0 +1,258 @@
+{
+  "id": "australia-positive-signals-2026-09-09.r2",
+  "provenance": "commissioned-agent-proposal",
+  "construction_revision": {
+    "supersedes_path": "pilots/australia/data/positive-signals-2026-09-09.json",
+    "supersedes_sha256": "sha256:3c0df1f808b7be81757bb1885ce55fd8a85ed3305c6d7c76f43636bfcedcbe1c",
+    "reason": "Rebind unchanged positive observations to the independently reviewed primary-care construction revision and corrected evaluator. Original artifact remains retained, with its original condition references.",
+    "source_values_changed": false,
+    "basket_path": "pilots/australia/basket/primary-care.r2.json",
+    "kernel_manifest_hash": "sha256:65525b40ad1ce54ab432e0cec4301b2e32170c2418f66a9b84ee26b620162e82"
+  },
+  "status": "research-draft",
+  "observation_period": "2023-24 to 2024-25",
+  "source_capture_path": "pilots/australia/sources/primary-care/2026-09-09/capture.json",
+  "source_capture_sha256": "sha256:0d53e54cf0e1e3f2acf2c6f7aa557fe8f8a76da78c796b9682732a338776af64",
+  "agency_metric_contract": "contracts/agency-map/schema/condition-agency-map.schema.json#/$defs/metric",
+  "agency_measured": false,
+  "action_authorised": false,
+  "synthetic_actor_claims_changed": false,
+  "selection_limitation": "Post hoc favorable-series selection requested for balance, not a preregistered effect test or representative assessment of all access conditions. Worsening and unchanged evidence remains in the full primary-care measurement.",
+  "counting_rule": "Three distinct original measures, no complements counted as additional observations. GP measures concern overlapping people and are not independent agency gains; no composite score or sum.",
+  "signals": [
+    {
+      "id": "signal.au.positive.gp-fully-bulk-billed",
+      "status": "measured",
+      "measurement_status_meaning": "Published observations reproduced from retained primary-source bytes; actor control and personal agency remain unverified.",
+      "metric": {
+        "metric_id": "metric.au.positive.gp-fully-bulk-billed",
+        "measure": "gp-fully-bulk-billed",
+        "unit": "percent",
+        "denominator": "Patients with Medicare GP non-referred attendances in the year",
+        "population": "Patients with Medicare GP non-referred attendances in the year",
+        "geography": "New South Wales, Australia",
+        "period": "2023-24 and 2024-25 financial years",
+        "aggregation": "Published state-level patient-year administrative share or survey-weighted estimate; difference is percentage points, not percentage change.",
+        "direction": "increase",
+        "collection_process_id": "collection.pc.rogs-2026-primary-care",
+        "source_refs": [
+          "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W"
+        ],
+        "evaluation_rule": "Compare retained NSW 2024-25 estimate with 2023-24 using the original denominator. Favorable direction alone is not a causal effect or a statistically tested difference.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:d22046776d62e1b73b026aa0d624ccfd2ac1703f922df0bf72d869d3cb4abcdd"
+      },
+      "observations": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 55.2,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 56.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        }
+      ],
+      "change_percentage_points": 0.9,
+      "favorable_observed_direction": true,
+      "significance_of_change": "not_assessed",
+      "uncertainty": "Administrative patient-year share; no sampling interval supplied in selected table. Claims coverage and service-definition limitations remain.",
+      "condition_category": "price",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.cost",
+        "definition_version": "1.2.0",
+        "definition_hash": "sha256:30af741c4d97ffccd966fb45bea40468ffc5f9dc816a2fecddbd9d7ffc045cd8"
+      },
+      "condition_binding": "related-price-context-not-executable-predicate",
+      "condition_lowered": "A larger share of attending patients had no out-of-pocket charge for all their Medicare GP attendances during the year. This narrows an observed price exposure, not every cost of care.",
+      "for_whom": "Patients with Medicare GP non-referred attendances in the year",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "owner_verification": "institutional-role-description-not-verified-control-or-causal-attribution",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "evidence_ceiling": "Patient-year fully bulk-billed share, not share of services or clinics, and excludes people with no claimed attendance.",
+      "current_personal_access_established": false
+    },
+    {
+      "id": "signal.au.positive.gp-cost-delay",
+      "status": "measured",
+      "measurement_status_meaning": "Published observations reproduced from retained primary-source bytes; actor control and personal agency remain unverified.",
+      "metric": {
+        "metric_id": "metric.au.positive.gp-cost-delay",
+        "measure": "gp-cost-delay",
+        "unit": "percent",
+        "denominator": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+        "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+        "geography": "New South Wales, Australia",
+        "period": "2023-24 and 2024-25 financial years",
+        "aggregation": "Published state-level patient-year administrative share or survey-weighted estimate; difference is percentage points, not percentage change.",
+        "direction": "decrease",
+        "collection_process_id": "collection.pc.rogs-2026-primary-care",
+        "source_refs": [
+          "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W"
+        ],
+        "evaluation_rule": "Compare retained NSW 2024-25 estimate with 2023-24 using the original denominator. Favorable direction alone is not a causal effect or a statistically tested difference.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:b7fbc41a58feca3159c043aeb277a494d28e11db3c6f38879b80f23e32f51ca4"
+      },
+      "observations": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 9.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 7.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ],
+      "change_percentage_points": -2.1,
+      "favorable_observed_direction": true,
+      "significance_of_change": "not_assessed",
+      "uncertainty": "Original 95% confidence-interval half-widths accompany each estimate. No covariance or publisher test of this year-to-year NSW difference is retained; no significance claim.",
+      "condition_category": "price",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.cost",
+        "definition_version": "1.2.0",
+        "definition_hash": "sha256:30af741c4d97ffccd966fb45bea40468ffc5f9dc816a2fecddbd9d7ffc045cd8"
+      },
+      "condition_binding": "same-series-historical-observation-not-current-truth",
+      "condition_lowered": "The estimated share reporting GP delay or non-use due to cost was lower. Other barriers and the remaining cost barrier are not removed.",
+      "for_whom": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "owner": "General practices set fees and bulk-billing choices; Australian Government sets Medicare benefits",
+      "owner_verification": "institutional-role-description-not-verified-control-or-causal-attribution",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "evidence_ceiling": "Reported cost-related delay or non-use; cost can coexist with other barriers. State estimate cannot identify an individual or establish the leading barrier.",
+      "current_personal_access_established": false
+    },
+    {
+      "id": "signal.au.positive.prescription-cost-delay",
+      "status": "measured",
+      "measurement_status_meaning": "Published observations reproduced from retained primary-source bytes; actor control and personal agency remain unverified.",
+      "metric": {
+        "metric_id": "metric.au.positive.prescription-cost-delay",
+        "measure": "prescription-cost-delay",
+        "unit": "percent",
+        "denominator": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+        "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+        "geography": "New South Wales, Australia",
+        "period": "2023-24 and 2024-25 financial years",
+        "aggregation": "Published state-level patient-year administrative share or survey-weighted estimate; difference is percentage points, not percentage change.",
+        "direction": "decrease",
+        "collection_process_id": "collection.pc.rogs-2026-primary-care",
+        "source_refs": [
+          "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W"
+        ],
+        "evaluation_rule": "Compare retained NSW 2024-25 estimate with 2023-24 using the original denominator. Favorable direction alone is not a causal effect or a statistically tested difference.",
+        "verification": "external-unverified",
+        "metric_checksum": "sha256:4f466710ae3519aaa412c3379284df987d82d206382eeb5f14b4abe6c5f83367"
+      },
+      "observations": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 9.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 6.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ],
+      "change_percentage_points": -2.6,
+      "favorable_observed_direction": true,
+      "significance_of_change": "not_assessed",
+      "uncertainty": "Original 95% confidence-interval half-widths accompany each estimate. No covariance or publisher test of this year-to-year NSW difference is retained; no significance claim.",
+      "condition_category": "price",
+      "condition_definition_ref": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:63e097acecbe09eb8cd67cf70d9f9df660b4fe1a1cf79fdf3d61f6c41793adf9"
+      },
+      "condition_binding": "same-series-historical-observation-not-current-truth",
+      "condition_lowered": "The estimated share reporting prescription delay or non-use due to cost was lower. The source does not identify a particular medicine or prove continuous treatment.",
+      "for_whom": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+      "owner": "Australian Government PBS and pharmacies",
+      "owner_verification": "institutional-role-description-not-verified-control-or-causal-attribution",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "evidence_ceiling": "All prescription medicines, not atorvastatin-specific access.",
+      "current_personal_access_established": false
+    }
+  ]
+}
