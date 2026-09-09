@@ -179,13 +179,14 @@ test("the v2.1 snapshot and timing graph fail closed under their governed policy
 test("the record index permits same-day corrections without rewriting history", () => {
   const index = JSON.parse(readFileSync(indexPath, "utf8"));
   assert.equal(index.schema_version, "2.0.0");
-  assert.equal(index.latest, "2026-09-08.r3");
+  assert.equal(index.latest, "2026-09-09.r1");
   assert.deepEqual(index.snapshots.map(({ id }) => id), [
     "2026-09-07.r1",
     "2026-09-07.r2",
     "2026-09-08.r1",
     "2026-09-08.r2",
     "2026-09-08.r3",
+    "2026-09-09.r1",
   ]);
   for (const entry of index.snapshots) {
     const snapshot = JSON.parse(readFileSync(join(dashboard, "snapshots", entry.path), "utf8"));
@@ -197,6 +198,9 @@ test("the record index permits same-day corrections without rewriting history", 
 
 test("the record index rejects false latest pointers and duplicate identities", () => {
   const index = JSON.parse(readFileSync(indexPath, "utf8"));
+  // Exercise immutable correction-history attacks against the original prefix.
+  index.snapshots = index.snapshots.filter(({ id }) => id <= "2026-09-08.r3");
+  index.latest = "2026-09-08.r3";
   const records = index.snapshots.map((entry) => ({
     entry,
     bytes: readFileSync(join(dashboard, "snapshots", entry.path)),
@@ -328,6 +332,8 @@ test("the record index rejects false latest pointers and duplicate identities", 
 });
 
 test("the production build refuses v1.8 and injects derived timing assessments for v2.1", () => {
+  const snapshotPath = join(dashboard, "snapshots", "2026-09-09.r1.json");
+  const policyPath = join(dashboard, "evidence", "adapter-classification-policy-primary-care-2.1.json");
   const outputDirectory = mkdtempSync(join(tmpdir(), "mind-flow-timing-integration-"));
   const outputPath = join(outputDirectory, "index.html");
   execFileSync(process.execPath, [buildPath, snapshotPath, outputPath]);
@@ -358,11 +364,11 @@ test("the production build refuses v1.8 and injects derived timing assessments f
   delete unsignedBundle.evaluator;
   assert.equal(validateAssessments(unsignedBundle), false);
   assert.deepEqual(bundle.record_binding, {
-    record_id: "2026-09-08.r3",
+    record_id: "2026-09-09.r1",
     snapshot_sha256: digest(readFileSync(snapshotPath)),
     evidence_policy_sha256: digest(readFileSync(policyPath)),
-    evidence_cutoff: "2026-09-08T00:41:31Z",
-    record_generated_at: "2026-09-09T12:00:00Z",
+    evidence_cutoff: "2026-09-09T10:51:23Z",
+    record_generated_at: "2026-09-09T10:51:23Z",
   });
   assert.ok(Object.values(bundle.signals).every(
     (assessment) => assessment.record_generated_at && !Object.hasOwn(assessment, "snapshot_revision"),

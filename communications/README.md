@@ -12,11 +12,8 @@ updated: 2026-09-08
 
 # Public Communications Operating Kit
 
-> **Proposal status:** Ren, an AI agent, wrote this kit after Fernando
-> commissioned a deeper public communication system for the abundance
-> transition work. It is not Fernando's opinion and does not imply his
-> endorsement. All rules, templates and acceptance gates require his approval
-> before they govern public communication.
+> **Ren's commissioned operating-kit proposal, subject to Fernando's approval
+> rather than attributed to him; see [boundaries](../boundaries.md).**
 
 ## 🦅 TL;DR
 
@@ -47,6 +44,11 @@ updated: 2026-09-08
 | [Labels and headline rules](labels-and-headlines.md) | Public vocabulary, provenance, epistemic classes and headline tests |
 | [Public update templates](templates.md) | Baseline, warning, correction, uncertainty, forecast resolution, action activation and recovery |
 | [Comprehension and adversarial test](comprehension-test.md) | Facilitator script, scoring and measurable release gates |
+
+This is an editorial workbench for authors and reviewers; public readers can
+start with [Name the IF](../drafts/name-the-if.md) or the
+[field guide](transition-field-guide.md). Its labels, tests and templates are
+tools for checking a message, not vocabulary every reader must learn.
 
 This kit implements the governance principles proposed in the
 [Public Charter](../governance/public-charter.md) and the conditional structure
@@ -104,8 +106,7 @@ The student example below is hypothetical.
 > **Capability becomes abundance only if real people can achieve valuable
 > outcomes with access, agency, quality and durable choice.**
 
-None of these scripts claims that abundance, displacement or crisis is
-inevitable.
+Each script opens a question about conditions instead of assigning a timetable.
 
 ---
 

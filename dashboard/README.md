@@ -20,7 +20,7 @@ accountability.
 | Surface | Purpose | Claim limit |
 |---|---|---|
 | `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an explicitly unbound typed possible-path boundary |
-| `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
+| `../pilots/australia/web/index.html` | Australian primary-care basket and separate NERO evidence room | Five GP category indicators have different populations, dates and roles; today's binding category remains unknown. NERO stays one occupation and one SA4 at a time |
 | `observatory/index.html` | **Transition Observatory, programme iteration 06 over the Round 04 synthetic fixture** | Interactive projection of the exact synthetic seven-artifact pre-projection core, with five-state branches, a separate forecast, reversible preparation and no authority |
 
 None of these surfaces is approved for public warning or operational action. The
@@ -70,9 +70,11 @@ correction keeps the original evidence-date identity while `generated_at` and
 Record `2026-09-08.r3` adds the transition-bundle boundary without rewriting
 the frozen `r2` bytes.
 
-The current snapshot is explicitly `research_draft_unverified`: its transformed
-values are frozen, but its upstream response bytes were not retained. Every
-visible evidence value and JSON export therefore says `UNVERIFIED SOURCE BYTES`.
+The current snapshot remains `research_draft_unverified`. Eight inherited macro
+series lack retained upstream response bytes; four added primary-care series
+have locally retained source evidence. Read each series' acquisition label,
+population and reference period separately rather than transferring one
+series' evidence status to the whole panel.
 Even retained bytes can establish only `captured_local_hash_consistent` status,
 not publisher authenticity. `--mode=publishable` always fails with
 `MISSING_TRUSTED_ACQUISITION_BOUNDARY` until a separately verifiable receipt
@@ -109,8 +111,8 @@ schema alone.
 
 `tools/fetch_snapshot.py` is now a verifier for frozen v1.8 raw-input fixtures.
 Its live writer is retired until a replacement satisfies the 2.0 timing and
-acquisition contract. This means the current global record is a migration of a
-frozen predecessor, not a new source fetch.
+acquisition contract. The current record combines inherited macro context with
+a separately retained primary-care addition, not a fresh fetch of every series.
 
 The browser cannot load arbitrary local snapshots. A changed snapshot must go
 through the build and test path.
@@ -188,18 +190,23 @@ unknown, so the registered decision is `no_decision`.
 
 ## Build and test
 
+Run from the repository root with Node.js 22 and installed dependencies. The
+canonical `npm run build:artifacts` rebuilds all governed generated outputs;
+the explicit commands below show the two evidence-room inputs.
+
 ```bash
 node dashboard/tools/build.mjs \
-  dashboard/snapshots/2026-09-08.r3.json dashboard/web/index.html
+  dashboard/snapshots/2026-09-09.r1.json dashboard/web/index.html
 node dashboard/tools/build-australia-pilot.mjs \
-  pilots/australia/data/nero-clerical-2026-08.json \
+  pilots/australia/data/nero-clerical-2026-08.r2.json \
   pilots/australia/web/index.html
 node dashboard/observatory/build.mjs --check
 npm test
 ```
 
 The build and tests use frozen local evidence. The timing migration tool exists
-to reproduce the historical `r2` record, not to create the active `r3` record.
+to reproduce the historical September 8 `r2` record, not to create the active
+September 9 `r1` record.
 To verify a retained legacy fixture,
 run `python3 dashboard/tools/fetch_snapshot.py --verify-input-manifest PATH`.
 Running the fetcher without that flag fails closed and cannot rewrite the 2.0
@@ -212,8 +219,9 @@ the build to bytes outside `dashboard/evidence/raw`.
 
 ## What the global snapshot can say
 
-The snapshot includes six available source series, two derived aggregate
-comparisons and eight deliberately unmeasured or unavailable instruments.
+The snapshot includes eight inherited macro series (six source series and two
+derived aggregate comparisons) and four added primary-care measures. All twelve
+are available under the panel's status vocabulary.
 Available does not mean directly observed or decision-ready. Each point is
 labelled as a published statistic, published estimate, modelled estimate,
 nowcast, forecast, direct observation or derived value. The labour-income
@@ -221,10 +229,11 @@ comparison, for example, compares indexed output per person with constructed agg
 income per person. It is not a household purchasing-power measure, causal AI
 estimate or cohort outcome.
 
-The missing instruments are visible because omission can create false
-confidence. They include household access, transition speed, productive-power
-concentration, response readiness, trust and cross-border access. Missingness
-is an instrumentation backlog, not a neutral or safe state.
+Eight former unmeasured placeholders were deleted with reasons in
+`../pilots/australia/basket/panel-dispositions.json`. The four additions do not
+replace household resource margin, productive-power concentration, readiness
+or trust with renamed health proxies. Those wider questions remain research
+gaps; a twelve-series available panel is not a complete transition instrument.
 
 ## Scenarios, possible paths and actions
 
@@ -255,7 +264,7 @@ assessment-bundle identities. It omits the seven-part public update because
 that update is a separate claim graph whose dependencies may extend beyond the
 current atlas selection.
 
-## Australian evidence boundary
+## Australia evidence room: evidence boundary
 
 The Australian pilot freezes the August 2026 NERO archive and exposes 440
 separate modelled series for five clerical occupations across 88 SA4 regions.

@@ -7,17 +7,13 @@ provenance: commissioned-proposal
 author: ren
 reviewer: fernando-bordallo
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Public Charter for the Abundance Transition Observatory
 
-> **Proposal status:** Ren, an AI agent, wrote this charter after Fernando
-> commissioned a deeper programme of work. It builds on Fernando's
-> `verb + fill in the blank + if` insight and on agent-authored research in this
-> repository. The purpose, governance rules, safeguards and definitions below
-> are proposals. They are not Fernando's settled views and must not be presented
-> as such until he approves them.
+This is Ren's commissioned governance proposal, with [evidence and authority
+boundaries](../boundaries.md), not Fernando's adopted policy.
 
 ## 🦅 TL;DR
 
@@ -42,6 +38,11 @@ The Observatory starts with a simple problem:
 
 > **A technology being capable of doing something does not mean a person can
 > benefit from it, choose it freely, or rely on it.**
+
+The programme follows **Goal / Signals / Actions**: agency is the goal and
+remains unmeasured; conditions supply the signals; actions are hypotheses about
+moving them. Price, permission, proximity, availability and capability are the
+starting prompts, with revocable discretion under availability.
 
 Its public purpose is to:
 

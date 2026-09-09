@@ -63,6 +63,22 @@ The full suite discovers the nested tests. The policy also runs the most
 material lineage, issuance-binding and rendered-parity attacks explicitly so
 their receipts remain easy to locate in a large full-suite transcript.
 
+Round 08 moves retained inputs above 5 MB to Git LFS without rewriting older
+Git history. The tree inventory still binds the exact committed pointer bytes.
+Detached reproduction hydrates only the pointer's SHA-256 and size from the
+source repository's local LFS object cache, then checks those content bytes
+before and after commands. Missing or changed objects fail closed; there is no
+implicit network fetch. Run `git lfs pull` before creating a freeze in a fresh
+checkout. A working-checkout verification also compares hydrated bytes to the
+committed pointer, not to the pointer's text hash.
+
+Policies may name exact generated output paths, bound by their policy checksum.
+Only those paths are exempt from unexpected-file checks; ignore patterns are
+not exemptions. The Round 08 build contract regenerates and checks them.
+Historical policies remain unchanged, including the generated files tracked in
+their original candidates. Their coverage tests use the immutable retained
+Round 07 candidate, rather than requiring those old files in a new tree.
+
 When the selected policy requires the generator and schema, their recorded
 hashes must equal those files in the reviewed commit. Generator parity with the
 reviewer's local executable remains a separate optional check.
@@ -81,8 +97,7 @@ node meta/review-freeze/review-freeze.mjs create \
   --policy=round-04 \
   --commit=HEAD \
   --output=meta/review-freeze/round-04.review-freeze.json \
-  --run \
-  --force
+  --run
 ```
 
 Verify the content address, policy, commit objects and required files:
@@ -110,6 +125,21 @@ A failing command is preserved inside a valid freeze with reproduction status
 creator reported successful local exits and no sampled drift. Receipts can be
 fabricated and the manifest coherently resealed. Independent rerun or signed CI
 attestation is required before anyone relies on that report.
+
+Never overwrite a retained freeze. For the Round 08.1 repair, reuse the unchanged
+`round-08` policy with a new `round-08.1.review-freeze.json` output and the exact
+new candidate commit. The original Round 08 receipt remains historical evidence.
+Plain verification binds LFS pointer identity, not hydrated source bytes; use
+`--checkout` at the exact candidate, detached reproduction, and source-capture
+checks for those bytes. A seal commit is not the candidate: `--checkout` there
+correctly reports the added receipt/workflow changes as drift.
+
+The current generated-output check compares against the retained
+`meta/build-artifacts.lock.json` before and after rebuilding. A consistent but
+changed builder cannot bless its own output. Intentional input or renderer
+changes require separate diff review and an explicit
+`node meta/build-artifacts.mjs --write-lock`, then `--check`. The lock is a
+reviewed comparison reference, not independent authentication of the builder.
 
 ## Trust boundary
 

@@ -52,3 +52,22 @@ and at the verifier's `asOf` instant. Challenge routes are synthetic
 pause-and-record paths only. Each must reach the candidate action owner and
 authority holder, and does not grant either actor permission to resolve the
 challenge unilaterally.
+
+## Deliberate limits of the current representation model
+
+Round 08 retains two design restrictions. A representative may represent only
+one affected-consumer group in a record. The validator checks every
+representation identity separately, so reusing one actor for two groups fails
+with `ACTOR_RESPONSIBILITY_COLLISION`, even if both groups chose that person.
+This protects role separation in the synthetic fixture but excludes some
+legitimate representation arrangements. It is not a principle that communities
+must organise this way. A future change needs separate group-specific mandates
+and a test that neither group's position, challenge route or consent is lost.
+
+The schema requires at least one dissent entry. It can represent dissent that
+was later accommodated or withdrawn, but cannot record a negotiation in which
+no dissent was ever expressed. Do not invent a dissenter to satisfy it. Such a
+negotiation is currently out of scope. Supporting it would require an explicit
+distinction between zero reported dissent, missing dissent data and agreement,
+while preserving independently supplied expected context. Round 08 documents
+these limits instead of changing governance representation during measurement.

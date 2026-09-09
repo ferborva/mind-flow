@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-08
+updated: 2026-09-09
 ---
 
 # Backlog
@@ -21,6 +21,36 @@ script.
 
 ## Open
 
+### Round 08 moratorium exceptions and unresolved gates
+
+No moratorium exception was exercised. The numeric-domain, historical-period,
+baseline, resolver and build repairs extend existing mechanisms in response
+to measurements. The only new freeze policy is the Round 08 handoff expressly
+required by the commission.
+
+- [ ] **What is the intended denominator for the under-5% public boundary
+      rule?** One honest boundary already reaches 5% in a 20-sentence draft,
+      exceeds it in a short standalone card, and defines most of the linked
+      `boundaries.md`. The team preserved that information and reported the
+      universal gate unmet. A narrower scope or exception requires Fernando's
+      decision, not an editorial relabelling by agents.
+- [ ] **Which acquisition can identify a present binding condition?** The GP
+      basket has five retained permitted indicators, but annual state surveys,
+      workforce context, old national health literacy and eligibility rules
+      cannot identify today's bottleneck for a rural clerical worker. Specific
+      prescription, referral and after-hours pathways still lack complete
+      category coverage. Joint, current service-route evidence is needed before
+      a stronger diagnosis; collecting personal information or contacting
+      participants requires separate approval.
+- [ ] **Retained deferral: freeze hash domain separation.** Schema 2.0 review
+      remains due 2026-09-16. Round 08 does not claim to close it.
+- [ ] **Retained deferral: receipt authenticity.** Coherent fabricated command
+      output can still verify because the verifier does not rerun commands.
+      Independent CI execution mitigates this; consistency is not authenticity.
+- [ ] **Retained deferral: repository history weight.** The NERO archive is now
+      LFS-backed and uploaded. Earlier Git history still contains the large
+      object; no force push or history rewrite was authorised or performed.
+
 ### From the frame conversation, 2026-09-08
 
 The three at the top are the ones that block writing. The rest can wait.
@@ -30,12 +60,11 @@ The three at the top are the ones that block writing. The rest can wait.
       `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
       contribution at the frame and method level, not the solution. He has not
       said whether the enterprise-choice claim still describes the problem.
-- [ ] **Does the sequencing concession kill the dated phases?** He said the
-      order conditions fall in cannot be planned. `from-if-to-when` runs on five
-      named phases with dates to 2055. My read is that the phases survive as
-      scenarios and the dashboard does the diagnosis, but he said both things
-      twenty minutes apart and never noticed. **The single most consequential
-      open question in the repo.**
+- [x] **Does the sequencing concession kill the dated phases?** Resolved by
+      Fernando's Round 08 commission on 2026-09-09: dated phases are scenarios,
+      never schedules. The transition draft now asks which condition binds
+      today and what would have to change. This does not answer the separate
+      enterprise-choice GAP above.
 - [x] **Are the five condition categories his?** Resolved 2026-09-08: "keep them
       as mine now". Price, permission, proximity, availability, capability, with
       discretion split out. They appear in his voice from here. Chain recorded
@@ -214,12 +243,13 @@ a read-through. The big ones:
       is honest and pre-empts the obvious attack, and his own guideline says
       only-upsides reads as propaganda. But publicly reversing his own argument
       is his call.
-- [ ] **The five phases and the dates.** Mine, and the dates are defensible but
-      arbitrary. Does he want them argued or removed?
-- [ ] **The four crossings and the movement forecasts.** Mine, speculative, and
-      the least evidenced part of the piece.
-- [ ] **Phase 5 entrenchment, "constitutional or treaty-level".** A political
-      position he has never stated.
+- [x] **The five phases and dates, retired in Round 08.** The dated schedule,
+      four crossings and movement forecasts were removed from the draft;
+      conditions may coexist, reverse or never arise. No decision to restore
+      them is being requested.
+- [x] **Phase 5 entrenchment, retired with the schedule.** The unsupported
+      constitutional/treaty-level position is no longer in his draft. Any
+      future proposal would need separate attribution and evidence.
 
 ### From the second rant, 2026-09-07
 

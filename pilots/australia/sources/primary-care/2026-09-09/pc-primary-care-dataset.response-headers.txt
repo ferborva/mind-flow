@@ -1,0 +1,15 @@
+HTTP/2 200 
+content-type: text/csv
+content-length: 3422482
+date: Wed, 09 Sep 2026 10:34:27 GMT
+last-modified: Tue, 27 Jan 2026 01:30:52 GMT
+etag: "2f9117decd46d5f5bc9b01845cde2943"
+x-amz-server-side-encryption: AES256
+x-amz-version-id: skSVcIjTxjuNWGWtKhp75L9zKdEohB9W
+accept-ranges: bytes
+server: AmazonS3
+x-cache: Miss from cloudfront
+via: 1.1 80221b5cb6d99c6010a1a445f2ea0f30.cloudfront.net (CloudFront)
+x-amz-cf-pop: SYD62-P2
+x-amz-cf-id: 4HuA2dXgL4uPvdfoiidJdhM4pwwvJqN8I7nujRCsrqWUQ-52luW_jA==
+

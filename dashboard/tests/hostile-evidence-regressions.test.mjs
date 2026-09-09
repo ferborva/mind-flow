@@ -15,9 +15,10 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { buildNeroBaseline } from "../tools/build-nero-baseline.mjs";
+import { isolatedRepository } from "../../contracts/tests/support/isolated-repository.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const dashboard = resolve(here, "..");
+const dashboard = resolve(isolatedRepository(resolve(here, "../..")), "dashboard");
 const root = resolve(dashboard, "..");
 const buildPath = join(dashboard, "tools", "build.mjs");
 const fetchPath = join(dashboard, "tools", "fetch_snapshot.py");
@@ -31,15 +32,23 @@ const rawManifestPath = join(dashboard, "evidence", "fixtures", "world-bank-inpu
 const australiaReadmePath = join(root, "pilots", "australia", "README.md");
 const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
 
+test("mutable evidence-path checks live outside the working checkout", () => {
+  assert.notEqual(dashboard, resolve(here, ".."));
+});
+
 function rejectsBuild(value, expected, ...args) {
   const directory = mkdtempSync(join(tmpdir(), "mind-flow-hostile-"));
   const input = join(directory, "snapshot.json");
   const output = join(directory, "index.html");
   writeFileSync(input, JSON.stringify(value));
-  assert.throws(
-    () => execFileSync(process.execPath, [buildPath, input, output, ...args], { stdio: "pipe" }),
-    expected,
-  );
+  try {
+    assert.throws(
+      () => execFileSync(process.execPath, [buildPath, input, output, ...args], { stdio: "pipe" }),
+      expected,
+    );
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
 }
 
 test("research-draft evidence cannot pass the publishable build mode", () => {
@@ -184,13 +193,17 @@ test("every buildable snapshot is registered and bound to its canonical path and
   rejectsBuild(changed, /snapshot must match indexed id, path and SHA/i);
 
   const unregistered = structuredClone(snapshot);
+  const indexedIds = new Set(JSON.parse(readFileSync(indexPath, "utf8")).snapshots.map(({ id }) => id));
+  let revision = 1;
+  while (indexedIds.has(`2026-09-09.r${revision}`)) revision++;
+  const unregisteredId = `2026-09-09.r${revision}`;
   unregistered.snapshot_id = "2026-09-09";
-  unregistered.record_id = "2026-09-09.r1";
+  unregistered.record_id = unregisteredId;
   unregistered.as_of = "2026-09-09T00:41:31Z";
   unregistered.generated_at = "2026-09-09T00:41:31Z";
   delete unregistered.correction;
-  unregistered.public_update.observed.record_id = "2026-09-09.r1";
-  unregistered.public_update.update_id = "world-aggregate-transmission-2026-09-09.r1";
+  unregistered.public_update.observed.record_id = unregisteredId;
+  unregistered.public_update.update_id = `world-aggregate-transmission-${unregisteredId}`;
   rejectsBuild(unregistered, /snapshot is not registered in the snapshot index/i);
 });
 

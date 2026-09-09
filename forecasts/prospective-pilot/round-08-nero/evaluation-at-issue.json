@@ -1,0 +1,382 @@
+{
+  "plan_id": "forecast-evaluation.nero.5311.101.october-2026.v1",
+  "registered_at": "2026-09-09T11:43:39Z",
+  "evaluated_as_of": "2026-09-09T11:43:39Z",
+  "report_provenance": {
+    "kind": "derived-forecast-evaluation-report",
+    "plan_id": "forecast-evaluation.nero.5311.101.october-2026.v1",
+    "evaluated_as_of": "2026-09-09T11:43:39Z",
+    "input_provenance_classes": [
+      "agent-proposal"
+    ],
+    "source_forecasts": [
+      {
+        "forecast_id": "forecast.nero.5311.101.october-2026.v1",
+        "epistemic_class": "forecast",
+        "forecast_use": "research_only",
+        "provenance": {
+          "author": "Ren",
+          "class": "agent-proposal",
+          "issued_commit": "47b3021",
+          "disclaimer": "Research-only agent forecast of a modelled stock. No calibration, causal, agency, access or action claim. issued_commit identifies the source checkout at issuance; the containing record commit is discoverable from Git history and cannot be embedded in itself."
+        }
+      }
+    ],
+    "source_authenticity_verified": false,
+    "empirical_truth_established": false,
+    "action_authorised": false
+  },
+  "registration": {
+    "claimed_commit": "47b3021",
+    "verification_status": "unverified_external_review_required",
+    "registration_anchor_checksum": "sha256:4fe52997c94e3c8175fc30497b799a4c71390616c755b1b12ab21fd3f4422579",
+    "cohort_policy_anchor_checksum": "sha256:04b92d54a6dffb5b921a0ea60b95fe0c009a00745c273fa8a00df697ea945ddf",
+    "eligible_registry_manifest_checksum": "sha256:d609b0107c035d87a403bfabb2de543384bf813a93d841d682fe68f7de8479aa"
+  },
+  "baseline_contract": {
+    "campaign_id": "campaign.nero.5311.101.october-2026",
+    "reference_class": {
+      "family_id": "family.nero.reference.v1",
+      "name": "Frozen two-month direction frequency with Laplace smoothing",
+      "mechanical_role": "reference_class",
+      "policy_checksum": "sha256:2ed459d36adf1f43ee08f96bb8f0c4580704eceb2319b43e7ef9aa82079250dc",
+      "algorithm_id": "mind-flow.nero-two-month-direction",
+      "algorithm_version": "1.0.0",
+      "calculation_verification_status": "unverified_external_review_required"
+    },
+    "naive": {
+      "family_id": "family.nero.naive.v1",
+      "name": "Frozen equal-probability comparator",
+      "mechanical_role": "naive",
+      "policy_checksum": "sha256:2ed459d36adf1f43ee08f96bb8f0c4580704eceb2319b43e7ef9aa82079250dc",
+      "algorithm_id": "mind-flow.equal-probability",
+      "algorithm_version": "1.0.0",
+      "calculation_verification_status": "unverified_external_review_required"
+    }
+  },
+  "cohort": {
+    "registered": 1,
+    "resolved": 0,
+    "scored": 0,
+    "withheld_unreconstructed": 0,
+    "pending": 1,
+    "overdue_unresolved": 0,
+    "void": 0,
+    "post_publication_voids": 0,
+    "score_coverage": 0,
+    "void_rate": 0,
+    "minimum_score_coverage": 0.8,
+    "by_forecast_use": {
+      "research_only": 1,
+      "decision_linked": 0
+    }
+  },
+  "overdue_unresolved": [],
+  "voids": [],
+  "withheld_scores": [],
+  "scores": {
+    "resolved_forecasts": 0,
+    "scored_forecasts": 0,
+    "scored_events": 0,
+    "scored_clusters": 0,
+    "aggregation_unit": "equal-weighted-event-within-cluster",
+    "mean_brier": null,
+    "mean_reference_class_baseline_brier": null,
+    "aggregate_reference_class_brier_skill": null,
+    "aggregate_reference_class_brier_skill_state": "not_available",
+    "mean_naive_baseline_brier": null,
+    "aggregate_naive_brier_skill": null,
+    "aggregate_naive_brier_skill_state": "not_available",
+    "mean_log_loss": null,
+    "mean_log_loss_state": "not_available",
+    "mean_reference_class_baseline_log_loss": null,
+    "mean_reference_class_baseline_log_loss_state": "not_available",
+    "mean_naive_baseline_log_loss": null,
+    "mean_naive_baseline_log_loss_state": "not_available",
+    "reference_class_log_loss_improvement": null,
+    "naive_log_loss_improvement": null,
+    "individual": [],
+    "events": [],
+    "clusters": [],
+    "by_forecast_use": {
+      "research_only": {
+        "resolved_forecasts": 0,
+        "scored_forecasts": 0,
+        "scored_events": 0,
+        "scored_clusters": 0,
+        "aggregation_unit": "equal-weighted-event-within-cluster",
+        "mean_brier": null,
+        "mean_reference_class_baseline_brier": null,
+        "aggregate_reference_class_brier_skill": null,
+        "aggregate_reference_class_brier_skill_state": "not_available",
+        "mean_naive_baseline_brier": null,
+        "aggregate_naive_brier_skill": null,
+        "aggregate_naive_brier_skill_state": "not_available",
+        "mean_log_loss": null,
+        "mean_log_loss_state": "not_available",
+        "mean_reference_class_baseline_log_loss": null,
+        "mean_reference_class_baseline_log_loss_state": "not_available",
+        "mean_naive_baseline_log_loss": null,
+        "mean_naive_baseline_log_loss_state": "not_available",
+        "reference_class_log_loss_improvement": null,
+        "naive_log_loss_improvement": null
+      },
+      "decision_linked": {
+        "resolved_forecasts": 0,
+        "scored_forecasts": 0,
+        "scored_events": 0,
+        "scored_clusters": 0,
+        "aggregation_unit": "equal-weighted-event-within-cluster",
+        "mean_brier": null,
+        "mean_reference_class_baseline_brier": null,
+        "aggregate_reference_class_brier_skill": null,
+        "aggregate_reference_class_brier_skill_state": "not_available",
+        "mean_naive_baseline_brier": null,
+        "aggregate_naive_brier_skill": null,
+        "aggregate_naive_brier_skill_state": "not_available",
+        "mean_log_loss": null,
+        "mean_log_loss_state": "not_available",
+        "mean_reference_class_baseline_log_loss": null,
+        "mean_reference_class_baseline_log_loss_state": "not_available",
+        "mean_naive_baseline_log_loss": null,
+        "mean_naive_baseline_log_loss_state": "not_available",
+        "reference_class_log_loss_improvement": null,
+        "naive_log_loss_improvement": null
+      }
+    }
+  },
+  "reliability": {
+    "status": "withheld_ineligible_cohort",
+    "calibration_established": false,
+    "resolved_events": 0,
+    "minimum_resolved_forecasts": 30,
+    "minimum_resolved_events": 30,
+    "minimum_forecasts_per_bin": 5,
+    "minimum_events_per_bin": 5,
+    "claimed_independent_clusters": 0,
+    "independence_verified": false,
+    "aggregation_unit": "equal-weighted-event-within-cluster",
+    "minimum_independent_clusters": 20,
+    "minimum_independent_clusters_per_bin": 5,
+    "bins": [
+      {
+        "lower": 0,
+        "upper": 0.2,
+        "upper_inclusive": false,
+        "count": 0,
+        "event_count": 0,
+        "claimed_independent_cluster_count": 0,
+        "mean_probability": null,
+        "observed_frequency": null,
+        "status": "withheld_ineligible_cohort"
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.4,
+        "upper_inclusive": false,
+        "count": 0,
+        "event_count": 0,
+        "claimed_independent_cluster_count": 0,
+        "mean_probability": null,
+        "observed_frequency": null,
+        "status": "withheld_ineligible_cohort"
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.6,
+        "upper_inclusive": false,
+        "count": 0,
+        "event_count": 0,
+        "claimed_independent_cluster_count": 0,
+        "mean_probability": null,
+        "observed_frequency": null,
+        "status": "withheld_ineligible_cohort"
+      },
+      {
+        "lower": 0.6,
+        "upper": 0.8,
+        "upper_inclusive": false,
+        "count": 0,
+        "event_count": 0,
+        "claimed_independent_cluster_count": 0,
+        "mean_probability": null,
+        "observed_frequency": null,
+        "status": "withheld_ineligible_cohort"
+      },
+      {
+        "lower": 0.8,
+        "upper": 1,
+        "upper_inclusive": true,
+        "count": 0,
+        "event_count": 0,
+        "claimed_independent_cluster_count": 0,
+        "mean_probability": null,
+        "observed_frequency": null,
+        "status": "withheld_ineligible_cohort"
+      }
+    ],
+    "note": "Cohort performance is ineligible. Scores and reliability rates are withheld."
+  },
+  "reliability_by_forecast_use": {
+    "research_only": {
+      "status": "withheld_ineligible_cohort",
+      "calibration_established": false,
+      "resolved_events": 0,
+      "minimum_resolved_forecasts": 30,
+      "minimum_resolved_events": 30,
+      "minimum_forecasts_per_bin": 5,
+      "minimum_events_per_bin": 5,
+      "claimed_independent_clusters": 0,
+      "independence_verified": false,
+      "aggregation_unit": "equal-weighted-event-within-cluster",
+      "minimum_independent_clusters": 20,
+      "minimum_independent_clusters_per_bin": 5,
+      "bins": [
+        {
+          "lower": 0,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.8,
+          "upper": 1,
+          "upper_inclusive": true,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        }
+      ],
+      "note": "Cohort performance is ineligible. Scores and reliability rates are withheld."
+    },
+    "decision_linked": {
+      "status": "withheld_ineligible_cohort",
+      "calibration_established": false,
+      "resolved_events": 0,
+      "minimum_resolved_forecasts": 30,
+      "minimum_resolved_events": 30,
+      "minimum_forecasts_per_bin": 5,
+      "minimum_events_per_bin": 5,
+      "claimed_independent_clusters": 0,
+      "independence_verified": false,
+      "aggregation_unit": "equal-weighted-event-within-cluster",
+      "minimum_independent_clusters": 20,
+      "minimum_independent_clusters_per_bin": 5,
+      "bins": [
+        {
+          "lower": 0,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        },
+        {
+          "lower": 0.8,
+          "upper": 1,
+          "upper_inclusive": true,
+          "count": 0,
+          "event_count": 0,
+          "claimed_independent_cluster_count": 0,
+          "mean_probability": null,
+          "observed_frequency": null,
+          "status": "withheld_ineligible_cohort"
+        }
+      ],
+      "note": "Cohort performance is ineligible. Scores and reliability rates are withheld."
+    }
+  },
+  "declared_utility_arithmetic": {
+    "cases": [],
+    "groups": [],
+    "action_authorised": false,
+    "causal_effect_established": false,
+    "note": "Declared utility arithmetic is separated by consultation and policy adherence inside a shared scale. It is not a causal estimate of model value."
+  },
+  "interpretation": {
+    "action_authorised": false,
+    "causal_truth_established": false,
+    "predictive_skill_established": false,
+    "lifecycle_complete": false,
+    "performance_evaluable": false,
+    "performance_withheld_reason": "lifecycle_incomplete",
+    "note": "Scores are evidence about registered predictive performance only. Separate authority, causal and action contracts still apply."
+  }
+}

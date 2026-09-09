@@ -247,6 +247,8 @@ test("an exact five-record cohort cannot hide a selective post-publication void 
     report.interpretation.performance_withheld_reason,
     "post_publication_voids_present",
   );
+  assert.equal(report.scores.mean_brier, null);
+  assert.deepEqual(report.scores.individual, []);
 });
 
 test("void adjudication must follow its evidence and be claimed by someone other than the forecaster", () => {
@@ -264,6 +266,64 @@ test("void adjudication must follow its evidence and be claimed by someone other
     () => assertForecastSemantics(selfAdjudicated),
     /adjudicator.*forecaster/i,
   );
+});
+
+test("void adjudicator identities reject invisible and Unicode-confusable author collisions", () => {
+  for (const adjudicatorId of [
+    "Ren\u200b", "R\u00aden", "R\u202een", "R\u0000en", "Ren\ufe0f",
+    "R\u0435n", "\uff32\uff45\uff4e", "R\u{e0100}en",
+  ]) {
+    const record = voidedRecord({ adjudicatorId });
+    record.provenance.author = "Ren";
+    assert.throws(() => assertForecastSemantics(record), /adjudicator.*forecaster/i);
+  }
+  for (const adjudicatorId of ["\u200b\u00ad", "\u0000\u202e"]) {
+    assert.throws(() => assertForecastSemantics(voidedRecord({ adjudicatorId })),
+      /adjudicator.*identity/i);
+  }
+  const distinct = voidedRecord({ adjudicatorId: "Independent reviewer" });
+  distinct.provenance.author = "Ren";
+  assert.doesNotThrow(() => assertForecastSemantics(distinct));
+  for (const [author, adjudicatorId] of [["mira", "rnira"], ["scope", "sc\u03bfpe"]]) {
+    const record = voidedRecord({ adjudicatorId });
+    record.provenance.author = author;
+    assert.throws(() => assertForecastSemantics(record), /adjudicator.*forecaster/i);
+    record.provenance.author = "Unrelated author";
+    record.history[0].actor = author;
+    assert.throws(() => assertForecastSemantics(record), /adjudicator.*forecaster/i);
+  }
+});
+
+test("ineligible cohorts withhold aggregate, individual and stratified performance output", () => {
+  const pending = structuredClone(issued);
+  pending.id = "forecast.withholding.pending.v1";
+  const records = [resolved, pending];
+  const report = evaluateForecastCohort(hardenedPlan(records), records, {
+    asOf: "2027-08-15T00:00:00Z",
+  });
+  assert.equal(report.interpretation.performance_evaluable, false);
+  assert.equal(report.interpretation.performance_withheld_reason, "lifecycle_incomplete");
+  assert.equal(report.scores.mean_brier, null);
+  assert.equal(report.scores.mean_log_loss, null);
+  assert.equal(report.scores.aggregate_naive_brier_skill, null);
+  assert.deepEqual(report.scores.individual, []);
+  assert.deepEqual(report.scores.events, []);
+  assert.deepEqual(report.scores.clusters, []);
+  assert.equal(report.scores.by_forecast_use.research_only.mean_brier, null);
+  assert.equal(report.reliability.bins.every((bin) => bin.observed_frequency === null), true);
+  assert.equal(report.cohort.scored, 1);
+});
+
+test("coverage below the registered floor withholds scores despite a completed lifecycle", () => {
+  const records = [resolved, voidedRecord()];
+  const report = evaluateForecastCohort(hardenedPlan(records), records, {
+    asOf: "2027-08-15T00:00:00Z",
+  });
+  assert.equal(report.interpretation.lifecycle_complete, true);
+  assert.equal(report.interpretation.performance_withheld_reason, "minimum_score_coverage_not_met");
+  assert.equal(report.scores.mean_brier, null);
+  assert.equal(report.scores.by_forecast_use.research_only.mean_brier, null);
+  assert.deepEqual(report.scores.individual, []);
 });
 
 test("declared utility arithmetic is stratified away from unconsulted decisions", () => {

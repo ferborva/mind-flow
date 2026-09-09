@@ -1,0 +1,296 @@
+{
+  "schema_version": "1.4.0",
+  "id": "forecast.nero.5311.101.october-2026.v1",
+  "epistemic_class": "forecast",
+  "forecast_use": "research_only",
+  "status": "issued",
+  "title": "October NERO General Clerks employment stock in Capital Region versus the frozen August count",
+  "question": "Will the first retained October 2026 NERO release report at least 4217 employed persons for occupation 5311, General Clerks, in SA4 101, Capital Region?",
+  "issued_at": "2026-09-09T11:43:39Z",
+  "resolve_after": "2026-11-01T00:00:00Z",
+  "resolve_by": "2026-12-07T00:00:00Z",
+  "probability": 0.72,
+  "target": {
+    "event": "The first retained October 2026 NERO value for General Clerks in Capital Region is at least 4217.",
+    "unit": "binary event on a modelled employment stock",
+    "scope": {
+      "geographies": [
+        "SA4 101: Capital Region"
+      ],
+      "cohorts": [
+        "ANZSCO4 5311: General Clerks"
+      ],
+      "services": [
+        "Modelled employment stock, exposure context only"
+      ]
+    },
+    "signal_id": "signal.nero.5311.101.bounded-stock",
+    "metric_id": "metric.nero.5311.101.bounded-stock",
+    "metric_checksum": "sha256:74653e30e1968475d1cbf6f4a99105d5e84506b979c4c7d567621243186a3b30",
+    "condition_id": "condition.nero.5311.101.stock",
+    "scope_hash": "sha256:6d030cc7b97c63a56053954030a62cf9630af44e0c792cbc0f42395ab8af5699",
+    "resolution_rule": "Retain the first October archive and first-presence receipt. Select exactly one CSV cell with anzsco4_code 5311, sa4_code 101 and date 2026-10-15. Derive x/(x+4217). Resolve 1 iff this is at least 0.5 (equivalently x>=4217), else 0. No substitutions or later-vintage shopping; apply the prewritten resolution and void procedure.",
+    "resolution_source": "https://www.jobsandskills.gov.au/data/nero",
+    "resolution_event_id": "event.nero.5311.101.2026-10",
+    "independence_cluster_id": "cluster.nero-model.2026",
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.1.0",
+      "measure": "NERO modelled employed-person count x divided by x plus the frozen August 2026 count 4217",
+      "observation_unit": "bounded employment index",
+      "operator": "gte",
+      "threshold": 0.5
+    },
+    "observation_window_start": "2026-10-01T00:00:00Z",
+    "observation_window_end": "2026-10-31T23:59:59Z",
+    "outcome_publication_not_before": "2026-11-01T00:00:00Z"
+  },
+  "baseline": {
+    "campaign_id": "campaign.nero.5311.101.october-2026",
+    "family_id": "family.nero.reference.v1",
+    "name": "Frozen two-month direction frequency with Laplace smoothing",
+    "kind": "mechanical",
+    "mechanical_role": "reference_class",
+    "probability": 0.72,
+    "method": "Count nonnegative two-month changes from August 2024 through August 2026 in the retained August 2026 vintage; (successes+1)/(comparisons+2).",
+    "declared_at": "2026-09-09T11:22:22Z",
+    "policy_snapshot": {
+      "source": "https://github.com/ferborva/mind-flow/blob/47b3021/forecasts/prospective-pilot/round-08-nero/README.md",
+      "retrieved_at": "2026-09-09T11:22:22Z",
+      "vintage": "protocol.nero.5311.101.october-2026.v1",
+      "checksum": "sha256:2ed459d36adf1f43ee08f96bb8f0c4580704eceb2319b43e7ef9aa82079250dc"
+    },
+    "calculation": {
+      "algorithm_id": "mind-flow.nero-two-month-direction",
+      "version": "1.0.0",
+      "input_checksums": [
+        "sha256:6fbdb5482f9c2a6939ff1f1833030c1db9f849d7782af3130feff20fd79c425e"
+      ],
+      "checksum": "sha256:13576ddfce939fe386cd85d039c7b357aa95e23148a755fc6ad279d92e1aad0b",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "naive_baseline": {
+    "campaign_id": "campaign.nero.5311.101.october-2026",
+    "family_id": "family.nero.naive.v1",
+    "name": "Frozen equal-probability comparator",
+    "kind": "mechanical",
+    "mechanical_role": "naive",
+    "probability": 0.5,
+    "method": "Return 0.5 after the same input eligibility checks.",
+    "declared_at": "2026-09-09T11:22:22Z",
+    "policy_snapshot": {
+      "source": "https://github.com/ferborva/mind-flow/blob/47b3021/forecasts/prospective-pilot/round-08-nero/README.md",
+      "retrieved_at": "2026-09-09T11:22:22Z",
+      "vintage": "protocol.nero.5311.101.october-2026.v1",
+      "checksum": "sha256:2ed459d36adf1f43ee08f96bb8f0c4580704eceb2319b43e7ef9aa82079250dc"
+    },
+    "calculation": {
+      "algorithm_id": "mind-flow.equal-probability",
+      "version": "1.0.0",
+      "input_checksums": [
+        "sha256:6fbdb5482f9c2a6939ff1f1833030c1db9f849d7782af3130feff20fd79c425e"
+      ],
+      "checksum": "sha256:0d214e4c927d60514ca33abd964c94aa59c2d6334a73d938a5a0697fb65964f5",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "method": {
+    "kind": "model",
+    "description": "Use the predeclared two-month direction algorithm as the primary forecast and reference comparator. This tests prospective discipline; it cannot demonstrate advantage over that same comparator.",
+    "version": "1.0.0"
+  },
+  "data_vintages": [
+    {
+      "source": "https://github.com/ferborva/mind-flow/blob/47b3021/pilots/australia/data/nero-clerical-2026-08.r2.json",
+      "retrieved_at": "2026-09-09T10:51:23Z",
+      "vintage": "August 2026 retained NERO projection, classification-status correction r2",
+      "checksum": "sha256:6fbdb5482f9c2a6939ff1f1833030c1db9f849d7782af3130feff20fd79c425e"
+    },
+    {
+      "source": "https://www.jobsandskills.gov.au/sites/default/files/2026-09/2026-08_nero.zip",
+      "retrieved_at": "2026-09-08T22:33:29Z",
+      "vintage": "2026-08",
+      "checksum": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446"
+    }
+  ],
+  "provenance": {
+    "author": "Ren",
+    "class": "agent-proposal",
+    "issued_commit": "47b3021",
+    "disclaimer": "Research-only agent forecast of a modelled stock. No calibration, causal, agency, access or action claim. issued_commit identifies the source checkout at issuance; the containing record commit is discoverable from Git history and cannot be embedded in itself."
+  },
+  "assumptions": [
+    "The selected source-native code and label pair remains comparable across the frozen August and first October releases.",
+    "Historical two-month signs in one smoothed and revised vintage provide a mechanical baseline, not independent trials or calibrated future probabilities.",
+    "First retained release may differ from later corrections; all later changes remain separately visible.",
+    "The bounded index is a monotone transform, not a population share or available jobs."
+  ],
+  "counter_hypotheses": [
+    "The October modelled count is below 4217.",
+    "Smoothing, revisions or classification changes break historical comparability.",
+    "The October archive is unavailable by resolution close."
+  ],
+  "void_policy": {
+    "allowed_reason_codes": [
+      "source_retired",
+      "measure_materially_changed",
+      "resolution_evidence_unavailable"
+    ],
+    "evidence_required": true
+  },
+  "issue_basis": {
+    "basis_version": "1.0.0",
+    "issued_at": "2026-09-09T11:43:39Z",
+    "kernel_ref": {
+      "artifact_path": "forecasts/prospective-pilot/round-08-nero/kernel.json",
+      "artifact_sha256": "sha256:c588a05a25d0133b8a386e135a27f1e7e0d3e4b538847f637c5211f6ffd81303",
+      "kernel_id": "kernel.nero.5311.101.prospective",
+      "manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd"
+    },
+    "signal_registry_ref": {
+      "artifact_path": "forecasts/prospective-pilot/round-08-nero/registry.json",
+      "artifact_sha256": "sha256:475469766e6d84f7c99ea1afb055fce5441c5e547fe438dbb284dba90a18536a",
+      "registry_id": "registry.nero.5311.101.prospective",
+      "schema_version": "1.1.0"
+    },
+    "condition_definition_ref": {
+      "condition_id": "condition.nero.5311.101.stock",
+      "definition_version": "1.0.0",
+      "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
+    },
+    "predicate_id": "stock-threshold",
+    "signal_definition_ref": {
+      "signal_id": "signal.nero.5311.101.bounded-stock",
+      "definition_version": "1.0.0",
+      "signal_definition_hash": "sha256:361498a86ae4d864095c6bd82bdfe8f1690c0142b3b598be2f83d5b48a3b950c"
+    },
+    "metric_contract": {
+      "metric_id": "metric.nero.5311.101.bounded-stock",
+      "measure": "NERO modelled employed-person count x divided by x plus the frozen August 2026 count 4217",
+      "unit": "bounded employment index",
+      "denominator": "x plus frozen August 2026 count 4217; not a population denominator",
+      "population": "NERO occupation code 5311, General Clerks, resident in SA4 code 101, Capital Region",
+      "geography": "SA4 101: Capital Region, Australia",
+      "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+      "aggregation": "One occupation-SA4 series; no aggregation across occupations or regions",
+      "collection_process_ids": [
+        "process.jsa.nero"
+      ],
+      "source_refs": [
+        "source.jsa.nero"
+      ],
+      "evaluation_rule": "Transform the exact series count x to x/(x+4217), then compare gte 0.5. No population-share interpretation.",
+      "metric_checksum": "sha256:74653e30e1968475d1cbf6f4a99105d5e84506b979c4c7d567621243186a3b30"
+    },
+    "condition_scope": {
+      "jurisdictions": [
+        "Australia"
+      ],
+      "geographies": [
+        "SA4 101: Capital Region"
+      ],
+      "cohorts": [
+        "ANZSCO4 5311: General Clerks"
+      ],
+      "services": [
+        "Modelled employment stock, exposure context only"
+      ],
+      "period": {
+        "starts_at": "2026-08-01T00:00:00Z",
+        "ends_at": "2026-10-31T23:59:59Z"
+      }
+    },
+    "target_scope_hash": "sha256:6d030cc7b97c63a56053954030a62cf9630af44e0c792cbc0f42395ab8af5699",
+    "evidence_state_ref": {
+      "kernel_id": "kernel.nero.5311.101.prospective",
+      "kernel_manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd",
+      "event_count": 1,
+      "tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
+      "tip_event_hash": "sha256:2822bd8a8988e44cae56b1f91c918b5b7af746b6db984782089906b2ef53d72c",
+      "state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be"
+    },
+    "issue_evaluation_receipt": {
+      "evaluated_at": "2026-09-09T11:43:39Z",
+      "clock": {
+        "source": "caller-supplied",
+        "trusted": false
+      },
+      "evaluator_ref": {
+        "id": "mind-flow.executable-if.evaluator",
+        "version": "1.1.0",
+        "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+        "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+        "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+        "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+      },
+      "condition_definition_ref": {
+        "condition_id": "condition.nero.5311.101.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:0062471dc9e6092612666d72144db6da56aebd1c3ae80dd80a0ed19653326dc7"
+      },
+      "observation_hashes": [
+        "sha256:f5660c1be2ce6319f29ce334cbe2751c07dc663e39d16eb9200ff354af0f3dc6"
+      ],
+      "mechanically_valid_for_evaluation": true,
+      "computed_rule_state": {
+        "axis": "computed_rule_state",
+        "state": "true"
+      },
+      "empirical_truth_established": false,
+      "authority_effect": "none",
+      "action_authorised": false,
+      "publication_approved": false,
+      "kernel_manifest_hash": "sha256:ef2b17678997555c8ceb0c9796e804a5cc2906f6afd8f3bb84e6f9c95a1714dd",
+      "evidence_state_hash": "sha256:0a7670392d8c9a9b9951e5f1b7a812006541d689188531262aaa27f575cb70be",
+      "evaluation_hash": "sha256:2ae3a75a0373f6b82f08e5af2e768344bed0a5a713962d74abf8ed7fc4180f88"
+    },
+    "interpretation_boundaries": {
+      "probability_relation": "orthogonal-to-current-computed-if-state",
+      "current_if_state_is_forecast_probability": false,
+      "probability_establishes_empirical_truth": false,
+      "probability_establishes_causality": false,
+      "probability_establishes_authority": false,
+      "empirical_truth_established": false,
+      "causality_established": false,
+      "authority_effect": "none",
+      "action_authorised": false,
+      "public_claim_ceiling": "This research-only forecast assigns 72% to this future event: The first retained October 2026 NERO value for General Clerks in Capital Region is at least 4217. Provenance class: agent-proposal. At issue time, 2026-09-09T11:43:39Z, the executable IF rule computed true. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act."
+    },
+    "issue_basis_hash": "sha256:c25f7c08ad24a1e9ce5073656bba89188c12a6be8a2ce04b7acd772414bbe7a9"
+  },
+  "resolution": {
+    "status": "pending"
+  },
+  "history": [
+    {
+      "at": "2026-09-09T11:43:39Z",
+      "event": "issued",
+      "actor": "Ren",
+      "note": "No-consequence prospective record. Preserve these exact issued bytes; append resolution or void separately."
+    }
+  ],
+  "prospective_registration": {
+    "protocol_id": "protocol.nero.5311.101.october-2026.v1",
+    "protocol_content_sha256": "sha256:4538385902dfe91fe52ae01826fd8e17813a43c4d86858418792959865763b4c",
+    "preregistration_sha256": "sha256:5417d8e6d6dae6a6942333af5a8b8610cdbc0d5e80dbf68b37f96976da0f105a",
+    "campaign_manifest_id": "manifest.nero.5311.101.october-2026.v1",
+    "campaign_manifest_sha256": "sha256:cb309fb9ad47a91d70ea77f09cb42513cc26aa86d8ca7514b9b794d4048b1de1",
+    "target_id": "target.nero.5311.101.october-2026",
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.1.0",
+      "implementation_sha256": "sha256:eeaf2eb48ca4bc16dc5b79a979f79cdeb11d9e30a8817f389d0d82d4c0b6e265",
+      "parameters_sha256": "sha256:70e83066bfc7c31e8b00ef9ff191b7d4376c86912edf20d6997e5e93613fdc64",
+      "conformance_vectors_sha256": "sha256:b47dbc9f05bd9ca83b9582a5023925683f26600769e2cc517286517235ffd991",
+      "conflict_policy": "void-and-disclose",
+      "correction_policy": "withdraw-resolution-and-rescore-never-overwrite"
+    },
+    "mature_contract": {
+      "schema_path": "forecasts/schema/binary-forecast.schema.json",
+      "schema_sha256": "sha256:f6db2e6418b83fd6f5b9d95b4a1cde1764e036834a4e157239db3b3e8a69b9fd",
+      "validator_path": "forecasts/lib/registry.mjs",
+      "validator_sha256": "sha256:fc0c09e24ebe339417ce9247e56f66df57af05ff9c2f8be64b2c95a7dff6f70b"
+    }
+  }
+}

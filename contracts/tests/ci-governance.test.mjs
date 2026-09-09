@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { assertReproductionCannotBeWeakened } from "./support/workflow-assertions.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
@@ -41,7 +43,7 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
     /node meta\/review-freeze\/review-freeze\.mjs verify[\s\S]*--policy=round-07[\s\S]*round-07\.review-freeze\.json/,
     "CI must verify the retained Round 07 receipt",
   );
-  assert.match(workflow, /git status --porcelain/);
+  assertReproductionCannotBeWeakened(workflow);
   assert.doesNotMatch(workflow, /git diff --exit-code/);
   assert.doesNotMatch(workflow, /uses:\s*[^\s]+@v\d+\b/, "CI actions must not use moving major tags");
   for (const action of ["actions/checkout", "actions/setup-node"]) {
@@ -53,10 +55,51 @@ test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
   }
 });
 
+test("workflow validation rejects omitted untracked files and failed-reproduction overrides", () => {
+  assert.doesNotThrow(() => assertReproductionCannotBeWeakened(workflow));
+  assert.throws(() => assertReproductionCannotBeWeakened(
+    workflow.replace(" --untracked-files=all", "")));
+  assert.throws(() => assertReproductionCannotBeWeakened(
+    workflow.replace("--policy=round-07", "--policy=round-07 --allow-failed-reproduction")));
+});
+
+test("generated HTML and Observatory data are build artifacts rather than tracked source", () => {
+  const tracked = execFileSync("git", ["ls-files", "--", "dashboard/web/index.html",
+    "pilots/australia/web/index.html", "dashboard/observatory/data.js",
+    "experiments/observatory-comparison/rendered/*.html"], { cwd: root, encoding: "utf8" }).trim();
+  assert.equal(tracked, "");
+  assert.match(workflow, /actions\/upload-artifact@[a-f0-9]{40}/);
+  assert.match(workflow, /lfs:\s*true/);
+});
+
+test("CI explicitly replays retained Round 08 measurements and ignored artifact parity", () => {
+  for (const command of [
+    "node pilots/australia/tools/primary-care.mts --check",
+    "node pilots/australia/tools/primary-care-basket.mts --check",
+    "node pilots/australia/tools/positive-signals.mts --check",
+    "node dashboard/tools/primary-care-panel.mts --check",
+    "node meta/build-artifacts.mjs --check",
+  ]) assert.equal(workflow.includes(command), true, command);
+});
+
+test("the Round 08 seal unconditionally verifies its retained receipt in CI", () => {
+  const step = workflow.match(/      - name: Verify the retained Round 8 review receipt\n([\s\S]*?)(?=\n      - name:|$)/)?.[1];
+  assert.ok(step, "Round 08 receipt verification step is required");
+  assert.doesNotMatch(step, /\bif:|\bif\b|\|\||--allow-failed-reproduction|continue-on-error/);
+  assert.match(step, /node meta\/review-freeze\/review-freeze\.mjs verify\s+--policy=round-08\s+--manifest=meta\/review-freeze\/round-08\.review-freeze\.json/);
+});
+
 test("local and CI runtime contracts pin the same Node major", () => {
   assert.equal(nodeVersion, "22");
   assert.equal(packageJson.engines.node, "22.x");
   assert.match(workflow, new RegExp(`node-version:\\s*${nodeVersion}`));
+});
+
+test("the Round 08.1 seal unconditionally verifies its separate retained receipt", () => {
+  const step = workflow.match(/      - name: Verify the retained Round 8.1 repair receipt\n([\s\S]*?)(?=\n      - name:|$)/)?.[1];
+  assert.ok(step, "Round 08.1 receipt verification step is required");
+  assert.doesNotMatch(step, /\bif:|\bif\b|\|\||--allow-failed-reproduction|continue-on-error/);
+  assert.match(step, /node meta\/review-freeze\/review-freeze\.mjs verify\s+--policy=round-08\s+--manifest=meta\/review-freeze\/round-08\.1\.review-freeze\.json/);
 });
 
 test("agent-authored commits must disclose a distinct authorship identity", () => {

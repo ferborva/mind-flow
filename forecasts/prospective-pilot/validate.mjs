@@ -400,11 +400,12 @@ function requireFixedRegistration(protocol, issues) {
       "registration receipt must name the exact protocol content checksum",
     ));
   }
-  if (registration.external_receipt?.registered_at !== registration.registered_at) {
+  if (!(asTime(registration.external_receipt?.registered_at) >= asTime(registration.registered_at) &&
+      asTime(registration.external_receipt?.registered_at) < asTime(clocks.issue_opens_at))) {
     issues.push(issue(
       "RECEIPT_TIME_MISMATCH",
       "/registration/external_receipt/registered_at",
-      "registration receipt timestamp must equal the preregistration timestamp",
+      "registration receipt time must follow or equal the content seal and precede issue opens",
     ));
   }
   if (manifest.status !== "sealed" ||

@@ -157,6 +157,15 @@
         "projection_policy": { "const": "exact-scope-only" },
         "source_schema_ref": { "$ref": "#/$defs/nonEmpty" },
         "value_kind": { "enum": ["number", "boolean"] },
+        "value_range": {
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+            "minimum": { "type": "number" },
+            "maximum": { "type": "number" }
+          },
+          "additionalProperties": false
+        },
         "unit": { "$ref": "#/$defs/nonEmpty" },
         "signal_definition_hash": { "$ref": "#/$defs/hash" }
       },
@@ -302,6 +311,7 @@
       "type": "object",
       "required": [
         "condition_id",
+        "condition_category",
         "definition_version",
         "proposition",
         "claim",
@@ -318,6 +328,8 @@
       ],
       "properties": {
         "condition_id": { "$ref": "#/$defs/id" },
+        "condition_category": { "enum": ["price", "permission", "proximity", "availability", "capability"] },
+        "condition_subtype": { "const": "discretion" },
         "definition_version": { "$ref": "#/$defs/semver" },
         "proposition": { "$ref": "#/$defs/nonEmpty" },
         "claim": { "$ref": "#/$defs/claimIdentity" },
@@ -452,7 +464,7 @@
       ],
       "properties": {
         "observation_id": { "$ref": "#/$defs/id" },
-        "classification": { "const": "synthetic-observation" },
+        "classification": { "enum": ["synthetic-observation", "measured-observation"] },
         "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
         "predicate_id": { "$ref": "#/$defs/id" },
         "signal_ref": { "$ref": "#/$defs/signalRef" },
@@ -469,7 +481,7 @@
         "recorded_at": { "$ref": "#/$defs/instant" },
         "value": { "oneOf": [{ "type": "number" }, { "type": "boolean" }] },
         "unit": { "$ref": "#/$defs/nonEmpty" },
-        "source_id": { "$ref": "#/$defs/syntheticSourceId" },
+        "source_id": { "$ref": "#/$defs/id" },
         "source_artifact_hash": { "$ref": "#/$defs/hash" },
         "source_independence": { "const": "not-verified" },
         "uncertainty": {
@@ -496,6 +508,11 @@
         "action_authorised": { "const": false },
         "observation_hash": { "$ref": "#/$defs/hash" }
       },
+      "allOf": [{
+        "if": { "properties": { "classification": { "const": "synthetic-observation" } } },
+        "then": { "properties": { "source_id": { "$ref": "#/$defs/syntheticSourceId" } } },
+        "else": { "properties": { "source_id": { "not": { "$ref": "#/$defs/syntheticSourceId" } } } }
+      }],
       "additionalProperties": false
     },
     "observationRef": {

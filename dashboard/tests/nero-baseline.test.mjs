@@ -178,7 +178,7 @@ test("the frozen Australia baseline validates and preserves every scoped series"
     "utf8",
   ));
   const baseline = JSON.parse(readFileSync(
-    join(root, "pilots", "australia", "data", "nero-clerical-2026-08.json"),
+    join(root, "pilots", "australia", "data", "nero-clerical-2026-08.r2.json"),
     "utf8",
   ));
   const ajv = new Ajv2020({ allErrors: true, strict: true });

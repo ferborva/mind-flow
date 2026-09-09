@@ -1,0 +1,12 @@
+{
+  "sealed_at": "2026-09-09T11:43:39Z",
+  "eligible_forecast_ids": [
+    "forecast.nero.5311.101.october-2026.v1"
+  ],
+  "cohort": [
+    {
+      "forecast_id": "forecast.nero.5311.101.october-2026.v1",
+      "issued_record_checksum": "sha256:21916a6ac7817e03f35fdae052eb63017a8ccc84ccb6920fd8e59bc3b4b758ad"
+    }
+  ]
+}

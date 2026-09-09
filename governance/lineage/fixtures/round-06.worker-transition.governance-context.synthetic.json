@@ -5,13 +5,13 @@
   "captured_at": "2026-09-09T00:00:00Z",
   "source_bundle_binding": {
     "bundle_id": "bundle.round-04.worker-option.complete",
-    "bundle_sha256": "sha256:e609471d9a483e1a0b1b1cbf23b58c629ba69a5f73aea911f6dc570175ef290a",
+    "bundle_sha256": "sha256:23037c362730c7735bf11f2c26c4a50a9cb208b29e7660594d4b042c3fe95958",
     "bundle_as_of": "2026-09-09T00:00:00Z",
-    "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda",
+    "evaluation_hash": "sha256:51bebdf308cd68dbf341de44ba1803b6f8278c55114238b2bd025d2ebe81522b",
     "condition_definition_ref": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
     },
     "computed_rule_state": "true"
   },
@@ -125,15 +125,15 @@
     "condition_definition_ref": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
     },
     "evaluation_receipt_ref": {
       "receipt_id": "receipt.condition.worker-option.nsw.20260909",
       "receipt_version": "1.0.0",
-      "receipt_hash": "sha256:4965f8948f275ceabda4bc8c477dbfabebdf0fd58cc336d329851f78d4c28bec",
+      "receipt_hash": "sha256:e22a8500d51cac729c081025bc4567f9d3bf00dd33c4625a32e0b7ee010227ed",
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669",
+      "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706",
       "evaluated_at": "2026-09-09T00:00:00Z",
       "valid_until": "2026-10-09T00:00:00Z",
       "mechanically_valid_for_evaluation": true,
@@ -151,5 +151,5 @@
     "action_authorised": false,
     "publication_approved": false
   },
-  "context_hash": "sha256:93edaaf75b7ecdea807529ff1a476fa5245dc200e7be860938d1d702aad19262"
+  "context_hash": "sha256:6db415381c97294ba3a8c72d18473a23a899ada78d0c694557a11bdae8e1d363"
 }

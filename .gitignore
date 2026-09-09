@@ -5,3 +5,9 @@ Thumbs.db
 .idea/
 .vscode/
 node_modules/
+
+# Reproduced locally and in CI; source templates stay tracked.
+/dashboard/web/index.html
+/pilots/australia/web/index.html
+/dashboard/observatory/data.js
+/experiments/observatory-comparison/rendered/*.html

@@ -1,0 +1,1426 @@
+{
+  "schema_version": "2.0.0",
+  "ledger_id": "ledger.au.primary-care.current",
+  "classification": "research-draft",
+  "generated_at": "2026-09-09T22:33:29Z",
+  "source_kernel_ref": {
+    "artifact_path": "pilots/australia/basket/primary-care.kernel.current.json",
+    "artifact_sha256": "sha256:1fe8272a1855bace95b2151fce1290e40a368267bebf22a4c74d845d10fc1651",
+    "kernel_id": "kernel.au.primary-care.r3",
+    "manifest_hash": "sha256:6983d2b948b04304d8bc9701d0d71de27e6750b94512420caa81299735e49cc1",
+    "evaluator_ref": {
+      "id": "mind-flow.executable-if.evaluator",
+      "version": "1.1.0",
+      "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+      "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+      "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+      "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+    }
+  },
+  "source_history_ref": {
+    "history_status": "complete-and-locally-validated",
+    "event_count": 12,
+    "tip_sequence": 12,
+    "tip_event_id": "event.au.primary-care.12",
+    "tip_event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c",
+    "operations": [
+      "added",
+      "narrowed",
+      "definition-revised",
+      "added",
+      "split",
+      "added",
+      "added",
+      "added",
+      "added",
+      "added",
+      "added",
+      "definition-revised"
+    ],
+    "event_refs": [
+      {
+        "sequence": 1,
+        "event_id": "event.au.primary-care.1",
+        "operation": "added",
+        "event_hash": "sha256:07967d86478b2bab0ba9822ddd316a4ac121c102b6621cc0706ab39ab1743145"
+      },
+      {
+        "sequence": 2,
+        "event_id": "event.au.primary-care.2",
+        "operation": "narrowed",
+        "event_hash": "sha256:1f87c7afcf2e126b6172263db27d98c7bc6b2b3b9046213168856db6d662f843"
+      },
+      {
+        "sequence": 3,
+        "event_id": "event.au.primary-care.3",
+        "operation": "definition-revised",
+        "event_hash": "sha256:8756775a4d4adda405a82b771383e21ead9d71be4306ef0f9f07cfc2da090562"
+      },
+      {
+        "sequence": 4,
+        "event_id": "event.au.primary-care.4",
+        "operation": "added",
+        "event_hash": "sha256:817eab13fba0e8537ac878789e7cdb04f43ae224d20ee60a5dafdf1876fa3bf4"
+      },
+      {
+        "sequence": 5,
+        "event_id": "event.au.primary-care.5",
+        "operation": "split",
+        "event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f"
+      },
+      {
+        "sequence": 6,
+        "event_id": "event.au.primary-care.6",
+        "operation": "added",
+        "event_hash": "sha256:2e7f3322f45e88872e42fca199ccfe06463a43901a61f43c1f8f8c473ab37a2c"
+      },
+      {
+        "sequence": 7,
+        "event_id": "event.au.primary-care.7",
+        "operation": "added",
+        "event_hash": "sha256:251cbbe1986bdfd038cffee1872a8845314863927e632ad023fa85eab4be174d"
+      },
+      {
+        "sequence": 8,
+        "event_id": "event.au.primary-care.8",
+        "operation": "added",
+        "event_hash": "sha256:f20fb8205512fe980d8e3c64763a2c965319bdd40ca29efd44c841a914a45fb1"
+      },
+      {
+        "sequence": 9,
+        "event_id": "event.au.primary-care.9",
+        "operation": "added",
+        "event_hash": "sha256:e757dd25a7e8fce2ef62121e7011eab7599326885ab9849a3424bf069daae334"
+      },
+      {
+        "sequence": 10,
+        "event_id": "event.au.primary-care.10",
+        "operation": "added",
+        "event_hash": "sha256:1a9a02b27ae966a1406a03182b443b89bbbb480783b9a40db0a980836d217413"
+      },
+      {
+        "sequence": 11,
+        "event_id": "event.au.primary-care.11",
+        "operation": "added",
+        "event_hash": "sha256:54d8a297b4b7dbda0e1d0aed523d5b5982682431e6daab8d9894c57165b11758"
+      },
+      {
+        "sequence": 12,
+        "event_id": "event.au.primary-care.12",
+        "operation": "definition-revised",
+        "event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c"
+      }
+    ],
+    "active_condition_definition_refs": [
+      {
+        "condition_id": "condition.au.after-hours.delay",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+      },
+      {
+        "condition_id": "condition.au.gp.cost",
+        "definition_version": "1.3.0",
+        "definition_hash": "sha256:3fe10fc096901723d20d189bca0c40e633f4fd239e40fb539b8804db74ac60b1"
+      },
+      {
+        "condition_id": "condition.au.gp.navigation-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+      },
+      {
+        "condition_id": "condition.au.gp.spatial-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+      },
+      {
+        "condition_id": "condition.au.gp.telehealth-routine",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+      },
+      {
+        "condition_id": "condition.au.gp.telehealth-urgent",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+      },
+      {
+        "condition_id": "condition.au.gp.timely",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+      },
+      {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      {
+        "condition_id": "condition.au.specialist.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+      }
+    ],
+    "evidence_event_count": 7,
+    "evidence_tip_event_id": "evidence.au.primary-care.7",
+    "evidence_tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+    "evidence_state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+  },
+  "condition_projections": [
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.after-hours.delay",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 11,
+        "event_id": "event.au.primary-care.11",
+        "operation": "added",
+        "event_hash": "sha256:54d8a297b4b7dbda0e1d0aed523d5b5982682431e6daab8d9894c57165b11758"
+      },
+      "proposition": "The registered after-hours-delay condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the after-hours-delay research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "After-hours GP consultation"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.cost",
+        "definition_version": "1.3.0",
+        "definition_hash": "sha256:3fe10fc096901723d20d189bca0c40e633f4fd239e40fb539b8804db74ac60b1"
+      },
+      "source_state_version": 4,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 12,
+        "event_id": "event.au.primary-care.12",
+        "operation": "definition-revised",
+        "event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c"
+      },
+      "proposition": "The registered gp-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the gp-cost-delay research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "GP consultation"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.navigation-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 8,
+        "event_id": "event.au.primary-care.8",
+        "operation": "added",
+        "event_hash": "sha256:f20fb8205512fe980d8e3c64763a2c965319bdd40ca29efd44c841a914a45fb1"
+      },
+      "proposition": "The registered health-system-navigation-difficulty condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the health-system-navigation-difficulty research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "Adults represented in2018 Health Literacy Survey"
+        ],
+        "services": [
+          "Health-system navigation"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.spatial-context",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 7,
+        "event_id": "event.au.primary-care.7",
+        "operation": "added",
+        "event_hash": "sha256:251cbbe1986bdfd038cffee1872a8845314863927e632ad023fa85eab4be174d"
+      },
+      "proposition": "The registered gp-fte-remoteness condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the gp-fte-remoteness research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW remoteness strata"
+        ],
+        "cohorts": [
+          "Resident population supply context"
+        ],
+        "services": [
+          "GP spatial supply"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.telehealth-routine",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 5,
+        "event_id": "event.au.primary-care.5",
+        "operation": "split",
+        "event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f"
+      },
+      "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the telehealth-relationship-lookback research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "MBS telehealth rule"
+        ],
+        "services": [
+          "Routine GP telehealth"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.telehealth-urgent",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 5,
+        "event_id": "event.au.primary-care.5",
+        "operation": "split",
+        "event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f"
+      },
+      "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the telehealth-relationship-lookback research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "Australia"
+        ],
+        "cohorts": [
+          "MBS telehealth rule"
+        ],
+        "services": [
+          "Urgent unsociable-hours GP telehealth"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.gp.timely",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 6,
+        "event_id": "event.au.primary-care.6",
+        "operation": "added",
+        "event_hash": "sha256:2e7f3322f45e88872e42fca199ccfe06463a43901a61f43c1f8f8c473ab37a2c"
+      },
+      "proposition": "The registered gp-urgent-under-four-hours condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the gp-urgent-under-four-hours research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "GP urgent consultation"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 9,
+        "event_id": "event.au.primary-care.9",
+        "operation": "added",
+        "event_hash": "sha256:e757dd25a7e8fce2ef62121e7011eab7599326885ab9849a3424bf069daae334"
+      },
+      "proposition": "The registered prescription-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the prescription-cost-delay research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Survey-scope residents aged 15 years and over"
+        ],
+        "services": [
+          "Prescription medicines, aggregate context"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    },
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.au.specialist.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 10,
+        "event_id": "event.au.primary-care.10",
+        "operation": "added",
+        "event_hash": "sha256:1a9a02b27ae966a1406a03182b443b89bbbb480783b9a40db0a980836d217413"
+      },
+      "proposition": "The registered specialist-gap condition satisfies its explicit research threshold within the registered scope.",
+      "claim": {
+        "who": "The exact population named by the bound signal",
+        "verb": "satisfy",
+        "object": "the specialist-gap research condition",
+        "standard": "Registered threshold only; not personal service access",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2018-01-01T00:00:00Z",
+          "ends_at": "2027-09-09T10:43:00Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "NSW"
+        ],
+        "cohorts": [
+          "Patient-billed specialist attendances"
+        ],
+        "services": [
+          "Specialist referral pathway, aggregate context"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 7,
+        "tip_event_id": "evidence.au.primary-care.7",
+        "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+        "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    }
+  ],
+  "governance_events": [],
+  "current_state": {
+    "as_of_sequence": 12,
+    "as_of_event_id": "event.au.primary-care.12",
+    "as_of_event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c",
+    "evidence_state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc",
+    "conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.after-hours.delay",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 11,
+          "event_id": "event.au.primary-care.11",
+          "operation": "added",
+          "event_hash": "sha256:54d8a297b4b7dbda0e1d0aed523d5b5982682431e6daab8d9894c57165b11758"
+        },
+        "proposition": "The registered after-hours-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the after-hours-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "After-hours GP consultation"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.cost",
+          "definition_version": "1.3.0",
+          "definition_hash": "sha256:3fe10fc096901723d20d189bca0c40e633f4fd239e40fb539b8804db74ac60b1"
+        },
+        "source_state_version": 4,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 12,
+          "event_id": "event.au.primary-care.12",
+          "operation": "definition-revised",
+          "event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c"
+        },
+        "proposition": "The registered gp-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-cost-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "GP consultation"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.navigation-context",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 8,
+          "event_id": "event.au.primary-care.8",
+          "operation": "added",
+          "event_hash": "sha256:f20fb8205512fe980d8e3c64763a2c965319bdd40ca29efd44c841a914a45fb1"
+        },
+        "proposition": "The registered health-system-navigation-difficulty condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the health-system-navigation-difficulty research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Adults represented in2018 Health Literacy Survey"
+          ],
+          "services": [
+            "Health-system navigation"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.spatial-context",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 7,
+          "event_id": "event.au.primary-care.7",
+          "operation": "added",
+          "event_hash": "sha256:251cbbe1986bdfd038cffee1872a8845314863927e632ad023fa85eab4be174d"
+        },
+        "proposition": "The registered gp-fte-remoteness condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-fte-remoteness research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW remoteness strata"
+          ],
+          "cohorts": [
+            "Resident population supply context"
+          ],
+          "services": [
+            "GP spatial supply"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.telehealth-routine",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 5,
+          "event_id": "event.au.primary-care.5",
+          "operation": "split",
+          "event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f"
+        },
+        "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the telehealth-relationship-lookback research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "MBS telehealth rule"
+          ],
+          "services": [
+            "Routine GP telehealth"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.telehealth-urgent",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 5,
+          "event_id": "event.au.primary-care.5",
+          "operation": "split",
+          "event_hash": "sha256:ada2b81383206257a2af8c31d1eec3a85af21360cf51bfa67f6949f906eeaf1f"
+        },
+        "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the telehealth-relationship-lookback research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "MBS telehealth rule"
+          ],
+          "services": [
+            "Urgent unsociable-hours GP telehealth"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.timely",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 6,
+          "event_id": "event.au.primary-care.6",
+          "operation": "added",
+          "event_hash": "sha256:2e7f3322f45e88872e42fca199ccfe06463a43901a61f43c1f8f8c473ab37a2c"
+        },
+        "proposition": "The registered gp-urgent-under-four-hours condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-urgent-under-four-hours research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "GP urgent consultation"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.prescription.cost",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 9,
+          "event_id": "event.au.primary-care.9",
+          "operation": "added",
+          "event_hash": "sha256:e757dd25a7e8fce2ef62121e7011eab7599326885ab9849a3424bf069daae334"
+        },
+        "proposition": "The registered prescription-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the prescription-cost-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "Prescription medicines, aggregate context"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.specialist.cost",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 10,
+          "event_id": "event.au.primary-care.10",
+          "operation": "added",
+          "event_hash": "sha256:1a9a02b27ae966a1406a03182b443b89bbbb480783b9a40db0a980836d217413"
+        },
+        "proposition": "The registered specialist-gap condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the specialist-gap research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Patient-billed specialist attendances"
+          ],
+          "services": [
+            "Specialist referral pathway, aggregate context"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 7,
+          "tip_event_id": "evidence.au.primary-care.7",
+          "tip_event_hash": "sha256:5486d0cbb24e60ebbe58ee8f1bbc9bbab03f30bd6e355d6a45d58584a99dd4d8",
+          "state_hash": "sha256:3e8967952282a1b67112b426e7b5db14c393e116ad1a7c14f7a2c2b6d096dafc"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      }
+    ]
+  },
+  "publication_anchor": {
+    "verification_status": "not-verified-by-external-checkpoint",
+    "checkpoint_uri": "https://github.com/ferborva/mind-flow/pull/15",
+    "source_event_count": 12,
+    "tip_event_id": "event.au.primary-care.12",
+    "tip_event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c"
+  },
+  "public_projection": {
+    "history": {
+      "status": "complete-source-bound",
+      "change_count": 12,
+      "operations": [
+        "added",
+        "narrowed",
+        "definition-revised",
+        "added",
+        "split",
+        "added",
+        "added",
+        "added",
+        "added",
+        "added",
+        "added",
+        "definition-revised"
+      ],
+      "notice": "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment."
+    },
+    "active_conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.after-hours.delay",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:504afb4076ae32e5d1b35f9b7ec4ca342e4b94e0f11c3f83a4b979db7fffddaf"
+        },
+        "proposition": "The registered after-hours-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the after-hours-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "After-hours GP consultation"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.cost",
+          "definition_version": "1.3.0",
+          "definition_hash": "sha256:3fe10fc096901723d20d189bca0c40e633f4fd239e40fb539b8804db74ac60b1"
+        },
+        "proposition": "The registered gp-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-cost-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "GP consultation"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.navigation-context",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:189589b85aeaa0648490215de3a44b0145c4c8f50cdacad44a2d6b53d8548188"
+        },
+        "proposition": "The registered health-system-navigation-difficulty condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the health-system-navigation-difficulty research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Adults represented in2018 Health Literacy Survey"
+          ],
+          "services": [
+            "Health-system navigation"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.spatial-context",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:bfc98f33b61d485554de187780b3da0536fec021d4c3f68bc9b4f88f27b37de8"
+        },
+        "proposition": "The registered gp-fte-remoteness condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-fte-remoteness research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW remoteness strata"
+          ],
+          "cohorts": [
+            "Resident population supply context"
+          ],
+          "services": [
+            "GP spatial supply"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.telehealth-routine",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:af93c521b1e22ac06b878ed90eed3620f40751fbfca7533b3ed40a6c5201c8f6"
+        },
+        "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the telehealth-relationship-lookback research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "MBS telehealth rule"
+          ],
+          "services": [
+            "Routine GP telehealth"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.telehealth-urgent",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:682fb93d85f8cd9345c0101b2c9a73a829af41f936e63e97dbf8935d47151b12"
+        },
+        "proposition": "The registered telehealth-relationship-lookback condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the telehealth-relationship-lookback research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "MBS telehealth rule"
+          ],
+          "services": [
+            "Urgent unsociable-hours GP telehealth"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.gp.timely",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+        },
+        "proposition": "The registered gp-urgent-under-four-hours condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-urgent-under-four-hours research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "GP urgent consultation"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.prescription.cost",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+        },
+        "proposition": "The registered prescription-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the prescription-cost-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "Prescription medicines, aggregate context"
+          ]
+        },
+        "assessment_status": "open"
+      },
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.au.specialist.cost",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:7f1bdb0ee2acd1acce947591d85b2a7d21362730ee1f3e4b5779577567cc6173"
+        },
+        "proposition": "The registered specialist-gap condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the specialist-gap research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Patient-billed specialist attendances"
+          ],
+          "services": [
+            "Specialist referral pathway, aggregate context"
+          ]
+        },
+        "assessment_status": "open"
+      }
+    ],
+    "boundaries": {
+      "mechanical_rule_state_is_empirical_truth": false,
+      "authority_granted": false,
+      "action_authorised": false
+    }
+  },
+  "manifest_hash": "sha256:93601d7360e86fea46f48d5c1eb716bd9996c9b7800bcc75351f90f1c8646b9b",
+  "contract_boundary": {
+    "definition_history_owner": "source-executable-if-kernel",
+    "history_validity_effect": "source-binding-and-integrity-only",
+    "condition_truth_effect": "none",
+    "authority_effect": "none",
+    "action_authorisation_effect": "none"
+  }
+}

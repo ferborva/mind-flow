@@ -59,13 +59,13 @@
       "source": "https://example.invalid/mind-flow/forecast-baselines/worker-option-reference-v1",
       "retrieved_at": "2026-09-07T00:00:00Z",
       "vintage": "worker-option-reference-policy-v1",
-      "checksum": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+      "checksum": "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe"
     },
     "calculation": {
       "algorithm_id": "synthetic-historical-frequency",
       "version": "1.0.0",
       "input_checksums": [
-        "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+        "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe"
       ],
       "checksum": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
       "verification_status": "unverified_external_review_required"
@@ -84,13 +84,13 @@
       "source": "https://example.invalid/mind-flow/forecast-baselines/worker-option-naive-v1",
       "retrieved_at": "2026-09-07T00:00:00Z",
       "vintage": "worker-option-naive-policy-v1",
-      "checksum": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+      "checksum": "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe"
     },
     "calculation": {
       "algorithm_id": "constant-probability",
       "version": "1.0.0",
       "input_checksums": [
-        "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+        "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe"
       ],
       "checksum": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
       "verification_status": "unverified_external_review_required"
@@ -106,7 +106,7 @@
       "source": "https://example.invalid/mind-flow/signals/round-04-worker-option",
       "retrieved_at": "2026-09-09T00:00:00Z",
       "vintage": "registry.round-04.worker-option.synthetic",
-      "checksum": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+      "checksum": "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe"
     }
   ],
   "provenance": {
@@ -137,20 +137,20 @@
     "issued_at": "2026-09-09T00:00:00Z",
     "kernel_ref": {
       "artifact_path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-      "artifact_sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70",
+      "artifact_sha256": "sha256:733253db747384e70c472a9e8491ac43795078b0ec4a8a058e8a16dc712db83b",
       "kernel_id": "kernel.worker-option.synthetic",
-      "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d"
+      "manifest_hash": "sha256:b2c5d05c5a143ce4efe2bb75cced0851630e903cfd12b3f7c1d44ebded88fdcf"
     },
     "signal_registry_ref": {
       "artifact_path": "signals/fixtures/round-04.worker-option.synthetic.json",
-      "artifact_sha256": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e",
+      "artifact_sha256": "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe",
       "registry_id": "registry.round-04.worker-option.synthetic",
       "schema_version": "1.1.0"
     },
     "condition_definition_ref": {
       "condition_id": "condition.worker-option.nsw",
       "definition_version": "1.0.0",
-      "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+      "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
     },
     "predicate_id": "option-coverage",
     "signal_definition_ref": {
@@ -198,11 +198,11 @@
     "target_scope_hash": "sha256:60e7ab45c3978698d76a8f4ae6a74512efd7d85cbc35d94cc11fb69f5d121868",
     "evidence_state_ref": {
       "kernel_id": "kernel.worker-option.synthetic",
-      "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+      "kernel_manifest_hash": "sha256:b2c5d05c5a143ce4efe2bb75cced0851630e903cfd12b3f7c1d44ebded88fdcf",
       "event_count": 11,
       "tip_event_id": "evidence-event.august-review.added",
-      "tip_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04",
-      "state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
+      "tip_event_hash": "sha256:cedb9cbb8748ced492c07bcf4171787b0387bad9c500977c50e23c8a524ffeb6",
+      "state_hash": "sha256:617fb8470e120126137d8c7387417f63cc58e6d9a8b4fd09157727bbcf227750"
     },
     "issue_evaluation_receipt": {
       "evaluated_at": "2026-09-09T00:00:00Z",
@@ -213,21 +213,21 @@
       "evaluator_ref": {
         "id": "mind-flow.executable-if.evaluator",
         "version": "1.1.0",
-        "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
-        "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
-        "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+        "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+        "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+        "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
         "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
       },
       "condition_definition_ref": {
         "condition_id": "condition.worker-option.nsw",
         "definition_version": "1.0.0",
-        "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+        "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
       },
       "observation_hashes": [
-        "sha256:04baf14fd0030c3c4c8053ad67feee23f5aa2aab48de757b6140ca7ec9080418",
-        "sha256:656bcbd7d28292ef20deb01f976174ca9ec788ecefe9c50ff7bb9272d8759d5c",
-        "sha256:b9833498a654f88be756738ce7a4a93be4c766f990c0b6a814b7df7a6135db91",
-        "sha256:e9a475d5b3aa524531f229426460137d8ebcd2417ba156f488ebf09112acc87b"
+        "sha256:5ae678552e12158167d3d1a6925a09562e8b6da7466011997259c9aeea006ea5",
+        "sha256:5f30619affd00ef547b386aba3ef2d0cc16b77ae68bfb3ab8ded54a31b685edf",
+        "sha256:8b64dae6da31a555a75fe49f8256a6f1e77b18e490b8eae1808a3e213d502851",
+        "sha256:cefd9a30df34f6502f8a060eb8251e64ec8a933180746ea7ad8c468128b03037"
       ],
       "mechanically_valid_for_evaluation": true,
       "computed_rule_state": {
@@ -238,9 +238,9 @@
       "authority_effect": "none",
       "action_authorised": false,
       "publication_approved": false,
-      "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
-      "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5",
-      "evaluation_hash": "sha256:190f6240785299773a1bd0e3d35400ecb17ae1b8cabef4e237f20282d935dcda"
+      "kernel_manifest_hash": "sha256:b2c5d05c5a143ce4efe2bb75cced0851630e903cfd12b3f7c1d44ebded88fdcf",
+      "evidence_state_hash": "sha256:617fb8470e120126137d8c7387417f63cc58e6d9a8b4fd09157727bbcf227750",
+      "evaluation_hash": "sha256:51bebdf308cd68dbf341de44ba1803b6f8278c55114238b2bd025d2ebe81522b"
     },
     "interpretation_boundaries": {
       "probability_relation": "orthogonal-to-current-computed-if-state",
@@ -254,7 +254,7 @@
       "action_authorised": false,
       "public_claim_ceiling": "This research-only forecast assigns 62% to this future event: The registered credible-option coverage measure is at or above 0.90 for the exact scope and future observation window. Provenance class: agent-proposal. At issue time, 2026-09-09T00:00:00Z, the executable IF rule computed true. The probability and IF state answer different questions. Neither establishes empirical truth, causality, authority or permission to act."
     },
-    "issue_basis_hash": "sha256:1d7ba413e90f07f514fbfb1e425fe97decae7f560587d9e9325c467aa4448add"
+    "issue_basis_hash": "sha256:146c6ddb8111ad0a5b5b3728ea56a4f8ef15afe662433ee8864901d8c245785c"
   },
   "resolution": {
     "status": "pending"

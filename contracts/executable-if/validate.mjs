@@ -19,6 +19,7 @@ const HASH_DOMAIN = "mind-flow:executable-if:v1";
 const DAY_MS = 86_400_000;
 const SCOPE_AXES = ["jurisdictions", "geographies", "cohorts", "services"];
 const NON_DECISIVE = new Set(["unknown", "stale", "conflicted"]);
+const CONDITION_CATEGORIES = new Set(["price", "permission", "proximity", "availability", "capability"]);
 const STRICT_UTC_SECOND = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/;
 
 function canonicalJson(value) {
@@ -368,6 +369,26 @@ function typeMatches(kind, value) {
     : typeof value === "boolean";
 }
 
+function signalRange(signal) {
+  const inherent = signal.unit === "ratio" ? { minimum: 0, maximum: 1 }
+    : signal.unit === "percent" ? { minimum: 0, maximum: 100 } : null;
+  const range = signal.value_range || inherent;
+  if (!range || (range.minimum === undefined && range.maximum === undefined) ||
+      (range.minimum !== undefined && !Number.isFinite(range.minimum)) ||
+      (range.maximum !== undefined && !Number.isFinite(range.maximum))) return null;
+  const minimum = range.minimum ?? inherent?.minimum ?? Number.NEGATIVE_INFINITY;
+  const maximum = range.maximum ?? inherent?.maximum ?? Number.POSITIVE_INFINITY;
+  if (minimum >= maximum || (inherent &&
+      (minimum < inherent.minimum || maximum > inherent.maximum))) return null;
+  return { minimum, maximum };
+}
+
+function observationWithinDomain(signal, value) {
+  if (signal.value_kind !== 'number') return true;
+  const range = signalRange(signal);
+  return Boolean(range && Number.isFinite(value) && value >= range.minimum && value <= range.maximum);
+}
+
 export function evaluateCondition(definition, signals, observations, { evaluatedAt }) {
   const signalMap = new Map(signals.map((signal) => [signalKey(signal), signal]));
   const predicateResults = {};
@@ -433,6 +454,11 @@ export function evaluateCondition(definition, signals, observations, { evaluated
         "observation type and unit must match its exact signal definition"));
       continue;
     }
+    if (!observationWithinDomain(signal, observation.value)) {
+      errors.push(error("OBSERVATION_VALUE_OUTSIDE_DOMAIN", `${path}/value`,
+        "numeric observation must lie inside its declared or intrinsic signal domain"));
+      continue;
+    }
     if (!observation.coverage || observation.coverage.eligible_units < 1 ||
         observation.coverage.observed_units < 1 || observation.coverage.missing_units < 0 ||
         observation.coverage.observed_units + observation.coverage.missing_units !==
@@ -455,9 +481,10 @@ export function evaluateCondition(definition, signals, observations, { evaluated
         "observation requires period start <= end <= recorded_at"));
       continue;
     }
-    if (start < Date.parse(definition.effective_from) || recorded < Date.parse(definition.effective_from)) {
+    if ((observation.classification !== "measured-observation" && start < Date.parse(definition.effective_from)) ||
+        recorded < Date.parse(definition.effective_from)) {
       errors.push(error("OBSERVATION_PREDATES_DEFINITION", path,
-        "an observation cannot support a definition before it becomes effective"));
+        "normalisation cannot predate its definition; historical measured periods retain their actual dates"));
       continue;
     }
     if (start < claimStartsAt || end > claimEndsAt) {
@@ -529,6 +556,12 @@ export function evaluateCondition(definition, signals, observations, { evaluated
 }
 
 function validateDefinitionSemantics(definition, signals, errors, path) {
+  if (!CONDITION_CATEGORIES.has(definition.condition_category) ||
+      (definition.condition_subtype !== undefined &&
+      (definition.condition_subtype !== "discretion" || definition.condition_category !== "availability"))) {
+    errors.push(error("CONDITION_CATEGORY_INVALID", `${path}/condition_category`,
+      "declare price, permission, proximity, availability or capability; discretion is an availability subtype"));
+  }
   if (!same(definition.evaluator_ref, FIXED_EVALUATOR_REF)) {
     errors.push(error("EVALUATOR_IDENTITY_MISMATCH", `${path}/evaluator_ref`,
       "condition definition must use the fixed evaluator semantics"));
@@ -561,6 +594,26 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
     if (signal.value_kind === "boolean" && !["eq", "neq"].includes(predicate.operator)) {
       errors.push(error("PREDICATE_OPERATOR_TYPE_MISMATCH", `${path}/predicates/${predicateId}/operator`,
         "boolean signals support only eq and neq"));
+    }
+    if (signal.value_kind === "number") {
+      const range = signalRange(signal);
+      if (!range) {
+        errors.push(error("SIGNAL_RANGE_INVALID", `${path}/predicates/${predicateId}/signal_ref`,
+          "numeric signals require at least one finite declared domain bound; ratio and percent retain intrinsic bounds"));
+        continue;
+      }
+      const { minimum, maximum } = range;
+      const value = predicate.threshold.value;
+      const outside = value < minimum || value > maximum;
+      const vacuous = outside ||
+        (predicate.operator === "gte" && value === minimum) ||
+        (predicate.operator === "lt" && value === minimum) ||
+        (predicate.operator === "lte" && value === maximum) ||
+        (predicate.operator === "gt" && value === maximum);
+      if (vacuous) {
+        errors.push(error("PREDICATE_THRESHOLD_VACUOUS", `${path}/predicates/${predicateId}/threshold`,
+          "a bounded signal threshold must permit both passing and failing values in its domain"));
+      }
     }
     if (predicate.missing_result !== "unknown" || predicate.stale_result !== "stale" ||
         predicate.conflict_result !== "conflicted") {
@@ -652,7 +705,9 @@ function validateEvolutionOperation(event, prior, introduced, errors, path) {
       }
     } else {
       if (!same(newDefinition.claim, oldDefinition.claim) ||
-          newDefinition.proposition !== oldDefinition.proposition) {
+          newDefinition.proposition !== oldDefinition.proposition ||
+          newDefinition.condition_category !== oldDefinition.condition_category ||
+          newDefinition.condition_subtype !== oldDefinition.condition_subtype) {
         errors.push(error("CONDITION_MEANING_CHANGED", path,
           "a definition revision cannot change the typed claim or its proposition"));
       }
@@ -880,6 +935,10 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
       errors.push(error("OBSERVATION_TYPE_OR_UNIT_MISMATCH", path,
         "observation type and unit must match its exact signal definition"));
     }
+    if (signal && !observationWithinDomain(signal, observation.value)) {
+      errors.push(error("OBSERVATION_VALUE_OUTSIDE_DOMAIN", `${path}/value`,
+        "numeric observation must lie inside its declared or intrinsic signal domain"));
+    }
     const start = Date.parse(observation.period.start);
     const end = Date.parse(observation.period.end);
     const recorded = Date.parse(observation.recorded_at);
@@ -894,9 +953,9 @@ function validateObservations(kernel, signalMap, definitionObjects, definitionIn
     const introducedAt = Date.parse(definitionIntroducedAt.get(definitionKey(
       observation.condition_definition_ref)));
     if (Number.isFinite(start) && Number.isFinite(recorded) &&
-        (start < introducedAt || recorded < introducedAt)) {
+        ((observation.classification !== "measured-observation" && start < introducedAt) || recorded < introducedAt)) {
       errors.push(error("OBSERVATION_PREDATES_DEFINITION", path,
-        "an observation cannot support a definition before its introducing event"));
+        "normalisation cannot predate the introducing event; measured source periods may be historical"));
     }
     const claimStart = Date.parse(definition.claim.period.starts_at);
     const claimEnd = Date.parse(definition.claim.period.ends_at);

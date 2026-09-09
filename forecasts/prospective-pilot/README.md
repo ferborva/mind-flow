@@ -57,7 +57,7 @@ The schema fixes these values. A caller cannot weaken them:
 The validator enforces this chronology:
 
 ```text
-manifest sealed ≤ preregistered < issue opens < issue closes
+manifest sealed ≤ content sealed ≤ external receipt < issue opens < issue closes
                  < observation starts < observation ends
                  ≤ publication not before ≤ resolve after ≤ resolution closes
 ```
@@ -91,7 +91,12 @@ requiring the record to hash itself.
 The external registration receipt also has its own explicit checksum scope:
 `external-receipt-bytes-not-this-protocol-record`. The local validator checks
 its shape, exact UTC time and match to a separately supplied receipt context,
-not whether the external service, bytes or timestamp are authentic.
+not whether the external service, bytes or timestamp are authentic. The
+protocol's `registration.registered_at` and `clocks.preregistered_at` record
+the content-seal time. The provider's receipt may arrive later, but must precede
+the issue window. Requiring equal times would force a client to predict the
+provider's clock before hashing the content. The external receipt is excluded
+from the content hash, so adding it does not rewrite preregistered substance.
 The local hash chain detects edits and reordering in a supplied chronology. It
 cannot prove that someone did not remove an unanchored tail. A post-registration
 tail therefore fails the complete-context gate unless the caller supplies its

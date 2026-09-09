@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "outputs": [
+    {
+      "path": "dashboard/web/index.html",
+      "sha256": "35813ac416d6d07299a43a2c6fc43f4756f116309b17638cd1dcd7836ca1d468"
+    },
+    {
+      "path": "pilots/australia/web/index.html",
+      "sha256": "da2320e2b0ffb6698c7c752d3e3a6ed411a36602029cd3af636092d0cfe5f6dc"
+    },
+    {
+      "path": "dashboard/observatory/data.js",
+      "sha256": "e589e31edd5fe6b73c2e2532c6a1ce02c72ee7d1ee805a7167021bd7847a5115"
+    },
+    {
+      "path": "experiments/observatory-comparison/rendered/conventional-release.html",
+      "sha256": "72c43018150d5eb8d759519940dcab95bd60e7f909640cfad59bbe04d9659840"
+    },
+    {
+      "path": "experiments/observatory-comparison/rendered/observatory-self-serve.html",
+      "sha256": "f2a40398da9edacaf49e5261634b6e6164b0a8449914b0df67a11ad054e5409c"
+    }
+  ]
+}

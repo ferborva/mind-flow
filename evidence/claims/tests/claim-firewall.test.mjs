@@ -121,6 +121,19 @@ test("replacement lineage binds immutable old and new atomic claims", () => {
   assert.equal(result.machine_valid, true, JSON.stringify(result.errors, null, 2));
 });
 
+test("partial support cannot rest on context-only links", () => {
+  const fixture = structuredClone(readFixture("valid", "compound-sentence.json"));
+  fixture.claims[0].support_state = "partially-supported";
+  assert.equal(validate(fixture).machine_valid, true);
+  fixture.claims[0].evidence_refs = fixture.claims[0].evidence_refs.map((reference) => ({
+    ...reference, relation: "context",
+  }));
+  const result = validate(fixture);
+  assert.equal(result.schema_valid, true);
+  assert.equal(result.integrity_valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "supported-without-direct-evidence"));
+});
+
 test("the JSON Schema is closed at every fixture boundary", () => {
   const result = validate(readFixture("hostile", "unknown-property.json"));
 

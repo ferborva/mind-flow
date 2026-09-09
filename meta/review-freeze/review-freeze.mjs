@@ -240,10 +240,64 @@ export const ROUND_07_REVIEW_POLICY = Object.freeze({
   build_commands: ROUND_06_BUILD_COMMANDS,
 });
 
+const ROUND_08_GENERATED_OUTPUTS = [
+  "dashboard/web/index.html", "pilots/australia/web/index.html", "dashboard/observatory/data.js",
+  "experiments/observatory-comparison/rendered/conventional-release.html",
+  "experiments/observatory-comparison/rendered/observatory-self-serve.html",
+];
+
+export const ROUND_08_REVIEW_POLICY = Object.freeze({
+  schema_version: "1.0.0", policy_id: "review-freeze.round-08", policy_version: "1.0.0",
+  review_round: "round-08", reviewed_ref: "ren/round-08",
+  generated_outputs: ROUND_08_GENERATED_OUTPUTS,
+  required_files: [
+    ...ROUND_07_REQUIRED_FILES.filter(({ path }) => !ROUND_08_GENERATED_OUTPUTS.includes(path)),
+    ...[
+      ["meta/round-08-external-review-brief.md", "Round 08 eight-track independent review charter"],
+      ["meta/round-08-plan.md", "measurement-first plan and moratorium"],
+      ["reviews/round-08-progress.md", "dated gate and residual checkpoints"],
+      ["reviews/round-08-measurement-independent-review.md", "different-owner measurement challenges"],
+      ["reviews/round-08-narrative-provenance.md", "capture-backed public voice review"],
+      ["reviews/round-08-disclaimer-inventory.md", "public-document scope and unresolved disclaimer gate"],
+      ["boundaries.md", "linked evidence and authority boundaries"],
+      ["meta/build-artifacts.mjs", "exact generated-output build and parity contract"],
+      [".gitattributes", "retained-source LFS routing"],
+      [".github/workflows/integrity.yml", "independent CI reproduction and artifacts"],
+      ["pilots/australia/basket/README.md", "basket measurement and correction entry point"],
+      ["pilots/australia/sources/primary-care/2026-09-09/capture.json", "retained primary-care source inventory"],
+      ["pilots/australia/sources/primary-care/2026-09-09/pc-primary-care-dataset.csv", "retained RoGS cells and uncertainty"],
+      ["pilots/australia/tools/primary-care.mts", "source verification and measurement derivation"],
+      ["pilots/australia/tools/primary-care-basket.mts", "measured IF construction and evolution"],
+      ["pilots/australia/tools/positive-signals.mts", "favourable condition-change derivation"],
+      ["dashboard/tools/primary-care-panel.mts", "measured panel and deletion provenance"],
+      ["dashboard/snapshots/2026-09-09.r1.json", "dated twelve-signal measured panel"],
+      ["forecasts/prospective-pilot/round-08-nero/README.md", "prospective target and prewritten resolution procedure"],
+      ["forecasts/prospective-pilot/round-08-nero/candidate.mts", "prospective preparation and evidence bindings"],
+      ["forecasts/prospective-pilot/round-08-nero/resolver.mts", "source-native October resolution adapter"],
+      ["forecasts/prospective-pilot/round-08-nero/issued.json", "immutable prospective issuance"],
+      ["forecasts/prospective-pilot/round-08-nero/preregistration.json", "sealed prospective protocol"],
+      ["forecasts/prospective-pilot/round-08-nero/evaluation-plan.json", "pre-observation evaluation cohort"],
+      ["forecasts/prospective-pilot/round-08-nero/registration-provider-response.base64.txt", "exact retained external registration response"],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_06_BUILD_COMMANDS,
+    ...[
+      ["primary-care-measurements-check", ["node", "pilots/australia/tools/primary-care.mts", "--check"]],
+      ["primary-care-basket-check", ["node", "pilots/australia/tools/primary-care-basket.mts", "--check"]],
+      ["positive-condition-signals-check", ["node", "pilots/australia/tools/positive-signals.mts", "--check"]],
+      ["primary-care-panel-check", ["node", "dashboard/tools/primary-care-panel.mts", "--check"]],
+      ["generated-artifact-byte-parity", ["node", "meta/build-artifacts.mjs", "--check"]],
+      ["retained-prospective-issuance-check", ["node", "--test", "forecasts/prospective-pilot/tests/round-08-nero-issued.test.mjs"]],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: ".", timeout_ms: 900_000 })),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
   if (reviewRound === "round-07") return ROUND_07_REVIEW_POLICY;
+  if (reviewRound === "round-08") return ROUND_08_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
@@ -412,6 +466,21 @@ export function resolveReviewOutput(repositoryRoot, path, { force = false } = {}
 function fileAtCommit(repositoryRoot, commit, path) {
   closedPath(path, "required file");
   return git(repositoryRoot, ["show", `${commit}:${path}`], { binary: true });
+}
+
+function lfsPointer(bytes) {
+  const text = bytes.toString("utf8");
+  if (!text.startsWith("version https://git-lfs.github.com/spec/v1\n")) return null;
+  const match = /^version https:\/\/git-lfs.github.com\/spec\/v1\noid sha256:([a-f0-9]{64})\nsize ([1-9][0-9]*|0)\n$/.exec(text);
+  if (!match || !Number.isSafeInteger(Number(match[2]))) throw new Error("invalid retained LFS pointer");
+  return { oid: match[1], size: Number(match[2]) };
+}
+
+function retainedFileMatches(committedBytes, materializedBytes) {
+  const pointer = lfsPointer(committedBytes);
+  return pointer
+    ? materializedBytes.length === pointer.size && canonicalHash(materializedBytes) === `sha256:${pointer.oid}`
+    : canonicalHash(committedBytes) === canonicalHash(materializedBytes);
 }
 
 function fileRecord(repositoryRoot, commit, required) {
@@ -589,6 +658,26 @@ function materializeCommit(repositoryRoot, commit, destination, runtime) {
   if (checkedOut.status !== 0) {
     throw new Error(`exact reviewed commit could not be checked out: ${checkedOut.stderr || checkedOut.stdout}`);
   }
+  // Clone does not inherit the source repository's LFS cache or filter config.
+  // Materialize only the object named by the committed pointer, offline.
+  const commonGitDirectory = resolve(repositoryRoot, git(repositoryRoot, ["rev-parse", "--git-common-dir"]));
+  for (const entry of listTree(repositoryRoot, commit)) {
+    if (entry.type !== "blob" || !["100644", "100755"].includes(entry.mode)) continue;
+    const committedBytes = fileAtCommit(repositoryRoot, commit, entry.path);
+    const pointer = lfsPointer(committedBytes);
+    if (!pointer) continue;
+    const objectPath = resolve(commonGitDirectory, "lfs/objects", pointer.oid.slice(0, 2), pointer.oid.slice(2, 4), pointer.oid);
+    let bytes;
+    try {
+      const stat = lstatSync(objectPath);
+      if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("not a regular object");
+      bytes = readFileSync(objectPath);
+    } catch (error) {
+      throw new Error(`retained LFS object unavailable for ${entry.path}: ${error.message}`);
+    }
+    if (!retainedFileMatches(committedBytes, bytes)) throw new Error(`retained LFS object hash or size differs for ${entry.path}`);
+    writeFileSync(resolve(destination, entry.path), bytes);
+  }
 }
 
 function runCommand(command, sandbox, environment, runtime) {
@@ -680,9 +769,8 @@ function trackedTreeUnchanged(repositoryRoot, commit, sandbox) {
     const target = resolve(sandbox, entry.path);
     try {
       if (!trackedModeMatches(target, entry.mode) ||
-          canonicalHash(retainedBytes(target, entry.mode)) !== canonicalHash(
-        fileAtCommit(repositoryRoot, commit, entry.path),
-      )) changed.push(entry.path);
+          !retainedFileMatches(fileAtCommit(repositoryRoot, commit, entry.path),
+            retainedBytes(target, entry.mode))) changed.push(entry.path);
     } catch {
       changed.push(entry.path);
     }
@@ -707,7 +795,7 @@ function unexpectedPaths(root, trackedPaths) {
   return unexpected.sort();
 }
 
-function reproduce(repositoryRoot, commit, commands, runtime) {
+function reproduce(repositoryRoot, commit, commands, runtime, generatedOutputs = []) {
   const parent = mkdtempSync(resolve(tmpdir(), "mind-flow-review-freeze-"));
   const sandbox = resolve(parent, runtime.checkout_directory_name);
   try {
@@ -731,6 +819,7 @@ function reproduce(repositoryRoot, commit, commands, runtime) {
     });
     const changed = trackedTreeUnchanged(repositoryRoot, commit, sandbox);
     const trackedPaths = new Set(listTree(repositoryRoot, commit).map(({ path }) => path));
+    for (const path of generatedOutputs) trackedPaths.add(closedPath(path, "generated output"));
     const unexpected = unexpectedPaths(sandbox, trackedPaths);
     const passed = commandRuns.every(({
       exit_code,
@@ -763,6 +852,7 @@ function policyProjection(policy) {
     reviewed_ref: policy.reviewed_ref,
     required_files: policy.required_files,
     build_commands: policy.build_commands.map(commandRecord),
+    ...(policy.generated_outputs ? { generated_outputs: policy.generated_outputs.map((path) => closedPath(path, "generated output")) } : {}),
   };
 }
 
@@ -783,7 +873,7 @@ export function createReviewFreeze({
   const buildCommands = policy.build_commands.map(commandRecord);
   const runtime = runtimeInputs(repositoryRoot, reviewedCommit);
   const reproduction = executeCommands
-    ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime)
+    ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime, policy.generated_outputs)
     : {
         status: "not-run",
         detached_checkout: true,
@@ -1014,7 +1104,7 @@ export function verifyReviewFreeze(manifest, {
           const path = resolve(repositoryRoot, expected.path);
           const fromRoot = relative(repositoryRoot, path);
           if (fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot) ||
-              canonicalHash(readFileSync(path)) !== expected.sha256) {
+              !retainedFileMatches(fileAtCommit(repositoryRoot, exact, expected.path), readFileSync(path))) {
             errors.push(issue("REVIEWED_FILE_DRIFT", `/required_files/${index}`, `${expected.path} differs in the working checkout`));
           }
         } catch (error) {
@@ -1106,8 +1196,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

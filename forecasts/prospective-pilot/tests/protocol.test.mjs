@@ -291,6 +291,17 @@ test("the registration receipt binds all preregistered substance without self-ha
   );
 });
 
+test("a provider receipt may follow the content seal but must precede the issue window", () => {
+  const protocol = preregisteredProtocol();
+  protocol.registration.external_receipt.registered_at = "2030-01-02T00:00:00Z";
+  assert.doesNotThrow(() => assertProspectivePilotPreregistration(protocol, externalContext(protocol)));
+  for (const time of ["2029-12-31T23:59:59Z", protocol.clocks.issue_opens_at,
+    protocol.clocks.issue_closes_at]) {
+    protocol.registration.external_receipt.registered_at = time;
+    assert.throws(() => assertProspectivePilotProtocol(protocol), /receipt.*time|receipt.*seal/i);
+  }
+});
+
 test("issue and close clocks fail closed on peeking or ambiguous timezone chronology", () => {
   const overlap = preregisteredProtocol();
   overlap.clocks.issue_closes_at = overlap.clocks.observation_starts_at;

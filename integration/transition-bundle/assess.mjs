@@ -413,6 +413,10 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       ajv.errorsText(validateBundleSchema.errors, { separator: "; " }),
     ));
   }
+  if (Date.parse(bundle?.evaluation_clock?.evaluated_at) > Date.parse(bundle?.as_of)) {
+    issues.push(issue("EVALUATION_AFTER_AS_OF", "bundle",
+      "the evaluation clock cannot be later than the bundle as-of instant"));
+  }
 
   const refs = Array.isArray(bundle?.artifacts) ? bundle.artifacts : [];
   const requiredRoles = bundle?.bundle_stage === "pre-projection-core"
@@ -558,9 +562,14 @@ export function assessTransitionBundle(bundle, { rootDir = defaultRoot } = {}) {
       ));
     } else {
       for (const reference of activeDefinitionRefs) {
-        governedEvaluations.push(evaluateKernelCondition(kernel, reference.condition_id, {
+        const evaluation = evaluateKernelCondition(kernel, reference.condition_id, {
           evaluatedAt: bundle?.evaluation_clock?.evaluated_at,
-        }));
+        });
+        governedEvaluations.push(evaluation);
+        if (evaluation.mechanically_valid_for_evaluation !== true) {
+          issues.push(issue("GOVERNED_EVALUATION_REJECTED", "executable-if-kernel",
+            `governed evaluation was rejected for ${reference.condition_id}`));
+        }
       }
     }
 

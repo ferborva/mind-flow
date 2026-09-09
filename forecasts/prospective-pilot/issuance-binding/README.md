@@ -1,8 +1,8 @@
 # Future issuance binding adapter
 
-> **This adapter does not issue, authorise or publish a forecast. The current
-> mature forecast schema cannot express five mandatory bindings or independently
-> reproduce baseline execution, so every current candidate fails closed.**
+> **This adapter does not issue, authorise or publish a forecast. Prospective
+> records now carry five previously missing bindings in the existing mature
+> schema. Baseline execution remains a separate prerequisite.**
 
 ## 🦅 TL;DR
 
@@ -42,9 +42,10 @@ This verifies retained bytes and a synthetic calculation record only. It does
 not execute the algorithm, establish empirical validity or provide an
 independent timestamp or identity.
 
-## 🚧 Why current candidates remain blocked
+## 🚧 Prospective bindings and remaining prerequisite
 
-Binary forecast schema `1.4.0` cannot carry:
+Binary forecast schema `1.4.0` now accepts an optional, closed
+`prospective_registration` object binding:
 
 1. the protocol ID, protocol-content hash or exact preregistration byte address;
 2. the sealed campaign manifest identity and hash;
@@ -52,14 +53,31 @@ Binary forecast schema `1.4.0` cannot carry:
 4. resolver implementation, parameter and conformance hashes plus correction policies; or
 5. the mature schema and semantic-validator byte identities used at issue.
 
-The adapter also returns
-`BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED` until a separate runner
-recomputes both probabilities from those retained inputs.
+The adapter re-executes the two fixed NERO algorithms in
+`baseline-execution.mjs`, using exact input bytes, parameters and conformance
+vectors. Both implementation and vectors must match the locally supported
+versions, so caller-supplied code is never executed. The single NERO input
+digest must appear once in the frozen data-vintage list with a retrieval clock
+no later than the registered cutoff. Missing data, duplicate series/months,
+nonconsecutive months, unsupported versions or a changed computed probability
+fail closed. Other algorithms retain the legacy
+`BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED` blocker.
 
-Those omissions return `MATURE_*_UNREPRESENTABLE` blockers. Generic prose,
-provenance text or an unrelated checksum is not accepted as a substitute. The
-next safe change is a reviewed mature-schema version with typed fields for all
-five bindings. Only then should this adapter gain a positive conformance test.
+The reference algorithm counts nonnegative two-month changes in the declared
+contiguous interval and applies Laplace smoothing `(successes + 1) / (n + 2)`.
+The naive algorithm returns `0.5` after validating the same input window.
+Rounding uses exact rational arithmetic, six decimal places and half-even ties.
+Overlapping changes in one smoothed, revised vintage are not independent trials
+and the result is not calibrated confidence. It is a preregistered mechanical
+comparator. The primary-source extraction and target suitability still require
+review.
+
+Records without that object retain the five `MATURE_*_UNREPRESENTABLE`
+blockers. The field is immutable after issue; supplied references must exactly
+match the protocol, raw preregistration bytes and fixed mature contract. A
+partially supplied or mismatched object fails validation. No new schema family
+is introduced, and existing synthetic fixtures remain blocked. Generic prose,
+provenance text or an unrelated checksum is not accepted as a substitute.
 
 ## 🧪 Use
 
@@ -89,8 +107,12 @@ const result = assessFutureIssuanceBinding({
 });
 ```
 
-`machine_valid`, `binding_complete`, `eligible_for_issuance_review` and
-`issuance_authorised` remain `false` while blockers exist. The result also fixes
+`machine_valid`, `binding_complete` and `eligible_for_issuance_review` remain
+`false` while blockers or errors exist. Local execution can clear the mechanical
+prerequisite, reported as `baseline_execution_reproduced`; it never flips
+`baseline_execution_independently_reproduced` or `independent_anchor_verified`
+to true. Another reviewer must actually rerun the candidate before issue.
+`issuance_authorised` is always `false`. The result also fixes
 empirical truth, causal truth, authority, action and publication to `false`.
 `records_structurally_valid_with_supplied_context` means only that local
 validators accepted the records and caller-supplied context. It is not an

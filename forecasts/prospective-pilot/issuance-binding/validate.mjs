@@ -9,6 +9,7 @@ import addFormats from "ajv-formats";
 
 import { assessProspectivePilotProtocol } from "../validate.mjs";
 import { assertForecastWithRetainedSources } from "../../lib/registry.mjs";
+import { runNeroBaseline } from "./baseline-execution.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(here, "../../..");
@@ -31,6 +32,8 @@ const validateMatureSchema = ajv.compile(matureSchema);
 const validateCalculationSchema = ajv.compile(calculationSchema);
 const validateInputManifestSchema = ajv.compile(inputManifestSchema);
 const SHA256 = /^sha256:[a-f0-9]{64}$/;
+const baselineImplementationBytes = readFileSync(new URL("./baseline-execution.mjs", import.meta.url));
+const baselineConformanceBytes = readFileSync(new URL("./baseline-conformance.json", import.meta.url));
 
 const BOUNDARIES = Object.freeze({
   empirical_truth_established: false,
@@ -362,6 +365,53 @@ function exactArtifactBytes(source, expectedChecksum, code, path, errors) {
   return source.bytes;
 }
 
+function assessResolverArtifacts(protocol, forecast, sources, errors) {
+  if (!forecast?.prospective_registration) return false;
+  const registered = protocol?.target?.resolver;
+  const artifacts = sources?.resolverArtifacts;
+  const start = errors.length;
+  for (const [field, key] of [["implementation_sha256", "implementation"],
+    ["parameters_sha256", "parameters"], ["conformance_vectors_sha256", "conformanceVectors"]]) {
+    exactArtifactBytes(artifacts?.[key], registered?.[field],
+      "RESOLVER_ARTIFACT_BYTES_MISMATCH", `/matureForecastSources/resolverArtifacts/${key}`, errors);
+  }
+  for (const [key, path] of [["implementation", "forecasts/lib/resolution.mjs"],
+    ["conformanceVectors", "forecasts/tests/resolution-event-hardening.test.mjs"]]) {
+    if (artifacts?.[key]?.bytes instanceof Uint8Array &&
+        contentSha256(artifacts[key].bytes) !== contentSha256(readFileSync(resolve(repositoryRoot, path)))) {
+      errors.push(issue("RESOLVER_ARTIFACT_UNSUPPORTED", `/matureForecastSources/resolverArtifacts/${key}`,
+        "resolver implementation and conformance must match the supported fixed binary comparator"));
+    }
+  }
+  let parameters;
+  try { parameters = JSON.parse(Buffer.from(artifacts?.parameters?.bytes || []).toString("utf8")); }
+  catch { errors.push(issue("RESOLVER_ARTIFACT_PARAMETERS_INVALID", "/matureForecastSources/resolverArtifacts/parameters", "resolver parameters must be retained JSON")); }
+  const allowed = new Set(["forecasts/prospective-pilot/round-08-nero/resolver.mts",
+    "forecasts/prospective-pilot/round-08-nero/basis.mts", "dashboard/tools/build-nero-baseline.mjs",
+    "forecasts/prospective-pilot/tests/round-08-nero.test.mjs"]);
+  if (!parameters?.dependencies || typeof parameters.dependencies !== "object" || Array.isArray(parameters.dependencies)) {
+    errors.push(issue("RESOLVER_ARTIFACT_DEPENDENCIES_INVALID", "/matureForecastSources/resolverArtifacts/parameters", "explicit dependency digest map is required"));
+  } else {
+    for (const [path, digest] of Object.entries(parameters.dependencies)) {
+      if (!allowed.has(path)) {
+        errors.push(issue("RESOLVER_ARTIFACT_DEPENDENCY_UNSUPPORTED", "/matureForecastSources/resolverArtifacts/parameters", "resolver dependency is not a supported retained local implementation"));
+        continue;
+      }
+      const bytes = exactArtifactBytes(artifacts?.dependencies?.[path], digest,
+        "RESOLVER_ARTIFACT_DEPENDENCY_MISMATCH", "/matureForecastSources/resolverArtifacts/dependencies", errors);
+      if (bytes && contentSha256(bytes) !== contentSha256(readFileSync(resolve(repositoryRoot, path)))) {
+        errors.push(issue("RESOLVER_ARTIFACT_DEPENDENCY_MISMATCH", "/matureForecastSources/resolverArtifacts/dependencies", "retained dependency differs from the reviewed local implementation"));
+      }
+    }
+    if (protocol?.target?.resolution_source_uri === "https://www.jobsandskills.gov.au/data/nero" &&
+        (parameters.occupation_code !== "5311" || parameters.sa4_code !== "101" || parameters.date !== "2026-10-15" ||
+         parameters.count_baseline !== 4217 || !isDeepStrictEqual(Object.keys(parameters.dependencies).sort(), [...allowed].sort()))) {
+      errors.push(issue("RESOLVER_ARTIFACT_PARAMETERS_INVALID", "/matureForecastSources/resolverArtifacts/parameters", "NERO adapter parameters and all native extraction dependencies must match the fixed target"));
+    }
+  }
+  return errors.length === start;
+}
+
 function assessBaselineArtifacts(registered, artifacts, role, errors) {
   let bytesMatched = true;
   for (const [field, sourceKey, suffix] of [
@@ -540,9 +590,9 @@ function assessIssueWindow(protocol, forecast, errors) {
     "mature resolve-after boundary differs from preregistration");
 }
 
-function currentSchemaBlockers(protocol, forecast) {
+function currentSchemaBlockers(protocol, forecast, executionReproduced = false) {
   if (!protocol || !forecast) return [];
-  return [
+  const blockers = [
     issue(
       "MATURE_PROTOCOL_REFERENCE_UNREPRESENTABLE",
       "/matureForecast",
@@ -574,6 +624,63 @@ function currentSchemaBlockers(protocol, forecast) {
       "retained baseline bytes match their registered digests, but no independent runner has reproduced either probability",
     ),
   ];
+  return (forecast.prospective_registration === undefined ? blockers : blockers.slice(-1))
+    .filter((blocker) => !executionReproduced || blocker.code !== "BASELINE_EXECUTION_NOT_INDEPENDENTLY_REPRODUCED");
+}
+
+function reproduceBaseline(protocol, forecast, sources, role, errors) {
+  const registered = role === "reference" ? protocol?.baseline : protocol?.naive_baseline;
+  const mature = role === "reference" ? forecast?.baseline : forecast?.naive_baseline;
+  if (!["mind-flow.nero-two-month-direction", "mind-flow.equal-probability"].includes(registered?.algorithm_id)) return false;
+  try {
+    if (registered.algorithm_version !== "1.0.0" ||
+        registered.implementation_sha256 !== contentSha256(baselineImplementationBytes) ||
+        registered.conformance_vectors_sha256 !== contentSha256(baselineConformanceBytes)) {
+      throw new Error("baseline must bind the supported implementation and fixed conformance bytes");
+    }
+    const artifacts = sources?.[`${role}BaselineArtifacts`];
+    const parameters = JSON.parse(Buffer.from(artifacts.parameters.bytes).toString("utf8"));
+    const manifest = JSON.parse(Buffer.from(artifacts.inputManifest.bytes).toString("utf8"));
+    if (manifest.input_checksums.length !== 1 || artifacts.inputs?.length !== 1 ||
+        contentSha256(artifacts.inputs[0].bytes) !== manifest.input_checksums[0]) {
+      throw new Error("one exact retained NERO input must reproduce the sealed manifest digest");
+    }
+    const vintages = forecast.data_vintages.filter(({ checksum }) => checksum === manifest.input_checksums[0]);
+    if (vintages.length !== 1 || exactUtcMillis(vintages[0].retrieved_at) === null ||
+        Date.parse(vintages[0].retrieved_at) > Date.parse(registered.input_vintage_cutoff_at)) {
+      throw new Error("input needs one frozen retrieval clock at or before the registered cutoff");
+    }
+    const vectors = JSON.parse(baselineConformanceBytes.toString("utf8"));
+    for (const [algorithm, expected] of Object.entries(vectors.expected)) {
+      if (runNeroBaseline(algorithm, vectors.input, vectors.parameters) !== expected) {
+        throw new Error("fixed baseline conformance failed");
+      }
+    }
+    const input = JSON.parse(Buffer.from(artifacts.inputs[0].bytes).toString("utf8"));
+    const computed = runNeroBaseline(registered.algorithm_id, input, parameters);
+    if (computed !== mature.probability) throw new Error("reproduced baseline probability differs from the issued value");
+    return true;
+  } catch (error) {
+    errors.push(issue("BASELINE_EXECUTION_REPRODUCTION_FAILED", `/matureForecast/${role}Baseline`, error.message));
+    return false;
+  }
+}
+
+function assessProspectiveRegistration(protocol, forecast, addresses, errors) {
+  if (forecast?.prospective_registration === undefined) return;
+  const expected = {
+    protocol_id: protocol?.protocol_id,
+    protocol_content_sha256: protocol?.registration?.protocol_content_sha256,
+    preregistration_sha256: addresses.preregistration_sha256,
+    campaign_manifest_id: protocol?.campaign?.manifest?.manifest_id,
+    campaign_manifest_sha256: protocol?.campaign?.manifest?.manifest_sha256,
+    target_id: protocol?.target?.target_id,
+    resolver: protocol?.target?.resolver,
+    mature_contract: matureForecastContractIdentity(),
+  };
+  mismatch(errors, isDeepStrictEqual(forecast.prospective_registration, expected),
+    "PROSPECTIVE_REGISTRATION_MISMATCH", "/matureForecast/prospective_registration",
+    "typed prospective registration must exactly bind protocol bytes, campaign, target, resolver and the fixed mature contract");
 }
 
 export function assessFutureIssuanceBinding({
@@ -612,6 +719,7 @@ export function assessFutureIssuanceBinding({
 
   let baselineBindingsValid = false;
   if (parsedProtocol.document && parsedForecast.document) {
+    assessProspectiveRegistration(parsedProtocol.document, parsedForecast.document, contentAddresses, errors);
     assessCampaign(parsedProtocol.document, parsedForecast.document, errors);
     assessTarget(
       parsedProtocol.document,
@@ -637,7 +745,11 @@ export function assessFutureIssuanceBinding({
     assessIssueWindow(parsedProtocol.document, parsedForecast.document, errors);
   }
 
-  const blockers = currentSchemaBlockers(parsedProtocol.document, parsedForecast.document);
+  const baselineExecutionReproduced = baselineBindingsValid &&
+    ["reference", "naive"].map((role) => reproduceBaseline(parsedProtocol.document,
+      parsedForecast.document, matureForecastSources, role, errors)).every(Boolean);
+  const blockers = currentSchemaBlockers(parsedProtocol.document, parsedForecast.document, baselineExecutionReproduced);
+  const resolverArtifactsMatched = assessResolverArtifacts(parsedProtocol.document, parsedForecast.document, matureForecastSources, errors);
   const recordsStructurallyValidWithSuppliedContext =
     preregistrationValid && matureForecastValid && byteAnchorsValid;
   const bindingComplete = recordsStructurallyValidWithSuppliedContext &&
@@ -648,8 +760,10 @@ export function assessFutureIssuanceBinding({
     records_structurally_valid_with_supplied_context:
       recordsStructurallyValidWithSuppliedContext,
     retained_baseline_artifact_bytes_matched: baselineBindingsValid,
+    retained_resolver_artifact_bytes_matched: resolverArtifactsMatched,
     independent_anchor_verified: false,
     baseline_execution_independently_reproduced: false,
+    baseline_execution_reproduced: baselineExecutionReproduced,
     preregistration_valid: preregistrationValid,
     mature_forecast_valid: matureForecastValid,
     eligible_for_issuance_review: bindingComplete,

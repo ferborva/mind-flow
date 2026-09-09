@@ -26,6 +26,143 @@ const conformanceVectors = JSON.parse(readFileSync(
 ));
 const clone = (value) => structuredClone(value);
 
+test("numeric observations respect intrinsic and one-sided domains in both evaluators", () => {
+  for (const [unit, range, value, accepted] of [
+    ['ratio', undefined, 2, false], ['percent', undefined, 101, false],
+    ['AUD', { minimum: 0 }, -1, false], ['AUD', { minimum: 0 }, 1e12, true],
+    ['AUD', { maximum: 0 }, 1, false], ['AUD', { maximum: 0 }, -1e12, true],
+  ]) {
+    const item = clone(definition('condition.worker-option.nsw'));
+    const signals = clone(fixture.signals);
+    signals[0].unit = unit;
+    if (range) signals[0].value_range = range;
+    signals[0].signal_definition_hash = computeSignalDefinitionHash(signals[0]);
+    item.predicates['option-coverage'].signal_ref.signal_definition_hash = signals[0].signal_definition_hash;
+    item.predicates['option-coverage'].threshold = { value: range?.maximum === 0 ? -1 : 0.8, unit };
+    item.evaluator_ref = FIXED_EVALUATOR_REF;
+    item.definition_hash = computeConditionDefinitionHash(item);
+    const observations = observationsFor(item.condition_id).filter(o => o.predicate_id === 'option-coverage').map(original => {
+      const observation = clone(original);
+      observation.condition_definition_ref.definition_hash = item.definition_hash;
+      observation.signal_ref = item.predicates['option-coverage'].signal_ref;
+      observation.unit = unit; observation.value = value;
+      observation.observation_hash = computeObservationHash(observation);
+      return observation;
+    });
+    assert.ok(observations.length > 0);
+    const result = evaluateCondition(item, signals, observations, { evaluatedAt: '2026-09-09T00:00:00Z' });
+    assert.equal(result.mechanically_valid_for_evaluation, accepted, `${unit} ${value}: ${JSON.stringify(result.errors)}`);
+    if (!accepted) assert.ok(result.errors.some(e => e.code === 'OBSERVATION_VALUE_OUTSIDE_DOMAIN'));
+  }
+  const changed = clone(fixture);
+  changed.observations[0].value = 2;
+  const result = validateExecutableIfKernel(resealKernel(changed));
+  assert.ok(result.errors.some(e => e.code === 'OBSERVATION_VALUE_OUTSIDE_DOMAIN'));
+});
+
+test("one-sided numeric domains preserve feasible pass and fail outcomes", () => {
+  function evaluate(range, operator, threshold) {
+    const item = clone(definition("condition.worker-option"));
+    const signals = clone(fixture.signals);
+    signals[0].unit = "AUD";
+    signals[0].value_range = range;
+    signals[0].signal_definition_hash = computeSignalDefinitionHash(signals[0]);
+    const predicate = item.predicates["option-coverage"];
+    predicate.signal_ref.signal_definition_hash = signals[0].signal_definition_hash;
+    predicate.threshold = { value: threshold, unit: "AUD" };
+    predicate.operator = operator;
+    item.evaluator_ref = FIXED_EVALUATOR_REF;
+    item.definition_hash = computeConditionDefinitionHash(item);
+    return evaluateCondition(item, signals, [], { evaluatedAt: "2026-06-01T00:00:00Z" }).mechanically_valid_for_evaluation;
+  }
+  for (const [range, operator, threshold] of [
+    [{ minimum: 0 }, "lte", 0], [{ minimum: 0 }, "gt", 0],
+    [{ minimum: 0 }, "gte", 1e12], [{ maximum: 0 }, "gte", 0],
+    [{ maximum: 0 }, "lt", 0], [{ maximum: 0 }, "lte", -1e12],
+  ]) assert.equal(evaluate(range, operator, threshold), true);
+  for (const [range, operator, threshold] of [
+    [{ minimum: 0 }, "gte", 0], [{ minimum: 0 }, "lt", 0],
+    [{ maximum: 0 }, "lte", 0], [{ maximum: 0 }, "gt", 0],
+    [{}, "gte", 1], [{ minimum: 1, maximum: 0 }, "lte", 0],
+    [{ minimum: Number.NaN }, "lte", 0], [{ maximum: Number.POSITIVE_INFINITY }, "gt", 0],
+  ]) assert.equal(evaluate(range, operator, threshold), false);
+});
+
+test("every condition requires a declared category and discretion belongs only to availability", () => {
+  for (const category of [undefined, "optimism"]) {
+    const changed = kernelThroughRevision((revised) => {
+      if (category === undefined) delete revised.condition_category;
+      else revised.condition_category = category;
+    });
+    assert.equal(validateExecutableIfKernel(changed).machine_valid, false);
+  }
+  const changed = kernelThroughRevision((revised) => {
+    revised.condition_category = "price";
+    revised.condition_subtype = "discretion";
+  });
+  assert.equal(validateExecutableIfKernel(changed).machine_valid, false);
+});
+
+test("standalone evaluation enforces categories, subtype and declared numeric range", () => {
+  function evaluate(category, subtype, range, threshold = 0.8) {
+    const item = clone(definition("condition.worker-option"));
+    item.condition_category = category;
+    if (subtype !== undefined) item.condition_subtype = subtype;
+    const signals = clone(fixture.signals);
+    if (range !== undefined) signals[0].value_range = range;
+    signals[0].signal_definition_hash = computeSignalDefinitionHash(signals[0]);
+    item.predicates["option-coverage"].signal_ref.signal_definition_hash = signals[0].signal_definition_hash;
+    item.predicates["option-coverage"].threshold.value = threshold;
+    item.definition_hash = computeConditionDefinitionHash(item);
+    return evaluateCondition(item, signals, [], { evaluatedAt: "2026-06-01T00:00:00Z" });
+  }
+  for (const category of ["price", "permission", "proximity", "availability", "capability"]) {
+    assert.equal(evaluate(category).mechanically_valid_for_evaluation, true);
+  }
+  assert.equal(evaluate("availability", "discretion").mechanically_valid_for_evaluation, true);
+  for (const [category, subtype] of [[undefined, undefined], ["invented", undefined], ["price", "discretion"]]) {
+    assert.equal(evaluate(category, subtype).mechanically_valid_for_evaluation, false);
+  }
+  for (const range of [{ minimum: 1, maximum: 0 }, { minimum: 0, maximum: 1e9 }]) {
+    assert.equal(evaluate("availability", undefined, range).mechanically_valid_for_evaluation, false);
+  }
+  assert.equal(evaluate("availability", undefined, { minimum: 0.2, maximum: 0.9 }, 0.2)
+    .mechanically_valid_for_evaluation, false);
+  assert.equal(evaluate("availability", undefined, { minimum: 0.2, maximum: 0.9 }, 0.8)
+    .mechanically_valid_for_evaluation, true);
+});
+
+test("measured observations cannot borrow synthetic provenance and synthetic observations stay synthetic", () => {
+  const observation = fixture.observations[0];
+  const measured = clone(fixture);
+  measured.observations[0].classification = "measured-observation";
+  assert.equal(validateExecutableIfKernel(measured).schema_valid, false);
+  measured.observations[0].source_id = "source.abs.patient-experiences";
+  assert.equal(validateExecutableIfKernel(measured).schema_valid, true);
+  const synthetic = clone(fixture);
+  synthetic.observations[0].source_id = "source.abs.patient-experiences";
+  assert.equal(validateExecutableIfKernel(synthetic).schema_valid, false);
+  assert.equal(observation.classification, "synthetic-observation");
+});
+
+test("ratio threshold revisions retain both possible passing and failing values", () => {
+  for (const [operator, value] of [["gte", 0], ["gte", 1e9], ["lte", 1], ["lt", 0], ["gt", 1]]) {
+    const changed = kernelThroughRevision((revised) => {
+      revised.predicates["option-coverage"].operator = operator;
+      revised.predicates["option-coverage"].threshold.value = value;
+    });
+    const result = validateExecutableIfKernel(changed);
+    assert.equal(result.machine_valid, false, `${operator} ${value} must reject`);
+    assert.ok(result.errors.some(({ code }) => code === "PREDICATE_THRESHOLD_VACUOUS"));
+  }
+  for (const value of [0.01, 0.85, 1]) {
+    const changed = kernelThroughRevision((revised) => {
+      revised.predicates["option-coverage"].threshold.value = value;
+    });
+    assert.equal(validateExecutableIfKernel(changed).machine_valid, true);
+  }
+});
+
 function definition(id) {
   return fixture.events
     .flatMap(({ introduced_definitions: introduced }) => introduced)
@@ -606,6 +743,27 @@ test("hostile: an observation cannot be recorded before its definition exists", 
   const result = validateExecutableIfKernel(changed);
   assert.equal(result.machine_valid, false);
   assert.ok(result.errors.some(({ code }) => code === "OBSERVATION_PREDATES_DEFINITION"));
+});
+
+test("historical measured periods can be registered now but retain staleness and recording chronology", () => {
+  const active = definition("condition.worker-option.nsw");
+  const observations = clone(observationsFor(active.condition_id));
+  for (const [index, item] of observations.entries()) {
+    item.classification = "measured-observation";
+    item.source_id = item.source_id.replace("source.synthetic", "source.retained");
+    item.period.start = `2026-03-${String(index + 1).padStart(2, "0")}T00:00:00Z`;
+    item.period.end = item.period.start;
+    item.recorded_at = "2026-06-01T00:00:00Z";
+    item.observation_hash = computeObservationHash(item);
+  }
+  const result = evaluateCondition(active, fixture.signals, observations, { evaluatedAt: "2026-06-10T00:00:00Z" });
+  assert.equal(result.mechanically_valid_for_evaluation, true, JSON.stringify(result.errors));
+  assert.equal(result.computed_rule_state.state, "stale");
+  observations[0].recorded_at = "2026-04-30T00:00:00Z";
+  observations[0].observation_hash = computeObservationHash(observations[0]);
+  const backdated = evaluateCondition(active, fixture.signals, observations, { evaluatedAt: "2026-06-10T00:00:00Z" });
+  assert.equal(backdated.mechanically_valid_for_evaluation, false);
+  assert.ok(backdated.errors.some(({ code }) => code === "OBSERVATION_PREDATES_DEFINITION"));
 });
 
 test("recent incomplete or low-coverage evidence blocks older complete truth", () => {

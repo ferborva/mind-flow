@@ -24,34 +24,34 @@
     "scope_manifest_ref": {
       "scope_manifest_id": "scope-manifest.round-04.worker-option.synthetic",
       "path": "integration/transition-bundle/fixtures/round-04.worker-option.scope-manifest.json",
-      "sha256": "sha256:7933b9f51bd8d4d1b5e327dc7fdcd42f07851debf1527f05e746d357317e22f2"
+      "sha256": "sha256:2aa1436808f4c9fa8545bbf4b104021a8ecc5b7e24f9533fa33074c71d89ad91"
     },
     "executable_if_ref": {
       "artifact_role": "executable-if-kernel",
       "kernel_id": "kernel.worker-option.synthetic",
-      "manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+      "manifest_hash": "sha256:b2c5d05c5a143ce4efe2bb75cced0851630e903cfd12b3f7c1d44ebded88fdcf",
       "evaluator_ref": {
         "id": "mind-flow.executable-if.evaluator",
         "version": "1.1.0",
-        "digest": "sha256:9c4024a07bcb1d04e1a87e9a8d886b36878fa75d2b28a6aca71e8395f8f0dacb",
-        "schema_digest": "sha256:a57778c92c8ea95f928b2a7ed0cf28e936367643bd12fe69a7202be0c8eeefc8",
-        "implementation_digest": "sha256:ff30eaef61edc853388799fd43a152cba34f628efb4297391fcecebfd60d8c06",
+        "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+        "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+        "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
         "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
       },
       "active_condition_definition_refs": [
         {
           "condition_id": "condition.worker-option.nsw",
           "definition_version": "1.0.0",
-          "definition_hash": "sha256:f303ac32757a530947666c721d57deb4ba5174b61a1ae690e035303de5b23669"
+          "definition_hash": "sha256:861b22794e529605e0b0349a083f001fdfd2fbc3d13e0a8486d23d9cc972d706"
         }
       ],
       "evidence_state_ref": {
         "kernel_id": "kernel.worker-option.synthetic",
-        "kernel_manifest_hash": "sha256:01364ae73d1df5b5ec31af37b5d147a0345c9e446d8f949285016e5a6934646d",
+        "kernel_manifest_hash": "sha256:b2c5d05c5a143ce4efe2bb75cced0851630e903cfd12b3f7c1d44ebded88fdcf",
         "evidence_event_count": 11,
         "evidence_tip_event_id": "evidence-event.august-review.added",
-        "evidence_tip_event_hash": "sha256:170a03308c680210993dbd30ed137fc795edbf426d295f6c321b66f2963dbe04",
-        "evidence_state_hash": "sha256:bb21e939867b6d833f688fb4deabf78d072100b39ebba2f51679c3fd8d79eee5"
+        "evidence_tip_event_hash": "sha256:cedb9cbb8748ced492c07bcf4171787b0387bad9c500977c50e23c8a524ffeb6",
+        "evidence_state_hash": "sha256:617fb8470e120126137d8c7387417f63cc58e6d9a8b4fd09157727bbcf227750"
       }
     },
     "root_role": "agency-map"
@@ -62,12 +62,12 @@
       "canonical_scope_manifest_ref": {
         "scope_manifest_id": "scope-manifest.round-04.worker-option.synthetic",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.scope-manifest.json",
-        "sha256": "sha256:7933b9f51bd8d4d1b5e327dc7fdcd42f07851debf1527f05e746d357317e22f2"
+        "sha256": "sha256:2aa1436808f4c9fa8545bbf4b104021a8ecc5b7e24f9533fa33074c71d89ad91"
       },
-      "native_scope_hash": "sha256:6a928c2888adf7b797264862e841269c19e73e7c0c96a56ccfebf77b64886508",
+      "native_scope_hash": "sha256:28956bf6eadbb8fb7c7706350feb1963c42e1e5cd1a6fcde434f4fa591893f89",
       "mapping_ref": {
         "mapping_id": "scope-mapping.round-04.worker-option.agency-map",
-        "sha256": "sha256:583d3e6d07754102e30b9d17dfe68af61ed94ca82a24ffd83c8eb8e017dec613"
+        "sha256": "sha256:ab9fb3fd6387100a5c5d93f249503b6fd575ca36e1c318cff72ad9b8019409e5"
       }
     },
     {
@@ -75,7 +75,7 @@
       "canonical_scope_manifest_ref": {
         "scope_manifest_id": "scope-manifest.round-04.worker-option.synthetic",
         "path": "integration/transition-bundle/fixtures/round-04.worker-option.scope-manifest.json",
-        "sha256": "sha256:7933b9f51bd8d4d1b5e327dc7fdcd42f07851debf1527f05e746d357317e22f2"
+        "sha256": "sha256:2aa1436808f4c9fa8545bbf4b104021a8ecc5b7e24f9533fa33074c71d89ad91"
       },
       "native_scope_hash": "sha256:6297bdb10971769c2ddb5f2edbbaf44ba733bf34d3e2e2969efd67d2a4822e3e",
       "mapping_ref": {
@@ -88,42 +88,42 @@
     {
       "role": "agency-map",
       "path": "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:79cf8091f2609c35b8be90afb2d9a3d7d1dcd3efbbe5842b79154f23f0ed4235"
+      "sha256": "sha256:441c6ad3e5a24b68724ab955852ed720390053ab0f03a5c40d10bfd8720fa7e0"
     },
     {
       "role": "evolution-ledger",
       "path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:e53fe837a127cc60b098d1fbbdfc08efbeb775846da2f160dfdb9aff3867b0e2"
+      "sha256": "sha256:fe32d95207fc3f7694b7d25a095860979b3c8e03776864a0139385aadeb6c726"
     },
     {
       "role": "signal-registry",
       "path": "signals/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:4c5e4863ab7b6847e1ebe9d0cf78a51d8ad41e79b6d2bc83e6487853d2500d5e"
+      "sha256": "sha256:7acf56558c392610fe73db9284b4c81f01e5f1bd04d89d2dd35daab113ee3bbe"
     },
     {
       "role": "possible-path",
       "path": "paths/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:11aabf2f8216d2075d3f570a69b7d69ea83a1247fa0a63166b38b64df0ff40ba"
+      "sha256": "sha256:9ef55d4c50d22f7f10ace04414dbdf3655b4d1e4cb0f8464a0b7bfc8c892d008"
     },
     {
       "role": "preparation-register",
       "path": "preparation/fixtures/valid/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:f8a8399dd6a35f6f8e7e066432cafeaec5959045c4f71225df9d5ab2cd06c2fc"
+      "sha256": "sha256:bb179ecb5b57d7c9c30ba7fe0509872bf887d39051c37752450978d1f9cf6d70"
     },
     {
       "role": "forecast",
       "path": "forecasts/fixtures/round-04.worker-option.synthetic.json",
-      "sha256": "sha256:26638c751c6f3797eec5448879a423da0bb66c8d971eeddec328a1bb5dec6230"
+      "sha256": "sha256:48c6cb3ade6e5c04e45203f1218047c1d1e43fdeac755e12dace87aa09ed2700"
     },
     {
       "role": "executable-if-kernel",
       "path": "contracts/executable-if/fixtures/kernel.synthetic.json",
-      "sha256": "sha256:4afc07247cc19f8d3ef7f9bb7863454c4e9695d3bd430352c4aba06feccf2f70"
+      "sha256": "sha256:733253db747384e70c472a9e8491ac43795078b0ec4a8a058e8a16dc712db83b"
     },
     {
       "role": "dashboard-snapshot",
       "path": "dashboard/fixtures/round-04.worker-option.executable-if-view.synthetic.json",
-      "sha256": "sha256:abed104edc16ee9df2607d63f05405d6b08b6e9f2db391c82d532862d336dd2f"
+      "sha256": "sha256:8d6bd017610b57393cb1f8472e4e6de9445fa633f04346f3a7adc692b8d3685b"
     }
   ]
 }

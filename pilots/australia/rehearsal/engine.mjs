@@ -283,8 +283,7 @@ function validateVintage(vintage, label) {
   ) {
     fail("INVALID_SCHEMA", `${label} uses an unsupported classification.`, { label });
   }
-  if (vintage.scope.occupation_classification_verification_status !== undefined &&
-      vintage.scope.occupation_classification_verification_status !==
+  if (vintage.scope.occupation_classification_verification_status !==
         "unverified_external_review_required") {
     fail(
       "INVALID_SCHEMA",
@@ -568,8 +567,7 @@ function provenanceRecord(vintage) {
     measurement_type: vintage.measurement_type,
     occupation_classification: vintage.scope.occupation_classification,
     occupation_classification_verification_status:
-      vintage.scope.occupation_classification_verification_status ??
-        "not-recorded-legacy-baseline",
+      vintage.scope.occupation_classification_verification_status,
   };
 }
 

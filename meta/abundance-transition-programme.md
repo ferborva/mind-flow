@@ -10,588 +10,239 @@ authority: none
 provenance: commissioned-proposal
 author: ren
 requested_reviewer: fernando-bordallo
+sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 created: 2026-09-08
 updated: 2026-09-09
 ---
 
 # Abundance Transition Programme
 
-> **Proposal status:** Ren, an AI agent, maintains this programme after
-> Fernando commissioned a deep development of his `verb + fill in the blank +
-> if` thesis. It records the work, challenge loops and release gates. It does
-> not turn agent proposals into Fernando's views.
-
-## 🦅 TL;DR
-
-- **The mission is to test whether and how changing technological capability
-  could expand or contract shared human agency under goals that would need to
-  be set by an affected-party process not yet designed. It is not a universal
-  promise.**
-- The `IF` is the core object. Every promise, forecast, decision, negotiation
-  and action must expose its people, outcome, conditions, evidence, owner,
-  safeguard, falsifier and review point.
-- The first feasibility candidate is deliberately bounded: Australian clerical workers,
-  regional outcomes, continuity of essential household access, individual
-  agency and ecological materiality.
-- The programme requires every signal-to-warning and warning-to-action
-  transformation to be explicit, testable, reversible and owned. **The current
-  repository cannot enforce that requirement at CI, hosting, identity or
-  operational issuance boundaries.**
-- Work advances through evidence, adversarial, affected-party, methods,
-  comprehension and operational review. Iteration is required when it changes
-  the result, not to manufacture activity.
-- The dependency-ordered foundation remains in the
-  [Round 03 deep plan](round-03-deep-plan.md). The current challenge target and
-  reviewer instructions are in the
-  [Round 06 external review brief](round-06-external-review-brief.md).
-
----
-
-## 🎯 Mission and research question
-
-The wider `mind-flow` repository contains provenance-oriented schemas,
-checksums and validators for turning Fernando's thinking into durable public
-knowledge. These controls check specified assertions and relationships. **They
-do not authenticate identities, source truth, reviewer independence or complete
-coverage.** The Observatory is one proposed public instrument inside it.
-
-The proposed Observatory mission, not yet adopted by Fernando or affected
-communities, is:
-
-> **Map whether and how changing capability could expand or contract shared
-> agency under goals named through an affected-party process not yet designed. Make
-> the evidence and options legible enough for people to shape, refuse, reverse
-> or navigate possible transitions.**
-
-The master proposition is a mission-shaped research question. It is not a
-falsifiable empirical claim on its own:
-
-> **Under which named conditions, if any, can valuable capabilities become
-> more reliably accessible, useful and freely chosen for a named population,
-> service, place and period, while legitimate actors detect and reduce
-> distributional, institutional, operational and ecological harm?**
-
-The programme tests bounded hypotheses beneath that question. Before doing so,
-it asks who proposed the goal, who is affected, who may reject or revise it and
-what legitimate process can adopt it. Each empirical hypothesis must then name
-its population, service, place, period, comparator, loss function and
-observation that would defeat it. The work must permit four conclusions for
-each bounded hypothesis:
-
-1. The hypothesis is supported for its named scope.
-2. It is supported only under narrower conditions.
-3. It is unresolved because the evidence is inadequate.
-4. It is contradicted and the hypothesis or intervention must change.
-
-## 🧭 The operating model
-
-The programme proposes one analytic chain:
-
-```text
-contested proposed goal
-  → affected-party adoption, revision, refusal or no decision
-  → promise
-  → scoped outcome
-  → condition graph
-  → observations and uncertainty
-  → competing explanations
-  → forecast or explicit unscored state
-  → decision condition
-  → authorised action
-  → experienced outcome and harms
-  → correction, recovery or retirement
-```
-
-Every arrow contains an IF. A plausible mechanism does not make the next state
-true. In particular:
-
-- capability is not reach;
-- reach is not meaningful use;
-- exposure is not adoption;
-- adoption is not automation;
-- automation is not displacement;
-- displacement is not lasting loss;
-- nominal access is not effective access;
-- a warning is not authority;
-- an action is not a successful outcome.
-
-The [condition agency map](../contracts/agency-map/README.md) makes the spine
-explicit: the declared goal is a value choice; conditions state what must be
-examined; signals are evidence about those conditions; metrics specify how a
-signal is calculated; and action hypotheses state how a named actor proposes a
-condition might move. The layers cannot certify one another.
-
-The public lens is a consumer-facing **IF** and an actor-specific **WHEN**. Each
-IF declares whether it is necessary, sufficient, contributing, an eligibility
-rule, a veto, a safeguard, a decision trigger or still unknown. It also declares
-its AND, OR and NOT relationships and competing routes. Passing a registered
-rule does not prove the outcome or causal completeness. The
-IF exposes candidate conditions on which a person's outcome may depend. The
-WHEN records what one actor proposes it could attempt. **The two registers are
-linked but non-identical:** a provider condition may cause, mediate or fail to
-resolve a consumer condition. A WHEN is not a date, forecast, guarantee or
-commitment. Conditions may be concurrent, cyclical or dependency-bound. No
-actor inherits control merely because the condition appears on its list.
-
-## 🛑 Non-complacency rules
-
-1. **Each proposition gets the right defeat condition.** Empirical hypotheses
-   name rivals, falsifiers and expiry. Value choices name the chooser, affected
-   parties, dissent and review. Commitments name authority, funding, safeguards,
-   review and exit. Rights and legal duties are not treated as hypotheses to be
-   disproved by an outcome metric.
-2. **Unknown is a result.** Missing, stale, conflicted and not integrated data
-   never silently become false or safe.
-3. **Units must close.** No ratio, index or comparison ships without dimensional
-   analysis and a reproducible calculation.
-4. **Averages cannot overrule distributions.** Important claims require cohort,
-   place and service scope. The programme adopts a non-compensatory safeguard:
-   an aggregate or household gain cannot offset severe loss of income security,
-   time, privacy, bodily safety or practical choice for an affected person. This
-   is an ethical loss rule proposed by the programme authors, not a statistical
-   fact. Each proposed stop-line must name severity, adjudicator, remedy and how
-   conflicts between protections are resolved. Affected-party and lawful
-   decision processes must adopt or revise it.
-5. **Visual confidence cannot exceed empirical confidence.** Colour, hierarchy
-   and labels must preserve epistemic class.
-6. **Thresholds need loss functions.** A trigger explains the cost of misses,
-   false alarms, delay and gaming.
-7. **No default solitary cause.** Causal claims test credible alternatives
-   unless a bounded design can exclude them.
-8. **No unowned protection.** An action needs authority, funding, delivery
-   capacity, safeguard, appeal and exit.
-9. **Dissent is not pathology.** Affected people may reject the goal, metric or
-   intervention without being classified as a crisis.
-10. **Corrections stay visible.** Forecasts, definitions and artefacts are
-    versioned rather than overwritten.
-
-For the Australian feasibility candidate, competing causal graphs must include
-technology-push, macro-demand, sector-composition, measurement-and-
-reclassification, policy-and-ownership, and no-material-change explanations.
-No graph receives default status from its position in the narrative. See the
-[Australia pilot source triage](../research/2026-09-08-australia-pilot-source-triage.md)
-for current primary-source claim ceilings.
-
-## 🔁 The challenge loop
-
-Every material artefact passes these review phases. A failed phase sends it
-back to the earliest affected step.
-
-| Phase | Question | Required evidence | Exit condition |
-|---|---|---|---|
-| **A. Thesis** | Is the claim precise enough to be wrong? | Scope, mechanism, alternatives, falsifier | Independent reader can state what would reverse it |
-| **B. Evidence** | Do the data measure the claim? | Primary sources, vintages, units, coverage, revisions | Reproduction succeeds and limitations are material, not decorative |
-| **C. Adversarial** | What is the strongest opposing account? | Counter-model, sensitivity, gaming and misuse cases | Surviving claim is narrowed or withdrawn |
-| **D. Affected-party** | Does the model recognise lived outcomes and power? | Cohort review, dissent, qualitative evidence | Participants can challenge definitions and publish disagreement |
-| **E. Methods** | Can association, prediction and causation be distinguished? | Identification, baselines, uncertainty, scoring | Method reviewer accepts the stated inference class |
-| **F. Comprehension** | Will a public reader understand and act appropriately? | Plain-language and numeracy tests | Readers identify scope, uncertainty, owner and falsifier |
-| **G. Operations** | Can the proposed response work safely in time? | Tabletop, service test, authority and funding | Reversible response meets its service level and appeal test |
-
-**These are proposed release gates, not a validated route to convergence.** We
-have not established their inter-rater reliability, false-reassurance rate or
-effect on public decisions. Each phase therefore needs a preregistered question,
-independent result and visible disposition.
-
-The target is not a fixed number of iterations. The target is convergence:
-
-- no unresolved stop-line finding;
-- no material reviewer disagreement hidden;
-- no claim that gains confidence only from repetition;
-- no repeated phase without a recorded hypothesis, change and result.
-
-## 🧩 Workstreams
-
-### A. Evidence constitution
-
-Build and maintain:
-
-- an [atomic claim firewall](../evidence/claims/README.md) with independent
-  epistemic class, provenance role, support state and publication disposition;
-- an [assumption registry](../evidence/assumptions/README.md) separating bounded
-  hypotheses, hard safeguards, legitimate value decisions and explicit unknowns;
-- a source registry with licences, vintages, queries and checksums;
-- a unit and comparability review for every derived measure;
-- explicit uncertainty for sampling, modelling, revision, definition,
-  causality, timeliness and missingness;
-- a correction policy and public change record.
-
-**Gate:** every public number is reproducible, every causal statement has a
-counter-hypothesis, and every value choice names who made it.
-
-### B. IF Protocol and condition graph
-
-Formalise:
-
-- `WHO + VERB + OUTCOME + STANDARD + PLACE + TIME + IF`;
-- capability, reach, agency, durability and fairness layers;
-- a required ecological assessment, recorded as assessed or not material for
-  the named lifecycle boundary, never silently omitted;
-- `AND`, `OR`, `NOT`, equivalent-route and veto relationships, with no
-  ambiguous executable `UNLESS`;
-- lifecycle, binding state and evidence grade as separate axes;
-- condition migration and feedback;
-- `watch_if`, `prepare_if`, `act_if`, `pause_if`, `reverse_if`, `recover_if`
-  and `graduate_if` rules.
-
-The executable [condition agency map](../contracts/agency-map/README.md)
-separates the goal, conditions, signals, metrics and action hypotheses. It also
-decomposes "who holds it" into control, influence, duty, funding, delivery,
-dependence, negotiation, verification, observation and affectedness. Its five
-public category prompts remain a starting set, not a taxonomy.
-
-The current executable prototype is the
-[condition evolution ledger](../contracts/evolution/README.md). Its valid
-history does not determine truth or authority.
-
-The [condition-definition dependency map](../integration/transition-bundle/README.md#condition-definition-dependency-map)
-makes one dependency explicit. When this synthetic condition definition
-changes, its eight declared bundle links are withheld until they are rebound
-and revalidated. This is not a repository-wide or organisational discovery.
-The map also reports that the new negotiation and decision records are not yet
-joined to the core. A broken build is not
-enough for human governance. People need to see which commitments may have
-changed, who must reconsider them and which dissent remains unresolved.
-
-The [possible-path contract](../paths/README.md) binds each consequential edge
-to that history, the complete outcome scope, distinct signal roles, competing
-paths and explicit false and unknown branches. A valid path is still an
-unscored hypothesis, not a finding, forecast or mandate. Paths may branch,
-loop, stop or remain unauthorised. Reversible steps are preferred. An
-irreversible step needs heightened authority, harm review, recovery obligations
-and an explicit account of what cannot be restored.
-
-**Gate:** a preregistered claim sample is independently encoded by a declared
-reviewer population. The protocol must name its agreement statistic, minimum
-threshold, adjudication method and failure rule before calling agreement
-acceptable.
-
-Before any operational use, this gate also requires content-addressed
-negotiation and decision records. A condition revision must surface every
-affected commitment, preserve prior positions and dissent, and keep action
-closed until the appropriate humans reconsider it.
-
-### C. Australia pilot
-
-Scope the first feasibility candidate to:
-
-- general clerks;
-- accounting, bookkeeping and payroll clerks;
-- contact-centre information clerks;
-- states and SA4 regions where the data support it;
-- continuity of housing, food, energy, transport, primary healthcare and
-  connectivity;
-- household type and relevant demographic distributions.
-
-Australia offers useful candidate inputs, but no source closes the chain.
-[Jobs and Skills Australia's NERO](https://www.jobsandskills.gov.au/data/nero)
-publishes monthly modelled estimates for 355 occupations across 88 SA4 regions,
-with smoothing and non-aggregation warnings. The
-[ABS business survey](https://www.abs.gov.au/statistics/industry/technology-and-innovation/characteristics-australian-business/latest-release)
-reports that 12% of businesses selected AI use in 2024-25, without intensity or
-worker linkage. The
-[ILO exposure index](https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure)
-finds clerical occupations have the highest modelled exposure. It does not
-measure observed Australian job impact.
-
-Build four linked views:
-
-1. **Transition chain:** task exposure → organisational adoption → work redesign
-   → worker flows → earnings and desired hours.
-2. **Access floor:** disposable resources and usable provision → service cost,
-   eligibility, wait, quality and continuity → experienced outcome.
-3. **Agency dividend:** discretionary time, credible alternatives, skill
-   portability, privacy, refusal, switching, appeal and self-reported control.
-4. **Ecological materiality:** lifecycle energy, water, materials, emissions,
-   waste and locally concentrated burdens, or a reviewed not-material finding.
-
-These arrows are missing identification links, not an established empirical
-chain. Current official sources use incompatible units and do not supply the
-person-level access, agency and ecological outcomes needed to close them.
-
-**Gate:** sources are feasible, missingness and lag meet declared limits,
-severe individual harms cannot be offset by household gains, ecological
-materiality is assessed, and affected workers recognise the model as relevant
-to their lives. The study must preregister recruitment and exclusion rules,
-representation gaps, dissent handling, compensation, data governance and stop
-conditions under the
-[G0-G10 human protocol](../reviews/public-comprehension-affected-party-protocol-round-04.md).
-Repository validation cannot substitute for consent or welfare oversight.
-
-### D. Forecasting discipline
-
-Forecast resolvable intermediate events before forecasting a crisis:
-
-- AI adoption by industry and business size;
-- employment and hours for scoped occupations and places;
-- displacement, re-employment time and replacement earnings;
-- essential-access margin breaches;
-- delivery capacity against a simulated response.
-
-Every forecast stores its issue date, target, horizon, probability or
-distribution, baseline, model and data vintage. It is immutable after issue.
-Score binary events with Brier and log scores, continuous forecasts with proper
-distributional or quantile scores, and publish calibration separately from
-decision usefulness.
-
-The current executable prototype is the
-[forecast registry and scoring contract](../forecasts/README.md). It separates
-research-only and decision-linked records and withholds calibration language
-below a preregistered information floor.
-
-**Gate:** candidate forecasts beat declared naive baselines in rolling
-historical evaluation. Otherwise they remain hypotheses or scenarios. A
-historical baseline win opens only a preregistered, prospective,
-no-consequence rehearsal. Decision-linked use additionally requires a
-prospective sample large enough for the declared coverage and calibration
-claims, comparison against both reference and naive baselines, recorded action
-utility, affected-party review and independently verified authority. No
-baseline win establishes transportability, causality or safe action.
-
-### E. Early-action compacts
-
-For every candidate crossing, distinguish:
-
-- `watch_if`: evidence deserves attention;
-- `act_if`: an authorised reversible response may start;
-- `pause_if`: safeguards or evidence quality fail;
-- `reverse_if`: the action is worsening the protected outcome;
-- `recover_if`: the condition has relieved but support must continue;
-- `graduate_if`: the temporary compact can end or become normal provision.
-
-The current executable prototype is the
-[early-action preparation contract](../preparation/README.md). Its fixtures are
-synthetic and cannot create authority, capacity, consent or funding.
-
-**Gate:** owner, authority, funding, service level, affected participants,
-safeguards, appeal, override, review and exit are all real and rehearsed.
-
-### F. Public narrative
-
-The public sequence is:
-
-1. The promise.
-2. The missing IF.
-3. What is known, unknown and contested now.
-4. The condition map by people, service, place and time.
-5. Multiple possible paths and what would distinguish them.
-6. Public IF-THEN compacts.
-7. Personal options, collective action and institutional duties.
-8. Evidence, corrections, forecasts and prior performance.
-9. Participation, appeals and visible dissent.
-10. Plural horizons: capability expansion, redistribution, reduction,
-    no-deployment and refusal, including time, health, learning, security,
-    creativity, connection, choice and the ability to leave bad systems.
-
-Positive-horizon language is a declared value choice, not an empirical finding
-or pressure to endorse deployment. Affected people may prefer redistribution,
-reduction, no-deployment or refusal without being coded as anti-progress.
-
-**Gate:** readers correctly distinguish capability, access and agency; identify
-the scope and uncertainty; find the owner and appeal route; and state what would
-change the conclusion.
-
-### G. Public-interest product
-
-Evolve the Observatory into two connected experiences:
-
-- a low-bandwidth public view explaining what changed, who may be affected, how
-  uncertain it is, which IF moved, whether any authorised decision exists, who
-  may act, what remains optional and how to challenge it;
-- an evidence room with vintages, methods, uncertainty, rule evaluation,
-  forecast archive, scores, downloads, corrections and dissent.
-
-The public page must meet WCAG 2.2 AA, avoid third-party tracking, remain usable
-without remote fonts, and disclose the difference between data coverage and
-risk.
-
-**Gate:** accessibility, privacy, security, generated-file parity, schema
-validation and adversarial screenshot tests pass.
-
-### H. Governance and federation
-
-Design for:
-
-- independent statistical and affected-community review;
-- pre-announced and equal-access releases;
-- conflict-of-interest disclosures;
-- challenge, appeal and correction service levels;
-- minimum cohort sizes and disclosure protection;
-- later national nodes publishing comparable, signed aggregates without
-  surrendering sovereignty or local definitions.
-
-Federation requires a small invariant core for identity, units, uncertainty,
-lineage and correction, plus explicit local extensions for definitions, law,
-institutions and affected-party priorities. Comparable does not mean
-interchangeable. The public product must prohibit country or community league
-tables unless a reviewed estimand, common denominator and legitimate purpose
-make the comparison valid.
-
-**Target gate:** no organisation can change a public conclusion, threshold or
-historical forecast without leaving a visible, attributable record. Achieving
-this requires independently enforced identity, signing, publication and archive
-infrastructure that the repository does not currently provide.
-
-## 🧪 Priority experiments
-
-1. **Poverty-gap reconstruction:** reproduce the $30 nowcast, then test
-   sensitivity to $8.30, local reference budgets and material deprivation.
-2. **IF grammar reliability:** independently encode ten services and compare
-   omitted conditions and logical relationships.
-3. **One-service access and agency test:** compare candidate binding access
-   conditions for one cohort and region, then test individual control, time,
-   privacy and refusal without combining them into a household score.
-4. **Transition cohort baseline:** distinguish exposure, adoption, work
-   redesign, displacement, re-employment time and earnings recovery.
-5. **Threshold backtest:** compare one-period, two-period and sequential-change
-   warnings against historical episodes and explicit loss functions.
-6. **Response stress test:** measure time from simulated breach to verified
-   household receipt, human review and appeal resolution.
-7. **Public-instrument trial:** compare a conventional statistical release,
-   the same release plus facilitated deliberation, and the Observatory plus
-   identical deliberation. Measure understanding, false certainty, trust,
-   anxiety and action appropriateness.
-8. **Condition-migration test:** compare whether affordability, eligibility,
-   delivery, quality, agency or durability binds after technical cost falls.
-9. **Ecological materiality test:** trace lifecycle and local burdens for one
-   service, or test whether a reviewed not-material determination survives
-   independent challenge.
-
-## 📦 Release sequence
-
-The central branch is `ren/abundance-transition-program`. Work lands as small,
-reviewable commits and is pushed after each coherent checkpoint.
-
-These are **review phases**, not repository fixture rounds or claims of public
-readiness.
-
-| Review phase | Contents | Freeze condition |
-|---|---|---|
-| **A. Truth** | Claim ledger, corrections, charter, epistemic labels | Stop-line claims withdrawn and tests green |
-| **B. Contracts** | Condition and action schemas, fixtures, validation | Unknown handling and cross-references tested |
-| **C. Pilot** | Australia source pack, scoped graph and baseline design | Data feasibility and lived-outcome review ready |
-| **D. Forecasts** | Immutable registry, baselines and scoring | Backtest reproducible, no calibration overclaim |
-| **E. Experience** | Public view and evidence room | Comprehension, accessibility and epistemic tests pass |
-| **F. Rehearsal** | Shadow warning and action compact | False alarms, misses, delivery and appeals evaluated |
-| **G. Review** | Frozen artefact, independent reviews, disposition ledger | Every material finding accepted, rejected or deferred with reasons |
-
-Stable checkpoints receive immutable tags such as `review/phase-A`. External
-agents review the same frozen commit independently before seeing each other's
-work. Their findings must name severity, evidence, affected claim, reproduction
-and falsifier. Consensus is not treated as truth, and agents do not approve
-their own work.
-
-## ✅ Definition of ready for external review
-
-- The exact commit and data artefacts are frozen.
-- All tests and reproducibility commands pass from a clean checkout.
-- Every public statement has provenance and epistemic class.
-- Known stop-lines are resolved or explicitly block release.
-- The claim ledger links each major claim to counterevidence and a next test.
-- Condition and action contracts validate real fixtures.
-- Pilot scope, missing data and causal limits are explicit.
-- No scenario is presented as a forecast and no coverage score as risk.
-- No trigger is presented as an authorised action without real authority.
-- Reviewers receive the charter, threat model, test commands and issue format.
-
-## 🔒 Current checkpoint: development iteration 06 over the Round 04 synthetic fixture
-
-Round 04 now has a coherent seven-artifact pre-projection core and an
-eight-artifact complete core. The executable IF kernel, evolution ledger,
-signal registry, agency map, possible path, preparation register, forecast and
-dashboard projection resolve one exact synthetic NSW worker-option condition.
-The complete-core builder rejects any projection that changes the earlier
-artifact references, canonical references, scope bindings, clock or authority
-boundary.
-
-The [transition-bundle assessment](../integration/transition-bundle/README.md)
-opens only structural integrity, scope-mapping integrity, history, evidence
-binding, forecast binding and preparation binding. Mechanical rule state is
-kept separate from real-world truth. Scope structure is kept separate from
-scope-mapping truth. The clock is operator supplied. **Truth, freshness,
-authority and publication remain closed.** Action remains unauthorised.
-
-The Observatory interface and proposed 2 by 2 comparison derive from the same
-pre-projection core. The interface is a synthetic prototype, not the governed
-dashboard artifact inside the complete core. Round 05 now reproduces a
-conventional release and Observatory self-serve arm from one exact fact pack,
-then rejects visible omissions, meaning swaps, authority drift and exposure
-drift. That establishes marked-up template parity for the retained files only.
-It does not prove browser visibility, assistive output or comprehension.
-Recruitment remains blocked.
-
-The Australian pilot now retains an exact 48,613,300-byte August NERO archive,
-official-host pages and response headers. Byte snapshots of its pinned
-in-process builder and archive reproduce the numeric and identity fields of all
-440 selected occupation-region series under a narrow canonical-series
-comparison. The historical baseline file is hash-pinned separately. This opens
-local retention and bounded derivation gates only. Publisher authentication,
-classification versions, prospective chronology, model truth, causality,
-warnings, legal review and decision use remain closed.
-
-The condition-definition dependency map names all eight declared consumers in
-the joined fixture that must be revalidated when that definition changes. Its
-two unrepresented domains are known examples, not an exhaustive search. It did
-not search the rest of the repository or any real organisation, discover
-external commitments or decide that a changed condition is better.
-
-Iteration 06 adds synthetic-only negotiation and decision records. They bind an
-exact IF definition and locally content-addressed receipt, preserve declared
-positions and dissent, and block action. Their verifier now requires a
-separately supplied affected-party context because a record cannot prove that
-its own roster is complete. The repository still cannot authenticate that
-external context, identities, mandates, signatures or authority. A lineage
-record joins those records without allowing a mechanically true IF to confer
-authority. It rejects pre-context deliberation and incomplete links, but a
-valid old checkout cannot prove that no newer head was withheld.
-
-The prospective forecast package now freezes schema and validator identity,
-every executable target reference, resolver and scoring contracts, both naive
-and reference baseline artifacts and inputs, exact UTC issue, publication and
-resolution clocks, and separately supplied campaign, receipt and chronology-tip
-contexts. It issues no forecast. Its issuance adapter compares exact
-preregistration and mature-record bytes under both fixed validators. The check
-still fails closed because the mature schema cannot represent five mandatory
-bindings: protocol bytes, campaign manifest, target identity, resolver policy,
-and mature schema and validator identity. It also has not independently
-executed either baseline from the retained inputs. A reviewed schema version
-and separate reproducer are required before any prospective pilot may open.
-
-The controls are advisory library and build boundaries. Callers can bypass
-them, and no CI, hosting or operational issuance boundary currently prevents
-publication. The branch has therefore crossed neither a programme-level
-integrity gate nor the empirical, human or institutional gates. External agent
-review cannot substitute for affected-party participation, statistical review,
-rendered accessibility testing, security and privacy assessment, a working
-public challenge service, source-licence clearance or real authority.
-
-## 📝 Live decision log
-
-| Date | Decision | Reason | Revisit if |
-|---|---|---|---|
-| 2026-09-08 | Treat abundance as a mission and test bounded hypotheses beneath it | Prevent a universal aspiration from masquerading as a falsifiable empirical claim | Fernando adopts a narrower or different mission |
-| 2026-09-08 | Use Australia and clerical workers as the first feasibility candidate | JSA, ABS and ILO provide candidate inputs, but no current source closes the person-level causal and agency chain | Source feasibility, linkage or affected-party review fails |
-| 2026-09-08 | Keep crisis states unscored | Current signals, thresholds and validation do not justify probabilities | Backtests and forecast registry pass their gates |
-| 2026-09-08 | Treat access factors as a funnel, not multiplication | Current measures are not matched conditional probabilities | A validated common-denominator design exists |
-| 2026-09-08 | Do not infer choice from labour participation | Aggregate participation cannot identify reasons | Cohort-level reasons, desired hours and security are measured |
-| 2026-09-08 | Stop the historical NERO warning backtest | The project has not acquired a defensible as-published vintage panel, revision path, uncertainty series or independent outcomes | A defensible vintage archive and outcome-label protocol exist |
-| 2026-09-08 | Permit only prospective, no-consequence NERO rehearsal | It can test software and workflow mechanics without validating prediction, causality, real capacity, authority or human response | Preregistration, consecutive vintages, labels or review capacity fail |
-| 2026-09-08 | Treat the dashboard IF path as a decision record, not a vocabulary diagram | Every condition must expose scope, state, evidence, challenge and next observation | Independent encoders cannot use it reliably |
-| 2026-09-08 | Require a machine-readable governance library before preparing a review packet | The library can reject structural incompleteness when invoked, but cannot block publication | An independently enforced CI, hosting and issuance mechanism exists |
-| 2026-09-09 | Assess subsystem coherence before claiming programme readiness | Individually valid artifacts currently describe different condition sets, scopes and histories | One hash-pinned transition bundle passes without weakening the checks |
-| 2026-09-09 | Keep Round 03 immutable and prepare a new Round 04 review freeze | Post-review repairs must not rewrite the reviewed input | The clean branch, manifest and independent reproduction are ready |
-| 2026-09-09 | Join one synthetic condition across a seven-artifact pre-core and add one exact dashboard projection | Shared labels were insufficient; every downstream surface must retain source bytes, definition, receipt, scope and boundaries | A neighbouring attack shows that exact substitution or derivation can pass incorrectly |
-| 2026-09-09 | Keep Round 04 non-authorising despite structural coherence | Mechanical validity cannot establish truth, freshness, scope truth, legitimacy, capacity or consent | Independent external evidence closes the relevant gate through a separately governed process |
-
-## ❓ Decisions reserved for Fernando
-
-Fernando retains the substantive call on:
-
-1. The public north star and whether agency formally extends the original
-   access thesis.
-2. The final decent-life or essential-access floor.
-3. Political and distributional prescriptions.
-4. Which agent-authored passages he adopts into his voice.
-5. Whether the Observatory ultimately becomes an independent institution.
-
-The programme can prepare evidence and concrete options for those decisions.
-It cannot silently make them for him.
+**Help humanity reach abundance with agency: observe which conditions prevent
+capability becoming access, identify who can change them, and test action
+hypotheses before preventable harm compounds.** The programme follows Fernando's
+Goal / Signals / Actions variant, captured on [8 September](../capture/2026-09-08-abundance-frame-conversation.md)
+and clarified on [9 September](../capture/2026-09-09-softer-on-tax-and-remedy.md).
+
+This is Ren's commissioned implementation of that method; empirical, human and
+institutional limits are recorded in [programme boundaries](../boundaries.md).
+
+## 🎯 Goal
+
+**Agency is the goal, declared unmeasured.** The programme asks what people can
+actually do, use, choose, refuse and retain when technology changes. Its
+positive-horizon language expresses a value choice. Changing capability could
+expand or contract shared human agency. People should be able to shape, refuse,
+reverse or navigate possible transitions, including no-deployment and refusal.
+
+The frame is **verb + fill in the blank + if**. Complete the promise with a
+person or population, service, place, period and standard: “I can see a GP, if
+these conditions hold.” Agency itself has no validated score here. Conditions
+provide signals; each metric states how its signal is calculated; each action
+hypothesis names the signal it claims to move. The existing
+[agency map](../contracts/agency-map/README.md) stores these separate layers.
+
+Fernando places his contribution at the frame and method level. The “enough”
+line is parked. His newer capture leaves tax, transfers, corporate provision,
+visible prices and a portfolio of remedies open. Remedy proposals belong in
+documents marked `provenance: commissioned-proposal`. The enterprise-choice
+diagnosis remains a [question for Fernando](backlog.md), with its GAP intact.
+
+## 📡 Signals
+
+**Observe conditions, then ask which is binding for this population today.**
+A condition is binding when it prevents the specified outcome while the
+relevant alternative routes and other requirements are accounted for. A survey
+of one barrier can establish that the barrier occurs. Comparing unmatched
+national percentages cannot identify which condition binds for a particular
+rural worker. Joint observations and the available alternative routes are the
+missing evidence in that comparison.
+
+### Five category prompts
+
+These are Fernando's starting set, adopted from the conversation, and remain
+open to challenge. The executable kernel requires one category per definition.
+A cross-category claim should be decomposed into explicit conditions so its
+owner and interpretation stay clear.
+
+| Category | Question about the promised outcome | Owner to identify |
+| --- | --- | --- |
+| price | Can this population meet the full monetary cost? | Price setter, payer and funder, identified separately |
+| permission | Is this route permitted and is the person eligible? | Rule maker, eligibility administrator and relevant practitioner |
+| proximity | Can the person reach the service and its necessary complements? | Service network and transport or communications operator |
+| availability | Is a usable service available at the required time and standard? | Provider, workforce planner and service commissioner |
+| capability | Can the person understand, navigate and use the service? | Service designer and support provider, with the person's circumstances explicit |
+
+**Discretion is a subtype of availability.** “Free while somebody keeps choosing
+to provide it” records a revocable condition. Name who holds that choice, the
+terms under which it can change and the evidence for continuity. An owner's
+appearance in this table identifies a candidate role, not their consent to act.
+
+### Why these signals earn a place
+
+The panel has two purposes: direct observations of service conditions and
+macro context that can challenge an optimistic access story. Context stays
+labelled as context. The original sixteen entries receive the following
+dispositions; the measurement lane records exact new series and their retained
+sources. Deletion removes an unsupported panel item, not the underlying issue.
+
+| Original signal | Category and population | Candidate condition owner | Theory and Round 08 disposition |
+| --- | --- | --- | --- |
+| labour-share | price; people receiving labour income in reporting economies | Employers, bargaining institutions and fiscal authorities | Retain as distributional context: labour income's share helps question who receives production gains; it cannot measure a household's access or identify technology's effect. |
+| gdp-per-capita | price; residents of reporting economies | Multiple producers and public economic institutions | Retain as capacity context: real output per person supplies a denominator for distribution questions; average production cannot establish anyone's disposable resources. |
+| poverty-30 | price; surveyed or modelled populations at the source's stated purchasing-power line | Income-support institutions, employers and service funders | Retain as material-resource context at the exact source line and vintage; a threshold headcount neither defines agency nor measures the Australian care basket. |
+| poverty-830 | price; populations represented in the source's higher-line estimates | Income-support institutions, employers and service funders | Retain because the higher resource threshold tests whether improvements reach beyond extreme deprivation; keep the source's line status, nowcast status and coverage explicit. |
+| participation | price; source-defined working-age population | Employers, care infrastructure and labour-market institutions | Retain as labour-income-route context; participation can change through opportunity, necessity or exclusion, so direction alone is never an agency verdict. |
+| inflation | price; households represented by the source price index | Basket-specific price setters and economic institutions | Retain as purchasing-cost context; aggregate prices may diverge from GP gaps, transport and medicines and therefore require basket comparison. |
+| engels-divergence | price; country aggregates jointly covered by the two input series | Employers, bargaining institutions and fiscal authorities | Retain as a descriptive divergence proxy: compare production growth with the labour-income proxy; common inputs make it dependent evidence, not independent confirmation. |
+| transmission-gap | price; common source-country population and period | Producers, payers and public institutions | Retain as a proposed descriptive transformation of existing series; its place is to expose a question about transmission, with no causal or household-access interpretation. |
+| zero-cost-count | price; intended essential-service users | Basket providers and funders | Delete: no fixed observed basket and quality boundary justify counting services as free; a GP bulk-billing share is a differently defined signal. |
+| baumol-gap | price; consumers and workers in labour-intensive services | Sector employers, providers and funders | Delete: a theory of relative costs is not a retained comparable service-cost series; inflation is insufficient to identify its mechanism. |
+| access-margin | price; named households or people with shared-cost allocation | Service payers and providers | Delete: no matched disposable-resource and complete basket-cost data; reported cost-related delay is useful but measures a different construct. |
+| transition-speed | availability; exposed workers entering new roles | Employers, employment services and training providers | Delete: repeated occupational employment estimates do not observe worker transitions or their duration. |
+| concentration | availability, including discretion; users dependent on essential providers | Providers, competition institutions and commissioners | Delete: no scoped ownership, dependency and substitutability series; geographic workforce distribution does not measure productive-power concentration. |
+| preparedness | availability; exposed cohorts needing continuity support | Income-support administrators and service commissioners | Delete: no observed delivery-time and capacity test; health literacy measures another condition and cannot stand in for readiness. |
+| trust-consent | permission; people subject to the proposed decision or service | Decision maker and accountable consent process | Delete: no retained consent or trust measure; dissent is a legitimate position, not a deficit inferred from an index. |
+| cross-border-access | permission; people seeking service across jurisdictions | Origin and destination regulators and service providers | Delete: no matched eligibility and delivered-access source; an international legal comparison alone would observe rules, not use. |
+
+Macro series are retained only while they have exact units, population,
+vintage, provenance and a reproducible calculation. A measurement that loses
+those properties leaves the panel. A national average must never overwrite a
+subgroup observation. Source overlap stays visible in any comparison.
+
+### First measured application
+
+The first retained-input pass keeps eight macro-context series, removes the
+eight unsupported placeholders with recorded reasons, and adds four distinctly
+named NSW primary-care series. This makes twelve available panel entries,
+not sixteen completed measurements of agency. The added series are:
+
+| Series | Category and measured population | Candidate owner |
+| --- | --- | --- |
+| GP cost-related delay | Price; survey-scope residents aged 15+ needing GP care | Practices and Commonwealth Medicare benefit setters |
+| Fully bulk-billed GP patients | Price; patients with Medicare GP attendances during the year | Practices and Commonwealth Medicare benefit setters |
+| Prescription cost-related delay | Price; survey-scope residents aged 15+ needing prescription medicines | Commonwealth PBS policy and pharmacies |
+| Urgent GP care within four hours | Availability; survey-scope residents aged 15+ who obtained urgent GP care | Practices, PHNs and workforce/service funders |
+
+**Why GP cost delay earns a place.** Reported delay or non-use because of cost
+observes a price barrier, including people who needed care but did not obtain
+it. A fee schedule alone cannot show that outcome. This is an annual survey
+estimate, not household affordability or evidence that price dominates.
+
+**Why fully bulk-billed patients earn a separate place.** Administrative claims
+show whether patients incurred a GP gap during the year. This complements,
+rather than replicates, self-reported delay. Non-users are absent: an improving
+share cannot establish access among people with no claimed attendance.
+
+**Why prescription cost delay earns a place.** Obtaining a consultation does
+not establish access to the prescribed medicine. This measures a distinct
+downstream price barrier among people needing medicines. The aggregate does
+not establish access to atorvastatin, a particular dose or an individual course.
+
+**Why urgent GP timeliness earns a place.** Price indicators need a timely-access
+counterpart, so lower cost is not treated as sufficient access. Reported waits
+among urgent users are closer to experienced delivery than workforce totals.
+Unmet urgent need is excluded, and four hours is not a universal clinical standard.
+
+The [dispositions](../pilots/australia/basket/panel-dispositions.json) preserve
+the distinction between removing a missing measure and replacing its concept.
+These populations differ. NSW context is not a rural individual's diagnosis;
+urgent users exclude people unable to obtain care. The five-direct-category,
+same-population current-access diagnostic standard remains unmet. This is a
+stronger standard than the brief's gate: its explicit candidates include
+eligibility rules, workforce distribution and health literacy. The GP basket
+has reproducible retained indicators in all five categories, which satisfies
+that literal at-least-one-item measurement gate at indicator level. It does
+not establish five direct current-access measures or a personal diagnosis.
+The broader workstream request for all five categories on every basket item
+remains incomplete for the prescription, referral and after-hours pathways.
+
+Australia is the first bounded test: a GP consultation, a common prescription
+pathway, a referral pathway and an after-hours option. Each basket item needs
+price, permission, proximity, availability and capability evidence. The NERO
+clerical cohort supplies an exposure context. The finest shared geography sets
+the join; residence, service location, survey coverage and vintage must agree
+before a comparison is interpreted.
+
+For each item the public output states the observed condition, population,
+place, period, candidate owner, evidence ceiling and what would have to change.
+If the data cannot distinguish a binding condition, the diagnosis remains
+undetermined. Historical observations are dated as historical, especially when
+used to discuss access today. The [measurement plan](round-08-plan.md) records
+the five-category gate and the independent-review requirement.
+
+### Evolution is the method in operation
+
+Conditions can be concurrent, cyclical or dependency-bound. Sequencing cannot
+be planned: an improvement can arrive unexpectedly or shift the limiting
+condition. Inspect the binding condition today and the evidence needed to
+recognise a change. Dated phases are scenarios, never a schedule.
+
+The [executable IF kernel](../contracts/executable-if/README.md) records each
+category, typed claim, scope, threshold and evidence version. Use
+`definition-revised`, `narrowed`, `split` or `merge` when evidence changes the
+definition. Preserve the previous wording, reason and bytes. Changed hashes
+identify downstream consumers for revalidation in the
+[transition-bundle assessment](../integration/transition-bundle/README.md).
+Three real-data evolutions must show both what changed and which old
+interpretations no longer apply. Ren's creator receipts remain claims for a
+different reviewer to reproduce.
+
+## 🛠 Actions
+
+**An action is a hypothesis that a named actor can move a named signal.**
+Record the mechanism, comparator, observation period and result that would
+count against it. The consumer's IF and provider's WHEN are linked but
+non-identical: an actor can address one requirement while other requirements
+remain. A WHEN is not a forecast or commitment.
+
+| Proposed action hypothesis | Signal it would seek to move | What would defeat or narrow it |
+| --- | --- | --- |
+| A payer and provider change the payment route for a scoped GP service | Cost-related GP delay, measured for the same eligible population | Charges fall but delayed care remains unchanged, or travel and waiting replace money as the reported barrier |
+| A commissioner and provider test extra appointments at underserved times | Same-scope timely appointment access | Appointments exist on paper but patients cannot book or reach them |
+| An administrator simplifies a scoped eligibility or referral step | Completed eligible referrals and reported administrative barriers | Rule text changes while completed access and exclusions remain unchanged |
+| A service designer tests accessible navigation with relevant users | Task completion and understanding for that route | Average performance improves while an affected disability or language group loses access |
+
+These are commissioned-proposal hypotheses, with alternatives to test rather
+than remedies attributed to Fernando. Each requires delivery, funding and
+rights review before an actual trial. Empirical hypotheses name rivals,
+falsifiers and expiry. Value choices name the chooser, affected parties,
+dissent and review. Commitments name authority, funding, safeguards, review
+and exit.
+
+Competing causal graphs include technology-push, macro-demand,
+sector-composition, measurement-and-reclassification and policy-and-ownership.
+Test no-material-change explanations too. A change in two plotted series is
+the beginning of that argument, not its conclusion.
+
+The existing [possible paths](../paths/README.md) record alternatives. Paths
+may branch, loop, stop or remain unauthorised at the programme level; the
+current executable path contract deliberately supports acyclic graphs only.
+The action ladder remains `watch_if`, `prepare_if`, `act_if`, `pause_if`,
+`reverse_if`, `recover_if` and `graduate_if`. An actor-specific proposal names
+severity, adjudicator, remedy and how conflicts between protections are
+resolved. Household gains cannot cancel severe individual harm under the
+programme's proposed loss rule.
+
+## 🔎 Current checkpoint: Round 08 measurement
+
+Round 07's seal and provenance remain in Git history. The instrument includes
+a seven-artifact pre-projection core and an eight-artifact complete core. This
+round adds measurement through the existing contracts. Controls are advisory
+library and build boundaries; caller-supplied identities and successful local
+checks do not establish an operational institution.
+
+The [Round 08 plan](round-08-plan.md) is the live implementation plan on
+`ren/round-08`. Its gates require a five-category measured basket item, a
+data-supported binding diagnosis, zero `not_measured` panel entries, one
+immutable prospective forecast, three measured positive signals and clear
+public prose with capture provenance. Scoring waits for forecast resolution.
+A historical baseline win opens only a preregistered, prospective,
+no-consequence rehearsal. Data gaps remain visible when a gate stays unmet.
+
+An affected-party process not yet designed remains necessary before these
+programme choices could claim community adoption. Recruitment and intervention
+depend on the [G0-G10 human protocol](../reviews/public-comprehension-affected-party-protocol-round-04.md).
+Any future federation should use a small invariant core and explicit local
+extensions, and prohibit country or community league tables. Independent
+review must assess measurement validity alongside the seven existing tracks.
+The next checkpoint is evidence and reproducible diagnosis, not more interface.

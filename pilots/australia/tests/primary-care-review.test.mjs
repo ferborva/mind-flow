@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import test from 'node:test';
+
+const root = resolve(import.meta.dirname, '../../..');
+const read = path => readFileSync(resolve(root, path), 'utf8');
+test('workbook extraction reads the verified byte snapshot without a PATH-resolved extractor', async () => {
+  const { readWorkbookTables } = await import('../tools/primary-care-workbook.mts');
+  const bytes = readFileSync(resolve(root, 'pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx'));
+  const tables = readWorkbookTables(bytes, [26]);
+  assert.equal(tables['10A.26'].find(c => c.address === 'M3').text, '7.2');
+  assert.equal(tables['10A.26'].find(c => c.address === 'M2').text, 'NSW');
+  assert.match(tables['10A.26'].find(c => c.address === 'C23').text, /very remote/);
+  assert.throws(() => readWorkbookTables(bytes.subarray(0, 100), [26]), /ZIP/);
+  assert.doesNotMatch(read('pilots/australia/tools/primary-care-workbook.mts'), /execFileSync|child_process/);
+});
+test('review correction preserves reported values but distinguishes rate extraction from recomputation', async () => {
+  const { deriveReviewedMeasurements } = await import('../tools/primary-care-review.mts');
+  const data = deriveReviewedMeasurements();
+  assert.deepEqual(data.series.map(s => s.points), JSON.parse(read('pilots/australia/data/primary-care-2026-09-09.json')).series.map(s => s.points));
+  const rate = data.series.find(s => s.id === 'gp-fte-remoteness');
+  assert.equal(rate.reproducible_from_retained_bytes, false);
+  assert.equal(rate.published_value_extraction_reproduced, true);
+  assert.match(rate.evidence_ceiling, /ERP.*not retained/);
+  assert.match(rate.geography_classification, /ASGS.*not MMM/);
+  assert.equal(data.ecological_join.source_bytes_status, 'not_retained_unverified');
+  assert.equal(data.ecological_join.occupation_classification_verification_status, 'unverified_external_review_required');
+  assert.match(data.ecological_join.source_baseline_path, /\.r2\.json$/);
+  assert.ok(data.source_reviews.every(s => s.licence_review_status && 'licence_claim' in s));
+  assert.equal(data.source_reviews.find(s => s.id === 'mbs-referrals').measurement_role, 'rule-context-only');
+  assert.equal(data.source_reviews.find(s => s.id === 'aihw-medicines').measurement_role, 'basket-selection-context-only');
+  assert.equal(data.longer_window_context.find(s => s.series_id === 'gp-fully-bulk-billed').earlier.value, 71.8);
+  assert.equal(data.longer_window_context.find(s => s.series_id === 'gp-cost-delay').earlier.value, 1.8);
+  assert.equal(data.workbook_footnotes.workbook.byte_length, 1024226);
+  assert.ok(data.workbook_footnotes.tables['10A.19'].some(c => c.address === 'C88' && c.text_sha256));
+  assert.ok(data.workbook_footnotes.tables['10A.31'].some(c => c.address === 'C15' && c.text_sha256));
+  assert.match(data.series.find(s => s.id === 'gp-cost-delay').population_exclusion, /Very remote residents excluded/);
+  assert.equal(Number(data.workbook_footnotes.gp_cost_cells.find(c => c.address === 'M4').text), 9.3);
+});

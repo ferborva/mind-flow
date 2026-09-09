@@ -60,6 +60,7 @@ function scope(geographies, cohorts) {
 function definition(conditionId, definitionVersion, effectiveFrom, definitionScope, coverageThreshold = 0.8) {
   const value = {
     condition_id: conditionId,
+    condition_category: "availability",
     definition_version: definitionVersion,
     proposition: "Affected workers have a credible alternative and an accessible human review route.",
     claim: {
