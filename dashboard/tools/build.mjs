@@ -26,6 +26,7 @@ import {
   validateTimingRule,
 } from "../timing/validation.mjs";
 import { resolvePossiblePathProjection } from "./transition-bundle-binding.mjs";
+import { transformPrimaryCare } from "./primary-care-panel.mts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dashboard = resolve(here, "..");
@@ -43,7 +44,8 @@ const snapshotIndexPath = resolve(dashboard, "snapshots", "index.json");
 const snapshotDirectory = resolve(dashboard, "snapshots");
 const timingEvaluatorPath = resolve(dashboard, "timing", "validation.mjs");
 const POLICY_SHA256 = "2848f3309c570dd56d6c6c4d1ec49d499c5791e387b0923461cd4f4989e2f29e";
-const GLOBAL_SOURCE_HOSTS = new Set(["api.worldbank.org", "ourworldindata.org", "ec.europa.eu"]);
+const PRIMARY_CARE_POLICY_SHA256 = "b67e1a38fefdc0b10fc7c29dc5f41a7193490696ff139842e114aaad6ce2a627";
+const GLOBAL_SOURCE_HOSTS = new Set(["api.worldbank.org", "ourworldindata.org", "ec.europa.eu", "assets.pc.gov.au"]);
 
 const ENTITY_CODES = new Set(["OWID_WRL", "USA", "DEU", "ESP", "AUS", "CHN", "IND"]);
 const WORLD_BANK_CODES = new Map([
@@ -669,6 +671,15 @@ function validateSemantics(snapshot, policy, policyDigest, rawBytesById, correct
     if (hasPoints && !adapter) {
       errors.push(`signal ${signal.id} with points requires an adapter contract`);
     }
+    if (adapter?.id === "pc-primary-care-retained") {
+      try {
+        if (!same(signal.series, transformPrimaryCare(signal.id))) {
+          errors.push(`retained primary-care transform for ${signal.id} does not match snapshot series`);
+        }
+      } catch (error) {
+        errors.push(`retained primary-care transform for ${signal.id} failed: ${error.message}`);
+      }
+    }
     if (adapter && !policySignal) {
       errors.push(`signal ${signal.id} adapter is absent from the pinned evidence policy`);
     } else if (adapter && policySignal) {
@@ -1005,9 +1016,13 @@ try {
   }
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
   const timingSchema = JSON.parse(readFileSync(timingSchemaPath, "utf8"));
-  const policyBytes = readFileSync(policyPath);
+  const isPrimaryCarePolicy = snapshot.evidence_policy?.version === "2.1.0";
+  const selectedPolicyPath = isPrimaryCarePolicy
+    ? resolve(dashboard, "evidence", "adapter-classification-policy-primary-care-2.1.json")
+    : policyPath;
+  const policyBytes = readFileSync(selectedPolicyPath);
   const policyDigest = createHash("sha256").update(policyBytes).digest("hex");
-  if (policyDigest !== POLICY_SHA256) {
+  if (policyDigest !== (isPrimaryCarePolicy ? PRIMARY_CARE_POLICY_SHA256 : POLICY_SHA256)) {
     throw new Error("pinned evidence policy checksum mismatch");
   }
   const policy = JSON.parse(policyBytes.toString("utf8"));

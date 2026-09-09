@@ -1,6 +1,6 @@
 {
  "schema_version": "2.0.0",
- "latest": "2026-09-08.r3",
+ "latest": "2026-09-09.r1",
  "snapshots": [
   {
    "id": "2026-09-07.r1",
@@ -36,6 +36,13 @@
    "schema_version": "2.1.0",
    "path": "2026-09-08.r3.json",
    "sha256": "sha256:80f7b37011618719b25cc1b710f60a8c41e832d76e311ba884514e342693816b"
+  },
+  {
+   "id": "2026-09-09.r1",
+   "snapshot_id": "2026-09-09",
+   "schema_version": "2.1.0",
+   "path": "2026-09-09.r1.json",
+   "sha256": "sha256:86d8c816e3915c2233f11ebc15ca8fc1b33b6de13d6a62872feacdeccbd734ad"
   }
  ]
 }
