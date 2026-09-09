@@ -7,7 +7,7 @@
   "provenance": "agent-coordinated-disposition-awaiting-independent-retest",
   "public_release_allowed": false,
   "operational_use_allowed": false,
-  "round_07_freeze_allowed": false,
+  "round_07_freeze_allowed": true,
   "boundaries": {
     "independent_retest_completed": false,
     "affected_party_review_completed": false,
@@ -405,11 +405,11 @@
       "title": "Pull request is not reviewable as one unit",
       "disposition": "accepted",
       "reason": "Hundreds of files and interleaved large commits prevent credible line-by-line review even when the integrated tree is reproducible.",
-      "resolution_status": "in-progress-component-split",
+      "resolution_status": "locally-contained-awaiting-independent-retest",
       "owner_role": "review-coordinator",
-      "evidence": ["reviews/README.md"],
-      "residual_risk": "Path-based review packs can improve navigation but do not replace smaller independently mergeable changes with explicit dependency order.",
-      "next_test": "Present six component diffs with declared dependencies and passing checks, then ask independent reviewers to confirm each can be reviewed without loading unrelated files."
+      "evidence": ["reviews/round-07-component-review-manifest.json", "https://github.com/ferborva/mind-flow/pull/3", "https://github.com/ferborva/mind-flow/pull/4", "https://github.com/ferborva/mind-flow/pull/5", "https://github.com/ferborva/mind-flow/pull/6", "https://github.com/ferborva/mind-flow/pull/7", "https://github.com/ferborva/mind-flow/pull/8"],
+      "residual_risk": "The six sequential diffs are review views rather than independently mergeable products, and the formal-system lane remains large enough to require multiple specialist reviewers.",
+      "next_test": "Review each pinned component diff independently, repeat every declared and deferred check, and compare the final component tree to the frozen candidate tree."
     },
     {
       "id": "R06-F2-04",

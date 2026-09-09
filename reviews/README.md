@@ -23,6 +23,14 @@ The Round 07 manifest divides the integration tree into six sequential,
 path-bounded review lanes. Those lanes improve reviewability but do not make a
 partial stack independently mergeable or grant approval.
 
+The review views are PRs
+[#3](https://github.com/ferborva/mind-flow/pull/3),
+[#4](https://github.com/ferborva/mind-flow/pull/4),
+[#5](https://github.com/ferborva/mind-flow/pull/5),
+[#6](https://github.com/ferborva/mind-flow/pull/6),
+[#7](https://github.com/ferborva/mind-flow/pull/7) and
+[#8](https://github.com/ferborva/mind-flow/pull/8), in dependency order.
+
 Severity means:
 
 - **Stop-line:** blocks public release or operational use.
