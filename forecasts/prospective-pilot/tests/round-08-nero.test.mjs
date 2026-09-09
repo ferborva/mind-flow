@@ -21,12 +21,27 @@ test("the prospective NERO candidate reconstructs both baselines and remains blo
     issueOpensAt: "2026-09-10T00:00:00Z", issuedAt: "2026-09-10T01:00:00Z", sourceCommit: "a206254" });
   const result = assessFutureIssuanceBinding(candidate.input);
   assert.equal(result.baseline_execution_reproduced, true, JSON.stringify(result.issues));
+  assert.equal(result.retained_resolver_artifact_bytes_matched, true, JSON.stringify(result.issues));
   assert.equal(result.binding_complete, false);
   assert.equal(candidate.forecast.probability, candidate.forecast.baseline.probability);
   assert.equal(candidate.forecast.naive_baseline.probability, 0.5);
   assert.ok((Date.parse(candidate.forecast.resolve_by) - Date.parse(candidate.forecast.issued_at)) / 86400000 <= 90);
   assert.equal(candidate.protocol.forecast_issuance.status, "not-issued");
   assert.doesNotMatch(JSON.stringify(candidate.forecast), /synthetic|example\.invalid|worker-option/);
+});
+
+test("native resolver dependencies and fixed source parameters cannot drift after registration", () => {
+  for (const mode of ["missing-dependency", "changed-dependency"]) {
+    const candidate = prepareNeroCandidate({ sealAt: "2026-09-09T11:00:00Z",
+      issueOpensAt: "2026-09-10T00:00:00Z", issuedAt: "2026-09-10T01:00:00Z", sourceCommit: "a206254" });
+    const artifacts = candidate.input.matureForecastSources.resolverArtifacts;
+    const path = Object.keys(artifacts.dependencies)[0];
+    if (mode === "missing-dependency") delete artifacts.dependencies[path];
+    else artifacts.dependencies[path].bytes = Buffer.from("changed dependency");
+    const result = assessFutureIssuanceBinding(candidate.input);
+    assert.equal(result.retained_resolver_artifact_bytes_matched, false);
+    assert.ok(result.issues.some((entry) => entry.code === "RESOLVER_ARTIFACT_DEPENDENCY_MISMATCH"));
+  }
 });
 
 test("native NERO resolution selects one exact October cell and rejects unavailable or conflicting counts", () => {

@@ -54,7 +54,7 @@ export function prepareNeroCandidate({ sealAt, issueOpensAt, issuedAt, sourceCom
       probability: runNeroBaseline(algorithmId, inputSource.document, parameters),
       method: role === "reference" ? "Count nonnegative two-month changes from August 2024 through August 2026 in the retained August 2026 vintage; (successes+1)/(comparisons+2)." : "Return 0.5 after the same input eligibility checks.",
       declared_at: sealAt, policy_snapshot: { source: `${baseUrl}/blob/${sourceCommit}/${directory}/README.md`,
-        retrieved_at: sealAt, vintage: protocolId, checksum: parametersArtifact.sha256 },
+        retrieved_at: sealAt, vintage: protocolId, checksum: artifact(`${directory}/README.md`).sha256 },
       calculation: { algorithm_id: algorithmId, version: "1.0.0", input_checksums: [inputSource.sha256],
         checksum: null, verification_status: "unverified_external_review_required" } };
   }
@@ -116,10 +116,10 @@ export function prepareNeroCandidate({ sealAt, issueOpensAt, issuedAt, sourceCom
     status: "sealed", protocol_ids: [protocolId], sealed_at: sealAt, verification_status: "unverified_external_review_required" });
   protocol.campaign.manifest.manifest_sha256 = campaignManifestSha256(protocol.campaign.manifest);
   const resolverParameters = objectArtifact({ occupation_code: "5311", sa4_code: "101", date: "2026-10-15", count_baseline: 4217,
-    dependencies: Object.fromEntries([`${directory}/basis.mts`, "dashboard/tools/build-nero-baseline.mjs", "forecasts/lib/resolution.mjs"]
+    dependencies: Object.fromEntries([`${directory}/basis.mts`, `${directory}/resolver.mts`, "dashboard/tools/build-nero-baseline.mjs", "forecasts/prospective-pilot/tests/round-08-nero.test.mjs"]
       .map((path) => [path, artifact(path).sha256])) });
-  const resolverImplementation = artifact(`${directory}/resolver.mts`);
-  const resolverConformance = artifact("forecasts/prospective-pilot/tests/round-08-nero.test.mjs");
+  const resolverImplementation = artifact("forecasts/lib/resolution.mjs");
+  const resolverConformance = artifact("forecasts/tests/resolution-event-hardening.test.mjs");
   protocol.target = { registration_status: "fixed_before_issue", target_id: targetId, question: forecast.question,
     event_definition: forecast.target.event, outcome_type: "binary", unit: forecast.target.unit,
     observation_window: { starts_at: forecast.target.observation_window_start, ends_at: forecast.target.observation_window_end },
@@ -177,7 +177,8 @@ export function prepareNeroCandidate({ sealAt, issueOpensAt, issuedAt, sourceCom
     campaign_manifest_sha256: protocol.campaign.manifest.manifest_sha256, target_id: targetId,
     resolver: protocol.target.resolver, mature_contract: matureForecastContractIdentity() };
   const matureForecastBytes = jsonBytes(forecast);
-  const resolverArtifacts = { implementation: resolverImplementation, parameters: resolverParameters, conformanceVectors: resolverConformance };
+  const resolverArtifacts = { implementation: resolverImplementation, parameters: resolverParameters, conformanceVectors: resolverConformance,
+    dependencies: Object.fromEntries(Object.keys(resolverParameters.document.dependencies).map((path) => [path, artifact(path)])) };
   return { protocol, forecast, parameters, resolverParameters: resolverParameters.document, retainedArtifacts,
     input: { preregistrationBytes, matureForecastBytes,
       byteAnchors: { preregistration_sha256: sha256(preregistrationBytes), mature_forecast_sha256: sha256(matureForecastBytes) },

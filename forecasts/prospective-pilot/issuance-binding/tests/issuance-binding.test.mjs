@@ -66,6 +66,14 @@ function opaqueArtifact(label) {
   return { bytes, sha256: sha256(bytes) };
 }
 
+function resolverArtifacts() {
+  const retained = (path) => { const bytes = readFileSync(resolve(repositoryRoot, path)); return { bytes, sha256: sha256(bytes) }; };
+  const parameters = jsonBytes({ dependencies: {} });
+  return { implementation: retained("forecasts/lib/resolution.mjs"),
+    conformanceVectors: retained("forecasts/tests/resolution-event-hardening.test.mjs"),
+    parameters: { bytes: parameters, sha256: sha256(parameters) }, dependencies: {} };
+}
+
 function baselineArtifacts(matureBaseline) {
   const baselineRole = matureBaseline.mechanical_role;
   const inputSourceIds = [
@@ -172,9 +180,9 @@ function buildProtocol(forecast, referenceArtifacts, naiveArtifacts) {
     resolver: {
       resolver_id: forecast.target.resolver.resolver_id,
       resolver_version: forecast.target.resolver.resolver_version,
-      implementation_sha256: `sha256:${"1".repeat(64)}`,
-      parameters_sha256: `sha256:${"2".repeat(64)}`,
-      conformance_vectors_sha256: `sha256:${"3".repeat(64)}`,
+      implementation_sha256: resolverArtifacts().implementation.sha256,
+      parameters_sha256: resolverArtifacts().parameters.sha256,
+      conformance_vectors_sha256: resolverArtifacts().conformanceVectors.sha256,
       conflict_policy: "void-and-disclose",
       correction_policy: "withdraw-resolution-and-rescore-never-overwrite",
     },
@@ -284,6 +292,7 @@ function setup() {
         naiveBaselineCalculation,
         referenceBaselineArtifacts,
         naiveBaselineArtifacts,
+        resolverArtifacts: resolverArtifacts(),
       },
     },
   };
@@ -367,6 +376,16 @@ test("supported baselines are re-executed from retained inputs without claiming 
   assert.equal(result.baseline_execution_independently_reproduced, false);
   assert.equal(result.independent_anchor_verified, false);
   assert.equal(result.issuance_authorised, false);
+});
+
+test("prospective binding requires the exact retained fixed resolver and conformance bytes", () => {
+  for (const field of ["implementation", "parameters", "conformanceVectors"]) {
+    const candidate = executableCandidate();
+    candidate.input.matureForecastSources.resolverArtifacts[field].bytes = Buffer.from("different retained bytes");
+    const result = assess(candidate);
+    assert.equal(result.binding_complete, false);
+    assert.ok(issueCodes(result).some((code) => code.startsWith("RESOLVER_ARTIFACT")));
+  }
 });
 
 test("baseline execution fails closed on wrong output, missing bytes and late input retrieval", () => {

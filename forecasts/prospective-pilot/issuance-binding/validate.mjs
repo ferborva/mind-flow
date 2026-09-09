@@ -365,6 +365,53 @@ function exactArtifactBytes(source, expectedChecksum, code, path, errors) {
   return source.bytes;
 }
 
+function assessResolverArtifacts(protocol, forecast, sources, errors) {
+  if (!forecast?.prospective_registration) return false;
+  const registered = protocol?.target?.resolver;
+  const artifacts = sources?.resolverArtifacts;
+  const start = errors.length;
+  for (const [field, key] of [["implementation_sha256", "implementation"],
+    ["parameters_sha256", "parameters"], ["conformance_vectors_sha256", "conformanceVectors"]]) {
+    exactArtifactBytes(artifacts?.[key], registered?.[field],
+      "RESOLVER_ARTIFACT_BYTES_MISMATCH", `/matureForecastSources/resolverArtifacts/${key}`, errors);
+  }
+  for (const [key, path] of [["implementation", "forecasts/lib/resolution.mjs"],
+    ["conformanceVectors", "forecasts/tests/resolution-event-hardening.test.mjs"]]) {
+    if (artifacts?.[key]?.bytes instanceof Uint8Array &&
+        contentSha256(artifacts[key].bytes) !== contentSha256(readFileSync(resolve(repositoryRoot, path)))) {
+      errors.push(issue("RESOLVER_ARTIFACT_UNSUPPORTED", `/matureForecastSources/resolverArtifacts/${key}`,
+        "resolver implementation and conformance must match the supported fixed binary comparator"));
+    }
+  }
+  let parameters;
+  try { parameters = JSON.parse(Buffer.from(artifacts?.parameters?.bytes || []).toString("utf8")); }
+  catch { errors.push(issue("RESOLVER_ARTIFACT_PARAMETERS_INVALID", "/matureForecastSources/resolverArtifacts/parameters", "resolver parameters must be retained JSON")); }
+  const allowed = new Set(["forecasts/prospective-pilot/round-08-nero/resolver.mts",
+    "forecasts/prospective-pilot/round-08-nero/basis.mts", "dashboard/tools/build-nero-baseline.mjs",
+    "forecasts/prospective-pilot/tests/round-08-nero.test.mjs"]);
+  if (!parameters?.dependencies || typeof parameters.dependencies !== "object" || Array.isArray(parameters.dependencies)) {
+    errors.push(issue("RESOLVER_ARTIFACT_DEPENDENCIES_INVALID", "/matureForecastSources/resolverArtifacts/parameters", "explicit dependency digest map is required"));
+  } else {
+    for (const [path, digest] of Object.entries(parameters.dependencies)) {
+      if (!allowed.has(path)) {
+        errors.push(issue("RESOLVER_ARTIFACT_DEPENDENCY_UNSUPPORTED", "/matureForecastSources/resolverArtifacts/parameters", "resolver dependency is not a supported retained local implementation"));
+        continue;
+      }
+      const bytes = exactArtifactBytes(artifacts?.dependencies?.[path], digest,
+        "RESOLVER_ARTIFACT_DEPENDENCY_MISMATCH", "/matureForecastSources/resolverArtifacts/dependencies", errors);
+      if (bytes && contentSha256(bytes) !== contentSha256(readFileSync(resolve(repositoryRoot, path)))) {
+        errors.push(issue("RESOLVER_ARTIFACT_DEPENDENCY_MISMATCH", "/matureForecastSources/resolverArtifacts/dependencies", "retained dependency differs from the reviewed local implementation"));
+      }
+    }
+    if (protocol?.target?.resolution_source_uri === "https://www.jobsandskills.gov.au/data/nero" &&
+        (parameters.occupation_code !== "5311" || parameters.sa4_code !== "101" || parameters.date !== "2026-10-15" ||
+         parameters.count_baseline !== 4217 || !isDeepStrictEqual(Object.keys(parameters.dependencies).sort(), [...allowed].sort()))) {
+      errors.push(issue("RESOLVER_ARTIFACT_PARAMETERS_INVALID", "/matureForecastSources/resolverArtifacts/parameters", "NERO adapter parameters and all native extraction dependencies must match the fixed target"));
+    }
+  }
+  return errors.length === start;
+}
+
 function assessBaselineArtifacts(registered, artifacts, role, errors) {
   let bytesMatched = true;
   for (const [field, sourceKey, suffix] of [
@@ -702,6 +749,7 @@ export function assessFutureIssuanceBinding({
     ["reference", "naive"].map((role) => reproduceBaseline(parsedProtocol.document,
       parsedForecast.document, matureForecastSources, role, errors)).every(Boolean);
   const blockers = currentSchemaBlockers(parsedProtocol.document, parsedForecast.document, baselineExecutionReproduced);
+  const resolverArtifactsMatched = assessResolverArtifacts(parsedProtocol.document, parsedForecast.document, matureForecastSources, errors);
   const recordsStructurallyValidWithSuppliedContext =
     preregistrationValid && matureForecastValid && byteAnchorsValid;
   const bindingComplete = recordsStructurallyValidWithSuppliedContext &&
@@ -712,6 +760,7 @@ export function assessFutureIssuanceBinding({
     records_structurally_valid_with_supplied_context:
       recordsStructurallyValidWithSuppliedContext,
     retained_baseline_artifact_bytes_matched: baselineBindingsValid,
+    retained_resolver_artifact_bytes_matched: resolverArtifactsMatched,
     independent_anchor_verified: false,
     baseline_execution_independently_reproduced: false,
     baseline_execution_reproduced: baselineExecutionReproduced,
