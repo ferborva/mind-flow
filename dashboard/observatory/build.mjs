@@ -1,12 +1,32 @@
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { assertTransitionBundle } from "../../integration/transition-bundle/assess.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const sourceRoot = resolve(__dirname, "../..");
 const bundlePath = "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json";
+const assessorPath = "integration/transition-bundle/assess.mjs";
+const validationContextRoots = Object.freeze([
+  "package.json",
+  "package-lock.json",
+  "integration/transition-bundle",
+  "contracts/agency-map",
+  "contracts/executable-if",
+  "contracts/evolution",
+  "paths",
+  "signals",
+  "preparation",
+  "forecasts",
+  "dashboard/schema",
+  "dashboard/tools",
+  "dashboard/observatory/build.mjs",
+  "dashboard/observatory/app.js",
+  "dashboard/observatory/index.html",
+  "dashboard/observatory/styles.css",
+]);
 
 function readJson(root, path) {
   return JSON.parse(readFileSync(join(root, path), "utf8"));
@@ -38,6 +58,36 @@ function same(left, right) {
   return canonicalJson(left) === canonicalJson(right);
 }
 
+export function buildValidationContext(root = sourceRoot) {
+  const files = [];
+  const visit = (relativePath) => {
+    const absolutePath = join(root, relativePath);
+    const stat = lstatSync(absolutePath);
+    invariant(!stat.isSymbolicLink(), `Validation context cannot contain a symbolic link: ${relativePath}`);
+    if (stat.isDirectory()) {
+      for (const entry of readdirSync(absolutePath).sort()) {
+        visit(`${relativePath}/${entry}`);
+      }
+      return;
+    }
+    invariant(stat.isFile(), `Validation context entry is not a regular file: ${relativePath}`);
+    files.push({ path: relativePath, sha256: sha256(root, relativePath) });
+  };
+  validationContextRoots.forEach(visit);
+  files.sort((left, right) => left.path.localeCompare(right.path));
+  const manifest = {
+    profile: "conservative-local-validation-context-v1",
+    roots: [...validationContextRoots],
+    files,
+  };
+  return {
+    ...manifest,
+    manifestSha256: `sha256:${createHash("sha256")
+      .update(canonicalJson(manifest))
+      .digest("hex")}`,
+  };
+}
+
 function artifactMap(root, bundle) {
   return Object.fromEntries(
     bundle.artifacts.map((artifact) => {
@@ -49,6 +99,69 @@ function artifactMap(root, bundle) {
     }),
   );
 }
+
+const gateLanguage = Object.freeze({
+  integrity: {
+    label: "Artifact integrity",
+    class: "local-fixture",
+    meaning: "The retained synthetic artifact bytes reproduce under the registered local validators.",
+    ceiling: "This does not authenticate a publisher or make a claim true.",
+  },
+  scope: {
+    label: "Scope bindings",
+    class: "local-fixture",
+    meaning: "Declared synthetic native scopes resolve through the retained registered mappings.",
+    ceiling: "Mapping truth and real-world applicability are not assessed.",
+  },
+  history: {
+    label: "Registered history",
+    class: "local-fixture",
+    meaning: "The retained synthetic definition and evidence histories reproduce locally.",
+    ceiling: "This cannot show that omitted conditions or external events do not exist.",
+  },
+  truth: {
+    label: "Empirical truth",
+    class: "real-world",
+    meaning: "The registered condition has not been established as empirically true.",
+    ceiling: "Synthetic observations cannot open this gate.",
+  },
+  freshness: {
+    label: "Trusted freshness",
+    class: "real-world",
+    meaning: "No trusted evaluation clock establishes currentness.",
+    ceiling: "A caller-supplied timestamp cannot open this gate.",
+  },
+  evidence: {
+    label: "Evidence-reference consistency",
+    class: "local-fixture",
+    meaning: "Condition and signal identifiers are joined across the synthetic fixture.",
+    ceiling: "This does not show that source evidence bytes were acquired, authentic, representative or true.",
+  },
+  forecast: {
+    label: "Forecast-reference consistency",
+    class: "local-fixture",
+    meaning: "The synthetic forecast target and issue-time basis resolve to retained fixture records.",
+    ceiling: "One synthetic forecast does not establish predictive skill.",
+  },
+  preparation: {
+    label: "Preparation-reference consistency",
+    class: "local-fixture",
+    meaning: "The synthetic proposal, IF trigger, controls and receipt resolve to retained fixture records.",
+    ceiling: "This does not prove capacity, consent, benefit or authority.",
+  },
+  authority: {
+    label: "Real authority",
+    class: "real-world",
+    meaning: "No actor or decision authority has been authenticated.",
+    ceiling: "No action is authorised.",
+  },
+  publication: {
+    label: "Publication approval",
+    class: "real-world",
+    meaning: "Approval for public release remains closed.",
+    ceiling: "This interface remains a research draft.",
+  },
+});
 
 export function buildObservatoryModel(root = resolve(__dirname, "../..")) {
   const bundle = readJson(root, bundlePath);
@@ -95,11 +208,19 @@ export function buildObservatoryModel(root = resolve(__dirname, "../..")) {
     `possible-path edge for ${conditionId}`,
   );
   const stateOrder = ["true", "false", "unknown", "stale", "conflicted"];
+  const publicStateLabels = {
+    true: "Registered rule passed",
+    false: "Registered rule did not pass",
+    unknown: "No eligible evidence",
+    stale: "Evidence out of date",
+    conflicted: "Sources conflict",
+  };
   const states = stateOrder.map((id) => {
     const branch = edge.branches[`if_${id}`];
     invariant(branch, `Missing ${id} branch`);
     return {
       id,
+      publicLabel: publicStateLabels[id],
       current: receipt.computed_rule_state.state === id,
       action: branch.action,
       recovery: branch.recovery,
@@ -118,11 +239,18 @@ export function buildObservatoryModel(root = resolve(__dirname, "../..")) {
   const currentState = receipt.computed_rule_state.state;
   const source = exactlyOne(registry.sources, "registered signal source");
   const pathRoles = Object.fromEntries(path.signal_portfolio.roles.map((role) => [role.role, role]));
+  const validationContext = buildValidationContext(sourceRoot);
 
   return {
     meta: {
       title: "The Transition Observatory",
       round: "Round 04",
+      status: {
+        programmeIteration: "06",
+        dataFixture: "04, synthetic",
+        interfaceStudy: "05",
+        publicRelease: "none",
+      },
       classification: bundle.classification,
       asOf: bundle.as_of,
       sourceBundleId: bundle.bundle_id,
@@ -130,6 +258,30 @@ export function buildObservatoryModel(root = resolve(__dirname, "../..")) {
       evaluationClock: bundle.evaluation_clock,
       bundleCoherent: assessment.bundle_coherent,
     },
+    validationContext,
+    programmeGates: Object.entries(assessment.gates).map(([id, passed]) => {
+      const language = gateLanguage[id];
+      invariant(language, `Missing public language for programme gate ${id}`);
+      return {
+        id,
+        ...language,
+        state: passed
+          ? language.class === "local-fixture" ? "local-check-reproduced" : "established"
+          : "closed",
+        source: {
+          gateId: id,
+          path: bundlePath,
+          sha256: sha256(root, bundlePath),
+          assessmentOutputPath: `gates.${id}`,
+          assessor: {
+            path: assessorPath,
+            sha256: sha256(sourceRoot, assessorPath),
+            scope: "entrypoint-in-conservative-validation-context",
+          },
+          validationContextManifestSha256: validationContext.manifestSha256,
+        },
+      };
+    }),
     condition: {
       id: condition.condition_definition_ref.condition_id,
       definition: condition.condition_definition_ref,

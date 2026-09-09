@@ -3,6 +3,12 @@ window.OBSERVATORY_DATA = {
   "meta": {
     "title": "The Transition Observatory",
     "round": "Round 04",
+    "status": {
+      "programmeIteration": "06",
+      "dataFixture": "04, synthetic",
+      "interfaceStudy": "05",
+      "publicRelease": "none"
+    },
     "classification": "research-draft",
     "asOf": "2026-09-09T00:00:00Z",
     "sourceBundleId": "bundle.round-04.worker-option.pre-projection",
@@ -14,6 +20,836 @@ window.OBSERVATORY_DATA = {
     },
     "bundleCoherent": true
   },
+  "validationContext": {
+    "profile": "conservative-local-validation-context-v1",
+    "roots": [
+      "package.json",
+      "package-lock.json",
+      "integration/transition-bundle",
+      "contracts/agency-map",
+      "contracts/executable-if",
+      "contracts/evolution",
+      "paths",
+      "signals",
+      "preparation",
+      "forecasts",
+      "dashboard/schema",
+      "dashboard/tools",
+      "dashboard/observatory/build.mjs",
+      "dashboard/observatory/app.js",
+      "dashboard/observatory/index.html",
+      "dashboard/observatory/styles.css"
+    ],
+    "files": [
+      {
+        "path": "contracts/agency-map/fixtures/australian-clerical-agency.synthetic.json",
+        "sha256": "sha256:b1b088e9d09c14467ccc3baf23faa4de61eec621d93af33acc354a935121a322"
+      },
+      {
+        "path": "contracts/agency-map/fixtures/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:74b1901e50d79fbe4288b90be45c20b0e1bb22b264885bc5b3d60575086bd439"
+      },
+      {
+        "path": "contracts/agency-map/README.md",
+        "sha256": "sha256:9c82ea34e70a30acadc589a5ed437ff8bc618835ae9f6628e5899bb71703b1db"
+      },
+      {
+        "path": "contracts/agency-map/schema/condition-agency-map.schema.json",
+        "sha256": "sha256:da6289e410e43bbfdb27610c5ba100f4ebb73775ee4e4148866d29ecaa66736a"
+      },
+      {
+        "path": "contracts/agency-map/tests/condition-agency-map.test.mjs",
+        "sha256": "sha256:7d96d4896cdf827213400ea988a6d92761dad0cf85f3b201d5ce96958f198c3e"
+      },
+      {
+        "path": "contracts/agency-map/tools/build-round-04-fixture.mjs",
+        "sha256": "sha256:2c02264f941a81533787c77f3db890516d10053e0d15069be789b7ebca103488"
+      },
+      {
+        "path": "contracts/agency-map/tools/refresh-fixture.mjs",
+        "sha256": "sha256:5a2979e9269a74400c2bc04aafa91354752023b0eeae6283bae08ce1e203841f"
+      },
+      {
+        "path": "contracts/agency-map/validate.mjs",
+        "sha256": "sha256:2c8600e3402b16312776ba9ffeb638977423fa379ac3f231ed98782496564803"
+      },
+      {
+        "path": "contracts/evolution/canonicalisation-vectors.json",
+        "sha256": "sha256:910e0c69703eb4aedaeca211ab7ae2d877dbf60adf4717ce7740426a5f738420"
+      },
+      {
+        "path": "contracts/evolution/fixtures/build-fixtures.mjs",
+        "sha256": "sha256:b086fc3474468a5e29b8b17ba1616948dd241241251e0f8782b1d91f35b232bf"
+      },
+      {
+        "path": "contracts/evolution/fixtures/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:5465cf4e2844af6af0fbc745b70b2bb884849fd04245215efc6122c139549377"
+      },
+      {
+        "path": "contracts/evolution/fixtures/valid/all-operations.json",
+        "sha256": "sha256:1c1ff91e2bdf5f4fbe5f2797d7654e39c141e26f0e4fa436db1e0e6df6a6c8f7"
+      },
+      {
+        "path": "contracts/evolution/fixtures/valid/cropped-history.json",
+        "sha256": "sha256:315ef898fb86c743caf01c8aaf3862e8ebc64e03eaf9f6f29f98083f871b577b"
+      },
+      {
+        "path": "contracts/evolution/project-executable-if.mjs",
+        "sha256": "sha256:a52540124ce3858bd236dd30bb4ef2ebb85a6f6079fdb64a06fd52e58b99d418"
+      },
+      {
+        "path": "contracts/evolution/README.md",
+        "sha256": "sha256:0bf1897b2141178d9e653334c9142bad45a970f1b1391bc8fad13ad915de5fbf"
+      },
+      {
+        "path": "contracts/evolution/schema/condition-evolution-ledger.schema.json",
+        "sha256": "sha256:b7002f8dc2b5290d3188dfe3084439ac4d4a24c56d787f515f0d42f65ce3a0e8"
+      },
+      {
+        "path": "contracts/evolution/schema/executable-if-evolution.schema.json",
+        "sha256": "sha256:85b76e63d83ec5b730c85cd00bffbeab2a6d2f85edde2b22c409e9464d80f51b"
+      },
+      {
+        "path": "contracts/evolution/tests/condition-evolution.test.mjs",
+        "sha256": "sha256:c1def18bc953cd89b594f5ea156315274af0b81f66bc75786b68931f2418e54b"
+      },
+      {
+        "path": "contracts/evolution/tools/build-executable-if-overlay.mjs",
+        "sha256": "sha256:d56944aa94231d7c98b8ea18a784938cba6ddb3733341485889d4c5549d169ca"
+      },
+      {
+        "path": "contracts/evolution/validate.mjs",
+        "sha256": "sha256:b03def81601acb9b9b4ea04ccd9c26e920b36fa11236b3d777a432dfc67e4371"
+      },
+      {
+        "path": "contracts/executable-if/conformance-vectors.json",
+        "sha256": "sha256:d14311d03f7509a1c383c3d1350f24308c757f12787acbd2cf0b99ed8c361fb0"
+      },
+      {
+        "path": "contracts/executable-if/evaluator-semantics.json",
+        "sha256": "sha256:19bc777c1cf6b7dc0b86b79a5b6a8fab7882faa9bab55e17aacc3946ddadf387"
+      },
+      {
+        "path": "contracts/executable-if/fixtures/kernel.synthetic.json",
+        "sha256": "sha256:89da70e67ea7acab1256a6022528b9ad086b94a4eddfd56954feb4f22870778b"
+      },
+      {
+        "path": "contracts/executable-if/README.md",
+        "sha256": "sha256:5028e72ee6dfa14c3fd09a0acd4f6412894a2e595d438b05dc22a04d5df5aae1"
+      },
+      {
+        "path": "contracts/executable-if/schema/executable-if-kernel.schema.json",
+        "sha256": "sha256:8da1eeac594cc659cc312868978e828cd961688b1f3fd248d762d0679e9b464c"
+      },
+      {
+        "path": "contracts/executable-if/tests/executable-if.test.mjs",
+        "sha256": "sha256:9fb1c1b6fa79df858bc031c0e55711b0bc0254996a38863a93c0681e22793f34"
+      },
+      {
+        "path": "contracts/executable-if/tools/build-synthetic-fixture.mjs",
+        "sha256": "sha256:fc2fbe449770616eb6b4bd43fbe1a2fc57be69222fdffba2b5b12ec86ab787a2"
+      },
+      {
+        "path": "contracts/executable-if/validate.mjs",
+        "sha256": "sha256:ded5129f2de92ff4850f5d73356387e84bb3abfd5bfe00b2b6d16ae4099db47d"
+      },
+      {
+        "path": "dashboard/observatory/app.js",
+        "sha256": "sha256:498def98886157a4400758776d5c68e9a057d90ccbb0d00681df37a141014275"
+      },
+      {
+        "path": "dashboard/observatory/build.mjs",
+        "sha256": "sha256:3f6bdbf3bf49de7bbf51a49cdf6b7661f44e753614e38a1e8863a5603394bb7b"
+      },
+      {
+        "path": "dashboard/observatory/index.html",
+        "sha256": "sha256:51e45c03d4e98ff6efd71ae6d006487bb0270300a567863b29454165918f1252"
+      },
+      {
+        "path": "dashboard/observatory/styles.css",
+        "sha256": "sha256:6fc612b327c00b36f8eccc3f5e8899eb8fc5ab2191bfc2d53802254edfc5332a"
+      },
+      {
+        "path": "dashboard/schema/archive/snapshot-1.5.schema.json",
+        "sha256": "sha256:c0eca0461b2302771652aed8b466ed2c32dacef351b9dd51c93284a24d235227"
+      },
+      {
+        "path": "dashboard/schema/archive/snapshot-1.8.schema.json",
+        "sha256": "sha256:039e38fafc32f719093be175e5fbdd40f7c40ee60338fbfda640fcf5be50b2b0"
+      },
+      {
+        "path": "dashboard/schema/archive/snapshot-2.0.schema.json",
+        "sha256": "sha256:25701b8bd97a97b1ccee6ff7ba5991497a53ee6884e54c1b62d1ef09e2c7ea63"
+      },
+      {
+        "path": "dashboard/schema/executable-if-view.schema.json",
+        "sha256": "sha256:d5ce03964e232b5ab85f3bade3025a501bfca11a3c5f95a0cf1fe5780b2f8979"
+      },
+      {
+        "path": "dashboard/schema/SCHEMA.md",
+        "sha256": "sha256:b4534b341c5082cef66cbcd2d351145abc24cb472c0b79807f8f257e689c2039"
+      },
+      {
+        "path": "dashboard/schema/snapshot-index.schema.json",
+        "sha256": "sha256:223c7d50628c8b1588ef33c8856be64921351c5be7015c9b1577f1e5b0063986"
+      },
+      {
+        "path": "dashboard/schema/snapshot-schema-registry.json",
+        "sha256": "sha256:f10198f3c4a5b8e077c089025e3ccf0131894f3efc354de7768ff9b40d29c988"
+      },
+      {
+        "path": "dashboard/schema/snapshot.schema.json",
+        "sha256": "sha256:dc40c5fdffd88202b5e49e62a0fc9135a8d163e198b449e3a7399f7895767bf1"
+      },
+      {
+        "path": "dashboard/schema/source-timing.schema.json",
+        "sha256": "sha256:1c12fc29751d5715708fb23124116f2730d1e394e0c2c2b175e3c28cf2d4ad31"
+      },
+      {
+        "path": "dashboard/schema/timing-assessment-set.schema.json",
+        "sha256": "sha256:7133be06e38f0ed65f03c830130894cdadf1c96dbf86f15189b3d3c3130bfaa8"
+      },
+      {
+        "path": "dashboard/tools/build-australia-pilot.mjs",
+        "sha256": "sha256:a341bf36fb8c07bbddff48f2088f87df8018c39027eb8be7b3a48993aa6e4087"
+      },
+      {
+        "path": "dashboard/tools/build-nero-baseline.mjs",
+        "sha256": "sha256:40f60ec2a3800442f02484464c38972086ead2fd6c13818af0a3d5c7fdea3cef"
+      },
+      {
+        "path": "dashboard/tools/build-round-04-executable-if-view.mjs",
+        "sha256": "sha256:b9dd8bec60cf575f25b1da962892611b48c1f72dd7a6a4766e9a1f794015414d"
+      },
+      {
+        "path": "dashboard/tools/build.mjs",
+        "sha256": "sha256:4198a7fb05832bf1a89e236c7d541472d97a45941b8016b4b906a2c263250e53"
+      },
+      {
+        "path": "dashboard/tools/fetch_snapshot.py",
+        "sha256": "sha256:a7ae1fb69f6419fee847a741a52a3ca1de3463a009e9a64d90b64647824ff147"
+      },
+      {
+        "path": "dashboard/tools/migrate-timing-contract.mjs",
+        "sha256": "sha256:924a7d6496e3c3396a8fa77598678365c94f6e8adb92058c7ddbfeb7bc81d5de"
+      },
+      {
+        "path": "dashboard/tools/transition-bundle-binding.mjs",
+        "sha256": "sha256:116c7ff1a80cfc33216b583e69d0c7ebded83a35bd6879021f0b0de661968fd3"
+      },
+      {
+        "path": "dashboard/tools/validate-executable-if-view.mjs",
+        "sha256": "sha256:6816049f093785fa194b15903314cf29d650badc2471805a99c7b2cecc881c2e"
+      },
+      {
+        "path": "forecasts/fixtures/binary.issued.json",
+        "sha256": "sha256:93b436e979886842cb322bfe1db8874872aa588cbc8da3cff22ba276c02a198b"
+      },
+      {
+        "path": "forecasts/fixtures/binary.resolved.json",
+        "sha256": "sha256:10fda16328afb5ff93c1ef6f98635118e500654cd32892f85cd4ec78c1ec4939"
+      },
+      {
+        "path": "forecasts/fixtures/decision-linked.issued.json",
+        "sha256": "sha256:fa7abb8baf38b81b43b83b0eae463bca7aeeb1ab24c83a97fc9da6d56cf83e07"
+      },
+      {
+        "path": "forecasts/fixtures/decision-linked.resolved.json",
+        "sha256": "sha256:4884eb2d6411f76ed7082c058e0b35e75002dd77616c9cd70cf9e93dc47eba4f"
+      },
+      {
+        "path": "forecasts/fixtures/evaluation-plan.example.json",
+        "sha256": "sha256:e3ee7ecf6e8542e112e5e44996868fa1a29141ac9d28bc44c73513d4bc7dbf30"
+      },
+      {
+        "path": "forecasts/fixtures/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:0e132cdd23c6c611ce32fa0ca74de9a2f93bcce155153f5626c4d88437c156e7"
+      },
+      {
+        "path": "forecasts/lib/evaluation.mjs",
+        "sha256": "sha256:dd65cec3c6f73aa2a1994e41848d3cd0afc9317e86f19b2cefb4bdafb4850975"
+      },
+      {
+        "path": "forecasts/lib/registry.mjs",
+        "sha256": "sha256:b67b4e598b14ef2ae5807df8f82b4a42446a19c6674228b38f19d30d285bf7a8"
+      },
+      {
+        "path": "forecasts/lib/resolution.mjs",
+        "sha256": "sha256:eeaf2eb48ca4bc16dc5b79a979f79cdeb11d9e30a8817f389d0d82d4c0b6e265"
+      },
+      {
+        "path": "forecasts/lib/scoring.mjs",
+        "sha256": "sha256:770c4b459a7e1e73fc4e7e9a25764c4d9facdf6db2cbd4a894f47a241ce0e044"
+      },
+      {
+        "path": "forecasts/prospective-pilot/examples/preregistration.template.json",
+        "sha256": "sha256:3603752a29aa0d30ecd57d79e0018735f2985bc5829faede279f8d612805ecb7"
+      },
+      {
+        "path": "forecasts/prospective-pilot/issuance-binding/README.md",
+        "sha256": "sha256:998b2018476b2b3ba30f565c1bdc3c5defe6b3c4f6a5533399c481a9af9f1b2b"
+      },
+      {
+        "path": "forecasts/prospective-pilot/issuance-binding/schema/baseline-calculation.schema.json",
+        "sha256": "sha256:d8d6743ffd1a3b80b578270af34a05759483092928257364c7064c417d653809"
+      },
+      {
+        "path": "forecasts/prospective-pilot/issuance-binding/schema/baseline-input-manifest.schema.json",
+        "sha256": "sha256:0a376ddabd165ebe849c6fdd762c54bcdbbcfed03a741e53bbafe1aa9e215c9f"
+      },
+      {
+        "path": "forecasts/prospective-pilot/issuance-binding/tests/issuance-binding.test.mjs",
+        "sha256": "sha256:8cdf55fbaac416ee9d60afaf60a9385aa4c420ce08055740c2c96b218350da1f"
+      },
+      {
+        "path": "forecasts/prospective-pilot/issuance-binding/validate.mjs",
+        "sha256": "sha256:ad4f4d9131542d3590be368af35e77791a7fbfb5708bed28dc967900057f31e4"
+      },
+      {
+        "path": "forecasts/prospective-pilot/README.md",
+        "sha256": "sha256:bd9ff7c405c9bbb0ee752226c91337291dd792009154945d19fc02f424194014"
+      },
+      {
+        "path": "forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json",
+        "sha256": "sha256:330d2316dc5cfe70d4e2ff933cb48be3cc31a4240292a3220c82e6b4e398605a"
+      },
+      {
+        "path": "forecasts/prospective-pilot/tests/protocol.test.mjs",
+        "sha256": "sha256:83c402edc6c58c5e7286e6453082dfa9b4ecf6d538dd23ab515524fd61c7eee7"
+      },
+      {
+        "path": "forecasts/prospective-pilot/validate.mjs",
+        "sha256": "sha256:9b2c523925bb0a33979cfafe1517098aefcbd31a65b55324edea7b9970e2789b"
+      },
+      {
+        "path": "forecasts/README.md",
+        "sha256": "sha256:36cac009131b81ea4c9a147af29f2b6b9bbecb8d68ba7075ee1a1b1fb360a4a6"
+      },
+      {
+        "path": "forecasts/schema/binary-forecast.schema.json",
+        "sha256": "sha256:b3dead84ca9fdde1c0f81c7fd5fbbb761f5b87b9457f50602069670a0701a67e"
+      },
+      {
+        "path": "forecasts/schema/evaluation-plan.schema.json",
+        "sha256": "sha256:8d03d88f9c0d7ea39a39d110bebbec87d1874b526370d9ba06bb50c82c5a497c"
+      },
+      {
+        "path": "forecasts/tests/forecast.test.mjs",
+        "sha256": "sha256:518de29fb9a6d38bdf0ef268961db230eec089fbb6f9066f1bf419c107ac9cb7"
+      },
+      {
+        "path": "forecasts/tests/hostile-hardening.test.mjs",
+        "sha256": "sha256:c959923d40b6c110ad93fe7365721dd9582853f1359525960350ee977bb7560b"
+      },
+      {
+        "path": "forecasts/tests/prospective-evaluation.test.mjs",
+        "sha256": "sha256:f7b7680f287fd1295151b1c607b9f9ab982c25835d396250490e65ac443ed5ce"
+      },
+      {
+        "path": "forecasts/tests/resolution-event-hardening.test.mjs",
+        "sha256": "sha256:b47dbc9f05bd9ca83b9582a5023925683f26600769e2cc517286517235ffd991"
+      },
+      {
+        "path": "forecasts/tests/round-04-exact-binding.test.mjs",
+        "sha256": "sha256:09820e8f16301e57c425876ab86bfa278adefaa6d847d172d229bc09886b5532"
+      },
+      {
+        "path": "forecasts/tools/build-round-04-fixture.mjs",
+        "sha256": "sha256:0ba47d5ca4a37532bde543554df9b4c17aef124fe1bafcad8c43e2837b1f5a77"
+      },
+      {
+        "path": "integration/transition-bundle/assess.mjs",
+        "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76"
+      },
+      {
+        "path": "integration/transition-bundle/condition-change-impact.mjs",
+        "sha256": "sha256:76c4e89f5bbb69a619092e8fcc5a92e2fd43b42acf555c6199ccb0769bb785fd"
+      },
+      {
+        "path": "integration/transition-bundle/fixtures/round-03.current.json",
+        "sha256": "sha256:96a2d0c9c54c26b5dba7380cc063f6151c70c53c7135948b6bdffffe2b528656"
+      },
+      {
+        "path": "integration/transition-bundle/fixtures/round-03.scope-manifest.json",
+        "sha256": "sha256:90449a1bae153ae85d47618340f7bd13853aebcbac3304ac84b48daf9f61b6e6"
+      },
+      {
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.complete.json",
+        "sha256": "sha256:4533372fb8b1b1e6e097bb1d09ca53c12984cd8881f7b8986f2d59ff95685aa3"
+      },
+      {
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225"
+      },
+      {
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.scope-manifest.json",
+        "sha256": "sha256:8e49d311626a8ba418c01f447bac235cff258da35ce62d3a9e5120ca100a37cc"
+      },
+      {
+        "path": "integration/transition-bundle/MIGRATION.md",
+        "sha256": "sha256:cd9a92b156957abff96f261c7c3fb3149c6a88bbf3d65b627f9bb500c8a8b512"
+      },
+      {
+        "path": "integration/transition-bundle/README.md",
+        "sha256": "sha256:5abd6979b16ffde30b3cd43e7d38131122160901eeece06418de1d19f398de77"
+      },
+      {
+        "path": "integration/transition-bundle/schema/scope-manifest.schema.json",
+        "sha256": "sha256:c2f6af2e27714d91ef738243ca9383c3d6abad003dd1d1e5df13e711844db72b"
+      },
+      {
+        "path": "integration/transition-bundle/schema/transition-bundle.schema.json",
+        "sha256": "sha256:580056c6176eaedcf7d25bde0add04f2c65979ae7c7257ad678db45662941771"
+      },
+      {
+        "path": "integration/transition-bundle/tests/coherent-round-04.test.mjs",
+        "sha256": "sha256:2d4969bd15a43d5eec74a1d275df2cadcd20ba640d22a1548919cbc3d2e7eca2"
+      },
+      {
+        "path": "integration/transition-bundle/tests/condition-change-impact.test.mjs",
+        "sha256": "sha256:95a7f856720d01b4856bad01006844a5a50ddb71fd37eb2a6a4326f026ee6dfa"
+      },
+      {
+        "path": "integration/transition-bundle/tests/pending/coherent-bundle.acceptance.mjs",
+        "sha256": "sha256:9c8feb76646a3dd59641bf16f4934f2e1ea10a75161611861d9ffb3dee6fb962"
+      },
+      {
+        "path": "integration/transition-bundle/tests/preparation-binding.test.mjs",
+        "sha256": "sha256:b4ad415b832f82791560395d577bd39a76b4271f3cb4be8c691e60eee0210413"
+      },
+      {
+        "path": "integration/transition-bundle/tests/round-04-complete-core.test.mjs",
+        "sha256": "sha256:511fd4afe887d9a573e94d37bd6d3ce368b8aee94b06997324367f1aad29f485"
+      },
+      {
+        "path": "integration/transition-bundle/tests/transition-bundle.test.mjs",
+        "sha256": "sha256:df2ba45c50c56aa2eba84e170662a1c03256873e373bf128fed3f68a90325935"
+      },
+      {
+        "path": "integration/transition-bundle/tools/assess.mjs",
+        "sha256": "sha256:e62139382fdf4be701a5f6a63f6cb189e9d675a69745ce102bd1c8126ba77d41"
+      },
+      {
+        "path": "integration/transition-bundle/tools/build-round-04-complete-core.mjs",
+        "sha256": "sha256:645e1a6b576924959819385b32f21a8be3679aaff44127a6a3bf797922394ad6"
+      },
+      {
+        "path": "integration/transition-bundle/tools/build-round-04-core.mjs",
+        "sha256": "sha256:f2e8a3fd54a10211ab39a0fa16a7cc52fce76ed8202e7d5cbcd63c42e248c61d"
+      },
+      {
+        "path": "integration/transition-bundle/tools/trace-condition-change-impact.mjs",
+        "sha256": "sha256:d1ade48f91b66222099d8cf3ba59d24c9ff5b05c75323b6b0ba958a8f96dbd6f"
+      },
+      {
+        "path": "package-lock.json",
+        "sha256": "sha256:24f052c139e6634d77229bfa73c71214f23c18cd429caec13d430949796138ff"
+      },
+      {
+        "path": "package.json",
+        "sha256": "sha256:e170fb9cae4cc3d1d09270836c476728cf4452c53912e9752f174a09655166a3"
+      },
+      {
+        "path": "paths/fixtures/australian-clerical-transition.synthetic.json",
+        "sha256": "sha256:d75f32fef703e0a20f25e6af47a0ba45e69906a9fdecf3c0b8da63ed8bb45530"
+      },
+      {
+        "path": "paths/fixtures/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:77fdc6a075fd0331630e55009716969852dc3624f1eda553c2eb02b3022bcd8a"
+      },
+      {
+        "path": "paths/README.md",
+        "sha256": "sha256:6faa72791cae86f773f69880c00081fab7338b2217e414b8ab7f3a53dad4d051"
+      },
+      {
+        "path": "paths/schema/possible-path.schema.json",
+        "sha256": "sha256:ff90c81d4f67bc922564c682c02b83e95546bfcd64f52c379e6b3e2b60928a5c"
+      },
+      {
+        "path": "paths/tests/possible-path.test.mjs",
+        "sha256": "sha256:9f242b4f9fa2d27ffedf31296ccc6308fbf6968a23c4c5db48525a8788e23750"
+      },
+      {
+        "path": "paths/tools/build-round-04-fixture.mjs",
+        "sha256": "sha256:56a80037397eb28e0801f5bb78c1630a7693b9cf878d97c02ba8330eeb0f6a1e"
+      },
+      {
+        "path": "paths/validate.mjs",
+        "sha256": "sha256:32c6fa4275a5dbdeca46a9d246812581a2c06d9b6b2aa71a3e963c71e76066d7"
+      },
+      {
+        "path": "preparation/fixtures/hostile/action-scope-drift.json",
+        "sha256": "sha256:8ac88f09093f47d71425911240dedf9967c4cdb625f75507cbf5c0dc7b9cd5a0"
+      },
+      {
+        "path": "preparation/fixtures/hostile/authority-reporting-hidden.json",
+        "sha256": "sha256:2e5a0b52cc90eadf3f5b1cf57517aa31b378de2d71eceb04fce6a20cfb66cb6a"
+      },
+      {
+        "path": "preparation/fixtures/hostile/cross-scale-command.json",
+        "sha256": "sha256:bf4751d8b8594180f16f3ce539c2dfe745c148a441521be410a4fc38add3e3e9"
+      },
+      {
+        "path": "preparation/fixtures/hostile/emergency-already-expired.json",
+        "sha256": "sha256:7af0ff3c7684aa6403011c1fe90a9144089f4e75831b01b4eba2b769ec96e8d2"
+      },
+      {
+        "path": "preparation/fixtures/hostile/emergency-funding-expires.json",
+        "sha256": "sha256:20d5a9d3d863608061dd353af1322c46d118854ee6aac75ac8fe068bf99c7b53"
+      },
+      {
+        "path": "preparation/fixtures/hostile/emergency-overrun.json",
+        "sha256": "sha256:1c5fd45c374c76630d26e444446f989ddc649b1a6842b837cf6576067097538d"
+      },
+      {
+        "path": "preparation/fixtures/hostile/emergency-resources-not-ready.json",
+        "sha256": "sha256:259364ba6c23eec926ecf79ef17c7752fba24abfd962ea3a198698e7751f014a"
+      },
+      {
+        "path": "preparation/fixtures/hostile/emergency-wrong-verb.json",
+        "sha256": "sha256:5ce1bfa11e345940fca5d4a42ab10ef3275179371052c4b9cac98e2fd061e5cc"
+      },
+      {
+        "path": "preparation/fixtures/hostile/evaluation-false.json",
+        "sha256": "sha256:6d9b1d57f6160ab1f84bfe2dcec29d6c409f1b2a8b94f52ed9f4f7473c7889dd"
+      },
+      {
+        "path": "preparation/fixtures/hostile/inaction-omitted.json",
+        "sha256": "sha256:71b7266647dbfd1e465fac3a2eb7c5ef1667e6a0d3ba101a98d22601657fb27d"
+      },
+      {
+        "path": "preparation/fixtures/hostile/independence-collapse.json",
+        "sha256": "sha256:b15866fe86b5d3d52eb0a9c9d7bb859652f6bf68a7fc24472b22b467e919451b"
+      },
+      {
+        "path": "preparation/fixtures/hostile/irreversible-authority-weak.json",
+        "sha256": "sha256:40587daedc34fbfa2fce41a5dc5440da1c3c78f6fa4d05e35cbbf69fad8fc627"
+      },
+      {
+        "path": "preparation/fixtures/hostile/irreversible-evidence-weak.json",
+        "sha256": "sha256:7b9e250840b09aa8a30f7649af9df9d264707c7c239ea9025ae504de8ac2ba74"
+      },
+      {
+        "path": "preparation/fixtures/hostile/irreversible-party-not-heard.json",
+        "sha256": "sha256:da2c69d331835a847ba33819a4879b34b81891cbb88f9c70368a7109329ff1c2"
+      },
+      {
+        "path": "preparation/fixtures/hostile/irreversible-party-omission.json",
+        "sha256": "sha256:5caea5c167ab175dd7845b11c55a0037287620505f9794366d87db3732d5e7a6"
+      },
+      {
+        "path": "preparation/fixtures/hostile/party-evidence-unresolved.json",
+        "sha256": "sha256:3f67c58850a5f391b6d5e0a7f1ef273d286beb8e8ba1168046447f0675a14143"
+      },
+      {
+        "path": "preparation/fixtures/hostile/recovery-unfunded.json",
+        "sha256": "sha256:36495f756d7c3e0d92441ce85ccaae6fbd6db48621638982e3d4cc183db87b0e"
+      },
+      {
+        "path": "preparation/fixtures/hostile/review-after-if-expiry.json",
+        "sha256": "sha256:ac5d8d688b5709e00341706df9aaeb8b88370f84a521adbefe3511c4fafd1086"
+      },
+      {
+        "path": "preparation/fixtures/hostile/stale-evaluation.json",
+        "sha256": "sha256:e6edeb2358d556b96b803be9caf657fda23dc12dbbd33a3c67140816a9993c44"
+      },
+      {
+        "path": "preparation/fixtures/hostile/tampered-expression.json",
+        "sha256": "sha256:607d8ba8fa19f3378fdafbd13197a59fca5fd6584ff827110cc4d5bacc6894bd"
+      },
+      {
+        "path": "preparation/fixtures/hostile/unresolved-evaluation.json",
+        "sha256": "sha256:792b19e2032365b05a16209ec0e23f4dc119d7d158b027298f164ec3ca778bb0"
+      },
+      {
+        "path": "preparation/fixtures/valid/round-03.register.json",
+        "sha256": "sha256:ce2d06db57bd36dd8d0131bc0d2051163d753b82d4a1073e36d002915bb53496"
+      },
+      {
+        "path": "preparation/fixtures/valid/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:925f03ffae576529d005b0eb661097f8bb732fd3bc657383866f3a5ce995f6ec"
+      },
+      {
+        "path": "preparation/lib/validate-v12.mjs",
+        "sha256": "sha256:937b68bff39f2a122cb3db45c1dcf7b5d0568d942a72aea3f7bbf094c621cb68"
+      },
+      {
+        "path": "preparation/lib/validate.mjs",
+        "sha256": "sha256:b040079fcaebe68239a56c0930f29a393c5fed73daa173b0313dfeb10ef6a896"
+      },
+      {
+        "path": "preparation/README.md",
+        "sha256": "sha256:7fd0867606bf1a780028c1beccb40f8a199847ce140dd628f81d83610b125df5"
+      },
+      {
+        "path": "preparation/schema/preparation-action-1.2.schema.json",
+        "sha256": "sha256:23430838d3ac3dcc8bb05f953998eaa646830246cb00a61519d38449245a4e4c"
+      },
+      {
+        "path": "preparation/schema/preparation-action.schema.json",
+        "sha256": "sha256:8499f2a995a7f22583f7a5e6ee54cd0ca5b32cd7093084bc2a12e2637a98ef0e"
+      },
+      {
+        "path": "preparation/schema/preparation-register-1.2.schema.json",
+        "sha256": "sha256:38eec628d6d728cf6984bd5437a60775ed50944e2593aaab239bf48e2450cf07"
+      },
+      {
+        "path": "preparation/schema/preparation-register.schema.json",
+        "sha256": "sha256:65f401a8263d1f0e65b707f221d4273572de0cc08448b2ada2cdf1407939e0e9"
+      },
+      {
+        "path": "preparation/tests/preparation.test.mjs",
+        "sha256": "sha256:77c55ac975ef6d8f076734f8a88c09f3acb1cdb94a561079fef7c6acb9046edb"
+      },
+      {
+        "path": "preparation/tests/round-03-human-adversarial.test.mjs",
+        "sha256": "sha256:d26c71aa0fe41a352e8eab3257f306ccc83d1b902c0de6ec9a3110ffd969cde6"
+      },
+      {
+        "path": "preparation/tests/round-04-executable-if.test.mjs",
+        "sha256": "sha256:8e528aaf03d5fbc43178584e6a85935b75cd985837fff0eecc7c93deb142d8c3"
+      },
+      {
+        "path": "preparation/tools/build-round-04-fixture.mjs",
+        "sha256": "sha256:7ed05cae2e3e6cc1c0a2cd90edd2438494ad3b0889717c188987db55d14f61f9"
+      },
+      {
+        "path": "preparation/tools/refresh-fixture-hashes.mjs",
+        "sha256": "sha256:fbde07c586a766eb25d1994b8b5f20dbd49b99c40bfa834c1ab5fa9f6b9599d9"
+      },
+      {
+        "path": "signals/fixtures/australia-feasibility.json",
+        "sha256": "sha256:203f8149cc345dcb2dec9d8f7dd97260eaded8465353954e7550528792910a54"
+      },
+      {
+        "path": "signals/fixtures/round-04.worker-option.synthetic.json",
+        "sha256": "sha256:448ce8cbf795c53b0d9cd492de15abf218143c1df177905e61b479e1ad7b4bbb"
+      },
+      {
+        "path": "signals/README.md",
+        "sha256": "sha256:23dff01ffdc3676721c3959e756a162e4cf4d8c25f05a2b998505a7e292d2d73"
+      },
+      {
+        "path": "signals/schema/signal-registry.schema.json",
+        "sha256": "sha256:5586bcdaeaa9b95a7727e071b2a43d85f223335d2eacb3b870f5fa30e4a3e599"
+      },
+      {
+        "path": "signals/tests/signal-registry.test.mjs",
+        "sha256": "sha256:0611d6a48fb0bba4bc07d9c4724c2c9233dc3c5c600a848e389b2b930de8162a"
+      },
+      {
+        "path": "signals/tools/build-round-04-fixture.mjs",
+        "sha256": "sha256:e2900984caa77941e30a23f29943847b8d097213b6e413e19083faedd12dc46f"
+      },
+      {
+        "path": "signals/validate.mjs",
+        "sha256": "sha256:cca581d919d04e3e470b150beac4cacfbdc289c0ab1e592d7902f2b446fb801a"
+      }
+    ],
+    "manifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+  },
+  "programmeGates": [
+    {
+      "id": "integrity",
+      "label": "Artifact integrity",
+      "class": "local-fixture",
+      "meaning": "The retained synthetic artifact bytes reproduce under the registered local validators.",
+      "ceiling": "This does not authenticate a publisher or make a claim true.",
+      "state": "local-check-reproduced",
+      "source": {
+        "gateId": "integrity",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.integrity",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "scope",
+      "label": "Scope bindings",
+      "class": "local-fixture",
+      "meaning": "Declared synthetic native scopes resolve through the retained registered mappings.",
+      "ceiling": "Mapping truth and real-world applicability are not assessed.",
+      "state": "local-check-reproduced",
+      "source": {
+        "gateId": "scope",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.scope",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "history",
+      "label": "Registered history",
+      "class": "local-fixture",
+      "meaning": "The retained synthetic definition and evidence histories reproduce locally.",
+      "ceiling": "This cannot show that omitted conditions or external events do not exist.",
+      "state": "local-check-reproduced",
+      "source": {
+        "gateId": "history",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.history",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "truth",
+      "label": "Empirical truth",
+      "class": "real-world",
+      "meaning": "The registered condition has not been established as empirically true.",
+      "ceiling": "Synthetic observations cannot open this gate.",
+      "state": "closed",
+      "source": {
+        "gateId": "truth",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.truth",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "freshness",
+      "label": "Trusted freshness",
+      "class": "real-world",
+      "meaning": "No trusted evaluation clock establishes currentness.",
+      "ceiling": "A caller-supplied timestamp cannot open this gate.",
+      "state": "closed",
+      "source": {
+        "gateId": "freshness",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.freshness",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "evidence",
+      "label": "Evidence-reference consistency",
+      "class": "local-fixture",
+      "meaning": "Condition and signal identifiers are joined across the synthetic fixture.",
+      "ceiling": "This does not show that source evidence bytes were acquired, authentic, representative or true.",
+      "state": "local-check-reproduced",
+      "source": {
+        "gateId": "evidence",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.evidence",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "forecast",
+      "label": "Forecast-reference consistency",
+      "class": "local-fixture",
+      "meaning": "The synthetic forecast target and issue-time basis resolve to retained fixture records.",
+      "ceiling": "One synthetic forecast does not establish predictive skill.",
+      "state": "local-check-reproduced",
+      "source": {
+        "gateId": "forecast",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.forecast",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "preparation",
+      "label": "Preparation-reference consistency",
+      "class": "local-fixture",
+      "meaning": "The synthetic proposal, IF trigger, controls and receipt resolve to retained fixture records.",
+      "ceiling": "This does not prove capacity, consent, benefit or authority.",
+      "state": "local-check-reproduced",
+      "source": {
+        "gateId": "preparation",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.preparation",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "authority",
+      "label": "Real authority",
+      "class": "real-world",
+      "meaning": "No actor or decision authority has been authenticated.",
+      "ceiling": "No action is authorised.",
+      "state": "closed",
+      "source": {
+        "gateId": "authority",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.authority",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    },
+    {
+      "id": "publication",
+      "label": "Publication approval",
+      "class": "real-world",
+      "meaning": "Approval for public release remains closed.",
+      "ceiling": "This interface remains a research draft.",
+      "state": "closed",
+      "source": {
+        "gateId": "publication",
+        "path": "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json",
+        "sha256": "sha256:d10caddf192c69068f1598f4290882a23094e1d5d3840fa0f48fe1a61cabd225",
+        "assessmentOutputPath": "gates.publication",
+        "assessor": {
+          "path": "integration/transition-bundle/assess.mjs",
+          "sha256": "sha256:0a23311a0059db52d088494b61f7e72f845d264f012dd3f74b27ba27d2fbcf76",
+          "scope": "entrypoint-in-conservative-validation-context"
+        },
+        "validationContextManifestSha256": "sha256:57fd52fe82eb029be9533b1883b4a9bdb1f0e9dc44ac6624a0831763527e5110"
+      }
+    }
+  ],
   "condition": {
     "id": "condition.worker-option.nsw",
     "definition": {
@@ -59,6 +895,7 @@ window.OBSERVATORY_DATA = {
   "states": [
     {
       "id": "true",
+      "publicLabel": "Registered rule passed",
       "current": true,
       "action": "human-decision-required",
       "recovery": "human-review",
@@ -67,6 +904,7 @@ window.OBSERVATORY_DATA = {
     },
     {
       "id": "false",
+      "publicLabel": "Registered rule did not pass",
       "current": false,
       "action": "block-edge-traversal",
       "recovery": "repair-or-alternate",
@@ -75,6 +913,7 @@ window.OBSERVATORY_DATA = {
     },
     {
       "id": "unknown",
+      "publicLabel": "No eligible evidence",
       "current": false,
       "action": "block-edge-traversal",
       "recovery": "acquire-missing-evidence",
@@ -83,6 +922,7 @@ window.OBSERVATORY_DATA = {
     },
     {
       "id": "stale",
+      "publicLabel": "Evidence out of date",
       "current": false,
       "action": "block-edge-traversal",
       "recovery": "refresh-and-re-evaluate",
@@ -91,6 +931,7 @@ window.OBSERVATORY_DATA = {
     },
     {
       "id": "conflicted",
+      "publicLabel": "Sources conflict",
       "current": false,
       "action": "block-edge-traversal",
       "recovery": "adjudicate-conflict",
@@ -504,6 +1345,7 @@ window.OBSERVATORY_DATA = {
     "nonTrueDecisionGates": [
       {
         "id": "false",
+        "publicLabel": "Registered rule did not pass",
         "current": false,
         "action": "block-edge-traversal",
         "recovery": "repair-or-alternate",
@@ -512,6 +1354,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "id": "unknown",
+        "publicLabel": "No eligible evidence",
         "current": false,
         "action": "block-edge-traversal",
         "recovery": "acquire-missing-evidence",
@@ -520,6 +1363,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "id": "stale",
+        "publicLabel": "Evidence out of date",
         "current": false,
         "action": "block-edge-traversal",
         "recovery": "refresh-and-re-evaluate",
@@ -528,6 +1372,7 @@ window.OBSERVATORY_DATA = {
       },
       {
         "id": "conflicted",
+        "publicLabel": "Sources conflict",
         "current": false,
         "action": "block-edge-traversal",
         "recovery": "adjudicate-conflict",

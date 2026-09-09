@@ -24,8 +24,11 @@ function digest(bytes) {
 function withFixtureRepository(run) {
   const root = mkdtempSync(join(tmpdir(), "mind-flow-observatory-"));
   try {
-    for (const directory of ["contracts", "forecasts", "integration", "paths", "preparation", "signals"]) {
+    for (const directory of ["contracts", "dashboard", "forecasts", "integration", "paths", "preparation", "signals"]) {
       cpSync(join(repoRoot, directory), join(root, directory), { recursive: true });
+    }
+    for (const file of ["package.json", "package-lock.json"]) {
+      cpSync(join(repoRoot, file), join(root, file));
     }
     return run(root);
   } finally {
@@ -65,6 +68,12 @@ test("projection keeps current evidence, forecast and authority separate", async
   assert.equal(model.authority.actionAuthorised, false);
   assert.equal(model.preparation.currentlyEligible, false);
   assert.equal(model.meta.bundleCoherent, true);
+  assert.deepEqual(model.meta.status, {
+    programmeIteration: "06",
+    dataFixture: "04, synthetic",
+    interfaceStudy: "05",
+    publicRelease: "none",
+  });
   assert.equal(model.condition.evaluationSource, "recomputed-from-executable-if-kernel");
   assert.equal(model.paths.crisisVerdictProduced, false);
 });
@@ -108,6 +117,16 @@ test("projection exposes the complete outcome grammar and five-state branch part
     model.states.map(({ id }) => id),
     ["true", "false", "unknown", "stale", "conflicted"],
   );
+  assert.deepEqual(
+    model.states.map(({ publicLabel }) => publicLabel),
+    [
+      "Registered rule passed",
+      "Registered rule did not pass",
+      "No eligible evidence",
+      "Evidence out of date",
+      "Sources conflict",
+    ],
+  );
   assert.equal(model.evolution.definition.changeCount, 5);
   assert.equal(model.evolution.evidence.eventCount, 11);
   assert.equal(model.paths.competitors.length, 2);
@@ -118,10 +137,92 @@ test("projection exposes the complete outcome grammar and five-state branch part
   assert.equal("crisisCrossings" in model.paths, false);
 });
 
+test("projection exposes every programme gate without collapsing readiness to a score", async () => {
+  const { buildObservatoryModel } = await import(join(observatoryRoot, "build.mjs"));
+  const model = buildObservatoryModel(repoRoot);
+
+  assert.deepEqual(
+    model.programmeGates.map(({ id }) => id),
+    [
+      "integrity",
+      "scope",
+      "history",
+      "truth",
+      "freshness",
+      "evidence",
+      "forecast",
+      "preparation",
+      "authority",
+      "publication",
+    ],
+  );
+  assert.deepEqual(
+    model.programmeGates
+      .filter(({ class: gateClass }) => gateClass === "real-world")
+      .map(({ id, state }) => [id, state]),
+    [
+      ["truth", "closed"],
+      ["freshness", "closed"],
+      ["authority", "closed"],
+      ["publication", "closed"],
+    ],
+  );
+  assert.deepEqual(
+    model.programmeGates
+      .filter(({ class: gateClass }) => gateClass === "local-fixture")
+      .map(({ id, state }) => [id, state]),
+    [
+      ["integrity", "local-check-reproduced"],
+      ["scope", "local-check-reproduced"],
+      ["history", "local-check-reproduced"],
+      ["evidence", "local-check-reproduced"],
+      ["forecast", "local-check-reproduced"],
+      ["preparation", "local-check-reproduced"],
+    ],
+  );
+  const evidence = model.programmeGates.find(({ id }) => id === "evidence");
+  assert.equal(evidence.label, "Evidence-reference consistency");
+  assert.match(evidence.meaning, /identifiers are joined across the synthetic fixture/i);
+  assert.match(evidence.ceiling, /does not show that source evidence bytes were acquired/i);
+  assert.equal("readinessScore" in model, false);
+  assert.ok(model.programmeGates.every(
+    ({ source }) => source.path ===
+      "integration/transition-bundle/fixtures/round-04.worker-option.pre-projection.json" &&
+      /^sha256:[a-f0-9]{64}$/.test(source.sha256) &&
+      source.assessmentOutputPath === `gates.${source.gateId}` &&
+      source.assessor.path === "integration/transition-bundle/assess.mjs" &&
+      /^sha256:[a-f0-9]{64}$/.test(source.assessor.sha256) &&
+      source.assessor.scope === "entrypoint-in-conservative-validation-context" &&
+      source.validationContextManifestSha256 === model.validationContext.manifestSha256,
+  ));
+  assert.equal(model.validationContext.profile, "conservative-local-validation-context-v1");
+  assert.match(model.validationContext.manifestSha256, /^sha256:[a-f0-9]{64}$/);
+  assert.ok(model.validationContext.files.some(
+    ({ path }) => path === "contracts/executable-if/validate.mjs",
+  ));
+  assert.ok(model.validationContext.files.some(
+    ({ path }) => path === "package-lock.json",
+  ));
+});
+
+test("validation-context digest changes with an imported validator dependency", async () => {
+  const { buildValidationContext } = await import(join(observatoryRoot, "build.mjs"));
+
+  withFixtureRepository((root) => {
+    const before = buildValidationContext(root);
+    const dependency = join(root, "paths/validate.mjs");
+    writeFileSync(dependency, `${readFileSync(dependency, "utf8")}\n`);
+    const after = buildValidationContext(root);
+
+    assert.notEqual(after.manifestSha256, before.manifestSha256);
+  });
+});
+
 test("static experience is accessible, responsive and dependency-free", () => {
   const html = readFileSync(join(observatoryRoot, "index.html"), "utf8");
   const css = readFileSync(join(observatoryRoot, "styles.css"), "utf8");
   const js = readFileSync(join(observatoryRoot, "app.js"), "utf8");
+  const readme = readFileSync(join(observatoryRoot, "README.md"), "utf8");
 
   assert.match(html, /<main id="main-content"/);
   assert.match(html, /role="alert"/);
@@ -134,13 +235,54 @@ test("static experience is accessible, responsive and dependency-free", () => {
   assert.doesNotMatch(js, /innerHTML\s*=/);
   assert.match(js, /ArrowLeft/);
   assert.match(js, /aria-labelledby/);
-  assert.match(js, /Hypothetical branch/);
+  assert.match(js, /Hypothetical software branch/);
   assert.doesNotMatch(html, /Crisis crossings|Real alternatives|living contract/i);
   assert.doesNotMatch(html, /Track what must remain true/i);
   assert.doesNotMatch(html, /Every surface has a source/i);
   assert.match(html, /candidate conditions/i);
-  assert.match(html, /Inspect the registered source chain/i);
+  assert.match(html, /Local file lineage, not source authentication/i);
   assert.match(html, /Non-true decision gates/);
+  assert.match(html, /What the local fixture checks\. What remains closed\./i);
+  assert.match(html, /clock is not trusted/i);
+  assert.match(html, /No real condition, warning, service, decision or authority exists/i);
+  assert.match(html, /id="local-gate-grid"/);
+  assert.match(html, /id="real-world-gate-grid"/);
+  assert.doesNotMatch(html + js, /readiness score/i);
+  assert.doesNotMatch(html + css + js, /structural pass/i);
+  assert.doesNotMatch(html, />Current IF evaluation</i);
+  assert.doesNotMatch(html, />Preparation review by</i);
+  assert.match(js, /programmeGates/);
+  assert.match(js, /source\.assessmentOutputPath/);
+  assert.match(js, /source\.assessor\.path/);
+  assert.match(js, /validationContextManifestSha256/);
+  assert.match(js, /INVENTED TEST VALUE/);
+  assert.match(html, /DEMONSTRATION ONLY/i);
+  assert.match(html, /All observations and the 62% forecast are invented test data/i);
+  assert.match(html, /None have reviewed the goal, threshold, labels or proposed response/i);
+  assert.match(html, /<title>The Transition Observatory · Programme iteration 06<\/title>/i);
+  assert.match(readme, /^# The Transition Observatory · Programme iteration 06/m);
+  assert.doesNotMatch(html + readme, /Transition Observatory · Round 04/i);
+  assert.match(html, /aria-label="Sample rule output, invented forecast and authority summary"/i);
+  assert.match(html, /0 of 4 real-world gates met/i);
+  assert.match(html, /6 local code checks passed on invented data/i);
+  assert.ok(
+    html.indexOf("real-world-gate-grid") < html.indexOf("local-gate-grid"),
+    "real-world blockers must precede local software checks",
+  );
+  assert.match(js, /SAMPLE RULE OUTPUT:/);
+  assert.match(js, /state\.publicLabel/);
+  assert.match(js, /INVENTED TEST VALUE:/);
+  assert.match(js, /There is no real warning, service, decision or authorised action/i);
+  assert.match(js, /Local code\/test validation context/i);
+  assert.doesNotMatch(js, /`Validation context · \$\{data\.validationContext\.files\.length\} files/);
+  assert.doesNotMatch(css, /\.candidate-path\s*\{[^}]*grid-row:\s*span\s+2/i);
+  assert.match(
+    css,
+    /@media\s*\(max-width:\s*1080px\)[\s\S]*?\.branch-display\s*\{[^}]*grid-template-columns:\s*120px\s+minmax\(0,\s*1fr\)/i,
+  );
+  assert.doesNotMatch(html, /Five states\. Five responses\./i);
+  assert.doesNotMatch(html, /Prepare without pretending to decide/i);
+  assert.doesNotMatch(html, /Inspect the registered source chain/i);
 
   const dim = css.match(/--dim:\s*(#[a-f\d]{6})/i)[1];
   assert.ok(contrastRatio(dim, "#08100e") >= 4.5, "dim text must meet WCAG AA contrast");

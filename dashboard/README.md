@@ -6,7 +6,8 @@
 
 The Observatory is a public reasoning surface for a difficult transition. It
 separates what was observed, who may be affected, what is inferred, which IF
-condition changed, what action is authorised, what would falsify the reading,
+condition changed, whether any authorised decision exists, who may act, what
+remains optional, how to challenge the record, what would falsify the reading,
 and when evidence will be checked again.
 
 It does not predict history, assign a single transition score, or confer policy
@@ -20,19 +21,23 @@ accountability.
 |---|---|---|
 | `web/index.html` | Global public reasoning prototype | Descriptive source series, one bounded derived comparison, explicit unknowns and an explicitly unbound typed possible-path boundary |
 | `../pilots/australia/web/index.html` | Australia evidence room using NERO | One occupation and one SA4 at a time, with modelled employment observations and all five AI-transition IFs left unknown |
-| `observatory/index.html` | **Transition Observatory, Round 04** | Interactive projection of the exact synthetic seven-artifact pre-projection core, with five-state branches, a separate forecast, reversible preparation and no authority |
+| `observatory/index.html` | **Transition Observatory, programme iteration 06 over the Round 04 synthetic fixture** | Interactive projection of the exact synthetic seven-artifact pre-projection core, with five-state branches, a separate forecast, reversible preparation and no authority |
 
 None of these surfaces is approved for public warning or operational action. The
 global snapshot schema accepts only `none` and `proposed` action states. It
 rejects operational state claims even when their metadata looks complete,
 because no trusted external authority-verification boundary exists yet.
 
-The Round 04 Observatory uses synthetic fixtures to test whether a complex
+The programme iteration 06 Observatory uses invented Round 04 fixture data to test whether a complex
 transition record can remain inspectable. Its mechanically computed `true`
 state is not an empirical finding. Its 62% forecast concerns a future event and
 is not a confidence score for the current IF. Its source bundle, forecast and
 preparation proposal are hash-bound, while truth, freshness, authority and
-publication remain closed.
+publication remain closed. Its gate horizon presents local fixture checks and
+real-world release gates in separate groups, with the four closed real-world
+gates first. Local reproduction is not a readiness score. The page leads with a
+dominant demonstration warning and states that the named NSW workers and
+households have not reviewed it.
 
 ## Architecture
 
@@ -174,8 +179,8 @@ unknown, so the registered decision is `no_decision`.
 | `tools/build.mjs` | Validates and embeds one global snapshot |
 | `tools/build-nero-baseline.mjs` | Reduces an official NERO archive without aggregating occupations or regions |
 | `tools/build-australia-pilot.mjs` | Validates and embeds the frozen Australian evidence room |
-| `observatory/build.mjs` | Builds the Round 04 static Observatory from its coherent pre-projection core |
-| `observatory/` | Generated Round 04 experience, local source projection and focused tests |
+| `observatory/build.mjs` | Builds the programme iteration 06 static Observatory from its coherent Round 04 pre-projection core |
+| `observatory/` | Generated programme iteration 06 experience, local source projection and focused tests |
 | `snapshots/` | Dated global snapshots and index |
 | `web/index.template.html` | Global page source |
 | `web/index.html` | Generated global page. Do not edit directly |
@@ -257,10 +262,17 @@ separate modelled series for five clerical occupations across 88 SA4 regions.
 Jobs and Skills Australia says occupation and region estimates must not be
 summed or combined, so the interface does neither.
 
-The Australia record is pinned as `research_draft_unverified` with
-`not_retained_unverified` source bytes. Its source/display metadata, chronology,
-release availability, latest value and 12/60-month comparisons are validated;
-the checksum is local capture metadata, not archive authentication.
+The historical Australia baseline remains pinned as
+`research_draft_unverified` with `not_retained_unverified` source bytes because
+that describes the state when it was created. A later capture now retains the
+exact 48,613,300-byte archive, official landing and licence pages, and response
+headers. Byte snapshots of a pinned in-process builder and archive reproduce
+the canonical numeric-and-identity projection of all 440 baseline series. The
+historical file is independently hash-pinned. This establishes local artifact
+integrity and bounded derivation only. It does not certify the historical
+metadata or prose, authenticate the publisher, establish classification
+versions or prospective chronology, validate modelled estimates as direct
+observations, or permit a warning.
 
 This archive cannot support a historical warning backtest. It has no
 as-published vintage panel, first-release revisions, uncertainty interval or

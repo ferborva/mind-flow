@@ -37,10 +37,15 @@
 
   text("#round-label", data.meta.round);
   text("#classification-label", data.meta.classification.replaceAll("-", " "));
-  const asOf = text("#as-of", `As of ${formatDate(data.meta.asOf)}`);
+  const asOf = text("#as-of", `Untrusted fixture clock · ${formatDate(data.meta.asOf)}`);
   asOf.dateTime = data.meta.asOf;
+  text("#programme-iteration", data.meta.status.programmeIteration);
+  text("#data-fixture", data.meta.status.dataFixture);
+  text("#interface-study", data.meta.status.interfaceStudy);
+  text("#public-release", data.meta.status.publicRelease);
+  const currentState = data.states.find(({ id }) => id === data.condition.currentState);
   $$('[data-current-state]').forEach((element) => {
-    element.textContent = `Mechanically computed: ${data.condition.currentState}`;
+    element.textContent = `SAMPLE RULE OUTPUT: ${currentState.publicLabel} (not a real-world finding)`;
     element.dataset.state = data.condition.currentState;
   });
   Object.entries(data.condition.grammar).forEach(([key, value]) => {
@@ -52,14 +57,41 @@
     `Synthetic fixture · ${data.condition.observationCount} hash-bound observations · empirical truth ${data.condition.empiricalTruthEstablished ? "established" : "not established"}`,
   );
   const percentage = Math.round(data.forecast.probability * 100);
-  text("#probability-number", `${percentage}%`);
+  text("#probability-number", `TEST ${percentage}%`);
   $("#probability-ring").style.setProperty("--probability", `${percentage * 3.6}deg`);
-  text("#forecast-short", `${percentage}% · resolves after ${formatDate(data.forecast.resolveAfter)}`);
+  text("#forecast-short", `INVENTED TEST VALUE: ${percentage}% (not an estimate)`);
   text("#authority-status", "No action authorised");
-  text("#authority-note", `Authority effect: ${data.authority.effect}. Human decision required.`);
+  text("#authority-note", "There is no real warning, service, decision or authorised action. Do not act on this page.");
   const nextCheck = text("#next-check-date", formatDate(data.preparation.reviewBy));
   nextCheck.dateTime = data.preparation.reviewBy;
   text("#next-check-note", "Proposal checkpoint only. Evidence must be re-evaluated before starting.");
+
+  data.programmeGates.forEach((gate) => {
+    const gateGrid = gate.class === "local-fixture"
+      ? $("#local-gate-grid")
+      : $("#real-world-gate-grid");
+    const card = node("article", "gate-card");
+    card.dataset.gateClass = gate.class;
+    card.dataset.gateState = gate.state;
+    const heading = node("h3", "", gate.label);
+    const state = node(
+      "span",
+      "gate-state",
+      gate.state === "local-check-reproduced" ? "Sample-file code check passed" : gate.state,
+    );
+    state.dataset.gateState = gate.state;
+    card.append(
+      node("p", "gate-class", gate.class),
+      heading,
+      state,
+      node("p", "gate-meaning", gate.meaning),
+      node("p", "gate-ceiling", gate.ceiling),
+      node("p", "gate-source", `Input · ${gate.source.path} · ${shortHash(gate.source.sha256)} · Output ${gate.source.assessmentOutputPath}`),
+      node("p", "gate-source", `Assessor · ${gate.source.assessor.path} · ${shortHash(gate.source.assessor.sha256)} · ${gate.source.assessor.scope}`),
+      node("p", "gate-source", `Local code/test validation context · ${data.validationContext.files.length} files · not evidence sources · ${shortHash(gate.source.validationContextManifestSha256)}`),
+    );
+    gateGrid.append(card);
+  });
 
   const stateSwitcher = $("#state-switcher");
   let selectedState = data.condition.currentState;
@@ -72,13 +104,13 @@
       button.tabIndex = selected ? 0 : -1;
     });
     $("#branch-display").dataset.state = stateId;
-    text("#branch-state", stateId);
+    text("#branch-state", state.publicLabel);
     text("#branch-recovery", state.recovery);
     text("#branch-action", state.action.replaceAll("-", " "));
     text("#branch-explanation", state.explanation);
     const scenarioLabel = stateId === data.condition.currentState
-      ? `Current receipt: ${data.condition.currentState}. Registered response.`
-      : `Hypothetical branch: ${stateId}. Current receipt remains ${data.condition.currentState}.`;
+      ? `Hypothetical software branch: ${state.publicLabel}. Not a forecast or instruction.`
+      : `Hypothetical software branch: ${state.publicLabel}. The sample output remains ${currentState.publicLabel}. Not a forecast or instruction.`;
     text("#scenario-flag", scenarioLabel);
     $("#branch-display").setAttribute("aria-label", scenarioLabel);
     if (focus) $("#branch-display").focus({ preventScroll: true });
@@ -88,7 +120,7 @@
     button.type = "button";
     button.dataset.state = state.id;
     button.setAttribute("aria-pressed", "false");
-    button.append(node("span", "state-dot"), node("b", "", state.id), node("small", "", state.recovery));
+    button.append(node("span", "state-dot"), node("b", "", state.publicLabel), node("small", "", state.recovery));
     button.addEventListener("click", () => renderBranch(state.id));
     button.addEventListener("keydown", (event) => {
       if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
