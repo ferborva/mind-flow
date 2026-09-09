@@ -24,8 +24,10 @@ const reconstruction = readFileSync(
 
 test("the originating write-up preserves Fernando's argument and its visible correction boundary", () => {
   assert.match(first, /originating argument and remains in review/i);
-  assert.match(first, /red team broke its corporate-discretion remedy/i);
-  assert.match(first, /preserves the original argument while.*correcting claims/is);
+  assert.match(first, /provenance and correction record/i);
+  assert.match(first, /much softer view on tax and the portfolio remedy/i);
+  assert.match(first, /enough.*line is parked/is);
+  assert.match(first, /GAP: Fer, does "the choice is theirs" survive as a diagnosis/i);
 });
 
 test("the evolved write-up uses the seven-part public update", () => {
@@ -40,7 +42,7 @@ test("the evolved write-up uses the seven-part public update", () => {
   ]) assert.match(second, new RegExp(question.replace("?", "\\?")));
   assert.doesNotMatch(second, /five questions every update/i);
   assert.match(second, /One claim in this debate can be stated so it could fail/i);
-  assert.match(second, /On the series most often cited, wages caught up after 1840/i);
+  assert.match(second, /earlier five-phase calendar has been retired/i);
   assert.doesNotMatch(second, /There is one falsifiable claim at the centre/i);
   assert.doesNotMatch(second, /Then it inverted|The catch-up was real/i);
   assert.match(second, /arithmetic does not select a\s+remedy/i);
@@ -48,13 +50,11 @@ test("the evolved write-up uses the seven-part public update", () => {
 });
 
 test("the short public argument keeps its healthcare example inside source ceilings", () => {
-  assert.match(short, /2026-09-09-healthcare-if-validation\.md/);
-  assert.match(short, /27\.1 million.*uninsured/is);
-  assert.match(short, /6%.*needed medical care.*cost/is);
-  assert.match(short, /102(?:-day| days).*61\.5%.*60 days/is);
-  assert.match(short, /81\.4%.*bulk billed/is);
-  assert.match(short, /partial reimbursement.*co-payment.*supplement/is);
-  assert.match(short, /composite.*not.*attributed anecdote/is);
+  assert.match(short, /92\.0%.*insurance.*some or all of 2024/is);
+  assert.match(short, /coverage measure cannot tell whether\s+a particular visit was affordable/i);
+  assert.match(short, /census\.gov\/library\/publications\/2025\/demo\/p60-288\.html/);
+  assert.match(short, /example is imagined/i);
+  assert.match(short, /Spain.*Belgium.*patient\s+contribution.*Australia.*gap/is);
   assert.doesNotMatch(short, /technology in all four countries is identical/i);
   assert.doesNotMatch(short, /diagnosis genuinely does go towards zero/i);
   assert.doesNotMatch(short, /cannot prescribe, refer or order a scan in almost any jurisdiction/i);
@@ -63,23 +63,22 @@ test("the short public argument keeps its healthcare example inside source ceili
 });
 
 test("the supply-side argument treats WHEN as actor-specific hypothesis, not destiny", () => {
-  assert.match(supply, /contracts\/agency-map\/README\.md/);
+  assert.match(supply, /meta\/abundance-transition-programme\.md/);
   assert.match(supply, /WHEN.*not a date.*forecast.*guarantee.*commitment/is);
-  assert.match(supply, /actionable IF.*one or more.*WHEN/is);
-  assert.match(supply, /no\s+universal sequence/i);
-  assert.match(supply, /control.*influence.*duty.*fund.*deliver.*affected/is);
-  assert.match(supply, /act.*prepare.*watch.*negotiate.*coordinate.*investigate.*cannot move/is);
+  assert.match(supply, /linked but non-identical/i);
+  assert.match(supply, /conditions can move concurrently.*unexpected order/is);
+  assert.match(supply, /funder.*service operator.*rule maker/is);
   assert.doesNotMatch(supply, /a sequence you are executing/i);
   assert.doesNotMatch(supply, /Every condition sitting on the consumer's side of it is a project sitting on somebody else's side/i);
   assert.doesNotMatch(supply, /What you can do about it \| mostly nothing, alone \| most of it, over time/i);
-  assert.match(supply, /Provider:\*{0,2}\s*We will be able to offer/i);
-  assert.match(supply, /working\s+sentence.*not a promise/is);
+  assert.match(supply, /Provider:\*{0,2}\s*We can offer/i);
+  assert.match(supply, /working frame/i);
   assert.doesNotMatch(short, /defeats every viable route/i);
-  assert.match(short, /registered routes.*current evidence/is);
+  assert.match(short, /available information\s+leaves the answer open/i);
 });
 
 test("scenario crossings do not predict or pathologise public response", () => {
-  assert.match(second, /incomplete, unscored scenario taxonomy/i);
+  assert.match(second, /incomplete, unscored scenario\s+taxonomy/i);
   assert.match(second, /Possible public responses, not predictions:/i);
   for (const rejected of [
     /\*\*Movements:/i,
