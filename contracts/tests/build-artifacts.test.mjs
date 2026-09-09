@@ -1,9 +1,36 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync, symlinkSync, rmSync } from "node:fs";
+import { mkdtempSync, writeFileSync, symlinkSync, rmSync, readFileSync, existsSync, unlinkSync, mkdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
 import test from "node:test";
 import { artifactDigests, reproduceArtifacts } from "../../meta/build-artifacts.mjs";
+
+test("pristine check reports the missing output and recovery without running a builder", () => {
+  const root = mkdtempSync(resolve(tmpdir(), "mind-flow-pristine-check-"));
+  try {
+    writeFileSync(resolve(root, "outputs.lock.json"), JSON.stringify({ version: 1, outputs: [] }));
+    writeFileSync(resolve(root, "builder.mjs"), 'import fs from "node:fs"; fs.writeFileSync("ran", "yes");');
+    assert.throws(() => reproduceArtifacts(root, {
+      mode: "check", commands: [["builder.mjs"]], paths: ["page.html"], lockPath: "outputs.lock.json",
+    }), error => error.code === "ARTIFACT_OUTPUT_MISSING" && error.path === "page.html" &&
+      /npm run build:artifacts/.test(error.message));
+    assert.equal(existsSync(resolve(root, "ran")), false);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("repository ignore rule covers both a dependency directory and dependency symlink", () => {
+  const root = mkdtempSync(resolve(tmpdir(), "mind-flow-ignore-rule-"));
+  try {
+    execFileSync("git", ["init", "--quiet", root]);
+    writeFileSync(resolve(root, ".gitignore"), readFileSync(new URL("../../.gitignore", import.meta.url)));
+    symlinkSync("nonexistent-dependencies", resolve(root, "node_modules"));
+    assert.equal(execFileSync("git", ["check-ignore", "node_modules"], { cwd: root, encoding: "utf8" }).trim(), "node_modules");
+    unlinkSync(resolve(root, "node_modules"));
+    mkdirSync(resolve(root, "node_modules"));
+    assert.equal(execFileSync("git", ["check-ignore", "node_modules/example/index.js"], { cwd: root, encoding: "utf8" }).trim(), "node_modules/example/index.js");
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
 
 test("artifact parity requires real retained output bytes, not missing files or symlinks", () => {
   const root = mkdtempSync(resolve(tmpdir(), "mind-flow-artifact-parity-"));

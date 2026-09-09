@@ -4,7 +4,7 @@ Thumbs.db
 *~
 .idea/
 .vscode/
-node_modules/
+node_modules
 
 # Reproduced locally and in CI; source templates stay tracked.
 /dashboard/web/index.html

@@ -13,7 +13,16 @@ export const GENERATED_OUTPUTS = Object.freeze([
 
 export function artifactDigests(root, paths = GENERATED_OUTPUTS) {
   return paths.map((path) => {
-    const target = resolve(root, path), stat = lstatSync(target);
+    const target = resolve(root, path);
+    let stat;
+    try { stat = lstatSync(target); }
+    catch (cause) {
+      if (cause.code !== "ENOENT") throw cause;
+      const error = new Error(`Generated artifact is missing: ${path}. Run npm run build:artifacts, then rerun --check against the retained lock.`, { cause });
+      error.code = "ARTIFACT_OUTPUT_MISSING";
+      error.path = path;
+      throw error;
+    }
     if (!stat.isFile() || stat.isSymbolicLink()) throw new Error(`Artifact must be a regular file: ${path}`);
     return { path, sha256: createHash("sha256").update(readFileSync(target)).digest("hex") };
   });
