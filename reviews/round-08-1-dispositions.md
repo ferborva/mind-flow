@@ -2,7 +2,7 @@
 id: round-08-1-dispositions
 title: Round 08.1 review dispositions
 type: review-register
-status: verification-in-progress
+status: ready-for-refreeze
 provenance: commissioned-proposal
 author: ren
 created: 2026-09-10
@@ -97,6 +97,12 @@ renamed population label is a subset. This repair does not silently expand that
 sealed contract. The new evidence rule is a research policy choice, not a fact
 deduced from a workbook footnote.
 
+The historical GP observation was already stale under r3, with zero eligible
+observations. The event therefore does not turn an empirically established
+historical result into an unknown one. A separate synthetic test isolates the
+policy change using one fresh artifact: minimum one permits assessment, while
+minimum two withholds it. Those test observations are not added to the records.
+
 The current consumer check invokes the separate threshold audit. Nine active
 predicates remain contextually flagged: eight out-of-envelope flags and four
 unassessed domain-provenance entries. It deliberately uses hash-bound historical
@@ -151,6 +157,12 @@ full run found one operator-README regression, which is repaired before the
 final rerun. The production build now runs current correction and consumer
 checks, so the unchanged Round 08 freeze policy exercises them through its
 existing build command. The original receipt is never overwritten.
+
+The subsequent full Node 22 rerun passed 931 tests across 18 invocations, with
+zero failures. Later focused edge-case tests and the exact frozen-candidate
+rerun are reported in the new receipt, which is authoritative for its own test
+count. `git diff --check`, frontmatter validation and retained output parity
+also passed before the seal. No passing run is substituted for a failed one.
 
 Browser and in-app preview were unavailable in this environment. Generated
 HTML content and bindings were tested; pixel-level visual QA and accessibility
