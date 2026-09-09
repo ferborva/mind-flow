@@ -21,6 +21,36 @@ script.
 
 ## Open
 
+### Round 08 moratorium exceptions and unresolved gates
+
+No moratorium exception was exercised. The numeric-domain, historical-period,
+baseline, resolver and build repairs extend existing mechanisms in response
+to measurements. The only new freeze policy is the Round 08 handoff expressly
+required by the commission.
+
+- [ ] **What is the intended denominator for the under-5% public boundary
+      rule?** One honest boundary already reaches 5% in a 20-sentence draft,
+      exceeds it in a short standalone card, and defines most of the linked
+      `boundaries.md`. The team preserved that information and reported the
+      universal gate unmet. A narrower scope or exception requires Fernando's
+      decision, not an editorial relabelling by agents.
+- [ ] **Which acquisition can identify a present binding condition?** The GP
+      basket has five retained permitted indicators, but annual state surveys,
+      workforce context, old national health literacy and eligibility rules
+      cannot identify today's bottleneck for a rural clerical worker. Specific
+      prescription, referral and after-hours pathways still lack complete
+      category coverage. Joint, current service-route evidence is needed before
+      a stronger diagnosis; collecting personal information or contacting
+      participants requires separate approval.
+- [ ] **Retained deferral: freeze hash domain separation.** Schema 2.0 review
+      remains due 2026-09-16. Round 08 does not claim to close it.
+- [ ] **Retained deferral: receipt authenticity.** Coherent fabricated command
+      output can still verify because the verifier does not rerun commands.
+      Independent CI execution mitigates this; consistency is not authenticity.
+- [ ] **Retained deferral: repository history weight.** The NERO archive is now
+      LFS-backed and uploaded. Earlier Git history still contains the large
+      object; no force push or history rewrite was authorised or performed.
+
 ### From the frame conversation, 2026-09-08
 
 The three at the top are the ones that block writing. The rest can wait.

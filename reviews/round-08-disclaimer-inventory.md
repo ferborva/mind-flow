@@ -59,8 +59,8 @@ before the phrase “every public document” can be considered closed.
 | `communications/templates.md` | 132 | 2 wrapper sentences, plus fictional-example status | Template library; each instantiated message is a separate public document |
 | `communications/transition-field-guide.md` | 180 | 1 wrapper | Direct public guide; wrapper rate 0.56%; substantive condition ceilings retained |
 | `README.md` | 39 | Original author-provenance passage | Repository public entry; imported first-person voice needs capture/history review, not reassignment to Ren |
-| `governance/public-charter.md` | 118 | Coordinator reviewing | Direct public charter proposal; root owns revision and final classification |
-| `meta/abundance-transition-programme.md` | 107 before later A additions | Local evidence and authority ceilings | Programme-method reference accessible to public; recount final central version |
+| `governance/public-charter.md` | 117 | 1 opening boundary | Coordinator consolidated proposal status; substantive governance prohibitions and release conditions remain, not counted as redundant wrapper disclaimers |
+| `meta/abundance-transition-programme.md` | 117 | Local evidence and authority ceilings | Recounted against the integrated G/S/A programme; no universal classification pass claimed |
 | `paths/README.md` | 79 | 5 opening sentences including synthetic status and truth ceiling | Technical path-contract reference, not a public scenario release |
 | `boundaries.md` | 24 | boundary reference | Concentrates necessary limitations by design; no passing percentage claimed |
 

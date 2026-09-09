@@ -2,7 +2,7 @@
 id: round-08-narrative-provenance
 title: Round 08 public narrative provenance
 type: internal-review
-status: in-progress
+status: review
 provenance: commissioned-proposal
 author: ren
 created: 2026-09-09
@@ -11,9 +11,31 @@ updated: 2026-09-09
 
 # Round 08 public narrative provenance
 
-Creator audit, awaiting a different reviewer's reproduction. Public drafts
+Creator audit and the different-owner review below. Public drafts
 remain `review`; Fernando publishes. The pipeline uses the existing captures
 and seeds rather than manufacturing new captures from agent writing.
+
+## Different-owner review, 2026-09-09
+
+The coordinator read all five revised drafts, the two complete stance captures,
+the category-adoption capture and the originating argument's relevant passages.
+One creator-approved paraphrase failed semantic review: “I keep coming back”
+claimed habitual cognition where the capture recorded one lateral thought.
+Commit `1e0502f` replaced it with neutral scaffolding and removed its audit row.
+The remaining 26 first-person sentences pass coverage and capture-snippet
+checks. Their claimed substance is supported by the reviewed captures; the
+quoted consultation grammar is illustrative, not a personal medical history.
+
+The first piece contains 135 lexically segmented sentences and approximately
+1,500 words, one general boundary, a sourced US example, two sentences of
+country contrast and an invitation. The other four draft counts are 76, 83,
+95 and 20. These checks support this bounded draft review, not a universal
+disclaimer pass or permission to publish. Statistical and service-specific
+evidence ceilings remain necessary local content. The correspondence wrapper
+is exactly 5% on this parser, and separate short messages have their own scope.
+
+This is different-agent review within the commissioned team, not Fernando's
+endorsement, public comprehension testing or independent human consultation.
 
 ## Piece one: Name the If
 
