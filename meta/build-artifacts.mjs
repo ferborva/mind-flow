@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { readFileSync, lstatSync } from "node:fs";
+import { readFileSync, writeFileSync, lstatSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -19,22 +19,35 @@ export function artifactDigests(root, paths = GENERATED_OUTPUTS) {
   });
 }
 
-const root = resolve(import.meta.dirname, "..");
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-const args = process.argv.slice(2);
-if (args.some((arg) => arg !== "--check") || args.length > 1) throw new Error("Usage: node meta/build-artifacts.mjs [--check]");
-const previous = args.includes("--check") ? artifactDigests(root) : null;
+function defaultCommands(root) {
 const index = JSON.parse(readFileSync(resolve(root, "dashboard/snapshots/index.json"), "utf8"));
 if (!/^\d{4}-\d{2}-\d{2}(?:\.r\d+)?$/.test(index.latest)) {
   throw new Error("The latest snapshot must have a dated record identity");
 }
-const commands = [
+return [
   ["dashboard/tools/build.mjs", `dashboard/snapshots/${index.latest}.json`, "dashboard/web/index.html"],
   ["pilots/australia/tools/correct-baseline-classification.mjs", "--check"],
   ["dashboard/tools/build-australia-pilot.mjs", "pilots/australia/data/nero-clerical-2026-08.r2.json", "pilots/australia/web/index.html"],
   ["dashboard/observatory/build.mjs"],
   ["experiments/observatory-comparison/render.mjs"],
 ];
+}
+
+export function reproduceArtifacts(root, {
+  mode = "build", commands = defaultCommands(root), paths = GENERATED_OUTPUTS,
+  lockPath = "meta/build-artifacts.lock.json",
+} = {}) {
+  if (!["build", "check", "write-lock"].includes(mode)) throw new Error("Unknown artifact operation");
+  const assertLock = () => {
+    const stat = lstatSync(resolve(root, lockPath));
+    if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("Retained artifact lock must be a regular file");
+    const lock = JSON.parse(readFileSync(resolve(root, lockPath), "utf8"));
+    const expected = { version: 1, outputs: artifactDigests(root, paths) };
+    if (JSON.stringify(lock) !== JSON.stringify(expected)) {
+      throw new Error("Generated output differs from the retained artifact lock; review the builder/input change before explicitly updating the lock");
+    }
+  };
+  if (mode === "check") assertLock();
 for (const argv of commands) {
   try {
     execFileSync(process.execPath, argv, { cwd: root, stdio: "inherit",
@@ -43,8 +56,17 @@ for (const argv of commands) {
     throw new Error(`Artifact build failed: ${argv[0]}`, { cause: error });
   }
 }
-const rebuilt = artifactDigests(root);
-if (previous && JSON.stringify(previous) !== JSON.stringify(rebuilt)) {
-  throw new Error("Generated artifacts differed from their deterministic rebuild");
+  if (mode === "write-lock") {
+    writeFileSync(resolve(root, lockPath), JSON.stringify({ version: 1, outputs: artifactDigests(root, paths) }, null, 2) + "\n");
+  } else if (mode === "check") assertLock();
 }
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const args = process.argv.slice(2);
+  if (args.some((arg) => !["--check", "--write-lock"].includes(arg)) || args.length > 1) {
+    throw new Error("Usage: node meta/build-artifacts.mjs [--check|--write-lock]");
+  }
+  reproduceArtifacts(resolve(import.meta.dirname, ".."), {
+    mode: args.includes("--check") ? "check" : args.includes("--write-lock") ? "write-lock" : "build",
+  });
 }
