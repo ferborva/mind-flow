@@ -15,10 +15,11 @@ import test from "node:test";
 
 import { assessTransitionBundle } from "../assess.mjs";
 import { computeEvidenceStateHash } from "../../../contracts/executable-if/validate.mjs";
+import { isolatedRepository } from "../../../contracts/tests/support/isolated-repository.mjs";
 import { computeExecutableIfEvolutionManifestHash } from
   "../../../contracts/evolution/project-executable-if.mjs";
 
-const root = resolve(import.meta.dirname, "../../..");
+const root = isolatedRepository(resolve(import.meta.dirname, "../../.."));
 const fixturePath = resolve(import.meta.dirname, "../fixtures/round-03.current.json");
 const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
 const bundleSchema = JSON.parse(readFileSync(
@@ -27,6 +28,10 @@ const bundleSchema = JSON.parse(readFileSync(
 ));
 
 const clone = (value) => structuredClone(value);
+
+test("mutable bundle artifacts live outside the working checkout", () => {
+  assert.notEqual(root, resolve(import.meta.dirname, "../../.."));
+});
 const sha256 = (bytes) => `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
 
 test("bundle coherence requires an evaluation no later than its as-of clock", () => {
