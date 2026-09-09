@@ -35,7 +35,7 @@ get a doctor's appointment, learn something useful or build the thing they
 have been putting off. The announcement and the question live at different
 levels.
 
-I keep coming back to the sentence underneath that shrug. It probably does
+A lateral thought: look at the sentence underneath that shrug. It probably does
 not look like “I will be able to do what matters to me if a new model moves
 further along the Pareto frontier.” It is closer to “I will be able to see a
 doctor if I can pay for the appointment and get there.”

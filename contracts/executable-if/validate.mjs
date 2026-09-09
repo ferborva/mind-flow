@@ -373,10 +373,14 @@ function signalRange(signal) {
   const inherent = signal.unit === "ratio" ? { minimum: 0, maximum: 1 }
     : signal.unit === "percent" ? { minimum: 0, maximum: 100 } : null;
   const range = signal.value_range || inherent;
-  if (!range || !Number.isFinite(range.minimum) || !Number.isFinite(range.maximum) ||
-      range.minimum >= range.maximum || (inherent &&
-      (range.minimum < inherent.minimum || range.maximum > inherent.maximum))) return null;
-  return range;
+  if (!range || (range.minimum === undefined && range.maximum === undefined) ||
+      (range.minimum !== undefined && !Number.isFinite(range.minimum)) ||
+      (range.maximum !== undefined && !Number.isFinite(range.maximum))) return null;
+  const minimum = range.minimum ?? inherent?.minimum ?? Number.NEGATIVE_INFINITY;
+  const maximum = range.maximum ?? inherent?.maximum ?? Number.POSITIVE_INFINITY;
+  if (minimum >= maximum || (inherent &&
+      (minimum < inherent.minimum || maximum > inherent.maximum))) return null;
+  return { minimum, maximum };
 }
 
 export function evaluateCondition(definition, signals, observations, { evaluatedAt }) {
@@ -584,7 +588,7 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
       const range = signalRange(signal);
       if (!range) {
         errors.push(error("SIGNAL_RANGE_INVALID", `${path}/predicates/${predicateId}/signal_ref`,
-          "numeric signals require an ordered finite range; ratio and percent have intrinsic bounds"));
+          "numeric signals require at least one finite declared domain bound; ratio and percent retain intrinsic bounds"));
         continue;
       }
       const { minimum, maximum } = range;
