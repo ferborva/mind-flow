@@ -5,8 +5,8 @@ import { deriveMeasurements, verifyCapture, digest } from './primary-care.mts';
 import { FIXED_EVALUATOR_REF, computeSignalDefinitionHash, computeConditionDefinitionHash, computeEventHash, computeManifestHash, computeObservationHash, computeEvidenceEventHash, validateExecutableIfKernel } from '../../../contracts/executable-if/validate.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
-const recordedAt = '2026-09-09T11:10:06Z';
-const normalisedAt = '2026-09-09T11:10:20Z';
+const recordedAt = '2026-09-09T11:19:09Z';
+const normalisedAt = '2026-09-09T11:19:23Z';
 const hashPlaceholder = 'sha256:' + '0'.repeat(64);
 const ref = (d: any) => ({ condition_id: d.condition_id, definition_version: d.definition_version, definition_hash: d.definition_hash });
 const state = (d: any, state_version: number, lifecycle = 'active') => ({ condition_id: d.condition_id, state_version, condition_definition_ref: ref(d), lifecycle });
@@ -83,7 +83,7 @@ export function buildBasket() {
     evidenceEvent.recorded_at = new Date(Date.parse(normalisedAt) + kernel.evidence_events.length * 1000).toISOString().replace('.000Z', 'Z');
     evidenceEvent.evidence_event_hash = computeEvidenceEventHash(evidenceEvent); kernel.evidence_events.push(evidenceEvent); kernel.current_evidence_state.push(evidenceState);
   }
-  kernel.kernel_id = 'kernel.au.primary-care.r2';
+  kernel.kernel_id = 'kernel.au.primary-care.r3';
   kernel.manifest_hash = computeManifestHash(kernel);
   const valid = validateExecutableIfKernel(kernel); if (!valid.machine_valid) throw new Error(JSON.stringify(valid.errors));
   const bind = (id: string) => { const d = definitions.find(d => d.definition_hash === current.get(id)?.condition_definition_ref.definition_hash); const s = measured.series.find(s => `signal.au.${s.id}` === d.predicates.measure.signal_ref.signal_id)!; return { condition_category: d.condition_category, condition_definition_ref: ref(d), series_id: s.id, owner: s.owner, population: s.population, measurement_role: s.measurement_role, evidence_ceiling: s.evidence_ceiling }; };
@@ -95,15 +95,15 @@ export function buildBasket() {
   ], evolution_ceiling: 'These are source-driven research definition changes recorded together during construction, not a fabricated historical operational deployment. Existing consumers bound to prior definitions become incompatible. No observations are backdated to predate registration.', empirical_execution_blocker: 'The current evaluator requires observation period start at or after definition effective_from. Retained2024-25 and2018 periods precede this new registration. No empirical observations inserted under false dates; unknown stays unknown.', threshold_rationale: 'Zero cost-related obstruction and universal timely coverage operationalise the example promise as contestable research thresholds. Zero GP FTE is a diagnostic failure sentinel for spatial context, not a target for adequate access; that contextual definition must not be read as a personal access predicate.', gates: measured.gates };
   basket.empirical_execution_blocker = 'Historical measured periods are accepted by the repaired existing evaluator. Freshness windows are unchanged; annual2024-25 and2018 inputs are stale. Context-only spatial strata and unmatched urgent telehealth observations remain absent. Rule parameters are not personal eligibility.';
   basket.threshold_rationale = 'Zero cost-related obstruction and universal timely coverage operationalise the example promise as contestable research thresholds. Positive GP FTE tests only whether any measured supply exists, not whether it is adequate. A zero-month relationship threshold tests absence of that rule parameter, not complete eligibility.';
-  basket.id = 'australia-primary-care.r2';
-  basket.kernel_path = 'pilots/australia/basket/primary-care.kernel.r2.json';
+  basket.id = 'australia-primary-care.r3';
+  basket.kernel_path = 'pilots/australia/basket/primary-care.kernel.r3.json';
   const specialist = basket.items.find(item => item.id === 'specialist-referral')!;
   specialist.missing_item_specific_categories = ['price', 'permission', 'proximity', 'availability', 'capability'];
   Object.assign(basket, {
     construction_revision: {
-      supersedes_path: 'pilots/australia/basket/primary-care.v1.json',
-      supersedes_sha256: digest(readFileSync(resolve(root, 'pilots/australia/basket/primary-care.v1.json'))),
-      reason: 'Independent review found arbitrary finite numeric maxima and a missing specialist item-specific price ceiling. Replace maxima with principled nonnegative one-sided domains and expose that missing category. Reconstruct this research kernel against the corrected evaluator; original artifacts and all source observations remain retained unchanged. This is not an operational condition-history continuation.',
+      supersedes_path: 'pilots/australia/basket/primary-care.r2.json',
+      supersedes_sha256: digest(readFileSync(resolve(root, 'pilots/australia/basket/primary-care.r2.json'))),
+      reason: 'Independent review found numeric observations were not checked against their declared domains. Reconstruct against the evaluator that now rejects out-of-domain observations, preserving the prior one-sided domain and specialist-price corrections. All earlier artifacts and source observations remain retained unchanged. This is not an operational condition-history continuation.',
       source_values_changed: false,
       historical_observation_periods_changed: false,
     },
@@ -114,5 +114,5 @@ export function buildBasket() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  try { const { kernel, basket } = buildBasket(); for (const [name, value] of [['primary-care.kernel.r2.json', kernel], ['primary-care.r2.json', basket]]) { const path = resolve(root, 'pilots/australia/basket', name as string); const bytes = JSON.stringify(value, null, 2) + '\n'; if (process.argv.includes('--check')) { if (readFileSync(path, 'utf8') !== bytes) throw new Error(`Basket drift: ${name}`); } else { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, bytes); } } console.log('Primary-care basket construction revision2 reproduced; original retained'); } catch (error) { console.error(error); process.exitCode = 1; }
+  try { const { kernel, basket } = buildBasket(); for (const [name, value] of [['primary-care.kernel.r3.json', kernel], ['primary-care.r3.json', basket]]) { const path = resolve(root, 'pilots/australia/basket', name as string); const bytes = JSON.stringify(value, null, 2) + '\n'; if (process.argv.includes('--check')) { if (readFileSync(path, 'utf8') !== bytes) throw new Error(`Basket drift: ${name}`); } else { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, bytes); } } console.log('Primary-care basket construction revision3 reproduced; prior revisions retained'); } catch (error) { console.error(error); process.exitCode = 1; }
 }

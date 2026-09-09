@@ -24,6 +24,8 @@ apply to every number below.
 
 Independent review prompted an explicit construction revision, `pilots/australia/basket/primary-care.r2.json`, with `primary-care.kernel.r2.json`. Original basket, kernel and dashboard snapshot bytes remain retained. Nonnegative months, monetary gaps and workforce intensity now have one-sided domains rather than unsupported finite maxima. Specialist pathway price is explicitly missing because the all-specialty mean is not that pathway's price. Coverage of one selected cell out of one is not survey representativeness. No source value or observation period changed.
 
+Current construction revision `primary-care.r3.json` and `primary-care.kernel.r3.json` additionally bind enforcement of observation domains in both evaluator paths. It preserves r2 bytes and values; its correction chain states the precise reason for the new evaluator binding.
+
 ## What the retained sources measure
 
 | Category | Measure and population | Current evidence ceiling |
