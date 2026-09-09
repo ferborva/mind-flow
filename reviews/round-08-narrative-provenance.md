@@ -91,14 +91,28 @@ public guides that this draft pass has not rewritten.
 
 ## Sentence change detection
 
-The rows below bind the reviewed first-person sentences to actual capture
-snippets. `meta/validate-draft-provenance.mjs` verifies coverage and that each
-support snippet remains in the named capture. It detects unreviewed changes,
-not fidelity of interpretation. The paragraphs above explain that fidelity
-claim for independent review. Imagined grammar examples are not biographies.
+The rows below bind first-person wording and sentences naming Fernando or Fer
+to a change-detection inventory. `validateDraftChangeCoverage` verifies matching
+wording and the continued presence of a snippet, not whether the snippet
+supports the sentence. The compatibility name `validateDraftProvenance` has
+the same limited meaning. A passing hash is never semantic provenance evidence.
+
+**The actual control is a different-owner read of the whole sentence against
+the whole capture and subsequent stance changes.** That reader can reject a
+creator's matching row, as happened with “I keep coming back”. Named third-person
+attributions now receive the same change alert. Name-only signatures and review
+wrappers are conservatively included but carry no opinion claim. Indirect
+pronouns and implied attributions still need the whole-document semantic read.
+These additions await the coordinator's semantic review; the earlier dated
+review above is a historical checkpoint, not approval of later edits.
 
 | Draft | Sentence SHA256 | Capture | Supporting verbatim snippet |
 | --- | --- | --- | --- |
+| drafts/from-if-to-when.md | a130f293239522983fb810bcfc1865e6b1a7959d6502b44129e565a6ca19635b | capture/2026-09-09-softer-on-tax-and-remedy.md | placed at the reframe and method level vs the solutioning |
+| drafts/from-if-to-when.md | 23543254b4df43aa761eb1807e3005f66d33da3edf184574737d3e41394cdf61 | capture/2026-09-09-softer-on-tax-and-remedy.md | placed at the reframe and method level vs the solutioning |
+| drafts/from-if-to-when.md | 5548b8e3aec178ecdb7adefaf84a2288b6ffef65f05662036e660b9f43130332 | capture/2026-09-08-abundance-frame-conversation.md | I don't think the sequencing is something that can actually be planned for to bring down conditions. That's something that's progressive and sometimes not forecasted or unintended. |
+| drafts/message-to-the-moonshot-mates.md | a401433c85a357c75110d73aaf3b275688799964d2749539910218c072808388 | capture/2026-09-08-abundance-frame-conversation.md | ultimately, I will send them a written piece. |
+| drafts/message-to-the-moonshot-mates.md | 7d5d41a54c213d0b7754c5a25bd4ad7ba641ede006e3a99079cb2d92adae0bdb | capture/2026-09-08-abundance-frame-conversation.md | participants: Fer, Claude |
 | drafts/abundance-has-an-if.md | f1af1d6bb3c10d4d397672410b9c0e94d3909988cf22ee3e77d698707fbd2900 | capture/2026-09-01-abundance-is-conditional.md | what I would like to explore |
 | drafts/abundance-has-an-if.md | b623414db5e23b65504df5d601cc0234c8868f6ef6de06e2d28704a112e17130 | capture/2026-09-01-abundance-is-conditional.md | I'm starting a new idea flow here after thinking a lot |
 | drafts/abundance-has-an-if.md | 011c83922dc929e4d65d9f76362ed451423481171cb37ccadc1b612b96f2a7f2 | capture/2026-09-01-abundance-is-conditional.md | extreme agency |
