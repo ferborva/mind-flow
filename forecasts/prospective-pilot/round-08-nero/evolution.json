@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0.0",
+  "ledger_id": "ledger.kernel.nero.5311.101.prospective.assessment-overlay",
+  "classification": "research-draft",
+  "generated_at": "2026-09-09T10:51:23Z",
+  "source_kernel_ref": {
+    "artifact_path": "forecasts/prospective-pilot/round-08-nero/kernel.json",
+    "artifact_sha256": "sha256:edc4fed9f801cffe7e4144ce58034a8887235e4e328c89dfa18ed57328a28567",
+    "kernel_id": "kernel.nero.5311.101.prospective",
+    "manifest_hash": "sha256:1d21b550873d6c20553b9b22272a665b0d973228f008434732867e8c1707d622",
+    "evaluator_ref": {
+      "id": "mind-flow.executable-if.evaluator",
+      "version": "1.1.0",
+      "digest": "sha256:810c79dd8a4dd1cf439f1606a1def8a62fe991610edbcf4f38ecdbe98922b565",
+      "schema_digest": "sha256:a878814c21ed8b106687143a0525d722b2ffe1a1e8bc29b0f5f05c4a6f1889a3",
+      "implementation_digest": "sha256:097e4256f707f6bd53914f10ff138572d2c0f2fed72bd29b7012638774801182",
+      "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+    }
+  },
+  "source_history_ref": {
+    "history_status": "complete-and-locally-validated",
+    "event_count": 1,
+    "tip_sequence": 1,
+    "tip_event_id": "event.nero.5311.101.stock.added",
+    "tip_event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35",
+    "operations": [
+      "added"
+    ],
+    "event_refs": [
+      {
+        "sequence": 1,
+        "event_id": "event.nero.5311.101.stock.added",
+        "operation": "added",
+        "event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35"
+      }
+    ],
+    "active_condition_definition_refs": [
+      {
+        "condition_id": "condition.nero.5311.101.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+      }
+    ],
+    "evidence_event_count": 1,
+    "evidence_tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
+    "evidence_tip_event_hash": "sha256:e7d6a84e0d1134c1ac9db21f36942f20249f357d886effad8fd5ccb97f3471cd",
+    "evidence_state_hash": "sha256:c954a38a84dd6689476d569eb7d1ccd33b518bce1d7e7e6044399febba3bc324"
+  },
+  "condition_projections": [
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.nero.5311.101.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 1,
+        "event_id": "event.nero.5311.101.stock.added",
+        "operation": "added",
+        "event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35"
+      },
+      "proposition": "The modelled employment stock is at least the frozen August 2026 count 4217; this is exposure context only.",
+      "claim": {
+        "who": "NERO occupation code 5311, General Clerks, resident in SA4 code 101, Capital Region",
+        "verb": "have",
+        "object": "modelled employment stock at or above 4217",
+        "standard": "bounded employment index x/(x+4217) is at least 0.5",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2026-08-01T00:00:00Z",
+          "ends_at": "2026-10-31T23:59:59Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "SA4 101: Capital Region"
+        ],
+        "cohorts": [
+          "ANZSCO4 5311: General Clerks"
+        ],
+        "services": [
+          "Modelled employment stock, exposure context only"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 1,
+        "tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
+        "tip_event_hash": "sha256:e7d6a84e0d1134c1ac9db21f36942f20249f357d886effad8fd5ccb97f3471cd",
+        "state_hash": "sha256:c954a38a84dd6689476d569eb7d1ccd33b518bce1d7e7e6044399febba3bc324"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    }
+  ],
+  "governance_events": [],
+  "current_state": {
+    "as_of_sequence": 1,
+    "as_of_event_id": "event.nero.5311.101.stock.added",
+    "as_of_event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35",
+    "evidence_state_hash": "sha256:c954a38a84dd6689476d569eb7d1ccd33b518bce1d7e7e6044399febba3bc324",
+    "conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.nero.5311.101.stock",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 1,
+          "event_id": "event.nero.5311.101.stock.added",
+          "operation": "added",
+          "event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35"
+        },
+        "proposition": "The modelled employment stock is at least the frozen August 2026 count 4217; this is exposure context only.",
+        "claim": {
+          "who": "NERO occupation code 5311, General Clerks, resident in SA4 code 101, Capital Region",
+          "verb": "have",
+          "object": "modelled employment stock at or above 4217",
+          "standard": "bounded employment index x/(x+4217) is at least 0.5",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-08-01T00:00:00Z",
+            "ends_at": "2026-10-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "SA4 101: Capital Region"
+          ],
+          "cohorts": [
+            "ANZSCO4 5311: General Clerks"
+          ],
+          "services": [
+            "Modelled employment stock, exposure context only"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 1,
+          "tip_event_id": "evidence-event.nero.5311.101.2026-08.added",
+          "tip_event_hash": "sha256:e7d6a84e0d1134c1ac9db21f36942f20249f357d886effad8fd5ccb97f3471cd",
+          "state_hash": "sha256:c954a38a84dd6689476d569eb7d1ccd33b518bce1d7e7e6044399febba3bc324"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      }
+    ]
+  },
+  "publication_anchor": {
+    "verification_status": "not-verified-by-external-checkpoint",
+    "checkpoint_uri": "https://mind-flow.org/checkpoints/unpublished/round-04",
+    "source_event_count": 1,
+    "tip_event_id": "event.nero.5311.101.stock.added",
+    "tip_event_hash": "sha256:5d9427b23a1c9b019c4881c1ffca193dde21705fda71557d378d31122568aa35"
+  },
+  "public_projection": {
+    "history": {
+      "status": "complete-source-bound",
+      "change_count": 1,
+      "operations": [
+        "added"
+      ],
+      "notice": "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment."
+    },
+    "active_conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.nero.5311.101.stock",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:764a155e24035922411f2ffeb802506c6525a6597c691e84cdb79f80df500974"
+        },
+        "proposition": "The modelled employment stock is at least the frozen August 2026 count 4217; this is exposure context only.",
+        "claim": {
+          "who": "NERO occupation code 5311, General Clerks, resident in SA4 code 101, Capital Region",
+          "verb": "have",
+          "object": "modelled employment stock at or above 4217",
+          "standard": "bounded employment index x/(x+4217) is at least 0.5",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-08-01T00:00:00Z",
+            "ends_at": "2026-10-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "SA4 101: Capital Region"
+          ],
+          "cohorts": [
+            "ANZSCO4 5311: General Clerks"
+          ],
+          "services": [
+            "Modelled employment stock, exposure context only"
+          ]
+        },
+        "assessment_status": "open"
+      }
+    ],
+    "boundaries": {
+      "mechanical_rule_state_is_empirical_truth": false,
+      "authority_granted": false,
+      "action_authorised": false
+    }
+  },
+  "manifest_hash": "sha256:9930a7066b4b1375502dec38234dc45201a33ab15145176c713989d54cf9ee40",
+  "contract_boundary": {
+    "definition_history_owner": "source-executable-if-kernel",
+    "history_validity_effect": "source-binding-and-integrity-only",
+    "condition_truth_effect": "none",
+    "authority_effect": "none",
+    "action_authorisation_effect": "none"
+  }
+}
