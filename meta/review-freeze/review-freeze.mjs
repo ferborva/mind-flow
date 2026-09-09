@@ -3,6 +3,8 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
+  accessSync,
+  constants,
   mkdtempSync,
   mkdirSync,
   lstatSync,
@@ -15,7 +17,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { arch, platform, release, tmpdir } from "node:os";
-import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
+import { delimiter, dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import Ajv2020 from "ajv/dist/2020.js";
@@ -356,13 +358,19 @@ function fileRecord(repositoryRoot, commit, required) {
   };
 }
 
-function executablePath(name) {
+export function executablePath(name) {
   if (name === "node") return realpathSync(process.execPath);
-  const located = spawnSync("which", [name], { encoding: "utf8" });
-  if (located.status !== 0 || !located.stdout.trim()) {
-    throw new Error(`${name} executable is unavailable`);
+  for (const directory of (process.env.PATH || "").split(delimiter)) {
+    if (!directory) continue;
+    const candidate = resolve(directory, name);
+    try {
+      accessSync(candidate, constants.X_OK);
+      return realpathSync(candidate);
+    } catch {
+      // Try the next fixed PATH entry.
+    }
   }
-  return realpathSync(located.stdout.trim());
+  throw new Error(`${name} executable is unavailable`);
 }
 
 function executableRecord(name, versionArgs, explicitPath) {

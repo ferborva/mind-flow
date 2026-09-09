@@ -6,6 +6,7 @@ import {
   readFileSync,
   realpathSync,
   rmSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -20,6 +21,7 @@ import {
   ROUND_06_REVIEW_POLICY,
   canonicalHash,
   createReviewFreeze,
+  executablePath,
   reviewPolicyFor,
   resolveReviewOutput,
   verifyReviewFreeze,
@@ -74,6 +76,20 @@ test("CLI output stays inside the repository and does not overwrite by default",
     assert.throws(() => resolveReviewOutput(root, "../outside.json"), /closed repository-relative/i);
     assert.throws(() => resolveReviewOutput(root, resolve(root, "outside.json")), /closed repository-relative/i);
   } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("executable discovery works inside the restricted toolchain without which", () => {
+  const root = mkdtempSync(resolve(tmpdir(), "mind-flow-toolchain-test-"));
+  const previousPath = process.env.PATH;
+  try {
+    const gitPath = command(repositoryRoot, ["which", "git"]);
+    symlinkSync(realpathSync(gitPath), resolve(root, "git"));
+    process.env.PATH = root;
+    assert.equal(executablePath("git"), realpathSync(gitPath));
+  } finally {
+    process.env.PATH = previousPath;
     rmSync(root, { recursive: true, force: true });
   }
 });
