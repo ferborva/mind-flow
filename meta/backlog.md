@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-01
+updated: 2026-09-08
 ---
 
 # Backlog
@@ -20,6 +20,95 @@ One question per turn when actually asking him. This list is the queue, not the
 script.
 
 ## Open
+
+### From the frame conversation, 2026-09-08
+
+The three at the top are the ones that block writing. The rest can wait.
+
+- [ ] **Does "the money accrues to companies, so the choice is theirs" survive
+      as a diagnosis?** The remedy and tax positions softened in
+      `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
+      contribution at the frame and method level, not the solution. He has not
+      said whether the enterprise-choice claim still describes the problem.
+- [ ] **Does the sequencing concession kill the dated phases?** He said the
+      order conditions fall in cannot be planned. `from-if-to-when` runs on five
+      named phases with dates to 2055. My read is that the phases survive as
+      scenarios and the dashboard does the diagnosis, but he said both things
+      twenty minutes apart and never noticed. **The single most consequential
+      open question in the repo.**
+- [x] **Are the five condition categories his?** Resolved 2026-09-08: "keep them
+      as mine now". Price, permission, proximity, availability, capability, with
+      discretion split out. They appear in his voice from here. Chain recorded
+      in `seeds/abundance-has-an-if.md`.
+- [x] **Piece one.** Drafted 2026-09-08 as `drafts/name-the-if.md`, round two as
+      `drafts/every-if-is-somebodys-when.md`, outreach as
+      `drafts/message-to-the-moonshot-mates.md`. Now needs his read.
+- [ ] **What Wissner-Gross actually said.** "Everything will be unlimited",
+      have anything, learn anything, live forever, brain into digital space,
+      within ten years. Quoted from memory. The whole reversal argument stands on
+      those being real claims, and it is the one place the piece can be attacked
+      on a fact rather than an opinion. Needs episode and date.
+- [ ] **The Diamandis anecdote needs a source.** "Dad, it's just another model,
+      so what." It is proposed as the opening line of piece one, so it cannot be
+      a paraphrase of a half-remembered episode.
+- [ ] **Belgium, Spain, Australia, and the US as the breaker.** He wants the
+      healthcare example centred on the US with two sentences of contrast. He
+      says himself he knows the feel of the three systems and not the mechanics.
+      Research note needed before any figure reaches a draft.
+- [ ] **Does the Atlassian example stay attributed?** His employer, its internal
+      compliance posture, in a public repo. His words and mild, but it is the
+      first time work has appeared here as evidence. Keep, anonymise to "a large
+      enterprise", or cut?
+- [ ] **Where does recursion stop?** The supplier's if has a supplier. One level
+      is a demonstration, three is a research programme. He did not say.
+- [ ] **Which conditions are measurable today?** He mapped the frame onto goal /
+      signal / metric and then did not answer which conditions can actually be
+      instrumented. That answer is what separates a working observatory from a
+      schema.
+- [ ] **Does the state get its own form of the sentence?** Consumers get an if,
+      enterprises get a when. He has consistently refused to make this about
+      governments, and the healthcare example he picked is publicly supplied in
+      three of the four countries.
+- [ ] **Is Seldon in or out?** He wants the crisis-forecasting layer and has been
+      told twice it reads as prophecy. He has not answered either time.
+- [ ] **The "so what" he never answered.** He asked whether any of this changes
+      anything, called the answer a sermon, and moved on. Worth asking once,
+      properly, because it decides how much of this is for him and how much is
+      for them.
+
+### From the benchmark shrug, 2026-09-08
+
+- [ ] **Which measurements are worth announcing?** One step past his own point.
+      If a benchmark gain is a condition moving in a space nobody's life
+      sentence is written in, then the interesting question is which numbers
+      *would* land, and whether the industry could report those instead. It
+      would go down hard and well with that audience. His to make or drop.
+- [ ] **Does he want the reverse case in?** Some announcements really do move a
+      condition and still get shrugged at, because the person had no sentence
+      either way. That makes the frame prescriptive, not just diagnostic: go and
+      write your sentence first. Currently implied in the draft, not stated.
+
+### From the three drafts, 2026-09-08
+
+- [ ] **The podcast transcripts.** He is pulling down transcripts from multiple
+      episodes so the frame can be run against their actual words. The pass,
+      when they land: run the method on promises they make verbatim, find one
+      discussion the frame would have unstuck, find one place it clashes with
+      what they argue, and mine the affectionate specifics for the outreach
+      message. Transcripts go in `research/` with episode and date, and they are
+      third-party material, so nothing in them becomes his substance.
+- [ ] **Provider or procurer?** He said "procurer" in the brief and "the
+      offering side of this contract" in conversation. The round-two draft uses
+      **provider** throughout. His word wins.
+- [ ] **Does round two replace the ending of `abundance-has-an-if`?** The
+      supply-side framing supersedes "what should these companies do with their
+      profits", which is the section the red team broke. If he agrees, that
+      draft's last third gets rewritten and pointed here. It is a rewrite of a
+      piece in review, so it is his call.
+- [ ] **Is the healthcare example the right one to lead with?** It is the one he
+      picked, and it puts him one line away from an argument about American
+      healthcare, which is the misreading the four-country table is there to
+      prevent. Worth a second look before sending.
 
 ### Calibration
 
@@ -59,20 +148,21 @@ script.
       $132.2bn net profit, about a third of a billion a day each.
 - [x] **The Musk attributions.** Resolved 2026-09-07. All three verified and now
       quoted properly. Musk distinguishes universal HIGH income from universal
-      BASIC income, which supports rather than undercuts Fer's anti-UBI line.
-- [~] **The remedy needs new reasoning.** *He solved this himself on 2026-09-07.*
-      The zero-cost count and deflation rate replace "companies should be
-      generous" with two numbers businesses can target and countries can track.
-      Remaining decision is whether he wants that swapped into the draft's
-      closing section, which is a rewrite of the last third.
+      BASIC income. Fernando's own tax and UBI position later softened, so this
+      source does not settle his remedy.
+- [x] **Keep the remedy open.** Resolved 2026-09-09 in
+      `capture/2026-09-09-softer-on-tax-and-remedy.md`: Fernando's contribution
+      is the frame and method, not a selected solution. The zero-cost count and
+      deflation rate remain candidate signals. The portfolio and visible-price
+      routes remain proposals, not his position.
       Original framing of the problem: The combined profit
       of Nvidia and Alphabet, spread across humanity, is 8.3 cents per person per
-      day. Lifting everyone below $30/day to $30/day costs ~62% of global GDP.
-      Redistribution is short by a factor of twenty. His conclusion (free
-      services, cost to zero) survives and may be the only thing that can work,
-      but the route to it has to change: not "companies should be generous" but
-      "redistribution is impossible, so cost has to collapse". His call, because
-      it changes his argument.
+      day. **Correction, 2026-09-08:** the prior 62%-of-GDP comparison treated
+      everybody below $30 as having zero resources and mixed PPP with nominal
+      units. It is withdrawn. The World Bank 2025 nowcast reports a 54.92%
+      poverty gap at $30, implying about 49.4tn 2021 international dollars per
+      year as a perfect-targeting cash-equivalent shortfall, not a programme
+      budget. The evidence does not select a remedy.
 - [ ] **The concept name.** Still open. "The missing if" is mine.
 - [ ] **The Baumol paragraph.** Demonetisation has worked for manufactured and
       digital goods and failed completely for housing, healthcare and education.
@@ -175,8 +265,8 @@ a read-through. The big ones:
 
 - [x] **The first real conversation.** 2026-09-01, the abundance rant. Six seeds
       and a draft out of one sitting. The machinery works.
-- [ ] **The second one.** Anything at all. A theme needs three separate captures
-      before it is real, and abundance currently has one.
+- [x] **The second one.** Resolved. Four captures now, abundance is an active
+      theme, and the fourth one argues with the first three.
 
 ## Answered
 

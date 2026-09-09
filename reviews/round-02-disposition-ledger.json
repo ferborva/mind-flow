@@ -1,0 +1,282 @@
+{
+  "schema_version": "1.0.0",
+  "review_ref": "review/round-02",
+  "reviewed_commit": "ce005e1c7fc08f05ab9493aa818f593e8397106a",
+  "created_at": "2026-09-08T04:15:00Z",
+  "provenance": "Ren's disposition of three independent agent first-pass reviews. Acceptance means the finding warrants work, not that it is closed or that an agent can approve release.",
+  "public_release_allowed": false,
+  "review_reports": [
+    "reviews/external/round-02-evidence-first-pass.md",
+    "reviews/external/round-02-system-first-pass.md",
+    "reviews/external/round-02-thesis-first-pass.md"
+  ],
+  "convergence_groups": [
+    {
+      "id": "release-authority-is-self-attested",
+      "finding_ids": ["R02-E-001", "R02-AD-SL-01"],
+      "interpretation": "Two independent lanes reproduced a synthetic-authority bypass. This raises remediation priority but does not merge or close either finding."
+    },
+    {
+      "id": "if-semantics-are-not-deterministic",
+      "finding_ids": ["R02-BC-SL-03", "R02-B-MJ-01"],
+      "interpretation": "Opposite UNLESS meanings and untyped state axes are separate causes of non-reproducible condition graphs."
+    },
+    {
+      "id": "aggregate-success-can-hide-harm",
+      "finding_ids": ["R02-C-MJ-02", "R02-D-MJ-01"],
+      "interpretation": "Population substitution and household pooling can both erase losses borne by the scoped person or cohort."
+    },
+    {
+      "id": "action-authority-is-not-executable",
+      "finding_ids": ["R02-EF-004", "R02-B-MJ-02"],
+      "interpretation": "An action can look active without authority, while hard pause and reverse gates do not pre-empt act."
+    },
+    {
+      "id": "evidence-contract-does-not-close-the-chain",
+      "finding_ids": ["R02-BC-SL-02", "R02-E-003", "R02-C-MJ-03"],
+      "interpretation": "Unpinned inputs, weak time-series semantics and invented release times allow reproducible files to carry non-reproducible claims."
+    }
+  ],
+  "findings": [
+    {
+      "id": "R02-E-001",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "trusted-issuance-system-owner-unassigned",
+      "rationale": "The reviewer reproduced issuance using forged self-attested authority and placeholder evidence.",
+      "next_test": "Reject forged, revoked, out-of-scope, expired, unsigned and byte-substituted attestations at the deployment boundary."
+    },
+    {
+      "id": "R02-E-002",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "repository-maintainer",
+      "rationale": "Both builders embedded undeclared canary personal data from otherwise accepted inputs.",
+      "next_test": "Unknown-field canaries must fail before output and a public allowlist projection must exclude undisplayed data."
+    },
+    {
+      "id": "R02-E-003",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "repository-maintainer",
+      "rationale": "A reversed series passed validation and manufactured a false headline with mismatched years.",
+      "next_test": "Reject unordered, duplicated, misaligned, undeclared and stale-latest time series before writing output."
+    },
+    {
+      "id": "R02-EF-004",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "repository-maintainer",
+      "rationale": "An active action with no owner, authority, help or appeal passed and could be cropped away from caveats.",
+      "next_test": "Operational states require a verified action reference and adjacent complete authority metadata under crop, print and reflow."
+    },
+    {
+      "id": "R02-E-005",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "repository-maintainer",
+      "rationale": "Snapshot-controlled javascript links passed and reached an href.",
+      "next_test": "Reject non-HTTPS and non-allowlisted source hosts in both builders."
+    },
+    {
+      "id": "R02-E-006",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "accessibility-implementation-owner",
+      "rationale": "The global output lacks a conforming document shell, has known low-contrast text and no print treatment; assistive testing remains absent.",
+      "next_test": "Pass automated structure and contrast checks, then independent keyboard, screen-reader, zoom, reflow and print review."
+    },
+    {
+      "id": "R02-F-001",
+      "report": "reviews/external/round-02-system-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "decision-contract-designer-unassigned",
+      "rationale": "The product cannot encode precedence, conflicts, consent, authority or exit in its free-text playbook arrays.",
+      "next_test": "Typed playbook fixtures must resolve actor conflicts and preserve adjacent crisis labels, or the public deck remains hidden."
+    },
+    {
+      "id": "R02-BC-SL-01",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "evidence-contract-owner",
+      "rationale": "Modelled poverty nowcasts are machine-labelled measured even though prose caveats say otherwise.",
+      "next_test": "Per-point epistemic classes must reject observed labels on modelled tails and remain visible in UI, export and crop."
+    },
+    {
+      "id": "R02-BC-SL-02",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "evidence-engineering-owner-unassigned",
+      "rationale": "Frozen transformed JSON does not prove or reproduce the transformation from exact upstream bytes.",
+      "next_test": "Rebuild bit-for-bit from content-addressed raw inputs, response metadata and versioned adapters; reject any mutated byte."
+    },
+    {
+      "id": "R02-BC-SL-03",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "if-contract-owner",
+      "rationale": "Public UNLESS means substitution while executable UNLESS means veto, which can invert a decision.",
+      "next_test": "Separate alternative and veto operators and exhaust all 25 five-valued state pairs for both."
+    },
+    {
+      "id": "R02-B-MJ-01",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "if-contract-owner",
+      "rationale": "Lifecycle, measurement, predicate, binding and evidence states have no deterministic typed mapping.",
+      "next_test": "Versioned direction-aware mappings cover every valid conversion and reject ambiguous conversion."
+    },
+    {
+      "id": "R02-B-MJ-02",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "if-contract-owner",
+      "rationale": "All mutually incompatible safety gates can simultaneously return true without blocking act.",
+      "next_test": "A deterministic resolver makes hard pause or reverse pre-empt act and unresolved safeguards block activation."
+    },
+    {
+      "id": "R02-C-MJ-01",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "australia-pilot-methods-owner-unassigned",
+      "rationale": "LFS-family evidence is called independent despite shared inputs and incompatible geographic scope.",
+      "next_test": "Shared-input or geographic-substitution fixtures cannot satisfy an independent-corroboration gate."
+    },
+    {
+      "id": "R02-C-MJ-02",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "australia-pilot-methods-owner-unassigned",
+      "rationale": "IF-05 silently changes estimand from the affected cohort to the broader local population.",
+      "next_test": "A Simpson's-paradox fixture leaves cohort state unknown when only the local aggregate improves."
+    },
+    {
+      "id": "R02-C-MJ-03",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "rehearsal-methods-owner-unassigned",
+      "rationale": "Date-only source records fabricate midnight UTC and cannot establish same-day information chronology.",
+      "next_test": "Verified UTC timestamps or conservative first-seen intervals resolve same-day before and after fixtures."
+    },
+    {
+      "id": "R02-C-MJ-04",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "forecast-methods-owner-unassigned",
+      "rationale": "Precision is undefined for the declared no-alert baseline, so the go rule has no decision for every allowed case.",
+      "next_test": "No-alert moves to utility comparison and no-event, rare-event, censoring and no-alert fixtures all resolve."
+    },
+    {
+      "id": "R02-C-MN-01",
+      "report": "reviews/external/round-02-evidence-first-pass.md",
+      "severity": "minor",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "australia-pilot-evidence-owner",
+      "rationale": "Published decline rates use denominators outside the declared eligible windows.",
+      "next_test": "Code-generated audit output pins numerator, denominator, eligibility dates and boundary-month assignments."
+    },
+    {
+      "id": "R02-AD-SL-01",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "unresolved",
+      "owner_role": "human-governance-system-owner-unassigned",
+      "rationale": "The machine's eight categories omit parts of G0-G10 and syntactic fiction can authorise release.",
+      "next_test": "Rename the result as structural eligibility and require authenticated, scoped, revocable G0-G10 attestations outside the repository."
+    },
+    {
+      "id": "R02-A-MJ-01",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "programme-editor",
+      "rationale": "The modal master proposition can survive any negative result by adding or narrowing conditions.",
+      "next_test": "Bounded hypotheses preregister denominators, horizons, losses and an outcome that records a decisive negative rather than moving scope."
+    },
+    {
+      "id": "R02-AD-SL-02",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "programme-editor",
+      "rationale": "Ecological lifecycle burden is optional even though the proposition names ecology as a required condition.",
+      "next_test": "Support and action fail without a scoped ecological assessment or authorised, challengeable not-material determination."
+    },
+    {
+      "id": "R02-A-SL-03",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "stop-line",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "programme-editor",
+      "rationale": "The descriptive Engels' Pause survives, but the singular Factory Acts mechanism and general transition shape exceed the cited evidence.",
+      "next_test": "Classify each historical statement and obtain specialist review of primary causal evidence and transfer limits."
+    },
+    {
+      "id": "R02-D-MJ-01",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "programme-editor",
+      "rationale": "Household access can rise while one member loses earnings, time, privacy, control or refusal rights.",
+      "next_test": "Linked household and individual fixtures enforce no-offset rules for severe individual harms without exposing sensitive data."
+    },
+    {
+      "id": "R02-AD-MJ-02",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "human-study-design-owner-unassigned",
+      "rationale": "Three Observatory layouts cannot show whether the Observatory beats a simpler statistics or deliberation design.",
+      "next_test": "Compare official release, release plus deliberation and Observatory plus equal deliberation, defaulting to the simpler instrument."
+    },
+    {
+      "id": "R02-D-MJ-02",
+      "report": "reviews/external/round-02-thesis-first-pass.md",
+      "severity": "major",
+      "disposition": "accepted",
+      "resolution_status": "in-progress",
+      "owner_role": "human-study-design-owner-unassigned",
+      "rationale": "The protocol can recruit no directly affected person and allows 27 correct plus 3 dangerous misunderstandings to pass.",
+      "next_test": "Separate direct and analogous strata; direct representatives own thresholds; 3 of 30 dangerous errors force revision with subgroup bounds."
+    }
+  ]
+}
