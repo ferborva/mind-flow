@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/governance/negotiation-record/1-0-0",
+  "title": "Mind Flow negotiation record",
+  "description": "A content-addressed synthetic record of positions, dissent, affected-party representation and conditional action. Validity grants no truth, consent, authority or action permission.",
+  "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/negotiationRecord"
+}

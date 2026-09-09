@@ -1,0 +1,609 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/governance/schema/governance-record-common.schema.json",
+  "title": "Mind Flow governance record common contracts",
+  "description": "Closed synthetic governance record structures. Schema validity does not establish truth, representation, consent, identity, authority, agreement or permission to act.",
+  "$defs": {
+    "nonEmpty": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9._-]+$" },
+    "version": { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "instant": { "type": "string", "format": "date-time" },
+    "stringSet": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    },
+    "conditionDefinitionRef": {
+      "type": "object",
+      "required": ["condition_id", "definition_version", "definition_hash"],
+      "properties": {
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "$ref": "#/$defs/version" },
+        "definition_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "evaluationReceiptRef": {
+      "type": "object",
+      "required": [
+        "receipt_id",
+        "receipt_version",
+        "receipt_hash",
+        "condition_id",
+        "definition_version",
+        "definition_hash",
+        "evaluated_at",
+        "valid_until",
+        "mechanically_valid_for_evaluation",
+        "computed_rule_state",
+        "empirical_truth_established",
+        "authority_effect",
+        "action_authorised"
+      ],
+      "properties": {
+        "receipt_id": { "$ref": "#/$defs/id" },
+        "receipt_version": { "$ref": "#/$defs/version" },
+        "receipt_hash": { "$ref": "#/$defs/hash" },
+        "condition_id": { "$ref": "#/$defs/id" },
+        "definition_version": { "$ref": "#/$defs/version" },
+        "definition_hash": { "$ref": "#/$defs/hash" },
+        "evaluated_at": { "$ref": "#/$defs/instant" },
+        "valid_until": { "$ref": "#/$defs/instant" },
+        "mechanically_valid_for_evaluation": { "const": true },
+        "computed_rule_state": {
+          "enum": ["true", "false", "unknown", "stale", "conflicted"]
+        },
+        "empirical_truth_established": { "const": false },
+        "authority_effect": { "const": "none" },
+        "action_authorised": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "ifBinding": {
+      "type": "object",
+      "required": ["condition_definition_ref", "evaluation_receipt_ref", "effect"],
+      "properties": {
+        "condition_definition_ref": { "$ref": "#/$defs/conditionDefinitionRef" },
+        "evaluation_receipt_ref": { "$ref": "#/$defs/evaluationReceiptRef" },
+        "effect": { "const": "eligibility-only-not-truth-or-authority" }
+      },
+      "additionalProperties": false
+    },
+    "participant": {
+      "type": "object",
+      "required": ["actor_id", "label", "roles", "identity_verification"],
+      "properties": {
+        "actor_id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmpty" },
+        "roles": { "$ref": "#/$defs/stringSet" },
+        "identity_verification": {
+          "enum": ["synthetic-unverified", "externally-verified"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "affectedConsumer": {
+      "type": "object",
+      "required": ["consumer_id", "label", "affected_how", "materiality"],
+      "properties": {
+        "consumer_id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmpty" },
+        "affected_how": { "$ref": "#/$defs/nonEmpty" },
+        "materiality": { "enum": ["direct", "indirect-material"] }
+      },
+      "additionalProperties": false
+    },
+    "representation": {
+      "type": "object",
+      "required": [
+        "representation_id",
+        "consumer_id",
+        "representative_actor_id",
+        "selection_basis",
+        "mandate_scope",
+        "mandate_verification",
+        "consent_established"
+      ],
+      "properties": {
+        "representation_id": { "$ref": "#/$defs/id" },
+        "consumer_id": { "$ref": "#/$defs/id" },
+        "representative_actor_id": { "$ref": "#/$defs/id" },
+        "selection_basis": { "$ref": "#/$defs/nonEmpty" },
+        "mandate_scope": { "$ref": "#/$defs/nonEmpty" },
+        "mandate_verification": {
+          "enum": ["synthetic-unverified", "externally-verified"]
+        },
+        "consent_established": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "position": {
+      "type": "object",
+      "required": [
+        "position_id",
+        "actor_id",
+        "public_position",
+        "proposed_terms",
+        "affected_consumer_ids",
+        "status",
+        "recorded_at"
+      ],
+      "properties": {
+        "position_id": { "$ref": "#/$defs/id" },
+        "actor_id": { "$ref": "#/$defs/id" },
+        "public_position": { "$ref": "#/$defs/nonEmpty" },
+        "proposed_terms": { "$ref": "#/$defs/stringSet" },
+        "affected_consumer_ids": { "$ref": "#/$defs/stringSet" },
+        "status": { "enum": ["active", "superseded", "withdrawn"] },
+        "recorded_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "dissent": {
+      "type": "object",
+      "required": [
+        "dissent_id",
+        "actor_id",
+        "position_id",
+        "affected_consumer_ids",
+        "public_dissent",
+        "requested_change",
+        "status",
+        "blocks_activation",
+        "recorded_at"
+      ],
+      "properties": {
+        "dissent_id": { "$ref": "#/$defs/id" },
+        "actor_id": { "$ref": "#/$defs/id" },
+        "position_id": { "$ref": "#/$defs/id" },
+        "affected_consumer_ids": { "$ref": "#/$defs/stringSet" },
+        "public_dissent": { "$ref": "#/$defs/nonEmpty" },
+        "requested_change": { "$ref": "#/$defs/nonEmpty" },
+        "status": { "enum": ["unresolved", "accommodated", "withdrawn"] },
+        "blocks_activation": { "type": "boolean" },
+        "recorded_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "required": [
+        "action_id",
+        "owner_actor_id",
+        "verb",
+        "effect_class",
+        "operational_changes_prohibited",
+        "object",
+        "scope",
+        "maximum_duration_days",
+        "reversibility",
+        "stop_conditions"
+      ],
+      "properties": {
+        "action_id": { "$ref": "#/$defs/id" },
+        "owner_actor_id": { "$ref": "#/$defs/id" },
+        "verb": { "$ref": "#/$defs/nonEmpty" },
+        "effect_class": { "const": "research-rehearsal-only" },
+        "operational_changes_prohibited": { "const": true },
+        "object": {
+          "type": "object",
+          "required": ["object_id", "label"],
+          "properties": {
+            "object_id": { "$ref": "#/$defs/id" },
+            "label": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "required": ["who", "standard", "place", "period"],
+          "properties": {
+            "who": { "$ref": "#/$defs/nonEmpty" },
+            "standard": { "$ref": "#/$defs/nonEmpty" },
+            "place": { "$ref": "#/$defs/nonEmpty" },
+            "period": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "maximum_duration_days": { "type": "integer", "minimum": 1, "maximum": 90 },
+        "reversibility": {
+          "type": "object",
+          "required": [
+            "class",
+            "irreversible_effects_prohibited",
+            "rollback_plan",
+            "residual_harm"
+          ],
+          "properties": {
+            "class": { "enum": ["reversible", "irreversible"] },
+            "irreversible_effects_prohibited": { "type": "boolean" },
+            "rollback_plan": { "$ref": "#/$defs/nonEmpty" },
+            "residual_harm": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "stop_conditions": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["trigger_id", "condition", "response"],
+            "properties": {
+              "trigger_id": { "$ref": "#/$defs/id" },
+              "condition": { "$ref": "#/$defs/nonEmpty" },
+              "response": { "$ref": "#/$defs/nonEmpty" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "holder_actor_id",
+        "claimed_basis",
+        "jurisdictions",
+        "decision_scope",
+        "verification_status",
+        "authority_effect",
+        "expires_at"
+      ],
+      "properties": {
+        "holder_actor_id": { "$ref": "#/$defs/id" },
+        "claimed_basis": { "$ref": "#/$defs/nonEmpty" },
+        "jurisdictions": { "$ref": "#/$defs/stringSet" },
+        "decision_scope": { "$ref": "#/$defs/nonEmpty" },
+        "verification_status": {
+          "enum": ["synthetic-unverified", "externally-verified"]
+        },
+        "authority_effect": { "enum": ["none", "authorises-action"] },
+        "expires_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["trigger_id", "condition", "response"],
+      "properties": {
+        "trigger_id": { "$ref": "#/$defs/id" },
+        "condition": { "$ref": "#/$defs/nonEmpty" },
+        "response": { "$ref": "#/$defs/nonEmpty" }
+      },
+      "additionalProperties": false
+    },
+    "reconsideration": {
+      "type": "object",
+      "required": [
+        "valid_from",
+        "reconsider_at",
+        "expires_at",
+        "if_expired",
+        "triggers"
+      ],
+      "properties": {
+        "valid_from": { "$ref": "#/$defs/instant" },
+        "reconsider_at": { "$ref": "#/$defs/instant" },
+        "expires_at": { "$ref": "#/$defs/instant" },
+        "if_expired": { "const": "block-and-renegotiate" },
+        "triggers": {
+          "type": "array",
+          "minItems": 5,
+          "items": { "$ref": "#/$defs/trigger" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "signaturePolicy": {
+      "type": "object",
+      "required": [
+        "required_signer_actor_ids",
+        "signature_meaning",
+        "unanimity_establishes_consent",
+        "external_authentication_required_for_operational_use"
+      ],
+      "properties": {
+        "required_signer_actor_ids": { "$ref": "#/$defs/stringSet" },
+        "signature_meaning": { "const": "record-accuracy-not-agreement" },
+        "unanimity_establishes_consent": { "const": false },
+        "external_authentication_required_for_operational_use": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "empirical_truth_established",
+        "affected_party_consent_established",
+        "authority_verified",
+        "action_authorised",
+        "publication_approved"
+      ],
+      "properties": {
+        "empirical_truth_established": { "type": "boolean" },
+        "affected_party_consent_established": { "type": "boolean" },
+        "authority_verified": { "type": "boolean" },
+        "action_authorised": { "type": "boolean" },
+        "publication_approved": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "required": [
+        "signature_id",
+        "signer_actor_id",
+        "signer_roles",
+        "attestation",
+        "signed_payload_hash",
+        "signature_method",
+        "signature_value",
+        "identity_verification",
+        "signed_at"
+      ],
+      "properties": {
+        "signature_id": { "$ref": "#/$defs/id" },
+        "signer_actor_id": { "$ref": "#/$defs/id" },
+        "signer_roles": { "$ref": "#/$defs/stringSet" },
+        "attestation": { "const": "record-accuracy-not-agreement" },
+        "signed_payload_hash": { "$ref": "#/$defs/hash" },
+        "signature_method": { "const": "synthetic-placeholder" },
+        "signature_value": { "type": "string", "pattern": "^synthetic:" },
+        "identity_verification": { "const": "not-authenticated" },
+        "signed_at": { "$ref": "#/$defs/instant" }
+      },
+      "additionalProperties": false
+    },
+    "negotiationPayload": {
+      "type": "object",
+      "required": [
+        "status",
+        "created_at",
+        "public_summary",
+        "if_binding",
+        "participants",
+        "affected_consumers",
+        "representations",
+        "positions",
+        "dissent",
+        "action_candidate",
+        "authority",
+        "outcome",
+        "reconsideration",
+        "signature_policy",
+        "boundaries"
+      ],
+      "properties": {
+        "status": { "const": "concluded" },
+        "created_at": { "$ref": "#/$defs/instant" },
+        "public_summary": { "$ref": "#/$defs/nonEmpty" },
+        "if_binding": { "$ref": "#/$defs/ifBinding" },
+        "participants": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/participant" }
+        },
+        "affected_consumers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/affectedConsumer" }
+        },
+        "representations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/representation" }
+        },
+        "positions": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/position" }
+        },
+        "dissent": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/dissent" }
+        },
+        "action_candidate": { "$ref": "#/$defs/action" },
+        "authority": { "$ref": "#/$defs/authority" },
+        "outcome": {
+          "type": "object",
+          "required": [
+            "agreement_status",
+            "activation_state",
+            "blocking_reasons",
+            "unresolved_dissent_ids",
+            "public_explanation"
+          ],
+          "properties": {
+            "agreement_status": {
+              "enum": ["provisional", "provisional-with-unresolved-dissent", "no-agreement"]
+            },
+            "activation_state": { "enum": ["blocked", "eligible-for-authority-review"] },
+            "blocking_reasons": { "$ref": "#/$defs/stringSet" },
+            "unresolved_dissent_ids": { "$ref": "#/$defs/stringSet" },
+            "public_explanation": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "reconsideration": { "$ref": "#/$defs/reconsideration" },
+        "signature_policy": { "$ref": "#/$defs/signaturePolicy" },
+        "boundaries": { "$ref": "#/$defs/boundaries" }
+      },
+      "additionalProperties": false
+    },
+    "negotiationRecord": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "record_id",
+        "version",
+        "record_kind",
+        "classification",
+        "payload",
+        "payload_hash",
+        "signatures",
+        "record_hash"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/version" },
+        "record_kind": { "const": "negotiation-record" },
+        "classification": { "const": "synthetic-example-not-evidence" },
+        "payload": { "$ref": "#/$defs/negotiationPayload" },
+        "payload_hash": { "$ref": "#/$defs/hash" },
+        "signatures": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/signature" }
+        },
+        "record_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "decisionPayload": {
+      "type": "object",
+      "required": [
+        "status",
+        "created_at",
+        "public_summary",
+        "negotiation_ref",
+        "if_binding",
+        "participants",
+        "affected_consumers",
+        "representations",
+        "deliberation",
+        "decision",
+        "alternatives",
+        "action",
+        "authority",
+        "reconsideration",
+        "signature_policy",
+        "boundaries"
+      ],
+      "properties": {
+        "status": { "const": "recorded" },
+        "created_at": { "$ref": "#/$defs/instant" },
+        "public_summary": { "$ref": "#/$defs/nonEmpty" },
+        "negotiation_ref": {
+          "type": "object",
+          "required": ["record_id", "version", "record_hash"],
+          "properties": {
+            "record_id": { "$ref": "#/$defs/id" },
+            "version": { "$ref": "#/$defs/version" },
+            "record_hash": { "$ref": "#/$defs/hash" }
+          },
+          "additionalProperties": false
+        },
+        "if_binding": { "$ref": "#/$defs/ifBinding" },
+        "participants": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/participant" }
+        },
+        "affected_consumers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/affectedConsumer" }
+        },
+        "representations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/representation" }
+        },
+        "deliberation": {
+          "type": "object",
+          "required": ["position_refs", "dissent_refs", "unresolved_dissent_refs"],
+          "properties": {
+            "position_refs": { "$ref": "#/$defs/stringSet" },
+            "dissent_refs": { "$ref": "#/$defs/stringSet" },
+            "unresolved_dissent_refs": { "$ref": "#/$defs/stringSet" }
+          },
+          "additionalProperties": false
+        },
+        "decision": {
+          "type": "object",
+          "required": [
+            "decision_text",
+            "selected_option_id",
+            "activation_state",
+            "blocking_reasons",
+            "rationale"
+          ],
+          "properties": {
+            "decision_text": { "$ref": "#/$defs/nonEmpty" },
+            "selected_option_id": { "$ref": "#/$defs/id" },
+            "activation_state": { "enum": ["blocked", "eligible-for-implementation"] },
+            "blocking_reasons": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/nonEmpty" }
+            },
+            "rationale": { "$ref": "#/$defs/nonEmpty" }
+          },
+          "additionalProperties": false
+        },
+        "alternatives": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["option_id", "label", "disposition", "action_id", "reasons"],
+            "properties": {
+              "option_id": { "$ref": "#/$defs/id" },
+              "label": { "$ref": "#/$defs/nonEmpty" },
+              "disposition": { "enum": ["selected", "retained", "rejected"] },
+              "action_id": {
+                "anyOf": [
+                  { "$ref": "#/$defs/id" },
+                  { "type": "null" }
+                ]
+              },
+              "reasons": { "$ref": "#/$defs/stringSet" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "action": { "$ref": "#/$defs/action" },
+        "authority": { "$ref": "#/$defs/authority" },
+        "reconsideration": { "$ref": "#/$defs/reconsideration" },
+        "signature_policy": { "$ref": "#/$defs/signaturePolicy" },
+        "boundaries": { "$ref": "#/$defs/boundaries" }
+      },
+      "additionalProperties": false
+    },
+    "decisionRecord": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "record_id",
+        "version",
+        "record_kind",
+        "classification",
+        "payload",
+        "payload_hash",
+        "signatures",
+        "record_hash"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "version": { "$ref": "#/$defs/version" },
+        "record_kind": { "const": "decision-record" },
+        "classification": { "const": "synthetic-example-not-evidence" },
+        "payload": { "$ref": "#/$defs/decisionPayload" },
+        "payload_hash": { "$ref": "#/$defs/hash" },
+        "signatures": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/signature" }
+        },
+        "record_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

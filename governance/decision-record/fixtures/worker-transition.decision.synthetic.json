@@ -1,0 +1,343 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "decision.worker-transition.synthetic",
+  "version": "1.0.0",
+  "record_kind": "decision-record",
+  "classification": "synthetic-example-not-evidence",
+  "payload": {
+    "status": "recorded",
+    "created_at": "2026-09-11T03:00:00Z",
+    "public_summary": "Synthetic decision: retain a reversible rehearsal as the selected candidate, but do not implement it while blocking dissent and authority verification remain unresolved.",
+    "negotiation_ref": {
+      "record_id": "negotiation.worker-transition.synthetic",
+      "version": "1.0.0",
+      "record_hash": "sha256:c12f2826a2e8717f7799b64ce7c51592656e0a764cf2a381922c1556afe77ad5"
+    },
+    "if_binding": {
+      "condition_definition_ref": {
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e"
+      },
+      "evaluation_receipt_ref": {
+        "receipt_id": "receipt.condition.worker-option.nsw.20260909",
+        "receipt_version": "1.0.0",
+        "receipt_hash": "sha256:6f315cd2a8a4c1847aaa068294100aa134cb20c9842f5cb04db6b9b29639d410",
+        "condition_id": "condition.worker-option.nsw",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5ca7f32a0053e470dfb6e5eccb3f4d3d3a25718b1fbba34a0afee70ceee7272e",
+        "evaluated_at": "2026-09-09T00:00:00Z",
+        "valid_until": "2026-12-31T23:59:59Z",
+        "mechanically_valid_for_evaluation": true,
+        "computed_rule_state": "true",
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false
+      },
+      "effect": "eligibility-only-not-truth-or-authority"
+    },
+    "participants": [
+      {
+        "actor_id": "actor.worker-representative.synthetic",
+        "label": "Synthetic affected-worker representative",
+        "roles": [
+          "affected-party-representative",
+          "negotiator"
+        ],
+        "identity_verification": "synthetic-unverified"
+      },
+      {
+        "actor_id": "actor.household-representative.synthetic",
+        "label": "Synthetic worker-household representative",
+        "roles": [
+          "affected-party-representative",
+          "negotiator"
+        ],
+        "identity_verification": "synthetic-unverified"
+      },
+      {
+        "actor_id": "actor.transition-provider.synthetic",
+        "label": "Synthetic transition-support provider",
+        "roles": [
+          "candidate-action-owner",
+          "negotiator"
+        ],
+        "identity_verification": "synthetic-unverified"
+      },
+      {
+        "actor_id": "actor.public-authority-candidate.synthetic",
+        "label": "Synthetic candidate public authority",
+        "roles": [
+          "candidate-decision-owner",
+          "negotiator"
+        ],
+        "identity_verification": "synthetic-unverified"
+      }
+    ],
+    "affected_consumers": [
+      {
+        "consumer_id": "consumer.affected-workers.synthetic",
+        "label": "Synthetic affected workers",
+        "affected_how": "Work, earnings, conditions, refusal rights and access to review may change.",
+        "materiality": "direct"
+      },
+      {
+        "consumer_id": "consumer.worker-households.synthetic",
+        "label": "Synthetic worker households",
+        "affected_how": "Household income continuity and care arrangements may change.",
+        "materiality": "indirect-material"
+      }
+    ],
+    "representations": [
+      {
+        "representation_id": "representation.affected-workers.synthetic",
+        "consumer_id": "consumer.affected-workers.synthetic",
+        "representative_actor_id": "actor.worker-representative.synthetic",
+        "selection_basis": "Synthetic placeholder. No election, sampling or identity check occurred.",
+        "mandate_scope": "Record worker safeguards, objections and requested changes only.",
+        "mandate_verification": "synthetic-unverified",
+        "consent_established": false
+      },
+      {
+        "representation_id": "representation.worker-households.synthetic",
+        "consumer_id": "consumer.worker-households.synthetic",
+        "representative_actor_id": "actor.household-representative.synthetic",
+        "selection_basis": "Synthetic placeholder. No household mandate or identity check occurred.",
+        "mandate_scope": "Record household continuity concerns and objections only.",
+        "mandate_verification": "synthetic-unverified",
+        "consent_established": false
+      }
+    ],
+    "deliberation": {
+      "position_refs": [
+        "position.affected-workers.synthetic",
+        "position.worker-households.synthetic",
+        "position.transition-provider.synthetic",
+        "position.public-authority.synthetic"
+      ],
+      "dissent_refs": [
+        "dissent.household-continuity.synthetic"
+      ],
+      "unresolved_dissent_refs": [
+        "dissent.household-continuity.synthetic"
+      ]
+    },
+    "decision": {
+      "decision_text": "Retain the bounded reversible rehearsal as the selected candidate. Do not implement it until blocking dissent is resolved and authority is independently verified.",
+      "selected_option_id": "option.reversible-rehearsal.synthetic",
+      "activation_state": "blocked",
+      "blocking_reasons": [
+        "unresolved-blocking-dissent",
+        "authority-unverified"
+      ],
+      "rationale": "A reversible rehearsal preserves learning value while explicit blocking gates prevent the candidate from becoming an operational commitment."
+    },
+    "alternatives": [
+      {
+        "option_id": "option.reversible-rehearsal.synthetic",
+        "label": "Retain a bounded reversible rehearsal as a blocked candidate",
+        "disposition": "selected",
+        "action_id": "action.rehearse-worker-support.synthetic",
+        "reasons": [
+          "reversible",
+          "bounded",
+          "preserves challenge and rollback"
+        ]
+      },
+      {
+        "option_id": "option.no-rehearsal.synthetic",
+        "label": "Do not rehearse",
+        "disposition": "retained",
+        "action_id": null,
+        "reasons": [
+          "avoids rehearsal harms",
+          "remains available if safeguards fail"
+        ]
+      },
+      {
+        "option_id": "option.expand-consultation.synthetic",
+        "label": "Expand affected-party consultation before selection",
+        "disposition": "retained",
+        "action_id": null,
+        "reasons": [
+          "representation is unverified",
+          "household dissent remains unresolved"
+        ]
+      }
+    ],
+    "action": {
+      "action_id": "action.rehearse-worker-support.synthetic",
+      "owner_actor_id": "actor.transition-provider.synthetic",
+      "verb": "rehearse",
+      "effect_class": "research-rehearsal-only",
+      "operational_changes_prohibited": true,
+      "object": {
+        "object_id": "object.worker-controlled-transition-support.synthetic",
+        "label": "a worker-controlled transition-support rehearsal"
+      },
+      "scope": {
+        "who": "Synthetic affected General Clerks and Payroll Clerks",
+        "standard": "Voluntary rehearsal only, with no employment, entitlement or service change",
+        "place": "New South Wales, Australia",
+        "period": "2026-09-16 through 2026-09-30"
+      },
+      "maximum_duration_days": 14,
+      "reversibility": {
+        "class": "reversible",
+        "irreversible_effects_prohibited": true,
+        "rollback_plan": "Stop the rehearsal, revoke access and delete participant-controlled copies on request.",
+        "residual_harm": "The rehearsal may still create anxiety, privacy loss or false confidence."
+      },
+      "stop_conditions": [
+        {
+          "trigger_id": "if-binding-changed",
+          "condition": "The definition, receipt or computed IF state changes.",
+          "response": "Stop and require a new negotiation against a fresh exact receipt."
+        },
+        {
+          "trigger_id": "affected-party-challenge",
+          "condition": "An affected consumer or representative challenges scope, safety or representation.",
+          "response": "Pause, preserve the challenge and reconsider before resumption."
+        },
+        {
+          "trigger_id": "harm-detected",
+          "condition": "Privacy, coercion, income, conditions, care or information harm is reported.",
+          "response": "Stop exposure, protect affected people and assess recovery."
+        },
+        {
+          "trigger_id": "authority-or-signature-invalid",
+          "condition": "Claimed authority, mandate or a required signature expires or is withdrawn.",
+          "response": "Stop. The record grants no fallback authority."
+        }
+      ]
+    },
+    "authority": {
+      "holder_actor_id": "actor.public-authority-candidate.synthetic",
+      "claimed_basis": "Synthetic placeholder claim only. No law, delegation or appropriation was verified.",
+      "jurisdictions": [
+        "Australia",
+        "New South Wales"
+      ],
+      "decision_scope": "Record a candidate private rehearsal for later external authority review.",
+      "verification_status": "synthetic-unverified",
+      "authority_effect": "none",
+      "expires_at": "2026-10-01T00:00:00Z"
+    },
+    "reconsideration": {
+      "valid_from": "2026-09-11T03:00:00Z",
+      "reconsider_at": "2026-09-25T00:00:00Z",
+      "expires_at": "2026-10-01T00:00:00Z",
+      "if_expired": "block-and-renegotiate",
+      "triggers": [
+        {
+          "trigger_id": "if-binding-changed",
+          "condition": "The IF definition, receipt, evidence tip or computed state changes.",
+          "response": "Block and renegotiate against a fresh exact binding."
+        },
+        {
+          "trigger_id": "affected-party-challenge",
+          "condition": "An affected consumer challenges representation, scope, terms or safety.",
+          "response": "Preserve the challenge and reopen deliberation."
+        },
+        {
+          "trigger_id": "dissent-or-signature-changed",
+          "condition": "Dissent changes or an attestation is added, corrected or withdrawn.",
+          "response": "Invalidate the prior completion state and reconsider."
+        },
+        {
+          "trigger_id": "authority-changed",
+          "condition": "The authority holder, basis, scope or verification status changes.",
+          "response": "Block until authority is independently reverified."
+        },
+        {
+          "trigger_id": "harm-or-scope-changed",
+          "condition": "A new harm, consumer, omission or scope mismatch is identified.",
+          "response": "Stop and reopen affected-party review."
+        },
+        {
+          "trigger_id": "action-control-failed",
+          "condition": "A start, stop, monitoring or rollback control fails.",
+          "response": "Stop the candidate action and reopen the decision."
+        }
+      ]
+    },
+    "signature_policy": {
+      "required_signer_actor_ids": [
+        "actor.worker-representative.synthetic",
+        "actor.household-representative.synthetic",
+        "actor.transition-provider.synthetic",
+        "actor.public-authority-candidate.synthetic"
+      ],
+      "signature_meaning": "record-accuracy-not-agreement",
+      "unanimity_establishes_consent": false,
+      "external_authentication_required_for_operational_use": true
+    },
+    "boundaries": {
+      "empirical_truth_established": false,
+      "affected_party_consent_established": false,
+      "authority_verified": false,
+      "action_authorised": false,
+      "publication_approved": false
+    }
+  },
+  "payload_hash": "sha256:02aca19b34badac9ca0338e1c74ade0e0152ab4d63ea67f6eb8bf86626ea30ca",
+  "signatures": [
+    {
+      "signature_id": "signature.synthetic.1",
+      "signer_actor_id": "actor.worker-representative.synthetic",
+      "signer_roles": [
+        "affected-party-representative",
+        "negotiator"
+      ],
+      "attestation": "record-accuracy-not-agreement",
+      "signed_payload_hash": "sha256:02aca19b34badac9ca0338e1c74ade0e0152ab4d63ea67f6eb8bf86626ea30ca",
+      "signature_method": "synthetic-placeholder",
+      "signature_value": "synthetic:not-cryptographic:1",
+      "identity_verification": "not-authenticated",
+      "signed_at": "2026-09-11T03:15:00Z"
+    },
+    {
+      "signature_id": "signature.synthetic.2",
+      "signer_actor_id": "actor.household-representative.synthetic",
+      "signer_roles": [
+        "affected-party-representative",
+        "negotiator"
+      ],
+      "attestation": "record-accuracy-not-agreement",
+      "signed_payload_hash": "sha256:02aca19b34badac9ca0338e1c74ade0e0152ab4d63ea67f6eb8bf86626ea30ca",
+      "signature_method": "synthetic-placeholder",
+      "signature_value": "synthetic:not-cryptographic:2",
+      "identity_verification": "not-authenticated",
+      "signed_at": "2026-09-11T03:15:00Z"
+    },
+    {
+      "signature_id": "signature.synthetic.3",
+      "signer_actor_id": "actor.transition-provider.synthetic",
+      "signer_roles": [
+        "candidate-action-owner",
+        "negotiator"
+      ],
+      "attestation": "record-accuracy-not-agreement",
+      "signed_payload_hash": "sha256:02aca19b34badac9ca0338e1c74ade0e0152ab4d63ea67f6eb8bf86626ea30ca",
+      "signature_method": "synthetic-placeholder",
+      "signature_value": "synthetic:not-cryptographic:3",
+      "identity_verification": "not-authenticated",
+      "signed_at": "2026-09-11T03:15:00Z"
+    },
+    {
+      "signature_id": "signature.synthetic.4",
+      "signer_actor_id": "actor.public-authority-candidate.synthetic",
+      "signer_roles": [
+        "candidate-decision-owner",
+        "negotiator"
+      ],
+      "attestation": "record-accuracy-not-agreement",
+      "signed_payload_hash": "sha256:02aca19b34badac9ca0338e1c74ade0e0152ab4d63ea67f6eb8bf86626ea30ca",
+      "signature_method": "synthetic-placeholder",
+      "signature_value": "synthetic:not-cryptographic:4",
+      "identity_verification": "not-authenticated",
+      "signed_at": "2026-09-11T03:15:00Z"
+    }
+  ],
+  "record_hash": "sha256:2450b633f29ecc98576d15efed657bf09fb7b40cec8ceb29bd03a3eb39de7dcd"
+}

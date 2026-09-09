@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mind-flow.local/governance/lineage/governance-lineage.schema.json",
+  "title": "Round 06 synthetic governance lineage",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "lineage_id",
+    "classification",
+    "effect",
+    "sources",
+    "derived_if",
+    "boundaries",
+    "action_state",
+    "lineage_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "lineage_id": { "const": "lineage.round-06.worker-transition.synthetic" },
+    "classification": { "const": "synthetic-research-only" },
+    "effect": { "const": "records-lineage-only-no-truth-authority-publication-or-action" },
+    "sources": {
+      "type": "object",
+      "required": ["round_04_bundle", "governance_context", "negotiation", "decision"],
+      "properties": {
+        "round_04_bundle": { "$ref": "#/$defs/bundleRef" },
+        "governance_context": { "$ref": "#/$defs/contextRef" },
+        "negotiation": { "$ref": "#/$defs/governanceRecordRef" },
+        "decision": { "$ref": "#/$defs/governanceRecordRef" }
+      },
+      "additionalProperties": false
+    },
+    "derived_if": {
+      "type": "object",
+      "required": [
+        "condition_definition_ref",
+        "bundle_evaluation_hash",
+        "evaluated_at",
+        "mechanically_valid_for_evaluation",
+        "computed_rule_state",
+        "governance_receipt_hash"
+      ],
+      "properties": {
+        "condition_definition_ref": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/conditionDefinitionRef" },
+        "bundle_evaluation_hash": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" },
+        "evaluated_at": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/instant" },
+        "mechanically_valid_for_evaluation": { "type": "boolean" },
+        "computed_rule_state": { "enum": ["true", "false", "unknown", "stale", "conflicted"] },
+        "governance_receipt_hash": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "boundaries": { "$ref": "#/$defs/closedBoundaries" },
+    "action_state": {
+      "type": "object",
+      "required": [
+        "negotiation_activation_state",
+        "decision_activation_state",
+        "operational_effect"
+      ],
+      "properties": {
+        "negotiation_activation_state": { "const": "blocked" },
+        "decision_activation_state": { "const": "blocked" },
+        "operational_effect": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "lineage_hash": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9][A-Za-z0-9._/-]*\\.json$"
+    },
+    "bundleRef": {
+      "type": "object",
+      "required": ["path", "sha256", "bundle_id", "bundle_schema_version", "bundle_stage"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" },
+        "bundle_id": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/id" },
+        "bundle_schema_version": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/version" },
+        "bundle_stage": { "const": "complete-core" }
+      },
+      "additionalProperties": false
+    },
+    "contextRef": {
+      "type": "object",
+      "required": ["path", "sha256", "context_id", "context_hash"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" },
+        "context_id": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/id" },
+        "context_hash": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "governanceRecordRef": {
+      "type": "object",
+      "required": ["path", "sha256", "record_id", "version", "record_hash"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" },
+        "record_id": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/id" },
+        "version": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/version" },
+        "record_hash": { "$ref": "https://mind-flow.local/governance/schema/governance-record-common.schema.json#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "closedBoundaries": {
+      "type": "object",
+      "required": [
+        "empirical_truth_established",
+        "affected_party_consent_established",
+        "authority_verified",
+        "action_authorised",
+        "publication_approved"
+      ],
+      "properties": {
+        "empirical_truth_established": { "const": false },
+        "affected_party_consent_established": { "const": false },
+        "authority_verified": { "const": false },
+        "action_authorised": { "const": false },
+        "publication_approved": { "const": false }
+      },
+      "additionalProperties": false
+    }
+  }
+}
