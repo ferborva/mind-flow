@@ -13,10 +13,8 @@ authority: none
 
 # The Future Has Conditions
 
-> **Agent-proposed public guide. Not policy, prediction or advice.** Ren, an AI
-> agent, drafted this guide after Fernando commissioned a clearer public door
-> into the project. It does not state Fernando's settled position. It does not authorise action,
-> create a service or create a public commitment.
+> **Ren's commissioned public-guide proposal, not Fernando's settled position
+> or an authorised service, policy or personal recommendation; see [boundaries](../boundaries.md).**
 
 ## 🦅 The idea in one minute
 
@@ -38,10 +36,8 @@ language, time, infrastructure, rights, safety, agency and delivery for the
 people concerned. This list is neither exhaustive nor a claim that each
 condition is necessary in every case.
 
-This does not predict one inevitable future, declare a crisis or prescribe one
-political answer. It maps possible paths, makes the conditions behind them
-visible, and asks whether people and legitimate institutions can prepare
-before choices close.
+The method maps possible paths, makes the conditions behind them visible, and
+asks whether people and legitimate institutions can prepare before choices close.
 
 Unknown does not mean safe. Unknown does not mean harmful. It means the
 evidence cannot yet support either conclusion.
@@ -150,7 +146,7 @@ and who is affected. One condition can involve all of them. A technical or
 ecological limit may have no actor able to move it. In that case the honest
 state is watch, investigate or cannot move, not an invented owner.
 
-Five prompts make a useful starting set, not a taxonomy:
+Five condition categories make a useful starting set:
 
 | Prompt | Public question |
 |---|---|
@@ -161,7 +157,8 @@ Five prompts make a useful starting set, not a taxonomy:
 | **Capability** | Can the person meaningfully use, choose or refuse it? |
 
 Add or split conditions whenever these prompts hide a different scope, actor,
-failure mode or lived consequence.
+failure mode or lived consequence. Availability includes discretion: suitable
+supply can exist while the holder chooses whether to make it available.
 
 ## 🔄 Conditions are allowed to change, silently rewriting them is not
 
@@ -260,7 +257,7 @@ If these are not verified, the public wording is plain: **No Observatory-linked 
 
 ## 🛠 Preparation is different at every scale
 
-These are categories for public debate, not instructions or existing services.
+The following options put a specific question in front of each relevant actor.
 
 | Scale | Reversible preparation to evaluate | Hard question before action |
 |---|---|---|

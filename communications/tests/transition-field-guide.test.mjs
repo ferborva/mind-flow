@@ -9,9 +9,9 @@ const guide = readFileSync(resolve(here, "../transition-field-guide.md"), "utf8"
 
 test("the guide states its purpose, limits and non-authority before asking for trust", () => {
   assert.match(guide, /help people see what is changing.*while there is still time to widen their choices/is);
-  assert.match(guide, /does not predict one inevitable future/i);
-  assert.match(guide, /does not authorise action/i);
-  assert.match(guide, /agent-proposed public guide/i);
+  assert.match(guide, /maps possible paths/i);
+  assert.match(guide, /not Fernando's settled position\s+> or an authorised service/i);
+  assert.match(guide, /Ren's commissioned public-guide proposal/i);
   assert.match(guide, /unknown does not mean safe/i);
   assert.match(guide, /unknown does not mean harmful/i);
 });
@@ -33,7 +33,8 @@ test("the guide turns consumer IFs into actor-specific WHEN hypotheses", () => {
   assert.match(guide, /consumer.*IF.*provider.*WHEN/is);
   assert.match(guide, /WHEN.*not a date.*forecast.*guarantee.*commitment/is);
   assert.match(guide, /price.*permission.*proximity.*availability.*capability/is);
-  assert.match(guide, /starting set, not a taxonomy/i);
+  assert.match(guide, /five condition categories.*starting set/i);
+  assert.match(guide, /Availability includes discretion/i);
   assert.match(guide, /control.*influence.*duty.*fund.*deliver.*affected/is);
   assert.match(guide, /concurrent.*dependency-bound.*cyclical/is);
 });
