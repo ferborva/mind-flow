@@ -18,7 +18,7 @@ updated: 2026-09-09
 ## 🦅 TL;DR
 
 **Take an abundance promise. Add “if”. Name the conditions, ask which one is
-binding today, and find out who holds it.** That is the frame. The point is to
+binding today, and say what would show it changing.** That is the frame. The point is to
 connect progress in technology with something a person can actually do.
 
 This is a proposed reporting method, with its [evidence boundaries](../boundaries.md)
@@ -86,8 +86,8 @@ when the thing you care about needs a better question.
 | **Capability** | Can they understand, navigate and use it? |
 
 Keep discretion visible under availability. **“Free while someone keeps
-choosing to provide it” still has an if.** Ask who holds that choice and what
-would happen if it changed. The price on today's screen and the continuity of
+choosing to provide it” still has an if.** Ask what would happen if that
+provision changed. The price on today's screen and the continuity of
 the service are different questions.
 
 The categories overlap. That can be useful. A long journey might involve both
@@ -183,8 +183,8 @@ in the same discussion.
 ## 👉 Try it on the promise you care about
 
 Pick one. Write the sentence. Add the ifs. Use the five categories to look for
-something missing. Name the people and place. Ask who holds each condition
-and what evidence would change the current reading.
+something missing. Name the people and place. Ask what evidence would change
+the current reading of each condition.
 
 **Then bring that sentence to the next announcement.** If something important
 has changed, show the connection. If the connection is still missing, that is

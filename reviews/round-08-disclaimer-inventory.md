@@ -6,7 +6,7 @@ status: incomplete
 provenance: commissioned-proposal
 author: ren
 created: 2026-09-09
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Round 08 public disclaimer inventory
@@ -37,7 +37,8 @@ review needs to adjudicate it.
 
 ## Primary public inventory
 
-Counts below describe the E working tree after the five-draft rewrite. The
+Counts below describe the E working tree, with September 10 recounts for the
+revised abundance essay, programme and dashboard README. The
 inventory includes public entry points and materials labelled communications
 or public-guide proposals. Technical operator documents, research and past
 reviews remain accessible in the repository and need audience classification
@@ -46,7 +47,7 @@ before the phrase “every public document” can be considered closed.
 | Document | Lexical sentences | General boundary sentences reviewed | Status |
 | --- | ---: | ---: | --- |
 | `drafts/name-the-if.md` | 135 | 1 | Creator rate 0.74%; independent classification pending |
-| `drafts/abundance-has-an-if.md` | 76 | 1 | Creator rate 1.32%; independent classification pending |
+| `drafts/abundance-has-an-if.md` | 136 | Specific source and inference ceilings | September 10 restoration; fresh independent classification required, not the earlier 76-sentence draft |
 | `drafts/every-if-is-somebodys-when.md` | 83 | 1 | Creator rate 1.20%; independent classification pending |
 | `drafts/from-if-to-when.md` | 95 | 1 | Creator rate 1.05%; independent classification pending |
 | `drafts/message-to-the-moonshot-mates.md` | 20 | 1 | Exactly 5%; strict gate unmet |
@@ -60,7 +61,10 @@ before the phrase “every public document” can be considered closed.
 | `communications/transition-field-guide.md` | 180 | 1 wrapper | Direct public guide; wrapper rate 0.56%; substantive condition ceilings retained |
 | `README.md` | 39 | Original author-provenance passage | Repository public entry; imported first-person voice needs capture/history review, not reassignment to Ren |
 | `governance/public-charter.md` | 117 | 1 opening boundary | Coordinator consolidated proposal status; substantive governance prohibitions and release conditions remain, not counted as redundant wrapper disclaimers |
-| `meta/abundance-transition-programme.md` | 117 | Local evidence and authority ceilings | Recounted against the integrated G/S/A programme; no universal classification pass claimed |
+| `meta/abundance-transition-programme.md` | 133 | Local evidence and authority ceilings | Includes four added-series justifications; no universal classification pass claimed |
+| `dashboard/README.md` | 146 | Whole-prototype status plus repeated local authority and evidence limits | Public developer entry and build instructions; omitted from the original inventory, now explicitly in scope; strict classification pending |
+| `pilots/australia/web/index.template.html` | Not a Markdown sentence denominator | Eight source/status chips or labels plus a three-sentence footer in the reviewed template | Rendered public evidence room; omission repaired, no percentage pass inferred from a Markdown parser |
+| `dashboard/tools/render-primary-care.mjs` plus bound measurement JSON | Dynamic rendered prose, not source-code sentence counts | One binding-category diagnosis, five owner-control ceilings and row-specific limits | Five-category GP addition inspected in measurement worktree on September 10; generated final HTML requires integrated recount |
 | `paths/README.md` | 79 | 5 opening sentences including synthetic status and truth ceiling | Technical path-contract reference, not a public scenario release |
 | `boundaries.md` | 24 | boundary reference | Concentrates necessary limitations by design; no passing percentage claimed |
 
@@ -70,6 +74,25 @@ than improve the message. The linked boundary reference itself is necessarily
 mostly limitations, which further prevents a literal all-documents claim.
 
 ## Audience scope and denominator decision
+
+The independent PR15 review used a stricter classification than the creator's
+one-wrapper count. Its pre-follow-up rates were 7.2% for `every-if`, 5.3% for
+`from-if-to-when`, 5% for correspondence, 10.6% for the dashboard README and
+100% for the boundary reference. These are review findings about that tree,
+not freshly reproduced percentages for changed files. They prevent treating
+the smaller creator-wrapper percentages above as compliance. The gate is
+unmet under that review as well as under the literal universal scope.
+
+The Australian page combines template text, NERO values and the new primary-care
+renderer with its bound JSON. The renderer's price and availability populations,
+2018 capability date, permission rule role, workforce proxy, owner-control
+limits, survey coverage change and ecological-join ceiling are substantive
+claim boundaries that must stay visible. Counting only the template would miss
+them. Conversely, counting JavaScript tokens as public prose would invent a
+denominator. A final rendered-text classification must include both sections,
+table cells, source labels, expandable context and footer, without counting
+hidden scripts or CSS. This inventory records that remaining integration step;
+it does not quietly exempt the evidence room or claim its gate is complete.
 
 Direct public prose comprises the five drafts, field guide, repository entry
 and public charter. The programme and paths references explain the method;
