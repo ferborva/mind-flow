@@ -28,7 +28,7 @@ Research mechanics are sourced separately from Fernando's views.
 
 | First-person passage or quoted example | Capture support |
 | --- | --- |
-| “I keep coming back to the sentence underneath that shrug” and the imagined benchmark-linked sentence | `2026-09-08-the-benchmark-shrug`, Why people shrug at a benchmark, his verbatim thought about a listener's IF sentence |
+| The imagined benchmark-linked sentence | `2026-09-08-the-benchmark-shrug`, Why people shrug at a benchmark, his verbatim thought about a listener's IF sentence |
 | “The missing connection is the one I want to explore” | `2026-09-08-abundance-frame-conversation`, Fer's statement that he wants the reframe to connect with what people see, live and understand day to day |
 | “My answer is simple: then tell me your conditions” | Same capture, his own response to the restatement objection |
 | “These are the categories I am using” | `2026-09-08-the-benchmark-shrug`, “Keep them as mine now” |
@@ -97,7 +97,6 @@ claim for independent review. Imagined grammar examples are not biographies.
 | drafts/message-to-the-moonshot-mates.md | ae63a258e0a5f6cfa9b53d5f2e925d3e246e657d0d8231dee84a936306214058 | capture/2026-09-08-abundance-frame-conversation.md | I've given this a lot of thought |
 | drafts/message-to-the-moonshot-mates.md | 04ec37be25ddb545ce9091956131349cd800645da99a69ec923a9edf8d065525 | capture/2026-09-08-abundance-frame-conversation.md | connects with what people will see and live and understand on a day to day basis |
 | drafts/message-to-the-moonshot-mates.md | 57587a80655ecafe9df0c730659244c9cac859fe4f3d4aa3a8fad6e70aadc632 | capture/2026-09-08-abundance-frame-conversation.md | invite them to to use it |
-| drafts/name-the-if.md | d2ec0af194439feaa009c95927a8c17d30f761f27bb3b8e9f28f5e614fd9eac7 | capture/2026-09-08-the-benchmark-shrug.md | A lateral thought just came by. |
 | drafts/name-the-if.md | 5e35dac41c0dc2b513906b383da4598bf2375cd1e6091f2c06ef5b52a5f05c11 | capture/2026-09-08-the-benchmark-shrug.md | power on the Pareto frontier |
 | drafts/name-the-if.md | ca4f4f9c1ea1e1006521371d6844000c9c44eed9b11b86c6100caef1b5af28df | capture/2026-09-08-abundance-frame-conversation.md | connects with what people will see and live and understand on a day to day basis |
 | drafts/name-the-if.md | ad2cea5bc348d76183f73ed5d5ebb6cf7768a9a934e260f395dd247f8fc4e0fc | capture/2026-09-08-abundance-frame-conversation.md | please share what your conditions are |
