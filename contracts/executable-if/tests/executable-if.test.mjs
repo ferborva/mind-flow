@@ -683,6 +683,27 @@ test("hostile: an observation cannot be recorded before its definition exists", 
   assert.ok(result.errors.some(({ code }) => code === "OBSERVATION_PREDATES_DEFINITION"));
 });
 
+test("historical measured periods can be registered now but retain staleness and recording chronology", () => {
+  const active = definition("condition.worker-option.nsw");
+  const observations = clone(observationsFor(active.condition_id));
+  for (const [index, item] of observations.entries()) {
+    item.classification = "measured-observation";
+    item.source_id = item.source_id.replace("source.synthetic", "source.retained");
+    item.period.start = `2026-03-${String(index + 1).padStart(2, "0")}T00:00:00Z`;
+    item.period.end = item.period.start;
+    item.recorded_at = "2026-06-01T00:00:00Z";
+    item.observation_hash = computeObservationHash(item);
+  }
+  const result = evaluateCondition(active, fixture.signals, observations, { evaluatedAt: "2026-06-10T00:00:00Z" });
+  assert.equal(result.mechanically_valid_for_evaluation, true, JSON.stringify(result.errors));
+  assert.equal(result.computed_rule_state.state, "stale");
+  observations[0].recorded_at = "2026-04-30T00:00:00Z";
+  observations[0].observation_hash = computeObservationHash(observations[0]);
+  const backdated = evaluateCondition(active, fixture.signals, observations, { evaluatedAt: "2026-06-10T00:00:00Z" });
+  assert.equal(backdated.mechanically_valid_for_evaluation, false);
+  assert.ok(backdated.errors.some(({ code }) => code === "OBSERVATION_PREDATES_DEFINITION"));
+});
+
 test("recent incomplete or low-coverage evidence blocks older complete truth", () => {
   const active = clone(definition("condition.worker-option.nsw"));
   for (const predicate of Object.values(active.predicates)) {
