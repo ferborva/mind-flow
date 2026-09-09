@@ -95,14 +95,17 @@ Then inspect the [programme](abundance-transition-programme.md),
 [public-language inventory](../reviews/round-08-disclaimer-inventory.md),
 and [dated progress](../reviews/round-08-progress.md).
 
-The six lane PRs are review views against the central branch:
+The six lane PRs retain the initial workstream review views against the central branch:
 [A #10](https://github.com/ferborva/mind-flow/pull/10),
 [B #12](https://github.com/ferborva/mind-flow/pull/12),
 [C #11](https://github.com/ferborva/mind-flow/pull/11),
 [D #14](https://github.com/ferborva/mind-flow/pull/14),
 [E #13](https://github.com/ferborva/mind-flow/pull/13),
 [F #9](https://github.com/ferborva/mind-flow/pull/9).
-The final integrated target, including coordinator repairs, is the review unit.
+GitHub marked these merged when their then-current heads reached the central
+branch. Later lane commits and coordinator repairs are outside some of those
+closed views. Their provenance commits remain in history. The final integrated
+target is the review unit; none of these integrations merged Round 08 to `main`.
 
 ## Eight independent tracks
 

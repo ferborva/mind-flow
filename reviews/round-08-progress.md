@@ -128,3 +128,41 @@ chronology or exact native resolver. Coordinator clearance, the actual issue
 window and full-suite success still govern issuance. An issued record must be
 checked separately against these retained hashes; no score or calibration
 claim follows from this review.
+
+## 2026-09-09 11:45 UTC, integrated suite and gate adjudication
+
+The coordinator ran the complete `npm test` contract at `0c866eb` under
+Node 22.23.2: 903 tests across 18 invocations passed, zero failed. Earlier CI
+at `ccba6f3` failed a dashboard regression whose supposed unregistered revision
+had become the newly registered snapshot. The repair selects a genuinely unused
+revision; it does not loosen the production rejection. Current-candidate CI
+and detached freeze reproduction remain separate checks, not implied passes.
+
+The coordinator also reconstructed D's three NSW pairs directly from retained
+RoGS table rows 10A.26, 10A.31 and 10A.33, without calling D's producer:
+fully bulk-billed patients 55.2 to 56.1 percent, GP cost delay 9.3 to 7.2 percent
+and prescription cost delay 9.4 to 6.8 percent. The latter confidence-interval
+half-widths are 0.9/0.7 and 1.1/1.1 percentage points respectively. These are
+2023-24 to 2024-25 condition indicators, not agency or three independent gains.
+
+The literal five-category gate permits rule, workforce and health-literacy
+indicators. The GP basket supplies those retained indicator types. Requiring
+all five to be direct contemporary individual observations would silently
+strengthen that gate. Conversely, this permitted proxy coverage cannot satisfy
+today's binding-condition diagnosis. Historical NSW cost obstruction is real;
+the dominant barrier today remains unknown. Five-category coverage for every
+other basket item is incomplete. The public-language universal under-five-
+percent gate also remains unmet, as the inventory states. No gate is lowered.
+
+Different-owner F review reproduced the 20-test freeze suite and the focused
+artifact-parity and Round 08 policy checks. The coordinator removed an
+unsupported habitual-thought phrase after reading both stance captures and all
+five drafts. The remaining 26 covered first-person claims have semantic review
+in addition to snippet/hash checks. This is agent review, not human endorsement.
+
+The six lane PRs were automatically marked merged as their initial heads
+reached `ren/round-08`. Later additions are covered by the final integrated
+candidate, not by pretending those closed views include them. Remote `main`
+remains `b17d4ac993bbb04467db4e0a53f27e64e8193e8a`. Forecast issuance is now
+cleared after the full-suite pass, but its actual immutable record still needs
+a separate different-owner check. No score is authorised before resolution.
