@@ -18,6 +18,21 @@ world, that a causal explanation is correct or that anybody should act.
 
 ## What executes
 
+Every definition declares `condition_category`: `price`, `permission`,
+`proximity`, `availability` or `capability`. This starting set follows Fernando's
+September 2026 captures. `condition_subtype: discretion` is valid only under
+availability: access that depends on somebody continuing to choose to provide
+it is revocable. A category change changes the identity, rather than quietly
+revising the same claim.
+
+Numeric predicates must leave possible passing and failing values. Ratios have
+an intrinsic range of 0 to 1, percentages 0 to 100. Other numeric signals declare
+`value_range: {minimum, maximum}` with finite, ordered bounds. A declared range
+may narrow, never expand, an intrinsic range. These bounds establish logical
+plausibility, not empirical justification for the selected threshold. A count's
+maximum needs a documented population or physical bound, not a number chosen
+to make a predicate pass.
+
 ```text
 content-addressed signal definition
   → typed WHO + VERB + OBJECT + STANDARD + POLARITY + PERIOD
@@ -54,6 +69,13 @@ state decides the expression, one shared unresolved state is preserved and
 mixed unresolved states become `unknown`.
 
 ## Observation contract
+
+`classification: measured-observation` identifies normalised retained-source
+observations; `synthetic-observation` retains the fixture-only namespace
+`source.synthetic.*`. The classifications cannot share source identifiers.
+Neither a source identifier nor a digest proves that a retained artifact
+supports a derived value. The measurement producer must reproduce that
+derivation from retained bytes and state its evidence ceiling.
 
 Each observation binds:
 

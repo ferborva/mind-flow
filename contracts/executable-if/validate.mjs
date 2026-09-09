@@ -19,6 +19,7 @@ const HASH_DOMAIN = "mind-flow:executable-if:v1";
 const DAY_MS = 86_400_000;
 const SCOPE_AXES = ["jurisdictions", "geographies", "cohorts", "services"];
 const NON_DECISIVE = new Set(["unknown", "stale", "conflicted"]);
+const CONDITION_CATEGORIES = new Set(["price", "permission", "proximity", "availability", "capability"]);
 const STRICT_UTC_SECOND = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/;
 
 function canonicalJson(value) {
@@ -368,6 +369,16 @@ function typeMatches(kind, value) {
     : typeof value === "boolean";
 }
 
+function signalRange(signal) {
+  const inherent = signal.unit === "ratio" ? { minimum: 0, maximum: 1 }
+    : signal.unit === "percent" ? { minimum: 0, maximum: 100 } : null;
+  const range = signal.value_range || inherent;
+  if (!range || !Number.isFinite(range.minimum) || !Number.isFinite(range.maximum) ||
+      range.minimum >= range.maximum || (inherent &&
+      (range.minimum < inherent.minimum || range.maximum > inherent.maximum))) return null;
+  return range;
+}
+
 export function evaluateCondition(definition, signals, observations, { evaluatedAt }) {
   const signalMap = new Map(signals.map((signal) => [signalKey(signal), signal]));
   const predicateResults = {};
@@ -529,6 +540,12 @@ export function evaluateCondition(definition, signals, observations, { evaluated
 }
 
 function validateDefinitionSemantics(definition, signals, errors, path) {
+  if (!CONDITION_CATEGORIES.has(definition.condition_category) ||
+      (definition.condition_subtype !== undefined &&
+      (definition.condition_subtype !== "discretion" || definition.condition_category !== "availability"))) {
+    errors.push(error("CONDITION_CATEGORY_INVALID", `${path}/condition_category`,
+      "declare price, permission, proximity, availability or capability; discretion is an availability subtype"));
+  }
   if (!same(definition.evaluator_ref, FIXED_EVALUATOR_REF)) {
     errors.push(error("EVALUATOR_IDENTITY_MISMATCH", `${path}/evaluator_ref`,
       "condition definition must use the fixed evaluator semantics"));
@@ -561,6 +578,26 @@ function validateDefinitionSemantics(definition, signals, errors, path) {
     if (signal.value_kind === "boolean" && !["eq", "neq"].includes(predicate.operator)) {
       errors.push(error("PREDICATE_OPERATOR_TYPE_MISMATCH", `${path}/predicates/${predicateId}/operator`,
         "boolean signals support only eq and neq"));
+    }
+    if (signal.value_kind === "number") {
+      const range = signalRange(signal);
+      if (!range) {
+        errors.push(error("SIGNAL_RANGE_INVALID", `${path}/predicates/${predicateId}/signal_ref`,
+          "numeric signals require an ordered finite range; ratio and percent have intrinsic bounds"));
+        continue;
+      }
+      const { minimum, maximum } = range;
+      const value = predicate.threshold.value;
+      const outside = value < minimum || value > maximum;
+      const vacuous = outside ||
+        (predicate.operator === "gte" && value === minimum) ||
+        (predicate.operator === "lt" && value === minimum) ||
+        (predicate.operator === "lte" && value === maximum) ||
+        (predicate.operator === "gt" && value === maximum);
+      if (vacuous) {
+        errors.push(error("PREDICATE_THRESHOLD_VACUOUS", `${path}/predicates/${predicateId}/threshold`,
+          "a bounded signal threshold must permit both passing and failing values in its domain"));
+      }
     }
     if (predicate.missing_result !== "unknown" || predicate.stale_result !== "stale" ||
         predicate.conflict_result !== "conflicted") {
@@ -652,7 +689,9 @@ function validateEvolutionOperation(event, prior, introduced, errors, path) {
       }
     } else {
       if (!same(newDefinition.claim, oldDefinition.claim) ||
-          newDefinition.proposition !== oldDefinition.proposition) {
+          newDefinition.proposition !== oldDefinition.proposition ||
+          newDefinition.condition_category !== oldDefinition.condition_category ||
+          newDefinition.condition_subtype !== oldDefinition.condition_subtype) {
         errors.push(error("CONDITION_MEANING_CHANGED", path,
           "a definition revision cannot change the typed claim or its proposition"));
       }

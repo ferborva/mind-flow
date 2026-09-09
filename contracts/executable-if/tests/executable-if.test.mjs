@@ -26,6 +26,81 @@ const conformanceVectors = JSON.parse(readFileSync(
 ));
 const clone = (value) => structuredClone(value);
 
+test("every condition requires a declared category and discretion belongs only to availability", () => {
+  for (const category of [undefined, "optimism"]) {
+    const changed = kernelThroughRevision((revised) => {
+      if (category === undefined) delete revised.condition_category;
+      else revised.condition_category = category;
+    });
+    assert.equal(validateExecutableIfKernel(changed).machine_valid, false);
+  }
+  const changed = kernelThroughRevision((revised) => {
+    revised.condition_category = "price";
+    revised.condition_subtype = "discretion";
+  });
+  assert.equal(validateExecutableIfKernel(changed).machine_valid, false);
+});
+
+test("standalone evaluation enforces categories, subtype and declared numeric range", () => {
+  function evaluate(category, subtype, range, threshold = 0.8) {
+    const item = clone(definition("condition.worker-option"));
+    item.condition_category = category;
+    if (subtype !== undefined) item.condition_subtype = subtype;
+    const signals = clone(fixture.signals);
+    if (range !== undefined) signals[0].value_range = range;
+    signals[0].signal_definition_hash = computeSignalDefinitionHash(signals[0]);
+    item.predicates["option-coverage"].signal_ref.signal_definition_hash = signals[0].signal_definition_hash;
+    item.predicates["option-coverage"].threshold.value = threshold;
+    item.definition_hash = computeConditionDefinitionHash(item);
+    return evaluateCondition(item, signals, [], { evaluatedAt: "2026-06-01T00:00:00Z" });
+  }
+  for (const category of ["price", "permission", "proximity", "availability", "capability"]) {
+    assert.equal(evaluate(category).mechanically_valid_for_evaluation, true);
+  }
+  assert.equal(evaluate("availability", "discretion").mechanically_valid_for_evaluation, true);
+  for (const [category, subtype] of [[undefined, undefined], ["invented", undefined], ["price", "discretion"]]) {
+    assert.equal(evaluate(category, subtype).mechanically_valid_for_evaluation, false);
+  }
+  for (const range of [{ minimum: 1, maximum: 0 }, { minimum: 0, maximum: 1e9 }]) {
+    assert.equal(evaluate("availability", undefined, range).mechanically_valid_for_evaluation, false);
+  }
+  assert.equal(evaluate("availability", undefined, { minimum: 0.2, maximum: 0.9 }, 0.2)
+    .mechanically_valid_for_evaluation, false);
+  assert.equal(evaluate("availability", undefined, { minimum: 0.2, maximum: 0.9 }, 0.8)
+    .mechanically_valid_for_evaluation, true);
+});
+
+test("measured observations cannot borrow synthetic provenance and synthetic observations stay synthetic", () => {
+  const observation = fixture.observations[0];
+  const measured = clone(fixture);
+  measured.observations[0].classification = "measured-observation";
+  assert.equal(validateExecutableIfKernel(measured).schema_valid, false);
+  measured.observations[0].source_id = "source.abs.patient-experiences";
+  assert.equal(validateExecutableIfKernel(measured).schema_valid, true);
+  const synthetic = clone(fixture);
+  synthetic.observations[0].source_id = "source.abs.patient-experiences";
+  assert.equal(validateExecutableIfKernel(synthetic).schema_valid, false);
+  assert.equal(observation.classification, "synthetic-observation");
+});
+
+test("ratio threshold revisions retain both possible passing and failing values", () => {
+  for (const [operator, value] of [["gte", 0], ["gte", 1e9], ["lte", 1], ["lt", 0], ["gt", 1]]) {
+    const changed = kernelThroughRevision((revised) => {
+      revised.predicates["option-coverage"].operator = operator;
+      revised.predicates["option-coverage"].threshold.value = value;
+    });
+    const result = validateExecutableIfKernel(changed);
+    assert.equal(result.machine_valid, false, `${operator} ${value} must reject`);
+    assert.ok(result.errors.some(({ code }) => code === "PREDICATE_THRESHOLD_VACUOUS"));
+  }
+  for (const value of [0.01, 0.85, 1]) {
+    const changed = kernelThroughRevision((revised) => {
+      revised.predicates["option-coverage"].threshold.value = value;
+    });
+    assert.equal(validateExecutableIfKernel(changed).machine_valid, true);
+  }
+});
+
 function definition(id) {
   return fixture.events
     .flatMap(({ introduced_definitions: introduced }) => introduced)
