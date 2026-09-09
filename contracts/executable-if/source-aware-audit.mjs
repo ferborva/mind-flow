@@ -44,20 +44,29 @@ export function auditSignalThreshold({ signal, predicate, observations = [], dom
   const add = (code, severity, message) => issues.push({ code, severity, message });
   if (signal?.value_kind !== "number") return { signal_id: signal?.signal_id, status: "not_applicable", issues };
   const inherent = intrinsic(signal.unit);
-  const declared = signal.value_range || inherent;
-  const validRange = declared && (declared.minimum !== undefined || declared.maximum !== undefined) &&
-    (declared.minimum === undefined || Number.isFinite(declared.minimum)) &&
-    (declared.maximum === undefined || declared.maximum === null || Number.isFinite(declared.maximum)) &&
-    (declared.minimum ?? -Infinity) < (declared.maximum ?? Infinity);
+  const rawRange = signal.value_range || inherent;
+  // Frozen signalRange rejects explicit null bounds. Only omitted ratio/percent
+  // bounds inherit their unit limits; null in our internal count description is
+  // an infinity marker, not permission to put null in a declared definition.
+  const boundedIntrinsic = inherent?.maximum !== null ? inherent : null;
+  const declared = rawRange && {
+    minimum: rawRange.minimum ?? boundedIntrinsic?.minimum ?? -Infinity,
+    maximum: rawRange.maximum ?? boundedIntrinsic?.maximum ?? Infinity,
+  };
+  const validRange = rawRange && (rawRange.minimum !== undefined || rawRange.maximum !== undefined) &&
+    (!signal.value_range ||
+      ((rawRange.minimum === undefined || Number.isFinite(rawRange.minimum)) &&
+       (rawRange.maximum === undefined || Number.isFinite(rawRange.maximum)))) &&
+    declared.minimum < declared.maximum;
   if (!validRange) add("DOMAIN_UNASSESSED", "unassessed", "No valid declared numeric domain is available for source-aware review.");
-  if (inherent && signal.value_range &&
-      ((signal.value_range.minimum ?? inherent.minimum) < inherent.minimum ||
-       (inherent.maximum !== null && (signal.value_range.maximum ?? inherent.maximum) > inherent.maximum))) {
+  if (inherent && signal.value_range && validRange &&
+      (declared.minimum < inherent.minimum ||
+       (inherent.maximum !== null && declared.maximum > inherent.maximum))) {
     add("DOMAIN_CONTRADICTS_INTRINSIC_UNIT", "error", "A declared domain cannot add values excluded by the intrinsic unit, including negative counts.");
   }
   const sameIntrinsic = inherent && validRange &&
-    (declared.minimum ?? inherent.minimum) === inherent.minimum &&
-    (declared.maximum ?? inherent.maximum) === inherent.maximum;
+    declared.minimum === inherent.minimum &&
+    declared.maximum === (inherent.maximum ?? Infinity);
   let domainAssessment = sameIntrinsic ? "intrinsic" : "unassessed";
   const domainSources = [];
   if (!sameIntrinsic && validRange) {

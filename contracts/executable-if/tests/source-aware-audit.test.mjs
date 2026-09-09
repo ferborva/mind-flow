@@ -19,6 +19,24 @@ test("count cannot gain negative domain values by declaration", () => {
   assert.equal(result.intrinsic_domain_vacuity, "always_true");
 });
 
+test("explicit null bounds are not admitted as intrinsic finite domains", () => {
+  for (const unit of ["percent", "ratio", "count"]) {
+    const result = auditSignalThreshold(input(unit, { minimum: 0, maximum: null }));
+    assert.equal(result.domain_assessment, "unassessed");
+    assert.ok(result.issues.some(issue => issue.code === "DOMAIN_UNASSESSED"));
+    assert.equal(result.declared_domain_vacuity, "unassessed");
+  }
+});
+
+test("omitted percent bounds inherit intrinsic limits consistently with the frozen evaluator", () => {
+  const upper = auditSignalThreshold(input("percent", { minimum: 0 }, 100, "lte"));
+  assert.equal(upper.domain_assessment, "intrinsic");
+  assert.equal(upper.declared_domain_vacuity, "always_true");
+  const lower = auditSignalThreshold(input("percent", { maximum: 100 }, 0, "gte"));
+  assert.equal(lower.domain_assessment, "intrinsic");
+  assert.equal(lower.declared_domain_vacuity, "always_true");
+});
+
 test("nonnegative count domain is intrinsic, not inferred from the sample", () => {
   const result = auditSignalThreshold(input());
   assert.equal(result.domain_assessment, "intrinsic");
