@@ -2,7 +2,7 @@
 
 This pilot cannot tell you whether you can get an appointment today. It can show where a barrier has been measured, who may be able to change it, and what remains unknown.
 
-Construction revision `primary-care.r2.json` and `primary-care.kernel.r2.json` are the current research bindings. Independent review removed unsupported numeric upper bounds and made the missing specialist-pathway price measure explicit. Original `primary-care.v1.json`, `primary-care.kernel.json` and dashboard snapshot `2026-09-09.r1` remain unchanged for audit. Their old evaluator bindings are not current. No measured value or source period changed.
+Construction revision `primary-care.r3.json` and `primary-care.kernel.r3.json` are the current research bindings. Independent review removed unsupported numeric upper bounds, made the missing specialist-pathway price measure explicit, and required observation-domain enforcement. Original and r2 artifacts and dashboard snapshot `2026-09-09.r1` remain unchanged for audit. Their old evaluator bindings are not current. No measured value or source period changed.
 
 In 2024-25, an estimated **7.2% of NSW people in the survey who needed a GP delayed or went without because of cost**. The published 95% confidence-interval half-width is 0.7 percentage points. This is a state population estimate, not a finding about you, your occupation or your town. It is historical evidence, not a current service guarantee.
 
