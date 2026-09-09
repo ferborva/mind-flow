@@ -11,7 +11,8 @@ export function isolatedRepository(sourceRoot) {
   try {
     for (const path of ["dashboard", "contracts", "integration", "signals", "paths",
       "preparation", "forecasts", "governance", "evidence", "package.json",
-      "pilots/australia/README.md"]) {
+      "pilots/australia/README.md", "pilots/australia/tools", "pilots/australia/data",
+      "pilots/australia/basket", "pilots/australia/sources/primary-care"]) {
       const destination = resolve(root, path);
       mkdirSync(dirname(destination), { recursive: true });
       cpSync(resolve(sourceRoot, path), destination, { recursive: true });
