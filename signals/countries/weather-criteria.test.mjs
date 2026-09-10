@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { createDefinition, inspectHistory, rankMagnitude, validateCriteria, verifyMeasurementBytes } from './weather-criteria.mjs';
-import { computeConditionDefinitionHash, evaluateCondition } from '../../contracts/executable-if/validate.mjs';
+import { computeConditionDefinitionHash, computeSignalDefinitionHash, evaluateCondition } from '../../contracts/executable-if/validate.mjs';
 
 const hash = `sha256:${'1'.repeat(64)}`;
 const example = () => ({ id: 'electricity-access', native_series: 'EG.ELC.ACCS.ZS',
@@ -89,5 +89,26 @@ test('retained proposed bindings contain no real rank, observation, event or det
     assert.equal(entry.history_eligibility.rank,null);
     assert.equal(entry.history_eligibility.comparability,'unassessed');
     assert.deepEqual(entry.definition.scope.geographies,['Australia']);
+  }
+});
+
+test('rehashing cannot silently change prior count, ties, latest exclusion or movement construct', () => {
+  const original=createDefinition(example(),hash);
+  for(const [before,after] of [
+    ['ten preceding','two preceding'],
+    ['0.5 times exact ties','1 times exact ties'],
+    ['latest excluded','latest included'],
+    ['consecutive years only','available years only'],
+    ['no rounding','round to integer'],
+    ['signed annual percentage-point difference of levels','annual percentage growth of levels'],
+    ['comparability review required and absent','comparability automatically established'],
+  ]) {
+    const changed=structuredClone(original);
+    assert.ok(changed.signal.aggregation.includes(before));
+    changed.signal.aggregation=changed.signal.aggregation.replace(before,after);
+    changed.signal.signal_definition_hash=computeSignalDefinitionHash(changed.signal);
+    changed.definition.predicates.tail.signal_ref.signal_definition_hash=changed.signal.signal_definition_hash;
+    changed.definition.definition_hash=computeConditionDefinitionHash(changed.definition);
+    assert.ok(validateCriteria(changed).some(error=>error.includes('methodology')),`${before} mutation must fail even after valid rehash`);
   }
 });

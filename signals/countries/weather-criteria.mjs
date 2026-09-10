@@ -18,6 +18,9 @@ export function verifyMeasurementBytes(retained,reproduced){
   if(!retained||retained!==reproduced)throw new Error('Retained measurements failed exact source-derived replay');
 }
 function specification(series){const spec=specs[series.id];if(!spec||spec.unit!==series.unit)throw new Error('Unsupported series or unit');return spec;}
+function methodology(spec){
+  return `Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. ${spec.difference?'Movement is signed annual percentage-point difference of levels.':'Movement is the annual CPI percentage-change rate itself.'} Country-specific comparability review required and absent.`;
+}
 
 // Arithmetic demonstration only. No real-history admission or storm classifier.
 export function rankMagnitude(latest,prior){
@@ -51,7 +54,7 @@ export function createDefinition(series,measurementHash){
   const spec=specification(series);
   if(!hashPattern.test(series.source_sha256)||!hashPattern.test(measurementHash)||!series.source_file||!series.vintage||!series.definition)throw new Error('Missing retained source identity');
   const id=`country-weather.aus.${series.id}`;
-  const rule=`Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. ${spec.difference?'Movement is signed annual percentage-point difference of levels.':'Movement is the annual CPI percentage-change rate itself.'} Country-specific comparability review required and absent. Measurement bytes ${measurementHash}; vintage ${series.vintage}.`;
+  const rule=`${methodology(spec)} Measurement bytes ${measurementHash}; vintage ${series.vintage}.`;
   const signal={signal_id:`signal.${id}`,definition_version:'1.0.0',label:`Proposed Australian ${series.id} own-history midrank`,
     construct:'Relative magnitude of annual movement, not a storm or agency measure',population:`Australia; source construct: ${series.definition}`,
     estimand:`Research-only tail position; ${series.evidence_ceiling}`,aggregation:rule,projection_policy:'exact-scope-only',
@@ -82,5 +85,10 @@ export function validateCriteria(entry){
     predicate?.window.lookback_days!==365||predicate?.window.maximum_age_days!==365||
     predicate?.window.minimum_observations!==1||predicate?.window.persistence!==1)errors.push('Proposed country, truth rule or annual review window changed');
   if(!entry.signal.aggregation.includes(`Measurement bytes ${entry.measurement_sha256};`))errors.push('Measurement binding missing');
+  // Hash validity binds whatever text a caller supplied; it does not establish
+  // that the caller retained the reviewed arithmetic and admission requirements.
+  const seriesId=entry.signal.signal_id?.replace(/^signal\.country-weather\.aus\./,'');
+  const spec=specs[seriesId];
+  if(!spec||!entry.signal.aggregation.startsWith(`${methodology(spec)} Measurement bytes ${entry.measurement_sha256}; vintage `))errors.push('Proposed methodology changed');
   return errors;
 }
