@@ -6,6 +6,7 @@ import test from "node:test";
 import { validateDeletionRecord } from "../../meta/validate-editorial-deletions.mjs";
 import * as editorial from "../../meta/validate-editorial-deletions.mjs";
 import { firstPersonSentences } from "../../meta/validate-draft-provenance.mjs";
+import { beforeRound10Amendment } from "./helpers/round-10-history.mjs";
 
 const hash = value => createHash("sha256").update(value).digest("hex");
 const before = "I want agency.\n\nRepeated status.\n\n<!-- GAP: His question. -->\n";
@@ -99,7 +100,7 @@ test("Round 09 logged prose cuts reconstruct their pre-edit documents", () => {
     const record = JSON.parse(json);
     let body = readFileSync(resolve(root, record.path), "utf8").replace(/^---\n[\s\S]*?\n---\n/, "");
     if (record.path === "drafts/abundance-has-an-if.md") body = beforeCapturedAmendment(body);
-    if (record.path === "drafts/every-if-is-somebodys-when.md") body = beforeRound091Amendment(record.path, body);
+    if (record.path === "drafts/every-if-is-somebodys-when.md") body = beforeRound091Amendment(record.path, beforeRound10Amendment(root, record.path, body));
     if (record.navigation_addition) {
       assert.equal(record.path, "dashboard/README.md", "draft additions are forbidden");
       assert.equal(record.navigation_addition, "[Operator details](OPERATIONS.md) covers validation, evidence acquisition, synthetic fixtures and release governance.\n\n");

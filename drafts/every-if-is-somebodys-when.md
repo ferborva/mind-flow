@@ -111,7 +111,7 @@ starting point remains the person, the service and the conditions of access.
 
 ## ⏱ WHEN follows conditions
 
-**WHEN is a prompt for conditional work.** It is not a date, forecast, guarantee or commitment.
+**WHEN is a prompt for conditional work, not a date, forecast, guarantee or commitment.**
 A person can use the sentence while still depending on decisions held elsewhere.
 
 Conditions can move concurrently, remain dependency-bound or change in an
