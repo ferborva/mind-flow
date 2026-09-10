@@ -50,7 +50,7 @@ Replace `EXACT_CANDIDATE_COMMIT` with the reviewed full commit hash, never a mov
 | Transcript authentication / receipt forgery | Current boundary accepted only as the commissioned, time-bounded risk above; independent full rerun required before merge; reconsider 2026-09-16 |
 | Distinct canonical and network-blocked Round 09.1 freeze IDs | Literal request remains unmet pending Fernando's original-preservation versus new-version decision; neither receipt nor hash changed |
 | Future per-execution identity | Implemented prospectively in Round 10 receipt edition 1.1.0: UUIDv4 suffix, exact schema/verifier shape, distinct same-candidate creations, malformed/wrong-round rejection. This does not close the historical-ID request |
-| Hash-domain separation | Deferred, no historical hash reinterpretation |
+| Hash-domain separation | Deferred; covers editions 1.0.0 and 1.1.0 at the 16 September review. No historical hash reinterpretation |
 | History weight | Deferred, no history rewrite |
 | Inherited macro raw inputs | Deferred, no new source-authentication claim |
 | Final candidate, artifact lock and freeze | Coordinator-owned subsequent steps, not completed by this setup |

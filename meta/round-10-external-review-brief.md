@@ -1,6 +1,6 @@
 ---
 id: round-10-external-review-brief
-title: Round 10 review, operational rule and measurement insufficiency
+title: Round 10.1 closure review, repaired mechanism and measurement insufficiency
 type: review-brief
 status: review-candidate
 author: Ren
@@ -11,11 +11,18 @@ updated: 2026-09-10
 
 # Review whether the rule measures what it claims
 
+**Round 10.1 forward revision.** The original review target remains `1c2b694`
+with seal `e04a287`; its original brief is preserved at that commit. This
+revision requests closure of the [53 independent findings](../reviews/round-10-1-dispositions.md),
+not a fresh empirical measurement claim. All ten independent track boundaries
+below remain relevant; focus on the repaired paths and regressions.
+
 **The operational rule is executable; the national social-shift measurement
 is still missing.** Three native income-related families cover 50, 50 and 49
 economies across 20 annual comparisons. None identifies directly disrupted
-people or a change in the binding category. All 1,000 country-periods therefore
-remain `cannot-say`. That is not a finding of zero storms, nor completion of
+people or a change in the binding category. All 1,000 country-periods structurally
+remain `cannot-say` because no disruption or binding observations are admitted.
+That is not 1,000 individually inconclusive measurements, a finding of zero storms, or completion of
 the intended weather station. Review the gap as seriously as the code.
 
 The goal remains abundance with agency. The organising method is
@@ -32,7 +39,7 @@ branch `ren/round-10`, from merged main
 `31febcb31048b00191fa6c5024897ac6c281c93e`. Main is not being changed this round.
 The final exact candidate and tree must be taken from `review_target.commit`
 and `review_target.tree` in
-[`round-10.review-freeze.json`](review-freeze/round-10.review-freeze.json).
+[`round-10.1.review-freeze.json`](review-freeze/round-10.1.review-freeze.json).
 The separate seal adds the receipt after the candidate. Until that receipt
 exists, reproduction is `passed`, and the seal is named on the PR, **there is
 no frozen handoff**. Earlier lane tests and this preparing brief are not one.
@@ -41,7 +48,7 @@ Use a detached checkout of that full candidate hash, complete Git history and
 hydrated Git LFS objects. Verify from the seal checkout with:
 
 ```sh
-node meta/review-freeze/review-freeze.mjs verify --policy=round-10 --manifest=meta/review-freeze/round-10.review-freeze.json
+node meta/review-freeze/review-freeze.mjs verify --policy=round-10 --manifest=meta/review-freeze/round-10.1.review-freeze.json
 ```
 
 Then independently execute the declared commands on Node 22. A consistency
@@ -50,11 +57,16 @@ receipt does not authenticate command output or independently rerun it. The
 does not grant approval or remove the 16 September review. Each review track
 should record its first-pass findings before sharing conclusions.
 
+The repair reuses the unchanged Round 10 policy and 1.1.0 schema with a new
+execution UUID and output path. Old receipts are not overwritten. The prior
+independent replay used the same host/runtime bytes, so reviewer independence
+must not be mistaken for environmental independence or transcript authentication.
+
 ## Gate ledger
 
 | Commissioned gate | Evidence and disposition |
 | --- | --- |
-| Both captures processed; programme carries Fernando's words | Four atomic seeds, exact captured quotations, operational main instruction processed without an invented seed. Three reversible assumptions are explicitly commissioned. |
+| Both captures processed; programme carries Fernando's words | Four atomic seeds, exact captured quotations, operational main instruction processed without an invented seed. Five reversible choices are explicitly commissioned, including direction and direct-share threshold basis. |
 | Criterion and assumptions written | [Criterion](../signals/countries/storm-criterion.v1.md), two-arm three-valued logic, five total-population percentage points, separate household reading and national co-occurrence. Arithmetic is operational; empirical admission is not. |
 | Three families, at least 40/50, retained single vintages and licences | Native breadth met: ILO EPOP 50, ILO unemployment 50, PIP national lineup 49. November 2025 ILO and March 2026 PIP editions; 2005 baseline plus 2006–25 endpoints. Exact producers replay in CI. This is not disrupted-person coverage. |
 | Retrospective fires, misses and false fires | **Social-criterion gate unmet.** All 1,000 periods unassessable; fires/misses/false positives null. Nine naive native crossings are retained counterexamples, not social outcomes. World Bank and WHO context cannot label every country's social-contract shift. No skill claim. |
@@ -62,10 +74,10 @@ should record its first-pass findings before sharing conclusions.
 | Two new real evolution events, three total | **Unmet: 0 new, 1 total.** Three proposed definitions are construction. No known-wrong proxy was adopted just to manufacture an invalidation. Rehashed rule mutation and stale hashes are rejected, but synthetic tests are not real migrations. |
 | Australian depth | Full NERO source replay, 140 separate NSW occupation/SA4 series, fixed comparisons and native extrema. GP join fails geography, population, period and construct alignment. No national-to-local inference or summed employment counts. |
 | Scheduled intake in place and tested | Daily November/December workflow with actual 2026 acquisition window, read-only collection, bounded write publisher, exact evidence validation and verified LFS publication. No resolver or scorer. **Activation remains pending main integration and repository permissions; this branch is not an active scheduler.** |
-| Appointment proposal and third issued forecast | Bounded adjudicator appointment drafted, nominee and Fernando decision pending. Appointment cannot invent a retrospective void ground. Canadian reported unemployment forecast issued 10 September at 07:56:37 UTC after provider registration at 07:49:33 UTC. Probability 0.090909; frozen all-month baseline 0.483333 and naive 0.5. Resolution 6 November through 31 December. Exact source/receipt/issue replay is mandatory, but provider registration remains self-posted and externally unverified; it establishes no storm, skill or authority. |
-| Name the If ready or blocked | Creator checklist and line-level provenance pass complete; ready for Fernando's section-by-section read. [Sign-off sheet](../reviews/name-the-if-sign-off.md), seven approvals pending, outside-human-read choice pending. Nothing moved to posts or published. |
+| Appointment proposal and third issued forecast | Bounded adjudicator appointment drafted, nominee and Fernando decision pending. Appointment cannot invent a retrospective void ground. Canadian reported unemployment forecast issued 10 September at 07:56:37 UTC after provider registration at 07:49:33 UTC. Probability 0.090909; frozen all-month baseline 0.483333 and naive 0.5. Resolution 6 November through 31 December. Exact source/receipt/issue replay is mandatory. The agent posted the registration using the available token for human GitHub login `ferbo-atl` (retained association: COLLABORATOR, not proof of repository ownership). It is self-posted, editable and externally unverified, not the account holder's approval; it establishes no storm, skill or authority. |
+| Name the If ready or blocked | Prepared for Fernando's section-by-section read, but machine status remains `review` until approval. [Sign-off sheet](../reviews/name-the-if-sign-off.md), seven approvals pending, outside-human-read choice pending. Nothing moved to posts or published. |
 | WHEN under 5% through approved ceiling merge | Complete ceiling retained in defining sentence. Standalone-disclaimer reading: 3/78 = 3.85%. Counting every sentence containing a limitation, including that definition: 4/78 = 5.13%, so the gate remains unmet under that broader classification. Both classifications disclosed for independent judgment, not hidden through denominator inflation. |
-| Hygiene closed | Casing extended; canonical hash directly pinned; already merged layout, disclosure-CI, date and label regressions retained. Future Round 10 executions have exact UUIDv4 identities in same-family receipt edition 1.1.0, with Git LFS included in the restricted toolchain. **Literal distinct historical freeze IDs remain unmet** pending preservation/versioning choice. Originals are byte-identical; attempt index is not falsely called new embedded IDs. |
+| Hygiene repairs and unmet historical-ID request | Casing extended; canonical hash directly pinned; already merged layout, disclosure-CI, date and label regressions retained. Future Round 10 executions have exact UUIDv4 identities in same-family receipt edition 1.1.0, with Git LFS included in the restricted toolchain. **Literal distinct historical freeze IDs remain unmet** pending preservation/versioning choice. Originals are byte-identical; attempt index is not falsely called new embedded IDs. |
 | Node 22, freeze and review | In progress until the final candidate receipt and separate seal exist. The receipt, not this preparatory text, supplies exact commands, outcomes, counts and target. No Round 10 merge or publication is authorised by a passing check. |
 
 The first NERO score is not yet due. The defective original Round 09 record
@@ -89,7 +101,10 @@ appointment, a replacement nor the Canadian issue erases it.
    generic unmeasured propositions and scope requirements before any future
    empirical admission. New construction and synthetic mutations are not
    evolution events. The two old GP construct migrations remain unfinished
-   team-owned work, not an external permission blocker.
+   team-owned work, not an external permission blocker. Their negative tests
+   are `pilots/australia/tests/round-09-evolution-discoveries.test.mjs`.
+   The separate pending Round 4 coherent-bundle acceptance lives under
+   `integration/transition-bundle/tests/pending/`; it is not those migrations.
 3. **Evidence and forecasts.** Reproduce all original NERO records and the
    defect disclosure. Inspect the new intake against absent, malformed,
    substituted and revised sources; confirm no scoring imports or calls.
