@@ -1,6 +1,6 @@
 ---
 id: abundance-transition-programme
-title: Abundance Transition Programme
+title: A weather station for the approaching storms of change
 type: programme-proposal
 status: proposed
 development_status: active
@@ -8,14 +8,21 @@ adoption_status: not-adopted
 substantive_review: pending
 authority: none
 provenance: commissioned-proposal
-author: ren
+author: Ren
 requested_reviewer: fernando-bordallo
-sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
+sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy, 2026-09-10-where-the-money-sits-and-the-weather-station]
 created: 2026-09-08
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
-# Abundance Transition Programme
+# A weather station for the approaching storms of change
+
+**Watch broad market shifts at country level across at least the top 50 economies.**
+Fernando's [September 10 scope decision](../capture/2026-09-10-where-the-money-sits-and-the-weather-station.md)
+names the instrument a “weather station for the approaching storms of change”.
+The Australian primary-care investigation remains the worked example at depth,
+not the programme's geographic or thematic boundary. His urgency is captured
+as his view, not a measured finding or an Observatory forecast.
 
 **Help humanity reach abundance with agency: observe which conditions prevent
 capability becoming access, identify who can change them, and test action
@@ -45,9 +52,25 @@ Fernando places his contribution at the frame and method level. The “enough”
 line is parked. His newer capture leaves tax, transfers, corporate provision,
 visible prices and a portfolio of remedies open. Remedy proposals belong in
 documents marked `provenance: commissioned-proposal`. The enterprise-choice
-diagnosis remains a [question for Fernando](backlog.md), with its GAP intact.
+diagnosis is now confirmed as an observation of where money accrues, without
+restoring “so the choice is theirs” as a remedy. The ranking, selected signals
+and definition of a storm remain commissioned proposals and [open questions](backlog.md).
 
 ## 📡 Signals
+
+**Breadth and depth answer different questions.** Country signals investigate
+broad shifts through the five categories; the Australian pathway tests what
+those categories mean for a specified service and population. Neither scale
+can stand in for the other. A country average cannot establish an individual's
+access, and one NSW pathway cannot describe the world's transition.
+
+The new breadth gate requires at least three proposed signals, each with
+retained observations for at least 40 of the proposed 50 countries from one
+vintage, reproducible extraction and source-specific licence status. Below
+that coverage a candidate stays in research, not on the panel. Every measured
+country needs either a supported binding-category diagnosis for the covered
+essentials or the exact missing series. No world surface is authorised before
+the breadth gates are met. An unmeasured country is not a panel placeholder.
 
 **Observe conditions, then ask which is binding for this population today.**
 A condition is binding when it prevents the specified outcome while the
@@ -109,7 +132,7 @@ vintage, provenance and a reproducible calculation. A measurement that loses
 those properties leaves the panel. A national average must never overwrite a
 subgroup observation. Source overlap stays visible in any comparison.
 
-### First measured application
+### First measured application: Round 08 baseline
 
 The first retained-input pass keeps eight macro-context series, removes the
 eight unsupported placeholders with recorded reasons, and adds four distinctly
@@ -195,6 +218,12 @@ count against it. The consumer's IF and provider's WHEN are linked but
 non-identical: an actor can address one requirement while other requirements
 remain. A WHEN is not a forecast or commitment.
 
+At country breadth, the first proposed action is investigation: establish the
+covered essential, population and missing joint-condition evidence before
+proposing a remedy. A national signal moving is not enough to recommend a
+policy. The following Australian examples demonstrate the action-hypothesis
+discipline to carry into other places, not a country policy package.
+
 | Proposed action hypothesis | Signal it would seek to move | What would defeat or narrow it |
 | --- | --- | --- |
 | A payer and provider change the payment route for a scoped GP service | Cost-related GP delay, measured for the same eligible population | Charges fall but delayed care remains unchanged, or travel and waiting replace money as the reported barrier |
@@ -223,19 +252,30 @@ severity, adjudicator, remedy and how conflicts between protections are
 resolved. Household gains cannot cancel severe individual harm under the
 programme's proposed loss rule.
 
-## 🔎 Current checkpoint: Round 08 measurement
+## 🔎 Current checkpoint: Round 09 breadth and depth
 
 Round 07's seal and provenance remain in Git history. The instrument includes
 a seven-artifact pre-projection core and an eight-artifact complete core. This
-round adds measurement through the existing contracts. Controls are advisory
+programme adds measurement through the existing contracts. Controls are advisory
 library and build boundaries; caller-supplied identities and successful local
 checks do not establish an operational institution.
 
-The [Round 08 plan](round-08-plan.md) is the live implementation plan on
-`ren/round-08`. Its gates require a five-category measured basket item, a
+The [Round 08 plan](round-08-plan.md) preserves the earlier implementation
+checkpoint. Its gates required a five-category measured basket item, a
 data-supported binding diagnosis, zero `not_measured` panel entries, one
 immutable prospective forecast, three measured positive signals and clear
 public prose with capture provenance. Scoring waits for forecast resolution.
+
+Round 09 now investigates country breadth alongside that depth under the
+replacement commission. The [progress register](../reviews/round-09-progress.md)
+records the current gates and blockers. The newer scope does not count as
+measured country coverage, a detected storm or two additional evolution events.
+Gate status must follow the retained measurement and replay records, not this
+programme statement. Proposed country ranking is a sampling choice, not an
+agency league table. The original prospective forecast and the corrected second
+campaign retain their separate issuance history; neither has an October score
+at this September checkpoint.
+
 A historical baseline win opens only a preregistered, prospective,
 no-consequence rehearsal. Data gaps remain visible when a gate stays unmet.
 

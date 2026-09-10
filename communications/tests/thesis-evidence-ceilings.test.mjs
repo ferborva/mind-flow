@@ -33,7 +33,8 @@ test("the supply argument keeps consumer IFs and actor WHENs linked but non-iden
 
 test("the measurement programme retains advisory boundaries and advances its checkpoint", () => {
   assert.match(programme, /controls are advisory\s+library and build boundaries/i);
-  assert.match(programme, /Current checkpoint: Round 08 measurement/i);
+  assert.match(programme, /Current checkpoint: Round 09 breadth and depth/i);
+  assert.doesNotMatch(programme, /Round 08 plan.*is the live implementation plan/i);
   assert.match(programme, /seven-artifact pre-projection core/i);
   assert.match(programme, /eight-artifact complete core/i);
   assert.match(programme, /caller-supplied identities.*successful local\s+checks do not establish an operational institution/i);

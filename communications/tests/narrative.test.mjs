@@ -33,7 +33,13 @@ test("the originating write-up preserves Fernando's argument and its visible cor
   assert.match(first, /80\.0%/);
   assert.match(first, /historical upstream raw response is not retained/);
   assert.doesNotMatch(first, /That is the position in the .*capture|working assumption in the original argument/i);
-  assert.match(first, /GAP: Fer, does "the choice is theirs" survive as a diagnosis/i);
+  assert.doesNotMatch(first, /GAP: Fer, does "the choice is theirs" survive as a diagnosis/i);
+  assert.match(first, /sources:.*2026-09-10-where-the-money-sits-and-the-weather-station/);
+  const observation = first.split("## 🏦 Where the ball sits\n")[1]?.split("\n## ")[0];
+  assert.ok(observation, "the restored observation must have its own section");
+  assert.match(observation, /The money accrues to a few companies/);
+  assert.match(observation, /naughty kid.*stop\s+hogging\s+the ball, share it/is);
+  assert.doesNotMatch(observation, /choice is theirs|must|should|Tesla|UBI|tax|transfer|portfolio/i);
 });
 
 test("the evolved write-up uses the seven-part public update", () => {
