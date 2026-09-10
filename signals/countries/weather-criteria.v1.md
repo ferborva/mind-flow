@@ -62,6 +62,23 @@ Australian examples show exact construct and scope binding; they are not a
 data here. Numeric history sufficiency and source retention can be checked
 without declaring history comparable. Missing comparability remains named.
 
+The existing-family objects are in
+[`weather-criteria.v1.json`](weather-criteria.v1.json). Each condition binds its
+rank signal, threshold and declared domain by the existing definition hashes.
+The signal binds the full measurement-file hash and raw-source identity;
+the output also binds this proposal's bytes. Its history rows retain the
+publisher selectors and model flags. No `added` event is appended merely to
+register these examples, and no example counts toward the three-event gate.
+
+Each proposed predicate asks for one normalized rank observation, with a
+365-day lookback and maximum age and persistence of one. These are explicit
+annual-review design choices, not calibrated freshness or persistence rules.
+They do not replace the ten preceding movements required to construct a rank.
+Any future normalized observation must keep the underlying reference-period
+end, not use a new computation date to freshen old evidence. The claim window
+is a proposed one-year review scope, not a transition timetable. This edition
+registers no observations; the existing evaluator returns unknown without them.
+
 ## What the rank would miss
 
 A long deterioration can be ordinary relative to its own bad history. A tiny
@@ -90,3 +107,19 @@ The open question for Fernando remains: does a storm mean an unusual movement,
 a binding-category change, a divergence, or something else? His ambition to
 prepare for crisis points and his sequencing concession both remain in the
 source record. This proposal does not settle their relationship for him.
+
+## Reproduction
+
+After country-set and measurement integration, use Node 22:
+
+```sh
+node --test signals/countries/weather-criteria.test.mjs
+node signals/countries/weather-criteria-build.mjs --check
+```
+
+The builder calls the existing measurement extractor and requires exact
+measurement-byte replay from pinned source bodies, response headers and receipts
+before producing bindings. Missing source files fail visibly. `--source-root=`
+and `--country-set-root=` are local integration aids selecting trusted project
+checkouts, not a sandbox for untrusted code. Reproduction does not authenticate
+publishers or prove longitudinal comparability. No real-data rank is emitted.
