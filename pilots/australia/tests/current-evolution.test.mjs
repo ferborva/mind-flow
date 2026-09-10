@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { appendCorroborationRequirement, rebindPositiveConsumer, assessPositiveBinding } from '../tools/current-primary-care.mts';
+import * as current from '../tools/current-primary-care.mts';
+const { appendCorroborationRequirement, rebindPositiveConsumer, assessPositiveBinding } = current;
 import { computeConditionDefinitionHash, computeObservationHash, evaluateCondition, evaluateKernelCondition } from '../../../contracts/executable-if/validate.mjs';
 
 const read = name => JSON.parse(readFileSync(new URL(name, import.meta.url), 'utf8'));
@@ -26,7 +27,28 @@ test('a persisted pre-event positive consumer fails after an appended definition
   assert.equal(rebound.current_condition_truth_established, false);
   const falselyGreen = structuredClone(rebound);
   falselyGreen.current_condition_truth_established = true;
-  assert.equal(assessPositiveBinding(falselyGreen, after).valid, false);
+  assert.equal(current.assessPositiveParity(JSON.stringify(falselyGreen, null, 2) + '\n', after).valid, false);
+});
+
+test('definition binding and retained byte parity report different failures', () => {
+  const after = appendCorroborationRequirement(before, '2026-09-10T00:00:00Z');
+  const rebound = rebindPositiveConsumer(consumer, after);
+  const serialise = value => JSON.stringify(value, null, 2) + '\n';
+  const prose = structuredClone(rebound);
+  prose.scope_and_comparison_limit += ' Additional editorial context.';
+  assert.equal(assessPositiveBinding(prose, after).valid, true);
+  assert.equal(current.assessPositiveParity(serialise(rebound), after).valid, true);
+  assert.equal(current.assessPositiveParity(serialise(prose), after).code, 'CONSUMER_BYTE_PARITY_MISMATCH');
+  assert.equal(current.assessPositiveParity(JSON.stringify(rebound), after).valid, false);
+  const old = structuredClone(rebound);
+  old.signals[1].condition_definition_ref = consumer.signals[1].condition_definition_ref;
+  assert.equal(assessPositiveBinding(old, after).code, 'CONSUMER_DEFINITION_BINDING_MISMATCH');
+  const empty = structuredClone(rebound);
+  empty.signals = [];
+  assert.equal(assessPositiveBinding(empty, after).valid, false);
+  const duplicate = structuredClone(rebound);
+  duplicate.signals[0] = structuredClone(duplicate.signals[1]);
+  assert.equal(assessPositiveBinding(duplicate, after).valid, false);
 });
 
 test('repeated append and a consumer retaining the old definition are refused', () => {

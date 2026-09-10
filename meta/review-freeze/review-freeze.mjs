@@ -293,11 +293,54 @@ export const ROUND_08_REVIEW_POLICY = Object.freeze({
   ],
 });
 
+export const ROUND_09_REVIEW_POLICY = Object.freeze({
+  schema_version: '1.0.0', policy_id: 'review-freeze.round-09', policy_version: '1.0.0',
+  review_round: 'round-09', reviewed_ref: 'ren/round-09',
+  generated_outputs: ROUND_08_GENERATED_OUTPUTS,
+  required_files: [
+    ...ROUND_08_REVIEW_POLICY.required_files,
+    ...[
+      ['meta/round-09-external-review-brief.md', 'Round 09 eight-track frozen-candidate review charter'],
+      ['reviews/round-09-progress.md', 'Round 09 gates and honest blockers'],
+      ['reviews/round-09-residuals.md', 'Eight residual repair dispositions and fail-first evidence'],
+      ['reviews/round-09-adversarial-review.md', 'Different-owner measurement and protocol objections'],
+      ['reviews/round-09-narrative-provenance.md', 'Exact disclaimer deletions and protected voice'],
+      ['reviews/round-09-forecast-intake.md', 'First forecast blocker and prospective continuity'],
+      ['meta/build-artifacts.lock.json', 'Explicit retained generated-output digests'],
+      ['meta/review-freeze/round-08.1.review-freeze.json', 'Unchanged prior repair receipt'],
+      ['contracts/executable-if/when-an-if-changes.md', 'Readable event-12 invalidation and rebind'],
+      ['contracts/executable-if/tests/audit-layer-boundary.test.mjs', 'Disclosed sealed-evaluator and current-audit difference'],
+      ['pilots/australia/tools/measurement-depth.mts', 'Retained basket depth and confidence interval derivation'],
+      ['pilots/australia/data/primary-care-depth-2026-09-10.r2.json', 'Corrected Round 09 measurement depth'],
+      ['pilots/australia/sources/primary-care/2026-09-10-depth/capture.json', 'Exact measurement source and header manifest'],
+      ['pilots/australia/tools/current-primary-care.mts', 'Definition binding and byte parity as separate gates'],
+      ['pilots/australia/tools/evolution-discoveries.mts', 'Source-backed meaning corrections and representational blocker'],
+      ['pilots/australia/data/round-09-evolution-discoveries.json', 'Retained discoveries, not manufactured events'],
+      ['forecasts/prospective-pilot/round-09-nero/issued.json', 'Immutable first Round 09 issuance with disclosed target contradiction'],
+      ['forecasts/prospective-pilot/round-09-nero/preregistration.json', 'Immutable inconsistent protocol retained for audit'],
+      ['forecasts/prospective-pilot/issuance-binding/round-09-validate.mjs', 'Retained first Round 09 admission edition'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/issued.json', 'Prospective corrected target issuance'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/preregistration.json', 'Corrected campaign protocol and registration binding'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/registration-provider-response.base64.txt', 'Corrected campaign provider response bytes'],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_08_REVIEW_POLICY.build_commands,
+    ...[
+      ['measurement-depth-check', ['node', 'pilots/australia/tools/measurement-depth.mts', '--check']],
+      ['evolution-discovery-check', ['node', 'pilots/australia/tools/evolution-discoveries.mts', '--check']],
+      ['round-09-prospective-issuance-check', ['npm', 'run', 'test:forecasts']],
+      ['round-09-narrative-check', ['node', '--test', 'communications/tests/round-09-deletions.test.mjs']],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: '.', timeout_ms: 900_000 })),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
   if (reviewRound === "round-07") return ROUND_07_REVIEW_POLICY;
   if (reviewRound === "round-08") return ROUND_08_REVIEW_POLICY;
+  if (reviewRound === "round-09") return ROUND_09_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
@@ -1196,8 +1239,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

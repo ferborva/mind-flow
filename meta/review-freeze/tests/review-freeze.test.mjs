@@ -521,6 +521,31 @@ test("Round 08 policy binds measurements and exact generated outputs without cha
   assert.ok(policy.build_commands.some(({ argv }) => argv.includes("forecasts/prospective-pilot/tests/round-08-nero-issued.test.mjs")));
 });
 
+test("Round 09 has its own policy identity and requires measurement, intake and narrative checks", () => {
+  const previous = JSON.stringify(reviewPolicyFor('round-08'));
+  const policy = reviewPolicyFor('round-09');
+  assert.equal(policy.policy_id, 'review-freeze.round-09');
+  assert.equal(policy.review_round, 'round-09');
+  assert.equal(policy.reviewed_ref, 'ren/round-09');
+  const paths = new Set(policy.required_files.map(x => x.path));
+  for (const path of [
+    'meta/round-09-external-review-brief.md', 'reviews/round-09-progress.md',
+    'reviews/round-09-narrative-provenance.md', 'reviews/round-09-forecast-intake.md',
+    'pilots/australia/data/primary-care-depth-2026-09-10.r2.json',
+    'pilots/australia/data/round-09-evolution-discoveries.json',
+    'forecasts/prospective-pilot/round-09-nero/issued.json',
+    'forecasts/prospective-pilot/round-09-nero/preregistration.json',
+    'forecasts/prospective-pilot/issuance-binding/round-09-validate.mjs',
+    'meta/build-artifacts.lock.json',
+  ]) assert.ok(paths.has(path), path);
+  for (const id of ['measurement-depth-check', 'evolution-discovery-check', 'round-09-prospective-issuance-check', 'round-09-narrative-check']) {
+    assert.ok(policy.build_commands.some(c => c.command_id === id), id);
+  }
+  assert.equal(JSON.stringify(reviewPolicyFor('round-08')), previous);
+  assert.equal(new Set(policy.build_commands.map(c => c.command_id)).size, policy.build_commands.length);
+  assert.equal(paths.size, policy.required_files.length);
+});
+
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
   const root = fixtureRepository();
   try {

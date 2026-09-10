@@ -136,12 +136,20 @@ function conditionProjections(kernel) {
 }
 
 function publicProjection(projection) {
+  // This is a retained provenance annotation, not an inference from event count.
+  // Pin the AU construction prefix's hash-chain tip and current overlay identity;
+  // do not relabel historical overlays or any similarly named, different history.
+  const auConstruction = projection.ledger_id === 'ledger.au.primary-care.current' &&
+    projection.source_kernel_ref.kernel_id === 'kernel.au.primary-care.r3' &&
+    projection.source_history_ref.event_refs[10]?.event_hash ===
+      'sha256:54d8a297b4b7dbda0e1d0aed523d5b5982682431e6daab8d9894c57165b11758';
   return {
     history: {
       status: "complete-source-bound",
       change_count: projection.source_history_ref.event_count,
       operations: structuredClone(projection.source_history_ref.operations),
-      notice: "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment.",
+      notice: "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment." +
+        (auConstruction ? " Events 1 to 11 are construction replay, not eleven observed changes. Later events require their own source-based justification; event count alone is not an empirical progress measure." : ""),
     },
     active_conditions: projection.condition_projections.map((condition) => ({
       condition_definition_ref: structuredClone(condition.condition_definition_ref),
