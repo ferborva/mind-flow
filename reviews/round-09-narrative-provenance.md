@@ -34,7 +34,7 @@ cells. No new prose was added to the drafts or used to enlarge denominators.
 | --- | ---: | ---: | ---: | ---: |
 | `drafts/abundance-has-an-if.md` | 135 | 130 | 6 | 6/130 = 4.62% |
 | `drafts/every-if-is-somebodys-when.md` | 78 | 78 | 3 | 3/78 = 3.85% |
-| `drafts/from-if-to-when.md` | 87 | 80 | 3 | 3/80 = 3.75% |
+| `drafts/from-if-to-when.md` | 88 | 81 | 4 | 4/81 = 4.94% |
 | `dashboard/README.md` | 38 | 32 | 3 | 3/32 = 9.38% |
 
 Counted units, identified by wording rather than an opaque automated classifier:
@@ -49,7 +49,8 @@ Counted units, identified by wording rather than an opaque automated classifier:
   employer-naming notice; attribution of the five-part record to Ren. The worked
   pair, quote source, discretion distinction and conditional-dependency account
   remain substantive parts of the explanation, not repeated disclaimers.
-- **From IF:** the opening commissioned-proposal boundary; barrier frequency
+- **From IF:** the opening commissioned-proposal boundary; the incomplete,
+  unscored scenario taxonomy; barrier frequency
   not establishing causal importance; historical analogies supplying neither
   a timetable nor population equivalence. This broad count now includes the
   contentious method limits, rather than excluding them to pass the gate.
@@ -62,7 +63,11 @@ Counted units, identified by wording rather than an opaque automated classifier:
 These are creator classifications for a different-owner semantic review, not
 an independent gate certificate. The first pass's contentious `from-if` count
 was 7/83 = 8.43% and failed. Four additional, logged redundant-status cuts now
-bring that broader classification to 3/80. The possible-response label remains;
+initially brought that broader classification to 3/80. Independent review found
+two stranded pronouns, so the original taxonomy sentence is restored and the
+seven-part update retains its original explicit subject through a narrower
+clause deletion. The resulting broader count is **4/81 = 4.94%**. Neither a
+new claim nor denominator padding is introduced. The possible-response label remains;
 the opening attribution covers the whole proposal; the requirement for an
 accountable decision before action remains; and the worker-specific paragraph
 still requires explicit source coverage. No actual national estimate appears
@@ -153,11 +158,6 @@ This replay checks mechanics, not semantic fidelity or independent approval.
   "before_sha256": "ee199d95dec7b0c066f6ba00c71a675409c531c430a4777fe52a2633d40cee65",
   "deletions": [
     {
-      "offset": 1725,
-      "text": "The following situations are an incomplete, unscored scenario\ntaxonomy. ",
-      "reason": "The section is already titled Scenarios, not a calendar; the preceding captured sequencing concession and following coexist/reverse/never-arise sentence retain the substantive ceiling."
-    },
-    {
       "offset": 3090,
       "text": "A high national percentage cannot\nchoose a particular rural person's binding condition. ",
       "reason": "No national estimate is asserted in this draft. The later worker paragraph requires the page to say what sources actually cover when they cannot answer for that worker, alongside explicit service/population/place reporting. Delete this repeated generic warning, not an empirical claim's only ceiling."
@@ -183,9 +183,9 @@ This replay checks mechanics, not semantic fidelity or independent approval.
       "reason": "The next sentence still requires actor, funding, capacity and accountable decision beside the option before real-world action; remove the repeated prohibition."
     },
     {
-      "offset": 5746,
-      "text": "The following seven-part update is Ren's communication scaffolding. ",
-      "reason": "The opening commissioned-proposal boundary and canonical author metadata already attribute this proposal to Ren; remove the repeated attribution."
+      "offset": 5778,
+      "text": "is Ren's communication scaffolding. It ",
+      "reason": "Delete repeated attribution while preserving the explicit subject: The following seven-part update makes the evidence and open questions easy to find. The opening boundary and metadata retain Ren's authorship."
     },
     {
       "offset": 6829,

@@ -51,7 +51,8 @@ understood alongside the people still excluded.
 
 The earlier five-phase calendar has been retired. Fernando says conditions
 fall progressively, sometimes unexpectedly, and the sequence cannot be
-planned. They can coexist, reverse or never arise.
+planned. The following situations are an incomplete, unscored scenario
+taxonomy. They can coexist, reverse or never arise.
 
 | Scenario | Candidate binding condition today | What would have to change |
 | --- | --- | --- |
@@ -109,7 +110,7 @@ the option before real-world action.
 
 ## 📣 A public update worth reading
 
-It makes
+The following seven-part update makes
 the evidence and open questions easy to find.
 
 1. **What was observed?** Name the measure, source and period in a plain sentence.
