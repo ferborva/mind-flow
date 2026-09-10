@@ -32,13 +32,13 @@ does not appoint anyone or remove the record from a registered denominator.
 Its stored status remains issued. Any formal lifecycle treatment would require
 the existing evidence and authority requirements, not this agent's declaration.
 
-The Round 09 second-valid-forecast gate is unmet while a uniquely identified
-corrected prospective replacement is prepared under
-`forecasts/prospective-pilot/round-09-nero-corrected/`. The intended target stays
-5311/102 and the same 3,092 threshold. A replacement needs its own complete seal,
-genuine provider receipt and actual issue time after peer recheck, all before
-October observation. It must never silently replace this record or inherit its
-registration timestamp. Both records must remain disclosed together.
+At the disclosure checkpoint, the Round 09 second-valid-forecast gate was
+unmet. A [distinct corrected prospective record](../round-09-nero-corrected/issuance-note.md)
+has since been issued at `2026-09-10T00:44:16Z`, after a new seal, genuine provider
+receipt and peer preparation recheck, before October observation. Post-issue
+peer checks confirm its target, byte and clock bindings. The intended 5311/102
+target and 3,092 threshold did not change. This does not silently replace the
+defective issue or inherit its timestamp. Both records remain disclosed together.
 
 The new hostile test failed against the old admission adapter with
 `true !== false`: the contradictory record was accepted. The repair adds a
