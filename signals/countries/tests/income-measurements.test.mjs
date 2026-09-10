@@ -8,7 +8,7 @@ test('compact observation serialization is valid JSON with unchanged values and 
   const result=deriveIncomeMeasurements();
   const text=serializeIncomeMeasurements(result);
   assert.deepEqual(JSON.parse(text),result);
-  assert.ok(text.split('\n').length<24000);
+  assert.ok(text.split('\n').length<5000);
   assert.ok(text.split('\n').some(line=>line.includes('"iso3":"AUS"')));
   const existing=JSON.parse(readFileSync(new URL('../income-measurements.v1.json',import.meta.url),'utf8'));
   assert.deepEqual(JSON.parse(text),existing);
