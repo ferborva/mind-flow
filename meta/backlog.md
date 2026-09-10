@@ -23,13 +23,27 @@ script.
 
 ### Round 09 next decisions and acquisition work
 
-- [ ] **Process the separate September 10 capture before changing stance or scope.**
-      [PR #19](https://github.com/ferborva/mind-flow/pull/19) contains newer material
-      about where money accrues and a country-level, top-50-economies weather
-      station. It is outside this candidate and has not passed through seeds
-      here. Do not infer from the frozen draft GAP that Fernando has supplied
-      no newer answer, or adopt the capture author's naughty-kid interpretation
-      without checking his actual words. Reconcile that proposal separately.
+- [x] **Process the September 10 capture.** Exact capture commit `832143d`
+      from [PR #19](https://github.com/ferborva/mind-flow/pull/19) is integrated
+      into Round 09 only. Fernando explicitly directed main to stay unchanged.
+      Seeds and draft restore the observation, not a remedy; the world weather
+      station is the programme, with Australia retained as the depth example.
+- [ ] **Which ranking and vintage defines the top 50?** Commissioned proposal:
+      April 2026 IMF WEO, 2025 nominal GDP, native economy universe including
+      separately reported territories. Completed-year values can still be
+      estimates. Fernando has not selected this ranking, year or universe.
+- [ ] **Which broad shifts matter most?** The proposed starting list is CPI
+      change, electricity access and modelled labour share, with digital use,
+      permission and proximity candidates under investigation. Which would he
+      strike or add? Annual context is not established early-warning evidence.
+- [ ] **What makes a storm in his words?** A departure from a country's own
+      history, a change in which category binds, or divergence between countries?
+      Proposed history thresholds are investigation criteria, not his decision
+      and not calibrated storm detection.
+- [ ] **How do forecastable crisis points fit unpredictable sequencing?** His
+      September 8 statements leave a real tension. Our proposed reading is
+      diagnose by country, notice change, do not schedule the transition.
+      Ask him rather than making that interpretation his position.
 - [ ] **Design the missing construct migration before claiming two more IF events.**
       Appointment-attempt versus appointment-making time and the precise
       prescription denominator need explicit old-to-new relationships. The
@@ -44,7 +58,9 @@ script.
       identify a current bottleneck. Licensing or participant contact needs
       separate authority.
 - [ ] **Run the prewritten October intake when eligible data exists.** Expected
-      around November 4; no scheduler or monitoring promise is created here.
+      around November 4. The revised steer requests a scheduled follow-up;
+      scheduler creation is unavailable on this host, so no active monitor is
+      claimed. Keep this gate open until activation is confirmed.
       Preserve first-presence evidence, reject post-October archives, use the
       exact cell and keep the erroneous Round 09 issuance visibly inadmissible.
 

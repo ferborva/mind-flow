@@ -16,7 +16,7 @@
     "test:governance": "node --test governance/negotiation-record/tests/*.test.mjs governance/decision-record/tests/*.test.mjs governance/lineage/tests/*.test.mjs",
     "test:evolution": "node --test contracts/evolution/tests/*.test.mjs",
     "test:evidence": "node --test evidence/claims/tests/*.test.mjs evidence/assumptions/tests/*.test.mjs",
-    "test:signals": "node --test signals/tests/*.test.mjs",
+    "test:signals": "node --test signals/tests/*.test.mjs signals/countries/tests/*.test.mjs signals/countries/*.test.mjs",
     "test:paths": "node --test paths/tests/*.test.mjs",
     "test:options": "node --test options/tests/*.test.mjs",
     "test:preparation": "node --test preparation/tests/*.test.mjs",

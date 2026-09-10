@@ -552,6 +552,22 @@ test("Round 09 has its own policy identity and requires measurement, intake and 
   assert.equal(paths.size, policy.required_files.length);
 });
 
+test('revised Round 09 freezes country breadth without reinterpreting its pre-steer receipt', () => {
+  const current = reviewPolicyFor('round-09');
+  assert.equal(current.policy_version, '1.1.0');
+  const historical = reviewPolicyFor('round-09-initial');
+  assert.equal(historical.policy_version, '1.0.0');
+  assert.equal(historical.policy_id, 'review-freeze.round-09');
+  const paths = new Set(current.required_files.map(x => x.path));
+  for (const path of ['signals/countries/country-set.v1.json',
+    'signals/countries/measurements.v1.json', 'signals/countries/storm-signals.v1.md',
+    'signals/countries/weather-criteria.v1.json',
+    'reviews/round-09-scheduled-resolution.md']) assert.ok(paths.has(path), path);
+  for (const id of ['country-set-check', 'country-measurements-check', 'country-weather-criteria-check', 'country-capability-check'])
+    assert.ok(current.build_commands.some(c => c.command_id === id), id);
+  assert.equal(historical.required_files.some(x => x.path.startsWith('signals/countries/')), false);
+});
+
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
   const root = fixtureRepository();
   try {

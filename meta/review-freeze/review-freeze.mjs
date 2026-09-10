@@ -293,7 +293,7 @@ export const ROUND_08_REVIEW_POLICY = Object.freeze({
   ],
 });
 
-export const ROUND_09_REVIEW_POLICY = Object.freeze({
+export const ROUND_09_INITIAL_REVIEW_POLICY = Object.freeze({
   schema_version: '1.0.0', policy_id: 'review-freeze.round-09', policy_version: '1.0.0',
   review_round: 'round-09', reviewed_ref: 'ren/round-09',
   generated_outputs: ROUND_08_GENERATED_OUTPUTS,
@@ -341,12 +341,44 @@ export const ROUND_09_REVIEW_POLICY = Object.freeze({
   ],
 });
 
+// Preserve the exact policy projection of the successful pre-steer checkpoint.
+// The revised commission adds breadth, not a reinterpretation of that receipt.
+export const ROUND_09_REVIEW_POLICY = Object.freeze({
+  ...ROUND_09_INITIAL_REVIEW_POLICY,
+  policy_version: '1.1.0',
+  required_files: [
+    ...ROUND_09_INITIAL_REVIEW_POLICY.required_files,
+    ...[
+      ['capture/2026-09-10-where-the-money-sits-and-the-weather-station.md', 'Scope and observation capture integrated without changing main'],
+      ['seeds/the-weather-station-watches-the-world.md', 'Capture-backed world scope and unsettled choices'],
+      ['signals/countries/country-set.v1.json', 'Retained commissioned IMF top-50 sampling proposal'],
+      ['signals/countries/measurements.v1.json', 'Three common-vintage series and country-specific missing measurements'],
+      ['signals/countries/storm-signals.v1.md', 'Five-category candidate catalogue and evidence ceilings'],
+      ['signals/countries/weather-criteria.v1.md', 'Uncalibrated commissioned investigation rule, not detection'],
+      ['signals/countries/weather-criteria.v1.json', 'Existing-family threshold and domain bindings'],
+      ['signals/countries/capability-candidate.v1.json', 'Retained internet-use proxy, not practical capability'],
+      ['reviews/round-09-scheduled-resolution.md', 'Exact future intake sequence and explicit unavailable scheduler'],
+      ['meta/review-freeze/round-09.pre-steer.review-freeze.json', 'Historical initial-scope checkpoint, not current handoff'],
+    ].map(([path, role]) => ({path, role})),
+  ],
+  build_commands: [
+    ...ROUND_09_INITIAL_REVIEW_POLICY.build_commands,
+    ...[
+      ['country-set-check', ['node', 'signals/countries/tools/country-set.mts', '--check']],
+      ['country-measurements-check', ['node', 'signals/countries/tools/build-measurements.mjs', '--check']],
+      ['country-weather-criteria-check', ['node', 'signals/countries/weather-criteria-build.mjs', '--check']],
+      ['country-capability-check', ['node', 'signals/countries/capability-candidate.mts', '--check']],
+    ].map(([command_id, argv]) => ({command_id, argv, cwd: '.', timeout_ms: 900_000})),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
   if (reviewRound === "round-07") return ROUND_07_REVIEW_POLICY;
   if (reviewRound === "round-08") return ROUND_08_REVIEW_POLICY;
   if (reviewRound === "round-09") return ROUND_09_REVIEW_POLICY;
+  if (reviewRound === "round-09-initial") return ROUND_09_INITIAL_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 

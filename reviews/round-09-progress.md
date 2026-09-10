@@ -140,3 +140,44 @@ executes every declared command in a detached checkout. The later receipt must
 say `reproduction.status: passed` and verify without failure overrides before
 the handoff is ready. Its seal will add unconditional Round 09 receipt checking
 to CI. The unmet empirical and evolution gates above remain unmet after sealing.
+
+## 2026-09-10: revised steer, world breadth before further machinery
+
+The preceding candidate is a **pre-steer checkpoint**, not the final Round 09
+handoff. Its detached reproduction completed successfully at `5fcb461`; preserve
+its receipt and original policy as historical evidence. The new scope supersedes
+the earlier stop boundary. The user resolved the brief's PR-number mismatch:
+keep main unchanged and integrate capture PR #19 into Round 09 only. Merge
+`b5f8f66` does that without rewriting the capture or merging main.
+
+Plan of attack, now in execution:
+
+1. Preserve source provenance through capture, seeds and draft. Restore only
+   the enterprise observation and adopt the world weather-station scope.
+2. Propose the IMF top-50 sampling frame from retained native ranking bytes.
+   Keep ranking year, universe and signal priorities as Fernando's open choices.
+3. Retain international measurements before extending any rendered surface.
+   Challenge units, source-country joins, missing years, model flags and rights.
+4. Name each country's five missing binding measurements. Distinguish annual
+   context from useful lead time, household access and causal AI effects.
+5. Bind a commissioned history-comparison proposal to existing IF definitions.
+   Do not manufacture detection, comparability approval or evolution events.
+6. Preserve AU depth and prospective records. Prepare the future intake commands
+   outside the freeze, then verify an actual scheduler, not a promise in prose.
+7. Integrate lanes, challenge their independent checks, review generated-output
+   deltas, run the full Node 22 suite and freeze a new breadth-aware candidate.
+
+Integrated lanes F/G/H preserve their commits. Native selections cover CPI
+47/50 at 2025, electricity access 49/50 at 2024 and modelled labour share 50/50
+at 2025, each within one retained publisher vintage. Independent row selection
+matched **146** values. Every economy has measured context and exact missing
+binding series. None has a demonstrated current binding category. Capability,
+permission and proximity catalogue work and the threshold proposal remain
+integration work, not completed gates at this checkpoint.
+
+The app scheduler rejected creation as unavailable through its exposed tool;
+no replacement callable was discovered. No automation was created. A dated
+runbook alone will not be called a scheduled follow-up. The three-evolution-event
+gate remains one of three; a source discovery is not automatically a permissible
+semantic migration. No new frontend, contract family or governance type has
+been built. The four substantive questions are queued in the backlog.
