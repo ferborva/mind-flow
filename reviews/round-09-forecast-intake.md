@@ -107,3 +107,8 @@ edited after prebuild. The stable `dc9f05d` rerun rebuilt the outputs and passed
 all **948 tests across 18 suites** on Node 22 with zero failures, including
 the complete retained 440-series NERO projection reproduction. Creator test
 results are claims awaiting review.
+
+Lane CI run `34420404832` stopped at the retained artifact-lock parity check:
+the new forecast directory changes the Observatory's conservative validation
+context. This lane does not own the shared lock. The coordinator must review
+and regenerate that lock after integrating the lanes, then rerun CI and freeze.
