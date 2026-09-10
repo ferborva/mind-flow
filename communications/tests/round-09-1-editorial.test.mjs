@@ -11,6 +11,10 @@ test("WHEN retains its explicit date, forecast and commitment ceiling", () => {
   assert.match(read("drafts/every-if-is-somebodys-when.md"), /It is not a date, forecast, guarantee or commitment\./);
 });
 
+test("WHEN records the date of the restored claim ceiling", () => {
+  assert.match(read("drafts/every-if-is-somebodys-when.md"), /^updated: 2026-09-10$/m);
+});
+
 test("the naughty-kid interpretation is Ren's reading, not an attributed new author instruction", () => {
   const seed = read("seeds/the-choice-belongs-to-enterprises.md");
   assert.match(seed, /Ren's reading, permitted by the forwarded Round 09 brief/);

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "input_freeze_id": "round-09.1.review-inputs",
+  "accepted_attempt_id": "round-09.1.attempt.network-authorised",
+  "attempts": [
+    {
+      "attempt_id": "round-09.1.attempt.network-blocked",
+      "manifest": "meta/review-freeze/round-09.1.network-blocked.review-freeze.json",
+      "reproduction_status": "failed",
+      "freeze_hash": "sha256:f48fe292c080e34b28cd691cce14047016339df4cc9f434ea3b8ff6b091d6b9a",
+      "receipt_sha256": "sha256:2540bf8b428b14f246eb712c3478e43155f446a373f468e94d4c36b56e5cb0cb"
+    },
+    {
+      "attempt_id": "round-09.1.attempt.network-authorised",
+      "manifest": "meta/review-freeze/round-09.1.review-freeze.json",
+      "reproduction_status": "passed",
+      "freeze_hash": "sha256:489204811340cbc49466ac6b198a509550cffaf8e1eb4dee71db47561b8cf024",
+      "receipt_sha256": "sha256:319f46de4535c79609330c8d1da3a53d79e576c4824bd090eb7f7664b43f0a97"
+    }
+  ]
+}

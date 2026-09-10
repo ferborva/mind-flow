@@ -11,7 +11,7 @@ themes: [abundance]
 sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 audience: operators and people delivering the promise
 created: 2026-09-08
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # When an IF Becomes Somebody's WHEN

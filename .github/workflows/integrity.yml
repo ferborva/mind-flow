@@ -34,7 +34,7 @@ jobs:
       - name: Run the complete test contract
         run: npm test
 
-      - name: Verify the retained Round 6 review receipt
+      - name: Verify the retained Round 06 review receipt
         run: >-
           node meta/review-freeze/review-freeze.mjs verify
           --policy=round-06
@@ -75,6 +75,9 @@ jobs:
           node meta/review-freeze/review-freeze.mjs verify
           --policy=round-09.1
           --manifest=meta/review-freeze/round-09.1.review-freeze.json
+
+      - name: Check the current Round 09 forecast error disclosure
+        run: node forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs
 
       - name: Reproduce the timing-contract migration
         run: node dashboard/tools/migrate-timing-contract.mjs --check

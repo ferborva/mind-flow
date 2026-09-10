@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { buildRegressionControl } from './primary-care-layout-control.mjs';
 
 const [modulePath, executablePath, screenshotDirectory] = process.argv.slice(2);
 if (!modulePath || !executablePath || !screenshotDirectory || process.argv.length !== 5) {
@@ -12,6 +13,7 @@ if (!modulePath || !executablePath || !screenshotDirectory || process.argv.lengt
 }
 const { default: puppeteer } = await import(pathToFileURL(resolve(modulePath)).href);
 const html = readFileSync(new URL('../../pilots/australia/web/index.html', import.meta.url), 'utf8');
+const regressionControl = buildRegressionControl(html);
 const browser = await puppeteer.launch({ executablePath, headless: true });
 try {
   mkdirSync(resolve(screenshotDirectory), { recursive: true });
@@ -21,9 +23,7 @@ try {
     await page.setRequestInterception(true);
     page.on('request', request => request.abort());
     for (const version of ['regression-control', 'repaired']) {
-      const content = version === 'repaired' ? html : html
-        .replace('thead th{position:sticky', 'th{position:sticky')
-        .replace('tbody th{font-size:inherit;font-weight:inherit;color:inherit;letter-spacing:normal}', '');
+      const content = version === 'repaired' ? html : regressionControl;
       await page.setContent(content, { waitUntil: 'domcontentloaded' });
       await page.addStyleTag({ content: '*{scroll-behavior:auto!important}' });
       const result = await page.evaluate(async () => {
