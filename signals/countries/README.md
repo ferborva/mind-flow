@@ -1,5 +1,13 @@
 # Proposed country sampling frame
 
+**Start with the [50-economy measurement reader](measurement-view.md).** It
+shows dated national context, exact source links and the five missing local
+measurements for each economy. No current binding condition or storm is claimed.
+The [signal catalogue](storm-signals.v1.md) distinguishes the three retained
+core series from additional candidates and research-only coverage gaps.
+The [Australian worked example](../../pilots/australia/basket/README.md) sits
+beside this breadth at greater pathway depth. The frame below is still proposed.
+
 This is Ren's commissioned proposal, not Fernando's chosen ranking. It uses
 2025 nominal GDP from the April 2026 IMF World Economic Outlook (WEO), the full
 database identified by the retained publisher page on 10 September 2026. July

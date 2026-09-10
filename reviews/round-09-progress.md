@@ -181,3 +181,53 @@ runbook alone will not be called a scheduled follow-up. The three-evolution-even
 gate remains one of three; a source discovery is not automatically a permissible
 semantic migration. No new frontend, contract family or governance type has
 been built. The four substantive questions are queued in the backlog.
+
+### Breadth prerequisites before the country reader
+
+At integrated `ad81564`, the four section-7 breadth prerequisites have retained
+artifacts: the proposed 50-economy frame, three series at 47/49/50 coverage,
+five exact missing measurements per economy, and three source-bound examples
+of the commissioned weather criterion. This meets the enumerated breadth gates,
+not full measurement of all five categories or approval of the proposal.
+The wider candidate catalogue is still being completed. Only now is a minimal
+Markdown reader of those measured rows commissioned; no world map, empty panels,
+new app page, contract family or governance type is introduced.
+
+## 2026-09-10 01:48 UTC: integrated breadth candidate
+
+The source lanes and independent repair are integrated with provenance commits
+preserved. The plain Markdown reader now exposes 50 measured economies, 146
+core values, four missing cells and 250 named local measurement gaps. Capability
+and permission each retain 49/50 observations as additional candidates, not
+silently added columns. Permission uses WBL 2026 methodology and CC BY 3.0 IGO;
+capability retains ITU attribution. RAI has five economies across mixed years
+but at most 1/50 in a common year. Its absent cadence and sparse coverage stay
+research-only, not a lowered threshold. Native legacy XLS replay requires the
+separately documented pinned reader; the normal offline tests do not claim it.
+
+An independent reviewer changed the weather methodology from ten prior years
+to two and recomputed all hashes. The partial validator initially accepted it;
+a real fail-first regression now pins the canonical method as well as the
+threshold and country. Proposal and measurement bytes remain unchanged.
+Another review found the historical pre-steer receipt was merely retained,
+not mandated as a verification command. A failing policy assertion preceded
+the added normal verifier under `round-09-initial`. That receipt verifies as
+passed; its exact original policy projection survives unchanged.
+
+All **64 signal tests** pass on Node 22, including nested country tests. The
+reviewed generated-output delta changes only the Observatory's conservative
+source-context manifest and its references; the other four rendered artifacts
+are byte-identical to the prior lock. No app restyle or browser/assistive-
+technology QA is claimed. The full suite and final detached freeze follow this
+checkpoint; the final receipt, not this paragraph, establishes their results.
+
+Still unmet: three real evolution events (one exists, two need a truthful
+construct migration); a regularly updated broad proximity candidate; actual
+October scheduling (the exposed app tool is unavailable). October itself has
+not occurred. The exact future command sequence is retained and the corrected
+second forecast is preregistered, but neither a scheduled run nor a score is
+invented. Ranking, priority shifts, storm meaning and forecastable-but-unplanned
+sequence remain Fernando's open questions. Existing September 16 receipt
+authenticity review, hash-domain separation, history weight and eight inherited
+macro input pins remain deferred. This is a reviewable measurement advance,
+not permission to issue public warnings or claim the programme complete.

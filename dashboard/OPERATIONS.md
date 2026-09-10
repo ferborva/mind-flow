@@ -14,6 +14,13 @@ updated: 2026-09-10
 These operator passages moved verbatim from the dashboard README in Round 09.
 The [entry and build instructions](README.md) remain the starting point.
 
+The revised Round 09 breadth entry is the
+[50-economy measurement reader](../signals/countries/measurement-view.md), a
+source-linked Markdown snapshot, not a new app panel. It sits beside the
+[Australian depth example](../pilots/australia/basket/README.md). The existing
+Observatory fixture below is still a demonstration and has not become the
+country dataset.
+
 ## Prototype status and fixture scope
 
 It does not predict history, assign a single transition score, or confer policy

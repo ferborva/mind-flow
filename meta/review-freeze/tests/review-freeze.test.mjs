@@ -566,6 +566,9 @@ test('revised Round 09 freezes country breadth without reinterpreting its pre-st
   for (const id of ['country-set-check', 'country-measurements-check', 'country-weather-criteria-check', 'country-capability-check'])
     assert.ok(current.build_commands.some(c => c.command_id === id), id);
   assert.equal(historical.required_files.some(x => x.path.startsWith('signals/countries/')), false);
+  assert.ok(current.build_commands.some(c => c.command_id === 'round-09-pre-steer-receipt-check'
+    && c.argv.includes('--policy=round-09-initial')
+    && c.argv.includes('--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json')));
 });
 
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
