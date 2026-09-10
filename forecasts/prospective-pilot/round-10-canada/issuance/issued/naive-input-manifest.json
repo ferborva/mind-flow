@@ -1,0 +1,12 @@
+{
+  "artifact_type": "prospective-baseline-input-manifest",
+  "schema_version": "1.0.0",
+  "baseline_role": "naive",
+  "baseline_id": "family.canada.naive.v1",
+  "input_source_ids": [
+    "source.ilo.canada-reported"
+  ],
+  "input_checksums": [
+    "sha256:fb6d01391ba1dfdd8e440bf82fb7472aba0f27bcfa53808e24cc0a8917e24b25"
+  ]
+}
