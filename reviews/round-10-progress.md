@@ -66,3 +66,53 @@ publication, scheduler activation or authority is claimed at this checkpoint.
 Append another checkpoint within twelve hours of active work, and push central
 at least every six hours. Final review will name an exact candidate and a
 separate seal; neither moving HEAD nor agent agreement is empirical evidence.
+
+## 2026-09-10, 07:07 UTC integration checkpoint
+
+**The full Node 22 suite passed on integrated `a32e8ab`.** This is an
+intermediate run, not the final candidate receipt. A subsequent C repair
+binds the actual shared criterion into annual NERO comparisons and is being
+rechecked before the final freeze. Main is still unchanged.
+
+- A, B, C, D intake, E, F, shock-context and additive freeze-policy lanes are
+  integrated with merge provenance. Central was pushed through `a32e8ab`.
+  The original 81,241-line B commit remains a disclosed process violation;
+  later compact serialization and integration do not erase it.
+- The source replay includes the 2005 baseline: 1,050 EPOP, 1,050 unemployment
+  and 1,029 PIP observations. Twenty annual transitions yield 1,000 national
+  criterion assessments, all `cannot-say`. Zero assessable periods must not
+  be reported as zero storms. The three native families still do not measure
+  disrupted-person shares, household mappings or binding-category changes.
+- The criterion and existing Markdown reader now preserve exact evidence
+  gaps, separate affected-share readings and native source selectors.
+  Independent review found a coherent-rehash semantic loophole. A failing
+  threshold mutation test preceded a repair that compares complete expected
+  definitions reproduced from retained source context, not only local hashes.
+- The retrospective retains World Bank and WHO shock context. Naive native
+  thresholds cross 4 EPOP, 3 unemployment and 2 PIP pairs; these are not
+  social-criterion fires, misses, false positives or skill evidence.
+- C independently reproduces 140 separate NSW occupation/SA4 histories and
+  the Central Coast stock decline of 721/3,994. It rejects the GP/income join
+  and never adds occupations, regions or household exposure. Shared-rule
+  consumption and criterion-byte bindings were added after cross-review.
+- Intake cross-review required full evidence validation, separate collection
+  and publication jobs, exact LFS attributes and upload/download byte equality.
+  Local LFS mechanics and hostile fixtures pass. No remote production upload
+  or active scheduler is claimed. The workflow remains branch-only.
+- E's line review and sign-off sheet are integrated. Name the If is ready for
+  Fernando's read, not approved. WHEN's complete ceiling is merged and the
+  3.85% standalone versus 5.13% all-limitations counts remain visible.
+- A non-Australian third forecast is progressing as a reported Canadian
+  unemployment companion, explicitly ineligible for the storm panel. The
+  raw 128-month source and calendar are retained; two independent reviewers
+  reproduced 0.483333 all-month and 0.090909 seasonal historical proposals.
+  Adapter, exact issue basis, source-absence and receipt checks remain. No
+  issuance is claimed at this checkpoint.
+- New real IF evolution events remain zero; programme total one. New
+  construction and synthetic failure tests do not meet that gate. Historical
+  freeze IDs remain unchanged pending the preservation/versioning choice.
+
+The external-review brief is being prepared with eight tracks and separate
+depth, breadth and criterion audits. The final receipt and seal will select
+the exact target; no moving branch, internal consensus or interim test run
+substitutes for that handoff.
