@@ -22,9 +22,9 @@ test("the naughty-kid interpretation is Ren's reading, not an attributed new aut
   assert.match(read("meta/backlog.md"), /\[ \] \*\*Is the naughty-kid line an observation or an imperative\?/);
 });
 
-test("raw storms capture has only context, conversation and loose ends, with analysis in the backlog", () => {
+test("storms capture preserves conversation after processing, with analysis in the backlog", () => {
   const capture = read("capture/2026-09-10-storms-as-social-contract-shifts.md");
-  assert.match(capture, /^status: raw$/m);
+  assert.match(capture, /^status: processed$/m);
   assert.doesNotMatch(capture, /Ren's notes|calibrated probability|independent or disjoint/);
   assert.match(capture, /also household members who depend on that income\?/);
   assert.match(read("meta/backlog.md"), /Country-specific, regional and global events may overlap/);

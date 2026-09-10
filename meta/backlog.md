@@ -21,6 +21,30 @@ script.
 
 ## Open
 
+### Round 10 assumptions and decisions
+
+**Ren's assumptions, provenance: commissioned-proposal.** These are reversible
+working choices from the Round 10 commission, not Fernando's answers. Fernando
+can overturn each; [the storm capture](../capture/2026-09-10-storms-as-social-contract-shifts.md)
+settles the principle of income access, not its measurement.
+
+- [ ] **Dependants in the 5% count: people disrupted, households, or both?**
+      Assumption: compute and show disrupted people and dependent household
+      members as separate labelled counts side by side wherever the source
+      supports a household mapping. Never merge them. Missing mappings remain
+      unavailable, not zero. His captured follow-up is still unanswered.
+- [ ] **Keep the retained ranking?** Assumption: IMF WEO April 2026 nominal-GDP
+      top 50 using 2025 values and the retained economy universe, unchanged
+      unless Fernando says otherwise. This does not attribute the choice to him.
+- [ ] **Which income-access indicator families would he strike or add?**
+      Assumption: verify unemployment and underutilisation (modelled/reported
+      distinct), employment-to-population, informal employment, real wages,
+      poverty (survey/nowcast distinct), employment/output gap and food CPI.
+      The list is Ren's operational reading, not a claim of qualifying coverage.
+- [ ] **Does a beneficial shift affecting 5% count as a storm, or only a harmful one?**
+      The captured definition does not settle this. A harmful-disruption
+      criterion is commissioned and cannot silently answer it.
+
 ### Round 09 next decisions and acquisition work
 
 - [x] **Process the September 10 capture.** Exact capture commit `832143d`

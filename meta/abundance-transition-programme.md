@@ -10,7 +10,7 @@ authority: none
 provenance: commissioned-proposal
 author: Ren
 requested_reviewer: fernando-bordallo
-sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy, 2026-09-10-where-the-money-sits-and-the-weather-station]
+sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy, 2026-09-10-where-the-money-sits-and-the-weather-station, 2026-09-10-storms-as-social-contract-shifts]
 created: 2026-09-08
 updated: 2026-09-10
 ---
@@ -54,7 +54,48 @@ visible prices and a portfolio of remedies open. Remedy proposals belong in
 documents marked `provenance: commissioned-proposal`. The enterprise-choice
 diagnosis is now confirmed as an observation of where money accrues, without
 restoring “so the choice is theirs” as a remedy. The ranking, selected signals
-and definition of a storm remain commissioned proposals and [open questions](backlog.md).
+and operational storm criterion remain commissioned proposals and [open questions](backlog.md).
+
+## 🌩 What a storm is
+
+**Fernando's definition, verbatim from his September 10 capture:**
+
+> a storm can be considered as a point of major shift in the social contract that can lead to a large enough disturbance of social fabric. let's say a change that can affect 5% of society in a country or more. Each country could/would have their own "storm"/crisis  moments in isolation or there could be a broader one hitting globally or semi-globally at the same time. This is the sort of storm forecast monitoring we should have
+
+**His clarification, verbatim:**
+
+> disruption of livelihoods and disruption of access could be read as the same thing (eg. change of access to security, or food, or work (thus impacting access to many other things), or education or health ....)
+> Those could be good overall as it's a larger monitoring surface area. However, I would simplify it by access to means to generate income as that is a fundamental key to access many others and be part of the social fabric
+
+Source: [the retained storm conversation](../capture/2026-09-10-storms-as-social-contract-shifts.md),
+processed through [four atomic seeds](../seeds/storms-are-social-contract-shifts.md).
+These words arrived after the Round 09 candidate was selected and are not
+retroactive provenance for its frozen criterion.
+
+### Operational reading, Ren's commissioned proposal
+
+**provenance: commissioned-proposal.** A candidate storm in country C over
+period P is a measured change in the share of C's population whose access to
+means of generating income was disrupted, of at least 5 percentage points of
+population, or a measured change in which condition category binds that access.
+Regional and global candidates are co-occurrence of national candidates,
+never the sum of their affected shares. This is a proposed measurement rule,
+not Fernando's wording or a demonstrated detector.
+
+Three reversible assumptions remain [Fernando's to overturn](backlog.md#round-10-assumptions-and-decisions):
+
+| Assumption | Commissioned operational choice |
+| --- | --- |
+| Dependants | Compute and show disrupted people and dependent household members as two labelled counts side by side wherever the source supports a household mapping. Never merge them. If mapping is absent, report that reading unavailable. |
+| Ranking | Retain the proposed IMF WEO April 2026 nominal-GDP top 50, using 2025 values and the publisher's retained economy universe, unless Fernando says otherwise. |
+| Which shifts | Offer unemployment/underutilisation, employment-to-population, informal employment, real wages, poverty, employment/output gap and food CPI as candidate income-access families to verify and for Fernando to strike or add. No family qualifies by being named here. |
+
+His 5% scale does not itself specify a change in percentage points, a period,
+severity or whether beneficial shifts qualify. The criterion diagnoses a
+shift under way or already observed and names which condition moved; it does
+not schedule conditions falling. Forecasts remain separate, preregistered,
+single-cell and scored in public. Retrospective fires test mechanics on known
+history and establish no forecast skill. Candidate is the strongest state.
 
 ## 📡 Signals
 
