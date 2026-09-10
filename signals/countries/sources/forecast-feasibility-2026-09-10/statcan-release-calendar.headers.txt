@@ -1,0 +1,17 @@
+cache-control: max-age=120, public
+connection: keep-alive
+content-language: en
+content-security-policy: default-src 'self' 'unsafe-inline' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src 'self' 'unsafe-inline' *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src 'self' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/; img-src 'self' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net *.jsdelivr.net data: blob:; font-src 'self' *.statcan.gc.ca *.statcan.ca https://fonts.gstatic.com; worker-src 'self' 'unsafe-inline' 'unsafe-eval' *.statcan.gc.ca *.statcan.ca blob:; frame-src 'self' 'unsafe-inline' *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net blob:;
+content-type: application/pdf
+date: Thu, 10 Sep 2026 06:41:55 GMT
+expires: Thu, 10 Sep 2026 06:43:55 GMT
+server: nginx/1.24.0
+strict-transport-security: max-age=31536000; includeSubDomains
+transfer-encoding: chunked
+x-content-type-options: nosniff, nosniff
+x-drupal-cache: UNCACHEABLE (no cacheability)
+x-frame-options: SAMEORIGIN, SAMEORIGIN, SAMEORIGIN
+x-generator: Drupal 10 (https://www.drupal.org)
+x-powered-by: PHP/8.3.31
+x-proxy-cache: EXPIRED
+x-xss-protection: 1; mode=block

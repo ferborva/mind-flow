@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.1.0",
+  "registry_id": "registry.canada.unemployment.prospective",
+  "status": "agent-proposal",
+  "authority": "none",
+  "operational_effect": false,
+  "as_of": "2026-09-10T07:09:35Z",
+  "condition_bindings": [
+    {
+      "condition_id": "condition.canada.unemployment.stock",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.canada.unemployment.prospective.assessment-overlay",
+      "binding_status": "locally-verified-complete",
+      "ledger_manifest_hash": "sha256:1a07bc151a675c0ce83089bdff8a3c5c5584a403b7f682f94a979e81e4d88c99",
+      "ledger_tip_event_id": "event.canada.unemployment.stock.added",
+      "ledger_tip_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc",
+      "condition_definition_ref": {
+        "condition_id": "condition.canada.unemployment.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+      },
+      "condition_source_event_ref": {
+        "sequence": 1,
+        "event_id": "event.canada.unemployment.stock.added",
+        "event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc"
+      },
+      "evidence_state_ref": {
+        "kernel_id": "kernel.canada.unemployment.prospective",
+        "kernel_manifest_hash": "sha256:e4c885f86e718f4a7e4caeabed541d19ff280783535dd32b1675137366337f83",
+        "evidence_event_count": 1,
+        "evidence_tip_event_id": "evidence-event.canada.unemployment.2026-08.added",
+        "evidence_tip_event_hash": "sha256:78d33807f5b2f86cea3c6341373cd1098b919dade6c02b7e69a352b83c02d75c",
+        "evidence_state_hash": "sha256:8f94660a98ea34ccf6668fbc9ba1e1a19b0cc792041c2d25e1b183240751dea4"
+      },
+      "next_binding": null
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "source.ilo.canada-reported",
+      "label": "ILOSTAT reported Canadian LFS",
+      "publisher": "International Labour Organization",
+      "collection_process_id": "process.ilo.canada-reported",
+      "depends_on_source_ids": [],
+      "evidence_ref": "https://rplumber.ilo.org/data/indicator?id=UNE_DEAP_SEX_AGE_RT_M&ref_area=CAN&source=BA%3A147&sex=SEX_T&classif1=AGE_YTHADULT_YGE15&timefrom=2016&format=.csv&type=both",
+      "artifact_binding": {
+        "status": "acquired-external-bytes",
+        "checksum": "sha256:0c1a707f99b482fea3da936c45c3bfa565dce6184a542e9b96a7e4f9bd5fd52b",
+        "byte_length": 37528,
+        "retrieved_at": "2026-09-10T06:54:55Z",
+        "next_acquisition": null
+      }
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "signal.canada.unemployment.bounded-rate",
+      "label": "ILO reported unemployment fraction, Canada, both sexes, age 15+",
+      "status": "shadow",
+      "construct": {
+        "construct_id": "construct.canada.unemployment.stock",
+        "name": "ILO reported unemployment fraction, Canada, both sexes, age 15+",
+        "definition": "Reported unemployment rate x transformed to x/100; exposure context, not vacancies or worker opportunity",
+        "statistical_unit": "one reported country unemployment-rate cell"
+      },
+      "estimand": {
+        "quantity": "ILO reported unemployment percent x divided by 100",
+        "population": "Canadian labour force aged 15 and older, both sexes",
+        "geography": "Canada",
+        "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+        "unit": "fraction of Canadian labour force aged 15 and older",
+        "denominator": "Canadian labour force aged 15 and older; not total population",
+        "aggregation_level": "One country-sex-age series; no aggregation across countries or age groups"
+      },
+      "epistemic_class": "derived-estimate",
+      "source_refs": [
+        "source.ilo.canada-reported"
+      ],
+      "condition_links": [
+        {
+          "condition_id": "condition.canada.unemployment.stock",
+          "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.canada.unemployment.prospective.assessment-overlay",
+          "evidence_role": "confirming",
+          "edge_type": "correlated-only",
+          "scope": {
+            "construct_id": "construct.canada.unemployment.stock",
+            "population": "Canadian labour force aged 15 and older, both sexes",
+            "geography": "Canada",
+            "statistical_unit": "one reported country unemployment-rate cell",
+            "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+            "unit": "fraction of Canadian labour force aged 15 and older",
+            "denominator": "Canadian labour force aged 15 and older; not total population",
+            "aggregation_level": "One country-sex-age series; no aggregation across countries or age groups"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly",
+        "publication_lag_max_days": null,
+        "prospective_decision_lead_min_days": 0,
+        "revision_behaviour": "Freeze the August input vintage and first eligible retained October release; retain corrections separately. Publisher ingestion lag is unknown; 31 December is an operational resolution cutoff, not a guaranteed lag."
+      },
+      "uncertainty": {
+        "representation": "Unquantified sampling and revision uncertainty",
+        "interval_available": false,
+        "known_limits": [
+          "Unemployment is not total-population income loss, a binding availability diagnosis, agency or AI causation.",
+          "Availability is a commissioned research relationship only; no causal or binding income-access category is inferred."
+        ]
+      },
+      "missingness": {
+        "mechanism": "A source release or exact series cell may be absent, suppressed or changed.",
+        "reporting_rule": "Withhold resolution when the exact cell cannot be reconstructed; never impute zero."
+      },
+      "exclusions": [
+        "cross-series aggregation",
+        "individual inference",
+        "operational use"
+      ],
+      "confounders": [
+        "sampling",
+        "seasonality",
+        "revisions",
+        "classification changes"
+      ],
+      "negative_controls": [
+        "The fixed equal-probability comparator uses the same source eligibility checks."
+      ],
+      "gaming": {
+        "risks": [
+          "selecting a favourable vintage or series after observing it"
+        ],
+        "detection": "Compare frozen code, scope, first-presence receipt and archive hashes.",
+        "suspension_rule": "Withhold for ambiguous classifications or conflicting first-release bytes."
+      },
+      "reflexivity": {
+        "risk": "An unemployment statistic may be mistaken for binding work availability.",
+        "monitor": "Keep the stock, access and agency interpretations distinct."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Test whether a prospective reported-statistic claim can be resolved faithfully.",
+        "next_observation": "First retained October 2026 ILO reported unemployment release for CAN/BA:147/SEX_T/AGE_YTHADULT_YGE15."
+      },
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      },
+      "executable_binding": {
+        "kind": "executable-predicate",
+        "signal_definition_ref": {
+          "signal_id": "signal.canada.unemployment.bounded-rate",
+          "definition_version": "1.0.0",
+          "signal_definition_hash": "sha256:32835a92c24d0286471bc17be90ce6097300f3878618fb3ccbfb8ebfdc89ed0b"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.canada.unemployment.stock",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+        },
+        "predicate_ids": [
+          "stock-threshold"
+        ]
+      },
+      "metric_contract": {
+        "metric_id": "metric.canada.unemployment.bounded-rate",
+        "measure": "ILO reported unemployment percent x divided by 100",
+        "unit": "fraction of Canadian labour force aged 15 and older",
+        "denominator": "Canadian labour force aged 15 and older; not total population",
+        "population": "Canadian labour force aged 15 and older, both sexes",
+        "geography": "Canada",
+        "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+        "aggregation": "One country-sex-age series; no aggregation across countries or age groups",
+        "collection_process_ids": [
+          "process.ilo.canada-reported"
+        ],
+        "source_refs": [
+          "source.ilo.canada-reported"
+        ],
+        "evaluation_rule": "Transform the exact series percent x to x/100, then compare gte 0.07302. No population-share interpretation.",
+        "metric_checksum": "sha256:2d462b4e7c3b2b39a1a5c32726ee45e1f0c1f6f8b1ddd5b216e848a092207bd2"
+      },
+      "public_claim_ceiling": "ILO reported unemployment fraction, Canada, both sexes, age 15+ may be described only as derived-estimate evidence about ILO reported unemployment percent x divided by 100 for Canadian labour force aged 15 and older, both sexes, Canada, during 2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z. It does not establish causality, individual outcomes or action authority."
+    }
+  ],
+  "portfolios": [
+    {
+      "condition_id": "condition.canada.unemployment.stock",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.canada.unemployment.prospective.assessment-overlay",
+      "scope": {
+        "construct_id": "construct.canada.unemployment.stock",
+        "population": "Canadian labour force aged 15 and older, both sexes",
+        "geography": "Canada",
+        "statistical_unit": "one reported country unemployment-rate cell",
+        "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+        "unit": "fraction of Canadian labour force aged 15 and older",
+        "denominator": "Canadian labour force aged 15 and older; not total population",
+        "aggregation_level": "One country-sex-age series; no aggregation across countries or age groups"
+      },
+      "decision_context": {
+        "use": "research-only",
+        "owner_ref": null,
+        "minimum_useful_lead_days": 0
+      },
+      "role_assignments": [
+        {
+          "role": "confirming",
+          "signal_ids": [
+            "signal.canada.unemployment.bounded-rate"
+          ]
+        }
+      ],
+      "unresolved_roles": [
+        {
+          "role": "leading",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "counter",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "outcome",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "readiness",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "intervention-exposure",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "information-harm",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        }
+      ],
+      "public_disposition": "methods-only"
+    }
+  ]
+}

@@ -5,3 +5,4 @@ signals/countries/sources/income-2026-09-10/ilo-epop.body filter=lfs diff=lfs me
 signals/countries/sources/income-2026-09-10/ilo-unemployment.body filter=lfs diff=lfs merge=lfs -text
 signals/countries/sources/income-2026-09-10/pip-lineup.body filter=lfs diff=lfs merge=lfs -text
 forecasts/prospective-pilot/round-10-intake/evidence/2026-10_nero.zip filter=lfs diff=lfs merge=lfs -text
+signals/countries/sources/forecast-feasibility-2026-09-10/pip-update-calendar.body filter=lfs diff=lfs merge=lfs -text

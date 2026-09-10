@@ -121,6 +121,10 @@ jobs:
 
       - name: Reproduce retained Round 10 income indicators
         run: node signals/countries/tools/income-measurements.mts --check
+      - name: Replay unissued Canadian forecast draft
+        run: node forecasts/prospective-pilot/round-10-canada/draft.mts --check
+      - name: Replay Canadian statistical predicate basis
+        run: node forecasts/prospective-pilot/round-10-canada/build-basis.mts --check
 
       - name: Reproduce commissioned storm criterion
         run: node signals/countries/tools/storm-criterion.mts --check

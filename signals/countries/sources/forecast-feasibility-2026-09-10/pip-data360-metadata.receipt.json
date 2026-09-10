@@ -1,0 +1,13 @@
+{
+  "id": "pip-data360-metadata",
+  "url": "https://data360files.worldbank.org/data360-data/metadata/WB_PIP/WB_PIP_HEADCOUNT_IPL.pdf",
+  "final_url": "https://data360files.worldbank.org/data360-data/metadata/WB_PIP/WB_PIP_HEADCOUNT_IPL.pdf",
+  "started_at": "2026-09-10T06:41:51.817Z",
+  "ended_at": "2026-09-10T06:41:53.360Z",
+  "status": 200,
+  "body_sha256": "sha256:d6cb9d4e3f9bbeed7e93d1976276cc09651dc24da192bb791ba245cafed6de82",
+  "body_byte_length": 55015,
+  "headers_sha256": "sha256:5100592c735c183e654dc3bf08f86b06fa2c51c88db910dfac005d670165fd07",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
