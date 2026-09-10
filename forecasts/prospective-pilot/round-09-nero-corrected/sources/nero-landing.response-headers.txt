@@ -1,0 +1,22 @@
+alt-svc: h3=":443"; ma=93600
+cache-control: max-age=0, no-cache, no-store
+connection: keep-alive
+content-encoding: gzip
+content-language: en
+content-length: 11732
+content-type: text/html; charset=utf-8
+date: Thu, 10 Sep 2026 00:28:30 GMT
+etag: "1788918614"
+expires: Thu, 10 Sep 2026 00:28:30 GMT
+last-modified: Wed, 09 Sep 2026 01:50:14 GMT
+pragma: no-cache
+set-cookie: ak_bmsc=CE4E20450737D76867BC026C7E0CC07F~000000000000000000000000000000~YAAQ1LQuF7z2ZVSgAQAAnlC3iAEuSdTT044wZyVud9r6ZBOi14vRZ2uUV6jGqQhM5JtVp6+X/KtoQAhRU9PQpGLIvSzmScYiGu1kXFbt8YGriakpcZK27Hutnd2PEWVeyYZ8Fnl1pbuA8QYF+GY9+EI7VlipiyTJqmbfFVX0iqJi8v3PudAFpTkSaesDEBZ1q9hEK5QB3zQWdC3t5T+yp3bftzaG/hMPqYXivQSey53TQkttMkjjsBkADq6l4lhaTGuOTJAM3cVIffpasI0Y+9fs4RrabZvUagCnVP4KKVdNB496RUj3vvruNGN32dRzK7m4oCYRcEgj7dqBeiGDv52ktorKTakbon5VO5GjgTydq1XbnMgAjzm8CO9MRIT5czXs62tQUzGP/PcnEQ==; Domain=.jobsandskills.gov.au; Path=/; Expires=Thu, 10 Sep 2026 02:28:29 GMT; Max-Age=7199; SameSite=None; Secure; HttpOnly
+set-cookie: bm_mi=58CDE2D19169377209B7A6A2672990AA~YAAQ1LQuF732ZVSgAQAAnlC3iAHgR8z8R6i9Wq6huAq3CxifsjaQPiYmIt2qgLgAOpuvOblXO0JY4376uA1MXdAazl+lhO/O1YgBsjmP4A7LN1haLVTE0S98hviX+1BICDk7EnwM6MDDyV73FYds/NUdQryoDTXPAv3aU7EIohUomAK7wmJDvB6eXAolC8VYQxFUrNt27FJ3SMwznEbmNltvbL7yk1+gvV+qhsm/pDiLpnxoHZNrsUKgYpex1T8vGD8FveJcERNTyfJuZ2z04ExN7ashdkNJq8lExrttj2K2SrqUPHuzSlpeVbsCcbaS4IhQoaNKOtm+YKflXDC3WMpasiUQZM+3~1; Domain=.jobsandskills.gov.au; Path=/; Expires=Thu, 10 Sep 2026 00:28:30 GMT; Max-Age=0; SameSite=None; Secure
+strict-transport-security: max-age=31536000; includeSubDomains
+vary: Accept-Encoding
+x-akamai-transformed: 0 - 0 -
+x-content-type-options: nosniff
+x-drupal-cache: HIT
+x-drupal-dynamic-cache: MISS
+x-frame-options: SAMEORIGIN
+x-lagoon: amazeeio-govcms6>sigsci-ingress-nginx>jsa-master:nginx>nginx-dc988d97b-n2wtl

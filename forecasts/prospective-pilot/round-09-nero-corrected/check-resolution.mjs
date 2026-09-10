@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { admitNeroResolution } from "./resolution-intake.mjs";
-import { evaluateForecastCohort } from "../../lib/evaluation.mjs";
+import { evaluateForecastCohort } from "./current-evaluation.mjs";
 import { assertOperationalClock } from "../operational-clock.mjs";
 
 // Read-only intake of a separately appended resolution, never an issue rewrite.
@@ -20,7 +20,7 @@ await admitNeroResolution(forecast, {
   publishedAt: values["published-at"], retrievedAt: values["retrieved-at"],
 });
 const plan = json(values.plan);
-if (plan.registered_plan_checksum !== "sha256:cc5cf07df6344fdae1bd25927069b7e6f91b1ead813374fba9c99f9045c88f2e") {
+if (plan.registered_plan_checksum !== "sha256:f2ed018d0c029cf5638958832a4caf30df1e44724b40f1e113ba25fe01344b2e") {
   throw new Error("NERO intake requires the original registered evaluation plan");
 }
 const report = evaluateForecastCohort(plan, [forecast], { asOf: values["as-of"] });

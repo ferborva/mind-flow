@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.1.0",
+  "registry_id": "registry.nero.5311.102.prospective",
+  "status": "agent-proposal",
+  "authority": "none",
+  "operational_effect": false,
+  "as_of": "2026-09-10T00:00:41Z",
+  "condition_bindings": [
+    {
+      "condition_id": "condition.nero.5311.102.stock",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.nero.5311.102.prospective.assessment-overlay",
+      "binding_status": "locally-verified-complete",
+      "ledger_manifest_hash": "sha256:5cb27366418bd8ec1d2b3568ff07fbb852796b86b49b4d0d99877bd3910b3aed",
+      "ledger_tip_event_id": "event.nero.5311.102.stock.added",
+      "ledger_tip_hash": "sha256:65c724bcd81f5ee922c535ca7022d4e66c1df6efee23cd4b3bc388737202c709",
+      "condition_definition_ref": {
+        "condition_id": "condition.nero.5311.102.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6dac7075fa5a8d429d5e1469d383bc0085027f32b3569526a6e65acb840bb548"
+      },
+      "condition_source_event_ref": {
+        "sequence": 1,
+        "event_id": "event.nero.5311.102.stock.added",
+        "event_hash": "sha256:65c724bcd81f5ee922c535ca7022d4e66c1df6efee23cd4b3bc388737202c709"
+      },
+      "evidence_state_ref": {
+        "kernel_id": "kernel.nero.5311.102.prospective",
+        "kernel_manifest_hash": "sha256:36c02d95f5d15c251d11753046f8b845a9e7cc25fce4c820d4019d8ca7345f6d",
+        "evidence_event_count": 1,
+        "evidence_tip_event_id": "evidence-event.nero.5311.102.2026-08.added",
+        "evidence_tip_event_hash": "sha256:c98a0bc43f5a2278c3005b4717eef11dae71d77077df32997f31b1adf20024d5",
+        "evidence_state_hash": "sha256:b455ad0986bc17fcae839ab8a24805ba8e87c44a816e359ced73d34b48a33c36"
+      },
+      "next_binding": null
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "source.jsa.nero",
+      "label": "NERO, Jobs and Skills Australia",
+      "publisher": "Jobs and Skills Australia, Commonwealth of Australia",
+      "collection_process_id": "process.jsa.nero",
+      "depends_on_source_ids": [],
+      "evidence_ref": "https://www.jobsandskills.gov.au/data/nero",
+      "artifact_binding": {
+        "status": "acquired-external-bytes",
+        "checksum": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+        "byte_length": 48613300,
+        "retrieved_at": "2026-09-08T22:33:29Z",
+        "next_acquisition": null
+      }
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "signal.nero.5311.102.bounded-stock",
+      "label": "Bounded NERO employment-stock index, General Clerks, Central Coast",
+      "status": "shadow",
+      "construct": {
+        "construct_id": "construct.nero.5311.102.stock",
+        "name": "Bounded NERO employment-stock index, General Clerks, Central Coast",
+        "definition": "Modelled employment stock x transformed to x/(x+3092); exposure context, not vacancies or worker opportunity",
+        "statistical_unit": "one modelled occupation-SA4 series"
+      },
+      "estimand": {
+        "quantity": "NERO modelled employed-person count x divided by x plus the frozen August 2026 count 3092",
+        "population": "NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast",
+        "geography": "SA4 102: Central Coast, Australia",
+        "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+        "unit": "bounded employment index",
+        "denominator": "x plus frozen August 2026 count 3092; not a population denominator",
+        "aggregation_level": "One occupation-SA4 series; no aggregation across occupations or regions"
+      },
+      "epistemic_class": "derived-estimate",
+      "source_refs": [
+        "source.jsa.nero"
+      ],
+      "condition_links": [
+        {
+          "condition_id": "condition.nero.5311.102.stock",
+          "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.nero.5311.102.prospective.assessment-overlay",
+          "evidence_role": "confirming",
+          "edge_type": "necessary",
+          "scope": {
+            "construct_id": "construct.nero.5311.102.stock",
+            "population": "NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast",
+            "geography": "SA4 102: Central Coast, Australia",
+            "statistical_unit": "one modelled occupation-SA4 series",
+            "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+            "unit": "bounded employment index",
+            "denominator": "x plus frozen August 2026 count 3092; not a population denominator",
+            "aggregation_level": "One occupation-SA4 series; no aggregation across occupations or regions"
+          }
+        }
+      ],
+      "timing": {
+        "cadence": "monthly",
+        "publication_lag_max_days": 40,
+        "prospective_decision_lead_min_days": 0,
+        "revision_behaviour": "Freeze the August input vintage and first retained October release; retain corrections separately."
+      },
+      "uncertainty": {
+        "representation": "Unquantified model and revision uncertainty",
+        "interval_available": false,
+        "known_limits": [
+          "Stock is not vacancies, worker opportunity, actual GP access, agency or AI causation.",
+          "Occupation and SA4 versions are not independently established by the retained archive."
+        ]
+      },
+      "missingness": {
+        "mechanism": "A source release or exact series cell may be absent, suppressed or changed.",
+        "reporting_rule": "Withhold resolution when the exact cell cannot be reconstructed; never impute zero."
+      },
+      "exclusions": [
+        "cross-series aggregation",
+        "individual inference",
+        "operational use"
+      ],
+      "confounders": [
+        "smoothing",
+        "historical training data",
+        "revisions",
+        "classification changes"
+      ],
+      "negative_controls": [
+        "The fixed equal-probability comparator uses the same source eligibility checks."
+      ],
+      "gaming": {
+        "risks": [
+          "selecting a favourable vintage or series after observing it"
+        ],
+        "detection": "Compare frozen code, scope, first-presence receipt and archive hashes.",
+        "suspension_rule": "Withhold for ambiguous classifications or conflicting first-release bytes."
+      },
+      "reflexivity": {
+        "risk": "A modelled stock may be mistaken for accessible work.",
+        "monitor": "Keep the stock, access and agency interpretations distinct."
+      },
+      "value_of_information": {
+        "decision_ref": null,
+        "learning_value": "Test whether a prospective modelled-stock claim can be resolved faithfully.",
+        "next_observation": "First retained October 2026 NERO release for occupation 5311 and SA4 102."
+      },
+      "claim_permissions": {
+        "causal_claim": false,
+        "individual_inference": false,
+        "operational_effect": false
+      },
+      "executable_binding": {
+        "kind": "executable-predicate",
+        "signal_definition_ref": {
+          "signal_id": "signal.nero.5311.102.bounded-stock",
+          "definition_version": "1.0.0",
+          "signal_definition_hash": "sha256:1c288c7652ff72e3c9a3d04211bebde18e8310ca3cc1ecd3c95a2125dedeaf60"
+        },
+        "condition_definition_ref": {
+          "condition_id": "condition.nero.5311.102.stock",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:6dac7075fa5a8d429d5e1469d383bc0085027f32b3569526a6e65acb840bb548"
+        },
+        "predicate_ids": [
+          "stock-threshold"
+        ]
+      },
+      "metric_contract": {
+        "metric_id": "metric.nero.5311.102.bounded-stock",
+        "measure": "NERO modelled employed-person count x divided by x plus the frozen August 2026 count 3092",
+        "unit": "bounded employment index",
+        "denominator": "x plus frozen August 2026 count 3092; not a population denominator",
+        "population": "NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast",
+        "geography": "SA4 102: Central Coast, Australia",
+        "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+        "aggregation": "One occupation-SA4 series; no aggregation across occupations or regions",
+        "collection_process_ids": [
+          "process.jsa.nero"
+        ],
+        "source_refs": [
+          "source.jsa.nero"
+        ],
+        "evaluation_rule": "Transform the exact series count x to x/(x+3092), then compare gte 0.5. No population-share interpretation.",
+        "metric_checksum": "sha256:3578f9fd14c57f1cc808dc7abb8556f5794cb934333978fd3773b1dcb3260e91"
+      },
+      "public_claim_ceiling": "Bounded NERO employment-stock index, General Clerks, Central Coast may be described only as derived-estimate evidence about NERO modelled employed-person count x divided by x plus the frozen August 2026 count 3092 for NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast, SA4 102: Central Coast, Australia, during 2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z. It does not establish causality, individual outcomes or action authority."
+    }
+  ],
+  "portfolios": [
+    {
+      "condition_id": "condition.nero.5311.102.stock",
+      "ledger_ref": "urn:mind-flow:evolution:ledger.kernel.nero.5311.102.prospective.assessment-overlay",
+      "scope": {
+        "construct_id": "construct.nero.5311.102.stock",
+        "population": "NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast",
+        "geography": "SA4 102: Central Coast, Australia",
+        "statistical_unit": "one modelled occupation-SA4 series",
+        "period": "2026-08-01T00:00:00Z to 2026-10-31T23:59:59Z",
+        "unit": "bounded employment index",
+        "denominator": "x plus frozen August 2026 count 3092; not a population denominator",
+        "aggregation_level": "One occupation-SA4 series; no aggregation across occupations or regions"
+      },
+      "decision_context": {
+        "use": "research-only",
+        "owner_ref": null,
+        "minimum_useful_lead_days": 0
+      },
+      "role_assignments": [
+        {
+          "role": "confirming",
+          "signal_ids": [
+            "signal.nero.5311.102.bounded-stock"
+          ]
+        }
+      ],
+      "unresolved_roles": [
+        {
+          "role": "leading",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "counter",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "outcome",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "readiness",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "intervention-exposure",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        },
+        {
+          "role": "information-harm",
+          "reason": "This one-series prospective test supplies no independently measured human or intervention outcome.",
+          "next_acquisition": "Separate scope-compatible evidence is required before expanding the research claim."
+        }
+      ],
+      "public_disposition": "methods-only"
+    }
+  ]
+}

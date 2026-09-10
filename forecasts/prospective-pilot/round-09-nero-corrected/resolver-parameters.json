@@ -1,0 +1,17 @@
+{
+  "occupation_code": "5311",
+  "sa4_code": "102",
+  "date": "2026-10-15",
+  "count_baseline": 3092,
+  "dependencies": {
+    "forecasts/prospective-pilot/round-09-nero/basis.mts": "sha256:458db2f84cad66fb2b626af834d1598b74b824bc05a50041167e4e0270376080",
+    "forecasts/prospective-pilot/round-09-nero/resolver.mts": "sha256:9434fc8ec88e2ac4c712d8a45673d2d2be7f58c40a9cf6e3ef143faebf1554ef",
+    "dashboard/tools/build-nero-baseline.mjs": "sha256:d2d7e63359277fc20ee1f937b295f99d3958225f1be435a2b1b19d8bb4d4dc7d",
+    "forecasts/prospective-pilot/tests/round-09-nero-corrected.test.mjs": "sha256:d54fd823e0ee98bb0f8076e0da62e7d7331747f6e1aa2e5f2588a4332a4c2a35",
+    "forecasts/prospective-pilot/round-09-nero-corrected/target-policy.mjs": "sha256:1a190bef0c5576b4809fc8eb4437ecf18b38908c4a4b9b9fe6f00d72d422f2de",
+    "forecasts/prospective-pilot/round-09-nero-corrected/candidate.mts": "sha256:d0176365886779fcd7499119a2670bb6ab5db76476c2d2c566e2c62629af7013",
+    "forecasts/prospective-pilot/operational-clock.mjs": "sha256:c5df1c733ec3ff1518087ef60c47190bf87f2f1196540a0b9045d819267eb890",
+    "forecasts/prospective-pilot/tests/operational-clock.test.mjs": "sha256:82bcd6b837f13dd5a84f16d246cbeea876258aa565589052fc2e0d453cd8de58",
+    "forecasts/prospective-pilot/issuance-binding/round-09-corrected-validate.mjs": "sha256:767525630a7d9156a977b2ae2a809ec1ec41da9161c6c45f31db3996a80e5f3d"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "registered_at": "2026-09-10T00:44:16Z",
+  "plan_id": "forecast-evaluation.nero.5311.102.october-2026.correction-1.v1",
+  "cohort": [
+    {
+      "forecast_id": "forecast.nero.5311.102.october-2026.correction-1.v1",
+      "issued_record_checksum": "sha256:52ba1584f898b9e10774abb3d7221985ca4476b1543de12ff62381c57bd6b115"
+    }
+  ],
+  "manifest_checksum": "sha256:09ccca9b8841832a452e8e982bc5ec5aa8d1d7641f236a60ae9b9a2bee0a71eb",
+  "scoring": {
+    "primary": "brier",
+    "secondary": [
+      "log_loss"
+    ],
+    "baseline_comparator": "campaign_mechanical_naive_and_reference_class"
+  },
+  "reliability": {
+    "bin_edges": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+    ],
+    "minimum_resolved_forecasts": 30,
+    "minimum_forecasts_per_bin": 5,
+    "minimum_independent_clusters": 20,
+    "minimum_independent_clusters_per_bin": 5,
+    "small_n_handling": "withhold_rates_and_calibration_language"
+  },
+  "void_handling": {
+    "cohort_denominator": "all_registered_forecasts",
+    "scoring": "exclude_with_visible_disclosure",
+    "adjudication_required": true,
+    "minimum_score_coverage": 0.8
+  },
+  "declared_utility": {
+    "comparator": "declared_no_model_policy",
+    "aggregation": "stratify_by_utility_scale_consultation_and_adherence"
+  }
+}

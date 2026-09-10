@@ -1,0 +1,13 @@
+{
+  "manifest_id": "manifest.nero.5311.102.october-2026.correction-1.v1",
+  "campaign_id": "campaign.nero.5311.102.october-2026.correction-1",
+  "status": "sealed",
+  "eligibility_rule": "all-preregistered-campaign-protocols",
+  "exclusions": "none",
+  "protocol_ids": [
+    "protocol.nero.5311.102.october-2026.correction-1.v1"
+  ],
+  "sealed_at": "2026-09-10T00:40:25Z",
+  "manifest_sha256": "sha256:9469d4f2fd4df9e8461c2c5ac83a65dde0edb7adedc6d23aa05383cfdc8aa6ce",
+  "verification_status": "unverified_external_review_required"
+}
