@@ -11,7 +11,18 @@ status: review
 
 **Cannot say whether the commissioned storm criterion occurred.** This commissioned retrospective measures native modelled employment stock changes, not comparable direct income-route disruption prevalence shares of total population or a measured change in the binding condition category. It neither certifies a storm nor certifies its absence. No new rendered surface, issued forecast, receipt, or raw value changes.
 
-Forward repair: the original C output described the ceiling without invoking the shared evaluator. It now calls `evaluateStorm` for every retained December-to-December annual window per occupation/SA4, 2015→2016 through 2024→2025 (1,400 calls). Each call supplies country AUS and explicit null disruption, binding and household evidence. The national criterion therefore returns `cannot-say`; the regional occupational stock is labelled unadmitted context, not projected to national evidence or treated as a local criterion implementation. Monthly windows, including February-to-May 2020, remain descriptive only because the shared API accepts annual periods. The output binds exact SHA-256 hashes of the criterion code, its commissioned definition Markdown and its retained definition/consumer artifact. Any changed binding forces replay drift until reviewed and regenerated.
+Forward repair: the original C output described the ceiling without invoking the shared evaluator. It now calls `evaluateStorm` for every retained December-to-December annual window per occupation/SA4, 2015→2016 through 2024→2025 (1,400 annual windows). Each call supplies country AUS and explicit null disruption, binding and household evidence. The national criterion therefore returns `cannot-say`; the regional occupational stock is labelled unadmitted context, not projected to national evidence or treated as a local criterion implementation. Monthly windows, including February-to-May 2020, remain descriptive only. The output binds exact SHA-256 hashes of the criterion code, its commissioned definition Markdown and its retained definition/consumer artifact. Any changed binding forces replay drift until reviewed and regenerated.
+
+Round 10.1 clarification: the criterion API has no geography below country. The
+1,400 windows repeat ten national unknown results, not 1,400 local diagnoses.
+The 140 per-series summaries and one overall summary add 141 calls, for 1,541
+invocations in the retained producer. Those summaries are explicitly labelled
+retained-range summaries, September 2015 through incomplete August 2026, not
+annual windows. The CSV output now names the full-stream validation method
+instead of presenting a literal `true` as a computed verification result.
+CRC remains transitively pinned by the unchanged archive SHA-256. Adding CRC
+fields to the historical capture is deferred to a separately versioned source
+record rather than rewriting the original receipt.
 
 ## Reproducible numerical depth
 

@@ -17,11 +17,33 @@ const ajv = new Ajv({ allErrors: true, strict: true }); addFormats(ajv); ajv.add
 const validDefinition = ajv.compile({ $ref: `${schema.$id}#/$defs/conditionDefinition` });
 const validSignal = ajv.compile({ $ref: `${schema.$id}#/$defs/signalDefinition` });
 const proposedAt = '2026-09-10T07:00:00Z'; // Commissioned research epoch, not observation or publication time.
-// Percentage inputs are rounded separately to six decimal places (nearest,
-// half towards +infinity), then subtracted as safe integers. This is declared
-// arithmetic precision, not measurement precision or uncertainty estimation.
+// Quantise the canonical decimal representation of each finite Number, not its
+// binary product with 1e6. Integer quotient/remainder arithmetic preserves exact
+// decimal half-ties (nearest, half towards +infinity), including exponent form.
+// This cannot recover digits already lost before the Number reached this API.
 const percentageScale = 1_000_000;
-const percentageDifference = (before: number, after: number) => (Math.round(after * percentageScale) - Math.round(before * percentageScale)) / percentageScale;
+function percentageInteger(value: number): bigint {
+  const match = /^(-?)(\d+)(?:\.(\d+))?(?:e([+-]?\d+))?$/.exec(value.toString());
+  if (!match) throw new Error('Finite decimal percentage required');
+  const negative = match[1] === '-';
+  const coefficient = BigInt(match[2] + (match[3] ?? ''));
+  const exponent = Number(match[4] ?? 0) + 6 - (match[3]?.length ?? 0);
+  let rounded: bigint;
+  if (exponent >= 0) rounded = coefficient * 10n ** BigInt(exponent);
+  else {
+    const divisor = 10n ** BigInt(-exponent);
+    const twiceRemainder = (coefficient % divisor) * 2n;
+    const roundUp = twiceRemainder > divisor || (twiceRemainder === divisor && !negative);
+    rounded = coefficient / divisor + (roundUp ? 1n : 0n);
+  }
+  return negative ? -rounded : rounded;
+}
+function percentageDifference(before: number, after: number): number {
+  const difference = percentageInteger(after) - percentageInteger(before);
+  const integer = Number(difference);
+  if (!Number.isSafeInteger(integer)) throw new Error('Percentage difference exceeds safe six-decimal arithmetic range');
+  return integer / percentageScale;
+}
 
 function evidence(value: Row, construct: string) {
   if (value.construct !== construct || value.comparable !== true || !hashPattern.test(value.source_sha256) || !value.source_selector?.trim()) throw new Error('Evidence construct, comparability or source identity absent');

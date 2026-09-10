@@ -129,6 +129,24 @@ test('six-decimal percentage arithmetic keeps every exact two-decimal five-point
   assert.equal(evaluateStorm({ ...base, disruption: { ...share, before: 3.04, after: 8.039999 } }).state, 'cannot-say');
 });
 
+test('decimal half-ties and exponent notation quantise from the canonical decimal value, not binary multiplication', () => {
+  const check = (before, after, expected = 5) => {
+    const result = evaluateStorm({ ...base, disruption: { ...share, before, after } });
+    assert.equal(result.direct_share.change_pp, expected, `${before} to ${after}`);
+    assert.equal(result.state, expected >= 5 ? 'candidate' : 'cannot-say');
+  };
+  check(3.0000235, 8.0000235);
+  check(5e-7, 5.0000005);
+  check(5e-8, 5.00000005);
+  check(1e-7, 5.0000004);
+  check(5e-7, 5.0000004, 4.999999);
+  check(0, 4.9999995);
+  for (let whole = 0; whole <= 94; whole++) for (let hundredths = 0; hundredths < 100; hundredths++) {
+    const fraction = String(hundredths * 100000 + 235).padStart(7, '0');
+    check(Number(`${whole}.${fraction}`), Number(`${whole + 5}.${fraction}`));
+  }
+});
+
 test('beneficial five-point shifts leave the direct arm unassessed without vetoing binding evidence', () => {
   for (const [before, after] of [[10, 5], [10, 1], [8.04, 3.04]]) {
     const disruption = { ...share, before, after };

@@ -33,6 +33,8 @@ function assessAnnualCriterion(from: number, to: number) {
 }
 function cannotAssessStorm() {
   return { ...assessAnnualCriterion(2015, 2026), disrupted_people: null, dependent_household_members: null,
+    period_kind: 'retained-range-summary-not-an-annual-window',
+    geography_limit: 'Country-only criterion; no subnational diagnosis',
     disrupted_share_change_percentage_points: null, binding_category_change: null,
     reasons: ['Native modelled employment stocks do not measure comparable direct disruption prevalence shares.',
       'No matched total-population denominator or dependent-household mapping.',
@@ -126,7 +128,7 @@ export async function deriveRetrospective(incomeRoot = root) {
       csv_member: '2026-08_nero/2026-08_shiny_df.csv',
       csv_rows_consumed: readCount, selector: { state_name: 'NSW', anzsco4_code: occupations, value: 'nsc_emp', date: 'date', identity: ['anzsco4_code', 'sa4_code'], source_row: 'one-based CSV line including header' },
       licence: capture.source.licence_claim, licence_review_status: capture.source.licence_review_status,
-      scope: capture.source_native_scope, csv_crc_and_length_verified: true },
+      scope: capture.source_native_scope, csv_validation_method: 'Full stream checked against SHA-bound archive CRC and declared length' },
     interpretation: 'Native net stock changes in one August 2026 model vintage. Shared annual criterion executed with no admitted disruption prevalence or binding-category evidence. No sums across occupations or regions, converted disrupted shares, historical as-published values or forecast skill.',
     selected_series: series.length, selected_observations: selected.length,
     storm_assessment: cannotAssessStorm(),

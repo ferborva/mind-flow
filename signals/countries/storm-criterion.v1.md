@@ -72,8 +72,13 @@ binding-category change can still independently yield `candidate`.
 
 Both direct and native percentage arithmetic first round each input separately
 to six decimal places (nearest, half towards positive infinity), subtract the
-scaled integers, then divide by one million. Thus 3.04% to 8.04% is exactly five
-points; 3.04% to 8.039999% remains below it. This declared arithmetic precision
+scaled integers, then divide by one million. Quantisation uses the canonical
+decimal string from `Number.toString()`, including exponent notation, and exact
+integer quotient/remainder arithmetic rather than binary multiplication.
+Thus 3.04% to 8.04% and the half-tie pair 3.0000235% to 8.0000235% are exactly
+five points; 3.04% to 8.039999% remains below it. Digits already lost when an
+upstream value became a JavaScript Number cannot be recovered by this API.
+This declared arithmetic precision
 does not claim survey precision or quantify uncertainty. Original input values
 remain retained alongside the calculated change.
 

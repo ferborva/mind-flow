@@ -42,6 +42,15 @@ test('CLI rejects duplicates, contradictory modes, empty roots and unknown argum
 
 const row = (date, value, sa4_code = '102') => ({ occupation_code: '5311', occupation_name: 'General Clerks', state_name: 'NSW', sa4_code, sa4_name: sa4_code === '102' ? 'Central Coast' : 'Capital Region', date, value, source_row: 1 });
 
+test('retained-range summary is explicitly not an annual or local measurement', () => {
+  const [series] = analyseNativeSeries([row('2020-01-15', 100), row('2020-02-15', 95)]);
+  assert.equal(series.storm_assessment.period_kind, 'retained-range-summary-not-an-annual-window');
+  assert.equal(series.storm_assessment.geography_limit, 'Country-only criterion; no subnational diagnosis');
+  const producer = readFileSync(new URL('../tools/round-10-nero-retrospective.mts', import.meta.url), 'utf8');
+  assert.doesNotMatch(producer, /csv_crc_and_length_verified:\s*true/);
+  assert.match(producer, /csv_validation_method: 'Full stream checked against SHA-bound archive CRC and declared length'/);
+});
+
 test('stock losses remain native net changes, never a disrupted-person or household count', () => {
   for (const values of [[100, 95], [100, 0], [100, 100], [0, 100]]) {
     const [series] = analyseNativeSeries([row('2020-01-15', values[0]), row('2020-02-15', values[1])]);
