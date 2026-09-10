@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractCanadaCompanion, runCountryBaseline, CANADA_SELECTOR } from '../issuance-binding/country-baseline-execution.mjs';
+import { assertCanadaDraftTarget } from './target-policy.mjs';
 
 const directory=import.meta.dirname;
 const sha=(bytes:Buffer|string)=>'sha256:'+createHash('sha256').update(bytes).digest('hex');
@@ -22,7 +23,7 @@ export function deriveCanadaDraft(){
   const reference=history.observations.find(x=>x.month==='2026-08');
   if(reference?.value!=='7.302')throw new Error('frozen reference changed');
   const parameters={first_month:'2016-09',last_month:'2026-08',horizon_months:2};
-  return {
+  const document={
     status:'draft-not-issued',issuance_authorised:false,
     question:'Will the first eligible retained ILO Canadian October 2026 unemployment rate be at least 7.302 percent?',
     companion:{family:'income-unemployment.v1',storm_panel_admitted:false,breadth:'single-country companion only',estimation:'ILO microdata-processed reported LFS series; not ILO modelled estimates',denominator:'Canadian labour force aged 15 and older, both sexes',unit:'percent',disruption_measurement:'not-measured',seasonal_adjustment:'not asserted; no StatCan headline substitution'},
@@ -34,6 +35,7 @@ export function deriveCanadaDraft(){
     source:{url:source.receipt.url,body_sha256:expected['ilo-canada-reported'],retrieved_at:source.receipt.ended_at,receipt_sha256:sha(readFileSync(resolve(directory,'sources-2026-09-10/ilo-canada-reported.receipt.json')))},
     remaining_gates:['independent baseline and native selector review','fixed country adapter target/prose/clock binding and conformance tests','source-absence acquisition immediately before sealing','existing kernel and protocol validation','external immutable timestamp receipt before issue window','root approval to issue'],
   };
+  assertCanadaDraftTarget(document);return document;
 }
 export const serializeCanadaDraft=(document:ReturnType<typeof deriveCanadaDraft>)=>JSON.stringify(document,null,2)+'\n';
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
