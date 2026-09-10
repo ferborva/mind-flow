@@ -1,0 +1,13 @@
+{
+  "id": "pandemic",
+  "url": "https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---11-march-2020",
+  "final_url": "https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---11-march-2020",
+  "started_at": "2026-09-10T06:50:14.382Z",
+  "ended_at": "2026-09-10T06:50:15.152Z",
+  "status": 200,
+  "body_sha256": "sha256:ed40539faf2d71289c2ff7a734dc099a966e8beeef52df0600ee62c7b5b31e89",
+  "body_byte_length": 93391,
+  "headers_sha256": "sha256:05eca6da391a005e97f64de7163fb03fa67fb31b7e8dfa4ea2eda58b73a9e43a",
+  "headers_representation": "Fetch headers serialised as name: value; complete body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

@@ -1,0 +1,13 @@
+{
+  "id": "ilo-unemployment",
+  "url": "https://rplumber.ilo.org/data/indicator/?id=UNE_2EAP_SEX_AGE_RT_A&format=.csv",
+  "final_url": "https://rplumber.ilo.org/data/indicator/?id=UNE_2EAP_SEX_AGE_RT_A&format=.csv",
+  "started_at": "2026-09-10T06:14:47.187Z",
+  "ended_at": "2026-09-10T06:14:50.161Z",
+  "status": 200,
+  "body_sha256": "sha256:0c5640e14a3ca406e855f3ee5f71e4016dce54059493c930d95f326fa1550d7d",
+  "body_byte_length": 7565147,
+  "headers_sha256": "sha256:a9b634427826879df2e9fd94213d121279c8ad5e854d82f128fbc66791e49e13",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

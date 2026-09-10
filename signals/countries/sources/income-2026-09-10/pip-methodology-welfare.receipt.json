@@ -1,0 +1,13 @@
+{
+  "id": "pip-methodology-welfare",
+  "url": "https://datanalytics.worldbank.org/PIP-Methodology/welfareaggregate.html",
+  "final_url": "https://datanalytics.worldbank.org/PIP-Methodology/welfareaggregate.html",
+  "started_at": "2026-09-10T06:17:13.946Z",
+  "ended_at": "2026-09-10T06:17:14.237Z",
+  "status": 200,
+  "body_sha256": "sha256:290102c039ca39b481d220ddc1ddad409a9f4f75ca894ae8ae8b9a3e8ed8bb80",
+  "body_byte_length": 47572,
+  "headers_sha256": "sha256:e52ca83b41fb7881e5cf15787d6275288fa13093b47e0be3601201a2d9f451d6",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

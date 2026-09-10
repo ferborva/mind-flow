@@ -4,7 +4,7 @@ title: Round 08.1 forecast intake repairs and immutable boundaries
 type: internal-review
 status: ready-for-independent-review
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-10
 updated: 2026-09-10
 ---

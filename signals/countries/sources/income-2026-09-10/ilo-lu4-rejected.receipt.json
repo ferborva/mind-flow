@@ -1,0 +1,13 @@
+{
+  "id": "ilo-lu4-rejected",
+  "url": "https://rplumber.ilo.org/data/indicator/?id=LUU_2LU4_SEX_RT_A&format=.csv",
+  "final_url": "https://rplumber.ilo.org/data/indicator/?id=LUU_2LU4_SEX_RT_A&format=.csv",
+  "started_at": "2026-09-10T06:14:57.487Z",
+  "ended_at": "2026-09-10T06:14:58.999Z",
+  "status": 200,
+  "body_sha256": "sha256:b63994ed25aaa175e59c53520814b85b52bf26fe15fae9a34eb61fba6f2dc506",
+  "body_byte_length": 335809,
+  "headers_sha256": "sha256:e3e3cb5e100b48ff3de11282ed96f215135082e3b8f0d6db545b41bd8d34bc3f",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

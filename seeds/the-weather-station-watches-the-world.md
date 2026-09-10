@@ -4,7 +4,7 @@ title: The weather station watches the world
 type: seed
 status: ripe
 themes: [abundance]
-sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy, 2026-09-10-where-the-money-sits-and-the-weather-station]
+sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy, 2026-09-10-where-the-money-sits-and-the-weather-station, 2026-09-10-storms-as-social-contract-shifts]
 created: 2026-09-10
 updated: 2026-09-10
 ---
@@ -43,13 +43,46 @@ has become directly measurable.
 
 ## What this does not settle
 
-- Which ranking and vintage define the top 50 economies.
-- Which broad market shifts matter most, and which series can represent them.
-- What counts as a storm rather than ordinary movement.
-- How his crisis-point forecasting ambition sits with his sequencing concession.
+**His September 10 follow-up offers a working definition of a storm and narrows the focus.**
 
-Diagnose per country, notice change and avoid scheduling the transition is a
-commissioned reading to discuss, not a newly captured answer to the last
-question. Rankings, signal selections and numerical thresholds remain proposals.
+> a storm can be considered as a point of major shift in the social contract that can lead to a large enough disturbance of social fabric.
+
+Source: [the storm capture](../capture/2026-09-10-storms-as-social-contract-shifts.md).
+Its atomic seeds retain his [5% scale](five-percent-is-the-storm-scale.md),
+[income-access simplification](income-access-is-the-storm-focus.md) and
+[national or shared scope](storms-can-be-national-or-shared.md).
+
+The definition does not settle the affected-person denominator, duration,
+severity, beneficial shifts, or which series establish a social-contract shift.
+His proposed 5% scale is distinct from a commissioned five-percentage-point
+change rule. No measured storm or forecast skill follows from either wording.
+
+## Ren's operational assumptions
+
+**provenance: commissioned-proposal.** All five assumptions are reversible,
+listed in [the Round 10 backlog](../meta/backlog.md#round-10-assumptions-and-decisions) for Fernando to overturn:
+
+- **Dependants:** show disrupted people and dependent household members as
+  two labelled counts side by side wherever retained sources support a
+  household mapping. Never merge them; missing mappings stay unavailable.
+- **Ranking:** retain the proposed IMF WEO April 2026 nominal-GDP top 50
+  (2025 values and the retained publisher's economy universe), unchanged
+  unless Fernando selects otherwise.
+- **Which shifts:** offer unemployment and labour underutilisation,
+  employment-to-population, informal employment, real wages, poverty,
+  employment/output gap and food CPI as candidate indicator families to verify.
+  Each is an operational reading of income access for him to strike or add,
+  not his selected series or an assertion that the data qualify.
+- **Direction:** increased direct disruption is the provisional trigger. A
+  decrease of at least five points remains unassessed while Fernando decides
+  whether beneficial shifts count; it is not a firm all-clear.
+- **Threshold basis:** use direct disruption as a share of total population,
+  not household exposure, for the five-point test. His choice of threshold
+  basis remains open; the separate household reading never substitutes.
+
+Diagnose a shift under way or already observed and identify which condition
+moved. Do not schedule the transition. Forecasts remain separate,
+preregistered, single-cell and publicly scored. This implementation is Ren's
+commissioned reading of the definition and the sequencing concession.
 His five categories are the lens: price, permission, proximity, availability
 and capability, with discretion distinguished within availability.

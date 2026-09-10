@@ -1,0 +1,13 @@
+{
+  "id": "pip-lineup",
+  "url": "https://api.worldbank.org/pip/v1/pip?country=ALL&year=all&povline=3&fill_gaps=TRUE&reporting_level=national&version=20260324_2021_01_02_PROD&format=json",
+  "final_url": "https://api.worldbank.org/pip/v1/pip?country=ALL&year=all&povline=3&fill_gaps=TRUE&reporting_level=national&version=20260324_2021_01_02_PROD&format=json",
+  "started_at": "2026-09-10T06:14:50.170Z",
+  "ended_at": "2026-09-10T06:14:51.560Z",
+  "status": 200,
+  "body_sha256": "sha256:c684401218f7599ff518140b9b89657315aecd977b33d5e18db9e0aa4656c04e",
+  "body_byte_length": 8758639,
+  "headers_sha256": "sha256:1c7b5bb43111cc9ed9dbbf3b54f35f2177437776c766d959f2e0501694cc0ca8",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

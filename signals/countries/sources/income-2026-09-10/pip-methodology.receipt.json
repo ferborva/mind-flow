@@ -1,0 +1,13 @@
+{
+  "id": "pip-methodology",
+  "url": "https://worldbank.github.io/PIP-Methodology/lineupestimates.html",
+  "final_url": "https://worldbank.github.io/PIP-Methodology/lineupestimates.html",
+  "started_at": "2026-09-10T06:14:55.101Z",
+  "ended_at": "2026-09-10T06:14:55.468Z",
+  "status": 404,
+  "body_sha256": "sha256:b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368",
+  "body_byte_length": 9379,
+  "headers_sha256": "sha256:b2484406bec692ec2efcdb314b368c81d56f01e49b2a5e0e12d318272d194483",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

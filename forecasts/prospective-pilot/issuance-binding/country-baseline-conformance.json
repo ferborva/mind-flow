@@ -1,0 +1,8 @@
+{
+  "input": {
+    "selector": {"ref_area":"CAN","source":"BA:147","indicator":"UNE_DEAP_SEX_AGE_RT","sex":"SEX_T","classif1":"AGE_YTHADULT_YGE15"},
+    "observations": [{"month":"2026-01","value":"7.1"},{"month":"2026-02","value":"7.2"},{"month":"2026-03","value":"7.100"},{"month":"2026-04","value":"7.3"}]
+  },
+  "parameters": {"first_month":"2026-01","last_month":"2026-04","horizon_months":2},
+  "expected": {"mind-flow.country-two-month-direction":0.75,"mind-flow.equal-probability":0.5}
+}

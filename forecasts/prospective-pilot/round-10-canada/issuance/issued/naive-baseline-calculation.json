@@ -1,0 +1,29 @@
+{
+  "artifact_type": "prospective-baseline-calculation",
+  "schema_version": "1.0.0",
+  "baseline_role": "naive",
+  "protocol_id": "protocol.canada.unemployment.october-2026.v1",
+  "protocol_content_sha256": "sha256:cffdc5c10cc9943653680e1e4362aa41ea3d804e0fedf8e4ea00a86dc6131ea4",
+  "campaign_id": "campaign.canada.unemployment.october-2026",
+  "target_id": "target.canada.unemployment.october-2026",
+  "baseline_id": "family.canada.naive.v1",
+  "algorithm_id": "mind-flow.equal-probability",
+  "algorithm_version": "1.0.0",
+  "implementation_sha256": "sha256:d8ea81749ff9537df1921e001855eb00e45df6256687dfbc9eeb8395a5394882",
+  "conformance_vectors_sha256": "sha256:3667f05e2b2b38c0d5a8bbcc6f263460d7b74bb659e20bd70b4c38991a3df5bf",
+  "parameters_sha256": "sha256:75ae3d22c8b8c4466b8b98d5d403ba634873ef21813027d79b5da9f22672015d",
+  "input_source_ids": [
+    "source.ilo.canada-reported"
+  ],
+  "input_policy": "predeclared-sources-only-no-post-issue-data",
+  "input_manifest_sha256": "sha256:e19caf2f2df905b73b2ba0fb9e2746db9946c599ddb993d29cd4f65e37003702",
+  "input_checksums": [
+    "sha256:fb6d01391ba1dfdd8e440bf82fb7472aba0f27bcfa53808e24cc0a8917e24b25"
+  ],
+  "input_vintage_cutoff_at": "2026-09-10T07:09:35Z",
+  "missing_input_policy": "withhold-baseline-and-forecast",
+  "rounding_policy": "round-to-six-decimals-half-even",
+  "calculated_at": "2026-09-10T07:45:59Z",
+  "output_probability": 0.5,
+  "verification_status": "unverified_external_review_required"
+}

@@ -1,5 +1,30 @@
 # External-review input freeze
 
+## Round 10 runtime edition
+
+Round 10 selects the same review-freeze family's additive `1.1.0` receipt
+edition, `review-freeze.v1.1.schema.json`. It requires a `git_lfs` executable
+record with actual version, resolved path and SHA-256. The detached narrow
+toolchain adds only a `git-lfs` link to those recorded bytes, checked before
+and after commands alongside the existing executables. It does not add the
+host PATH, skip the real clean/smudge test, or authenticate a transcript.
+Creation fails if Git LFS cannot be found on the operator's preparation PATH.
+Runtime parity also compares the Git LFS record. Earlier policies still select
+the unchanged `1.0.0` schema, runtime inventory and round-level freeze identity.
+Historical receipt bytes are not rewritten. Each new Round 10 creation uses
+`round-10.review-inputs.<UUIDv4>` in the existing `freeze_id` field. The closed
+1.1 schema and Round 10 verifier reject missing, malformed and other-round
+suffixes; repeated creations of the same candidate receive distinct random
+execution identifiers. A UUID distinguishes attempts but authenticates neither
+execution nor time. The literal Round 09.1 original-ID request remains unmet,
+pending the preservation/versioning decision. All older policies retain their
+exact round-level identities and the unchanged 1.0 schema.
+
+The fixture's version-parity check suppresses a desktop proxy shim's
+PID-bearing experimental warning through `NODE_NO_WARNINGS=1`; actual freeze
+version capture is unchanged and may honestly report runtime-parity drift if
+an operator's version probe emits unstable diagnostics.
+
 The Round 04 brief has the right review posture, but its current process is not
 yet a mechanical freeze. It names a moving branch until a coordinator writes
 down a commit, lists commands as shell text, does not bind the complete Git

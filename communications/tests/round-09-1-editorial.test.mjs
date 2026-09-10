@@ -3,12 +3,13 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 import { proseSentences } from "../../meta/validate-draft-provenance.mjs";
+import { beforeRound10Amendment } from "./helpers/round-10-history.mjs";
 
 const root = resolve(import.meta.dirname, "../..");
 const read = path => readFileSync(resolve(root, path), "utf8");
 
 test("WHEN retains its explicit date, forecast and commitment ceiling", () => {
-  assert.match(read("drafts/every-if-is-somebodys-when.md"), /It is not a date, forecast, guarantee or commitment\./);
+  assert.match(read("drafts/every-if-is-somebodys-when.md"), /WHEN is a prompt for conditional work, not a date, forecast, guarantee or commitment\./);
 });
 
 test("WHEN records the date of the restored claim ceiling", () => {
@@ -22,9 +23,9 @@ test("the naughty-kid interpretation is Ren's reading, not an attributed new aut
   assert.match(read("meta/backlog.md"), /\[ \] \*\*Is the naughty-kid line an observation or an imperative\?/);
 });
 
-test("raw storms capture has only context, conversation and loose ends, with analysis in the backlog", () => {
+test("storms capture preserves conversation after processing, with analysis in the backlog", () => {
   const capture = read("capture/2026-09-10-storms-as-social-contract-shifts.md");
-  assert.match(capture, /^status: raw$/m);
+  assert.match(capture, /^status: processed$/m);
   assert.doesNotMatch(capture, /Ren's notes|calibrated probability|independent or disjoint/);
   assert.match(capture, /also household members who depend on that income\?/);
   assert.match(read("meta/backlog.md"), /Country-specific, regional and global events may overlap/);
@@ -48,12 +49,12 @@ test("the current disclaimer inventory pins its count scope and reports the rest
   assert.ok(block, "the current reader and repaired drafts must be in the inventory");
   const inventory = JSON.parse(block[1]);
   for (const entry of inventory) {
-    const units = proseSentences(read(entry.path));
+    const units = proseSentences(beforeRound10Amendment(root, entry.path, read(entry.path)));
     assert.equal(units.length, entry.lexical_units, entry.path);
     assert.equal(units.filter(unit => !/^\d+\.$/.test(unit)).length, entry.conservative_units, entry.path);
   }
   const reader = inventory.find(entry => entry.path === "signals/countries/measurement-view.md");
-  const units = proseSentences(read(reader.path));
+  const units = proseSentences(beforeRound10Amendment(root, reader.path, read(reader.path)));
   assert.equal(reader.non_templated_counted_units.length, 18);
   for (const { number, starts_with } of reader.non_templated_counted_units) assert.ok(units[number - 1].startsWith(starts_with));
   assert.equal(new Set(reader.non_templated_counted_units.map(entry => entry.number)).size, 18);

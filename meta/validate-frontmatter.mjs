@@ -15,10 +15,10 @@ const REPOSITORY_REGISTERS = new Set([
   "meta/themes.md",
 ]);
 const TEMPORAL_KEYS = ["created", "received", "retrieved", "reviewed_on", "submitted", "date"];
-// Maintained publication/governance surfaces, including future files in these
-// roots. Historical reviews, imported sources/foundation and sealed forecast
-// dependencies are not silently re-authored to satisfy a display-name rule.
-export const CURRENT_AUTHOR_ROOTS = Object.freeze(["drafts", "posts", "books", "governance"]);
+// Maintained author display names, including future review and forecast notes.
+// This checks Markdown metadata only; issued JSON, dependency bytes, imported
+// source captures and foundation documents are not re-authored by this rule.
+export const CURRENT_AUTHOR_ROOTS = Object.freeze(["drafts", "posts", "books", "governance", "forecasts", "reviews"]);
 export const CURRENT_AUTHOR_PATHS = Object.freeze(["boundaries.md"]);
 
 export const ALLOWED_CONTENT_TYPES = Object.freeze(new Set([

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
   accessSync,
@@ -35,6 +35,15 @@ const freezeSchema = JSON.parse(freezeSchemaBytes.toString("utf8"));
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateFreezeSchema = ajv.compile(freezeSchema);
+const round10SchemaPath = 'meta/review-freeze/review-freeze.v1.1.schema.json';
+const round10SchemaBytes = readFileSync(resolve(here, 'review-freeze.v1.1.schema.json'));
+const validateRound10Schema = ajv.compile(JSON.parse(round10SchemaBytes.toString('utf8')));
+const round10ExecutionId = /^round-10\.review-inputs\.[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
+function freezeEdition(policy) {
+  return policy.policy_id === 'review-freeze.round-10'
+    ? { version: '1.1.0', path: round10SchemaPath, bytes: round10SchemaBytes, validate: validateRound10Schema, gitLfs: true }
+    : { version: '1.0.0', path: 'meta/review-freeze/review-freeze.schema.json', bytes: freezeSchemaBytes, validate: validateFreezeSchema, gitLfs: false };
+}
 const MAX_COMMAND_OUTPUT_BYTES = 64 * 1024 * 1024;
 const DEFAULT_COMMAND_TIMEOUT_MS = 120_000;
 const HASH = /^sha256:[a-f0-9]{64}$/;
@@ -407,6 +416,72 @@ export const ROUND_09_1_REVIEW_POLICY = Object.freeze({
   ],
 });
 
+// Additive review scope only. Historical policy objects and receipt identities
+// remain literal; the coordinator selects and freezes the candidate separately.
+export const ROUND_10_REVIEW_POLICY = Object.freeze({
+  ...ROUND_09_1_REVIEW_POLICY,
+  policy_id: 'review-freeze.round-10', policy_version: '1.0.0', review_round: 'round-10',
+  reviewed_ref: 'ren/round-10',
+  required_files: [
+    ...ROUND_09_1_REVIEW_POLICY.required_files,
+    ...[
+      ['meta/round-10-external-review-brief.md', 'Round 10 frozen review scope and truthful unmet gates'],
+      ['reviews/round-10-progress.md', 'Round 10 checkpoints and handoff'],
+      ['reviews/round-10-receipt-trust-decision.md', 'Time-bounded commissioned integrity-only risk decision'],
+      ['reviews/round-10-narrative-provenance.md', 'Reversible line-level publication preparation'],
+      ['reviews/name-the-if-sign-off.md', 'Section-level human publication decision sheet'],
+      ['reviews/round-10-hygiene.md', 'Scoped hygiene dispositions and named deferrals'],
+      ['reviews/round-10-australia-depth.md', 'Native NERO retrospective and exact GP join failures'],
+      ['capture/2026-09-10-storms-as-social-contract-shifts.md', 'Preserved captured definition and processing record'],
+      ['capture/2026-09-10-keep-main-unchanged.md', 'Processed operational instruction'],
+      ['signals/countries/income-measurements.v1.json', 'Retained national income-access context and source ceilings'],
+      ['signals/countries/tools/income-measurements.mts', 'Exact income history producer'],
+      ['signals/countries/storm-criterion.v1.md', 'Reversible commissioned criterion, not forecast skill'],
+      ['signals/countries/tools/storm-criterion.mts', 'Country criterion and retrospective replay'],
+      ['signals/countries/storm-review.v1.json', 'Exact source-derived criterion states and rejected proxy crossings'],
+      ['signals/countries/tools/shock-context.mts', 'Pinned primary historical context, not national outcome labels'],
+      ['reviews/round-10-storm-retrospective.md', 'Unassessable social criterion and quantified native counterexamples'],
+      ['.github/workflows/nero-intake.yml', 'Evidence-only scheduled acquisition and restricted publication jobs'],
+      ['forecasts/prospective-pilot/round-10-intake/validate-evidence.mjs', 'Complete pre-publication evidence validation'],
+      ['forecasts/prospective-pilot/round-10-intake/lfs.mjs', 'Verified upload and fresh-cache download before pointer publication'],
+      ['governance/round-10-adjudicator-appointment.md', 'Commissioned appointment proposal, not appointed authority'],
+      ['forecasts/prospective-pilot/round-10-canada/draft.mts', 'Exact retained Canadian reported-source baseline replay'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance.mts', 'Actual-clock, write-once Canadian issue and offline replay'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance-workflow.mjs', 'Bounded provider receipt, capture and clock checks'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance-runbook.md', 'Committed issuance and human resolution boundaries'],
+      ['forecasts/prospective-pilot/issuance-binding/round-10-country-validate.mjs', 'Fixed native Canadian issuance adapter'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance/issued/issued.json', 'Exact prospective Canadian issued record'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance/issued/preregistration.json', 'Exact Canadian preregistration with provider receipt'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance/seal/source-closure.json', 'Immutable source-commit closure for actual issuance'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance/seal/seal-anchors.json', 'Pre-registration protocol and request byte anchors'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance/registration/provider-post.http', 'Actual provider-timed registration bytes'],
+      ['forecasts/prospective-pilot/round-10-canada/issuance/issued/provider-preissue-readback.http', 'Unchanged-comment readback before actual issue'],
+      ['contracts/tests/round10-issued-ci.test.mjs', 'Mandatory offline actual-issued replay without weaker substitutes'],
+      ['pilots/australia/data/round-10-nero-retrospective.json', 'Native stock changes and unjoinable GP evidence'],
+      ['pilots/australia/tools/round-10-nero-retrospective.mts', 'Full retained NERO replay'],
+      ['pilots/australia/tests/round-10-nero-retrospective.test.mjs', 'Hostile stock-to-disruption and national-to-local boundaries'],
+      ['meta/review-freeze/tests/round-10-policy.test.mjs', 'Exact additive command and policy regressions'],
+      ['meta/review-freeze/review-freeze.v1.1.schema.json', 'Same-family Round 10 closed runtime edition including Git LFS'],
+      ['meta/review-freeze/tests/round-10-lfs-runtime.test.mjs', 'Real Git LFS clean/smudge under the recorded narrow toolchain'],
+      ['meta/review-freeze/round-09.1.review-freeze.json', 'Unchanged canonical prior receipt'],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_09_1_REVIEW_POLICY.build_commands,
+    ...[
+      ['round-10-income-check', ['node', 'signals/countries/tools/income-measurements.mts', '--check']],
+      ['round-10-storm-check', ['node', 'signals/countries/tools/storm-criterion.mts', '--check']],
+      ['round-10-shock-context-check', ['node', 'signals/countries/tools/shock-context.mts', '--check']],
+      ['round-10-depth-check', ['node', 'pilots/australia/tools/round-10-nero-retrospective.mts', '--check']],
+      ['round-10-canada-draft-check', ['node', 'forecasts/prospective-pilot/round-10-canada/draft.mts', '--check']],
+      ['round-10-canada-basis-check', ['node', 'forecasts/prospective-pilot/round-10-canada/build-basis.mts', '--check']],
+      ['round-10-canada-issued-check', ['node', 'forecasts/prospective-pilot/round-10-canada/issuance.mts', '--check']],
+      ['round-10-receipt-boundary-check', ['node', '--test', 'meta/review-freeze/tests/round-10-policy.test.mjs']],
+      ['round-09.1-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09.1', '--manifest=meta/review-freeze/round-09.1.review-freeze.json']],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: '.', timeout_ms: 900_000 })),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
@@ -415,6 +490,7 @@ export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-09") return ROUND_09_REVIEW_POLICY;
   if (reviewRound === "round-09-initial") return ROUND_09_INITIAL_REVIEW_POLICY;
   if (reviewRound === "round-09.1") return ROUND_09_1_REVIEW_POLICY;
+  if (reviewRound === "round-10") return ROUND_10_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
@@ -651,12 +727,13 @@ export function executableRecord(name, versionArgs, explicitPath, {
   };
 }
 
-function runtimeInputs(repositoryRoot, commit) {
+function runtimeInputs(repositoryRoot, commit, edition) {
   const lockBytes = fileAtCommit(repositoryRoot, commit, "package-lock.json");
   return {
     node: executableRecord("node", ["--version"]),
     npm: executableRecord("npm", ["--version"]),
     git: executableRecord("git", ["--version"]),
+    ...(edition?.gitLfs ? { git_lfs: executableRecord('git-lfs', ['version']) } : {}),
     python3: executableRecord("python3", ["--version"]),
     unzip: executableRecord("unzip", ["-v"]),
     sh: executableRecord("sh", ["--version"], "/bin/sh", {
@@ -839,6 +916,10 @@ function runCommand(command, sandbox, environment, runtime) {
   };
 }
 
+function runtimeExecutables(runtime) {
+  return [['node', 'node'], ['npm', 'npm'], ['git', 'git'], ['python3', 'python3'], ['unzip', 'unzip'], ['sh', 'sh'],
+    ...(runtime.git_lfs ? [['git_lfs', 'git-lfs']] : [])];
+}
 function prepareRuntimeControls(sandbox, runtime) {
   const cache = resolve(sandbox, ".npm-cache");
   const toolchain = resolve(sandbox, ".review-toolchain");
@@ -847,16 +928,16 @@ function prepareRuntimeControls(sandbox, runtime) {
   mkdirSync(toolchain, { recursive: true });
   writeFileSync(resolve(cache, "empty-user.npmrc"), "", "utf8");
   writeFileSync(resolve(cache, "empty-global.npmrc"), "", "utf8");
-  for (const name of ["node", "npm", "git", "python3", "unzip", "sh"]) {
-    symlinkSync(runtime[name].executable_path, resolve(toolchain, name));
+  for (const [name, executable] of runtimeExecutables(runtime)) {
+    symlinkSync(runtime[name].executable_path, resolve(toolchain, executable));
   }
 }
 
 function runtimeControlsUnchanged(sandbox, runtime) {
   const toolchain = resolve(sandbox, ".review-toolchain");
-  return ["node", "npm", "git", "python3", "unzip", "sh"].every((name) => {
+  return runtimeExecutables(runtime).every(([name, executable]) => {
     try {
-      const link = resolve(toolchain, name);
+      const link = resolve(toolchain, executable);
       return lstatSync(link).isSymbolicLink() &&
         realpathSync(link) === runtime[name].executable_path &&
         canonicalHash(readFileSync(realpathSync(link))) === runtime[name].executable_sha256;
@@ -988,7 +1069,8 @@ export function createReviewFreeze({
     fileRecord(repositoryRoot, reviewedCommit, required));
   const trackedTree = trackedTreeInventory(repositoryRoot, reviewedCommit);
   const buildCommands = policy.build_commands.map(commandRecord);
-  const runtime = runtimeInputs(repositoryRoot, reviewedCommit);
+  const edition = freezeEdition(policy);
+  const runtime = runtimeInputs(repositoryRoot, reviewedCommit, edition);
   const reproduction = executeCommands
     ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime, policy.generated_outputs)
     : {
@@ -1005,19 +1087,19 @@ export function createReviewFreeze({
   const reviewedGenerator = requiredFiles.find(({ path }) =>
     path === "meta/review-freeze/review-freeze.mjs");
   const reviewedGeneratorSchema = requiredFiles.find(({ path }) =>
-    path === "meta/review-freeze/review-freeze.schema.json");
+    path === edition.path);
   const manifest = {
-    schema_version: "1.0.0",
-    freeze_id: `${policy.review_round}.review-inputs`,
+    schema_version: edition.version,
+    freeze_id: policy.policy_id === 'review-freeze.round-10' ? `round-10.review-inputs.${randomUUID()}` : `${policy.review_round}.review-inputs`,
     status: "review-inputs-frozen",
     created_at: freezeCreatedAt,
     generator: {
       id: "mind-flow.review-freeze",
-      version: "1.0.0",
+      version: edition.version,
       path: "meta/review-freeze/review-freeze.mjs",
       sha256: reviewedGenerator?.sha256 ?? canonicalHash(generatorBytes),
-      schema_path: "meta/review-freeze/review-freeze.schema.json",
-      schema_sha256: reviewedGeneratorSchema?.sha256 ?? canonicalHash(freezeSchemaBytes),
+      schema_path: edition.path,
+      schema_sha256: reviewedGeneratorSchema?.sha256 ?? canonicalHash(edition.bytes),
     },
     review_target: {
       ref: policy.reviewed_ref,
@@ -1078,8 +1160,9 @@ export function verifyReviewFreeze(manifest, {
   requireGeneratorParity = false,
 } = {}) {
   const errors = [];
-  if (!validateFreezeSchema(manifest)) {
-    for (const error of validateFreezeSchema.errors ?? []) {
+  const edition = freezeEdition(policy);
+  if (!edition.validate(manifest)) {
+    for (const error of edition.validate.errors ?? []) {
       errors.push(issue(
         "FREEZE_SCHEMA_INVALID",
         error.instancePath || "/",
@@ -1093,7 +1176,7 @@ export function verifyReviewFreeze(manifest, {
   if (!HASH.test(manifest?.freeze_hash || "") || manifest.freeze_hash !== canonicalHash(withoutHash)) {
     errors.push(issue("FREEZE_HASH_MISMATCH", "/freeze_hash", "freeze content differs from its content address"));
   }
-  if (manifest?.schema_version !== "1.0.0" || manifest?.status !== "review-inputs-frozen") {
+  if (manifest?.schema_version !== edition.version || manifest?.status !== "review-inputs-frozen") {
     errors.push(issue("FREEZE_SCHEMA_INVALID", "/", "review freeze identity or status is invalid"));
   }
   if (!same(manifest?.boundaries, BOUNDARIES)) {
@@ -1101,11 +1184,11 @@ export function verifyReviewFreeze(manifest, {
   }
   const generator = {
     id: "mind-flow.review-freeze",
-    version: "1.0.0",
+    version: edition.version,
     path: "meta/review-freeze/review-freeze.mjs",
     sha256: canonicalHash(readFileSync(fileURLToPath(import.meta.url))),
-    schema_path: "meta/review-freeze/review-freeze.schema.json",
-    schema_sha256: canonicalHash(freezeSchemaBytes),
+    schema_path: edition.path,
+    schema_sha256: canonicalHash(edition.bytes),
   };
   if (requireGeneratorParity && !same(manifest?.generator, generator)) {
     errors.push(issue("GENERATOR_DRIFT", "/generator", "generator identity or bytes differ from the verifier"));
@@ -1135,7 +1218,9 @@ export function verifyReviewFreeze(manifest, {
   })) {
     errors.push(issue("REVIEW_POLICY_MISMATCH", "/policy", "freeze policy identity or content has drifted"));
   }
-  if (manifest?.freeze_id !== `${policy.review_round}.review-inputs`) {
+  if (policy.policy_id === 'review-freeze.round-10'
+    ? !round10ExecutionId.test(manifest?.freeze_id ?? '')
+    : manifest?.freeze_id !== `${policy.review_round}.review-inputs`) {
     errors.push(issue("REVIEW_POLICY_MISMATCH", "/freeze_id", "freeze identity does not match the selected review round"));
   }
   const expectedCommands = policy.build_commands.map(commandRecord);
@@ -1186,8 +1271,8 @@ export function verifyReviewFreeze(manifest, {
     }
     const lock = fileAtCommit(repositoryRoot, exact, "package-lock.json");
     if (requireRuntimeParity) {
-      const currentRuntime = runtimeInputs(repositoryRoot, exact);
-      const executableNames = ["node", "npm", "git", "python3", "unzip", "sh"];
+      const currentRuntime = runtimeInputs(repositoryRoot, exact, edition);
+      const executableNames = runtimeExecutables(currentRuntime).map(([name]) => name);
       const runtimeMatches = executableNames.every((name) =>
         same(manifest?.runtime_inputs?.[name], currentRuntime[name])) &&
         same(manifest?.runtime_inputs?.operating_system, currentRuntime.operating_system);
@@ -1313,8 +1398,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1|round-10] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1|round-10] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

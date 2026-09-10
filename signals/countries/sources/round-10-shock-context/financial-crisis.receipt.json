@@ -1,0 +1,13 @@
+{
+  "id": "financial-crisis",
+  "url": "https://www.worldbank.org/en/archive/history/past-presidents/robert-bruce-zoellick",
+  "final_url": "https://www.worldbank.org/en/archive/history/past-presidents/robert-bruce-zoellick",
+  "started_at": "2026-09-10T06:50:12.718Z",
+  "ended_at": "2026-09-10T06:50:14.380Z",
+  "status": 200,
+  "body_sha256": "sha256:1d708913a541b422ab07f1e5aec92e0e4d43b7e5bb4337d4d6cf9013681edde3",
+  "body_byte_length": 70848,
+  "headers_sha256": "sha256:bd6242375f6677c8d981f71a8aed9e5af629a8cd9b068d1d6808ecd04aacc53a",
+  "headers_representation": "Fetch headers serialised as name: value; complete body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

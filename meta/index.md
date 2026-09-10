@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Index
@@ -12,8 +12,8 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 6 |
-| Seeds | 16 |
+| Captures | 10 |
+| Seeds | 21 |
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
@@ -31,6 +31,15 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
+- `2026-09-10-storms-as-social-contract-shifts`, working storm definition,
+  proposed 5% scale, income-access focus and national/shared scope.
+  **processed**, four new seeds; dependants remain unanswered.
+- `2026-09-10-keep-main-unchanged`, **processed**, no seed: operational
+  integration instruction, not a thesis position.
+- `2026-09-10-where-the-money-sits-and-the-weather-station`, **processed**:
+  enterprise money as observation, not remedy; world scope with Australian depth.
+- `2026-09-09-softer-on-tax-and-remedy`, **processed**: method rather than a
+  selected solution, feeding two existing seeds.
 - `2026-09-08-the-benchmark-shrug`, why people shrug at a benchmark, and the
   condition categories becoming his. **processed**, 1 seed. Short, typed, and it
   carries a provenance event: the five categories are his from here.
@@ -68,15 +77,19 @@ Foundation documents: **4 of 4 in place.**
 | `agency-is-the-goal-conditions-are-the-signals` | ripe | abundance |
 | `you-cannot-sequence-the-conditions` | growing | abundance |
 | `nobody-has-that-sentence` | ripe | abundance |
+| `the-weather-station-watches-the-world` | ripe | abundance |
+| `storms-are-social-contract-shifts` | ripe | abundance |
+| `five-percent-is-the-storm-scale` | ripe | abundance |
+| `income-access-is-the-storm-focus` | ripe | abundance |
+| `storms-can-be-national-or-shared` | ripe | abundance |
 
 ## Drafts
 
-- `name-the-if`, medium, **drafting**, ~1,700 words. The frame as an instrument:
-  the shrug, the missing if, the reversal, five condition categories, the
-  healthcare promise run across four countries, and the invitation. No remedy,
-  no crisis layer, no supply side. **This is the one he sends.** Two blockers
-  marked inline: the Diamandis anecdote needs a source, the four-country table
-  needs a research note.
+- `name-the-if`, medium, **review**, awaiting Fernando's section-by-section read.
+  The frame, five open condition categories and worked healthcare example.
+  The scene is explicitly imagined; research and provenance have been reviewed.
+  [Sign-off sheet](../reviews/name-the-if-sign-off.md): every section pending,
+  with a separate choice about an outside human read. Nothing is published.
 - `every-if-is-somebodys-when`, medium, **drafting**, ~1,500 words. Round two.
   Consumer's if against provider's when, the CEO's condition list, and sorting
   conditions by who holds them. **Quietly replaces the broken ending of

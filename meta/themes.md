@@ -1,6 +1,6 @@
 ---
 title: Themes
-updated: 2026-09-08
+updated: 2026-09-10
 ---
 
 # Themes
@@ -34,10 +34,22 @@ the-zero-cost-count, the-free-labour-paradox, the-transmission-test,
 tell-me-your-conditions, run-the-frame-on-the-supplier,
 if-is-demand-when-is-supply, conditions-have-owners,
 agency-is-the-goal-conditions-are-the-signals, you-cannot-sequence-the-conditions,
-nobody-has-that-sentence
+nobody-has-that-sentence, the-weather-station-watches-the-world,
+storms-are-social-contract-shifts, five-percent-is-the-storm-scale,
+income-access-is-the-storm-focus, storms-can-be-national-or-shared
 Pieces: name-the-if (draft), every-if-is-somebodys-when (draft),
 abundance-has-an-if (draft), from-if-to-when (draft),
 message-to-the-moonshot-mates (correspondence)
+
+**September 10 continuation:** the weather station watches world-scale
+country shifts, with Australia as worked depth. His working storm definition
+concerns a major social-contract shift affecting 5% of society or more, and
+his simplification focuses on access to means of generating income. This
+extends abundance's existing theme; it does not promote a new theme from a
+single capture. Related captures: `2026-09-09-softer-on-tax-and-remedy`,
+`2026-09-10-where-the-money-sits-and-the-weather-station`,
+`2026-09-10-storms-as-social-contract-shifts`. Direct/household counting,
+beneficial shifts and operational measurement remain open choices.
 
 <!-- NOTE: active on the third capture, per the rule. Sixteen seeds, two long
      drafts, two medium ones and a piece of correspondence. This is plainly book-shaped, but the book rule wants 5+ POSTS and

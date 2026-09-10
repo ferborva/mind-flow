@@ -17,7 +17,7 @@ test("current draft Ren authors use canonical casing without rewriting historica
       .some(({ code }) => code === "DRAFT_AUTHOR_CASING"));
   }
   assert.deepEqual(lintMarkdown("drafts/every-if-is-somebodys-when.md", base.replace(/^author:.*$/m, "author: Ren")), []);
-  assert.deepEqual(lintMarkdown("reviews/historical.md", base.replace(/^author:.*$/m, "author: ren")), []);
+  assert.deepEqual(lintMarkdown("research/historical.md", base.replace(/^author:.*$/m, "author: ren")), []);
 });
 
 test("current governance and publication surfaces reject Ren casing variants, including new files", () => {
@@ -29,8 +29,21 @@ test("current governance and publication surfaces reject Ren casing variants, in
     }
     assert.deepEqual(lintMarkdown(path, base.replace(/^author:.*$/m, "author: Ren")), []);
   }
-  for (const path of ["reviews/historical.md", "forecasts/prospective-pilot/round-09-nero/issuance-note.md", "research/historical-source.md"]) {
+  for (const path of ["research/historical-source.md"]) {
     assert.deepEqual(lintMarkdown(path, base.replace(/^author:.*$/m, "author: ren")), []);
+  }
+});
+
+test("forecast and review author casing rejects variants in nested and future documents", () => {
+  const base = readFileSync(resolve(root, "governance/public-charter.md"), "utf8");
+  for (const path of ["forecasts/prospective-pilot/round-09-nero/issuance-note.md", "forecasts/new/nested/proposal.md", "reviews/historical.md", "reviews/external/future/review.md"]) {
+    for (const author of ["ren", "REN", "rEn", '"ren"', "'REN'"]) {
+      assert.ok(lintMarkdown(path, base.replace(/^author:.*$/m, `author: ${author}`))
+        .some(({ code }) => code === "CURRENT_AUTHOR_CASING"), `${path}: ${author}`);
+    }
+    for (const author of ["Ren", "Fernando", '"Ren"']) {
+      assert.deepEqual(lintMarkdown(path, base.replace(/^author:.*$/m, `author: ${author}`)), []);
+    }
   }
 });
 

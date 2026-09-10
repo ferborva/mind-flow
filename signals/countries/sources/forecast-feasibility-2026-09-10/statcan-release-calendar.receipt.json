@@ -1,0 +1,13 @@
+{
+  "id": "statcan-release-calendar",
+  "url": "https://www150.statcan.gc.ca/n1/release-diffusion/2026-eng.pdf",
+  "final_url": "https://www150.statcan.gc.ca/n1/release-diffusion/2026-eng.pdf",
+  "started_at": "2026-09-10T06:41:53.361Z",
+  "ended_at": "2026-09-10T06:41:56.416Z",
+  "status": 200,
+  "body_sha256": "sha256:f7af7f426ab9755ef209e8916f2ca03f93162a58dff7a0b3c4e61b084b964875",
+  "body_byte_length": 158855,
+  "headers_sha256": "sha256:6ad71a5925b1d176a5746f50b0c4047c4d2e86ad2ffb134ab14319dbbb9c1b58",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

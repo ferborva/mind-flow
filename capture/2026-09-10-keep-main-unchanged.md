@@ -2,8 +2,9 @@
 id: 2026-09-10-keep-main-unchanged
 title: Integrate the capture on Round 9 only
 type: capture
-status: raw
+status: processed
 themes: [abundance]
+seeds: []
 participants: Fer, Ren (text)
 created: 2026-09-10
 updated: 2026-09-10
@@ -25,5 +26,7 @@ timestamp; this date records transcription, not a claimed response time.
 
 ## Loose ends
 
+- Processed as an operational instruction with no seed. This governs branch
+  integration, not a substantive idea for the publication pipeline.
 - This records the capture-integration choice, not a permanent prohibition
   against a later expressly authorised merge.

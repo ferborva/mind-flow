@@ -10,7 +10,7 @@ sources: [2026-09-08-abundance-frame-conversation, 2026-09-08-the-benchmark-shru
 research: [2026-09-09-healthcare-if-validation, round-08-healthcare-editorial-sources]
 audience: the Moonshots crew and the people listening with them
 created: 2026-09-08
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Name the If
@@ -57,7 +57,7 @@ The promise has a familiar shape:
 conversation. If the service exists. If the price is within reach. If it is
 permitted where you live. If you can use it.
 
-Start with the person receiving the promise. What do they want to be able to
+**Start with the person receiving the promise.** What do they want to be able to
 do? Where are they? What would count as the thing actually working? “Healthcare”
 is a whole system. “A consultation about this problem, within a useful time,
 at a cost this person can meet” gives the discussion something to hold on to.
@@ -90,7 +90,7 @@ choosing to provide it” still has an if.** Ask what would happen if that
 provision changed. The price on today's screen and the continuity of
 the service are different questions.
 
-The categories overlap. That can be useful. A long journey might involve both
+**The categories overlap.** That can be useful. A long journey might involve both
 distance and money. Writing both down helps explain what reaching the service
 requires. The aim is a clearer account of the person's situation, not a tidy
 table for its own sake.
@@ -107,8 +107,8 @@ do the work; the country name alone cannot answer them.**
 
 **Price.** What will this visit cost this person? HealthCare.gov explains that
 covered services may involve a deductible and other cost sharing, with some
-services covered before the deductible. Insurance and a zero patient bill are
-different conditions. The Census Bureau reports that 92.0% of people had
+services covered before the deductible. **Insurance and a zero patient bill are
+different conditions.** The Census Bureau reports that 92.0% of people had
 insurance for some or all of 2024; that coverage measure cannot tell whether
 a particular visit was affordable. ([HealthCare.gov, checked 9 September
 2026](https://www.healthcare.gov/glossary/deductible/);
@@ -116,33 +116,33 @@ a particular visit was affordable. ([HealthCare.gov, checked 9 September
 
 That gives the next question some shape. Is the obstacle the consultation
 charge, the test that follows, the medicine or the journey? A free first
-conversation could matter a great deal. The rest of the route still needs to
-be visible.
+conversation could matter a great deal. **The rest of the route still needs to
+be visible.**
 
 **Permission.** Who is permitted to provide the required care in the place
 where the patient is? For telehealth, the US Department of Health and Human
 Services describes several cross-state licensing routes, including full
-licences, compacts and registration arrangements. The applicable route needs
-checking for the profession and state. “There is a video call” does not settle
+licences, compacts and registration arrangements. **The applicable route needs
+checking for the profession and state.** “There is a video call” does not settle
 that question. ([HHS licensing guidance, checked 9 September 2026](https://telehealth.hhs.gov/licensure/licensing-across-state-lines))
 
 **Proximity.** Suppose the consultation leads to a blood test or a scan. Where
 would that happen, and can the person reach it? This is a question about the
-whole example, including the parts that remain physical. A useful account
+whole example, including the parts that remain physical. **A useful account
 names the service, the journey and the alternatives rather than assuming the
-screen has removed distance.
+screen has removed distance.**
 
 **Availability.** Can the service offer a suitable appointment in the time the
 person needs? Is that appointment genuinely bookable? If the next step needs
-another professional or facility, can that step happen too? A service listed
-in a directory and a usable appointment answer different questions.
+another professional or facility, can that step happen too? **A service listed
+in a directory and a usable appointment answer different questions.**
 
 **Capability.** Can the person understand the choices and use the route?
 Consider language, an accessible interface and support with the process.
-Healthy People 2030 treats health literacy as both a person's ability to use
-information and an organisation's ability to enable that use. This question
+The restored January 2025 Healthy People 2030 page treats health literacy as both a person's ability to use
+information and an organisation's ability to enable that use. **This question
 belongs to the design of the service as well as the circumstances of the
-person. ([HHS health-literacy definitions, checked 9 September 2026](https://odphp.health.gov/healthypeople/priority-areas/health-literacy-healthy-people-2030))
+person.** ([HHS restored-page definitions, checked 10 September 2026](https://odphp.health.gov/healthypeople/priority-areas/health-literacy-healthy-people-2030))
 
 Now return to the promise. **Which condition prevents this person from getting
 this consultation?** Perhaps there is evidence that cost is the obstacle.
@@ -167,22 +167,22 @@ whom? What evidence shows the difference?
 
 The order will vary. Some conditions fall through deliberate work. Others
 change unexpectedly. I do not think that sequence can be planned in advance.
-The useful work is to examine what binds now and notice when the answer
-changes.
+**The useful work is to examine what binds now and notice when the answer
+changes.**
 
-That is why the frame belongs alongside **Goal / Signals / Actions**. The goal
+**That is why the frame belongs alongside Goal / Signals / Actions.** The goal
 is agency. The conditions supply signals about progress towards it. Actions
 are hypotheses about moving those signals. The goal gives the conversation
 its purpose. The signals give it something to examine.
 
-My contribution sits at that frame and method level. A conversation about a
+**My contribution sits at that frame and method level.** A conversation about a
 solution can then start with the condition it claims to change and the people
 it claims to help. That makes room for enthusiasm, disagreement and evidence
 in the same discussion.
 
 ## 👉 Try it on the promise you care about
 
-Pick one. Write the sentence. Add the ifs. Use the five categories to look for
+**Pick one. Write the sentence. Add the ifs.** Use the five categories to look for
 something missing. Name the people and place. Ask what evidence would change
 the current reading of each condition.
 

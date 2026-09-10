@@ -4,7 +4,7 @@ title: Round 08.1 review dispositions
 type: review-register
 status: ready-for-refreeze
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-10
 updated: 2026-09-10
 ---

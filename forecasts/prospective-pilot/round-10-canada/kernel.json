@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.1.0",
+  "kernel_id": "kernel.canada.unemployment.prospective",
+  "classification": "research-draft",
+  "empirical_truth_established": false,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "publication_approved": false,
+  "evaluator": {
+    "id": "mind-flow.executable-if.evaluator",
+    "version": "1.1.0",
+    "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+    "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+    "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+    "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+  },
+  "signals": [
+    {
+      "signal_id": "signal.canada.unemployment.bounded-rate",
+      "definition_version": "1.0.0",
+      "label": "ILO reported unemployment fraction, Canada, both sexes, age 15+",
+      "construct": "Reported unemployment rate x transformed to x/100; exposure context, not vacancies or worker opportunity",
+      "population": "Canadian labour force aged 15 and older, both sexes",
+      "estimand": "ILO reported unemployment percent x divided by 100",
+      "aggregation": "One country-sex-age series; no aggregation across countries or age groups",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://rplumber.ilo.org/data/indicator?id=UNE_DEAP_SEX_AGE_RT_M&ref_area=CAN&source=BA%3A147&sex=SEX_T&classif1=AGE_YTHADULT_YGE15&timefrom=2016&format=.csv&type=both",
+      "value_kind": "number",
+      "unit": "fraction of Canadian labour force aged 15 and older",
+      "value_range": {
+        "minimum": 0,
+        "maximum": 1
+      },
+      "signal_definition_hash": "sha256:32835a92c24d0286471bc17be90ce6097300f3878618fb3ccbfb8ebfdc89ed0b"
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "event.canada.unemployment.stock.added",
+      "operation": "added",
+      "recorded_at": "2026-09-10T07:09:35Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Fix one observed ILO reported unemployment series and its monotone rate threshold before the October outcome.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.canada.unemployment.stock",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.canada.unemployment.stock",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.canada.unemployment.stock",
+          "definition_version": "1.0.0",
+          "condition_category": "availability",
+          "proposition": "The reported unemployment rate is at least the frozen August 2026 rate 7.302 percent; this is exposure context only.",
+          "claim": {
+            "who": "Canadian labour force aged 15 and older, both sexes",
+            "verb": "have",
+            "object": "reported unemployment rate at or above 7.302",
+            "standard": "fraction of Canadian labour force aged 15 and older x/100 is at least 0.07302",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-08-01T00:00:00Z",
+              "ends_at": "2026-10-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-09-10T07:09:35Z",
+          "scope": {
+            "jurisdictions": [
+              "Canada"
+            ],
+            "geographies": [
+              "Canada"
+            ],
+            "cohorts": [
+              "Both sexes, labour force aged 15 and older"
+            ],
+            "services": [
+              "Reported unemployment rate, exposure context only"
+            ]
+          },
+          "predicates": {
+            "stock-threshold": {
+              "signal_ref": {
+                "signal_id": "signal.canada.unemployment.bounded-rate",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:32835a92c24d0286471bc17be90ce6097300f3878618fb3ccbfb8ebfdc89ed0b"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.07302,
+                "unit": "fraction of Canadian labour force aged 15 and older"
+              },
+              "window": {
+                "lookback_days": 120,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 120
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "stock-threshold"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": null,
+      "event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc"
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "observation.canada.unemployment.2026-08",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.canada.unemployment.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+      },
+      "predicate_id": "stock-threshold",
+      "signal_ref": {
+        "signal_id": "signal.canada.unemployment.bounded-rate",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:32835a92c24d0286471bc17be90ce6097300f3878618fb3ccbfb8ebfdc89ed0b"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Canada"
+        ],
+        "geographies": [
+          "Canada"
+        ],
+        "cohorts": [
+          "Both sexes, labour force aged 15 and older"
+        ],
+        "services": [
+          "Reported unemployment rate, exposure context only"
+        ]
+      },
+      "period": {
+        "start": "2026-08-01T00:00:00Z",
+        "end": "2026-08-31T23:59:59Z"
+      },
+      "recorded_at": "2026-09-10T07:09:35Z",
+      "value": 0.07302,
+      "unit": "fraction of Canadian labour force aged 15 and older",
+      "source_id": "source.ilo.canada-reported",
+      "source_artifact_hash": "sha256:0c1a707f99b482fea3da936c45c3bfa565dce6184a542e9b96a7e4f9bd5fd52b",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Reported LFS microdata-processed estimate; no retained sampling interval, individual inference or income-loss measurement."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "preselected country-sex-age series cell, not people"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:099f8f3f21c2731b2f4f44aafd135e95a3408968044b4df99c3075ac623bf896"
+    }
+  ],
+  "evidence_events": [
+    {
+      "sequence": 1,
+      "evidence_event_id": "evidence-event.canada.unemployment.2026-08.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-10T07:09:35Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Bind the retained August ILO reported unemployment rate and its bounded transform; receipt covers one series cell, not human outcomes.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.canada.unemployment.2026-08",
+            "observation_hash": "sha256:099f8f3f21c2731b2f4f44aafd135e95a3408968044b4df99c3075ac623bf896"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": null,
+      "evidence_event_hash": "sha256:78d33807f5b2f86cea3c6341373cd1098b919dade6c02b7e69a352b83c02d75c"
+    }
+  ],
+  "current_evidence_state": [
+    {
+      "observation_ref": {
+        "observation_id": "observation.canada.unemployment.2026-08",
+        "observation_hash": "sha256:099f8f3f21c2731b2f4f44aafd135e95a3408968044b4df99c3075ac623bf896"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    }
+  ],
+  "current_state": [
+    {
+      "condition_id": "condition.canada.unemployment.stock",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.canada.unemployment.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+      },
+      "lifecycle": "active"
+    }
+  ],
+  "manifest_hash": "sha256:e4c885f86e718f4a7e4caeabed541d19ff280783535dd32b1675137366337f83"
+}

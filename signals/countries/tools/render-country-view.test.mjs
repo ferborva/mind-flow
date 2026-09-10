@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { renderCountryView } from './render-country-view.mjs';
 import { buildMeasurements, loadSources } from './build-measurements.mjs';
+import { loadStormReview } from './storm-criterion.mts';
 const bytes=readFileSync(new URL('../measurements.v1.json',import.meta.url));
 const data=()=>JSON.parse(bytes);
 const options={measurementSha256:`sha256:${createHash('sha256').update(bytes).digest('hex')}`};
@@ -44,14 +45,15 @@ test('publisher labels and selectors cannot inject Markdown or HTML; source path
   assert.throws(()=>renderCountryView(changed,options),/source path/);
 });
 test('generated Markdown reproduces exactly from the measurement snapshot',()=>{
-  assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),renderCountryView(data(),options));
+  assert.match(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8').slice(0,600), /\[Jump to income-access assessments\]\(#income-access-comparison-2024-to-2025\)/);
+  assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),renderCountryView(data(),{...options,stormReview:loadStormReview()}));
 });
 test('headline counts the intersection, not missing cells or stale measured_signals labels',()=>{
   const original=data();
-  assert.match(renderCountryView(original,options),/50 economies, 47 with all three series, 146 retained signal observations/);
+  assert.match(renderCountryView(original,options),/50 economies, 47 with all three original series, 146 retained signal observations/);
   for(const country of original.countries)country.measured_signals=[];
   original.signals[0].observations=original.signals[0].observations.filter(row=>row.country!=='AUS');
-  assert.match(renderCountryView(original,options),/50 economies, 46 with all three series, 145 retained signal observations/);
+  assert.match(renderCountryView(original,options),/50 economies, 46 with all three original series, 145 retained signal observations/);
 });
 test('reader keeps different periods and uninterpreted native ILO flags explicit',()=>{
   const text=renderCountryView(data(),options);
@@ -64,5 +66,5 @@ test('reader bytes replay from native retained sources, not merely the derived s
   const replay=Buffer.from(`${JSON.stringify(buildMeasurements(frame,await loadSources()),null,2)}\n`);
   assert.deepEqual(bytes,replay);
   assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),
-    renderCountryView(JSON.parse(replay),{measurementSha256:`sha256:${createHash('sha256').update(replay).digest('hex')}`}));
+    renderCountryView(JSON.parse(replay),{measurementSha256:`sha256:${createHash('sha256').update(replay).digest('hex')}`,stormReview:loadStormReview()}));
 });

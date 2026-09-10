@@ -2,8 +2,9 @@
 id: 2026-09-10-storms-as-social-contract-shifts
 title: Storms are major social-contract shifts that can affect five percent of a country's society
 type: capture
-status: raw
+status: processed
 themes: [abundance]
+seeds: [storms-are-social-contract-shifts, five-percent-is-the-storm-scale, income-access-is-the-storm-focus, storms-can-be-national-or-shared]
 participants: Fer, Ren (text)
 created: 2026-09-10
 updated: 2026-09-10

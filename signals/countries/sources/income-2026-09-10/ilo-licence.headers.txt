@@ -1,0 +1,38 @@
+age: 17965
+alt-svc: h3=":443"; ma=86400
+cache-control: max-age=86400, public
+cf-cache-status: DYNAMIC
+cf-ray: a38c4b8c0b64334e-SYD
+connection: keep-alive
+content-encoding: gzip
+content-language: en
+content-security-policy: default-src 'none'; manifest-src 'self'; worker-src 'self'; script-src 'self' 'report-sample' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com  https://js-agent.newrelic.com https://bam.nr-data.net https://connect.facebook.net https://platform.twitter.com https://embedr.flickr.com https://widgets.flickr.com https://www.youtube.com https://player.vimeo.com/api/player.js https://*.vimeocdn.com https://p.trellocdn.com  https://*.clarity.ms https://s.go-mpulse.net https://datawrapper.dwcdn.net https://public.flourish.studio https://static.cloudflareinsights.com https://www.google-analytics.com/analytics.js https://w.soundcloud.com/player/api.js; object-src 'none'; style-src 'self' 'report-sample' 'unsafe-inline' https://fonts.googleapis.com https://platform.twitter.com https://cdnjs.cloudflare.com https://www.youtube.com https://www.youtube-nocookie.com https://vjs.zencdn.net https://pt.dwcdn.net https://datawrapper.dwcdn.net https://public.flourish.studio; img-src 'self' data: https://www.googletagmanager.com https://fonts.gstatic.com https://geoservices.un.org https://i.ytimg.com https://syndication.twitter.com https://pbs.twimg.com https://embedr.flickr.com https://*.staticflickr.com https://*.vimeocdn.com https://*.vimeo.com https://*.clarity.ms https://c.bing.com https://static.dwcdn.net https://datawrapper.dwcdn.net https://public.flourish.studio; media-src 'self' data:; form-action 'self'; frame-src 'self' https://*.soundcloud.com https://*.dwcdn.net https://*.x.com https://*.tiktok.com https://*.walls.io https://www.youtube.com  https://www.youtube-nocookie.com https://*.youku.com  https://youtu.be https://www.facebook.com  https://*.instagram.com https://*.linkedin.com https://trello.com  https://player.vimeo.com  https://platform.twitter.com https://syndication.twitter.com https://www.flickr.com https://datawrapper.dwcdn.net https://www.googletagmanager.com https://public.flourish.studio https://flo.uri.sh; frame-ancestors 'self'; child-src 'self' https://*.soundcloud.com https://*.dwcdn.net https://*.x.com https://*.tiktok.com https://*.walls.io https://www.youtube.com  https://www.youtube-nocookie.com https://*.youku.com  https://youtu.be https://www.facebook.com  https://*.instagram.com https://*.linkedin.com https://trello.com  https://player.vimeo.com  https://platform.twitter.com https://syndication.twitter.com https://www.flickr.com https://datawrapper.dwcdn.net https://public.flourish.studio; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://static.dwcdn.net; connect-src 'self' https://www.google.com https://www.googletagmanager.com https://*.google-analytics.com https://maps.googleapis.com https://embedr.flickr.com https://vimeo.com https://bam.nr-data.net https://*.clarity.ms https://c.go-mpulse.net https://datawrapper.dwcdn.net https://public.flourish.studio; base-uri 'self'; report-uri https://ilopublic.report-uri.com/r/d/csp/enforce; upgrade-insecure-requests
+content-type: text/html; charset=UTF-8
+cross-origin-embedder-policy: unsafe-none;report-to="default"
+cross-origin-opener-policy: same-origin; report-to="default"
+cross-origin-resource-policy: same-origin
+date: Thu, 10 Sep 2026 06:14:54 GMT
+expires: Sun, 19 Nov 1978 05:00:00 GMT
+last-modified: Thu, 10 Sep 2026 01:15:27 GMT
+permissions-policy: accelerometer=(), autoplay=(self "https://www.youtube.com/embed"), camera=(), clipboard-read=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+referrer-policy: strict-origin-when-cross-origin
+report-to: {'group':'default','max_age':31536000,'endpoints':[{'url':'https://ilopublic.report-uri.com/a/d/g '}],'include_subdomains':true}
+server: cloudflare
+set-cookie: __cf_bm=PMHQ4peQjfjCu4HThmvVnZh.rMSQVaS.ZgrjHESnjVE-1789020894.0873451-1.0.1.1-dmol1LJJIZdwsRNYBHb4HZlyouW8cIOutUj6iZsvms9OCbRKplfg7r7m0FztOilh.FauiK9ys8.m0Oe_c4ZyuS4duG5mcjsBcxHx77J0maGGhb5YUcHaWDlZWbg0GqEt; HttpOnly; SameSite=None; Secure; Path=/; Domain=ilo.org; Expires=Thu, 10 Sep 2026 06:44:54 GMT
+strict-transport-security: max-age=31536000; includeSubDomains
+surrogate-key: sgka 2qb4 fa8f 2b3q qrj0 9mud 54ls p0qp ibth aj6m 35aa 068n 7dv9 45fp 8ljl hrlq f3l1 r76k ebf6 bp1k jg68 gq0d flpt kt1n burn 5ksb jd76 8p05 nfur takt r93a 4cv4 uk7q pmql h643 rjf3 1oi1 hfh8 d64g qq4g ereh 6ck8 9776 7ri3 425u 752l bl2k p42m 5okr 58jm 9abc agdq
+transfer-encoding: chunked
+vary: Cookie,X-Consumer-ID,Accept-Encoding,X-Geo-Country
+via: varnish
+x-ah-environment: prod
+x-cache: HIT
+x-cache-hits: 1
+x-consumer-id: default_consumer
+x-content-type-options: nosniff
+x-drupal-cache: MISS
+x-drupal-dynamic-cache: MISS
+x-frame-options: SAMEORIGIN
+x-geo-country: AU
+x-permitted-cross-domain-policies: none
+x-request-id: v-1bad2648-acb5-11f1-b2b2-afa111f0f0d6
+x-xss-protection: 0

@@ -79,6 +79,18 @@ jobs:
       - name: Check the current Round 09 forecast error disclosure
         run: node forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs
 
+      - name: Verify the retained Round 10 review receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-10
+          --manifest=meta/review-freeze/round-10.review-freeze.json
+
+      - name: Verify the retained Round 10.1 repair receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-10
+          --manifest=meta/review-freeze/round-10.1.review-freeze.json
+
       - name: Reproduce the timing-contract migration
         run: node dashboard/tools/migrate-timing-contract.mjs --check
 
@@ -118,6 +130,22 @@ jobs:
           node signals/countries/capability-candidate.mts --check
           node signals/countries/tools/permission-candidate.mjs --check
           node signals/countries/tools/render-country-view.mjs --check
+
+      - name: Reproduce retained Round 10 income indicators
+        run: node signals/countries/tools/income-measurements.mts --check
+      - name: Replay retained Canadian forecast design
+        run: node forecasts/prospective-pilot/round-10-canada/draft.mts --check
+      - name: Replay Canadian statistical predicate basis
+        run: node forecasts/prospective-pilot/round-10-canada/build-basis.mts --check
+
+      - name: Verify the issued Canadian forecast without network or scoring
+        run: node forecasts/prospective-pilot/round-10-canada/issuance.mts --check
+
+      - name: Reproduce commissioned storm criterion
+        run: node signals/countries/tools/storm-criterion.mts --check
+
+      - name: Reproduce Round 10 NERO depth and GP join
+        run: node pilots/australia/tools/round-10-nero-retrospective.mts --check
 
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"

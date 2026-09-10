@@ -21,6 +21,50 @@ script.
 
 ## Open
 
+### Round 10 assumptions and decisions
+
+**Ren's assumptions, provenance: commissioned-proposal.** These are reversible
+working choices from the Round 10 commission, not Fernando's answers. Fernando
+can overturn each; [the storm capture](../capture/2026-09-10-storms-as-social-contract-shifts.md)
+settles the principle of income access, not its measurement.
+
+- [ ] **Dependants in the 5% count: people disrupted, households, or both?**
+      Assumption: compute and show disrupted people and dependent household
+      members as separate labelled counts side by side wherever the source
+      supports a household mapping. Never merge them. Missing mappings remain
+      unavailable, not zero. His captured follow-up is still unanswered.
+- [ ] **Keep the retained ranking?** Assumption: IMF WEO April 2026 nominal-GDP
+      top 50 using 2025 values and the retained economy universe, unchanged
+      unless Fernando says otherwise. This does not attribute the choice to him.
+- [ ] **Which income-access indicator families would he strike or add?**
+      Assumption: verify unemployment and underutilisation (modelled/reported
+      distinct), employment-to-population, informal employment, real wages,
+      poverty (survey/nowcast distinct), employment/output gap and food CPI.
+      The list is Ren's operational reading, not a claim of qualifying coverage.
+- [ ] **Does a beneficial shift affecting 5% count as a storm, or only a harmful one?**
+      The captured definition does not settle this. A harmful-disruption
+      criterion is commissioned and cannot silently answer it.
+- [ ] **Should direct disruption or household exposure determine the threshold?**
+      Ren currently uses direct disruption as a share of total population.
+      Showing dependent household members separately does not answer which
+      reading should decide the five-point test.
+- [ ] **Is “a storm can be considered as” a working definition or a settled one?**
+      Keep his captured hedge. Ren's framing now says working definition;
+      this is not a new answer attributed to Fernando.
+- [ ] **Sign off Name the If, section by section?** The draft is ready for
+      Fernando's read, not approved or published. Seven decisions are pending
+      on [the sign-off sheet](../reviews/name-the-if-sign-off.md).
+- [ ] **An outside human read before publication?** Track 7 still has no
+      outside human reviewer; agent provenance checks do not substitute.
+- [ ] **Should Name the If name a downside of the frame itself?** Its care
+      example has caveats, but the method could be used to dismiss promises
+      or shift the burden onto people. This reviewer-raised judgement is
+      parked for Fernando, not added to his draft as his opinion.
+- [ ] **Distinct historical freeze IDs without rewriting accepted receipts?**
+      The originals remain byte-for-byte sealed. The existing hash-bound
+      attempt index distinguishes them, but the literal embedded-ID request
+      remains unmet pending the preservation/versioning decision.
+
 ### Round 09 next decisions and acquisition work
 
 - [x] **Process the September 10 capture.** Exact capture commit `832143d`

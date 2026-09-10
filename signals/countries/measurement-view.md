@@ -10,7 +10,9 @@ created: 2026-09-10
 
 # Country measurement snapshot
 
-**50 economies, 47 with all three series, 146 retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.
+[Jump to income-access assessments](#income-access-comparison-2024-to-2025). The original national context remains below.
+
+**50 economies, 47 with all three original series, 146 retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.
 
 The proposed sampling frame uses 2025 nominal GDP in the April 2026 IMF WEO. Fernando has not chosen the ranking or signals. IMF economies include Hong Kong and Taiwan separately; the labels make no sovereignty decision. GDP estimates may be present even for a completed year.
 
@@ -1127,3 +1129,268 @@ Evidence needed to assess the five conditions:
 - **Availability:** KAZ: hours of usable electricity, outage frequency/duration \(SAIFI/SAIDI\), unmet demand and essential-basket stockouts by household/region; national connection share is insufficient.
 
 - **Capability:** KAZ: household ability to operate essential appliances and obtain/use essential goods, including disability/accessibility support and functional skills, matched to service need.
+
+<!-- round-10-income-context:start -->
+## Income-access comparison, 2024 to 2025
+
+**50 economies: 50 cannot-say.** This is income context, not a measured storm panel or an all-clear result. The rule is a commissioned proposal, not a validated warning system.
+
+- **candidate:** at least one measured arm of the proposed rule is met. This is a reason to investigate, not a confirmed crisis.
+
+- **no-candidate:** both arms are measured and neither is met under the stated assumptions. This does not establish safety or stability.
+
+- **cannot-say:** missing measurement or an unresolved assumption prevents a verdict; this is not evidence of stability. It does not mean that people are unaffected.
+
+The direct arm asks whether disrupted access to means of generating income has increased by at least five percentage points of total population. The other arm asks whether the binding condition, the condition preventing that same access, has changed. A large beneficial shift remains unassessed while Fernando's direction decision is open.
+
+Direct disruption concerns the person whose way of earning is disrupted. Household exposure concerns linked household members; it is shown separately and never added to the direct reading. Here, pp means percentage points: a change from 1% to 6% is +5 pp, not a 5% relative increase. No people counts, causal category or shared global event are inferred.
+
+[Criterion and reversible assumptions](storm-criterion.v1.md) · [Twenty-year review data](storm-review.v1.json) · [Source and licence audit](income-source-audit.md).
+
+Coverage for these income families: employment/population 50/50; unemployment 50/50; national PIP poverty 49/50. These are distinct from the original CPI, electricity and labour-income-share series above. Any absent family is named in the row, not backfilled.
+
+ILO uses the November 2025 modelled vintage, which extends to 2027. Its 2025 values are model outputs whose estimate-versus-projection status is not carried at row level. PIP uses the March 2026 national $3/day lineup in 2021 PPP (purchasing power parity, a price-level adjustment, not an exchange rate). 49 of 49 retained 2025 PIP values are labelled nowcast: a model estimate, not a survey observation for that year. The source vintages are not a common release date.
+
+**Evidence missing in every row:**
+
+- Comparable direct income-route disruption shares of total population.
+
+- Measured before/after binding category for the same income-access claim and population.
+
+- Person-linked household exposure mapping with overlap specified.
+
+| Economy | State | Direct disruption change (pp of total population) | Household exposure change (pp of total population) | Binding condition | Additional gaps |
+| --- | --- | --- | --- | --- | --- |
+| USA | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| CHN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| DEU | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| JPN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| GBR | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| IND | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| FRA | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| RUS | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ITA | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| CAN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| BRA | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ESP | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| KOR | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| AUS | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| MEX | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| TUR | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| IDN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| NLD | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| SAU | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| CHE | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| POL | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| TWN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| BEL | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| IRL | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ARG | cannot-say | Unavailable | Unavailable | Unknown | No national PIP observation |
+| SWE | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ISR | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| SGP | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| AUT | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| THA | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ARE | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| NOR | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| VNM | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| PHL | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| MYS | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| DNK | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| BGD | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| COL | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ROU | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| HKG | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| ZAF | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| PAK | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| CZE | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| IRN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| EGY | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| CHL | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| PRT | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| PER | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| FIN | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+| KAZ | cannot-say | Unavailable | Unavailable | Unknown | None beyond common gaps |
+
+### Native income-related measurements, not affected-person shares
+
+Each level is a percentage of its own denominator. The change column subtracts the earlier native level from the later one; it does not count disrupted people. The values cannot be added or converted into disrupted-person shares. Country codes use the same retained sampling frame as the sections above.
+
+Values and changes display at most three decimals; full precision remains in the linked review data. A selector identifies the later value in the retained source: CSV record N is 1-based; $[N] is a 0-based JSON array index. Earlier values and all source selectors remain in [the income measurement data](income-measurements.v1.json).
+
+#### Employment / population aged 15+
+
+[Retained source](sources/income-2026-09-10/ilo-epop.body).
+
+| Economy | 2024 (%) | 2025 (%) | Native change 2024 to 2025 (pp; not disruption) | 2025 source selector |
+| --- | ---: | ---: | ---: | --- |
+| USA | 59.467 | 59.114 | -0.353 | CSV record 58745 |
+| CHN | 61.931 | 61.572 | -0.359 | CSV record 10343 |
+| DEU | 58.849 | 58.323 | -0.526 | CSV record 14339 |
+| JPN | 61.717 | 61.893 | +0.176 | CSV record 28325 |
+| GBR | 58.871 | 58.457 | -0.414 | CSV record 19667 |
+| IND | 53.317 | 53.31 | -0.007 | CSV record 25328 |
+| FRA | 51.544 | 51.172 | -0.372 | CSV record 19001 |
+| RUS | 60.322 | 59.809 | -0.513 | CSV record 47558 |
+| ITA | 46.365 | 46.151 | -0.214 | CSV record 27326 |
+| CAN | 60.627 | 60.061 | -0.566 | CSV record 9011 |
+| BRA | 59.031 | 59.37 | +0.339 | CSV record 7013 |
+| ESP | 51.249 | 51.453 | +0.204 | CSV record 17336 |
+| KOR | 62.67 | 62.624 | -0.046 | CSV record 29990 |
+| AUS | 64.089 | 63.816 | -0.273 | CSV record 2018 |
+| MEX | 59.985 | 59.962 | -0.023 | CSV record 35615 |
+| TUR | 49.43 | 49.746 | +0.316 | CSV record 56801 |
+| IDN | 65.685 | 65.765 | +0.08 | CSV record 24995 |
+| NLD | 64.966 | 64.643 | -0.323 | CSV record 41276 |
+| SAU | 62.907 | 63.12 | +0.213 | CSV record 48224 |
+| CHE | 64.189 | 63.494 | -0.695 | CSV record 9677 |
+| POL | 57.009 | 56.577 | -0.432 | CSV record 44606 |
+| TWN | 57.084 | 57.207 | +0.123 | CSV record 57134 |
+| BEL | 51.429 | 51.068 | -0.361 | CSV record 3350 |
+| IRL | 62.218 | 61.841 | -0.377 | CSV record 25661 |
+| ARG | 57.439 | 57.489 | +0.05 | CSV record 1352 |
+| SWE | 59.298 | 58.979 | -0.319 | CSV record 52805 |
+| ISR | 63.14 | 63.204 | +0.064 | CSV record 26993 |
+| SGP | 67.308 | 67.709 | +0.401 | CSV record 49178 |
+| AUT | 57.361 | 56.767 | -0.594 | CSV record 2351 |
+| THA | 66.604 | 66.157 | -0.447 | CSV record 54470 |
+| ARE | 76.789 | 76.885 | +0.096 | CSV record 1019 |
+| NOR | 63.201 | 62.564 | -0.637 | CSV record 41609 |
+| VNM | 71.963 | 71.67 | -0.293 | CSV record 60410 |
+| PHL | 60.05 | 59.979 | -0.071 | CSV record 43940 |
+| MYS | 63.565 | 63.631 | +0.066 | CSV record 39278 |
+| DNK | 61.56 | 61.345 | -0.215 | CSV record 15005 |
+| BGD | 56.762 | 56.574 | -0.188 | CSV record 4349 |
+| COL | 57.418 | 58.142 | +0.724 | CSV record 12008 |
+| ROU | 48.683 | 48.255 | -0.428 | CSV record 47225 |
+| HKG | 55.139 | 54.778 | -0.361 | CSV record 23330 |
+| ZAF | 37.632 | 37.58 | -0.052 | CSV record 90713 |
+| PAK | 49.435 | 49.498 | +0.063 | CSV record 42941 |
+| CZE | 59.048 | 58.637 | -0.411 | CSV record 14006 |
+| IRN | 37.905 | 37.565 | -0.34 | CSV record 25994 |
+| EGY | 41.556 | 41.546 | -0.01 | CSV record 16337 |
+| CHL | 56.864 | 56.713 | -0.151 | CSV record 10010 |
+| PRT | 54.644 | 54.576 | -0.068 | CSV record 45605 |
+| PER | 69.023 | 69.127 | +0.104 | CSV record 43607 |
+| FIN | 54.826 | 54.035 | -0.791 | CSV record 18335 |
+| KAZ | 67.176 | 64.537 | -2.639 | CSV record 28658 |
+
+#### Unemployment / labour force aged 15+
+
+[Retained source](sources/income-2026-09-10/ilo-unemployment.body).
+
+| Economy | 2024 (%) | 2025 (%) | Native change 2024 to 2025 (pp; not disruption) | 2025 source selector |
+| --- | ---: | ---: | ---: | --- |
+| USA | 4.022 | 4.198 | +0.176 | CSV record 58745 |
+| CHN | 4.59 | 4.615 | +0.025 | CSV record 10343 |
+| DEU | 3.4 | 3.711 | +0.311 | CSV record 14339 |
+| JPN | 2.5 | 2.451 | -0.049 | CSV record 28325 |
+| GBR | 4.361 | 4.746 | +0.385 | CSV record 19667 |
+| IND | 4.173 | 4.219 | +0.046 | CSV record 25328 |
+| FRA | 7.4 | 7.542 | +0.142 | CSV record 19001 |
+| RUS | 2.43 | 2.133 | -0.297 | CSV record 47558 |
+| ITA | 6.5 | 6.391 | -0.109 | CSV record 27326 |
+| CAN | 6.351 | 6.907 | +0.556 | CSV record 9011 |
+| BRA | 6.801 | 5.97 | -0.831 | CSV record 7013 |
+| ESP | 11.4 | 10.376 | -1.024 | CSV record 17336 |
+| KOR | 2.784 | 2.683 | -0.101 | CSV record 29990 |
+| AUS | 3.942 | 4.09 | +0.148 | CSV record 2018 |
+| MEX | 2.678 | 2.673 | -0.005 | CSV record 35615 |
+| TUR | 8.8 | 8.52 | -0.28 | CSV record 56801 |
+| IDN | 3.301 | 3.237 | -0.064 | CSV record 24995 |
+| NLD | 3.7 | 3.874 | +0.174 | CSV record 41276 |
+| SAU | 3.518 | 3.038 | -0.48 | CSV record 48224 |
+| CHE | 4.343 | 4.873 | +0.53 | CSV record 9677 |
+| POL | 2.807 | 2.976 | +0.169 | CSV record 44606 |
+| TWN | 3.705 | 3.545 | -0.16 | CSV record 57134 |
+| BEL | 5.7 | 5.906 | +0.206 | CSV record 3350 |
+| IRL | 4.3 | 4.632 | +0.332 | CSV record 25661 |
+| ARG | 7.15 | 7.145 | -0.005 | CSV record 1352 |
+| SWE | 8.4 | 8.694 | +0.294 | CSV record 52805 |
+| ISR | 3.595 | 3.489 | -0.106 | CSV record 26993 |
+| SGP | 2.737 | 2.818 | +0.081 | CSV record 49178 |
+| AUT | 5.2 | 5.582 | +0.382 | CSV record 2351 |
+| THA | 0.781 | 0.781 | 0 | CSV record 54470 |
+| ARE | 2.16 | 2.174 | +0.014 | CSV record 1019 |
+| NOR | 4 | 4.637 | +0.637 | CSV record 41609 |
+| VNM | 1.602 | 1.523 | -0.079 | CSV record 60410 |
+| PHL | 2.202 | 2.235 | +0.033 | CSV record 43940 |
+| MYS | 3.846 | 3.764 | -0.082 | CSV record 39278 |
+| DNK | 5.358 | 5.529 | +0.171 | CSV record 15005 |
+| BGD | 3.635 | 3.778 | +0.143 | CSV record 4349 |
+| COL | 9.619 | 8.29 | -1.329 | CSV record 12008 |
+| ROU | 5.4 | 5.992 | +0.592 | CSV record 47225 |
+| HKG | 2.988 | 2.799 | -0.189 | CSV record 23330 |
+| ZAF | 32.279 | 32.391 | +0.112 | CSV record 90713 |
+| PAK | 5.492 | 5.42 | -0.072 | CSV record 42941 |
+| CZE | 2.6 | 2.825 | +0.225 | CSV record 14006 |
+| IRN | 8.146 | 8.301 | +0.155 | CSV record 25994 |
+| EGY | 6.817 | 6.781 | -0.036 | CSV record 16337 |
+| CHL | 8.718 | 8.974 | +0.256 | CSV record 10010 |
+| PRT | 6.5 | 6.164 | -0.336 | CSV record 45605 |
+| PER | 5.199 | 5.117 | -0.082 | CSV record 43607 |
+| FIN | 8.4 | 9.461 | +1.061 | CSV record 18335 |
+| KAZ | 4.833 | 4.771 | -0.062 | CSV record 28658 |
+
+#### Poverty / publisher reporting population
+
+[Retained source](sources/income-2026-09-10/pip-lineup.body).
+
+| Economy | 2024 (%) | 2025 (%) | Native change 2024 to 2025 (pp; not disruption) | 2025 source selector |
+| --- | ---: | ---: | ---: | --- |
+| USA | 1.02 | 1.02 | 0 | $\[9381\] |
+| CHN | 0 | 0 | 0 | $\[1654\] |
+| DEU | 0.69 | 0.69 | 0 | $\[2298\] |
+| JPN | 0.96 | 0.94 | -0.02 | $\[4505\] |
+| GBR | 0.34 | 0.34 | 0 | $\[3126\] |
+| IND | 3.7 | 2.96 | -0.74 | $\[4091\] |
+| FRA | 0.07 | 0.07 | 0 | $\[2942\] |
+| RUS | 0.09 | 0.09 | 0 | $\[7587\] |
+| ITA | 0.92 | 0.92 | 0 | $\[4367\] |
+| CAN | 0.22 | 0.22 | 0 | $\[1470\] |
+| BRA | 3.01 | 2.88 | -0.13 | $\[1194\] |
+| ESP | 0.8 | 0.78 | -0.02 | $\[2712\] |
+| KOR | 0.06 | 0.06 | 0 | $\[4827\] |
+| AUS | 0.84 | 0.84 | 0 | $\[458\] |
+| MEX | 1.64 | 1.64 | 0 | $\[5747\] |
+| TUR | 0.16 | 0.15 | -0.01 | $\[9059\] |
+| IDN | 5.4 | 4.03 | -1.37 | $\[3999\] |
+| NLD | 0.07 | 0.07 | 0 | $\[6621\] |
+| SAU | 0.03 | 0.03 | 0 | $\[7679\] |
+| CHE | 0.2 | 0.2 | 0 | $\[1516\] |
+| POL | 0.24 | 0.24 | 0 | $\[7173\] |
+| TWN | 0 | 0 | 0 | $\[9151\] |
+| BEL | 0.08 | 0.08 | 0 | $\[642\] |
+| IRL | 0.08 | 0.08 | 0 | $\[4137\] |
+| ARG | Unavailable | Unavailable | Unavailable | No national PIP observation |
+| SWE | 0.83 | 0.83 | 0 | $\[8369\] |
+| ISR | 0.39 | 0.38 | -0.01 | $\[4321\] |
+| SGP | 0 | 0 | 0 | $\[7817\] |
+| AUT | 0.52 | 0.52 | 0 | $\[504\] |
+| THA | 0.01 | 0.01 | 0 | $\[8737\] |
+| ARE | 0 | 0 | 0 | $\[274\] |
+| NOR | 0.19 | 0.19 | 0 | $\[6667\] |
+| VNM | 1.32 | 1.12 | -0.2 | $\[9657\] |
+| PHL | 10.24 | 9.24 | -1 | $\[7035\] |
+| MYS | 0 | 0 | 0 | $\[6345\] |
+| DNK | 0.35 | 0.35 | 0 | $\[2436\] |
+| BGD | 4.81 | 4.41 | -0.4 | $\[780\] |
+| COL | 8.5 | 8.27 | -0.23 | $\[1884\] |
+| ROU | 0.68 | 0.66 | -0.02 | $\[7541\] |
+| HKG | 0.01 | 0.01 | 0 | $\[3769\] |
+| ZAF | 17.56 | 17.64 | +0.08 | $\[9887\] |
+| PAK | 22.32 | 22.8 | +0.48 | $\[6897\] |
+| CZE | 0 | 0 | 0 | $\[2252\] |
+| IRN | 2.39 | 2.42 | +0.03 | $\[4183\] |
+| EGY | 1.18 | 1.02 | -0.16 | $\[2620\] |
+| CHL | 0.4 | 0.39 | -0.01 | $\[1608\] |
+| PRT | 0.41 | 0.4 | -0.01 | $\[7311\] |
+| PER | 5.14 | 4.92 | -0.22 | $\[6989\] |
+| FIN | 0.2 | 0.2 | 0 | $\[2850\] |
+| KAZ | 0.02 | 0.02 | 0 | $\[4551\] |
+
+A high unemployment or poverty level is not itself a measured change in income-route disruption. A candidate would require comparable direct measurements meeting five percentage points of total population or evidence of a changed binding category. Confidence intervals, direct counts and household mappings are not supplied. Native movements can justify investigating a named population; they do not authorise action or establish forecast skill.
+
+To question or correct a row, [open a repository issue](https://github.com/ferborva/mind-flow/issues/new) with the country code, comparison years, disputed value or wording, and a public source if available. Do not include personal or sensitive information. This is a public issue route, not consultation or an adjudicated correction process. No response time or change to the row is promised; no other reader correction route is established here.
+
+<!-- round-10-income-context:end -->

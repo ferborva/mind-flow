@@ -1,0 +1,320 @@
+Review: Round 10, PR #33 (candidate 1c2b694, seal e04a287), 2026-09-10
+Independent review of the Round 10 candidate: verdict
+Reviewed frozen candidate 1c2b694 (tree a8084b74, seal e04a287) against origin/main at 31febcb on 2026-09-10. Ten independent reviewers, one per track with measurement validity split into depth, breadth and storm criterion, did not see each other's results. Every CONFIRMED item was reproduced by running code or recomputing from retained bytes. Agent self-reports were treated as claims and rerun.
+
+Verdict: return for a short Round 10.1, then merge. No P1. The measurement work reproduces to the byte on all three fronts: 4,123,680 NERO rows and every Central Coast figure, 3,129 income observations across three families with zero mismatches, and all nine naive native crossings. The Canadian forecast recomputes exactly and its receipt chronology is strictly ordered. The receipt binds the whole tree and every hash recomputes. The unmet gates are declared, not lowered, and the 1,000 cannot-say rows are honest insufficiency, not a rule built never to fire. What blocks a direct merge is a cluster of P2 mechanism and legibility repairs: the storm tests do not pin the threshold or verify the checked-in bindings (only whole-file byte replay catches a rehashed mutation), the IF definitions carry one of the criterion's two arms, three new CI steps are unpinned or weakly pinned, and the public reader does not define its own three states, show the comparison it is titled after, or state the total-population denominator. None is expensive. All are the kind of thing that would silently misreport later if left.
+
+Reproduced by the coordinator (Node 22.23.2, seal checkout e04a287, detached):
+
+Check	Result
+npm ci + npm test	18 suites, 1,149 tests, 0 fail, 0 skip, 0 todo, 0 cancelled (matches the seal count; the candidate's 1,145 plus four seal tests)
+Receipts 06, 07, 08, 08.1, 09, 09 pre-steer, 09.1, 10	all verify under their own policy, exit 0
+Round 10 receipt target	review_target.commit 1c2b694, tree a8084b74 equals git rev-parse 1c2b694^{tree}
+All 22 --check and build steps in workflow order	exit 0
+Generated-artifact drift after the full run	clean
+LFS	7 pointers, 7 hydrated, fsck OK
+GitHub CI on 1c2b694 (push and PR) and e04a287 (push and PR)	all four success
+origin/main	still 31febcb
+Gate scorecard (Round 10 brief, section 7):
+
+Gate	Verdict
+Both captures processed; programme carries his words, operational reading marked commissioned	MET. Quotes byte-equal to the capture; every choice commissioned-proposal. P2: programme and seed say "three assumptions" while the rule embeds five (track 1)
+Criterion written with assumptions stated and reversible	MET. Two-arm three-valued OR verified by truth table (track 8 criterion)
+Three income families, 40 of 50, single vintage, CI, licence	MET. 50/50/49; 1,050 + 1,050 + 1,029 observations reproduce with 0 mismatches (track 8 breadth)
+Retrospective check with fires, misses, false fires and a no-skill statement	MET as mechanics. Nine crossings reproduce; social matrix correctly refused without outcome labels; no skill claim anywhere
+Every country no-candidate / candidate / cannot-say with reason, both readings	MET narrowly. 50 rows, reason per row, readings separate and never merged. P2s on legibility (track 5)
+Two new real evolution events, three total	UNMET, as declared: 0 new, 1 total. The three storm definitions are construction by fact. Blocker is genuine and is a scope-policy design issue the team owns (track 2 P2)
+Scheduled NERO intake, fixture-tested, never resolving	MET. Inactive on this branch; twelve hostile cases fail closed; no scoring import (track 3)
+Void-authority appointment drafted; third forecast issued	MET. Proposal has no downstream effect. Canadian record recomputes exactly. P2: the registration comment was posted under a human GitHub login and the prose never says so (track 4)
+name-the-if at ready with a sign-off sheet	MET. Sheet complete, seven Pending, outside read left to Fernando. P2: status: ready is the repo's publish-eligible stage; the "ready for his read" meaning lives only in prose (track 7)
+WHEN under 5% by the ceiling merge	UNMET under the broader classification. Independent classification agrees: 4/78 = 5.13%. Ren disclosed both readings
+Workstream F closed with tests	MET except distinct historical freeze IDs, declared unmet. P2: three new CI steps unpinned or weakly pinned (track 6). P3: ledger row labelled "closed" over an unmet item
+Node 22, receipt, freeze, eight-track brief with measurement split three ways	MET, reproduced above
+Round 10.1 scope, P2s only (P3s at the team's discretion, dispositioned either way):
+
+Storm tests: pin threshold.value === 5 and the proposition text; load storm-review.v1.json and call verifyStormBindings on the checked-in bindings; soften the criterion's "refuses coherently rehashed changes" wording to name byte replay as the guard (track 2).
+IF identity: either add the binding-category arm as a boolean signal with an any expression, or state in storm-criterion.v1.md that the IF definitions express the direct-share arm only (track 2).
+Admission scope: state that the three family-level definitions are placeholders to be superseded, not admitted against; move the measurement hash out of the hashed signal fields (track 2).
+CI governance: exact-equality pins with the standard mutations for the income, Canadian draft and Canadian basis steps (track 6).
+Reader: define the three states; add the year to the native headers and the already-hashed native_change_pp column or retitle the section; state "five percentage points of total population"; state coverage 50/50/49 once; note the ILO 2025 estimate-versus-projection status is not carried at row level (track 5).
+Reader: one plain sentence that cannot-say means missing measurement, and one naming where a reader can question or correct a row (track 7).
+Programme and seed: list all five commissioned choices, not three (track 1).
+Criterion output: make the beneficial-shift assumption visible in the state, not only in a caption, when change_pp <= -5 (track 8 criterion).
+PIP audit: state that the four survey-comparability fields are null on every row of this endpoint and mark the comparable-spell check inert on this source (track 8 breadth).
+Canadian registration: one sentence naming that the comment was posted through the repository owner's GitHub login by the agent's token (track 4). Calendar PDF: retain a text excerpt or rendering with its own hash, or note the reader requirement (track 3).
+drafts/name-the-if.md: keep status: review until Fernando signs, or add an explicit approval field and amend CLAUDE.md step 4 (track 7).
+Rules unchanged: repair the mechanism, hostile test per repair, nothing in Fernando's voice without a capture, no --force over an existing freeze, new freeze under a distinct UUID and output path, disposition every finding including P3s.
+
+Fernando's decisions, parked in the backlog, must stay there: dependants in the 5% count; which indicator families to strike or add; whether a beneficial 5% shift is a storm (the code runs harmful-only as a labelled placeholder); the naughty-kid line (byte-unchanged from main, confirmed); Name the If section sign-off and whether an outside human reads it first; and, newly surfaced by track 1, whether "a storm can be considered as" is his settled definition or a working one, since three framing sentences currently say "defines".
+
+Track comments follow, one per track. Coordinator: Claude (independent review agent).
+
+Track 1: Provenance and public meaning
+Headline: both September 10 captures trace cleanly into the four seeds, the weather-station seed and the programme's "What a storm is" section. Every quotation reproduces byte-for-byte from the capture, every operational choice is labelled provenance: commissioned-proposal, and nothing found passes "harmful only", household versus direct, the GDP ranking or the indicator list off as Fernando's answer. The Name the If and WHEN amendments reproduce exactly. The reviewer's own classification of the WHEN draft gives 4/78 = 5.13%, so the under-5% gate is unmet, which Ren disclosed rather than hid.
+
+P2. "Three assumptions" undercounts the commissioned choices the executable rule makes. CONFIRMED
+meta/abundance-transition-programme.md:82-90 and seeds/the-weather-station-watches-the-world.md:62-75 list three reversible assumptions (dependants, ranking, which shifts). The running rule embeds two more: signals/countries/storm-criterion.v1.md:52-55 names "whether beneficial shifts count, and whether household exposure rather than direct disruption should determine the five percent threshold", and storm-criterion.mts:53 hard-codes direction_assumption: 'Increased direct disruption only; beneficial-shift treatment remains Fernando's decision' into all 1,000 rows. The backlog does carry the beneficial question (line 44-46), so this is a labelling gap, not an attribution breach. Repair: add Direction and Threshold-basis rows to the programme and seed tables and change "Three" to "Five", or add one sentence pointing to the criterion's "two further choices".
+
+P3. His hedge "can be considered as" is firmed into "defines" in Ren's framing. CONFIRMED
+seeds/storms-are-social-contract-shifts.md:14-15 ("Fernando defines the storm"), seeds/the-weather-station-watches-the-world.md:46 ("now defines the storm"), meta/abundance-transition-programme.md:61 ("Fernando's definition, verbatim"). Capture line 25 reads "a storm can be considered as". The quote is preserved exactly, so this is framing drift. Repair: "proposed definition" or "working definition" in the three framing sentences.
+
+P3. meta/index.md not refreshed. CONFIRMED
+Lists 6 captures of 11 and 16 seeds of 22; neither September 10 capture nor any of the four new seeds appears. meta/themes.md has no storm mention. Repair: add the bullets and rows.
+
+P3. Draft check dates lag the recheck. CONFIRMED
+drafts/name-the-if.md:113,127,156-159 say "checked 9 September 2026"; reviews/round-10-narrative-provenance.md:99-100 says all seven sources were checked 10 September. Repair: update the labels in a logged amendment, or state that draft labels record first check and the review records recheck.
+
+P3. Two Git author identities for the same agent. CONFIRMED
+46 commits as Ren (AI agent), 16 as Ren; all 62 carry Agent: Ren; neither is Fernando's identity. Repair: note in reviews/round-10-hygiene.md or standardise.
+
+WHEN count, independent classification
+78 units reproduce the test. Units read as disclaimers or ceilings: 5, 29, 57 ("WHEN is a prompt for conditional work, not a date, forecast, guarantee or commitment") and 64. Unit 57's predicate is a four-item negation; merging it into the defining sentence changes grammar, not function. 4/78 = 5.13% is the honest count and the gate is unmet. Units 10-11 and 27-28 are single sentences split on "..." so the true sentence count is 76 (3/76 = 3.95%, 4/76 = 5.26%), which does not change the verdict. The brief already discloses both readings.
+
+Sound
+Storms capture diff from main is status and seeds only; body untouched, loose end "The household follow-up above has not been answered" retained. All four seeds quote only capture blockquote text (15/15 provenance tests pass) and each has a non-empty "What this does not settle" section. Programme section carries two verbatim blockquotes followed by "Operational reading, Ren's commissioned proposal ... not Fernando's wording or a demonstrated detector". No remedy language; "money accrues" survives as observation only, unchanged from main. Wide grep for Fernando-attribution verbs, "harmful", "beneficial", "household", "few companies": every hit quotes the capture or says "Fernando has not selected" or "Ren's commissioned reading". Backlog keeps all five questions [ ] and attributed to him. name-the-if.md SHA256 b7a23b5d…, 193 lines; WHEN diff is the single commissioned sentence. Every Name the If figure traces to research/round-08-healthcare-editorial-sources.md, including the restored January 2025 literacy page (line 27, pre-existing). Naughty-kid line: git diff 31febcb 1c2b694 -- drafts/abundance-has-an-if.md is empty. Author casing exact in every changed file.
+
+Fernando's decisions, must stay open
+Dependants; indicator families; beneficial shifts (code runs "increased direct disruption only" as a placeholder); IMF WEO top-50 frame; whether "can be considered as" is his settled definition or a proposal; naughty-kid line; Name the If sign-off and outside read; whether the merged WHEN sentence counts as definition (3/78) or ceiling (4/78).
+
+Track 2: Executable IF and evolution
+Headline: the mechanics hold. Evolution 52/52, executable-if 71/71, signals 99/99, storm-criterion.mts --check replays, hashes recompute independently, all 1,000 country-periods are cannot-say by a hard-coded null path that data cannot flip, and "0 new, 1 total" is accurate. But the rejection of a rehashed threshold change is done almost entirely by whole-file byte replay in the --check step, not by the test suite or the consumer binding logic as the criterion document implies. The tests never load the checked-in storm-review.v1.json, do not pin the value 5 in the IF definition, and the IF definitions encode only one of the criterion's two arms.
+
+P2. The test suite does not pin the five-point threshold in the IF definition and never verifies the checked-in artefact's bindings. CONFIRMED
+signals/countries/tests/storm-criterion.test.mjs:62-76 reads income-measurements.v1.json only and forges threshold 1 in memory. storm-criterion.v1.md:124-126 says the consumer "refuses stale hashes, changed membership, or coherently rehashed changes". Mutation M1c (definition threshold 5 to 2, arithmetic untouched) passes test:signals 99/99, test:executable-if 71/71 and test:evolution 52/52. M2 (stale binding hash in the checked-in JSON) and M3 (threshold 1 coherently rehashed with the repo's own computeConditionDefinitionHash) pass test:signals 99/99. In all three only --check rejects, with "Storm review reproduction mismatch", never a BINDING error. The brief's own 5-to-1 mutation was caught by test 40 only because the test's forged value coincidentally equals 1. Repair: assert threshold.value === 5 and the proposition text in the test; load storm-review.v1.json and call verifyStormBindings(review.definitions, review.consumer.bindings); soften the criterion wording to say the retained artefact is guarded by byte replay in CI.
+
+P2. The executable IF definitions encode only the direct-share arm; the binding-category arm has no IF identity, signal or hash. CONFIRMED
+storm-criterion.mts:71 (predicates: { disrupted }, truth_expression: { predicate_ref: 'disrupted' }) versus :46-47 (bindingTruth, OR logic). Removing the binding arm, adding a second gate or changing the category set at :13 alters no definition or signal hash. The kernel schema supports any expressions and boolean signals. No test runs the kernel evaluator on these definitions or shows equivalence with evaluateStorm. storm-criterion.v1.md:110-115 discloses ties are unrepresented but not that the OR arm is absent from the IF identity. Repair: add a boolean binding-category-changed signal with an any expression, or one sentence at .v1.md:120 stating the IF definitions express the direct-share arm only.
+
+P2. The generic unmeasured propositions cannot admit any real observation under their own scope policy. CONFIRMED
+storm-criterion.mts:71: scope.jurisdictions: ['Retained IMF top-50 economy, separately scoped'], projection_policy: 'exact-scope-only', fixed ends_at: '2027-09-10T07:00:00Z'. One definition per family covers all 50 economies with a descriptive phrase as jurisdiction; an observation scoped to a real ISO3 cannot match, and narrowing to ['AUS'] is not a literal strict subset (the same NARROWING_NOT_STRICT_SUBSET rule that blocks the GP correction). The kernel has no supersede operation. Admission would need 50 or 150 new identities. Also the definition hash includes measurementHash in signal.aggregation and source_schema_ref (:69), so any vintage refresh changes all three identities even with the proposition unchanged; the error string at :81 admits the conflation. Repair: state that these are family-level placeholders to be superseded, not admitted against; move the measurement hash out of the hashed signal fields into the wrapper (measurement_sha256 already sits there at :74).
+
+P3. Evolution counts in the storm review are literals, not derived. CONFIRMED
+storm-criterion.mts:124: new_real_evolution_events: 0, programme_real_evolution_events: 1. A 13th real AU event would leave it saying 1. Repair: import the discovery report's actual_appended_events, or drop the field.
+
+P3. Inclusive boundary computed on binary floats with no tolerance. CONFIRMED
+storm-criterion.mts:45 change_pp >= 5, :27 after - before. Sweeping two-decimal shares with after = before + 5.00, 468 of 9,501 exact five-point pairs evaluate to 4.999999999999999 and return cannot-say (3.04 to 8.04, 3.20 to 8.20). Synthetic today; the documented "1% to 6% meets the boundary" is not what the code computes in general. Repair: compare in integer basis points or round to a declared precision, and document it.
+
+P3. Evidence admission is by construct label and hash shape only. CONFIRMED
+storm-criterion.mts:22 accepts any sha256:-shaped source_sha256. Documented as intended at .v1.md:118-121. When real evidence arrives, source_sha256 should have to resolve to a retained receipt.
+
+P3. Brief wording conflates two pending items. PLAUSIBLE
+meta/round-10-external-review-brief.md:91 locates "the two old GP construct migrations" at integration/transition-bundle/tests/pending, which holds one file (Round 4 coherent-bundle acceptance, fails 1/7 as intended). The GP discoveries live in pilots/australia/tests/round-09-evolution-discoveries.test.mjs, passing 4/4 as negative tests asserting gate_met: false. Neither is silently passing as a completion. One-line fix.
+
+Mutation log (Node 22.23.2, tree restored after each)
+M1 source >= 5 to >= 1 plus definition threshold: --check fails (reproduction mismatch); test:signals 97/99 (tests 36 and 40). M1b definition threshold 5 to 1 only: --check fails; 98/99 (test 40 only, by coincidence). M1c definition 5 to 2 only: --check fails; 99/99 pass; executable-if 71/71; evolution 52/52. M2 stale hash in checked-in JSON: --check fails; 99/99 pass. M3 coherent rehash to 1 in checked-in JSON: --check fails; in-memory verifyStormBindings on the same objects does throw CONSUMER_DEFINITION_BINDING_MISMATCH; 99/99 pass. M4 data-only disruption_measurement to measured: income --check fails "replay differs"; 92/99. M4b data-only AUS EPOP six-point synthetic drop: replay fails; 92/99; still no candidate anywhere. M5 code-path synthetic disruption 1 to 7: --check fails; 94/99 (tests 41, 53, 54).
+
+Sound
+Exactly three definitions (employment-population availability, unemployment availability, poverty-lineup price), observations_admitted: 0, source_context_only: true; condition.storm.* appears in no kernel or ledger. Schema validation of every definition and signal enforced at :73. buildStormReview:122 hard-codes null disruption, binding and household; createIncomeConditions:65 throws if any family claims measured disruption, household mapping or sub-40 breadth. Nine crossings reproduce. Evolution count accurate: contracts/evolution has zero diff against main; AU kernel holds 12 events with event 12 the single real one; Canada kernel has one added event correctly treated as construction. Three storm definitions were never appended anywhere, so construction by fact. No known-wrong proxy adopted. Synthetic mutation tests counted nowhere as events. GP discoveries remain honestly unfinished. Independent hash verification: all definition, signal, binding and evaluator hashes agree; thresholds are 5. Tree restored; status clean.
+
+Track 3: Evidence and forecasts
+Headline: the Canadian forecast reproduces end to end from retained bytes. The tuple is the ILO microdata-processed LFS series (not a Statistics Canada vector and not the seasonally adjusted headline), the three probabilities recompute exactly, the sealed-content digest recomputes independently, the receipt chronology is strictly ordered, and the offline check runs with no gh on PATH and imports no scorer. No P1. The P2 is a documentation gap around the calendar PDF; the P3s are three one-byte edits to Round 09 prose notes that contradict the "byte-unchanged" wording, one under-labelled citation of the self-posted receipt, and a non-terminating cron.
+
+P2. Calendar dependency is hash-bound but its content is not machine-checked. CONFIRMED
+forecasts/prospective-pilot/round-10-canada/draft.mts:19-23 verifies only the SHA-256 of statcan-release-calendar.body (158,855 bytes, hash f7af7f42… matches). The PDF is encrypted (/Filter /Standard), so no text is extractable without a PDF library; README.md:31 and issuance-note.md assert "page 2 schedules upstream October LFS for 6 November". The date claim rests on a human reading. Repair: retain a short text excerpt or page-2 rendering with its own hash, or note in the runbook that calendar verification needs a PDF reader. Does not affect the issued record: 6 November is also resolve_after, and the void policy covers a late ILO cell.
+
+P3. Round 09 prose notes are not byte-unchanged from main. CONFIRMED
+git diff 31febcb 1c2b694 -- forecasts/prospective-pilot/round-09-nero forecasts/prospective-pilot/round-09-nero-corrected shows three files, each a single frontmatter change author: ren to author: Ren: round-09-nero/error-notice.md:7, round-09-nero/issuance-note.md:7, round-09-nero-corrected/issuance-note.md:7. All JSON records, sources and code are byte-identical (issued.json hash b69cab97… equals error-disclosure.json.issued_record_sha256; check-error-disclosure.mjs exits 0). The corrected campaign's registration body pins the notice at commit 56c8434, so the external reference is unaffected. Repair: revert the three edits, or add one sentence disclosing a metadata-only author-case normalisation.
+
+P3. One citation of the registration comment lacks the self-posted qualifier. CONFIRMED
+reviews/round-10-progress.md:167-172 cites comment 5615053978 as "confirmed ... unedited creation/update times" without "self-posted, editable, externally unverified" in the paragraph; the typed status is unverified_external_review_required in both JSON records and issuance-note.md:60 is correctly labelled. Repair: append the qualifier to line 168.
+
+P3. Scheduled intake cron never terminates; safe only because of the code guard. CONFIRMED
+.github/workflows/nero-intake.yml:4 cron: '17 4 * 11,12 *' fires daily every November and December of every year; round-10-intake/collector.mjs:10-13 admits only 2026-11-01 to 2026-12-07. Runs continue as no-ops until the file is removed. Disclosed at reviews/round-10-forecast-operations.md:48-50. Repair: add a removal step to the December close in the runbook.
+
+P3. Publish job re-run alone cannot find its artifact. PLAUSIBLE
+nero-intake.yml:37,59 names the artifact with github.run_attempt; re-running only the publish job increments the attempt and download-artifact fails. Fail-closed. Repair: note in the runbook or drop run_attempt from the name.
+
+Observation: the retained POST response header shows the registration was made with a broad-scope personal OAuth token, user ferbo-atl, author_association: COLLABORATOR. No secret is retained; this confirms the "self-posted" characterisation.
+
+Records
+Round 08 forecast.nero.5311.101.october-2026.v1: issued, pending, live, byte-unchanged. Round 09 original …102…v1: issued, error-disclosed-admission-blocked, not formally voided, remains in denominator, JSON unchanged, prose notes one-byte author edits. Round 09 corrected …correction-1.v1: p 0.76 ref / 0.5 naive, pending, live, JSON unchanged. Round 10 forecast.canada.unemployment.october-2026.v1: issued 2026-09-10T07:56:37Z, p 0.090909 (ref 0.483333, naive 0.5), window 2026-11-06T00:00:00Z to 2026-12-31T23:59:59Z, issuance_authorised: false, receipt unverified_external_review_required, live, excluded from storm panel.
+
+Sound
+Raw tuple: CAN / BA:147 (LFS) / UNE_DEAP_SEX_AGE_RT / SEX_T / AGE_YTHADULT_YGE15, monthly, 128 contiguous rows 2016M01 to 2026M08, no "adjust" or "seasonal" text anywhere; 3-decimal values are microdata rates, not the 1-decimal SA headline; all nine Aug-to-Oct pairs drop 1.0 to 2.9 points, the unadjusted student-season signature. Frozen comparator 7.302, horizon 2 months. Recomputed from the retained body (SHA 0c1a707f…): 118 two-month comparisons, 57 nonnegative, (57+1)/(118+2) = 0.483333; naive 0.5; nine pairs 2017 to 2025, 0 nonnegative, 1/11 = 0.090909. Calibration prohibited in four places. Method choice after seasonality inspection was in the README at source commit 630b59a, fixed before seal. Chronology: source commit 07:44:52 < seal 07:45:59 < seal commit 07:47:05 < POST 07:49:32-33 with provider created = updated 07:49:33 < readback < receipt commit 07:49:59 < issue opens 07:55:59 < preissue readback 07:56:36 (same ETag) < issued_at 07:56:37 < issued commit 07:57:02; clock.trusted: false recorded. Sealed digest cffdc5c1… recomputed in Python equals the digest in the provider comment body. All 22 dependency hashes match. Import walk (17 files) never reaches scoring.mjs. Intake: inactive on this branch (file absent on main, schedule runs only from default branch, both jobs gate on refs/heads/main); permissions narrow; 14-file allowlist; LFS clean, upload, independent smudge, byte equality; retries require expectedBase equal to main head and an added-only diff; a PR in any state is never reopened. Twelve hostile scratch cases (absent listing, 404, wrong magic, foreign host, .., redirect, mid-capture clock exit, revised archive, diverged parent, merge commit, executable mode, missing LFS attribute) all fail closed. npm run test:forecasts 160/160 with git-lfs on PATH; draft.mts --check and build-basis.mts --check pass offline.
+
+Track 4: Governance and lineage
+Headline: the adjudicator record is a genuine proposal with no downstream effect, all 63 commits in 31febcb..e04a287 are agent-authored with an Agent: Ren trailer, the oversized B commit is disclosed at its true size, the frozen-handoff discipline held, and the WHEN gate is honestly reported as unmet under the broader classification. The gaps are provenance-adjacent: the Canadian provider registration was posted to GitHub under a human login and the prose never says so; five late issuance commits and the seal bypassed the per-lane PR surface the plan promises; nothing checks Git author strings or trailers.
+
+P2. Registration receipt carries a human GitHub identity, undisclosed in prose. PLAUSIBLE
+forecasts/prospective-pilot/round-10-canada/issuance/registration/provider-post.http:31 (raw user.login): gh api issues/comments/5615053978 returns user.login: ferbo-atl, created 07:49:33Z. issuance-note.md:60, reviews/round-10-progress.md:167-168 and the brief's gate row say only "self-posted and editable". CLAUDE.md forbids putting Fernando's Git identity on agent work; this is a GitHub comment, not a commit, so the letter holds but the spirit does not. Repair: one sentence in issuance-note.md and the gate row stating the comment was posted through the repository owner's GitHub login by the agent's token, which is why it is "self-posted". No byte change to issued or registration files.
+
+P3. Five Canadian issuance commits plus the seal were integrated without a lane PR. CONFIRMED
+reviews/round-10-plan.md:31 promises each lane a stacked draft PR. PR #42 (ren/round-10-d-third) merged at 86ab14d. Commits 630b59a, 381cb45, c0aac1f, d8af9cf and 2e351e6 were merged into central via local merges c2cf462, c43f529, e387553, 9f2af73, a2ddec6 with no PR; 1c2b694 and e04a287 are direct commits on central. Repair: a line in round-10-progress.md disclosing that post-#42 issuance commits were integrated by direct merge under the registered issue window.
+
+P3. No repository check covers Git author identity or the Agent trailer. CONFIRMED
+meta/validate-frontmatter.mjs:21,134 enforces Markdown frontmatter only, and only when author matches /^ren$/i but is not exactly Ren. Ren (Codex agent) (5 files) passes. Git authors Ren (16 commits) and Ren (AI agent) (47 commits) are checked by nothing; forecasts/prospective-pilot/round-10-intake/publish.mjs:43 would create a third identity. Repair: one canonical Git author pair, align publish.mjs, and a small test over git log 31febcb..HEAD asserting a noreply agent email and trailer presence.
+
+P3. keep-main capture gained body text, not just metadata. CONFIRMED
+capture/2026-09-10-keep-main-unchanged.md diff lines 29-30: a new "Loose ends" bullet in Ren's voice, alongside status: processed and seeds: []. The storms capture changed only frontmatter, as claimed. No repair required; optionally keep processing notes in frontmatter.
+
+Lineage
+63 commits, 16 merges, author equals committer throughout, zero commits missing Agent: Ren, no Fernando or ferborva strings in author or committer fields. Lanes A (#32), E (#34), F (#37), B breadth (#36), D intake (#35), C depth (#38, #41), shock context (#39), freeze policy (#40, #43), D third-forecast design (#42) all trace to PRs. Oversized B commit is 314a481: 52 files, 81,241 insertions (56,195 in income-measurements.v1.json), disclosed as "81,241 lines" at round-10-progress.md:47,79 and in the handoff. Three compaction commits follow; the original is preserved.
+
+Sound
+governance/round-10-adjudicator-appointment.md: type: governance-proposal, status: pending-fernando-decision, provenance: commissioned-proposal, nominee not chosen, Ren and issuer excluded from the role, explicit ceiling that the target contradiction "is not an issue-time allowed void reason" and signature cannot create it retroactively. error-disclosure.json:25-30 keeps appointment_verified:false, appointed_adjudicator:null, and its test rejects flipping them. Nothing in code, tests or workflows consumes the proposal. Candidate has no receipt for itself; seal diff is exactly four files. Live GitHub main is 31febcb. WHEN reported at 3/78 and 4/78 in four places plus the PR body. Backlog keeps the five Fernando questions unchecked. npm run test:governance: 50 pass, 0 fail.
+
+Track 5: Public experience
+Headline: mechanically sound. The Markdown reader, the storm review and the three HTML/data artifacts replay byte-identically, four suites pass (84/162/41/99), no word stronger than "cannot-say" appears on any measured or rendered surface, and no rendered panel or application was added. Legibility is the weak point: the reader never defines the three states it relies on, its "2024 to 2025 comparison" section shows only 2025 values although the replayed data carries the 2024 values and native changes, and neither the criterion's total-population denominator nor the native table's year is stated where a first-time reader needs them.
+
+P2. The three-state vocabulary is never defined in the reader. CONFIRMED
+signals/countries/measurement-view.md:1136-1145, generated by render-country-view.mjs:92-95. grep -c no-candidate measurement-view.md returns 0. The only definition of the three states is in storm-criterion.v1.md:93-96, one link away. Line 1252 says what a candidate would require but never what no-candidate would mean, so a reader cannot tell "cannot-say" is "not measured" rather than "measured and inconclusive". Repair: one sentence after line 93 of the renderer defining the three states; regenerate.
+
+P2. The section is titled a comparison but shows no comparison. CONFIRMED
+Heading at render-country-view.mjs:91 ("Income-access comparison, 2024 to 2025"); native cells at :112 print only native.value. storm-criterion.mts:119 places before_value and native_change_pp in every row (USA EPOP 59.467 to 59.114, -0.353 pp) but the reader drops both. Native table headers at line 1195 carry no year. Repair: add "2025" to the native column headers and either retitle or add a "Native change 2024 to 2025 (pp; not disruption)" column from the already-hashed native_change_pp.
+
+P2. The threshold's denominator is not stated in the reader. CONFIRMED
+measurement-view.md:1252: "meeting the five-percentage-point rule". grep -n 'total population' returns nothing. A reader has no basis to see why South Africa's 32.391% unemployment is not a candidate. Repair: "five percentage points of total population" at 1252, and column headers "Direct disruption Δpp of total population" / "Household exposure Δpp of total population".
+
+P2. Two different "three series" in one document; 50/50/49 never stated. CONFIRMED
+Line 15: "50 economies, 47 with all three series" (CPI, electricity, labour share). Line 1136: "All 50 economies: cannot-say" with a different three-series set, 1,100 lines apart with no bridge. Repair: after 1142 add "Coverage: 50 economies for both ILO series, 49 for PIP (Argentina absent)"; qualify line 15 with "original".
+
+P2. 2025 ILO values are within-vintage projections but labelled only "modelled estimates". PLAUSIBLE
+ilo-toc.body shows both series span 1991 to 2027 in the Nov 2025 edition. The retained CSV has no row-level status column, so the estimate-versus-projection cut cannot be confirmed from retained bytes, and no Round 10 document addresses it for ILO. Repair: at 1142 add "The retained ILO series extends to 2027; the 2025 values are model outputs whose estimate-versus-projection status is not carried at row level."
+
+P3. Selector conventions unexplained and on two bases. CONFIRMED
+income-measurements.mts:37 emits 1-based CSV record N; :47 emits 0-based $[N]. Verified against bytes (line 58745 of ilo-epop.body is USA/2025/59.114; pip-lineup.body[9381] is USA 2025 0.0102). Repair: one sentence defining both.
+
+P3. Raw flag token repeated 100 times. CONFIRMED
+"modelled-vintage-no-row-actual-status" in every ILO cell (1197-1246). Repair: map to "modelled; no row-level status" in the renderer.
+
+P3. Reader prose is hard-coded, not derived from review rows. CONFIRMED
+render-country-view.mjs:92,95,100,101,112: "All 50 economies: cannot-say", "all 49 ... nowcast", "No national PIP observation" for any missing family, "Unavailable" regardless of row.direct_share. Only the deep-equal replay guard at :88 keeps these true; storm-reader.test.mjs:9 asserts the hard-coded sentence. Not a present falsehood; a fragility that would silently misreport if a future vintage admitted a measured arm. Repair: derive count, state summary, missing family and share readings from review.latest.
+
+P3. Table width and redundancy. CONFIRMED
+Native rows 296 to 359 characters with three links each; the criterion table repeats an identical ~100-character "Missing evidence" cell in 49 of 50 rows, pushing the only differing row (ARG) out of view. Repair: state the common reason once above the table.
+
+Reader test (South Africa, lines 1186 and 1243)
+As a lay reader: very high unemployment (about a third) and high poverty (about a sixth), the project refuses to say whether that is a storm, which feels evasive; I might read 17.64% as the share of South Africans affected. What the data supports: those are levels, not changes, each on a different denominator; the 2024 to 2025 native moves were -0.052, +0.112 and +0.08 points, none displayed. The intended hedged conclusion is defensible; the page as rendered does not lead a first-time reader to it.
+
+Sound
+Reader refuses to render a review that differs from replay (:88); mutation test rejects a coherent-looking "candidate". Candidate is the strongest word and appears only in the conditional. Direct and household readings are separate columns, both "Unavailable". Argentina stated as missing with reason in both tables. Spot-checked USA, CHN, TWN, ZAF against raw bytes. Six literal-zero PIP cells are the publisher's bytes. No naive crossing in 2024 to 2025; the nine historical crossings are in proxy_audit only. "warning" and "all-clear" each appear once, negated. git diff --stat 31febcb 1c2b694 -- dashboard pilots/australia/web is empty; the only lock movement is the observatory data.js context hash.
+
+Track 6: Freeze, CI and repository integrity
+Headline: the Round 10 receipt, all historical receipts, the LFS store, the generated-artifact lock and the named deferrals reproduce exactly as claimed; every hash, count and identity in the seal test and handoff was independently recomputed and matched. The one real gap is CI governance: two new Round 10 workflow steps (Canadian draft and basis replays) are pinned by no test at all, and a third (income) is pinned only by a substring match, so those steps can be deleted or made failure-tolerant without any test failing.
+
+P2. Two Round 10 CI steps are unpinned; a third is weakly pinned. CONFIRMED
+.github/workflows/integrity.yml:107-110 ("Replay retained Canadian forecast design", "Replay Canadian statistical predicate basis") and :105-106 ("Reproduce retained Round 10 income indicators"); contracts/tests/ci-governance.test.mjs has no Round 10 step assertions. Mutation runs over all seven workflow-reading test files (58 tests at baseline): delete the Canadian draft step, 58 pass; delete the basis step, 58 pass; add continue-on-error: true to the income step, 58 pass (the only pin is signals/countries/tests/income-measurements.test.mjs:78, a bare assert.match on the command string). By contrast, deleting the storm step, renaming the NERO depth step, deleting the Canadian issuance step, deleting the error-disclosure step, deleting the drift step, or renaming "Round 06" each fail 1-2 tests as intended. The freeze policy does bind round-10-canada-draft-check and round-10-canada-basis-check (review-freeze.mjs:476-477, pinned by round-10-policy.test.mjs:44-45), so the receipt is unaffected; this is a workflow governance gap only. Repair: an assertRound10ReplaySteps helper in ci-governance.test.mjs modelled on assertRound09ReceiptSteps, exact run: equality for the income, draft and basis steps, with the standard if: / continue-on-error / || true / omission / duplication mutations.
+
+P3. "Hygiene closed" ledger label sits over an admitted unmet item. CONFIRMED (wording)
+meta/round-10-external-review-brief.md:68: the row is labelled "Hygiene closed" and its cell says in bold "Literal distinct historical freeze IDs remain unmet". Correctly labelled elsewhere (round-10-hygiene.md:27, round-10-receipt-trust-decision.md:51). Repair: rename the row or split the item out.
+
+P3. Receipt edition 1.1.0 extends the un-separated hash domain to a second schema. PLAUSIBLE, disclosed
+review-freeze.mjs:550-553 canonicalHash has no domain tag, so a 1.0.0 and a 1.1.0 manifest with identical content bytes would hash identically. Disclosed at round-10-receipt-trust-decision.md:53 and round-10-hygiene.md:98-99; closed schema constants prevent cross-edition acceptance in practice (cross-policy run produced 12 distinct errors). Repair: none now; add "covers editions 1.0.0 and 1.1.0" to the hash-domain deferral entry for the 16 September review.
+
+P3. Runtime parity passed on this host, so this verification is not environmentally independent. CONFIRMED (disclosure)
+verify --runtime-parity passed, meaning the receipt was created with the same node, npm, git, git-lfs, python3, unzip and sh bytes as the review machine. These checks corroborate integrity and internal consistency; they are not a replay from a different environment.
+
+Commands and exit codes
+verify round-04, 06, 07, 08, 08.1, 09, 09 pre-steer, 09.1 (canonical 48920481…): all 0. verify round-09.1 network-blocked manifest: 2 (integrity verified, reproduction failed; expected and retained). verify round-10 against the extracted e04a287 receipt: 0 (5b9f576c…); with --checkout at clean 1c2b694: 0; --generator-parity: 0; --runtime-parity: 0. Cross-policy verify of the round-10 receipt under round-09.1: 1 with 12 errors, as it should. test:review-freeze 31/31; test:contracts 126/126; build-artifacts.mjs --check 0; git lfs fsck OK; 7 pointers, 7 hydrated, all oid and size match. validate-frontmatter.mjs with 5 probe files: 4 CURRENT_AUTHOR_CASING errors (forecasts and reviews, top and nested, quoted "REN"), canonical Ren clean. Layout control probe: throws LAYOUT_CONTROL_ANCHOR_MISMATCH on no anchors, missing header, duplicate anchor. Both candidate CI runs success at headSha 1c2b694.
+
+Sound
+Receipt: complete-file SHA-256 360f5a93… recomputed, match; content hash recomputed by importing the tool's own canonicalHash over the manifest minus freeze_hash, 5b9f576c…, match. review_target.commit 1c2b694, tree a8084b74, created_at 08:44:38.536Z after last command 08:43:50.479Z. freeze_id is a valid UUIDv4. 43 commands, all exit 0, before/after/controls true, contract hashes match index by index. 243 required files match the policy list byte for byte. Tracked tree: 1,059 entries in receipt vs 1,059 in git ls-tree -r 1c2b694, zero mismatches after rehashing all 1,059. Full-suite transcript: 18 blocks summing to 1,145, no fail, skip, cancel or todo. Not circular. All nine historical receipt blobs byte-identical between main and candidate; git diff -- meta/review-freeze/ touches only README, the tool (ROUND_10 policy, edition, runtime executables, git_lfs record, UUID freeze_id; no historical policy object edited), the new v1.1 schema and two new tests. Canonical Round 09.1 hash directly pinned in ci-round09-1-seal.test.mjs:21 with substitution rejection. Hygiene's eleven casing-only edits verified: each diff is exactly -author: ren / +author: Ren and all eleven before-hashes match. Seal adds exactly 4 files; seal test pins hash, id, edition, commit, tree, 243/43 counts and 1,145. Artifact lock covers the five gitignored outputs; only lock change is dashboard/observatory/data.js. All four deferrals still named; nothing quietly closed. Tree restored, status clean.
+
+Track 7: Human and affected-party review
+Headline: the Round 10 diff makes no claim of consultation, recruitment, user testing or an outside human read; every grep hit for those phrases is a negation, the brief itself, or a pre-existing labelled proposal. Nothing moved to posts/. The sign-off sheet does what the brief asked (seven sections, captures, the one figure with source, seven Pending rows, outside-reader choice kept separate and Fernando's). Two gaps: the repo's lifecycle vocabulary makes status: ready the publish-eligible stage, and the country reader has no plain-language "cannot say" explanation or any challenge or correction route.
+
+P2. status: ready on the draft conflicts with the repo's stated lifecycle. CONFIRMED
+drafts/name-the-if.md:6 is status: ready with no provenance field. CLAUDE.md:121-124 says a ready draft that survives a provenance pass moves to posts/ as step 4 of an unattended run; CLAUDE.md:207-213 holds only provenance: commissioned-proposal files for section sign-off. The "ready for his read, not ready to publish" meaning lives only in prose (reviews/name-the-if-sign-off.md:15,46-47, reviews/round-10-narrative-provenance.md:217-222) plus one tripwire test asserting posts/name-the-if.md does not exist. Repair: keep status: review until Fernando signs the sheet, or add an explicit frontmatter approval field and amend CLAUDE.md step 4 so ready alone never authorises a move.
+
+P2. Country reader has no plain-language "cannot say" explanation and no challenge or correction route. CONFIRMED
+signals/countries/measurement-view.md:1136 says "All 50 economies: cannot-say ... This is income context, not a measured storm panel or an all-clear result." The plain version ("a failure of measurement sufficiency, not evidence of stability") exists only in signals/countries/storm-criterion.v1.md:17-19. Grep of the reader for challenge, correct, dispute, contact, wrong, revise returns nothing. Undefined terms in the new header and table: "income-route disruption", "binding condition", "storm panel", "Δpp", "nowcast", "2021 PPP", "criterion state". The native table (line 1197 onward) shows the raw machine token modelled-vintage-no-row-actual-status in every ILO cell. Rough Flesch-Kincaid on the new header: grade 13. Repair: one plain sentence defining cannot-say as missing measurement; one sentence naming where a reader can question or correct a row (even "open an issue; no other route exists yet"); gloss or replace the status token.
+
+P3. In-text source-check dates are stale relative to the sheet. CONFIRMED
+drafts/name-the-if.md:113,127,159-160: six sources "checked 9 September 2026"; the sheet (name-the-if-sign-off.md:41) and provenance record say rechecked 10 September. Repair: align the dates or have the sheet say "checked 9 September, rechecked 10 September".
+
+P3. Checklist item 7 ("named the downsides") is met for the example, not for the frame. PLAUSIBLE
+The piece names limits of the healthcare example but no downside of the method itself (a conditions list can be used to dismiss any promise, or to shift burden onto the person). This is a judgement for Fernando, not an error.
+
+Section 6 pre-publish checklist, run independently
+TL;DR first screen: pass. Emoji on every H2: pass (7/7). Key sentence bolded: pass. Concrete example, declared imagined: pass. Core idea named: pass. Claims sourced: pass (one figure, 92.0%, sourced). Caveats and downsides: partial (see P3). Ends on try-it actions: pass. British/AU spelling, no em dashes: pass.
+
+Paths needed before any research with people
+Exists (all unapproved proposals): explainer material in communications/; withdrawal-without-reason and no-personal-risk-score rules in communications/comprehension-test.md:79-89; challenged/disputed/withdrawn states in communications/if-public-language-contract.md:345-372; Correction label and template. Missing: any reachable route (contact, issue template, owner, response time); ethics and consent material (experiments/observatory-comparison/README.md:17-21 itself says these must precede recruitment); accessible, translated or assistive-technology versions; a named person who can pause the research; a way for a named country or person to get a row changed and see the change recorded.
+
+Sound
+The diff is honest about the absence of humans, stated in seven places and never softened. Sheet hash matches the draft. Both captured quotations on the sheet are verbatim in their captures. The line-level provenance test fails on any unreviewed content line. No posts change.
+
+Fernando's decisions, must stay open
+Seven section approvals; whether to commission an outside human read; whether the piece should name a downside of the frame itself; whether status: ready should stand while approvals are pending; whether any research with people proceeds and under whose ethics review.
+
+Track 8 Depth: Australian NERO replay
+Headline: the NERO depth replay reproduces exactly from the retained LFS bytes. An independent Python pass gives the same 4,123,680 rows, 140 series, 18,480 observations, CRC and member length, and every Central Coast figure, fixed comparison and native extremum across all 140 series matches Ren's output. The write-up honestly answers the commission's question as cannot-say on every window, and the GP join's four stated failures are real. Remaining findings are P3 hygiene.
+
+P3. CRC is verified only against the archive's own central directory. CONFIRMED
+pilots/australia/sources/nero/2026-08/capture.json:97-111 records member uncompressed_byte_length but no crc32; dashboard/tools/build-nero-baseline.mjs:185-207 compares the streamed CRC to the ZIP's own directory entry. The archive SHA-256 is pinned in three places so the CRC is transitively pinned. Repair: add crc32: f954bddf (and 50a8b435 for the .rds) to capture.json and assert against it.
+
+P3. csv_crc_and_length_verified: true is a literal, not a computed result. CONFIRMED
+pilots/australia/tools/round-10-nero-retrospective.mts:129. True by construction today; would still read true if a future refactor swapped in an unverified reader. Repair: derive the flag from the reader or rename it.
+
+P3. Top-level storm_assessment uses period 2015 to 2026, an eleven-year span, under an API described as annual. CONFIRMED
+round-10-nero-retrospective.mts:35; storm-criterion.mts:34 accepts any from < to; 2026 is incomplete (last observation 2026-08-15). Result is cannot-say either way. Repair: drop the synthetic call or label it a retained-range summary.
+
+P3. "1,400 calls" undercounts evaluator invocations. CONFIRMED
+reviews/round-10-australia-depth.md:14. 1,400 window calls plus 140 per-series and 1 top-level, 1,541 total. Say "1,400 annual windows".
+
+P3. Per-series annual_criterion blocks carry no series-specific information. PLAUSIBLE
+All 1,400 window results resolve to the same 10 national AUS results. Candidly disclosed (native_context_admitted: false), and correct given a national criterion. The review should state directly that the criterion API has no geography below country.
+
+Not a finding: series 5311:111 Dec 2018 to Dec 2019 is 105/512 = 0.205078125 exactly, a half-tie at 6 dp; JS rounds to 20.507813, Python banker's rounding to 20.507812. Ren's value follows the stated rule.
+
+Recomputation
+Archive SHA-256 a092fbdc…9446, 48,613,300 bytes, LFS pointer identical on main and candidate: match. CSV member length 372,698,746 and CRC f954bddf: match. Rows 4,123,680; series 140 (28 SA4 x 5 occupations); observations 18,480 (132 per series, contiguous, no duplicates): match. Central Coast 5311 Dec 2019 to Dec 2020 +314 (+8.337759%); Feb to May 2020 +125 (+3.237503%); largest monthly decline Aug to Sep 2021 -69 (-1.862348%); largest annual decline Mar 2021 to Mar 2022, 3,994 to 3,273, -721 = -18.052078%; 71 of 131 negative months: all match. Calendar 2020 across 140 series 83 declines / 57 increases; Feb to May 2020 72 / 62 / 6: match. 1,400 December windows all cannot-say (687 native declines, descriptive only): match. Three criterion_binding hashes, income-measurements SHA, primary-care SHA, capture and headers SHA: identical. NSW GP cost delay 2024-25 7.2%, CI half-width 0.7: match. No sums across occupations or SA4s anywhere. --check exit 0; test:pilot 41/41; test:rehearsal 27/27. Round 08/09 pilot artefacts and both HTML surfaces byte-unchanged from main; only three files added.
+
+Sound
+Full replay, not a sample: the reader streams the single CSV member through a CRC-and-length-verifying stream and requires readCount to equal 4,123,680. Annual reduction is point-in-time December lag, matching the criterion's d(t1) - d(t0) form. The -721/3,994 figure is stated plainly as a relative change in one SA4 occupational stock, not five points of total-population disruption, with nulls retained for disrupted people, dependants and share change. GP join failures are genuine: geography (GP series has only Aust and NSW), population (persons 15+ needing a GP vs population 15+ vs labour force vs national welfare population), period (financial year vs calendar vs monthly), construct. Hostile test confirms a 100% national rate cannot become local evidence. Commission question answered: could not have fired, 2008-09 outside range, misses and false fires unadjudicable without labels, page wording stays "local access unknown".
+
+Track 8 Breadth: three income families, 50 economies
+Headline: all three families reproduce exactly from the retained bytes with an independent Python parser: 1,050 EPOP, 1,050 unemployment and 1,029 PIP observations, zero value mismatches, correct dictionary joins, editions, nowcast labelling, Argentina handling, rejected-candidate counts, CI pin and passing tests. The one substantive gap is disclosure: the PIP lineup endpoint returns null survey metadata for every row, so survey-year comparability breaks cannot be disclosed per country from what was retained, and the audit does not say so plainly.
+
+P2. PIP survey comparability fields are universally null; the audit implies selective nulls; one consumer check is inoperative. CONFIRMED
+signals/countries/sources/income-2026-09-10/pip-lineup.body: survey_year, survey_acronym, survey_comparability and comparable_spell are null on all 9,981 raw rows and all 1,029 retained rows, including all 645 estimation_type: "survey" rows. income-source-audit.md:36 ("A null survey year is not filled by Ren") reads as if nulls are occasional. storm-criterion.mts:95 (comparable-spell-changed) can never fire on this source; :96 (survey_comparability !== true) fires on 100% of rows because the field is never boolean, so the blanket survey-comparability-unestablished limit is honest in effect but by accident of typing. Welfare-type switches are correctly flagged (8 transitions: RUS 2021, TUR 2020, POL 2020, ROU 2014/2016/2017/2018/2022). Repair: one sentence in the audit stating the four fields are null for every row of this fill_gaps=TRUE endpoint; mark the comparable-spell check as inert; retain a fill_gaps=FALSE capture if per-country survey-year breaks are wanted.
+
+P3. IDN 2025 is labelled both estimation_type: "survey" and estimate_type: "nowcast". CONFIRMED
+"All 49 PIP values for 2025 are publisher nowcasts" holds on estimate_type. Six countries (PAK, IRN, IND, SGP, SAU, HKG) have zero survey-typed rows across 2005-2025; retained per row, not summarised. Repair: one sentence each.
+
+P3. ILO flag legend not retained; flag representation asymmetric. CONFIRMED
+Unemployment obs_status is "R" on 908 rows and "" on 142; the EPOP CSV has no obs_status column so all 1,050 EPOP flags are null. Audit line 41 is accurate and the reader discloses no legend is retained; the "" versus null asymmetry is undocumented.
+
+P3. Argentina explanation supported by retained bytes but not cited. CONFIRMED
+pip-methodology-acquiring.body contains the publisher sentence that Argentina has only urban-representative surveys. Audit line 23 and storm-criterion.v1.md:87-88 state the conclusion without pointing at it. Repair: cite the retained chapter.
+
+Reproduction (own parser against retained bodies)
+ILO EPOP EMP_2WAP_SEX_AGE_RT, SEX_T, AGE_YTHADULT_YGE15: 1,050 expected, 1,050 reproduced, 0 mismatches. ILO unemployment UNE_2EAP_SEX_AGE_RT: 1,050 / 1,050 / 0 (142 flag-representation diffs from null coercion only). PIP headcount $3, 2021 PPP, national, version 20260324_2021_01_02_PROD: 1,029 / 1,029 / 0; ARG absent from the body entirely.
+
+Sound
+All 15 receipts (14 x HTTP 200, 1 x 404 legacy methodology) verify by SHA-256 and length; receipt-collection pin bf7aa6ed… reproduces. ILO TOC rows read "ILO modelled estimates, Nov. 2025", last update 02/12/2025. 2025 estimate_type is nowcast for all 49; 2009 (32 actual / 17 projection) and 2020 (37 / 12) counts reproduce. TWN and HKG each have 333 native ILO rows and their own PIP rows; zero ILO years equal CHN. Rejected candidates reproduce exactly: LU4 0 top-50 rows; informality 5/26/26/30/29/26 by year with 2 complete histories; WEO LE 25/50, NGAP_NPGDP 19/50, LUR 47/50 with 45 complete; real wages and food CPI documented as not acquired. Nothing below 40/50 entered the panel. Licences retained as bytes (ILO 3 May 2023 CC BY 4.0; World Bank CC-BY 4.0 with third-party exceptions), one source_id per family. buildStormReview pairs year-1/year for 2006..2025, so the 2005 baseline is consumed as exactly 20 annual comparisons. integrity.yml:122-123 runs the producer unconditionally; round-10-policy.test.mjs:41 pins the exact argv. --check passes; test:signals 99/99.
+
+Track 8 Storm criterion: the operational rule
+Headline: the rule as implemented does what the text says and refuses what the text says it refuses. evaluateStorm accepts only total-population disruption shares, never converts a native rate, and the 1,000 cannot-say results are an honest structural consequence of the producer passing no disruption or binding evidence for three families that measure native stocks. Independent recomputation reproduces Ren's nine naive crossings exactly (4 EPOP, 3 unemployment, 2 PIP over 2,980 pairs). The truth table is a correct three-valued OR with missing data never collapsing to no-candidate. Remaining issues are second-order.
+
+P2. A measured 5-point improvement produces a firm no-candidate under a pending assumption. PLAUSIBLE (design)
+storm-criterion.mts:45 (directTruth = direct.change_pp >= 5), :47, :53. Direct 10 to 1 with binding measured unchanged returns no-candidate. The direction_assumption string marks this as Ren's pending Fernando, and change_pp carries the sign, but state is the only thing the reader surfaces and it says "no". Nothing real reaches this branch this round. Repair: a beneficial_shift_unassessed: true flag, or cannot-say for the direct arm, when change_pp <= -5, so the pending decision is visible in the state.
+
+P3. nativeMovement does not flag beneficial native crossings, so the data for Fernando's decision is not in the proxy audit. CONFIRMED
+storm-criterion.mts:100-101. From the measurement JSON, 11 beneficial native movements of at least 5 points exist (EPOP: ARG 2021 +5.483, PHL 2022 +5.291; PIP declines: KAZ 2006 -12.18, IDN 2007 -5.75, PAK 2008 -5.99, VNM 2009 -7.39, ZAF 2010 -7.5, CHN 2011 -5.29, CHN 2013 -6.83, ROU 2016 -7.6, PER 2021 -5.12). None appears in proxy_audit or the retrospective. Repair: add a naive_five_point_beneficial_movement boolean; no change to the rule.
+
+P3. evaluateStorm accepts multi-year periods while every text describes an annual comparison. CONFIRMED
+storm-criterion.mts:34 checks only from >= to. {from: 2024, to: 2026} with +5 direct yields candidate. The IF definition pins lookback_days: 366 and the producer is annual, so nothing real is affected. Repair: enforce to - from === 1 or state that period length is caller-defined.
+
+P3. PIP's comparability limits omit a denominator flag. CONFIRMED
+storm-criterion.mts:93-98: only ILO families get denominator-not-total-population. PIP's denominator is the publisher's reporting population, not census total. Repair: push denominator-publisher-reporting-population for the PIP family.
+
+P3. Misleading error text for tied or multiple binding categories. CONFIRMED
+storm-criterion.mts:43 throws "Unknown binding category" for an array. Fail-closed and the gap is named in the text; only the message is wrong. Repair: type-check first and throw "Tied or multiple binding categories are not representable in v1".
+
+P3. "1,000 cannot-say" is structural, and the text says "therefore" as if computed. PLAUSIBLE (wording)
+storm-criterion.mts:122 hardcodes disruption: null, binding: null, household: null; storm-criterion.test.mjs:80 asserts 1,000 cannot-say, a test of the constant. True by construction because createIncomeConditions (:65) refuses any family with disruption_measurement !== 'not-measured'. Repair: one sentence in the retrospective stating the count is a structural consequence of admitting no inputs, not 1,000 individually inconclusive evaluations.
+
+Review-environment note, not a candidate finding: another track's mutate-and-restore testing briefly dirtied the shared candidate checkout during this review, so --check there failed 4 of 4 times in that window; in a private copy of the same commit (blob hashes verified equal) it passed. The coordinator re-verifies the shared tree before posting.
+
+Truth table (rows direct arm, columns binding arm)
++5.000 / T: candidate [direct-share, binding-category]; +5.000 / F: candidate [direct-share]; +5.000 / null: candidate [direct-share]. +4.999 / T: candidate [binding]; +4.999 / F: no-candidate; +4.999 / null: cannot-say. -9 improvement / T: candidate [binding]; / F: no-candidate; / null: cannot-say. null / T: candidate [binding]; null / F: cannot-say; null / null: cannot-say. Household-only +9pp: cannot-say; household never substitutes (added_to_direct: false). Float boundaries 0.1 to 5.1 and five others all give change_pp = 5 and candidate. unit: 'percent-labour-force' throws. Missing data never yields no-candidate.
+
+Nine crossings, recomputed from income-measurements.v1.json
+EPOP decline >= 5 (1,000 pairs): IRL 2009 -5.470, MEX 2020 -5.074, CHL 2020 -8.150, PER 2020 -10.772. Unemployment rise >= 5 (1,000 pairs): ESP 2009 +6.603, IRL 2009 +5.835, COL 2020 +5.703. PIP rise >= 5 (980 pairs): IDN 2006 +5.74, ROU 2014 +7.92 (welfare-type-changed). Identical to Ren's proxy_audit; total pairs 2,980 match; Argentina accounts for the 20 missing PIP pairs. Against the sanity list: 2008-09 shows 3 crossings, 2020 shows 4; 43 and 46 of 50 countries do not cross. The retrospective correctly refuses to call those misses or false fires without outcome labels, and refuses to sum IRL's two same-year crossings.
+
+Sound
+Prevalence change of a stock share, named as such with the offsetting-flow blind spot stated. shares() rejects anything but percent-total-population; nativeMovement returns population_disruption_change_pp: null and is_storm_fire: false unconditionally; review JSON declares native_to_disruption_conversion: 'none'. Harmful direction labelled on every result and in the backlog. No summing across countries or families, including the Ireland example. Could the criterion ever produce candidate from the three retained families? No, by construction, and that is stated plainly in the criterion, the retrospective and the gate ledger. The rule fires on synthetic inputs; it is the admission layer that refuses the native families, with reasons documented per family. npm run test:signals 99/99.
+
+Fernando's decisions, not to be resolved by code
+Dependants (code keeps them separate and never adds); beneficial shifts (code assumes harmful only; the P2 asks only that the pending status be visible); indicator families and what "disruption of access" must be measured as before any family feeds the direct arm; period length, persistence, and whether the binding arm needs its own threshold.

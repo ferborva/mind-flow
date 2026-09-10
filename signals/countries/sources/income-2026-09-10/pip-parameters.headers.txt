@@ -1,0 +1,25 @@
+access-control-allow-origin: *
+cache-control: public, max-age=7200
+cf-cache-status: DYNAMIC
+cf-ray: a38c4b909cde334e-SYD
+connection: keep-alive
+content-encoding: gzip
+content-security-policy: default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval' 'unsafe-dynamic'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';
+content-type: application/json
+date: Thu, 10 Sep 2026 06:14:55 GMT
+etag: a73ec61660a8b28df936504a162400bc
+referrer-policy: no-referrer
+request-context: appId=cid-v1:da002513-bd8b-4441-9f30-737944134422
+server: cloudflare
+set-cookie: api.worldbank.orgCORS=403be8494990e664779c34c52fa19686; Path=/; SameSite=None; Secure
+set-cookie: api.worldbank.org=403be8494990e664779c34c52fa19686; Path=/
+set-cookie: pipscoreapi.worldbank.orgCORS=43a9d142bd90fbdd48cd4d4ecf5a3c64; Path=/; SameSite=None; Secure
+set-cookie: pipscoreapi.worldbank.org=43a9d142bd90fbdd48cd4d4ecf5a3c64; Path=/
+set-cookie: __cf_bm=teGJLZMvm9jMJUGXm9Rsolp451gHOEDs9NKDzaH4oRk-1789020894.8164167-1.0.1.1-km7p6Xnu6Cb9vPKLG6odAU36cC8MQM5HWgUGbuxwKcC5IsNfa_rD.X08DmzsHxx6u.TLRoyhMU9xc22IprUBStACEXO9oZtaiFy3rsWNzSou5XKZ.qNykuPtFvDl3yT6; HttpOnly; SameSite=None; Secure; Path=/; Domain=worldbank.org; Expires=Thu, 10 Sep 2026 06:44:55 GMT
+set-cookie: _cfuvid=wA8jDvMcSW2kh5jVjfSvCyZnG62.o1hayjrZS0NEe2w-1789020894.8164167-1.0.1.1-2rHVuGLrcAkJWoSzDsj5VCldpUekWvu_hd57E0NGfKs; HttpOnly; SameSite=None; Secure; Path=/; Domain=worldbank.org
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+transfer-encoding: chunked
+vary: accept-encoding
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-request-id: 1789020894961-296519705
