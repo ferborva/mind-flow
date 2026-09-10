@@ -1,0 +1,13 @@
+{
+  "id": "internet",
+  "url": "https://api.worldbank.org/v2/country/all/indicator/IT.NET.USER.ZS?source=2&format=json&per_page=30000",
+  "final_url": "https://api.worldbank.org/v2/country/all/indicator/IT.NET.USER.ZS?source=2&format=json&per_page=30000",
+  "started_at": "2026-09-10T01:30:32.660Z",
+  "ended_at": "2026-09-10T01:30:33.188Z",
+  "status": 200,
+  "body_sha256": "sha256:a99053f14f324e22f3276da1a846758d151c928acea355d665feab5d7a021b27",
+  "body_byte_length": 4081411,
+  "headers_sha256": "sha256:3ae201323b3d4f05cc778b0fbeee4bb39b439f621c313de83aedf424da6b2084",
+  "headers_representation": "fetch response headers serialised as name: value; complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
