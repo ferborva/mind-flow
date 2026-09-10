@@ -71,12 +71,11 @@ Foundation documents: **4 of 4 in place.**
 
 ## Drafts
 
-- `name-the-if`, medium, **drafting**, ~1,700 words. The frame as an instrument:
-  the shrug, the missing if, the reversal, five condition categories, the
-  healthcare promise run across four countries, and the invitation. No remedy,
-  no crisis layer, no supply side. **This is the one he sends.** Two blockers
-  marked inline: the Diamandis anecdote needs a source, the four-country table
-  needs a research note.
+- `name-the-if`, medium, **ready for Fernando's section-by-section read**.
+  The frame, five open condition categories and worked healthcare example.
+  The scene is explicitly imagined; research and provenance have been reviewed.
+  [Sign-off sheet](../reviews/name-the-if-sign-off.md): every section pending,
+  with a separate choice about an outside human read. Nothing is published.
 - `every-if-is-somebodys-when`, medium, **drafting**, ~1,500 words. Round two.
   Consumer's if against provider's when, the CEO's condition list, and sorting
   conditions by who holds them. **Quietly replaces the broken ending of

@@ -44,6 +44,15 @@ settles the principle of income access, not its measurement.
 - [ ] **Does a beneficial shift affecting 5% count as a storm, or only a harmful one?**
       The captured definition does not settle this. A harmful-disruption
       criterion is commissioned and cannot silently answer it.
+- [ ] **Sign off Name the If, section by section?** The draft is ready for
+      Fernando's read, not approved or published. Seven decisions are pending
+      on [the sign-off sheet](../reviews/name-the-if-sign-off.md).
+- [ ] **An outside human read before publication?** Track 7 still has no
+      outside human reviewer; agent provenance checks do not substitute.
+- [ ] **Distinct historical freeze IDs without rewriting accepted receipts?**
+      The originals remain byte-for-byte sealed. The existing hash-bound
+      attempt index distinguishes them, but the literal embedded-ID request
+      remains unmet pending the preservation/versioning decision.
 
 ### Round 09 next decisions and acquisition work
 

@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { renderCountryView } from './render-country-view.mjs';
 import { buildMeasurements, loadSources } from './build-measurements.mjs';
+import { loadStormReview } from './storm-criterion.mts';
 const bytes=readFileSync(new URL('../measurements.v1.json',import.meta.url));
 const data=()=>JSON.parse(bytes);
 const options={measurementSha256:`sha256:${createHash('sha256').update(bytes).digest('hex')}`};
@@ -44,7 +45,7 @@ test('publisher labels and selectors cannot inject Markdown or HTML; source path
   assert.throws(()=>renderCountryView(changed,options),/source path/);
 });
 test('generated Markdown reproduces exactly from the measurement snapshot',()=>{
-  assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),renderCountryView(data(),options));
+  assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),renderCountryView(data(),{...options,stormReview:loadStormReview()}));
 });
 test('headline counts the intersection, not missing cells or stale measured_signals labels',()=>{
   const original=data();
@@ -64,5 +65,5 @@ test('reader bytes replay from native retained sources, not merely the derived s
   const replay=Buffer.from(`${JSON.stringify(buildMeasurements(frame,await loadSources()),null,2)}\n`);
   assert.deepEqual(bytes,replay);
   assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),
-    renderCountryView(JSON.parse(replay),{measurementSha256:`sha256:${createHash('sha256').update(replay).digest('hex')}`}));
+    renderCountryView(JSON.parse(replay),{measurementSha256:`sha256:${createHash('sha256').update(replay).digest('hex')}`,stormReview:loadStormReview()}));
 });

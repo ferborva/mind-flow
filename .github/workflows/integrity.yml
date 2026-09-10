@@ -122,6 +122,9 @@ jobs:
       - name: Reproduce retained Round 10 income indicators
         run: node signals/countries/tools/income-measurements.mts --check
 
+      - name: Reproduce commissioned storm criterion
+        run: node signals/countries/tools/storm-criterion.mts --check
+
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"
 

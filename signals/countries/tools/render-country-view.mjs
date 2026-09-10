@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildMeasurements, loadSources } from './build-measurements.mjs';
+import { isDeepStrictEqual } from 'node:util';
+import { loadStormReview, serializeStormReview } from './storm-criterion.mts';
 
 const sha256=bytes=>`sha256:${createHash('sha256').update(bytes).digest('hex')}`;
 const escape=text=>String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -20,7 +22,7 @@ function sourceHref(path){
 
 // Text-only projection of retained measurements. This never assigns a binding
 // category, computes a weather rank or admits another candidate series.
-export function renderCountryView(measurements,{measurementSha256}={}){
+export function renderCountryView(measurements,{measurementSha256,stormReview}={}){
   if(!/^sha256:[a-f0-9]{64}$/.test(measurementSha256??''))throw new Error('measurement hash required');
   const signals=Object.keys(labels).map(id=>{
     const matches=measurements.signals.filter(signal=>signal.id===id);
@@ -78,7 +80,40 @@ export function renderCountryView(measurements,{measurementSha256}={}){
       lines.push(`- **${category[0].toUpperCase()+category.slice(1)}:** ${escape(gap)}`,'');
     }
   }
-  return `${lines.join('\n').trimEnd()}\n`;
+  return `${lines.join('\n').trimEnd()}\n${stormReview ? '\n' + renderIncomeContext(stormReview) : ''}`;
+}
+
+export function renderIncomeContext(review) {
+  if (!isDeepStrictEqual(review, loadStormReview())) throw new Error('Storm source replay differs before reader projection');
+  const lines = [
+    '<!-- round-10-income-context:start -->',
+    '## Income-access comparison, 2024 to 2025', '',
+    '**All 50 economies: cannot-say.** Related national indicators are measured, but direct income-route disruption and changes in the binding condition are not. This is income context, not a measured storm panel or an all-clear result.', '',
+    'The table adds the commissioned criterion assessment to this existing reader. Direct disruption and household exposure are separate readings; neither is computable from these sources. No people counts, causal category or shared global event are inferred.', '',
+    '[Criterion and reversible assumptions](storm-criterion.v1.md) · [Twenty-year review data](storm-review.v1.json) · [Source and licence audit](income-source-audit.md).', '',
+    'ILO values are November 2025 modelled estimates, for employment/population aged 15+ and unemployment/labour force aged 15+. PIP uses the March 2026 national $3/day (2021 PPP) lineup; all 49 retained 2025 values are nowcast, not survey observations. The three source vintages are not a common release date. Original precision and native selectors follow below.', '',
+    '| Economy | Criterion state | Direct disruption Δpp | Household exposure Δpp | Binding category | Missing evidence |',
+    '| --- | --- | --- | --- | --- | --- |',
+  ];
+  for (const row of review.latest) {
+    const missing = row.missing_series.length ? 'No national PIP observation; ' : '';
+    lines.push(`| ${row.country} | ${row.state} | Unavailable | Unavailable | Unknown | ${missing}comparable disruption shares, linked household mapping and before/after binding diagnosis |`);
+  }
+  lines.push('', '### Native income-related measurements, not affected-person shares', '',
+    'Each value is a percentage of its own denominator. The values cannot be added or converted into disrupted-person shares. Country codes use the same retained sampling frame as the sections above.', '',
+    '| Economy | Employment / population 15+ | Unemployment / labour force 15+ | Poverty / national persons |',
+    '| --- | --- | --- | --- |');
+  const familyIds = ['income-employment-population.v1', 'income-unemployment.v1', 'income-poverty-lineup.v1'];
+  const paths = ['ilo-epop', 'ilo-unemployment', 'pip-lineup'];
+  for (const row of review.latest) {
+    const cells = familyIds.map((id, i) => {
+      const native = row.native_context.find(x => x.family_id === id);
+      return native ? `${Number(native.value.toFixed(3))}%; [retained source](sources/income-2026-09-10/${paths[i]}.body), ${escape(native.source_selector)}; ${escape(native.estimate_type)}` : 'No national PIP observation';
+    });
+    lines.push(`| ${row.country} | ${cells.join(' | ')} |`);
+  }
+  lines.push('', 'A candidate would require comparable direct measurements meeting the five-percentage-point rule or evidence of a changed binding category. Confidence intervals, direct counts and household mappings are not supplied. Native movements can justify investigating a named population; they do not authorise action or establish forecast skill.', '', '<!-- round-10-income-context:end -->');
+  return lines.join('\n') + '\n';
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
@@ -89,7 +124,9 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
     const retained=await readFile(new URL('measurements.v1.json',base));
     const reproduced=`${JSON.stringify(buildMeasurements(countrySet,await loadSources()),null,2)}\n`;
     if(retained.toString('utf8')!==reproduced)throw new Error('measurement source replay failed before reader generation');
-    const text=renderCountryView(JSON.parse(retained),{measurementSha256:sha256(retained)});
+    const stormReview=loadStormReview();
+    if(await readFile(new URL('storm-review.v1.json',base),'utf8')!==serializeStormReview(stormReview))throw new Error('storm review source replay failed before reader generation');
+    const text=renderCountryView(JSON.parse(retained),{measurementSha256:sha256(retained),stormReview});
     const target=new URL('measurement-view.md',base);
     if(process.argv.includes('--check')){if(await readFile(target,'utf8')!==text)throw new Error('country reader reproduction mismatch');}
     else if(process.argv.includes('--write'))await writeFile(target,text,{flag:'wx'});

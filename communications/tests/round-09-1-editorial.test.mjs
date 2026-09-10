@@ -54,7 +54,7 @@ test("the current disclaimer inventory pins its count scope and reports the rest
     assert.equal(units.filter(unit => !/^\d+\.$/.test(unit)).length, entry.conservative_units, entry.path);
   }
   const reader = inventory.find(entry => entry.path === "signals/countries/measurement-view.md");
-  const units = proseSentences(read(reader.path));
+  const units = proseSentences(beforeRound10Amendment(root, reader.path, read(reader.path)));
   assert.equal(reader.non_templated_counted_units.length, 18);
   for (const { number, starts_with } of reader.non_templated_counted_units) assert.ok(units[number - 1].startsWith(starts_with));
   assert.equal(new Set(reader.non_templated_counted_units.map(entry => entry.number)).size, 18);
