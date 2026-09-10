@@ -11,12 +11,14 @@ updated: 2026-09-10
 
 # 🦅 The October outcome is still in the future
 
-**P1 cross-review correction: the second-valid-forecast gate is unmet.** The
-issued second record's resolution prose says SA4 101 while the typed target and
-native resolver say 102. See the [error notice](../forecasts/prospective-pilot/round-09-nero/error-notice.md).
-Old bytes remain intact; current terminal admission is blocked. A uniquely
-identified replacement requires peer recheck and fresh registration before it
-can satisfy the gate. Earlier passing tests below missed this contradiction.
+**Current status: a valid corrected second prospective record is issued.** Its
+fresh registration and actual issue at `2026-09-10T00:44:16Z` pass peer target,
+byte, clock and operational-wrapper checks. See the [corrected issuance note](../forecasts/prospective-pilot/round-09-nero-corrected/issuance-note.md)
+and [correction review](round-09-forecast-correction.md). The defective earlier
+second issue remains intact and blocked under its [error notice](../forecasts/prospective-pilot/round-09-nero/error-notice.md).
+The first October resolution remains blocked by future observation/publication.
+The preparation/issuance account below describes earlier checkpoints; its
+passing tests did not catch the original SA4 101/102 contradiction.
 
 **Resolution is blocked by the prewritten clock and absent October archive.**
 At actual UTC `2026-09-10T00:00:41Z`, neither the 1 October observation start
@@ -104,7 +106,7 @@ The [issuance note](../forecasts/prospective-pilot/round-09-nero/issuance-note.m
 records the separate current admission workflow and scoring-withheld report.
 
 **The first resolution gate remains unmet for a named external reason.**
-The second preregistration exists before the first can resolve. No NERO new
+The corrected second preregistration exists before the first can resolve. No NERO new
 vintage or new definitional discovery was found for the AU evolution workstream.
 The original 48,613,300-byte August archive passes full ZIP size/CRC inspection;
 it contains the 372,698,746-byte CSV and 16,419,664-byte RDS. All 111 forecast
