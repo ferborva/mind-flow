@@ -1,0 +1,27 @@
+{
+  "id": "imf-weo-april-2026-licence-review",
+  "reviewed_on": "2026-09-10",
+  "author": "Ren",
+  "official_terms_url": "https://www.imf.org/en/about/copyright-and-terms",
+  "terms_effective_date_as_browsed": "2024-10-11",
+  "status": "special-data-terms-verified-via-browsing-exact-body-retention-unavailable",
+  "retained_terms_body": false,
+  "summary": "The special Data section names WEO and permits accurate attributed extraction, derivatives and distribution subject to integrity and communication of terms. It requests permission for potential commercial reuse and identifies third-party exceptions. General restrictions remain applicable. No Creative Commons or blanket commercial permission is asserted.",
+  "evidence_limit": "This is a Ren-authored review, not original terms bytes or legal clearance. The original legacy URL response is in capture.json; direct canonical URL acquisition failed with HTTP 403. No permission request was sent.",
+  "failed_acquisitions": [
+    {
+      "requested_url": "https://www.imf.org/en/About/copyright-and-terms",
+      "headers_file": "copyright-and-terms.response-headers.txt",
+      "headers_sha256": "sha256:0a8b6b0d9673bcdf2a74dda5318a9d9415580cd1e5836fd38a4b9ff4a4d83818",
+      "status": 403,
+      "body_retained": false
+    },
+    {
+      "requested_url": "https://www.imf.org/en/about/copyright-and-terms",
+      "headers_file": "copyright-lowercase.response-headers.txt",
+      "headers_sha256": "sha256:5122bbe7d7c587ce87562620d1da23b116cb57378c188fa22b3b8cb6ed79544a",
+      "status": 403,
+      "body_retained": false
+    }
+  ]
+}

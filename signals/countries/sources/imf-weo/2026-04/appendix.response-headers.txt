@@ -1,0 +1,21 @@
+HTTP/2 200 
+content-type: application/pdf
+content-length: 523673
+content-security-policy: frame-ancestors 'self'
+x-frame-options: SAMEORIGIN
+x-download-options: noopen
+x-content-type-options: nosniff
+referrer-policy: same-origin
+x-xss-protection: 1
+pragma: no-cache
+x-correlation-id: 36b654a1-42c5-4dd7-9a85-6664c7f0303d
+content-disposition: attachment; filename="April 2026 WEO Database Appendix.pdf"
+cache-control: no-cache, no-store
+expires: Thu, 10 Sep 2026 01:12:52 GMT
+date: Thu, 10 Sep 2026 01:12:52 GMT
+set-cookie: INGRESSCOOKIE=1789002772.403.62.475853|d2b487978ff750b756bc733f7f77a0e5; Path=/; Secure; HttpOnly
+set-cookie: INGRESSCOOKIE=1789002772.724.47.703153|d2b487978ff750b756bc733f7f77a0e5; Path=/; Secure; HttpOnly
+alt-svc: h3=":443"; ma=93600
+strict-transport-security: max-age=31536000
+akamai-grn: 0.ccb42e17.1789002769.49d6b227
+

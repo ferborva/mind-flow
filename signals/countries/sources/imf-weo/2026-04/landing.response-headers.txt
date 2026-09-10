@@ -1,0 +1,17 @@
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+content-security-policy: default-src 'self' p11.techlab-cdn.com; font-src 'self' data: fonts.gstatic.com/; img-src 'self' data: *.brightcove.com *.boltdns.net *.akamaihd.net *.imf.org *.service-now.com https://blogs.imf.org; style-src 'self' 'unsafe-inline' data: static.cloud.coveo.com fonts.googleapis.com; script-src 'self' 'unsafe-eval' *.brightcove.net static.cloud.coveo.com stg-datasupport.imf.org datasupport.imf.org *.brightcove.net vjs.zencdn.net p11.techlab-cdn.com 'unsafe-inline' blob: https://public.flourish.studio p11.techlab-cdn.com; connect-src 'self' stg-datasupport.imf.org datasupport.imf.org *.brightcove.com *.brightcovecdn.com *.boltdns.net *.akamaihd.net *.imf.org *.service-now.com *.brightcove.net static.cloud.coveo.com https://public.flourish.studio p11.techlab-cdn.com; worker-src 'self' blob:; media-src 'self' blob: stg-datasupport.imf.org datasupport.imf.org *.boltdns.net *.akamaihd.net *.brightcove.net; frame-src 'self' *.powerbi.com *.imf.org *.brightcove.net datawrapper.dwcdn.net https://public.flourish.studio https://flo.uri.sh; form-action 'none'; frame-ancestors 'self'
+x-frame-options: deny
+x-download-options: noopen
+x-content-type-options: nosniff
+referrer-policy: same-origin
+x-xss-protection: 1
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+vary: Accept-Encoding
+date: Thu, 10 Sep 2026 01:12:49 GMT
+set-cookie: INGRESSCOOKIE=1789002769.451.174.137116|d2b487978ff750b756bc733f7f77a0e5; Path=/; Secure; HttpOnly
+set-cookie: idata#lang=en; path=/; secure; SameSite=None
+alt-svc: h3=":443"; ma=93600
+strict-transport-security: max-age=31536000
+akamai-grn: 0.c8b42e17.1789002767.47f9df44
+
