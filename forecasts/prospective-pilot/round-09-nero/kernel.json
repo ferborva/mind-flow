@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.1.0",
+  "kernel_id": "kernel.nero.5311.102.prospective",
+  "classification": "research-draft",
+  "empirical_truth_established": false,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "publication_approved": false,
+  "evaluator": {
+    "id": "mind-flow.executable-if.evaluator",
+    "version": "1.1.0",
+    "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+    "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+    "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+    "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+  },
+  "signals": [
+    {
+      "signal_id": "signal.nero.5311.102.bounded-stock",
+      "definition_version": "1.0.0",
+      "label": "Bounded NERO employment-stock index, General Clerks, Central Coast",
+      "construct": "Modelled employment stock x transformed to x/(x+3092); exposure context, not vacancies or worker opportunity",
+      "population": "NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast",
+      "estimand": "NERO modelled employed-person count x divided by x plus the frozen August 2026 count 3092",
+      "aggregation": "One occupation-SA4 series; no aggregation across occupations or regions",
+      "projection_policy": "exact-scope-only",
+      "source_schema_ref": "https://www.jobsandskills.gov.au/data/nero",
+      "value_kind": "number",
+      "unit": "bounded employment index",
+      "value_range": {
+        "minimum": 0,
+        "maximum": 1
+      },
+      "signal_definition_hash": "sha256:1c288c7652ff72e3c9a3d04211bebde18e8310ca3cc1ecd3c95a2125dedeaf60"
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "event.nero.5311.102.stock.added",
+      "operation": "added",
+      "recorded_at": "2026-09-10T00:00:41Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Fix one observed NERO series and its monotone count threshold before the October outcome.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "condition_id": "condition.nero.5311.102.stock",
+          "state_version": 1,
+          "condition_definition_ref": {
+            "condition_id": "condition.nero.5311.102.stock",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:6dac7075fa5a8d429d5e1469d383bc0085027f32b3569526a6e65acb840bb548"
+          },
+          "lifecycle": "active"
+        }
+      ],
+      "introduced_definitions": [
+        {
+          "condition_id": "condition.nero.5311.102.stock",
+          "definition_version": "1.0.0",
+          "condition_category": "availability",
+          "proposition": "The modelled employment stock is at least the frozen August 2026 count 3092; this is exposure context only.",
+          "claim": {
+            "who": "NERO occupation code 5311, General Clerks, resident in SA4 code 102, Central Coast",
+            "verb": "have",
+            "object": "modelled employment stock at or above 3092",
+            "standard": "bounded employment index x/(x+3092) is at least 0.5",
+            "polarity": "affirmative",
+            "period": {
+              "starts_at": "2026-08-01T00:00:00Z",
+              "ends_at": "2026-10-31T23:59:59Z"
+            }
+          },
+          "effective_from": "2026-09-10T00:00:41Z",
+          "scope": {
+            "jurisdictions": [
+              "Australia"
+            ],
+            "geographies": [
+              "SA4 102: Central Coast"
+            ],
+            "cohorts": [
+              "ANZSCO4 5311: General Clerks"
+            ],
+            "services": [
+              "Modelled employment stock, exposure context only"
+            ]
+          },
+          "predicates": {
+            "stock-threshold": {
+              "signal_ref": {
+                "signal_id": "signal.nero.5311.102.bounded-stock",
+                "definition_version": "1.0.0",
+                "signal_definition_hash": "sha256:1c288c7652ff72e3c9a3d04211bebde18e8310ca3cc1ecd3c95a2125dedeaf60"
+              },
+              "operator": "gte",
+              "threshold": {
+                "value": 0.5,
+                "unit": "bounded employment index"
+              },
+              "window": {
+                "lookback_days": 120,
+                "minimum_observations": 1,
+                "persistence": 1,
+                "maximum_age_days": 120
+              },
+              "source_policy": {
+                "minimum_distinct_source_ids": 1,
+                "minimum_distinct_artifact_hashes": 1,
+                "minimum_coverage_ratio": 1,
+                "agreement": "unanimous-per-period"
+              },
+              "missing_result": "unknown",
+              "stale_result": "stale",
+              "conflict_result": "conflicted"
+            }
+          },
+          "truth_expression": {
+            "predicate_ref": "stock-threshold"
+          },
+          "evaluator_ref": {
+            "id": "mind-flow.executable-if.evaluator",
+            "version": "1.1.0",
+            "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+            "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+            "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+            "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+          },
+          "classification": "research-draft",
+          "empirical_truth_established": false,
+          "authority_effect": "none",
+          "action_authorised": false,
+          "definition_hash": "sha256:6dac7075fa5a8d429d5e1469d383bc0085027f32b3569526a6e65acb840bb548"
+        }
+      ],
+      "identity_change": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_event_hash": null,
+      "event_hash": "sha256:65c724bcd81f5ee922c535ca7022d4e66c1df6efee23cd4b3bc388737202c709"
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "observation.nero.5311.102.2026-08",
+      "classification": "measured-observation",
+      "condition_definition_ref": {
+        "condition_id": "condition.nero.5311.102.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6dac7075fa5a8d429d5e1469d383bc0085027f32b3569526a6e65acb840bb548"
+      },
+      "predicate_id": "stock-threshold",
+      "signal_ref": {
+        "signal_id": "signal.nero.5311.102.bounded-stock",
+        "definition_version": "1.0.0",
+        "signal_definition_hash": "sha256:1c288c7652ff72e3c9a3d04211bebde18e8310ca3cc1ecd3c95a2125dedeaf60"
+      },
+      "scope": {
+        "jurisdictions": [
+          "Australia"
+        ],
+        "geographies": [
+          "SA4 102: Central Coast"
+        ],
+        "cohorts": [
+          "ANZSCO4 5311: General Clerks"
+        ],
+        "services": [
+          "Modelled employment stock, exposure context only"
+        ]
+      },
+      "period": {
+        "start": "2026-08-01T00:00:00Z",
+        "end": "2026-08-31T23:59:59Z"
+      },
+      "recorded_at": "2026-09-10T00:00:41Z",
+      "value": 0.5,
+      "unit": "bounded employment index",
+      "source_id": "source.jsa.nero",
+      "source_artifact_hash": "sha256:a092fbdc1fe41a781120a0df964235fef1dd0913b3b9d2579f74a7ce67239446",
+      "source_independence": "not-verified",
+      "uncertainty": {
+        "status": "not-quantified",
+        "reason": "Experimental smoothed modelled stock; no sampling interval, individual inference or real-time vacancy estimate."
+      },
+      "coverage": {
+        "eligible_units": 1,
+        "observed_units": 1,
+        "missing_units": 0,
+        "unit": "preselected occupation-SA4 series cell, not people"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "observation_hash": "sha256:76d80892e64f911f89da6bda89a61c28f62156d40fbedf1bc18afdbd4fc9fd09"
+    }
+  ],
+  "evidence_events": [
+    {
+      "sequence": 1,
+      "evidence_event_id": "evidence-event.nero.5311.102.2026-08.added",
+      "operation": "evidence-added",
+      "recorded_at": "2026-09-10T00:00:41Z",
+      "recorded_by": "Ren (AI agent)",
+      "reason": "Bind the retained August NERO count and its bounded transform; receipt covers one series cell, not human outcomes.",
+      "previous_states": [],
+      "new_states": [
+        {
+          "observation_ref": {
+            "observation_id": "observation.nero.5311.102.2026-08",
+            "observation_hash": "sha256:76d80892e64f911f89da6bda89a61c28f62156d40fbedf1bc18afdbd4fc9fd09"
+          },
+          "state_version": 1,
+          "lifecycle": "active"
+        }
+      ],
+      "relation": {
+        "kind": "none"
+      },
+      "authority_effect": "none",
+      "action_authorised": false,
+      "previous_evidence_event_hash": null,
+      "evidence_event_hash": "sha256:c98a0bc43f5a2278c3005b4717eef11dae71d77077df32997f31b1adf20024d5"
+    }
+  ],
+  "current_evidence_state": [
+    {
+      "observation_ref": {
+        "observation_id": "observation.nero.5311.102.2026-08",
+        "observation_hash": "sha256:76d80892e64f911f89da6bda89a61c28f62156d40fbedf1bc18afdbd4fc9fd09"
+      },
+      "state_version": 1,
+      "lifecycle": "active"
+    }
+  ],
+  "current_state": [
+    {
+      "condition_id": "condition.nero.5311.102.stock",
+      "state_version": 1,
+      "condition_definition_ref": {
+        "condition_id": "condition.nero.5311.102.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6dac7075fa5a8d429d5e1469d383bc0085027f32b3569526a6e65acb840bb548"
+      },
+      "lifecycle": "active"
+    }
+  ],
+  "manifest_hash": "sha256:36c02d95f5d15c251d11753046f8b845a9e7cc25fce4c820d4019d8ca7345f6d"
+}

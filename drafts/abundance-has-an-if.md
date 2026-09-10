@@ -5,7 +5,7 @@ type: draft
 status: review
 size: long
 themes: [abundance]
-sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
+sources: [2026-09-01-abundance-is-conditional, 2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy, 2026-09-10-where-the-money-sits-and-the-weather-station]
 research: [2026-09-07-abundance-figures, 2026-09-10-abundance-editorial-source-check]
 audience: anyone arguing about abundance
 created: 2026-09-01
@@ -143,8 +143,7 @@ that can involve a user contribution.
 **A payment followed by reimbursement and a service funded upstream put the
 money condition in different places.** The amount, eligibility and service
 still matter. Neither description establishes that a particular patient can
-get an appointment today. This comparison illustrates the question; it does
-not choose a system for everyone.
+get an appointment today.
 
 ## 🍷 More is not the same as anything
 
@@ -161,14 +160,17 @@ That is not an argument against an extraordinary future. It is a reason to
 say what the future contains. Which goods? Which services? For how many people?
 Under which conditions? The clearer the promise, the more useful the discussion.
 
+## 🏦 Where the ball sits
+
+**The money accrues to a few companies.** The picture is the naughty kid that
+keeps everything to themselves until the parent comes along and says: stop
+hogging the ball, share it.
+
 ## 🧭 Turn the question into a method
 
 My take belongs at the reframe and method level, rather than the solutioning.
 I hold a much softer view on tax and the portfolio remedy now. The question
 to carry forward is what a proposed arrangement changes in the IFs.
-
-<!-- GAP: Fer, does "the choice is theirs" survive as a diagnosis (the money
-     accrues there) even though it no longer survives as a remedy? -->
 
 Start with the person and the outcome. Which condition is binding now?
 Who holds the relevant part? A provider, a rule maker and the person seeking

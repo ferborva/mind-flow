@@ -53,3 +53,9 @@ conversations.
 
 Start with `meta/index.md` for the content map and
 `meta/abundance-transition-programme.md` for the active Observatory programme.
+
+For the commissioned measurement work, open the
+[50-economy snapshot](signals/countries/measurement-view.md) beside the
+[Australian depth example](pilots/australia/basket/README.md).
+The [candidate catalogue](signals/countries/storm-signals.v1.md) explains what
+the retained sources measure and what they cannot yet establish.

@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Backlog
@@ -20,6 +20,89 @@ One question per turn when actually asking him. This list is the queue, not the
 script.
 
 ## Open
+
+### Round 09 next decisions and acquisition work
+
+- [x] **Process the September 10 capture.** Exact capture commit `832143d`
+      from [PR #19](https://github.com/ferborva/mind-flow/pull/19) is integrated
+      into Round 09 only. Fernando explicitly directed main to stay unchanged
+      in [the captured integration answer](../capture/2026-09-10-keep-main-unchanged.md).
+      Seeds and draft restore the observation, not a remedy; the world weather
+      station is the programme, with Australia retained as the depth example.
+- [ ] **Is the naughty-kid line an observation or an imperative?** The image
+      is restored as Ren's reading, permitted by the forwarded Round 09 brief.
+      His September 1 words also include "You've got the resources, you've got
+      to make the choice". His September 10 answer withdraws a remedy but does
+      not explicitly settle the image. Only Fernando can settle that reading.
+- [ ] **Which ranking and vintage defines the top 50?** Commissioned proposal:
+      April 2026 IMF WEO, 2025 nominal GDP, native economy universe including
+      separately reported territories. Completed-year values can still be
+      estimates. Fernando has not selected this ranking, year or universe.
+- [ ] **Which broad shifts matter most?** The proposed starting list is CPI
+      change, electricity access and modelled labour share, with digital use,
+      permission and proximity candidates under investigation. Which would he
+      strike or add? Annual context is not established early-warning evidence.
+- [ ] **What makes a storm in his words?** A departure from a country's own
+      history, a change in which category binds, or divergence between countries?
+      Proposed history thresholds are investigation criteria, not his decision
+      and not calibrated storm detection.
+      **New answer after the Round 09 candidate was selected:** a major shift
+      in the social contract that can disturb the social fabric and affect
+      5% of society in a country or more, occurring nationally or across several
+      countries. See [the raw capture](../capture/2026-09-10-storms-as-social-contract-shifts.md).
+      He then simplified the monitoring target to **access to means of
+      generating income**, linking livelihoods to broader access and social
+      participation. Keep operationalisation open: disruption severity,
+      denominator, period and horizon. The next question asks whether affected
+      people include dependent household members; do not invent the answer.
+- [ ] **How do forecastable crisis points fit unpredictable sequencing?** His
+      September 8 statements leave a real tension. Our proposed reading is
+      diagnose by country, notice change, do not schedule the transition.
+      Ask him rather than making that interpretation his position.
+- [ ] **Design the missing construct migration before claiming two more IF events.**
+      Appointment-attempt versus appointment-making time and the precise
+      prescription denominator need explicit old-to-new relationships. The
+      current operation set cannot carry them as ordinary revision or literal
+      set narrowing. Preserve the old broader question and invalidate its
+      consumers through a reviewed, versioned migration.
+- [ ] **Choose the next access-data acquisition, not a stronger proxy label.**
+      The new prescription and after-hours rows name exact missing series.
+      [Directory and dispensing routes](../research/2026-09-10-access-series-acquisition-gaps.md)
+      could deepen proximity/price, but linked accepted and failed attempts,
+      eligibility, travel, affordability, stock and support are needed to
+      identify a current bottleneck. Licensing or participant contact needs
+      separate authority.
+- [ ] **Run the prewritten October intake when eligible data exists.** Expected
+      around November 4. The revised steer requests a scheduled follow-up;
+      scheduler creation is unavailable on this host, so no active monitor is
+      claimed. Keep this gate open until activation is confirmed.
+      Preserve first-presence evidence, reject post-October archives, use the
+      exact cell and keep the erroneous Round 09 issuance visibly inadmissible.
+
+The Round 09 scoped disclaimer rule replaces the earlier four-document targets;
+the older universal-denominator question below remains historical context, not
+a newly failed scoped gate. Receipt forgery, schema-2 hash separation, repository
+history weight and eight inherited macro raw inputs remain open.
+
+### Round 09 storm operationalisation, Ren's analysis
+
+Moved out of the raw [storms capture](../capture/2026-09-10-storms-as-social-contract-shifts.md)
+in Round 09.1. These are Ren's implementation notes, not additional words or
+decisions from Fernando.
+
+- His clarification selects access to means of generating income as the
+  simplification, while relating livelihoods to broader access. It does not
+  select unemployment, labour share, wages or another specific series.
+- What constitutes disruption, its severity and whether beneficial changes
+  count are not supplied by the numerical threshold alone.
+- The population denominator, assessment period, persistence and forecast
+  horizon are not yet defined.
+- Five percent is his proposed scale, not a calibrated probability threshold
+  or an estimate that five percent are currently affected.
+- Country-specific, regional and global events may overlap. Their affected
+  populations must not be added as though they were independent or disjoint.
+- The existing own-history rank proposal remains a potential investigation
+  input. It does not measure a social-contract shift or forecast this event.
 
 ### Round 08 moratorium exceptions and unresolved gates
 
@@ -55,11 +138,17 @@ required by the commission.
 
 The three at the top are the ones that block writing. The rest can wait.
 
-- [ ] **Does "the money accrues to companies, so the choice is theirs" survive
-      as a diagnosis?** The remedy and tax positions softened in
-      `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
-      contribution at the frame and method level, not the solution. He has not
-      said whether the enterprise-choice claim still describes the problem.
+- [x] **Does "the money accrues to companies, so the choice is theirs" survive
+      as a diagnosis?** Resolved 2026-09-10, his words: "that is just a plain
+      observation at this point of where the money accrues to and we can
+      dismiss it as bound to any solutions." The observation survives in his
+      voice; the remedy stays withdrawn. See
+      `capture/2026-09-10-where-the-money-sits-and-the-weather-station.md`.
+- [ ] **What does the weather station watch?** He re-scoped the Observatory on
+      2026-09-10 to "broad market shifts at a country level" for "at least the
+      top 50 countries in the world's economy", with NSW GP access kept as the
+      worked example. Open: which shifts, which GDP ranking and year, what
+      counts as a storm signal versus weather. Same capture.
 - [x] **Does the sequencing concession kill the dated phases?** Resolved by
       Fernando's Round 08 commission on 2026-09-09: dated phases are scenarios,
       never schedules. The transition draft now asks which condition binds

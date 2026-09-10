@@ -9,7 +9,7 @@ themes: [abundance]
 sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 research: [2026-09-07-transition-precedents-and-adkar, 2026-09-07-transition-control-system]
 provenance: commissioned-proposal
-author: ren
+author: Ren
 audience: people examining transition options
 created: 2026-09-07
 updated: 2026-09-09
@@ -63,11 +63,10 @@ taxonomy. They can coexist, reverse or never arise.
 | The service works but its terms cannot be challenged | permission; the decision maker and review process hold relevant parts | Affected people can use the review or alternative route and report the result |
 
 These descriptions organise an investigation. A barrier's frequency does not
-by itself establish its causal importance. A high national percentage cannot
-choose a particular rural person's binding condition. The missing information
+by itself establish its causal importance. The missing information
 belongs in the next observation, beside the proposed diagnosis.
 
-**Possible public responses, not predictions:** people could welcome a change,
+**Possible public responses:** people could welcome a change,
 seek different terms, organise an alternative or refuse it. Those possibilities
 do not make disagreement a symptom to manage. The outcome sought by the
 proposal is more practical choice, including the choice to challenge it.
@@ -81,8 +80,7 @@ Measure costs alongside waits, travel and successful use. Examine who gains
 and who remains excluded.
 
 Candidate mechanisms include lower costs, earnings, ownership income,
-transfers and public provision. **The arithmetic does not select a remedy.**
-This proposal is not choosing among those routes here. It asks what a proposed
+transfers and public provision. This proposal asks what a proposed
 route changes, for whom, at whose cost, and what would count against its claim.
 That is the evidence needed before debating a larger programme.
 
@@ -107,13 +105,12 @@ memory.** It shows what was learned and which earlier interpretation expired.
 
 The action ladder is `watch_if`, `prepare_if`, `act_if`, `pause_if`,
 `reverse_if`, `recover_if` and `graduate_if`. A changed condition can make an
-option eligible for consideration. It cannot authorise the option by itself.
-The actor, funding, practical capacity and accountable decision belong beside
+option eligible for consideration. The actor, funding, practical capacity and accountable decision belong beside
 the option before real-world action.
 
 ## 📣 A public update worth reading
 
-The following seven-part update is Ren's communication scaffolding. It makes
+The following seven-part update makes
 the evidence and open questions easy to find.
 
 1. **What was observed?** Name the measure, source and period in a plain sentence.
@@ -131,10 +128,6 @@ answer for that worker, the page should say what they do cover. Precision
 about the gap is part of making the page useful.
 
 ## 🧰 Options to examine
-
-These are agent-proposed preparation options for review through the existing
-protocols. They are questions for research and deliberation, not instructions
-issued to households or countries.
 
 | Actor | Useful preparation question | Evidence needed before a consequential decision |
 | --- | --- | --- |

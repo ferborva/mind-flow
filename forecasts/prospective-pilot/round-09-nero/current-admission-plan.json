@@ -1,0 +1,28 @@
+{
+  "artifact_type": "forecast-current-admission-plan",
+  "schema_version": "1.0.0",
+  "id": "forecast-current-admission.nero.5311.102.october-2026.v1",
+  "forecast_id": "forecast.nero.5311.102.october-2026.v1",
+  "plan_effect": "admission-overlay-only",
+  "registered_plan": {
+    "path": "evaluation-plan.json",
+    "sha256": "sha256:ec32142eecadc4da252970b07d53054e77aba9da33017a71a92ada904228bccd",
+    "registered_plan_checksum": "sha256:c734176e99f19caf0247b3d411180a26d6740ded558d88dfd3f84728dbe48a4a"
+  },
+  "issued_record": {
+    "path": "issued.json",
+    "sha256": "sha256:b69cab97b86b7aa5b3c863201133de5a69053b5aa42ed95138b74af1b3a25969"
+  },
+  "preregistration": {
+    "path": "preregistration.json",
+    "sha256": "sha256:e130dd9cf7e4b80f04b82117e18382d80960bfa64bf7c54cae42492fb8313d2a"
+  },
+  "resolver_parameters": {
+    "path": "resolver-parameters.json",
+    "sha256": "sha256:100400dc37b96b77d052725acc40e280a6d62c8352357e414e51372f6bcdbca2"
+  },
+  "error_disclosure": {
+    "path": "error-disclosure.json",
+    "sha256": "sha256:5d22a62178bac7c599c86abe8c2a47c284e1da2dc3b4c74933ed1b0bf3caa157"
+  }
+}

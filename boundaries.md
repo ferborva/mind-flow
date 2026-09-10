@@ -4,7 +4,7 @@ title: Evidence and authority boundaries
 type: public-guide-proposal
 status: review
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-09
 updated: 2026-09-09
 ---

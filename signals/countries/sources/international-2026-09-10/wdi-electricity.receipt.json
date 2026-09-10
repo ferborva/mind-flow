@@ -1,0 +1,13 @@
+{
+  "id": "wdi-electricity",
+  "url": "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.ACCS.ZS?source=2&format=json&per_page=30000",
+  "final_url": "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.ACCS.ZS?source=2&format=json&per_page=30000",
+  "started_at": "2026-09-10T01:15:21.639Z",
+  "ended_at": "2026-09-10T01:15:22.698Z",
+  "status": 200,
+  "body_sha256": "sha256:9b78c10ee45b8e8da6624f8d47e47d43045262aaf2c759d3c9e8655da635374f",
+  "body_byte_length": 3908341,
+  "headers_sha256": "sha256:61939b596399d81dae08f98c819648a6639eb040cd6db19c295cbec893a0cb49",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

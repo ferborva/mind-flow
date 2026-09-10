@@ -15,6 +15,11 @@ const REPOSITORY_REGISTERS = new Set([
   "meta/themes.md",
 ]);
 const TEMPORAL_KEYS = ["created", "received", "retrieved", "reviewed_on", "submitted", "date"];
+// Maintained publication/governance surfaces, including future files in these
+// roots. Historical reviews, imported sources/foundation and sealed forecast
+// dependencies are not silently re-authored to satisfy a display-name rule.
+export const CURRENT_AUTHOR_ROOTS = Object.freeze(["drafts", "posts", "books", "governance"]);
+export const CURRENT_AUTHOR_PATHS = Object.freeze(["boundaries.md"]);
 
 export const ALLOWED_CONTENT_TYPES = Object.freeze(new Set([
   "amendment-proposal",
@@ -125,6 +130,10 @@ export function lintMarkdown(path, markdown) {
   }
 
   const [root] = normalisedPath.split("/");
+  const author = (values.author || "").replace(/^(["'])(.*)\1$/, "$2");
+  if ((CURRENT_AUTHOR_ROOTS.includes(root) || CURRENT_AUTHOR_PATHS.includes(normalisedPath)) && /^ren$/i.test(author) && author !== "Ren") {
+    errors.push(issue(root === "drafts" ? "DRAFT_AUTHOR_CASING" : "CURRENT_AUTHOR_CASING", normalisedPath, "current author display name must use Ren, not a casing variant"));
+  }
   if (PIPELINE_ROOTS.has(root) && !normalisedPath.startsWith("meta/templates/")) {
     const expected = basename(normalisedPath, ".md");
     if (values.id !== expected) {

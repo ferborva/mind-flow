@@ -1,0 +1,66 @@
+{
+  "id": "primary-care-depth-sources-2026-09-10",
+  "acquisition": "Each original body and response-header pair retained by one curl HTTPS request; redirects retained in headers.",
+  "artifacts": [
+    {
+      "id": "abs-methodology",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-methodology.source.txt",
+      "source_url": "https://www.abs.gov.au/methodologies/patient-experiences-methodology/2024-25",
+      "publisher": "Australian Bureau of Statistics",
+      "sha256": "sha256:3896dafee7967fc407804b3750fbdd0758f69609d82dae43c2cd220420414694",
+      "byte_length": 150457,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-methodology.response-headers.txt",
+      "headers_sha256": "sha256:740b1b334db995780384848286bab03bb395818a4e276773b7caa60683df9144",
+      "http_date": "Wed, 09 Sep 2026 23:59:36 GMT",
+      "publication_date": "2025-11-18",
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "abs-after-hours",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-after-hours.xlsx",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "publisher": "Australian Bureau of Statistics",
+      "sha256": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "byte_length": 71122,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-after-hours.response-headers.txt",
+      "headers_sha256": "sha256:67fce629a5772776f7bac9019e6f5fa9cc45398cb65fc78c2104e265bc13e671",
+      "http_date": "Thu, 10 Sep 2026 00:00:09 GMT",
+      "publication_date": "2025-11-18",
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "pbs-patient-charges",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-patient-charges.source.txt",
+      "source_url": "https://www.pbs.gov.au/info/healthpro/explanatory-notes/section1/Section_1_4_Explanatory_Notes",
+      "publisher": "Australian Government PBS",
+      "sha256": "sha256:cec28ad47583d370c67a1caa255711d21fda714628d27ebcdf12f981cb6d78bb",
+      "byte_length": 133059,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-patient-charges.response-headers.txt",
+      "headers_sha256": "sha256:77cce8747fd42151ddb5e31578901d7561ace28393e8789c5f98b436e7680d5c",
+      "http_date": "Thu, 10 Sep 2026 00:00:00 GMT",
+      "publication_date": null,
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "pbs-safety-net",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-safety-net.source.txt",
+      "source_url": "https://www.pbs.gov.au/info/healthpro/explanatory-notes/section1/Section_1_5_Explanatory_Notes",
+      "publisher": "Australian Government PBS",
+      "sha256": "sha256:232dfd46a4e25aae8380093f40e058d6ab1a85f6e23a05fbbed0b97eda9327a7",
+      "byte_length": 144267,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-safety-net.response-headers.txt",
+      "headers_sha256": "sha256:9767b6e22b6bfded230b50aa90d58bc7642916cf46e1f2649dcebfb085ea596b",
+      "http_date": "Thu, 10 Sep 2026 00:00:04 GMT",
+      "publication_date": null,
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    }
+  ]
+}

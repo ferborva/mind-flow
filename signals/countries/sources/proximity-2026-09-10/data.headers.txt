@@ -1,0 +1,25 @@
+accept-ranges: bytes
+access-control-allow-origin: *
+access-control-expose-headers: x-ms-request-id,Server,x-ms-version,x-ms-version-id,x-ms-is-current-version,Content-Type,ETag,Last-Modified,x-ms-creation-time,x-ms-blob-content-md5,x-ms-lease-status,x-ms-lease-state,x-ms-blob-type,x-ms-server-encrypted,x-ms-access-tier,x-ms-access-tier-inferred,Accept-Ranges,Content-Length,Date,Transfer-Encoding
+cache-control: public, max-age=1800
+connection: keep-alive
+content-length: 59926
+content-type: application/octet-stream
+date: Thu, 10 Sep 2026 01:36:00 GMT
+etag: "0x8DD594C2FEFF910"
+last-modified: Sun, 02 Mar 2025 05:36:31 GMT
+x-azure-ref: 20260910T013559Z-15c7dc54cfd8pmclhC1SYDneec00000002yg000000001srn
+x-cache: TCP_MISS
+x-fd-int-roxy-purgeid: 0
+x-ms-access-tier: Hot
+x-ms-access-tier-inferred: true
+x-ms-blob-content-md5: 5sxrqJ5znq73hnkoJ439hg==
+x-ms-blob-type: BlockBlob
+x-ms-creation-time: Sun, 02 Mar 2025 05:36:31 GMT
+x-ms-is-current-version: true
+x-ms-lease-state: available
+x-ms-lease-status: unlocked
+x-ms-request-id: 2a2a5a63-601e-0008-44c4-4033c5000000
+x-ms-server-encrypted: true
+x-ms-version: 2023-11-03
+x-ms-version-id: 2025-03-02T05:36:31.3131040Z

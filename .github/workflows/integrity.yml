@@ -34,7 +34,7 @@ jobs:
       - name: Run the complete test contract
         run: npm test
 
-      - name: Verify the retained Round 6 review receipt
+      - name: Verify the retained Round 06 review receipt
         run: >-
           node meta/review-freeze/review-freeze.mjs verify
           --policy=round-06
@@ -57,6 +57,27 @@ jobs:
           node meta/review-freeze/review-freeze.mjs verify
           --policy=round-08
           --manifest=meta/review-freeze/round-08.1.review-freeze.json
+
+      - name: Verify the retained Round 9 review receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-09
+          --manifest=meta/review-freeze/round-09.review-freeze.json
+
+      - name: Verify the retained Round 9 pre-steer receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-09-initial
+          --manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json
+
+      - name: Verify the retained Round 9.1 repair receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-09.1
+          --manifest=meta/review-freeze/round-09.1.review-freeze.json
+
+      - name: Check the current Round 09 forecast error disclosure
+        run: node forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs
 
       - name: Reproduce the timing-contract migration
         run: node dashboard/tools/migrate-timing-contract.mjs --check
@@ -88,6 +109,15 @@ jobs:
           node pilots/australia/tools/positive-signals.mts --check
           node dashboard/tools/primary-care-panel.mts --check
           node meta/build-artifacts.mjs --check
+
+      - name: Reproduce retained Round 9 country measurements
+        run: |
+          node signals/countries/tools/country-set.mts --check
+          node signals/countries/tools/build-measurements.mjs --check
+          node signals/countries/weather-criteria-build.mjs --check
+          node signals/countries/capability-candidate.mts --check
+          node signals/countries/tools/permission-candidate.mjs --check
+          node signals/countries/tools/render-country-view.mjs --check
 
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"

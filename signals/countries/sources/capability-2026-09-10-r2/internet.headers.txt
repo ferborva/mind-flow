@@ -1,0 +1,19 @@
+access-control-allow-headers: X-Requested-With
+access-control-allow-methods: GET
+access-control-allow-origin: *
+cache-control: public, max-age=66679
+cf-cache-status: MISS
+cf-ray: a38aab03bdc5334e-SYD
+connection: keep-alive
+content-encoding: gzip
+content-type: application/json;charset=utf-8
+date: Thu, 10 Sep 2026 01:30:33 GMT
+expires: Thu, 10 Sep 2026 20:01:52 GMT
+last-modified: Wed, 09 Sep 2026 20:01:52 GMT
+request-context: appId=cid-v1:da002513-bd8b-4441-9f30-737944134422
+server: cloudflare
+set-cookie: __cf_bm=NeVahhgvJboRDNW7NGOM_HDgs1XLJygl9mfm7oxLW5A-1789003832.9188206-1.0.1.1-cHUGhp3rSXoKDeyd_1uQl2HCWJA6sIu5kQ0M67mZ6N.HhZHnYaxaX_3ZNzSYIFyS3I.U.pvwxHPRjD.yxrrq9mX2UVnJvGRNZ7auRA.UbJDf9XTwJUG8JOuomoxTsdtQ; HttpOnly; SameSite=None; Secure; Path=/; Domain=worldbank.org; Expires=Thu, 10 Sep 2026 02:00:33 GMT
+set-cookie: _cfuvid=mP6h6HAs1xIHBSqWxC5mbXCfFUbdAqVc_QlnJzSgI3I-1789003832.9188206-1.0.1.1-OpExO6vWgRNk_1qk.FMvyHOillWj3gVvqGg8BCm674M; HttpOnly; SameSite=None; Secure; Path=/; Domain=worldbank.org
+transfer-encoding: chunked
+vary: accept-encoding
+x-powered-by: ASP.NET

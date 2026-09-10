@@ -1,0 +1,701 @@
+{
+  "id": "country-weather-criteria.v1",
+  "provenance": "commissioned-proposal",
+  "author": "Ren",
+  "proposed_at": "2026-09-10T01:23:27Z",
+  "measurement_file": "signals/countries/measurements.v1.json",
+  "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
+  "country_set_sha256": "sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f",
+  "method_file": "signals/countries/weather-criteria.v1.md",
+  "method_sha256": "sha256:b5367d0a73aa0dd7a727ecdf21d02d998abe0299a9adc3279efb149536fafdeb",
+  "status": "proposed-unassessed-comparability",
+  "adopted": false,
+  "storm_detection_performed": false,
+  "storm_detected": null,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "publication_approved": false,
+  "real_evolution_events_added": 0,
+  "registered_observations": [],
+  "entries": [
+    {
+      "source_sha256": "sha256:28813d8e4499cf3941cb24f4e1a662590b0f3c5d9bbb1ea0f3ed22041161ea5a",
+      "source_file": "signals/countries/sources/international-2026-09-10/wdi-cpi.body",
+      "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
+      "signal": {
+        "signal_id": "signal.country-weather.aus.cpi-annual-change",
+        "definition_version": "1.0.0",
+        "label": "Proposed Australian cpi-annual-change own-history midrank",
+        "construct": "Relative magnitude of annual movement, not a storm or agency measure",
+        "population": "Australia; source construct: Inflation as measured by the consumer price index reflects the annual percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly.",
+        "estimand": "Research-only tail position; Headline typical-consumer basket price change, not an essentials basket price level, household affordability, local prices or AI effects.",
+        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is the annual CPI percentage-change rate itself. Country-specific comparability review required and absent. Measurement bytes sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f; vintage WDI lastupdated 2026-07-13.",
+        "projection_policy": "exact-scope-only",
+        "source_schema_ref": "signals/countries/sources/international-2026-09-10/wdi-cpi.body#sha256:28813d8e4499cf3941cb24f4e1a662590b0f3c5d9bbb1ea0f3ed22041161ea5a",
+        "value_kind": "number",
+        "unit": "ratio",
+        "value_range": {
+          "minimum": 0,
+          "maximum": 1
+        },
+        "signal_definition_hash": "sha256:2e79652fb11cd7a48f1c58860399f16272a2ed0b85b3eea9a9a149bd6ed58ae2"
+      },
+      "definition": {
+        "condition_id": "condition.country-weather.aus.cpi-annual-change",
+        "condition_category": "price",
+        "definition_version": "1.0.0",
+        "proposition": "The scoped annual movement meets the proposed own-history investigation threshold, not a detected storm.",
+        "claim": {
+          "who": "Australia; Inflation as measured by the consumer price index reflects the annual percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly.",
+          "verb": "meet",
+          "object": "the proposed own-history movement investigation threshold",
+          "standard": "Midrank at least 0.90 against ten preceding comparable annual movements; not a warning or causal claim",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-09-10T01:23:27Z",
+            "ends_at": "2027-09-10T01:23:27Z"
+          }
+        },
+        "effective_from": "2026-09-10T01:23:27Z",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Inflation as measured by the consumer price index reflects the annual percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly."
+          ],
+          "services": [
+            "Country-level cpi-annual-change context review"
+          ]
+        },
+        "predicates": {
+          "tail": {
+            "signal_ref": {
+              "signal_id": "signal.country-weather.aus.cpi-annual-change",
+              "definition_version": "1.0.0",
+              "signal_definition_hash": "sha256:2e79652fb11cd7a48f1c58860399f16272a2ed0b85b3eea9a9a149bd6ed58ae2"
+            },
+            "operator": "gte",
+            "threshold": {
+              "value": 0.9,
+              "unit": "ratio"
+            },
+            "window": {
+              "lookback_days": 365,
+              "minimum_observations": 1,
+              "persistence": 1,
+              "maximum_age_days": 365
+            },
+            "source_policy": {
+              "minimum_distinct_source_ids": 1,
+              "minimum_distinct_artifact_hashes": 1,
+              "minimum_coverage_ratio": 1,
+              "agreement": "unanimous-per-period"
+            },
+            "missing_result": "unknown",
+            "stale_result": "stale",
+            "conflict_result": "conflicted"
+          }
+        },
+        "truth_expression": {
+          "predicate_ref": "tail"
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+          "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+          "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "classification": "research-draft",
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "definition_hash": "sha256:fa1edcb481c8af608e7aa744f1aa193b220a08058ce3350214247159577dc373"
+      },
+      "source_series": "cpi-annual-change",
+      "vintage": "WDI lastupdated 2026-07-13",
+      "history_eligibility": {
+        "country": "AUS",
+        "reference_year": 2025,
+        "prior_movement_years": [
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "numeric_history_complete": true,
+        "rows": [
+          {
+            "country": "AUS",
+            "year": 2015,
+            "value": 1.50836803138463,
+            "observation_status": "",
+            "source_selector": "$[1][3838]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2016,
+            "value": 1.27699365720306,
+            "observation_status": "",
+            "source_selector": "$[1][3837]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2017,
+            "value": 1.94864309065653,
+            "observation_status": "",
+            "source_selector": "$[1][3836]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2018,
+            "value": 1.91140002818579,
+            "observation_status": "",
+            "source_selector": "$[1][3835]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2019,
+            "value": 1.610770929127,
+            "observation_status": "",
+            "source_selector": "$[1][3834]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2020,
+            "value": 0.846900734607273,
+            "observation_status": "",
+            "source_selector": "$[1][3833]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2021,
+            "value": 2.86391284709318,
+            "observation_status": "",
+            "source_selector": "$[1][3832]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2022,
+            "value": 6.59409658717841,
+            "observation_status": "",
+            "source_selector": "$[1][3831]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2023,
+            "value": 5.59701792296707,
+            "observation_status": "",
+            "source_selector": "$[1][3830]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2024,
+            "value": 3.16656665428797,
+            "observation_status": "",
+            "source_selector": "$[1][3829]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2025,
+            "value": 2.87403791660173,
+            "observation_status": "",
+            "source_selector": "$[1][3828]",
+            "modelled": null
+          }
+        ],
+        "gaps": [],
+        "comparability": "unassessed",
+        "comparability_required": "Country-specific basket, population, survey/model, boundary and definition continuity review across the entire retained interval.",
+        "rank": null,
+        "storm_detection_performed": false,
+        "storm_detected": null,
+        "authority_effect": "none",
+        "action_authorised": false
+      }
+    },
+    {
+      "source_sha256": "sha256:9b78c10ee45b8e8da6624f8d47e47d43045262aaf2c759d3c9e8655da635374f",
+      "source_file": "signals/countries/sources/international-2026-09-10/wdi-electricity.body",
+      "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
+      "signal": {
+        "signal_id": "signal.country-weather.aus.electricity-access",
+        "definition_version": "1.0.0",
+        "label": "Proposed Australian electricity-access own-history midrank",
+        "construct": "Relative magnitude of annual movement, not a storm or agency measure",
+        "population": "Australia; source construct: Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
+        "estimand": "Research-only tail position; Population electricity-access share, not continuous/reliable/affordable usable service, compute capacity or a diagnosed binding condition.",
+        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is signed annual percentage-point difference of levels. Country-specific comparability review required and absent. Measurement bytes sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f; vintage WDI lastupdated 2026-07-13.",
+        "projection_policy": "exact-scope-only",
+        "source_schema_ref": "signals/countries/sources/international-2026-09-10/wdi-electricity.body#sha256:9b78c10ee45b8e8da6624f8d47e47d43045262aaf2c759d3c9e8655da635374f",
+        "value_kind": "number",
+        "unit": "ratio",
+        "value_range": {
+          "minimum": 0,
+          "maximum": 1
+        },
+        "signal_definition_hash": "sha256:f0c9d7423c3c07b7388e03252e8e3c7036b2e17628b691d1618bc8e8335429a9"
+      },
+      "definition": {
+        "condition_id": "condition.country-weather.aus.electricity-access",
+        "condition_category": "availability",
+        "definition_version": "1.0.0",
+        "proposition": "The scoped annual movement meets the proposed own-history investigation threshold, not a detected storm.",
+        "claim": {
+          "who": "Australia; Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
+          "verb": "meet",
+          "object": "the proposed own-history movement investigation threshold",
+          "standard": "Midrank at least 0.90 against ten preceding comparable annual movements; not a warning or causal claim",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-09-10T01:23:27Z",
+            "ends_at": "2027-09-10T01:23:27Z"
+          }
+        },
+        "effective_from": "2026-09-10T01:23:27Z",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources."
+          ],
+          "services": [
+            "Country-level electricity-access context review"
+          ]
+        },
+        "predicates": {
+          "tail": {
+            "signal_ref": {
+              "signal_id": "signal.country-weather.aus.electricity-access",
+              "definition_version": "1.0.0",
+              "signal_definition_hash": "sha256:f0c9d7423c3c07b7388e03252e8e3c7036b2e17628b691d1618bc8e8335429a9"
+            },
+            "operator": "gte",
+            "threshold": {
+              "value": 0.9,
+              "unit": "ratio"
+            },
+            "window": {
+              "lookback_days": 365,
+              "minimum_observations": 1,
+              "persistence": 1,
+              "maximum_age_days": 365
+            },
+            "source_policy": {
+              "minimum_distinct_source_ids": 1,
+              "minimum_distinct_artifact_hashes": 1,
+              "minimum_coverage_ratio": 1,
+              "agreement": "unanimous-per-period"
+            },
+            "missing_result": "unknown",
+            "stale_result": "stale",
+            "conflict_result": "conflicted"
+          }
+        },
+        "truth_expression": {
+          "predicate_ref": "tail"
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+          "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+          "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "classification": "research-draft",
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "definition_hash": "sha256:00dcf60b51658fb43c8bd35b02f7244f1539961a91579fddd7c68b697e8f66eb"
+      },
+      "source_series": "electricity-access",
+      "vintage": "WDI lastupdated 2026-07-13",
+      "history_eligibility": {
+        "country": "AUS",
+        "reference_year": 2024,
+        "prior_movement_years": [
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023
+        ],
+        "numeric_history_complete": true,
+        "rows": [
+          {
+            "country": "AUS",
+            "year": 2013,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3840]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2014,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3839]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2015,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3838]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2016,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3837]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2017,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3836]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2018,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3835]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2019,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3834]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2020,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3833]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2021,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3832]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2022,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3831]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2023,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3830]",
+            "modelled": null
+          },
+          {
+            "country": "AUS",
+            "year": 2024,
+            "value": 100,
+            "observation_status": "",
+            "source_selector": "$[1][3829]",
+            "modelled": null
+          }
+        ],
+        "gaps": [],
+        "comparability": "unassessed",
+        "comparability_required": "Country-specific basket, population, survey/model, boundary and definition continuity review across the entire retained interval.",
+        "rank": null,
+        "storm_detection_performed": false,
+        "storm_detected": null,
+        "authority_effect": "none",
+        "action_authorised": false
+      }
+    },
+    {
+      "source_sha256": "sha256:0a9f3339226b6fa2073ad50552ed57613d630795a5b593d6d60f728770fbf48b",
+      "source_file": "signals/countries/sources/international-2026-09-10/ilo-labour-share.body",
+      "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
+      "signal": {
+        "signal_id": "signal.country-weather.aus.labour-income-share",
+        "definition_version": "1.0.0",
+        "label": "Proposed Australian labour-income-share own-history midrank",
+        "construct": "Relative magnitude of annual movement, not a storm or agency measure",
+        "population": "Australia; source construct: Labour income share as a percent of GDP -- ILO modelled estimates, Nov. 2025 (%)",
+        "estimand": "Research-only tail position; Aggregate labour-income distribution context only, not earnings of a particular household, affordability, AI occupation exposure or causal AI effects.",
+        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is signed annual percentage-point difference of levels. Country-specific comparability review required and absent. Measurement bytes sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f; vintage ILO modelled estimates Nov. 2025; TOC last.update 20/03/2026 12:54:04 (publisher supplies no timezone).",
+        "projection_policy": "exact-scope-only",
+        "source_schema_ref": "signals/countries/sources/international-2026-09-10/ilo-labour-share.body#sha256:0a9f3339226b6fa2073ad50552ed57613d630795a5b593d6d60f728770fbf48b",
+        "value_kind": "number",
+        "unit": "ratio",
+        "value_range": {
+          "minimum": 0,
+          "maximum": 1
+        },
+        "signal_definition_hash": "sha256:f12bf3295d752979a6e6127148f095956c011a3cad3317118bf3ac8ffd84d7f5"
+      },
+      "definition": {
+        "condition_id": "condition.country-weather.aus.labour-income-share",
+        "condition_category": "price",
+        "definition_version": "1.0.0",
+        "proposition": "The scoped annual movement meets the proposed own-history investigation threshold, not a detected storm.",
+        "claim": {
+          "who": "Australia; Labour income share as a percent of GDP -- ILO modelled estimates, Nov. 2025 (%)",
+          "verb": "meet",
+          "object": "the proposed own-history movement investigation threshold",
+          "standard": "Midrank at least 0.90 against ten preceding comparable annual movements; not a warning or causal claim",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-09-10T01:23:27Z",
+            "ends_at": "2027-09-10T01:23:27Z"
+          }
+        },
+        "effective_from": "2026-09-10T01:23:27Z",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "Australia"
+          ],
+          "cohorts": [
+            "Labour income share as a percent of GDP -- ILO modelled estimates, Nov. 2025 (%)"
+          ],
+          "services": [
+            "Country-level labour-income-share context review"
+          ]
+        },
+        "predicates": {
+          "tail": {
+            "signal_ref": {
+              "signal_id": "signal.country-weather.aus.labour-income-share",
+              "definition_version": "1.0.0",
+              "signal_definition_hash": "sha256:f12bf3295d752979a6e6127148f095956c011a3cad3317118bf3ac8ffd84d7f5"
+            },
+            "operator": "gte",
+            "threshold": {
+              "value": 0.9,
+              "unit": "ratio"
+            },
+            "window": {
+              "lookback_days": 365,
+              "minimum_observations": 1,
+              "persistence": 1,
+              "maximum_age_days": 365
+            },
+            "source_policy": {
+              "minimum_distinct_source_ids": 1,
+              "minimum_distinct_artifact_hashes": 1,
+              "minimum_coverage_ratio": 1,
+              "agreement": "unanimous-per-period"
+            },
+            "missing_result": "unknown",
+            "stale_result": "stale",
+            "conflict_result": "conflicted"
+          }
+        },
+        "truth_expression": {
+          "predicate_ref": "tail"
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+          "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+          "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "classification": "research-draft",
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "definition_hash": "sha256:8da72417571d005ec4e4a88df07169681d6c30f7506699ab8bca4570066184cf"
+      },
+      "source_series": "labour-income-share",
+      "vintage": "ILO modelled estimates Nov. 2025; TOC last.update 20/03/2026 12:54:04 (publisher supplies no timezone)",
+      "history_eligibility": {
+        "country": "AUS",
+        "reference_year": 2025,
+        "prior_movement_years": [
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "numeric_history_complete": true,
+        "rows": [
+          {
+            "country": "AUS",
+            "year": 2014,
+            "value": 59.371,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 152; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2014"
+          },
+          {
+            "country": "AUS",
+            "year": 2015,
+            "value": 59.547,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 151; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2015"
+          },
+          {
+            "country": "AUS",
+            "year": 2016,
+            "value": 58.111,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 150; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2016"
+          },
+          {
+            "country": "AUS",
+            "year": 2017,
+            "value": 58.059,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 149; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2017"
+          },
+          {
+            "country": "AUS",
+            "year": 2018,
+            "value": 57.1,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 148; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2018"
+          },
+          {
+            "country": "AUS",
+            "year": 2019,
+            "value": 59.244,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 147; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2019"
+          },
+          {
+            "country": "AUS",
+            "year": 2020,
+            "value": 58.09,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 146; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2020"
+          },
+          {
+            "country": "AUS",
+            "year": 2021,
+            "value": 56.124,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 145; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2021"
+          },
+          {
+            "country": "AUS",
+            "year": 2022,
+            "value": 55.791,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 144; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2022"
+          },
+          {
+            "country": "AUS",
+            "year": 2023,
+            "value": 57.51,
+            "observation_status": "",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 143; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2023"
+          },
+          {
+            "country": "AUS",
+            "year": 2024,
+            "value": 58.802,
+            "observation_status": "M",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 142; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2024"
+          },
+          {
+            "country": "AUS",
+            "year": 2025,
+            "value": 58.322,
+            "observation_status": "M",
+            "modelled": true,
+            "native_source": "XA:2202",
+            "source_selector": "CSV record 141; ref_area=AUS; source=XA:2202; indicator=LAP_2GDP_NOC_RT; time=2025"
+          }
+        ],
+        "gaps": [],
+        "comparability": "unassessed",
+        "comparability_required": "Country-specific basket, population, survey/model, boundary and definition continuity review across the entire retained interval.",
+        "rank": null,
+        "storm_detection_performed": false,
+        "storm_detected": null,
+        "authority_effect": "none",
+        "action_authorised": false
+      }
+    }
+  ]
+}

@@ -521,6 +521,76 @@ test("Round 08 policy binds measurements and exact generated outputs without cha
   assert.ok(policy.build_commands.some(({ argv }) => argv.includes("forecasts/prospective-pilot/tests/round-08-nero-issued.test.mjs")));
 });
 
+test("Round 09 has its own policy identity and requires measurement, intake and narrative checks", () => {
+  const previous = JSON.stringify(reviewPolicyFor('round-08'));
+  const policy = reviewPolicyFor('round-09');
+  assert.equal(policy.policy_id, 'review-freeze.round-09');
+  assert.equal(policy.review_round, 'round-09');
+  assert.equal(policy.reviewed_ref, 'ren/round-09');
+  const paths = new Set(policy.required_files.map(x => x.path));
+  for (const path of [
+    'meta/round-09-external-review-brief.md', 'reviews/round-09-progress.md',
+    'reviews/round-09-narrative-provenance.md', 'reviews/round-09-forecast-intake.md',
+    'pilots/australia/data/primary-care-depth-2026-09-10.r2.json',
+    'pilots/australia/data/round-09-evolution-discoveries.json',
+    'forecasts/prospective-pilot/round-09-nero/issued.json',
+    'forecasts/prospective-pilot/round-09-nero/preregistration.json',
+    'forecasts/prospective-pilot/issuance-binding/round-09-validate.mjs',
+    'reviews/round-09-forecast-correction.md',
+    'forecasts/prospective-pilot/round-09-nero/error-notice.md',
+    'forecasts/prospective-pilot/round-09-nero-corrected/target-policy.mjs',
+    'forecasts/prospective-pilot/issuance-binding/round-09-corrected-validate.mjs',
+    'forecasts/prospective-pilot/round-09-nero-corrected/resolution-intake.mjs',
+    'forecasts/prospective-pilot/operational-clock.mjs',
+    'meta/build-artifacts.lock.json',
+  ]) assert.ok(paths.has(path), path);
+  for (const id of ['measurement-depth-check', 'evolution-discovery-check', 'round-09-prospective-issuance-check', 'round-09-narrative-check']) {
+    assert.ok(policy.build_commands.some(c => c.command_id === id), id);
+  }
+  assert.equal(JSON.stringify(reviewPolicyFor('round-08')), previous);
+  assert.equal(new Set(policy.build_commands.map(c => c.command_id)).size, policy.build_commands.length);
+  assert.equal(paths.size, policy.required_files.length);
+});
+
+test('revised Round 09 freezes country breadth without reinterpreting its pre-steer receipt', () => {
+  const current = reviewPolicyFor('round-09');
+  assert.equal(current.policy_version, '1.1.0');
+  const historical = reviewPolicyFor('round-09-initial');
+  assert.equal(historical.policy_version, '1.0.0');
+  assert.equal(historical.policy_id, 'review-freeze.round-09');
+  const paths = new Set(current.required_files.map(x => x.path));
+  for (const path of ['signals/countries/country-set.v1.json',
+    'signals/countries/measurements.v1.json', 'signals/countries/storm-signals.v1.md',
+    'signals/countries/weather-criteria.v1.json',
+    'reviews/round-09-scheduled-resolution.md']) assert.ok(paths.has(path), path);
+  for (const id of ['country-set-check', 'country-measurements-check', 'country-weather-criteria-check', 'country-capability-check'])
+    assert.ok(current.build_commands.some(c => c.command_id === id), id);
+  assert.equal(historical.required_files.some(x => x.path.startsWith('signals/countries/')), false);
+  assert.ok(current.build_commands.some(c => c.command_id === 'round-09-pre-steer-receipt-check'
+    && c.argv.includes('--policy=round-09-initial')
+    && c.argv.includes('--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json')));
+});
+
+test('Round 09.1 gets distinct policy and freeze identities without relabelling retained receipts', () => {
+  const original = ['round-08', 'round-09-initial', 'round-09'].map(name => JSON.stringify(reviewPolicyFor(name)));
+  const policy = reviewPolicyFor('round-09.1');
+  assert.equal(policy.policy_id, 'review-freeze.round-09.1');
+  assert.equal(policy.review_round, 'round-09.1');
+  assert.equal(policy.reviewed_ref, 'ren/round-09');
+  assert.equal(policy.policy_version, '1.0.0');
+  const paths = new Set(policy.required_files.map(item => item.path));
+  for (const path of ['reviews/round-09.1-dispositions.md',
+    'contracts/executable-if/construct-correction-policy.md',
+    'forecasts/prospective-pilot/round-09-nero/current-admission-plan.json',
+    'forecasts/prospective-pilot/round-09-nero/error-disclosure.json',
+    'meta/review-freeze/round-09.review-freeze.json']) assert.ok(paths.has(path), path);
+  assert.equal(paths.size, policy.required_files.length);
+  assert.equal(new Set(policy.build_commands.map(item => item.command_id)).size, policy.build_commands.length);
+  assert.ok(policy.build_commands.some(command => command.argv.includes('--policy=round-09') &&
+    command.argv.includes('--manifest=meta/review-freeze/round-09.review-freeze.json')));
+  assert.deepEqual(['round-08', 'round-09-initial', 'round-09'].map(name => JSON.stringify(reviewPolicyFor(name))), original);
+});
+
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
   const root = fixtureRepository();
   try {

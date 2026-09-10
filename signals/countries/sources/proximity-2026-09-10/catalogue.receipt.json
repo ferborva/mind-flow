@@ -1,0 +1,12 @@
+{
+  "url": "https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0038250/rural-access-index-rai",
+  "final_url": "https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0038250/rural-access-index-rai",
+  "status": 200,
+  "started_at": "2026-09-10T01:35:57.274Z",
+  "ended_at": "2026-09-10T01:35:58.898Z",
+  "body_byte_length": 119873,
+  "body_sha256": "sha256:7e6004d4ffbbe6d23f7d45b361dcc6db4d7631c8fcd8c1d4ff43cc0c7fef9fac",
+  "headers_sha256": "sha256:64cb060b04502b55c111acfdcb4e7d7ce923e8b5be3420bc26d653f5e421f2ac",
+  "representation": "complete HTTP body after content decoding; actual Fetch headers serialised name: value",
+  "publisher_identity_verified": false
+}

@@ -1,0 +1,17 @@
+age: 207
+cache-control: public, max-age=86400
+cf-cache-status: HIT
+cf-ray: a38a94cb9cc0334e-SYD
+connection: keep-alive
+content-encoding: gzip
+content-type: application/json;charset=utf-8
+date: Thu, 10 Sep 2026 01:15:22 GMT
+expires: Fri, 11 Sep 2026 01:15:22 GMT
+last-modified: Thu, 10 Sep 2026 01:11:55 GMT
+request-context: appId=cid-v1:da002513-bd8b-4441-9f30-737944134422
+server: cloudflare
+set-cookie: __cf_bm=tIGDVaqnEak9D5BtUkzHSBEUeHIFQzUn.1XSPbjyVVI-1789002922.8193827-1.0.1.1-WWW6pGl3.0vYYpIYkYvAnKZBMAxKnR8clrPybgFajP.QRE0Z5o6u9hqG3Z.4jkn_dsv3P6fSSeYgwxCadftqtleHzzY50Av6A4eP6k_ABFBTTJte4XX5yt0U_iFVmwYR; HttpOnly; SameSite=None; Secure; Path=/; Domain=worldbank.org; Expires=Thu, 10 Sep 2026 01:45:22 GMT
+set-cookie: _cfuvid=mO2.Vvk5c_CpfJsN5_mXLJi.8ca2e9K6rlD4ybqYo7w-1789002922.8193827-1.0.1.1-_bfYkbTXHeaOr5ITagMV_UHea_XU6UwzvnFZ1oAlNi4; HttpOnly; SameSite=None; Secure; Path=/; Domain=worldbank.org
+transfer-encoding: chunked
+vary: accept-encoding
+x-powered-by: ASP.NET

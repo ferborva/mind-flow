@@ -1,0 +1,41 @@
+{
+  "machine_valid": true,
+  "binding_complete": true,
+  "records_structurally_valid_with_supplied_context": true,
+  "retained_baseline_artifact_bytes_matched": true,
+  "retained_resolver_artifact_bytes_matched": true,
+  "independent_anchor_verified": false,
+  "baseline_execution_independently_reproduced": false,
+  "baseline_execution_reproduced": true,
+  "preregistration_valid": true,
+  "mature_forecast_valid": true,
+  "eligible_for_issuance_review": true,
+  "issuance_authorised": false,
+  "content_addresses": {
+    "preregistration_sha256": "sha256:e130dd9cf7e4b80f04b82117e18382d80960bfa64bf7c54cae42492fb8313d2a",
+    "mature_forecast_sha256": "sha256:b69cab97b86b7aa5b3c863201133de5a69053b5aa42ed95138b74af1b3a25969"
+  },
+  "contract_identities": {
+    "mature_forecast": {
+      "schema_path": "forecasts/schema/binary-forecast.schema.json",
+      "schema_sha256": "sha256:f6db2e6418b83fd6f5b9d95b4a1cde1764e036834a4e157239db3b3e8a69b9fd",
+      "validator_path": "forecasts/lib/registry.mjs",
+      "validator_sha256": "sha256:fc0c09e24ebe339417ce9247e56f66df57af05ff9c2f8be64b2c95a7dff6f70b"
+    },
+    "preregistration": {
+      "schema_path": "forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json",
+      "schema_sha256": "sha256:330d2316dc5cfe70d4e2ff933cb48be3cc31a4240292a3220c82e6b4e398605a",
+      "validator_path": "forecasts/prospective-pilot/validate.mjs",
+      "validator_sha256": "sha256:d9befa4100d3822b03e7ca3bb1b7155c19380c73fe871772ab4d654c8f10f200"
+    }
+  },
+  "boundaries": {
+    "empirical_truth_established": false,
+    "causal_truth_established": false,
+    "authority_verified": false,
+    "action_authorised": false,
+    "publication_approved": false
+  },
+  "issues": [],
+  "blockers": []
+}

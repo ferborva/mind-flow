@@ -293,11 +293,128 @@ export const ROUND_08_REVIEW_POLICY = Object.freeze({
   ],
 });
 
+export const ROUND_09_INITIAL_REVIEW_POLICY = Object.freeze({
+  schema_version: '1.0.0', policy_id: 'review-freeze.round-09', policy_version: '1.0.0',
+  review_round: 'round-09', reviewed_ref: 'ren/round-09',
+  generated_outputs: ROUND_08_GENERATED_OUTPUTS,
+  required_files: [
+    ...ROUND_08_REVIEW_POLICY.required_files,
+    ...[
+      ['meta/round-09-external-review-brief.md', 'Round 09 eight-track frozen-candidate review charter'],
+      ['reviews/round-09-progress.md', 'Round 09 gates and honest blockers'],
+      ['reviews/round-09-residuals.md', 'Eight residual repair dispositions and fail-first evidence'],
+      ['reviews/round-09-adversarial-review.md', 'Different-owner measurement and protocol objections'],
+      ['reviews/round-09-narrative-provenance.md', 'Exact disclaimer deletions and protected voice'],
+      ['reviews/round-09-forecast-intake.md', 'First forecast blocker and prospective continuity'],
+      ['reviews/round-09-forecast-correction.md', 'Target contradiction, preserved error and peer-reviewed replacement'],
+      ['meta/build-artifacts.lock.json', 'Explicit retained generated-output digests'],
+      ['meta/review-freeze/round-08.1.review-freeze.json', 'Unchanged prior repair receipt'],
+      ['contracts/executable-if/when-an-if-changes.md', 'Readable event-12 invalidation and rebind'],
+      ['contracts/executable-if/tests/audit-layer-boundary.test.mjs', 'Disclosed sealed-evaluator and current-audit difference'],
+      ['pilots/australia/tools/measurement-depth.mts', 'Retained basket depth and confidence interval derivation'],
+      ['pilots/australia/data/primary-care-depth-2026-09-10.r2.json', 'Corrected Round 09 measurement depth'],
+      ['pilots/australia/sources/primary-care/2026-09-10-depth/capture.json', 'Exact measurement source and header manifest'],
+      ['pilots/australia/tools/current-primary-care.mts', 'Definition binding and byte parity as separate gates'],
+      ['pilots/australia/tools/evolution-discoveries.mts', 'Source-backed meaning corrections and representational blocker'],
+      ['pilots/australia/data/round-09-evolution-discoveries.json', 'Retained discoveries, not manufactured events'],
+      ['forecasts/prospective-pilot/round-09-nero/issued.json', 'Immutable first Round 09 issuance with disclosed target contradiction'],
+      ['forecasts/prospective-pilot/round-09-nero/preregistration.json', 'Immutable inconsistent protocol retained for audit'],
+      ['forecasts/prospective-pilot/round-09-nero/error-notice.md', 'Visible error in the first Round 09 issuance'],
+      ['forecasts/prospective-pilot/issuance-binding/round-09-validate.mjs', 'Retained first Round 09 admission edition'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/issued.json', 'Prospective corrected target issuance'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/preregistration.json', 'Corrected campaign protocol and registration binding'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/registration-provider-response.base64.txt', 'Corrected campaign provider response bytes'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/target-policy.mjs', 'One native target across prose and structured resolution'],
+      ['forecasts/prospective-pilot/issuance-binding/round-09-corrected-validate.mjs', 'Corrected sealed admission edition'],
+      ['forecasts/prospective-pilot/round-09-nero-corrected/resolution-intake.mjs', 'Current corrected outcome intake'],
+      ['forecasts/prospective-pilot/operational-clock.mjs', 'Actual-clock boundary for the live CLI'],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_08_REVIEW_POLICY.build_commands,
+    ...[
+      ['measurement-depth-check', ['node', 'pilots/australia/tools/measurement-depth.mts', '--check']],
+      ['evolution-discovery-check', ['node', 'pilots/australia/tools/evolution-discoveries.mts', '--check']],
+      ['round-09-prospective-issuance-check', ['npm', 'run', 'test:forecasts']],
+      ['round-09-narrative-check', ['node', '--test', 'communications/tests/round-09-deletions.test.mjs']],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: '.', timeout_ms: 900_000 })),
+  ],
+});
+
+// Preserve the exact policy projection of the successful pre-steer checkpoint.
+// The revised commission adds breadth, not a reinterpretation of that receipt.
+export const ROUND_09_REVIEW_POLICY = Object.freeze({
+  ...ROUND_09_INITIAL_REVIEW_POLICY,
+  policy_version: '1.1.0',
+  required_files: [
+    ...ROUND_09_INITIAL_REVIEW_POLICY.required_files,
+    ...[
+      ['capture/2026-09-10-where-the-money-sits-and-the-weather-station.md', 'Scope and observation capture integrated without changing main'],
+      ['seeds/the-weather-station-watches-the-world.md', 'Capture-backed world scope and unsettled choices'],
+      ['signals/countries/country-set.v1.json', 'Retained commissioned IMF top-50 sampling proposal'],
+      ['signals/countries/measurements.v1.json', 'Three common-vintage series and country-specific missing measurements'],
+      ['signals/countries/measurement-view.md', 'Fifty measured economies with source-linked values and named gaps'],
+      ['signals/countries/storm-signals.v1.md', 'Five-category candidate catalogue and evidence ceilings'],
+      ['signals/countries/weather-criteria.v1.md', 'Uncalibrated commissioned investigation rule, not detection'],
+      ['signals/countries/weather-criteria.v1.json', 'Existing-family threshold and domain bindings'],
+      ['signals/countries/capability-candidate.v1.json', 'Retained internet-use proxy, not practical capability'],
+      ['signals/countries/permission-candidate.v1.json', 'Retained WBL legal-rights context with edition-specific licence'],
+      ['signals/countries/proximity-candidate.v1.json', 'Sparse retained RAI data excluded from the breadth panel'],
+      ['signals/countries/proximity-candidate.md', 'Explicit separate legacy XLS replay dependency and coverage gap'],
+      ['reviews/round-09-scheduled-resolution.md', 'Exact future intake sequence and explicit unavailable scheduler'],
+      ['meta/review-freeze/round-09.pre-steer.review-freeze.json', 'Historical initial-scope checkpoint, not current handoff'],
+    ].map(([path, role]) => ({path, role})),
+  ],
+  build_commands: [
+    ...ROUND_09_INITIAL_REVIEW_POLICY.build_commands,
+    ...[
+      ['country-set-check', ['node', 'signals/countries/tools/country-set.mts', '--check']],
+      ['country-measurements-check', ['node', 'signals/countries/tools/build-measurements.mjs', '--check']],
+      ['country-weather-criteria-check', ['node', 'signals/countries/weather-criteria-build.mjs', '--check']],
+      ['country-capability-check', ['node', 'signals/countries/capability-candidate.mts', '--check']],
+      ['country-permission-check', ['node', 'signals/countries/tools/permission-candidate.mjs', '--check']],
+      ['country-reader-check', ['node', 'signals/countries/tools/render-country-view.mjs', '--check']],
+      ['round-09-pre-steer-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09-initial', '--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json']],
+    ].map(([command_id, argv]) => ({command_id, argv, cwd: '.', timeout_ms: 900_000})),
+  ],
+});
+
+// A repair is a new attestation, never a renamed historical receipt.
+export const ROUND_09_1_REVIEW_POLICY = Object.freeze({
+  ...ROUND_09_REVIEW_POLICY,
+  policy_id: 'review-freeze.round-09.1', policy_version: '1.0.0', review_round: 'round-09.1',
+  required_files: [
+    ...ROUND_09_REVIEW_POLICY.required_files,
+    ...[
+      ['reviews/round-09.1-dispositions.md', 'Every independent finding, repair evidence and remaining gates'],
+      ['reviews/round-09.1-editorial-repairs.md', 'Forward amendments and honest disclaimer inventory'],
+      ['reviews/round-09.1-forecast-repairs.md', 'Typed error disclosure and preserved prospective evidence'],
+      ['contracts/executable-if/construct-correction-policy.md', 'New-identity decision with unfinished migration explicit'],
+      ['forecasts/prospective-pilot/round-09-nero/current-admission-plan.json', 'Current admission overlay, not a changed scoring plan'],
+      ['forecasts/prospective-pilot/round-09-nero/error-disclosure.json', 'Typed error marker without void or exclusion authority'],
+      ['forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs', 'Read-only operator view of unresolved disclosure'],
+      ['dashboard/tools/check-primary-care-layout.mjs', 'Optional local-browser regression/control runner'],
+      ['meta/review-freeze/round-09.review-freeze.json', 'Unchanged previous measurement candidate receipt'],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_09_REVIEW_POLICY.build_commands,
+    ...[
+      ['round-09-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09', '--manifest=meta/review-freeze/round-09.review-freeze.json']],
+      ['round-09.1-error-disclosure-check', ['node', 'forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs']],
+      ['round-09.1-repair-regressions', ['node', '--test', 'contracts/tests/ci-governance.test.mjs', 'contracts/tests/retained-source-lfs.test.mjs', 'dashboard/tests/primary-care-public.test.mjs', 'communications/tests/round-09-1-editorial.test.mjs', 'forecasts/prospective-pilot/tests/round-09-error-disclosure.test.mjs', 'pilots/australia/tests/round-09-evolution-discoveries.test.mjs']],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: '.', timeout_ms: 900_000 })),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
   if (reviewRound === "round-07") return ROUND_07_REVIEW_POLICY;
   if (reviewRound === "round-08") return ROUND_08_REVIEW_POLICY;
+  if (reviewRound === "round-09") return ROUND_09_REVIEW_POLICY;
+  if (reviewRound === "round-09-initial") return ROUND_09_INITIAL_REVIEW_POLICY;
+  if (reviewRound === "round-09.1") return ROUND_09_1_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
@@ -1196,8 +1313,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

@@ -18,3 +18,12 @@ test("distinct strings do not prove an appointment or independent identity", () 
     appointment_verified: false, identity_authenticated: false,
   });
 });
+
+test("adjudication intake folds composed and decomposed combining marks before punctuation", () => {
+  for (const name of ["Rén", "Re\u0301n", "R.é n", "Ṙẹn", "\u0301", "Original íssuer"]) {
+    assert.throws(() => assertAdjudicationIntake(claim(name)), /adjudicator.*(identity|forecaster)/i);
+  }
+  const accentedAuthor = claim("Ren");
+  accentedAuthor.provenance.author = "Rén";
+  assert.throws(() => assertAdjudicationIntake(accentedAuthor), /forecaster/);
+});

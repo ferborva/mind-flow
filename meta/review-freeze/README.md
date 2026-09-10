@@ -143,6 +143,16 @@ reviewed comparison reference, not independent authentication of the builder.
 
 ## Trust boundary
 
+Round 09.1 selects `--policy=round-09.1` and a new
+`round-09.1.review-freeze.json` output. Its policy ID is
+`review-freeze.round-09.1` and freeze ID is `round-09.1.review-inputs`.
+Both Round 09 policy objects and receipts remain unchanged. Their shared
+historical ID is disambiguated by version, checksum and exact target, not
+retroactively renamed. Round 08.1 likewise retains its original Round 08 identity.
+The new policy requires the repair dispositions and prior receipt verification.
+Optional browser evidence is a separate local run, not claimed as a detached
+freeze command or a CI browser test.
+
 The SHA-256 content address detects change relative to the retained freeze. It
 does not authenticate the Git host, dependency publishers, source publishers,
 operator clock, generator, coordinator or reviewers against an external trust

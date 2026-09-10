@@ -1,0 +1,12 @@
+{
+  "url": "https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf",
+  "final_url": "https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf",
+  "status": 200,
+  "started_at": "2026-09-10T01:36:00.516Z",
+  "ended_at": "2026-09-10T01:36:02.773Z",
+  "body_byte_length": 182118,
+  "body_sha256": "sha256:8f00a4dab5cbafc31bb16e7261a7cf51b65e0038a46698036836df82e9419d67",
+  "headers_sha256": "sha256:89f9a3ef13bd7801cca19942f4ca9678b30f7b8a4d1bf9bce96754d2f2bea9b4",
+  "representation": "complete HTTP body after content decoding; actual Fetch headers serialised name: value",
+  "publisher_identity_verified": false
+}

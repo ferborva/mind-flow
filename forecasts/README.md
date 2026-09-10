@@ -1,5 +1,12 @@
 # Forecast registry
 
+**Current NERO records:** the first Capital Region forecast remains open. A
+[corrected Central Coast record](prospective-pilot/round-09-nero-corrected/issuance-note.md)
+was issued prospectively at `2026-09-10T00:44:16Z` and passes peer target/byte/clock
+checks. Its [defective predecessor](prospective-pilot/round-09-nero/error-notice.md)
+remains visible and blocked at admission, with no formal void or denominator
+exclusion. Scores are withheld while October outcomes remain unavailable.
+
 > **AGENT-PROPOSED FORECAST GOVERNANCE, NOT FERNANDO'S VIEW OR AN ACTION
 > AUTHORITY.** This contract is a falsifiable instrument for review.
 

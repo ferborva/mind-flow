@@ -11,7 +11,7 @@ themes: [abundance]
 sources: [2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
 audience: operators and people delivering the promise
 created: 2026-09-08
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # When an IF Becomes Somebody's WHEN
@@ -55,7 +55,7 @@ Here is a worked pair of sentences:
 > **Provider:** We can offer that consultation when the necessary capacity,
 > funding and permission are in place.
 
-These are illustrative applications of the captured grammar. The useful
+The useful
 detail is what gets filled in: which consultation, for whom, in which place,
 to what standard and within what time. **The same words can hide very
 different conditions until the scope is explicit.**
@@ -102,7 +102,7 @@ conditions for sustaining the offering still need explaining.
 
 Keep discretion under availability. Someone continuing to choose to provide
 a service is a different condition from having a durable route to it. The
-frame leaves the remedy open. It asks which condition a proposed arrangement
+frame asks which condition a proposed arrangement
 would change, which it would preserve and which it might introduce.
 
 Public, social-insurance and private delivery arrangements can be examined
@@ -111,10 +111,8 @@ starting point remains the person, the service and the conditions of access.
 
 ## ⏱ WHEN follows conditions
 
-**WHEN is a prompt for conditional work.** It is not a date, forecast,
-guarantee or commitment. The wording is not a validated linguistic test of
-someone's role or authority. A person can use the sentence while still
-depending on decisions held elsewhere.
+**WHEN is a prompt for conditional work.** It is not a date, forecast, guarantee or commitment.
+A person can use the sentence while still depending on decisions held elsewhere.
 
 Conditions can move concurrently, remain dependency-bound or change in an
 unexpected order. A provider may work on one condition while another becomes
@@ -140,8 +138,7 @@ dependency until the next conversation has a clear subject and participant.
 
 **Pair that with Goal / Signals / Actions.** Agency is the goal. Conditions
 supply the signals. Each action is a hypothesis about moving one of them.
-That is the contribution of the frame and method. The choice of a solution
-remains open to evidence and argument.
+That is the contribution of the frame and method.
 
 The next useful question is close at hand: which condition is binding today,
 who holds it, and what would have to change?

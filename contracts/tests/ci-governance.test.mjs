@@ -82,11 +82,84 @@ test("CI explicitly replays retained Round 08 measurements and ignored artifact 
   ]) assert.equal(workflow.includes(command), true, command);
 });
 
+const countryReplayCommands = [
+  'node signals/countries/tools/country-set.mts --check',
+  'node signals/countries/tools/build-measurements.mjs --check',
+  'node signals/countries/weather-criteria-build.mjs --check',
+  'node signals/countries/capability-candidate.mts --check',
+  'node signals/countries/tools/permission-candidate.mjs --check',
+  'node signals/countries/tools/render-country-view.mjs --check',
+];
+function assertCountryReplay(text) {
+  const step = text.split('      - name: Reproduce retained Round 9 country measurements\n')[1]?.split('\n      - name:')[0];
+  assert.ok(step, 'country replay step is required');
+  assert.equal(step.trim(), ['run: |', ...countryReplayCommands.map(command => `          ${command}`)].join('\n'));
+}
+test('CI unconditionally replays all six retained country producers', () => assertCountryReplay(workflow));
+test('country CI replay rejects omitted, conditional and failure-tolerant commands', () => {
+  assertCountryReplay(workflow);
+  for (const command of countryReplayCommands) {
+    for (const replacement of ['', `${command} || true`, command.replace('--check', '')]) {
+      assert.throws(() => assertCountryReplay(workflow.replace(command, replacement)));
+    }
+  }
+  for (const insertion of ['        if: false\n', '        continue-on-error: true\n']) {
+    assert.throws(() => assertCountryReplay(workflow.replace(
+      '      - name: Reproduce retained Round 9 country measurements\n',
+      `      - name: Reproduce retained Round 9 country measurements\n${insertion}`)));
+  }
+});
+
 test("the Round 08 seal unconditionally verifies its retained receipt in CI", () => {
   const step = workflow.match(/      - name: Verify the retained Round 8 review receipt\n([\s\S]*?)(?=\n      - name:|$)/)?.[1];
   assert.ok(step, "Round 08 receipt verification step is required");
   assert.doesNotMatch(step, /\bif:|\bif\b|\|\||--allow-failed-reproduction|continue-on-error/);
   assert.match(step, /node meta\/review-freeze\/review-freeze\.mjs verify\s+--policy=round-08\s+--manifest=meta\/review-freeze\/round-08\.review-freeze\.json/);
+});
+
+function assertRound09ReceiptSteps(text) {
+  for (const [name, policy, manifest] of [
+    ["Verify the retained Round 9 review receipt", "round-09", "round-09.review-freeze.json"],
+    ["Verify the retained Round 9 pre-steer receipt", "round-09-initial", "round-09.pre-steer.review-freeze.json"],
+  ]) {
+    const step = text.split(`      - name: ${name}\n`)[1]?.split("\n      - name:")[0];
+    assert.ok(step, `${name} is required`);
+    assert.equal(step.trim(), [
+      "run: >-",
+      "          node meta/review-freeze/review-freeze.mjs verify",
+      `          --policy=${policy}`,
+      `          --manifest=meta/review-freeze/${manifest}`,
+    ].join("\n"), `${name} must run the exact unconditional normal verifier`);
+  }
+}
+
+test("the Round 09 seal unconditionally verifies current and pre-steer receipts", () => {
+  assertRound09ReceiptSteps(workflow);
+});
+
+test("Round 09 seal validation rejects skipped, misbound and failure-tolerant receipt checks", () => {
+  assertRound09ReceiptSteps(workflow);
+  for (const policy of ["round-09", "round-09-initial"]) {
+    for (const replacement of [
+      `--policy=${policy} --allow-failed-reproduction`,
+      "--policy=round-08",
+      `--policy=${policy} || true`,
+    ]) assert.throws(() => assertRound09ReceiptSteps(
+      workflow.replace(`--policy=${policy}\n`, `${replacement}\n`)));
+  }
+  for (const name of ["Verify the retained Round 9 review receipt", "Verify the retained Round 9 pre-steer receipt"]) {
+    for (const addition of ["        if: false\n", "        continue-on-error: true\n"]) {
+      assert.throws(() => assertRound09ReceiptSteps(workflow.replace(
+        `      - name: ${name}\n`, `      - name: ${name}\n${addition}`)));
+    }
+    assert.throws(() => assertRound09ReceiptSteps(workflow.replace(name, "Omitted receipt")));
+  }
+  assert.throws(() => assertRound09ReceiptSteps(workflow.replace(
+    "--manifest=meta/review-freeze/round-09.review-freeze.json",
+    "--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json")));
+  assert.throws(() => assertRound09ReceiptSteps(workflow.replace(
+    "--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json",
+    "--manifest=meta/review-freeze/round-09.review-freeze.json")));
 });
 
 test("local and CI runtime contracts pin the same Node major", () => {

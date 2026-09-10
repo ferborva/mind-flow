@@ -1,0 +1,13 @@
+{
+  "id": "metadata",
+  "url": "https://api.worldbank.org/v2/sources/2/series/IT.NET.USER.ZS/metadata?format=json",
+  "final_url": "https://api.worldbank.org/v2/sources/2/series/IT.NET.USER.ZS/metadata?format=json",
+  "started_at": "2026-09-10T01:30:33.191Z",
+  "ended_at": "2026-09-10T01:30:33.517Z",
+  "status": 200,
+  "body_sha256": "sha256:966c74f1028cd0550450edf2d59d76307fd97fc63b0fbd6c14a3eac4cd1989b5",
+  "body_byte_length": 4744,
+  "headers_sha256": "sha256:c7f9d60f4100684bdc05d3510924fb4bca2efcd844a4b1eba42692fb516a6108",
+  "headers_representation": "fetch response headers serialised as name: value; complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

@@ -10,6 +10,30 @@ import {
 
 const root = resolve(import.meta.dirname, "../..");
 
+test("current draft Ren authors use canonical casing without rewriting historical metadata", () => {
+  const base = readFileSync(resolve(root, "drafts/every-if-is-somebodys-when.md"), "utf8");
+  for (const author of ["ren", "REN", "rEn", '"ren"', "'REN'"]) {
+    assert.ok(lintMarkdown("drafts/every-if-is-somebodys-when.md", base.replace(/^author:.*$/m, `author: ${author}`))
+      .some(({ code }) => code === "DRAFT_AUTHOR_CASING"));
+  }
+  assert.deepEqual(lintMarkdown("drafts/every-if-is-somebodys-when.md", base.replace(/^author:.*$/m, "author: Ren")), []);
+  assert.deepEqual(lintMarkdown("reviews/historical.md", base.replace(/^author:.*$/m, "author: ren")), []);
+});
+
+test("current governance and publication surfaces reject Ren casing variants, including new files", () => {
+  const base = readFileSync(resolve(root, "governance/public-charter.md"), "utf8");
+  for (const path of ["governance/public-charter.md", "governance/if-protocol.md", "governance/new-current.md", "boundaries.md"]) {
+    for (const author of ["ren", "REN", "rEn", '"ren"', "'REN'"]) {
+      assert.ok(lintMarkdown(path, base.replace(/^author:.*$/m, `author: ${author}`))
+        .some(({ code }) => code === "CURRENT_AUTHOR_CASING"), `${path}: ${author}`);
+    }
+    assert.deepEqual(lintMarkdown(path, base.replace(/^author:.*$/m, "author: Ren")), []);
+  }
+  for (const path of ["reviews/historical.md", "forecasts/prospective-pilot/round-09-nero/issuance-note.md", "research/historical-source.md"]) {
+    assert.deepEqual(lintMarkdown(path, base.replace(/^author:.*$/m, "author: ren")), []);
+  }
+});
+
 test("the documented metadata classes are enforced across repository markdown", () => {
   const manual = readFileSync(resolve(root, "CLAUDE.md"), "utf8");
   for (const phrase of [

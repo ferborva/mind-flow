@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.1.0",
+  "id": "forecast-evaluation.nero.5311.102.october-2026.correction-1.v1",
+  "registered_at": "2026-09-10T00:44:16Z",
+  "claimed_registered_commit": "9ed981f",
+  "registration_anchor": {
+    "source": "urn:sha256:4f9520e1c92f904c467dff8d8d3f77a8529c540a6094bd79d54391f9c7d3d897",
+    "checksum": "sha256:4f9520e1c92f904c467dff8d8d3f77a8529c540a6094bd79d54391f9c7d3d897",
+    "retrieved_at": "2026-09-10T00:44:16Z",
+    "vintage": "evaluation-registration",
+    "verification_status": "unverified_external_review_required"
+  },
+  "cohort_policy": {
+    "campaign_id": "campaign.nero.5311.102.october-2026.correction-1",
+    "registered_at": "2026-09-10T00:40:25Z",
+    "eligibility_rule": {
+      "kind": "all_issued_campaign_records",
+      "campaign_id": "campaign.nero.5311.102.october-2026.correction-1",
+      "exclusions": "none"
+    },
+    "anchor": {
+      "source": "urn:sha256:37865fa8cf549d5de48ae3344477eb09240af6a64e933d3d71071ad7d2f90beb",
+      "checksum": "sha256:37865fa8cf549d5de48ae3344477eb09240af6a64e933d3d71071ad7d2f90beb",
+      "retrieved_at": "2026-09-10T00:40:25Z",
+      "vintage": "cohort-policy",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "eligible_registry_manifest": {
+    "sealed_at": "2026-09-10T00:44:16Z",
+    "eligible_forecast_ids": [
+      "forecast.nero.5311.102.october-2026.correction-1.v1"
+    ],
+    "source": "urn:sha256:09ccca9b8841832a452e8e982bc5ec5aa8d1d7641f236a60ae9b9a2bee0a71eb",
+    "checksum": "sha256:09ccca9b8841832a452e8e982bc5ec5aa8d1d7641f236a60ae9b9a2bee0a71eb",
+    "retrieved_at": "2026-09-10T00:44:16Z",
+    "vintage": "eligible-registry-manifest",
+    "verification_status": "unverified_external_review_required"
+  },
+  "forecast_use_scope": [
+    "research_only"
+  ],
+  "cohort": [
+    {
+      "forecast_id": "forecast.nero.5311.102.october-2026.correction-1.v1",
+      "issued_record_checksum": "sha256:52ba1584f898b9e10774abb3d7221985ca4476b1543de12ff62381c57bd6b115"
+    }
+  ],
+  "scoring": {
+    "primary": "brier",
+    "secondary": [
+      "log_loss"
+    ],
+    "baseline_comparator": "campaign_mechanical_naive_and_reference_class"
+  },
+  "reliability": {
+    "bin_edges": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+    ],
+    "minimum_resolved_forecasts": 30,
+    "minimum_forecasts_per_bin": 5,
+    "minimum_independent_clusters": 20,
+    "minimum_independent_clusters_per_bin": 5,
+    "small_n_handling": "withhold_rates_and_calibration_language"
+  },
+  "void_handling": {
+    "cohort_denominator": "all_registered_forecasts",
+    "scoring": "exclude_with_visible_disclosure",
+    "adjudication_required": true,
+    "minimum_score_coverage": 0.8
+  },
+  "declared_utility": {
+    "comparator": "declared_no_model_policy",
+    "aggregation": "stratify_by_utility_scale_consultation_and_adherence"
+  },
+  "registered_plan_checksum": "sha256:f2ed018d0c029cf5638958832a4caf30df1e44724b40f1e113ba25fe01344b2e"
+}

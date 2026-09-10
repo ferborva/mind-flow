@@ -14,6 +14,9 @@ Review findings remain provisional until they are resolved, tested, and accepted
 | 05 | Internal integration checkpoint | None | None | No external review was claimed |
 | 06 | Completed adversarial review | [`../meta/round-06-external-review-brief.md`](../meta/round-06-external-review-brief.md) | [`../meta/review-freeze/round-06.review-freeze.json`](../meta/review-freeze/round-06.review-freeze.json) | [`round-06-disposition-ledger.json`](round-06-disposition-ledger.json) |
 | 07 | Repair candidate for independent retest | [`../meta/round-07-external-review-brief.md`](../meta/round-07-external-review-brief.md) | [`../meta/review-freeze/round-07.review-freeze.json`](../meta/review-freeze/round-07.review-freeze.json) | [`round-07-component-review-manifest.json`](round-07-component-review-manifest.json) |
+| 08 / 08.1 | Measurement and reviewed repairs, merged through PR #15 | [`../meta/round-08-external-review-brief.md`](../meta/round-08-external-review-brief.md) | Separate retained Round 08 and 08.1 receipts in `meta/review-freeze/` | [`round-08-progress.md`](round-08-progress.md) |
+| 09 | Measurement depth and prospective continuity candidate | [`../meta/round-09-external-review-brief.md`](../meta/round-09-external-review-brief.md) | Separate candidate and later seal, named in PR #16 | [`round-09-progress.md`](round-09-progress.md) |
+| 09.1 | Targeted independent-review repairs, main unchanged | [`round-09.1-dispositions.md`](round-09.1-dispositions.md) | New policy `round-09.1`; previous receipts unchanged | [`round-09.1-dispositions.md`](round-09.1-dispositions.md) |
 
 Round 05 was an internal integration checkpoint, not a missing external review.
 The Round 06 freeze pins the reviewed bytes at commit

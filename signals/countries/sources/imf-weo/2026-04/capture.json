@@ -1,0 +1,60 @@
+{
+  "id": "imf-weo-april-2026-country-ranking-capture",
+  "retained_on": "2026-09-10",
+  "author": "Ren",
+  "source_bytes_modified": false,
+  "acquisition": "curl --fail --location --dump-header <headers> --output <body> <url>; local request start/end not instrumented; retained HTTP Date is not authenticated local acquisition time",
+  "licence_status": "unverified-specific-permission: IMF copyright retained; terms URL returned HTTP 200 empty HTML body after redirect, not usable licence text. No open licence asserted.",
+  "licence_url": "https://www.imf.org/external/terms.htm",
+  "artifacts": [
+    {
+      "file": "WEOApr2026all.xlsx",
+      "headers_file": "WEOApr2026all.response-headers.txt",
+      "requested_url": "https://data.imf.org/-/media/iData/External-Storage/Documents/2F78EE59F79143A7921E5E203D3AAA80/en/WEOApr2026all.xlsx",
+      "purpose": "original-ranking-workbook",
+      "bytes": 5585205,
+      "sha256": "sha256:b29239cb48f8b895d1e526070c4fde01147bc8f6bd3b86f636363bb6bd87fe7a",
+      "headers_sha256": "sha256:fad8b00630338b027448208aec7d78e63b3660a54a30502aee6348625ef42996",
+      "http_date_headers": [
+        "Thu, 10 Sep 2026 01:11:37 GMT"
+      ]
+    },
+    {
+      "file": "landing.html",
+      "headers_file": "landing.response-headers.txt",
+      "requested_url": "https://data.imf.org/Datasets/WEO",
+      "purpose": "latest-full-vintage-evidence",
+      "bytes": 327541,
+      "sha256": "sha256:fbd39f5c2493b727f64db3b2e04c3f051ebeee3c5f899064713ad48df378bfe4",
+      "headers_sha256": "sha256:b8c8e2e16537b59acd79fe4aa4e2777ccfcdbdc8ccda601bc0470df911b463a3",
+      "http_date_headers": [
+        "Thu, 10 Sep 2026 01:12:49 GMT"
+      ]
+    },
+    {
+      "file": "appendix.pdf",
+      "headers_file": "appendix.response-headers.txt",
+      "requested_url": "https://data.imf.org/-/media/iData/External-Storage/Documents/4AA1F4D0624C46E98F95988F1F83E770/en/April-2026-WEO-Database-Appendix.pdf",
+      "purpose": "vintage-specific-definitions-and-country-caveats",
+      "bytes": 523673,
+      "sha256": "sha256:b8a538c3158bf0553a3ae45d4797cd5648cbea684eb4be848a52c1d64d994395",
+      "headers_sha256": "sha256:5c0218005b034f3fb03776aaac76d97d99dc1337cc61ea69cb533a93c2d02cbb",
+      "http_date_headers": [
+        "Thu, 10 Sep 2026 01:12:52 GMT"
+      ]
+    },
+    {
+      "file": "terms.html",
+      "headers_file": "terms.response-headers.txt",
+      "requested_url": "https://www.imf.org/external/terms.htm",
+      "purpose": "attempted-licence-acquisition-empty-body-not-terms",
+      "bytes": 392,
+      "sha256": "sha256:0ea652968bee21d392164f66298e93981c00fb4a47592697cbbc44b584d42ce2",
+      "headers_sha256": "sha256:b762332bbdc6acc7ecc57f9418c203314331e59ddfa2e9fdfa21ba8c7dc81887",
+      "http_date_headers": [
+        "Thu, 10 Sep 2026 01:13:02 GMT",
+        "Thu, 10 Sep 2026 01:13:12 GMT"
+      ]
+    }
+  ]
+}

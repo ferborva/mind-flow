@@ -77,20 +77,43 @@ export function rebindPositiveConsumer(consumer: any, kernel: any) {
 export function assessPositiveBinding(consumer: any, kernel: any) {
   try {
     const validation = validateExecutableIfKernel(kernel);
-    if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, errors: ['Invalid kernel'] };
+    if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, code: 'KERNEL_INVALID', errors: ['Invalid kernel'] };
+    const expectedIds = originalConsumer.signals.map((s: any) => s.id);
+    const signals = consumer?.signals;
+    const ids = Array.isArray(signals) ? signals.map((s: any) => s?.id) : [];
+    const errors: string[] = [];
+    if (!same([...ids].sort(), [...expectedIds].sort())) errors.push('Consumer signal membership differs');
+    for (const expected of originalConsumer.signals) {
+      const signal = signals?.find((s: any) => s?.id === expected.id);
+      const state = kernel.current_state.find((s: any) => s.condition_id === expected.condition_definition_ref.condition_id && s.lifecycle === 'active');
+      if (!state || !same(signal?.condition_definition_ref, state.condition_definition_ref)) errors.push(`Current definition binding differs: ${expected.id}`);
+    }
+    return { valid: errors.length === 0, code: errors.length ? 'CONSUMER_DEFINITION_BINDING_MISMATCH' : null,
+      errors, threshold_audit: auditPrimaryCareThresholds(kernel) };
+  } catch (error) { return { valid: false, code: 'CONSUMER_DEFINITION_BINDING_MISMATCH', errors: [String(error)] }; }
+}
+
+// Byte fidelity is a separate reproduction gate. Passing definition binding
+// does not approve changed measurements, ceilings, prose or serialisation.
+export function assessPositiveParity(consumerBytes: string, kernel: any) {
+  try {
+    const validation = validateExecutableIfKernel(kernel);
+    if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, code: 'KERNEL_INVALID', errors: ['Invalid kernel'] };
     const expected = same(kernel, original) ? originalConsumer : rebindPositiveConsumer(originalConsumer, kernel);
-    const valid = same(consumer, expected);
-    return { valid, errors: valid ? [] : ['Consumer values, current definition binding or evidence ceiling differ'], threshold_audit: auditPrimaryCareThresholds(kernel) };
-  } catch (error) { return { valid: false, errors: [String(error)] }; }
+    const valid = consumerBytes === bytes(expected);
+    return { valid, code: valid ? null : 'CONSUMER_BYTE_PARITY_MISMATCH', errors: valid ? [] : ['Retained consumer bytes differ from reproduction'] };
+  } catch (error) { return { valid: false, code: 'CONSUMER_BYTE_PARITY_MISMATCH', errors: [String(error)] }; }
 }
 
 function outputs(kernel: any) {
   const overlay = projectExecutableIfEvolution(kernel, {
     artifact_path: currentPath, artifact_sha256: hash(bytes(kernel)),
-    generated_at: kernel.events.at(-1).recorded_at,
+    // Fixed clock captured for this Round 09 presentation revision. It is not
+    // the source vintage or a new kernel-event clock.
+    generated_at: '2026-09-10T00:43:48Z',
     ledger_id: 'ledger.au.primary-care.current',
   });
-  overlay.publication_anchor.checkpoint_uri = 'https://github.com/ferborva/mind-flow/pull/15';
+  overlay.publication_anchor.checkpoint_uri = 'https://github.com/ferborva/mind-flow/pull/16';
   overlay.manifest_hash = computeExecutableIfEvolutionManifestHash(overlay);
   const valid = validateExecutableIfEvolution(overlay, { sourceKernel: kernel, sourceKernelArtifactSha256: hash(bytes(kernel)) });
   if (!valid.ledger_valid) throw new Error(JSON.stringify(valid));
@@ -101,11 +124,26 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     if (hash(readFileSync(resolve(root, workbookPath))) !== workbookHash) throw new Error('Footnoted workbook bytes differ');
     const args = process.argv.slice(2);
-    if (args.length !== 1 || !['--append', '--check'].includes(args[0])) throw new Error('Use --append once, or --check');
+    if (args.length !== 1 || !['--append', '--check', '--refresh-overlay'].includes(args[0])) throw new Error('Use --append once, --check, or explicitly --refresh-overlay after a reviewed projection change');
+    if (args[0] === '--refresh-overlay') {
+      // Reproduce only the presentation overlay, never rewrite the kernel,
+      // consumer, original events or their recorded timestamps.
+      const kernel = read(currentPath);
+      const overlay = outputs(kernel).find(([path]) => path === overlayPath)![1];
+      writeFileSync(resolve(root, overlayPath), bytes(overlay));
+      console.log('Refreshed the current AU overlay only; kernel and consumer bytes unchanged.');
+      process.exit(0);
+    }
     const check = args[0] === '--check';
     const recordedAt = check ? read(currentPath).events.at(-1).recorded_at : new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
     const generated = outputs(appendCorroborationRequirement(original, recordedAt));
     if (!check && generated.some(([path]) => existsSync(resolve(root, path)))) throw new Error('Current records already exist; append a separately reviewed event rather than overwrite');
+    if (check) {
+      const binding = assessPositiveBinding(read(consumerPath), read(currentPath));
+      if (!binding.valid) throw new Error(`${binding.code}: ${binding.errors.join('; ')}`);
+      const parity = assessPositiveParity(readFileSync(resolve(root, consumerPath), 'utf8'), read(currentPath));
+      if (!parity.valid) throw new Error(`${parity.code}: ${parity.errors.join('; ')}`);
+    }
     for (const [path, value] of generated) {
       if (check) { if (readFileSync(resolve(root, path), 'utf8') !== bytes(value)) throw new Error(`Retained evolution drift: ${path}`); }
       else writeFileSync(resolve(root, path), bytes(value), { flag: 'wx' });

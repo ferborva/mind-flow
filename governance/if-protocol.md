@@ -5,7 +5,7 @@ subtitle: A public grammar for conditional promises, decisions and transitions
 type: governance-proposal
 status: proposed
 provenance: commissioned-proposal
-author: ren
+author: Ren
 reviewer: fernando-bordallo
 created: 2026-09-08
 updated: 2026-09-08

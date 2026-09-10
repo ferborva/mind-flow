@@ -1,0 +1,743 @@
+{
+  "id": "proximity-candidate.rai.v1",
+  "provenance": "commissioned-proposal",
+  "author": "Ren",
+  "created": "2026-09-10",
+  "status": "research-only-below-breadth-gate",
+  "publisher": "World Bank Data Catalog",
+  "native_series": "SDG9.1.1 Rural Access Index Official Data",
+  "unit": "percent-of-rural-population",
+  "definition": "Rural population living within2km of an all-season road as a percentage of all rural population.",
+  "evidence_ceiling": "Road-distance proximity proxy, not actual journey time, transport affordability, service destination access, urban access or a binding diagnosis.",
+  "publisher_vintage": {
+    "file_updated": "2024-04-08",
+    "catalogue_updated": "2024-04-09",
+    "reference_years": [
+      2009,
+      2022
+    ],
+    "catalogue_temporal_coverage": "2006 - 2019",
+    "discrepancy": "Catalogue temporal text is stale relative to native rows through2022; retain rather than overwrite it.",
+    "cadence": "not specified in retained catalogue temporal_resolution.periodicity (null); annual reference years do not establish annual refresh cadence"
+  },
+  "licence": {
+    "status": "Creative Commons Attribution4.0",
+    "evidence": "sources/proximity-2026-09-10/catalogue.body",
+    "selector": "Data Access and Licensing; licence Creative Commons Attribution4.0"
+  },
+  "source": {
+    "file": "sources/proximity-2026-09-10/data.body",
+    "original_filename": "rural-access-index-data.xls",
+    "sha256": "sha256:8c315ae3e0eb72ffa1710b91227d8ff48302f849b0c011e058b165773b152131"
+  },
+  "country_set_sha256": "sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f",
+  "reader": {
+    "package": "xlsx",
+    "version": "0.18.5",
+    "integrity": "sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==",
+    "runtime_dependency": "Explicit temporary installation; not available in pristine repository. Ordinary offline tests check retained extraction/coverage, not native XLS reevaluation.",
+    "macros_or_external_links_executed": false
+  },
+  "native_country_count": 29,
+  "native_observation_count": 31,
+  "crosswalk_note": "Explicit exact-name mapping only for five overlapping IMF economies. Other native names preserved with native: prefix, never forced into ISO codes.",
+  "coverage": {
+    "maximum_common_year_coverage": 1,
+    "coverage_denominator": 50,
+    "panel_eligible": false,
+    "coverage_by_year": [
+      {
+        "year": 2009,
+        "coverage": 0
+      },
+      {
+        "year": 2010,
+        "coverage": 0
+      },
+      {
+        "year": 2011,
+        "coverage": 0
+      },
+      {
+        "year": 2014,
+        "coverage": 0
+      },
+      {
+        "year": 2015,
+        "coverage": 1
+      },
+      {
+        "year": 2016,
+        "coverage": 1
+      },
+      {
+        "year": 2017,
+        "coverage": 0
+      },
+      {
+        "year": 2018,
+        "coverage": 0
+      },
+      {
+        "year": 2019,
+        "coverage": 1
+      },
+      {
+        "year": 2020,
+        "coverage": 1
+      },
+      {
+        "year": 2021,
+        "coverage": 1
+      },
+      {
+        "year": 2022,
+        "coverage": 1
+      }
+    ],
+    "any_year_country_count": 5,
+    "selected_observations": [
+      {
+        "country": "ZAF",
+        "native_country": "South Africa",
+        "region": "Africa",
+        "year": 2020,
+        "value": 57.5,
+        "source_note": "World Bank. 2023. Going beyond the Infrastructure Funding Gap A South African Perspective. Washington, DC: World Bank Group. Forthcoming.",
+        "source_sheet": "RAI Data",
+        "source_cell": "D20",
+        "selectors": {
+          "country": "A20",
+          "year": "C20",
+          "source_note": "E20"
+        },
+        "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+      },
+      {
+        "country": "PER",
+        "native_country": "Peru",
+        "region": "Latin America and the Caribbean",
+        "year": 2016,
+        "value": 37.2,
+        "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+        "source_sheet": "RAI Data",
+        "source_cell": "D26",
+        "selectors": {
+          "country": "A26",
+          "year": "C26",
+          "source_note": "E26"
+        },
+        "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+      },
+      {
+        "country": "ARE",
+        "native_country": "United Arab Emirates",
+        "region": "Middle East and North Africa",
+        "year": 2019,
+        "value": 95.1,
+        "source_note": "https://sdgsuae-fcsa.opendata.arcgis.com/datasets/9-1-1-proportion-of-the-rural-population-who-live-within-2-km-of-an-all-season-road/data?geometry=42.375%2C22.607%2C65.590%2C26.109&selectedAttribute=indicator_data_date",
+        "source_sheet": "RAI Data",
+        "source_cell": "D30",
+        "selectors": {
+          "country": "A30",
+          "year": "C30",
+          "source_note": "E30"
+        },
+        "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+      },
+      {
+        "country": "ARE",
+        "native_country": "United Arab Emirates",
+        "region": "Middle East and North Africa",
+        "year": 2021,
+        "value": 99.5,
+        "source_note": "https://sdgsuae-fcsa.opendata.arcgis.com/datasets/FCSA::9-1-1-proportion-of-the-rural-population-who-live-within-2-km-of-an-all-season-road/about",
+        "source_sheet": "RAI Data",
+        "source_cell": "D31",
+        "selectors": {
+          "country": "A31",
+          "year": "C31",
+          "source_note": "E31"
+        },
+        "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+      },
+      {
+        "country": "SAU",
+        "native_country": "Saudi Arabia",
+        "region": "Middle East and North Africa",
+        "year": 2022,
+        "value": 91.77,
+        "source_note": "General Authority of Statistics, Saudi Arabia. \"9.1.1 Proportion of the rural population who live within 2 km of an all-season road in Saudi Arabia\" ",
+        "source_sheet": "RAI Data",
+        "source_cell": "D32",
+        "selectors": {
+          "country": "A32",
+          "year": "C32",
+          "source_note": "E32"
+        },
+        "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+      },
+      {
+        "country": "BGD",
+        "native_country": "Bangladesh",
+        "region": "South Asia",
+        "year": 2015,
+        "value": 86.7,
+        "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+        "source_sheet": "RAI Data",
+        "source_cell": "D33",
+        "selectors": {
+          "country": "A33",
+          "year": "C33",
+          "source_note": "E33"
+        },
+        "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+      }
+    ],
+    "missing_all_years": [
+      "USA",
+      "CHN",
+      "DEU",
+      "JPN",
+      "GBR",
+      "IND",
+      "FRA",
+      "RUS",
+      "ITA",
+      "CAN",
+      "BRA",
+      "ESP",
+      "KOR",
+      "AUS",
+      "MEX",
+      "TUR",
+      "IDN",
+      "NLD",
+      "CHE",
+      "POL",
+      "TWN",
+      "BEL",
+      "IRL",
+      "ARG",
+      "SWE",
+      "ISR",
+      "SGP",
+      "AUT",
+      "THA",
+      "NOR",
+      "VNM",
+      "PHL",
+      "MYS",
+      "DNK",
+      "COL",
+      "ROU",
+      "HKG",
+      "PAK",
+      "CZE",
+      "IRN",
+      "EGY",
+      "CHL",
+      "PRT",
+      "FIN",
+      "KAZ"
+    ]
+  },
+  "observations": [
+    {
+      "country": "native:Burundi",
+      "native_country": "Burundi",
+      "region": "Africa",
+      "year": 2016,
+      "value": 24.9,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D4",
+      "selectors": {
+        "country": "A4",
+        "year": "C4",
+        "source_note": "E4"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Chad",
+      "native_country": "Chad",
+      "region": "Africa",
+      "year": 2021,
+      "value": 19,
+      "source_note": "World Bank. Forthcoming. Chad Country Economic Memorandum Chapter: Transport Infrastructure for Economic and Social Development in Chad. Forthcoming.",
+      "source_sheet": "RAI Data",
+      "source_cell": "D5",
+      "selectors": {
+        "country": "A5",
+        "year": "C5",
+        "source_note": "E5"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Ethiopia",
+      "native_country": "Ethiopia",
+      "region": "Africa",
+      "year": 2015,
+      "value": 21.6,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D6",
+      "selectors": {
+        "country": "A6",
+        "year": "C6",
+        "source_note": "E6"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Gambia, The",
+      "native_country": "Gambia, The",
+      "region": "Africa",
+      "year": 2019,
+      "value": 55,
+      "source_note": "World Bank. Forthcoming. InfraSAP The Gambia Improving Transport Connectivity Diagnostic. Washington DC: World Bank Group. Forthcoming.",
+      "source_sheet": "RAI Data",
+      "source_cell": "D7",
+      "selectors": {
+        "country": "A7",
+        "year": "C7",
+        "source_note": "E7"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Kenya",
+      "native_country": "Kenya",
+      "region": "Africa",
+      "year": 2009,
+      "value": 56,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D8",
+      "selectors": {
+        "country": "A8",
+        "year": "C8",
+        "source_note": "E8"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Kenya",
+      "native_country": "Kenya",
+      "region": "Africa",
+      "year": 2018,
+      "value": 70,
+      "source_note": "Kenya Roads Board (KRB). 2020. Kenya: Rural Access Index. https://maps.krb.go.ke/kenya-roads-board12769/maps/119381/7-rural-access-index#",
+      "source_sheet": "RAI Data",
+      "source_cell": "D9",
+      "selectors": {
+        "country": "A9",
+        "year": "C9",
+        "source_note": "E9"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Lesotho",
+      "native_country": "Lesotho",
+      "region": "Africa",
+      "year": 2016,
+      "value": 18,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D10",
+      "selectors": {
+        "country": "A10",
+        "year": "C10",
+        "source_note": "E10"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Liberia",
+      "native_country": "Liberia",
+      "region": "Africa",
+      "year": 2016,
+      "value": 41.9,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D11",
+      "selectors": {
+        "country": "A11",
+        "year": "C11",
+        "source_note": "E11"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Madagascar",
+      "native_country": "Madagascar",
+      "region": "Africa",
+      "year": 2017,
+      "value": 11.4,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D12",
+      "selectors": {
+        "country": "A12",
+        "year": "C12",
+        "source_note": "E12"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Malawi",
+      "native_country": "Malawi",
+      "region": "Africa",
+      "year": 2016,
+      "value": 23.1,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D13",
+      "selectors": {
+        "country": "A13",
+        "year": "C13",
+        "source_note": "E13"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Mali",
+      "native_country": "Mali",
+      "region": "Africa",
+      "year": 2017,
+      "value": 22.3,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D14",
+      "selectors": {
+        "country": "A14",
+        "year": "C14",
+        "source_note": "E14"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Mozambique",
+      "native_country": "Mozambique",
+      "region": "Africa",
+      "year": 2010,
+      "value": 20.4,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D15",
+      "selectors": {
+        "country": "A15",
+        "year": "C15",
+        "source_note": "E15"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Nigeria",
+      "native_country": "Nigeria",
+      "region": "Africa",
+      "year": 2014,
+      "value": 25.5,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D16",
+      "selectors": {
+        "country": "A16",
+        "year": "C16",
+        "source_note": "E16"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Rwanda",
+      "native_country": "Rwanda",
+      "region": "Africa",
+      "year": 2016,
+      "value": 55.3,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D17",
+      "selectors": {
+        "country": "A17",
+        "year": "C17",
+        "source_note": "E17"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Sierra Leone",
+      "native_country": "Sierra Leone",
+      "region": "Africa",
+      "year": 2017,
+      "value": 31.5,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D18",
+      "selectors": {
+        "country": "A18",
+        "year": "C18",
+        "source_note": "E18"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Somalia",
+      "native_country": "Somalia",
+      "region": "Africa",
+      "year": 2016,
+      "value": 31.2,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D19",
+      "selectors": {
+        "country": "A19",
+        "year": "C19",
+        "source_note": "E19"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "ZAF",
+      "native_country": "South Africa",
+      "region": "Africa",
+      "year": 2020,
+      "value": 57.5,
+      "source_note": "World Bank. 2023. Going beyond the Infrastructure Funding Gap A South African Perspective. Washington, DC: World Bank Group. Forthcoming.",
+      "source_sheet": "RAI Data",
+      "source_cell": "D20",
+      "selectors": {
+        "country": "A20",
+        "year": "C20",
+        "source_note": "E20"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Tanzania",
+      "native_country": "Tanzania",
+      "region": "Africa",
+      "year": 2014,
+      "value": 24.6,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D21",
+      "selectors": {
+        "country": "A21",
+        "year": "C21",
+        "source_note": "E21"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Uganda",
+      "native_country": "Uganda",
+      "region": "Africa",
+      "year": 2015,
+      "value": 53.1,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D22",
+      "selectors": {
+        "country": "A22",
+        "year": "C22",
+        "source_note": "E22"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Zambia",
+      "native_country": "Zambia",
+      "region": "Africa",
+      "year": 2011,
+      "value": 17,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D23",
+      "selectors": {
+        "country": "A23",
+        "year": "C23",
+        "source_note": "E23"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Armenia",
+      "native_country": "Armenia",
+      "region": "Europe and Central Asia",
+      "year": 2017,
+      "value": 66,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D24",
+      "selectors": {
+        "country": "A24",
+        "year": "C24",
+        "source_note": "E24"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Paraguay",
+      "native_country": "Paraguay",
+      "region": "Latin America and the Caribbean",
+      "year": 2019,
+      "value": 42.4,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/861691573447265441/pdf/Paraguay-Roads-Sector-Public-Expenditure-Review.pdf",
+      "source_sheet": "RAI Data",
+      "source_cell": "D25",
+      "selectors": {
+        "country": "A25",
+        "year": "C25",
+        "source_note": "E25"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "PER",
+      "native_country": "Peru",
+      "region": "Latin America and the Caribbean",
+      "year": 2016,
+      "value": 37.2,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D26",
+      "selectors": {
+        "country": "A26",
+        "year": "C26",
+        "source_note": "E26"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Iraq",
+      "native_country": "Iraq",
+      "region": "Middle East and North Africa",
+      "year": 2018,
+      "value": 63.4,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D27",
+      "selectors": {
+        "country": "A27",
+        "year": "C27",
+        "source_note": "E27"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Jordan",
+      "native_country": "Jordan",
+      "region": "Middle East and North Africa",
+      "year": 2018,
+      "value": 71.4,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D28",
+      "selectors": {
+        "country": "A28",
+        "year": "C28",
+        "source_note": "E28"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Lebanon",
+      "native_country": "Lebanon",
+      "region": "Middle East and North Africa",
+      "year": 2018,
+      "value": 92.6,
+      "source_note": "World Bank. 2019. Measuring Rural Access: Update 2017/2018. Washington, DC: World Bank Group. http://documents.worldbank.org/curated/en/543621569435525309/World-Measuring-Rural-Access-Update-2017-18",
+      "source_sheet": "RAI Data",
+      "source_cell": "D29",
+      "selectors": {
+        "country": "A29",
+        "year": "C29",
+        "source_note": "E29"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "ARE",
+      "native_country": "United Arab Emirates",
+      "region": "Middle East and North Africa",
+      "year": 2019,
+      "value": 95.1,
+      "source_note": "https://sdgsuae-fcsa.opendata.arcgis.com/datasets/9-1-1-proportion-of-the-rural-population-who-live-within-2-km-of-an-all-season-road/data?geometry=42.375%2C22.607%2C65.590%2C26.109&selectedAttribute=indicator_data_date",
+      "source_sheet": "RAI Data",
+      "source_cell": "D30",
+      "selectors": {
+        "country": "A30",
+        "year": "C30",
+        "source_note": "E30"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "ARE",
+      "native_country": "United Arab Emirates",
+      "region": "Middle East and North Africa",
+      "year": 2021,
+      "value": 99.5,
+      "source_note": "https://sdgsuae-fcsa.opendata.arcgis.com/datasets/FCSA::9-1-1-proportion-of-the-rural-population-who-live-within-2-km-of-an-all-season-road/about",
+      "source_sheet": "RAI Data",
+      "source_cell": "D31",
+      "selectors": {
+        "country": "A31",
+        "year": "C31",
+        "source_note": "E31"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "SAU",
+      "native_country": "Saudi Arabia",
+      "region": "Middle East and North Africa",
+      "year": 2022,
+      "value": 91.77,
+      "source_note": "General Authority of Statistics, Saudi Arabia. \"9.1.1 Proportion of the rural population who live within 2 km of an all-season road in Saudi Arabia\" ",
+      "source_sheet": "RAI Data",
+      "source_cell": "D32",
+      "selectors": {
+        "country": "A32",
+        "year": "C32",
+        "source_note": "E32"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "BGD",
+      "native_country": "Bangladesh",
+      "region": "South Asia",
+      "year": 2015,
+      "value": 86.7,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D33",
+      "selectors": {
+        "country": "A33",
+        "year": "C33",
+        "source_note": "E33"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    },
+    {
+      "country": "native:Nepal",
+      "native_country": "Nepal",
+      "region": "South Asia",
+      "year": 2015,
+      "value": 54.2,
+      "source_note": "World Bank. 2016. Measuring rural access : using new technologies (English). Washington, D.C. : World Bank Group. http://documents.worldbank.org/curated/en/367391472117815229/Measuring-rural-access-using-new-technologies",
+      "source_sheet": "RAI Data",
+      "source_cell": "D34",
+      "selectors": {
+        "country": "A34",
+        "year": "C34",
+        "source_note": "E34"
+      },
+      "observation_status": "not supplied by this workbook; no actual-only or modelling-status certification"
+    }
+  ]
+}

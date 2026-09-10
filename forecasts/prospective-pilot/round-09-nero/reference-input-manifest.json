@@ -1,0 +1,12 @@
+{
+  "artifact_type": "prospective-baseline-input-manifest",
+  "schema_version": "1.0.0",
+  "baseline_role": "reference_class",
+  "baseline_id": "family.nero.reference.v1",
+  "input_source_ids": [
+    "source.jsa.nero"
+  ],
+  "input_checksums": [
+    "sha256:6fbdb5482f9c2a6939ff1f1833030c1db9f849d7782af3130feff20fd79c425e"
+  ]
+}

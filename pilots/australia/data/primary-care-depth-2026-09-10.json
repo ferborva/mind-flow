@@ -1,0 +1,2513 @@
+{
+  "id": "australia-primary-care-depth-2026-09-10",
+  "as_of": "2026-09-10",
+  "provenance": "commissioned-proposal",
+  "historical_inputs_preserved": true,
+  "small_base_threshold": 10,
+  "source_reviews": [
+    {
+      "id": "abs-methodology",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-methodology.source.txt",
+      "source_url": "https://www.abs.gov.au/methodologies/patient-experiences-methodology/2024-25",
+      "publisher": "Australian Bureau of Statistics",
+      "sha256": "sha256:3896dafee7967fc407804b3750fbdd0758f69609d82dae43c2cd220420414694",
+      "byte_length": 150457,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-methodology.response-headers.txt",
+      "headers_sha256": "sha256:740b1b334db995780384848286bab03bb395818a4e276773b7caa60683df9144",
+      "http_date": "Wed, 09 Sep 2026 23:59:36 GMT",
+      "publication_date": "2025-11-18",
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "abs-after-hours",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-after-hours.xlsx",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "publisher": "Australian Bureau of Statistics",
+      "sha256": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "byte_length": 71122,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/abs-after-hours.response-headers.txt",
+      "headers_sha256": "sha256:67fce629a5772776f7bac9019e6f5fa9cc45398cb65fc78c2104e265bc13e671",
+      "http_date": "Thu, 10 Sep 2026 00:00:09 GMT",
+      "publication_date": "2025-11-18",
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "pbs-patient-charges",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-patient-charges.source.txt",
+      "source_url": "https://www.pbs.gov.au/info/healthpro/explanatory-notes/section1/Section_1_4_Explanatory_Notes",
+      "publisher": "Australian Government PBS",
+      "sha256": "sha256:cec28ad47583d370c67a1caa255711d21fda714628d27ebcdf12f981cb6d78bb",
+      "byte_length": 133059,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-patient-charges.response-headers.txt",
+      "headers_sha256": "sha256:77cce8747fd42151ddb5e31578901d7561ace28393e8789c5f98b436e7680d5c",
+      "http_date": "Thu, 10 Sep 2026 00:00:00 GMT",
+      "publication_date": null,
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "pbs-safety-net",
+      "path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-safety-net.source.txt",
+      "source_url": "https://www.pbs.gov.au/info/healthpro/explanatory-notes/section1/Section_1_5_Explanatory_Notes",
+      "publisher": "Australian Government PBS",
+      "sha256": "sha256:232dfd46a4e25aae8380093f40e058d6ab1a85f6e23a05fbbed0b97eda9327a7",
+      "byte_length": 144267,
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10-depth/pbs-safety-net.response-headers.txt",
+      "headers_sha256": "sha256:9767b6e22b6bfded230b50aa90d58bc7642916cf46e1f2649dcebfb085ea596b",
+      "http_date": "Thu, 10 Sep 2026 00:00:04 GMT",
+      "publication_date": null,
+      "licence_review_status": "unreviewed",
+      "licence_claim": null,
+      "licence_limit": "Official source attribution is not a source-specific redistribution licence review."
+    },
+    {
+      "id": "abs-patient-experiences",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/abs-patient-experiences.source.txt",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25",
+      "publisher": "Australian Bureau of Statistics",
+      "publication_date": "2025-11-18",
+      "byte_length": 376418,
+      "sha256": "sha256:5013f4f42c17b54ccca937c8d2fa01488fad31c7e0bc333ed90203016e88ecde",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/abs-patient-experiences.response-headers.txt",
+      "headers_sha256": "sha256:c4c1d25cbd07015740c35c03f6bc8cc22c04851d5d86a86714138f76ddfb9a5c",
+      "http_date": "Wed, 09 Sep 2026 10:33:09 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "derived-series-source",
+      "derived_series_ids": [
+        "after-hours-delay"
+      ]
+    },
+    {
+      "id": "abs-health-literacy",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/abs-health-literacy.source.txt",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-health-literacy/latest-release",
+      "publisher": "Australian Bureau of Statistics",
+      "publication_date": "2019-04-29",
+      "byte_length": 316711,
+      "sha256": "sha256:fe04e792e301dc31376a751232af3a6b1d11b836697d62862c94e08dee0205a9",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/abs-health-literacy.response-headers.txt",
+      "headers_sha256": "sha256:f350a016e93e80a91644b89b1073cff791f5fa96946cb33e099c4bd11ecd23af",
+      "http_date": "Wed, 09 Sep 2026 10:33:31 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "derived-series-source",
+      "derived_series_ids": [
+        "health-system-navigation-difficulty"
+      ]
+    },
+    {
+      "id": "pc-primary-care",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care.source.txt",
+      "source_url": "https://www.pc.gov.au/ongoing/report-on-government-services/health/primary-and-community-health/",
+      "publisher": "Productivity Commission",
+      "publication_date": "2026-02-05",
+      "byte_length": 399239,
+      "sha256": "sha256:e79f7c6cc930c81c88c4f31f12c699a877bccfb395d77a2815864c81f464457c",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care.response-headers.txt",
+      "headers_sha256": "sha256:bb66e2268ba30c437c3760cb5f18c8323454645606d1c9294e325f0466862c8c",
+      "http_date": "Wed, 02 Sep 2026 01:44:04 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "publisher-methodology-context",
+      "derived_series_ids": []
+    },
+    {
+      "id": "pc-primary-care-dataset",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care-dataset.csv",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "publisher": "Productivity Commission",
+      "publication_date": "2026-02-05",
+      "byte_length": 3422482,
+      "sha256": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/pc-primary-care-dataset.response-headers.txt",
+      "headers_sha256": "sha256:4fd861236c35a9659e47966068d1da0d1ca39e684f5475bc38a1116733f977d8",
+      "http_date": "Wed, 09 Sep 2026 10:34:27 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "derived-series-source",
+      "derived_series_ids": [
+        "gp-cost-delay",
+        "gp-fully-bulk-billed",
+        "gp-gap",
+        "specialist-gap",
+        "prescription-cost-delay",
+        "gp-fte-remoteness",
+        "gp-urgent-under-four-hours",
+        "gp-unacceptable-wait"
+      ]
+    },
+    {
+      "id": "mbs-telehealth",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/mbs-telehealth.source.txt",
+      "source_url": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=AN.1.1",
+      "publisher": "Australian Government Department of Health, Disability and Ageing",
+      "publication_date": null,
+      "byte_length": 61034,
+      "sha256": "sha256:fcd20ce36ee01078853509776d95627670baeeeca56054011eedcdbb57e80fd2",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/mbs-telehealth.response-headers.txt",
+      "headers_sha256": "sha256:d42205b4216e41485e0082d1561ab5a6c8f242fd255261bc8c412f092039f988",
+      "http_date": "Wed, 09 Sep 2026 10:34:32 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "derived-series-source",
+      "derived_series_ids": [
+        "telehealth-relationship-lookback"
+      ]
+    },
+    {
+      "id": "mbs-referrals",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/mbs-referrals.source.txt",
+      "source_url": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=GN.6.16",
+      "publisher": "Australian Government Department of Health, Disability and Ageing",
+      "publication_date": null,
+      "byte_length": 29730,
+      "sha256": "sha256:6fcde53d75e6a881246d44ec11ee3ed1c8c6f1c8fdb1338460631280fe0746d3",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/mbs-referrals.response-headers.txt",
+      "headers_sha256": "sha256:bde3ac662b038d9e729e6ef289da2b70a093be00b4713ec9f8f6e920d7365674",
+      "http_date": "Wed, 09 Sep 2026 10:37:20 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "rule-context-only",
+      "derived_series_ids": []
+    },
+    {
+      "id": "aihw-medicines",
+      "path": "pilots/australia/sources/primary-care/2026-09-09/aihw-medicines.source.txt",
+      "source_url": "https://www.aihw.gov.au/reports/medicines/medicines-in-the-health-system",
+      "publisher": "Australian Institute of Health and Welfare",
+      "publication_date": null,
+      "byte_length": 174688,
+      "sha256": "sha256:10e5d5d8445f413dfb611f2e81eeb77302041edee20d7ee39c6ff310c96bf52d",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-09/aihw-medicines.response-headers.txt",
+      "headers_sha256": "sha256:991920d1b6799da5efa9e9107d85bf5306a21bcf75bbcb60553336be0657169d",
+      "http_date": "Wed, 09 Sep 2026 10:37:22 GMT",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "basket-selection-context-only",
+      "derived_series_ids": []
+    },
+    {
+      "id": "pc-primary-care-tables",
+      "path": "pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx",
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-data-tables_0.xlsx?VersionId=dhbsbDjTKGQMTdhUt6hXYhyRTwePk28I",
+      "publisher": "Productivity Commission",
+      "publication_date": "2026-02-05",
+      "byte_length": 1024226,
+      "sha256": "sha256:99c6ff08e0a48026b780370aa4d02a8edb36b1b11049dd6ce92087005481a36c",
+      "headers_path": "pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.response-headers.txt",
+      "headers_sha256": "sha256:6278b4551a3efdf9e733615a1e1ddb3913c8610226d599a0e4e83b76d55be2d2",
+      "http_date": "Wed, 09 Sep 2026 22:16:28 GMT",
+      "acquisition_method": "One curl HTTPS request with --location --dump-header and --output; exact body bytes retained in Git LFS",
+      "licence_claim": null,
+      "licence_review_status": "unreviewed",
+      "licence_review_reason": "Source-specific licence coverage, exceptions and redistribution permissions have not been verified. Official-host capture and attribution are not a licence grant. No blanket open-licence assertion.",
+      "measurement_role": "definitions-footnotes-and-cell-corroboration",
+      "derived_series_ids": []
+    }
+  ],
+  "policy": {
+    "general_copayment": 25,
+    "concessional_copayment": 7.7,
+    "general_safety_net": 1748.2,
+    "concessional_safety_net": 277.2,
+    "effective_period": "2026",
+    "unit": "AUD",
+    "evidence_ceiling": "PBS schedule contributions, not an atorvastatin transaction price or household affordability. Premiums, applicable additional charges, entitlement and safety-net status matter."
+  },
+  "after_hours_series": [
+    {
+      "id": "after-hours-delay",
+      "condition_category": "availability",
+      "label": "At least once did not see an after hours GP when needed",
+      "source_id": "abs-after-hours",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "population": "Survey-scope persons aged 15 years and over who needed to see an after-hours GP in the preceding 12 months; Australia, excludes very remote areas in 2024-25.",
+      "evidence_ceiling": "All after-hours GP modalities, not urgent unsociable-hours telehealth alone. Main reasons do not identify all concurrent barriers. Random confidentiality adjustment prevents exact subtraction or reconciliation of components.",
+      "points": [
+        {
+          "geography": "Aust",
+          "period": "2013-14",
+          "value": 34.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "B6",
+            "value": "B17",
+            "interval": "B32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2014-15",
+          "value": 31.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.8,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "C6",
+            "value": "C17",
+            "interval": "C32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2015-16",
+          "value": 30.3,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "D6",
+            "value": "D17",
+            "interval": "D32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2016-17",
+          "value": 26.5,
+          "unit": "percent",
+          "published_95ci_half_width": 1.9,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "E6",
+            "value": "E17",
+            "interval": "E32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2017-18",
+          "value": 28.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "F6",
+            "value": "F17",
+            "interval": "F32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2018-19",
+          "value": 29.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.1,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "G6",
+            "value": "G17",
+            "interval": "G32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2019-20",
+          "value": 32.6,
+          "unit": "percent",
+          "published_95ci_half_width": 2.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "H6",
+            "value": "H17",
+            "interval": "H32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2020-21",
+          "value": 27.8,
+          "unit": "percent",
+          "published_95ci_half_width": 3.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "I6",
+            "value": "I17",
+            "interval": "I32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2021-22",
+          "value": 37.8,
+          "unit": "percent",
+          "published_95ci_half_width": 2.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "J6",
+            "value": "J17",
+            "interval": "J32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2022-23",
+          "value": 46.9,
+          "unit": "percent",
+          "published_95ci_half_width": 3.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "K6",
+            "value": "K17",
+            "interval": "K32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2023-24",
+          "value": 44.1,
+          "unit": "percent",
+          "published_95ci_half_width": 2.9,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "L6",
+            "value": "L17",
+            "interval": "L32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2024-25",
+          "value": 36.3,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "M6",
+            "value": "M17",
+            "interval": "M32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        }
+      ]
+    },
+    {
+      "id": "after-hours-cost-main-reason",
+      "condition_category": "price",
+      "label": "At least once did not see an after hours GP when needed - cost main reason",
+      "source_id": "abs-after-hours",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "population": "Survey-scope persons aged 15 years and over who needed to see an after-hours GP in the preceding 12 months; Australia, excludes very remote areas in 2024-25.",
+      "evidence_ceiling": "All after-hours GP modalities, not urgent unsociable-hours telehealth alone. Main reasons do not identify all concurrent barriers. Random confidentiality adjustment prevents exact subtraction or reconciliation of components.",
+      "points": [
+        {
+          "geography": "Aust",
+          "period": "2013-14",
+          "value": 3.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "B6",
+            "value": "B18",
+            "interval": "B33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2014-15",
+          "value": 3.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "C6",
+            "value": "C18",
+            "interval": "C33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2015-16",
+          "value": 3.1,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "D6",
+            "value": "D18",
+            "interval": "D33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2016-17",
+          "value": 2.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "E6",
+            "value": "E18",
+            "interval": "E33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2017-18",
+          "value": 1.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "F6",
+            "value": "F18",
+            "interval": "F33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2018-19",
+          "value": 2.1,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "G6",
+            "value": "G18",
+            "interval": "G33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2019-20",
+          "value": 2.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "H6",
+            "value": "H18",
+            "interval": "H33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2020-21",
+          "value": 1.9,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "I6",
+            "value": "I18",
+            "interval": "I33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2021-22",
+          "value": 3.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "J6",
+            "value": "J18",
+            "interval": "J33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2022-23",
+          "value": 4.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "K6",
+            "value": "K18",
+            "interval": "K33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2023-24",
+          "value": 6.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "L6",
+            "value": "L18",
+            "interval": "L33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2024-25",
+          "value": 6,
+          "unit": "percent",
+          "published_95ci_half_width": 1.3,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "M6",
+            "value": "M18",
+            "interval": "M33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        }
+      ]
+    },
+    {
+      "id": "after-hours-noncost-main-reason",
+      "condition_category": "availability",
+      "label": "At least once did not see an after hours GP when needed - cost not main reason",
+      "source_id": "abs-after-hours",
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "population": "Survey-scope persons aged 15 years and over who needed to see an after-hours GP in the preceding 12 months; Australia, excludes very remote areas in 2024-25.",
+      "evidence_ceiling": "All after-hours GP modalities, not urgent unsociable-hours telehealth alone. Main reasons do not identify all concurrent barriers. Random confidentiality adjustment prevents exact subtraction or reconciliation of components.",
+      "points": [
+        {
+          "geography": "Aust",
+          "period": "2013-14",
+          "value": 31.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "B6",
+            "value": "B19",
+            "interval": "B34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2014-15",
+          "value": 27.9,
+          "unit": "percent",
+          "published_95ci_half_width": 1.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "C6",
+            "value": "C19",
+            "interval": "C34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2015-16",
+          "value": 27.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "D6",
+            "value": "D19",
+            "interval": "D34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2016-17",
+          "value": 24.1,
+          "unit": "percent",
+          "published_95ci_half_width": 2,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "E6",
+            "value": "E19",
+            "interval": "E34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2017-18",
+          "value": 26.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "F6",
+            "value": "F19",
+            "interval": "F34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2018-19",
+          "value": 27.6,
+          "unit": "percent",
+          "published_95ci_half_width": 2.2,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "G6",
+            "value": "G19",
+            "interval": "G34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2019-20",
+          "value": 30.2,
+          "unit": "percent",
+          "published_95ci_half_width": 2.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "H6",
+            "value": "H19",
+            "interval": "H34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2020-21",
+          "value": 25.9,
+          "unit": "percent",
+          "published_95ci_half_width": 2.9,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "I6",
+            "value": "I19",
+            "interval": "I34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2021-22",
+          "value": 34.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "J6",
+            "value": "J19",
+            "interval": "J34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2022-23",
+          "value": 42.4,
+          "unit": "percent",
+          "published_95ci_half_width": 2.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "K6",
+            "value": "K19",
+            "interval": "K34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2023-24",
+          "value": 37.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "L6",
+            "value": "L19",
+            "interval": "L34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2024-25",
+          "value": 30.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "M6",
+            "value": "M19",
+            "interval": "M34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        }
+      ]
+    }
+  ],
+  "histories": [
+    {
+      "series_id": "gp-cost-delay",
+      "label": "gp-cost-delay",
+      "geography": "NSW",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 3.5,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 3.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 2.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 2.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.5,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 2.9,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 1.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.4,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 4.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 9.5,
+          "unit": "percent",
+          "published_95ci_half_width": 1.2,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 9.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 7.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "source_selectors": {
+            "Table_Number": "10A.26",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": -2.1,
+        "change_95ci": [
+          -3.24,
+          -0.96
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "full_window_change": {
+        "difference_percentage_points": 3.7,
+        "change_95ci": [
+          2.637,
+          4.763
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "comparability": "Very-remote coverage changed during 2023-24 and in 2024-25. Approximate sampling tests do not repair population comparability.",
+      "agency_measured": false
+    },
+    {
+      "series_id": "gp-fully-bulk-billed",
+      "label": "gp-fully-bulk-billed",
+      "geography": "NSW",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 71.5,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 71.7,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 71.8,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 71.6,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 72,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 72.4,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 71.8,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 59.2,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 55.2,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 56.1,
+          "unit": "percent",
+          "published_95ci_half_width": null,
+          "source_selectors": {
+            "Table_Number": "10A.31",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "Australian Government Department of Health Disability and Ageing (unpublished) Medicare Benefits Schedule (MBS) statistics"
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": 0.9,
+        "approximate_significant": null,
+        "change_95ci": null,
+        "same_population_improvement": false,
+        "explanation": "No retained sampling intervals: significance cannot be assessed. Administrative coverage changes are descriptive."
+      },
+      "full_window_change": {
+        "difference_percentage_points": -15.4,
+        "approximate_significant": null,
+        "change_95ci": null,
+        "same_population_improvement": false,
+        "explanation": "No retained sampling intervals: significance cannot be assessed. Administrative coverage changes are descriptive."
+      },
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "comparability": "Claim-processing-year and geocoded residence measure; no retained sampling intervals.",
+      "agency_measured": false
+    },
+    {
+      "series_id": "prescription-cost-delay",
+      "label": "prescription-cost-delay",
+      "geography": "NSW",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 7.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 7.2,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 6.6,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 5.8,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 3.9,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 6.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.9,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 10.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.3,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 9.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 6.8,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "source_selectors": {
+            "Table_Number": "10A.33",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": -2.6,
+        "change_95ci": [
+          -4.156,
+          -1.044
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "full_window_change": {
+        "difference_percentage_points": -0.6,
+        "change_95ci": [
+          -2.087,
+          0.887
+        ],
+        "approximate_significant": false,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change is within the approximate 95% interval around zero; a change beyond sampling variation is not established."
+      },
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "comparability": "Very-remote coverage changed during 2023-24 and in 2024-25. Approximate sampling tests do not repair population comparability.",
+      "agency_measured": false
+    },
+    {
+      "series_id": "gp-urgent-under-four-hours",
+      "label": "gp-urgent-under-four-hours",
+      "geography": "NSW",
+      "points": [
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2015-16",
+          "value": 66.2,
+          "unit": "percent",
+          "published_95ci_half_width": 4.6,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2015-16",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2016-17",
+          "value": 63.4,
+          "unit": "percent",
+          "published_95ci_half_width": 4.8,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2016-17",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2017-18",
+          "value": 63.4,
+          "unit": "percent",
+          "published_95ci_half_width": 3.1,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2017-18",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2018-19",
+          "value": 61.1,
+          "unit": "percent",
+          "published_95ci_half_width": 4.1,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2018-19",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2019-20",
+          "value": 62.6,
+          "unit": "percent",
+          "published_95ci_half_width": 6.5,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2019-20",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2020-21",
+          "value": 57.2,
+          "unit": "percent",
+          "published_95ci_half_width": 5.1,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2020-21",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2021-22",
+          "value": 50,
+          "unit": "percent",
+          "published_95ci_half_width": 4.9,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2021-22",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2022-23",
+          "value": 47.9,
+          "unit": "percent",
+          "published_95ci_half_width": 4.3,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2022-23",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2023-24",
+          "value": 44.8,
+          "unit": "percent",
+          "published_95ci_half_width": 4.9,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2023-24",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        },
+        {
+          "geography": "NSW",
+          "remoteness": "All areas",
+          "period": "2024-25",
+          "value": 45.9,
+          "unit": "percent",
+          "published_95ci_half_width": 6,
+          "source_selectors": {
+            "Table_Number": "10A.43",
+            "Description4": "Less than four hours",
+            "Unit": "%",
+            "Year": "2024-25",
+            "Remoteness": "All areas",
+            "Uncertainty": ""
+          },
+          "source_column": "NSW",
+          "data_source_label": "ABS (unpublished) Patient Experience Survey Australia"
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": 1.1,
+        "change_95ci": [
+          -6.647,
+          8.847
+        ],
+        "approximate_significant": false,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change is within the approximate 95% interval around zero; a change beyond sampling variation is not established."
+      },
+      "full_window_change": {
+        "difference_percentage_points": -20.3,
+        "change_95ci": [
+          -27.86,
+          -12.74
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+      "source_artifact_hash": "sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957",
+      "comparability": "Very-remote coverage changed during 2023-24 and in 2024-25. Approximate sampling tests do not repair population comparability.",
+      "agency_measured": false
+    },
+    {
+      "series_id": "after-hours-delay",
+      "label": "At least once did not see an after hours GP when needed",
+      "geography": "Aust",
+      "points": [
+        {
+          "geography": "Aust",
+          "period": "2013-14",
+          "value": 34.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "B6",
+            "value": "B17",
+            "interval": "B32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2014-15",
+          "value": 31.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.8,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "C6",
+            "value": "C17",
+            "interval": "C32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2015-16",
+          "value": 30.3,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "D6",
+            "value": "D17",
+            "interval": "D32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2016-17",
+          "value": 26.5,
+          "unit": "percent",
+          "published_95ci_half_width": 1.9,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "E6",
+            "value": "E17",
+            "interval": "E32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2017-18",
+          "value": 28.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "F6",
+            "value": "F17",
+            "interval": "F32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2018-19",
+          "value": 29.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.1,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "G6",
+            "value": "G17",
+            "interval": "G32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2019-20",
+          "value": 32.6,
+          "unit": "percent",
+          "published_95ci_half_width": 2.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "H6",
+            "value": "H17",
+            "interval": "H32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2020-21",
+          "value": 27.8,
+          "unit": "percent",
+          "published_95ci_half_width": 3.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "I6",
+            "value": "I17",
+            "interval": "I32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2021-22",
+          "value": 37.8,
+          "unit": "percent",
+          "published_95ci_half_width": 2.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "J6",
+            "value": "J17",
+            "interval": "J32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2022-23",
+          "value": 46.9,
+          "unit": "percent",
+          "published_95ci_half_width": 3.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "K6",
+            "value": "K17",
+            "interval": "K32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2023-24",
+          "value": 44.1,
+          "unit": "percent",
+          "published_95ci_half_width": 2.9,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "L6",
+            "value": "L17",
+            "interval": "L32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2024-25",
+          "value": 36.3,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "M6",
+            "value": "M17",
+            "interval": "M32",
+            "definition": "A17",
+            "footnote": "A37"
+          }
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": -7.8,
+        "change_95ci": [
+          -11.112,
+          -4.488
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "full_window_change": {
+        "difference_percentage_points": 1.9,
+        "change_95ci": [
+          -0.363,
+          4.163
+        ],
+        "approximate_significant": false,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change is within the approximate 95% interval around zero; a change beyond sampling variation is not established."
+      },
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "comparability": "Very-remote coverage changed during 2023-24 and in 2024-25. Approximate sampling tests do not repair population comparability.",
+      "agency_measured": false
+    },
+    {
+      "series_id": "after-hours-cost-main-reason",
+      "label": "At least once did not see an after hours GP when needed - cost main reason",
+      "geography": "Aust",
+      "points": [
+        {
+          "geography": "Aust",
+          "period": "2013-14",
+          "value": 3.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "B6",
+            "value": "B18",
+            "interval": "B33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2014-15",
+          "value": 3.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.8,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "C6",
+            "value": "C18",
+            "interval": "C33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2015-16",
+          "value": 3.1,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "D6",
+            "value": "D18",
+            "interval": "D33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2016-17",
+          "value": 2.3,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "E6",
+            "value": "E18",
+            "interval": "E33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2017-18",
+          "value": 1.7,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "F6",
+            "value": "F18",
+            "interval": "F33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2018-19",
+          "value": 2.1,
+          "unit": "percent",
+          "published_95ci_half_width": 0.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "G6",
+            "value": "G18",
+            "interval": "G33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2019-20",
+          "value": 2.4,
+          "unit": "percent",
+          "published_95ci_half_width": 0.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "H6",
+            "value": "H18",
+            "interval": "H33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2020-21",
+          "value": 1.9,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "I6",
+            "value": "I18",
+            "interval": "I33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2021-22",
+          "value": 3.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.1,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "J6",
+            "value": "J18",
+            "interval": "J33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2022-23",
+          "value": 4.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "K6",
+            "value": "K18",
+            "interval": "K33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2023-24",
+          "value": 6.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.4,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "L6",
+            "value": "L18",
+            "interval": "L33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2024-25",
+          "value": 6,
+          "unit": "percent",
+          "published_95ci_half_width": 1.3,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "M6",
+            "value": "M18",
+            "interval": "M33",
+            "definition": "A18",
+            "footnote": "A37"
+          }
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": -0.4,
+        "change_95ci": [
+          -2.31,
+          1.51
+        ],
+        "approximate_significant": false,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change is within the approximate 95% interval around zero; a change beyond sampling variation is not established."
+      },
+      "full_window_change": {
+        "difference_percentage_points": 2.7,
+        "change_95ci": [
+          1.174,
+          4.226
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "comparability": "Very-remote coverage changed during 2023-24 and in 2024-25. Approximate sampling tests do not repair population comparability.",
+      "agency_measured": false
+    },
+    {
+      "series_id": "after-hours-noncost-main-reason",
+      "label": "At least once did not see an after hours GP when needed - cost not main reason",
+      "geography": "Aust",
+      "points": [
+        {
+          "geography": "Aust",
+          "period": "2013-14",
+          "value": 31.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "B6",
+            "value": "B19",
+            "interval": "B34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2014-15",
+          "value": 27.9,
+          "unit": "percent",
+          "published_95ci_half_width": 1.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "C6",
+            "value": "C19",
+            "interval": "C34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2015-16",
+          "value": 27.2,
+          "unit": "percent",
+          "published_95ci_half_width": 1.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "D6",
+            "value": "D19",
+            "interval": "D34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2016-17",
+          "value": 24.1,
+          "unit": "percent",
+          "published_95ci_half_width": 2,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "E6",
+            "value": "E19",
+            "interval": "E34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2017-18",
+          "value": 26.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "F6",
+            "value": "F19",
+            "interval": "F34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2018-19",
+          "value": 27.6,
+          "unit": "percent",
+          "published_95ci_half_width": 2.2,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "G6",
+            "value": "G19",
+            "interval": "G34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2019-20",
+          "value": 30.2,
+          "unit": "percent",
+          "published_95ci_half_width": 2.5,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "H6",
+            "value": "H19",
+            "interval": "H34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2020-21",
+          "value": 25.9,
+          "unit": "percent",
+          "published_95ci_half_width": 2.9,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "I6",
+            "value": "I19",
+            "interval": "I34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2021-22",
+          "value": 34.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "J6",
+            "value": "J19",
+            "interval": "J34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2022-23",
+          "value": 42.4,
+          "unit": "percent",
+          "published_95ci_half_width": 2.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "K6",
+            "value": "K19",
+            "interval": "K34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2023-24",
+          "value": 37.5,
+          "unit": "percent",
+          "published_95ci_half_width": 2.6,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "L6",
+            "value": "L19",
+            "interval": "L34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        },
+        {
+          "geography": "Aust",
+          "period": "2024-25",
+          "value": 30.4,
+          "unit": "percent",
+          "published_95ci_half_width": 1.7,
+          "numerator": null,
+          "source_cells": {
+            "table": "Table 7",
+            "period": "M6",
+            "value": "M19",
+            "interval": "M34",
+            "definition": "A19",
+            "footnote": "A37"
+          }
+        }
+      ],
+      "selection": "Full retained annual window; favourable one-year signals were selected post hoc.",
+      "latest_change": {
+        "difference_percentage_points": -7.1,
+        "change_95ci": [
+          -10.206,
+          -3.994
+        ],
+        "approximate_significant": true,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change exceeds the approximate 95% interval around zero. Survey scope changed, so a same-population improvement is not established."
+      },
+      "full_window_change": {
+        "difference_percentage_points": -0.8,
+        "change_95ci": [
+          -3.067,
+          1.467
+        ],
+        "approximate_significant": false,
+        "same_population_improvement": false,
+        "covariance_assumption": "Zero covariance approximation; exact only for uncorrelated estimates. Source scope change is separate from sampling uncertainty.",
+        "explanation": "Change is within the approximate 95% interval around zero; a change beyond sampling variation is not established."
+      },
+      "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+      "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+      "comparability": "Very-remote coverage changed during 2023-24 and in 2024-25. Approximate sampling tests do not repair population comparability.",
+      "agency_measured": false
+    }
+  ],
+  "items": [
+    {
+      "id": "atorvastatin-prescription",
+      "label": "Clinically prescribed atorvastatin, dispensed by a community pharmacy",
+      "geography": "NSW",
+      "conditions": [
+        {
+          "condition_category": "price",
+          "status": "proxy-and-rule",
+          "observation": "NSW 2024-25 prescription cost-delay estimate covers all prescribed medicines. PBS 2026 contributions and safety-net thresholds are policy context.",
+          "source_id": "pbs-patient-charges",
+          "source_url": "https://www.pbs.gov.au/info/healthpro/explanatory-notes/section1/Section_1_4_Explanatory_Notes",
+          "source_artifact_hash": "sha256:cec28ad47583d370c67a1caa255711d21fda714628d27ebcdf12f981cb6d78bb",
+          "missing_series": "For NSW residents needing their prescribed atorvastatin strength and quantity today: actual total dispensing charge after entitlement, premiums and safety-net status, available household funds, and cost-related failed fills.",
+          "why_missing": "RoGS 10A.33 combines all prescribed medicines; PBS schedules contain statutory contributions, not linked transactions and household resources."
+        },
+        {
+          "condition_category": "permission",
+          "status": "rule-context",
+          "observation": "AIHW describes PBS eligibility through a current Medicare card or reciprocal arrangements. This does not establish a particular prescription entitlement.",
+          "source_id": "aihw-medicines",
+          "source_url": "https://www.aihw.gov.au/reports/medicines/medicines-in-the-health-system",
+          "source_artifact_hash": "sha256:10e5d5d8445f413dfb611f2e81eeb77302041edee20d7ee39c6ff310c96bf52d",
+          "missing_series": "NSW atorvastatin needs matched to a valid prescription, PBS item restriction eligibility and approval or refusal on the date of attempted dispensing.",
+          "why_missing": "Retained AIHW overview describes eligibility categories; it publishes no person-by-prescription approval denominator."
+        },
+        {
+          "condition_category": "proximity",
+          "status": "missing",
+          "observation": "No retained travel-time measure for a pharmacy able to dispense the required atorvastatin.",
+          "source_id": "aihw-medicines",
+          "source_url": "https://www.aihw.gov.au/reports/medicines/medicines-in-the-health-system",
+          "source_artifact_hash": "sha256:10e5d5d8445f413dfb611f2e81eeb77302041edee20d7ee39c6ff310c96bf52d",
+          "missing_series": "NSW residential origins by remoteness linked to an open accessible dispensing pharmacy, transport mode and actual journey time for the required atorvastatin strength.",
+          "why_missing": "AIHW lists supply channels; it does not publish geocoded pharmacy opening hours or journeys. Pharmacy counts would not identify accessible stock."
+        },
+        {
+          "condition_category": "availability",
+          "status": "missing",
+          "observation": "Dispensing volumes do not measure unfilled prescriptions or stock today.",
+          "source_id": "aihw-medicines",
+          "source_url": "https://www.aihw.gov.au/reports/medicines/medicines-in-the-health-system",
+          "source_artifact_hash": "sha256:10e5d5d8445f413dfb611f2e81eeb77302041edee20d7ee39c6ff310c96bf52d",
+          "missing_series": "Dated NSW pharmacy-level required-strength stock and attempted atorvastatin fills, including failures, stockout duration and time to dispensing.",
+          "why_missing": "AIHW medicine totals count completed prescriptions nationally, with no attempted-fill denominator or local live stock."
+        },
+        {
+          "condition_category": "capability",
+          "status": "missing",
+          "observation": "The retained 2018 navigation survey is broad national context.",
+          "source_id": "abs-health-literacy",
+          "source_url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-health-literacy/latest-release",
+          "source_artifact_hash": "sha256:fe04e792e301dc31376a751232af3a6b1d11b836697d62862c94e08dee0205a9",
+          "missing_series": "NSW people needing atorvastatin assessed for accessible instructions, language or support needs and ability to obtain and use the prescribed medicine, with unmet support recorded today.",
+          "why_missing": "The national health-literacy domains have no drug-specific, NSW current-day or dispensing-outcome linkage."
+        }
+      ],
+      "binding_category": null,
+      "binding_summary": "Binding category is unknown today. Establishing it requires the five category-specific missing series below on the same needed-care episodes, including unsuccessful attempts and co-occurring barriers.",
+      "five_categories_direct_current_measurements": false
+    },
+    {
+      "id": "after-hours-gp",
+      "label": "After-hours GP consultation, with urgent unsociable-hours telehealth separately scoped",
+      "geography": "Australia (NSW-specific binding unavailable)",
+      "conditions": [
+        {
+          "condition_category": "price",
+          "status": "measured-historical-barrier",
+          "observation": "ABS Table 7 measures cost as the main reason for at least one missed after-hours GP need, among those needing the service.",
+          "source_id": "abs-after-hours",
+          "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+          "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+          "missing_series": "NSW after-hours needs today linked to quoted total consultation charge, available funds and all concurrent reasons for failed care, distinguishing telehealth modality and urgent unsociable hours.",
+          "why_missing": "Annual national main-reason estimates cannot establish current NSW charges, all concurrent barriers or the narrower telehealth pathway."
+        },
+        {
+          "condition_category": "permission",
+          "status": "rule-context",
+          "observation": "MBS AN.1.1 exempts an urgent after-hours service in unsociable hours from its routine relationship requirement; this is not blanket after-hours eligibility.",
+          "source_id": "mbs-telehealth",
+          "source_url": "https://www9.health.gov.au/mbs/fullDisplay.cfm?type=note&q=AN.1.1",
+          "source_artifact_hash": "sha256:fcd20ce36ee01078853509776d95627670baeeeca56054011eedcdbb57e80fd2",
+          "missing_series": "NSW attempted after-hours consultations today matched to modality, applicable MBS item, urgency and time criteria, entitlement and eligibility refusal.",
+          "why_missing": "The retained exception text is a rule, not a denominator of eligible and refused needs; detailed item-specific adjudications are absent."
+        },
+        {
+          "condition_category": "proximity",
+          "status": "missing",
+          "observation": "ABS remoteness groups describe patient experience, not distance to an open clinic.",
+          "source_id": "abs-after-hours",
+          "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+          "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+          "missing_series": "NSW origins by remoteness linked to staffed open after-hours clinics accepting the patient, accessible transport and journey time; for telehealth, usable connectivity instead of physical distance.",
+          "why_missing": "Table 9.2 reports service experience by remoteness. It contains no clinic coordinates, opening hours, transport or connectivity series."
+        },
+        {
+          "condition_category": "availability",
+          "status": "measured-combined-barrier",
+          "observation": "ABS Table 7 measures at least one missed after-hours need for any reason and separately where cost was not the main reason.",
+          "source_id": "abs-after-hours",
+          "source_url": "https://www.abs.gov.au/statistics/health/health-services/patient-experiences/2024-25/DC3_PEX_2425_AHM_T7_to_9.xlsx",
+          "source_artifact_hash": "sha256:e6d1e761fc7fc697f1bada5722e9853a9baa83a286bda76158926abc9745a916",
+          "missing_series": "All NSW after-hours needs today, including unsuccessful booking attempts, linked to bookable clinically suitable slots and elapsed time from first attempt to care, separately by modality.",
+          "why_missing": "An annual missed-care response combines availability with personal and other reasons. Noncost does not mean capacity; completed urgent-GP wait starts at appointment-making."
+        },
+        {
+          "condition_category": "capability",
+          "status": "missing",
+          "observation": "Broad national navigation difficulty cannot measure a person’s ability to obtain after-hours care.",
+          "source_id": "abs-health-literacy",
+          "source_url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-health-literacy/latest-release",
+          "source_artifact_hash": "sha256:fe04e792e301dc31376a751232af3a6b1d11b836697d62862c94e08dee0205a9",
+          "missing_series": "NSW after-hours needs today with accessible booking, language or carer support and device/connectivity ability for the offered modality, including unsuccessful attempts.",
+          "why_missing": "The 2018 national navigation survey does not isolate after-hours tasks, NSW today or excluded people needing supported responses."
+        }
+      ],
+      "binding_category": null,
+      "binding_summary": "Binding category is unknown today. Establishing it requires the five category-specific missing series below on the same needed-care episodes, including unsuccessful attempts and co-occurring barriers.",
+      "five_categories_direct_current_measurements": false
+    }
+  ],
+  "significance_method": {
+    "source_url": "https://www.abs.gov.au/methodologies/patient-experiences-methodology/2024-25",
+    "source_hash": "sha256:3896dafee7967fc407804b3750fbdd0758f69609d82dae43c2cd220420414694",
+    "section": "Calculating differences; Significance testing",
+    "formula": "SE=95%MOE/1.96; approximate SE difference=sqrt(SE1^2+SE2^2); two-sided 95% interval=difference +/-1.96*SE difference",
+    "exact_covariance_available": false,
+    "multiple_comparison_adjustment": false
+  },
+  "workbook_footnotes": {
+    "Table 7": [
+      {
+        "address": "A1",
+        "text_sha256": "sha256:d376472dba2d3228f40c7378415552390af29fbc23e285f7c781508ae7fd00d1",
+        "character_count": 346
+      },
+      {
+        "address": "A3",
+        "text_sha256": "sha256:dbde2801f5032eddced65aba57b5bda191fffac8e02cbaceaf1c11e0c0ca0a84",
+        "character_count": 171
+      },
+      {
+        "address": "A37",
+        "text_sha256": "sha256:22c7ed0176d5322f99f79714509a92b5e3a52718493fb626be405f3b43ce0492",
+        "character_count": 162
+      }
+    ],
+    "Table 9.2": [
+      {
+        "address": "A1",
+        "text_sha256": "sha256:61dd2d88dc533baeb074f2425e2d7bc1360c804b96002ae019152178bc23468a",
+        "character_count": 327
+      },
+      {
+        "address": "A3",
+        "text_sha256": "sha256:1a1b85ccb5f7905de38d7ea761b67f7d52576772d3cefb817aed0d23da4bbc53",
+        "character_count": 181
+      },
+      {
+        "address": "A63",
+        "text_sha256": "sha256:22c7ed0176d5322f99f79714509a92b5e3a52718493fb626be405f3b43ce0492",
+        "character_count": 162
+      },
+      {
+        "address": "A64",
+        "text_sha256": "sha256:e4679166b2c0bea1e9ded95c53a868f3ee3d8ab00f898f5f58f20b830bcf5e43",
+        "character_count": 167
+      }
+    ]
+  }
+}
