@@ -1,0 +1,13 @@
+{
+  "id": "pip-update-calendar",
+  "url": "https://worldbank.github.io/PIP_data_updates/",
+  "final_url": "https://worldbank.github.io/PIP_data_updates/",
+  "started_at": "2026-09-10T06:41:50.836Z",
+  "ended_at": "2026-09-10T06:41:51.812Z",
+  "status": 200,
+  "body_sha256": "sha256:046971c697ca2fe69190a1f266472efbd3580638026f0de38297bfcec23a349a",
+  "body_byte_length": 5007203,
+  "headers_sha256": "sha256:4e9810493207c33b13b18410e794693f7830734a0442f0df5a1afbc9f0c1a3a6",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
