@@ -167,6 +167,10 @@ new condition identity and an explicit relationship.
 
 ## Evolution contract
 
+Round 09.1 adopts the [construct-correction policy](construct-correction-policy.md):
+changes of construct require new identities, never silent same-identity relabelling.
+The general supersession migration remains team-owned unfinished engineering.
+
 Definitions are introduced through a locally hash-chained event history. The
 supported prototype operations are:
 

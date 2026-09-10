@@ -103,10 +103,13 @@ rejected even when their local hashes have been recomputed.
 
 ## ✅ Where to go next
 
-The next engineering proposal should define an explicit relationship between an
-old proxy and its corrected construct, with a versioned migration that invalidates
-affected readers. It must preserve the old record and the unmeasured broader
-question. Adding a parallel condition without invalidating those readers, or
-changing an arbitrary threshold to manufacture a new version, would not do that
-job. The three-event gate remains unmet until two genuine changes can be carried
-through that full chain.
+Round 09.1 adopts the [construct-correction policy](construct-correction-policy.md):
+new meaning requires a new identity. The missing migration is engineering the
+team owns, not an external blocker. A versioned relationship must preserve the
+old record and the unmeasured broader question, inventory affected readers and
+require explicit adoption. The urgent-GP condition has no positive-signal
+measurement consumer, but basket records bind its definition and hash. Those
+readers need an inventory; adding a new consumer to satisfy a quota is misleading.
+Adding a parallel condition or changing an arbitrary threshold does not complete
+a correction. The three-event gate remains unmet. This policy decision does not
+add events or alter the historical discovery record.

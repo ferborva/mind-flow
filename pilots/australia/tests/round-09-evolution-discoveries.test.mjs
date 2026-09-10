@@ -6,6 +6,22 @@ import { deriveEvolutionDiscoveries } from '../tools/evolution-discoveries.mts';
 
 const kernel = JSON.parse(readFileSync(new URL('../basket/primary-care.kernel.current.json', import.meta.url)));
 
+test('construct correction policy chooses new identities without manufacturing consumer events', () => {
+  const policy = readFileSync(new URL('../../../contracts/executable-if/construct-correction-policy.md', import.meta.url), 'utf8');
+  assert.match(policy, /Construct corrections require new condition identities/);
+  assert.match(policy, /No automatic observation or consumer rebinding/);
+  assert.match(policy, /not an external blocker/);
+  const consumer = JSON.parse(readFileSync(new URL('../data/positive-signals-current.json', import.meta.url)));
+  assert.equal(JSON.stringify(consumer).includes('condition.au.gp.timely'), false);
+  const basket = readFileSync(new URL('../basket/primary-care.r3.json', import.meta.url), 'utf8');
+  assert.match(basket, /"condition_id": "condition.au.gp.timely"/);
+  assert.match(policy, /basket records bind its definition and hash/);
+  assert.equal(kernel.events.length, 12);
+  const report = deriveEvolutionDiscoveries();
+  assert.equal(report.actual_appended_events, 1);
+  assert.equal(report.gate_met, false);
+});
+
 function attempt(conditionId, operation, mutate) {
   const after = structuredClone(kernel);
   const old = after.current_state.find(s => s.condition_id === conditionId);
