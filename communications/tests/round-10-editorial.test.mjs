@@ -58,16 +58,19 @@ test("Name the If sign-off covers all sections without recording agent approval 
   assert.equal(existsSync(resolve(root, "posts/name-the-if.md")), false);
 });
 
-test("ready-stage amendment preserves attributed wording and rejects an invented coverage claim", () => {
+test("review-stage repair reverses through the retained ready-stage amendment without changing attributed wording", () => {
   const current = read("drafts/name-the-if.md");
   const audit = read("reviews/round-10-narrative-provenance.md");
-  const record = [...audit.matchAll(/```editorial-amendment\n([\s\S]*?)\n```/g)]
-    .map(([, value]) => JSON.parse(value)).find(entry => entry.path === "drafts/name-the-if.md");
-  const previous = reverseEditorialAmendment(current, record);
+  const records = [...audit.matchAll(/```editorial-amendment\n([\s\S]*?)\n```/g)]
+    .map(([, value]) => JSON.parse(value)).filter(entry => entry.path === "drafts/name-the-if.md");
+  assert.equal(records.length, 2);
+  const ready = reverseEditorialAmendment(current, records[1]);
+  assert.match(ready, /^status: ready$/m);
+  const previous = reverseEditorialAmendment(ready, records[0]);
   assert.match(previous, /^status: review$/m);
-  assert.match(current, /^status: ready$/m);
+  assert.match(current, /^status: review$/m);
   assert.deepEqual(attributedSentences(current), attributedSentences(previous));
-  assert.throws(() => reverseEditorialAmendment(current.replace("92.0%", "99.0%"), record), /DRIFT/);
-  assert.throws(() => reverseEditorialAmendment(current.replace("The restored January 2025", "The current"), record), /DRIFT/);
+  assert.throws(() => reverseEditorialAmendment(current.replace("92.0%", "99.0%"), records[1]), /DRIFT/);
+  assert.throws(() => reverseEditorialAmendment(current.replace("The restored January 2025", "The current"), records[1]), /DRIFT/);
   assert.match(audit, /### Section 6 checklist, applied literally/);
 });

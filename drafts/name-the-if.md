@@ -3,7 +3,7 @@ id: name-the-if
 title: Name the If
 subtitle: A way to connect the abundance promise with everyday life
 type: draft
-status: ready
+status: review
 size: medium
 themes: [abundance]
 sources: [2026-09-08-abundance-frame-conversation, 2026-09-08-the-benchmark-shrug, 2026-09-09-softer-on-tax-and-remedy]

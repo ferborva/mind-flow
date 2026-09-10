@@ -43,6 +43,13 @@ All times below are UTC on 10 September 2026 unless another date is shown.
 
 The retained Statistics Canada calendar schedules upstream October LFS for 6 November, with dates subject to change. It does not guarantee an ILO publication or ingestion date. Missing or changed native evidence at resolution requires the prewritten review/void procedure, never zero imputation or headline substitution.
 
+**Calendar reader requirement:** the date claim requires opening page 2 of
+`signals/countries/sources/forecast-feasibility-2026-09-10/statcan-release-calendar.body`
+(repository-relative) in a PDF reader that supports the
+retained encrypted PDF. The code checks the file hash, not the calendar text;
+the date assertion is not machine-checked. This unsealed note adds that reader
+requirement without changing the sealed runbook, calendar or resolution window.
+
 | Artifact | SHA-256 |
 | --- | --- |
 | Issued forecast | `fd35bf9998830c4ba3d9d42bcd94feefd1fce29c70b144042754239df2e01140` |
@@ -59,6 +66,12 @@ The source commit is `630b59af9a47a47e4b894433e03f2e5b8205ee6d`; the local seal 
 
 The [PR42 registration comment](https://github.com/ferborva/mind-flow/pull/42#issuecomment-5615053978) is **self-posted and editable**, not an immutable provider comment or independent registrar. The workflow retained exact POST and readback bytes and checked body, identity, provider creation/update times, statuses, endpoints and capture chronology. The typed receipt remains `unverified_external_review_required`. Immutable local byte addresses and provider-timed registration must not be confused with institutional or statistical approval, or authenticated local time.
 
+The agent posted it through the human GitHub account `ferbo-atl`, using the
+account's token available to the agent. The retained response says
+`author_association: COLLABORATOR`; that does not establish repository ownership
+or turn the account attribution into human authorship, approval or independent
+registration. No issued or registration bytes were changed to add this disclosure.
+
 The retained binding report has `binding_complete: true` and `baseline_execution_reproduced: true`, with no reported blockers. It does not itself certify independent anchor verification or independent baseline review, and its `issuance_authorised` field remains false. Human approval and the actual guarded issuance operation are distinct from those mechanical claims.
 
 Offline replay is `node forecasts/prospective-pilot/round-10-canada/issuance.mts --check`. It verifies the actual bundle without querying the currently editable comment, resolving an outcome or calculating a score. The [frozen runbook](issuance-runbook.md) continues to require complete native source capture, exact labels and flags, first-presence evidence, chronology and separate typed admission before any future resolution. Raw payload preparation alone is not an admitted outcome.
@@ -66,3 +79,9 @@ Offline replay is `node forecasts/prospective-pilot/round-10-canada/issuance.mts
 ## Earlier NERO defect remains visible
 
 This Canadian record neither replaces nor repairs the [earlier NERO issue](../round-09-nero/error-notice.md). Its known SA4 101 resolution-prose versus SA4 102 native-selector contradiction, original sealed bytes and disclosure remain preserved. The separately corrected Central Coast NERO record also remains distinct. No retrospective editing, formal void, cohort exclusion or denominator change is implied by issuing this Canadian forecast.
+
+The Round 09 issued JSON, sources and code are byte-unchanged. Three unsealed
+prose notes received metadata-only author-case normalisation, `ren` to `Ren`:
+the original error notice and issuance note, and the corrected issuance note.
+Their bodies are unchanged; historical commit-addressed references still point
+to the original versions. “Byte-unchanged” does not describe those three whole files.

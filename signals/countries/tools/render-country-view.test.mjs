@@ -50,10 +50,10 @@ test('generated Markdown reproduces exactly from the measurement snapshot',()=>{
 });
 test('headline counts the intersection, not missing cells or stale measured_signals labels',()=>{
   const original=data();
-  assert.match(renderCountryView(original,options),/50 economies, 47 with all three series, 146 retained signal observations/);
+  assert.match(renderCountryView(original,options),/50 economies, 47 with all three original series, 146 retained signal observations/);
   for(const country of original.countries)country.measured_signals=[];
   original.signals[0].observations=original.signals[0].observations.filter(row=>row.country!=='AUS');
-  assert.match(renderCountryView(original,options),/50 economies, 46 with all three series, 145 retained signal observations/);
+  assert.match(renderCountryView(original,options),/50 economies, 46 with all three original series, 145 retained signal observations/);
 });
 test('reader keeps different periods and uninterpreted native ILO flags explicit',()=>{
   const text=renderCountryView(data(),options);

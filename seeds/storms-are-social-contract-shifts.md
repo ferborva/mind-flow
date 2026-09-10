@@ -11,8 +11,8 @@ updated: 2026-09-10
 
 # Storms are major shifts in the social contract
 
-**Fernando defines the storm through the social contract and social fabric.**
-The metaphor now has his definition, beyond an unusual market movement.
+**Fernando offers a working definition through the social contract and social fabric.**
+His phrase “can be considered as” leaves the definition provisional, beyond an unusual market movement.
 
 ## His words
 

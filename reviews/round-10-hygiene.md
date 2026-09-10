@@ -66,6 +66,23 @@ original note hashes and authorship spelling.
 
 ## Validation and limits
 
+**Round 10.1 authorship disclosure:** the sealed `31febcb..e04a287` history has
+47 commits as `Ren (AI agent) <ren-agent@users.noreply.github.com>` and 16 as
+`Ren <ren@users.noreply.github.com>`. They are two agent Git identities, not
+Fernando's identity; all 63 contain `Agent: Ren`. The casing validator covers
+Markdown, not Git authors or trailers. These published identities are preserved,
+not rewritten to look uniform. This disclosure does not claim a Git-identity
+enforcement test existed in Round 10.
+
+The three Round 09 forecast prose-note edits listed above are metadata-only
+author-case normalisation. Only their bodies, issued records, sources and code
+are byte-unchanged, not the three whole Markdown files. The original
+commit-addressed registration reference and all sealed dependencies remain intact.
+
+The independent review's runtime-parity pass used the same executable bytes
+as the retained receipt. It corroborates integrity and internal consistency,
+not reproduction in an environmentally independent toolchain.
+
 The hostile casing test first failed on the current validator for a lowercase
 forecast-note author; it passed after extending the root set. It tests nested
 and future paths, five casing variants, canonical quoted/unquoted names and
@@ -96,7 +113,8 @@ count and artifact-lock update after integration with the editorial lane.
   command replay is required before merge. The original hygiene lane made
   no governance decision.
 - **Hash-domain separation:** schema-2 design remains deferred to the
-  16 September review. No schema or digest-domain migration here.
+  16 September review. This deferral covers editions 1.0.0 and 1.1.0.
+  No schema or digest-domain migration here.
 - **Repository/history weight:** current binary controls do not remove
   inherited Git history weight. No history rewrite is performed.
 - **Inherited macro raw inputs:** eight inherited macro series still require

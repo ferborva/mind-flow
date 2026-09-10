@@ -44,11 +44,22 @@ settles the principle of income access, not its measurement.
 - [ ] **Does a beneficial shift affecting 5% count as a storm, or only a harmful one?**
       The captured definition does not settle this. A harmful-disruption
       criterion is commissioned and cannot silently answer it.
+- [ ] **Should direct disruption or household exposure determine the threshold?**
+      Ren currently uses direct disruption as a share of total population.
+      Showing dependent household members separately does not answer which
+      reading should decide the five-point test.
+- [ ] **Is “a storm can be considered as” a working definition or a settled one?**
+      Keep his captured hedge. Ren's framing now says working definition;
+      this is not a new answer attributed to Fernando.
 - [ ] **Sign off Name the If, section by section?** The draft is ready for
       Fernando's read, not approved or published. Seven decisions are pending
       on [the sign-off sheet](../reviews/name-the-if-sign-off.md).
 - [ ] **An outside human read before publication?** Track 7 still has no
       outside human reviewer; agent provenance checks do not substitute.
+- [ ] **Should Name the If name a downside of the frame itself?** Its care
+      example has caveats, but the method could be used to dismiss promises
+      or shift the burden onto people. This reviewer-raised judgement is
+      parked for Fernando, not added to his draft as his opinion.
 - [ ] **Distinct historical freeze IDs without rewriting accepted receipts?**
       The originals remain byte-for-byte sealed. The existing hash-bound
       attempt index distinguishes them, but the literal embedded-ID request

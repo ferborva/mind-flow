@@ -52,6 +52,18 @@ Schedules may be delayed or dropped and public inactive repositories may have
 schedules disabled after 60 days. This is best-effort watching, not guaranteed
 publication-day acquisition. An operator reviews gaps and the December close.
 
+**December close:** after retaining the final attempt and closing the campaign,
+remove `.github/workflows/nero-intake.yml` through the reviewed default-branch
+path, so later November/December runs do not continue as no-ops. Do not remove
+retained evidence, invalidate its PR or introduce a resolver into collection.
+This is a future operator step, not a removal performed in Round 10.1.
+
+Rerunning the publish job alone increments `github.run_attempt` and cannot
+find the prior attempt's artifact. This fails closed. Retain the failed run,
+then rerun the complete workflow within the collection window so acquisition
+and publication share an attempt; outside that window use the human close
+procedure, not a bypass of the time guard.
+
 The deterministic `ren/nero-october-2026-evidence` ref preserves the first
 successful proposal even before merge. Matching archive bytes do not rewrite
 its timestamps; changed bytes fail for human revision review and remain in the
@@ -83,7 +95,12 @@ intakes remain byte-frozen. The defective predecessor remains disclosed and
 blocked; the [appointment proposal](../governance/round-10-adjudicator-appointment.md)
 does not grant a new void reason or remove its denominator entry.
 
-## 🌍 Third forecast checkpoint
+## 🌍 Third forecast checkpoint, historical intake-lane proposal
+
+This section preserves the earlier intake-lane checkpoint, not final Round 10
+status. The later [Canadian issuance note](../forecasts/prospective-pilot/round-10-canada/issuance-note.md)
+records the actual third forecast issued at 07:56:37 UTC on 10 September 2026.
+The IMF target below was not issued and does not replace that Canadian record.
 
 **No third forecast is issued here.** A potential target is a single
 non-Australian country's 2026 unemployment-rate estimate as published in the

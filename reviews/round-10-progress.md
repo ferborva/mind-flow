@@ -169,7 +169,8 @@ GitHub recorded the digest-only registration on existing PR42 at
 Exact POST/GET bodies, headers, metadata and the registration receipt are
 retained in `c0aac1f9c3f0ace240b2b47abab535f598c448f8`. A separate reviewer
 confirmed the live comment, unedited creation/update times, all source bytes
-and capture chronology. This checkpoint is registration, not issuance.
+and capture chronology. The comment remains self-posted, editable and externally unverified.
+This checkpoint is registration, not issuance.
 
 The full local Node 22 suite passed through all 18 suites, ending with
 31 review-freeze tests. A later exact-candidate freeze will retain its own
@@ -207,3 +208,51 @@ normalised content hash excluding those fields stayed
 All other generated outputs remained byte-identical. Candidate selection,
 the retained full reproduction and a separate seal now form the handoff;
 none authorises a Round 10 main merge.
+
+### Round 10.1 provenance and editorial repair accounting
+
+**Lane-path deviation:** after PR42 merged at `86ab14d`, five Canadian commits
+(`630b59a`, `381cb45`, `c0aac1f`, `d8af9cf`, `2e351e6`) reached central through
+direct merges without a new lane PR, under the registered issue window.
+The central candidate `1c2b694` and seal `e04a287` were also direct commits,
+not lane PRs. This departed from the plan's per-lane review surface; central
+PR33 still exposed them, but that does not retroactively supply lane review.
+
+The registration comment was authored by the agent through the human account
+`ferbo-atl` using its available token. The retained association is `COLLABORATOR`,
+not proof of repository ownership or human endorsement. It remains self-posted,
+editable and externally unverified; no registration or issued bytes were edited.
+
+Round 10.1 replaces three framing claims of a settled definition with “working
+definition”, preserving Fernando's exact quoted hedge. The programme and weather
+seed replace “three assumptions” with five and add Direction and Threshold basis.
+No captured answer or remedy was added. New backlog entries park those choices,
+the settled-definition question and a frame-level downside judgement for Fernando.
+
+Index metadata/count rows and the stale Name the If lifecycle label are replaced;
+the missing capture/seed entries and storm-theme continuation are added. Counts
+are 10 pipeline captures and 21 seeds, excluding README/operator files and raw
+transcript copies. The review's 11/22 counts included the README files.
+
+Name the If changes only `status: ready` to `status: review`, with the full inverse
+amendment in `round-10-narrative-provenance.md`. Its body is unchanged; the current
+sign-off hash and line-provenance endpoint are updated. Earlier creator “pass”
+wording is replaced with an explicit partial checklist item 7 and pending
+frame-level downside decision, not an invented opinion in Fernando's prose.
+Draft dates remain first-check labels; the sheet clarifies checked 9 September,
+rechecked 10 September 2026, without claiming a new source retrieval.
+
+The unsealed Canadian note adds the PDF-reader requirement and metadata-only
+Round 09 note distinction. The operations note adds December cron removal and
+whole-workflow retry instructions, and marks its preserved IMF proposal as
+historical beside the actual Canadian issuance link. No narrative passage was
+silently deleted or merged, no source or sealed dependency changed, and no
+publication or outside human read is claimed.
+
+The five new documentation checks first failed 0/5; the updated lifecycle
+amendment check first failed while the other four editorial checks passed.
+After repair, all 89 communications tests passed, including exact draft hashes,
+seven pending approvals, hostile premature-ready/approval/hash mutations, five
+assumption and hedge checks, pipeline inventory and historical amendment replay.
+Frontmatter and whitespace checks passed. These are mechanical provenance and
+disclosure checks, not independent source retrieval or approval of the prose.

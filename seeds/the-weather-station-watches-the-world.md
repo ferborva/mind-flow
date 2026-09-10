@@ -43,7 +43,7 @@ has become directly measurable.
 
 ## What this does not settle
 
-**His September 10 follow-up now defines the storm and narrows the focus.**
+**His September 10 follow-up offers a working definition of a storm and narrows the focus.**
 
 > a storm can be considered as a point of major shift in the social contract that can lead to a large enough disturbance of social fabric.
 
@@ -59,7 +59,7 @@ change rule. No measured storm or forecast skill follows from either wording.
 
 ## Ren's operational assumptions
 
-**provenance: commissioned-proposal.** All three assumptions are reversible,
+**provenance: commissioned-proposal.** All five assumptions are reversible,
 listed in [the Round 10 backlog](../meta/backlog.md#round-10-assumptions-and-decisions) for Fernando to overturn:
 
 - **Dependants:** show disrupted people and dependent household members as
@@ -73,6 +73,12 @@ listed in [the Round 10 backlog](../meta/backlog.md#round-10-assumptions-and-dec
   employment/output gap and food CPI as candidate indicator families to verify.
   Each is an operational reading of income access for him to strike or add,
   not his selected series or an assertion that the data qualify.
+- **Direction:** increased direct disruption is the provisional trigger. A
+  decrease of at least five points remains unassessed while Fernando decides
+  whether beneficial shifts count; it is not a firm all-clear.
+- **Threshold basis:** use direct disruption as a share of total population,
+  not household exposure, for the five-point test. His choice of threshold
+  basis remains open; the separate household reading never substitutes.
 
 Diagnose a shift under way or already observed and identify which condition
 moved. Do not schedule the transition. Forecasts remain separate,

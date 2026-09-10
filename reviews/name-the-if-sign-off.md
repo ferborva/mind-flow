@@ -12,10 +12,13 @@ updated: 2026-09-10
 
 # Name the If: one-page sign-off
 
-**Ready for your read. Fernando's approval is pending for every section.**
+**In review for your read. Fernando's approval is pending for every section.**
 [Draft](../drafts/name-the-if.md), 10 September 2026; body and metadata hash
-`b7a23b5dee341e07d5249439b6c2714d2d43c0811ecf0495633cd1a7a9d58d09`.
-Creator checklist passes; nothing is published. Mark approve or revise per row.
+`5b5a9361fceed2d0a82af545a2314d552097dfdf5d6401c921dc46ed680bf553`.
+The lifecycle stays `status: review` until sign-off. The creator checklist has
+one judgement pending: the example has caveats, but whether to name a downside
+of the frame itself is Fernando's choice. Nothing is published. Mark approve
+or revise per row.
 
 | Section | Captured substance and review focus | Fernando |
 | --- | --- | --- |
@@ -38,7 +41,10 @@ appears in the piece.
 [Spain](https://www.sanidad.gob.es/profesionales/prestacionesSanitarias/CarteraDeServicios/),
 [Belgium](https://www.belgium.be/en/health/healthcare_costs),
 [Australia](https://www.health.gov.au/topics/medicare/about/costs).
-Rechecked 10 September 2026; source-version and retrieval limits are in the
+Draft labels record first checks: checked 9 September, rechecked 10 September 2026.
+The restored-page label already records its 10 September check. This is a
+disclosure of the recorded recheck, not a claim of a new retrieval in Round 10.1.
+Source-version and retrieval limits are in the
 [full line review](round-10-narrative-provenance.md#primary-research-recheck-10-september-2026).
 
 **Separate decision, pending:** whether you want a human read by someone
