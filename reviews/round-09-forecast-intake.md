@@ -103,5 +103,7 @@ The original 48,613,300-byte August archive passes full ZIP size/CRC inspection;
 it contains the 372,698,746-byte CSV and 16,419,664-byte RDS. All 111 forecast
 tests and frontmatter validation pass on Node 22. The first full-suite run
 detected stale generated Observatory data because an unsealed receipt test was
-edited after prebuild; rebuild and rerun on stable files is required. Creator
-test results are claims awaiting review.
+edited after prebuild. The stable `dc9f05d` rerun rebuilt the outputs and passed
+all **948 tests across 18 suites** on Node 22 with zero failures, including
+the complete retained 440-series NERO projection reproduction. Creator test
+results are claims awaiting review.
