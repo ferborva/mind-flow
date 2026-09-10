@@ -86,6 +86,7 @@ test("the supply-side argument treats WHEN as actor-specific hypothesis, not des
 
 test("scenario crossings do not predict or pathologise public response", () => {
   assert.match(second, /Scenarios, not a calendar/i);
+  assert.match(second, /The following situations are an incomplete, unscored scenario\s+taxonomy\. They can coexist/i);
   assert.match(second, /They can coexist, reverse or never arise/i);
   assert.match(second, /Possible public responses:.*people could welcome a change/is);
   for (const rejected of [
@@ -97,6 +98,7 @@ test("scenario crossings do not predict or pathologise public response", () => {
 });
 
 test("IF movement and action authority are explicit", () => {
+  assert.match(second, /The following seven-part update makes\s+the evidence and open questions easy to find/i);
   assert.match(second, /How an IF is allowed to move/i);
   assert.match(second, /watch_if.*act_if.*pause_if.*reverse_if.*recover_if.*graduate_if/is);
   assert.match(second, /commissioned-proposal/);
