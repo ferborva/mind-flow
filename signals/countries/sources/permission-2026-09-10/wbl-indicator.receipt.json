@@ -1,0 +1,14 @@
+{
+  "id": "wbl-indicator",
+  "url": "https://api.worldbank.org/v2/indicator/GD_WBL_OVL_LAW?format=json",
+  "final_url": "https://api.worldbank.org/v2/indicator/GD_WBL_OVL_LAW?format=json",
+  "started_at": "2026-09-10T01:35:47.804Z",
+  "ended_at": "2026-09-10T01:35:47.834Z",
+  "status": 200,
+  "usable_http_response": true,
+  "body_sha256": "sha256:f3f21c10ae9b83ff7f969b3158bdeacbe1685c3c6aab4c3f15f77c7df37427ba",
+  "body_byte_length": 962,
+  "headers_sha256": "sha256:133876905bb08c8eff7bfcb9de6a2ad41fbdc1f05aa9cf23db4c370521ad2af0",
+  "headers_representation": "Fetch response headers serialised as name: value; retained body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

@@ -1,0 +1,14 @@
+{
+  "id": "wbl-metadata",
+  "url": "https://api.worldbank.org/v2/sources/2/series/GD_WBL_OVL_LAW/metadata?format=json",
+  "final_url": "https://api.worldbank.org/v2/sources/2/series/GD_WBL_OVL_LAW/metadata?format=json",
+  "started_at": "2026-09-10T01:35:47.835Z",
+  "ended_at": "2026-09-10T01:35:48.830Z",
+  "status": 200,
+  "usable_http_response": true,
+  "body_sha256": "sha256:949a77040a9fabce7a81a998696e5148edc5809d967b789ed974a2b0682671c5",
+  "body_byte_length": 5190,
+  "headers_sha256": "sha256:16914742470bf0c02cacdb07a9dd36bfa67e0f6a2d32624c031ea0e19f7f8189",
+  "headers_representation": "Fetch response headers serialised as name: value; retained body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
