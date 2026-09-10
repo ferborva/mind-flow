@@ -1,0 +1,14 @@
+{
+  "id": "wbl-values",
+  "url": "https://api.worldbank.org/v2/country/all/indicator/GD_WBL_OVL_LAW?source=2&format=json&per_page=30000",
+  "final_url": "https://api.worldbank.org/v2/country/all/indicator/GD_WBL_OVL_LAW?source=2&format=json&per_page=30000",
+  "started_at": "2026-09-10T01:35:46.500Z",
+  "ended_at": "2026-09-10T01:35:47.800Z",
+  "status": 200,
+  "usable_http_response": true,
+  "body_sha256": "sha256:833e330188677593aa88e686b185ff1b06de9447a5b41719dad05d35a5a064d3",
+  "body_byte_length": 3909411,
+  "headers_sha256": "sha256:00755398c63c3066f6be19f119fd15dbaf191c06bb5942209b53a2bb1e660750",
+  "headers_representation": "Fetch response headers serialised as name: value; retained body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

@@ -1,0 +1,14 @@
+{
+  "id": "wbl-methodology",
+  "url": "https://wbl.worldbank.org/en/data/methodology",
+  "final_url": "https://wbl.worldbank.org/en/data/methodology",
+  "started_at": "2026-09-10T01:35:48.833Z",
+  "ended_at": "2026-09-10T01:35:48.986Z",
+  "status": 200,
+  "usable_http_response": true,
+  "body_sha256": "sha256:95bc873988963f5e458f103ea886d2b6ce8f0a0e64c1275f659167ac8857afbd",
+  "body_byte_length": 132714,
+  "headers_sha256": "sha256:a2accb6e4de55c86408d19379b1e19218156afd4336006c42e452ad4a2e7059b",
+  "headers_representation": "Fetch response headers serialised as name: value; retained body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

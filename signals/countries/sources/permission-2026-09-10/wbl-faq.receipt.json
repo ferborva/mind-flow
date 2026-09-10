@@ -1,0 +1,14 @@
+{
+  "id": "wbl-faq",
+  "url": "https://wbl.worldbank.org/en/aboutus/faq",
+  "final_url": "https://wbl.worldbank.org/en/aboutus/faq",
+  "started_at": "2026-09-10T01:35:49.040Z",
+  "ended_at": "2026-09-10T01:35:49.077Z",
+  "status": 200,
+  "usable_http_response": true,
+  "body_sha256": "sha256:4bc414857ea76fa0bacfc2a85623b34edd384cf0655c88a3d134d1a0ea4e497f",
+  "body_byte_length": 129602,
+  "headers_sha256": "sha256:d9515e8d5e166a2553dc1e5aeb8fa3cdc09a1376d259fc33530367b1680cb978",
+  "headers_representation": "Fetch response headers serialised as name: value; retained body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

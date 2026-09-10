@@ -1,0 +1,14 @@
+{
+  "id": "wbl-downloads",
+  "url": "https://wbl.worldbank.org/en/data/download-data",
+  "final_url": "https://wbl.worldbank.org/en/data/download-data",
+  "started_at": "2026-09-10T01:35:48.987Z",
+  "ended_at": "2026-09-10T01:35:49.039Z",
+  "status": 200,
+  "usable_http_response": true,
+  "body_sha256": "sha256:2e0e89878ae44045933e8ba932ae39530c136be0d5f061d0df8d45877e4627ea",
+  "body_byte_length": 61203,
+  "headers_sha256": "sha256:3a8e16ddd7d7e06ea836c57e860ac372d0b490fd9635b68ebeca9bc44dd100b4",
+  "headers_representation": "Fetch response headers serialised as name: value; retained body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

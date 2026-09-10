@@ -1,0 +1,4710 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8"/>
+     
+        
+        
+    
+    <title>Methodology | WBL</title>
+    <script defer="defer" type="text/javascript" src="https://rum.hlx.page/.rum/@adobe/helix-rum-js@%5E2/dist/micro.js" data-routing="env=prod,tier=publish,ams=World Bank"></script>
+<link rel="shortcut icon" href="/content/dam/wbr-redesign/logos/WBG-Globe-RGB-fav.png" type="image/png"/>
+    
+    <meta name="description" content="Learn how Women, Business and the Law indicators are constructed, including data collection, coding, scoring methodology, and coverage across 190 economies."/>
+    <meta name="template" content="generic"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+
+    
+        
+    
+
+	<meta property="og:title" content="Women, Business and the Law Methodology | World Bank"/>
+
+	<meta property="og:url" content="https://wbl.banquemondiale.org/en/data/methodology"/>
+
+	<meta property="og:site_name" content="World Bank"/>
+
+	<meta property="og:description" content="Learn how Women, Business and the Law indicators are constructed, including data collection, coding, scoring methodology, and coverage across 190 economies."/>
+
+	<meta property="og:type" content="article"/>
+
+	<meta property="og:image:type" content="image/jpg"/>
+
+	<meta property="og:image:width" content="1200"/>
+
+	<meta property="og:image:height" content="630"/>
+
+	<meta property="og:image" content="/content/dam/sites/wbl/img/780x439-1/WBL2026-Cover-780x439.png"/>
+
+
+	<meta name="twitter:card" content="summary_large_image"/>
+
+	<meta name="twitter:site" content="World Bank"/>
+
+	<meta name="twitter:image" content="https://wbl.banquemondiale.org/content/dam/sites/wbl/img/780x439-1/WBL2026-Cover-780x439.png"/>
+
+
+	<meta name="dcterms.title" content="Women, Business and the Law Methodology | World Bank"/>
+
+	<meta name="dcterms.type" content="Text/HTML"/>
+
+	<meta name="dcterms.identifier" content="https://wbl.banquemondiale.org/en/data/methodology"/>
+
+	<meta name="dcterms.language" content="English"/>
+
+
+<link rel="canonical" href="https://wbl.banquemondiale.org/en/data/methodology"/>
+
+      
+
+
+    
+<script>
+    var wbgData = wbgData || {};
+
+    wbgData.page = {
+        pageInfo: {
+            pageName: "en:wbl:methodology",
+            pageCategory: "sub navigation",
+            pageUid: "a47da8e9-e369-43bc-b907-5254d8e4cca1",
+            pageFirstPub: "",
+            pageLastMod: "07-21-2026",
+            author: "",
+            topicTag: "",
+            subtopicTag: "",
+            contentType: "Research",
+            channel: "DEC Women Business and the Law EXT",
+            webpackage: ""
+        },
+        sectionInfo: {
+            siteSection: "data",
+            subsectionP2: "Methodology",
+            subsectionP3: "",
+            subsectionP4: "",
+            subsectionP5: "",
+        }
+    }
+    wbgData.site = {
+        siteInfo: {
+            siteLanguage: "en",
+            siteCountry: "",
+            siteEnv: "prod",
+            siteType: "wbl",
+            siteRegion: "",
+            userIpaddressType: "10.48.0.136",
+        },
+        techInfo: {
+            cmsType: "AEM",
+            bussVPUnit: "DEC",
+            bussUnit: "DECWL",
+            bussUserGroup: "external",
+            bussAgency: "ibrd",
+        },
+    }
+</script>
+<script src="https://assets.adobedtm.com/223f6e2cf7c9/3eb6c9b72a93/launch-7bc0cdc67098.min.js" async></script>
+    
+
+    
+    <link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/clientlibs/clientlib-base.css" type="text/css">
+
+
+
+
+
+    
+    
+    
+
+    
+
+    
+    <script src="/etc.clientlibs/worldbank-bready/clientlibs/clientlib-dependencies.js"></script>
+
+
+    
+    <link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/clientlibs/clientlib-dependencies.css" type="text/css">
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/clientlibs/wbl-clientlib-site.css" type="text/css">
+
+
+    
+    
+
+    
+    
+    
+    
+    
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/clientlibs/clientlib-site-publish.css" type="text/css">
+
+
+
+</head>
+    <body class="page basicpage" id="page-9ef9771342" data-cmp-link-accessibility-enabled data-cmp-link-accessibility-text="opens in a new tab">
+        
+        
+        
+            
+
+
+
+
+            
+<div id="wbg-aem-target" class="wbg-aem-target"></div>
+
+
+    
+
+ 
+<div class="root container responsivegrid">
+  
+
+
+    
+    <div id="container-2ded6564b2" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="experiencefragment aem-GridColumn aem-GridColumn--default--12">
+<div id="experiencefragment-fcf467f296" class="cmp-experiencefragment cmp-experiencefragment--header">
+
+  
+
+
+    
+    <div id="container-8900abe87d" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="container responsivegrid aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    
+    
+    <div id="container-9168211dbd" class="cmp-container">
+        
+        <div class="headerlogo"><div class="cmp-headerlogo">
+	<div class="touchui-container">
+	    <div class="lp__navbar_header">
+	        <div class="lp__site_logo">
+	            <a href="https://www.worldbank.org/" class="lp__navbar_brand hidden-md hidden-sm hidden-xs hidden-xxs"><img title="world bank group" alt="world bank group" src="/content/dam/sites/wbl/img/2026/DEC-New-Logo.svg" class="img-responsive"/>
+	            </a>
+	            <a href="https://www.worldbank.org/" class="lp__navbar_brand hidden-lg hidden-xl "><img title="World Bank logo" alt="World Bank logo" src="/content/dam/sites/b-ready/img/2024/logo-wb.svg" class="img-responsive"/> </a>
+	        </div>
+	        <div class="lp__wbg_logo">
+	            <span class="divider"></span>
+                <a href="/" class="lp__navbar_brand"><img title="WBL Logo" alt="WBL Logo" src="/content/dam/sites/wbl/img/2026/Logo-clear.svg" class="img-responsive"/> </a>
+	        </div>
+	        <div class="lp__wbg_txt">
+	            <span></span>
+	        </div>
+	    </div>
+	
+	    <div class="lp__search_wrapper lp__secondary_search hidden-sm hidden-xs hidden-xxs">
+	
+	        <form class="lp__input_group search_code_at_the_end" name="searchbox" action="/en/wbl-search" method="GET">
+	
+	            <input type="search" placeholder="Search" class="search-input-field" name="q" id="search-project--224388726" aria-label="Search"/>
+	            <button type="submit" title="Search" class="lp__submit_icon">
+	                <span class="sr-only" aria-hidden="true">Search</span>
+	            </button>
+	
+	        </form>
+
+	    </div>
+
+	    <div class="lp__menuButton">
+	        <button type="button" class="lp__navbar_toggle collapsed" data-toggle="collapse" data-target="#menuItems" aria-expanded="false" aria-controls="menuItems" aria-label="menu">
+	        </button>
+	    </div>
+	</div>
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+<div class="container responsivegrid aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    
+    
+    <div id="container-d0ea048174" class="cmp-container">
+        
+        <div class="headernavigation">
+    
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/components/headernavigation/clientlib/site.css" type="text/css">
+<script src="/etc.clientlibs/worldbank-bready/components/headernavigation/clientlib/site.js"></script>
+
+
+
+
+<div class="lp__menulist_wrappper lp__megamenu">
+    <div class="touchui-container">
+        <div class="lp__navbar_collapse collapse" id="menuItems">
+            <div class="header-search-section hidden-lg hidden-md">
+                <label for="mobile-globalsearch" class="sr-only">Global Search</label>
+                <form role="search" class="lp__input_group " name="searchbox" action="/en/wbl-search" method="GET">
+                    <input type="text" id="mobile-globalsearch" placeholder="Search" class="search-input-field-1 global_search_form_mobile" name="query" title=""/>
+                    <button type="submit" title="Search" class="search-submit-icon"><span class="sr-only" aria-hidden="true">Search button</span>
+                    </button>
+                </form>
+            </div>
+            <nav class="megamenu" role="navigation">
+                <ul class="lp__navbar_nav lp__megamenu" id="lp__megamenu" role="menubar">
+                    <li class="lp__megamenu_list" role="none">
+                        <a href="/" class="lp__megamenu_item " tabindex="0" role="menuitem" id="lp__megamenu0" aria-controls="lp__megamenu0">Home</a>
+                        
+                    </li>
+                
+                    <li class="lp__megamenu_list" role="none">
+                        <a href="/en/aboutus" class="lp__megamenu_item " tabindex="0" role="menuitem" aria-expanded aria-haspopup id="lp__megamenu1" aria-controls="lp__megamenu1">About Us</a>
+                        <div class="lp__megamenu_dropdown" id="lp__submenumenu1" role="group" aria-expanded="false" aria-hidden="true" aria-labelledby="lp__megamenu1">
+							<div class="lp__megamenu_list_section">
+								<ul role="menu">
+									<li role="none"><a role="menuitem" href="/en/aboutus/our-impact" class="">Our Impact</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/aboutus/meet-the-team" class="">Our Team</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/aboutus/faq" class="">FAQ</a></li>
+								</ul>
+							</div>
+						</div>
+                    </li>
+                
+                    <li class="lp__megamenu_list" role="none">
+                        <a href="/en/data" class="lp__megamenu_item active" tabindex="0" role="menuitem" aria-expanded aria-haspopup id="lp__megamenu2" aria-controls="lp__megamenu2">Data</a>
+                        <div class="lp__megamenu_dropdown" id="lp__submenumenu2" role="group" aria-expanded="false" aria-hidden="true" aria-labelledby="lp__megamenu2">
+							<div class="lp__megamenu_list_section">
+								<ul role="menu">
+									<li role="none"><a role="menuitem" href="/en/data/economies" class="">Economies</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/data/download-data" class="">Download Data</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/data/reforms" class="">Reforms Database</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/data/methodology" class="">Methodology</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/data/our-data-out-there" class="">Our Data Out There</a></li>
+								</ul>
+							</div>
+						</div>
+                    </li>
+                
+                    <li class="lp__megamenu_list" role="none">
+                        <a href="/en/publications" class="lp__megamenu_item " tabindex="0" role="menuitem" aria-expanded aria-haspopup id="lp__megamenu3" aria-controls="lp__megamenu3">Publications</a>
+                        <div class="lp__megamenu_dropdown" id="lp__submenumenu3" role="group" aria-expanded="false" aria-hidden="true" aria-labelledby="lp__megamenu3">
+							<div class="lp__megamenu_list_section">
+								<ul role="menu">
+									<li role="none"><a role="menuitem" href="/en/publications/flagship-report" class="">Flagship Report</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/publications/thematic-topics" class="">Thematic Topics</a></li>
+								</ul>
+							</div>
+						</div>
+                    </li>
+                
+                    <li class="lp__megamenu_list" role="none">
+                        <a href="/en/partners" class="lp__megamenu_item " tabindex="0" role="menuitem" aria-expanded aria-haspopup id="lp__megamenu4" aria-controls="lp__megamenu4">Partners</a>
+                        <div class="lp__megamenu_dropdown" id="lp__submenumenu4" role="group" aria-expanded="false" aria-hidden="true" aria-labelledby="lp__megamenu4">
+							<div class="lp__megamenu_list_section">
+								<ul role="menu">
+									<li role="none"><a role="menuitem" href="/en/partners/donors" class="">Donors</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/partners/expert-contributors" class="">Expert Contributors</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/partners/global-partners" class="">Global Expert Contributors</a></li>
+								
+									<li role="none"><a role="menuitem" href="/en/partners/governments" class="">Governments</a></li>
+								</ul>
+							</div>
+						</div>
+                    </li>
+                
+                    <li class="lp__megamenu_list" role="none">
+                        <a href="/en/news-events" class="lp__megamenu_item " tabindex="0" role="menuitem" id="lp__megamenu5" aria-controls="lp__megamenu5">News &amp; Events</a>
+                        
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+
+    
+</div>
+<div class="container responsivegrid aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    <div id="container-271963aa37" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="container responsivegrid tui_full_row_blue aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    <div id="container-1a05cfd373" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="container responsivegrid touchui-container aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    
+    
+    <div id="container-9dd11eb05f" class="cmp-container">
+        
+        <div class="sbbreadcrumb">
+
+	<!--  <a tabindex="0" id="skip-to-main-content" class="visually-hidden focusable" href="#main">Skip to Main Navigation</a>   -->
+
+	<div class="gray-top-bar">
+		<div class="breadcrumb">
+			<nav class="cmp-breadcrumb" aria-label="Breadcrumb">
+				<ol class="cmp-breadcrumb__list">
+					<li class="cmp-breadcrumb__item">
+						<a class="cmp-breadcrumb__item-link" href="/" target="_self">
+							<span>Home</span>
+						</a>
+					</li>
+<li class="cmp-breadcrumb__item">
+						<a class="cmp-breadcrumb__item-link" href="/en/data" target="_self">
+							<span>Data</span>
+						</a>
+					</li>
+<li class="cmp-breadcrumb__item">
+						<a class="cmp-breadcrumb__item-link" target="_self">
+							<span>Methodology</span>
+						</a>
+					</li>
+
+				</ol>
+			</nav>
+		</div>
+	</div>
+
+
+    
+</div>
+<div class="teaser tui_other_page_banner tui__subnational_data_banner">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h1 class="cmp-teaser__title">
+        Methodology
+    </h1>
+
+         
+    <div class="cmp-teaser__description"><p>Understand the methodology behind <i>Women, Business and the Law</i>, from pillars and topics to parameters, with access to key methodology documents, FAQs, and workshops.</p>
+</div>
+
+         
+    
+
+      </div>
+      <div class="cmp-teaser__image">
+         <div class="cmp-image">
+            <img src="/content/dam/sites/wbl/img/2026/wbl-banner-img.svg" loading="lazy" class="cmp-image__image" itemprop="contentUrl" alt="" title="" aria-hidden="true"/>
+         </div>
+      </div>
+      <div class="cmp-teaser__action-container">
+         <ul class="tui_button_group tui__btn tui__solid_lightblue_btn tui_download_btn">
+            <li>
+               <a href="/content/dam/sites/wbl/documents/2026/WBL-Methodology-Handbook-2027.pdf" class="cmp-teaser__action-link" data-customlink="sm:body" data-text="Methodology Handbook 2027">
+               
+               <span class="cmp-button__text">Methodology Handbook 2027</span>
+               </a>
+            </li>
+         
+            <li>
+               <a href="/content/dam/sites/wbl/documents/2026/WBL_Methodology_Workshop_May_2026-Workbook_for_Participants.pdf" class="cmp-teaser__action-link" data-customlink="sm:body" data-text="Download Workbook">
+               
+               <span class="cmp-button__text">Download Workbook</span>
+               </a>
+            </li>
+         
+            <li>
+               <a href="/content/dam/sites/wbl/documents/2026/WBL_2027_Questionnaires_All_Topics.zip" class="cmp-teaser__action-link" data-customlink="sm:body" data-text="WBL 2027 Questionnaires">
+               
+               <span class="cmp-button__text">WBL 2027 Questionnaires</span>
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+<div class="container responsivegrid full-row-white-components aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    
+    
+    <div id="container-98561efaa9" class="cmp-container">
+        
+        <div class="container responsivegrid touchui-container">
+  
+
+
+    
+    <div id="container-18ac41b04a" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 aem-Grid--phone--12 aem-Grid--Copy of default--12 ">
+    
+    <div class="title aem-GridColumn aem-GridColumn--default--12">
+
+
+    
+
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards padd-b-40 aem-GridColumn aem-GridColumn--default--newline aem-GridColumn--default--12 aem-GridColumn--offset--default--0"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/pillar-1.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Legal Frameworks</h3>
+		<div class="tui_teaser_description">
+			<p><p>Assesses binding domestic laws and regulations in an economy, whether codified or case law, based on the economy’s legal system</p>
+</p>
+		</div>
+
+		
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/pillar-2.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Supportive Frameworks</h3>
+		<div class="tui_teaser_description">
+			<p><p>Examines policy and institutional frameworks supporting the implementation of laws</p>
+</p>
+		</div>
+
+		
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/pillar-3.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Enforcement Perceptions</h3>
+		<div class="tui_teaser_description">
+			<p><p>Captures expert assessments on the extent to which public authorities enforce, in practice, each of the laws and rights assessed under the WBL legal frameworks</p>
+</p>
+		</div>
+
+		
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+<div class="separator padd-b-48 aem-GridColumn aem-GridColumn--default--12">
+<div id="separator-1d2a4542c1" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text aem-GridColumn--default--none aem-GridColumn--Copy default--9 aem-GridColumn--offset--phone--0 aem-GridColumn--offset--default--0 aem-GridColumn--offset--Copy default--none aem-GridColumn--phone--none aem-GridColumn--phone--12 aem-GridColumn of aem-GridColumn--default--10 default--0">
+<div id="text-6d5190a07b" class="cmp-text">
+    <h2>Topic-Specific Methodology</h2>
+<p><i>Women, Business and the Law</i> topics examine laws, policies, and enforcement across 10 key areas shaping women’s economic opportunities throughout their lives.</p>
+<p><b>Select a topic below to explore the methodology in details.</b></p>
+
+</div>
+
+    
+
+
+	
+    
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/components/text/clientlibs/site.css" type="text/css">
+<script src="/etc.clientlibs/worldbank-bready/components/text/clientlibs/site.js"></script>
+
+
+ 
+</div>
+<div class="container responsivegrid tui_bready_icon_tabs_container tui_primary_tabs_blue section aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    <div id="container-1c12224187" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="tabs panelcontainer icon-tabs aem-GridColumn aem-GridColumn--default--12">
+<div id="tabs-0fae6e62a0" class="cmp-tabs tui_subnational_tabs_scroll" data-cmp-is="tabs" data-placeholder-text="false">
+	<button class="scroll-btn left" aria-label="Scroll left" style="display: none;"><span class="lp lp-chevron-left"></span></button>
+
+    <ol role="tablist" class="cmp-tabs__tablist" aria-multiselectable="false">
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-58b3481505-tab" class="cmp-tabs__tab cmp-tabs__tab--active" aria-controls="tabs-0fae6e62a0-item-58b3481505-tab" tabindex="0" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Overview</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-21d7058c48-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-21d7058c48-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Safety</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-6362214f9f-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-6362214f9f-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Mobility</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-5c76fdbe7a-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-5c76fdbe7a-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Work</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-9cc63173f8-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-9cc63173f8-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Pay</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-5dc31be615-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-5dc31be615-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Marriage</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-b82d07a4c1-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-b82d07a4c1-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Parenthood</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-d4171302df-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-d4171302df-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Childcare</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-cf5b2ba802-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-cf5b2ba802-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Entrepreneurship</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-f2cf79b9df-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-f2cf79b9df-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Assets</li>
+    
+        
+        <li role="tab" id="tabs-0fae6e62a0-item-3aeee343c1-tab" class="cmp-tabs__tab" aria-controls="tabs-0fae6e62a0-item-3aeee343c1-tab" tabindex="-1" data-customlink="tb:body content" data-cmp-hook-tabs="tab">Pension</li>
+    </ol>
+	<button class="scroll-btn right" aria-label="Scroll right" style="display: none;"><span class="lp lp-chevron-right"></span></button>
+
+    <div id="tabs-0fae6e62a0-item-58b3481505" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-58b3481505-tab" tabindex="0" class="cmp-tabs__tabpanel cmp-tabs__tabpanel--active" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-58b3481505&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;repo:modifyDate&#34;:&#34;2025-12-15T16:55:09Z&#34;,&#34;dc:title&#34;:&#34;Overview&#34;}}"><div class="container responsivegrid tui_flexcard_wrapper">
+  
+
+
+    
+    <div id="container-58b3481505" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="columncontrol tui_flexbox_gap_24 aem-GridColumn aem-GridColumn--default--12">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-70da0282ce" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div0.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div0"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div0",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_1-Overview_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_1-Overview_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-219f6305fe" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Overview
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p><i>Women, Business and the Law</i> assesses how laws and policies shape women’s economic participation at different stages of their working lives across 10 topics: Safety, Mobility, Work, Pay, Marriage, Parenthood, Childcare, Entrepreneurship, Assets, and Pension, reflecting the evolving legal environment faced by women as employees and entrepreneurs. Each topic is assessed using a three-pillar methodology that examines legal frameworks, supportive frameworks, and enforcement perceptions, capturing how laws operate in practice.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32 aem-GridColumn aem-GridColumn--default--12">
+<div id="separator-57c03a3e3d" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32 aem-GridColumn aem-GridColumn--default--12">
+
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards aem-GridColumn aem-GridColumn--default--12"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaires (WBL 2027)</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Labor%20Law%20Questionnaire.zip">Labor  Law</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Family%20Law%20Questionnaire.zip">Family Law</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Violence%20Against%20Women%20Questionnaire.zip">Violence against Women</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/evidence-frontier-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="https://worldbank.scene7.com/s7viewers/html5/VideoViewer.html?asset=worldbankprod/WBL_Tutorial-AVS&config=worldbankprod/WB-Standard-Player-1&serverUrl=https://worldbank.scene7.com/is/image/&contenturl=https://worldbank.scene7.com/is/content/&posterimage=worldbankprod/WBL_Tutorial-AVS&videoserverurl=https://worldbank.scene7.com/is/content">Questionnaire Video Tutorial</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://worldbank.scene7.com/s7viewers/html5/VideoViewer.html?asset=worldbankprod/WBL_Tutorial-AVS&config=worldbankprod/WB-Standard-Player-1&serverUrl=https://worldbank.scene7.com/is/image/&contenturl=https://worldbank.scene7.com/is/content/&posterimage=worldbankprod/WBL_Tutorial-AVS&videoserverurl=https://worldbank.scene7.com/is/content">Learn how to complete the WBL questionnaires</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-21d7058c48" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-21d7058c48-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-21d7058c48&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;repo:modifyDate&#34;:&#34;2025-12-15T16:55:09Z&#34;,&#34;dc:title&#34;:&#34;Safety&#34;}}"><div class="container responsivegrid tui_flexcard_wrapper">
+  
+
+
+    
+    <div id="container-21d7058c48" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="columncontrol tui_flexbox_gap_24 aem-GridColumn aem-GridColumn--default--12">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-f11e3cf76f" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_2-Safety_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_2-Safety_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-8c9136d4d6" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Safety Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Safety topic measures protection from violence against women, including child marriage, sexual harassment, domestic violence, and femicide. It assesses whether an economy’s laws criminalize these forms of violence; whether policies and services exist to support survivors, such as national action plans, access to justice mechanisms, services for survivors, and monitoring agencies; and to what extent the economy’s laws in this area are effectively enforced in practice.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32 aem-GridColumn aem-GridColumn--default--12">
+<div id="separator-13fb0c925b" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32 aem-GridColumn aem-GridColumn--default--12">
+<div id="text-6deeac22a7" class="cmp-text">
+    <p><b>Parameters</b></p>
+<p>For Safety Topic, the <i>Women, Business and the Law </i>methodology assumes a woman residing in the economy’s main business city. Unless otherwise indicated, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is able to make independent decisions as an adult. These assumptions provide a consistent basis for assessing laws, policies, and enforcement related to violence against women across economies.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards aem-GridColumn aem-GridColumn--default--12"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Safety.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Safety_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Safety_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Safety_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Safety_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Safety_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Violence%20Against%20Women%20Questionnaire.zip">Violence against Women WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-6362214f9f" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-6362214f9f-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-6362214f9f&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Mobility&#34;}}"><div class="container responsivegrid tui_flexcard_wrapper">
+  
+
+
+    
+    <div id="container-6362214f9f" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="columncontrol tui_flexbox_gap_24 aem-GridColumn aem-GridColumn--default--12">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-cc56212e9b" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div2.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div2"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div2",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_2-Mobility_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_2-Mobility_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-09791d7c55" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Mobility Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Mobility topic examines aspects of women’s agency and freedom of movement within an economy. It assesses whether laws restrict women’s ability to choose where to live, travel domestically or internationally, or confer citizenship on spouses and children. The topic also evaluates whether processes for obtaining official identity documents and passports create gender-based barriers, as well as the presence of policies that support safe and gender-sensitive public transportation. The Mobility topic captures expert assessments of how laws affecting women’s freedom of movement are enforced in practice. Together, it measures the legal framework, supporting policies, and enforcement shaping women’s ability to move freely and participate fully in economic and public life.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32 aem-GridColumn aem-GridColumn--default--12">
+<div id="separator-6a0a65183f" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32 aem-GridColumn aem-GridColumn--default--12">
+<div id="text-373912e23c" class="cmp-text">
+    <p><b>Parameters</b></p>
+<p>For the Mobility topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards aem-GridColumn aem-GridColumn--default--12"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Mobility.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Mobility_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Mobility_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Mobility_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Mobility_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Mobility_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Family%20Law%20Questionnaire.zip">Family Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-5c76fdbe7a" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-5c76fdbe7a-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-5c76fdbe7a&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Work&#34;}}"><div class="container responsivegrid tui_flexcard_wrapper">
+  
+
+
+    
+    
+    
+    <div id="container-5c76fdbe7a" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-a959b43ac6" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div3.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div3"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div3",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_1-Work_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_1-Work_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-b5a3fc0ca7" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Work Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Work topic examines laws and policies that affect women’s decision to enter and remain in the labor force. It assesses the legal foundations of women’s right to work, including protections from discrimination in recruitment and employment, as well as the availability of flexible work arrangements. The topic also reviews policies and institutions that promote workplace equality, such as mechanisms for addressing employment discrimination, public guidance on nondiscrimination and flexible work, and national plans supporting women’s participation in the labor market. The Work topic captures expert assessments of how effectively laws related to women’s participation in the workforce are enforced in practice. Together, it measures legal protections, supporting policies, and enforcement shaping women’s access to work and economic opportunity.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-2de7b3fe9f" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-8c138bc303" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Work topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Work.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Work_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Work_ES.pptx">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Work_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Work_RUS.pptx">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Work_POR.pptx">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Labor%20Law%20Questionnaire.zip">Labor Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-9cc63173f8" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-9cc63173f8-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-9cc63173f8&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Pay&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-9cc63173f8" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-bd205dcc5c" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div4.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div4"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div4",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_1-Pay_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_1-Pay_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-2276738f38" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Pay Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Pay topic examines laws and policies affecting occupational segregation and the gender wage gap. It assesses whether laws provide for equal remuneration for work of equal value and whether restrictions on women’s employment—such as limits on night work, certain economic sectors, or jobs deemed dangerous—remain in place.</p>
+<p>The topic also reviews policies that support the implementation of equal pay laws, including measures promoting pay transparency, occupational health and safety, support for women’s participation in male-dominated sectors, and the publication of sex-disaggregated employment and wage data. The Pay topic captures expert assessments of how effectively laws addressing occupational segregation and the gender wage gap are enforced in practice, measuring legal protections, supporting policies, and enforcement shaping pay equality.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-d625259ca6" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-705a34140c" class="cmp-text">
+    <p><b>Parameters</b>:</p>
+<p>For the Pay topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Pay.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pay_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pay_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pay_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pay_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Pay_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Labor%20Law%20Questionnaire.zip">Labor Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-5dc31be615" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-5dc31be615-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-5dc31be615&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-02-13T22:03:35Z&#34;,&#34;dc:title&#34;:&#34;Marriage&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-5dc31be615" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-b505341ce8" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div5.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div5"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div5",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_2-Marriage_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_2-Marriage_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-c5d1f87798" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Marriage Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Marriage topic examines legal constraints related to marriage and divorce within an economy. It assesses whether family laws guarantee equal legal status for spouses, including the absence of obedience clauses and other provisions that limit equality within marriage. The topic also evaluates whether institutional measures support the enforcement of equality in marriage and divorce, such as the availability of specialized family courts, access to legal aid, and procedures that facilitate the resolution of family law disputes. The Marriage topic captures expert assessments of how effectively laws governing marriage and divorce are enforced in practice, measuring legal frameworks, supporting institutions, and enforcement shaping equality within family relationships.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-1cbbf2e1fd" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-3b5242463e" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Marriage topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult.</p>
+<p>The woman is also assumed to be in a monogamous first marriage with a man, formally registered with the appropriate authorities. De facto marriages and customary unions are not measured. The woman and her husband are assumed to share the same religion.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Marriage.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Marriage_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Marriage_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Marriage_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Marriage_FR.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Marriage_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Family%20Law%20Questionnaire.zip">Family Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-b82d07a4c1" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-b82d07a4c1-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-b82d07a4c1&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Parenthood&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-b82d07a4c1" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-56fe8be93d" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div6.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div6"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div6",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_1-Parenthood_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_1-Parenthood_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-ae17f26e40" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Parenthood Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Parenthood topic examines laws and policies affecting women’s work during and after pregnancy and following the birth of a child. It assesses legal provisions governing paid leave for parents, the allocation of responsibility between governments and employers for financing maternity benefits, and protections against dismissal based on pregnancy. The topic also reviews policies that support the use of paid leave and promote a more equal distribution of care responsibilities, including the ease of applying for maternity benefits, incentives for fathers to take leave, and the availability of sex-disaggregated data on unpaid care and domestic work. The Parenthood topic captures expert assessments of how effectively laws supporting women’s work during and after pregnancy are enforced in practice.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-5bb4b342ce" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-2e5f580ce4" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Parenthood topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult. Both parents are assumed to work full-time. The parents are married, have no other children, and this is their first pregnancy. The woman is assumed to be pregnant with one child, with no complications during pregnancy or birth. If cash benefits during leave are not calculated as a percentage of earnings, the employee is assumed to earn the minimum wage in the food retail sector.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Parenthood.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Parenthood_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Parenthood_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Parenthood_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Parenthood_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Parenthood_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Labor%20Law%20Questionnaire.zip">Labor Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-d4171302df" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-d4171302df-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-d4171302df&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Childcare&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-d4171302df" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-6124d9759b" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div7.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div7"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div7",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_1-Childcare_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_1-Childcare_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-17e4db5421" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Childcare Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Childcare topic examines the availability, public financing, and quality of center-based childcare services for children under the age of three. It assesses laws governing public funding for childcare and standards for the quality of childcare services. The topic also reviews policies that support access to childcare, such as registries of accredited providers, clear application procedures for financial support for families and nonstate providers, and systems for monitoring service quality. The Childcare topic captures expert assessments of how effectively childcare regulations are enforced in practice, measuring legal frameworks, supporting policies, and enforcement shaping access to quality childcare services.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-77b96b2c6a" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-3a1c9457c9" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Childcare topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL%20Methodology%20Workshop%20-%20Childcare.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Childcare_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Childcare_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/en/methodology">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Childcare_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Childcare_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Labor%20Law%20Questionnaire.zip">Labor Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-cf5b2ba802" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-cf5b2ba802-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-cf5b2ba802&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Entrepreneurship&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-cf5b2ba802" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-9a8b938932" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div8.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div8"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div8",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/WBL_Day_2-Entrepreneurship_(Source)-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/WBL_Day_2-Entrepreneurship_(Source)-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-995a74d656" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Entrepreneurship Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Entrepreneurship topic examines women’s ability to start and operate businesses on an equal footing with men. It assesses whether laws prohibit discrimination in access to credit, support gender-responsive public procurement, and require women’s representation on public corporate boards. The topic also reviews policies that promote women’s entrepreneurship and financial inclusion, including government-led programs or national strategies supporting women entrepreneurs, initiatives to expand women’s access to financial services, and the availability of regularly published sex-disaggregated data on women’s business activities. The Entrepreneurship topic captures expert assessments of how effectively laws affecting women’s ability to establish and run a business are enforced in practice.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-ecc76a5c6b" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-a39390e168" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Entrepreneurship topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Entrepreneurship.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Entrepreneurship_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Entrepreneurship_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Entrepreneurship_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Entrepreneurship_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Entrepreneurship_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Family%20Law%20Questionnaire.zip">Family Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-f2cf79b9df" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-f2cf79b9df-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-f2cf79b9df&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Assets&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-f2cf79b9df" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-3d340cbfa9" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div9.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div9"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div9",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/MH2027_Assets_06.02.2026-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/MH2027_Assets_06.02.2026-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-4cf5e59b2d" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Assets Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Assets topic examines equality in women’s property and inheritance rights within an economy. It assesses whether laws—including statutory, customary, and personal laws—govern women’s ability to own, manage, and inherit immovable property on equal terms with men. The topic also reviews policies that support women’s property ownership and registration, such as joint titling provisions, awareness campaigns, and the availability of sex-disaggregated data on property ownership. The Assets topic captures expert assessments of how effectively property and inheritance laws are enforced in practice, measuring legal frameworks, supporting policies, and enforcement shaping women’s access to and control over assets.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-ba65f3551d" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-3c49afe29b" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Assets topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult. The woman is assumed to be married under the default marital property regime, or the most common marital property regime in the jurisdiction, which does not change during the course of the marriage. Where customary law is prevalent and statutory law does not recognize women’s property rights or administrative authority, these arrangements are considered as part of the assessment.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Assets.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Assets_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Assets_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Assets_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Assets_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Assets_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Family%20Law%20Questionnaire.zip">Family Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+<div id="tabs-0fae6e62a0-item-3aeee343c1" role="tabpanel" aria-labelledby="tabs-0fae6e62a0-item-3aeee343c1-tab" tabindex="0" class="cmp-tabs__tabpanel" data-cmp-hook-tabs="tabpanel" data-cmp-data-layer="{&#34;tabs-0fae6e62a0-item-3aeee343c1&#34;:{&#34;@type&#34;:&#34;worldbank-bready/components/tabs/item&#34;,&#34;dc:title&#34;:&#34;Pension&#34;}}"><div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-3aeee343c1" class="cmp-container">
+        
+        <div class="columncontrol tui_flexbox_gap_24">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-0167d81398" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+
+
+	<div class="tui_video_section">
+
+
+	
+        	<div class="tui_embed_responsive tui_embed_responsive_16by9">
+			<style type="text/css">
+	#s7video_div10.s7videoviewer{
+		 width:100%; 
+		 height:auto;
+	}
+</style>
+<script type="text/javascript" src="https://worldbank.scene7.com/s7viewers/html5/js/VideoViewer.js"></script>
+<div id="s7video_div10"></div>
+<script type="text/javascript">
+	var s7videoviewer = new s7viewers.VideoViewer({
+		"containerId" : "s7video_div10",
+		"params" : { 
+			"serverurl" : "https://worldbank.scene7.com/is/image/",
+			"contenturl" : "https://worldbank.scene7.com/is/content/", 
+			"config" : "worldbankprod/WB-Standard-Player-1",
+			"posterimage": "worldbankprod/MH2027_Pension_06.02.2026-AVS",
+			"videoserverurl": "https://worldbank.scene7.com/is/content",
+			"asset" : "worldbankprod/MH2027_Pension_06.02.2026-AVS" }
+	})
+s7videoviewer.init(); 
+</script>
+		</div>
+	
+    
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--6 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-3bcea6c80d" class="cmp-container">
+        
+        <div class="teaser tui_teaser_hr tui_teaser_hr_img_left">
+
+
+
+
+
+	<div class="cmp-teaser">
+	
+   <div class="cmp-teaser-container">
+      <div class="cmp-teaser__content">
+         
+    
+
+         
+    <h2 class="cmp-teaser__title">
+        Pension Topic
+    </h2>
+
+         
+    <div class="cmp-teaser__description"><p>The Pension topic examines legal and policy frameworks affecting the size of women’s pension benefits within an economy. It assesses whether laws address gender differences in retirement ages and account for career interruptions—such as time spent on caregiving—in the calculation of pension benefits. The topic also reviews policies that support women’s old-age security, including efforts to promote pension literacy, procedures for challenging benefit decisions, incentives for employers to increase pension coverage or benefits, and the availability of sex-disaggregated data on retirement ages and pension amounts. The Pensions topic captures expert assessments of how effectively laws affecting the size of women’s pensions are enforced in practice.</p>
+</div>
+
+         
+    
+
+      </div>
+      
+      
+   </div>
+</div>
+
+    
+
+
+
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+<div class="separator tui_separator_32">
+<div id="separator-67c6c48c9d" class="cmp-separator">
+    <hr class="cmp-separator__horizontal-rule"/>
+</div></div>
+<div class="text tui_text_content_small padd-b-32">
+<div id="text-f5d77482eb" class="cmp-text">
+    <p><b>Parameters:</b></p>
+<p>For the Pensions topic, the <i>Women, Business and the Law</i> methodology assumes a woman residing in the economy’s main business city. Unless otherwise specified, the woman is assumed to be a lawful citizen who has reached the legal age of majority, is in good health, has no criminal record, and is capable of making independent decisions as an adult. The woman is assumed to have given birth without complications to two healthy children. Where transitional provisions gradually increase, decrease, or equalize the retirement age, retirement ages are assessed as of the time of data collection, even if the law provides for future changes.</p>
+
+</div>
+
+    
+
+
+	
+    
+
+
+ 
+</div>
+<div class="list_navigation tui_3col_cards_layout tui_sqaure_img_cards"><div class="tui_card_grid_container">
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/presentation-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Slides in:</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/ENG_WBL_Methodology%20Handbook_Pension.pdf">EN</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pension_AR.pdf">AR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pension_SPA.pdf">ES</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pension_FR.pdf">FR</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2024/WBL_Methodology%20Handbook_Pension_RUS.pdf">RU</a>
+				</li>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="https://wbl.worldbank.org/content/dam/sites/wbl/documents/2025/WBL_Methodology%20Handbook_Pension_POR.pdf">PT</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/download-questionnaire-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		
+        <h3 class="tui_teaser_title">Download Questionnaire</h3>
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Labor%20Law%20Questionnaire.zip">Labor Law WBL 2027</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+<div class="tui_teaser ">
+<div class="tui_teaser_inner_container">
+	<div class="tui_teaser__image">
+			<img src="/content/dam/sites/wbl/img/icon/Methodology-01.svg" loading="lazy" class="image" alt=" "/>
+	</div>
+
+	<div class="tui_teaser_content">
+		<h3 class="tui_teaser_title"><a href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Methodology Q &amp; A</a></h3>
+        
+		<div class="tui_teaser_description">
+			<p></p>
+		</div>
+
+		<div class="tui_teaser_action_container">
+			<ul>
+				
+				<li>
+					<a class="tui_teaser_action_link" href="/content/dam/sites/wbl/documents/2026/Methodology%20Workshop_Q%20and%20A%20Consolidated%20Responses.pdf">Download the Q&amp;A file</a>
+				</li>
+				
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+</div>
+</div>
+
+    
+</div>
+
+    
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/components/tabs/clientlibs/sites.css" type="text/css">
+<script src="/etc.clientlibs/worldbank-bready/components/tabs/clientlibs/sites.js"></script>
+
+
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+<div class="container responsivegrid">
+  
+
+
+</div>
+
+        
+    </div>
+
+
+</div>
+<div class="container responsivegrid full-row-gray-components padd-b-64 aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    
+    
+    <div id="container-36614688b4" class="cmp-container">
+        
+        <div class="container responsivegrid touchui-container padd-b-0">
+  
+
+
+    
+    
+    
+    <div id="container-ccea86776b" class="cmp-container">
+        
+        <div class="title">
+<div id="title-f50a655448" class="cmp-title">
+    <h2 class="cmp-title__text">Resources</h2>
+</div>
+
+    
+
+</div>
+<div class="carouselcards swiper wbSwiper tui_flexcard_wrapper tui__primary_card_blue_link">
+
+
+	
+
+    
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/components/wbl/columncards/clientlibs/sites.css" type="text/css">
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/components/carouselcards/clientlibs/sites.css" type="text/css">
+<script src="/etc.clientlibs/clientlibs/granite/jquery.js"></script>
+<script src="/etc.clientlibs/worldbank-bready/components/wbl/columncards/clientlibs/sites.js"></script>
+<script src="/etc.clientlibs/worldbank-bready/components/carouselcards/clientlibs/sites.js"></script>
+
+
+ 
+
+
+<div class="swiper-wrapper aem-Grid">
+
+	<!-- tui__primary_card -->
+
+		<div class="teaser tui__primary_card swiper-slide et--6 aem-GridColumn--desktop--3 aem-GridColumn--default--3">
+			<div class="cmp-teaser">
+				<div class="cmp-teaser__image">
+					<div data-cmp-is="image" class="cmp-image">
+						<img src="/content/dam/sites/wbl/img/780x439-1/Methodology%20Handbook%202027.png" loading="lazy" class="image" alt=" "/>
+					</div>
+				</div>
+				<div class="cmp-teaser__content">
+					
+					
+					<h3 class="cmp-teaser__title"> <a href="/content/dam/sites/wbl/documents/2026/WBL-Methodology-Handbook-2027.pdf">Methodology Handbook 2027</a>
+					</h3>
+					
+					<div class="tui_teaser__description">
+						<p><p>Explore Methodology Handbook outlining data sources, scoring rules, and research methods used to produce WBL 2027 data.</p>
+</p>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	
+
+		<div class="teaser tui__primary_card swiper-slide et--6 aem-GridColumn--desktop--3 aem-GridColumn--default--3">
+			<div class="cmp-teaser">
+				<div class="cmp-teaser__image">
+					<div data-cmp-is="image" class="cmp-image">
+						<img src="/content/dam/sites/wbl/img/780x439-1/Manual%20and%20guide_2027.png" loading="lazy" class="image" alt=" "/>
+					</div>
+				</div>
+				<div class="cmp-teaser__content">
+					
+					
+					<h3 class="cmp-teaser__title"> <a href="/content/dam/sites/wbl/documents/2026/WBL2027%20Manual%20and%20Guide.pdf">Manual and Guide</a>
+					</h3>
+					
+					<div class="tui_teaser__description">
+						<p><p>Access detailed coding and scoring rules, definitions, and guidance used to produce the Women, Business and the Law data and indicators.</p>
+</p>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	
+
+		<div class="teaser tui__primary_card swiper-slide et--6 aem-GridColumn--desktop--3 aem-GridColumn--default--3">
+			<div class="cmp-teaser">
+				<div class="cmp-teaser__image">
+					<div data-cmp-is="image" class="cmp-image">
+						<img src="https://worldbank.scene7.com/is/image/worldbankprod/data-world-map?qlt=90&fmt=webp&resMode=sharp2" loading="lazy" class="image" alt=" "/>
+					</div>
+				</div>
+				<div class="cmp-teaser__content">
+					
+					
+					<h3 class="cmp-teaser__title"> <a href="/en/data" data-customlink="nl:body content">Our Data</a>
+					</h3>
+					
+					<div class="tui_teaser__description">
+						<p><p>Download data, explore legal reforms and access regional and economy profiles. </p>
+</p>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	
+
+		<div class="teaser tui__primary_card swiper-slide et--6 aem-GridColumn--desktop--3 aem-GridColumn--default--3">
+			<div class="cmp-teaser">
+				<div class="cmp-teaser__image">
+					<div data-cmp-is="image" class="cmp-image">
+						<img src="https://worldbank.scene7.com/is/image/worldbankprod/FAQ2026?qlt=90&fmt=webp&resMode=sharp2" loading="lazy" class="image" alt=" "/>
+					</div>
+				</div>
+				<div class="cmp-teaser__content">
+					
+					
+					<h3 class="cmp-teaser__title"> <a href="/en/aboutus/faq" data-customlink="nl:body content">FAQ</a>
+					</h3>
+					
+					<div class="tui_teaser__description">
+						<p><p>Find answers to frequently asked questions about <i>Women, Business and the Law</i> data and engagement.</p>
+</p>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	
+</div>
+<div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+<div class="swiper-pagination"></div>
+
+
+    
+
+
+
+
+</div>
+
+        
+    </div>
+
+
+</div>
+
+        
+    </div>
+
+
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+<div class="experiencefragment aem-GridColumn aem-GridColumn--default--12">
+<div id="experiencefragment-b0385eec18" class="cmp-experiencefragment cmp-experiencefragment--footer">
+
+  
+
+
+    
+    <div id="container-0037a113c1" class="cmp-container">
+        
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="container responsivegrid tui_subscribe_newsletter aem-GridColumn aem-GridColumn--default--12">
+  
+
+
+    
+    
+    
+    <div id="container-7984e03ce5" class="cmp-container">
+        
+        <div class="container responsivegrid touchui-container">
+  
+
+
+    
+    
+    
+    <div id="container-480c38a77a" class="cmp-container">
+        
+        <div class="columncontrol">
+
+
+    
+
+
+
+
+
+    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
+        
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--12 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-db1ef19868" class="cmp-container">
+        
+        <div class="socialshare"><div class="subscribe-links-container">
+	
+	<ul>
+
+		<li class="subscribe-links">
+			<div class="subscribe-icon">
+				<span class="lp lp-envelope"></span>
+			</div>
+			<div class="subscribe-text">
+				<strong>Contact us:</strong>
+				
+				<a href="mailto:wbl@worldbank.org" data-customlink="em:body content" data-text="email" target="_self">wbl@worldbank.org</a>
+				
+			</div>
+		</li>
+	
+
+		<li class="subscribe-links">
+			<div class="subscribe-icon">
+				<span class="lp lp-linkln"></span>
+			</div>
+			<div class="subscribe-text">
+				<strong>Linkedin: </strong>
+				<a href="https://www.linkedin.com/in/women-business-and-the-law-7b503726b/" data-customlink="sm:body content" target="_self">Women Business and the Law</a>
+				
+				
+			</div>
+		</li>
+	
+
+		<li class="subscribe-links">
+			<div class="subscribe-icon">
+				<span class="lp lp-fb"></span>
+			</div>
+			<div class="subscribe-text">
+				<strong>Facebook</strong>
+				<a href="https://www.facebook.com/womenbusinesslaw/" data-customlink="sm:body content" data-text="facebook" target="_self">Women Business and the Law</a>
+				
+				
+			</div>
+		</li>
+	
+
+		<li class="subscribe-links">
+			<div class="subscribe-icon">
+				<span class="lp lp-file-alt"></span>
+			</div>
+			<div class="subscribe-text">
+				<strong>Briefs:</strong>
+				
+				
+				<a href="https://www.worldbank.org/en/research/brief/global-indicators-briefs-series" target="_self">DECIG Policy Briefs</a>
+			</div>
+		</li>
+	</ul>
+</div>
+
+    
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+            <div class="container responsivegrid aem-GridColumn aem-GridColumn--tablet--12 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn--default--6 aem-GridColumn--offset--default--0 aem-GridColumn--default--none aem-GridColumn--desktop--6 aem-GridColumn--offset--desktop--0 aem-GridColumn--desktop--none aem-GridColumn--phone--12 aem-GridColumn--offset--phone--0 aem-GridColumn--phone--none">
+                
+  
+
+
+    
+    
+    
+    <div id="container-a46770a39c" class="cmp-container">
+        
+        <div class="container responsivegrid">
+  
+
+
+    
+    
+    
+    <div id="container-308426db4d" class="cmp-container">
+        
+        <div class="newsletter">
+   
+    
+<link rel="stylesheet" href="/etc.clientlibs/worldbank-bready/components/newsletter/clientlibs/site.css" type="text/css">
+
+
+
+    <div class="subscribe-container">
+        <h3>Subscribe To Our Newsletter</h3>
+            <div class="subscribe-box icon">
+                <form class="form" method="post" autocomplete="off" id="enterprisesurvey-sub" action="https://t.newsletterext.worldbank.org/lp/wbg-lp-ent-survey-acq">
+                <label class="sr-only" for="email">Enter email to subscribe</label>
+                <input type="email" placeholder="Enter email to subscribe..." required="" name="email" id="email" class="tui_subscribe_email"/>
+                <label for="firstname" class="sr-only">first name</label>
+                <input class="firstname" autocomplete="off" type="text" id="firstname" name="name" placeholder="Your name here"/>
+                <!-- <p class="tui_subscribe_value">Value/Selected</p> -->
+                <button type="submit" id="submitNewsletter" class="tui__solid_lightblue_btn cmp-button" onclick="validateemail(event)" data-form="world bank group newsletters::newsletter">SUBSCRIBE</button>
+                </form>
+                <div id="emailerrorMessageDiv"></div>
+                <div class="alert nl_error successText fade" id="newsletterMsgDiv">
+                    <span></span>
+                    <button id="errMsgButton" aria-label="Close" class="lp lp-times"></button>
+                 </div>    
+				<div class="loader" id="messageLoader" style="display: none;">
+					<img src="/content/dam/wbr/logo/ajax.gif" alt="loader image"/>
+				</div>
+            </div>
+    <input type="hidden" id="newsletterName" value="Women, Business and the Law Newsletter"/>
+    <input type="hidden" id="serviceKey" value="SVC126"/>
+    <input type="hidden" id="newsletterLabel" value="Subscribe To Our Newsletter"/>
+    <input type="hidden" id="buttonText" value="SUBSCRIBE"/>
+    <input type="hidden" id="ePlaceholder" value="Enter email to subscribe..."/>
+    <input type="hidden" id="reminder_title"/>
+    <input type="hidden" id="profileAPI" value="https://webapi.worldbank.org/aemservice/v1/newsletter/profile/getByEmail"/>
+    <input type="hidden" id="profileUpdateAPI" value="https://webapi.worldbank.org/aemservice/v1/newsletter/profile/update"/>
+    <input type="hidden" id="profileByIdAPI" value="https://webapi.worldbank.org/aemservice/v1/newsletter/profile/getByID"/>
+    <input type="hidden" id="signupAPI" value="https://webapi.worldbank.org/aemservice/v1/newsletter/subscription/subscribe"/>
+    <input type="hidden" id="apiKey" value="a02440fa123c4740a83ed288591eafe4"/>
+    <input type="hidden" id="applicationName" value="worldbank-ibrd-newsletter"/>
+    <input type="hidden" id="emailTemplateNewSub" value="itscd-extes-global-signup-en-template"/>
+    <input type="hidden" id="emailTemplateExtSub" value="itscd-extes-global-update-en-template"/>
+    <input type="hidden" id="successMessage" value="You are now signed up!"/>
+    <input type="hidden" id="emailLabelcheck" value="Error! Please enter a valid email address."/>
+    <input type="hidden" id="pendingErrorMsg" value="Your profile activation is currently pending. Please check back in an hour to update your subscriptions."/>
+    <input type="hidden" id="eventconf"/>
+    <input type="hidden" id="eventupdateconf"/>
+    <input type="hidden" id="newsletterexistingUserSuccessMsg" value="You have already subscribed for this newsletter."/>
+    <input type="hidden" id="consentAPI" value="/wbg/aem/service/consent.html"/>
+
+    </div>
+       
+    
+<script src="/etc.clientlibs/worldbank-bready/components/newsletter/clientlibs/site.js"></script>
+
+
+
+      </div>
+
+        
+    </div>
+
+
+</div>
+
+        
+    </div>
+
+
+
+            </div>
+                
+         
+     </div>
+                
+
+
+            
+</div>
+
+        
+    </div>
+
+
+</div>
+
+        
+    </div>
+
+
+</div>
+<div class="footer aem-GridColumn aem-GridColumn--default--12"><footer class="cmp-footer">
+    <div class="touchui-container">
+        <div class="ft-social">
+            <div class="ft-social-leftlist">
+
+                <!-- Logo Image Block -->
+                <div class="ft-social-list">
+                    <ul>
+                        <li>
+                            <a href="https://www.worldbank.org/" title="Logo" target="_blank">
+                                <picture>
+                                    <img src="/content/dam/sites/b-ready/subnational/img/2025/WBG-Logo-footer.svg" alt="Logo" width="250" height="50"/>
+                                </picture>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                               
+                <div class="ft-social-list">
+                          <a href="/">
+                        Women, Business and the Law
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Back to WBG -->
+            <div class="ft-worldbanksite">
+                <a href="/">
+                     <b>Back to worldbank.org</b>
+                </a>
+            </div>
+        </div>
+
+        <div class="ft-legal">
+            <!-- Copyright -->
+            <div class="ft-legal-list">
+                <ul>
+                    <li><p>©  2026 The World Bank Group, All Rights Reserved.</p></li>
+                </ul>
+            </div>
+
+            <!-- Legal Links -->
+            <div class="ft-legal-list">
+                <ul>
+                    <li>
+                        <a href="https://www.worldbank.org/en/about/legal" target="_self">
+                            Legal
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.worldbank.org/en/about/legal/privacy-notice" target="_self">
+                            Privacy  Notice
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.worldbank.org/en/who-we-are/site-accessibility" target="_self">
+                            Site 	Accessibility
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.worldbank.org/en/access-to-information" target="_self">
+                            Access to Information
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://wbgcmsprod.microsoftcrmportals.com/en-US/anonymous-users/int-fraud-management/create-new-complaint/" target="_self">
+                            Scam Alert
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://wbgcmsprod.microsoftcrmportals.com/en-US/anonymous-users/int-fraud-management/create-new-complaint/" target="_self">
+                            Report Fraud or Corruption
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+
+    
+</div>
+
+    
+</div>
+
+    </div>
+
+    
+
+</div>
+
+
+
+
+    
+<script src="/etc.clientlibs/worldbank-bready/clientlibs/clientlib-site-publish.js"></script>
+
+
+
+
+            
+    
+    <script src="/etc.clientlibs/worldbank-bready/clientlibs/wbl-clientlib-site.js"></script>
+
+
+    
+
+    
+    <script async src="/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.js"></script>
+<script async src="/etc.clientlibs/core/wcm/components/commons/site/clientlibs/utils.js"></script>
+<script async src="/etc.clientlibs/core/wcm/components/commons/site/clientlibs/imageDynamicMedia.js"></script>
+<script async src="/etc.clientlibs/clientlibs/granite/jquery/granite/csrf.js"></script>
+<script async src="/etc.clientlibs/worldbank-bready/clientlibs/clientlib-base.js"></script>
+
+
+
+
+
+    
+
+    
+
+    
+    
+
+        
+    </body>
+</html>
