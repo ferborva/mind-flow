@@ -10,6 +10,8 @@ updated: 2026-09-10
 
 # Income indicators, with their limits
 
+**Process miss:** the already-pushed initial commit `314a481` changed 81,241 lines, including a 56,195-line generated JSON file, contrary to the commissioned limit on commit size. It remains in history. Forward-only staged serialization repairs reduce future review size without changing source bytes or values; they do not erase or excuse that violation.
+
 **Three families have retained native observations for at least 40 of the retained IMF top 50 economies in every year from 2006 to 2025. None measures the share of people whose income routes were disrupted.** This is a breadth result for commissioned operational readings, not satisfaction of the 5 percentage point storm criterion. All category relationships below are Ren's proposals, not measured binding causes or Fernando's additional words.
 
 | Family | Retained vintage | Complete 2006-2025 histories | Native denominator | Proposed relationship |

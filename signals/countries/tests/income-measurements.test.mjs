@@ -2,7 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { sha256 } from '../tools/measure.mjs';
-import { extractIncomeIlo, extractIncomePip, deriveIncomeMeasurements } from '../tools/income-measurements.mts';
+import { extractIncomeIlo, extractIncomePip, deriveIncomeMeasurements, serializeIncomeMeasurements } from '../tools/income-measurements.mts';
+
+test('compact observation serialization is valid JSON with unchanged values and bounded lines',()=>{
+  const result=deriveIncomeMeasurements();
+  const text=serializeIncomeMeasurements(result);
+  assert.deepEqual(JSON.parse(text),result);
+  assert.ok(text.split('\n').length<40000);
+  assert.ok(text.split('\n').some(line=>line.includes('"iso3":"AUS"')));
+  const existing=JSON.parse(readFileSync(new URL('../income-measurements.v1.json',import.meta.url),'utf8'));
+  assert.deepEqual(JSON.parse(text),existing);
+});
 
 const ilo = { ref_area: 'AUS', source: 'XA:1', indicator: 'EMP_2WAP_SEX_AGE_RT', sex: 'SEX_T', classif1: 'AGE_YTHADULT_YGE15', time: '2020', obs_value: '60.1' };
 const dictionary = [{ref_area:'AUS',source:'XA:1','source.label':'ILO - Modelled Estimates'}];

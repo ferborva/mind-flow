@@ -6,6 +6,23 @@ type Native = Record<string, any>;
 const directory=new URL('../',import.meta.url);
 const sourceDirectory=new URL('sources/income-2026-09-10/',directory);
 const years=Array.from({length:20},(_,i)=>2006+i);
+// Forward-only staged repair: compact one family per reviewable commit.
+const compactFamilyCount=1;
+export function serializeIncomeMeasurements(value: Native) {
+  function render(item:any,depth:number,path:(string|number)[]):string {
+    const indent='  '.repeat(depth),child='  '.repeat(depth+1);
+    if(item===null||typeof item!=='object')return JSON.stringify(item);
+    if(Array.isArray(item)) {
+      if(!item.length)return '[]';
+      const compact=path[0]==='families'&&Number(path[1])<compactFamilyCount&&path[2]==='observations';
+      return '[\n'+item.map((entry,index)=>child+(compact?JSON.stringify(entry):render(entry,depth+1,[...path,index]))).join(',\n')+'\n'+indent+']';
+    }
+    const entries=Object.entries(item).filter(([,v])=>v!==undefined);
+    if(!entries.length)return '{}';
+    return '{\n'+entries.map(([key,v])=>child+JSON.stringify(key)+': '+render(v,depth+1,[...path,key])).join(',\n')+'\n'+indent+'}';
+  }
+  return render(value,0,[])+'\n';
+}
 function unique(rows: Native[]) {
   const seen=new Set<string>();
   for(const row of rows){const key=`${row.iso3}/${row.year}`;if(seen.has(key))throw new Error(`duplicate income observation ${key}`);seen.add(key);}
@@ -75,7 +92,7 @@ export function deriveIncomeMeasurements() {
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)) {
   try {
-    const bytes=JSON.stringify(deriveIncomeMeasurements(),null,2)+'\n';const target=new URL('income-measurements.v1.json',directory);
+    const bytes=serializeIncomeMeasurements(deriveIncomeMeasurements());const target=new URL('income-measurements.v1.json',directory);
     if(process.argv.includes('--check')){if(readFileSync(target,'utf8')!==bytes)throw new Error('income measurement replay differs');console.log('income measurement retained-source replay passed');}
     else if(process.argv.includes('--write'))writeFileSync(target,bytes,{flag:'wx'});
     else throw new Error('use --check or --write (new output only)');
