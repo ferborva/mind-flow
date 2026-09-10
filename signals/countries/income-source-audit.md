@@ -20,7 +20,9 @@ updated: 2026-09-10
 | ILO unemployment rate, total sex, ages 15+ | November 2025 modelled estimates | 50/50 | Labour force aged 15+ | Availability of paid work |
 | World Bank PIP poverty headcount, $3/day at 2021 PPP, national publisher lineup | `20260324_2021_01_02_PROD` | 49/50 | National reporting population, per-person income or consumption | Price/affordability |
 
-Argentina is absent from the national PIP selection. Urban coverage is not substituted. These are 1,000, 1,000 and 980 selected observations respectively. The producer retains full source bodies, not just the selected countries. A vintage is a publication snapshot, not a claim that all historical observations are independently surveyed or were known in that historical year.
+Argentina is absent from the national PIP selection. Urban coverage is not substituted. The producer also exposes the 2005 baseline, giving 1,050, 1,050 and 1,029 observations respectively and exactly twenty annual transition endpoints for 2006-2025. Baseline coverage is 50/50/49 from the same retained bodies; no source was refreshed. A vintage is a publication snapshot, not a claim that all historical observations are independently surveyed or were known in that historical year.
+
+**All 49 PIP values for 2025 are publisher nowcasts.** In 2009 the retained `estimate_type` labels comprise 32 `actual` and 17 `projection` rows; in 2020 they comprise 37 and 12. `actual` is the publisher's separate status field, not a claim that an interpolation or extrapolation is a directly observed survey. Estimation method remains separately retained. Comparisons across welfare-type switches or missing comparability spells remain unknown without a country-and-vintage comparability audit.
 
 ## Exact acquisition and replay
 

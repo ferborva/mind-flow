@@ -5,7 +5,7 @@ import { parseCsv, sha256, verifyReceipt } from './measure.mjs';
 type Native = Record<string, any>;
 const directory=new URL('../',import.meta.url);
 const sourceDirectory=new URL('sources/income-2026-09-10/',directory);
-const years=Array.from({length:20},(_,i)=>2006+i);
+const years=Array.from({length:21},(_,i)=>2005+i);
 // All observations occupy one line each; source metadata stays readable.
 const compactFamilyCount=3;
 export function serializeIncomeMeasurements(value: Native) {
@@ -88,7 +88,7 @@ export function deriveIncomeMeasurements() {
     const complete_history_count=countries.filter((iso3:string)=>years.every(year=>f.observations.some(r=>r.iso3===iso3&&r.year===year))).length;
     return {...f,unit:'percent',provenance:'commissioned-proposal',disruption_measurement:'not-measured',household_mapping:'not-available',evidence_ceiling:'Native income-related stock indicator only. No measured disruption share, gross route-loss count, affected dependants or binding-condition diagnosis.',coverage:{eligible:coverage_by_year.every(r=>r.count>=40),complete_history_count,coverage_by_year,missing_countries:countries.filter((c:string)=>!available.has(c))}};
   });
-  return {id:'income-measurements.v1',author:'Ren',provenance:'commissioned-proposal',country_set_sha256:sha256(countryBytes),history:{first_year:2006,last_year:2025,interpretation:'Twenty annual observations from one publisher vintage per family; neither a preregistered forecast nor independent annual survey evidence.'},source_directory:'signals/countries/sources/income-2026-09-10',receipts,families};
+  return {id:'income-measurements.v1',author:'Ren',provenance:'commissioned-proposal',country_set_sha256:sha256(countryBytes),history:{baseline_year:2005,first_year:2006,last_year:2025,interpretation:'Twenty annual transition endpoints, 2006 to 2025, plus the 2005 baseline from the same retained publisher vintages; neither a preregistered forecast nor independent annual survey evidence.'},source_directory:'signals/countries/sources/income-2026-09-10',receipts,families};
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)) {
   try {

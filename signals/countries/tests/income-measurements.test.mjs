@@ -44,9 +44,20 @@ test('PIP excludes non-national rows and missing headcounts; rejects duplicates,
 test('retained producer replays three families with complete 20-year histories and no disruption claims', () => {
   const result=deriveIncomeMeasurements();
   assert.deepEqual(result.families.map(f=>f.coverage.complete_history_count),[50,50,49]);
-  assert.deepEqual(result.families.map(f=>f.observations.length),[1000,1000,980]);
+  assert.deepEqual(result.families.map(f=>f.observations.length),[1050,1050,1029]);
   assert.ok(result.families.every(f=>f.disruption_measurement==='not-measured'));
   assert.equal(result.families[2].coverage.missing_countries[0],'ARG');
+});
+test('2005 baseline supports exactly twenty annual transition endpoints without a source refresh',()=>{
+  const result=deriveIncomeMeasurements();
+  assert.equal(result.history.baseline_year,2005);
+  assert.equal(result.history.first_year,2006);assert.equal(result.history.last_year,2025);
+  assert.deepEqual(result.families.map(f=>f.observations.filter(r=>r.year===2005).length),[50,50,49]);
+  for(const family of result.families){
+    const rows=family.observations.filter(r=>r.iso3==='AUS');
+    assert.equal(rows.length,21);
+    assert.deepEqual(rows.slice(1).map(r=>r.year),Array.from({length:20},(_,i)=>2006+i));
+  }
 });
 test('the three original publisher bodies are independently pinned, including BOM bytes',()=>{
   for(const [name,hash] of Object.entries({
