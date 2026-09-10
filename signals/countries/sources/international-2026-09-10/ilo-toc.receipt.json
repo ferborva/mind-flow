@@ -1,0 +1,13 @@
+{
+  "id": "ilo-toc",
+  "url": "https://rplumber.ilo.org/metadata/toc/indicator/",
+  "final_url": "https://rplumber.ilo.org/metadata/toc/indicator/",
+  "started_at": "2026-09-10T01:15:24.331Z",
+  "ended_at": "2026-09-10T01:15:26.228Z",
+  "status": 200,
+  "body_sha256": "sha256:41e687edb087a14f4701a6508c3280ec21d745d78f47441b9e735a663ede1db7",
+  "body_byte_length": 738610,
+  "headers_sha256": "sha256:7a2b803f2ec1aa7343b3af9c866b375d97a3a332daadfa4cc631ed582d1adcbd",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

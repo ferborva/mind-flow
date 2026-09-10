@@ -1,0 +1,19 @@
+accept-ranges: bytes
+access-control-allow-credentials: true
+access-control-allow-headers: Origin, Content-Type, Accept, Authorization
+access-control-allow-methods: GET, POST, OPTIONS
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: a38a94cc1e3d334e-SYD
+connection: keep-alive
+content-disposition: attachment; filename=LAP_2GDP_NOC_RT_A-20260910T0315.csv
+content-encoding: gzip
+content-type: application/octet-stream
+date: Thu, 10 Sep 2026 01:15:24 GMT
+server: cloudflare
+set-cookie: frontier-backend-https=srv-hematite-dmz; path=/; HttpOnly; Secure
+set-cookie: __cf_bm=iqHrr5PH19OWvkDNhhWStzgAbCNIbwUHna2MYdAbZtw-1789002922.8929079-1.0.1.1-aCm2Zyr7.xuStRrZvOGiXqe4xbU379Y41vlilQOsc8tL_gSoCF9upV_339XFaWYEfePNWv9ovo_vyROo3ngSV45LSAqIOU899c.8hW07awra8oEmNnyb4tKBpjAdCm6W; HttpOnly; SameSite=None; Secure; Path=/; Domain=ilo.org; Expires=Thu, 10 Sep 2026 01:45:24 GMT
+strict-transport-security: max-age=31536000
+transfer-encoding: chunked
+vary: accept-encoding

@@ -1,0 +1,13 @@
+{
+  "id": "electricity-definition-limit",
+  "url": "https://www.worldbank.org/en/topic/energy/publication/energy-access-redefined",
+  "final_url": "https://www.worldbank.org/en/topic/energy/publication/energy-access-redefined",
+  "started_at": "2026-09-10T01:15:28.884Z",
+  "ended_at": "2026-09-10T01:15:30.268Z",
+  "status": 200,
+  "body_sha256": "sha256:eee603893f8eea8d355dd946ec024c17e021094ee0ca729186bea33ab0508ab1",
+  "body_byte_length": 98516,
+  "headers_sha256": "sha256:3a625426e6854e192f8718f0d6e9eee8c7d9baf9b285947f868ff4779ee5a7c4",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
