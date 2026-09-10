@@ -1,6 +1,6 @@
 ---
 id: round-09-narrative-provenance
-title: Round 09 deletion-only public-language review
+title: Round 09 public-language cuts and captured scope amendment
 type: internal-review
 status: ready-for-independent-review
 provenance: commissioned-proposal
@@ -11,10 +11,77 @@ updated: 2026-09-10
 
 # Scope and fixed boundaries
 
-This lane applies Round 09's deletion-only instruction to the three named
-drafts. First-person sentences and the open company-choice GAP stay verbatim;
-the naughty-kid passage remains absent. No new substantive position is drafted
-for Fernando. Deletions and retained source ceilings will be recorded below.
+The initial lane applied Round 09's deletion-only instruction to the three named
+drafts. First-person sentences and the open company-choice GAP stayed verbatim;
+the naughty-kid passage remained absent. No new substantive position was drafted
+for Fernando at that checkpoint. The later, expressly authorised September 10
+amendment below closes that GAP and restores the observation. The original
+deletion logs and their strict validator remain unchanged.
+
+## September 10 captured amendment, after the deletion checkpoint
+
+The replacement brief expressly closes the enterprise-diagnosis GAP and permits
+the naughty-kid line as observation only. The [capture](../capture/2026-09-10-where-the-money-sits-and-the-weather-station.md)
+is processed through the updated enterprise seed and new world-weather-station
+seed before the draft amendment. The isolated “Where the ball sits” section
+contains the money-accrual diagnosis and a close paraphrase of September 1's
+image, with its imperative framed as the parent's speech. It restores neither
+“the choice is theirs” nor a corporate-service, tax or enough-line remedy.
+The source capture is added to the essay's frontmatter.
+
+The draft's pre-existing first-person sequence remains byte-for-byte equal as
+extracted by the existing detector. The sole former GAP closes under the new
+author instruction. Two exact replacements below reverse that amendment before
+the historical deletion-only replay; no generic permission to delete GAPs or
+change first-person wording was added. The validator and historical cut records
+are unchanged. Capture bytes and both amendment endpoints are pinned in tests.
+This remains change detection, not semantic certification by a hash.
+
+The amended abundance draft has **137 lexical units, 132 after removing list
+number fragments, and the same six conservatively counted disclaimer units:
+6/132 = 4.55%**. The new two-sentence observation is not a disclaimer. The draft
+already passed at 6/130 before it was restored; the addition is an expressly
+requested substantive amendment, not denominator padding. Other ratios remain
+3/78, 4/81 and 3/32. One opening whole-document boundary remains per draft.
+
+Programme scope now follows the captured weather-station metaphor and at least
+50-economy ambition, with Australian care as worked depth. Ranking, signal
+selection and storm definitions remain commissioned proposals. His urgency is
+attributed as his view, not measured or forecast by the instrument. No rendered
+surface or signal definition is added by this editorial amendment.
+
+Validation: three new semantic expectations failed before the seed/draft/scope
+changes; the explicit amendment replay failed before its record existed; the
+stale programme-checkpoint regression failed before the Round 09 correction.
+All **65 communications tests** and frontmatter validation then passed on Node
+22, including unchanged casing and hostile deletion tests. The first wider
+run lacked Ajv; that environment failure is not counted as fail-first evidence.
+No capture bytes are authored or modified by this lane, and no full-suite or
+external approval is claimed here.
+
+```capture-amendment
+{
+  "path": "drafts/abundance-has-an-if.md",
+  "source": "capture/2026-09-10-where-the-money-sits-and-the-weather-station.md",
+  "source_sha256": "b7e3851b2d780939ea37ee876212c3fa7042f22638f944b1e625fb4204ea9338",
+  "before_sha256": "6cee4b3afed454abb9bf62683948144cc7e5832f341b8b475fa92e7de41b60f4",
+  "after_sha256": "190aae127df5225303f90e0dff4a733a2c9edbf24cd6e75cd66ebae7f14c873e",
+  "changes": [
+    {
+      "before": "## 🧭 Turn the question into a method\n",
+      "after": "## 🏦 Where the ball sits\n\n**The money accrues to a few companies.** The picture is the naughty kid that\nkeeps everything to themselves until the parent comes along and says: stop\nhogging the ball, share it.\n\n## 🧭 Turn the question into a method\n",
+      "reason": "Explicit September 10 author instruction restores the observation, not its former remedy."
+    },
+    {
+      "before": "<!-- GAP: Fer, does \"the choice is theirs\" survive as a diagnosis (the money\n     accrues there) even though it no longer survives as a remedy? -->\n\nStart with the person and the outcome.",
+      "after": "Start with the person and the outcome.",
+      "reason": "The new captured answer closes this exact question; the following original prose is only a unique replay anchor."
+    }
+  ]
+}
+```
+
+## Initial deletion-only checkpoint (historical)
 
 The author display name in current pipeline drafts is **Ren**. The frontmatter
 linter rejects casing variants of that name in `drafts/`, without rewriting

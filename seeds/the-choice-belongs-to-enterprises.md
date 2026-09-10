@@ -1,16 +1,33 @@
 ---
 id: the-choice-belongs-to-enterprises
-title: The choice belongs to the enterprises, not the governments
+title: Where the money accrues, without a prescribed remedy
 type: seed
-status: superseded
+status: ripe
 themes: [abundance]
 sources: [2026-09-01-abundance-is-conditional, 2026-09-07-endorsing-the-red-team,
-  2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy]
+  2026-09-08-abundance-frame-conversation, 2026-09-09-softer-on-tax-and-remedy,
+  2026-09-10-where-the-money-sits-and-the-weather-station]
 created: 2026-09-01
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
-# The choice belongs to the enterprises, not the governments
+# Where the money accrues, without a prescribed remedy
+
+**Current, 2026-09-10: ripe for the observation only.** The money accrues to a
+few companies. The remedy remains withdrawn: this does not restore “so the
+choice is theirs”, corporate free services, a tax position or the parked
+enough-line argument.
+
+> indeed that is just a plain observation at this point of where the money accrues to
+> and we can dismiss it as bound to any solutions.
+> from: 2026-09-10-where-the-money-sits-and-the-weather-station
+
+The accompanying Round 09 instruction expressly permits the naughty-kid image
+as a description of where the ball sits, without a remedy paragraph. This
+closes the enterprise-diagnosis GAP. The historical argument below remains a
+record of what changed, not a current programme of action.
+
+## Historical position and withdrawal
 
 > **Superseded 2026-09-09.** This was his position on 2026-09-01. He endorsed the
 > red team that broke it (2026-09-07), did not defend it when the 2026-09-08
@@ -66,7 +83,7 @@ opening "the door to socialist discussions", states the counter-position
 seriously ("that money is well earned by the founders of a massive business,
 it's theirs by right"), and leaves it open.
 
-## What survives, 2026-09-09
+## September 9 checkpoint, before the new answer
 
 - **Tax.** "A much softer view." No replacement position stated.
 - **The company remedy.** Withdrawn as a remedy. Whether "the money accrues
@@ -75,12 +92,14 @@ it's theirs by right"), and leaves it open.
 - **Belgium vs Spain.** He now classes the visible-price preference as "a
   solution". The contrast survives only as an illustration of one condition
   being met two ways.
-- **The naughty-kid line.** Description of where the ball is, not a remedy.
-  Kept in the draft on that basis (Ren's reading, not his statement).
+- **The naughty-kid line.** Ren's earlier reading treated it as observation.
+  Round 08 removed it pending author clarification. The September 10 instruction
+  now expressly permits restoration as observation only.
 
 ## Gaps
 
 - Nvidia and Google daily revenue figures need verifying.
 - What does he actually want done with the pooled S&P 500 profit number? Raised,
   then dropped. Likely moot now that the remedy is withdrawn.
-- Does "the choice is theirs" survive as a diagnosis? Ask.
+- The enterprise-diagnosis question is closed by September 10. Which action
+  follows from it remains open; the observation does not select an action.
