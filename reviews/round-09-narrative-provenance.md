@@ -97,7 +97,9 @@ negative overclaim tests remain. All 63 communications tests and the focused
 dashboard operator-navigation test pass; full integration remains root's check.
 
 The casing regression failed on the inherited validator, then passed after
-the scoped rule. Historical lowercase metadata remains accepted deliberately.
+the scoped rule. A second failing-first check found quoted lowercase names
+were missed; matching YAML scalar quotes are now unwrapped for this casing
+check. Historical lowercase metadata remains accepted deliberately.
 
 ## Exact deletion log
 

@@ -12,7 +12,7 @@ const root = resolve(import.meta.dirname, "../..");
 
 test("current draft Ren authors use canonical casing without rewriting historical metadata", () => {
   const base = readFileSync(resolve(root, "drafts/every-if-is-somebodys-when.md"), "utf8");
-  for (const author of ["ren", "REN", "rEn"]) {
+  for (const author of ["ren", "REN", "rEn", '"ren"', "'REN'"]) {
     assert.ok(lintMarkdown("drafts/every-if-is-somebodys-when.md", base.replace(/^author:.*$/m, `author: ${author}`))
       .some(({ code }) => code === "DRAFT_AUTHOR_CASING"));
   }
