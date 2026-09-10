@@ -67,3 +67,28 @@ test('HTTP failure retains response body and status receipt', async () => {
   assert.equal(await readFile(join(destination,'nero-landing.html'),'utf8'),'publisher unavailable');
   assert.equal(JSON.parse(await readFile(join(destination,'nero-landing.html.receipt.json'))).status,503);
 });
+test('initial publication builds a tree containing only captured evidence', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'nero-new-pr-'));
+  const destination=join(dir,'attempt');
+  await collect({destination,clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async url=>new Response(url.endsWith('.zip')?'PK fixture':fixture)});
+  const writes=[];
+  const request=(endpoint,input)=>{
+    if(input) writes.push({endpoint,input});
+    if(endpoint.startsWith('git/matching')) return [];
+    if(endpoint==='git/ref/heads/main') return {object:{sha:'trusted-base'}};
+    if(endpoint==='git/commits/trusted-base') return {tree:{sha:'base-tree'}};
+    if(endpoint==='git/blobs'||endpoint==='git/trees'||endpoint==='git/commits') return {sha:'new-object'};
+    if(endpoint==='git/refs') return {};
+    if(endpoint.startsWith('pulls?')) return [];
+    if(endpoint==='pulls') return {number:1};
+    throw new Error('unexpected API path '+endpoint);
+  };
+  publish({directory:destination,repository:'ferborva/mind-flow',expectedBase:'trusted-base',request});
+  const tree=writes.find(w=>w.endpoint==='git/trees').input;
+  assert.equal(tree.base_tree,'base-tree');
+  assert.equal(tree.tree.length,14);
+  assert.ok(tree.tree.every(entry=>entry.path.startsWith('forecasts/prospective-pilot/round-10-intake/evidence/')));
+  assert.ok(!tree.tree.some(entry=>/issued|resolved|score/.test(entry.path)));
+  assert.equal(writes.at(-1).input.base,'main');
+  assert.throws(()=>publish({directory:destination,repository:'ferborva/mind-flow',expectedBase:'stale-base',request}),/advanced/);
+});
