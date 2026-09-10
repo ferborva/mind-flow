@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Backlog
@@ -20,6 +20,38 @@ One question per turn when actually asking him. This list is the queue, not the
 script.
 
 ## Open
+
+### Round 09 next decisions and acquisition work
+
+- [ ] **Process the separate September 10 capture before changing stance or scope.**
+      [PR #19](https://github.com/ferborva/mind-flow/pull/19) contains newer material
+      about where money accrues and a country-level, top-50-economies weather
+      station. It is outside this candidate and has not passed through seeds
+      here. Do not infer from the frozen draft GAP that Fernando has supplied
+      no newer answer, or adopt the capture author's naughty-kid interpretation
+      without checking his actual words. Reconcile that proposal separately.
+- [ ] **Design the missing construct migration before claiming two more IF events.**
+      Appointment-attempt versus appointment-making time and the precise
+      prescription denominator need explicit old-to-new relationships. The
+      current operation set cannot carry them as ordinary revision or literal
+      set narrowing. Preserve the old broader question and invalidate its
+      consumers through a reviewed, versioned migration.
+- [ ] **Choose the next access-data acquisition, not a stronger proxy label.**
+      The new prescription and after-hours rows name exact missing series.
+      [Directory and dispensing routes](../research/2026-09-10-access-series-acquisition-gaps.md)
+      could deepen proximity/price, but linked accepted and failed attempts,
+      eligibility, travel, affordability, stock and support are needed to
+      identify a current bottleneck. Licensing or participant contact needs
+      separate authority.
+- [ ] **Run the prewritten October intake when eligible data exists.** Expected
+      around November 4; no scheduler or monitoring promise is created here.
+      Preserve first-presence evidence, reject post-October archives, use the
+      exact cell and keep the erroneous Round 09 issuance visibly inadmissible.
+
+The Round 09 scoped disclaimer rule replaces the earlier four-document targets;
+the older universal-denominator question below remains historical context, not
+a newly failed scoped gate. Receipt forgery, schema-2 hash separation, repository
+history weight and eight inherited macro raw inputs remain open.
 
 ### Round 08 moratorium exceptions and unresolved gates
 
@@ -58,8 +90,9 @@ The three at the top are the ones that block writing. The rest can wait.
 - [ ] **Does "the money accrues to companies, so the choice is theirs" survive
       as a diagnosis?** The remedy and tax positions softened in
       `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
-      contribution at the frame and method level, not the solution. He has not
-      said whether the enterprise-choice claim still describes the problem.
+      contribution at the frame and method level, not the solution. This was
+      unresolved in the Round 09 starting tree. Newer material in PR #19 awaits
+      separate capture-to-seed processing; this candidate does not adopt an answer.
 - [x] **Does the sequencing concession kill the dated phases?** Resolved by
       Fernando's Round 08 commission on 2026-09-09: dated phases are scenarios,
       never schedules. The transition draft now asks which condition binds

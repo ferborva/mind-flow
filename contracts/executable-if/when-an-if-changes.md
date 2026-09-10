@@ -61,6 +61,10 @@ Event 12 was recorded at `2026-09-09T22:33:29Z`. Its
 [consumer](../../pilots/australia/data/positive-signals-current.json) retain the
 complete hashes and the reason for the change.
 
+The overlay's later `generated_at` dates the Round 09 presentation revision,
+including its construction-replay label. It does not redate event 12 or make
+the underlying measurements newer.
+
 **Passing the new binding does not mean care became obtainable.** The historical
 observation was already stale at evaluation. After the revision there is no
 eligible observation for the new definition. A separate test-only fresh-data

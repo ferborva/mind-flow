@@ -2,7 +2,7 @@
   "schema_version": "2.0.0",
   "ledger_id": "ledger.au.primary-care.current",
   "classification": "research-draft",
-  "generated_at": "2026-09-09T22:33:29Z",
+  "generated_at": "2026-09-10T00:43:48Z",
   "source_kernel_ref": {
     "artifact_path": "pilots/australia/basket/primary-care.kernel.current.json",
     "artifact_sha256": "sha256:1fe8272a1855bace95b2151fce1290e40a368267bebf22a4c74d845d10fc1651",
@@ -1076,7 +1076,7 @@
   },
   "publication_anchor": {
     "verification_status": "not-verified-by-external-checkpoint",
-    "checkpoint_uri": "https://github.com/ferborva/mind-flow/pull/15",
+    "checkpoint_uri": "https://github.com/ferborva/mind-flow/pull/16",
     "source_event_count": 12,
     "tip_event_id": "event.au.primary-care.12",
     "tip_event_hash": "sha256:047810fc6008a732a080de56ed62e5cc9457967e8d83fc249aabcdc650376a1c"
@@ -1415,7 +1415,7 @@
       "action_authorised": false
     }
   },
-  "manifest_hash": "sha256:880d50f84b4594c77a342a1a7ef5f592fb7612cff6eb5c8f638353d8271b7376",
+  "manifest_hash": "sha256:bbfedb5ecdf4efbac0b8afa0641b265655f426d79d796947a4fc6a2197845574",
   "contract_boundary": {
     "definition_history_owner": "source-executable-if-kernel",
     "history_validity_effect": "source-binding-and-integrity-only",

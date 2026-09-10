@@ -108,10 +108,12 @@ export function assessPositiveParity(consumerBytes: string, kernel: any) {
 function outputs(kernel: any) {
   const overlay = projectExecutableIfEvolution(kernel, {
     artifact_path: currentPath, artifact_sha256: hash(bytes(kernel)),
-    generated_at: kernel.events.at(-1).recorded_at,
+    // Fixed clock captured for this Round 09 presentation revision. It is not
+    // the source vintage or a new kernel-event clock.
+    generated_at: '2026-09-10T00:43:48Z',
     ledger_id: 'ledger.au.primary-care.current',
   });
-  overlay.publication_anchor.checkpoint_uri = 'https://github.com/ferborva/mind-flow/pull/15';
+  overlay.publication_anchor.checkpoint_uri = 'https://github.com/ferborva/mind-flow/pull/16';
   overlay.manifest_hash = computeExecutableIfEvolutionManifestHash(overlay);
   const valid = validateExecutableIfEvolution(overlay, { sourceKernel: kernel, sourceKernelArtifactSha256: hash(bytes(kernel)) });
   if (!valid.ledger_valid) throw new Error(JSON.stringify(valid));

@@ -9,6 +9,14 @@ const read = name => JSON.parse(readFileSync(new URL(name, import.meta.url), 'ut
 const before = read('../basket/primary-care.kernel.r3.json');
 const consumer = read('../data/positive-signals-2026-09-09.r3.json');
 
+test('the revised overlay dates its presentation update without redating the underlying event', () => {
+  const kernel = read('../basket/primary-care.kernel.current.json');
+  const overlay = read('../../../contracts/evolution/fixtures/australia-primary-care.current.json');
+  assert.equal(kernel.events.at(-1).recorded_at, '2026-09-09T22:33:29Z');
+  assert.ok(Date.parse(overlay.generated_at) > Date.parse(kernel.events.at(-1).recorded_at));
+  assert.equal(overlay.publication_anchor.checkpoint_uri, 'https://github.com/ferborva/mind-flow/pull/16');
+});
+
 test('a persisted pre-event positive consumer fails after an appended definition event until explicitly rebound', () => {
   assert.equal(assessPositiveBinding(consumer, before).valid, true);
   const after = appendCorroborationRequirement(before, '2026-09-10T00:00:00Z');
