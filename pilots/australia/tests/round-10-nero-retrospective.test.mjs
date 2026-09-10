@@ -1,7 +1,44 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
-import { analyseNativeSeries, assessGpJoin } from '../tools/round-10-nero-retrospective.mts';
+import { createHash } from 'node:crypto';
+import { analyseNativeSeries, assessGpJoin, parseRetrospectiveArgs } from '../tools/round-10-nero-retrospective.mts';
+import { evaluateStorm } from '../../../signals/countries/tools/storm-criterion.mts';
+
+test('retained annual results bind the current criterion code, prose and definition artifact', () => {
+  const retained = JSON.parse(readFileSync(new URL('../data/round-10-nero-retrospective.json', import.meta.url)));
+  const paths = ['signals/countries/tools/storm-criterion.mts', 'signals/countries/storm-criterion.v1.md', 'signals/countries/storm-review.v1.json'];
+  assert.deepEqual(retained.criterion_binding.map(x => x.path), paths);
+  const hash = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex');
+  for (const binding of retained.criterion_binding) {
+    const bytes = readFileSync(new URL('../../../' + binding.path, import.meta.url));
+    assert.equal(binding.sha256, hash(bytes));
+    assert.notEqual(binding.sha256, hash(Buffer.concat([bytes, Buffer.from('changed criterion')])));
+  }
+  const results = new Map(retained.annual_criterion_results.map(x => [x.id, x.result]));
+  assert.equal(results.size, 10);
+  for (const result of results.values()) assert.deepEqual(result, evaluateStorm({ country: 'AUS', period: result.period, disruption: null, binding: null, household: null }));
+  assert.equal(retained.series.flatMap(x => x.annual_criterion).length, 1400);
+  for (const window of retained.series.flatMap(x => x.annual_criterion)) {
+    assert.equal(window.state, results.get(window.result_ref).state);
+    assert.equal(window.native_context_admitted, false);
+  }
+});
+
+test('annual native windows call the shared criterion with no invented disruption measurements', () => {
+  const points = Array.from({ length: 13 }, (_, i) => row(`${2019 + Math.floor((11 + i) / 12)}-${String((11 + i) % 12 + 1).padStart(2, '0')}-15`, 100 - i));
+  const [series] = analyseNativeSeries(points);
+  assert.equal(series.annual_criterion.length, 1);
+  assert.deepEqual(series.annual_criterion[0].result, evaluateStorm({ country: 'AUS', period: { from: 2019, to: 2020 }, disruption: null, binding: null, household: null }));
+  assert.equal(series.annual_criterion[0].native_context.net_employment_change, -12);
+  assert.equal(series.annual_criterion[0].native_context_admitted, false);
+});
+
+test('CLI rejects duplicates, contradictory modes, empty roots and unknown arguments before source work', () => {
+  for (const args of [[], ['--check', '--check'], ['--print', '--print'], ['--check', '--print'], ['--check', '--income-root='], ['--check', '--income-root=  '], ['--check', '--income-root=a', '--income-root=b'], ['--check', '--unknown']]) assert.throws(() => parseRetrospectiveArgs(args), /NERO_CLI/);
+  assert.deepEqual(parseRetrospectiveArgs(['--check']), { mode: '--check', incomeRoot: undefined });
+  assert.deepEqual(parseRetrospectiveArgs(['--income-root=peer', '--print']), { mode: '--print', incomeRoot: 'peer' });
+});
 
 const row = (date, value, sa4_code = '102') => ({ occupation_code: '5311', occupation_name: 'General Clerks', state_name: 'NSW', sa4_code, sa4_name: sa4_code === '102' ? 'Central Coast' : 'Capital Region', date, value, source_row: 1 });
 

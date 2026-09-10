@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { rowsFromZip } from '../../../dashboard/tools/build-nero-baseline.mjs';
+import { evaluateStorm } from '../../../signals/countries/tools/storm-criterion.mts';
 
 type Row = { occupation_code: string; occupation_name: string; state_name: string; sa4_code: string; sa4_name: string; date: string; value: number; source_row: number };
 type Observation = { iso3: string; year: number; value: number; source_selector: string; estimation_type: string; estimate_type: string };
@@ -27,10 +28,13 @@ function change(before: Row, after: Row) {
     native_stock_percent_change: before.value === 0 ? null : rounded(100 * (after.value - before.value) / before.value),
     source_rows: [before.source_row, after.source_row] };
 }
+function assessAnnualCriterion(from: number, to: number) {
+  return evaluateStorm({ country: 'AUS', period: { from, to }, disruption: null, binding: null, household: null });
+}
 function cannotAssessStorm() {
-  return { state: 'cannot-say', disrupted_people: null, dependent_household_members: null,
+  return { ...assessAnnualCriterion(2015, 2026), disrupted_people: null, dependent_household_members: null,
     disrupted_share_change_percentage_points: null, binding_category_change: null,
-    reasons: ['Native modelled employment stocks do not identify gross disruption of income routes.',
+    reasons: ['Native modelled employment stocks do not measure comparable direct disruption prevalence shares.',
       'No matched total-population denominator or dependent-household mapping.',
       'No observation establishes a change in which condition category binds income access.'] };
 }
@@ -63,6 +67,11 @@ export function analyseNativeSeries(rows: Row[]) {
       monthly_changes: monthly, negative_months: monthly.filter(point => point.net_employment_change < 0).length,
       largest_monthly_net_decline: minimum(monthly), largest_annual_net_decline: minimum(annual),
       calendar_2020: fixed('2019-12-15', '2020-12-15'), early_2020: fixed('2020-02-15', '2020-05-15'),
+      annual_criterion: annual.filter(point => point.to.endsWith('-12-15')).map(native_context => ({
+        native_context, native_context_admitted: false,
+        scope_limit: 'AUS criterion has no admitted national disruption or binding observations; this SA4 occupation stock is context only, not a local or national estimate.',
+        result: assessAnnualCriterion(+native_context.from.slice(0, 4), +native_context.to.slice(0, 4)),
+      })),
       storm_assessment: cannotAssessStorm() };
   });
 }
@@ -80,7 +89,7 @@ export function assessGpJoin(income: { families: Family[] }) {
         missing: ['SA4-specific GP access and income observations for the same people',
           'Matched current consultation, eligibility, full cost, travel, bookable capacity and navigation support',
           'Monthly or aligned observation period; annual national values cannot identify the August 2026 SA4 route',
-          'Gross income-route disruption and household-dependant mapping; national stock/rate does not supply either'],
+          'Comparable income-route disruption prevalence shares or measured binding-category change, and separate household-exposure mapping; national stock/rate does not supply these'],
         income_route_disrupted_people: null, dependent_household_members: null, binding_category: null };
     }) };
 }
@@ -111,17 +120,22 @@ export async function deriveRetrospective(incomeRoot = root) {
   const gp = JSON.parse(gpBytes.toString());
   const gpPrice = gp.series.find((s: { id: string }) => s.id === 'gp-cost-delay');
   return { id: 'round-10-nero-retrospective', provenance: 'commissioned-proposal', author: 'Ren', as_of: '2026-09-10',
+    criterion_binding: ['signals/countries/tools/storm-criterion.mts', 'signals/countries/storm-criterion.v1.md', 'signals/countries/storm-review.v1.json'].map(path => ({ path, sha256: sha(readFileSync(resolve(root, path))) })),
     source: { capture_path: capturePath, capture_sha256: sha(captureBytes), archive_path: archivePath, archive_sha256: expected,
       headers_path: `pilots/australia/${header.path}`, headers_sha256: header.sha256,
       csv_member: '2026-08_nero/2026-08_shiny_df.csv',
       csv_rows_consumed: readCount, selector: { state_name: 'NSW', anzsco4_code: occupations, value: 'nsc_emp', date: 'date', identity: ['anzsco4_code', 'sa4_code'], source_row: 'one-based CSV line including header' },
       licence: capture.source.licence_claim, licence_review_status: capture.source.licence_review_status,
       scope: capture.source_native_scope, csv_crc_and_length_verified: true },
-    interpretation: 'Native net stock changes in one August 2026 model vintage. No sums across occupations or regions, gross disrupted shares, historical as-published values or forecast skill.',
+    interpretation: 'Native net stock changes in one August 2026 model vintage. Shared annual criterion executed with no admitted disruption prevalence or binding-category evidence. No sums across occupations or regions, converted disrupted shares, historical as-published values or forecast skill.',
     selected_series: series.length, selected_observations: selected.length,
     storm_assessment: cannotAssessStorm(),
     historical_windows: { '2008-2009': 'outside retained NERO date range; cannot evaluate', '2020': 'fixed calendar-year and February-to-May stock comparisons only; not a storm label or skill check' },
-    series: series.map(({ monthly_changes, ...summary }) => summary),
+    annual_criterion_results: series[0].annual_criterion.map(({ result, scope_limit }) => ({ id: `AUS:${result.period.from}:${result.period.to}`, result, scope_limit })),
+    series: series.map(({ monthly_changes, annual_criterion, ...summary }) => ({ ...summary,
+      annual_criterion: annual_criterion.map(({ native_context, result, native_context_admitted }) => ({ native_context,
+        native_context_admitted, result_ref: `AUS:${result.period.from}:${result.period.to}`, state: result.state })),
+    })),
     central_coast_general_clerks_monthly: series.find(s => s.sa4_code === '102' && s.occupation_code === '5311')!.monthly_changes,
     gp_context: { path: gpPath, sha256: sha(gpBytes), population: gpPrice.population,
       nsw_cost_delay: gpPrice.points.find((p: { geography: string; period: string }) => p.geography === 'NSW' && p.period === '2024-25'),
@@ -134,13 +148,17 @@ export const serializeRetrospective = (data: Awaited<ReturnType<typeof deriveRet
   `  ${JSON.stringify(key)}: ` + (Array.isArray(value)
     ? '[\n' + value.map(row => '    ' + JSON.stringify(row)).join(',\n') + '\n  ]'
     : JSON.stringify(value, null, 2).replaceAll('\n', '\n  '))).join(',\n') + '\n}\n';
+export function parseRetrospectiveArgs(args: string[]) {
+  const modes = args.filter(arg => ['--check', '--print'].includes(arg));
+  const roots = args.filter(arg => arg.startsWith('--income-root='));
+  if (modes.length !== 1 || roots.length > 1 || roots.some(arg => !arg.slice('--income-root='.length).trim()) || args.length !== modes.length + roots.length) throw Error('NERO_CLI: Use exactly one --check or --print and at most one nonempty --income-root=PATH');
+  return { mode: modes[0], incomeRoot: roots[0]?.slice('--income-root='.length) };
+}
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    const args = process.argv.slice(2);
-    const incomeArg = args.find(arg => arg.startsWith('--income-root='));
-    if (args.some(arg => !['--check', '--print'].includes(arg) && !arg.startsWith('--income-root=')) || args.includes('--check') === args.includes('--print')) throw Error('Use --check or --print, optionally --income-root=PATH');
-    const result = serializeRetrospective(await deriveRetrospective(incomeArg?.slice('--income-root='.length)));
-    if (args.includes('--check')) {
+    const { mode, incomeRoot } = parseRetrospectiveArgs(process.argv.slice(2));
+    const result = serializeRetrospective(await deriveRetrospective(incomeRoot));
+    if (mode === '--check') {
       if (readFileSync(resolve(root, outputPath), 'utf8') !== result) throw Error('NERO_RETROSPECTIVE_OUTPUT_DRIFT');
       process.stdout.write('Round 10 NERO retrospective and GP join reproduce exactly\n');
     } else process.stdout.write(result);
