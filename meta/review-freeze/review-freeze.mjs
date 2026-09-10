@@ -379,6 +379,34 @@ export const ROUND_09_REVIEW_POLICY = Object.freeze({
   ],
 });
 
+// A repair is a new attestation, never a renamed historical receipt.
+export const ROUND_09_1_REVIEW_POLICY = Object.freeze({
+  ...ROUND_09_REVIEW_POLICY,
+  policy_id: 'review-freeze.round-09.1', policy_version: '1.0.0', review_round: 'round-09.1',
+  required_files: [
+    ...ROUND_09_REVIEW_POLICY.required_files,
+    ...[
+      ['reviews/round-09.1-dispositions.md', 'Every independent finding, repair evidence and remaining gates'],
+      ['reviews/round-09.1-editorial-repairs.md', 'Forward amendments and honest disclaimer inventory'],
+      ['reviews/round-09.1-forecast-repairs.md', 'Typed error disclosure and preserved prospective evidence'],
+      ['contracts/executable-if/construct-correction-policy.md', 'New-identity decision with unfinished migration explicit'],
+      ['forecasts/prospective-pilot/round-09-nero/current-admission-plan.json', 'Current admission overlay, not a changed scoring plan'],
+      ['forecasts/prospective-pilot/round-09-nero/error-disclosure.json', 'Typed error marker without void or exclusion authority'],
+      ['forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs', 'Read-only operator view of unresolved disclosure'],
+      ['dashboard/tools/check-primary-care-layout.mjs', 'Optional local-browser regression/control runner'],
+      ['meta/review-freeze/round-09.review-freeze.json', 'Unchanged previous measurement candidate receipt'],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_09_REVIEW_POLICY.build_commands,
+    ...[
+      ['round-09-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09', '--manifest=meta/review-freeze/round-09.review-freeze.json']],
+      ['round-09.1-error-disclosure-check', ['node', 'forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs']],
+      ['round-09.1-repair-regressions', ['node', '--test', 'contracts/tests/ci-governance.test.mjs', 'contracts/tests/retained-source-lfs.test.mjs', 'dashboard/tests/primary-care-public.test.mjs', 'communications/tests/round-09-1-editorial.test.mjs', 'forecasts/prospective-pilot/tests/round-09-error-disclosure.test.mjs', 'pilots/australia/tests/round-09-evolution-discoveries.test.mjs']],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: '.', timeout_ms: 900_000 })),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
@@ -386,6 +414,7 @@ export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-08") return ROUND_08_REVIEW_POLICY;
   if (reviewRound === "round-09") return ROUND_09_REVIEW_POLICY;
   if (reviewRound === "round-09-initial") return ROUND_09_INITIAL_REVIEW_POLICY;
+  if (reviewRound === "round-09.1") return ROUND_09_1_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
@@ -1284,8 +1313,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

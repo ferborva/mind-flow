@@ -10,6 +10,10 @@ created: 2026-09-10
 
 # Review the frozen candidate; retain the later clarification separately
 
+**Round 09.1 follow-up:** see the [finding dispositions](round-09.1-dispositions.md)
+for forward repairs. The candidate and receipts below remain historical evidence,
+not the moving branch's current certification.
+
 The revised measurement candidate is
 `32b0cce73beb11e7a3202393cd5153e4b4e78244`. The
 [eight-track brief](../meta/round-09-external-review-brief.md) describes its
@@ -22,6 +26,15 @@ commands passed**, no tracked-tree changes and no unexpected files. Its receipt
 hash is `sha256:4205fc31eb8229c9d7f927950d606dc2628d17678ba3821f7e7ba98f280d133b`,
 under `review-freeze.round-09` version `1.1.0`.
 The normal verifier also passed, without a failed-reproduction override.
+
+The earlier [pre-steer receipt](../meta/review-freeze/round-09.pre-steer.review-freeze.json)
+targets `5fcb461d76560ba1dba5e64d344307e014346bcf`, with receipt hash
+`sha256:ac47bfecbe9a6eff3c8f0dceec4d27b863569dcba57d155be670914c5fd518ee`.
+Select `--policy=round-09-initial` for its original version 1.0.0 policy.
+It shares the historical Round 09 policy/freeze IDs, but not the policy version,
+checksum or target. Normal verification rejects applying either policy to the
+other receipt. The new Round 09.1 attestation uses a distinct round identity;
+it does not rename either old receipt.
 
 ## Verification evidence received after candidate selection
 

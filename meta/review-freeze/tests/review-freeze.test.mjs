@@ -571,6 +571,26 @@ test('revised Round 09 freezes country breadth without reinterpreting its pre-st
     && c.argv.includes('--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json')));
 });
 
+test('Round 09.1 gets distinct policy and freeze identities without relabelling retained receipts', () => {
+  const original = ['round-08', 'round-09-initial', 'round-09'].map(name => JSON.stringify(reviewPolicyFor(name)));
+  const policy = reviewPolicyFor('round-09.1');
+  assert.equal(policy.policy_id, 'review-freeze.round-09.1');
+  assert.equal(policy.review_round, 'round-09.1');
+  assert.equal(policy.reviewed_ref, 'ren/round-09');
+  assert.equal(policy.policy_version, '1.0.0');
+  const paths = new Set(policy.required_files.map(item => item.path));
+  for (const path of ['reviews/round-09.1-dispositions.md',
+    'contracts/executable-if/construct-correction-policy.md',
+    'forecasts/prospective-pilot/round-09-nero/current-admission-plan.json',
+    'forecasts/prospective-pilot/round-09-nero/error-disclosure.json',
+    'meta/review-freeze/round-09.review-freeze.json']) assert.ok(paths.has(path), path);
+  assert.equal(paths.size, policy.required_files.length);
+  assert.equal(new Set(policy.build_commands.map(item => item.command_id)).size, policy.build_commands.length);
+  assert.ok(policy.build_commands.some(command => command.argv.includes('--policy=round-09') &&
+    command.argv.includes('--manifest=meta/review-freeze/round-09.review-freeze.json')));
+  assert.deepEqual(['round-08', 'round-09-initial', 'round-09'].map(name => JSON.stringify(reviewPolicyFor(name))), original);
+});
+
 test("a reviewed generator and schema are bound to their bytes in the target commit", () => {
   const root = fixtureRepository();
   try {
