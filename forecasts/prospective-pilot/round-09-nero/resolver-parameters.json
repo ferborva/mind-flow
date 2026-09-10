@@ -1,0 +1,13 @@
+{
+  "occupation_code": "5311",
+  "sa4_code": "102",
+  "date": "2026-10-15",
+  "count_baseline": 3092,
+  "dependencies": {
+    "forecasts/prospective-pilot/round-09-nero/basis.mts": "sha256:458db2f84cad66fb2b626af834d1598b74b824bc05a50041167e4e0270376080",
+    "forecasts/prospective-pilot/round-09-nero/resolver.mts": "sha256:9434fc8ec88e2ac4c712d8a45673d2d2be7f58c40a9cf6e3ef143faebf1554ef",
+    "dashboard/tools/build-nero-baseline.mjs": "sha256:d2d7e63359277fc20ee1f937b295f99d3958225f1be435a2b1b19d8bb4d4dc7d",
+    "forecasts/prospective-pilot/tests/round-09-nero.test.mjs": "sha256:181c16e71324b1fe264a71c90efd6e916630fa5a764d6f56b853fb08064bbd3c",
+    "forecasts/prospective-pilot/issuance-binding/round-09-validate.mjs": "sha256:0a56314630d1b7f5a06be798c054c70d4d1c876acac718a8ae2b11e44c49f54c"
+  }
+}

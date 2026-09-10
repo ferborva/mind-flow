@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.1.0",
+  "id": "forecast-evaluation.nero.5311.102.october-2026.v1",
+  "registered_at": "2026-09-10T00:08:53Z",
+  "claimed_registered_commit": "b773fd3",
+  "registration_anchor": {
+    "source": "urn:sha256:abb6f332c5198a990463d80d00b98dde3c4afdedbed8b1341cd2af37b9608a3f",
+    "checksum": "sha256:abb6f332c5198a990463d80d00b98dde3c4afdedbed8b1341cd2af37b9608a3f",
+    "retrieved_at": "2026-09-10T00:08:53Z",
+    "vintage": "evaluation-registration",
+    "verification_status": "unverified_external_review_required"
+  },
+  "cohort_policy": {
+    "campaign_id": "campaign.nero.5311.102.october-2026",
+    "registered_at": "2026-09-10T00:05:10Z",
+    "eligibility_rule": {
+      "kind": "all_issued_campaign_records",
+      "campaign_id": "campaign.nero.5311.102.october-2026",
+      "exclusions": "none"
+    },
+    "anchor": {
+      "source": "urn:sha256:b31ef9b4f4d9e44a291bd04c1a45f75b36f6f0572f0be6e7398bb121c70913d6",
+      "checksum": "sha256:b31ef9b4f4d9e44a291bd04c1a45f75b36f6f0572f0be6e7398bb121c70913d6",
+      "retrieved_at": "2026-09-10T00:05:10Z",
+      "vintage": "cohort-policy",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "eligible_registry_manifest": {
+    "sealed_at": "2026-09-10T00:08:53Z",
+    "eligible_forecast_ids": [
+      "forecast.nero.5311.102.october-2026.v1"
+    ],
+    "source": "urn:sha256:0b40994ec6b299614ed17e762fb35d072c6ee0d19efe129fed23eb299279a85c",
+    "checksum": "sha256:0b40994ec6b299614ed17e762fb35d072c6ee0d19efe129fed23eb299279a85c",
+    "retrieved_at": "2026-09-10T00:08:53Z",
+    "vintage": "eligible-registry-manifest",
+    "verification_status": "unverified_external_review_required"
+  },
+  "forecast_use_scope": [
+    "research_only"
+  ],
+  "cohort": [
+    {
+      "forecast_id": "forecast.nero.5311.102.october-2026.v1",
+      "issued_record_checksum": "sha256:67b151fbc53a87696e1a6bb7c37818c53c6106982b2113c01f94ddf50f411238"
+    }
+  ],
+  "scoring": {
+    "primary": "brier",
+    "secondary": [
+      "log_loss"
+    ],
+    "baseline_comparator": "campaign_mechanical_naive_and_reference_class"
+  },
+  "reliability": {
+    "bin_edges": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+    ],
+    "minimum_resolved_forecasts": 30,
+    "minimum_forecasts_per_bin": 5,
+    "minimum_independent_clusters": 20,
+    "minimum_independent_clusters_per_bin": 5,
+    "small_n_handling": "withhold_rates_and_calibration_language"
+  },
+  "void_handling": {
+    "cohort_denominator": "all_registered_forecasts",
+    "scoring": "exclude_with_visible_disclosure",
+    "adjudication_required": true,
+    "minimum_score_coverage": 0.8
+  },
+  "declared_utility": {
+    "comparator": "declared_no_model_policy",
+    "aggregation": "stratify_by_utility_scale_consultation_and_adherence"
+  },
+  "registered_plan_checksum": "sha256:c734176e99f19caf0247b3d411180a26d6740ded558d88dfd3f84728dbe48a4a"
+}
