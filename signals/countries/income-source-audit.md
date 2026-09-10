@@ -28,6 +28,8 @@ Argentina is absent from the national PIP selection. Urban coverage is not subst
 
 The source directory is `signals/countries/sources/income-2026-09-10/`. Every request has the URL, actual UTC request times, HTTP status, exact complete decoded body length and SHA-256, and the hash of serialised response headers. All source receipts, including the failed legacy methodology request, are pinned as one receipt collection in the producer. Source and header bytes are verified before parsing. Primary source body hashes are independently pinned in tests. Fetch does not retain the original wire transfer encoding or original header ordering and casing, and does not independently authenticate publisher identity.
 
+Independent review found that the original capture helper did not preserve partial bytes on transport failure despite its error message. The forward repair now retains received headers, bounded partial bytes and a failed-attempt record under `failed-attempts/`, separate from completed-response receipts. Regression fixtures cover mid-stream failure, size cap and failure before headers. No original successful capture was changed or reacquired. A complete HTTP error response, such as the retained 404, remains a completed response with its unsuccessful status, never usable methodology evidence.
+
 | Source | Exact URL | Retained bytes |
 | --- | --- | --- |
 | ILO EPOP | <https://rplumber.ilo.org/data/indicator/?id=EMP_2WAP_SEX_AGE_RT_A&format=.csv> | 7,451,393 |
