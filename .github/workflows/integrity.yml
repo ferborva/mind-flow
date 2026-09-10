@@ -119,6 +119,9 @@ jobs:
           node signals/countries/tools/permission-candidate.mjs --check
           node signals/countries/tools/render-country-view.mjs --check
 
+      - name: Reproduce Round 10 NERO depth and GP join
+        run: node pilots/australia/tools/round-10-nero-retrospective.mts --check
+
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"
 
