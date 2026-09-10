@@ -1,0 +1,29 @@
+HTTP/2 301 
+content-type: text/html; charset=UTF-8
+location: https://www.imf.org/redirect/?URL=$V&404;https://www.imf.org:443/external/terms.htm
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-permitted-cross-domain-policies: none
+x-xss-protection: 1; mode=block
+content-security-policy: upgrade-insecure-requests
+content-length: 210
+date: Thu, 10 Sep 2026 01:13:02 GMT
+alt-svc: h3=":443"; ma=93600
+strict-transport-security: max-age=31536000
+akamai-grn: 0.ccb42e17.1789002773.49d72928
+
+HTTP/2 200 
+cache-control: private
+content-type: text/html; charset=utf-8
+refresh: 0; url=/en/About/copyright-and-terms
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-permitted-cross-domain-policies: none
+x-xss-protection: 1; mode=block
+content-security-policy: upgrade-insecure-requests
+date: Thu, 10 Sep 2026 01:13:12 GMT
+content-length: 392
+alt-svc: h3=":443"; ma=93600
+strict-transport-security: max-age=31536000
+akamai-grn: 0.ccb42e17.1789002782.49d84e25
+

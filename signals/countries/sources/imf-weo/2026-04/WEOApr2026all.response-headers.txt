@@ -1,0 +1,20 @@
+HTTP/2 200 
+content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+content-security-policy: frame-ancestors 'self'
+x-frame-options: SAMEORIGIN
+x-download-options: noopen
+x-content-type-options: nosniff
+referrer-policy: same-origin
+x-xss-protection: 1
+pragma: no-cache
+x-correlation-id: e7b580ec-3a80-4608-ab7f-93ee249d42b9
+content-disposition: attachment; filename="WEOApr2026all.xlsx"
+cache-control: no-cache, no-store
+expires: Thu, 10 Sep 2026 01:11:37 GMT
+date: Thu, 10 Sep 2026 01:11:37 GMT
+set-cookie: INGRESSCOOKIE=1789002697.271.40.348267|d2b487978ff750b756bc733f7f77a0e5; Path=/; Secure; HttpOnly
+set-cookie: INGRESSCOOKIE=1789002697.75.40.451610|d2b487978ff750b756bc733f7f77a0e5; Path=/; Secure; HttpOnly
+alt-svc: h3=":443"; ma=93600
+strict-transport-security: max-age=31536000
+akamai-grn: 0.ccb42e17.1789002695.49cd69d4
+
