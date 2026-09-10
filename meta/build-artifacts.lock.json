@@ -7,11 +7,11 @@
     },
     {
       "path": "pilots/australia/web/index.html",
-      "sha256": "da2320e2b0ffb6698c7c752d3e3a6ed411a36602029cd3af636092d0cfe5f6dc"
+      "sha256": "5def786d002bb12d28593d06c9967606649f60ae9f2200bcdf159d9ef847a5a5"
     },
     {
       "path": "dashboard/observatory/data.js",
-      "sha256": "e589e31edd5fe6b73c2e2532c6a1ce02c72ee7d1ee805a7167021bd7847a5115"
+      "sha256": "1fd8ec4f2ee89d98ed636447c07dd4934d563d6637adc0e240fbfe89fcf23324"
     },
     {
       "path": "experiments/observatory-comparison/rendered/conventional-release.html",
