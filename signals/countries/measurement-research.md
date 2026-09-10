@@ -121,5 +121,13 @@ duplicate country/year rows could inflate the coverage helper. Each failed,
 then passed with the narrow fix. The tests also reject mixed vintages,
 pagination, malformed/native numeric strings and wrong series; preserve zero;
 permit CPI deflation and values over 100; reproduce all three retained series
-and all fifty country gap records. Full integration and independent review
-remain coordinator steps.
+and all fifty country gap records. All eight focused tests pass on Node 22;
+frontmatter and whitespace checks pass.
+
+Measurement peer independently selected raw rows without using these extractors
+and matched all 47 CPI, 49 electricity and 50 labour-share values. It also
+checked country-specific ILO source joins and licence evidence, finding no
+current measurement blocker. Its coverage-helper caveat is covered by the
+duplicate-key regression and fix in `44d3be7`. This is an agent code/data check,
+not publisher authentication or statistical approval. Full integrated validation
+and external review remain coordinator steps.
