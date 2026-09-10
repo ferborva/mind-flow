@@ -87,12 +87,17 @@ required by the commission.
 
 The three at the top are the ones that block writing. The rest can wait.
 
-- [ ] **Does "the money accrues to companies, so the choice is theirs" survive
-      as a diagnosis?** The remedy and tax positions softened in
-      `capture/2026-09-09-softer-on-tax-and-remedy.md`. Fernando located his
-      contribution at the frame and method level, not the solution. This was
-      unresolved in the Round 09 starting tree. Newer material in PR #19 awaits
-      separate capture-to-seed processing; this candidate does not adopt an answer.
+- [x] **Does "the money accrues to companies, so the choice is theirs" survive
+      as a diagnosis?** Resolved 2026-09-10, his words: "that is just a plain
+      observation at this point of where the money accrues to and we can
+      dismiss it as bound to any solutions." The observation survives in his
+      voice; the remedy stays withdrawn. See
+      `capture/2026-09-10-where-the-money-sits-and-the-weather-station.md`.
+- [ ] **What does the weather station watch?** He re-scoped the Observatory on
+      2026-09-10 to "broad market shifts at a country level" for "at least the
+      top 50 countries in the world's economy", with NSW GP access kept as the
+      worked example. Open: which shifts, which GDP ranking and year, what
+      counts as a storm signal versus weather. Same capture.
 - [x] **Does the sequencing concession kill the dated phases?** Resolved by
       Fernando's Round 08 commission on 2026-09-09: dated phases are scenarios,
       never schedules. The transition draft now asks which condition binds
