@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_type": "prospective-no-consequence-forecast-preregistration",
+  "status": "preregistered-unverified",
+  "protocol_id": "protocol.canada.unemployment.october-2026.v1",
+  "contract": {
+    "schema_path": "forecasts/prospective-pilot/schema/prospective-pilot-preregistration.schema.json",
+    "schema_sha256": "sha256:330d2316dc5cfe70d4e2ff933cb48be3cc31a4240292a3220c82e6b4e398605a",
+    "validator_path": "forecasts/prospective-pilot/validate.mjs",
+    "validator_sha256": "sha256:d9befa4100d3822b03e7ca3bb1b7155c19380c73fe871772ab4d654c8f10f200"
+  },
+  "registration": {
+    "registered_at": "2026-09-10T07:45:59Z",
+    "protocol_content_sha256": "sha256:cffdc5c10cc9943653680e1e4362aa41ea3d804e0fedf8e4ea00a86dc6131ea4",
+    "verification_status": "unverified_external_review_required",
+    "external_receipt": null
+  },
+  "campaign": {
+    "campaign_id": "campaign.canada.unemployment.october-2026",
+    "manifest": {
+      "manifest_id": "manifest.canada.unemployment.october-2026.v1",
+      "campaign_id": "campaign.canada.unemployment.october-2026",
+      "status": "sealed",
+      "eligibility_rule": "all-preregistered-campaign-protocols",
+      "exclusions": "none",
+      "protocol_ids": [
+        "protocol.canada.unemployment.october-2026.v1"
+      ],
+      "sealed_at": "2026-09-10T07:45:59Z",
+      "manifest_sha256": "sha256:6b7cc815c08567566d465223b105999d2f983dde8d0843a5f0fe99f5fdd9a57f",
+      "verification_status": "unverified_external_review_required"
+    }
+  },
+  "target": {
+    "registration_status": "fixed_before_issue",
+    "target_id": "target.canada.unemployment.october-2026",
+    "question": "Will the first eligible retained ILO Canadian October 2026 unemployment rate be at least 7.302 percent?",
+    "event_definition": "The first eligible retained ILO October 2026 CAN/BA:147/UNE_DEAP_SEX_AGE_RT/SEX_T/AGE_YTHADULT_YGE15 value is at least 7.302 percent.",
+    "outcome_type": "binary",
+    "unit": "binary event on a reported unemployment percentage",
+    "observation_window": {
+      "starts_at": "2026-10-01T00:00:00Z",
+      "ends_at": "2026-10-31T23:59:59Z"
+    },
+    "resolution_rule": "Retain the first eligible complete ILO response after the operational eligibility lower bound 6 November 2026; this is not a guaranteed ILO publication date. Select exactly one CAN/BA:147/UNE_DEAP_SEX_AGE_RT/SEX_T/AGE_YTHADULT_YGE15/2026M10 cell with all frozen native labels and flags unchanged. Transform percent x to x/100; resolve 1 iff x/100 >=0.07302, equivalently native x>=7.302. No headline substitution, revised August threshold, later-vintage shopping or zero imputation. Missing or changed cells follow the prewritten void procedure.",
+    "resolution_source_id": "source.ilo.canada-reported",
+    "resolution_source_uri": "https://rplumber.ilo.org/data/indicator?id=UNE_DEAP_SEX_AGE_RT_M&ref_area=CAN&source=BA%3A147&sex=SEX_T&classif1=AGE_YTHADULT_YGE15&timefrom=2016&format=.csv&type=both",
+    "resolution_event_id": "event.canada.unemployment.2026-10",
+    "independence_cluster_id": "cluster.ilo-canada-lfs.2026",
+    "condition_definition_ref": {
+      "condition_id": "condition.canada.unemployment.stock",
+      "definition_version": "1.0.0",
+      "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+    },
+    "signal_definition_ref": {
+      "signal_id": "signal.canada.unemployment.bounded-rate",
+      "definition_version": "1.0.0",
+      "signal_definition_hash": "sha256:32835a92c24d0286471bc17be90ce6097300f3878618fb3ccbfb8ebfdc89ed0b"
+    },
+    "metric_id": "metric.canada.unemployment.bounded-rate",
+    "metric_checksum": "sha256:2d462b4e7c3b2b39a1a5c32726ee45e1f0c1f6f8b1ddd5b216e848a092207bd2",
+    "scope": {
+      "geographies": [
+        "Canada"
+      ],
+      "cohorts": [
+        "Both sexes, labour force aged 15 and older"
+      ],
+      "services": [
+        "Reported unemployment rate, exposure context only"
+      ]
+    },
+    "scope_hash": "sha256:40e8e55054cee762474322ffa935f3379a44f13a299c2cbd407b2bcee121096d",
+    "kernel_ref": {
+      "artifact_path": "forecasts/prospective-pilot/round-10-canada/kernel.json",
+      "artifact_sha256": "sha256:e2b27fd8fe6fdf16c75c3ccf187dbbe0799da00b44c1af96b5499931f8b12c74",
+      "kernel_id": "kernel.canada.unemployment.prospective",
+      "manifest_hash": "sha256:e4c885f86e718f4a7e4caeabed541d19ff280783535dd32b1675137366337f83"
+    },
+    "signal_registry_ref": {
+      "artifact_path": "forecasts/prospective-pilot/round-10-canada/registry.json",
+      "artifact_sha256": "sha256:c2ffa369ff1d87478d188a8980c48c0afe321a809e5a1a4344799d72eb5f6937",
+      "registry_id": "registry.canada.unemployment.prospective",
+      "schema_version": "1.1.0"
+    },
+    "resolver": {
+      "resolver_id": "mind-flow.binary-threshold-json",
+      "resolver_version": "1.1.0",
+      "implementation_sha256": "sha256:eeaf2eb48ca4bc16dc5b79a979f79cdeb11d9e30a8817f389d0d82d4c0b6e265",
+      "parameters_sha256": "sha256:69e31bbed78d7d52917a9c441b800113c56ac5e7d6c49b183c152126e6e43137",
+      "conformance_vectors_sha256": "sha256:b47dbc9f05bd9ca83b9582a5023925683f26600769e2cc517286517235ffd991",
+      "conflict_policy": "void-and-disclose",
+      "correction_policy": "withdraw-resolution-and-rescore-never-overwrite"
+    }
+  },
+  "baseline": {
+    "registration_status": "fixed_before_issue",
+    "baseline_role": "reference_class",
+    "baseline_id": "family.canada.reference.v1",
+    "target_id": "target.canada.unemployment.october-2026",
+    "kind": "mechanical",
+    "algorithm_id": "mind-flow.country-two-month-direction",
+    "algorithm_version": "1.0.0",
+    "input_source_ids": [
+      "source.ilo.canada-reported"
+    ],
+    "input_policy": "predeclared-sources-only-no-post-issue-data",
+    "calculation_timing": "before-forecast-issue",
+    "implementation_sha256": "sha256:d8ea81749ff9537df1921e001855eb00e45df6256687dfbc9eeb8395a5394882",
+    "conformance_vectors_sha256": "sha256:3667f05e2b2b38c0d5a8bbcc6f263460d7b74bb659e20bd70b4c38991a3df5bf",
+    "parameters_sha256": "sha256:75ae3d22c8b8c4466b8b98d5d403ba634873ef21813027d79b5da9f22672015d",
+    "input_manifest_sha256": "sha256:f89f372861ff96dd18a36134fec57cb86560e32e0598c21160c72616921a5207",
+    "input_vintage_cutoff_at": "2026-09-10T07:09:35Z",
+    "missing_input_policy": "withhold-baseline-and-forecast",
+    "rounding_policy": "round-to-six-decimals-half-even",
+    "output_probability": null,
+    "output_policy": "record-only-in-separate-issued-forecast"
+  },
+  "naive_baseline": {
+    "registration_status": "fixed_before_issue",
+    "baseline_role": "naive",
+    "baseline_id": "family.canada.naive.v1",
+    "target_id": "target.canada.unemployment.october-2026",
+    "kind": "mechanical",
+    "algorithm_id": "mind-flow.equal-probability",
+    "algorithm_version": "1.0.0",
+    "input_source_ids": [
+      "source.ilo.canada-reported"
+    ],
+    "input_policy": "predeclared-sources-only-no-post-issue-data",
+    "calculation_timing": "before-forecast-issue",
+    "implementation_sha256": "sha256:d8ea81749ff9537df1921e001855eb00e45df6256687dfbc9eeb8395a5394882",
+    "conformance_vectors_sha256": "sha256:3667f05e2b2b38c0d5a8bbcc6f263460d7b74bb659e20bd70b4c38991a3df5bf",
+    "parameters_sha256": "sha256:75ae3d22c8b8c4466b8b98d5d403ba634873ef21813027d79b5da9f22672015d",
+    "input_manifest_sha256": "sha256:e19caf2f2df905b73b2ba0fb9e2746db9946c599ddb993d29cd4f65e37003702",
+    "input_vintage_cutoff_at": "2026-09-10T07:09:35Z",
+    "missing_input_policy": "withhold-baseline-and-forecast",
+    "rounding_policy": "round-to-six-decimals-half-even",
+    "output_probability": null,
+    "output_policy": "record-only-in-separate-issued-forecast"
+  },
+  "clocks": {
+    "registration_status": "fixed_before_issue",
+    "time_standard": "rfc3339-utc",
+    "clock_authority_verification": "unverified_external_review_required",
+    "preregistered_at": "2026-09-10T07:45:59Z",
+    "issue_opens_at": "2026-09-10T07:55:59Z",
+    "issue_closes_at": "2026-09-30T00:00:00Z",
+    "observation_starts_at": "2026-10-01T00:00:00Z",
+    "observation_ends_at": "2026-10-31T23:59:59Z",
+    "outcome_publication_not_before": "2026-11-06T00:00:00Z",
+    "resolve_after": "2026-11-06T00:00:00Z",
+    "resolution_closes_at": "2026-12-31T23:59:59Z"
+  },
+  "source_chronology": {
+    "policy": "append-only-absence-to-retained-presence",
+    "required_source_ids": [
+      "source.ilo.canada-reported"
+    ],
+    "preregistered_event_count": 1,
+    "preregistered_tip_sha256": "sha256:568deb68861ab2a636c98de85d0459e4804bfad904d54d4060d7b0823e3e09e7",
+    "events": [
+      {
+        "sequence": 1,
+        "source_id": "source.ilo.canada-reported",
+        "state": "reported_absent",
+        "observed_at": "2026-09-10T07:15:00Z",
+        "artifact_sha256": null,
+        "previous_event_sha256": null,
+        "verification_status": "unverified_external_review_required",
+        "event_sha256": "sha256:568deb68861ab2a636c98de85d0459e4804bfad904d54d4060d7b0823e3e09e7"
+      }
+    ]
+  },
+  "revision_policy": {
+    "target": "immutable-after-preregistration-new-protocol-required",
+    "baseline": "immutable-after-preregistration-new-protocol-required",
+    "issue_and_close_clocks": "immutable-after-preregistration-new-protocol-required",
+    "campaign_manifest": "immutable-after-seal-new-campaign-manifest-required",
+    "source_chronology": "local-hash-chain-external-tip-anchor-required-after-each-append",
+    "material_correction": "withdraw-and-supersede-never-overwrite",
+    "post_issue": "issued-forecast-record-immutable"
+  },
+  "scoring": {
+    "primary": "brier",
+    "secondary": [
+      "log_loss"
+    ],
+    "baseline_id": "family.canada.reference.v1",
+    "naive_baseline_id": "family.canada.naive.v1",
+    "baseline_comparison": "predeclared-reference-and-naive-baselines",
+    "score_timing": "after-resolution-close-and-retained-outcome-bytes",
+    "missing_resolution": "withhold-score-and-disclose",
+    "voided": "retain-in-manifest-exclude-from-score-and-disclose",
+    "reporting_denominator": "all-manifest-protocols",
+    "calibration_claim": "prohibited-for-single-pilot",
+    "aggregation": "mean-over-resolved-nonvoid-manifest-protocols",
+    "log_loss_probability_floor": 0.000001,
+    "implementation_sha256": "sha256:770c4b459a7e1e73fc4e7e9a25764c4d9facdf6db2cbd4a894f47a241ce0e044",
+    "conformance_vectors_sha256": "sha256:518de29fb9a6d38bdf0ef268961db230eec089fbb6f9066f1bf419c107ac9cb7",
+    "void_adjudication": "independent-review-required-before-exclusion"
+  },
+  "forecast_issuance": {
+    "status": "not-issued",
+    "probability": null,
+    "issued_at": null,
+    "record_policy": "separate-immutable-forecast-record-required"
+  },
+  "authority": {
+    "mode": "no-consequence",
+    "authority_effect": "none",
+    "action_authorised": false,
+    "operational_effect": false,
+    "decision_use": "prohibited",
+    "causal_truth_established": false,
+    "permitted_use": "protocol-rehearsal-and-scoring-method-only",
+    "public_claim_ceiling": "This document issues no forecast, establishes no empirical or causal truth, grants no authority and permits no action."
+  }
+}
