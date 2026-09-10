@@ -15,10 +15,10 @@ export function downloadLfs(pointer){
   const storage=mkdtempSync(join(tmpdir(),'nero-lfs-verify-'));
   return git(['-c',`lfs.storage=${storage}`,'lfs','smudge',`--filename=${prefix}2026-10_nero.zip`],pointer,credentials());
 }
-export function uploadVerifiedLfs(bytes){
-  const pointer=pointerFor(bytes),env=credentials();
-  if(!git(['lfs','clean',`--filename=${prefix}2026-10_nero.zip`],bytes,env).equals(pointer))throw new Error('LFS clean pointer mismatch');
-  git(['lfs','push','--object-id','origin',digest(bytes).slice(7)],undefined,env);
-  if(!downloadLfs(pointer).equals(bytes))throw new Error('LFS independent download verification failed');
+export function uploadVerifiedLfs(bytes,{run=git,environment=credentials,download=downloadLfs}={}){
+  const pointer=pointerFor(bytes),env=environment();
+  if(!run(['lfs','clean',`--filename=${prefix}2026-10_nero.zip`],bytes,env).equals(pointer))throw new Error('LFS clean pointer mismatch');
+  run(['lfs','push','--object-id','origin',digest(bytes).slice(7)],undefined,env);
+  if(!download(pointer).equals(bytes))throw new Error('LFS independent download verification failed');
   return pointer;
 }
