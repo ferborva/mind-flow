@@ -38,6 +38,8 @@ return [
   ["pilots/australia/tools/correct-baseline-classification.mjs", "--check"],
   ["pilots/australia/tools/primary-care-review.mts", "--check"],
   ["pilots/australia/tools/current-primary-care.mts", "--check"],
+  ["pilots/australia/tools/measurement-depth.mts", "--check"],
+  ["pilots/australia/tools/evolution-discoveries.mts", "--check"],
   ["dashboard/tools/build-australia-pilot.mjs", "pilots/australia/data/nero-clerical-2026-08.r2.json", "pilots/australia/web/index.html"],
   ["dashboard/observatory/build.mjs"],
   ["experiments/observatory-comparison/render.mjs"],

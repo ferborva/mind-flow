@@ -1,5 +1,9 @@
 # Executable IF kernel
 
+For a worked example, read [When an IF changes](when-an-if-changes.md): the
+actual Australian event-12 revision, the consumer it invalidated and the two
+new discoveries that still require an explicit construct migration.
+
 > **Status:** Isolated research prototype. It is not yet part of a transition
 > bundle, public forecast, warning or action boundary. Its fixture is invented
 > test data.
