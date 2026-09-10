@@ -121,6 +121,8 @@ jobs:
 
       - name: Reproduce retained Round 10 income indicators
         run: node signals/countries/tools/income-measurements.mts --check
+      - name: Replay unissued Canadian forecast draft
+        run: node forecasts/prospective-pilot/round-10-canada/draft.mts --check
 
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"
