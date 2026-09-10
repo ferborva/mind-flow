@@ -7,7 +7,7 @@
   "measurement_sha256": "sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928",
   "country_set_sha256": "sha256:61b669b400d43d53d0db42754ce8b8755b8e21840e02100b49ad39eb246e086d",
   "method_file": "signals/countries/weather-criteria.v1.md",
-  "method_sha256": "sha256:23efe0e874345e425f84607ba75b8c44b32eefe4d91dd00716f10e5783d57683",
+  "method_sha256": "sha256:b5367d0a73aa0dd7a727ecdf21d02d998abe0299a9adc3279efb149536fafdeb",
   "status": "proposed-unassessed-comparability",
   "adopted": false,
   "storm_detection_performed": false,

@@ -41,9 +41,10 @@ Ten years is a proposed minimum with coarse ranks, not a sufficient sample for
 estimating rare-event probabilities. The 0.90 threshold is an uncalibrated
 review priority, not a 10% false-alarm rate, significance test or crisis
 probability. Overlapping changes, serial dependence and testing many countries
-make that distinction essential. Twenty years could improve resolution but
-increase exposure to structural breaks; 0.95 could reduce flags but miss
-meaningful changes. These alternatives are research choices, not extra rules
+make that distinction essential. A longer history could improve resolution but
+increase exposure to structural breaks; a stricter threshold could reduce flags
+but miss meaningful changes. Neither alternative has a proposed numeric value
+in this edition. A future choice requires its own bound definition, not a rule
 silently selected after seeing outcomes.
 
 ## Retention is necessary; comparability is a separate judgement
