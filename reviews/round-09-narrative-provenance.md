@@ -2,7 +2,7 @@
 id: round-09-narrative-provenance
 title: Round 09 deletion-only public-language review
 type: internal-review
-status: in-progress
+status: ready-for-independent-review
 provenance: commissioned-proposal
 author: Ren
 created: 2026-09-10
@@ -94,7 +94,9 @@ conditions: conditional rather than scheduled work, decisions held elsewhere,
 coexisting or reversible scenarios, the proposal's concrete research questions,
 and the preparation table's evidence-before-decision requirement. The underlying
 negative overclaim tests remain. All 63 communications tests and the focused
-dashboard operator-navigation test pass; full integration remains root's check.
+dashboard operator-navigation test pass. A subsequent canonical artifact build
+and the complete dashboard suite also passed, **156/156 tests** on Node 22.
+Full central integration and independent semantic acceptance remain root's check.
 
 The casing regression failed on the inherited validator, then passed after
 the scoped rule. A second failing-first check found quoted lowercase names
