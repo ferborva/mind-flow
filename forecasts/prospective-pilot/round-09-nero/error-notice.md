@@ -4,7 +4,7 @@ title: Issued target contradiction, admission blocked pending corrected prospect
 type: internal-review
 status: error-disclosed-admission-blocked
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-10
 updated: 2026-09-10
 ---

@@ -4,7 +4,7 @@ title: Preserve the defective issue and register a corrected prospective target
 type: internal-review
 status: ready-for-independent-review
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-10
 updated: 2026-09-10
 ---

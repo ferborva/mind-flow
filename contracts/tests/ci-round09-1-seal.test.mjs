@@ -16,6 +16,17 @@ function assertRepairReceipt(text) {
   assert.equal(step.trim(), expected, 'use exact unconditional normal verification');
 }
 test('the Round 09.1 seal verifies its distinct receipt without weakening old checks', () => assertRepairReceipt(workflow));
+function assertCanonicalReceipt(receipt) {
+  assert.equal(receipt.freeze_hash, 'sha256:489204811340cbc49466ac6b198a509550cffaf8e1eb4dee71db47561b8cf024');
+  assert.equal(receipt.review_target.commit, '84456bbb2a2355a93e98db69e661928dd6593801');
+  assert.equal(receipt.reproduction.status, 'passed');
+}
+test('the canonical Round 09.1 seal pins the accepted freeze hash directly', () => {
+  const receipt = JSON.parse(readFileSync(new URL('../../meta/review-freeze/round-09.1.review-freeze.json', import.meta.url)));
+  assertCanonicalReceipt(receipt);
+  assert.throws(() => assertCanonicalReceipt({ ...receipt, freeze_hash: 'sha256:f48fe292c080e34b28cd691cce14047016339df4cc9f434ea3b8ff6b091d6b9a' }));
+  assert.throws(() => assertCanonicalReceipt({ ...receipt, reproduction: { status: 'failed' } }));
+});
 test('Round 09.1 seal rejects skipped, substituted and failure-tolerant receipt verification', () => {
   assertRepairReceipt(workflow);
   for (const replacement of ['--policy=round-09', '--policy=round-09.1 || true',

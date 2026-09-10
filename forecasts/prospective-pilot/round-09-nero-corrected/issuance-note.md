@@ -4,7 +4,7 @@ title: Corrected Central Coast forecast issued with a fresh prospective receipt
 type: internal-review
 status: ready-for-independent-review
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-10
 updated: 2026-09-10
 ---

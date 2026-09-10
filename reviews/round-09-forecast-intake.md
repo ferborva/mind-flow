@@ -4,7 +4,7 @@ title: October intake blocked and second prospective NERO registration
 type: internal-review
 status: ready-for-independent-review
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-10
 updated: 2026-09-10
 ---
