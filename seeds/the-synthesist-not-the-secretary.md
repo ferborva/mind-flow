@@ -2,12 +2,17 @@
 id: the-synthesist-not-the-secretary
 title: Gathering is not leading until you sign the diagnosis
 type: seed
-status: growing
+status: drafted
 themes: [collaboration]
 sources: [2026-09-09-collaboration-kernel]
 created: 2026-09-09
-updated: 2026-09-09
+updated: 2026-09-10
 ---
+
+<!-- DRAFTED 2026-09-10 into drafts/ask-before-you-propose.md, deliberately and
+     with a GAP marker on it. The reader will have this objection and a piece
+     that ducked it would be weak, so it is in the draft flagged rather than
+     left out. It does not move to posts/ until he says it in his own words. -->
 
 # Gathering is not leading until you sign the diagnosis
 

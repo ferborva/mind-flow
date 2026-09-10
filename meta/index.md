@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Index
@@ -14,7 +14,7 @@ scheduled runs.
 |---|---|
 | Captures | 5 |
 | Seeds | 16 |
-| Drafts | 2 |
+| Drafts | 3 |
 | Posts | 0 |
 | Books | 0 |
 | Research notes | 7 |
@@ -31,7 +31,7 @@ older one rather than buried in a stage list.
 | Thread | Captures | Seeds | Drafts | Posts | State |
 |---|---|---|---|---|---|
 | **abundance** | 3 | 9 | 2 | 0 | Active theme. Two long drafts in review, both blocked on decisions only he can make. Has an instrument, `dashboard/`. |
-| **collaboration** | 1 | 7 | 0 | 0 | Below threshold, needs two more captures. Seven seeds, no draft opened yet, and the best story in it is missing. |
+| **collaboration** | 1 | 7 | 1 | 0 | Below threshold, needs two more captures. All seven seeds drafted into one long piece, which is blocked on two stories only he can tell. |
 
 Ungrouped: `2026-08-31-founding-intent`, which is about the repo rather than
 about anything.
@@ -97,23 +97,22 @@ about anything.
 | `the-zero-cost-count` | ripe | abundance |
 | `the-free-labour-paradox` | ripe | abundance |
 | `the-transmission-test` | ripe | abundance |
-| `the-kernel-is-a-collaboration-protocol` | ripe | collaboration |
-| `everyone-is-time-poor` | ripe | collaboration |
-| `heard-not-obeyed` | ripe | collaboration |
-| `the-frame-is-the-job` | ripe | collaboration |
-| `borrow-the-guiding-policy` | ripe | collaboration |
-| `principle-versus-execution` | growing | collaboration |
-| `the-synthesist-not-the-secretary` | growing | collaboration |
+| `the-kernel-is-a-collaboration-protocol` | drafted | collaboration |
+| `everyone-is-time-poor` | drafted | collaboration |
+| `heard-not-obeyed` | drafted | collaboration |
+| `the-frame-is-the-job` | drafted | collaboration |
+| `borrow-the-guiding-policy` | drafted | collaboration |
+| `principle-versus-execution` | drafted | collaboration |
+| `the-synthesist-not-the-secretary` | drafted | collaboration |
 
 ## Drafts
 
-No draft open on the collaboration thread yet. Five of its seven seeds are ripe
-and a short piece could be written from `everyone-is-time-poor` and
-`heard-not-obeyed` together without inventing anything, but it would be thin in
-exactly the way his own guideline warns about: the framework travels on its
-examples, and the best example in the material is a story he has not yet told.
-See the first item in the 2026-09-09 backlog section.
-
+- `ask-before-you-propose`, long, **drafting**, ~2,750 words. The collaboration
+  thread's first piece, written for people facing a large ambiguous problem
+  inside an organisation. Draws on all seven collaboration seeds. Two `GAP`
+  markers left open on purpose: what he actually said to his sister, and the
+  secretary answer in his own words. Thinner than it looks, and the thinness is
+  all in one place, examples.
 - `from-if-to-when`, long, **review**, ~4,500 words. The transition design he
   commissioned. **Different provenance class:** a commissioned proposal, not his
   substance. Most of the structure is mine and needs his sign-off section by

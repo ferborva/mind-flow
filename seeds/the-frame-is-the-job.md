@@ -2,11 +2,11 @@
 id: the-frame-is-the-job
 title: Becoming a lead means nobody hands you the frame any more
 type: seed
-status: ripe
+status: drafted
 themes: [collaboration]
 sources: [2026-09-09-collaboration-kernel]
 created: 2026-09-09
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Becoming a lead means nobody hands you the frame any more

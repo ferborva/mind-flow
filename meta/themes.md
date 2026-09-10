@@ -1,6 +1,6 @@
 ---
 title: Themes
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Themes
@@ -59,7 +59,7 @@ First seen: 2026-09-09-collaboration-kernel
 Seeds: the-kernel-is-a-collaboration-protocol, everyone-is-time-poor,
 heard-not-obeyed, the-frame-is-the-job, borrow-the-guiding-policy,
 principle-versus-execution, the-synthesist-not-the-secretary
-Pieces: none yet
+Pieces: ask-before-you-propose (draft)
 
 <!-- NOTE: one capture, so below threshold by the rule, and the rule holds even
      though this is obviously a second thread rather than a stray idea. He said

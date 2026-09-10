@@ -2,11 +2,11 @@
 id: heard-not-obeyed
 title: People need to be heard, not obeyed
 type: seed
-status: ripe
+status: drafted
 themes: [collaboration]
 sources: [2026-09-09-collaboration-kernel]
 created: 2026-09-09
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # People need to be heard, not obeyed

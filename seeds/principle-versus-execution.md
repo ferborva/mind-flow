@@ -2,12 +2,16 @@
 id: principle-versus-execution
 title: Know which layer the argument belongs to
 type: seed
-status: growing
+status: drafted
 themes: [collaboration]
 sources: [2026-09-09-collaboration-kernel]
 created: 2026-09-09
-updated: 2026-09-09
+updated: 2026-09-10
 ---
+
+<!-- DRAFTED 2026-09-10 into drafts/ask-before-you-propose.md, as the altitude
+     section. The pattern-retirement hole is still open and is carried in the
+     draft's caveats rather than answered. -->
 
 # Know which layer the argument belongs to
 

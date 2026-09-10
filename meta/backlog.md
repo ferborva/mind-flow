@@ -1,6 +1,6 @@
 ---
 title: Backlog
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Backlog
@@ -175,6 +175,10 @@ a read-through. The big ones:
 
 The single most valuable answer in this section is the first one.
 
+**All seven seeds are now drafted into `drafts/ask-before-you-propose.md`, so
+the first two below are no longer just gaps in a seed, they are visible holes in
+a piece.**
+
 - [ ] **What did you actually say to your sister?** He tells the setup - tiny
       shared hospital office, three other paediatric surgeons, every proposal
       pushed back - and then says "so I told her a similar story" and never
@@ -206,8 +210,16 @@ The single most valuable answer in this section is the first one.
       across four teams. Is there a headcount where "give me your two cents"
       stops working?
 - [ ] **Rumelt attribution.** *Good Strategy, Bad Strategy* is named in the
-      conversation. Does he want the book cited in a published piece, or the
-      kernel treated as common ground?
+      conversation and is cited in the draft as his. Confirm that is how he
+      wants it, rather than the kernel treated as common ground.
+- [ ] **Naming, for the draft.** "Ask before you propose" as a title is mine.
+      "The collaboration enablement side of the kernel" is his, said
+      mid-sentence and never defined, and it is currently carrying the name of
+      the whole idea. His call on both.
+- [ ] **Naming his family in a published piece.** The draft has his wife as
+      "someone close to me, a designer" and his sister as "someone in my family,
+      a paediatric surgeon". Not my call to make. Say the word and they go back
+      in properly.
 - [ ] **Research: procedural justice.** Cited in the conversation, by me,
       unsourced, and it is the strongest external support the heard-not-obeyed
       principle could have. Needs a proper `research/` note with sources and

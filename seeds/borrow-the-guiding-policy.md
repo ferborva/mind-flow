@@ -2,11 +2,11 @@
 id: borrow-the-guiding-policy
 title: Borrow the guiding policy, or find the gap where it should be
 type: seed
-status: ripe
+status: drafted
 themes: [collaboration]
 sources: [2026-09-09-collaboration-kernel]
 created: 2026-09-09
-updated: 2026-09-09
+updated: 2026-09-10
 ---
 
 # Borrow the guiding policy, or find the gap where it should be
