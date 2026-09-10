@@ -45,6 +45,33 @@ No forecast, preregistration, sealed dependency, receipt, cohort or plan is
 rewritten. Work on a new post-freeze branch. All files acquired or produced
 below belong in a new retained follow-up directory, not a sealed campaign.
 
+## 🛑 0. Review the defective predecessor explicitly
+
+Before the first source acquisition and at the final post-close check, run:
+
+```sh
+node forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs
+```
+
+This reads the separately versioned
+[current admission plan](../forecasts/prospective-pilot/round-09-nero/current-admission-plan.json)
+and its exact error-disclosure bytes. It prints a typed
+`error-disclosed-admission-blocked` state, the unchanged registered cohort size,
+null scores and the next action `independent-authority-and-policy-review`.
+Retain that result separately alongside the two valid-target reports. A failed
+check is a blocker, not permission to omit the predecessor. It does not replace
+the original evaluation plan or silently transform issued/pending into void.
+
+Request an independently evidenced appointment and a policy disposition for the
+preparation error. A target contradiction is **not a registered void reason**.
+An appointment alone therefore cannot authorise a retrospective new reason or
+denominator exclusion. No appointment, identity verification or authorised policy
+change is supplied here. Until that review occurs, retain the disclosed record
+and withhold its score. At the December close, report the error and outstanding
+authority decision explicitly, not merely `lifecycle_incomplete`, an ordinary
+missing source, a hit or a miss. This step does not activate the unavailable
+scheduler or authorise publication.
+
 ## 📥 1. Acquire before inspecting the outcome
 
 Read the official JSA NERO page. Record the actual page response, headers and

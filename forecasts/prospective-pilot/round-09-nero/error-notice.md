@@ -32,6 +32,36 @@ does not appoint anyone or remove the record from a registered denominator.
 Its stored status remains issued. Any formal lifecycle treatment would require
 the existing evidence and authority requirements, not this agent's declaration.
 
+## 🔎 Round 09.1: typed admission and appointment gate
+
+The [current admission plan](current-admission-plan.json) now references a
+hash-bound [error disclosure](error-disclosure.json), the exact historical issue,
+preregistration, native parameters and original registered evaluation plan.
+It is an **admission overlay only**, not a replacement scoring plan. Current
+wrappers validate that complete retained context and expose
+`error-disclosed-admission-blocked`, unchanged denominator and null scores.
+Missing or altered sidecar bytes stop admission, including for the corrected
+wrapper that must continue to disclose its predecessor.
+
+The marker was recorded separately at `2026-09-10T04:09:39Z`; the earlier
+`2026-09-10T00:23:48Z` is the originally reported confirmation above, not a
+backdated machine-readable record. Its appointment gate is
+`required-not-established`. No person has been appointed or authenticated.
+The next action is independent authority **and policy** review: a target
+contradiction is not a registered void reason. Neither a new name nor a claimed
+appointment alone authorises adding that reason, voiding this record or excluding
+it. Keep this explicit state visible at and after the December deadline rather
+than relabelling the preparation error as an ordinary missing October outcome.
+The [follow-up runbook](../../../reviews/round-09-scheduled-resolution.md)
+contains the read-only status check and authority escalation step.
+
+The deprecated `issuance-binding/round-09-validate.mjs` remains byte-frozen for
+historical issuance replay. Its `binding_complete: true` describes the old
+structural/byte check and does not override the known native-target contradiction.
+It must not be imported by current resolution entry points, including indirectly.
+The independent regression now tests the retained `issued.json` itself against
+`assertNeroTargetConsistency`, not just a reconstructed candidate.
+
 At the disclosure checkpoint, the Round 09 second-valid-forecast gate was
 unmet. A [distinct corrected prospective record](../round-09-nero-corrected/issuance-note.md)
 has since been issued at `2026-09-10T00:44:16Z`, after a new seal, genuine provider

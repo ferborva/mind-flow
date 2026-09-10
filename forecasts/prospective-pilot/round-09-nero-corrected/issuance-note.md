@@ -49,6 +49,13 @@ and confirmed its creation/update times, content seal and target. It also
 rehashed issue/preregistration bytes and confirmed prior issued records remained
 unchanged. This is agent review, not institutional or statistical approval.
 
+The retained registration request and live provider comment contain spacing
+corruption, including `identify102` and `Laplace19/25`. This note discloses the
+readability defect; neither receipt nor provider-response bytes are edited.
+Read those fragments as "identify 102" and "Laplace 19/25". The native target
+and arithmetic are verified from sealed structured records and retained source
+bytes, not repaired prose substituted for the provider's actual response.
+
 ## 🔍 Current resolution entry point and evidence ceiling
 
 Use this directory's `check-resolution.mjs` with the original registered plan,
