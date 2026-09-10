@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, writeFile, symlink } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile, symlink, unlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { collect } from '../round-10-intake/collector.mjs';
@@ -21,6 +21,8 @@ test('independent evidence validation rejects tampered headers and chronology',a
 test('foreign entries and symlink files cannot enter publication',async()=>{
   const directory=await fixture();await symlink('observation.json',join(directory,'foreign'));
   assert.throws(()=>validateDirectory(directory),/allowlist|regular/);
+  const second=await fixture();await unlink(join(second,'observation.json'));await symlink('attempt.json',join(second,'observation.json'));
+  assert.throws(()=>validateDirectory(second,options),/regular/);
 });
 test('HTML served as an archive is retained as failure, not presence',async()=>{
   const directory=join(await mkdtemp(join(tmpdir(),'nero-html-')),'attempt');
@@ -39,4 +41,7 @@ test('installed Git LFS clean/smudge protocol roundtrips exact fixture bytes in 
   const pointer=execFileSync('git',[...args,'clean','forecast-fixture.zip'],{input:bytes});
   assert.deepEqual(pointer,pointerFor(bytes));
   assert.deepEqual(execFileSync('git',[...args,'smudge','forecast-fixture.zip'],{input:pointer,env:{...process.env,GIT_LFS_SKIP_SMUDGE:'0'}}),bytes);
+});
+test('both operational CLIs reject surplus arguments before taking action',()=>{
+  for(const script of ['collector','publish'])assert.throws(()=>execFileSync(process.execPath,[new URL(`../round-10-intake/${script}.mjs`,import.meta.url).pathname,'unused','--extra'],{stdio:'pipe'}),/exactly one/);
 });
