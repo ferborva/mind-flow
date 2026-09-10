@@ -90,9 +90,11 @@ count and artifact-lock update after integration with the editorial lane.
 
 - **Receipt forgery:** a coherent fabricated command transcript can still pass
   verification because verify does not independently re-execute those
-  commands. Coordinator to record either one-command re-execution or formal
-  boundary acceptance for the 16 September review. This lane makes no
-  governance decision and does not alter the verifier.
+  commands. The subsequent [coordinator decision](round-10-receipt-trust-decision.md)
+  records a commissioned, time-bounded engineering acceptance through the
+  16 September review, not Fernando's formal approval. Independent full
+  command replay is required before merge. The original hygiene lane made
+  no governance decision.
 - **Hash-domain separation:** schema-2 design remains deferred to the
   16 September review. No schema or digest-domain migration here.
 - **Repository/history weight:** current binary controls do not remove
@@ -102,3 +104,6 @@ count and artifact-lock update after integration with the editorial lane.
 - **Receipt identity:** preserve originals versus an additive versioned
   disposition is awaiting the coordinator's recorded answer. Do not silently
   mark the literal distinct-freeze-id requirement met by the attempt index.
+  A later forward repair gives future Round 10 executions UUIDv4 identities
+  in same-family receipt edition 1.1.0. Both historical originals remain
+  unchanged, so their literal distinct-ID gate remains unmet.
