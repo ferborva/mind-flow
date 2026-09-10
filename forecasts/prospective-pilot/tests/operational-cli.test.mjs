@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 test("live CLI rejects future clocks before accessing absent terminal records or archive paths", () => {
   const future = new Date(Date.UTC(new Date().getUTCFullYear() + 1, 0, 1)).toISOString().replace(".000Z", "Z");
-  for (const directory of ["round-08-nero", "round-09-nero"]) {
+  for (const directory of ["round-08-nero", "round-09-nero", "round-09-nero-corrected"]) {
     const path = fileURLToPath(new URL(`../${directory}/check-resolution.mjs`, import.meta.url));
     const arguments_ = ["forecast", "archive", "first-presence", "chronology", "chronology-tip", "plan"]
       .flatMap((name) => [`--${name}`, "/does-not-exist-test-only"]);
