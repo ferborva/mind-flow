@@ -1,0 +1,15 @@
+accept-ranges: bytes
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: a38c4b884a7d334e-SYD
+connection: keep-alive
+content-disposition: attachment; filename=source_en-20260910T0814.csv
+content-encoding: gzip
+content-type: application/octet-stream
+date: Thu, 10 Sep 2026 06:14:53 GMT
+server: cloudflare
+set-cookie: frontier-backend-https=srv-hematite-dmz; path=/; HttpOnly; Secure
+set-cookie: __cf_bm=cDzQO8SzabPnV3gY3y9HPT2WHtTU2jeuijnNRuDDhMs-1789020893.490666-1.0.1.1-YSBtCmhtY1NujKTZEuFPg1Yiv6CuobBhenKW5MyQmAF72nFu2jUennpdwUvU7BGtCv0eUgHnaINxVCtYhQTT6wtptukMCrBu8KdwLQRqeYL_lTL4j8R3scc7uXj_XIg.; HttpOnly; SameSite=None; Secure; Path=/; Domain=ilo.org; Expires=Thu, 10 Sep 2026 06:44:53 GMT
+strict-transport-security: max-age=31536000
+transfer-encoding: chunked
+vary: accept-encoding

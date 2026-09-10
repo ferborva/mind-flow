@@ -119,6 +119,9 @@ jobs:
           node signals/countries/tools/permission-candidate.mjs --check
           node signals/countries/tools/render-country-view.mjs --check
 
+      - name: Reproduce retained Round 10 income indicators
+        run: node signals/countries/tools/income-measurements.mts --check
+
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"
 

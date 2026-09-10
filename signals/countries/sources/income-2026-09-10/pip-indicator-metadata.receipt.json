@@ -1,0 +1,13 @@
+{
+  "id": "pip-indicator-metadata",
+  "url": "https://api.worldbank.org/v2/sources/2/series/SI.POV.DDAY/metadata?format=json",
+  "final_url": "https://api.worldbank.org/v2/sources/2/series/SI.POV.DDAY/metadata?format=json",
+  "started_at": "2026-09-10T06:14:55.469Z",
+  "ended_at": "2026-09-10T06:14:56.471Z",
+  "status": 200,
+  "body_sha256": "sha256:86158f8dcced7e53a26444510e924980b9ee664dde64f0338f569c1d66f6bc01",
+  "body_byte_length": 7875,
+  "headers_sha256": "sha256:cf65a6bd92f48cc4abbdb28633e615f9a7826c538d5d98d62513661a620f43fd",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
