@@ -77,11 +77,32 @@ export function rebindPositiveConsumer(consumer: any, kernel: any) {
 export function assessPositiveBinding(consumer: any, kernel: any) {
   try {
     const validation = validateExecutableIfKernel(kernel);
-    if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, errors: ['Invalid kernel'] };
+    if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, code: 'KERNEL_INVALID', errors: ['Invalid kernel'] };
+    const expectedIds = originalConsumer.signals.map((s: any) => s.id);
+    const signals = consumer?.signals;
+    const ids = Array.isArray(signals) ? signals.map((s: any) => s?.id) : [];
+    const errors: string[] = [];
+    if (!same([...ids].sort(), [...expectedIds].sort())) errors.push('Consumer signal membership differs');
+    for (const expected of originalConsumer.signals) {
+      const signal = signals?.find((s: any) => s?.id === expected.id);
+      const state = kernel.current_state.find((s: any) => s.condition_id === expected.condition_definition_ref.condition_id && s.lifecycle === 'active');
+      if (!state || !same(signal?.condition_definition_ref, state.condition_definition_ref)) errors.push(`Current definition binding differs: ${expected.id}`);
+    }
+    return { valid: errors.length === 0, code: errors.length ? 'CONSUMER_DEFINITION_BINDING_MISMATCH' : null,
+      errors, threshold_audit: auditPrimaryCareThresholds(kernel) };
+  } catch (error) { return { valid: false, code: 'CONSUMER_DEFINITION_BINDING_MISMATCH', errors: [String(error)] }; }
+}
+
+// Byte fidelity is a separate reproduction gate. Passing definition binding
+// does not approve changed measurements, ceilings, prose or serialisation.
+export function assessPositiveParity(consumerBytes: string, kernel: any) {
+  try {
+    const validation = validateExecutableIfKernel(kernel);
+    if (!validation.machine_valid || !validation.integrity_valid) return { valid: false, code: 'KERNEL_INVALID', errors: ['Invalid kernel'] };
     const expected = same(kernel, original) ? originalConsumer : rebindPositiveConsumer(originalConsumer, kernel);
-    const valid = same(consumer, expected);
-    return { valid, errors: valid ? [] : ['Consumer values, current definition binding or evidence ceiling differ'], threshold_audit: auditPrimaryCareThresholds(kernel) };
-  } catch (error) { return { valid: false, errors: [String(error)] }; }
+    const valid = consumerBytes === bytes(expected);
+    return { valid, code: valid ? null : 'CONSUMER_BYTE_PARITY_MISMATCH', errors: valid ? [] : ['Retained consumer bytes differ from reproduction'] };
+  } catch (error) { return { valid: false, code: 'CONSUMER_BYTE_PARITY_MISMATCH', errors: [String(error)] }; }
 }
 
 function outputs(kernel: any) {
@@ -106,6 +127,12 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     const recordedAt = check ? read(currentPath).events.at(-1).recorded_at : new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
     const generated = outputs(appendCorroborationRequirement(original, recordedAt));
     if (!check && generated.some(([path]) => existsSync(resolve(root, path)))) throw new Error('Current records already exist; append a separately reviewed event rather than overwrite');
+    if (check) {
+      const binding = assessPositiveBinding(read(consumerPath), read(currentPath));
+      if (!binding.valid) throw new Error(`${binding.code}: ${binding.errors.join('; ')}`);
+      const parity = assessPositiveParity(readFileSync(resolve(root, consumerPath), 'utf8'), read(currentPath));
+      if (!parity.valid) throw new Error(`${parity.code}: ${parity.errors.join('; ')}`);
+    }
     for (const [path, value] of generated) {
       if (check) { if (readFileSync(resolve(root, path), 'utf8') !== bytes(value)) throw new Error(`Retained evolution drift: ${path}`); }
       else writeFileSync(resolve(root, path), bytes(value), { flag: 'wx' });
