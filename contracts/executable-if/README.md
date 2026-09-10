@@ -36,6 +36,29 @@ plausibility, not empirical justification for the selected threshold. A count's
 maximum needs a documented population or physical bound, not a number chosen
 to make a predicate pass.
 
+### Count-domain audit boundary
+
+**Count nonnegativity is an audit-layer control.** The sealed evaluator remains
+unchanged in Round 09: it tests vacuity against a declared count range, but does
+not reject an impossible negative cardinal-count lower bound. For example,
+`count >= 0` with a declared range `[-10, 10]` passes that formal threshold check
+even though actual cardinal counts cannot be negative. The current
+[`source-aware-audit.mjs`](source-aware-audit.mjs) flags the contradiction and
+reports the predicate as intrinsically always true. Callers must run this audit
+and expose flagged or unassessed findings; a valid kernel is not an audited domain.
+
+This separation preserves already issued forecast dependencies and historical
+evaluator receipts. Promoting the rule would need a deliberately versioned
+evaluator and a consumer migration, not an in-place edit to sealed semantics.
+The executable [boundary regression](tests/audit-layer-boundary.test.mjs) runs
+the same test-only predicate through both paths. It documents the remaining
+formal acceptance, rather than claiming the evaluator was repaired. The AU
+adapter's `--require-assessed` option fails on flagged or unassessed audits.
+
+An out-of-sample threshold is a different question: `count <= 1e9` is not
+logically vacuous on an unbounded nonnegative domain merely because retained
+observations end at 10. It deserves a source-bound plausibility review.
+
 ```text
 content-addressed signal definition
   → typed WHO + VERB + OBJECT + STANDARD + POLARITY + PERIOD
@@ -107,10 +130,10 @@ distinct source-artifact hashes and coverage. Failing these gates yields
 `unknown`, with exclusion reasons. Conflicting eligible values yield
 `conflicted`.
 
-The current schema accepts only synthetic observations. This is deliberate. A
-future empirical schema needs source authentication, sampling and measurement
-uncertainty, revision, missingness, licence and publication controls before it
-can carry real observations.
+The current schema accepts both explicitly classified synthetic and measured
+observations. Retained-source measurement does not supply source authentication,
+sampling adequacy or publication authority by itself. The measurement producer
+must carry the source, uncertainty, revision, missingness and licence limits.
 
 `minimum_distinct_source_ids` checks only distinct labels within a period.
 **Distinct source IDs do not establish independence.** Shared upstream data,
@@ -199,12 +222,10 @@ publication_approved: false
 Those are safety ceilings for this synthetic kernel, not claims about the
 world.
 
-`normalizedObservation.classification` is fixed to `synthetic-observation`, so
-its `source_id` must use the `source.synthetic.*` namespace. The shared ID type
-is deliberately unchanged. `recorded_by` and `signals[].source_schema_ref`
-remain general strings because their enclosing event and signal contracts are
-research-draft, not synthetic-only. Narrowing them here would block future real
-records. All three fields remain caller claims, not authenticated provenance.
+Synthetic observations use the `source.synthetic.*` namespace; measured
+observations cannot use that namespace. The shared ID type is unchanged.
+`recorded_by` and `signals[].source_schema_ref` remain general strings. These
+fields are caller claims, not authenticated provenance.
 
 Missing, stale and conflicting predicate results are fixed respectively to
 `unknown`, `stale` and `conflicted`. A definition cannot turn absent or disputed
