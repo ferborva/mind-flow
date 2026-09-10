@@ -1,0 +1,29 @@
+HTTP/2.0 200 OK
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning
+Cache-Control: private, max-age=60, s-maxage=60
+Content-Security-Policy: default-src 'none'
+Content-Type: application/json; charset=utf-8
+Date: Thu, 10 Sep 2026 07:49:33 GMT
+Etag: W/"a9e9008bb6185b05feaf739fc239f71d6649484e2a1fc569a82097519c1c35f8"
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Server: github.com
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With
+X-Accepted-Oauth-Scopes: 
+X-Content-Type-Options: nosniff
+X-Frame-Options: deny
+X-Github-Api-Version-Selected: 2026-03-10
+X-Github-Edge-Region: australiaeast
+X-Github-Media-Type: github.v3; format=json
+X-Github-Request-Id: C9ED:1E6463:BAC836:D94502:6AA2610D
+X-Oauth-Client-Id: 178c6fc778ccc68e1d6a
+X-Oauth-Scopes: admin:public_key, gist, read:org, repo
+X-Ratelimit-Limit: 5000
+X-Ratelimit-Remaining: 4988
+X-Ratelimit-Reset: 1789027737
+X-Ratelimit-Resource: core
+X-Ratelimit-Used: 12
+X-Xss-Protection: 0
+
+{"url":"https://api.github.com/repos/ferborva/mind-flow/issues/comments/5615053978","html_url":"https://github.com/ferborva/mind-flow/pull/42#issuecomment-5615053978","issue_url":"https://api.github.com/repos/ferborva/mind-flow/issues/42","id":5615053978,"node_id":"IC_kwDOUJWkXc8AAAABTq7smg","user":{"login":"ferbo-atl","id":284800828,"node_id":"U_kgDOEPm3PA","avatar_url":"https://avatars.githubusercontent.com/u/284800828?v=4","gravatar_id":"","url":"https://api.github.com/users/ferbo-atl","html_url":"https://github.com/ferbo-atl","followers_url":"https://api.github.com/users/ferbo-atl/followers","following_url":"https://api.github.com/users/ferbo-atl/following{/other_user}","gists_url":"https://api.github.com/users/ferbo-atl/gists{/gist_id}","starred_url":"https://api.github.com/users/ferbo-atl/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/ferbo-atl/subscriptions","organizations_url":"https://api.github.com/users/ferbo-atl/orgs","repos_url":"https://api.github.com/users/ferbo-atl/repos","events_url":"https://api.github.com/users/ferbo-atl/events{/privacy}","received_events_url":"https://api.github.com/users/ferbo-atl/received_events","type":"User","user_view_type":"public","site_admin":false},"created_at":"2026-09-10T07:49:33Z","updated_at":"2026-09-10T07:49:33Z","author_association":"COLLABORATOR","body":"Ren agent-authored research registration.\nProtocol: protocol.canada.unemployment.october-2026.v1\nSealed content: sha256:cffdc5c10cc9943653680e1e4362aa41ea3d804e0fedf8e4ea00a86dc6131ea4\nSource commit: 630b59af9a47a47e4b894433e03f2e5b8205ee6d\nSelf-posted provider-timed receipt, not independent approval. The comment is editable; exact receipt bytes are retained locally.","reactions":{"url":"https://api.github.com/repos/ferborva/mind-flow/issues/comments/5615053978/reactions","total_count":0,"+1":0,"-1":0,"laugh":0,"hooray":0,"confused":0,"heart":0,"rocket":0,"eyes":0},"performed_via_github_app":null,"minimized":null,"pin":null}
