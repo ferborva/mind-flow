@@ -1,0 +1,41 @@
+name: October NERO evidence intake
+on:
+  schedule:
+    - cron: '17 4 * 11,12 *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nero-october-2026-intake
+  cancel-in-progress: false
+jobs:
+  retain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts
+      - name: Verify collector fixture logic
+        run: node --test forecasts/prospective-pilot/tests/round-10-nero-collector.test.mjs
+      - name: Retain source evidence only, with actual UTC year and window guard
+        run: node forecasts/prospective-pilot/round-10-intake/collector.mjs "$RUNNER_TEMP/nero-attempt"
+      - name: Publish evidence-only proposal if complete and new
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node forecasts/prospective-pilot/round-10-intake/publish.mjs "$RUNNER_TEMP/nero-attempt"
+      - name: Preserve every attempt, including partial responses and failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: nero-attempt-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/nero-attempt
+          retention-days: 90
+          if-no-files-found: ignore
