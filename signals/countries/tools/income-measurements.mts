@@ -7,7 +7,7 @@ const directory=new URL('../',import.meta.url);
 const sourceDirectory=new URL('sources/income-2026-09-10/',directory);
 const years=Array.from({length:20},(_,i)=>2006+i);
 // Forward-only staged repair: compact one family per reviewable commit.
-const compactFamilyCount=1;
+const compactFamilyCount=2;
 export function serializeIncomeMeasurements(value: Native) {
   function render(item:any,depth:number,path:(string|number)[]):string {
     const indent='  '.repeat(depth),child='  '.repeat(depth+1);
