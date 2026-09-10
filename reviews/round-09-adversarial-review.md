@@ -23,8 +23,12 @@ The measurement agent reviewed the forecast lane independently of its author.
 It recomputed the 3,092 baseline, 18 of 23 non-negative two-month changes and
 19/25 smoothed probability, then inspected the target prose rather than accepting
 seven passing issue tests. It later checked the corrected preparation's exact
-tuple and nine declared dependency hashes before registration. Post-issue
-chronology and retained bytes require their own check.
+tuple and nine declared dependency hashes before registration. Its separate
+post-issue check at `d50a3e9` matched the live provider response to retained bytes
+and verified seal 00:40:25, registration 00:41:18, issue-open 00:43:25 and actual
+issue 00:44:16 UTC on September 10. A further wrapper review at `9f34b6e` passed
+five focused intake/CLI tests. The nine-dependency contract is not a claim of
+complete transitive runtime closure or authenticated publisher identity.
 
 The editorial agent reviewed measurement scope, permission language and row
 semantics. Corrections distinguish PBS subsidy eligibility from permission to
@@ -43,6 +47,11 @@ sealed operation set without a new migration design.
 
 These are peers within one commissioned agent team, not the external review
 group or independent affected-party consultation.
+
+The editorial agent's final read of the integrated review package found no
+additional blocking meaning issue. It identified the then-stale C status report
+as needing the later correction note before freeze. That narrow check does not
+certify the whole repository or replace any external track below.
 
 ## Four affected-perspective challenges
 
