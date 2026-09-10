@@ -397,6 +397,8 @@ function assessResolverArtifacts(protocol, forecast, sources, errors) {
     "forecasts/prospective-pilot/round-10-canada/target-policy.mjs", "forecasts/prospective-pilot/round-10-canada/candidate.mts",
     "forecasts/prospective-pilot/round-10-canada/draft.mts", "signals/countries/tools/measure.mjs",
     "forecasts/prospective-pilot/round-10-canada/absence.mts",
+    "forecasts/prospective-pilot/round-10-canada/issuance.mts", "forecasts/prospective-pilot/round-10-canada/issuance-workflow.mjs",
+    "forecasts/prospective-pilot/round-10-canada/issuance-runbook.md", "forecasts/prospective-pilot/tests/canada-issuance-workflow.test.mjs",
     ...['.body','.headers.txt','.receipt.json'].flatMap(suffix=>[calendarPath+suffix,CANADA_ABSENCE_PATH+suffix]),
     "forecasts/prospective-pilot/tests/round-10-canada.test.mjs",
     "forecasts/prospective-pilot/issuance-binding/country-baseline-execution.mjs",
