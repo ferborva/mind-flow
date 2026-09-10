@@ -32,7 +32,7 @@ Those tests support integrity and boundary disclosure. They are **not** a test p
 
 ## Additive Round 10 policy and coordinator handoff
 
-`review-freeze.round-10`, version `1.0.0`, retains the Round 09.1 command contract and adds exact argv checks for income history, the commissioned storm criterion, Australian depth, the additive policy tests and the canonical Round 09.1 receipt. The existing full suite, generated-output lock check and country reader checks remain inherited. No new schema or contract family is introduced. The complete tracked-tree inventory remains the backstop for files outside the legible required-file list.
+`review-freeze.round-10`, policy version `1.0.0`, retains the Round 09.1 command contract and adds exact argv checks for income history, the commissioned storm criterion, Australian depth, the additive policy tests and the canonical Round 09.1 receipt. The existing full suite, generated-output lock check and country reader checks remain inherited. A forward integration repair selects the same family's closed receipt edition `1.1.0`, recording Git LFS in the narrow runtime and giving each future Round 10 execution a UUID-suffixed identity. No new contract family is introduced. Historical schemas, policies and receipt bytes remain unchanged. The complete tracked-tree inventory remains the backstop for files outside the legible required-file list.
 
 The coordinator must integrate the storm and depth producers and review brief before selecting the candidate. This setup does **not** create a receipt, freeze HEAD, regenerate the artifact lock, change CI, or claim that all Round 10 gates passed. After those separate actions and explicit candidate selection, the existing command family is:
 
@@ -41,7 +41,7 @@ node meta/review-freeze/review-freeze.mjs create --policy=round-10 --commit=EXAC
 node meta/review-freeze/review-freeze.mjs verify --policy=round-10 --manifest=meta/review-freeze/round-10.review-freeze.json
 ```
 
-Replace `EXACT_CANDIDATE_COMMIT` with the reviewed full commit hash, never a moving branch. Do not overwrite retained output. A later independent execution needs a new output path and an independently recorded content hash; the existing policy-level `freeze_id` alone is not an execution identity. At the exact clean candidate, `--checkout` can additionally compare working bytes. It should not be expected to pass at a later seal commit containing added receipt files.
+Replace `EXACT_CANDIDATE_COMMIT` with the reviewed full commit hash, never a moving branch. Do not overwrite retained output. A later independent execution needs a new output path and an independently recorded content hash. Round 10 now generates a distinct UUID-suffixed `freeze_id`; historical round-level IDs remain unchanged. Neither an ID nor a hash authenticates execution. At the exact clean candidate, `--checkout` can additionally compare working bytes. It should not be expected to pass at a later seal commit containing added receipt files.
 
 ## Named deferrals and unmet request
 
@@ -49,7 +49,7 @@ Replace `EXACT_CANDIDATE_COMMIT` with the reviewed full commit hash, never a mov
 | --- | --- |
 | Transcript authentication / receipt forgery | Current boundary accepted only as the commissioned, time-bounded risk above; independent full rerun required before merge; reconsider 2026-09-16 |
 | Distinct canonical and network-blocked Round 09.1 freeze IDs | Literal request remains unmet pending Fernando's original-preservation versus new-version decision; neither receipt nor hash changed |
-| Future per-execution identity | Deferred: schema permits a string, but creation and verification currently require the exact round-level identity. A suffix would require separately tested generation and validation semantics, not merely a policy rename |
+| Future per-execution identity | Implemented prospectively in Round 10 receipt edition 1.1.0: UUIDv4 suffix, exact schema/verifier shape, distinct same-candidate creations, malformed/wrong-round rejection. This does not close the historical-ID request |
 | Hash-domain separation | Deferred, no historical hash reinterpretation |
 | History weight | Deferred, no history rewrite |
 | Inherited macro raw inputs | Deferred, no new source-authentication claim |

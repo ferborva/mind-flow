@@ -133,3 +133,19 @@ OR rule: admit the relevant arm and disclose other gaps separately. The C
 consumer correctly rejected the changed criterion-document hash before the
 reviewed rebind; complete source replay passed afterwards. This clarification
 is not a new empirical IF evolution event and does not increase the count.
+
+### Pre-freeze runtime repair
+
+Both central CI runs for `2e63715` passed after the reviewed artifact-lock
+refresh. Main remains `31febcb31048b00191fa6c5024897ac6c281c93e`, and the
+naughty-kid draft remains byte-identical to that baseline.
+
+An actual narrow-PATH probe exposed that the new intake LFS test could not
+run in the freeze toolchain. The additive same-family receipt edition 1.1.0
+records and links Git LFS with version, executable hash and runtime-parity
+checks. A real clean/smudge regression failed before the repair and passed
+afterwards; 31 historical and current freeze tests passed in that lane.
+A separate forward commit adds distinct UUIDv4 identities to future Round 10
+executions. Original Round 09.1 receipts and schema remain byte-identical;
+their literal distinct-ID gate is still unmet. This is runtime repair, not
+transcript authentication or a new contract family.
