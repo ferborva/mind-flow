@@ -8,6 +8,27 @@ import { renderPrimaryCare, escapeHtml } from '../tools/render-primary-care.mjs'
 import * as renderer from '../tools/render-primary-care.mjs';
 const root = resolve(import.meta.dirname, '../..');
 
+function assertTableHeaderStyles(css) {
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
+  const sticky = rules.filter(([, , declarations]) => /position\s*:\s*sticky\b/.test(declarations));
+  assert.ok(sticky.some(([ , selector]) => selector.trim() === 'thead th'), 'column header styling must be scoped to thead th');
+  for (const [, selectors] of sticky) {
+    for (const selector of selectors.split(',')) {
+      if (/\bth\b/.test(selector)) assert.equal(selector.trim(), 'thead th', 'row headers must not inherit sticky positioning');
+    }
+  }
+  assert.match(css, /tbody th\s*\{[^}]*font-size\s*:\s*inherit[^}]*\}/);
+}
+
+test('body row headers retain body typography and never inherit sticky column positioning', () => {
+  const template = readFileSync(resolve(root, 'pilots/australia/web/index.template.html'), 'utf8');
+  const css = template.match(/<style>([\s\S]*?)<\/style>/)?.[1];
+  assert.ok(css);
+  assertTableHeaderStyles(css);
+  assert.throws(() => assertTableHeaderStyles(css.replace('thead th{position:sticky', 'th{position:sticky')));
+  assert.throws(() => assertTableHeaderStyles(css + '\ntbody th{position:sticky;top:0}'));
+});
+
 test('prescription and after-hours each render five categories, exact gaps and interval assessments', () => {
   const html = renderPrimaryCare(root);
   for (const item of ['atorvastatin-prescription', 'after-hours-gp']) {

@@ -82,6 +82,34 @@ test("CI explicitly replays retained Round 08 measurements and ignored artifact 
   ]) assert.equal(workflow.includes(command), true, command);
 });
 
+const countryReplayCommands = [
+  'node signals/countries/tools/country-set.mts --check',
+  'node signals/countries/tools/build-measurements.mjs --check',
+  'node signals/countries/weather-criteria-build.mjs --check',
+  'node signals/countries/capability-candidate.mts --check',
+  'node signals/countries/tools/permission-candidate.mjs --check',
+  'node signals/countries/tools/render-country-view.mjs --check',
+];
+function assertCountryReplay(text) {
+  const step = text.split('      - name: Reproduce retained Round 9 country measurements\n')[1]?.split('\n      - name:')[0];
+  assert.ok(step, 'country replay step is required');
+  assert.equal(step.trim(), ['run: |', ...countryReplayCommands.map(command => `          ${command}`)].join('\n'));
+}
+test('CI unconditionally replays all six retained country producers', () => assertCountryReplay(workflow));
+test('country CI replay rejects omitted, conditional and failure-tolerant commands', () => {
+  assertCountryReplay(workflow);
+  for (const command of countryReplayCommands) {
+    for (const replacement of ['', `${command} || true`, command.replace('--check', '')]) {
+      assert.throws(() => assertCountryReplay(workflow.replace(command, replacement)));
+    }
+  }
+  for (const insertion of ['        if: false\n', '        continue-on-error: true\n']) {
+    assert.throws(() => assertCountryReplay(workflow.replace(
+      '      - name: Reproduce retained Round 9 country measurements\n',
+      `      - name: Reproduce retained Round 9 country measurements\n${insertion}`)));
+  }
+});
+
 test("the Round 08 seal unconditionally verifies its retained receipt in CI", () => {
   const step = workflow.match(/      - name: Verify the retained Round 8 review receipt\n([\s\S]*?)(?=\n      - name:|$)/)?.[1];
   assert.ok(step, "Round 08 receipt verification step is required");
