@@ -51,8 +51,7 @@ understood alongside the people still excluded.
 
 The earlier five-phase calendar has been retired. Fernando says conditions
 fall progressively, sometimes unexpectedly, and the sequence cannot be
-planned. The following situations are an incomplete, unscored scenario
-taxonomy. They can coexist, reverse or never arise.
+planned. They can coexist, reverse or never arise.
 
 | Scenario | Candidate binding condition today | What would have to change |
 | --- | --- | --- |
@@ -81,8 +80,7 @@ Measure costs alongside waits, travel and successful use. Examine who gains
 and who remains excluded.
 
 Candidate mechanisms include lower costs, earnings, ownership income,
-transfers and public provision. **The arithmetic does not select a remedy.**
-This proposal is not choosing among those routes here. It asks what a proposed
+transfers and public provision. This proposal asks what a proposed
 route changes, for whom, at whose cost, and what would count against its claim.
 That is the evidence needed before debating a larger programme.
 
@@ -131,10 +129,6 @@ answer for that worker, the page should say what they do cover. Precision
 about the gap is part of making the page useful.
 
 ## 🧰 Options to examine
-
-These are agent-proposed preparation options for review through the existing
-protocols. They are questions for research and deliberation, not instructions
-issued to households or countries.
 
 | Actor | Useful preparation question | Evidence needed before a consequential decision |
 | --- | --- | --- |

@@ -143,8 +143,7 @@ that can involve a user contribution.
 **A payment followed by reimbursement and a service funded upstream put the
 money condition in different places.** The amount, eligibility and service
 still matter. Neither description establishes that a particular patient can
-get an appointment today. This comparison illustrates the question; it does
-not choose a system for everyone.
+get an appointment today.
 
 ## 🍷 More is not the same as anything
 
