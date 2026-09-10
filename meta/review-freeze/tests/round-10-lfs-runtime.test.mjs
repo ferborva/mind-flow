@@ -27,6 +27,16 @@ try { const args=['-c','lfs.storage='+storage,'lfs']; const pointer=execFileSync
     const manifest = createReviewFreeze({ repositoryRoot: root, policy, executeCommands: true });
     assert.equal(manifest.reproduction.status, 'passed', JSON.stringify(manifest.reproduction.command_runs));
     assert.equal(manifest.schema_version, '1.1.0');
+    const executionId = /^round-10\.review-inputs\.[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
+    assert.match(manifest.freeze_id, executionId);
+    const second = createReviewFreeze({ repositoryRoot: root, policy });
+    assert.match(second.freeze_id, executionId);
+    assert.notEqual(second.freeze_id, manifest.freeze_id);
+    for (const invalid of ['round-10.review-inputs', 'round-09.1.review-inputs.' + manifest.freeze_id.split('.').at(-1), manifest.freeze_id + '.extra', 'round-10.review-inputs.00000000-0000-0000-0000-000000000000']) {
+      const changed = structuredClone(manifest); changed.freeze_id = invalid;
+      changed.freeze_hash = canonicalHash(Object.fromEntries(Object.entries(changed).filter(([key]) => key !== 'freeze_hash')));
+      assert.ok(verifyReviewFreeze(changed, { repositoryRoot: root, policy }).errors.some(x => x.code === 'REVIEW_POLICY_MISMATCH'));
+    }
     assert.match(manifest.runtime_inputs.git_lfs.version, /git-lfs/);
     assert.match(manifest.runtime_inputs.git_lfs.executable_sha256, /^sha256:[a-f0-9]{64}$/);
     assert.equal(manifest.generator.schema_path, 'meta/review-freeze/review-freeze.v1.1.schema.json');

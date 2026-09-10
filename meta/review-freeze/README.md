@@ -11,8 +11,14 @@ host PATH, skip the real clean/smudge test, or authenticate a transcript.
 Creation fails if Git LFS cannot be found on the operator's preparation PATH.
 Runtime parity also compares the Git LFS record. Earlier policies still select
 the unchanged `1.0.0` schema, runtime inventory and round-level freeze identity.
-Historical receipt bytes are not rewritten. Future per-execution IDs and the
-literal Round 09.1 original-ID request remain separate, unresolved work.
+Historical receipt bytes are not rewritten. Each new Round 10 creation uses
+`round-10.review-inputs.<UUIDv4>` in the existing `freeze_id` field. The closed
+1.1 schema and Round 10 verifier reject missing, malformed and other-round
+suffixes; repeated creations of the same candidate receive distinct random
+execution identifiers. A UUID distinguishes attempts but authenticates neither
+execution nor time. The literal Round 09.1 original-ID request remains unmet,
+pending the preservation/versioning decision. All older policies retain their
+exact round-level identities and the unchanged 1.0 schema.
 
 The fixture's version-parity check suppresses a desktop proxy shim's
 PID-bearing experimental warning through `NODE_NO_WARNINGS=1`; actual freeze
