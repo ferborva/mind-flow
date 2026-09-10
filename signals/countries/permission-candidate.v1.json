@@ -9,7 +9,7 @@
   "measurement_role": "de-jure-womens-economic-rights-context-proxy",
   "country_set": {
     "path": "signals/countries/country-set.v1.json",
-    "sha256": "sha256:61b669b400d43d53d0db42754ce8b8755b8e21840e02100b49ad39eb246e086d"
+    "sha256": "sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f"
   },
   "vintage": "WDI lastupdated 2026-07-13; WBL 2026 report, revised WBL 2.0 methodology",
   "reference_year": 2025,

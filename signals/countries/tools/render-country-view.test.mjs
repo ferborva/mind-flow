@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { renderCountryView } from './render-country-view.mjs';
+import { buildMeasurements, loadSources } from './build-measurements.mjs';
 const bytes=readFileSync(new URL('../measurements.v1.json',import.meta.url));
 const data=()=>JSON.parse(bytes);
 const options={measurementSha256:`sha256:${createHash('sha256').update(bytes).digest('hex')}`};
@@ -44,4 +45,24 @@ test('publisher labels and selectors cannot inject Markdown or HTML; source path
 });
 test('generated Markdown reproduces exactly from the measurement snapshot',()=>{
   assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),renderCountryView(data(),options));
+});
+test('headline counts the intersection, not missing cells or stale measured_signals labels',()=>{
+  const original=data();
+  assert.match(renderCountryView(original,options),/50 economies, 47 with all three series, 146 retained signal observations/);
+  for(const country of original.countries)country.measured_signals=[];
+  original.signals[0].observations=original.signals[0].observations.filter(row=>row.country!=='AUS');
+  assert.match(renderCountryView(original,options),/50 economies, 46 with all three series, 145 retained signal observations/);
+});
+test('reader keeps different periods and uninterpreted native ILO flags explicit',()=>{
+  const text=renderCountryView(data(),options);
+  assert.match(text,/not a single-period snapshot/);
+  assert.match(text,/ILO native flags are retained; their meaning is not verified/);
+  assert.doesNotMatch(text,/including imputation|imputation flags/);
+});
+test('reader bytes replay from native retained sources, not merely the derived snapshot',async()=>{
+  const frame=readFileSync(new URL('../country-set.v1.json',import.meta.url));
+  const replay=Buffer.from(`${JSON.stringify(buildMeasurements(frame,await loadSources()),null,2)}\n`);
+  assert.deepEqual(bytes,replay);
+  assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),
+    renderCountryView(JSON.parse(replay),{measurementSha256:`sha256:${createHash('sha256').update(replay).digest('hex')}`}));
 });

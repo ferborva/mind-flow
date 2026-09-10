@@ -39,17 +39,18 @@ export function renderCountryView(measurements,{measurementSha256}={}){
   const visible=measurements.countries.filter(country=>signals.some(signal=>signal.observations.some(row=>row.country===country.iso3)));
   if(new Set(visible.map(country=>country.iso3)).size!==visible.length)throw new Error('duplicate reader economy');
   const count=signals.reduce((sum,signal)=>sum+signal.observations.filter(row=>visible.some(country=>country.iso3===row.country)).length,0);
+  const complete=visible.filter(country=>signals.every(signal=>signal.observations.some(row=>row.country===country.iso3))).length;
   const lines=[
     '---','id: country-measurement-view','title: Country measurement snapshot','type: research-synthesis','status: commissioned-proposal',
     'provenance: commissioned-proposal','author: Ren','created: 2026-09-10','---','',
     '# Country measurement snapshot','',
-    `**${visible.length} measured economies, ${count} retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.`,
+    `**${visible.length} economies, ${complete} with all three series, ${count} retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.`,
     '',
     'The proposed sampling frame uses 2025 nominal GDP in the April 2026 IMF WEO. Fernando has not chosen the ranking or signals. IMF economies include Hong Kong and Taiwan separately; the labels make no sovereignty decision. GDP estimates may be present even for a completed year.',
     '',
     `Measurement snapshot: [retained data](measurements.v1.json), ${measurementSha256}. Country-frame hash: ${escape(measurements.country_set.sha256)}.`,
     '',
-    'Values display at most three decimal places; original precision remains in the linked bytes. Each series uses one common reference year and one retained publisher vintage. Missing entries are not backfilled. Empty native observation flags do not certify actual-only data. ILO labour-income shares are publisher-modelled, including imputation; national averages do not establish household access.',
+    'Values display at most three decimal places; original precision remains in the linked bytes. Each series uses one common reference year and one retained publisher vintage. The series cover different reference years, not a single-period snapshot; do not infer a same-period relationship between them. Missing entries are not backfilled. Empty native observation flags do not certify actual-only data. ILO labour-income shares are publisher-modelled. ILO native flags are retained; their meaning is not verified because no observation-status legend is retained. National averages do not establish household access.',
     '',
     '### Series and interpretation','',
   ];

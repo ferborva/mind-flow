@@ -56,3 +56,9 @@ April 2026*. Washington, DC: IMF. © IMF.
 [Dataset](https://data.imf.org/Datasets/WEO).
 The ranking is our filtered and sorted derivative, not an IMF endorsement.
 See the retained [attribution and rights notes](sources/imf-weo/2026-04/ATTRIBUTION.md).
+
+The current `source.licence_status` is derived from the pinned
+[licence review](sources/imf-weo/2026-04/licence-review.json), including its
+evidence limit and exact review hash. It is an agent assessment, not original
+terms bytes or legal clearance. The acquisition-time status in `capture.json`
+remains unchanged as historical evidence; it is not the current assessment.

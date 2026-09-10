@@ -75,8 +75,17 @@ export function rankCountries(rows: Row[]) {
   return { countries: ranking.slice(0, 50), excluded, eligible_count: eligible.length, cutoff_comparison: ranking.slice(49, 52) };
 }
 
+export function currentLicenceAssessment(licenceReviewBytes: Uint8Array) {
+  // The current assessment supersedes the acquisition-time status, not its
+  // historical receipt. This is a pinned agent review, not retained terms or clearance.
+  if (sha256(licenceReviewBytes) !== 'sha256:883a9760bc789d388a9b2fdf3a7e6733cd06abf35b648e71768b4d2dc69a05c9') throw new Error('reviewed IMF licence assessment changed; review before updating its pin');
+  return JSON.parse(Buffer.from(licenceReviewBytes).toString('utf8'));
+}
+
 export function deriveCountrySet() {
   const capture = JSON.parse(readFileSync(new URL('capture.json', sourceDirectory), 'utf8'));
+  const licenceReviewBytes = readFileSync(new URL('licence-review.json', sourceDirectory));
+  const licenceReview = currentLicenceAssessment(licenceReviewBytes);
   for (const artifact of capture.artifacts) {
     if (sha256(readFileSync(new URL(artifact.file, sourceDirectory))) !== artifact.sha256 ||
         sha256(readFileSync(new URL(artifact.headers_file, sourceDirectory))) !== artifact.headers_sha256) throw new Error('retained source artifact hash mismatch');
@@ -94,7 +103,8 @@ export function deriveCountrySet() {
       latest_vintage_evidence: 'Retained IMF dataset landing page names April 2026 full database and separately lists July 2026 report update. Checked 2026-09-10; no claim about future releases.',
       evidence_ceiling: 'Proposed nominal economic-size sampling frame only, not welfare, access, storm detection or binding-category evidence.' },
     source: { file: 'signals/countries/sources/imf-weo/2026-04/WEOApr2026all.xlsx', sha256: workbookHash,
-      manifest: 'signals/countries/sources/imf-weo/2026-04/capture.json', licence_status: capture.licence_status },
+      manifest: 'signals/countries/sources/imf-weo/2026-04/capture.json', licence_status: licenceReview.status,
+      licence_review: { file: 'signals/countries/sources/imf-weo/2026-04/licence-review.json', sha256: sha256(licenceReviewBytes), evidence_limit: licenceReview.evidence_limit } },
     open_question: 'Which GDP concept, ranking year, vintage and economy/sovereign-country universe should define the top 50? Proposed here, not decided for Fernando.',
     ...rankCountries(readWeoCountries()) };
 }

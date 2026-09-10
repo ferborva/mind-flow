@@ -22,6 +22,13 @@ contract family or governance type is introduced.
 | Electricity-access population share, EG.ELC.ACCS.ZS | WDI lastupdated 2026-07-13 | 2024 | 49/50 | TWN |
 | Labour-income GDP share, LAP_2GDP_NOC_RT_A | ILO modelled estimates Nov. 2025; TOC updated 20/03/2026 12:54:04 | 2025 | 50/50 | None |
 
+**47 economies have all three series.** Taiwan is absent from two series;
+USA and Argentina are each absent from CPI only. Four missing cells therefore
+mean three incomplete economies, not four. The common year is within each
+series, not across series: this is not a single-period snapshot. WBL, a separate
+research candidate, refers to laws through 1 October 2025. Cross-series or
+candidate comparisons must preserve those different reference periods.
+
 These measure price movement, physical connection coverage and aggregate income
 distribution. They are not three relabelled employment proxies. Shared economic
 causes and country aggregates mean they are not statistically independent.
@@ -51,7 +58,11 @@ selected common-year observations, all retained selected-economy history through
 Future rows remain in native bytes and are counted but never selected. It stores
 the original publisher status flag even when empty. Empty WDI status does not
 certify actual-only data. The ILO series is always explicitly modelled, including
-completed years and imputation flags. This producer creates no estimates.
+completed years. Its native flags are retained; their meaning is not verified
+because no observation-status legend is retained. There are 32 `M` and 18 `I`
+flags in the selected year, but neither is decoded as an imputation category.
+Modelled status comes from the retained source dictionary, independently of the
+flag. This producer creates no estimates.
 
 ```sh
 node signals/countries/tools/build-measurements.mjs

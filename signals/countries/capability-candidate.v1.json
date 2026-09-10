@@ -17,7 +17,7 @@
   },
   "country_set": {
     "file": "signals/countries/country-set.v1.json",
-    "sha256": "sha256:61b669b400d43d53d0db42754ce8b8755b8e21840e02100b49ad39eb246e086d"
+    "sha256": "sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f"
   },
   "selection_rule": "Latest completed reference year <=2025 with at least40 of the proposed50 native economy codes, from this single retained WDI vintage; no per-country fallback or estimation by this producer.",
   "evidence_ceiling": "Recent internet-use participation proxy for capability context; not digital skill, disability-accessible use, reliable/affordable connectivity, compute availability, effective access to essential services, AI exposure or a binding-category diagnosis.",

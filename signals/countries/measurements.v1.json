@@ -5,7 +5,7 @@
   "created": "2026-09-10",
   "country_set": {
     "file": "signals/countries/country-set.v1.json",
-    "sha256": "sha256:61b669b400d43d53d0db42754ce8b8755b8e21840e02100b49ad39eb246e086d"
+    "sha256": "sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f"
   },
   "selection_rule": "For each retained publisher vintage, latest completed year <=2025 with at least40 of the exact50 proposed economies. No per-country fallback, estimation by this producer, neighbour or sovereignty substitution.",
   "binding_assessment": "Unknown for every measured economy; each missing series is a requested measurement specification, not an assertion that a maintained series exists. No storm detected or forecast made.",
@@ -53185,7 +53185,9 @@
         "price"
       ],
       "evidence_ceiling": "Aggregate labour-income distribution context only, not earnings of a particular household, affordability, AI occupation exposure or causal AI effects.",
-      "model_status": "Publisher modelled estimates, including imputation flags. Completed reference years remain modelled, not certified observations.",
+      "model_status": "Publisher modelled estimates. Native flags are retained; their meaning is not verified because no observation-status legend is retained. Completed reference years remain modelled, not certified observations.",
+      "observation_status_interpretation": "native-flag-retained-meaning-not-verified",
+      "observation_status_legend": null,
       "cadence": "Annual",
       "licence": {
         "status": "CC BY-4.0",

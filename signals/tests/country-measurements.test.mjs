@@ -17,7 +17,7 @@ test("WDI fails closed on pagination, vintage, wrong series, duplicates and nume
   assert.throws(()=>extractWdi(pack([row("USA",2024,2)]),"OTHER","2026-07-13"));
   assert.throws(()=>extractWdi(pack([]),"CPI","2025-01-01"));
 });
-test("ILO selectors require exact model source and retain imputation flag, no unlabeled estimate", () => {
+test("ILO selectors require exact model source and retain native flag without interpreting its meaning", () => {
   const r={ref_area:"USA",source:"XA:2198",indicator:"LAP_2GDP_NOC_RT",time:"2024",obs_value:"60.2",obs_status:"I"};
   const dictionary=[{source:"XA:2198",ref_area:"USA","source.label":"ILO - Modelled Estimates"}];
   const out=extractIlo([r],dictionary); assert.equal(out[0].value,60.2); assert.equal(out[0].observation_status,"I"); assert.equal(out[0].modelled,true);

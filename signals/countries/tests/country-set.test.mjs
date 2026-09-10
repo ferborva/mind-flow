@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { readWeoCountries, rankCountries, deriveCountrySet, sha256 } from '../tools/country-set.mts';
+import { readWeoCountries, rankCountries, deriveCountrySet, currentLicenceAssessment, sha256 } from '../tools/country-set.mts';
 
 test('retained April 2026 countries sheet ranks nominal USD GDP in 2025 only', () => {
   const rows = readWeoCountries();
@@ -69,5 +69,25 @@ test('failed licence acquisitions remain hashed evidence, not an open licence', 
     assert.equal(sha256(headers), failure.headers_sha256);
     assert.match(headers.toString('utf8'), /HTTP\/2 403/);
     assert.equal(failure.body_retained, false);
+  }
+});
+test('current country frame derives the canonical assessment, while acquisition history stays unchanged',()=>{
+  const base=new URL('../sources/imf-weo/2026-04/',import.meta.url);
+  const reviewBytes=readFileSync(new URL('licence-review.json',base));
+  const review=JSON.parse(reviewBytes);
+  const captureBytes=readFileSync(new URL('capture.json',base));
+  const frame=deriveCountrySet();
+  assert.equal(frame.source.licence_status,review.status);
+  assert.deepEqual(frame.source.licence_review,{
+    file:'signals/countries/sources/imf-weo/2026-04/licence-review.json',sha256:sha256(reviewBytes),
+    evidence_limit:review.evidence_limit,
+  });
+  assert.equal(sha256(captureBytes),'sha256:c9684dad343320d3a8a277252bf91cdeaf9b29b485512c0637b0766d534d34c4');
+  assert.match(JSON.parse(captureBytes).licence_status,/^unverified-specific-permission:/);
+});
+test('a substituted licence status or omitted evidence limit cannot become the current assessment',()=>{
+  const bytes=readFileSync(new URL('../sources/imf-weo/2026-04/licence-review.json',import.meta.url));
+  for(const patch of [{status:'CC0'},{evidence_limit:''},{retained_terms_body:true}]){
+    assert.throws(()=>currentLicenceAssessment(Buffer.from(JSON.stringify({...JSON.parse(bytes),...patch}))),/licence assessment changed/);
   }
 });

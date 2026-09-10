@@ -10,13 +10,13 @@ created: 2026-09-10
 
 # Country measurement snapshot
 
-**50 measured economies, 146 retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.
+**50 economies, 47 with all three series, 146 retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.
 
 The proposed sampling frame uses 2025 nominal GDP in the April 2026 IMF WEO. Fernando has not chosen the ranking or signals. IMF economies include Hong Kong and Taiwan separately; the labels make no sovereignty decision. GDP estimates may be present even for a completed year.
 
-Measurement snapshot: [retained data](measurements.v1.json), sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928. Country-frame hash: sha256:61b669b400d43d53d0db42754ce8b8755b8e21840e02100b49ad39eb246e086d.
+Measurement snapshot: [retained data](measurements.v1.json), sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f. Country-frame hash: sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f.
 
-Values display at most three decimal places; original precision remains in the linked bytes. Each series uses one common reference year and one retained publisher vintage. Missing entries are not backfilled. Empty native observation flags do not certify actual-only data. ILO labour-income shares are publisher-modelled, including imputation; national averages do not establish household access.
+Values display at most three decimal places; original precision remains in the linked bytes. Each series uses one common reference year and one retained publisher vintage. The series cover different reference years, not a single-period snapshot; do not infer a same-period relationship between them. Missing entries are not backfilled. Empty native observation flags do not certify actual-only data. ILO labour-income shares are publisher-modelled. ILO native flags are retained; their meaning is not verified because no observation-status legend is retained. National averages do not establish household access.
 
 ### Series and interpretation
 

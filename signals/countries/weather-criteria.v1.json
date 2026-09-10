@@ -4,8 +4,8 @@
   "author": "Ren",
   "proposed_at": "2026-09-10T01:23:27Z",
   "measurement_file": "signals/countries/measurements.v1.json",
-  "measurement_sha256": "sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928",
-  "country_set_sha256": "sha256:61b669b400d43d53d0db42754ce8b8755b8e21840e02100b49ad39eb246e086d",
+  "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
+  "country_set_sha256": "sha256:500048481fb5f6bae4caa3dca469837e3ab209ead1140eacfb93a6f350877e1f",
   "method_file": "signals/countries/weather-criteria.v1.md",
   "method_sha256": "sha256:b5367d0a73aa0dd7a727ecdf21d02d998abe0299a9adc3279efb149536fafdeb",
   "status": "proposed-unassessed-comparability",
@@ -21,7 +21,7 @@
     {
       "source_sha256": "sha256:28813d8e4499cf3941cb24f4e1a662590b0f3c5d9bbb1ea0f3ed22041161ea5a",
       "source_file": "signals/countries/sources/international-2026-09-10/wdi-cpi.body",
-      "measurement_sha256": "sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928",
+      "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
       "signal": {
         "signal_id": "signal.country-weather.aus.cpi-annual-change",
         "definition_version": "1.0.0",
@@ -29,7 +29,7 @@
         "construct": "Relative magnitude of annual movement, not a storm or agency measure",
         "population": "Australia; source construct: Inflation as measured by the consumer price index reflects the annual percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly.",
         "estimand": "Research-only tail position; Headline typical-consumer basket price change, not an essentials basket price level, household affordability, local prices or AI effects.",
-        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is the annual CPI percentage-change rate itself. Country-specific comparability review required and absent. Measurement bytes sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928; vintage WDI lastupdated 2026-07-13.",
+        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is the annual CPI percentage-change rate itself. Country-specific comparability review required and absent. Measurement bytes sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f; vintage WDI lastupdated 2026-07-13.",
         "projection_policy": "exact-scope-only",
         "source_schema_ref": "signals/countries/sources/international-2026-09-10/wdi-cpi.body#sha256:28813d8e4499cf3941cb24f4e1a662590b0f3c5d9bbb1ea0f3ed22041161ea5a",
         "value_kind": "number",
@@ -38,7 +38,7 @@
           "minimum": 0,
           "maximum": 1
         },
-        "signal_definition_hash": "sha256:8f8b08e5cf8ef3b31422172816339287ae80b78eb99ecec5d81683d262b0054f"
+        "signal_definition_hash": "sha256:2e79652fb11cd7a48f1c58860399f16272a2ed0b85b3eea9a9a149bd6ed58ae2"
       },
       "definition": {
         "condition_id": "condition.country-weather.aus.cpi-annual-change",
@@ -76,7 +76,7 @@
             "signal_ref": {
               "signal_id": "signal.country-weather.aus.cpi-annual-change",
               "definition_version": "1.0.0",
-              "signal_definition_hash": "sha256:8f8b08e5cf8ef3b31422172816339287ae80b78eb99ecec5d81683d262b0054f"
+              "signal_definition_hash": "sha256:2e79652fb11cd7a48f1c58860399f16272a2ed0b85b3eea9a9a149bd6ed58ae2"
             },
             "operator": "gte",
             "threshold": {
@@ -115,7 +115,7 @@
         "empirical_truth_established": false,
         "authority_effect": "none",
         "action_authorised": false,
-        "definition_hash": "sha256:9884b8a835e24b96859340b3b8bb9d85b32c7ff58f2b9326b2de9360405589f4"
+        "definition_hash": "sha256:fa1edcb481c8af608e7aa744f1aa193b220a08058ce3350214247159577dc373"
       },
       "source_series": "cpi-annual-change",
       "vintage": "WDI lastupdated 2026-07-13",
@@ -238,7 +238,7 @@
     {
       "source_sha256": "sha256:9b78c10ee45b8e8da6624f8d47e47d43045262aaf2c759d3c9e8655da635374f",
       "source_file": "signals/countries/sources/international-2026-09-10/wdi-electricity.body",
-      "measurement_sha256": "sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928",
+      "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
       "signal": {
         "signal_id": "signal.country-weather.aus.electricity-access",
         "definition_version": "1.0.0",
@@ -246,7 +246,7 @@
         "construct": "Relative magnitude of annual movement, not a storm or agency measure",
         "population": "Australia; source construct: Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
         "estimand": "Research-only tail position; Population electricity-access share, not continuous/reliable/affordable usable service, compute capacity or a diagnosed binding condition.",
-        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is signed annual percentage-point difference of levels. Country-specific comparability review required and absent. Measurement bytes sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928; vintage WDI lastupdated 2026-07-13.",
+        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is signed annual percentage-point difference of levels. Country-specific comparability review required and absent. Measurement bytes sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f; vintage WDI lastupdated 2026-07-13.",
         "projection_policy": "exact-scope-only",
         "source_schema_ref": "signals/countries/sources/international-2026-09-10/wdi-electricity.body#sha256:9b78c10ee45b8e8da6624f8d47e47d43045262aaf2c759d3c9e8655da635374f",
         "value_kind": "number",
@@ -255,7 +255,7 @@
           "minimum": 0,
           "maximum": 1
         },
-        "signal_definition_hash": "sha256:c6905c733a6294d2b9908a176320ccd7c3bb43cd8ed195f1ed096f46056e45c0"
+        "signal_definition_hash": "sha256:f0c9d7423c3c07b7388e03252e8e3c7036b2e17628b691d1618bc8e8335429a9"
       },
       "definition": {
         "condition_id": "condition.country-weather.aus.electricity-access",
@@ -293,7 +293,7 @@
             "signal_ref": {
               "signal_id": "signal.country-weather.aus.electricity-access",
               "definition_version": "1.0.0",
-              "signal_definition_hash": "sha256:c6905c733a6294d2b9908a176320ccd7c3bb43cd8ed195f1ed096f46056e45c0"
+              "signal_definition_hash": "sha256:f0c9d7423c3c07b7388e03252e8e3c7036b2e17628b691d1618bc8e8335429a9"
             },
             "operator": "gte",
             "threshold": {
@@ -332,7 +332,7 @@
         "empirical_truth_established": false,
         "authority_effect": "none",
         "action_authorised": false,
-        "definition_hash": "sha256:ed3a774dfa67e48801b53bb5a46a7e62953204e0639f7a111e082b3cbb55b781"
+        "definition_hash": "sha256:00dcf60b51658fb43c8bd35b02f7244f1539961a91579fddd7c68b697e8f66eb"
       },
       "source_series": "electricity-access",
       "vintage": "WDI lastupdated 2026-07-13",
@@ -463,7 +463,7 @@
     {
       "source_sha256": "sha256:0a9f3339226b6fa2073ad50552ed57613d630795a5b593d6d60f728770fbf48b",
       "source_file": "signals/countries/sources/international-2026-09-10/ilo-labour-share.body",
-      "measurement_sha256": "sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928",
+      "measurement_sha256": "sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f",
       "signal": {
         "signal_id": "signal.country-weather.aus.labour-income-share",
         "definition_version": "1.0.0",
@@ -471,7 +471,7 @@
         "construct": "Relative magnitude of annual movement, not a storm or agency measure",
         "population": "Australia; source construct: Labour income share as a percent of GDP -- ILO modelled estimates, Nov. 2025 (%)",
         "estimand": "Research-only tail position; Aggregate labour-income distribution context only, not earnings of a particular household, affordability, AI occupation exposure or causal AI effects.",
-        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is signed annual percentage-point difference of levels. Country-specific comparability review required and absent. Measurement bytes sha256:09566740b75a842f261a95b99c957c39627dcd241879495ebf516c6cb3c8c928; vintage ILO modelled estimates Nov. 2025; TOC last.update 20/03/2026 12:54:04 (publisher supplies no timezone).",
+        "aggregation": "Proposed midrank: (count of ten preceding absolute annual movements below latest + 0.5 times exact ties)/10; latest excluded; consecutive years only; no rounding. Movement is signed annual percentage-point difference of levels. Country-specific comparability review required and absent. Measurement bytes sha256:d2801fedadabf24a7c0c02c19e10829b35cf35834024aea5363783357fa51b0f; vintage ILO modelled estimates Nov. 2025; TOC last.update 20/03/2026 12:54:04 (publisher supplies no timezone).",
         "projection_policy": "exact-scope-only",
         "source_schema_ref": "signals/countries/sources/international-2026-09-10/ilo-labour-share.body#sha256:0a9f3339226b6fa2073ad50552ed57613d630795a5b593d6d60f728770fbf48b",
         "value_kind": "number",
@@ -480,7 +480,7 @@
           "minimum": 0,
           "maximum": 1
         },
-        "signal_definition_hash": "sha256:e90b74d93f7bd704a9b8450f574d580598eda3cf05facaf0e862ecd87dcd5f68"
+        "signal_definition_hash": "sha256:f12bf3295d752979a6e6127148f095956c011a3cad3317118bf3ac8ffd84d7f5"
       },
       "definition": {
         "condition_id": "condition.country-weather.aus.labour-income-share",
@@ -518,7 +518,7 @@
             "signal_ref": {
               "signal_id": "signal.country-weather.aus.labour-income-share",
               "definition_version": "1.0.0",
-              "signal_definition_hash": "sha256:e90b74d93f7bd704a9b8450f574d580598eda3cf05facaf0e862ecd87dcd5f68"
+              "signal_definition_hash": "sha256:f12bf3295d752979a6e6127148f095956c011a3cad3317118bf3ac8ffd84d7f5"
             },
             "operator": "gte",
             "threshold": {
@@ -557,7 +557,7 @@
         "empirical_truth_established": false,
         "authority_effect": "none",
         "action_authorised": false,
-        "definition_hash": "sha256:fd01166e88b748531caecac3e6bc9a55cce05056bc6dbf0be3f1167c064e9904"
+        "definition_hash": "sha256:8da72417571d005ec4e4a88df07169681d6c30f7506699ab8bca4570066184cf"
       },
       "source_series": "labour-income-share",
       "vintage": "ILO modelled estimates Nov. 2025; TOC last.update 20/03/2026 12:54:04 (publisher supplies no timezone)",
