@@ -407,6 +407,47 @@ export const ROUND_09_1_REVIEW_POLICY = Object.freeze({
   ],
 });
 
+// Additive review scope only. Historical policy objects and receipt identities
+// remain literal; the coordinator selects and freezes the candidate separately.
+export const ROUND_10_REVIEW_POLICY = Object.freeze({
+  ...ROUND_09_1_REVIEW_POLICY,
+  policy_id: 'review-freeze.round-10', policy_version: '1.0.0', review_round: 'round-10',
+  reviewed_ref: 'ren/round-10',
+  required_files: [
+    ...ROUND_09_1_REVIEW_POLICY.required_files,
+    ...[
+      ['meta/round-10-external-review-brief.md', 'Round 10 frozen review scope and truthful unmet gates'],
+      ['reviews/round-10-progress.md', 'Round 10 checkpoints and handoff'],
+      ['reviews/round-10-receipt-trust-decision.md', 'Time-bounded commissioned integrity-only risk decision'],
+      ['reviews/round-10-narrative-provenance.md', 'Reversible line-level publication preparation'],
+      ['reviews/name-the-if-sign-off.md', 'Section-level human publication decision sheet'],
+      ['reviews/round-10-hygiene.md', 'Scoped hygiene dispositions and named deferrals'],
+      ['reviews/round-10-australia-depth.md', 'Native NERO retrospective and exact GP join failures'],
+      ['capture/2026-09-10-storms-as-social-contract-shifts.md', 'Preserved captured definition and processing record'],
+      ['capture/2026-09-10-keep-main-unchanged.md', 'Processed operational instruction'],
+      ['signals/countries/income-measurements.v1.json', 'Retained national income-access context and source ceilings'],
+      ['signals/countries/tools/income-measurements.mts', 'Exact income history producer'],
+      ['signals/countries/storm-criterion.v1.md', 'Reversible commissioned criterion, not forecast skill'],
+      ['signals/countries/tools/storm-criterion.mts', 'Country criterion and retrospective replay'],
+      ['pilots/australia/data/round-10-nero-retrospective.json', 'Native stock changes and unjoinable GP evidence'],
+      ['pilots/australia/tools/round-10-nero-retrospective.mts', 'Full retained NERO replay'],
+      ['pilots/australia/tests/round-10-nero-retrospective.test.mjs', 'Hostile stock-to-disruption and national-to-local boundaries'],
+      ['meta/review-freeze/tests/round-10-policy.test.mjs', 'Exact additive command and policy regressions'],
+      ['meta/review-freeze/round-09.1.review-freeze.json', 'Unchanged canonical prior receipt'],
+    ].map(([path, role]) => ({ path, role })),
+  ],
+  build_commands: [
+    ...ROUND_09_1_REVIEW_POLICY.build_commands,
+    ...[
+      ['round-10-income-check', ['node', 'signals/countries/tools/income-measurements.mts', '--check']],
+      ['round-10-storm-check', ['node', 'signals/countries/tools/storm-criterion.mts', '--check']],
+      ['round-10-depth-check', ['node', 'pilots/australia/tools/round-10-nero-retrospective.mts', '--check']],
+      ['round-10-receipt-boundary-check', ['node', '--test', 'meta/review-freeze/tests/round-10-policy.test.mjs']],
+      ['round-09.1-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09.1', '--manifest=meta/review-freeze/round-09.1.review-freeze.json']],
+    ].map(([command_id, argv]) => ({ command_id, argv, cwd: '.', timeout_ms: 900_000 })),
+  ],
+});
+
 export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-04") return ROUND_04_REVIEW_POLICY;
   if (reviewRound === "round-06") return ROUND_06_REVIEW_POLICY;
@@ -415,6 +456,7 @@ export function reviewPolicyFor(reviewRound = "round-04") {
   if (reviewRound === "round-09") return ROUND_09_REVIEW_POLICY;
   if (reviewRound === "round-09-initial") return ROUND_09_INITIAL_REVIEW_POLICY;
   if (reviewRound === "round-09.1") return ROUND_09_1_REVIEW_POLICY;
+  if (reviewRound === "round-10") return ROUND_10_REVIEW_POLICY;
   throw new Error(`unknown review policy: ${reviewRound}`);
 }
 
