@@ -44,13 +44,16 @@ function zipEntries(bytes: Buffer) {
   };
 }
 export function readWorkbookTables(bytes: Buffer, tableNumbers: number[]) {
+  const tables = readNamedWorkbookTables(bytes, tableNumbers.map(number => `Table 10A.${number}`));
+  return Object.fromEntries(Object.entries(tables).map(([name, cells]) => [name.replace('Table ', ''), cells]));
+}
+export function readNamedWorkbookTables(bytes: Buffer, tableNames: string[]) {
   const xml = zipEntries(bytes);
   const text = (value: string) => [...value.matchAll(/<t(?:\s[^>]*)?>([\s\S]*?)<\/t>/g)].map(m => decode(m[1])).join('');
   const shared = [...xml('xl/sharedStrings.xml').matchAll(/<si>([\s\S]*?)<\/si>/g)].map(m => text(m[1]));
   const workbook = xml('xl/workbook.xml');
   const relationships = xml('xl/_rels/workbook.xml.rels');
-  return Object.fromEntries(tableNumbers.map(number => {
-    const name = `Table 10A.${number}`;
+  return Object.fromEntries(tableNames.map(name => {
     const sheet = [...workbook.matchAll(/<sheet\s[^>]*\/>/g)].find(m => m[0].includes(`name="${name}"`))?.[0];
     const id = sheet?.match(/r:id="([^"]+)"/)?.[1];
     const relation = [...relationships.matchAll(/<Relationship\s[^>]*\/>/g)].find(m => m[0].includes(`Id="${id}"`))?.[0];
@@ -65,6 +68,6 @@ export function readWorkbookTables(bytes: Buffer, tableNumbers: number[]) {
       if (value === undefined) throw new Error(`Missing shared string: ${name} ${address}`);
       return { address, text: value, kind: type === 's' || type === 'inlineStr' ? 'text' : 'number' };
     }).filter(c => c.text !== '');
-    return [`10A.${number}`, cells];
+    return [name, cells];
   }));
 }
