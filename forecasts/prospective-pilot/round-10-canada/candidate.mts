@@ -126,6 +126,8 @@ export function prepareCanadaCandidate({ sealAt, issueOpensAt, issuedAt, sourceC
   const resolverParameters = objectArtifact({ ...CANADA_TARGET,
     dependencies: Object.fromEntries([ `${directory}/basis.mts`, `${directory}/resolver.mts`, `${directory}/target-policy.mjs`, `${directory}/candidate.mts`,
       `${directory}/draft.mts`, `${directory}/absence.mts`, "signals/countries/tools/measure.mjs",
+      `${directory}/issuance.mts`, `${directory}/issuance-workflow.mjs`, `${directory}/issuance-runbook.md`,
+      "forecasts/prospective-pilot/tests/canada-issuance-workflow.test.mjs",
       ...['.body','.headers.txt','.receipt.json'].flatMap(suffix=>[calendarPath+suffix,CANADA_ABSENCE_PATH+suffix]),
       "forecasts/prospective-pilot/tests/round-10-canada.test.mjs",
       "forecasts/prospective-pilot/issuance-binding/country-baseline-execution.mjs",
