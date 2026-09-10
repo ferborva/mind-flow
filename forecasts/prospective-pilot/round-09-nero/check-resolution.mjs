@@ -3,12 +3,15 @@ import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { admitNeroResolution } from "./resolution-intake.mjs";
 import { evaluateForecastCohort } from "./current-evaluation.mjs";
+import { assertOperationalClock } from "../operational-clock.mjs";
 
 // Read-only intake of a separately appended resolution, never an issue rewrite.
 const names = ["forecast", "archive", "first-presence", "chronology", "chronology-tip", "source", "published-at", "retrieved-at", "as-of", "plan"];
 const { values } = parseArgs({ options: Object.fromEntries(names.map((name) => [name, { type: "string" }])) });
 for (const name of names) if (!values[name]) throw new Error(`required --${name}`);
+assertOperationalClock({ asOf: values["as-of"], publishedAt: values["published-at"], retrievedAt: values["retrieved-at"] });
 const json = (path) => JSON.parse(readFileSync(path, "utf8"));
+assertOperationalClock({ firstPresenceObservedAt: json(values["first-presence"]).observed_at });
 const forecast = json(values.forecast);
 await admitNeroResolution(forecast, {
   archivePath: values.archive, archiveSource: values.source,
