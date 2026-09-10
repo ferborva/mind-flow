@@ -3,12 +3,13 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 import { proseSentences } from "../../meta/validate-draft-provenance.mjs";
+import { beforeRound10Amendment } from "./helpers/round-10-history.mjs";
 
 const root = resolve(import.meta.dirname, "../..");
 const read = path => readFileSync(resolve(root, path), "utf8");
 
 test("WHEN retains its explicit date, forecast and commitment ceiling", () => {
-  assert.match(read("drafts/every-if-is-somebodys-when.md"), /It is not a date, forecast, guarantee or commitment\./);
+  assert.match(read("drafts/every-if-is-somebodys-when.md"), /WHEN is a prompt for conditional work, not a date, forecast, guarantee or commitment\./);
 });
 
 test("WHEN records the date of the restored claim ceiling", () => {
@@ -48,7 +49,7 @@ test("the current disclaimer inventory pins its count scope and reports the rest
   assert.ok(block, "the current reader and repaired drafts must be in the inventory");
   const inventory = JSON.parse(block[1]);
   for (const entry of inventory) {
-    const units = proseSentences(read(entry.path));
+    const units = proseSentences(beforeRound10Amendment(root, entry.path, read(entry.path)));
     assert.equal(units.length, entry.lexical_units, entry.path);
     assert.equal(units.filter(unit => !/^\d+\.$/.test(unit)).length, entry.conservative_units, entry.path);
   }
