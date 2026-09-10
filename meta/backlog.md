@@ -40,6 +40,15 @@ script.
       history, a change in which category binds, or divergence between countries?
       Proposed history thresholds are investigation criteria, not his decision
       and not calibrated storm detection.
+      **New answer after the Round 09 candidate was selected:** a major shift
+      in the social contract that can disturb the social fabric and affect
+      5% of society in a country or more, occurring nationally or across several
+      countries. See [the raw capture](../capture/2026-09-10-storms-as-social-contract-shifts.md).
+      He then simplified the monitoring target to **access to means of
+      generating income**, linking livelihoods to broader access and social
+      participation. Keep operationalisation open: disruption severity,
+      denominator, period and horizon. The next question asks whether affected
+      people include dependent household members; do not invent the answer.
 - [ ] **How do forecastable crisis points fit unpredictable sequencing?** His
       September 8 statements leave a real tension. Our proposed reading is
       diagnose by country, notice change, do not schedule the transition.
