@@ -8,6 +8,20 @@ import { renderPrimaryCare, escapeHtml } from '../tools/render-primary-care.mjs'
 import * as renderer from '../tools/render-primary-care.mjs';
 const root = resolve(import.meta.dirname, '../..');
 
+test('prescription and after-hours each render five categories, exact gaps and interval assessments', () => {
+  const html = renderPrimaryCare(root);
+  for (const item of ['atorvastatin-prescription', 'after-hours-gp']) {
+    const table = html.match(new RegExp(`<table id="${item}-condition-table"[\\s\\S]*?</table>`))?.[0];
+    assert.ok(table, `Missing public item ${item}`);
+    for (const category of ['price', 'permission', 'proximity', 'availability', 'capability']) assert.match(table, new RegExp(`data-condition-category="${category}"`));
+    assert.equal((table.match(/Missing series:/g) ?? []).length, 5);
+  }
+  assert.match(html, /within the approximate 95% interval/);
+  assert.match(html, /2013-14/);
+  assert.match(html, /2015-16/);
+  assert.doesNotMatch(html, /other three basket items still lack|significance and agency effects are not established/);
+});
+
 test('small numerators are flagged before the observation, including zero and non-proximity cells', () => {
   assert.match(renderPrimaryCare(root), /Very remote: Small base \(9 FTE; below 10\): 131\.7/);
   assert.equal(typeof renderer.formatObservation, 'function');
