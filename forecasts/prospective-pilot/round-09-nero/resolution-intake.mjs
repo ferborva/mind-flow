@@ -6,6 +6,7 @@ import { rowsFromZip } from "../../../dashboard/tools/build-nero-baseline.mjs";
 import { assertForecastSemantics, assertIssuedForecastImmutable, parseExactInstant } from "../../lib/registry.mjs";
 import { assessProspectivePilotProtocol } from "../validate.mjs";
 import { neroOutcomePayload } from "./resolver.mts";
+import { rejectDisclosedNeroTargetError } from "./issue-error-intake.mjs";
 
 const issuedBytes = readFileSync(new URL("./issued.json", import.meta.url));
 const digest = (bytes) => `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
@@ -99,6 +100,7 @@ export async function prepareNeroResolutionEvidence(input) {
 }
 
 export async function admitNeroResolution(forecast, input) {
+  rejectDisclosedNeroTargetError(forecast);
   assertIssuedForecastImmutable(original, forecast);
   if (forecast.status !== "resolved") throw new Error("NERO resolution intake requires a separate resolved record");
   const evidence = await prepareNeroResolutionEvidence(input);
@@ -111,6 +113,7 @@ export async function admitNeroResolution(forecast, input) {
 }
 
 export function requireNeroResolutionAdmission(forecast) {
+  rejectDisclosedNeroTargetError(forecast);
   if (forecast?.id !== original.id || forecast.status !== "resolved") return;
   if (admitted.get(forecast) !== digest(Buffer.from(JSON.stringify(forecast)))) {
     throw new Error("NERO resolved record requires current archive and first-presence intake before evaluation");

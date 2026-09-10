@@ -11,6 +11,11 @@ updated: 2026-09-10
 
 # 🦅 Issued at 00:08:53 UTC, performance withheld
 
+**Correction notice: this issue has a contradictory target and is blocked at
+current admission.** Its sealed rule says SA4 101 while its resolver and typed
+scope say 102. See the [error notice](error-notice.md). The account below records
+the historical issuance, not a valid current second-forecast gate claim.
+
 **The Central Coast forecast assigns 0.76 to October modelled General Clerks
 employment being at least the frozen August count of 3,092.** The native cell
 is 5311/102, General Clerks, Central Coast, NSW, date `2026-10-15`. The source-order

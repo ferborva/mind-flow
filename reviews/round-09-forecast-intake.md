@@ -11,6 +11,13 @@ updated: 2026-09-10
 
 # 🦅 The October outcome is still in the future
 
+**P1 cross-review correction: the second-valid-forecast gate is unmet.** The
+issued second record's resolution prose says SA4 101 while the typed target and
+native resolver say 102. See the [error notice](../forecasts/prospective-pilot/round-09-nero/error-notice.md).
+Old bytes remain intact; current terminal admission is blocked. A uniquely
+identified replacement requires peer recheck and fresh registration before it
+can satisfy the gate. Earlier passing tests below missed this contradiction.
+
 **Resolution is blocked by the prewritten clock and absent October archive.**
 At actual UTC `2026-09-10T00:00:41Z`, neither the 1 October observation start
 nor the 1 November publication lower bound had arrived. The official NERO

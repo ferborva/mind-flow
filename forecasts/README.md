@@ -1,5 +1,11 @@
 # Forecast registry
 
+**Current NERO records:** the first Capital Region forecast remains open. The
+second Central Coast issue has a [disclosed target contradiction](prospective-pilot/round-09-nero/error-notice.md)
+and is blocked at admission. A corrected prospective replacement is being
+prepared; the second-valid-forecast gate is currently unmet. Historical issued
+bytes and registered cohorts remain visible, with no invented void or score.
+
 > **AGENT-PROPOSED FORECAST GOVERNANCE, NOT FERNANDO'S VIEW OR AN ACTION
 > AUTHORITY.** This contract is a falsifiable instrument for review.
 

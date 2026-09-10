@@ -73,7 +73,8 @@ test("current evaluation intake cannot accept a NERO terminal resolution without
   const unresolvedAdmission = { ...issued, status: "resolved" };
   assert.throws(() => requireNeroResolutionAdmission(unresolvedAdmission), /NERO.*intake/i);
   assert.throws(() => evaluateForecastCohort({}, [unresolvedAdmission]), /NERO.*intake/i);
-  assert.doesNotThrow(() => requireNeroResolutionAdmission(issued));
+  assert.throws(() => requireNeroResolutionAdmission(issued), /target contradiction/);
+  assert.throws(() => evaluateForecastCohort({}, [issued]), /target contradiction/);
 });
 
 test("synthetic October archive admission binds receipt metadata without changing the closed payload", async () => {
@@ -96,10 +97,7 @@ test("synthetic October archive admission binds receipt metadata without changin
     resolved.status = "resolved";
     resolved.resolution = { status: "resolved", outcome: 1, resolved_at: "2026-11-04T01:02:00Z", evidence };
     resolved.history.push({ at: resolved.resolution.resolved_at, event: "resolved", actor: "test-only resolver", note: "Synthetic intake fixture, not a real outcome." });
-    await admitNeroResolution(resolved, input);
-    assert.doesNotThrow(() => requireNeroResolutionAdmission(resolved));
-    resolved.resolution.evidence.vintage = "missing-first-presence";
-    assert.throws(() => requireNeroResolutionAdmission(resolved), /NERO.*intake/);
-    await assert.rejects(admitNeroResolution(resolved, input), /first.presence receipt/);
+    await assert.rejects(admitNeroResolution(resolved, input), /target contradiction/);
+    assert.throws(() => requireNeroResolutionAdmission(resolved), /target contradiction/);
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 });
