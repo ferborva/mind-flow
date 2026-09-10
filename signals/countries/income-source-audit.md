@@ -20,9 +20,14 @@ updated: 2026-09-10
 | ILO unemployment rate, total sex, ages 15+ | November 2025 modelled estimates | 50/50 | Labour force aged 15+ | Availability of paid work |
 | World Bank PIP poverty headcount, $3/day at 2021 PPP, national publisher lineup | `20260324_2021_01_02_PROD` | 49/50 | National reporting population, per-person income or consumption | Price/affordability |
 
-Argentina is absent from the national PIP selection. Urban coverage is not substituted. The producer also exposes the 2005 baseline, giving 1,050, 1,050 and 1,029 observations respectively and exactly twenty annual transition endpoints for 2006-2025. Baseline coverage is 50/50/49 from the same retained bodies; no source was refreshed. A vintage is a publication snapshot, not a claim that all historical observations are independently surveyed or were known in that historical year.
+Argentina is absent from the national PIP selection. Urban coverage is not substituted. The retained [PIP acquisition chapter](sources/income-2026-09-10/pip-methodology-acquiring.body) states that Argentina has only urban-representative surveys. The producer also exposes the 2005 baseline, giving 1,050, 1,050 and 1,029 observations respectively and exactly twenty annual transition endpoints for 2006-2025. Baseline coverage is 50/50/49 from the same retained bodies; no source was refreshed. A vintage is a publication snapshot, not a claim that all historical observations are independently surveyed or were known in that historical year.
 
 **All 49 PIP values for 2025 are publisher nowcasts.** In 2009 the retained `estimate_type` labels comprise 32 `actual` and 17 `projection` rows; in 2020 they comprise 37 and 12. `actual` is the publisher's separate status field, not a claim that an interpolation or extrapolation is a directly observed survey. Estimation method remains separately retained. Comparisons across welfare-type switches or missing comparability spells remain unknown without a country-and-vintage comparability audit.
+
+Indonesia 2025 carries both `estimation_type: survey` and `estimate_type: nowcast`.
+Those distinct publisher fields are retained, not reconciled by choosing the
+more reassuring label. Pakistan, Iran, India, Singapore, Saudi Arabia and Hong
+Kong have zero survey-typed rows across the retained 2005-2025 lineup.
 
 ## Exact acquisition and replay
 
@@ -40,7 +45,24 @@ Independent review found that the original capture helper did not preserve parti
 
 ILO selectors are exact native indicator, `SEX_T`, `AGE_YTHADULT_YGE15`, and the retained country-specific source dictionary entry labelled `ILO - Modelled Estimates`. Reported LFS tables are not blended in. The retained table of contents names November 2025 and its update date. No empty observation flag is interpreted as actual data. ILO row flags are retained as strings or `null` if absent.
 
-PIP's native `headcount` is a fraction, converted explicitly by multiplication by 100. `reporting_pop` is retained as context, not multiplied into newly disrupted-person counts. `estimation_type`, `estimate_type`, `welfare_type`, distribution type, interpolation flag, survey year, acronym, comparability and comparable spell are retained. Survey, interpolation, extrapolation, CMD estimation, nowcast and projection must remain distinguishable. A `null` survey year is not filled by Ren. No duplicate national country-year rows occur in the selected source.
+The unemployment CSV carries `obs_status: R` on 908 selected rows and the empty
+string on 142. The EPOP CSV has no `obs_status` column, so all 1,050 values are
+`null`; absent-column and present-but-empty states are intentionally different.
+No flag legend is retained. The ILO series extends to 2027; the 2025 model outputs
+have no retained row-level estimate-versus-projection classification.
+
+PIP's native `headcount` is a fraction, converted explicitly by multiplication by 100. `reporting_pop` is retained as context, not multiplied into newly disrupted-person counts. `estimation_type`, `estimate_type`, `welfare_type`, distribution type, interpolation flag, survey year, acronym, comparability and comparable spell are retained. Survey, interpolation, extrapolation, CMD estimation, nowcast and projection must remain distinguishable. No duplicate national country-year rows occur in the selected source.
+
+**All four survey metadata fields (`survey_year`, `survey_acronym`,
+`survey_comparability`, `comparable_spell`) are null on every row of this
+`fill_gaps=TRUE` endpoint: all 9,981 raw rows and all 1,029 retained rows, including
+645 retained `estimation_type: survey` rows.** The comparable-spell check is inert
+on this source, not evidence that no breaks occurred. Survey comparability is
+unestablished for every retained comparison; the consumer does not interpret a
+non-boolean publisher code as a true/false comparability verdict. Welfare-type
+changes remain observable separately. A new retained `fill_gaps=FALSE` capture
+and country-level audit would be needed to investigate survey-year breaks; no
+such acquisition is claimed in this repair. Null fields are not filled by Ren.
 
 ## What a five percentage point change can establish
 

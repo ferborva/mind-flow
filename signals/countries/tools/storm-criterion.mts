@@ -17,6 +17,11 @@ const ajv = new Ajv({ allErrors: true, strict: true }); addFormats(ajv); ajv.add
 const validDefinition = ajv.compile({ $ref: `${schema.$id}#/$defs/conditionDefinition` });
 const validSignal = ajv.compile({ $ref: `${schema.$id}#/$defs/signalDefinition` });
 const proposedAt = '2026-09-10T07:00:00Z'; // Commissioned research epoch, not observation or publication time.
+// Percentage inputs are rounded separately to six decimal places (nearest,
+// half towards +infinity), then subtracted as safe integers. This is declared
+// arithmetic precision, not measurement precision or uncertainty estimation.
+const percentageScale = 1_000_000;
+const percentageDifference = (before: number, after: number) => (Math.round(after * percentageScale) - Math.round(before * percentageScale)) / percentageScale;
 
 function evidence(value: Row, construct: string) {
   if (value.construct !== construct || value.comparable !== true || !hashPattern.test(value.source_sha256) || !value.source_selector?.trim()) throw new Error('Evidence construct, comparability or source identity absent');
@@ -24,14 +29,14 @@ function evidence(value: Row, construct: string) {
 function shares(value: Row, construct: string) {
   evidence(value, construct);
   if (value.unit !== 'percent-total-population' || ![value.before, value.after].every(x => Number.isFinite(x) && x >= 0 && x <= 100)) throw new Error('Exact total-population percentage shares required');
-  return { before_percent: value.before, after_percent: value.after, change_pp: value.after - value.before, source_sha256: value.source_sha256, source_selector: value.source_selector };
+  return { before_percent: value.before, after_percent: value.after, change_pp: percentageDifference(value.before, value.after), arithmetic_decimal_places: 6, source_sha256: value.source_sha256, source_selector: value.source_selector };
 }
 
 // Arithmetic over already scoped/admitted measurements only. Hashes do not
 // authenticate a publisher or prove that a claimed construct was measured.
 // The retained-data producer below supplies no such measurements this round.
 export function evaluateStorm(input: Row) {
-  if (!/^[A-Z]{3}$/.test(input.country) || !Number.isInteger(input.period?.from) || !Number.isInteger(input.period?.to) || input.period.from >= input.period.to) throw new Error('Country and ordered annual period required');
+  if (!/^[A-Z]{3}$/.test(input.country) || !Number.isInteger(input.period?.from) || !Number.isInteger(input.period?.to) || input.period.from >= input.period.to) throw new Error('Country and ordered comparison years required; period length is caller-defined');
   for (const value of [input.disruption, input.binding, input.household].filter(x => x != null)) {
     if (value.country !== input.country || !same(value.period, input.period) || value.claim !== 'access-to-means-of-generating-income') throw new Error('Evidence scope does not match the income-access claim, country and comparison period');
   }
@@ -40,17 +45,20 @@ export function evaluateStorm(input: Row) {
   if (household && !['dependants-only', 'inclusive-household-exposure'].includes(input.household.membership)) throw new Error('Household membership and overlap reading required');
   if (input.binding != null) {
     evidence(input.binding, 'measured-binding-category');
+    if ([input.binding.before, input.binding.after].some(Array.isArray)) throw new Error('Tied or multiple binding categories are not representable in v1');
     if (![input.binding.before, input.binding.after].every(x => categories.includes(x))) throw new Error('Unknown binding category');
   }
-  const directTruth = direct ? direct.change_pp >= 5 : null;
+  const beneficialShiftUnassessed = direct !== null && direct.change_pp <= -5;
+  const directTruth = direct && !beneficialShiftUnassessed ? direct.change_pp >= 5 : null;
   const bindingTruth = input.binding == null ? null : input.binding.before !== input.binding.after;
   const state = directTruth === true || bindingTruth === true ? 'candidate' : directTruth === false && bindingTruth === false ? 'no-candidate' : 'cannot-say';
   return { country: input.country, period: structuredClone(input.period), state,
     triggered_arms: [directTruth === true ? 'direct-share' : null, bindingTruth === true ? 'binding-category' : null].filter(Boolean),
     direct_share: direct, household_share: household ? { ...household, membership: input.household.membership, added_to_direct: false } : null,
     binding_category: input.binding?.after ?? null, previous_binding_category: input.binding?.before ?? null,
+    beneficial_shift_unassessed: beneficialShiftUnassessed,
     missing_evidence: [direct === null ? 'Comparable direct income-route disruption shares of total population' : null, input.binding == null ? 'Measured before/after binding category for the same income-access claim and population' : null, household === null ? 'Person-linked household exposure mapping with overlap specified' : null].filter(Boolean),
-    direction_assumption: 'Increased direct disruption only; beneficial-shift treatment remains Fernando\'s decision',
+    direction_assumption: 'Increased direct disruption only; beneficial shifts of at least five points leave the direct arm unassessed pending Fernando\'s decision',
     forecast_skill_established: false, authority_effect: 'none', action_authorised: false };
 }
 
@@ -66,12 +74,12 @@ export function createIncomeConditions(income: Row, measurementHash: string) {
     const source = income.receipts.find((r: Row) => r.url && r.id === family.source_id) ?? income.receipts.find((r: Row) => r.body_sha256 && r.url?.includes(family.source_id === 'pip-lineup' ? '/pip/v1/pip?' : family.native + '_A'));
     // Existing IF signal/condition schema, unmeasured propositions. The native
     // series is context, not an observation satisfying this signal definition.
-    const signal: Row = { signal_id: `signal.storm.${family.id}`, definition_version: '1.0.0', label: `Unmeasured disruption proposition investigated alongside ${family.label}`, construct: 'Change in direct income-route disruption share, not a native stock difference', population: 'Total population of one retained economy in one explicitly scoped annual comparison', estimand: `Percentage-point increase in directly disrupted people. Native context denominator: ${family.denominator}. ${family.limitation}`, aggregation: `No native-series conversion admitted. Additional comparable person-level route-disruption evidence is required. Native context ${family.vintage}; measurement bytes ${measurementHash}.`, projection_policy: 'exact-scope-only', source_schema_ref: `signals/countries/income-measurements.v1.json#${measurementHash}`, value_kind: 'number', unit: 'percentage-point-total-population', value_range: { minimum: -100, maximum: 100 }, signal_definition_hash: '' };
+    const signal: Row = { signal_id: `signal.storm.${family.id}`, definition_version: '1.0.0', label: `Unmeasured disruption proposition investigated alongside ${family.label}`, construct: 'Change in direct income-route disruption share, not a native stock difference', population: 'Total population of one retained economy in one explicitly scoped annual comparison', estimand: `Percentage-point increase in directly disrupted people. Native context denominator: ${family.denominator}. ${family.limitation}`, aggregation: 'No native-series conversion admitted. Additional comparable person-level route-disruption evidence is required.', projection_policy: 'exact-scope-only', source_schema_ref: 'signals/countries/income-measurements.v1.json', value_kind: 'number', unit: 'percentage-point-total-population', value_range: { minimum: -100, maximum: 100 }, signal_definition_hash: '' };
     signal.signal_definition_hash = computeSignalDefinitionHash(signal);
     const definition: Row = { condition_id: `condition.storm.${family.id}`, condition_category: family.condition_category, definition_version: '1.0.0', proposition: 'Direct disruption increased by at least five percentage points of total population; native context alone cannot establish this.', claim: { who: 'A single scoped economy and its total population', verb: 'experience', object: 'increased disruption of access to means of generating income', standard: 'At least five percentage points of total population, from comparable direct measurements', polarity: 'affirmative', period: { starts_at: proposedAt, ends_at: '2027-09-10T07:00:00Z' } }, effective_from: proposedAt, scope: { jurisdictions: ['Retained IMF top-50 economy, separately scoped'], geographies: ['National, no cross-country projection'], cohorts: ['Total population, not only working-age population or labour force'], services: ['Access to means of generating income'] }, predicates: { disrupted: { signal_ref: { signal_id: signal.signal_id, definition_version: signal.definition_version, signal_definition_hash: signal.signal_definition_hash }, operator: 'gte', threshold: { value: 5, unit: signal.unit }, window: { lookback_days: 366, minimum_observations: 1, persistence: 1, maximum_age_days: 366 }, source_policy: { minimum_distinct_source_ids: 1, minimum_distinct_artifact_hashes: 1, minimum_coverage_ratio: 1, agreement: 'unanimous-per-period' }, missing_result: 'unknown', stale_result: 'stale', conflict_result: 'conflicted' } }, truth_expression: { predicate_ref: 'disrupted' }, evaluator_ref: FIXED_EVALUATOR_REF, classification: 'research-draft', empirical_truth_established: false, authority_effect: 'none', action_authorised: false, definition_hash: '' };
     definition.definition_hash = computeConditionDefinitionHash(definition);
     if (!validSignal(signal) || !validDefinition(definition)) throw new Error(`Existing IF schema rejected proposal: ${JSON.stringify(validSignal.errors ?? validDefinition.errors)}`);
-    return { family_id: family.id, provenance: 'commissioned-proposal', relationship: family.relationship, source_context_only: true, observations_admitted: 0, source_receipt: source ?? null, measurement_sha256: measurementHash, signal, definition };
+    return { family_id: family.id, provenance: 'commissioned-proposal', relationship: family.relationship, source_context_only: true, observations_admitted: 0, source_receipt: source ?? null, source_vintage: family.vintage, measurement_sha256: measurementHash, signal, definition };
   });
 }
 
@@ -92,13 +100,15 @@ export function nativeMovement(family: Row, before: Row, after: Row) {
   const limits = ['native-stock-not-direct-route-disruption', 'gross-flows-and-household-mapping-absent'];
   if (family.id === ids[2]) {
     if (before.welfare_type !== after.welfare_type) limits.push('welfare-type-changed');
-    if (before.comparable_spell !== after.comparable_spell) limits.push('comparable-spell-changed');
-    if (before.survey_comparability !== true || after.survey_comparability !== true) limits.push('survey-comparability-unestablished');
-    limits.push('publisher-lineup-not-independent-surveys');
+    if (before.comparable_spell == null || after.comparable_spell == null) limits.push('comparable-spell-check-inert-null-endpoint');
+    else if (before.comparable_spell !== after.comparable_spell) limits.push('comparable-spell-changed');
+    // This retained endpoint has null comparability metadata on every row.
+    // A future non-null code is not a boolean proof of comparable surveys.
+    limits.push('survey-comparability-unestablished', 'publisher-lineup-not-independent-surveys', 'denominator-publisher-reporting-population');
   } else limits.push('publisher-modelled-vintage', 'denominator-not-total-population');
-  const change = after.value - before.value;
+  const change = percentageDifference(before.value, after.value);
   const adverse = family.id === ids[0] ? -change : change;
-  return { native_change_pp: change, naive_five_point_crossing: adverse >= 5, population_disruption_change_pp: null, is_storm_fire: false, comparability_limits: limits };
+  return { native_change_pp: change, arithmetic_decimal_places: 6, naive_five_point_crossing: adverse >= 5, naive_five_point_beneficial_movement: adverse <= -5, population_disruption_change_pp: null, is_storm_fire: false, comparability_limits: limits };
 }
 
 export function buildStormReview(income: Row, measurementHash: string) {
@@ -121,7 +131,7 @@ export function buildStormReview(income: Row, measurementHash: string) {
     }
     countryPeriods.push({ ...evaluateStorm({ country: country.iso3, period: { from: year - 1, to: year }, disruption: null, binding: null, household: null }), missing_series: missing, native_context: context });
   }
-  return { id: 'storm-review.v1', provenance: 'commissioned-proposal', author: 'Ren', measurement_sha256: measurementHash, country_set_sha256: income.country_set_sha256, definitions, consumer: { id: 'storm-criterion.v1', bindings, native_to_disruption_conversion: 'none' }, summary: { country_periods: countryPeriods.length, assessable_storm_periods: 0, storm_fires: null, misses: null, false_fires: null, new_real_evolution_events: 0, programme_real_evolution_events: 1, interpretation: 'No assessable periods, not zero storms. Native counterexample crossings cannot validate the criterion or establish skill.' }, country_periods: countryPeriods, latest: countryPeriods.filter(x => x.period.to === 2025), proxy_audit: proxyAudit };
+  return { id: 'storm-review.v1', provenance: 'commissioned-proposal', author: 'Ren', measurement_sha256: measurementHash, country_set_sha256: income.country_set_sha256, definitions, consumer: { id: 'storm-criterion.v1', bindings, native_to_disruption_conversion: 'none' }, summary: { country_periods: countryPeriods.length, assessable_storm_periods: countryPeriods.filter(x => x.state !== 'cannot-say').length, storm_fires: null, misses: null, false_fires: null, interpretation: 'No assessable periods, not zero storms. All cannot-say results are structural because the producer admits no disruption or binding inputs, not independent inconclusive measurement studies. Native counterexample crossings cannot validate the criterion or establish skill.' }, country_periods: countryPeriods, latest: countryPeriods.filter(x => x.period.to === 2025), proxy_audit: proxyAudit };
 }
 
 export function loadStormReview() {

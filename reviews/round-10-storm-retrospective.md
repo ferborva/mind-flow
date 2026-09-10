@@ -14,6 +14,8 @@ created: 2026-09-10
 criterion.** There are zero assessable periods, not zero storms. Social-criterion
 fires, misses and false positives remain null. Native stock thresholds are a
 counterexample to proxy substitution, not a repaired detector or forecast score.
+The count is a structural consequence of admitting no direct-disruption or
+binding-change inputs, not 1,000 independently inconclusive measurement studies.
 
 ## 📚 Retained shock context
 
@@ -68,6 +70,18 @@ For example, Ireland's 2009 modelled employment-to-population ratio falls by
 denominators and overlapping people. They cannot be added into a population loss
 count or used to infer the condition that bound access.
 
+The proxy audit also retains **11 beneficial native movements of at least five
+points**: EPOP increases in Argentina (2021, +5.483) and the Philippines (2022,
++5.291); PIP decreases in Kazakhstan (2006, -12.18), Indonesia (2007, -5.75),
+Pakistan (2008, -5.99), Vietnam (2009, -7.39), South Africa (2010, -7.5), China
+(2011, -5.29; 2013, -6.83), Romania (2016, -7.6) and Peru (2021, -5.12).
+These are native stock movements, not beneficial social-contract storm labels.
+Romania's 2016 welfare-type change also limits interpretation. Each is flagged
+`naive_five_point_beneficial_movement`; none is admitted as a storm fire. This
+retains relevant context for Fernando's open direction decision without making
+that decision for him. Both adverse and beneficial arithmetic uses the declared
+six-decimal percentage precision in the criterion.
+
 ## 🧭 Gaps, not retrospective scores
 
 **Sparse native crossings around widely recorded shocks do not establish misses
@@ -92,8 +106,10 @@ information and macroeconomic assumptions. Historical alignment can therefore
 contain hindsight and cannot establish forecast skill. The producer preserves
 these native flags; this table never converts them into independent surveys.
 
-PIP welfare type changes in Poland, Romania, Russia and Türkiye remain visible,
-and survey comparability is unestablished in the retained rows. Household welfare
+PIP welfare type changes in Poland, Romania, Russia and Türkiye remain visible.
+All four survey metadata fields are null throughout this lineup endpoint, so
+the comparable-spell check is inert and survey comparability remains
+unestablished, including survey-typed rows. Household welfare
 assignment does not supply linked counts of disrupted earners and dependants.
 Direct and household affected-share readings both remain null, never added.
 

@@ -33,7 +33,7 @@ This document's measurement choices and code are Ren's commissioned proposals.
 The rule diagnoses a measured comparison; it does not schedule a crisis or
 claim that the order of changing conditions can be planned.
 
-## Three reversible assumptions
+## Five reversible assumptions
 
 1. **People and household exposure remain separate.** Report both when a
    source supports a person-linked household mapping. Label whether household
@@ -47,12 +47,16 @@ claim that the order of changing conditions can be planned.
    context. Their condition-category relationships are proposals. Other
    candidate families failed breadth or remain unacquired, as the
    [source audit](income-source-audit.md) records. Fernando may strike or add.
+4. **Direction:** increased direct disruption is the provisional positive
+   reading. A beneficial shift of at least five points is unassessed, not a
+   settled negative finding. Fernando has not decided whether it is a storm.
+5. **Threshold basis:** direct disruption is provisionally tested against the
+   five-point threshold. Household exposure is separate, never substituted.
+   Fernando has not selected direct versus household threshold membership.
 
-All three are also in [the decision backlog](../../meta/backlog.md).
-Two further choices remain open: whether beneficial shifts count, and whether
-household exposure rather than direct disruption should determine the five
-percent threshold. The executable provisional rule uses **increased direct
-disruption**, with household exposure shown separately and not substituted.
+All five are also in [the decision backlog](../../meta/backlog.md).
+The executable provisional rule uses **increased direct disruption**, with
+household exposure shown separately and not substituted.
 The binding-category arm follows the commission's OR without adding a second
 five-percent gate. These choices cannot become Fernando's settled answers.
 
@@ -61,8 +65,19 @@ five-percent gate. These choices cannot become Fernando's settled answers.
 Let d(C,t) be the percentage of **total population** directly experiencing the
 defined income-route disruption. The first arm is d(C,t1) − d(C,t0) ≥ 5.
 A movement from 1% to 6% meets the boundary; 1% to 5.999% does not. It is not a
-5% relative change. A decline is not a harmful-increase candidate under the
-current direction assumption. Sources must define disruption, duration,
+5% relative change. A decline of at least five points sets
+`beneficial_shift_unassessed: true` and leaves the direct arm unknown. It cannot
+yield a firm `no-candidate` while the direction decision is pending. A measured
+binding-category change can still independently yield `candidate`.
+
+Both direct and native percentage arithmetic first round each input separately
+to six decimal places (nearest, half towards positive infinity), subtract the
+scaled integers, then divide by one million. Thus 3.04% to 8.04% is exactly five
+points; 3.04% to 8.039999% remains below it. This declared arithmetic precision
+does not claim survey precision or quantify uncertainty. Original input values
+remain retained alongside the calculated change.
+
+Sources must define disruption, duration,
 population coverage, survey uncertainty and a comparable before/after scope.
 
 This is a change in a scoped disruption prevalence, not necessarily the gross
@@ -85,7 +100,8 @@ and uncertainty are currently unavailable, never zero.
 
 The three families satisfy native breadth (50, 50 and 49 economies), not
 disruption validity. Argentina has no retained national PIP row; urban-only
-data is not a national replacement. Models from one retained vintage provide
+data is not a national replacement, as the retained [PIP acquisition chapter](sources/income-2026-09-10/pip-methodology-acquiring.body)
+explains. Models from one retained vintage provide
 reproducible hindsight, not what was known in each historical year.
 
 ## Decision mechanics and public wording
@@ -110,27 +126,56 @@ real producer replays retained bytes and supplies **no** disruption or binding
 measurement because none is justified. A hash and a declared construct do not
 prove that a source measured it. No operational warning pipeline admits these
 synthetic fixtures.
+Before any operational admission, a claimed `source_sha256` must resolve to
+retained receipt bytes and its construct, scope and comparability must undergo
+an independent evidence review. The generic arithmetic API does not implement
+that future admission layer; a well-shaped hash alone remains insufficient.
 
 Co-occurrence groups distinct national candidates over the same comparison
 period. It neither adds shares nor asserts a common cause, contagion, regional
-population coverage or global risk. An annual comparison can miss a severe
+population coverage or global risk. The API's period length is caller-defined:
+it accepts ordered comparison years, including a multi-year retained-range
+summary. Only the native producer is annual. Its generic API has country scope,
+not subnational geography. The placeholder IF's 366-day window does not make the
+API a kernel-equivalent evaluator. An annual comparison can miss a severe
 within-year disruption and cannot determine a daily crisis point.
 
 ## IF identities and evolution, without manufactured events
 
 Each native family is linked to a research condition definition in the
 existing executable-IF schema, with its proposed `condition_category`, exact
-signal hash and retained measurement hash. These definitions express the
-**unmeasured direct-disruption proposition** investigated alongside each
-family. Native observations are not admitted as that proposition's evidence.
-The storm consumer binds the exact definitions and refuses stale hashes,
-changed membership, or coherently rehashed changes to the commissioned rule.
+signal hash and a separately retained measurement hash. The definitions express
+the **direct-share arm only**, not the two-arm OR. The binding-category arm has
+no executable IF identity here. Changing its categories or logic changes the
+arithmetic implementation, not these direct-arm definitions; whole-file byte
+replay and focused truth-table tests guard the retained consumer separately.
+
+These are **family-level placeholders to be superseded, not admitted against**.
+Their descriptive jurisdiction is not an ISO3 scope and their fixed research
+epoch is not a continuing admission window. Real country-specific admission
+requires new scoped identities, retained old meaning, and explicit reviewed
+adoption. There is no generic supersede operation in this kernel. Constructing
+those identities would not itself be empirical evolution.
+
+Measurement hash and source vintage live in the wrapper, outside hashed signal
+fields. A vintage refresh alone must not change the IF meaning. Native
+observations remain context, not the unmeasured proposition's evidence.
+`verifyStormBindings` recomputes the commissioned definitions and exact retained
+context, rejecting stale hashes, changed membership and coherently rehashed
+definition mutations against that expectation. The checked-in artefact is
+guarded by whole-file byte replay in CI; focused tests now also load its actual
+bindings and independently pin the threshold and proposition text. Neither
+mechanism authenticates a source or proves equivalence with the two-arm
+arithmetic API.
 
 The three definitions are new construction, not three empirical discoveries
 or three evolution events. The source audit corrected interpretation before
 any native stock was adopted as disruption evidence. Intentionally adopting
 a known-wrong denominator just to retire it would manufacture an event.
 **New real events: 0. Programme total: 1, not the required 3.**
+These are the dated Round 10 review findings, not live counters. The generated
+storm review no longer embeds literal programme evolution counts; its producer
+does not inspect the event ledger.
 
 The [construct-correction policy](../../contracts/executable-if/construct-correction-policy.md)
 still applies. A later change of estimand requires a new identity, retained
