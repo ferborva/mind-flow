@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { assertReproductionCannotBeWeakened } from "./support/workflow-assertions.mjs";
+import { assertReproductionCannotBeWeakened, assertRound10ReplaySteps } from "./support/workflow-assertions.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..", "..");
@@ -18,6 +18,27 @@ const snapshotIndex = JSON.parse(readFileSync(
   resolve(root, "dashboard", "snapshots", "index.json"),
   "utf8",
 ));
+
+test('Round 10 income and Canadian replay steps have exact unconditional commands', () => {
+  assertRound10ReplaySteps(workflow);
+});
+
+test('Round 10 replay pins reject omission, duplication, conditionals and failure tolerance', () => {
+  for (const [name, command] of [
+    ['Reproduce retained Round 10 income indicators', 'node signals/countries/tools/income-measurements.mts --check'],
+    ['Replay retained Canadian forecast design', 'node forecasts/prospective-pilot/round-10-canada/draft.mts --check'],
+    ['Replay Canadian statistical predicate basis', 'node forecasts/prospective-pilot/round-10-canada/build-basis.mts --check'],
+  ]) {
+    const block = `      - name: ${name}\n        run: ${command}`;
+    assert.ok(workflow.includes(block));
+    for (const replacement of ['', `${block}\n${block}`, block.replace(name, 'Omitted replay'),
+      block + ' || true', block.replace('--check', ''),
+      block.replace('        run:', '        if: false\n        run:'),
+      block.replace('        run:', '        continue-on-error: true\n        run:')]) {
+      assert.throws(() => assertRound10ReplaySteps(workflow.replace(block, replacement)));
+    }
+  }
+});
 
 test("CI reproduces tests, generated artifacts and frozen-ref checks", () => {
   assert.match(workflow, /^name:\s*Integrity/m);
