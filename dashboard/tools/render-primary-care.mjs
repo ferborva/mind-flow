@@ -46,7 +46,7 @@ export function renderPrimaryCare(root) {
     const source = derived.source_reviews.find(source => source.id === series.source_id);
     if (!source) throw new Error(`Missing GP source ${category}`);
     const label = category === 'price' ? 'Delayed or missed needed GP care due to cost' : category === 'permission' ? 'Routine telehealth rule parameter, with alternatives and exceptions' : category === 'proximity' ? 'Reported ASGS workforce-rate proxy, not MMM' : category === 'availability' ? 'Urgent GP care obtained within four hours' : 'Difficulty navigating the health system, national context';
-    return `<tr data-condition-category="${category}"><td>${escapeHtml(category)}</td><td>${escapeHtml(label)}<br><strong>${escapeHtml(values)}</strong><br>${escapeHtml(geography)} · ${escapeHtml(period)} · ${escapeHtml(series.measurement_role)}</td><td>${escapeHtml(series.population)}<br>${escapeHtml(series.evidence_ceiling)}</td><td>Owner role: ${escapeHtml(series.owner)}. Control not verified.</td><td>${link(series.source_url, source.publisher)}<br>Released ${escapeHtml(source.publication_date ?? 'date unverified')}; retained ${escapeHtml(source.http_date)}<br>Licence ${escapeHtml(source.licence_review_status)}<br>${escapeHtml(series.source_artifact_hash)}</td></tr>`;
+    return `<tr data-condition-category="${category}"><th scope="row">${escapeHtml(category)}</th><td>${escapeHtml(label)}<br><strong>${escapeHtml(values)}</strong><br>${escapeHtml(geography)} · ${escapeHtml(period)} · ${escapeHtml(series.measurement_role)}</td><td>${escapeHtml(series.population)}<br>${escapeHtml(series.evidence_ceiling)}</td><td>Owner role: ${escapeHtml(series.owner)}. Control not verified.</td><td>${link(series.source_url, source.publisher)}<br>Released ${escapeHtml(source.publication_date ?? 'date unverified')}; retained ${escapeHtml(source.http_date)}<br>Licence ${escapeHtml(source.licence_review_status)}<br>${escapeHtml(series.source_artifact_hash)}</td></tr>`;
   }).join('\n');
   const diagnosis = derived.binding_diagnosis;
   const context = depth.histories.map(item => {
@@ -64,10 +64,14 @@ export function renderPrimaryCare(root) {
       if (item.id === 'after-hours-gp' && ['price', 'availability'].includes(condition.condition_category)) {
         const id = condition.condition_category === 'price' ? 'after-hours-cost-main-reason' : 'after-hours-delay';
         const series = depth.after_hours_series.find(s => s.id === id);
-        observation += ` Australia 2024-25: ${formatObservation(series.points.at(-1))}. ${series.evidence_ceiling}`;
+        observation += ` Australia 2024-25: ${formatObservation(series.points.at(-1))}. ${series.population} ${series.evidence_ceiling}`;
       }
       const source = depth.source_reviews.find(s => s.id === condition.source_id);
-      return `<tr data-condition-category="${escapeHtml(condition.condition_category)}"><td>${escapeHtml(condition.condition_category)} (${escapeHtml(condition.status)})</td><td>${escapeHtml(observation)}</td><td><strong>Missing series:</strong> ${escapeHtml(condition.missing_series)}<br>${escapeHtml(condition.why_missing)}</td><td>${link(condition.source_url, source.publisher)}<br>Retained ${escapeHtml(source.http_date)}; licence ${escapeHtml(source.licence_review_status)}<br>${escapeHtml(condition.source_artifact_hash)}</td></tr>`;
+      const supportingLinks = condition.source_refs.slice(1).map(ref => {
+        const support = depth.source_reviews.find(s => s.id === ref.source_id);
+        return `<br>${link(ref.source_url, ref.label)}<br>${escapeHtml(ref.source_artifact_hash)}; retained ${escapeHtml(support.http_date)}; licence ${escapeHtml(support.licence_review_status)}`;
+      }).join('');
+      return `<tr data-condition-category="${escapeHtml(condition.condition_category)}"><th scope="row">${escapeHtml(condition.condition_category)} (${escapeHtml(condition.status)})</th><td>${escapeHtml(observation)}</td><td><strong>Missing series:</strong> ${escapeHtml(condition.missing_series)}<br>${escapeHtml(condition.why_missing)}</td><td>${link(condition.source_url, source.publisher)}<br>Retained ${escapeHtml(source.http_date)}; licence ${escapeHtml(source.licence_review_status)}<br>${escapeHtml(condition.source_artifact_hash)}${supportingLinks}</td></tr>`;
     }).join('\n');
     return `<h3>${escapeHtml(item.label)}</h3><p>${escapeHtml(item.geography)}. ${escapeHtml(item.binding_summary)}</p><div class="table-wrap"><table id="${escapeHtml(item.id)}-condition-table"><thead><tr><th>Condition</th><th>Retained observation</th><th>Evidence needed to identify the binding condition today</th><th>Source</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }).join('\n');

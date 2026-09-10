@@ -14,11 +14,16 @@ test('prescription and after-hours each render five categories, exact gaps and i
     const table = html.match(new RegExp(`<table id="${item}-condition-table"[\\s\\S]*?</table>`))?.[0];
     assert.ok(table, `Missing public item ${item}`);
     for (const category of ['price', 'permission', 'proximity', 'availability', 'capability']) assert.match(table, new RegExp(`data-condition-category="${category}"`));
+    assert.equal((table.match(/<th scope="row">/g) ?? []).length, 5);
     assert.equal((table.match(/Missing series:/g) ?? []).length, 5);
   }
   assert.match(html, /within the approximate 95% interval/);
   assert.match(html, /2013-14/);
   assert.match(html, /2015-16/);
+  assert.match(html, /Indigenous Community Strata/);
+  assert.match(html, /non-private dwellings/);
+  assert.match(html, /dispensing permission and subsidy eligibility are separate/i);
+  assert.match(html, /href="https:\/\/www.pbs.gov.au\/info\/healthpro\/explanatory-notes\/section1\/Section_1_5_Explanatory_Notes"/);
   assert.doesNotMatch(html, /other three basket items still lack|significance and agency effects are not established/);
 });
 
