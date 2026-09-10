@@ -41,7 +41,7 @@ export async function collect({destination, fetcher=fetch, clock=()=>new Date(),
     try {
       for await(const chunk of response.body) {
         length+=chunk.length;
-        if(length>cap) throw new Error('response exceeds byte cap');
+        if(length>cap) { chunks.push(Buffer.from(chunk).subarray(0,Math.max(0,cap-(length-chunk.length)))); throw new Error('response exceeds byte cap'); }
         chunks.push(Buffer.from(chunk));
       }
     } catch(error) {
@@ -61,6 +61,7 @@ export async function collect({destination, fetcher=fetch, clock=()=>new Date(),
     const source=discoverArchive(page.bytes.toString('utf8'));
     if(!source) { await json('observation.json',{state:'not-listed',observed_at:page.receipt.ended_at,global_absence_verified:false}); return {state:'not-listed'}; }
     const archive=await capture(source,'2026-10_nero.zip',archiveCap);
+    if(archive.bytes.length<4||archive.bytes.readUInt32LE(0)!==0x04034b50||/content-type:\s*(text\/html|application\/(?:json|xml))/i.test(await readFile(join(destination,'2026-10_nero.zip.headers.txt'),'utf8'))) throw new Error('not a native ZIP response');
     const observed_at=archive.receipt.ended_at;
     if(!inWindow(observed_at)) throw new Error('download completed outside admission window');
     for(const campaign of campaigns) {
@@ -83,6 +84,6 @@ export async function collect({destination, fetcher=fetch, clock=()=>new Date(),
 }
 if(process.argv[1] && import.meta.url===pathToFileURL(resolve(process.argv[1])).href) {
   const destination=process.argv[2];
-  if(!destination) throw new Error('new destination required');
+  if(!destination||process.argv.length!==3||destination.startsWith('-')) throw new Error('exactly one new destination required');
   console.log(JSON.stringify(await collect({destination:resolve(destination)})));
 }

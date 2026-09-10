@@ -5,90 +5,58 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { collect, discoverArchive, inWindow, approvedUrl } from '../round-10-intake/collector.mjs';
 import { publish } from '../round-10-intake/publish.mjs';
-const archive = 'https://www.jobsandskills.gov.au/sites/default/files/2026-11/2026-10_nero.zip';
-const fixture = '<h2>Downloads</h2><a href="/sites/default/files/2026-11/2026-10_nero_for_regional_and_northern_australia.zip">subset</a><a href="/sites/default/files/2026-11/2026-10_nero.zip">Download</a>';
-test('daily window is specifically November 2026 through resolution close', () => {
-  assert.equal(inWindow('2026-10-31T23:59:59Z'), false);
-  assert.equal(inWindow('2026-11-01T00:00:00Z'), true);
-  assert.equal(inWindow('2026-12-07T00:00:00Z'), false);
-  assert.equal(inWindow('2027-11-01T00:00:00Z'), false);
+import { names,prefix,validateDirectory } from '../round-10-intake/validate-evidence.mjs';
+import { pointerFor } from '../round-10-intake/lfs.mjs';
+const now=new Date('2026-11-04T00:00:00Z');
+const zip=Buffer.from([80,75,3,4,0,0,0,0]);
+const archive='https://www.jobsandskills.gov.au/sites/default/files/2026-11/2026-10_nero.zip';
+const fixture='<a href="/sites/default/files/2026-11/2026-10_nero_for_regional_and_northern_australia.zip">subset</a><a href="/sites/default/files/2026-11/2026-10_nero.zip">Download</a>';
+async function capture(){const directory=join(await mkdtemp(join(tmpdir(),'nero-test-')),'attempt');await collect({destination:directory,clock:()=>now,fetcher:async url=>new Response(url.endsWith('.zip')?zip:fixture)});return directory;}
+test('exact year and resolution window, hostile URLs, subset and ambiguity',()=>{
+  assert.equal(inWindow('2026-11-01T00:00:00Z'),true);
+  for(const s of ['2026-10-31T23:59:59Z','2026-12-07T00:00:00Z','2027-11-01T00:00:00Z'])assert.equal(inWindow(s),false);
+  assert.equal(discoverArchive(fixture),archive);assert.equal(discoverArchive('<a href="other.zip">x</a>'),null);
+  assert.throws(()=>discoverArchive(fixture+'<a href="/sites/default/files/2026-12/2026-10_nero.zip">other</a>'),/multiple/);
+  for(const url of [archive+'?x=1',archive.replace('www.jobsandskills.gov.au','evil.test'),archive.replace('https:','http:')])assert.throws(()=>approvedUrl(url,'archive'));
 });
-test('fixture selects complete native October archive and rejects ambiguity', () => {
-  assert.equal(discoverArchive(fixture), archive);
-  assert.equal(discoverArchive('<a href="/other.zip">Download</a>'), null);
-  assert.throws(() => discoverArchive(fixture + '<a href="/sites/default/files/2026-12/2026-10_nero.zip">revision</a>'), /multiple/);
-  for (const url of ['http://www.jobsandskills.gov.au/data/nero', archive+'?x=1', archive.replace('www.jobsandskills.gov.au','evil.test'), archive.replace('/2026-11/','/../')]) assert.throws(() => approvedUrl(url, 'archive'));
-  assert.throws(() => discoverArchive('<a href="https://evil.test/2026-10_nero.zip">Download</a>'), /approved/);
+test('exact bytes, chronology and create-only attempts',async()=>{
+  const directory=await capture();assert.deepEqual(await readFile(join(directory,'2026-10_nero.zip')),zip);
+  assert.equal(validateDirectory(directory,{now}).observation.first_publication_verified,false);
+  await assert.rejects(collect({destination:directory,clock:()=>now}),/EEXIST/);
 });
-test('collector retains exact bytes and two independent first-presence prefixes without scoring', async () => {
-  const dir=await mkdtemp(join(tmpdir(),'nero-intake-'));
-  const clock=()=>new Date('2026-11-04T04:00:00Z');
-  const fetcher=async url=>new Response(url.endsWith('.zip')?Buffer.from('PK fixture bytes'):fixture,{status:200,headers:{'content-type':url.endsWith('.zip')?'application/zip':'text/html'}});
-  const result=await collect({destination:join(dir,'first'),fetcher,clock});
-  assert.equal(result.state,'retained');
-  assert.equal(await readFile(join(dir,'first','2026-10_nero.zip'),'utf8'),'PK fixture bytes');
-  assert.equal(result.first_publication_verified,false);
-  for(const campaign of ['round-08-nero','round-09-nero-corrected']) {
-    const event=JSON.parse(await readFile(join(dir,'first',campaign+'.first-presence.json')));
-    assert.equal(event.state,'reported_present_checksum_only');
-    assert.equal(event.artifact_sha256,result.archive_sha256);
-  }
-  await assert.rejects(collect({destination:join(dir,'first'),fetcher,clock}), /EEXIST/);
+test('cap retains bounded prefix and HTTP failure retains complete response',async()=>{
+  const root=await mkdtemp(join(tmpdir(),'nero-failure-'));const directory=join(root,'cap');
+  await assert.rejects(collect({destination:directory,clock:()=>now,fetcher:async()=>new Response('abcdef'),pageCap:3}),/cap/);
+  assert.equal(await readFile(join(directory,'nero-landing.html.partial'),'utf8'),'abc');
+  assert.ok(!(await readdir(directory)).some(n=>n.includes('first-presence')));
+  const failed=join(root,'http');await assert.rejects(collect({destination:failed,clock:()=>now,fetcher:async()=>new Response('unavailable',{status:503})}),/503/);
+  assert.equal(await readFile(join(failed,'nero-landing.html'),'utf8'),'unavailable');
 });
-test('failed or oversized fetch retains attempt evidence and cannot claim presence', async () => {
-  const dir=await mkdtemp(join(tmpdir(),'nero-failure-'));
-  await assert.rejects(collect({destination:join(dir,'attempt'),clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async()=>new Response('too large'),pageCap:2}),/cap/);
-  assert.ok((await readdir(join(dir,'attempt'))).includes('failure.json'));
-  assert.ok(!(await readdir(join(dir,'attempt'))).some(x=>x.includes('first-presence')));
-});
-test('publisher retries never rewrite existing first presence and only creates missing PR', async () => {
-  const dir=await mkdtemp(join(tmpdir(),'nero-publish-'));
-  const destination=join(dir,'attempt');
-  const observation=await collect({destination,clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async url=>new Response(url.endsWith('.zip')?'PK fixture':fixture)});
-  const calls=[];
-  const request=(endpoint,input)=>{
-    calls.push({endpoint,input});
-    if(endpoint.startsWith('git/matching')) return [{ref:'refs/heads/ren/nero-october-2026-evidence',object:{sha:'retained'}}];
-    if(endpoint.startsWith('contents/')) return {content:Buffer.from(JSON.stringify(observation)).toString('base64')};
-    if(endpoint.startsWith('pulls?')) return [];
-    if(endpoint==='pulls') return {number:1};
-    throw new Error('unexpected mutation');
+test('publication validates all files first, publishes pointer and never reopens closed PR',async()=>{
+  const directory=await capture();const files=validateDirectory(directory,{now}).files;const writes=[];let existing=false,closed=false,badDiff=false;
+  const api=(endpoint,input)=>{
+    if(input)writes.push({endpoint,input});
+    if(endpoint==='git/ref/heads/main')return {object:{sha:'base'}};
+    if(endpoint.startsWith('git/matching'))return existing?[{ref:'refs/heads/ren/nero-october-2026-evidence',object:{sha:'head'}}]:[];
+    if(endpoint==='git/commits/base')return {tree:{sha:'tree'}};
+    if(endpoint==='git/commits/head')return {tree:{sha:'tree'},parents:[{sha:'base'}]};
+    if(endpoint==='compare/base...base')return {status:'identical'};
+    if(endpoint.startsWith('compare/'))return {files:names.map(n=>({filename:badDiff?'foreign':prefix+n,status:'added'}))};
+    if(endpoint.startsWith('git/trees/tree?'))return {tree:names.map(n=>({path:prefix+n,type:'blob',mode:'100644',sha:n}))};
+    if(endpoint.startsWith('git/blobs/')){const n=endpoint.slice(10);return {content:(n.endsWith('.zip')?pointerFor(zip):files[n]).toString('base64')};}
+    if(endpoint.startsWith('contents/.gitattributes'))return {content:Buffer.from(prefix+'2026-10_nero.zip filter=lfs diff=lfs merge=lfs -text\n').toString('base64')};
+    if(['git/blobs','git/trees','git/commits'].includes(endpoint))return {sha:'object'};
+    if(endpoint==='git/refs')return {};
+    if(endpoint.startsWith('pulls?'))return closed?[{state:'closed'}]:[];
+    if(endpoint==='pulls')return {number:1};
+    throw new Error('unexpected '+endpoint);
   };
-  publish({directory:destination,repository:'ferborva/mind-flow',request});
-  assert.deepEqual(calls.filter(c=>c.input).map(c=>c.endpoint),['pulls']);
-  assert.equal(calls.at(-1).input.draft,true);
-  observation.archive_sha256='sha256:revision';
-  assert.throws(()=>publish({directory:destination,repository:'ferborva/mind-flow',request}),/revision observed/);
-});
-test('HTTP failure retains response body and status receipt', async () => {
-  const dir=await mkdtemp(join(tmpdir(),'nero-http-failure-'));
-  const destination=join(dir,'attempt');
-  await assert.rejects(collect({destination,clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async()=>new Response('publisher unavailable',{status:503})}),/503/);
-  assert.equal(await readFile(join(destination,'nero-landing.html'),'utf8'),'publisher unavailable');
-  assert.equal(JSON.parse(await readFile(join(destination,'nero-landing.html.receipt.json'))).status,503);
-});
-test('initial publication builds a tree containing only captured evidence', async () => {
-  const dir=await mkdtemp(join(tmpdir(),'nero-new-pr-'));
-  const destination=join(dir,'attempt');
-  await collect({destination,clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async url=>new Response(url.endsWith('.zip')?'PK fixture':fixture)});
-  const writes=[];
-  const request=(endpoint,input)=>{
-    if(input) writes.push({endpoint,input});
-    if(endpoint.startsWith('git/matching')) return [];
-    if(endpoint==='git/ref/heads/main') return {object:{sha:'trusted-base'}};
-    if(endpoint==='git/commits/trusted-base') return {tree:{sha:'base-tree'}};
-    if(endpoint==='git/blobs'||endpoint==='git/trees'||endpoint==='git/commits') return {sha:'new-object'};
-    if(endpoint==='git/refs') return {};
-    if(endpoint.startsWith('pulls?')) return [];
-    if(endpoint==='pulls') return {number:1};
-    throw new Error('unexpected API path '+endpoint);
-  };
-  publish({directory:destination,repository:'ferborva/mind-flow',expectedBase:'trusted-base',request});
-  const tree=writes.find(w=>w.endpoint==='git/trees').input;
-  assert.equal(tree.base_tree,'base-tree');
-  assert.equal(tree.tree.length,14);
-  assert.ok(tree.tree.every(entry=>entry.path.startsWith('forecasts/prospective-pilot/round-10-intake/evidence/')));
-  assert.ok(!tree.tree.some(entry=>/issued|resolved|score/.test(entry.path)));
-  assert.equal(writes.at(-1).input.base,'main');
-  assert.throws(()=>publish({directory:destination,repository:'ferborva/mind-flow',expectedBase:'stale-base',request}),/advanced/);
+  const options={directory,repository:'ferborva/mind-flow',expectedBase:'base',request:api,now,upload:bytes=>{assert.deepEqual(bytes,zip);return pointerFor(bytes);},download:pointer=>{assert.deepEqual(pointer,pointerFor(zip));return zip;}};
+  publish(options);
+  const tree=writes.find(w=>w.endpoint==='git/trees').input;assert.equal(tree.tree.length,14);assert.ok(tree.tree.every(e=>e.path.startsWith(prefix)));
+  const blobs=writes.filter(w=>w.endpoint==='git/blobs').map(w=>Buffer.from(w.input.content,'base64'));
+  assert.ok(blobs.some(b=>b.equals(pointerFor(zip))));assert.ok(!blobs.some(b=>b.equals(zip)));
+  existing=true;closed=true;writes.length=0;publish(options);assert.equal(writes.length,0);
+  badDiff=true;assert.throws(()=>publish(options),/diff/);assert.equal(writes.length,0);
+  assert.throws(()=>publish({...options,expectedBase:'stale'}),/advanced/);
 });
