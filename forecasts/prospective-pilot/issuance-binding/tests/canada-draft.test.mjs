@@ -10,6 +10,11 @@ test('retained native source reproduces an unissued draft and both baselines',()
   assert.equal(draft.companion.storm_panel_admitted,false);
   assert.equal(draft.baselines.direction,0.483333);
   assert.equal(draft.baselines.naive,0.5);
+  assert.equal(draft.forecaster.probability,0.090909);
+  assert.equal(draft.forecaster.pairs.length,9);
+  const independent=draft.forecaster.pairs.filter(p=>Number(p.october)>=Number(p.august)).length;
+  assert.equal(independent,0);
+  assert.equal(draft.forecaster.probability,Number(((independent+1)/11).toFixed(6)));
   assert.equal(draft.reference.value,'7.302');
   assert.equal(draft.target.time,'2026M10');
   assert.equal(draft.history.observations.length,128);

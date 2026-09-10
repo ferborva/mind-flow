@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { extractCanadaCompanion, runCountryBaseline, CANADA_SELECTOR } from '../issuance-binding/country-baseline-execution.mjs';
+import { extractCanadaCompanion, runCountryBaseline, runCanadaSeasonalForecaster, CANADA_SELECTOR } from '../issuance-binding/country-baseline-execution.mjs';
 import { assertCanadaDraftTarget } from './target-policy.mjs';
 
 const directory=import.meta.dirname;
@@ -29,6 +29,7 @@ export function deriveCanadaDraft(){
     companion:{family:'income-unemployment.v1',storm_panel_admitted:false,breadth:'single-country companion only',estimation:'ILO microdata-processed reported LFS series; not ILO modelled estimates',denominator:'Canadian labour force aged 15 and older, both sexes',unit:'percent',disruption_measurement:'not-measured',seasonal_adjustment:'not asserted; no StatCan headline substitution'},
     target:{...CANADA_SELECTOR,time:'2026M10',operator:'gte',native_threshold:'7.302',note_indicator:'I12:422',note_source:'R1:3513',obs_status:'',note_classif:''},
     reference,history,
+    forecaster:runCanadaSeasonalForecaster(history),
     baselines:{algorithm_id:'mind-flow.country-two-month-direction',algorithm_version:'1.0.0',parameters,direction:runCountryBaseline('mind-flow.country-two-month-direction',history,parameters),naive:runCountryBaseline('mind-flow.equal-probability',history,parameters),method:'118 two-month endpoint comparisons over 120 complete months; nonnegative changes count; Laplace smoothing (successes+1)/(comparisons+2); six-decimal half-even rounding; no parameter tuning'},
     clocks:{observation_window:{starts_at:'2026-10-01T00:00:00Z',ends_at:'2026-10-31T23:59:59Z'},outcome_publication_not_before:'2026-11-06T00:00:00Z',resolve_after:'2026-11-06T00:00:00Z',resolution_window_closes_at:'2026-12-31T23:59:59Z',issue_window:'UNSET: requires review, source absence, sealing and external receipt before October'},
     resolution_design:{authority:'ILOSTAT filtered endpoint, not direct Statistics Canada cell',first_eligible:'first complete retained HTTP 200 response after observation end and publication lower bound with exactly one matching native tuple and unchanged flags',comparison:'decimal native percent >= frozen 7.302; August revisions do not move threshold',void_if:'missing target by close, duplicate/conflicting cell, changed native definition/flags, source unavailable, or capture fails integrity; never impute zero or substitute another series',calendar_limit:'Statistics Canada calendar schedules upstream October LFS for 6 November; dates may change and ILO ingestion has no guaranteed lag'},

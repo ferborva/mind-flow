@@ -553,6 +553,72 @@
       }
     ]
   },
+  "forecaster": {
+    "algorithm_id": "mind-flow.canada-august-october-laplace",
+    "algorithm_version": "1.0.0",
+    "probability": 0.090909,
+    "successes": 0,
+    "comparisons": 9,
+    "pairs": [
+      {
+        "year": 2017,
+        "august": "6.902",
+        "october": "5.803",
+        "nonnegative": false
+      },
+      {
+        "year": 2018,
+        "august": "6.658",
+        "october": "5.182",
+        "nonnegative": false
+      },
+      {
+        "year": 2019,
+        "august": "6.348",
+        "october": "5.037",
+        "nonnegative": false
+      },
+      {
+        "year": 2020,
+        "august": "11.053",
+        "october": "8.168",
+        "nonnegative": false
+      },
+      {
+        "year": 2021,
+        "august": "8.055",
+        "october": "5.876",
+        "nonnegative": false
+      },
+      {
+        "year": 2022,
+        "august": "5.927",
+        "october": "4.672",
+        "nonnegative": false
+      },
+      {
+        "year": 2023,
+        "august": "6.217",
+        "october": "5.248",
+        "nonnegative": false
+      },
+      {
+        "year": 2024,
+        "august": "7.454",
+        "october": "5.984",
+        "nonnegative": false
+      },
+      {
+        "year": 2025,
+        "august": "7.983",
+        "october": "6.254",
+        "nonnegative": false
+      }
+    ],
+    "method": "All nine August-to-October pairs wholly inside the fixed September 2016 to August 2026 baseline; (nonnegative pairs+1)/(pairs+2), six decimals",
+    "selection_disclosure": "Method chosen after examining historical seasonal pattern; target and source selected for future calendar and retained availability. Not a blind design or optimised threshold.",
+    "uncertainty": "Nine potentially dependent historical pairs; not calibrated, no skill claim, and binomial precision is not validated uncertainty."
+  },
   "baselines": {
     "algorithm_id": "mind-flow.country-two-month-direction",
     "algorithm_version": "1.0.0",

@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from 'node:util';
-import { CANADA_SELECTOR } from '../issuance-binding/country-baseline-execution.mjs';
+import { CANADA_SELECTOR, assertCanadaNativeRow } from '../issuance-binding/country-baseline-execution.mjs';
 
 const target=Object.freeze({...CANADA_SELECTOR,time:'2026M10',operator:'gte',native_threshold:'7.302',note_indicator:'I12:422',note_source:'R1:3513',obs_status:'',note_classif:''});
 const question='Will the first eligible retained ILO Canadian October 2026 unemployment rate be at least 7.302 percent?';
@@ -22,6 +22,7 @@ export function resolveCanadaNativeCell(rows){
   const selected=rows.filter(row=>Object.entries(CANADA_SELECTOR).every(([k,v])=>row[k]===v)&&row.time===target.time);
   if(selected.length!==1)throw new Error('exactly one native October cell required; unresolved');
   const row=selected[0];
+  assertCanadaNativeRow(row);
   for(const key of ['note_indicator','note_source','obs_status','note_classif'])if(row[key]!==target[key])throw new Error('native metadata changed; unresolved');
   if(typeof row.obs_value!=='string'||!/^\d{1,3}(?:\.\d{1,3})?$/.test(row.obs_value))throw new Error('native percent missing or malformed; unresolved');
   const [whole,fraction='']=row.obs_value.split('.');const value=Number(whole)*1000+Number(fraction.padEnd(3,'0'));
