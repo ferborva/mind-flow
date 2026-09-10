@@ -35,6 +35,14 @@ const freezeSchema = JSON.parse(freezeSchemaBytes.toString("utf8"));
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateFreezeSchema = ajv.compile(freezeSchema);
+const round10SchemaPath = 'meta/review-freeze/review-freeze.v1.1.schema.json';
+const round10SchemaBytes = readFileSync(resolve(here, 'review-freeze.v1.1.schema.json'));
+const validateRound10Schema = ajv.compile(JSON.parse(round10SchemaBytes.toString('utf8')));
+function freezeEdition(policy) {
+  return policy.policy_id === 'review-freeze.round-10'
+    ? { version: '1.1.0', path: round10SchemaPath, bytes: round10SchemaBytes, validate: validateRound10Schema, gitLfs: true }
+    : { version: '1.0.0', path: 'meta/review-freeze/review-freeze.schema.json', bytes: freezeSchemaBytes, validate: validateFreezeSchema, gitLfs: false };
+}
 const MAX_COMMAND_OUTPUT_BYTES = 64 * 1024 * 1024;
 const DEFAULT_COMMAND_TIMEOUT_MS = 120_000;
 const HASH = /^sha256:[a-f0-9]{64}$/;
@@ -440,6 +448,8 @@ export const ROUND_10_REVIEW_POLICY = Object.freeze({
       ['pilots/australia/tools/round-10-nero-retrospective.mts', 'Full retained NERO replay'],
       ['pilots/australia/tests/round-10-nero-retrospective.test.mjs', 'Hostile stock-to-disruption and national-to-local boundaries'],
       ['meta/review-freeze/tests/round-10-policy.test.mjs', 'Exact additive command and policy regressions'],
+      ['meta/review-freeze/review-freeze.v1.1.schema.json', 'Same-family Round 10 closed runtime edition including Git LFS'],
+      ['meta/review-freeze/tests/round-10-lfs-runtime.test.mjs', 'Real Git LFS clean/smudge under the recorded narrow toolchain'],
       ['meta/review-freeze/round-09.1.review-freeze.json', 'Unchanged canonical prior receipt'],
     ].map(([path, role]) => ({ path, role })),
   ],
@@ -701,12 +711,13 @@ export function executableRecord(name, versionArgs, explicitPath, {
   };
 }
 
-function runtimeInputs(repositoryRoot, commit) {
+function runtimeInputs(repositoryRoot, commit, edition) {
   const lockBytes = fileAtCommit(repositoryRoot, commit, "package-lock.json");
   return {
     node: executableRecord("node", ["--version"]),
     npm: executableRecord("npm", ["--version"]),
     git: executableRecord("git", ["--version"]),
+    ...(edition?.gitLfs ? { git_lfs: executableRecord('git-lfs', ['version']) } : {}),
     python3: executableRecord("python3", ["--version"]),
     unzip: executableRecord("unzip", ["-v"]),
     sh: executableRecord("sh", ["--version"], "/bin/sh", {
@@ -889,6 +900,10 @@ function runCommand(command, sandbox, environment, runtime) {
   };
 }
 
+function runtimeExecutables(runtime) {
+  return [['node', 'node'], ['npm', 'npm'], ['git', 'git'], ['python3', 'python3'], ['unzip', 'unzip'], ['sh', 'sh'],
+    ...(runtime.git_lfs ? [['git_lfs', 'git-lfs']] : [])];
+}
 function prepareRuntimeControls(sandbox, runtime) {
   const cache = resolve(sandbox, ".npm-cache");
   const toolchain = resolve(sandbox, ".review-toolchain");
@@ -897,16 +912,16 @@ function prepareRuntimeControls(sandbox, runtime) {
   mkdirSync(toolchain, { recursive: true });
   writeFileSync(resolve(cache, "empty-user.npmrc"), "", "utf8");
   writeFileSync(resolve(cache, "empty-global.npmrc"), "", "utf8");
-  for (const name of ["node", "npm", "git", "python3", "unzip", "sh"]) {
-    symlinkSync(runtime[name].executable_path, resolve(toolchain, name));
+  for (const [name, executable] of runtimeExecutables(runtime)) {
+    symlinkSync(runtime[name].executable_path, resolve(toolchain, executable));
   }
 }
 
 function runtimeControlsUnchanged(sandbox, runtime) {
   const toolchain = resolve(sandbox, ".review-toolchain");
-  return ["node", "npm", "git", "python3", "unzip", "sh"].every((name) => {
+  return runtimeExecutables(runtime).every(([name, executable]) => {
     try {
-      const link = resolve(toolchain, name);
+      const link = resolve(toolchain, executable);
       return lstatSync(link).isSymbolicLink() &&
         realpathSync(link) === runtime[name].executable_path &&
         canonicalHash(readFileSync(realpathSync(link))) === runtime[name].executable_sha256;
@@ -1038,7 +1053,8 @@ export function createReviewFreeze({
     fileRecord(repositoryRoot, reviewedCommit, required));
   const trackedTree = trackedTreeInventory(repositoryRoot, reviewedCommit);
   const buildCommands = policy.build_commands.map(commandRecord);
-  const runtime = runtimeInputs(repositoryRoot, reviewedCommit);
+  const edition = freezeEdition(policy);
+  const runtime = runtimeInputs(repositoryRoot, reviewedCommit, edition);
   const reproduction = executeCommands
     ? reproduce(repositoryRoot, reviewedCommit, buildCommands, runtime, policy.generated_outputs)
     : {
@@ -1055,19 +1071,19 @@ export function createReviewFreeze({
   const reviewedGenerator = requiredFiles.find(({ path }) =>
     path === "meta/review-freeze/review-freeze.mjs");
   const reviewedGeneratorSchema = requiredFiles.find(({ path }) =>
-    path === "meta/review-freeze/review-freeze.schema.json");
+    path === edition.path);
   const manifest = {
-    schema_version: "1.0.0",
+    schema_version: edition.version,
     freeze_id: `${policy.review_round}.review-inputs`,
     status: "review-inputs-frozen",
     created_at: freezeCreatedAt,
     generator: {
       id: "mind-flow.review-freeze",
-      version: "1.0.0",
+      version: edition.version,
       path: "meta/review-freeze/review-freeze.mjs",
       sha256: reviewedGenerator?.sha256 ?? canonicalHash(generatorBytes),
-      schema_path: "meta/review-freeze/review-freeze.schema.json",
-      schema_sha256: reviewedGeneratorSchema?.sha256 ?? canonicalHash(freezeSchemaBytes),
+      schema_path: edition.path,
+      schema_sha256: reviewedGeneratorSchema?.sha256 ?? canonicalHash(edition.bytes),
     },
     review_target: {
       ref: policy.reviewed_ref,
@@ -1128,8 +1144,9 @@ export function verifyReviewFreeze(manifest, {
   requireGeneratorParity = false,
 } = {}) {
   const errors = [];
-  if (!validateFreezeSchema(manifest)) {
-    for (const error of validateFreezeSchema.errors ?? []) {
+  const edition = freezeEdition(policy);
+  if (!edition.validate(manifest)) {
+    for (const error of edition.validate.errors ?? []) {
       errors.push(issue(
         "FREEZE_SCHEMA_INVALID",
         error.instancePath || "/",
@@ -1143,7 +1160,7 @@ export function verifyReviewFreeze(manifest, {
   if (!HASH.test(manifest?.freeze_hash || "") || manifest.freeze_hash !== canonicalHash(withoutHash)) {
     errors.push(issue("FREEZE_HASH_MISMATCH", "/freeze_hash", "freeze content differs from its content address"));
   }
-  if (manifest?.schema_version !== "1.0.0" || manifest?.status !== "review-inputs-frozen") {
+  if (manifest?.schema_version !== edition.version || manifest?.status !== "review-inputs-frozen") {
     errors.push(issue("FREEZE_SCHEMA_INVALID", "/", "review freeze identity or status is invalid"));
   }
   if (!same(manifest?.boundaries, BOUNDARIES)) {
@@ -1151,11 +1168,11 @@ export function verifyReviewFreeze(manifest, {
   }
   const generator = {
     id: "mind-flow.review-freeze",
-    version: "1.0.0",
+    version: edition.version,
     path: "meta/review-freeze/review-freeze.mjs",
     sha256: canonicalHash(readFileSync(fileURLToPath(import.meta.url))),
-    schema_path: "meta/review-freeze/review-freeze.schema.json",
-    schema_sha256: canonicalHash(freezeSchemaBytes),
+    schema_path: edition.path,
+    schema_sha256: canonicalHash(edition.bytes),
   };
   if (requireGeneratorParity && !same(manifest?.generator, generator)) {
     errors.push(issue("GENERATOR_DRIFT", "/generator", "generator identity or bytes differ from the verifier"));
@@ -1236,8 +1253,8 @@ export function verifyReviewFreeze(manifest, {
     }
     const lock = fileAtCommit(repositoryRoot, exact, "package-lock.json");
     if (requireRuntimeParity) {
-      const currentRuntime = runtimeInputs(repositoryRoot, exact);
-      const executableNames = ["node", "npm", "git", "python3", "unzip", "sh"];
+      const currentRuntime = runtimeInputs(repositoryRoot, exact, edition);
+      const executableNames = runtimeExecutables(currentRuntime).map(([name]) => name);
       const runtimeMatches = executableNames.every((name) =>
         same(manifest?.runtime_inputs?.[name], currentRuntime[name])) &&
         same(manifest?.runtime_inputs?.operating_system, currentRuntime.operating_system);
