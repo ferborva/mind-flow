@@ -9,7 +9,9 @@ status: review
 
 # Result
 
-**Cannot say whether the commissioned storm criterion occurred.** This commissioned retrospective measures native modelled employment stock changes, not gross disruption of income routes among the total population or a measured change in the binding condition category. It neither certifies a storm nor certifies its absence. No new rendered surface, issued forecast, receipt, or raw value changes.
+**Cannot say whether the commissioned storm criterion occurred.** This commissioned retrospective measures native modelled employment stock changes, not comparable direct income-route disruption prevalence shares of total population or a measured change in the binding condition category. It neither certifies a storm nor certifies its absence. No new rendered surface, issued forecast, receipt, or raw value changes.
+
+Forward repair: the original C output described the ceiling without invoking the shared evaluator. It now calls `evaluateStorm` for every retained December-to-December annual window per occupation/SA4, 2015→2016 through 2024→2025 (1,400 calls). Each call supplies country AUS and explicit null disruption, binding and household evidence. The national criterion therefore returns `cannot-say`; the regional occupational stock is labelled unadmitted context, not projected to national evidence or treated as a local criterion implementation. Monthly windows, including February-to-May 2020, remain descriptive only because the shared API accepts annual periods. The output binds exact SHA-256 hashes of the criterion code, its commissioned definition Markdown and its retained definition/consumer artifact. Any changed binding forces replay drift until reviewed and regenerated.
 
 ## Reproducible numerical depth
 
@@ -26,7 +28,7 @@ Central Coast (SA4 102), General Clerks (5311):
 
 The calculation is `(after - before) / before * 100`, with a null percentage when the prior stock is zero. These percentages use the prior occupational employment stock, not total population. The series has 71 negative monthly changes out of 131. Across the 140 separate series, the calendar-2020 comparison has 83 declines and 57 increases; February-to-May 2020 has 72 declines, 62 increases and 6 unchanged series. These are counts of series, not people.
 
-The 2020 comparisons are fixed historical windows, not causal pandemic estimates. The extrema are retrospective descriptive selections, not predeclared forecast thresholds. All figures are from one August 2026 model vintage, potentially revised or smoothed, not observations known in real time. The retained series cannot examine 2008–09. Neither misses nor false fires against the commissioned storm criterion can be adjudicated without independent outcome labels and gross-flow or binding-category measurements. No forecast skill claim follows.
+The 2020 comparisons are fixed historical windows, not causal pandemic estimates. The extrema are retrospective descriptive selections, not predeclared forecast thresholds. All figures are from one August 2026 model vintage, potentially revised or smoothed, not observations known in real time. The retained series cannot examine 2008–09. Neither misses nor false fires against the commissioned storm criterion can be adjudicated without independent outcome labels and comparable disruption-prevalence or binding-category measurements. Gross flows are a different construct, not a required substitute for prevalence. No forecast skill claim follows.
 
 Even an 18% native stock decline does not establish a five-percentage-point increase in disrupted-person share of total population. Flat stocks can hide offsetting exits and entries. A net decline cannot identify who lost an income route, who found another route, or which dependants were affected. A rise does not prove no disruption. The output therefore retains null disrupted-person counts, dependant counts, disrupted-share change and binding-category change for every series.
 
@@ -36,13 +38,13 @@ The proposed local unit is a Central Coast GP consultation route. The retained G
 
 | Country family, latest Australian observation | Geography and population mismatch | Time and unit mismatch |
 | --- | --- | --- |
-| EPOP, 2025, 63.816% | Australia; population aged 15+, not Central Coast people needing a GP | Annual modelled employment stock ratio, not current consultation access or gross route disruption |
+| EPOP, 2025, 63.816% | Australia; population aged 15+, not Central Coast people needing a GP | Annual modelled employment stock ratio, not current consultation access or direct disruption prevalence |
 | Unemployment, 2025, 4.09% | Australia; labour force aged 15+, not total population or matched GP users | Annual modelled labour-force rate, not a local available appointment, full price, or disrupted share |
 | PIP poverty lineup, 2025, 0.84% | Australia; persons under a household-welfare poverty threshold, not matched local GP users | Annual extrapolation/nowcast under $3/day in 2021 PPP, not a consultation cost or access observation |
 
 These country values are retained contextual evidence only. Matching the name Australia or nesting NSW within Australia does not establish a statistical join. NSW GP geography uses the retained ABS scope; NERO's SA4 version/place basis is not established in the capture. No correspondence and joint population file bridges those units. Annual 2025 country indicators and a 2024–25 NSW survey cannot identify an August 2026 Central Coast route.
 
-The output records each national family's vintage, denominator, source selector and latest observation, then returns `not-joinable` and `cannot-say`. Missing inputs are matched local GP access and income observations for the same people; consultation eligibility, full cost, travel, bookable capacity and navigation support; aligned periods; and gross income-route disruption with dependant mapping. None of the available context demonstrates which condition binds, or that a different condition became binding. Display wording, if this evidence is later used in the existing pilot, must remain **local access unknown**, not a national-rate-derived local status.
+The output records each national family's vintage, denominator, source selector and latest observation, then returns `not-joinable` and `cannot-say`. Missing inputs are matched local GP access and income observations for the same people; consultation eligibility, full cost, travel, bookable capacity and navigation support; aligned periods; and comparable direct disruption prevalence or measured binding-category change, with separate household-exposure mapping. None of the available context demonstrates which condition binds, or that a different condition became binding. Display wording, if this evidence is later used in the existing pilot, must remain **local access unknown**, not a national-rate-derived local status.
 
 ## Replay and evidence boundary
 
@@ -57,4 +59,4 @@ Hostile tests exercise extreme and flat stocks, offsetting gross flows, zero den
 
 ## Named deferrals
 
-Local GP/income population linkage, verified SA4 correspondence, gross disrupted-person flows, dependent-household linkage, binding-category observations, historical as-published vintages, and outcome labels for misses/false fires remain absent. These are measurement gaps, not zero-valued findings. Root owns the general criterion interface, country reader, central backlog and final artifact lock.
+Local GP/income population linkage, verified SA4 correspondence, comparable disrupted-person prevalence shares, separate dependent-household linkage, binding-category observations, historical as-published vintages, and outcome labels for misses/false fires remain absent. These are measurement gaps, not zero-valued findings. Root owns the general criterion interface, country reader, central backlog and final artifact lock.
