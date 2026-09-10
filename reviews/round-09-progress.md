@@ -2,7 +2,7 @@
 id: round-09-progress
 title: Round 09 progress and gate register
 type: review-register
-status: in-progress
+status: review
 created: 2026-09-10
 author: Ren
 provenance: commissioned-proposal
@@ -118,3 +118,25 @@ Coherent receipt forgery (review 2026-09-16), schema-2 hash-domain separation,
 published-history weight and eight inherited macro raw inputs remain open.
 The eight-track external group must review the candidate hash in the later
 Round 09 receipt, not moving HEAD or a lane PR.
+
+## 2026-09-10 01:03 UTC: candidate checks complete
+
+The integrated `a09523d` tree passed **981 tests across 18 suites** on
+Node **22.23.2**, with zero failures, cancellations or skips. Artifact byte
+parity and frontmatter validation passed. The final local changes after that
+run are this checkpoint only. Both retained Round 08 and Round 08.1 receipts
+verify as passed; all original and corrected issued/preregistration bytes,
+the current AU kernel and its positive consumer remain unchanged from their
+respective issue/baseline commits.
+
+Central push contains every lane head. GitHub marked PRs #17, #18, #20, #21 and
+#22 merged into `ren/round-09`; this did not merge Round 09 to `main`. PR #19 is
+still a separate open capture proposal. The candidate's two CI runs were still
+running at this checkpoint. Final CI results and exact candidate/seal hashes
+belong in the central PR handoff.
+
+The next operation freezes this candidate with the fresh `round-09` policy and
+executes every declared command in a detached checkout. The later receipt must
+say `reproduction.status: passed` and verify without failure overrides before
+the handoff is ready. Its seal will add unconditional Round 09 receipt checking
+to CI. The unmet empirical and evolution gates above remain unmet after sealing.
