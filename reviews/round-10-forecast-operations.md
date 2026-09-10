@@ -59,9 +59,11 @@ attempt artifact. A retry after ref creation can create the missing PR without
 rewriting evidence. The publisher's explicit file allowlist cannot add a
 resolution, score or campaign edit. No source text becomes a shell command.
 
-The token has only repository contents and pull-request write scopes for this
-job; credentials are not persisted by checkout and the token is passed only to
-the publishing step. No PAT or external service credential is introduced.
+The acquisition and fixture job has read-only repository permission. A separate
+publisher job downloads that run's artifact and has only repository contents and
+pull-request write scopes. Both require the commissioned repository and default
+branch. Credentials are not persisted by checkout; the token is passed only to
+the publisher. No PAT or external service credential is introduced.
 Repository Actions PR-creation permissions could not be inspected: the read-only
 API returned 403 on 2026-09-10. This remains an activation check, not a reason
 to assume permission or change repository settings.
@@ -103,6 +105,23 @@ coordinator. Without these, the third-forecast gate stays unmet. No probability,
 receipt, issue time or future publication observation is invented.
 
 ## ✅ Next checks
+
+The publisher independently validates every retained body/header receipt, HTTP
+status, actual clock, source link, first-presence event, immutable campaign
+prefix and chronology tip before any write. It rejects foreign entries,
+symlinks, oversized evidence and HTML masquerading as ZIP. The ZIP signature
+check is only a transport guard, not a target or full archive-content check.
+On retry it verifies the existing branch's complete evidence-only diff and
+replays the same checks against its original bytes. A closed PR is not reopened.
+
+The native archive uses its exact explicit LFS attribute. Publishing runs
+`git lfs clean`, uploads the content-addressed object, downloads it into a fresh
+LFS cache and compares the complete bytes before creating its Git pointer.
+No plaintext ZIP blob is committed. Failure preserves the acquisition artifact
+and stops before evidence-ref creation. **This upload path has fixture coverage,
+not a claimed live October upload.** Its first real upload/download verification
+and repository LFS permission remain deployment checks. Temporary verification
+caches are not erased by the publisher.
 
 Run the new collector fixture suite on Node 22, review the default-branch
 activation and repository PR permission, and retain the first real workflow
