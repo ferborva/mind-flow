@@ -61,8 +61,9 @@ node meta/review-freeze/review-freeze.mjs verify --policy=round-10 --manifest=me
 Use a separate detached candidate checkout for independent execution. Preserve
 this receipt; further executions need distinct output paths and UUIDs. The
 long reproduction includes full tracked-tree checks around every command.
-No source collector, issuer, resolver, scorer or editorial publisher ran as
-part of this freeze.
+No live source acquisition, forecast issuance, outcome resolution/scoring or
+editorial publication occurred. Tests and read-only replay exercised those
+mechanisms.
 
 ## What did and did not change
 
