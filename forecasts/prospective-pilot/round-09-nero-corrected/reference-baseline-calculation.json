@@ -1,0 +1,29 @@
+{
+  "artifact_type": "prospective-baseline-calculation",
+  "schema_version": "1.0.0",
+  "baseline_role": "reference_class",
+  "protocol_id": "protocol.nero.5311.102.october-2026.correction-1.v1",
+  "protocol_content_sha256": "sha256:5711a4b61439a3cb704ad9ca4a6707d0064737e6852e022333f37748bdee8b6e",
+  "campaign_id": "campaign.nero.5311.102.october-2026.correction-1",
+  "target_id": "target.nero.5311.102.october-2026.correction-1",
+  "baseline_id": "family.nero.reference.v1",
+  "algorithm_id": "mind-flow.nero-two-month-direction",
+  "algorithm_version": "1.0.0",
+  "implementation_sha256": "sha256:f23e72c346e1f3473f54a20e51d776ac5c15a3cde032aa597257b42581e0b18a",
+  "conformance_vectors_sha256": "sha256:351f57486341f429224deccbc72d90c9345815ae039601eaf708cf348a2a250d",
+  "parameters_sha256": "sha256:026abf64701c08709fc65d25f7f4cdf37df319495d8e0bd3f3514e2cd4d1c3e6",
+  "input_source_ids": [
+    "source.jsa.nero"
+  ],
+  "input_policy": "predeclared-sources-only-no-post-issue-data",
+  "input_manifest_sha256": "sha256:c53c95660b1727de866cb39bc9a6d45e613192ccd738b121f187c114df9163ab",
+  "input_checksums": [
+    "sha256:6fbdb5482f9c2a6939ff1f1833030c1db9f849d7782af3130feff20fd79c425e"
+  ],
+  "input_vintage_cutoff_at": "2026-09-10T00:00:41Z",
+  "missing_input_policy": "withhold-baseline-and-forecast",
+  "rounding_policy": "round-to-six-decimals-half-even",
+  "calculated_at": "2026-09-10T00:40:25Z",
+  "output_probability": 0.76,
+  "verification_status": "unverified_external_review_required"
+}
