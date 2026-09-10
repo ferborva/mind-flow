@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0.0",
+  "ledger_id": "ledger.kernel.canada.unemployment.prospective.assessment-overlay",
+  "classification": "research-draft",
+  "generated_at": "2026-09-10T07:09:35Z",
+  "source_kernel_ref": {
+    "artifact_path": "forecasts/prospective-pilot/round-10-canada/kernel.json",
+    "artifact_sha256": "sha256:e2b27fd8fe6fdf16c75c3ccf187dbbe0799da00b44c1af96b5499931f8b12c74",
+    "kernel_id": "kernel.canada.unemployment.prospective",
+    "manifest_hash": "sha256:e4c885f86e718f4a7e4caeabed541d19ff280783535dd32b1675137366337f83",
+    "evaluator_ref": {
+      "id": "mind-flow.executable-if.evaluator",
+      "version": "1.1.0",
+      "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+      "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+      "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+      "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+    }
+  },
+  "source_history_ref": {
+    "history_status": "complete-and-locally-validated",
+    "event_count": 1,
+    "tip_sequence": 1,
+    "tip_event_id": "event.canada.unemployment.stock.added",
+    "tip_event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc",
+    "operations": [
+      "added"
+    ],
+    "event_refs": [
+      {
+        "sequence": 1,
+        "event_id": "event.canada.unemployment.stock.added",
+        "operation": "added",
+        "event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc"
+      }
+    ],
+    "active_condition_definition_refs": [
+      {
+        "condition_id": "condition.canada.unemployment.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+      }
+    ],
+    "evidence_event_count": 1,
+    "evidence_tip_event_id": "evidence-event.canada.unemployment.2026-08.added",
+    "evidence_tip_event_hash": "sha256:78d33807f5b2f86cea3c6341373cd1098b919dade6c02b7e69a352b83c02d75c",
+    "evidence_state_hash": "sha256:8f94660a98ea34ccf6668fbc9ba1e1a19b0cc792041c2d25e1b183240751dea4"
+  },
+  "condition_projections": [
+    {
+      "condition_definition_ref": {
+        "condition_id": "condition.canada.unemployment.stock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+      },
+      "source_state_version": 1,
+      "source_lifecycle": "active",
+      "source_event_ref": {
+        "sequence": 1,
+        "event_id": "event.canada.unemployment.stock.added",
+        "operation": "added",
+        "event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc"
+      },
+      "proposition": "The reported unemployment rate is at least the frozen August 2026 rate 7.302 percent; this is exposure context only.",
+      "claim": {
+        "who": "Canadian labour force aged 15 and older, both sexes",
+        "verb": "have",
+        "object": "reported unemployment rate at or above 7.302",
+        "standard": "fraction of Canadian labour force aged 15 and older x/100 is at least 0.07302",
+        "polarity": "affirmative",
+        "period": {
+          "starts_at": "2026-08-01T00:00:00Z",
+          "ends_at": "2026-10-31T23:59:59Z"
+        }
+      },
+      "scope": {
+        "jurisdictions": [
+          "Canada"
+        ],
+        "geographies": [
+          "Canada"
+        ],
+        "cohorts": [
+          "Both sexes, labour force aged 15 and older"
+        ],
+        "services": [
+          "Reported unemployment rate, exposure context only"
+        ]
+      },
+      "evidence_state_ref": {
+        "event_count": 1,
+        "tip_event_id": "evidence-event.canada.unemployment.2026-08.added",
+        "tip_event_hash": "sha256:78d33807f5b2f86cea3c6341373cd1098b919dade6c02b7e69a352b83c02d75c",
+        "state_hash": "sha256:8f94660a98ea34ccf6668fbc9ba1e1a19b0cc792041c2d25e1b183240751dea4"
+      },
+      "assessment_status": "open",
+      "assessment": null,
+      "unresolved_challenge_ids": []
+    }
+  ],
+  "governance_events": [],
+  "current_state": {
+    "as_of_sequence": 1,
+    "as_of_event_id": "event.canada.unemployment.stock.added",
+    "as_of_event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc",
+    "evidence_state_hash": "sha256:8f94660a98ea34ccf6668fbc9ba1e1a19b0cc792041c2d25e1b183240751dea4",
+    "conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.canada.unemployment.stock",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+        },
+        "source_state_version": 1,
+        "source_lifecycle": "active",
+        "source_event_ref": {
+          "sequence": 1,
+          "event_id": "event.canada.unemployment.stock.added",
+          "operation": "added",
+          "event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc"
+        },
+        "proposition": "The reported unemployment rate is at least the frozen August 2026 rate 7.302 percent; this is exposure context only.",
+        "claim": {
+          "who": "Canadian labour force aged 15 and older, both sexes",
+          "verb": "have",
+          "object": "reported unemployment rate at or above 7.302",
+          "standard": "fraction of Canadian labour force aged 15 and older x/100 is at least 0.07302",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-08-01T00:00:00Z",
+            "ends_at": "2026-10-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Canada"
+          ],
+          "geographies": [
+            "Canada"
+          ],
+          "cohorts": [
+            "Both sexes, labour force aged 15 and older"
+          ],
+          "services": [
+            "Reported unemployment rate, exposure context only"
+          ]
+        },
+        "evidence_state_ref": {
+          "event_count": 1,
+          "tip_event_id": "evidence-event.canada.unemployment.2026-08.added",
+          "tip_event_hash": "sha256:78d33807f5b2f86cea3c6341373cd1098b919dade6c02b7e69a352b83c02d75c",
+          "state_hash": "sha256:8f94660a98ea34ccf6668fbc9ba1e1a19b0cc792041c2d25e1b183240751dea4"
+        },
+        "assessment_status": "open",
+        "assessment": null,
+        "unresolved_challenge_ids": []
+      }
+    ]
+  },
+  "publication_anchor": {
+    "verification_status": "not-verified-by-external-checkpoint",
+    "checkpoint_uri": "https://mind-flow.org/checkpoints/unpublished/round-04",
+    "source_event_count": 1,
+    "tip_event_id": "event.canada.unemployment.stock.added",
+    "tip_event_hash": "sha256:5825e15678912eeafe93be0b9644a8097563f27874a4cf1dc5506b05a1810dbc"
+  },
+  "public_projection": {
+    "history": {
+      "status": "complete-source-bound",
+      "change_count": 1,
+      "operations": [
+        "added"
+      ],
+      "notice": "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment."
+    },
+    "active_conditions": [
+      {
+        "condition_definition_ref": {
+          "condition_id": "condition.canada.unemployment.stock",
+          "definition_version": "1.0.0",
+          "definition_hash": "sha256:6b60c12379141698dc5c3301a49a864ce25dfec7f820b729f5b68c1b0ce0e830"
+        },
+        "proposition": "The reported unemployment rate is at least the frozen August 2026 rate 7.302 percent; this is exposure context only.",
+        "claim": {
+          "who": "Canadian labour force aged 15 and older, both sexes",
+          "verb": "have",
+          "object": "reported unemployment rate at or above 7.302",
+          "standard": "fraction of Canadian labour force aged 15 and older x/100 is at least 0.07302",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2026-08-01T00:00:00Z",
+            "ends_at": "2026-10-31T23:59:59Z"
+          }
+        },
+        "scope": {
+          "jurisdictions": [
+            "Canada"
+          ],
+          "geographies": [
+            "Canada"
+          ],
+          "cohorts": [
+            "Both sexes, labour force aged 15 and older"
+          ],
+          "services": [
+            "Reported unemployment rate, exposure context only"
+          ]
+        },
+        "assessment_status": "open"
+      }
+    ],
+    "boundaries": {
+      "mechanical_rule_state_is_empirical_truth": false,
+      "authority_granted": false,
+      "action_authorised": false
+    }
+  },
+  "manifest_hash": "sha256:1a07bc151a675c0ce83089bdff8a3c5c5584a403b7f682f94a979e81e4d88c99",
+  "contract_boundary": {
+    "definition_history_owner": "source-executable-if-kernel",
+    "history_validity_effect": "source-binding-and-integrity-only",
+    "condition_truth_effect": "none",
+    "authority_effect": "none",
+    "action_authorisation_effect": "none"
+  }
+}

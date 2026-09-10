@@ -123,6 +123,8 @@ jobs:
         run: node signals/countries/tools/income-measurements.mts --check
       - name: Replay unissued Canadian forecast draft
         run: node forecasts/prospective-pilot/round-10-canada/draft.mts --check
+      - name: Replay Canadian statistical predicate basis
+        run: node forecasts/prospective-pilot/round-10-canada/build-basis.mts --check
 
       - name: Reject generated-artifact drift
         run: test -z "$(git status --porcelain --untracked-files=all)"

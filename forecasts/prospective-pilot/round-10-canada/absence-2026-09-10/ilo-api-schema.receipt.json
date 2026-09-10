@@ -1,0 +1,13 @@
+{
+  "id": "ilo-api-schema",
+  "url": "https://rplumber.ilo.org/openapi.json",
+  "final_url": "https://rplumber.ilo.org/openapi.json",
+  "started_at": "2026-09-10T07:14:59.013Z",
+  "ended_at": "2026-09-10T07:14:59.727Z",
+  "status": 200,
+  "body_sha256": "sha256:6e5b008e2820d0f61c6729e6cb3ad1e3f67248718d5a46037b8737390dc76926",
+  "body_byte_length": 27764,
+  "headers_sha256": "sha256:765754bdc45692a0bcdea2b7bd8cbac66cf8268ad42486809e9956cbaf60e7fa",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

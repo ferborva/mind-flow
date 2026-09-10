@@ -1,0 +1,13 @@
+{
+  "id": "ilo-canada-reported",
+  "url": "https://rplumber.ilo.org/data/indicator?id=UNE_DEAP_SEX_AGE_RT_M&ref_area=CAN&source=BA%3A147&sex=SEX_T&classif1=AGE_YTHADULT_YGE15&timefrom=2016&format=.csv&type=both",
+  "final_url": "https://rplumber.ilo.org/data/indicator?id=UNE_DEAP_SEX_AGE_RT_M&ref_area=CAN&source=BA%3A147&sex=SEX_T&classif1=AGE_YTHADULT_YGE15&timefrom=2016&format=.csv&type=both",
+  "started_at": "2026-09-10T07:14:56.435Z",
+  "ended_at": "2026-09-10T07:14:59.012Z",
+  "status": 200,
+  "body_sha256": "sha256:0c1a707f99b482fea3da936c45c3bfa565dce6184a542e9b96a7e4f9bd5fd52b",
+  "body_byte_length": 37528,
+  "headers_sha256": "sha256:6dc9f46c55633e7d1c6cb6394add57015c2c01c20ee907537467793e895843db",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

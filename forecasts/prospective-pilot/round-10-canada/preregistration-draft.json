@@ -553,6 +553,13 @@
       }
     ]
   },
+  "calendar": {
+    "url": "https://www150.statcan.gc.ca/n1/release-diffusion/2026-eng.pdf",
+    "body_sha256": "sha256:f7af7f426ab9755ef209e8916f2ca03f93162a58dff7a0b3c4e61b084b964875",
+    "receipt_sha256": "sha256:4be7c96d934eb85af2b389f4b2e6a02dde454f8ba1af320d3a8996e624527724",
+    "retrieved_at": "2026-09-10T06:41:56.416Z",
+    "scope": "Upstream StatCan October LFS scheduled 6 November; dates may change; not an ILO publication or ingestion guarantee"
+  },
   "forecaster": {
     "algorithm_id": "mind-flow.canada-august-october-laplace",
     "algorithm_version": "1.0.0",

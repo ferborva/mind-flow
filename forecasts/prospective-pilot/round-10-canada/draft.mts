@@ -11,9 +11,22 @@ const expected={
   'ilo-canada-reported':'sha256:0c1a707f99b482fea3da936c45c3bfa565dce6184a542e9b96a7e4f9bd5fd52b',
   'ilo-api-schema':'sha256:6e5b008e2820d0f61c6729e6cb3ad1e3f67248718d5a46037b8737390dc76926',
 };
+const receiptPins={
+  'ilo-canada-reported':'sha256:9c5a6fc5245faf52615103f59b779a53fc1221885930a6669edaabc69a69af07',
+  'ilo-api-schema':'sha256:74dc4382790d7ede43e27f45b2d6d9939a0da3597da4e4d890c344ff06659056',
+};
+export const calendarPath='signals/countries/sources/forecast-feasibility-2026-09-10/statcan-release-calendar';
+export function retainedCanadaCalendar(){
+  const base=resolve(directory,'../../..',calendarPath),receiptBytes=readFileSync(base+'.receipt.json');
+  if(sha(receiptBytes)!=='sha256:4be7c96d934eb85af2b389f4b2e6a02dde454f8ba1af320d3a8996e624527724')throw new Error('calendar receipt changed');
+  const receipt=JSON.parse(receiptBytes.toString('utf8')),body=readFileSync(base+'.body');
+  if(sha(body)!=='sha256:f7af7f426ab9755ef209e8916f2ca03f93162a58dff7a0b3c4e61b084b964875'||receipt.body_sha256!==sha(body)||receipt.body_byte_length!==body.length||receipt.headers_sha256!==sha(readFileSync(base+'.headers.txt'))||receipt.status!==200)throw new Error('calendar retained bytes changed');
+  return {url:receipt.url,body_sha256:receipt.body_sha256,receipt_sha256:sha(receiptBytes),retrieved_at:receipt.ended_at,scope:'Upstream StatCan October LFS scheduled 6 November; dates may change; not an ILO publication or ingestion guarantee'};
+}
 function retained(id:keyof typeof expected){
   const base=resolve(directory,'sources-2026-09-10',id);
   const body=readFileSync(base+'.body'),headers=readFileSync(base+'.headers.txt'),receipt=JSON.parse(readFileSync(base+'.receipt.json','utf8'));
+  if(sha(readFileSync(base+'.receipt.json'))!==receiptPins[id])throw new Error('fixed source receipt changed: '+id);
   if(sha(body)!==expected[id]||receipt.body_sha256!==expected[id]||receipt.body_byte_length!==body.length||receipt.headers_sha256!==sha(headers)||receipt.status!==200)throw new Error('retained source integrity failed: '+id);
   return {body,receipt};
 }
@@ -29,6 +42,7 @@ export function deriveCanadaDraft(){
     companion:{family:'income-unemployment.v1',storm_panel_admitted:false,breadth:'single-country companion only',estimation:'ILO microdata-processed reported LFS series; not ILO modelled estimates',denominator:'Canadian labour force aged 15 and older, both sexes',unit:'percent',disruption_measurement:'not-measured',seasonal_adjustment:'not asserted; no StatCan headline substitution'},
     target:{...CANADA_SELECTOR,time:'2026M10',operator:'gte',native_threshold:'7.302',note_indicator:'I12:422',note_source:'R1:3513',obs_status:'',note_classif:''},
     reference,history,
+    calendar:retainedCanadaCalendar(),
     forecaster:runCanadaSeasonalForecaster(history),
     baselines:{algorithm_id:'mind-flow.country-two-month-direction',algorithm_version:'1.0.0',parameters,direction:runCountryBaseline('mind-flow.country-two-month-direction',history,parameters),naive:runCountryBaseline('mind-flow.equal-probability',history,parameters),method:'118 two-month endpoint comparisons over 120 complete months; nonnegative changes count; Laplace smoothing (successes+1)/(comparisons+2); six-decimal half-even rounding; no parameter tuning'},
     clocks:{observation_window:{starts_at:'2026-10-01T00:00:00Z',ends_at:'2026-10-31T23:59:59Z'},outcome_publication_not_before:'2026-11-06T00:00:00Z',resolve_after:'2026-11-06T00:00:00Z',resolution_window_closes_at:'2026-12-31T23:59:59Z',issue_window:'UNSET: requires review, source absence, sealing and external receipt before October'},

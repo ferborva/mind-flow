@@ -1,0 +1,19 @@
+accept-ranges: bytes
+access-control-allow-credentials: true
+access-control-allow-headers: Origin, Content-Type, Accept, Authorization
+access-control-allow-methods: GET, POST, OPTIONS
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: a38ca37febb8334e-SYD
+connection: keep-alive
+content-disposition: attachment; filename=UNE_DEAP_SEX_AGE_RT_M-20260910T0914.csv
+content-encoding: gzip
+content-type: application/octet-stream
+date: Thu, 10 Sep 2026 07:14:59 GMT
+server: cloudflare
+set-cookie: frontier-backend-https=srv-onyx-dmz; path=/; HttpOnly; Secure
+set-cookie: __cf_bm=26l3H6Z0uejSZdWeA5lAwMMtjMyShOwi.oZcUhW5tzc-1789024496.6276724-1.0.1.1-VBL9TmiyV3shE7hJB2CwiuGqvrx3YUIOdjyalncOOs.yPR1uEJTRBUOLl6_F8Tcd8A8RjcN9j6vltEPgzBvfBrHCLhcMLT.oIsIudpbdsmD93W_oABC_kjuMKvVaScks; HttpOnly; SameSite=None; Secure; Path=/; Domain=ilo.org; Expires=Thu, 10 Sep 2026 07:44:59 GMT
+strict-transport-security: max-age=31536000
+transfer-encoding: chunked
+vary: accept-encoding

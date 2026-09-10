@@ -1,0 +1,789 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "description": "<h2>Online simple, comprehensive fast and direct access to ilostat data<\/h2> <p>Use left sidebar to choose functionalities and retrieve ILOSTAT data directly or your best statistical software.<\/p><p><b>Example with your browser:<\/b> Annual female youth unemployment rate in United states and France as from 2010 in Excel format with label only<br><a href = \"https://rplumber.ilo.org/data/indicator?id=SDG_0852_SEX_AGE_RT_A&ref_area=USA+FRA&sex=SEX_F&classif1=AGE_YTHADULT_Y15-24&timefrom=2010&type=label&format=.xlsx\">https://rplumber.ilo.org/data/indicator?id=SDG_0852_SEX_AGE_RT_A&ref_area=USA+FRA&sex=SEX_F&classif1=AGE_YTHADULT_Y15-24&timefrom=2010&type=label&format=.xlsx<\/a><\/p><p><b>Example with R:<\/b><code><br><\/code><code>library(readr)<\/code><br><code>dat <- read_csv(\"https://rplumber.ilo.org/data/indicator?id=SDG_0852_SEX_AGE_RT_A&sex=SEX_F&format=.csv\")<br><\/code>or<code><br>dat <- read_rds(\"https://rplumber.ilo.org/data/indicator?id=SDG_0852_SEX_AGE_RT_A&sex=SEX_F&format=.rds\")<\/code><\/p><p><b>Example with Python:<\/b><br><code>import pandas<br>dat = pandas.read_csv(\"https://rplumber.ilo.org/data/indicator?id=SDG_0922_NOC_RT_A&ref_area=USA&format=.csv\")<br><\/code>or<code><br>dat = pandas.read_parquet(\"https://rplumber.ilo.org/data/indicator?id=SDG_0922_NOC_RT_A&ref_area=USA&format=.parquet\")<\/code><\/p><p><b>Example with Stata:<\/b><br><code>webuse set \"https://rplumber.ilo.org/data/indicator\"<\/code><br><code>webuse \"?id=SDG_0552_NOC_RT_A&timefrom=2015&format=.dta\"<\/code><br>or<br><code>import delimited \"https://rplumber.ilo.org/data/indicator?id=SDG_0552_NOC_RT_A&format=.csv\"<\/code><\/p><p><b>Example with SAS:<\/b><br><code>filename csv url 'https://rplumber.ilo.org/data/indicator?id=SDG_0922_NOC_RT_A&ref_area=USA';<\/code><br><code>proc import datafile=csv dbms=csv out=want replace;<\/code><br><code>run;<\/code><\/p><br><br><p><table style = \"height:100;width: 100%; vertical-align: middle;horizontal-align: middle;\"><tr><td><br><div align = \"left\"><p><a href=\"https://www.ilo.org\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\">1996-2025 International Labour Organization (ILO)<\/a><\/p><\/div><br><\/td><td><br><div align = \"center\"><p><a href=\"https://www.ilo.org/global/copyright/lang--en/index.htm\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\">Copyright & permissions<\/a><a href=\"https://www.ilo.org/global/privacy-policy/lang--en/index.htm\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\"> | Privacy policy<\/a><a href=\"https://www.ilo.org/global/fraud-alert/lang--/index.htm\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\"> | Fraud alert<\/a><a href=\"https://www.ilo.org/global/disclaimer/lang--en/index.htm\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\"> | Disclaimer<\/a><\/p><\/div><br><\/td><td><br><div align = \"right\"><p><a href=\"https://ilostat.github.io/Rilostat/\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\">Powered by Rilostat<\/a><a href=\"https://ilostat.ilo.org/about/contact/\" target = \"blank\" style = \"font-family:Helvetica;color:#b0b9e1;text-decoration: none;\"> | Contact us<\/a><\/p><\/div><br><\/td><\/tr><\/table><\/p>",
+    "title": "ilostat web service",
+    "version": "1.0.1"
+  },
+  "paths": {
+    "/data/indicator": {
+      "get": {
+        "operationId": "/data/indicator-GET",
+        "summary": "get datasets by indicator_freqency",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/data/indicator?id=SDG_0852_SEX_AGE_RT_A&ref_area=USA+FRA&sex=SEX_F&classif1=AGE_YTHADULT_YGE15+AGE_YTHADULT_Y15-24&timefrom=2010&format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "lang",
+            "description": "<b>see also:<\/b> fr, es  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "id",
+            "description": "<b>up to 3 see also:<\/b> <a href=\"./#get-/metadata/toc/indicator\">/metadata/toc/indicator<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "SDG_0111_SEX_AGE_RT_A"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet    ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          },
+          {
+            "name": "ref_area",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic?var=ref_area<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic?var=source<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sex",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic?var=sex<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classif1",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic?var=classif1<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classif2",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic?var=classif2<\/a>",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "time",
+            "description": "<b>4 characters for year only, ie: 2024",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timefrom",
+            "description": "<b>4 characters for stating year only, ie: 2010",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeto",
+            "description": "<b>4 characters for ending year only, ie: 2020",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latestyear",
+            "description": "<b>characters for getting latest year per ref_area, indicator, ie: TRUE",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "FALSE"
+            }
+          },
+          {
+            "name": "best_source",
+            "description": "\\code{\"yes\"} (default) to get secondary source if exist \\code{\"all\"}, \\code{\"no\"} for secondary only.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "yes"
+            }
+          },
+          {
+            "name": "type",
+            "description": "code <b>see also:<\/b> label, both",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "code"
+            }
+          },
+          {
+            "name": "region",
+            "description": "<b>available :<\/b> AMERICAS, \"AFRICA, ROAS, ROAP, ROECA ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mode",
+            "description": "currently B for best source only <b>soon also:<\/b> S for summary table and F for full records",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "description": "internal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "description": "internal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cmd",
+            "description": "deprecated",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "none"
+            }
+          }
+        ],
+        "tags": ["data"]
+      }
+    },
+    "/data/ref_area": {
+      "get": {
+        "operationId": "/data/ref_area-GET",
+        "summary": "get datasets by ref_area_freqency",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/data/ref_area?id=AFG_A&indicator=UNE_TUNE_SEX_AGE_NB+EMP_TEMP_SEX_AGE_NB&classif1=AGE_YTHADULT_Y15-24&timefrom=2010&format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "lang",
+            "description": "<b>see also:<\/b> fr, es  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "id",
+            "description": "<b>up to 3 see also:<\/b> <a href=\"./#get-/metadata/toc/ref_area\">/metadata/toc/ref_area<\/a>   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "AFG_A"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          },
+          {
+            "name": "indicator",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic/?var=indicator<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic/?var=source<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sex",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic/?var=sex<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classif1",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic/?var=classif1<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classif2",
+            "description": "<b>see also:<\/b> <a href=\"./#get-/metadata/dic/\">/metadata/dic/?var=classif2<\/a>",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "time",
+            "description": "<b>4 characters for year only, ie: 2024",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timefrom",
+            "description": "<b>4 characters for stating year only, ie: 2010",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeto",
+            "description": "<b>4 characters for ending year only, ie: 2020",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latestyear",
+            "description": "<b>characters for getting latest year per ref_area, indicator, ie: TRUE",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "FALSE"
+            }
+          },
+          {
+            "name": "best_source",
+            "description": "\\code{\"yes\"} (default) to get secondary source if exist \\code{\"all\"}, \\code{\"no\"} for secondary only.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "yes"
+            }
+          },
+          {
+            "name": "type",
+            "description": "code <b>see also:<\/b> label, both",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "code"
+            }
+          },
+          {
+            "name": "mode",
+            "description": "currently B for best source only <b>soon also:<\/b> S for summary table and F for full records",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "description": "internal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "description": "internal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cmd",
+            "description": "deprecated",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "none"
+            }
+          }
+        ],
+        "tags": ["data"]
+      }
+    },
+    "/metadata/toc/indicator": {
+      "get": {
+        "operationId": "/metadata/toc/indicator-GET",
+        "summary": "get table of contents by indicator_frequency",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/metadata/toc/indicator?lang=es&format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "lang",
+            "description": "<b>see also:<\/b> en, fr, es  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          }
+        ],
+        "tags": ["metadata"]
+      }
+    },
+    "/metadata/toc/ref_area": {
+      "get": {
+        "operationId": "/metadata/toc/ref_area-GET",
+        "summary": "get table of contents by ref_area_frequency",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/metadata/toc/ref_area?lang=es&format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "lang",
+            "description": "<b>see also:<\/b> en, fr, es  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet    ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          }
+        ],
+        "tags": ["metadata"]
+      }
+    },
+    "/metadata/validation": {
+      "get": {
+        "operationId": "/metadata/validation-GET",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response.",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "method",
+            "description": "validation|received",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "validation"
+            }
+          }
+        ]
+      }
+    },
+    "/metadata/dic": {
+      "get": {
+        "operationId": "/metadata/dic-GET",
+        "summary": "get dictionary",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/metadata/dic?var=source&lang=fr&format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "lang",
+            "description": "<b>see also:<\/b> en, fr, es, if none the 3 languages  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "var",
+            "description": "<b>see also:<\/b> ref_area, indicator, sex, classif1, classif2, obs_status, note_classif, note_indicator, note_source, classif_type, database, subject  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "source"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          }
+        ],
+        "tags": ["metadata"]
+      }
+    },
+    "/aggregate/data": {
+      "get": {
+        "operationId": "/aggregate/data-GET",
+        "summary": "get aggregate data",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/aggregate/data?groups=rc&indicator=UNE_2UNE_SEX_AGE_NB&type=label&format=.csv <br><b>see also web application:<\/b> https://rshiny.ilo.org/regionalaggregate/",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "groups",
+            "description": "<b>see also:<\/b> unsd, rc, escap, unicef, childatlas and your own groups as <i>mygroup1<\/i><b>%in%<\/b>FRA+USA+DEU<b>,<\/b><i>mygroup2<\/i><b>%in%<\/b>JPN+THA   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "ilostat"
+            }
+          },
+          {
+            "name": "indicator",
+            "description": "<b>only one indicator, see also:<\/b> available full list on <a href=\"./#get-/aggregate/indicator\">/aggregate/indicator/<\/a>  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "UNE_2UNE_SEX_AGE_NB"
+            }
+          },
+          {
+            "name": "type",
+            "description": "<b>see also:<\/b> label, both",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "code"
+            }
+          },
+          {
+            "name": "lang",
+            "description": "<b>see also:<\/b> en, fr, es  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          }
+        ],
+        "tags": ["aggregate"]
+      }
+    },
+    "/aggregate/indicator": {
+      "get": {
+        "operationId": "/aggregate/indicator-GET",
+        "summary": "get indicator available",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/aggregate/indicator?format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          }
+        ],
+        "tags": ["aggregate"]
+      }
+    },
+    "/aggregate/region": {
+      "get": {
+        "operationId": "/aggregate/region-GET",
+        "summary": "get predefined region definition",
+        "description": "<b>example:<\/b> https://rplumber.ilo.org/aggregate/region?groups=unsd&format=.csv",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default response."
+          }
+        },
+        "parameters": [
+          {
+            "name": "groups",
+            "description": "<b>see also:<\/b> unsd, rc, hdi22, escap, unicef, childatlas, isdb  ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "ilostat"
+            }
+          },
+          {
+            "name": "format",
+            "description": "<b>see also:<\/b> .csv2, .tsv, .csv.gz, .rds, .dta, .sav, .xpt, .json, .xlsx, .feather, .parquet   ",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ".csv"
+            }
+          }
+        ],
+        "tags": ["aggregate"]
+      }
+    }
+  }
+}
