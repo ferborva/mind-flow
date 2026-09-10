@@ -2,6 +2,27 @@ import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { firstPersonSentences } from "./validate-draft-provenance.mjs";
 
+// Explicit forward repairs are reversed before historical deletion replay.
+// This proves only exact byte accounting, never editorial permission or truth.
+export function reverseEditorialAmendment(after, record) {
+  const hash = value => createHash("sha256").update(value).digest("hex");
+  if (typeof after !== "string" || !/^[a-f0-9]{64}$/.test(record?.before_sha256 || "") ||
+      !/^[a-f0-9]{64}$/.test(record?.after_sha256 || "") || !Array.isArray(record?.changes) || !record.changes.length) {
+    throw new Error("EDITORIAL_AMENDMENT_INVALID: explicit endpoints and changes are required");
+  }
+  if (hash(after) !== record.after_sha256) throw new Error("EDITORIAL_AMENDMENT_OUTPUT_DRIFT: current bytes differ from the reviewed endpoint");
+  let before = after;
+  for (const change of [...record.changes].reverse()) {
+    if (typeof change.before !== "string" || typeof change.after !== "string" || !change.after ||
+        typeof change.reason !== "string" || !change.reason.trim() || before.split(change.after).length !== 2) {
+      throw new Error("EDITORIAL_AMENDMENT_ANCHOR_INVALID: unique non-empty anchors and reasons are required");
+    }
+    before = before.replace(change.after, () => change.before);
+  }
+  if (hash(before) !== record.before_sha256) throw new Error("EDITORIAL_AMENDMENT_INPUT_DRIFT: changes do not reconstruct the historical endpoint");
+  return before;
+}
+
 // Mechanical deletion-only check, not semantic approval or source verification.
 // Offsets are JavaScript UTF-16 offsets in the original body, excluding metadata.
 export function validateDeletionRecord(after, record) {

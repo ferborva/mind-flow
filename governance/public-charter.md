@@ -4,7 +4,7 @@ title: Public Charter for the Abundance Transition Observatory
 type: governance-proposal
 status: proposed
 provenance: commissioned-proposal
-author: ren
+author: Ren
 reviewer: fernando-bordallo
 created: 2026-09-08
 updated: 2026-09-09

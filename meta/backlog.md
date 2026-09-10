@@ -25,9 +25,15 @@ script.
 
 - [x] **Process the September 10 capture.** Exact capture commit `832143d`
       from [PR #19](https://github.com/ferborva/mind-flow/pull/19) is integrated
-      into Round 09 only. Fernando explicitly directed main to stay unchanged.
+      into Round 09 only. Fernando explicitly directed main to stay unchanged
+      in [the captured integration answer](../capture/2026-09-10-keep-main-unchanged.md).
       Seeds and draft restore the observation, not a remedy; the world weather
       station is the programme, with Australia retained as the depth example.
+- [ ] **Is the naughty-kid line an observation or an imperative?** The image
+      is restored as Ren's reading, permitted by the forwarded Round 09 brief.
+      His September 1 words also include "You've got the resources, you've got
+      to make the choice". His September 10 answer withdraws a remedy but does
+      not explicitly settle the image. Only Fernando can settle that reading.
 - [ ] **Which ranking and vintage defines the top 50?** Commissioned proposal:
       April 2026 IMF WEO, 2025 nominal GDP, native economy universe including
       separately reported territories. Completed-year values can still be
@@ -77,6 +83,26 @@ The Round 09 scoped disclaimer rule replaces the earlier four-document targets;
 the older universal-denominator question below remains historical context, not
 a newly failed scoped gate. Receipt forgery, schema-2 hash separation, repository
 history weight and eight inherited macro raw inputs remain open.
+
+### Round 09 storm operationalisation, Ren's analysis
+
+Moved out of the raw [storms capture](../capture/2026-09-10-storms-as-social-contract-shifts.md)
+in Round 09.1. These are Ren's implementation notes, not additional words or
+decisions from Fernando.
+
+- His clarification selects access to means of generating income as the
+  simplification, while relating livelihoods to broader access. It does not
+  select unemployment, labour share, wages or another specific series.
+- What constitutes disruption, its severity and whether beneficial changes
+  count are not supplied by the numerical threshold alone.
+- The population denominator, assessment period, persistence and forecast
+  horizon are not yet defined.
+- Five percent is his proposed scale, not a calibrated probability threshold
+  or an estimate that five percent are currently affected.
+- Country-specific, regional and global events may overlap. Their affected
+  populations must not be added as though they were independent or disjoint.
+- The existing own-history rank proposal remains a potential investigation
+  input. It does not measure a social-contract shift or forecast this event.
 
 ### Round 08 moratorium exceptions and unresolved gates
 

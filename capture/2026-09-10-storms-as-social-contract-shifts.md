@@ -36,21 +36,8 @@ it is not a source retroactively attributed to the frozen proposal.
 
 > For the 5% threshold, should we count only people whose income-generating routes are disrupted, or also household members who depend on that income?
 
-## Unsettled implementation questions after the clarification, Ren's notes
+## Loose ends
 
-- His clarification selects access to means of generating income as the
-  simplification, while relating livelihoods to broader access. It does not
-  select unemployment, labour share, wages or another specific series.
-- What constitutes disruption, its severity and whether beneficial changes
-  count are not supplied by the numerical threshold alone.
-- The population denominator, assessment period, persistence and forecast
-  horizon are not yet defined.
-- Five percent is his proposed scale, not a calibrated probability threshold
-  or an estimate that five percent are currently affected.
-- Country-specific, regional and global events may overlap. Their affected
-  populations must not be added as though they were independent or disjoint.
-- The existing own-history rank proposal remains a potential investigation
-  input. It does not measure a social-contract shift or forecast this event.
-
-Keep this capture raw for the next capture-to-seed-to-proposal pass. No current
-condition definition, forecast or measured result is changed by this file.
+- The household follow-up above has not been answered.
+- Ren's implementation notes are recorded separately in
+  [the backlog](../meta/backlog.md#round-09-storm-operationalisation-rens-analysis).

@@ -15,13 +15,23 @@ The initial lane applied Round 09's deletion-only instruction to the three named
 drafts. First-person sentences and the open company-choice GAP stayed verbatim;
 the naughty-kid passage remained absent. No new substantive position was drafted
 for Fernando at that checkpoint. The later, expressly authorised September 10
-amendment below closes that GAP and restores the observation. The original
+amendment below closes the money-accrual GAP and restores the image as Ren's
+reading. Whether that image is observation or imperative remains Fernando's
+decision, not something the forwarded brief settles. The original
 deletion logs and their strict validator remain unchanged.
+
+**Round 09.1 correction:** the current [repair register](round-09.1-editorial-repairs.md)
+restores the WHEN claim ceiling and records a forward-only capture-status
+transition. Counts below describe their named historical checkpoints, not the
+repaired current draft. Historical JSON records remain byte-identical; their
+claims of an explicit author instruction for the image are superseded by the
+provenance correction here, not endorsed by replay success.
 
 ## September 10 captured amendment, after the deletion checkpoint
 
-The replacement brief expressly closes the enterprise-diagnosis GAP and permits
-the naughty-kid line as observation only. The [capture](../capture/2026-09-10-where-the-money-sits-and-the-weather-station.md)
+The money-accrual answer closes the enterprise-diagnosis GAP. The naughty-kid
+restoration is **Ren's reading, permitted by the forwarded Round 09 brief**,
+not a captured new author instruction. The [capture](../capture/2026-09-10-where-the-money-sits-and-the-weather-station.md)
 is processed through the updated enterprise seed and new world-weather-station
 seed before the draft amendment. The isolated “Where the ball sits” section
 contains the money-accrual diagnosis and a close paraphrase of September 1's
@@ -30,8 +40,8 @@ image, with its imperative framed as the parent's speech. It restores neither
 The source capture is added to the essay's frontmatter.
 
 The draft's pre-existing first-person sequence remains byte-for-byte equal as
-extracted by the existing detector. The sole former GAP closes under the new
-author instruction. Two exact replacements below reverse that amendment before
+extracted by the existing detector. The sole former money-accrual GAP closes
+under the captured answer; the image's imperative force remains open. Two exact replacements below reverse that amendment before
 the historical deletion-only replay; no generic permission to delete GAPs or
 change first-person wording was added. The validator and historical cut records
 are unchanged. Capture bytes and both amendment endpoints are pinned in tests.

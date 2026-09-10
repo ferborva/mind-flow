@@ -2,7 +2,7 @@
 id: 2026-09-10-where-the-money-sits-and-the-weather-station
 title: The enterprise-choice line is a plain observation, and the station must watch the world, not one state
 type: capture
-status: raw
+status: processed
 themes: [abundance]
 participants: Fer, Claude (review session, text)
 created: 2026-09-10

@@ -22,9 +22,10 @@ enough-line argument.
 > and we can dismiss it as bound to any solutions.
 > from: 2026-09-10-where-the-money-sits-and-the-weather-station
 
-The accompanying Round 09 instruction expressly permits the naughty-kid image
-as a description of where the ball sits, without a remedy paragraph. This
-closes the enterprise-diagnosis GAP. The historical argument below remains a
+The naughty-kid restoration is **Ren's reading, permitted by the forwarded Round 09 brief**,
+not a new statement from Fernando. His captured answer closes the money-accrual
+diagnosis GAP, not whether the September 1 image is observation or imperative.
+That distinction remains his decision. The historical argument below remains a
 record of what changed, not a current programme of action.
 
 ## Historical position and withdrawal
@@ -93,11 +94,16 @@ it's theirs by right"), and leaves it open.
   solution". The contrast survives only as an illustration of one condition
   being met two ways.
 - **The naughty-kid line.** Ren's earlier reading treated it as observation.
-  Round 08 removed it pending author clarification. The September 10 instruction
-  now expressly permits restoration as observation only.
+  Round 08 removed it pending author clarification. The forwarded September 10
+  brief permits Ren's restoration on that reading, without a remedy paragraph;
+  it does not supply a captured answer to the image's imperative force.
 
 ## Gaps
 
+- Is the naughty-kid line an observation or an imperative? The September 1
+  context includes "You've got the resources, you've got to make the choice".
+  The September 10 answer withdraws any remedy but does not explicitly settle
+  that image. Do not promote Ren's reading into his current position.
 - Nvidia and Google daily revenue figures need verifying.
 - What does he actually want done with the pooled S&P 500 profit number? Raised,
   then dropped. Likely moot now that the remedy is withdrawn.
