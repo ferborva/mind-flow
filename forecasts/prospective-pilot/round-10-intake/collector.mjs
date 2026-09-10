@@ -37,7 +37,6 @@ export async function collect({destination, fetcher=fetch, clock=()=>new Date(),
     if(response.url && response.url!==url) throw new Error('unexpected response URL');
     const headers=Buffer.from([...response.headers].map(([k,v])=>`${k}: ${v}\n`).join(''));
     await save(name+'.headers.txt',headers);
-    if(!response.ok) throw new Error(`source HTTP ${response.status}`);
     const chunks=[]; let length=0;
     try {
       for await(const chunk of response.body) {
@@ -53,6 +52,7 @@ export async function collect({destination, fetcher=fetch, clock=()=>new Date(),
     await save(name,bytes);
     const receipt={url,started_at,ended_at:clock().toISOString(),status:response.status,body_sha256:digest(bytes),body_byte_length:bytes.length,headers_sha256:digest(headers),headers_representation:'fetch response headers serialised as name: value; body after HTTP content decoding'};
     await json(name+'.receipt.json',receipt);
+    if(!response.ok) throw new Error(`source HTTP ${response.status}`);
     return {bytes,receipt};
   }
   try {

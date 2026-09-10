@@ -60,3 +60,10 @@ test('publisher retries never rewrite existing first presence and only creates m
   observation.archive_sha256='sha256:revision';
   assert.throws(()=>publish({directory:destination,repository:'ferborva/mind-flow',request}),/revision observed/);
 });
+test('HTTP failure retains response body and status receipt', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'nero-http-failure-'));
+  const destination=join(dir,'attempt');
+  await assert.rejects(collect({destination,clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async()=>new Response('publisher unavailable',{status:503})}),/503/);
+  assert.equal(await readFile(join(destination,'nero-landing.html'),'utf8'),'publisher unavailable');
+  assert.equal(JSON.parse(await readFile(join(destination,'nero-landing.html.receipt.json'))).status,503);
+});
