@@ -1,2 +1,3 @@
 pilots/australia/sources/nero/2026-08/2026-08_nero.zip filter=lfs diff=lfs merge=lfs -text
 pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx filter=lfs diff=lfs merge=lfs -text
+signals/countries/sources/imf-weo/2026-04/WEOApr2026all.xlsx filter=lfs diff=lfs merge=lfs -text
