@@ -1,0 +1,12 @@
+{
+  "source": "https://www.jobsandskills.gov.au/data/nero",
+  "started_at": "2026-09-09T23:59:10.810Z",
+  "ended_at": "2026-09-09T23:59:11.123Z",
+  "status": 200,
+  "body_sha256": "sha256:104ad9c065ba4d0d7f6fdec736874ab1235cf255ceea215a7041cd1546a18a48",
+  "body_byte_length": 48490,
+  "headers_sha256": "sha256:68e38b4f834f9c377894c80b0775d07f961faedc679e03893ceb07cd5e0563d3",
+  "headers_representation": "fetch response headers serialised as name: value; body after HTTP content decoding",
+  "publisher_identity_verified": false,
+  "global_absence_verified": false
+}
