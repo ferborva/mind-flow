@@ -79,6 +79,12 @@ jobs:
       - name: Check the current Round 09 forecast error disclosure
         run: node forecasts/prospective-pilot/round-09-nero/check-error-disclosure.mjs
 
+      - name: Verify the retained Round 10 review receipt
+        run: >-
+          node meta/review-freeze/review-freeze.mjs verify
+          --policy=round-10
+          --manifest=meta/review-freeze/round-10.review-freeze.json
+
       - name: Reproduce the timing-contract migration
         run: node dashboard/tools/migrate-timing-contract.mjs --check
 
