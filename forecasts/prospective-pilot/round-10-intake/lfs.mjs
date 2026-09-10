@@ -13,11 +13,11 @@ function credentials(){
 export function downloadLfs(pointer){
   if(!/^version https:\/\/git-lfs.github.com\/spec\/v1\noid sha256:[a-f0-9]{64}\nsize [1-9][0-9]*\n$/.test(pointer.toString())||Number(pointer.toString().match(/size (\d+)/)[1])>90*1024*1024)throw new Error('invalid bounded LFS pointer');
   const storage=mkdtempSync(join(tmpdir(),'nero-lfs-verify-'));
-  return git(['-c',`lfs.storage=${storage}`,'lfs','smudge',`--filename=${prefix}2026-10_nero.zip`],pointer,credentials());
+  return git(['-c',`lfs.storage=${storage}`,'lfs','smudge',`${prefix}2026-10_nero.zip`],pointer,credentials());
 }
 export function uploadVerifiedLfs(bytes,{run=git,environment=credentials,download=downloadLfs}={}){
   const pointer=pointerFor(bytes),env=environment();
-  if(!run(['lfs','clean',`--filename=${prefix}2026-10_nero.zip`],bytes,env).equals(pointer))throw new Error('LFS clean pointer mismatch');
+  if(!run(['lfs','clean',`${prefix}2026-10_nero.zip`],bytes,env).equals(pointer))throw new Error('LFS clean pointer mismatch');
   run(['lfs','push','--object-id','origin',digest(bytes).slice(7)],undefined,env);
   if(!download(pointer).equals(bytes))throw new Error('LFS independent download verification failed');
   return pointer;

@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { collect } from '../round-10-intake/collector.mjs';
 import { validateDirectory } from '../round-10-intake/validate-evidence.mjs';
 import { uploadVerifiedLfs, pointerFor } from '../round-10-intake/lfs.mjs';
+import { execFileSync } from 'node:child_process';
 const html='<a href="/sites/default/files/2026-11/2026-10_nero.zip">Download</a>';
 const options={now:new Date('2026-11-04T00:00:00Z')};
 async function fixture(){const root=await mkdtemp(join(tmpdir(),'nero-validate-'));const directory=join(root,'attempt');await collect({destination:directory,clock:()=>new Date('2026-11-04T00:00:00Z'),fetcher:async url=>new Response(url.endsWith('.zip')?Buffer.from([80,75,3,4,0,0,0,0]):html,{headers:{'content-type':url.endsWith('.zip')?'application/zip':'text/html'}})});return directory;}
@@ -31,4 +32,11 @@ test('LFS upload success is insufficient without independently downloaded byte e
   assert.throws(()=>uploadVerifiedLfs(bytes,{run,environment:()=>({}),download:()=>Buffer.from('wrong')}),/download verification/);
   assert.ok(calls.some(args=>args.includes('--object-id')));
   assert.deepEqual(uploadVerifiedLfs(bytes,{run,environment:()=>({}),download:()=>bytes}),pointerFor(bytes));
+});
+test('installed Git LFS clean/smudge protocol roundtrips exact fixture bytes in temporary storage',async()=>{
+  const storage=await mkdtemp(join(tmpdir(),'nero-lfs-local-'));const bytes=Buffer.from([80,75,3,4,123]);
+  const args=['-c',`lfs.storage=${storage}`,'lfs'];
+  const pointer=execFileSync('git',[...args,'clean','forecast-fixture.zip'],{input:bytes});
+  assert.deepEqual(pointer,pointerFor(bytes));
+  assert.deepEqual(execFileSync('git',[...args,'smudge','forecast-fixture.zip'],{input:pointer,env:{...process.env,GIT_LFS_SKIP_SMUDGE:'0'}}),bytes);
 });
