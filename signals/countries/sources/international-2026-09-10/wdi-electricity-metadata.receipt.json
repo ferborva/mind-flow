@@ -1,0 +1,13 @@
+{
+  "id": "wdi-electricity-metadata",
+  "url": "https://api.worldbank.org/v2/sources/2/series/EG.ELC.ACCS.ZS/metadata?format=json",
+  "final_url": "https://api.worldbank.org/v2/sources/2/series/EG.ELC.ACCS.ZS/metadata?format=json",
+  "started_at": "2026-09-10T01:15:22.748Z",
+  "ended_at": "2026-09-10T01:15:22.779Z",
+  "status": 200,
+  "body_sha256": "sha256:da726072611229156212b3b2e78e8db6fe28059c9e21037121dc09b0029caa8d",
+  "body_byte_length": 3992,
+  "headers_sha256": "sha256:ea59c5ecc869b2419444f5ff3f26a6989a443fce0d00e9e3543620b26c1f9cb9",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

@@ -1,0 +1,13 @@
+{
+  "id": "ilo-licence",
+  "url": "https://www.ilo.org/rights-and-permissions",
+  "final_url": "https://www.ilo.org/rights-and-permissions",
+  "started_at": "2026-09-10T01:15:26.665Z",
+  "ended_at": "2026-09-10T01:15:28.883Z",
+  "status": 200,
+  "body_sha256": "sha256:44a9fd6d5eb8fa86a810b88f2c88828ed3962ca09b84d719b821feeb158e859d",
+  "body_byte_length": 49888,
+  "headers_sha256": "sha256:3d715e6519b5f4c3c1c0b3e0c31ba4508cbf6fc4a5d053b254c1f2c57cbdd3e5",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

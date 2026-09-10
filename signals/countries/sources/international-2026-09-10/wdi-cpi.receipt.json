@@ -1,0 +1,13 @@
+{
+  "id": "wdi-cpi",
+  "url": "https://api.worldbank.org/v2/country/all/indicator/FP.CPI.TOTL.ZG?source=2&format=json&per_page=30000",
+  "final_url": "https://api.worldbank.org/v2/country/all/indicator/FP.CPI.TOTL.ZG?source=2&format=json&per_page=30000",
+  "started_at": "2026-09-10T01:15:19.285Z",
+  "ended_at": "2026-09-10T01:15:21.635Z",
+  "status": 200,
+  "body_sha256": "sha256:28813d8e4499cf3941cb24f4e1a662590b0f3c5d9bbb1ea0f3ed22041161ea5a",
+  "body_byte_length": 3994630,
+  "headers_sha256": "sha256:6c1b89aea66fa292dd24e8b06e8b9d10c4058f9935710be0ae61d74f0d50b5cd",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

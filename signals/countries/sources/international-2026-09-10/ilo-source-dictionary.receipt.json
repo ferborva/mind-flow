@@ -1,0 +1,13 @@
+{
+  "id": "ilo-source-dictionary",
+  "url": "https://rplumber.ilo.org/metadata/dic/?id=source",
+  "final_url": "https://rplumber.ilo.org/metadata/dic/?id=source",
+  "started_at": "2026-09-10T01:15:26.229Z",
+  "ended_at": "2026-09-10T01:15:26.664Z",
+  "status": 200,
+  "body_sha256": "sha256:e4f44e35508bbe2690074f45def1d0a5de70afc7a20d20d696c4d087c7095087",
+  "body_byte_length": 212784,
+  "headers_sha256": "sha256:65cf3e854e7d25ccb85d99c1db5394c3f91c5b2c2e1e163d02a6f79d16aad5ed",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
