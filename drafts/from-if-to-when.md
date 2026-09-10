@@ -62,11 +62,10 @@ planned. They can coexist, reverse or never arise.
 | The service works but its terms cannot be challenged | permission; the decision maker and review process hold relevant parts | Affected people can use the review or alternative route and report the result |
 
 These descriptions organise an investigation. A barrier's frequency does not
-by itself establish its causal importance. A high national percentage cannot
-choose a particular rural person's binding condition. The missing information
+by itself establish its causal importance. The missing information
 belongs in the next observation, beside the proposed diagnosis.
 
-**Possible public responses, not predictions:** people could welcome a change,
+**Possible public responses:** people could welcome a change,
 seek different terms, organise an alternative or refuse it. Those possibilities
 do not make disagreement a symptom to manage. The outcome sought by the
 proposal is more practical choice, including the choice to challenge it.
@@ -105,13 +104,12 @@ memory.** It shows what was learned and which earlier interpretation expired.
 
 The action ladder is `watch_if`, `prepare_if`, `act_if`, `pause_if`,
 `reverse_if`, `recover_if` and `graduate_if`. A changed condition can make an
-option eligible for consideration. It cannot authorise the option by itself.
-The actor, funding, practical capacity and accountable decision belong beside
+option eligible for consideration. The actor, funding, practical capacity and accountable decision belong beside
 the option before real-world action.
 
 ## 📣 A public update worth reading
 
-The following seven-part update is Ren's communication scaffolding. It makes
+It makes
 the evidence and open questions easy to find.
 
 1. **What was observed?** Name the measure, source and period in a plain sentence.

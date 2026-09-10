@@ -34,7 +34,7 @@ cells. No new prose was added to the drafts or used to enlarge denominators.
 | --- | ---: | ---: | ---: | ---: |
 | `drafts/abundance-has-an-if.md` | 135 | 130 | 6 | 6/130 = 4.62% |
 | `drafts/every-if-is-somebodys-when.md` | 78 | 78 | 3 | 3/78 = 3.85% |
-| `drafts/from-if-to-when.md` | 90 | 83 | 4 | 4/83 = 4.82% |
+| `drafts/from-if-to-when.md` | 87 | 80 | 3 | 3/80 = 3.75% |
 | `dashboard/README.md` | 38 | 32 | 3 | 3/32 = 9.38% |
 
 Counted units, identified by wording rather than an opaque automated classifier:
@@ -49,11 +49,10 @@ Counted units, identified by wording rather than an opaque automated classifier:
   employer-naming notice; attribution of the five-part record to Ren. The worked
   pair, quote source, discretion distinction and conditional-dependency account
   remain substantive parts of the explanation, not repeated disclaimers.
-- **From IF:** the opening commissioned-proposal boundary; possible public
-  responses being explicitly not predictions; an option not authorising itself;
-  attribution of the seven-part update to Ren. National versus individual
-  inference, barrier frequency versus causality, and historical analogies versus
-  present populations remain source/method-specific limits beside their claims.
+- **From IF:** the opening commissioned-proposal boundary; barrier frequency
+  not establishing causal importance; historical analogies supplying neither
+  a timetable nor population equivalence. This broad count now includes the
+  contentious method limits, rather than excluding them to pass the gate.
 - **README:** the agent-built status sentence; the public-release-blocked
   sentence; the synthetic surface's no-authority clause (counted as a unit even
   though it shares a parsed unit with surrounding table text). The adjacent
@@ -61,11 +60,15 @@ Counted units, identified by wording rather than an opaque automated classifier:
   orientation; they are not new padding. They existed before this pass.
 
 These are creator classifications for a different-owner semantic review, not
-an independent gate certificate. In particular, counting the three retained
-source/method limits in `from-if-to-when` as disclaimers too gives 7/83 = 8.43%,
-which fails. Deleting them would weaken the argument. The independent review
-must explicitly adjudicate that distinction rather than silently accepting a
-more favourable numerator. The broader universal public-document gate is not
+an independent gate certificate. The first pass's contentious `from-if` count
+was 7/83 = 8.43% and failed. Four additional, logged redundant-status cuts now
+bring that broader classification to 3/80. The possible-response label remains;
+the opening attribution covers the whole proposal; the requirement for an
+accountable decision before action remains; and the worker-specific paragraph
+still requires explicit source coverage. No actual national estimate appears
+in this draft, so its repeated national-to-individual warning was not the sole
+ceiling on an empirical claim. The frequency/causality and historical-transport
+limits stay intact. The broader universal public-document gate is not
 claimed: the operator reference and dedicated boundary page retain necessary
 limitations, and embedded public messages need their own denominators.
 
@@ -151,6 +154,16 @@ This replay checks mechanics, not semantic fidelity or independent approval.
       "reason": "The section is already titled Scenarios, not a calendar; the preceding captured sequencing concession and following coexist/reverse/never-arise sentence retain the substantive ceiling."
     },
     {
+      "offset": 3090,
+      "text": "A high national percentage cannot\nchoose a particular rural person's binding condition. ",
+      "reason": "No national estimate is asserted in this draft. The later worker paragraph requires the page to say what sources actually cover when they cannot answer for that worker, alongside explicit service/population/place reporting. Delete this repeated generic warning, not an empirical claim's only ceiling."
+    },
+    {
+      "offset": 3294,
+      "text": ", not predictions",
+      "reason": "Delete repeated prediction-status wording; the same label still says Possible public responses, and the retired calendar/coexist/reverse conditions remain."
+    },
+    {
       "offset": 4060,
       "text": "**The arithmetic does not select a remedy.**\n",
       "reason": "No arithmetic in this passage chooses a remedy. Keep the actual candidate mechanisms and research questions; delete the redundant disclaimer."
@@ -159,6 +172,16 @@ This replay checks mechanics, not semantic fidelity or independent approval.
       "offset": 4119,
       "text": "is not choosing among those routes here. It ",
       "reason": "Delete the repeated non-selection disclaimer while preserving the existing antecedent and concrete research questions: This proposal asks what a route changes."
+    },
+    {
+      "offset": 5551,
+      "text": "It cannot authorise the option by itself.\n",
+      "reason": "The next sentence still requires actor, funding, capacity and accountable decision beside the option before real-world action; remove the repeated prohibition."
+    },
+    {
+      "offset": 5746,
+      "text": "The following seven-part update is Ren's communication scaffolding. ",
+      "reason": "The opening commissioned-proposal boundary and canonical author metadata already attribute this proposal to Ren; remove the repeated attribution."
     },
     {
       "offset": 6829,

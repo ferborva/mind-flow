@@ -87,7 +87,7 @@ test("the supply-side argument treats WHEN as actor-specific hypothesis, not des
 test("scenario crossings do not predict or pathologise public response", () => {
   assert.match(second, /Scenarios, not a calendar/i);
   assert.match(second, /They can coexist, reverse or never arise/i);
-  assert.match(second, /Possible public responses, not predictions:/i);
+  assert.match(second, /Possible public responses:.*people could welcome a change/is);
   for (const rejected of [
     /\*\*Movements:/i,
     /predicts precisely the resistance/i,
@@ -101,7 +101,8 @@ test("IF movement and action authority are explicit", () => {
   assert.match(second, /watch_if.*act_if.*pause_if.*reverse_if.*recover_if.*graduate_if/is);
   assert.match(second, /commissioned-proposal/);
   assert.match(second, /Useful preparation question.*Evidence needed before a consequential decision/i);
-  assert.match(second, /cannot authorise the option by itself/i);
+  assert.match(second, /accountable decision belong beside\s+the option before real-world action/i);
+  assert.match(second, /If the available sources cannot\s+answer for that worker, the page should say what they do cover/i);
   assert.doesNotMatch(second, /activates automatically|Legislate the triggers|make it irreversible/i);
 });
 
