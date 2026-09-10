@@ -4,7 +4,7 @@ title: Round 08 public disclaimer inventory
 type: internal-review
 status: incomplete
 provenance: commissioned-proposal
-author: ren
+author: Ren
 created: 2026-09-09
 updated: 2026-09-10
 ---
