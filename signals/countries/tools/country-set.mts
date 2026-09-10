@@ -54,6 +54,7 @@ export function rankCountries(rows: Row[]) {
     const iso3 = row['COUNTRY.ID'];
     if (!/^[A-Z]{3}$/.test(iso3) || seen.has(iso3)) throw new Error('invalid or duplicate WEO country cell');
     seen.add(iso3);
+    if (row.SERIES_CODE !== `${iso3}.NGDPD.A` || row.INDICATOR !== 'Gross domestic product (GDP), Current prices, US dollar') throw new Error('WEO native series/indicator mismatch');
     if (row.UNIT !== 'US dollar' || row.SCALE !== 'Billions' || row.FREQUENCY !== 'Annual') throw new Error('WEO unit/frequency mismatch');
     if (row.DATASET !== 'IMF.RES:WEO(9.0.0)' || row.PUBLICATION_DATE !== '2026-04-14T13:00:00Z') throw new Error('WEO vintage mismatch');
     const raw = row['2025'];

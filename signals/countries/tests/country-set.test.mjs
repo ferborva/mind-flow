@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { readWeoCountries, rankCountries, deriveCountrySet } from '../tools/country-set.mts';
+import { readWeoCountries, rankCountries, deriveCountrySet, sha256 } from '../tools/country-set.mts';
 
 test('retained April 2026 countries sheet ranks nominal USD GDP in 2025 only', () => {
   const rows = readWeoCountries();
@@ -22,6 +22,24 @@ test('ranking rejects duplicate native cells, wrong units and malformed values',
   }
 });
 
+test('a valid country code cannot borrow another native series or non-GDP description', () => {
+  const rows = readWeoCountries().filter(r => r['INDICATOR.ID'] === 'NGDPD');
+  for (const patch of [{ SERIES_CODE: 'USA.NGDPD.A' }, { INDICATOR: 'GDP per capita' }]) {
+    assert.throws(() => rankCountries([{ ...rows[0], ...patch }, ...rows.slice(1)]), /series|indicator/);
+  }
+});
+
+test('published cell checks anchor the inclusion boundary and named missing values', () => {
+  const result = rankCountries(readWeoCountries());
+  assert.equal(result.eligible_count, 193);
+  assert.deepEqual(result.cutoff_comparison.map(c => [c.rank, c.iso3, c.source_cell, c.source_value]), [
+    [50, 'KAZ', 'BW5769', '302.74599999999998'],
+    [51, 'NGA', 'BW8101', '290.49099999999999'],
+    [52, 'DZA', 'BW5329', '285.72399999999999'],
+  ]);
+  assert.deepEqual(result.excluded.map(c => c.iso3).sort(), ['ERI', 'LKA', 'SYR', 'WBG']);
+});
+
 test('missing country values are not zero or silently backfilled; ties use ISO3', () => {
   const rows = readWeoCountries().filter(r => r['INDICATOR.ID'] === 'NGDPD');
   const source = rows[0];
@@ -40,4 +58,16 @@ test('checked-in commissioned proposal reproduces from retained source bytes', (
   assert.equal(actual.panel_admission, false);
   assert.equal(actual.ranking.reference_year, 2025);
   assert.ok(actual.ranking.estimate_warning.includes('estimates'));
+});
+
+test('failed licence acquisitions remain hashed evidence, not an open licence', () => {
+  const base = new URL('../sources/imf-weo/2026-04/', import.meta.url);
+  const review = JSON.parse(readFileSync(new URL('licence-review.json', base)));
+  assert.equal(review.retained_terms_body, false);
+  for (const failure of review.failed_acquisitions) {
+    const headers = readFileSync(new URL(failure.headers_file, base));
+    assert.equal(sha256(headers), failure.headers_sha256);
+    assert.match(headers.toString('utf8'), /HTTP\/2 403/);
+    assert.equal(failure.body_retained, false);
+  }
 });
