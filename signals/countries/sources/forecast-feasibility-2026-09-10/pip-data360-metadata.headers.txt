@@ -1,0 +1,17 @@
+accept-ranges: bytes
+access-control-allow-origin: *
+access-control-expose-headers: x-ms-request-id,Server,x-ms-version,Content-Type,ETag,Last-Modified,x-ms-lease-status,x-ms-blob-type,Content-Length,Date,Transfer-Encoding
+cache-control: public, max-age=900
+connection: keep-alive
+content-length: 55015
+content-type: application/octet-stream
+date: Thu, 10 Sep 2026 06:41:53 GMT
+etag: 0x8DED634B97B2C17
+last-modified: Mon, 29 Jun 2026 23:18:27 GMT
+x-azure-ref: 20260910T064152Z-15c7dc54cfd5qs46hC1SYDbvrw00000004e0000000008e5e
+x-cache: TCP_MISS
+x-fd-int-roxy-purgeid: 0
+x-ms-blob-type: BlockBlob
+x-ms-lease-status: unlocked
+x-ms-request-id: be2ac926-101e-0037-24ef-4037d6000000
+x-ms-version: 2009-09-19
