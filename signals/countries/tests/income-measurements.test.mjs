@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { sha256 } from '../tools/measure.mjs';
 import { extractIncomeIlo, extractIncomePip, deriveIncomeMeasurements, serializeIncomeMeasurements } from '../tools/income-measurements.mts';
 
@@ -16,6 +18,12 @@ test('compact observation serialization is valid JSON with unchanged values and 
 
 const ilo = { ref_area: 'AUS', source: 'XA:1', indicator: 'EMP_2WAP_SEX_AGE_RT', sex: 'SEX_T', classif1: 'AGE_YTHADULT_YGE15', time: '2020', obs_value: '60.1' };
 const dictionary = [{ref_area:'AUS',source:'XA:1','source.label':'ILO - Modelled Estimates'}];
+test('frozen producer refuses unknown, duplicate or conflicting CLI options',()=>{
+  for(const args of [['--check','--garbage'],['--check','--check'],['--check','--write']]){
+    const result=spawnSync(process.execPath,[fileURLToPath(new URL('../tools/income-measurements.mts',import.meta.url)),...args],{encoding:'utf8'});
+    assert.notEqual(result.status,0,JSON.stringify(args));assert.match(result.stderr,/exactly one/);
+  }
+});
 test('ILO keeps its working-age denominator and exact native selector, never a disrupted count', () => {
   const [row] = extractIncomeIlo([ilo], 'EMP_2WAP_SEX_AGE_RT', ['AUS'], dictionary);
   assert.equal(row.value,60.1); assert.equal(row.estimation_type,'ILO-modelled');

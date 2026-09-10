@@ -92,9 +92,10 @@ export function deriveIncomeMeasurements() {
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)) {
   try {
+    const options=process.argv.slice(2);
+    if(options.length!==1||!['--check','--write'].includes(options[0]))throw new Error('provide exactly one option: --check or --write (new output only)');
     const bytes=serializeIncomeMeasurements(deriveIncomeMeasurements());const target=new URL('income-measurements.v1.json',directory);
-    if(process.argv.includes('--check')){if(readFileSync(target,'utf8')!==bytes)throw new Error('income measurement replay differs');console.log('income measurement retained-source replay passed');}
-    else if(process.argv.includes('--write'))writeFileSync(target,bytes,{flag:'wx'});
-    else throw new Error('use --check or --write (new output only)');
+    if(options[0]==='--check'){if(readFileSync(target,'utf8')!==bytes)throw new Error('income measurement replay differs');console.log('income measurement retained-source replay passed');}
+    else writeFileSync(target,bytes,{flag:'wx'});
   }catch(error){throw new Error('Income producer failed; preserve source receipts and inspect the cause',{cause:error});}
 }
