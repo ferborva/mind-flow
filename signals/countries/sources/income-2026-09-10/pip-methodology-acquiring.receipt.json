@@ -1,0 +1,13 @@
+{
+  "id": "pip-methodology-acquiring",
+  "url": "https://datanalytics.worldbank.org/PIP-Methodology/acquiring.html",
+  "final_url": "https://datanalytics.worldbank.org/PIP-Methodology/acquiring.html",
+  "started_at": "2026-09-10T06:17:14.240Z",
+  "ended_at": "2026-09-10T06:17:14.531Z",
+  "status": 200,
+  "body_sha256": "sha256:a78e201269d2f0db6ecf0bf6c51673bfc7bd9daccdbf376f5492a6dde35a22f8",
+  "body_byte_length": 27477,
+  "headers_sha256": "sha256:4a07f7f9ed11e80f72e818095f6743d83ec2c312479849ed55cabab9ba6238e6",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

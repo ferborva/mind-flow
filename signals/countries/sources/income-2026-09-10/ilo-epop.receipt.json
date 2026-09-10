@@ -1,0 +1,13 @@
+{
+  "id": "ilo-epop",
+  "url": "https://rplumber.ilo.org/data/indicator/?id=EMP_2WAP_SEX_AGE_RT_A&format=.csv",
+  "final_url": "https://rplumber.ilo.org/data/indicator/?id=EMP_2WAP_SEX_AGE_RT_A&format=.csv",
+  "started_at": "2026-09-10T06:14:44.122Z",
+  "ended_at": "2026-09-10T06:14:47.180Z",
+  "status": 200,
+  "body_sha256": "sha256:af1cc2b1744cf7075afc39f7c6cc577b98ee5e28790651f589b65a3aaee7d000",
+  "body_byte_length": 7451393,
+  "headers_sha256": "sha256:79ec01181f3b60818e8cc56fbc9138b3beb03a9b5540a1434a686ae20f9b1e64",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

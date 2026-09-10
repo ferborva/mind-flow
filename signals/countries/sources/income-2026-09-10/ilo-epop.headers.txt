@@ -1,0 +1,19 @@
+accept-ranges: bytes
+access-control-allow-credentials: true
+access-control-allow-headers: Origin, Content-Type, Accept, Authorization
+access-control-allow-methods: GET, POST, OPTIONS
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: a38c4b4f0c4b334e-SYD
+connection: keep-alive
+content-disposition: attachment; filename=EMP_2WAP_SEX_AGE_RT_A-20260910T0814.csv
+content-encoding: gzip
+content-type: application/octet-stream
+date: Thu, 10 Sep 2026 06:14:45 GMT
+server: cloudflare
+set-cookie: frontier-backend-https=srv-topaze-dmz; path=/; HttpOnly; Secure
+set-cookie: __cf_bm=UeBt_ZYl4OKB1vfcH9NuvE1X1ToBXcQi0MR_2MDVdAA-1789020884.3244495-1.0.1.1-0uGZa.IDjziBWperbBCnxDuP5_QzT.HGAVY2jxTzwS79rSjIcW.Pes4SRyt527ca14z6e8SLXFmjhojj4YtU3roGujuRDF9N.ifthH_oSIyeLYaSEOCSZ7ekr6K5gtOA; HttpOnly; SameSite=None; Secure; Path=/; Domain=ilo.org; Expires=Thu, 10 Sep 2026 06:44:45 GMT
+strict-transport-security: max-age=31536000
+transfer-encoding: chunked
+vary: accept-encoding

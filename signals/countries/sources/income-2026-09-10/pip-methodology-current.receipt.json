@@ -1,0 +1,13 @@
+{
+  "id": "pip-methodology-current",
+  "url": "https://datanalytics.worldbank.org/PIP-Methodology/lineupestimates.html",
+  "final_url": "https://datanalytics.worldbank.org/PIP-Methodology/lineupestimates.html",
+  "started_at": "2026-09-10T06:17:12.596Z",
+  "ended_at": "2026-09-10T06:17:13.940Z",
+  "status": 200,
+  "body_sha256": "sha256:0ef6a41dda429472da82cfd2c157bb5b1dbebac701c93fc3b7f29232073e52c1",
+  "body_byte_length": 69806,
+  "headers_sha256": "sha256:145e5e632c20b58d73655cdd8763926c5fba79a8b21e30b235e59eb0e0d3c31b",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

@@ -1,0 +1,13 @@
+{
+  "id": "ilo-informality-rejected",
+  "url": "https://rplumber.ilo.org/data/indicator/?id=EMP_NIFL_SEX_RT_A&format=.csv",
+  "final_url": "https://rplumber.ilo.org/data/indicator/?id=EMP_NIFL_SEX_RT_A&format=.csv",
+  "started_at": "2026-09-10T06:14:59.001Z",
+  "ended_at": "2026-09-10T06:15:00.878Z",
+  "status": 200,
+  "body_sha256": "sha256:049cf40d72cc2aff405b5b1983bf551dfb8651b3ab0568151485c11ead351997",
+  "body_byte_length": 659255,
+  "headers_sha256": "sha256:5c9202ac48b45a2ef0b26e6ef6777328deeedefea154d533e193f836e90a8b63",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}

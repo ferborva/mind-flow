@@ -1,0 +1,13 @@
+{
+  "id": "pip-parameters",
+  "url": "https://api.worldbank.org/pip/v1/valid-params?endpoint=pip",
+  "final_url": "https://api.worldbank.org/pip/v1/valid-params?endpoint=pip",
+  "started_at": "2026-09-10T06:14:54.760Z",
+  "ended_at": "2026-09-10T06:14:55.099Z",
+  "status": 200,
+  "body_sha256": "sha256:0164eb59570897e1c552bbab927194c21546164aa0856e1b4af4ead9fd84293f",
+  "body_byte_length": 30288,
+  "headers_sha256": "sha256:3692c75ae3a030ddc0a29acaf0da62b4aa3abc3306746e12feeaf4df09521c12",
+  "headers_representation": "fetch response headers serialised as name: value; exact complete response body after HTTP content decoding",
+  "publisher_identity_verified": false
+}
