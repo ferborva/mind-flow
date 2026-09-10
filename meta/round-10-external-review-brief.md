@@ -2,7 +2,7 @@
 id: round-10-external-review-brief
 title: Round 10 review, operational rule and measurement insufficiency
 type: review-brief
-status: preparing-freeze
+status: review-candidate
 author: Ren
 provenance: commissioned-proposal
 created: 2026-09-10
@@ -62,15 +62,15 @@ should record its first-pass findings before sharing conclusions.
 | Two new real evolution events, three total | **Unmet: 0 new, 1 total.** Three proposed definitions are construction. No known-wrong proxy was adopted just to manufacture an invalidation. Rehashed rule mutation and stale hashes are rejected, but synthetic tests are not real migrations. |
 | Australian depth | Full NERO source replay, 140 separate NSW occupation/SA4 series, fixed comparisons and native extrema. GP join fails geography, population, period and construct alignment. No national-to-local inference or summed employment counts. |
 | Scheduled intake in place and tested | Daily November/December workflow with actual 2026 acquisition window, read-only collection, bounded write publisher, exact evidence validation and verified LFS publication. No resolver or scorer. **Activation remains pending main integration and repository permissions; this branch is not an active scheduler.** |
-| Appointment proposal and third issued forecast | Bounded adjudicator appointment drafted, nominee and Fernando decision pending. Appointment cannot invent a retrospective void ground. A Canadian reported-series forecast is under source/baseline/adapter review, not yet issued at this preparation checkpoint. |
+| Appointment proposal and third issued forecast | Bounded adjudicator appointment drafted, nominee and Fernando decision pending. Appointment cannot invent a retrospective void ground. Canadian reported unemployment forecast issued 10 September at 07:56:37 UTC after provider registration at 07:49:33 UTC. Probability 0.090909; frozen all-month baseline 0.483333 and naive 0.5. Resolution 6 November through 31 December. Exact source/receipt/issue replay is mandatory, but provider registration remains self-posted and externally unverified; it establishes no storm, skill or authority. |
 | Name the If ready or blocked | Creator checklist and line-level provenance pass complete; ready for Fernando's section-by-section read. [Sign-off sheet](../reviews/name-the-if-sign-off.md), seven approvals pending, outside-human-read choice pending. Nothing moved to posts or published. |
 | WHEN under 5% through approved ceiling merge | Complete ceiling retained in defining sentence. Standalone-disclaimer reading: 3/78 = 3.85%. Counting every sentence containing a limitation, including that definition: 4/78 = 5.13%, so the gate remains unmet under that broader classification. Both classifications disclosed for independent judgment, not hidden through denominator inflation. |
-| Hygiene closed | Casing extended; canonical hash directly pinned; already merged layout, disclosure-CI, date and label regressions retained. **Literal distinct historical freeze IDs remain unmet** pending preservation/versioning choice. Originals are byte-identical; attempt index is not falsely called new embedded IDs. |
+| Hygiene closed | Casing extended; canonical hash directly pinned; already merged layout, disclosure-CI, date and label regressions retained. Future Round 10 executions have exact UUIDv4 identities in same-family receipt edition 1.1.0, with Git LFS included in the restricted toolchain. **Literal distinct historical freeze IDs remain unmet** pending preservation/versioning choice. Originals are byte-identical; attempt index is not falsely called new embedded IDs. |
 | Node 22, freeze and review | In progress until the final candidate receipt and separate seal exist. The receipt, not this preparatory text, supplies exact commands, outcomes, counts and target. No Round 10 merge or publication is authorised by a passing check. |
 
 The first NERO score is not yet due. The defective original Round 09 record
 remains disclosed, blocked and included in the programme history. Neither
-appointment, a replacement nor an unissued third design erases it.
+appointment, a replacement nor the Canadian issue erases it.
 
 ## Eight independent tracks, measurement split three ways
 
@@ -96,9 +96,14 @@ appointment, a replacement nor an unissued third design erases it.
    Verify complete source/receipt/header chronology before external writes,
    exact default-branch constraints, narrow permissions, LFS upload and
    independent-download equality, stable-branch retries and closed-PR policy.
-   Audit any final Canadian issuance separately from its preparation draft:
+   Audit the actual Canadian issuance separately from its preserved preparation draft:
    exact raw tuple, no SA-headline substitution, frozen comparator, horizon,
    seasonal versus all-month methods, and genuine pre-outcome receipt order.
+   Start with `forecasts/prospective-pilot/round-10-canada/issuance/issued/issued.json`
+   and the sealed runbook. The method was chosen after inspecting seasonality;
+   nine dependent historical pairs do not establish calibration. The decoder
+   prepares a payload only; future source-presence, publication-window and
+   human resolution admission remain separate requirements.
 4. **Governance and lineage.** The adjudicator is not appointed. Inspect the
    permitted remit, conflicts and absence of a retroactive void ground. Check
    whether branch operations, code-level validity or proposed category labels
@@ -117,6 +122,8 @@ appointment, a replacement nor an unissued third design erases it.
    historical freeze IDs. Hash-domain separation, history weight and inherited
    macro raw-input closure remain named deferrals. Integrity is not transcript
    authenticity, publisher identity or safe execution of untrusted code.
+   Round 10's additive 1.1.0 receipt edition requires recorded Git LFS bytes
+   and distinct UUIDv4 execution IDs, without changing historical editions.
 7. **Human and affected-party review.** No consultation, recruitment or
    outside human read is represented by these agent passes. Review the seven
    pending section decisions and the separate outside-reader option. Identify
@@ -148,6 +155,7 @@ the [source audit](../signals/countries/income-source-audit.md),
 [retrospective](../reviews/round-10-storm-retrospective.md),
 [Australian depth](../reviews/round-10-australia-depth.md),
 [intake operations](../reviews/round-10-forecast-operations.md),
+[Canadian actual issuance](../forecasts/prospective-pilot/round-10-canada/issuance-note.md),
 [narrative provenance](../reviews/round-10-narrative-provenance.md), and
 [progress register](../reviews/round-10-progress.md).
 

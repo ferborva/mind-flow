@@ -41,6 +41,9 @@ test('Round 10 binds exact independent replay commands and cannot substitute a w
     ['round-10-income-check', ['node', 'signals/countries/tools/income-measurements.mts', '--check']],
     ['round-10-storm-check', ['node', 'signals/countries/tools/storm-criterion.mts', '--check']],
     ['round-10-depth-check', ['node', 'pilots/australia/tools/round-10-nero-retrospective.mts', '--check']],
+    ['round-10-canada-draft-check', ['node', 'forecasts/prospective-pilot/round-10-canada/draft.mts', '--check']],
+    ['round-10-canada-basis-check', ['node', 'forecasts/prospective-pilot/round-10-canada/build-basis.mts', '--check']],
+    ['round-10-canada-issued-check', ['node', 'forecasts/prospective-pilot/round-10-canada/issuance.mts', '--check']],
     ['round-10-receipt-boundary-check', ['node', '--test', 'meta/review-freeze/tests/round-10-policy.test.mjs']],
     ['round-09.1-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09.1', '--manifest=meta/review-freeze/round-09.1.review-freeze.json']],
   ]);

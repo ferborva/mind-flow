@@ -11,7 +11,7 @@
     },
     {
       "path": "dashboard/observatory/data.js",
-      "sha256": "5a69b03cc3a5be17206c366af9f686dfebc85c9aa4a1f3857b080c3bbda5acf4"
+      "sha256": "a44410b42171aca025262da200568030a73e1202bb06f17f2d3a9cf763531231"
     },
     {
       "path": "experiments/observatory-comparison/rendered/conventional-release.html",

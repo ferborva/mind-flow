@@ -149,3 +149,61 @@ A separate forward commit adds distinct UUIDv4 identities to future Round 10
 executions. Original Round 09.1 receipts and schema remain byte-identical;
 their literal distinct-ID gate is still unmet. This is runtime repair, not
 transcript authentication or a new contract family.
+
+### Prospective registration checkpoint, 07:49 UTC
+
+The Canadian design and real-clock CLI were independently accepted at
+`630b59af9a47a47e4b894433e03f2e5b8205ee6d`. The local seal at 07:45:59 UTC
+is commit `381cb452ff9c27a3a5a7159c04dd92cd68be6904`; issue opens exactly
+07:55:59 UTC. All 33 source-closure files and the protocol/request bytes
+were independently reproduced before registration.
+
+The approval guard initially paused the seal push. The coordinator reread
+the user-supplied commission's explicit preregistration, issuance and branch
+push instructions, verified the destination, and resubmitted that evidence
+through approval review. The guarded push and bounded registration were then
+approved and completed. No workaround or blind retry was used.
+
+GitHub recorded the digest-only registration on existing PR42 at
+07:49:33 UTC, [comment 5615053978](https://github.com/ferborva/mind-flow/pull/42#issuecomment-5615053978).
+Exact POST/GET bodies, headers, metadata and the registration receipt are
+retained in `c0aac1f9c3f0ace240b2b47abab535f598c448f8`. A separate reviewer
+confirmed the live comment, unedited creation/update times, all source bytes
+and capture chronology. This checkpoint is registration, not issuance.
+
+The full local Node 22 suite passed through all 18 suites, ending with
+31 review-freeze tests. A later exact-candidate freeze will retain its own
+complete transcript and count, including final issuance/CI additions.
+Both GitHub CI runs at `26c8fbe` passed. A public-registry connectivity probe
+failed under restricted networking and succeeded through approved network
+access; final isolated dependency installation must use that approved path.
+
+### Actual Canadian issue, 07:56 UTC
+
+After the declared opening, the guarded CLI performed a fresh unchanged-comment
+GET ending at 07:56:36.833 UTC and issued at the actual next second,
+07:56:37 UTC. Commit `d8af9cf351a4b44cd2d3b8157ec301549797729a` preserves all
+13 issued files. Issued SHA-256 is
+`fd35bf9998830c4ba3d9d42bcd94feefd1fce29c70b144042754239df2e01140`;
+preregistration SHA-256 is
+`70991b3027a297d366eb15087883d7ecfa176f79e00c137ea0962382455df09c`.
+Root and a separate reviewer ran the offline check, confirmed exact committed
+bytes and chronology, and replayed the native target and both comparators.
+The probability is 0.090909, with 0.483333 all-month and 0.5 naive baselines.
+
+Mandatory actual-issued replay is added to CI and the Round 10 freeze policy,
+with failing-then-passing tests rejecting omitted, conditional, duplicated or
+weaker commands. The record remains research-only, externally unverified and
+unscored. It does not measure a storm, infer a binding access category or
+erase the defective original NERO record. The scheduler remains inactive on
+this branch; final freeze and external review are separate from main merge.
+
+Final pre-freeze review found all 243 required files present and 43 declared
+commands. Six focused CI/policy tests passed, alongside independent actual
+issuance replay. The final artifact lock was explicitly regenerated after
+review: only Observatory validation-context inventory/digests changed; the
+normalised content hash excluding those fields stayed
+`ab1ef7cff9ca7a7be7a44370e3c25e76b1be4ea8c7155acc6ec3469750064f9d`.
+All other generated outputs remained byte-identical. Candidate selection,
+the retained full reproduction and a separate seal now form the handoff;
+none authorises a Round 10 main merge.
