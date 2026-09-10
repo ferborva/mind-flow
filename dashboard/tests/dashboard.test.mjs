@@ -905,7 +905,9 @@ test("the build produces a self-contained page with parseable application code",
 });
 
 test("operator documentation matches the governed 2.1 bundle-bound build", () => {
-  const readme = readFileSync(dashboardReadmePath, "utf8");
+  const entry = readFileSync(dashboardReadmePath, "utf8");
+  assert.match(entry, /\[Operator details\]\(OPERATIONS\.md\)/);
+  const readme = entry + "\n" + readFileSync(new URL("../OPERATIONS.md", import.meta.url), "utf8");
   const schemaReadme = readFileSync(schemaReadmePath, "utf8");
   assert.match(readme, /public_update/);
   assert.match(readme, /build-time.*validation/i);

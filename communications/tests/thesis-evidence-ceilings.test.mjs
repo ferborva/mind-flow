@@ -23,7 +23,8 @@ test("piece one focuses on its worked example without unsupported poverty-audien
 
 test("the supply argument keeps consumer IFs and actor WHENs linked but non-identical", () => {
   assert.match(when, /two registers are linked but non-identical/i);
-  assert.match(when, /not a validated linguistic test/i);
+  assert.match(when, /A person can use the sentence while still\s+depending on decisions held elsewhere/i);
+  assert.doesNotMatch(when, /grammar (?:proves|validates|establishes) (?:authority|identity)/i);
   assert.match(when, /Public, social-insurance and private delivery arrangements/i);
   assert.doesNotMatch(when, /Same conditions\. Different verb/i);
   assert.doesNotMatch(when, /there are two kinds of people/i);

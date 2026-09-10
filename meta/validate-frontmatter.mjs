@@ -125,6 +125,12 @@ export function lintMarkdown(path, markdown) {
   }
 
   const [root] = normalisedPath.split("/");
+  // Current draft display names are canonical. Historical programme records
+  // and imported foundation metadata retain their original provenance bytes.
+  const author = (values.author || "").replace(/^(["'])(.*)\1$/, "$2");
+  if (root === "drafts" && /^ren$/i.test(author) && author !== "Ren") {
+    errors.push(issue("DRAFT_AUTHOR_CASING", normalisedPath, "current draft author must use Ren, not a casing variant"));
+  }
   if (PIPELINE_ROOTS.has(root) && !normalisedPath.startsWith("meta/templates/")) {
     const expected = basename(normalisedPath, ".md");
     if (values.id !== expected) {
