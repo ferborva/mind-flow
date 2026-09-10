@@ -89,6 +89,51 @@ test("the Round 08 seal unconditionally verifies its retained receipt in CI", ()
   assert.match(step, /node meta\/review-freeze\/review-freeze\.mjs verify\s+--policy=round-08\s+--manifest=meta\/review-freeze\/round-08\.review-freeze\.json/);
 });
 
+function assertRound09ReceiptSteps(text) {
+  for (const [name, policy, manifest] of [
+    ["Verify the retained Round 9 review receipt", "round-09", "round-09.review-freeze.json"],
+    ["Verify the retained Round 9 pre-steer receipt", "round-09-initial", "round-09.pre-steer.review-freeze.json"],
+  ]) {
+    const step = text.split(`      - name: ${name}\n`)[1]?.split("\n      - name:")[0];
+    assert.ok(step, `${name} is required`);
+    assert.equal(step.trim(), [
+      "run: >-",
+      "          node meta/review-freeze/review-freeze.mjs verify",
+      `          --policy=${policy}`,
+      `          --manifest=meta/review-freeze/${manifest}`,
+    ].join("\n"), `${name} must run the exact unconditional normal verifier`);
+  }
+}
+
+test("the Round 09 seal unconditionally verifies current and pre-steer receipts", () => {
+  assertRound09ReceiptSteps(workflow);
+});
+
+test("Round 09 seal validation rejects skipped, misbound and failure-tolerant receipt checks", () => {
+  assertRound09ReceiptSteps(workflow);
+  for (const policy of ["round-09", "round-09-initial"]) {
+    for (const replacement of [
+      `--policy=${policy} --allow-failed-reproduction`,
+      "--policy=round-08",
+      `--policy=${policy} || true`,
+    ]) assert.throws(() => assertRound09ReceiptSteps(
+      workflow.replace(`--policy=${policy}\n`, `${replacement}\n`)));
+  }
+  for (const name of ["Verify the retained Round 9 review receipt", "Verify the retained Round 9 pre-steer receipt"]) {
+    for (const addition of ["        if: false\n", "        continue-on-error: true\n"]) {
+      assert.throws(() => assertRound09ReceiptSteps(workflow.replace(
+        `      - name: ${name}\n`, `      - name: ${name}\n${addition}`)));
+    }
+    assert.throws(() => assertRound09ReceiptSteps(workflow.replace(name, "Omitted receipt")));
+  }
+  assert.throws(() => assertRound09ReceiptSteps(workflow.replace(
+    "--manifest=meta/review-freeze/round-09.review-freeze.json",
+    "--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json")));
+  assert.throws(() => assertRound09ReceiptSteps(workflow.replace(
+    "--manifest=meta/review-freeze/round-09.pre-steer.review-freeze.json",
+    "--manifest=meta/review-freeze/round-09.review-freeze.json")));
+});
+
 test("local and CI runtime contracts pin the same Node major", () => {
   assert.equal(nodeVersion, "22");
   assert.equal(packageJson.engines.node, "22.x");
