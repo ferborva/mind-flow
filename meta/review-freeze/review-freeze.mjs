@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
   accessSync,
@@ -38,6 +38,7 @@ const validateFreezeSchema = ajv.compile(freezeSchema);
 const round10SchemaPath = 'meta/review-freeze/review-freeze.v1.1.schema.json';
 const round10SchemaBytes = readFileSync(resolve(here, 'review-freeze.v1.1.schema.json'));
 const validateRound10Schema = ajv.compile(JSON.parse(round10SchemaBytes.toString('utf8')));
+const round10ExecutionId = /^round-10\.review-inputs\.[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
 function freezeEdition(policy) {
   return policy.policy_id === 'review-freeze.round-10'
     ? { version: '1.1.0', path: round10SchemaPath, bytes: round10SchemaBytes, validate: validateRound10Schema, gitLfs: true }
@@ -1074,7 +1075,7 @@ export function createReviewFreeze({
     path === edition.path);
   const manifest = {
     schema_version: edition.version,
-    freeze_id: `${policy.review_round}.review-inputs`,
+    freeze_id: policy.policy_id === 'review-freeze.round-10' ? `round-10.review-inputs.${randomUUID()}` : `${policy.review_round}.review-inputs`,
     status: "review-inputs-frozen",
     created_at: freezeCreatedAt,
     generator: {
@@ -1202,7 +1203,9 @@ export function verifyReviewFreeze(manifest, {
   })) {
     errors.push(issue("REVIEW_POLICY_MISMATCH", "/policy", "freeze policy identity or content has drifted"));
   }
-  if (manifest?.freeze_id !== `${policy.review_round}.review-inputs`) {
+  if (policy.policy_id === 'review-freeze.round-10'
+    ? !round10ExecutionId.test(manifest?.freeze_id ?? '')
+    : manifest?.freeze_id !== `${policy.review_round}.review-inputs`) {
     errors.push(issue("REVIEW_POLICY_MISMATCH", "/freeze_id", "freeze identity does not match the selected review round"));
   }
   const expectedCommands = policy.build_commands.map(commandRecord);
