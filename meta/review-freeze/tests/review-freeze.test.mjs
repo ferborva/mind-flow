@@ -536,6 +536,12 @@ test("Round 09 has its own policy identity and requires measurement, intake and 
     'forecasts/prospective-pilot/round-09-nero/issued.json',
     'forecasts/prospective-pilot/round-09-nero/preregistration.json',
     'forecasts/prospective-pilot/issuance-binding/round-09-validate.mjs',
+    'reviews/round-09-forecast-correction.md',
+    'forecasts/prospective-pilot/round-09-nero/error-notice.md',
+    'forecasts/prospective-pilot/round-09-nero-corrected/target-policy.mjs',
+    'forecasts/prospective-pilot/issuance-binding/round-09-corrected-validate.mjs',
+    'forecasts/prospective-pilot/round-09-nero-corrected/resolution-intake.mjs',
+    'forecasts/prospective-pilot/operational-clock.mjs',
     'meta/build-artifacts.lock.json',
   ]) assert.ok(paths.has(path), path);
   for (const id of ['measurement-depth-check', 'evolution-discovery-check', 'round-09-prospective-issuance-check', 'round-09-narrative-check']) {
