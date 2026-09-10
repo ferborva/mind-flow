@@ -1099,7 +1099,7 @@
         "added",
         "definition-revised"
       ],
-      "notice": "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment."
+      "notice": "The executable IF kernel owns definition history. This overlay binds that complete local history and opens no empirical assessment. Events 1 to 11 are construction replay, not eleven observed changes. Later events require their own source-based justification; event count alone is not an empirical progress measure."
     },
     "active_conditions": [
       {
@@ -1415,7 +1415,7 @@
       "action_authorised": false
     }
   },
-  "manifest_hash": "sha256:93601d7360e86fea46f48d5c1eb716bd9996c9b7800bcc75351f90f1c8646b9b",
+  "manifest_hash": "sha256:880d50f84b4594c77a342a1a7ef5f592fb7612cff6eb5c8f638353d8271b7376",
   "contract_boundary": {
     "definition_history_owner": "source-executable-if-kernel",
     "history_validity_effect": "source-binding-and-integrity-only",

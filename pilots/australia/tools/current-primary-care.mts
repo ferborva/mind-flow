@@ -122,7 +122,16 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     if (hash(readFileSync(resolve(root, workbookPath))) !== workbookHash) throw new Error('Footnoted workbook bytes differ');
     const args = process.argv.slice(2);
-    if (args.length !== 1 || !['--append', '--check'].includes(args[0])) throw new Error('Use --append once, or --check');
+    if (args.length !== 1 || !['--append', '--check', '--refresh-overlay'].includes(args[0])) throw new Error('Use --append once, --check, or explicitly --refresh-overlay after a reviewed projection change');
+    if (args[0] === '--refresh-overlay') {
+      // Reproduce only the presentation overlay, never rewrite the kernel,
+      // consumer, original events or their recorded timestamps.
+      const kernel = read(currentPath);
+      const overlay = outputs(kernel).find(([path]) => path === overlayPath)![1];
+      writeFileSync(resolve(root, overlayPath), bytes(overlay));
+      console.log('Refreshed the current AU overlay only; kernel and consumer bytes unchanged.');
+      process.exit(0);
+    }
     const check = args[0] === '--check';
     const recordedAt = check ? read(currentPath).events.at(-1).recorded_at : new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
     const generated = outputs(appendCorroborationRequirement(original, recordedAt));

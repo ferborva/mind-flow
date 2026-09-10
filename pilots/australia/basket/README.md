@@ -2,6 +2,13 @@
 
 This pilot cannot tell you whether you can get an appointment today. It can show where a barrier has been measured, who may be able to change it, and what remains unknown.
 
+**Events 1 to 11 are construction replay**, not eleven observed changes in access.
+Event 12 is the first actual appended definition revision, following the retained
+workbook review. It invalidates an earlier consumer binding until an explicit
+rebind. The [current ledger](../../../contracts/evolution/fixtures/australia-primary-care.current.json)
+labels that exact construction prefix. Its event count is not a measure of
+empirical progress or of conditions removed.
+
 Construction revision [primary-care.r3.json](primary-care.r3.json) and [primary-care.kernel.r3.json](primary-care.kernel.r3.json) retain the five-category research mapping used by the public table. Independent review removed unsupported numeric upper bounds, made the missing specialist-pathway price measure explicit, and required observation-domain enforcement. Original and r2 artifacts and dashboard snapshot `2026-09-09.r1` remain unchanged for audit. Their old evaluator bindings are not current. No measured value or source period changed. The [10 September measurement correction](../data/primary-care-2026-09-10.json) adds the retained workbook's definitions and survey exclusions without rewriting those construction records.
 
 In 2024-25, an estimated **7.2% of NSW people in the survey who needed a GP delayed or went without because of cost**. The published 95% confidence-interval half-width is 0.7 percentage points. Very-remote residents were excluded in 2024-25 after a phase-out during 2023-24. This is a survey-scope state estimate, not a finding about you, your occupation or your town. It is historical evidence, not a current service guarantee.
