@@ -5,7 +5,7 @@
   "as_of": "2026-09-10",
   "criterion_binding": [
     {"path":"signals/countries/tools/storm-criterion.mts","sha256":"sha256:c9586564bba4aff36d4a82cb189c37747b5643a07a12ae2698af1f3d3bbbfc76"},
-    {"path":"signals/countries/storm-criterion.v1.md","sha256":"sha256:b0c44d02a466f6d9628c68f22717153bf8a3ec1218d73a1bb18a42081cfccdca"},
+    {"path":"signals/countries/storm-criterion.v1.md","sha256":"sha256:92a20a02685c48d63e5f685f69bbd76b13f99a7bc2741b844371518b6d149384"},
     {"path":"signals/countries/storm-review.v1.json","sha256":"sha256:03aac4f0619efee8c4d61a111e9c6cf5dd34e029150ee148d18234bc82020e16"}
   ],
   "source": {

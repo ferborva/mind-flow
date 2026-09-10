@@ -45,6 +45,7 @@ test('publisher labels and selectors cannot inject Markdown or HTML; source path
   assert.throws(()=>renderCountryView(changed,options),/source path/);
 });
 test('generated Markdown reproduces exactly from the measurement snapshot',()=>{
+  assert.match(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8').slice(0,600), /\[Jump to income-access assessments\]\(#income-access-comparison-2024-to-2025\)/);
   assert.equal(readFileSync(new URL('../measurement-view.md',import.meta.url),'utf8'),renderCountryView(data(),{...options,stormReview:loadStormReview()}));
 });
 test('headline counts the intersection, not missing cells or stale measured_signals labels',()=>{

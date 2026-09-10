@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { reviewPolicyFor } from '../review-freeze.mjs';
+
+test('freeze CLI documents the new policy and retains the shock-source replay', () => {
+  const result = spawnSync(process.execPath, [new URL('../review-freeze.mjs', import.meta.url).pathname, '--help'], { encoding: 'utf8' });
+  assert.match(result.stdout + result.stderr, /round-09\.1\|round-10/);
+  assert.deepEqual(reviewPolicyFor('round-10').build_commands.find(x => x.command_id === 'round-10-shock-context-check')?.argv,
+    ['node', 'signals/countries/tools/shock-context.mts', '--check']);
+});
 
 test('commissioned receipt decision expires and does not substitute a sampled rerun for full review', () => {
   const decision = readFileSync(new URL('../../../reviews/round-10-receipt-trust-decision.md', import.meta.url), 'utf8');

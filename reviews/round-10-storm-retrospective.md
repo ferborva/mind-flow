@@ -105,7 +105,7 @@ counterexample, while direct disruption and binding-category change remain
 unmeasured. Zero new real IF evolution events are recorded; the programme total
 stays one. Creating research definitions is not an adoption or evolution event.
 
-Retain direct income-route transitions with aligned population denominators and
+Retain comparable disruption-prevalence shares with aligned population denominators and
 separate household mappings before admitting an affected share. Establish actual
 binding-category evidence before that alternative arm can decide a candidate.
 Re-run the same criterion without proxy substitution when those measurements

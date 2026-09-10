@@ -142,9 +142,10 @@ retire/supersede operation or count a synthetic mutation test as a migration.
 
 **Investigate income access in a named population IF** a retained native
 movement, local account or policy change gives a specific reason to look.
-Collect a comparable route-disruption measure, affected-person/household
-mapping, uncertainty and evidence about the binding condition before making
-the national candidate claim. Keep practical support based on demonstrated
+Admit comparable disruption-prevalence evidence for the direct-share arm, or
+matched before/after evidence for the binding-category arm. Report uncertainty,
+household mapping and any other missing evidence separately; neither both arms
+nor a household mapping is required when one arm is measured true. Keep practical support based on demonstrated
 local need separate from whether a national threshold has been established.
 
 **Reconsider this rule IF** direct evidence shows its five-point prevalence

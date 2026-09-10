@@ -116,3 +116,20 @@ The external-review brief is being prepared with eight tracks and separate
 depth, breadth and criterion audits. The final receipt and seal will select
 the exact target; no moving branch, internal consensus or interim test run
 substitutes for that handoff.
+
+### Integration corrections after the checkpoint
+
+Central CI at `a32e8ab` failed the artifact-lock check after its test suite,
+not the measurement tests. Only Observatory validation-context inventory and
+its referenced digests differed from the prior sealed generated output; a
+structured comparison found all other Observatory content equal. The lock is
+being explicitly regenerated after reviewing the integrated source changes,
+not weakened or ignored. A top-of-reader jump link and exact inverse amendment
+make the new country assessments discoverable.
+
+Independent prose review caught a closing instruction that accidentally
+required both criterion arms and household mapping. It now follows the actual
+OR rule: admit the relevant arm and disclose other gaps separately. The C
+consumer correctly rejected the changed criterion-document hash before the
+reviewed rebind; complete source replay passed afterwards. This clarification
+is not a new empirical IF evolution event and does not increase the count.

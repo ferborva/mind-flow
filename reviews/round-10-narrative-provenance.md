@@ -286,3 +286,24 @@ sentence inventories use the restored checkpoint, not the enlarged reader.
   ]
 }
 ```
+
+### Country-reader navigation amendment
+
+A top-of-reader jump link makes the new assessments discoverable. It changes
+no value, criterion or attribution; the second inverse runs before the first.
+
+```editorial-amendment
+{
+  "path": "signals/countries/measurement-view.md",
+  "scope": "complete-file",
+  "before_sha256": "14266ff604e0883572c05ca3ca5191e93259c537a3f6181d584f49012d965611",
+  "after_sha256": "1180650666f5ff93f489b9aad44e1e3721cf51ce953ee61b0a8a8d5e0c91a9e4",
+  "changes": [
+    {
+      "before": "# Country measurement snapshot\n\n",
+      "after": "# Country measurement snapshot\n\n[Jump to income-access assessments](#income-access-comparison-2024-to-2025). The original national context remains below.\n\n",
+      "reason": "Add a top-of-reader navigation link so the income-access assessments are discoverable without traversing fifty historical context sections."
+    }
+  ]
+}
+```

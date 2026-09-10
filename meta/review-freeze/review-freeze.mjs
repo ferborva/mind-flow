@@ -429,6 +429,13 @@ export const ROUND_10_REVIEW_POLICY = Object.freeze({
       ['signals/countries/tools/income-measurements.mts', 'Exact income history producer'],
       ['signals/countries/storm-criterion.v1.md', 'Reversible commissioned criterion, not forecast skill'],
       ['signals/countries/tools/storm-criterion.mts', 'Country criterion and retrospective replay'],
+      ['signals/countries/storm-review.v1.json', 'Exact source-derived criterion states and rejected proxy crossings'],
+      ['signals/countries/tools/shock-context.mts', 'Pinned primary historical context, not national outcome labels'],
+      ['reviews/round-10-storm-retrospective.md', 'Unassessable social criterion and quantified native counterexamples'],
+      ['.github/workflows/nero-intake.yml', 'Evidence-only scheduled acquisition and restricted publication jobs'],
+      ['forecasts/prospective-pilot/round-10-intake/validate-evidence.mjs', 'Complete pre-publication evidence validation'],
+      ['forecasts/prospective-pilot/round-10-intake/lfs.mjs', 'Verified upload and fresh-cache download before pointer publication'],
+      ['governance/round-10-adjudicator-appointment.md', 'Commissioned appointment proposal, not appointed authority'],
       ['pilots/australia/data/round-10-nero-retrospective.json', 'Native stock changes and unjoinable GP evidence'],
       ['pilots/australia/tools/round-10-nero-retrospective.mts', 'Full retained NERO replay'],
       ['pilots/australia/tests/round-10-nero-retrospective.test.mjs', 'Hostile stock-to-disruption and national-to-local boundaries'],
@@ -441,6 +448,7 @@ export const ROUND_10_REVIEW_POLICY = Object.freeze({
     ...[
       ['round-10-income-check', ['node', 'signals/countries/tools/income-measurements.mts', '--check']],
       ['round-10-storm-check', ['node', 'signals/countries/tools/storm-criterion.mts', '--check']],
+      ['round-10-shock-context-check', ['node', 'signals/countries/tools/shock-context.mts', '--check']],
       ['round-10-depth-check', ['node', 'pilots/australia/tools/round-10-nero-retrospective.mts', '--check']],
       ['round-10-receipt-boundary-check', ['node', '--test', 'meta/review-freeze/tests/round-10-policy.test.mjs']],
       ['round-09.1-receipt-check', ['node', 'meta/review-freeze/review-freeze.mjs', 'verify', '--policy=round-09.1', '--manifest=meta/review-freeze/round-09.1.review-freeze.json']],
@@ -1355,8 +1363,8 @@ function parseOption(arguments_, name, fallback) {
 }
 
 function usage() {
-  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--commit=<ref>] [--run] [--force]\n" +
-    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
+  return "Usage: node meta/review-freeze/review-freeze.mjs create --output=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1|round-10] [--commit=<ref>] [--run] [--force]\n" +
+    "       node meta/review-freeze/review-freeze.mjs verify --manifest=<path> [--policy=round-04|round-06|round-07|round-08|round-09-initial|round-09|round-09.1|round-10] [--checkout] [--runtime-parity] [--generator-parity] [--allow-failed-reproduction]\n";
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

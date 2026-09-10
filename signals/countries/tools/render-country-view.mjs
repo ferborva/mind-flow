@@ -46,6 +46,7 @@ export function renderCountryView(measurements,{measurementSha256,stormReview}={
     '---','id: country-measurement-view','title: Country measurement snapshot','type: research-synthesis','status: commissioned-proposal',
     'provenance: commissioned-proposal','author: Ren','created: 2026-09-10','---','',
     '# Country measurement snapshot','',
+    ...(stormReview ? ['[Jump to income-access assessments](#income-access-comparison-2024-to-2025). The original national context remains below.', ''] : []),
     `**${visible.length} economies, ${complete} with all three series, ${count} retained signal observations.** These are dated national statistics, not live conditions or a warning result. Binding categories remain unknown; the evidence needed to assess them is named below.`,
     '',
     'The proposed sampling frame uses 2025 nominal GDP in the April 2026 IMF WEO. Fernando has not chosen the ranking or signals. IMF economies include Hong Kong and Taiwan separately; the labels make no sovereignty decision. GDP estimates may be present even for a completed year.',
