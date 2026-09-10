@@ -1,0 +1,68 @@
+{
+  "id": "round-09-evolution-discoveries",
+  "recorded_at": "2026-09-10T00:09:00Z",
+  "author": "Ren",
+  "kernel_id": "kernel.au.primary-care.r3",
+  "kernel_manifest_hash": "sha256:6983d2b948b04304d8bc9701d0d71de27e6750b94512420caa81299735e49cc1",
+  "construction_event_count": 11,
+  "actual_appended_events": 1,
+  "new_events_appended": 0,
+  "required_total_actual_events": 3,
+  "gate_met": false,
+  "source_path": "pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx",
+  "source_artifact_hash": "sha256:99c6ff08e0a48026b780370aa4d02a8edb36b1b11049dd6ce92087005481a36c",
+  "source_url": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-data-tables_0.xlsx?VersionId=dhbsbDjTKGQMTdhUt6hXYhyRTwePk28I",
+  "discoveries": [
+    {
+      "id": "urgent-appointment-clock",
+      "condition_id": "condition.au.gp.timely",
+      "discovery": "Urgent GP waiting begins at appointment-making, not first attempted contact or onset of need. Urgency is respondent-defined and the population obtained urgent care.",
+      "blocker": "Correcting a clock or estimand requires a new signal/typed-claim identity. definition-revised forbids changing signal references or meaning. An arbitrary window or evidence-count change would not encode the discovery.",
+      "needed_work": "Design a versioned migration relating the old research proxy to an exact appointment-clock identity, with explicit downstream invalidation and replacement. Preserve the broader first-attempt access question as unmeasured.",
+      "source_cells": [
+        "10A.43!C54",
+        "10A.43!C55"
+      ],
+      "source_text_hashes": [
+        {
+          "cell": "10A.43!C54",
+          "sha256": "sha256:82e46cacbb970cbca1c4a548d2d36e16feb12dd278e5c2f6350961c43bee092c"
+        },
+        {
+          "cell": "10A.43!C55",
+          "sha256": "sha256:ea39b7dfa9b9ebd195c1bdd783f6afb0f4e08bb756b045c36b8e4755ec613b8f"
+        }
+      ],
+      "disposition": "retained-discovery-requiring-migration-not-an-appended-event"
+    },
+    {
+      "id": "prescription-denominator",
+      "condition_id": "condition.au.prescription.cost",
+      "discovery": "Newly inspected footnotes specify crude rates and the precise people-aged-15+ population who received a GP prescription or needed prescribed medication. Aggregate rather than atorvastatin-specific coverage was already known; very-remote scope change was already retained in Round 08.1.",
+      "blocker": "The old cohort is a single text label. narrowed requires a literal strict subset, not a replacement label with an asserted subset relation. definition-revised cannot change the scope or signal estimand.",
+      "needed_work": "Review a new exact denominator identity and its relationship to the old aggregate proxy. A migration must invalidate consumers of the former meaning, not silently edit labels or add an unrelated parallel condition.",
+      "source_cells": [
+        "10A.33!C17",
+        "10A.33!C20",
+        "10A.33!C24"
+      ],
+      "source_text_hashes": [
+        {
+          "cell": "10A.33!C17",
+          "sha256": "sha256:6013c45ca9919e77d21b4bce42e7a7d7542fa0d60252b79e513f54a8c094a1a8"
+        },
+        {
+          "cell": "10A.33!C20",
+          "sha256": "sha256:1bdb81cbdf05469f854fd723127d4d23454ef734ed658f335f891f1a707d0650"
+        },
+        {
+          "cell": "10A.33!C24",
+          "sha256": "sha256:29e2120f7382fd2ddcc832c3701568c2fa848cc3bc06f73655aa00aafdf6986e"
+        }
+      ],
+      "disposition": "retained-discovery-requiring-migration-not-an-appended-event"
+    }
+  ],
+  "authority_effect": "none",
+  "action_authorised": false
+}
