@@ -26,7 +26,7 @@ export function deriveEvolutionDiscoveries() {
       needed_work: 'Design a versioned migration relating the old research proxy to an exact appointment-clock identity, with explicit downstream invalidation and replacement. Preserve the broader first-attempt access question as unmeasured.',
     },
     { id: 'prescription-denominator', condition_id: 'condition.au.prescription.cost', fields: [['10A.33', 'C17'], ['10A.33', 'C20'], ['10A.33', 'C24']],
-      discovery: 'The crude annual measure covers people aged 15+ who received a GP prescription or needed prescribed medication. It is not completed atorvastatin fills. Very-remote collection changed across the compared years.',
+      discovery: 'Newly inspected footnotes specify crude rates and the precise people-aged-15+ population who received a GP prescription or needed prescribed medication. Aggregate rather than atorvastatin-specific coverage was already known; very-remote scope change was already retained in Round 08.1.',
       blocker: 'The old cohort is a single text label. narrowed requires a literal strict subset, not a replacement label with an asserted subset relation. definition-revised cannot change the scope or signal estimand.',
       needed_work: 'Review a new exact denominator identity and its relationship to the old aggregate proxy. A migration must invalidate consumers of the former meaning, not silently edit labels or add an unrelated parallel condition.',
     },

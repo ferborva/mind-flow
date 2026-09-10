@@ -80,9 +80,10 @@ Round 09 found two more source limits in the same retained workbook:
 - **Urgent care's clock starts at appointment-making**, not the first attempt to
   book. Table 10A.43 C54-C55 also makes urgency respondent-defined and covers
   people who obtained urgent care.
-- **Prescription cost delay is an annual aggregate**, not completed atorvastatin
-  fills. Table 10A.33 C17, C20 and C24 define crude rates, the GP-prescription or
-  prescribed-medication population and changing very-remote coverage.
+- **Prescription cost delay needs a more precise denominator.** Table 10A.33
+  C17 and C20 specify crude rates and the GP-prescription or needed-medication
+  population. Aggregate rather than atorvastatin-specific coverage was already
+  known; C24's changing very-remote coverage was retained in Round 08.1.
 
 These discoveries change the measured construct or population. The existing
 contract deliberately forbids disguising such a change as an ordinary definition
