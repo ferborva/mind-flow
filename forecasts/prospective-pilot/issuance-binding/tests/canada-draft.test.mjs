@@ -9,6 +9,11 @@ test('retained native source reproduces an unissued draft and both baselines',()
   assert.equal(draft.status,'draft-not-issued');
   assert.equal(draft.companion.storm_panel_admitted,false);
   assert.equal(draft.baselines.direction,0.483333);
+  const window=draft.history.observations.filter(p=>p.month>='2016-09'&&p.month<='2026-08');
+  let allMonthSuccesses=0;
+  for(let i=2;i<window.length;i++)if(Number(window[i].value)>=Number(window[i-2].value))allMonthSuccesses++;
+  assert.equal(window.length,120);assert.equal(allMonthSuccesses,57);
+  assert.equal(Number(((allMonthSuccesses+1)/120).toFixed(6)),draft.baselines.direction);
   assert.equal(draft.baselines.naive,0.5);
   assert.equal(draft.forecaster.probability,0.090909);
   assert.equal(draft.forecaster.pairs.length,9);
