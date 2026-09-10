@@ -1,0 +1,25 @@
+HTTP/2 301 
+date: Wed, 09 Sep 2026 23:59:59 GMT
+content-length: 0
+location: https://www.pbs.gov.au/healthpro/explanatory-notes/section1/Section_1_4_Explanatory_Notes
+set-cookie: route=1788998400.976.542880.929272|f270a4bfca439862ebb4a158c1f26778; Path=/; Secure; HttpOnly
+cache-control: max-age=86400, must-revalidate
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+
+HTTP/2 200 
+date: Thu, 10 Sep 2026 00:00:00 GMT
+content-type: text/html;charset=utf-8
+set-cookie: route=1788998401.052.542880.168356|f270a4bfca439862ebb4a158c1f26778; Path=/; Secure; HttpOnly
+permissions-policy: microphone=(),camera=(),fullscreen=(self),payment=()
+referrer-policy: strict-origin-when-cross-origin
+x-frame-options: DENY
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.google.com/; font-src 'self'; frame-ancestors 'self'; frame-src 'self' https://*.youtube.com https://*.googletagmanager.com https://*.google.com/; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.ytimg.com https://*.google.com/; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google-analytics.com https://*.googletagmanager.com https://*.youtube.com https://*.google.com/ https://*.gstatic.com 'nonce-ZDb0xs7zx5iwJeifIdfT/g'; style-src 'self' 'unsafe-inline'; worker-src 'self'; base-uri 'none'; report-to default
+report-to: {"group":"default","max_age":10886400,"endpoints":[{"url":"https://c3xsmw0m.uriports.com/reports"}]}
+reporting-endpoints: default="https://c3xsmw0m.uriports.com/reports"
+vary: Accept-Encoding
+expires: Fri, 10 Sep 2027 00:00:00 GMT
+cache-control: no-cache
+etag: "4a8aeee8a170a6a7f97c15916c4654ea"
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+
