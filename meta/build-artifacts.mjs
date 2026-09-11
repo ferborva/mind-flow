@@ -45,6 +45,7 @@ return [
   ["dashboard/observatory/build.mjs"],
   ["experiments/observatory-comparison/render.mjs"],
   ["contracts/construct-migration/review.mjs", "--check"],
+  ["contracts/construct-migration/research-reader.mjs", "--check"],
   ["pilots/income-access/tools/feasibility.mjs"],
   ["pilots/income-access/tools/sipp-crosswalk.mts"],
   ["experiments/decision-experience/readiness.mts", "--check"],

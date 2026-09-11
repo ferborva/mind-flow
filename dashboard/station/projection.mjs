@@ -6,6 +6,9 @@ import { buildStormReview, serializeStormReview } from '../../signals/countries/
 import { buildRound11MigrationReview, buildMigrationSummary } from '../../contracts/construct-migration/review.mjs';
 import { buildPackage } from '../../experiments/decision-experience/readiness.mts';
 import { validateFeasibility } from '../../pilots/income-access/tools/feasibility.mjs';
+import { buildResearchReaderEdition } from '../../contracts/construct-migration/research-reader.mjs';
+import { replayCrosswalk } from '../../pilots/income-access/tools/sipp-crosswalk.mts';
+import { SOURCES as sippSources } from '../../pilots/income-access/tools/sipp-metadata-capture.mts';
 export { selectSeries, describeChange, preparationFor } from './model.mjs';
 
 const root = new URL('../../', import.meta.url);
@@ -56,7 +59,17 @@ export function buildStation(reader = load) {
   if (JSON.stringify(JSON.parse(read(studyPath))) !== JSON.stringify(packageOutput.readiness)) throw new Error('Study summary replay differs');
   const rehearsal = JSON.parse(read(taskPath));
   if (JSON.stringify(rehearsal) !== JSON.stringify(packageOutput.taskPack)) throw new Error('Task pack replay differs');
-  for (const path of [pilotPath, migrationPath, proposalPath, studyPath, taskPath]) inputs.push({ path, sha256: hash(read(path)) });
+  const readerPath = 'pilots/australia/basket/round-11-research-reader.summary.json';
+  const readerEdition = buildResearchReaderEdition().summary;
+  if (JSON.stringify(JSON.parse(read(readerPath))) !== JSON.stringify(readerEdition)) throw new Error('Reader edition replay differs');
+  const sippPath = 'pilots/income-access/sipp-crosswalk.v1.json';
+  const sippDirectory = 'pilots/income-access/sources/sipp-2025-2026-09-11/';
+  const sippCapturePath = sippDirectory + 'capture.json';
+  const sippBytes = Object.fromEntries(sippSources.map(source => [source.id, readFileSync(new URL(sippDirectory + source.file, root))]));
+  const sippMetadata = replayCrosswalk({ capture: JSON.parse(read(sippCapturePath)), bytes: sippBytes });
+  if (JSON.stringify(JSON.parse(read(sippPath))) !== JSON.stringify(sippMetadata)) throw new Error('SIPP metadata replay differs');
+  for (const path of [pilotPath, migrationPath, proposalPath, studyPath, taskPath, readerPath, sippPath, sippCapturePath]) inputs.push({ path, sha256: hash(read(path)) });
+  for (const source of sippSources) inputs.push({ path: sippDirectory + source.file, sha256: hash(sippBytes[source.id]) });
   const shortLabels = ['Employment / population', 'Unemployment', 'Poverty headcount'];
   const families = income.families.map((f, i) => {
     const receipt = income.receipts.find(x => x.id === f.source_id);
@@ -90,7 +103,7 @@ export function buildStation(reader = load) {
     observationCount: families.reduce((n, f) => n + f.observations, 0),
     stormAssessmentCount: review.country_periods.length, assessableStormPeriods: review.summary.assessable_storm_periods,
     forecastSkillEstablished: false, publicReleaseApproved: false,
-    families, forecasts, inputs, pilot, migrations, study: packageOutput.readiness, rehearsal,
+    families, forecasts, inputs, pilot, migrations, readerEdition, sippMetadata, study: packageOutput.readiness, rehearsal,
     countries: countries.countries.map(c => ({ code: c.iso3, name: c.name, rank: c.rank,
       series: Object.fromEntries(income.families.map(f => [f.id, f.observations.filter(x => x.iso3 === c.iso3).map(x => ({
         year: x.year, value: x.value, selector: x.source_selector, estimateType: x.estimate_type,

@@ -67,6 +67,20 @@ test('integrated research gates never present a pilot, migration or study as com
   assert.equal(station.study.human_testing_completed, false);
   assert.equal(station.rehearsal.tasks.length, 3);
 });
+test('reader adoptions and metadata depth remain distinct from measurements and kernel corrections', () => {
+  assert.equal(station.readerEdition.applied_reader_metadata_adoptions, 3);
+  assert.equal(station.readerEdition.completed_kernel_corrections, 0);
+  assert.equal(station.readerEdition.observations_transferred, 0);
+  assert.equal(station.sippMetadata.variables.length, 16);
+  assert.equal(station.sippMetadata.recordsAcquired, 0);
+  assert.equal(station.sippMetadata.admittedMeasurements, 0);
+  assert.equal(station.sippMetadata.annotationEdition, '1.0.1');
+});
+test('station rejects altered research-reader summary or metadata annotations', () => {
+  const load = path => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8');
+  assert.throws(() => buildStation(path => path.endsWith('round-11-research-reader.summary.json') ? load(path).replace('"completed_kernel_corrections": 0', '"completed_kernel_corrections": 3') : load(path)), /Reader edition replay differs/);
+  assert.throws(() => buildStation(path => path.endsWith('sipp-crosswalk.v1.json') ? load(path).replace('"recordsAcquired": 0', '"recordsAcquired": 1') : load(path)), /SIPP metadata replay differs/);
+});
 test('task-pack replay rejects a rehashed unreviewed prompt', () => {
   const load = path => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8');
   assert.throws(() => buildStation(path => {

@@ -76,12 +76,44 @@ try {
   assert.equal(await evaluate('document.body.dataset.stationReady'), 'true');
   assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false);
   await screenshot('desktop');
+  const forecasts = await evaluate('document.getElementById("forecast-cards").innerText');
+  await evaluate('document.getElementById("compare-select").value="CAN"; document.getElementById("compare-select").dispatchEvent(new Event("change",{bubbles:true})); document.getElementById("year-control").value="2005"; document.getElementById("year-control").dispatchEvent(new Event("input",{bubbles:true}))');
+  assert.match(await evaluate('document.getElementById("reading-grid").innerText'), /Canada/);
+  assert.equal(await evaluate('document.getElementById("storm-state").innerText'), 'Baseline only');
+  assert.equal(await evaluate('document.getElementById("forecast-cards").innerText'), forecasts);
+  await evaluate('document.getElementById("compare-select").value="USA"; document.getElementById("compare-select").dispatchEvent(new Event("change",{bubbles:true}))');
+  for (const index of [0, 1, 2, 3]) {
+    await evaluate(`document.querySelector('[data-story="${index}"]').click()`);
+    assert.equal(await evaluate('document.getElementById("case-narrative").hidden'), false);
+    assert.equal(await evaluate('document.getElementById("forecast-cards").innerText'), forecasts);
+  }
   await evaluate('document.querySelector("[data-story=\\"0\\"]").click()');
   assert.match(await evaluate('document.getElementById("reading-grid").innerText'), /-10.772 pp/);
   await evaluate('document.getElementById("explore").scrollIntoView({behavior:"instant"})'); await screenshot('peru');
+  assert.match(await evaluate('document.getElementById("case-narrative").innerText'), /not the share of people/);
+  await evaluate('document.getElementById("case-narrative").scrollIntoView({behavior:"instant"})'); await screenshot('evidence-tour');
+  for (const section of ['if-evolution', 'forecast-ledger', 'preparation']) {
+    await evaluate(`document.getElementById(${JSON.stringify(section)}).scrollIntoView({behavior:"instant"})`);
+    await screenshot(section);
+  }
   await evaluate('document.querySelector("[data-story=\\"3\\"]").click()');
   assert.match(await evaluate('document.getElementById("reading-grid").innerText'), /Unavailable/);
   assert.match(await evaluate('document.getElementById("chart-label").textContent'), /3.*2021.*PPP/);
+  // Capture the generated Blob, not a participant response or a browser download.
+  const brief = await evaluate(`(async () => {
+    const originalCreate = URL.createObjectURL, originalClick = HTMLAnchorElement.prototype.click;
+    let blob;
+    try {
+      URL.createObjectURL = value => { blob = value; return originalCreate(value); };
+      HTMLAnchorElement.prototype.click = function () {};
+      document.getElementById('export-brief').click();
+      return JSON.parse(await blob.text());
+    } finally { URL.createObjectURL = originalCreate; HTMLAnchorElement.prototype.click = originalClick; }
+  })()`);
+  assert.equal(brief.selection.country, 'ARG'); assert.equal(brief.selection.year, 2025);
+  assert.equal(brief.selected.after, null); assert.equal(brief.selected.disruptedPopulationShare, null);
+  assert.equal(brief.authority, 'none'); assert.equal(brief.publicReleaseApproved, false);
+  assert.match(brief.nativeSeries, /3.*2021.*PPP/); assert.ok(brief.inputs.length > 10);
   await evaluate('document.querySelector(".matrix-details").open = true; document.querySelector(".matrix-cell[tabindex=\\"0\\"]").focus()');
   const before = await evaluate('({country:document.activeElement.dataset.country,year:Number(document.activeElement.dataset.year)})');
   await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'ArrowLeft', code: 'ArrowLeft' });
@@ -93,13 +125,17 @@ try {
   assert.equal(await evaluate('document.activeElement.dataset.country'), before.country);
   await evaluate('document.querySelector(".matrix-details").open = false');
   await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+  for (let i = 0; i < 20 && await evaluate('document.getElementById("history-chart").viewBox.baseVal.width') !== 340; i++) await sleep(50);
+  assert.equal(await evaluate('document.getElementById("history-chart").viewBox.baseVal.width'), 340, 'mobile chart must reflow, not shrink desktop ticks');
   await evaluate('window.scrollTo({top:0,behavior:"instant"})');
   assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false); await screenshot('mobile');
+  await evaluate('document.getElementById("explore").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-explore');
+  await evaluate('document.getElementById("preparation").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-preparation');
   await navigate('?country=UNKNOWN');
   assert.equal(await evaluate('document.body.dataset.stationReady'), 'false');
   assert.equal(await evaluate('document.getElementById("main").hidden'), true);
   assert.equal(errors.length, 0, JSON.stringify(errors));
-  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'matrix keyboard and focus', 'mobile overflow', 'invalid scope fails closed', 'runtime errors'], screenshots: dir, humanTesting: false }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'runtime errors'], screenshots: dir, humanTesting: false }, null, 2));
 } finally {
   clearTimeout(deadline); ws?.close(); browser.kill('SIGTERM'); server.close();
 }

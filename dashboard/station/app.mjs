@@ -49,21 +49,24 @@ try {
 
   function renderChart() {
     const svg = $('history-chart');
+    const narrow = matchMedia('(max-width:760px)').matches;
+    const left = narrow ? 40 : 50, right = narrow ? 325 : 827, tickFont = narrow ? 12 : 10;
+    svg.setAttribute('viewBox', narrow ? '0 0 340 300' : '0 0 850 300');
     [...svg.children].filter(x => !['title', 'desc'].includes(x.tagName)).forEach(x => x.remove());
     const f = family(), series = [selectSeries(data, state.country, f.id), selectSeries(data, state.compare, f.id)];
     const values = series.flat().map(x => x.value);
     const min = values.length ? Math.min(...values) : 0, max = values.length ? Math.max(...values) : 1;
     const pad = Math.max((max - min) * .15, .3), lower = Math.max(0, min - pad), upper = Math.min(100, max + pad);
     const span = Math.max(upper - lower, .1);
-    const X = year => 50 + (year - 2005) / 20 * 777, Y = value => 250 - (value - lower) / span * 225;
+    const X = year => left + (year - 2005) / 20 * (right - left), Y = value => 250 - (value - lower) / span * 225;
     $('history-title').textContent = `${f.fullLabel}: ${name(state.country)} and ${name(state.compare)}, 2005 to 2025`;
     $('history-desc').textContent = `Percent of each series' native denominator: ${f.denominator}. Selected-year values appear immediately below. Y-axis is fitted to the displayed data, not necessarily zero. No uncertainty intervals are supplied.`;
     for (let tick = 0; tick < 5; tick++) {
       const value = lower + span * tick / 4, y = Y(value);
-      svg.append(svgElement('line', { x1: 50, x2: 827, y1: y, y2: y, stroke: '#274042', 'stroke-width': .7, 'stroke-dasharray': '2 5' }));
-      svg.append(svgElement('text', { x: 40, y: y + 3, fill: '#91aaa5', 'font-size': 10, 'text-anchor': 'end', 'font-family': 'monospace' }, formatValue(value, 1)));
+      svg.append(svgElement('line', { x1: left, x2: right, y1: y, y2: y, stroke: '#274042', 'stroke-width': .7, 'stroke-dasharray': '2 5' }));
+      svg.append(svgElement('text', { x: left - 10, y: y + 3, fill: '#91aaa5', 'font-size': tickFont, 'text-anchor': 'end', 'font-family': 'monospace' }, formatValue(value, 1)));
     }
-    for (const year of [2005, 2010, 2015, 2020, 2025]) svg.append(svgElement('text', { x: X(year), y: 279, fill: '#91aaa5', 'font-size': 10, 'text-anchor': 'middle', 'font-family': 'monospace' }, year));
+    for (const year of (narrow ? [2005, 2015, 2025] : [2005, 2010, 2015, 2020, 2025])) svg.append(svgElement('text', { x: X(year), y: 279, fill: '#91aaa5', 'font-size': tickFont, 'text-anchor': 'middle', 'font-family': 'monospace' }, year));
     const colors = ['#bdeaba', '#e6b582'];
     series.forEach((points, index) => {
       let previous = null;
@@ -158,6 +161,8 @@ try {
     $('condition-grid').innerHTML = conditions.map(([title, question], i) => `<article class="condition"><span class="index">0${i + 1} / IF</span><h3>${title}</h3><p>${question}</p><small>INCOME-ACCESS DIAGNOSIS: UNKNOWN</small></article>`).join('');
     const m = data.migrations;
     $('migration-preview').innerHTML = `<p class="eyebrow">Meaning must survive revision</p><h3>${m.proposed_corrections} source-backed corrections. ${m.applied_corrections} applied.</h3><p>Urgent-care waiting time begins at appointment-making, not first attempted contact. Prescription cost delay covers a specific survey population. The new adapter inventories actual structured references and rejects stale bindings in adoption previews.</p><p>These are proposed corrections, not completed migrations or newly improved access. Independent review and an operational migration edition remain necessary.</p><a class="text-link" href="../../contracts/construct-migration/README.md">Inspect the correction mechanism ↗</a>`;
+    const r = data.readerEdition;
+    $('migration-preview').insertAdjacentHTML('beforeend', `<p class="eyebrow">A new reader, with its own explicit adoption</p><h3>${r.applied_reader_metadata_adoptions} metadata bindings now use ${r.corrected_meanings_used} corrected meanings.</h3><p>This separate research reader rejects old meaning bindings and preserves historical context under its original identity. ${r.completed_kernel_corrections} completed kernel corrections; ${r.observations_transferred} observations transferred. A corrected interpretation is not evidence that access improved.</p><a class="text-link" href="${esc(sourceLink(r.page_path))}">Open the corrected research reader ↗</a>`);
   }
 
   function renderForecasts() {
@@ -178,6 +183,8 @@ try {
     $('pilot-card').innerHTML = `<p class="eyebrow">The measurement frontier</p><h3>From economic stocks<br>to people's actual routes.</h3><p>${pilot.candidates.length} longitudinal-source candidates have been assessed. The conditional recommendation is a US SIPP historical-method benchmark, not a selected live pilot. Monthly-format records may carry spell-level information; they are not independent monthly observations.</p><p>${pilot.evidenceAdmission.admittedMeasurements} admitted income-access measurements. Access, construct review and human decisions remain gated.</p><a class="text-link" href="../../research/round-11-income-access-feasibility.md">Compare the pilot routes ↗</a>`;
     $('study-card').innerHTML = `<p class="eyebrow">The usefulness test</p><h3>Does this help more<br>than a simple table?</h3><p>${study.task_count} matched decision rehearsals and a proposed four-arm comparison are prepared. ${study.blockers.length} readiness requirements remain unmet. Human testing has not happened. The station must earn its place.</p><a class="text-link" href="../../experiments/decision-experience/station.html">Try the non-recording rehearsal ↗</a><br><a class="text-link" href="../../experiments/decision-experience/conventional.html">Compare the plain version ↗</a>`;
     $('study-card').insertAdjacentHTML('beforeend', `<details><summary>What would make testing ready?</summary><ul>${study.blockers.map(b => `<li><strong>${esc(b.label)}</strong><br>Required role: ${esc(b.owner_role)}. Not appointed or approved here.</li>`).join('')}</ul></details>`);
+    const metadata = data.sippMetadata;
+    $('pilot-card').insertAdjacentHTML('beforeend', `<p><strong>${metadata.variables.length} SIPP variable definitions, bound to ${metadata.sources.length} retained documentation files.</strong> Zero respondent records. The crosswalk separates reference months, job spells, earnings, weight candidates and unknown alternatives. Published panel ranges and variable counts still need reconciliation.</p><a class="text-link" href="../../pilots/income-access/sipp-crosswalk.md">Inspect the measurement specification ↗</a><details><summary>What still prevents measurement?</summary><ul>${metadata.unknowns.map(x => `<li>${esc(x)}</li>`).join('')}</ul></details>`);
   }
 
   function render() {
@@ -200,6 +207,7 @@ try {
   }
   [['country-select', 'country'], ['compare-select', 'compare'], ['family-select', 'family']].forEach(([id, key]) => $(id).addEventListener('change', event => { state[key] = event.target.value; render(); }));
   $('year-control').addEventListener('input', event => { state.year = Number(event.target.value); render(); });
+  matchMedia('(max-width:760px)').addEventListener('change', () => renderChart());
   $('export-brief').addEventListener('click', () => {
     const f = family(), a = comparison(state.country), b = comparison(state.compare);
     const brief = {
