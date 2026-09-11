@@ -36,6 +36,10 @@ task pack in the browser: exact visible facts/options, keyboard disclosures,
 320 CSS-pixel reflow, enlarged body text and selected accessibility-tree names.
 This is not screen-reader user testing, browser-zoom certification or a test of
 unaided comprehension. The original rehearsal answers remain exposed for review.
+The new static reasoning-slice pages are checked separately for exact rendered
+material/tasks, absent embedded feedback, narrow stacked release rows, selected
+accessibility-tree labels/table roles and keyboard return navigation. This is a
+limited presentation comparison, not a test of full-station usefulness.
 Browser startup has a 45-second bound and the whole harness a 120-second guard;
 early exits and full captured diagnostics are reported without automatic retries.
 Serve the repository root with a local static server that sends
@@ -61,8 +65,10 @@ Hashes establish local integrity, not publisher identity or independent trust.
    Distinguish proposed corrections, reader adoption and kernel completion.
 5. Inspect the exact event behind an issued probability, its comparator,
    timing and preserved defective predecessor. No probability is a storm risk.
-6. Review a conditional next inquiry or non-recording rehearsal. Compare it
-   with the plain presentation. Download a local research brief if useful.
+6. Review a conditional next inquiry and the static reasoning slice. Compare
+   it with the conventional release; reviewer answers are separate. The earlier
+   non-recording rehearsals remain linked from the study README. Download a local
+   research brief if useful.
 
 Selectors and year controls work with native keyboard interaction. The
 50-economy field supports arrow keys, Home/End and Enter, preserving focus after

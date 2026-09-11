@@ -31,3 +31,11 @@ test('public copy does not turn indicator values or research forecasts into pers
   assert.doesNotMatch(text('index.html'), /forecast is a promise|actual appended<br>/);
   assert.match(text('app.mjs'), /r.existing_appended_kernel_events/);
 });
+test('the linked static comparison is not presented as a test of the whole station', () => {
+  const app = text('app.mjs');
+  assert.match(app, /presentation-v2\/station.html/);
+  assert.match(app, /presentation-v2\/conventional.html/);
+  assert.match(app, /static reasoning slice/);
+  assert.match(app, /not a test of the full interactive station/);
+  assert.match(app, /decision-experience\/README.md/);
+});

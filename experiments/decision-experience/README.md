@@ -4,6 +4,12 @@
 
 Open [the conventional presentation](conventional.html) and [the station presentation](station.html). Both contain precisely the same retained US employment context, caveats, three tasks and proposed feedback. Neither records responses. The feedback is intentionally exposed for design review, so these pages cannot serve as a held-out comprehension assessment.
 
+A separate [static reasoning-slice edition](presentation-v2/README.md) now offers
+a competent conventional release and a station-style reading workspace, with
+answers on a reviewer-only page. It preserves this source pack and readiness
+record. It prepares a limited presentation comparison, not an experiment or a
+test of the full interactive station. The earlier pages above remain available.
+
 ## Use locally
 
 Node 22.23.2 or a compatible runtime supporting erasable TypeScript:
@@ -38,6 +44,12 @@ This regenerates the four outputs below from the checked-in proposal and retaine
 The producer reuses the earlier comparison's canonical JSON and SHA-256 implementation. It follows the same exact-template principle but does not pass retained national facts through the earlier synthetic-only manifest. Both layouts render one material pack, in the same order, with the same options and feedback. A template mutation fails the check.
 
 **This does not prove visible parity.** Browser clipping, reading order, zoom, screen-reader output, actual exposure and facilitator fidelity require separate inspection. Neither colour theme is an approved or validated treatment. The station layout here is a materials-review skeleton, not evidence that the integrated station is equivalent to this comparator.
+
+The coordinator's browser follow-through now checks these earlier layouts against
+the retained facts/options, exercises keyboard disclosures and checks narrow
+reflow, enlarged body text and selected accessibility-tree names. It caught and
+repaired heading overflow in the current Round 11 CSS. This scoped software
+result does not close the human accessibility, exposure or comprehension gates.
 
 ## The authority boundary is deliberate
 

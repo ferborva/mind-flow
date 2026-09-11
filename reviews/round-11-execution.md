@@ -47,8 +47,9 @@ The prototype must be willing to lose to a simpler statistical release.
 - IF migration: two source-backed correction proposals and a separate new reader
   with three explicit metadata adoptions. Zero new kernel corrections and zero
   observations transferred. These are different counts, not interchangeable wins.
-- Study: three matched non-recording rehearsals and a proposed four-arm comparison;
-  executable readiness checks retain twelve blockers. Recruitment remains blocked.
+- Study: three matched tasks, earlier non-recording rehearsals and a new pair of
+  static reasoning layouts. The four-arm comparison remains a proposal, not a
+  delivered experiment. Twelve readiness blockers remain; recruitment is blocked.
 - Human/statistical/release owners: not appointed.
 - Public release and live consequential action: not authorised.
 - Receipt-trust review: due 16 September 2026; no silent extension.
@@ -157,8 +158,8 @@ Selecting a supplied sentence does not demonstrate unaided reconstruction.
 
 The experience-agent review found that the original dark/light skeletons cannot
 estimate usefulness of the integrated station. A separately identified static
-reasoning-slice edition is being prepared, with matched facts, a competent
-comparator, visible limits and reviewer answers separated from the material.
+reasoning-slice edition is now implemented, with matched material, a conventional
+release comparator, visible limits and reviewer answers separated from the material.
 Its possible future interpretation comparison must not be presented as evidence
 about full-product navigation, warning quality, preparation or human benefit.
 Recruitment, study operation and human-outcome gates remain closed.
@@ -168,6 +169,49 @@ expanded browser journey. Canonical artifact replay passes; the lock change is
 the old synthetic Observatory's validation-context digest, which includes the
 package test command. Its fixture content is unchanged. The real station payload
 digest is unchanged. No historical receipt or issued record is edited.
+
+Both [push CI](https://github.com/ferborva/mind-flow/actions/runs/34568527266)
+and [PR CI](https://github.com/ferborva/mind-flow/actions/runs/34568530500) passed
+for `37a1868`, including the complete test contract, browser journey and retained
+receipts. The local regression checkpoint passed 1,319 tests. This precedes the
+new static-slice integration and is not its final-candidate result.
+
+## Static comparison integration
+
+The new edition contains fourteen source-bound material items, including two
+retained observations, limitations and proposed IF/authority text. They are not
+fourteen independent empirical findings. Both layouts intentionally bring the
+assessment and authority into the initial reading section, retain the same
+ordered material inventory, and show three identical tasks and seven options.
+No proposed answer is embedded in either comparison page; a separate reviewer
+sheet retains them. Prior exposure is not controlled and human testing remains
+unapproved. The old source task pack and readiness record are unchanged.
+
+The measurement agent independently extracted the actual new HTML content,
+checked all fourteen labels/values and seven option labels, ran seventeen tests
+and replayed the edition at `c8e11ab`. It found no blocking factual, estimand or
+authority issue. Root's browser checks separately compare the actual rendered
+material with the retained task pack, rather than using the producer's HTML as
+their own oracle. This addresses the review's request for rendered-content
+regression coverage without relabelling template checks as human validation.
+
+Browser and visual review caused two final presentation refinements: the header
+now says recruitment is blocked, and conventional rows stack at narrow widths
+instead of squeezing prose into two columns. The latter received a failing
+geometry regression before repair. Chrome retains four table roles after reflow;
+screen-reader user testing and other browser implementations remain unverified.
+Both layouts passed exact rendered material/task parity, absence of embedded
+feedback, 320 CSS-pixel reflow, enlarged body text, selected accessibility-tree
+labels and the keyboard-operated return journey. Desktop, narrow and IF-section
+screenshots were inspected. The full browser journey covers twenty categories;
+none is a human outcome measure.
+
+The station now links this explicitly limited comparison, its canonical build
+replays the new edition, and CI includes its seventeen source-bound tests and
+retains the three static HTML pages plus manifest. Seventeen focused tests and
+canonical artifact replay passed after the refinements. The manifest deliberately
+retains false human/assistive-validation and full-station-equivalence flags;
+this review overlay does not silently promote its authority or exposure claims.
 
 ## Next investment gates
 

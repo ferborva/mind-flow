@@ -25,7 +25,7 @@
     "test:pilot": "node --test pilots/australia/tests/*.test.mjs pilots/income-access/tests/*.test.mjs",
     "test:rehearsal": "node --test pilots/australia/rehearsal/tests/*.test.mjs",
     "test:communications": "node --test communications/tests/*.test.mjs",
-    "test:experience": "node --test experiments/observatory-comparison/tests/*.test.mjs experiments/decision-experience/*.test.mjs",
+    "test:experience": "node --test experiments/observatory-comparison/tests/*.test.mjs experiments/decision-experience/*.test.mjs experiments/decision-experience/presentation-v2/*.test.mjs",
     "test:station": "node --test dashboard/station/tests/*.test.mjs dashboard/station/browser-startup.test.mjs",
     "test:station:browser": "node dashboard/station/browser-check.mjs",
     "test:review-freeze": "node --test meta/review-freeze/tests/*.test.mjs"

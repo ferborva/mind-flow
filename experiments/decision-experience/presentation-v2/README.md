@@ -2,7 +2,7 @@
 
 **A meaningful layout comparison is now prepared. It is still not a test of the integrated station.** This is Ren's commissioned presentation proposal, with no human study, appointment, recruitment, assignment, response collection or release approval.
 
-Open the [conventional presentation](conventional.html) and [station-style reasoning slice](station.html). Both contain the same fourteen retained US facts and three tasks. The [reviewer answer sheet](reviewer.html) separately preserves the original proposed feedback and classifications. It is not a validated scoring rubric and must not be shown before a future held-out task.
+Open the [conventional presentation](conventional.html) and [station-style reasoning slice](station.html). Both contain the same fourteen source-bound material items and three tasks. These items include retained US observations, limitations and proposed IF/authority boundaries, not fourteen empirical findings. The [reviewer answer sheet](reviewer.html) separately preserves the original proposed feedback and classifications. It is not a validated scoring rubric and must not be shown before a future held-out task.
 
 This generator does not rewrite the preceding [rehearsal edition](../README.md), its source task pack, readiness summary, layouts or exposed feedback. This edition neither supersedes its research approvals nor obtains any: all human gates remain blocked.
 
@@ -18,7 +18,7 @@ Both layouts retain the same section order and neutral labels:
 4. Inspect the source and challenge the reading.
 5. Consider the questions and options.
 
-Denominator, reference/capture distinction, vintage, `cannot-say` explanation and authority are visible in the first reading section. They are not behind disclosures. Every fact appears once, with the same exact label and value. Each task includes the same title, prompt and alternatives. Deliberately unsupported alternatives are explicitly framed as task choices, not endorsed factual claims.
+Denominator, reference/capture distinction, vintage, `cannot-say` explanation and authority are visible in the first reading section. They are not behind disclosures. Every material item appears once, with the same exact label and value. Each task includes the same title, prompt and alternatives. Deliberately unsupported alternatives are explicitly framed as task choices, not endorsed factual claims.
 
 The neutral section labels, navigation and task-choice notice are shared presentation scaffolding, not additional measurements or recommendations. No new graph, synthetic series, forecast or causal explanation is introduced. The source package remains bound to the exact retained bytes.
 

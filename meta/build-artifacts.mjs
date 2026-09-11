@@ -49,6 +49,7 @@ return [
   ["pilots/income-access/tools/feasibility.mjs"],
   ["pilots/income-access/tools/sipp-crosswalk.mts"],
   ["experiments/decision-experience/readiness.mts", "--check"],
+  ["experiments/decision-experience/presentation-v2/presentation.mts", "--check"],
   ["dashboard/station/build.mjs"],
 ];
 }

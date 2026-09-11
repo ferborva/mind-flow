@@ -173,3 +173,5 @@ jobs:
             dashboard/station/cases.mjs
             dashboard/station/styles.css
             experiments/decision-experience/*.html
+            experiments/decision-experience/presentation-v2/*.html
+            experiments/decision-experience/presentation-v2/manifest.json

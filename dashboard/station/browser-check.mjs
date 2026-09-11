@@ -188,9 +188,72 @@ try {
     for (const material of pack.materials) assert.ok(names.includes(material.label), `${kind}: accessibility tree heading ${material.id}`);
     assert.ok(names.includes('59.467%') && names.includes('59.114%'), `${kind}: accessibility tree exact values`);
   }
+  // A separately identified static slice, not the full interactive station treatment.
+  // Both layouts move assessment and authority alongside the native reading.
+  const sliceOrder = ['scope', 'before', 'after', 'change', 'denominator', 'vintage', 'storm', 'authority', 'limits', 'missing', 'if', 'forecast', 'source', 'correction'];
+  const sliceMaterials = sliceOrder.map(id => expectedMaterials.find(material => material.id === id));
+  for (const kind of ['conventional', 'station']) {
+    const url = base + `/experiments/decision-experience/presentation-v2/${kind}.html`;
+    await call('Page.navigate', { url });
+    for (let i = 0; i < 60; i++) {
+      if (await evaluate(`location.href === ${JSON.stringify(url)} && document.readyState === 'complete' && document.querySelectorAll('[data-material-id]').length === 14`)) break;
+      await sleep(100);
+    }
+    assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('[data-material-id]'), el => ({id:el.dataset.materialId,label:el.querySelector('[data-material-label]').innerText,value:el.querySelector('[data-material-value]').innerText}))`), sliceMaterials, `${kind}: v2 exact rendered facts`);
+    assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('[data-option-id]'), el => el.innerText)`), expectedOptions.map(option => option.label));
+    assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('[data-task-id]'), el => ({id:el.dataset.taskId,title:el.querySelector('[data-task-title]').innerText,prompt:el.querySelector('[data-task-prompt]').innerText}))`), pack.tasks.map(({id,title,prompt}) => ({id,title,prompt})));
+    assert.equal(await evaluate('document.querySelectorAll("script,form,input,textarea,select,iframe,details").length'), 0);
+    const bodyText = await evaluate('document.body.innerText');
+    assert.match(bodyText, /Recruitment blocked/);
+    for (const task of pack.tasks) for (const option of task.options) assert.ok(!bodyText.includes(option.feedback), `${kind}: feedback must remain on reviewer sheet`);
+    for (const width of [1440, 320]) {
+      await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+      for (const material of pack.materials) {
+        assert.equal(await evaluate(`(() => {
+          const el = document.querySelector('[data-material-id="${material.id}"]');
+          el.scrollIntoView({behavior:'instant'});
+          return [...el.querySelectorAll('[data-material-label],[data-material-value]')].every(node => {
+            const style = getComputedStyle(node), rect = node.getBoundingClientRect();
+            return style.display !== 'none' && style.visibility === 'visible' && Number(style.opacity) > 0
+              && rect.width > 0 && rect.height > 0 && rect.left >= 0 && rect.right <= innerWidth + 1;
+          });
+        })()`), true, `${kind}: v2 visible ${material.id} at ${width}px`);
+      }
+      assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false, `${kind}: v2 overflow at ${width}px`);
+      if (kind === 'conventional' && width === 320) {
+        assert.equal(await evaluate(`(() => {
+          const row = document.querySelector('[data-material-id=scope]');
+          const label = row.querySelector('[data-material-label]').getBoundingClientRect();
+          const value = row.querySelector('[data-material-value]').getBoundingClientRect();
+          return value.width >= 240 && value.top >= label.bottom - 1;
+        })()`), true, 'narrow conventional release should stack complete label/value rows, not squeeze two text columns');
+      }
+      await evaluate('window.scrollTo(0,0)'); await screenshot(`slice-${kind}-${width}`);
+      await evaluate('document.querySelector("[data-section-id=gates]").scrollIntoView({behavior:"instant"})'); await screenshot(`slice-${kind}-gates-${width}`);
+    }
+    await evaluate('document.body.style.fontSize="36px"');
+    assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false, `${kind}: v2 enlarged text`);
+    const tree = await call('Accessibility.getFullAXTree');
+    const names = tree.nodes.filter(node => !node.ignored).map(node => node.name?.value);
+    for (const material of pack.materials) assert.ok(names.includes(material.label), `${kind}: v2 accessibility tree label ${material.id}`);
+    if (kind === 'conventional') assert.equal(tree.nodes.filter(node => !node.ignored && node.role?.value === 'table').length, 4, 'stacked conventional sections keep their table roles in Chrome');
+    // Exercise a real local return link instead of merely checking its markup.
+    assert.equal(await evaluate(`(() => {
+      const link = Array.from(document.querySelectorAll('a')).find(a => new URL(a.href).pathname === '/dashboard/station/');
+      if (!link) return false;
+      link.focus(); return document.activeElement === link;
+    })()`), true, `${kind}: return link keyboard focus`);
+    await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', text: '\r', unmodifiedText: '\r', windowsVirtualKeyCode: 13 });
+    await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+    for (let i = 0; i < 60; i++) {
+      if (await evaluate(`location.pathname === '/dashboard/station/' && document.body?.dataset.stationReady === 'true'`)) break;
+      await sleep(100);
+    }
+    assert.equal(await evaluate('document.body.dataset.stationReady'), 'true', `${kind}: local return journey`);
+  }
   if (browserError) throw browserError;
   assert.equal(errors.length, 0, JSON.stringify(errors));
-  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'static slice exact facts and tasks', 'static slice feedback separated', 'static slice reflow and accessibility tree labels', 'static slice return journey', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
 } finally {
   clearTimeout(deadline); ws?.close(); browser.kill('SIGTERM'); server.close();
 }
