@@ -23,6 +23,7 @@ Before acquisition, retain one row per required concept. A row must identify:
 - Dataset edition, file, exact variable and source dictionary locator.
 - Question wording, respondent universe and routing.
 - Observation unit: person, job, household or period.
+- Collection-to-output mapping: identify job-spell fields copied into person-month rows, genuinely varying monthly fields and derived recodes. Do not treat duplicated values as independent repeated measurements. See the [2025 SIPP guide, pp69-70](https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2025_SIPP_Users_Guide.pdf), inspected 2026-09-11.
 - Reference period and interview date semantics.
 - Missing, inapplicable, refusal and imputed-value codes.
 - Linkage identifier and its scope, without retaining participant values in the public repository.

@@ -5,6 +5,35 @@ import { resolve } from 'node:path';
 const decisions = ['affected-share', 'severity', 'persistence', 'denominator', 'household-treatment', 'viable-alternative', 'beneficial-transition'];
 const candidateCountries = { 'usa-sipp': 'USA', 'aus-hilda': 'AUS', 'gbr-ukhls': 'GBR' };
 const requiredGates = ['construct', 'variables', 'rights', 'analysis', 'acquisition', 'admission'];
+// These v1 proposal statements are pinned independently of the input record.
+// A future appointment or changed review requirement needs a separately reviewed contract.
+const proposalAuthorship = "Ren (AI agent): commissioned research judgement, not Fernando's settled position or provider approval";
+const gateSemantics = {
+  construct: [
+    'Review observability and freeze a bounded estimand without resolving the national storm definition by proxy.',
+    'Human measurement lead and independent domain reviewer, unappointed',
+  ],
+  variables: [
+    'Retain release-specific field, universe, missingness, imputation and timing crosswalk.',
+    'Measurement analyst with independent replication reviewer, unappointed',
+  ],
+  rights: [
+    'Approve intended use, applicant eligibility, storage, access and output conditions.',
+    'Accountable human data custodian, unappointed',
+  ],
+  analysis: [
+    'Approve sampling, attrition, weights, variance, sensitivity, negative controls and failure criteria before inspecting outcomes.',
+    'Independent statistician, unappointed',
+  ],
+  acquisition: [
+    'Authorise the exact minimal data acquisition and retain byte-level provenance in the permitted environment.',
+    'Authorised human data owner and operator, unappointed',
+  ],
+  admission: [
+    'Independently review reproducible results and exact claim scope; public warnings and participant contact remain separate approvals.',
+    'Independent measurement reviewer and release authority, unappointed',
+  ],
+};
 const officialHosts = ['census.gov', 'www.census.gov', 'www2.census.gov', 'www.govinfo.gov', 'melbourneinstitute.unimelb.edu.au', 'doc.ukdataservice.ac.uk', 'ukdataservice.ac.uk'];
 const fail = message => { throw new Error(`Income-access feasibility: ${message}`); };
 const text = (value, label) => {
@@ -34,6 +63,7 @@ export function validateFeasibility(p) {
   if (p.schemaVersion !== '1.0.0' || p.id !== 'income-access-feasibility.round-11') fail('unsupported version or identity');
   if (p.status !== 'proposal-not-admitted') fail('this contract cannot promote the proposal');
   date(p.assessedAt, 'assessedAt'); text(p.authorship, 'authorship');
+  if (p.authorship !== proposalAuthorship) fail('authorship must preserve the exact agent-proposal provenance');
   exactKeys(p.evidenceAdmission, ['admittedMeasurements', 'nationalStormInference', 'liveWarningReady', 'microdataRetrieved'], 'evidenceAdmission');
   if (p.evidenceAdmission.admittedMeasurements !== 0 ||
       p.evidenceAdmission.nationalStormInference !== false ||
@@ -89,6 +119,8 @@ export function validateFeasibility(p) {
     for (const key of ['id', 'requirement', 'ownerRole']) text(gate[key], `gate.${key}`);
     if (gateIds.has(gate.id)) fail('duplicate gate');
     if (!requiredGates.includes(gate.id)) fail('unknown required gate identity');
+    const [requirement, ownerRole] = gateSemantics[gate.id];
+    if (gate.requirement !== requirement || gate.ownerRole !== ownerRole) fail(`gate ${gate.id} semantics must preserve the required review and unappointed role`);
     gateIds.add(gate.id);
     if (gate.status !== 'pending') fail('metadata proposal cannot approve gates');
   }

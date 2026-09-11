@@ -48,6 +48,8 @@ The comparison uses qualitative judgements, not a weighted score with arbitrary 
 
 **Fact.** The guide defines a civilian noninstitutionalised universe and provides person-month linkage, employment/earnings, imputation, survey-weight and variance guidance. [S9]
 
+**Monthly output is not independent monthly measurement.** Employment information is collected by spell, with much of it copied into the corresponding person-month records. Require a job-spell-to-person-month crosswalk before interpreting persistence or monthly changes. [S9, pp69-70]
+
 **Judgement.** A historical cohort could test whether an employment transition is followed by an earnings interruption and whether other observed income changes coincide. The method must not equate another income receipt with an acceptable alternative route. It also must not count every job ending as involuntary loss.
 
 **Access.** A public-use route is identified, not executed. Census policy qualifies its general U.S. copyright statement for foreign jurisdictions and nonemployee works. Public availability does not settle this project's permitted processing, redistribution or disclosure practice. The review gate therefore remains open. [S9][S11]
@@ -162,4 +164,4 @@ The HILDA access-guidelines PDF and the main Understanding Society website page 
 | S13 | ISER, [Understanding Society Main Survey User Guide](https://doc.ukdataservice.ac.uk/doc/6614/mrdoc/pdf/6614_main_survey_user_guide.pdf), pp12-16, 51-58, 66-74 | Revised 2026-02-23 |
 | S14 | UK Data Service, [Access levels and conditions](https://ukdataservice.ac.uk/find-data/access-conditions/), access table | Undated page |
 
-The machine source IDs map in this same sequence to S1-S14. The validator checks record structure, date validity, official host allowlisting, citation resolution and non-admission boundaries. It cannot verify the truth of arbitrary prose or authenticate a remote publisher.
+The machine source IDs map in this same sequence to S1-S14. The validator checks record structure, date validity, official host allowlisting, citation resolution and non-admission boundaries. Authorship and gate requirement/owner wording are independently pinned so prose cannot silently claim Fernando's decision, appointments or waived review while flags stay pending. It cannot verify the truth of arbitrary prose or authenticate a remote publisher.

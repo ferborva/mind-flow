@@ -110,3 +110,28 @@ test('candidate-country identity and the full acquisition gate set cannot be wea
     assert.throws(() => validateFeasibility(p));
   }
 });
+
+test('authorship and gate prose cannot coherently assert a human decision or waive review', () => {
+  for (const mutate of [
+    p => { p.authorship = 'Fernando: final decision'; },
+    p => { p.gates[0].ownerRole = 'Fernando, appointed and approved'; },
+    p => { p.gates[0].requirement = 'No construct review necessary'; },
+    p => {
+      p.authorship = 'Fernando: final decision';
+      for (const gate of p.gates) {
+        gate.ownerRole = 'Fernando, appointed and approved';
+        gate.requirement = 'No further review necessary';
+      }
+    },
+  ]) {
+    const p = copy(); mutate(p);
+    assert.throws(() => validateFeasibility(p), /authorship|gate.*semantics/);
+  }
+  for (const original of proposal.gates) {
+    for (const field of ['requirement', 'ownerRole']) {
+      const p = copy();
+      p.gates.find(gate => gate.id === original.id)[field] = 'Approved without further review';
+      assert.throws(() => validateFeasibility(p), /gate.*semantics/);
+    }
+  }
+});

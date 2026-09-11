@@ -107,7 +107,7 @@
       "assessedAt": "2026-09-11",
       "publishedOrRevised": null,
       "locator": "Chapters 2, 3, 4.2.3 and 7; pp16, 25, 33-35, 69-74, 151-159",
-      "finding": "Civilian noninstitutionalised population; person-month linkage, public-use files, employment/earnings detail, weighting and variance guidance. Seam effects and imputation require scrutiny.",
+      "finding": "Civilian noninstitutionalised population; person-month linkage, public-use files, employment/earnings detail, weighting and variance guidance. Job-spell fields are copied into monthly records; monthly output is not independent monthly measurement. Seam effects and imputation require scrutiny.",
       "evidenceKind": "official-metadata-inspection-not-byte-capture"
     },
     {
@@ -172,13 +172,13 @@
       "country": "USA",
       "name": "SIPP: historical employment-to-income transition benchmark",
       "constructFit": "Income and realised employment transitions are observable candidates; the full set of feasible income routes is not established by metadata.",
-      "longitudinal": "Monthly retrospective histories support within-person timing, conditional on valid panel linkage and weights.",
+      "longitudinal": "Monthly retrospective output supports within-person timing, conditional on linkage, weights and a job-spell-to-person-month crosswalk; copied spell fields are not independent monthly measurements.",
       "denominator": "Civilian noninstitutionalised survey population. A baseline-employed cohort is not the total population.",
       "timeliness": "2025 release measures 2024 and was published in July 2026. Historical-method route, not current warning feed.",
       "access": "Public-use route identified. No microdata acquired; rights, storage and output review remain pending for this project.",
       "claimLimit": "Cannot establish current income-access disruption, all feasible alternatives, causal effects or national 5% storms.",
       "sourceIds": ["sipp-overview", "sipp-release", "sipp-period", "sipp-guide", "sipp-redesign", "census-rights"],
-      "gaps": ["Release-specific variable and universe crosswalk", "Explicit cohort, weights and variance design", "Voluntary-change and alternative-route observability", "Project-specific rights and privacy review", "Independent construct review", "Future redesign comparability and publication calendar"]
+      "gaps": ["Release-specific variable, universe and job-spell-to-person-month crosswalk", "Explicit cohort, weights and variance design", "Voluntary-change and alternative-route observability", "Project-specific rights and privacy review", "Independent construct review", "Future redesign comparability and publication calendar"]
     },
     {
       "id": "aus-hilda",
