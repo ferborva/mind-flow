@@ -84,6 +84,37 @@ try {
   assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false);
   await screenshot('desktop');
   const forecasts = await evaluate('document.getElementById("forecast-cards").innerText');
+  const retainedForecasts = await evaluate('JSON.stringify(window.WEATHER_STATION.forecasts)');
+  for (const [instant, neroPhase, canadaPhase] of [
+    ['2026-09-16T00:00:00Z', 'not-open', 'not-open'],
+    ['2026-11-03T00:00:00Z', 'window-open', 'not-open'],
+    ['2026-12-07T00:00:00Z', 'window-open', 'window-open'],
+    ['2026-12-07T00:00:00.001Z', 'deadline-passed', 'window-open'],
+    ['2027-01-01T00:00:00Z', 'deadline-passed', 'deadline-passed'],
+  ]) {
+    await evaluate(`document.getElementById('review-clock').value=${JSON.stringify(instant)}; document.getElementById('review-clock-apply').click()`);
+    const rows = await evaluate(`Array.from(document.querySelectorAll('#review-desk-rows [data-forecast-id]'), el => ({id:el.dataset.forecastId,phase:el.dataset.windowPhase,attention:el.dataset.attention}))`);
+    assert.equal(rows.length, 4);
+    for (const row of rows) {
+      assert.equal(row.phase, row.id.includes('nero') ? neroPhase : canadaPhase);
+      if (row.id === 'forecast.nero.5311.102.october-2026.v1') assert.equal(row.attention, 'blocked-defect');
+    }
+    if (instant === '2026-09-16T00:00:00Z') assert.equal(await evaluate('document.getElementById("review-trust").dataset.calendarPosition'), 'on-review-date');
+    if (instant === '2026-11-03T00:00:00Z') {
+      await evaluate('document.getElementById("review-clock").scrollIntoView({behavior:"instant"})');
+      await screenshot('review-desk-open-window');
+    }
+    assert.equal(await evaluate('document.getElementById("forecast-cards").innerText'), forecasts);
+    assert.equal(await evaluate('JSON.stringify(window.WEATHER_STATION.forecasts)'), retainedForecasts);
+  }
+  await evaluate('document.getElementById("review-clock").value="2026-02-30T00:00:00Z"; document.getElementById("review-clock-apply").click()');
+  assert.equal(await evaluate('document.querySelectorAll("#review-desk-rows [data-forecast-id]").length'), 0);
+  assert.equal(await evaluate('document.getElementById("review-trust").textContent.trim()'), '');
+  assert.match(await evaluate('document.getElementById("review-clock-status").textContent'), /invalid|UTC|unavailable/i);
+  assert.equal(await evaluate('document.body.dataset.stationReady'), 'true');
+  assert.equal(await evaluate('document.getElementById("forecast-cards").innerText'), forecasts);
+  await evaluate('document.getElementById("review-clock-reset").click()');
+  assert.equal(await evaluate('document.querySelectorAll("#review-desk-rows [data-forecast-id]").length'), 4);
   await evaluate('document.getElementById("compare-select").value="CAN"; document.getElementById("compare-select").dispatchEvent(new Event("change",{bubbles:true})); document.getElementById("year-control").value="2005"; document.getElementById("year-control").dispatchEvent(new Event("input",{bubbles:true}))');
   assert.match(await evaluate('document.getElementById("reading-grid").innerText'), /Canada/);
   assert.equal(await evaluate('document.getElementById("storm-state").innerText'), 'Baseline only');
@@ -138,6 +169,7 @@ try {
   assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false); await screenshot('mobile');
   await evaluate('document.getElementById("explore").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-explore');
   await evaluate('document.getElementById("preparation").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-preparation');
+  await evaluate('document.getElementById("review-clock").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-review-desk');
   await navigate('?country=UNKNOWN');
   assert.equal(await evaluate('document.body.dataset.stationReady'), 'false');
   assert.equal(await evaluate('document.getElementById("main").hidden'), true);
@@ -253,7 +285,7 @@ try {
   }
   if (browserError) throw browserError;
   assert.equal(errors.length, 0, JSON.stringify(errors));
-  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'static slice exact facts and tasks', 'static slice feedback separated', 'static slice reflow and accessibility tree labels', 'static slice return journey', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'review desk exact boundary clocks', 'review desk preserved defect', 'review desk separate trust date', 'review desk local invalid input and reset', 'review desk immutable forecast records', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'static slice exact facts and tasks', 'static slice feedback separated', 'static slice reflow and accessibility tree labels', 'static slice return journey', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
 } finally {
   clearTimeout(deadline); ws?.close(); browser.kill('SIGTERM'); server.close();
 }

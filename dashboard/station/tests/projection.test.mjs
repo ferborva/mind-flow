@@ -106,3 +106,26 @@ test('inquiry can begin before source adequacy is established, without authorisi
   assert.match(option.stopIf, /personal data|paid access/);
   assert.match(option.next, /admission/);
 });
+test('review desk binds protocol clocks, the disclosed defect and separate date-only trust decision', () => {
+  assert.equal(station.trustReview.reviewDate, '2026-09-16');
+  assert.equal(station.trustReview.sourceTimeZone, null);
+  for (const f of station.forecasts) {
+    const original = JSON.parse(readFileSync(new URL('../../../' + f.path, import.meta.url)));
+    assert.equal('sha256:' + f.reviewProtocol.sha256, original.prospective_registration.preregistration_sha256);
+    assert.equal(f.recordedIssueClock.trusted, false);
+    assert.equal(f.terminalRecordsLoaded, false);
+    assert.equal(f.forecastUse, 'research_only');
+    assert.equal(f.observationStartsAt, original.target.observation_window_start);
+    assert.equal(f.observationEndsAt, original.target.observation_window_end);
+    assert.equal(f.outcomePublicationNotBefore, original.target.outcome_publication_not_before);
+    assert.ok(station.inputs.some(x => x.path === f.reviewProtocol.path && x.sha256 === f.reviewProtocol.sha256));
+  }
+  assert.match(station.forecasts.find(f => f.operationalStatus === 'blocked-defect').disclosureSource.path, /error-disclosure.json$/);
+  assert.ok(station.inputs.some(x => x.path === station.trustReview.path));
+});
+test('changed protocol, disclosure or time-bounded trust decision cannot retain stale review annotations', () => {
+  const load = path => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8');
+  for (const suffix of ['round-08-nero/preregistration.json', 'round-09-nero/error-disclosure.json', 'round-10-receipt-trust-decision.md']) {
+    assert.throws(() => buildStation(path => path.endsWith(suffix) ? load(path) + '\n' : load(path)), /Review source differs/);
+  }
+});

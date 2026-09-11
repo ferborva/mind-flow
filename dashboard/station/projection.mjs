@@ -46,6 +46,21 @@ export function buildStation(reader = load) {
     return captured.get(path);
   };
   const { countries, income, review, inputs } = verifyInputs(read);
+  const reviewSource = (path, expected) => {
+    const bytes = read(path);
+    if (hash(bytes) !== expected) throw new Error(`Review source differs: ${path}`);
+    inputs.push({path, sha256: expected});
+    return {bytes, source: {path, sha256: expected}};
+  };
+  const trustPath = 'reviews/round-10-receipt-trust-decision.md';
+  const trustSource = reviewSource(trustPath, 'fe7668e7da50f87c2661464f25a71a61df1705a8dc50636343c756d730e66f2e').source;
+  // Reviewed annotation of the exact date-only engineering decision, not a
+  // forecast registration expiry. No source hour/timezone or successor is supplied.
+  const trustReview = {reviewDate:'2026-09-16', path:trustSource.path, sourceSha256:trustSource.sha256,
+    sourceTimeZone:null, scope:'review-freeze-execution-receipt-integrity', dispositionProvided:false, authority:'none'};
+  const disclosurePath = 'forecasts/prospective-pilot/round-09-nero/error-disclosure.json';
+  const disclosure = reviewSource(disclosurePath, '5d22a62178bac7c599c86abe8c2a47c284e1da2dc3b4c74933ed1b0bf3caa157');
+  const disclosed = JSON.parse(disclosure.bytes);
   const pilotPath = 'pilots/income-access/feasibility.v1.json';
   const pilot = JSON.parse(read(pilotPath));
   validateFeasibility(pilot);
@@ -88,10 +103,26 @@ export function buildStation(reader = load) {
     if (hash(bytes) !== expected) throw new Error(`Issued forecast differs: ${path}`);
     inputs.push({ path, sha256: expected });
     const f = JSON.parse(bytes);
+    const protocolPath = path.replace(/issued\.json$/, 'preregistration.json');
+    const protocol = reviewSource(protocolPath, f.prospective_registration.preregistration_sha256.slice(7));
+    const clocks = JSON.parse(protocol.bytes).clocks;
+    if (clocks.resolve_after !== f.resolve_after || clocks.resolution_closes_at !== f.resolve_by
+      || clocks.observation_starts_at !== f.target.observation_window_start
+      || clocks.observation_ends_at !== f.target.observation_window_end
+      || clocks.outcome_publication_not_before !== f.target.outcome_publication_not_before) throw new Error('Forecast/protocol clock binding differs');
+    if (defective && (disclosed.forecast_id !== f.id || disclosed.issued_record_sha256 !== 'sha256:' + expected
+      || disclosed.status !== 'error-disclosed-admission-blocked' || disclosed.effects.formal_void !== false
+      || disclosed.effects.scoring_admitted !== false)) throw new Error('Forecast defect binding differs');
     return { id: f.id, path, country, place, question: f.question, probability: f.probability,
       targetScope: f.target.scope, targetEvent: f.target.event, resolutionRule: f.target.resolution_rule,
       referenceProbability: f.baseline.probability, naiveProbability: f.naive_baseline.probability,
       issuedAt: f.issued_at, resolveAfter: f.resolve_after, resolveBy: f.resolve_by,
+      observationStartsAt:f.target.observation_window_start, observationEndsAt:f.target.observation_window_end,
+      outcomePublicationNotBefore:f.target.outcome_publication_not_before,
+      reviewProtocol:{...protocol.source, clockAuthorityVerification:clocks.clock_authority_verification},
+      recordedIssueClock:f.issue_basis.issue_evaluation_receipt.clock,
+      recordedStatus:f.status, forecastUse:f.forecast_use, terminalRecordsLoaded:false,
+      disclosureSource:defective ? disclosure.source : null,
       resolutionStatus: f.resolution.status, operationalStatus: defective ? 'blocked-defect' : 'issued-research',
       isStormForecast: false, registration: 'Self-posted registration, not independent authentication',
       defect: defective ? 'Resolution prose and native geography conflict. Admission blocked; not formally voided or excluded.' : null,
@@ -103,7 +134,7 @@ export function buildStation(reader = load) {
     observationCount: families.reduce((n, f) => n + f.observations, 0),
     stormAssessmentCount: review.country_periods.length, assessableStormPeriods: review.summary.assessable_storm_periods,
     forecastSkillEstablished: false, publicReleaseApproved: false,
-    families, forecasts, inputs, pilot, migrations, readerEdition, sippMetadata, study: packageOutput.readiness, rehearsal,
+    families, forecasts, trustReview, inputs, pilot, migrations, readerEdition, sippMetadata, study: packageOutput.readiness, rehearsal,
     countries: countries.countries.map(c => ({ code: c.iso3, name: c.name, rank: c.rank,
       series: Object.fromEntries(income.families.map(f => [f.id, f.observations.filter(x => x.iso3 === c.iso3).map(x => ({
         year: x.year, value: x.value, selector: x.source_selector, estimateType: x.estimate_type,

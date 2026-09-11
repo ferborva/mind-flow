@@ -105,3 +105,9 @@ test('planning time changes require explicit controls, with no polling or persis
   assert.match(text('styles.css'), /\.review-clock-controls/);
   assert.match(text('styles.css'), /\.review-desk[^\n]*overflow-wrap:anywhere/);
 });
+test('the separate trust card states the required decision without inventing a disposition', () => {
+  const {update,$} = harness(() => result);
+  update('input','Entered planning time');
+  assert.match($('review-trust').innerHTML, /renew, replace or reject/);
+  assert.match($('review-trust').innerHTML, /No disposition is supplied here/);
+});

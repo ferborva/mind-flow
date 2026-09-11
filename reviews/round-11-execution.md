@@ -215,6 +215,55 @@ this review overlay does not silently promote its authority or exposure claims.
 
 ## Next investment gates
 
+### A bounded next-check loop
+
+Both [push](https://github.com/ferborva/mind-flow/actions/runs/34569325275) and
+[PR](https://github.com/ferborva/mind-flow/actions/runs/34569328016) reproductions
+passed at `38f83ff`, the integrated static-comparison candidate. The next
+completion-gap review rejected more automatic study variants as a substitute
+for a human-owned population, decision, estimand and worthwhile effect. Those
+choices remain genuinely open. It instead identified a useful engineering gap:
+the station showed forecast dates without making the next review need explicit.
+
+A bounded review desk now derives planning attention from exact retained clocks.
+Source review established inclusive resolution endpoints and a distinct,
+close-exclusive collector boundary; neither is permission to collect or resolve.
+The four preregistrations are bound through the immutable issued-record hashes.
+The defect disclosure and date-only receipt-trust decision have their own exact
+source pins. Existing issued records, registrations, forecasts and receipts are
+unchanged. The desk explicitly lacks verified live terminal records, current
+provider availability, authenticated time and review dispositions.
+
+Twenty-four initial pure-model tests and fourteen projection tests passed the
+independent evolution-agent review. It found one minor guard mismatch: issuance
+equal to opening was accepted locally, while the source registry requires
+issuance earlier. A failing equality regression preceded the strict repair,
+bringing the pure-model suite to twenty-five. The source review also prevented
+the 16 September engineering obligation from being mislabelled as forecast
+expiry. These are same-host AI source/code reviews, not operational approval.
+
+The UI increment has six isolated rendering/interaction tests. The integrated
+station passes 86 focused tests, and the actual browser journey exercises five
+planning instants, including mixed country windows and the closing boundary;
+the defective predecessor stays blocked and issued values remain byte-identical
+in the browser projection. Invalid calendar input clears only the derived desk;
+reset restores it. Desktop and mobile screenshots were visually inspected.
+Nothing is automatically fetched, scheduled, issued, resolved, scored or sent.
+
+A separate measurement-agent review of the source model, UI and screenshots
+found no blocker. Two minor wording findings received failing regressions before
+repair: checking whether qualifying evidence is available precedes inspection,
+and the trust card states the required renew/replace/reject decision with no
+disposition supplied. These add two focused regressions; they do not confer
+authority or close either review obligation.
+
+The new source bindings change the generated station payload and its canonical
+lock, not the historical source bytes. This increment still needs its own exact
+candidate CI and full reproduction. A working review desk is not evidence of
+warning skill, public comprehension or a measured improvement in income access.
+
+### Remaining investment decisions
+
 1. **Earn the integrated experience:** replay a clean central candidate, verify
    all selection/export paths, visually inspect desktop/mobile, and retain
    independent findings. Then compare the experience with matched plain material.

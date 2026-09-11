@@ -65,6 +65,10 @@ Hashes establish local integrity, not publisher identity or independent trust.
    Distinguish proposed corrections, reader adoption and kernel completion.
 5. Inspect the exact event behind an issued probability, its comparator,
    timing and preserved defective predecessor. No probability is a storm risk.
+   In the review desk, enter `2026-11-03T00:00:00Z`: the NERO resolution windows
+   are open under the retained clocks, while Canada's has not opened. Move just
+   past `2026-12-07T00:00:00Z`: the NERO deadlines need attention, but every
+   retained outcome stays pending and the defective predecessor stays blocked.
 6. Review a conditional next inquiry and the static reasoning slice. Compare
    it with the conventional release; reviewer answers are separate. The earlier
    non-recording rehearsals remain linked from the study README. Download a local
@@ -76,6 +80,35 @@ selection. Invalid bookmarked scope fails visibly without substitution.
 The chart uses a fitted y-axis, explicitly labelled; no confidence intervals
 are invented. All years come from one retained vintage, not a reconstruction
 of what an observer knew in those historical years.
+
+## Review attention without invented outcomes
+
+The review desk is a local planning tool, not a scheduler, provider poll or live
+lifecycle monitor. It starts from an explicitly untrusted browser-clock snapshot;
+each changed instant requires an apply action. Invalid dates clear only the
+derived desk, leaving the station and fixed issued cards usable. The chart year
+does not control the planning clock. No clock state is saved or submitted.
+
+Four immutable issued records bind their exact preregistrations and UTC clocks.
+The model includes both resolution endpoints, consistent with the source
+registry's accepted-resolution chronology. The separate collector window can be
+close-exclusive; review attention is not collection permission. Passing a bound
+does not supply an outcome, void a forecast, exclude its denominator or produce
+a score. Appended terminal records, provider availability and review completion
+have not been loaded or verified by this view. Cards label the recorded outcome,
+not a claim about today's full lifecycle.
+
+The `2026-09-16` receipt-trust review is a separate engineering decision, not
+forecast expiry. Its source specifies a date but no hour or timezone. The desk
+compares UTC calendar dates for display only; it neither renews acceptance nor
+claims an authenticated expiry instant. The exact decision and defect disclosure
+are independently pinned, and changed bytes require a reviewed projection update.
+
+Software checks cover before-issuance, opening, exact inclusive close, strictly
+past-close, invalid/ambiguous clocks, duplicate identities and missing bindings.
+Browser checks exercise mixed windows, the separate trust date, unchanged issued
+values, invalid-input recovery and narrow layout. These are planning-software
+tests, not operational appointments, authenticated time or forecast validation.
 
 ## What remains unproved
 
