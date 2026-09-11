@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "id": "round-11.decision-experience.preparation",
+  "classification": "agent-proposed-research-preparation",
+  "created": "2026-09-11",
+  "sources": {
+    "measurements": { "path": "signals/countries/income-measurements.v1.json", "sha256": "sha256:f2f21350057d7f006eeefbc263a4553c9f108d38ebeb3b04dbef733c99ce34a5" },
+    "storm": { "path": "signals/countries/storm-review.v1.json", "sha256": "sha256:59ce8619b56000c1ca54db236f003841f7da0ab2f72f670c6f7de0bd3dc018ee" },
+    "protocol": { "path": "experiments/observatory-comparison/fixtures/protocol-contract.synthetic.json", "sha256": "sha256:e289196d603f6dc7f814ed82aaaf3b613544c7ce903e121cd052599505e77adc" },
+    "manifest": { "path": "experiments/observatory-comparison/fixtures/manifest.synthetic.json", "sha256": "sha256:5bda2a2259f2337858e696929279ce44a3f3d5860d38bc1dc77d6e5189c2b2dc" }
+  },
+  "analysis": { "power_plan": null, "smallest_worthwhile_effect": null },
+  "requirements": {
+    "accountable-human-lead": { "status": "pending", "owner_role": "Programme sponsor", "label": "Appoint an accountable human research lead" },
+    "ethics-determination": { "status": "pending", "owner_role": "Competent independent research reviewer", "label": "Review the actual population, tasks and risk before recruitment" },
+    "privacy-consent-withdrawal": { "status": "pending", "owner_role": "Human study lead and privacy reviewer", "label": "Approve consent, withdrawal, retention, deletion and minimum data" },
+    "affected-party-governance": { "status": "pending", "owner_role": "Relevant affected-party representatives", "label": "Agree scope, refusal, benefit and interpretation rights without assuming representation" },
+    "accessibility-visible-parity": { "status": "pending", "owner_role": "Independent accessibility and rendering reviewers", "label": "Inspect visible, mobile and assistive presentation in both arms" },
+    "compensation-support": { "status": "pending", "owner_role": "Human research lead", "label": "Approve recruitment, compensation and real support routes" },
+    "independent-safety-monitor": { "status": "pending", "owner_role": "Programme sponsor and independent monitor", "label": "Appoint a person with actual pause and incident authority" },
+    "analysis-power-plan": { "status": "pending", "owner_role": "Independent statistician", "label": "Choose endpoint, worthwhile effect, precision or power and feasible sample" },
+    "missingness-multiplicity": { "status": "pending", "owner_role": "Independent statistician", "label": "Specify missingness, attrition, multiplicity, clustering and contamination" },
+    "allocation-and-coding": { "status": "pending", "owner_role": "Study method lead", "label": "Validate assignment, first exposure, independent coding and rubric" },
+    "preregistration-freeze": { "status": "pending", "owner_role": "Human study lead", "label": "Freeze the actual candidate and preregister before confirmatory outcomes" }
+  }
+}

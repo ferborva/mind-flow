@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "status": "blocked",
+  "blockers": [
+    {
+      "id": "accountable-human-lead",
+      "label": "Appoint an accountable human research lead",
+      "owner_role": "Programme sponsor"
+    },
+    {
+      "id": "ethics-determination",
+      "label": "Review the actual population, tasks and risk before recruitment",
+      "owner_role": "Competent independent research reviewer"
+    },
+    {
+      "id": "privacy-consent-withdrawal",
+      "label": "Approve consent, withdrawal, retention, deletion and minimum data",
+      "owner_role": "Human study lead and privacy reviewer"
+    },
+    {
+      "id": "affected-party-governance",
+      "label": "Agree scope, refusal, benefit and interpretation rights without assuming representation",
+      "owner_role": "Relevant affected-party representatives"
+    },
+    {
+      "id": "accessibility-visible-parity",
+      "label": "Inspect visible, mobile and assistive presentation in both arms",
+      "owner_role": "Independent accessibility and rendering reviewers"
+    },
+    {
+      "id": "compensation-support",
+      "label": "Approve recruitment, compensation and real support routes",
+      "owner_role": "Human research lead"
+    },
+    {
+      "id": "independent-safety-monitor",
+      "label": "Appoint a person with actual pause and incident authority",
+      "owner_role": "Programme sponsor and independent monitor"
+    },
+    {
+      "id": "analysis-power-plan",
+      "label": "Choose endpoint, worthwhile effect, precision or power and feasible sample",
+      "owner_role": "Independent statistician"
+    },
+    {
+      "id": "missingness-multiplicity",
+      "label": "Specify missingness, attrition, multiplicity, clustering and contamination",
+      "owner_role": "Independent statistician"
+    },
+    {
+      "id": "allocation-and-coding",
+      "label": "Validate assignment, first exposure, independent coding and rubric",
+      "owner_role": "Study method lead"
+    },
+    {
+      "id": "preregistration-freeze",
+      "label": "Freeze the actual candidate and preregister before confirmatory outcomes",
+      "owner_role": "Human study lead"
+    },
+    {
+      "id": "external-authority-verifier",
+      "label": "This preparation format cannot authenticate appointments or approve recruitment. A separately reviewed operational protocol is required.",
+      "owner_role": "Human programme authority and independent reviewer"
+    }
+  ],
+  "prerequisite_claims_received": 0,
+  "prerequisites_complete": false,
+  "recruitment_allowed": false,
+  "participant_data_collection": "disabled",
+  "human_testing_completed": false,
+  "statistical_power_established": false,
+  "authority_effect": "none",
+  "generated_from": {
+    "proposal_sha256": "sha256:de5d9f28bb74141dbea2ad5f98530a56dd589d7ba8427a16a6efde442c1d50e9",
+    "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b"
+  },
+  "parity": {
+    "exact_material_match": true,
+    "browser_visibility_verified": false,
+    "assisted_output_verified": false
+  },
+  "task_count": 3,
+  "proposed_arm_count": 4
+}
