@@ -20,6 +20,8 @@ This recommendation is Ren's commissioned research judgement. It is not Fernando
 
 ## 🔬 The decision we can make now
 
+**Metadata follow-through, 2026-09-11:** a bounded [SIPP variable crosswalk](../pilots/income-access/sipp-crosswalk.md) now retains the official dictionary, schema, guide and two weight dictionaries. Sixteen selected variable definitions are replayable, with zero respondent records acquired. It identifies unresolved primary-versus-replicate panel-year ranges and a schema-versus-guide variable-count difference. Those discrepancies, job-line suppression and spell copying strengthen the case for an independent metadata review before extraction. They do not change the proposal's approval state or settle Fernando's construct choices.
+
 The first decision is whether a candidate can support a **bounded falsifiable measurement exercise**. It is not whether the dataset is prestigious, large or conveniently downloadable. The candidate must make us more able to distinguish competing explanations for a change.
 
 The intended chain is:

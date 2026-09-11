@@ -1,0 +1,538 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "sipp-2025.variable-feasibility.round-11",
+  "status": "metadata-crosswalk-not-measurement",
+  "authorship": "Ren (AI agent): analysis proposal, not Fernando approval",
+  "captureId": "sipp-2025.metadata.2026-09-11",
+  "captureSha256": "eebe89e932e84237900eb3ef0569e0bc93a9a6564eae2d0139b64a7b76dfdac6",
+  "sources": [
+    {
+      "id": "dictionary",
+      "url": "https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/2025_SIPP_Data_Dictionary.pdf",
+      "file": "dictionary.pdf",
+      "startedAt": "2026-09-11T05:13:13.512Z",
+      "endedAt": "2026-09-11T05:13:15.598Z",
+      "status": 200,
+      "contentType": "application/pdf",
+      "bytes": 3994347,
+      "sha256": "571e53b4ec3ebb11bebddbb7190fc1084f5364b8a1ec5fbd7ca8e2f69e7cc752",
+      "kind": "public-documentation-not-microdata",
+      "publisherAuthenticated": false,
+      "clockTrusted": false
+    },
+    {
+      "id": "primary-schema",
+      "url": "https://www2.census.gov/programs-surveys/sipp/data/datasets/2025/pu2025_schema.json",
+      "file": "primary-schema.json",
+      "startedAt": "2026-09-11T05:13:15.601Z",
+      "endedAt": "2026-09-11T05:13:16.266Z",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 754138,
+      "sha256": "6cdc23c537ba1431540e62994f0c05e05e62920e785384872bf5b7c23fe8c241",
+      "kind": "public-documentation-not-microdata",
+      "publisherAuthenticated": false,
+      "clockTrusted": false
+    },
+    {
+      "id": "guide",
+      "url": "https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2025_SIPP_Users_Guide.pdf",
+      "file": "guide.pdf",
+      "startedAt": "2026-09-11T05:13:16.266Z",
+      "endedAt": "2026-09-11T05:13:17.134Z",
+      "status": 200,
+      "contentType": "application/pdf",
+      "bytes": 3088346,
+      "sha256": "0f0bfbc9bbd0de97d8cfd07ec3128925159c9696d259893e04aa1e6f5d17ba41",
+      "kind": "public-documentation-not-microdata",
+      "publisherAuthenticated": false,
+      "clockTrusted": false
+    },
+    {
+      "id": "replicate-weights",
+      "url": "https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/rw2025_dictionary.txt",
+      "file": "replicate-weights.txt",
+      "startedAt": "2026-09-11T05:13:17.135Z",
+      "endedAt": "2026-09-11T05:13:17.316Z",
+      "status": 200,
+      "contentType": "text/plain",
+      "bytes": 1412,
+      "sha256": "818e434ae1ac25b0be5b370826950ca46d2f538e38c49860a28e6cc25d2a8d60",
+      "kind": "public-documentation-not-microdata",
+      "publisherAuthenticated": false,
+      "clockTrusted": false
+    },
+    {
+      "id": "longitudinal-weights",
+      "url": "https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/lgtwgt2025_dictionary.txt",
+      "file": "longitudinal-weights.txt",
+      "startedAt": "2026-09-11T05:13:17.316Z",
+      "endedAt": "2026-09-11T05:13:17.496Z",
+      "status": 200,
+      "contentType": "text/plain",
+      "bytes": 1223,
+      "sha256": "ddd6eaada51c2be6904ae5aacf8f41f83e8303a50c6c90f3a33a0661de8c1c95",
+      "kind": "public-documentation-not-microdata",
+      "publisherAuthenticated": false,
+      "clockTrusted": false
+    }
+  ],
+  "schemaEntries": 5203,
+  "recordsAcquired": 0,
+  "admittedMeasurements": 0,
+  "nationalStormInference": false,
+  "liveWarningReady": false,
+  "replayScope": "Original-byte identity, exact schema selection and retained agent annotations. Does not independently parse PDF semantics or validate the construct.",
+  "variables": [
+    {
+      "varnum": 1,
+      "name": "SSUID",
+      "label": "Sample unit identifier. This identifier is created by scrambling together PSU, Sequence #1, Sequence #2, and the Frame Indicator for a case. It may be used in matching sample units from different waves.",
+      "dtype": "string",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1247,
+        "pdfPageOneBased": 1248,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "All persons",
+        "file": "Household",
+        "statusFlag": null,
+        "caveat": "Scrambled sample-unit key, not a person or household denominator; combine with PNUM and release context."
+      }
+    },
+    {
+      "varnum": 3,
+      "name": "SPANEL",
+      "label": "Panel year",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1239,
+        "pdfPageOneBased": 1240,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "All persons",
+        "file": "Household",
+        "statusFlag": null,
+        "caveat": "Panel year is not the observation year. Published weight dictionaries disagree about allowed panel years.",
+        "allowedValues": [
+          2022,
+          2023,
+          2024,
+          2025
+        ]
+      }
+    },
+    {
+      "varnum": 4,
+      "name": "SWAVE",
+      "label": "Wave number of interview",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1240,
+        "pdfPageOneBased": 1241,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "All persons",
+        "file": "Household",
+        "statusFlag": null,
+        "caveat": "Interview wave is not a calendar month.",
+        "minimum": 1,
+        "maximum": 4
+      }
+    },
+    {
+      "varnum": 239,
+      "name": "PNUM",
+      "label": "Person number",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1241,
+        "pdfPageOneBased": 1242,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "All persons",
+        "file": "Person",
+        "statusFlag": null,
+        "caveat": "Person number is unique within sample unit, not globally.",
+        "minimum": 101,
+        "maximum": 499
+      }
+    },
+    {
+      "varnum": 1382,
+      "name": "MONTHCODE",
+      "label": "Value of reference month",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1248,
+        "pdfPageOneBased": 1249,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "All persons",
+        "file": "Person-month",
+        "statusFlag": null,
+        "caveat": "Reference month needs reference year from release context, not panel year.",
+        "minimum": 1,
+        "maximum": 12
+      }
+    },
+    {
+      "varnum": 1554,
+      "name": "RIN_UNIV",
+      "label": "Monthly indicator that respondent is in survey frame universe",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1245,
+        "pdfPageOneBased": 1246,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "THHLDSTATUS in (1,2,3,4)",
+        "file": "Person-month",
+        "statusFlag": null,
+        "caveat": "Monthly survey-frame membership can change. It does not resolve the project population denominator.",
+        "allowedValues": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "varnum": 1383,
+      "name": "WPFINWGT",
+      "label": "Final person weight",
+      "dtype": "float",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 3255,
+        "pdfPageOneBased": 3256,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "All persons",
+        "file": "Person-month",
+        "statusFlag": null,
+        "caveat": "Final person weight is not automatically the correct weight for a longitudinal transition cohort."
+      }
+    },
+    {
+      "varnum": 2423,
+      "name": "RMESR",
+      "label": "Recode for monthly employment status.",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2488,
+        "pdfPageOneBased": 2489,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "TAGE >= 15",
+        "file": "Person-month",
+        "statusFlag": "AMESR",
+        "caveat": "Eight employment-state categories include partial months, layoff and search. Neither a job nor its absence directly establishes viable income access.",
+        "allowedValues": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "stormCodeMapping": null
+      }
+    },
+    {
+      "varnum": 2424,
+      "name": "RMNUMJOBS",
+      "label": "Recode of number of jobs held within the reference month.",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2579,
+        "pdfPageOneBased": 2580,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "TAGE >= 15",
+        "file": "Person-month",
+        "statusFlag": "AMNUMJOBS",
+        "caveat": "Jobs held are observed arrangements, not the set of viable alternatives.",
+        "minimum": 0,
+        "maximum": 17
+      }
+    },
+    {
+      "varnum": 2425,
+      "name": "EJB1_JOBID",
+      "label": "Unique identifier for a job which is consistent across waves.",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2581,
+        "pdfPageOneBased": 2582,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "EJB1_SCRNR=1 & AJB1_SCRNR=1 & AJB1_BMONTH=1 & EJB1_BMONTH <= MONTHCODE <= EJB1_EMONTH",
+        "file": "Person-month",
+        "statusFlag": "AJB1_JOBID",
+        "caveat": "Linkage candidate within person and across waves, not proof of complete job-history coverage.",
+        "minimum": 101,
+        "maximum": 407
+      }
+    },
+    {
+      "varnum": 4921,
+      "name": "EJB7_JOBID",
+      "label": "Suppressed",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2587,
+        "pdfPageOneBased": 2588,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": null,
+        "file": "Person-month",
+        "statusFlag": "AJB7_JOBID",
+        "caveat": "Explicitly suppressed; blank universe is unknown/not published, not all persons.",
+        "suppressed": true
+      }
+    },
+    {
+      "varnum": 1650,
+      "name": "EJB1_RSEND",
+      "label": "What is the main reason ... stopped working for ... employer?",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1773,
+        "pdfPageOneBased": 1774,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "EJB1_JBORSE in (1,3) & ((THHLDSTATUS in (1,2) & (EJB1_EMONTH<12 | (EJB1_EMONTH=12 & RJB1_CFLG=0))) | (THHLDSTATUS in (3,4,5,6) & (EJB1_EMONTH<LAST_MONTH | (EJB1_EMONTH=LAST_MONTH & RJB1_CFLG=0))))",
+        "file": "Person-month",
+        "statusFlag": "AJB1_RSEND",
+        "caveat": "Employer-job exit reason, not business exit. Reasons include job switching and retirement. Do not turn a repeated spell reason into repeated events.",
+        "allowedValues": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "involuntaryCodeMapping": null
+      }
+    },
+    {
+      "varnum": 1660,
+      "name": "EJB1_RENDB",
+      "label": "What is the main reason ... gave up or ended this business?",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 1780,
+        "pdfPageOneBased": 1781,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "EJB1_JBORSE=2 & ((THHLDSTATUS in (1,2) & (EJB1_EMONTH<12 | (EJB1_EMONTH=12 & RJB1_CFLG=0))) | (THHLDSTATUS in (3,4,5,6) & (EJB1_EMONTH<LAST_MONTH | (EJB1_EMONTH=LAST_MONTH & RJB1_CFLG=0))))",
+        "file": "Person-month",
+        "statusFlag": "AJB1_RENDB",
+        "caveat": "Business exit only. Employer and business exit reason codes have different meanings; no shared numeric mapping.",
+        "allowedValues": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "involuntaryCodeMapping": null
+      }
+    },
+    {
+      "varnum": 2064,
+      "name": "ROVERLAPMN",
+      "label": "Indicates more than one non-employment spell ongoing in the reference month.",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2621,
+        "pdfPageOneBased": 2622,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "ENJFLAG=1",
+        "file": "Person-month",
+        "statusFlag": null,
+        "caveat": "Multiple non-employment spells can share a month. Earlier-spell dates do not recover every event.",
+        "allowedValues": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "varnum": 4155,
+      "name": "TPEARN",
+      "label": "Sum of earnings and profits/losses from all jobs, varying with the number of days in the month (comparable to RPEARN in 1996, 2001, and 2014 SIPP panels).",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2580,
+        "pdfPageOneBased": 2581,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "EJB(n)_BMONTH <= MONTHCODE <= EJB(n)_EMONTH for at least one n=(1,...,8)",
+        "file": "Person-month",
+        "statusFlag": "APEARN",
+        "caveat": "Includes earnings and business profits/losses; varies with calendar month length. Not opportunity, disposable income or a living-standard measure.",
+        "minimum": -99999999,
+        "maximum": 99999999,
+        "zeroFillOutsideUniverse": false
+      }
+    },
+    {
+      "varnum": 4162,
+      "name": "TPEARN_ALT",
+      "label": "Alternate recode of earnings and profits/losses from all jobs that does not vary with the number of days in the month (comparable to RPEARN in 2004 and 2008 SIPP panels).",
+      "dtype": "integer",
+      "annotation": {
+        "sourceId": "dictionary",
+        "printedPage": 2630,
+        "pdfPageOneBased": 2631,
+        "method": "agent-reviewed-dictionary-annotation",
+        "independentlyReviewed": false,
+        "universe": "EJB(n)_BMONTH <= MONTHCODE <= EJB(n)_EMONTH for at least one n=(1,...,8)",
+        "file": "Person-month",
+        "statusFlag": "APEARN_ALT",
+        "caveat": "Alternative calendar-length treatment needs a predeclared sensitivity comparison, not post-hoc choice of the most alarming series.",
+        "minimum": -99999999,
+        "maximum": 99999999,
+        "zeroFillOutsideUniverse": false
+      }
+    }
+  ],
+  "timing": {
+    "releaseEdition": 2025,
+    "referenceYear": 2024,
+    "referenceYearBasis": "Guide section 1.5.3, printed p13; release edition and panel year are not the reference year. Some non-employment topics refer to interview time.",
+    "outputGrain": "person-month",
+    "collectionBasis": "retrospective annual interview; employment spell collection",
+    "independentMonthlyMeasurement": false,
+    "guidePrintedPages": [
+      13,
+      29,
+      69,
+      70,
+      71,
+      72
+    ],
+    "caveat": "Many job-spell characteristics are copied to months in the spell. Some monthly-varying pay and edited recodes differ. Monthly output is not twelve independent interviews. Deduplicate events and preserve imputation flags."
+  },
+  "weights": {
+    "joinApproved": false,
+    "estimationApproved": false,
+    "crossSectionalCandidate": "WPFINWGT; separate replicate text identifies REPWGT0 as equivalent",
+    "replicateFamily": "REPWGT1 through REPWGT240; text abbreviates intermediate records, not 240 observed data values",
+    "longitudinalCandidates": [
+      {
+        "name": "FINYR2",
+        "referenceStart": "2023-01",
+        "referenceEnd": "2024-12"
+      },
+      {
+        "name": "FINYR3",
+        "referenceStart": "2022-01",
+        "referenceEnd": "2024-12"
+      },
+      {
+        "name": "FINYR4",
+        "referenceStart": "2021-01",
+        "referenceEnd": "2024-12"
+      }
+    ],
+    "panelRanges": {
+      "primary": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "replicateText": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "longitudinalText": [
+        2022,
+        2023,
+        2024
+      ]
+    },
+    "sourceConflict": "Primary dictionary SPANEL range 2022-2025 differs from monthly replicate text 2021-2024. Do not silently shift years or approve a join. The longitudinal range 2022-2024 can reflect cohort eligibility, so its difference alone is not evidence of an error.",
+    "documentedMonthlyReplicateJoin": [
+      "SSUID",
+      "PNUM",
+      "MONTHCODE"
+    ],
+    "documentedLongitudinalJoin": [
+      "SSUID",
+      "PNUM"
+    ],
+    "joinBasis": "Guide printed p157; documented keys are not empirically tested uniqueness or coverage.",
+    "grainCaution": "Primary dictionary calls REPWGT[1:240] File: Person; separate replicate text includes MONTHCODE. Follow the guide monthly join candidate while retaining these distinct descriptions and testing grain before estimation.",
+    "longitudinalCaution": "Longitudinal target populations, in-scope exits, imputed months and response adjustments require the guide and a statistician-reviewed estimator, not generic complete-case filtering.",
+    "dictionaryPrintedPages": [
+      1239,
+      3255,
+      3256,
+      3257
+    ],
+    "guidePrintedPages": [
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160
+    ],
+    "annotationsIndependentlyReviewed": false
+  },
+  "unknowns": [
+    "Resolve contradictory published panel-year ranges using authoritative correction/metadata before specifying a weight join.",
+    "The retained primary schema has 5203 entries, while the guide p15 lists 5204 variables for 2025. Resolve edition completeness without inventing a missing field.",
+    "Complete dependencies and code-value crosswalks for age, job screen/start/end/continuation, survey frame, missingness and allocation flags; no event extractor is approved.",
+    "Audit suppression and multi-job coverage across every job line. This 16-variable subset is not a complete extraction specification.",
+    "Define severity, persistence, viable alternatives, beneficial transitions, household transmission and the population denominator with the authorised reviewers.",
+    "An observed job switch is not proof that an equally viable alternative was available before disruption. Retrospective survey outcomes do not identify the full opportunity set.",
+    "Resolve cohort weights, attrition, top-coding, non-response, inflation/calendar treatment and uncertainty before any empirical estimate.",
+    "Acquire no participant data until data-custody, permitted-use and acquisition gates pass. Public metadata availability grants no project approval."
+  ],
+  "nextGate": {
+    "status": "pending",
+    "ownerRole": "Survey-methods reviewer, unappointed",
+    "action": "Review the exact metadata discrepancies and complete dependency/code mappings offline; seek a public authoritative correction if one exists. No provider contact or data acquisition is authorised by this record."
+  }
+}
