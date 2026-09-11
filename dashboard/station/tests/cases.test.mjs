@@ -63,6 +63,7 @@ for (const [name, country, family, year, mutate] of [
   ['coherent changed values and movement', 'PER', E, 2020, c => { c.series[E].find(p => p.year === 2020).value = 65; c.assessments.find(a => a.year === 2020).native.find(n => n.family === E).change = -9.748; }],
   ['changed model status', 'IRL', U, 2009, c => { c.series[U].find(p => p.year === 2009).estimateType = 'actual'; }],
   ['survey switched to nowcast', 'KAZ', P, 2006, c => { c.series[P].find(p => p.year === 2006).estimationType = 'nowcast'; }],
+  ['nowcast status with survey method retained', 'KAZ', P, 2006, c => { const point = c.series[P].find(p => p.year === 2006); assert.equal(point.estimationType, 'survey'); point.estimateType = 'nowcast'; }],
   ['invented storm confirmation', 'PER', E, 2020, c => { c.assessments.find(a => a.year === 2020).state = 'candidate'; }],
   ['gap backfill', 'ARG', P, 2025, c => { c.series[P].push({ year: 2025, value: 0 }); }],
   ['gap reclassified', 'ARG', P, 2025, c => { c.assessments.find(a => a.year === 2025).missingSeries = []; }],
