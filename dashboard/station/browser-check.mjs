@@ -77,6 +77,17 @@ try {
     const result = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
     writeFileSync(resolve(dir, name + '.png'), Buffer.from(result.data, 'base64'));
   };
+  // Inspect the generated local Blob without saving responses or initiating downloads.
+  const downloadBrief = () => evaluate(`(async () => {
+    const originalCreate = URL.createObjectURL, originalClick = HTMLAnchorElement.prototype.click;
+    let blob;
+    try {
+      URL.createObjectURL = value => { blob = value; return originalCreate(value); };
+      HTMLAnchorElement.prototype.click = function () {};
+      document.getElementById('export-brief').click();
+      return JSON.parse(await blob.text());
+    } finally { URL.createObjectURL = originalCreate; HTMLAnchorElement.prototype.click = originalClick; }
+  })()`);
   await call('Page.enable'); await call('Runtime.enable');
   await call('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1100, deviceScaleFactor: 1, mobile: false });
   await navigate('?country=AUS&compare=USA&family=income-employment-population.v1&year=2025');
@@ -124,7 +135,20 @@ try {
     await evaluate(`document.querySelector('[data-story="${index}"]').click()`);
     assert.equal(await evaluate('document.getElementById("case-narrative").hidden'), false);
     assert.equal(await evaluate('document.getElementById("forecast-cards").innerText'), forecasts);
+    await evaluate('document.getElementById("brief-preview").open=true');
+    const exported = await downloadBrief();
+    assert.equal(exported.selection.country, await evaluate('document.getElementById("country-select").value'));
+    assert.equal(exported.inquiry.question, await evaluate('document.querySelector("[data-handoff-question]").innerText'));
+    assert.equal(exported.inquiry.question, await evaluate('document.querySelector("#case-narrative section:last-child p").innerText'));
+    assert.equal(exported.inquiry.nextStep.verb, 'Review');
+    assert.equal(exported.inquiry.conditionsEvaluated, false);
+    assert.equal(exported.inquiry.actionTaken, false);
+    assert.match(exported.inquiry.stopIf, /unapproved personal data/);
+    assert.ok(exported.inquiry.missingAccessEvidence.length > 0);
+    assert.equal(exported.inquiry.assessmentSource.selector.country, exported.selection.country);
   }
+  await evaluate('document.getElementById("brief-handoff").scrollIntoView({behavior:"instant"})'); await screenshot('research-handoff');
+  await evaluate('document.getElementById("brief-preview").open=false');
   await evaluate('document.querySelector("[data-story=\\"0\\"]").click()');
   assert.match(await evaluate('document.getElementById("reading-grid").innerText'), /-10.772 pp/);
   await evaluate('document.getElementById("explore").scrollIntoView({behavior:"instant"})'); await screenshot('peru');
@@ -137,17 +161,7 @@ try {
   await evaluate('document.querySelector("[data-story=\\"3\\"]").click()');
   assert.match(await evaluate('document.getElementById("reading-grid").innerText'), /Unavailable/);
   assert.match(await evaluate('document.getElementById("chart-label").textContent'), /3.*2021.*PPP/);
-  // Capture the generated Blob, not a participant response or a browser download.
-  const brief = await evaluate(`(async () => {
-    const originalCreate = URL.createObjectURL, originalClick = HTMLAnchorElement.prototype.click;
-    let blob;
-    try {
-      URL.createObjectURL = value => { blob = value; return originalCreate(value); };
-      HTMLAnchorElement.prototype.click = function () {};
-      document.getElementById('export-brief').click();
-      return JSON.parse(await blob.text());
-    } finally { URL.createObjectURL = originalCreate; HTMLAnchorElement.prototype.click = originalClick; }
-  })()`);
+  const brief = await downloadBrief();
   assert.equal(brief.selection.country, 'ARG'); assert.equal(brief.selection.year, 2025);
   assert.equal(brief.selected.after, null); assert.equal(brief.selected.disruptedPopulationShare, null);
   assert.equal(brief.authority, 'none'); assert.equal(brief.publicReleaseApproved, false);
@@ -170,6 +184,8 @@ try {
   await evaluate('document.getElementById("explore").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-explore');
   await evaluate('document.getElementById("preparation").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-preparation');
   await evaluate('document.getElementById("review-clock").scrollIntoView({behavior:"instant"})'); await screenshot('mobile-review-desk');
+  await evaluate('document.getElementById("brief-preview").open=true;document.getElementById("brief-handoff").scrollIntoView({behavior:"instant"})');
+  assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false); await screenshot('mobile-research-handoff');
   await navigate('?country=UNKNOWN');
   assert.equal(await evaluate('document.body.dataset.stationReady'), 'false');
   assert.equal(await evaluate('document.getElementById("main").hidden'), true);
@@ -285,7 +301,7 @@ try {
   }
   if (browserError) throw browserError;
   assert.equal(errors.length, 0, JSON.stringify(errors));
-  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'review desk exact boundary clocks', 'review desk preserved defect', 'review desk separate trust date', 'review desk local invalid input and reset', 'review desk immutable forecast records', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'static slice exact facts and tasks', 'static slice feedback separated', 'static slice reflow and accessibility tree labels', 'static slice return journey', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'review desk exact boundary clocks', 'review desk preserved defect', 'review desk separate trust date', 'review desk local invalid input and reset', 'review desk immutable forecast records', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'four guided handoffs match preview and download', 'mobile research handoff reflow', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'static slice exact facts and tasks', 'static slice feedback separated', 'static slice reflow and accessibility tree labels', 'static slice return journey', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
 } finally {
   clearTimeout(deadline); ws?.close(); browser.kill('SIGTERM'); server.close();
 }

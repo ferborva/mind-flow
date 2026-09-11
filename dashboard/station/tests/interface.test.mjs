@@ -21,7 +21,7 @@ test('station supports reduced motion and keeps real-data rendering independent 
 test('native scope and pending work remain visible rather than compressed away', () => {
   const app = text('app.mjs');
   assert.match(app, /chart-label'\).textContent = f.fullLabel/);
-  assert.match(app, /nativeSeries: f.fullLabel/);
+  assert.match(text('brief.mjs'), /nativeSeries:family.fullLabel/);
   assert.match(app, /study.blockers.map/);
   assert.match(app, /Download requested/);
   assert.doesNotMatch(app, /Saved locally/);
@@ -38,4 +38,12 @@ test('the linked static comparison is not presented as a test of the whole stati
   assert.match(app, /static reasoning slice/);
   assert.match(app, /not a test of the full interactive station/);
   assert.match(app, /decision-experience\/README.md/);
+});
+test('the visible handoff and downloaded brief share the source-bound producer', () => {
+  assert.match(text('app.mjs'), /from '\.\/brief\.mjs'/);
+  assert.match(text('app.mjs'), /const brief = researchBrief\(data, state\)/);
+  assert.match(text('app.mjs'), /const inquiry = researchBrief\(data, state\)\.inquiry/);
+  assert.match(text('index.html'), /id="brief-preview"/);
+  assert.match(text('index.html'), /id="brief-handoff"/);
+  assert.match(text('app.mjs'), /data-handoff-question/);
 });

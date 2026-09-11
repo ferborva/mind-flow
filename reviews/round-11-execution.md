@@ -277,3 +277,48 @@ warning skill, public comprehension or a measured improvement in income access.
 
 These gates preserve momentum while separating what agents can implement from
 the human decisions and evidence that would justify a real warning service.
+
+### Selected-case research handoff
+
+The review-desk candidate `92b3f7a` passed 1,372 local tests, canonical artifact
+replay and the twenty-five-category browser journey. Its separate
+[push](https://github.com/ferborva/mind-flow/actions/runs/34571164382) and
+[PR](https://github.com/ferborva/mind-flow/actions/runs/34571167702) reproductions
+also passed. Those results belong to that checkpoint, not later changes.
+
+The next bounded integration joins the station's visible question with its
+downloaded proposal. Four guarded cases identify evidence that could distinguish
+readings, an explicit Review + object + IF step, and STOP, REVISE, DEFER and
+evidence-admission conditions. Other selections are labelled generic scope-bound
+questions. Native endpoints, source hashes, exact selectors and the existing
+country-period missing requirements travel with the brief. A missing observation
+or affected-population share stays null; the baseline has no invented assessment.
+
+Eleven tests cover the four cases, generic and baseline selections, missing
+lineage, meaning-changing source refresh and detached exports. An interface
+regression binds both render and download to the same producer. Independent
+measurement-agent review found no blocker and one small clarity issue: Ireland's
+proposed next step needed its 2008 to 2009 period made explicit. A failing period
+regression preceded that repair. This is same-host AI review, not external
+statistical approval or an observed benefit to people.
+
+The final browser journey passes twenty-seven categories, including actual
+generated-Blob versus visible-question parity for all four guided selections
+and mobile handoff reflow. Desktop and mobile captures were inspected. It does
+not initiate participant downloads, collect responses or contact anyone.
+CI now retains the new browser module with the research interface artifact.
+All 100 focused station tests pass. A separate exhaustive pure-export diagnostic
+also traversed all 3,150 economy, family and year combinations against the US
+comparator, retaining null affected-person shares and no action authority. This
+is not browser coverage of every combination or an empirical measurement check.
+The complete local contract then passed 1,384 tests with zero failures, including
+the historical-receipt regressions. Canonical artifact replay also passed; the
+generated station payload and artifact lock are unchanged by this increment.
+Exact-candidate GitHub reproduction remains
+a separate check after this increment is committed and pushed.
+
+The handoff does not commission its proposal, appoint its owner, evaluate its
+conditions or change an IF state. It makes a next inquiry inspectable without
+laundering preparation into authority. The substantive next choice remains the
+human evaluation's intended population and decision. A question about that
+choice has been put to Fernando; no answer or recruitment permission is inferred.

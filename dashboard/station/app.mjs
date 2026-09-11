@@ -1,6 +1,7 @@
 import { selectSeries, describeChange, preparationFor, formatValue, formatChange, publisherClassification } from './model.mjs';
 import { caseFor } from './cases.mjs';
 import { reviewDesk } from './review-clock.mjs';
+import { researchBrief } from './brief.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -217,6 +218,8 @@ try {
     const story = caseFor(data, state.country, state.family, state.year);
     $('case-narrative').hidden = !story;
     $('case-narrative').innerHTML = story ? `<p class="eyebrow">Evidence tour / ${esc(name(state.country))} / ${state.year}</p><h3>${esc(story.heading)}</h3><p>${esc(story.changeExplanation)}</p><div><section><h4>What this does not establish</h4><p>${esc(story.claimLimit)}</p></section><section><h4>The next useful question</h4><p>${esc(story.nextQuestion)}</p></section></div>` : '';
+    const inquiry = researchBrief(data, state).inquiry;
+    $('brief-handoff').innerHTML = `<p class="eyebrow">${inquiry.guidedCase ? 'Reviewed guided-case question' : 'Generic scope-bound question'} / Proposal only</p><h3 data-handoff-question>${esc(inquiry.question)}</h3><dl><dt>EVIDENCE THAT COULD CHANGE THE READING</dt><dd>${esc(inquiry.discriminatingEvidence)}</dd><dt>PROPOSED NEXT STEP</dt><dd><strong>${esc(inquiry.nextStep.verb)}</strong> ${esc(inquiry.nextStep.object)} <strong>IF</strong> ${esc(inquiry.nextStep.if)}</dd><dt>STOP IF</dt><dd>${esc(inquiry.stopIf)}</dd><dt>REVISE IF</dt><dd>${esc(inquiry.reviseIf)}</dd><dt>DEFER IF</dt><dd>${esc(inquiry.deferIf)}</dd><dt>EVIDENCE ADMISSION</dt><dd>${esc(inquiry.admitEvidenceOnlyIf)}</dd></dl><p>${esc(inquiry.owner.role)}: not appointed. Conditions not evaluated; no action taken. The download also includes exact retained source selectors, missing requirements and interpretation limits. Nothing is submitted.</p>`;
     const url = new URL(location.href); Object.entries(state).forEach(([key, value]) => url.searchParams.set(key, value)); history.replaceState(null, '', url);
     const c = comparison(state.country);
     $('selection-announcement').textContent = `${name(state.country)}, ${state.year}, ${family().label}: ${c.after ? formatValue(c.after.value) + ' percent' : 'unavailable'}. ${formatChange(c.change)}. ${c.stormState === 'cannot-say' ? 'Cannot assess a storm; required measurements missing.' : 'Baseline only.'}`;
@@ -231,16 +234,7 @@ try {
   $('year-control').addEventListener('input', event => { state.year = Number(event.target.value); render(); });
   matchMedia('(max-width:760px)').addEventListener('change', () => renderChart());
   $('export-brief').addEventListener('click', () => {
-    const f = family(), a = comparison(state.country), b = comparison(state.compare);
-    const brief = {
-      title: 'Weather Station research brief', classification: 'Research only; not a crisis warning or personal advice',
-      evidenceCut: data.evidenceCut, selection: { ...state },
-      nativeSeries: f.fullLabel, denominator: f.denominator, vintage: f.vintage,
-      selected: { country: state.country, ...a }, comparison: { country: state.compare, ...b },
-      limits: f.limitation, sourceSha256: f.sourceSha256, sourceUrl: f.sourceUrl,
-      inputs: data.inputs, preparation: preparationFor(data, state.country, state.year),
-      authority: 'none', publicReleaseApproved: false,
-    };
+    const brief = researchBrief(data, state);
     const objectUrl = URL.createObjectURL(new Blob([JSON.stringify(brief, null, 2) + '\n'], { type: 'application/json' }));
     const anchor = document.createElement('a'); anchor.href = objectUrl; anchor.download = `weather-station-${state.country}-${state.year}.json`; anchor.click();
     setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);

@@ -172,6 +172,7 @@ jobs:
             dashboard/station/model.mjs
             dashboard/station/cases.mjs
             dashboard/station/review-clock.mjs
+            dashboard/station/brief.mjs
             dashboard/station/styles.css
             experiments/decision-experience/*.html
             experiments/decision-experience/presentation-v2/*.html

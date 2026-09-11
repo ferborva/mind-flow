@@ -72,7 +72,9 @@ Hashes establish local integrity, not publisher identity or independent trust.
 6. Review a conditional next inquiry and the static reasoning slice. Compare
    it with the conventional release; reviewer answers are separate. The earlier
    non-recording rehearsals remain linked from the study README. Download a local
-   research brief if useful.
+   research brief if useful. Preview the selected case's question, evidence that
+   could discriminate between readings, and the proposed Review + object + IF
+   step before downloading. The preview and download share the same producer.
 
 Selectors and year controls work with native keyboard interaction. The
 50-economy field supports arrow keys, Home/End and Enter, preserving focus after
@@ -111,6 +113,20 @@ values, invalid-input recovery and narrow layout. These are planning-software
 tests, not operational appointments, authenticated time or forecast validation.
 
 ## What remains unproved
+
+The handoff preserves the exact guided-case question and its source-bound
+interpretation limit. Other selections receive explicitly generic questions;
+the baseline does not acquire an invented previous comparison. Downloaded
+proposals include native endpoints and selectors, source digests, the retained
+country-period missing-evidence requirements and their source binding. Missing
+observations and affected-population shares remain null.
+
+STOP, REVISE, DEFER and evidence-admission conditions distinguish preparing an
+inquiry from commissioning it or changing an IF state. The proposed lead is not
+appointed, conditions are not evaluated, and no action is taken. The four
+case-specific evidence proposals received independent same-host AI review, not
+statistical sign-off or human usefulness validation. Browser checks compare each
+guided preview with its actual downloaded JSON and inspect mobile reflow.
 
 The 3,129 native observations do not count disrupted income routes. None of
 the 1,000 country-period storm assessments has the measurements needed for a
