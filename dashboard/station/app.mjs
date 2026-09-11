@@ -1,5 +1,6 @@
 import { selectSeries, describeChange, preparationFor, formatValue, formatChange, publisherClassification } from './model.mjs';
 import { caseFor } from './cases.mjs';
+import { reviewDesk } from './review-clock.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -168,13 +169,33 @@ try {
 
   function renderForecasts() {
     const pending = data.forecasts.filter(x => x.operationalStatus !== 'blocked-defect'), blocked = data.forecasts.filter(x => x.operationalStatus === 'blocked-defect');
-    $('forecast-cards').innerHTML = pending.map(f => `<article class="forecast-card"><p class="eyebrow">${esc(f.country)} / Issued research · outcome ${esc(f.resolutionStatus)}</p><h3>${esc(f.place)}</h3><p class="forecast-question">${esc(f.question)}</p><div class="probability">${formatValue(f.probability * 100, 2)}<small>%</small></div><p class="probability-note">Probability of this exact event, not a storm</p><div class="probability-bar" aria-hidden="true"><span style="width:${f.probability * 100}%"></span></div><div class="forecast-meta"><div>Reference comparator ${formatValue(f.referenceProbability * 100, 2)}% · naive ${formatValue(f.naiveProbability * 100, 2)}%</div><div>Issued ${date(f.issuedAt)}</div><div>Resolution ${date(f.resolveAfter)} to ${date(f.resolveBy)} (UTC bounds)</div><div>${esc(f.registration)}</div><div>No score or skill established.</div></div><a class="source-link" href="${esc(sourceLink(f.path))}">Exact issued record ↗</a></article>`).join('') + blocked.map(f => `<article class="forecast-card defect"><h3>Preserved, not hidden:<br>the defective predecessor</h3><p>${esc(f.defect)} Stored as issued; no score accepted. The corrected record does not erase this error.</p><a class="text-link" href="../../forecasts/prospective-pilot/round-09-nero/error-notice.md">Read the disclosure ↗</a></article>`).join('');
+    $('forecast-cards').innerHTML = pending.map(f => `<article class="forecast-card"><p class="eyebrow">${esc(f.country)} / Issued research · recorded outcome ${esc(f.resolutionStatus)}</p><h3>${esc(f.place)}</h3><p class="forecast-question">${esc(f.question)}</p><div class="probability">${formatValue(f.probability * 100, 2)}<small>%</small></div><p class="probability-note">Probability of this exact event, not a storm</p><div class="probability-bar" aria-hidden="true"><span style="width:${f.probability * 100}%"></span></div><div class="forecast-meta"><div>Reference comparator ${formatValue(f.referenceProbability * 100, 2)}% · naive ${formatValue(f.naiveProbability * 100, 2)}%</div><div>Issued ${date(f.issuedAt)}</div><div>Resolution ${date(f.resolveAfter)} to ${date(f.resolveBy)} (UTC bounds)</div><div>${esc(f.registration)}</div><div>No score or skill established.</div></div><a class="source-link" href="${esc(sourceLink(f.path))}">Exact issued record ↗</a></article>`).join('') + blocked.map(f => `<article class="forecast-card defect"><h3>Preserved, not hidden:<br>the defective predecessor</h3><p>${esc(f.defect)} Stored as issued; no score accepted. The corrected record does not erase this error.</p><a class="text-link" href="../../forecasts/prospective-pilot/round-09-nero/error-notice.md">Read the disclosure ↗</a></article>`).join('');
     [...$('forecast-cards').querySelectorAll('.forecast-card:not(.defect)')].forEach((card, index) => {
       const f = pending[index];
       card.querySelector('.forecast-question').insertAdjacentHTML('afterend', `<p class="forecast-question">${esc(f.targetScope.cohorts.join('; '))}</p>`);
       card.querySelector('.forecast-meta div:nth-child(3)').textContent = `Resolution dates: ${date(f.resolveAfter)} to ${date(f.resolveBy)}. Exact UTC bounds below.`;
       card.insertAdjacentHTML('beforeend', `<details><summary>Exact target and timing</summary><p>${esc(f.targetEvent)}</p><p>${esc(f.resolutionRule)}</p><p>Opens ${esc(f.resolveAfter)}<br>Closes ${esc(f.resolveBy)}</p></details>`);
     });
+  }
+
+  function updateReviewDesk(asOfUTC, clockOrigin) {
+    // An invalid planning input invalidates only this derived view, never the fixed records.
+    $('review-desk-rows').innerHTML = ''; $('review-trust').innerHTML = '';
+    $('review-trust').removeAttribute('data-calendar-position');
+    try {
+      const desk = reviewDesk(data.forecasts, data.trustReview, asOfUTC);
+      $('review-desk-rows').innerHTML = desk.forecasts.map(f => `<article class="review-row" data-forecast-id="${esc(f.id)}" data-window-phase="${esc(f.windowPhase)}" data-attention="${esc(f.attention)}"><div><h4>${esc(f.place)}</h4><p class="review-phase">${f.attention === 'blocked-defect' ? 'Preserved defect: admission blocked' : esc(f.phaseLabel)}</p><p>${esc(f.nextReview)}</p></div><details><summary>Retained record and review bounds</summary><p>Calendar position: ${esc(f.phaseLabel)}. Recorded outcome status: ${esc(f.resolutionStatus)}. ${f.admissionBlocked ? 'Admission blocked.' : 'Admission is not established by this desk.'}</p><dl><dt>Issued</dt><dd>${esc(f.issuedAt)}</dd><dt>Review opens, UTC</dt><dd>${esc(f.resolveAfter)}</dd><dt>Review closes, UTC (inclusive)</dt><dd>${esc(f.resolveBy)}</dd></dl><a class="source-link" href="${esc(sourceLink(f.source.path))}">Exact retained forecast record ↗</a><span class="hash">${esc(f.source.sha256)}</span></details></article>`).join('');
+      const trust = desk.trustReview;
+      $('review-trust').setAttribute('data-calendar-position', trust.calendarPosition);
+      $('review-trust').innerHTML = `<p class="eyebrow">Separate engineering obligation / Receipt trust</p><h4>Review date: ${esc(trust.reviewDate)}</h4><p>${esc(trust.label)}</p><p>UTC calendar display only. The source specifies no time zone or hour, so this is not an expiry verdict. A date comparison does not renew acceptance or establish that the review happened.</p><details><summary>Receipt-trust source</summary><a class="source-link" href="${esc(sourceLink(trust.path))}">Read the retained review requirement ↗</a><span class="hash">${esc(trust.sourceSha256)}</span></details>`;
+      $('review-clock').setAttribute('aria-invalid', 'false');
+      $('review-clock-status').textContent = `${clockOrigin}: ${desk.asOf}. Unauthenticated planning time, not a verified current-time or lifecycle check.`;
+    } catch (error) {
+      $('review-desk-rows').innerHTML = ''; $('review-trust').innerHTML = '';
+      $('review-trust').removeAttribute('data-calendar-position');
+      $('review-clock').setAttribute('aria-invalid', 'true');
+      $('review-clock-status').textContent = `Review desk unavailable: ${error.message}. Correct the planning input or inspect the retained records. The station and fixed forecast cards remain available.`;
+    }
   }
 
   function renderPreparation() {
@@ -225,7 +246,16 @@ try {
     setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
     $('export-status').textContent = 'Download requested with source references, scope, uncertainty and action limits. Check your browser for completion. Nothing was sent.';
   });
-  renderField(); renderConditions(); renderForecasts(); render();
+  $('review-clock-apply').addEventListener('click', () => updateReviewDesk($('review-clock').value, 'Entered planning time'));
+  $('review-clock').addEventListener('keydown', event => {
+    if (event.key === 'Enter') { event.preventDefault(); updateReviewDesk($('review-clock').value, 'Entered planning time'); }
+  });
+  const resetReviewClock = () => {
+    $('review-clock').value = new Date().toISOString();
+    updateReviewDesk($('review-clock').value, 'Untrusted browser clock snapshot');
+  };
+  $('review-clock-reset').addEventListener('click', resetReviewClock);
+  renderField(); renderConditions(); renderForecasts(); render(); resetReviewClock();
   $('main').hidden = false; $('load-status').hidden = true;
   document.body.dataset.stationReady = 'true';
 } catch (error) {
