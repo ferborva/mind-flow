@@ -1,6 +1,19 @@
 {
   "schemaVersion": "1.0.0",
   "id": "sipp-2025.variable-feasibility.round-11",
+  "annotationEdition": "1.0.1",
+  "locatorRepair": {
+    "date": "2026-09-11",
+    "previousCrosswalkSha256": "39dc64d07614596fe07e359ea843d9bb39acd5375ec12ec536b90a6fad92c500",
+    "reason": "Dictionary zero-based PDF indexes were incorrectly labelled as printed page numbers. Corrected all 16 dictionary annotations and weight/prose locators after visual inspection; existing one-based PDF positions were correct.",
+    "originalSourceBytesChanged": false,
+    "independentMethodsApproval": false,
+    "verification": "Ren author repair, prompted by separate root visual review. Dictionary printed labels equal one-based PDF positions at every cited anchor; do not apply this rule to the guide.",
+    "guideControlAnchor": {
+      "printedPage": 157,
+      "pdfPageOneBased": 158
+    }
+  },
   "status": "metadata-crosswalk-not-measurement",
   "authorship": "Ren (AI agent): analysis proposal, not Fernando approval",
   "captureId": "sipp-2025.metadata.2026-09-11",
@@ -91,7 +104,7 @@
       "dtype": "string",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1247,
+        "printedPage": 1248,
         "pdfPageOneBased": 1248,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -108,7 +121,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1239,
+        "printedPage": 1240,
         "pdfPageOneBased": 1240,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -131,7 +144,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1240,
+        "printedPage": 1241,
         "pdfPageOneBased": 1241,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -150,7 +163,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1241,
+        "printedPage": 1242,
         "pdfPageOneBased": 1242,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -169,7 +182,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1248,
+        "printedPage": 1249,
         "pdfPageOneBased": 1249,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -188,7 +201,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1245,
+        "printedPage": 1246,
         "pdfPageOneBased": 1246,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -209,7 +222,7 @@
       "dtype": "float",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 3255,
+        "printedPage": 3256,
         "pdfPageOneBased": 3256,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -226,7 +239,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2488,
+        "printedPage": 2489,
         "pdfPageOneBased": 2489,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -254,7 +267,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2579,
+        "printedPage": 2580,
         "pdfPageOneBased": 2580,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -273,7 +286,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2581,
+        "printedPage": 2582,
         "pdfPageOneBased": 2582,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -292,7 +305,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2587,
+        "printedPage": 2588,
         "pdfPageOneBased": 2588,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -310,7 +323,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1773,
+        "printedPage": 1774,
         "pdfPageOneBased": 1774,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -346,7 +359,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 1780,
+        "printedPage": 1781,
         "pdfPageOneBased": 1781,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -377,7 +390,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2621,
+        "printedPage": 2622,
         "pdfPageOneBased": 2622,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -398,7 +411,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2580,
+        "printedPage": 2581,
         "pdfPageOneBased": 2581,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -418,7 +431,7 @@
       "dtype": "integer",
       "annotation": {
         "sourceId": "dictionary",
-        "printedPage": 2630,
+        "printedPage": 2631,
         "pdfPageOneBased": 2631,
         "method": "agent-reviewed-dictionary-annotation",
         "independentlyReviewed": false,
@@ -504,10 +517,16 @@
     "grainCaution": "Primary dictionary calls REPWGT[1:240] File: Person; separate replicate text includes MONTHCODE. Follow the guide monthly join candidate while retaining these distinct descriptions and testing grain before estimation.",
     "longitudinalCaution": "Longitudinal target populations, in-scope exits, imputed months and response adjustments require the guide and a statistician-reviewed estimator, not generic complete-case filtering.",
     "dictionaryPrintedPages": [
-      1239,
-      3255,
+      1240,
       3256,
-      3257
+      3257,
+      3258
+    ],
+    "dictionaryPdfPagesOneBased": [
+      1240,
+      3256,
+      3257,
+      3258
     ],
     "guidePrintedPages": [
       154,

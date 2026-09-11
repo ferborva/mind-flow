@@ -18,31 +18,32 @@ const HASHES: Record<string, string> = {
 };
 
 // These annotations are manually reviewed interpretations/transcriptions, not PDF-parser output.
-// page is the printed page number; the PDF has a one-page offset in a 1-based viewer.
-const annotation = (page: number, universe: string | null, file: string, statusFlag: string | null, caveat: string, extra = {}) => ({
-  sourceId: 'dictionary', printedPage: page, pdfPageOneBased: page + 1,
+// Printed labels and one-based PDF positions are explicit, source-specific anchors.
+// All 16 dictionary anchors plus the two weight-family pages were visually inspected.
+const annotation = (printedPage: number, pdfPageOneBased: number, universe: string | null, file: string, statusFlag: string | null, caveat: string, extra = {}) => ({
+  sourceId: 'dictionary', printedPage, pdfPageOneBased,
   method: 'agent-reviewed-dictionary-annotation', independentlyReviewed: false,
   universe, file, statusFlag, caveat, ...extra,
 });
 const endGate = '((THHLDSTATUS in (1,2) & (EJB1_EMONTH<12 | (EJB1_EMONTH=12 & RJB1_CFLG=0))) | (THHLDSTATUS in (3,4,5,6) & (EJB1_EMONTH<LAST_MONTH | (EJB1_EMONTH=LAST_MONTH & RJB1_CFLG=0))))';
 const earningsUniverse = 'EJB(n)_BMONTH <= MONTHCODE <= EJB(n)_EMONTH for at least one n=(1,...,8)';
 const ANNOTATIONS: Record<string, any> = {
-  SSUID: annotation(1247, 'All persons', 'Household', null, 'Scrambled sample-unit key, not a person or household denominator; combine with PNUM and release context.'),
-  SPANEL: annotation(1239, 'All persons', 'Household', null, 'Panel year is not the observation year. Published weight dictionaries disagree about allowed panel years.', { allowedValues: [2022, 2023, 2024, 2025] }),
-  SWAVE: annotation(1240, 'All persons', 'Household', null, 'Interview wave is not a calendar month.', { minimum: 1, maximum: 4 }),
-  PNUM: annotation(1241, 'All persons', 'Person', null, 'Person number is unique within sample unit, not globally.', { minimum: 101, maximum: 499 }),
-  MONTHCODE: annotation(1248, 'All persons', 'Person-month', null, 'Reference month needs reference year from release context, not panel year.', { minimum: 1, maximum: 12 }),
-  RIN_UNIV: annotation(1245, 'THHLDSTATUS in (1,2,3,4)', 'Person-month', null, 'Monthly survey-frame membership can change. It does not resolve the project population denominator.', { allowedValues: [1, 2] }),
-  WPFINWGT: annotation(3255, 'All persons', 'Person-month', null, 'Final person weight is not automatically the correct weight for a longitudinal transition cohort.'),
-  RMESR: annotation(2488, 'TAGE >= 15', 'Person-month', 'AMESR', 'Eight employment-state categories include partial months, layoff and search. Neither a job nor its absence directly establishes viable income access.', { allowedValues: [1, 2, 3, 4, 5, 6, 7, 8], stormCodeMapping: null }),
-  RMNUMJOBS: annotation(2579, 'TAGE >= 15', 'Person-month', 'AMNUMJOBS', 'Jobs held are observed arrangements, not the set of viable alternatives.', { minimum: 0, maximum: 17 }),
-  EJB1_JOBID: annotation(2581, 'EJB1_SCRNR=1 & AJB1_SCRNR=1 & AJB1_BMONTH=1 & EJB1_BMONTH <= MONTHCODE <= EJB1_EMONTH', 'Person-month', 'AJB1_JOBID', 'Linkage candidate within person and across waves, not proof of complete job-history coverage.', { minimum: 101, maximum: 407 }),
-  EJB7_JOBID: annotation(2587, null, 'Person-month', 'AJB7_JOBID', 'Explicitly suppressed; blank universe is unknown/not published, not all persons.', { suppressed: true }),
-  EJB1_RSEND: annotation(1773, `EJB1_JBORSE in (1,3) & ${endGate}`, 'Person-month', 'AJB1_RSEND', 'Employer-job exit reason, not business exit. Reasons include job switching and retirement. Do not turn a repeated spell reason into repeated events.', { allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], involuntaryCodeMapping: null }),
-  EJB1_RENDB: annotation(1780, `EJB1_JBORSE=2 & ${endGate}`, 'Person-month', 'AJB1_RENDB', 'Business exit only. Employer and business exit reason codes have different meanings; no shared numeric mapping.', { allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], involuntaryCodeMapping: null }),
-  ROVERLAPMN: annotation(2621, 'ENJFLAG=1', 'Person-month', null, 'Multiple non-employment spells can share a month. Earlier-spell dates do not recover every event.', { allowedValues: [1, 2] }),
-  TPEARN: annotation(2580, earningsUniverse, 'Person-month', 'APEARN', 'Includes earnings and business profits/losses; varies with calendar month length. Not opportunity, disposable income or a living-standard measure.', { minimum: -99999999, maximum: 99999999, zeroFillOutsideUniverse: false }),
-  TPEARN_ALT: annotation(2630, earningsUniverse, 'Person-month', 'APEARN_ALT', 'Alternative calendar-length treatment needs a predeclared sensitivity comparison, not post-hoc choice of the most alarming series.', { minimum: -99999999, maximum: 99999999, zeroFillOutsideUniverse: false }),
+  SSUID: annotation(1248, 1248, 'All persons', 'Household', null, 'Scrambled sample-unit key, not a person or household denominator; combine with PNUM and release context.'),
+  SPANEL: annotation(1240, 1240, 'All persons', 'Household', null, 'Panel year is not the observation year. Published weight dictionaries disagree about allowed panel years.', { allowedValues: [2022, 2023, 2024, 2025] }),
+  SWAVE: annotation(1241, 1241, 'All persons', 'Household', null, 'Interview wave is not a calendar month.', { minimum: 1, maximum: 4 }),
+  PNUM: annotation(1242, 1242, 'All persons', 'Person', null, 'Person number is unique within sample unit, not globally.', { minimum: 101, maximum: 499 }),
+  MONTHCODE: annotation(1249, 1249, 'All persons', 'Person-month', null, 'Reference month needs reference year from release context, not panel year.', { minimum: 1, maximum: 12 }),
+  RIN_UNIV: annotation(1246, 1246, 'THHLDSTATUS in (1,2,3,4)', 'Person-month', null, 'Monthly survey-frame membership can change. It does not resolve the project population denominator.', { allowedValues: [1, 2] }),
+  WPFINWGT: annotation(3256, 3256, 'All persons', 'Person-month', null, 'Final person weight is not automatically the correct weight for a longitudinal transition cohort.'),
+  RMESR: annotation(2489, 2489, 'TAGE >= 15', 'Person-month', 'AMESR', 'Eight employment-state categories include partial months, layoff and search. Neither a job nor its absence directly establishes viable income access.', { allowedValues: [1, 2, 3, 4, 5, 6, 7, 8], stormCodeMapping: null }),
+  RMNUMJOBS: annotation(2580, 2580, 'TAGE >= 15', 'Person-month', 'AMNUMJOBS', 'Jobs held are observed arrangements, not the set of viable alternatives.', { minimum: 0, maximum: 17 }),
+  EJB1_JOBID: annotation(2582, 2582, 'EJB1_SCRNR=1 & AJB1_SCRNR=1 & AJB1_BMONTH=1 & EJB1_BMONTH <= MONTHCODE <= EJB1_EMONTH', 'Person-month', 'AJB1_JOBID', 'Linkage candidate within person and across waves, not proof of complete job-history coverage.', { minimum: 101, maximum: 407 }),
+  EJB7_JOBID: annotation(2588, 2588, null, 'Person-month', 'AJB7_JOBID', 'Explicitly suppressed; blank universe is unknown/not published, not all persons.', { suppressed: true }),
+  EJB1_RSEND: annotation(1774, 1774, `EJB1_JBORSE in (1,3) & ${endGate}`, 'Person-month', 'AJB1_RSEND', 'Employer-job exit reason, not business exit. Reasons include job switching and retirement. Do not turn a repeated spell reason into repeated events.', { allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], involuntaryCodeMapping: null }),
+  EJB1_RENDB: annotation(1781, 1781, `EJB1_JBORSE=2 & ${endGate}`, 'Person-month', 'AJB1_RENDB', 'Business exit only. Employer and business exit reason codes have different meanings; no shared numeric mapping.', { allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], involuntaryCodeMapping: null }),
+  ROVERLAPMN: annotation(2622, 2622, 'ENJFLAG=1', 'Person-month', null, 'Multiple non-employment spells can share a month. Earlier-spell dates do not recover every event.', { allowedValues: [1, 2] }),
+  TPEARN: annotation(2581, 2581, earningsUniverse, 'Person-month', 'APEARN', 'Includes earnings and business profits/losses; varies with calendar month length. Not opportunity, disposable income or a living-standard measure.', { minimum: -99999999, maximum: 99999999, zeroFillOutsideUniverse: false }),
+  TPEARN_ALT: annotation(2631, 2631, earningsUniverse, 'Person-month', 'APEARN_ALT', 'Alternative calendar-length treatment needs a predeclared sensitivity comparison, not post-hoc choice of the most alarming series.', { minimum: -99999999, maximum: 99999999, zeroFillOutsideUniverse: false }),
 };
 
 export async function loadRetained(): Promise<Inputs> {
@@ -70,7 +71,8 @@ export function replayCrosswalk(input: Inputs) {
     return { ...selected[0], annotation: structuredClone(details) };
   });
   return {
-    schemaVersion: '1.0.0', id: 'sipp-2025.variable-feasibility.round-11',
+    schemaVersion: '1.0.0', id: 'sipp-2025.variable-feasibility.round-11', annotationEdition: '1.0.1',
+    locatorRepair: { date: '2026-09-11', previousCrosswalkSha256: '39dc64d07614596fe07e359ea843d9bb39acd5375ec12ec536b90a6fad92c500', reason: 'Dictionary zero-based PDF indexes were incorrectly labelled as printed page numbers. Corrected all 16 dictionary annotations and weight/prose locators after visual inspection; existing one-based PDF positions were correct.', originalSourceBytesChanged: false, independentMethodsApproval: false, verification: 'Ren author repair, prompted by separate root visual review. Dictionary printed labels equal one-based PDF positions at every cited anchor; do not apply this rule to the guide.', guideControlAnchor: { printedPage: 157, pdfPageOneBased: 158 } },
     status: 'metadata-crosswalk-not-measurement', authorship: 'Ren (AI agent): analysis proposal, not Fernando approval',
     captureId: input.capture.id, captureSha256: CAPTURE_HASH,
     sources: structuredClone(input.capture.sources), schemaEntries: schema.length,
@@ -93,7 +95,7 @@ export function replayCrosswalk(input: Inputs) {
       joinBasis: 'Guide printed p157; documented keys are not empirically tested uniqueness or coverage.',
       grainCaution: 'Primary dictionary calls REPWGT[1:240] File: Person; separate replicate text includes MONTHCODE. Follow the guide monthly join candidate while retaining these distinct descriptions and testing grain before estimation.',
       longitudinalCaution: 'Longitudinal target populations, in-scope exits, imputed months and response adjustments require the guide and a statistician-reviewed estimator, not generic complete-case filtering.',
-      dictionaryPrintedPages: [1239, 3255, 3256, 3257], guidePrintedPages: [154, 155, 156, 157, 158, 159, 160], annotationsIndependentlyReviewed: false,
+      dictionaryPrintedPages: [1240, 3256, 3257, 3258], dictionaryPdfPagesOneBased: [1240, 3256, 3257, 3258], guidePrintedPages: [154, 155, 156, 157, 158, 159, 160], annotationsIndependentlyReviewed: false,
     },
     unknowns: [
       'Resolve contradictory published panel-year ranges using authoritative correction/metadata before specifying a weight join.',

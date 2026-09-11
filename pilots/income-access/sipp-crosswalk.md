@@ -24,7 +24,7 @@ The [crosswalk](sipp-crosswalk.v1.json) binds exact schema names, labels, types 
 | Were alternatives available? | Job identities and `RMNUMJOBS` can describe realised arrangements | Suppression and unrealised alternatives prevent a complete option-set claim |
 | How much of the population? | Published monthly and longitudinal weight families | Cohort, denominator, variance, missingness and discrepancy review remain pending |
 
-The [2025 dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/2025_SIPP_Data_Dictionary.pdf), printed pp1773, 1780, 2488, 2579–2587 and 2630, supplies these variable universes. Exact field details and page locators are in the crosswalk. This is an agent interpretation, not independent statistical review.
+The [2025 dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/2025_SIPP_Data_Dictionary.pdf), printed pp1774, 1781, 2489, 2580-2588 and 2631, supplies these variable universes. Exact field details and page locators are in the crosswalk. This is an agent interpretation, not independent statistical review.
 
 ## The important IF conditions
 
@@ -36,7 +36,7 @@ The [2025 dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documen
 
 ## Discrepancies we will not silently repair
 
-1. **Panel-year range.** The primary dictionary p1239 gives 2022–2025. The [monthly replicate-weight dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/rw2025_dictionary.txt) gives 2021–2024. The files were obtained from the official 2025 locations. A stale text dictionary is a possible explanation, not an established finding. The [longitudinal dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/lgtwgt2025_dictionary.txt) range 2022–2024 may reflect eligibility and is not, by itself, an error.
+1. **Panel-year range.** The primary dictionary printed p1240 (one-based PDF page 1240) gives 2022–2025. The [monthly replicate-weight dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/rw2025_dictionary.txt) gives 2021–2024. The files were obtained from the official 2025 locations. A stale text dictionary is a possible explanation, not an established finding. The [longitudinal dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documentation/data-dictionaries/2025/lgtwgt2025_dictionary.txt) range 2022–2024 may reflect eligibility and is not, by itself, an error.
 2. **Schema completeness.** The retained [primary JSON schema](https://www2.census.gov/programs-surveys/sipp/data/datasets/2025/pu2025_schema.json) has 5,203 entries, consecutive ordinals 1–5,203. Guide p15 reports 5,204 variables for 2025. We do not invent the extra variable or assert which document is current.
 3. **Coverage and grain.** `EJB7_JOBID` is explicitly suppressed. The primary dictionary calls the replicate family a person file, while its separate text includes month and the guide documents a monthly join. Keep these descriptions visible and validate the actual join only after authorised acquisition. No claim of complete job-option coverage follows from the available labels.
 
@@ -68,3 +68,32 @@ Replay verifies original bytes, selects exact JSON-schema records and reproduces
 Ren inspected the official [2025 user-notes index](https://www.census.gov/programs-surveys/sipp/tech-documentation/user-notes/2025-usernotes.html), [release documentation index](https://www.census.gov/programs-surveys/sipp/tech-documentation/complete-technical-documentation.html), [2025 release notes](https://www2.census.gov/programs-surveys/sipp/tech-documentation/2025/2025_SIPP_Release_Notes.pdf) and linked [data-quality note](https://www.census.gov/programs-surveys/sipp/tech-documentation/user-notes/2025-usernotes/2025-data-quality-concerns.html). The release notes listed only the initial version 1.0, dated 15 July 2026. The user-notes index did not list a panel-year-range or variable-count correction. The quality note warns that declining response increases standard errors and weights, and points users to source-and-accuracy documentation.
 
 **No relevant correction was located in these bounded sources. This does not establish that no correction exists.** The panel-range and schema-count questions remain open. Search-engine results and the opened pages are inspection evidence only: no new original bytes were captured or added to the five-file receipt. This author follow-up is not independent review of the crosswalk, does not approve any join or construct, and does not authorise respondent-data acquisition.
+
+## Locator repair, annotation edition 1.0.1, 2026-09-11
+
+**The earlier crosswalk mislabelled zero-based dictionary PDF indexes as printed page numbers.** Its one-based PDF positions were correct. A separate root-agent visual spot check exposed the error; Ren then rendered and inspected all 16 selected dictionary pages and both additional weight-family pages. Every cited dictionary printed label equals its one-based PDF position. The guide has a different convention: printed p157 is PDF page 158, also visually checked. Do not apply one offset across sources.
+
+The corrected crosswalk retains schema version 1.0.0 and adds annotation edition 1.0.1 plus an explicit repair record. All variable meanings, original documentation bytes, capture receipts and approval states remain unchanged. The prior crosswalk SHA-256 was `39dc64d07614596fe07e359ea843d9bb39acd5375ec12ec536b90a6fad92c500`; Git preserves that earlier unsealed edition. The replay now checks explicit printed/PDF locator pairs against regression anchors. It does not OCR or independently verify PDF semantics at test time.
+
+| Dictionary anchor | Printed page | PDF page, one-based |
+|---|---|---|
+| SSUID | 1248 | 1248 |
+| SPANEL | 1240 | 1240 |
+| SWAVE | 1241 | 1241 |
+| PNUM | 1242 | 1242 |
+| MONTHCODE | 1249 | 1249 |
+| RIN_UNIV | 1246 | 1246 |
+| WPFINWGT | 3256 | 3256 |
+| RMESR | 2489 | 2489 |
+| RMNUMJOBS | 2580 | 2580 |
+| EJB1_JOBID | 2582 | 2582 |
+| EJB7_JOBID | 2588 | 2588 |
+| EJB1_RSEND | 1774 | 1774 |
+| EJB1_RENDB | 1781 | 1781 |
+| ROVERLAPMN | 2622 | 2622 |
+| TPEARN | 2581 | 2581 |
+| TPEARN_ALT | 2631 | 2631 |
+| REPWGT[1:240] | 3257 | 3257 |
+| FINYR[2:4] | 3258 | 3258 |
+
+This is an author correction using the PDF visual-review workflow, not an independent methods approval. The source inconsistencies and acquisition gates remain open.

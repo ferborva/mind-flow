@@ -35,6 +35,24 @@ test('source mutations cannot self-certify by changing the receipt hash', async 
   }
 });
 
+test('dictionary printed labels are not confused with zero-based PDF indexes', async () => {
+  const actual = replayCrosswalk(await loadRetained());
+  const anchors = { SSUID: 1248, SPANEL: 1240, SWAVE: 1241, PNUM: 1242, MONTHCODE: 1249, RIN_UNIV: 1246,
+    WPFINWGT: 3256, RMESR: 2489, RMNUMJOBS: 2580, EJB1_JOBID: 2582, EJB7_JOBID: 2588,
+    EJB1_RSEND: 1774, EJB1_RENDB: 1781, ROVERLAPMN: 2622, TPEARN: 2581, TPEARN_ALT: 2631 };
+  for (const variable of actual.variables) {
+    assert.equal(variable.annotation.printedPage, anchors[variable.name], variable.name);
+    assert.equal(variable.annotation.pdfPageOneBased, anchors[variable.name], variable.name);
+    assert.equal(variable.annotation.independentlyReviewed, false);
+  }
+  assert.deepEqual(actual.weights.dictionaryPrintedPages, [1240, 3256, 3257, 3258]);
+  assert.deepEqual(actual.weights.dictionaryPdfPagesOneBased, [1240, 3256, 3257, 3258]);
+  assert.equal(actual.annotationEdition, '1.0.1');
+  assert.equal(actual.locatorRepair.previousCrosswalkSha256, '39dc64d07614596fe07e359ea843d9bb39acd5375ec12ec536b90a6fad92c500');
+  assert.equal(actual.locatorRepair.originalSourceBytesChanged, false);
+  assert.deepEqual(actual.locatorRepair.guideControlAnchor, { printedPage: 157, pdfPageOneBased: 158 });
+});
+
 test('missing, substituted and authority-inflated receipts fail closed', async () => {
   const original = await loadRetained();
   for (const mutate of [
