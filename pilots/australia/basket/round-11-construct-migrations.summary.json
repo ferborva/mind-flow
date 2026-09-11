@@ -1,0 +1,86 @@
+{
+  "id": "round-11-construct-migrations-summary",
+  "edition": "mind-flow.construct-migration.review/1.0.0",
+  "status": "proposed-not-applied",
+  "proposed_corrections": 2,
+  "applied_corrections": 0,
+  "existing_appended_kernel_events": 1,
+  "programme_three_event_gate_met": false,
+  "action_authorised": false,
+  "scope_warning": "Archived revisions, code, prose, unbound series readers, copied web views and external consumers are not exhaustively inventoried. No repository-wide or deployment-wide migration completion is claimed.",
+  "items": [
+    {
+      "id": "migration.au.gp.urgent-appointment-clock.r11",
+      "title": "The urgent-care clock starts after an appointment is made",
+      "status": "proposed",
+      "old_condition_id": "condition.au.gp.timely",
+      "proposed_condition_id": "condition.au.nsw.gp.urgent-appointment-clock",
+      "migration_hash": "sha256:0f6a4ca6dc5681a5456daa7b13358ddbb9807083706be090f06040e35a472d66",
+      "what_changed": "The old signal did not specify the waiting-clock origin. Appointment-making is not first attempted contact or onset of need. The measured population obtained care, so unmet need cannot inherit a timeliness result.",
+      "unanswered_question": "How long did people wait from their first attempt or onset of urgent need, including people who never obtained an appointment?",
+      "source_cells": [
+        "10A.43!C54",
+        "10A.43!C55"
+      ],
+      "reader_reference_count": 9,
+      "historical_observation_count": 1,
+      "positive_signal_context_readers": 0,
+      "preview_readers": [
+        {
+          "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/0/conditions/3/condition_definition_ref",
+          "stale_meaning_rejected": true,
+          "preview_binding": {
+            "condition_id": "condition.au.nsw.gp.urgent-appointment-clock",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:28a792c990c658c2f7c0770248e7be772b95db2caa48ef32242d666d54b54449"
+          },
+          "adoption_status": "preview-only"
+        }
+      ],
+      "source_path": "pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx",
+      "next_gate": "Independent review of source interpretation, corrected meanings, remaining dependent surfaces and explicit migrations. Separate evidence admission and a future operational edition are required before truth evaluation or completed-event claims."
+    },
+    {
+      "id": "migration.au.prescription.denominator.r11",
+      "title": "Prescription cost uses a particular survey denominator",
+      "status": "proposed",
+      "old_condition_id": "condition.au.prescription.cost",
+      "proposed_condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
+      "migration_hash": "sha256:2e33377a3079cc75a0e919c1b8b3e3ad7d1f41a559921c83d5e663e056035dfb",
+      "what_changed": "Replacing a generic cohort label with the GP-prescription-or-needed-medication denominator changes meaning. Crude rates cannot inherit age-standardised interpretation. Aggregate medicine coverage and the very-remote exclusion were already known, not newly discovered events.",
+      "unanswered_question": "Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?",
+      "source_cells": [
+        "10A.33!C17",
+        "10A.33!C20",
+        "10A.33!C24"
+      ],
+      "reader_reference_count": 10,
+      "historical_observation_count": 1,
+      "positive_signal_context_readers": 1,
+      "preview_readers": [
+        {
+          "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/1/conditions/0/condition_definition_ref",
+          "stale_meaning_rejected": true,
+          "preview_binding": {
+            "condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5"
+          },
+          "adoption_status": "preview-only"
+        },
+        {
+          "reader_id": "pilots/australia/data/positive-signals-current.json#/signals/2/condition_definition_ref",
+          "stale_meaning_rejected": true,
+          "preview_binding": {
+            "condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5"
+          },
+          "adoption_status": "preview-only"
+        }
+      ],
+      "source_path": "pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx",
+      "next_gate": "Independent review of source interpretation, corrected meanings, remaining dependent surfaces and explicit migrations. Separate evidence admission and a future operational edition are required before truth evaluation or completed-event claims."
+    }
+  ]
+}
