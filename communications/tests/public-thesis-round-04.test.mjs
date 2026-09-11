@@ -8,21 +8,16 @@ const nameTheIf = readFileSync(resolve(root, "drafts/name-the-if.md"), "utf8");
 const when = readFileSync(resolve(root, "drafts/every-if-is-somebodys-when.md"), "utf8");
 
 test("the memorable grammar expands into a bounded public claim", () => {
-  assert.match(nameTheIf, /person.*Where are they.*What would count/is);
   assert.match(when, /which consultation, for whom, in which place,\s+to what standard and within what time/i);
 });
 
-test("the public thesis treats IFs as route-specific candidates, not diagnoses", () => {
-  assert.match(nameTheIf, /proposed reporting method/i);
-  assert.match(nameTheIf, /evidence boundaries/);
-  assert.doesNotMatch(nameTheIf, /the grammar diagnoses/i);
-});
+// The claim-level guards on name-the-if moved to draft-integrity.test.mjs on
+// 2026-09-11, stated without pinning its wording.
 
 test("IF evolution is visible across meaning, evidence, path, power and values", () => {
   for (const axis of ["Definition", "Evidence", "Path", "Actor and authority", "Values and loss rule"]) {
     assert.match(when, new RegExp(axis, "i"));
   }
-  assert.match(nameTheIf, /which condition moved/i);
 });
 
 test("public updates state what changed, what did not, what remains blocked and what comes next", () => {

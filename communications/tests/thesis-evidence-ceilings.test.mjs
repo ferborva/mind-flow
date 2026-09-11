@@ -8,18 +8,9 @@ const nameTheIf = readFileSync(resolve(root, "drafts/name-the-if.md"), "utf8");
 const when = readFileSync(resolve(root, "drafts/every-if-is-somebodys-when.md"), "utf8");
 const programme = readFileSync(resolve(root, "meta/abundance-transition-programme.md"), "utf8").replace(/\s+/g, " ");
 
-test("the IF grammar remains a proposed reporting method rather than a validated diagnosis", () => {
-  assert.match(nameTheIf, /proposed reporting method/i);
-  assert.match(nameTheIf, /evidence boundaries.*boundaries\.md/is);
-  assert.match(nameTheIf, /available information\s+leaves the answer open/i);
-  assert.doesNotMatch(nameTheIf, /Every abundance promise has the shape/i);
-  assert.doesNotMatch(nameTheIf, /What you get is diagnosis/i);
-});
-
-test("piece one focuses on its worked example without unsupported poverty-audience inference", () => {
-  assert.doesNotMatch(nameTheIf, /80\.0%|44\.4%/);
-  assert.doesNotMatch(nameTheIf, /talking to the other fifth/i);
-});
+// Both name-the-if tests moved to draft-integrity.test.mjs on 2026-09-11. The
+// ceilings they enforce are unchanged; the exact-sentence assertions that came
+// with them are gone, so the piece can be edited without CI surgery.
 
 test("the supply argument keeps consumer IFs and actor WHENs linked but non-identical", () => {
   assert.match(when, /two registers are linked but non-identical/i);

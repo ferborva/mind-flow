@@ -36,9 +36,9 @@ if-is-demand-when-is-supply, conditions-have-owners,
 agency-is-the-goal-conditions-are-the-signals, you-cannot-sequence-the-conditions,
 nobody-has-that-sentence, the-weather-station-watches-the-world,
 what-counts-as-a-storm
-Pieces: name-the-if (draft), every-if-is-somebodys-when (draft),
-abundance-has-an-if (draft), from-if-to-when (draft),
-message-to-the-moonshot-mates (correspondence)
+Pieces: name-the-if (draft, consolidated 2026-09-11 with the retired
+abundance-has-an-if), every-if-is-somebodys-when (draft),
+from-if-to-when (draft), message-to-the-moonshot-mates (correspondence)
 
 **September 10 continuation:** the weather station watches world-scale
 country shifts, with Australia as worked depth. His working storm definition

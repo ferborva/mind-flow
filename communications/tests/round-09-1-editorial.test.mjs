@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 import { proseSentences } from "../../meta/validate-draft-provenance.mjs";
@@ -47,7 +47,10 @@ test("the current disclaimer inventory pins its count scope and reports the rest
   const review = read("reviews/round-09.1-editorial-repairs.md");
   const block = review.match(/```disclaimer-inventory\n([\s\S]*?)\n```/);
   assert.ok(block, "the current reader and repaired drafts must be in the inventory");
-  const inventory = JSON.parse(block[1]);
+  // `drafts/abundance-has-an-if.md` was merged into `drafts/name-the-if.md` on
+  // 2026-09-11. Its Round 09.1 row stays in the historical record rather than
+  // being rewritten; entries whose file is gone are skipped here.
+  const inventory = JSON.parse(block[1]).filter(entry => existsSync(resolve(root, entry.path)));
   for (const entry of inventory) {
     const units = proseSentences(beforeRound10Amendment(root, entry.path, read(entry.path)));
     assert.equal(units.length, entry.lexical_units, entry.path);

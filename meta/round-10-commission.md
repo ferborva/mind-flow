@@ -41,7 +41,7 @@ Three questions he has not answered. This round proceeds under stated assumption
 Dependants. Ren asked whether the 5% counts only people whose income routes are disrupted, or also household members who depend on that income. Assumption: compute and show both counts side by side, labelled, wherever the source supports a household mapping. Never merge them.
 Ranking. Assumption: the retained IMF WEO April 2026 nominal-GDP top 50, already proposed and reproduced. Unchanged unless he says otherwise.
 Which shifts. His clarification answers this at the level of principle: disruption of access to means of generating income. Assumption: the indicator families in Workstream B are the operational reading of that principle, offered for him to strike or add.
-The "naughty kid" line stays exactly as it is in drafts/abundance-has-an-if.md until he answers whether it is an observation or an imperative. Do not touch it.
+The "naughty kid" line stays as an observation and carries no remedy. He settled this on 2026-09-10: "indeed that is just a plain observation at this point of where the money accrues to". It now lives in drafts/name-the-if.md after the 2026-09-11 consolidation.
 
 One more of his views binds the design: on 2026-09-08 he conceded that the order in which conditions fall cannot be planned. So a storm criterion diagnoses that a shift is under way or has happened and names which condition moved. It does not schedule. Forecasts remain separate, preregistered, single-cell, and scored in public.
 

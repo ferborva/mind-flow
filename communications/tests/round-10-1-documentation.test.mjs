@@ -31,18 +31,24 @@ test('index inventories pipeline captures and seeds, excluding operator and raw 
   }
   assert.match(read('meta/themes.md'), /storms-as-social-contract-shifts/);
 });
+// The sign-off sheet used to embed a sha256 of the draft, which meant any edit
+// to the prose failed CI until the hash was regenerated. That made merging two
+// overlapping drafts impossible in practice. Retired 2026-09-11 on Fer's call.
+// What matters is enforced instead: every section of the current draft appears
+// on the sheet, every row is still Pending, and nothing has been published.
 function checkPublication(draft, sheet) {
   assert.match(draft, /^status: review$/m);
-  assert.ok(sheet.includes(hash(draft)));
-  assert.equal((sheet.match(/\| Pending \|/g) ?? []).length, 7);
+  const sections = [...draft.matchAll(/^## (.+)$/gm)].map(([, heading]) => heading);
+  for (const heading of sections) assert.ok(sheet.includes(heading), heading);
+  assert.equal((sheet.match(/\| Pending \|/g) ?? []).length, sections.length);
 }
-test('Name the If is lifecycle review while all seven approvals are pending, with an exact sign-off hash', () => {
+test('Name the If is lifecycle review with every section pending his approval', () => {
   const draft = read('drafts/name-the-if.md');
   const sheet = read('reviews/name-the-if-sign-off.md');
   checkPublication(draft, sheet);
   assert.throws(() => checkPublication(draft.replace('status: review', 'status: ready'), sheet));
-  assert.throws(() => checkPublication(draft, sheet.replace(hash(draft), '0'.repeat(64))));
   assert.throws(() => checkPublication(draft, sheet.replace('| Pending |', '| Approved |')));
+  assert.throws(() => checkPublication(draft + '\n## An unreviewed new section\n', sheet));
   assert.match(sheet, /checked 9 September, rechecked 10 September 2026/);
   assert.match(read('meta/backlog.md'), /downside of the frame/);
 });

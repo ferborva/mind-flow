@@ -6,15 +6,9 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../..");
-const first = readFileSync(resolve(root, "drafts/abundance-has-an-if.md"), "utf8");
 const second = readFileSync(resolve(root, "drafts/from-if-to-when.md"), "utf8");
-const short = readFileSync(resolve(root, "drafts/name-the-if.md"), "utf8");
 const supply = readFileSync(
   resolve(root, "drafts/every-if-is-somebodys-when.md"),
-  "utf8",
-);
-const healthcareValidation = readFileSync(
-  resolve(root, "research/2026-09-09-healthcare-if-validation.md"),
   "utf8",
 );
 const reconstruction = readFileSync(
@@ -22,25 +16,11 @@ const reconstruction = readFileSync(
   "utf8",
 );
 
-test("the originating write-up preserves Fernando's argument and its visible correction boundary", () => {
-  assert.match(first, /status: review/);
-  assert.match(first, /research:.*2026-09-10-abundance-editorial-source-check/);
-  assert.match(first, /much softer view on tax and the portfolio remedy/i);
-  assert.doesNotMatch(first, /how much is enough|displaced workers.*first/is);
-  assert.match(first, /Cabernet Sauvignon/);
-  assert.match(first, /heal all my pains/);
-  assert.match(first, /44\.4%/);
-  assert.match(first, /80\.0%/);
-  assert.match(first, /historical upstream raw response is not retained/);
-  assert.doesNotMatch(first, /That is the position in the .*capture|working assumption in the original argument/i);
-  assert.doesNotMatch(first, /GAP: Fer, does "the choice is theirs" survive as a diagnosis/i);
-  assert.match(first, /sources:.*2026-09-10-where-the-money-sits-and-the-weather-station/);
-  const observation = first.split("## 🏦 Where the ball sits\n")[1]?.split("\n## ")[0];
-  assert.ok(observation, "the restored observation must have its own section");
-  assert.match(observation, /The money accrues to a few companies/);
-  assert.match(observation, /naughty kid.*stop\s+hogging\s+the ball, share it/is);
-  assert.doesNotMatch(observation, /choice is theirs|must|should|Tesla|UBI|tax|transfer|portfolio/i);
-});
+// Retired 2026-09-11. `drafts/abundance-has-an-if.md` was merged into
+// `drafts/name-the-if.md` on Fer's call. The claim-level guards that were worth
+// keeping (withdrawn distribution inference, remedy-free observation section,
+// source ceilings) now live in draft-integrity.test.mjs, stated as constraints
+// on what the piece may claim rather than on how it is worded.
 
 test("the evolved write-up uses the seven-part public update", () => {
   for (const question of [
@@ -61,19 +41,6 @@ test("the evolved write-up uses the seven-part public update", () => {
   assert.match(second, /commissioned proposal, not Fernando's policy position/i);
 });
 
-test("the short public argument keeps its healthcare example inside source ceilings", () => {
-  assert.match(short, /92\.0%.*insurance.*some or all of 2024/is);
-  assert.match(short, /coverage measure cannot tell whether\s+a particular visit was affordable/i);
-  assert.match(short, /census\.gov\/library\/publications\/2025\/demo\/p60-288\.html/);
-  assert.match(short, /example is imagined/i);
-  assert.match(short, /Spain.*Belgium.*patient\s+contribution.*Australia.*gap/is);
-  assert.doesNotMatch(short, /technology in all four countries is identical/i);
-  assert.doesNotMatch(short, /diagnosis genuinely does go towards zero/i);
-  assert.doesNotMatch(short, /cannot prescribe, refer or order a scan in almost any jurisdiction/i);
-  assert.match(healthcareValidation, /source-by-source claim ceiling/i);
-  assert.match(healthcareValidation, /does not establish.*binding condition/is);
-});
-
 test("the supply-side argument treats WHEN as actor-specific hypothesis, not destiny", () => {
   assert.match(supply, /meta\/abundance-transition-programme\.md/);
   assert.match(supply, /WHEN is a prompt for conditional work/i);
@@ -86,8 +53,6 @@ test("the supply-side argument treats WHEN as actor-specific hypothesis, not des
   assert.doesNotMatch(supply, /What you can do about it \| mostly nothing, alone \| most of it, over time/i);
   assert.match(supply, /Provider:\*{0,2}\s*We can offer/i);
   assert.match(supply, /working frame/i);
-  assert.doesNotMatch(short, /defeats every viable route/i);
-  assert.match(short, /available information\s+leaves the answer open/i);
 });
 
 test("scenario crossings do not predict or pathologise public response", () => {

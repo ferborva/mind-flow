@@ -14,7 +14,7 @@ scheduled runs.
 |---|---|
 | Captures | 10 |
 | Seeds | 18 |
-| Drafts | 5 |
+| Drafts | 4 |
 | Posts | 0 |
 | Books | 0 |
 | Research notes | 14 |
@@ -82,15 +82,19 @@ Foundation documents: **4 of 4 in place.**
 
 ## Drafts
 
-- `name-the-if`, medium, **review**, awaiting Fernando's section-by-section read.
-  The frame, five open condition categories and worked healthcare example.
-  The scene is explicitly imagined; research and provenance have been reviewed.
+- `name-the-if`, medium, **review**, ~1,900 words, awaiting Fernando's
+  section-by-section read. **Consolidated 2026-09-11** with
+  `abundance-has-an-if`, which was roughly 60% the same argument and is now
+  retired. Carries the frame, the five open condition categories, the worked
+  healthcare example, conditions-are-national, the wine limit and the
+  where-the-money-sits observation. The Musk quotes and the global distribution
+  table came out as scaffolding from the original rant. The shrug scene is
+  explicitly imagined; research and provenance have been reviewed.
   [Sign-off sheet](../reviews/name-the-if-sign-off.md): every section pending,
   with a separate choice about an outside human read. Nothing is published.
 - `every-if-is-somebodys-when`, medium, **drafting**, ~1,500 words. Round two.
   Consumer's if against provider's when, the CEO's condition list, and sorting
-  conditions by who holds them. **Quietly replaces the broken ending of
-  `abundance-has-an-if`.**
+  conditions by who holds them.
 - `message-to-the-moonshot-mates`, short, **drafting**. Correspondence, not a
   piece, and it does not move to `posts/`. Three versions: YouTube comment,
   email, one-liner. Awaits the podcast-transcript pass before it gains specific
@@ -101,11 +105,6 @@ Foundation documents: **4 of 4 in place.**
   `seeds/you-cannot-sequence-the-conditions.md`. **Different provenance class:** a commissioned proposal, not his
   substance. Most of the structure is mine and needs his sign-off section by
   section. See the provenance warning at the top of the file.
-- `abundance-has-an-if`, long, **review**. Draws on the first four seeds and
-  touches the other two. Figures and Musk quotes were folded in, and the
-  distribution data added. A 2026-09-08 integrity audit withdrew the invalid
-  62%-of-GDP comparison. One substantive call remains for Fer: the remedy needs
-  a comparative portfolio case. See the draft's review notes.
 
 ## Research
 
