@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081315">
+  <meta name="description" content="A research weather station for economic change and human agency. Explore retained country evidence, uncertainty, IF conditions and possible next questions.">
+  <title>Weather Station · More room to choose</title>
+  <link rel="stylesheet" href="styles.css"><script src="data.js"></script><script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the station</a>
+  <header class="masthead">
+    <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">◉</span><span>WEATHER STATION<small>Human agency through change</small></span></a>
+    <nav aria-label="Station rooms"><a href="#explore">Explore</a><a href="#if-evolution">The IF</a><a href="#forecast-ledger">Forecasts</a><a href="#preparation">Prepare</a></nav>
+    <span class="edition">RESEARCH EDITION <b>11</b></span>
+  </header>
+  <div class="scope-strip"><span><i aria-hidden="true"></i> Research station</span><span>Retained evidence, not a live feed</span><span>Not a crisis-warning service</span></div>
+  <p id="load-status" class="load-status" role="status">Checking the local station projection…</p>
+  <noscript><p class="load-status">This interactive view requires JavaScript. The <a href="../../signals/countries/measurement-view.md">country measurement reader</a> retains the underlying evidence.</p></noscript>
+  <main id="main" hidden>
+    <section class="hero">
+      <div class="hero-copy"><p class="eyebrow">A clearer view. A wider field of possibility.</p><h1>See the change.<br><em>Keep your choices.</em></h1>
+        <p class="hero-lede">Explore how economies are changing. Follow the evidence to the conditions that matter, and see what we still need to learn before acting.</p>
+        <div class="hero-actions"><a class="button primary" href="#explore">Enter the station <span>↗</span></a><button class="button quiet" id="guided-tour">Take the evidence tour <span>→</span></button></div>
+        <div class="hero-stats" id="hero-stats"></div>
+      </div>
+      <div class="field-visual" aria-hidden="true"><div class="orbital-label">THE FIELD OF OBSERVATION</div><svg id="field-svg" viewBox="0 0 540 370"></svg><div class="orbital-caption">50 economies · one shared question<br><strong>What makes a way of earning possible?</strong></div></div>
+    </section>
+    <section class="section explore-section" id="explore">
+      <div class="section-head"><div><p class="eyebrow">01 / Read the weather</p><h2>Twenty years. <em>Different journeys.</em></h2></div><p>Historical native indicators. Not disrupted-person counts, individual diagnoses or AI effects.</p></div>
+      <div class="control-bar">
+        <label>Economy<select id="country-select"></select></label><label>Compare with<select id="compare-select"></select></label><label class="wide-control">Lens<select id="family-select"></select></label>
+        <div class="year-control"><label for="year-control">Reference year <output id="year-value" for="year-control">2025</output></label><input id="year-control" type="range" min="2005" max="2025" value="2025" step="1"><div class="range-labels"><span>2005</span><span>2025</span></div></div>
+      </div>
+      <div class="workspace">
+        <article class="chart-room"><div class="chart-heading"><div><p class="eyebrow" id="chart-label"></p><h3 id="chart-title"></h3></div><span class="data-badge">Retained history</span></div><div class="chart-legend" id="chart-legend"></div><svg id="history-chart" viewBox="0 0 850 300" role="img" aria-labelledby="history-title history-desc"><title id="history-title">Country comparison</title><desc id="history-desc"></desc></svg><p class="chart-note" id="chart-note"></p><div class="reading-grid" id="reading-grid"></div></article>
+        <aside class="readout"><p class="eyebrow">What the evidence can say</p><h3 id="readout-title"></h3><div class="verdict"><span class="status-orbit" aria-hidden="true"></span><div><strong id="storm-state"></strong><small>Proposed storm criterion</small></div></div><p id="readout-explanation"></p><div class="missing-list" id="missing-list"></div><a class="text-link" href="#evidence">Inspect the source &amp; limits ↗</a></aside>
+      </div>
+      <div class="story-rail" id="story-rail" aria-label="Historical investigation examples"></div>
+      <article id="case-narrative" class="case-narrative" hidden></article>
+      <details class="matrix-details"><summary>Open the 50-economy field <span>Compare annual movement across the retained history</span></summary><div id="matrix-help" class="matrix-legend">Each cell is a native percentage-point change, not a storm. <span class="key negative"></span>Decrease <span class="key positive"></span>Increase <span class="key missing"></span>Unavailable. Select a cell to inspect it above. Keyboard: Tab into the cells, arrow keys to explore, Enter to select; Home and End reach the first and last year.</div><div id="matrix" class="matrix" role="group" aria-label="Native indicator changes by economy and year" aria-describedby="matrix-help"></div></details>
+    </section>
+    <section class="section evidence-section" id="evidence"><div class="section-head"><div><p class="eyebrow">02 / Open the instrument</p><h2>Every number has <em>a context.</em></h2></div><p>A source link is the beginning of scrutiny, not the end. A checksum establishes byte consistency, not publisher authenticity.</p></div><div id="evidence-cards" class="evidence-grid"></div></section>
+    <section class="section if-section" id="if-evolution"><div class="section-head"><div><p class="eyebrow">03 / The condition beneath the number</p><h2>When the IF changes,<br><em>the reading must change.</em></h2></div><p>The question is not only whether a number moved. It is whether we still mean the same thing.</p></div>
+      <div class="if-question"><span>THE QUESTION</span><p>People can sustain a way of earning <strong>IF</strong> the necessary conditions hold.</p><small>Research framing, not a measured or complete account of income access.</small></div>
+      <div class="condition-grid" id="condition-grid"></div><div class="evolution-story"><div class="story-number">01<span>Historical<br>GP case</span></div><div><p class="eyebrow">A footnote changed the evidence requirement</p><h3>The people missing from the percentage.</h3><p>A retained GP survey workbook disclosed a change in very-remote coverage. The research definition changed; the old dependent record failed its binding check until it explicitly adopted the new version. The historical numbers did not change.</p><a class="text-link" href="../../contracts/executable-if/when-an-if-changes.md">Follow the actual revision ↗</a></div></div>
+      <div id="migration-preview" class="readiness-card"></div>
+    </section>
+    <section class="section" id="forecast-ledger"><div class="section-head"><div><p class="eyebrow">04 / Put a question on the record</p><h2>Put predictions on record.<br><em>Let outcomes test them.</em></h2></div><p>These issued research forecasts remain fixed when you explore historical years above. None is a storm forecast. No forecasting skill is established.</p></div><div id="forecast-cards" class="forecast-grid"></div>
+      <section class="review-desk" aria-labelledby="review-desk-title">
+        <p class="eyebrow">Review planning / Separate from the chart year</p>
+        <h3 id="review-desk-title">What needs checking next?</h3>
+        <p id="review-clock-help">Start from an untrusted browser clock snapshot or enter a planning time. This is not a live feed. Changing the time does not resolve, score or void a forecast, and nothing is scheduled or sent.</p>
+        <div class="review-clock-controls">
+          <div><label for="review-clock">Planning time in UTC</label><input id="review-clock" type="text" autocomplete="off" spellcheck="false" aria-describedby="review-clock-help review-clock-format review-clock-status"><small id="review-clock-format">Full ISO timestamp, for example 2026-11-06T00:00:00Z.</small></div>
+          <button id="review-clock-apply" type="button" class="button primary">Apply planning time</button>
+          <button id="review-clock-reset" type="button" class="button quiet">Use browser clock snapshot</button>
+        </div>
+        <p id="review-clock-status" role="status" aria-live="polite"></p>
+        <p class="review-boundary">Required review role: unappointed. Current provider availability, live forecast lifecycle and review dispositions have not been checked. A calendar window is not evidence admission or permission to act.</p>
+        <div id="review-desk-rows" class="review-desk-rows"></div>
+        <div id="review-trust" class="review-trust"></div>
+      </section>
+    </section>
+    <section class="section" id="preparation"><div class="section-head"><div><p class="eyebrow">05 / Keep room to move</p><h2>Prepare with conditions.<br><em>Not with certainty.</em></h2></div><p>Proposed research and rehearsal options. No service commitment, participant contact or consequential action is authorised by this page.</p></div><div id="preparation-cards" class="preparation-grid"></div><div class="next-step-grid"><div id="pilot-card" class="readiness-card"></div><div id="study-card" class="readiness-card"></div></div></section>
+    <section class="closing"><p class="eyebrow">The next useful question</p><h2>What would have to change<br>for more people to <em>have a choice?</em></h2><p>That is what this station is being built to investigate. Abundance and agency remain goals, not measured scores.</p><details id="brief-preview" class="brief-preview"><summary>Preview this selection's research handoff</summary><div id="brief-handoff"></div></details><div><button class="button primary" id="export-brief">Save this research brief ↗</button><a class="button quiet" href="../observatory/">Synthetic method demo →</a></div><p id="export-status" role="status"></p></section>
+  </main>
+  <footer><span>WEATHER STATION / Ren’s commissioned research prototype</span><a href="https://github.com/ferborva/mind-flow/issues">Question or correct a reading ↗</a><span>No personal details in public issues. No response time guaranteed.</span></footer>
+  <div class="sr-only" id="selection-announcement" aria-live="polite" aria-atomic="true"></div>
+</body></html>

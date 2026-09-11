@@ -1,0 +1,19 @@
+{
+  "id": "round-11-research-reader-independent-agent-evidence",
+  "evidence_kind": "retained-agent-message-transcription",
+  "received_on": "2026-09-11",
+  "reviewer_task": "/root/r11_experience",
+  "reviewed_initial_commits": [
+    "438d287",
+    "61c5728"
+  ],
+  "reviewed_fix_commit": "2d4f7d4b9de3a94ada504187ca7d78ac5bd5a026",
+  "message_verbatim": "Independent review scope438d287+61c5728: no blocking preview/refusal defect. Ran22tests+replay; independently checked19oldbindings rejected,3newnonoperationalpreviews accepted,16blocked;5coherentresealedmutations rejected. OneP3 urgentmeaning omitted table43C50crude/C59coverage knowncaveats. Now inspected2d4f7d4diff: exactsourcepins,meaning+summaryfields andnegative tests disposition thatP3 appropriately, withoutnewdiscoverycount. Limits: samehost independentagentcode/source review, not externalhuman approval, publisherauth, fullrepodependencies, or operationalmigration signoff. Have not rerun26tests atfixhead yet.",
+  "follow_up_message_verbatim": "Follow-up verification now complete at 2d4f7d4: all 26 migration tests and retained replay pass. The C50/C59 correction closes my P3 finding within the preview-only review scope. No additional finding from this narrow recheck. Same-host independent agent verification only; not human, publisher-authenticated or operational migration approval.",
+  "scope": "Source-meaning and preview/refusal review; not review of the subsequent new research-reader implementation.",
+  "finding_disposition": "Urgent crude-rate and coverage caveats corrected by 2d4f7d4. No new source discovery or completed kernel event.",
+  "authentication": "Local transcription of actual agent message; not a signature, external timestamp or cryptographic reviewer authentication.",
+  "publisher_authentication": false,
+  "human_approval": false,
+  "operational_migration_signoff": false
+}

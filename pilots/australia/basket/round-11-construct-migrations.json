@@ -1,0 +1,568 @@
+{
+  "id": "round-11-construct-migrations",
+  "edition": "mind-flow.construct-migration.review/1.0.0",
+  "prepared_on": "2026-09-11",
+  "author": "Ren (AI agent)",
+  "status": "research-proposals-for-independent-review",
+  "source_artifacts": [
+    {
+      "path": "pilots/australia/basket/primary-care.kernel.current.json",
+      "sha256": "sha256:1fe8272a1855bace95b2151fce1290e40a368267bebf22a4c74d845d10fc1651"
+    },
+    {
+      "path": "pilots/australia/basket/primary-care.r3.json",
+      "sha256": "sha256:6d2a20844719fd9851c28c5ec961a4c0f6bb049adea7f382454eaad15da8f65e"
+    },
+    {
+      "path": "pilots/australia/data/positive-signals-current.json",
+      "sha256": "sha256:88aa1967cbe4372fdfbe8fcc0845d09c9653dce713191249544fc6b5b098382e"
+    },
+    {
+      "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+      "sha256": "sha256:8174a428c0c243f8d3828bbd543dd7ecc7f63b6fa7aa4525964fe66ba360417f"
+    },
+    {
+      "path": "pilots/australia/sources/primary-care/2026-09-10/pc-primary-care-tables.xlsx",
+      "sha256": "sha256:99c6ff08e0a48026b780370aa4d02a8edb36b1b11049dd6ce92087005481a36c"
+    },
+    {
+      "path": "contracts/executable-if/construct-correction-policy.md",
+      "sha256": "sha256:1809a6354f43c26d6ef3bd1750fd809177bd4bf0f2c4b63adedf673d8ff6b988"
+    },
+    {
+      "path": "pilots/australia/data/round-09-evolution-discoveries.json",
+      "sha256": "sha256:530f57b9081fced55d74d799579c36b048b8b53fad024f2882650f00acb049b1"
+    }
+  ],
+  "inventory_scope": {
+    "included_paths": [
+      "pilots/australia/basket/primary-care.kernel.current.json",
+      "pilots/australia/basket/primary-care.r3.json",
+      "pilots/australia/data/positive-signals-current.json",
+      "contracts/evolution/fixtures/australia-primary-care.current.json"
+    ],
+    "method": "All structured condition_id/definition_version/definition_hash references in four pinned current research artefacts, including their retained history.",
+    "exclusions": "Archived revisions, code, prose, unbound series readers, copied web views and external consumers are not exhaustively inventoried. No repository-wide or deployment-wide migration completion is claimed.",
+    "completeness": "complete-within-declared-structured-reference-universe-only"
+  },
+  "migrations": [
+    {
+      "id": "migration.au.gp.urgent-appointment-clock.r11",
+      "title": "The urgent-care clock starts after an appointment is made",
+      "status": "proposed",
+      "old_definition": {
+        "condition_id": "condition.au.gp.timely",
+        "definition_version": "1.0.0",
+        "condition_category": "availability",
+        "proposition": "The registered gp-urgent-under-four-hours condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the gp-urgent-under-four-hours research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "effective_from": "2026-09-09T11:19:14Z",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "GP urgent consultation"
+          ]
+        },
+        "predicates": {
+          "measure": {
+            "signal_ref": {
+              "signal_id": "signal.au.gp-urgent-under-four-hours",
+              "definition_version": "1.0.0",
+              "signal_definition_hash": "sha256:eeefe30a66179b230bb297878c099ef5bf8665a3b99a9b5643a9e4afeaff2a4c"
+            },
+            "operator": "gte",
+            "threshold": {
+              "value": 100,
+              "unit": "percent"
+            },
+            "window": {
+              "lookback_days": 90,
+              "minimum_observations": 1,
+              "persistence": 1,
+              "maximum_age_days": 90
+            },
+            "source_policy": {
+              "minimum_distinct_source_ids": 1,
+              "minimum_distinct_artifact_hashes": 1,
+              "minimum_coverage_ratio": 1,
+              "agreement": "unanimous-per-period"
+            },
+            "missing_result": "unknown",
+            "stale_result": "stale",
+            "conflict_result": "conflicted"
+          }
+        },
+        "truth_expression": {
+          "predicate_ref": "measure"
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+          "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+          "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "classification": "research-draft",
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+      },
+      "old_signal": {
+        "signal_id": "signal.au.gp-urgent-under-four-hours",
+        "definition_version": "1.0.0",
+        "label": "gp-urgent-under-four-hours",
+        "construct": "self-reported-timeliness",
+        "population": "Survey-scope residents aged 15 years and over who saw a GP for urgent medical care",
+        "estimand": "Includes people who obtained urgent GP care; excludes unmet urgent need and is not a real-time appointment feed.",
+        "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+        "projection_policy": "exact-scope-only",
+        "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+        "value_kind": "number",
+        "unit": "percent",
+        "signal_definition_hash": "sha256:eeefe30a66179b230bb297878c099ef5bf8665a3b99a9b5643a9e4afeaff2a4c"
+      },
+      "proposed_meaning": {
+        "condition_id": "condition.au.nsw.gp.urgent-appointment-clock",
+        "signal_id": "signal.au.nsw.gp.urgent-appointment-under-four-hours",
+        "definition_version": "1.0.0",
+        "condition_category": "availability",
+        "population": "Survey-scope persons aged 15 years and over who saw a GP for urgent medical care for their own health in the last 12 months; urgency defined by the respondent.",
+        "geography": "NSW, Australia",
+        "measure": "Published proportion reporting less than four hours between making an appointment and seeing the GP for urgent medical care.",
+        "denominator": "Survey-scope people who obtained urgent GP care, not everyone who needed it or attempted access.",
+        "clock_origin": "appointment-making",
+        "rate_kind": "crude",
+        "unit": "percent",
+        "coverage_change": "Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.",
+        "truth_predicate": null,
+        "definition_hash": "sha256:9d5065c4f20f0df3e407f75f620baa4af056c09417eab01c77f2a3e3e2daa42f"
+      },
+      "relationship": {
+        "kind": "construct-correction-not-equivalent",
+        "reason": "The old signal did not specify the waiting-clock origin. Appointment-making is not first attempted contact or onset of need. The measured population obtained care, so unmet need cannot inherit a timeliness result."
+      },
+      "source_cells": [
+        {
+          "cell": "10A.43!C54",
+          "text": "Time waited between making an appointment and seeing the GP for urgent medical care.",
+          "sha256": "sha256:82e46cacbb970cbca1c4a548d2d36e16feb12dd278e5c2f6350961c43bee092c"
+        },
+        {
+          "cell": "10A.43!C55",
+          "text": "Persons aged 15 years and over who saw a GP for urgent medical care for their own health in the last 12 months. 'Urgent' as defined by respondent. Discretionary interviewer advice was to include health issues that arose suddenly and were serious (e.g. fever, headache, vomiting, unexplained rash).",
+          "sha256": "sha256:ea39b7dfa9b9ebd195c1bdd783f6afb0f4e08bb756b045c36b8e4755ec613b8f"
+        }
+      ],
+      "known_source_caveats": [
+        {
+          "cell": "10A.43!C50",
+          "text": "Data values are crude rates and may differ from data in previous reports in which rates were age-standardised.",
+          "sha256": "sha256:6013c45ca9919e77d21b4bce42e7a7d7542fa0d60252b79e513f54a8c094a1a8",
+          "role": "known-context-not-new-discovery"
+        },
+        {
+          "cell": "10A.43!C59",
+          "text": "Collection of data in very remote areas of Australia was phased out part way through the Patient Experience Survey 2023-24 cycle. From 2024-25, people resident in very remote areas of Australia were excluded from the survey.",
+          "sha256": "sha256:29e2120f7382fd2ddcc832c3701568c2fa848cc3bc06f73655aa00aafdf6986e",
+          "role": "known-context-not-new-discovery"
+        }
+      ],
+      "readers": [
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/condition_projections/6/condition_definition_ref",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/condition_projections/6/condition_definition_ref",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/current_state/conditions/6/condition_definition_ref",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/current_state/conditions/6/condition_definition_ref",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/public_projection/active_conditions/6/condition_definition_ref",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/public_projection/active_conditions/6/condition_definition_ref",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/source_history_ref/active_condition_definition_refs/6",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/source_history_ref/active_condition_definition_refs/6",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/current_state/4/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/current_state/4/condition_definition_ref",
+          "role": "current-kernel-state",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/events/5/introduced_definitions/0",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/events/5/introduced_definitions/0",
+          "role": "retained-event-history",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/events/5/new_states/0/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/events/5/new_states/0/condition_definition_ref",
+          "role": "retained-event-history",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/observations/2/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/observations/2/condition_definition_ref",
+          "role": "historical-observation",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/0/conditions/3/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.r3.json",
+          "pointer": "/items/0/conditions/3/condition_definition_ref",
+          "role": "basket-definition-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.gp.timely",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+          }
+        }
+      ],
+      "unanswered_question": "How long did people wait from their first attempt or onset of urgent need, including people who never obtained an appointment?",
+      "historical_observation_transfer": "none",
+      "new_observations": [],
+      "independent_review": {
+        "status": "pending",
+        "reviewer": null,
+        "receipt": null
+      },
+      "condition_truth": "not-evaluated",
+      "authority_effect": "none",
+      "action_authorised": false,
+      "migration_hash": "sha256:30915ef599f807babec02d211afeb6379ac07dbf56f8ba82f56e13a3b2e7ab71"
+    },
+    {
+      "id": "migration.au.prescription.denominator.r11",
+      "title": "Prescription cost uses a particular survey denominator",
+      "status": "proposed",
+      "old_definition": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "condition_category": "price",
+        "proposition": "The registered prescription-cost-delay condition satisfies its explicit research threshold within the registered scope.",
+        "claim": {
+          "who": "The exact population named by the bound signal",
+          "verb": "satisfy",
+          "object": "the prescription-cost-delay research condition",
+          "standard": "Registered threshold only; not personal service access",
+          "polarity": "affirmative",
+          "period": {
+            "starts_at": "2018-01-01T00:00:00Z",
+            "ends_at": "2027-09-09T10:43:00Z"
+          }
+        },
+        "effective_from": "2026-09-09T11:19:17Z",
+        "scope": {
+          "jurisdictions": [
+            "Australia"
+          ],
+          "geographies": [
+            "NSW"
+          ],
+          "cohorts": [
+            "Survey-scope residents aged 15 years and over"
+          ],
+          "services": [
+            "Prescription medicines, aggregate context"
+          ]
+        },
+        "predicates": {
+          "measure": {
+            "signal_ref": {
+              "signal_id": "signal.au.prescription-cost-delay",
+              "definition_version": "1.0.0",
+              "signal_definition_hash": "sha256:a9427367445689f023fc3491996b441e495cda051a09a73fb42755191568b4cd"
+            },
+            "operator": "lte",
+            "threshold": {
+              "value": 0,
+              "unit": "percent"
+            },
+            "window": {
+              "lookback_days": 90,
+              "minimum_observations": 1,
+              "persistence": 1,
+              "maximum_age_days": 90
+            },
+            "source_policy": {
+              "minimum_distinct_source_ids": 1,
+              "minimum_distinct_artifact_hashes": 1,
+              "minimum_coverage_ratio": 1,
+              "agreement": "unanimous-per-period"
+            },
+            "missing_result": "unknown",
+            "stale_result": "stale",
+            "conflict_result": "conflicted"
+          }
+        },
+        "truth_expression": {
+          "predicate_ref": "measure"
+        },
+        "evaluator_ref": {
+          "id": "mind-flow.executable-if.evaluator",
+          "version": "1.1.0",
+          "digest": "sha256:bb1991818b6b11d15115e9bf032d73ce3d4fdd9f190cff0eaf5343929e6cd4dd",
+          "schema_digest": "sha256:8a253e6732c518d0c89acb270fea214dc718ff4f7d21912a85091ccd5c54c31e",
+          "implementation_digest": "sha256:bb285e8da61d5d47ede6170526e32e0214c5a4a67fe28794fca7b2e9a6e6a996",
+          "conformance_vectors_digest": "sha256:aca56cdfeb4918b0183e59fec36c0cc04e087eb2d8e95ca657dbcb3d9f037a00"
+        },
+        "classification": "research-draft",
+        "empirical_truth_established": false,
+        "authority_effect": "none",
+        "action_authorised": false,
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      "old_signal": {
+        "signal_id": "signal.au.prescription-cost-delay",
+        "definition_version": "1.0.0",
+        "label": "prescription-cost-delay",
+        "construct": "self-reported-access-barrier",
+        "population": "Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months",
+        "estimand": "All prescription medicines, not atorvastatin-specific access.",
+        "aggregation": "Exact publisher series and geography only; no cross-person or cross-service projection",
+        "projection_policy": "exact-scope-only",
+        "source_schema_ref": "https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W",
+        "value_kind": "number",
+        "unit": "percent",
+        "signal_definition_hash": "sha256:a9427367445689f023fc3491996b441e495cda051a09a73fb42755191568b4cd"
+      },
+      "proposed_meaning": {
+        "condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
+        "signal_id": "signal.au.nsw.prescription.gp-or-needed-cost-delay-crude",
+        "definition_version": "1.0.0",
+        "condition_category": "price",
+        "population": "Survey-scope persons aged 15 years and over who received a prescription for medication from a GP in the last 12 months, or needed prescribed medication.",
+        "geography": "NSW, Australia",
+        "measure": "Published crude proportion who delayed getting, or did not get, prescribed medication at any time in the last 12 months due to cost.",
+        "denominator": "Survey-scope people who received a GP prescription or needed prescribed medication; not all residents and not an atorvastatin-specific population.",
+        "rate_kind": "crude",
+        "unit": "percent",
+        "coverage_change": "Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.",
+        "truth_predicate": null,
+        "definition_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5"
+      },
+      "relationship": {
+        "kind": "construct-correction-not-equivalent",
+        "reason": "Replacing a generic cohort label with the GP-prescription-or-needed-medication denominator changes meaning. Crude rates cannot inherit age-standardised interpretation. Aggregate medicine coverage and the very-remote exclusion were already known, not newly discovered events."
+      },
+      "source_cells": [
+        {
+          "cell": "10A.33!C17",
+          "text": "Data values are crude rates and may differ from data in previous reports in which rates were age-standardised.",
+          "sha256": "sha256:6013c45ca9919e77d21b4bce42e7a7d7542fa0d60252b79e513f54a8c094a1a8"
+        },
+        {
+          "cell": "10A.33!C20",
+          "text": "Persons aged 15 years and over who received a prescription for medication from a GP in the last 12 months, or needed prescribed medication, and delayed getting, or did not get, prescribed medication at any time in the last 12 months due to cost.",
+          "sha256": "sha256:1bdb81cbdf05469f854fd723127d4d23454ef734ed658f335f891f1a707d0650"
+        },
+        {
+          "cell": "10A.33!C24",
+          "text": "Collection of data in very remote areas of Australia was phased out part way through the Patient Experience Survey 2023-24 cycle. From 2024-25, people resident in very remote areas of Australia were excluded from the survey.",
+          "sha256": "sha256:29e2120f7382fd2ddcc832c3701568c2fa848cc3bc06f73655aa00aafdf6986e"
+        }
+      ],
+      "known_source_caveats": [],
+      "readers": [
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/condition_projections/7/condition_definition_ref",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/condition_projections/7/condition_definition_ref",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/current_state/conditions/7/condition_definition_ref",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/current_state/conditions/7/condition_definition_ref",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/public_projection/active_conditions/7/condition_definition_ref",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/public_projection/active_conditions/7/condition_definition_ref",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/source_history_ref/active_condition_definition_refs/7",
+          "path": "contracts/evolution/fixtures/australia-primary-care.current.json",
+          "pointer": "/source_history_ref/active_condition_definition_refs/7",
+          "role": "derived-evolution-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/current_state/7/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/current_state/7/condition_definition_ref",
+          "role": "current-kernel-state",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/events/8/introduced_definitions/0",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/events/8/introduced_definitions/0",
+          "role": "retained-event-history",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/events/8/new_states/0/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/events/8/new_states/0/condition_definition_ref",
+          "role": "retained-event-history",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.kernel.current.json#/observations/4/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.kernel.current.json",
+          "pointer": "/observations/4/condition_definition_ref",
+          "role": "historical-observation",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/1/conditions/0/condition_definition_ref",
+          "path": "pilots/australia/basket/primary-care.r3.json",
+          "pointer": "/items/1/conditions/0/condition_definition_ref",
+          "role": "basket-definition-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        },
+        {
+          "reader_id": "pilots/australia/data/positive-signals-current.json#/signals/2/condition_definition_ref",
+          "path": "pilots/australia/data/positive-signals-current.json",
+          "pointer": "/signals/2/condition_definition_ref",
+          "role": "positive-signal-context-reader",
+          "definition_ref": {
+            "condition_id": "condition.au.prescription.cost",
+            "definition_version": "1.0.0",
+            "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+          }
+        }
+      ],
+      "unanswered_question": "Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?",
+      "historical_observation_transfer": "none",
+      "new_observations": [],
+      "independent_review": {
+        "status": "pending",
+        "reviewer": null,
+        "receipt": null
+      },
+      "condition_truth": "not-evaluated",
+      "authority_effect": "none",
+      "action_authorised": false,
+      "migration_hash": "sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94"
+    }
+  ],
+  "existing_appended_kernel_events": 1,
+  "applied_corrections": 0,
+  "programme_three_event_gate_met": false,
+  "authority_effect": "none",
+  "action_authorised": false,
+  "next_gate": "Independent review of source interpretation, corrected meanings, remaining dependent surfaces and explicit migrations. Separate evidence admission and a future operational edition are required before truth evaluation or completed-event claims."
+}

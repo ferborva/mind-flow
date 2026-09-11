@@ -1,0 +1,41 @@
+SURVEY OF INCOME AND PROGRAM PARTICIPATION,
+CALENDAR YEAR 2025 LONGITUDINAL WEIGHTS FILE DATA DICTIONARY
+
+
+	VARIABLE   	TYPE	LENGTH
+
+D 	SSUID      	Char     14
+T 	Sample Unit Identifier
+     	This identifier is created by scrambling together the PSU, Segment, Serial, Serial Suffix, and Panel of the 
+    	original sample address.  It may be used in matching sample units across years.
+U 	All persons
+V 	00000000000000:99999999999999
+
+
+D 	PNUM        	Num	3     
+T 	Person Number
+     	This field differentiates persons within the sample unit. Person number is unique within the sample unit.
+U 	All persons
+V 	101:499 
+
+
+D 	SPANEL      	Num	4     
+T 	Panel Year
+U 	All persons
+V 	2022:2024
+
+
+D 	FINYR2   	Num    14
+T 	Final Person longitudinal weight covering the two-year reference period from January 2023 to December 2024
+U 	All persons
+V 	0.000000:9999999.999999 
+
+D 	FINYR3   	Num    14
+T 	Final Person longitudinal weight covering the three-year reference period from January 2022 to December 2024
+U 	All persons
+V 	0.000000:9999999.999999 
+
+D 	FINYR4   	Num    14
+T 	Final Person longitudinal weight covering the four-year reference period from January 2021 to December 2024
+U 	All persons
+V 	0.000000:9999999.999999

@@ -1,0 +1,236 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "income-access-feasibility.round-11",
+  "status": "proposal-not-admitted",
+  "assessedAt": "2026-09-11",
+  "authorship": "Ren (AI agent): commissioned research judgement, not Fernando's settled position or provider approval",
+  "evidenceAdmission": {
+    "admittedMeasurements": 0,
+    "nationalStormInference": false,
+    "liveWarningReady": false,
+    "microdataRetrieved": false
+  },
+  "sources": [
+    {
+      "id": "hilda-overview",
+      "publisher": "Melbourne Institute, University of Melbourne",
+      "title": "HILDA Survey",
+      "url": "https://melbourneinstitute.unimelb.edu.au/hilda",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Opening description and Fast facts",
+      "finding": "Household panel following Australians over time, including income, employment, health and education.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "hilda-access",
+      "publisher": "Melbourne Institute, University of Melbourne",
+      "title": "For Data Users",
+      "url": "https://melbourneinstitute.unimelb.edu.au/hilda/for-data-users",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Accessing HILDA Survey data",
+      "finding": "Release 24 is cumulative; researchers apply through DSS Longitudinal Studies Dataverse.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "hilda-manual",
+      "publisher": "Melbourne Institute, University of Melbourne",
+      "title": "HILDA User Manual, Release 24",
+      "url": "https://melbourneinstitute.unimelb.edu.au/__data/assets/pdf_file/0008/5465492/HILDA-User-Manual-Release-24.0.pdf",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Printed pp14, 154-156, 166; PDF pp22, 162-164, 174",
+      "finding": "Access requires application and signed confidentiality deed. Initial reference population uses private dwellings with exclusions. Wave 24 fieldwork ran 30 July 2024 to 9 March 2025.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "hilda-weights",
+      "publisher": "Melbourne Institute, University of Melbourne",
+      "title": "Program Library",
+      "url": "https://melbourneinstitute.unimelb.edu.au/hilda/for-data-users/program-library",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Creating longitudinal files and Applying Weights",
+      "finding": "Cross-wave matching and longitudinal weights depend on the analysis panel; complex design, nonresponse and attrition require treatment.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "hilda-questionnaires",
+      "publisher": "Melbourne Institute, University of Melbourne",
+      "title": "Questionnaires and Fieldwork Materials",
+      "url": "https://melbourneinstitute.unimelb.edu.au/hilda/for-data-users/questionnaires-and-fieldwork-materials",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Waves 24, 25 and 26 listings",
+      "finding": "Questionnaires are separately available by wave and instrument; fieldwork materials are not evidence that corresponding microdata have been released.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "sipp-overview",
+      "publisher": "U.S. Census Bureau",
+      "title": "Survey of Income and Program Participation",
+      "url": "https://www.census.gov/programs-surveys/sipp.html",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": "2026-07-01",
+      "locator": "Opening survey description",
+      "finding": "Longitudinal survey provides monthly histories of income, employment and household circumstances across several years.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "sipp-release",
+      "publisher": "U.S. Census Bureau",
+      "title": "2025 Survey of Income and Program Participation, CB26-TPS.41",
+      "url": "https://www.census.gov/newsroom/press-releases/2026/2025-sipp.html",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": "2026-07-15",
+      "locator": "Release announcement",
+      "finding": "2025 SIPP data were released on 15 July 2026.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "sipp-period",
+      "publisher": "U.S. Census Bureau",
+      "title": "2025 SIPP Data",
+      "url": "https://www.census.gov/programs-surveys/sipp/data/datasets/2025-data.html",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": "2026-07-01",
+      "locator": "2025 SIPP Data link description",
+      "finding": "Reference period is January to December 2024, not the release year.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "sipp-guide",
+      "publisher": "U.S. Census Bureau",
+      "title": "2025 SIPP Users' Guide, July 2026 with August revision",
+      "url": "https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2025_SIPP_Users_Guide.pdf",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Chapters 2, 3, 4.2.3 and 7; pp16, 25, 33-35, 69-74, 151-159",
+      "finding": "Civilian noninstitutionalised population; person-month linkage, public-use files, employment/earnings detail, weighting and variance guidance. Job-spell fields are copied into monthly records; monthly output is not independent monthly measurement. Seam effects and imputation require scrutiny.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "sipp-redesign",
+      "publisher": "U.S. Department of Commerce, Federal Register via GovInfo",
+      "title": "2027 Survey of Income and Program Participation Field Test, FR Doc. 2026-16188",
+      "url": "https://www.govinfo.gov/content/pkg/FR-2026-08-07/pdf/2026-16188.pdf",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": "2026-08-07",
+      "locator": "Second PDF page, I. Abstract and II. Method of Collection",
+      "finding": "Planned field testing changes collection mode, sample and weighting; proposed six-month reference period. This is a plan, not a completed comparable production series.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "census-rights",
+      "publisher": "U.S. Census Bureau",
+      "title": "Research Transparency and Public Access, DS027",
+      "url": "https://www2.census.gov/foia/ds_policies/ds027.pdf",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Printed page 9, copyright paragraph",
+      "finding": "Employee-created Census works generally lack U.S. copyright protection; foreign-country and nonemployee-work qualifications remain. Not a blanket worldwide permission.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "ukhls-release",
+      "publisher": "UK Data Service",
+      "title": "Study 6614 information, Waves 1-15",
+      "url": "https://doc.ukdataservice.ac.uk/doc/6614/read6614.htm",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "New edition information and Condition of use",
+      "finding": "21st edition is dated April 2026, covering Waves 1-15 (2009-2024). Registered-user licence applies; commercial use requires owner approval.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "ukhls-guide",
+      "publisher": "Institute for Social and Economic Research, University of Essex; UK Data Service",
+      "title": "Understanding Society Main Survey User Guide",
+      "url": "https://doc.ukdataservice.ac.uk/doc/6614/mrdoc/pdf/6614_main_survey_user_guide.pdf",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": "2026-02-23",
+      "locator": "pp12-16, 51-58, 66-74",
+      "finding": "Annual household panel; waves overlap calendar years. Multi-job questionnaire and coding revisions affect comparability; apparent occupation changes were partly spurious. Population inference requires appropriate longitudinal weights.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    },
+    {
+      "id": "ukds-access",
+      "publisher": "UK Data Service",
+      "title": "Access levels and conditions",
+      "url": "https://ukdataservice.ac.uk/find-data/access-conditions/",
+      "assessedAt": "2026-09-11",
+      "publishedOrRevised": null,
+      "locator": "Access levels table",
+      "finding": "Open, safeguarded and controlled access differ. Special Licence and controlled records are not available for commercial use under the described routes.",
+      "evidenceKind": "official-metadata-inspection-not-byte-capture"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "usa-sipp",
+      "country": "USA",
+      "name": "SIPP: historical employment-to-income transition benchmark",
+      "constructFit": "Income and realised employment transitions are observable candidates; the full set of feasible income routes is not established by metadata.",
+      "longitudinal": "Monthly retrospective output supports within-person timing, conditional on linkage, weights and a job-spell-to-person-month crosswalk; copied spell fields are not independent monthly measurements.",
+      "denominator": "Civilian noninstitutionalised survey population. A baseline-employed cohort is not the total population.",
+      "timeliness": "2025 release measures 2024 and was published in July 2026. Historical-method route, not current warning feed.",
+      "access": "Public-use route identified. No microdata acquired; rights, storage and output review remain pending for this project.",
+      "claimLimit": "Cannot establish current income-access disruption, all feasible alternatives, causal effects or national 5% storms.",
+      "sourceIds": ["sipp-overview", "sipp-release", "sipp-period", "sipp-guide", "sipp-redesign", "census-rights"],
+      "gaps": ["Release-specific variable, universe and job-spell-to-person-month crosswalk", "Explicit cohort, weights and variance design", "Voluntary-change and alternative-route observability", "Project-specific rights and privacy review", "Independent construct review", "Future redesign comparability and publication calendar"]
+    },
+    {
+      "id": "aus-hilda",
+      "country": "AUS",
+      "name": "HILDA: Australian longitudinal access-pathway investigation",
+      "constructFit": "Household, income, employment and health context can investigate pathways; complete access conditions are not yet mapped.",
+      "longitudinal": "Annual panel with cross-wave identities and analysis-specific longitudinal weights.",
+      "denominator": "Household-panel coverage and exclusions require explicit review; existing regional employment series are not linked people.",
+      "timeliness": "Available Release 24 is historical. Wave 24 fieldwork spans July 2024 to March 2025; newer questionnaires are not released outcomes.",
+      "access": "Research application and confidentiality deed required. Applicant eligibility, permitted environment, licence and approval are unresolved.",
+      "claimLimit": "An Australian cohort cannot be joined to regional aggregates as if they describe the same individuals or prove a national storm.",
+      "sourceIds": ["hilda-overview", "hilda-access", "hilda-manual", "hilda-weights", "hilda-questionnaires"],
+      "gaps": ["Accountable eligible applicant and provider approval", "Current terms and permitted processing environment", "Question-by-wave route and barrier mapping", "Timing alignment across income and access questions", "Attrition and population-exclusion sensitivity", "Cohort precision and alternatives coverage"]
+    },
+    {
+      "id": "gbr-ukhls",
+      "country": "GBR",
+      "name": "Understanding Society: multi-job routes and construct-change comparator",
+      "constructFit": "Multi-job detail makes this a useful comparator for alternatives, but observed jobs are not all feasible routes.",
+      "longitudinal": "Annual panel; align interview dates rather than treating a wave as one calendar year.",
+      "denominator": "Household survey with distinct sample components; cohort inference needs matching longitudinal weights, not an unweighted national share.",
+      "timeliness": "Inspected catalogue: Waves 1-15 through 2024, April 2026 edition. Not a live warning feed.",
+      "access": "Registered End User Licence route; commercial use needs owner approval. More detailed access tiers have additional restrictions.",
+      "claimLimit": "Questionnaire or coding changes can resemble economic change; no current national income-access inference is admitted.",
+      "sourceIds": ["ukhls-release", "ukhls-guide", "ukds-access"],
+      "gaps": ["Project-use classification and licence review", "Wave and revised-variable crosswalk", "Multiple-job linkage and alternative-route definition", "Cohort weights and sample-component review", "Mode-change and attrition sensitivity", "Current access-barrier observability"]
+    }
+  ],
+  "recommendation": {
+    "candidateId": "usa-sipp",
+    "scope": "historical-method-feasibility",
+    "livePilotCountry": null,
+    "rationale": "First test a falsifiable employment-to-income transition method against documented monthly histories. This lower-access-friction benchmark does not choose the live pilot country.",
+    "conditionalOn": ["Release-specific metadata proves required variables and reference periods", "Independent statistician accepts cohort, weights, uncertainty and identification limits", "Accountable human approves project data handling and applicable rights", "Analysis plan and negative-result criteria are frozen before outcome inspection"],
+    "counterargument": "Accessible monthly histories can seduce us into measuring realised income instead of feasible access. Release lag and future redesign prevent a shortcut to warning skill.",
+    "fallback": "If SIPP cannot distinguish the required transition, do not substitute unemployment as access. Retain HILDA as a conditional Australian-depth route; commission only a separately approved acquisition or study proposal for missing constructs."
+  },
+  "unresolvedDecisions": [
+    { "id": "affected-share", "question": "Does 5% mean newly affected people, an affected stock, or a percentage-point increase, and over what window?", "value": null, "status": "unresolved" },
+    { "id": "severity", "question": "Which loss of income-generating access is materially disruptive, and by whose standard?", "value": null, "status": "unresolved" },
+    { "id": "persistence", "question": "How long must disruption persist, and how are interruptions or recovery treated?", "value": null, "status": "unresolved" },
+    { "id": "denominator", "question": "How do pilot cohort, working-age population and total-country population remain distinct?", "value": null, "status": "unresolved" },
+    { "id": "household-treatment", "question": "Are indirectly exposed household members counted separately from directly affected individuals?", "value": null, "status": "unresolved" },
+    { "id": "viable-alternative", "question": "Which alternative income routes count as feasible, adequate and acceptable rather than merely imaginable?", "value": null, "status": "unresolved" },
+    { "id": "beneficial-transition", "question": "What evidence distinguishes voluntary or beneficial transitions from forced loss, including unequal gains?", "value": null, "status": "unresolved" }
+  ],
+  "gates": [
+    { "id": "construct", "requirement": "Review observability and freeze a bounded estimand without resolving the national storm definition by proxy.", "ownerRole": "Human measurement lead and independent domain reviewer, unappointed", "status": "pending" },
+    { "id": "variables", "requirement": "Retain release-specific field, universe, missingness, imputation and timing crosswalk.", "ownerRole": "Measurement analyst with independent replication reviewer, unappointed", "status": "pending" },
+    { "id": "rights", "requirement": "Approve intended use, applicant eligibility, storage, access and output conditions.", "ownerRole": "Accountable human data custodian, unappointed", "status": "pending" },
+    { "id": "analysis", "requirement": "Approve sampling, attrition, weights, variance, sensitivity, negative controls and failure criteria before inspecting outcomes.", "ownerRole": "Independent statistician, unappointed", "status": "pending" },
+    { "id": "acquisition", "requirement": "Authorise the exact minimal data acquisition and retain byte-level provenance in the permitted environment.", "ownerRole": "Authorised human data owner and operator, unappointed", "status": "pending" },
+    { "id": "admission", "requirement": "Independently review reproducible results and exact claim scope; public warnings and participant contact remain separate approvals.", "ownerRole": "Independent measurement reviewer and release authority, unappointed", "status": "pending" }
+  ]
+}

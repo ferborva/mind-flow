@@ -1,0 +1,342 @@
+{
+  "schema_version": "1.0.0",
+  "id": "round-11.decision-rehearsal.usa-2024-2025",
+  "classification": "retained-context-with-agent-proposed-rehearsals",
+  "source_refs": {
+    "measurements": {
+      "path": "signals/countries/income-measurements.v1.json",
+      "sha256": "sha256:f2f21350057d7f006eeefbc263a4553c9f108d38ebeb3b04dbef733c99ce34a5"
+    },
+    "storm": {
+      "path": "signals/countries/storm-review.v1.json",
+      "sha256": "sha256:59ce8619b56000c1ca54db236f003841f7da0ab2f72f670c6f7de0bd3dc018ee"
+    },
+    "protocol": {
+      "path": "experiments/observatory-comparison/fixtures/protocol-contract.synthetic.json",
+      "sha256": "sha256:e289196d603f6dc7f814ed82aaaf3b613544c7ce903e121cd052599505e77adc"
+    },
+    "manifest": {
+      "path": "experiments/observatory-comparison/fixtures/manifest.synthetic.json",
+      "sha256": "sha256:5bda2a2259f2337858e696929279ce44a3f3d5860d38bc1dc77d6e5189c2b2dc"
+    }
+  },
+  "source_authentication_established": false,
+  "observations": [
+    {
+      "iso3": "USA",
+      "year": 2024,
+      "value": 59.467,
+      "source_value": "59.467",
+      "source_selector": "CSV record 58754",
+      "native_source": "XA:2174",
+      "native_indicator": "EMP_2WAP_SEX_AGE_RT",
+      "sex": "SEX_T",
+      "age": "AGE_YTHADULT_YGE15",
+      "estimation_type": "ILO-modelled",
+      "estimate_type": "modelled-vintage-no-row-actual-status",
+      "flags": {
+        "obs_status": null,
+        "note_indicator": null,
+        "note_source": null
+      },
+      "source_ref": {
+        "path": "signals/countries/income-measurements.v1.json",
+        "sha256": "sha256:f2f21350057d7f006eeefbc263a4553c9f108d38ebeb3b04dbef733c99ce34a5",
+        "pointer": "/families/0/observations/1006"
+      },
+      "raw_source_ref": {
+        "path": "signals/countries/sources/income-2026-09-10/ilo-epop.body",
+        "sha256": "sha256:af1cc2b1744cf7075afc39f7c6cc577b98ee5e28790651f589b65a3aaee7d000"
+      }
+    },
+    {
+      "iso3": "USA",
+      "year": 2025,
+      "value": 59.114,
+      "source_value": "59.114",
+      "source_selector": "CSV record 58745",
+      "native_source": "XA:2174",
+      "native_indicator": "EMP_2WAP_SEX_AGE_RT",
+      "sex": "SEX_T",
+      "age": "AGE_YTHADULT_YGE15",
+      "estimation_type": "ILO-modelled",
+      "estimate_type": "modelled-vintage-no-row-actual-status",
+      "flags": {
+        "obs_status": null,
+        "note_indicator": null,
+        "note_source": null
+      },
+      "source_ref": {
+        "path": "signals/countries/income-measurements.v1.json",
+        "sha256": "sha256:f2f21350057d7f006eeefbc263a4553c9f108d38ebeb3b04dbef733c99ce34a5",
+        "pointer": "/families/0/observations/1007"
+      },
+      "raw_source_ref": {
+        "path": "signals/countries/sources/income-2026-09-10/ilo-epop.body",
+        "sha256": "sha256:af1cc2b1744cf7075afc39f7c6cc577b98ee5e28790651f589b65a3aaee7d000"
+      }
+    }
+  ],
+  "native_change_pp": -0.353,
+  "storm_assessment": "cannot-say",
+  "storm_source_ref": {
+    "path": "signals/countries/storm-review.v1.json",
+    "sha256": "sha256:59ce8619b56000c1ca54db236f003841f7da0ab2f72f670c6f7de0bd3dc018ee",
+    "pointer": "/latest/0"
+  },
+  "materials": [
+    {
+      "id": "scope",
+      "label": "Place and period",
+      "value": "United States. Annual comparison: 2024 to 2025. This is a retained historical comparison, not live conditions."
+    },
+    {
+      "id": "before",
+      "label": "2024 employment-to-population ratio",
+      "value": "59.467%"
+    },
+    {
+      "id": "after",
+      "label": "2025 employment-to-population ratio",
+      "value": "59.114%"
+    },
+    {
+      "id": "change",
+      "label": "Native indicator change",
+      "value": "-0.353 percentage points. This is a stock-share change, not a count of people losing access to income."
+    },
+    {
+      "id": "denominator",
+      "label": "Whom this statistic covers",
+      "value": "Population aged 15 years and over, not total population"
+    },
+    {
+      "id": "vintage",
+      "label": "Measurement vintage",
+      "value": "ILO modelled estimates, November 2025. Captured 2026-09-10T06:14:47.180Z. A capture date is not an observation date. Row-level actual-versus-projected status is not established."
+    },
+    {
+      "id": "limits",
+      "label": "What this cannot establish",
+      "value": "A lower employment stock share does not count people who lost income routes: entry, exit, population change and job retention offset; hours, earnings and dependants are unmeasured."
+    },
+    {
+      "id": "storm",
+      "label": "Storm assessment",
+      "value": "cannot-say: qualifying evidence is missing. This means neither a confirmed storm nor confirmed stability."
+    },
+    {
+      "id": "missing",
+      "label": "Evidence needed",
+      "value": "Comparable direct income-route disruption shares of total population; Measured before/after binding category for the same income-access claim and population; Person-linked household exposure mapping with overlap specified"
+    },
+    {
+      "id": "if",
+      "label": "Inquiry, conclusion and admission have different gates",
+      "value": "Investigate possible income-access disruption IF the team has capacity, a legitimate research remit and the expected information could change a decision. Inquiry can seek missing evidence. Establish a disruption conclusion only IF comparable direct evidence identifies the same population, period, severity and viable alternative routes. Evidence admission requires separate review. Native context alone does not establish that conclusion or authorise action."
+    },
+    {
+      "id": "forecast",
+      "label": "Forecast boundary",
+      "value": "No forecast probability is issued by this task. A forecast concerns a future event and cannot set the current IF state."
+    },
+    {
+      "id": "authority",
+      "label": "Authority boundary",
+      "value": "No personal, employer or government action is authorised. A proposed option is not a commitment. Declining to act on this material does not establish safety."
+    },
+    {
+      "id": "source",
+      "label": "Source and trace",
+      "value": "ILO modelled estimates. https://rplumber.ilo.org/data/indicator/?id=EMP_2WAP_SEX_AGE_RT_A&format=.csv | signals/countries/sources/income-2026-09-10/ilo-epop.body | sha256:af1cc2b1744cf7075afc39f7c6cc577b98ee5e28790651f589b65a3aaee7d000. Retained hashes establish byte identity, not publisher authentication."
+    },
+    {
+      "id": "correction",
+      "label": "Challenge route",
+      "value": "Repository review only: https://github.com/ferborva/mind-flow/issues. Do not post personal information. No response-time promise, adjudication service or participant support service is established."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "read-the-change",
+      "title": "Read the change without inventing a person",
+      "prompt": "Explain the change, its denominator and one inference these facts cannot support.",
+      "options": [
+        {
+          "id": "stock-share",
+          "label": "The employment share fell by 0.353 percentage points among people aged 15+.",
+          "assessment": "supported-context",
+          "feedback": "Correct for this retained indicator. It does not identify individual losses, hours or income routes."
+        },
+        {
+          "id": "people-lost",
+          "label": "0.353% of all Americans lost their means of earning income.",
+          "assessment": "unsupported-inference",
+          "feedback": "Different denominator and different construct. Stock changes do not identify gross personal transitions."
+        }
+      ]
+    },
+    {
+      "id": "read-the-unknown",
+      "title": "What does cannot-say change?",
+      "prompt": "What would you tell someone asking whether this country is safe from a storm?",
+      "options": [
+        {
+          "id": "gap",
+          "label": "The proposed storm criterion is unassessed because qualifying evidence is missing.",
+          "assessment": "supported-boundary",
+          "feedback": "Neither safety nor crisis follows. Name the missing evidence before changing the claim."
+        },
+        {
+          "id": "safe",
+          "label": "The system found no storm, so there is no need to prepare.",
+          "assessment": "unsupported-inference",
+          "feedback": "Missing evidence is not a finding of stability. Preparation also requires context, authority and feasible choices."
+        }
+      ]
+    },
+    {
+      "id": "choose-next-step",
+      "title": "Choose a next step, or challenge the premise",
+      "prompt": "Fictional desk-research rehearsal: a research team has limited capacity. Which option could it justify, and under what conditions? These are proposed research choices, not advice to affected people.",
+      "options": [
+        {
+          "id": "investigate",
+          "label": "Scope a direct-measurement feasibility check.",
+          "assessment": "defensible-with-conditions",
+          "feedback": "Defensible IF the team has capacity and the expected information would change a decision. No participant contact or acquisition is authorised here."
+        },
+        {
+          "id": "wait",
+          "label": "Defer this investigation and monitor the next comparable release.",
+          "assessment": "defensible-with-conditions",
+          "feedback": "Defensible IF opportunity cost warrants it, an owner and review date are set, and the missing-evidence warning remains. Waiting is not proof of safety."
+        },
+        {
+          "id": "warn",
+          "label": "Issue a national crisis warning now.",
+          "assessment": "unsupported-inference",
+          "feedback": "This evidence does not identify qualifying disruption, affected population or warning skill. Authority is also absent."
+        }
+      ]
+    }
+  ],
+  "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
+  "neutral_script": [
+    "Restate the population and period without adding facts.",
+    "Name what remains unknown and what evidence would change your interpretation.",
+    "Compare the proposed options, including deferral, prerequisites and refusal.",
+    "Identify what neither the material nor the facilitator is authorised to decide."
+  ],
+  "arms": [
+    {
+      "id": "conventional-self-serve",
+      "layout": "conventional",
+      "facilitated": false,
+      "allocation_weight": 1,
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
+      "script_digest": null
+    },
+    {
+      "id": "conventional-facilitated",
+      "layout": "conventional",
+      "facilitated": true,
+      "allocation_weight": 1,
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
+      "script_digest": "sha256:b679e9b8d54fdfc14689830dc3954f5842d5c213e5b5241bd589861f55086e71"
+    },
+    {
+      "id": "station-self-serve",
+      "layout": "station",
+      "facilitated": false,
+      "allocation_weight": 1,
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
+      "script_digest": null
+    },
+    {
+      "id": "station-facilitated",
+      "layout": "station",
+      "facilitated": true,
+      "allocation_weight": 1,
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
+      "script_digest": "sha256:b679e9b8d54fdfc14689830dc3954f5842d5c213e5b5241bd589861f55086e71"
+    }
+  ],
+  "harm_stops": [
+    {
+      "rule_id": "stop.urgent-irreversible-intent",
+      "measure": "urgent-irreversible-action-intention",
+      "operator": "any",
+      "threshold": 1,
+      "strata": [
+        "all-participants",
+        "directly-affected"
+      ],
+      "effect": "pause-and-independent-review",
+      "compensation_across_strata": "forbidden"
+    },
+    {
+      "rule_id": "stop.dangerous-understanding",
+      "measure": "dangerous-understanding-increase",
+      "operator": "gt",
+      "threshold": 0,
+      "strata": [
+        "all-participants",
+        "directly-affected",
+        "low-numeracy",
+        "limited-english"
+      ],
+      "effect": "pause-and-independent-review",
+      "compensation_across_strata": "forbidden"
+    },
+    {
+      "rule_id": "stop.serious-reported-harm",
+      "measure": "serious-anxiety-stigma-dignity-or-blame-report",
+      "operator": "any",
+      "threshold": 1,
+      "strata": [
+        "all-participants",
+        "directly-affected"
+      ],
+      "effect": "pause-and-independent-review",
+      "compensation_across_strata": "forbidden"
+    },
+    {
+      "rule_id": "stop.missing-no-real-service-notice",
+      "measure": "no-real-service-warning-or-authority-notice-missed",
+      "operator": "any",
+      "threshold": 1,
+      "strata": [
+        "all-participants"
+      ],
+      "effect": "pause-and-independent-review",
+      "compensation_across_strata": "forbidden"
+    },
+    {
+      "rule_id": "stop.critical-access-failure",
+      "measure": "critical-assistive-technology-path-failure",
+      "operator": "any",
+      "threshold": 1,
+      "strata": [
+        "assistive-technology"
+      ],
+      "effect": "pause-and-independent-review",
+      "compensation_across_strata": "forbidden"
+    },
+    {
+      "rule_id": "stop.privacy-exposure",
+      "measure": "personal-data-outside-approved-minimum",
+      "operator": "any",
+      "threshold": 1,
+      "strata": [
+        "all-participants"
+      ],
+      "effect": "pause-and-independent-review",
+      "compensation_across_strata": "forbidden"
+    }
+  ],
+  "feedback_role": "author-proposed-rehearsal-not-validated-rubric",
+  "outcome_boundary": "Interpretation and appropriate boundary recognition, not aesthetic preference or thesis agreement. No human responses or benefit have been measured.",
+  "proposed_primary_endpoint": "complete-unaided-boundary-reconstruction",
+  "study_boundary": "Materials review only. Recruitment blocked. No responses are collected. No personal advice. Not a crisis warning."
+}
