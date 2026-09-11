@@ -72,7 +72,7 @@
   "authority_effect": "none",
   "generated_from": {
     "proposal_sha256": "sha256:de5d9f28bb74141dbea2ad5f98530a56dd589d7ba8427a16a6efde442c1d50e9",
-    "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b"
+    "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b"
   },
   "parity": {
     "exact_material_match": true,

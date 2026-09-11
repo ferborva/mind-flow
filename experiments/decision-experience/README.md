@@ -23,6 +23,8 @@ node experiments/decision-experience/readiness.mts --write
 
 This regenerates the four outputs below from the checked-in proposal and retained sources, without network access. It does not modify the earlier synthetic manifest or issue forecasts.
 
+**The rehearsal is a fixed story, not a generic task generator.** A semantic guard rejects changed values, denominator, population, modelled status, storm state or missing-evidence boundary before authored answers can contradict a repinned source. A meaning-changing refresh requires a reviewed story/feedback revision and edition decision, not just new source hashes.
+
 | File | Contract |
 | --- | --- |
 | [proposal.json](proposal.json) | Pinned source bytes and unresolved human/analysis requirements. Source changes do not auto-refresh. |
@@ -40,6 +42,10 @@ The producer reuses the earlier comparison's canonical JSON and SHA-256 implemen
 ## The authority boundary is deliberate
 
 `evaluateReadiness` accepts preparation metadata and reports blockers. Even a caller that changes every status to `independently-reviewed` and supplies reference strings cannot gain recruitment permission. Claimed references are counted separately; approvals are not authenticated. A future operational protocol must establish identities, scope, validity periods, source verification, revocation and independent approval. Do not expand this preparation format into an authority switch.
+
+Malformed or incomplete records receive an additional `invalid-proposal` blocker. Requirements, sources and analysis must be plain objects with their required fields; arbitrary strings, arrays, unsupported status values and non-finite effect sizes are not readiness metadata.
+
+**Inquiry and conclusion have different IFs.** A legitimate, worthwhile inquiry may seek missing evidence. A disruption conclusion requires comparable direct evidence, and evidence admission requires its own review. The rehearsal does not require a researcher to possess the answer before investigating the question.
 
 The six retained harm stops are proposals for human procedures, not live surveillance or statistical monitoring. Missing power, worthwhile effect and analysis plans remain unresolved. No participant identities, consent records, responses, appointments or outcome scores are present.
 

@@ -39,6 +39,8 @@ The current [retained storm review](../signals/countries/storm-review.v1.json) i
 
 One option is to scope a direct-measurement feasibility check. Another is to defer and monitor the next comparable release. Both can be defensible under different capacity, expected-information and review conditions. A national warning is not supported by these facts. This is an author-proposed judgement about a fictional research decision, not a validated rubric or advice to affected people.
 
+**Inquiry may seek missing evidence; confirmation cannot skip it.** The matched materials separate a research inquiry's capacity, remit and expected-information conditions from the direct-evidence conditions needed to establish disruption. Evidence admission remains a separate reviewed step. A cross-review caught an earlier sentence that accidentally required the confirming evidence before investigation; this revision corrects it in both layouts.
+
 The pages expose feedback for design inspection. **They must not be reused as held-out outcome tasks after a participant has seen the answers.** A confirmatory study requires separately authored, source-bound held-out cases, piloted for interpretability and scored by independent coders.
 
 ## ⚖️ What could invalidate the comparison?
@@ -82,6 +84,8 @@ The package retains the six exact proposed stop lines from the earlier manifest:
 ## ✅ Verification and handoff
 
 Tests first established a missing-module failure, then exercised retained-source substitution, path traversal, exact material values and parity, unapproved authority claims, missing readiness inputs, competing options, escaped content, safety-stop retention and absence of response collection. The source reader pins the retained derived JSON and raw employment CSV. It does not independently re-estimate the statistics or authenticate their publisher; that claim is deliberately absent.
+
+Cross-review added regression tests for the inquiry/conclusion distinction, strict nested preparation shapes, and meaning-changing source repins. The fixed US story now rejects changed population, indicator values, estimate status or storm interpretation before canned answers can contradict new source data. This is an explicit fixed-story boundary, not automatic adaptation to future measurements.
 
 Run the commands in the [package README](../experiments/decision-experience/README.md). Preserve existing source captures, synthetic experiment contracts and issued forecasts. Take the rendered materials to independent product, measurement and accessibility review before any human study authorisation is sought.
 

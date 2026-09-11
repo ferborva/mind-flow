@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { buildPackage, evaluateReadiness, assertMaterialParity, renderMaterial, REQUIREMENTS } from './readiness.mts';
+import { buildPackage, evaluateReadiness, assertMaterialParity, assertRehearsalSemantics, renderMaterial, REQUIREMENTS } from './readiness.mts';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const config = () => JSON.parse(readFileSync(new URL('./proposal.json', import.meta.url)));
@@ -122,4 +122,56 @@ test('all retained outputs reproduce exactly, not just a renderer compared to it
 test('unknown layout cannot quietly become an unreviewed comparison arm', () => {
   const p = buildPackage(root, config()).taskPack;
   assert.throws(() => renderMaterial(p, 'warning'), /Unsupported layout/);
+});
+
+test('research inquiry can seek missing evidence while conclusion and admission stay gated', () => {
+  const p = buildPackage(root, config()).taskPack;
+  const boundary = p.materials.find(x => x.id === 'if').value;
+  assert.match(boundary, /Investigate.*IF.*capacity.*information/i);
+  assert.match(boundary, /Inquiry can seek missing evidence/i);
+  assert.match(boundary, /Establish a disruption conclusion only IF.*direct evidence/i);
+  assert.match(boundary, /Evidence admission.*separate review/i);
+  assert.doesNotMatch(boundary, /Investigate[^.]*IF comparable direct evidence/i);
+});
+
+for (const [name, mutate] of [
+  ['string requirements', p => { p.requirements = 'invalid'; }],
+  ['array analysis', p => { p.analysis = []; }],
+  ['array sources', p => { p.sources = []; }],
+  ['missing requirement', p => { delete p.requirements['analysis-power-plan']; }],
+  ['numeric role', p => { p.requirements['analysis-power-plan'].owner_role = 4; }],
+  ['unknown status', p => { p.requirements['analysis-power-plan'].status = 'approved'; }],
+  ['boxed status', p => { p.requirements['analysis-power-plan'].status = new String('pending'); }],
+  ['missing source', p => { delete p.sources.storm; }],
+  ['bad digest', p => { p.sources.storm.sha256 = 'x'; }],
+  ['missing power field', p => { delete p.analysis.power_plan; }],
+  ['nonfinite effect', p => { p.analysis.smallest_worthwhile_effect = Infinity; }],
+  ['array requirement record', p => { p.requirements['analysis-power-plan'] = []; }],
+]) {
+  test(`strict preparation shape rejects ${name}`, () => {
+    const p = config(); mutate(p);
+    assert.ok(evaluateReadiness(p).blockers.some(x => x.id === 'invalid-proposal'));
+    assert.equal(evaluateReadiness(p).recruitment_allowed, false);
+  });
+}
+
+test('semantic repins cannot leave canned feedback describing different facts', () => {
+  const measurements = JSON.parse(readFileSync(new URL('../../signals/countries/income-measurements.v1.json', import.meta.url)));
+  const storm = JSON.parse(readFileSync(new URL('../../signals/countries/storm-review.v1.json', import.meta.url)));
+  const family = measurements.families[0];
+  const observations = family.observations.filter(x => x.iso3 === 'USA' && [2024, 2025].includes(x.year));
+  const assessment = storm.latest.find(x => x.country === 'USA');
+  const input = { family, observations, assessment, change: -0.353 };
+  assert.doesNotThrow(() => assertRehearsalSemantics(input));
+  for (const mutate of [
+    x => { x.observations[1].value = 60; x.observations[1].source_value = '60'; x.change = 0.533; },
+    x => { x.family.denominator = 'Total population'; },
+    x => { x.observations[0].age = 'AGE_YGE25'; },
+    x => { x.assessment.state = 'candidate'; },
+    x => { x.assessment.missing_evidence = []; },
+    x => { x.assessment.action_authorised = true; },
+  ]) {
+    const changed = structuredClone(input); mutate(changed);
+    assert.throws(() => assertRehearsalSemantics(changed), /Rehearsal semantics changed/);
+  }
 });

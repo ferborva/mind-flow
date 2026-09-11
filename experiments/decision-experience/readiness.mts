@@ -11,10 +11,34 @@ type Requirement = { status: string; owner_role: string; label?: string; referen
 type Proposal = { schema_version: string; id: string; sources: Record<string, SourceRef>; requirements: Record<string, Requirement>; analysis: { power_plan: string | null; smallest_worthwhile_effect: number | null } };
 export const REQUIREMENTS = ['accountable-human-lead', 'ethics-determination', 'privacy-consent-withdrawal', 'affected-party-governance', 'accessibility-visible-parity', 'compensation-support', 'independent-safety-monitor', 'analysis-power-plan', 'missingness-multiplicity', 'allocation-and-coding', 'preregistration-freeze'];
 
+const isRecord = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object'
+  && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+const nonempty = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
+function validProposal(value: unknown): value is Proposal {
+  if (!isRecord(value) || value.schema_version !== '1.0.0' || value.id !== 'round-11.decision-experience.preparation'
+    || !isRecord(value.requirements) || !isRecord(value.analysis) || !isRecord(value.sources)) return false;
+  const requirements = value.requirements;
+  if (Object.keys(requirements).length !== REQUIREMENTS.length || !REQUIREMENTS.every(id => {
+    const r = requirements[id];
+    return isRecord(r) && typeof r.status === 'string' && ['pending', 'drafted', 'independently-reviewed'].includes(r.status)
+      && nonempty(r.owner_role) && (r.label === undefined || nonempty(r.label))
+      && (r.reference === undefined || nonempty(r.reference))
+      && (r.status !== 'independently-reviewed' || nonempty(r.reference));
+  })) return false;
+  const sources = value.sources;
+  if (Object.keys(sources).length !== 4 || !['measurements', 'storm', 'protocol', 'manifest'].every(id => {
+    const ref = sources[id];
+    return isRecord(ref) && nonempty(ref.path) && typeof ref.sha256 === 'string' && /^sha256:[a-f0-9]{64}$/.test(ref.sha256);
+  })) return false;
+  const analysis = value.analysis;
+  return (analysis.power_plan === null || nonempty(analysis.power_plan))
+    && (analysis.smallest_worthwhile_effect === null || (typeof analysis.smallest_worthwhile_effect === 'number'
+      && Number.isFinite(analysis.smallest_worthwhile_effect) && analysis.smallest_worthwhile_effect > 0 && analysis.smallest_worthwhile_effect <= 1));
+}
+
 export function evaluateReadiness(input: unknown) {
   const p = input as Proposal | null;
-  const valid = p?.schema_version === '1.0.0' && p.id === 'round-11.decision-experience.preparation'
-    && p.requirements && !Array.isArray(p.requirements) && p.analysis && p.sources;
+  const valid = validProposal(input);
   const blockers: { id: string; label: string; owner_role: string }[] = [];
   if (!valid) blockers.push({ id: 'invalid-proposal', label: 'Malformed or unsupported preparation record', owner_role: 'Engineering reviewer' });
   for (const id of REQUIREMENTS) {
@@ -41,6 +65,31 @@ function loadBound(root: string, ref: SourceRef) {
   return JSON.parse(bytes.toString('utf8'));
 }
 
+/** This edition is a fixed reviewed story, not a generic exercise generator.
+ * Source repins may not silently change the meaning underneath authored feedback.
+ */
+export function assertRehearsalSemantics(input: {
+  family: { id: string; denominator: string; vintage: string };
+  observations: { iso3: string; year: number; value: number; source_value: string; age: string; sex: string; estimate_type: string }[];
+  assessment: { country: string; period: { from: number; to: number }; state: string; missing_evidence: unknown[]; action_authorised: boolean; forecast_skill_established: boolean };
+  change: number;
+}) {
+  const { family, observations, assessment, change } = input;
+  const expectedValues = [59.467, 59.114];
+  if (family.id !== 'income-employment-population.v1'
+    || family.denominator !== 'Population aged 15 years and over, not total population'
+    || family.vintage !== 'ILO modelled estimates, November 2025'
+    || observations.length !== 2 || observations.some((o, i) => o.iso3 !== 'USA' || o.year !== 2024 + i
+      || o.value !== expectedValues[i] || o.source_value !== String(expectedValues[i])
+      || o.age !== 'AGE_YTHADULT_YGE15' || o.sex !== 'SEX_T' || o.estimate_type !== 'modelled-vintage-no-row-actual-status')
+    || change !== -0.353 || assessment.country !== 'USA' || assessment.period.from !== 2024 || assessment.period.to !== 2025
+    || assessment.state !== 'cannot-say' || !Array.isArray(assessment.missing_evidence)
+    || !assessment.missing_evidence.length || !assessment.missing_evidence.every(nonempty)
+    || assessment.action_authorised !== false || assessment.forecast_skill_established !== false) {
+    throw new Error('Rehearsal semantics changed: revise and independently review the story, feedback and edition before repinning these facts.');
+  }
+}
+
 export function buildPackage(root: string, p: Proposal) {
   if (evaluateReadiness(p).blockers.some(b => b.id === 'invalid-proposal')) throw new Error('Invalid proposal');
   const measurements = loadBound(root, p.sources.measurements);
@@ -62,6 +111,7 @@ export function buildPackage(root: string, p: Proposal) {
   const assessment = storm.latest[assessmentIndex];
   if (!assessment || assessment.period.from !== 2024 || assessment.period.to !== 2025) throw new Error('Unexpected country assessment scope');
   const change = assessment.native_context.find((x: { family_id: string }) => x.family_id === family.id).native_change_pp;
+  assertRehearsalSemantics({ family, observations, assessment, change });
   const materials: Material[] = [
     { id: 'scope', label: 'Place and period', value: 'United States. Annual comparison: 2024 to 2025. This is a retained historical comparison, not live conditions.' },
     { id: 'before', label: '2024 employment-to-population ratio', value: `${observations[0].source_value}%` },
@@ -72,7 +122,7 @@ export function buildPackage(root: string, p: Proposal) {
     { id: 'limits', label: 'What this cannot establish', value: family.limitation },
     { id: 'storm', label: 'Storm assessment', value: `${assessment.state}: qualifying evidence is missing. This means neither a confirmed storm nor confirmed stability.` },
     { id: 'missing', label: 'Evidence needed', value: assessment.missing_evidence.join('; ') },
-    { id: 'if', label: 'The decision boundary', value: 'Investigate possible income-access disruption IF comparable direct evidence identifies the same population, period, severity and viable alternative routes. Native context does not satisfy that IF.' },
+    { id: 'if', label: 'Inquiry, conclusion and admission have different gates', value: 'Investigate possible income-access disruption IF the team has capacity, a legitimate research remit and the expected information could change a decision. Inquiry can seek missing evidence. Establish a disruption conclusion only IF comparable direct evidence identifies the same population, period, severity and viable alternative routes. Evidence admission requires separate review. Native context alone does not establish that conclusion or authorise action.' },
     { id: 'forecast', label: 'Forecast boundary', value: 'No forecast probability is issued by this task. A forecast concerns a future event and cannot set the current IF state.' },
     { id: 'authority', label: 'Authority boundary', value: 'No personal, employer or government action is authorised. A proposed option is not a commitment. Declining to act on this material does not establish safety.' },
     { id: 'source', label: 'Source and trace', value: `ILO modelled estimates. ${receipt.url} | ${body.path} | ${body.sha256}. Retained hashes establish byte identity, not publisher authentication.` },

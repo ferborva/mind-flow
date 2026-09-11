@@ -132,8 +132,8 @@
     },
     {
       "id": "if",
-      "label": "The decision boundary",
-      "value": "Investigate possible income-access disruption IF comparable direct evidence identifies the same population, period, severity and viable alternative routes. Native context does not satisfy that IF."
+      "label": "Inquiry, conclusion and admission have different gates",
+      "value": "Investigate possible income-access disruption IF the team has capacity, a legitimate research remit and the expected information could change a decision. Inquiry can seek missing evidence. Establish a disruption conclusion only IF comparable direct evidence identifies the same population, period, severity and viable alternative routes. Evidence admission requires separate review. Native context alone does not establish that conclusion or authorise action."
     },
     {
       "id": "forecast",
@@ -221,7 +221,7 @@
       ]
     }
   ],
-  "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b",
+  "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
   "neutral_script": [
     "Restate the population and period without adding facts.",
     "Name what remains unknown and what evidence would change your interpretation.",
@@ -234,7 +234,7 @@
       "layout": "conventional",
       "facilitated": false,
       "allocation_weight": 1,
-      "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b",
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
       "script_digest": null
     },
     {
@@ -242,7 +242,7 @@
       "layout": "conventional",
       "facilitated": true,
       "allocation_weight": 1,
-      "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b",
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
       "script_digest": "sha256:b679e9b8d54fdfc14689830dc3954f5842d5c213e5b5241bd589861f55086e71"
     },
     {
@@ -250,7 +250,7 @@
       "layout": "station",
       "facilitated": false,
       "allocation_weight": 1,
-      "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b",
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
       "script_digest": null
     },
     {
@@ -258,7 +258,7 @@
       "layout": "station",
       "facilitated": true,
       "allocation_weight": 1,
-      "material_digest": "sha256:bb6be2d5833dea4276ea3a5115d9e48fc24e183afb30d6b94eb07fe6231f369b",
+      "material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
       "script_digest": "sha256:b679e9b8d54fdfc14689830dc3954f5842d5c213e5b5241bd589861f55086e71"
     }
   ],
