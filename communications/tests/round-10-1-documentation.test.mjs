@@ -20,7 +20,7 @@ test('programme and weather seed enumerate five provisional choices without hard
     assert.throws(() => checkChoices(text.replaceAll('Direction', 'Omitted')));
     assert.throws(() => checkChoices(text.replaceAll('working definition', 'settled definition')));
   }
-  assert.match(read('seeds/storms-are-social-contract-shifts.md'), /working definition/);
+  assert.match(read('seeds/what-counts-as-a-storm.md'), /working definition/);
 });
 test('index inventories pipeline captures and seeds, excluding operator and raw documents', () => {
   const index = read('meta/index.md');

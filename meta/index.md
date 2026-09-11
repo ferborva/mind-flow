@@ -13,7 +13,7 @@ scheduled runs.
 | Stage | Count |
 |---|---|
 | Captures | 10 |
-| Seeds | 21 |
+| Seeds | 18 |
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
@@ -78,10 +78,7 @@ Foundation documents: **4 of 4 in place.**
 | `you-cannot-sequence-the-conditions` | growing | abundance |
 | `nobody-has-that-sentence` | ripe | abundance |
 | `the-weather-station-watches-the-world` | ripe | abundance |
-| `storms-are-social-contract-shifts` | ripe | abundance |
-| `five-percent-is-the-storm-scale` | ripe | abundance |
-| `income-access-is-the-storm-focus` | ripe | abundance |
-| `storms-can-be-national-or-shared` | ripe | abundance |
+| `what-counts-as-a-storm` | growing | abundance |
 
 ## Drafts
 

@@ -6,7 +6,10 @@ import test from "node:test";
 const root = resolve(import.meta.dirname, "../..");
 const read = path => readFileSync(resolve(root, path), "utf8");
 const source = "2026-09-10-storms-as-social-contract-shifts";
-const seeds = ["storms-are-social-contract-shifts", "five-percent-is-the-storm-scale", "income-access-is-the-storm-focus", "storms-can-be-national-or-shared"];
+// Consolidated 2026-09-11 on Fer's call: the four atomic storm seeds were each
+// too thin to stand alone. Every quotation and every open question moved into
+// one seed, so the lineage check below is unchanged in what it enforces.
+const seeds = ["what-counts-as-a-storm"];
 const quotes = text => [...text.matchAll(/(?:^>[^\n]*(?:\n|$))+/gm)].map(match => match[0].replace(/^> ?/gm, "").trim());
 
 // Relational provenance check: downstream quotations must be contained in a
@@ -19,7 +22,7 @@ function checkSeed(seed, capture) {
   assert.match(seed, /## What this does not settle\n\n\S/);
 }
 
-test("storm capture is processed into four atomic seeds with retained quotation lineage", () => {
+test("storm capture is processed into seeds with retained quotation lineage", () => {
   const capture = read(`capture/${source}.md`);
   assert.match(capture, /^status: processed$/m);
   for (const name of seeds) {
@@ -29,7 +32,7 @@ test("storm capture is processed into four atomic seeds with retained quotation 
 });
 
 test("quote lineage rejects an invented threshold and an omitted source declaration", () => {
-  const seed = read("seeds/five-percent-is-the-storm-scale.md");
+  const seed = read("seeds/what-counts-as-a-storm.md");
   const capture = read(`capture/${source}.md`);
   checkSeed(seed, capture);
   assert.throws(() => checkSeed(seed.replace("5%", "15%"), capture), /unsupported quotation/);

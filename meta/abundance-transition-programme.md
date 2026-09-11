@@ -68,7 +68,7 @@ and operational storm criterion remain commissioned proposals and [open question
 > Those could be good overall as it's a larger monitoring surface area. However, I would simplify it by access to means to generate income as that is a fundamental key to access many others and be part of the social fabric
 
 Source: [the retained storm conversation](../capture/2026-09-10-storms-as-social-contract-shifts.md),
-processed through [four atomic seeds](../seeds/storms-are-social-contract-shifts.md).
+processed through [one consolidated seed](../seeds/what-counts-as-a-storm.md).
 These words arrived after the Round 09 candidate was selected and are not
 retroactive provenance for its frozen criterion.
 

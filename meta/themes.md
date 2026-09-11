@@ -35,8 +35,7 @@ tell-me-your-conditions, run-the-frame-on-the-supplier,
 if-is-demand-when-is-supply, conditions-have-owners,
 agency-is-the-goal-conditions-are-the-signals, you-cannot-sequence-the-conditions,
 nobody-has-that-sentence, the-weather-station-watches-the-world,
-storms-are-social-contract-shifts, five-percent-is-the-storm-scale,
-income-access-is-the-storm-focus, storms-can-be-national-or-shared
+what-counts-as-a-storm
 Pieces: name-the-if (draft), every-if-is-somebodys-when (draft),
 abundance-has-an-if (draft), from-if-to-when (draft),
 message-to-the-moonshot-mates (correspondence)
