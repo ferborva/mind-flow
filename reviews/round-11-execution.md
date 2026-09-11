@@ -129,6 +129,46 @@ generated-artifact drift checks. The final copy refinements passed 53 focused
 station/metadata tests and another complete browser journey. They do not change
 retained source bytes, forecasts, kernel state or the generated station payload.
 
+## Decision-material browser follow-through
+
+At `c5fba9d`, the [push reproduction](https://github.com/ferborva/mind-flow/actions/runs/34567610466)
+passed completely, while the [PR reproduction](https://github.com/ferborva/mind-flow/actions/runs/34567612788)
+failed waiting 20 seconds for Chrome startup. The available log does not establish
+the underlying cause. A deterministic lifecycle helper now detects early exits
+and spawn errors, preserves diagnostics and permits a bounded 45-second wait.
+It does not disable browser security, retry failed checks or assert the cause is fixed.
+
+The next browser pass compared both linked rehearsal pages with the retained
+14 facts and seven option/feedback pairs. Its new 320 CSS-pixel text-enlargement
+check failed on the conventional page. A narrow inherited wrapping fix repaired
+both current Round 11 renderings without changing their facts, task pack or
+readiness record. All 31 readiness tests and the expanded 16-category browser
+journey then passed. Rendered headings and exact values were also present in
+Chrome's accessibility tree; this is not assistive-technology user testing or
+accessibility certification. Desktop and narrow screenshots were inspected.
+
+A separate measurement-agent review verified both retained ILO records and all
+seven proposed answer classifications, with no blocker for materials review.
+It identified future rubric refinements: inquiry needs remit as well as capacity;
+information may confirm a decision rather than change it; monitoring another
+aggregate release cannot itself fill person-linked measurement gaps; established
+warning skill is not a universal prerequisite for a legitimate first warning.
+Selecting a supplied sentence does not demonstrate unaided reconstruction.
+
+The experience-agent review found that the original dark/light skeletons cannot
+estimate usefulness of the integrated station. A separately identified static
+reasoning-slice edition is being prepared, with matched facts, a competent
+comparator, visible limits and reviewer answers separated from the material.
+Its possible future interpretation comparison must not be presented as evidence
+about full-product navigation, warning quality, preparation or human benefit.
+Recruitment, study operation and human-outcome gates remain closed.
+
+The integrated startup/helper checkpoint passes 52 station unit tests and the
+expanded browser journey. Canonical artifact replay passes; the lock change is
+the old synthetic Observatory's validation-context digest, which includes the
+package test command. Its fixture content is unchanged. The real station payload
+digest is unchanged. No historical receipt or issued record is edited.
+
 ## Next investment gates
 
 1. **Earn the integrated experience:** replay a clean central candidate, verify

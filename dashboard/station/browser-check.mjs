@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync, existsSync, mkdtempSync, realpathSync, sta
 import { tmpdir } from 'node:os';
 import { resolve, sep, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { waitForBrowserStartup } from './browser-startup.mjs';
 
 const root = realpathSync(fileURLToPath(new URL('../../', import.meta.url)));
 const dir = mkdtempSync(resolve(tmpdir(), 'mind-flow-station-browser-'));
@@ -31,12 +32,18 @@ let log = '', ws, browserError;
 browser.stderr.on('data', b => { log += b.toString(); });
 browser.on('error', error => { browserError = error; });
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const deadline = setTimeout(() => { browser.kill('SIGTERM'); server.close(); process.exitCode = 1; }, 90000);
+const deadline = setTimeout(() => { browser.kill('SIGTERM'); server.close(); process.exitCode = 1; }, 120000);
 try {
-  for (let i = 0; i < 100 && !existsSync(resolve(profile, 'DevToolsActivePort')) && !browserError; i++) await sleep(200);
-  if (browserError) throw browserError;
-  if (!existsSync(resolve(profile, 'DevToolsActivePort'))) throw new Error('Browser failed to start: ' + log.slice(-1000));
-  const port = readFileSync(resolve(profile, 'DevToolsActivePort'), 'utf8').split('\n')[0];
+  const port = await waitForBrowserStartup({ browser, timeoutMs: 45000, getDiagnostics: () => log,
+    readReady: () => {
+      let contents;
+      try { contents = readFileSync(resolve(profile, 'DevToolsActivePort'), 'utf8'); }
+      catch (error) { if (error.code === 'ENOENT') return false; throw error; }
+      const [port, endpoint] = contents.split('\n');
+      // A file can be present before its complete port/endpoint pair is written.
+      return /^\d+$/.test(port) && Number(port) > 0 && Number(port) <= 65535 && endpoint?.startsWith('/devtools/browser/') ? port : false;
+    },
+  });
   const targets = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json();
   ws = new WebSocket(targets.find(x => x.type === 'page').webSocketDebuggerUrl);
   await new Promise((resolve, reject) => { ws.addEventListener('open', resolve, { once: true }); ws.addEventListener('error', reject, { once: true }); });
@@ -134,8 +141,56 @@ try {
   await navigate('?country=UNKNOWN');
   assert.equal(await evaluate('document.body.dataset.stationReady'), 'false');
   assert.equal(await evaluate('document.getElementById("main").hidden'), true);
+  // Read rendered material against the source-bound pack, not against its HTML generator.
+  // These legacy pages expose feedback for review; they are not a held-out human test.
+  const pack = JSON.parse(readFileSync(resolve(root, 'experiments/decision-experience/task-pack.json'), 'utf8'));
+  const expectedMaterials = pack.materials.map(({ id, label, value }) => ({ id, label, value }));
+  const expectedOptions = pack.tasks.flatMap(task => task.options.map(option => ({ label: option.label, feedback: 'Proposed feedback: ' + option.feedback })));
+  for (const kind of ['conventional', 'station']) {
+    const url = base + `/experiments/decision-experience/${kind}.html`;
+    await call('Page.navigate', { url });
+    for (let i = 0; i < 60; i++) {
+      if (await evaluate(`location.href === ${JSON.stringify(url)} && document.readyState === 'complete' && document.querySelectorAll('[data-material-id]').length === 14`)) break;
+      await sleep(100);
+    }
+    assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('[data-material-id]'), el => ({id:el.dataset.materialId,label:el.querySelector('h2').innerText,value:el.querySelector('p').innerText}))`), expectedMaterials);
+    assert.equal(await evaluate('document.querySelectorAll("script,form,input,textarea,select,iframe").length'), 0);
+    assert.match(await evaluate('document.body.innerText'), /Recruitment blocked/);
+    // Native disclosure keyboard behaviour and exact exposed author feedback.
+    for (let i = 0; i < expectedOptions.length; i++) {
+      await evaluate(`document.querySelectorAll('summary')[${i}].focus()`);
+      await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', text: '\r', unmodifiedText: '\r', windowsVirtualKeyCode: 13 });
+      await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+      assert.equal(await evaluate(`document.querySelectorAll('details')[${i}].open`), true);
+    }
+    assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('details'), el => ({label:el.querySelector('summary').innerText,feedback:el.querySelector('p').innerText}))`), expectedOptions);
+    for (const width of [1440, 320]) {
+      await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+      await evaluate('window.scrollTo(0,0)');
+      assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false, `${kind}: overflow at ${width}px`);
+      for (const material of pack.materials) {
+        assert.equal(await evaluate(`(() => {
+          const el = document.querySelector('[data-material-id="${material.id}"]');
+          el.scrollIntoView({behavior:'instant'});
+          return [el, ...el.querySelectorAll('h2,p')].every(node => {
+            const style = getComputedStyle(node), rect = node.getBoundingClientRect();
+            return style.display !== 'none' && style.visibility === 'visible' && Number(style.opacity) > 0
+              && rect.width > 0 && rect.height > 0 && rect.left >= 0 && rect.right <= innerWidth + 1;
+          });
+        })()`), true, `${kind}: rendered ${material.id} at ${width}px`);
+      }
+      await evaluate('window.scrollTo(0,0)'); await screenshot(`rehearsal-${kind}-${width}`);
+    }
+    await evaluate('document.body.style.fontSize="36px"');
+    assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false, `${kind}: text enlargement overflow`);
+    const tree = await call('Accessibility.getFullAXTree');
+    const names = tree.nodes.filter(node => !node.ignored).map(node => node.name?.value);
+    for (const material of pack.materials) assert.ok(names.includes(material.label), `${kind}: accessibility tree heading ${material.id}`);
+    assert.ok(names.includes('59.467%') && names.includes('59.114%'), `${kind}: accessibility tree exact values`);
+  }
+  if (browserError) throw browserError;
   assert.equal(errors.length, 0, JSON.stringify(errors));
-  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'runtime errors'], screenshots: dir, humanTesting: false }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', checks: ['real-data boot', 'comparison and year controls', 'all four guided narratives', 'fixed forecasts across years', 'Peru native change', 'Argentina no substitution', 'poverty threshold', 'exported research brief contents', 'matrix keyboard and focus', 'mobile chart reflow and overflow', 'invalid scope fails closed', 'rehearsal rendered fact and option parity', 'rehearsal disclosure keyboard', 'rehearsal 320px reflow and text enlargement', 'rehearsal accessibility tree headings and values', 'runtime errors'], screenshots: dir, humanTesting: false, accessibilityCertification: false }, null, 2));
 } finally {
   clearTimeout(deadline); ws?.close(); browser.kill('SIGTERM'); server.close();
 }

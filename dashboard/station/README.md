@@ -31,7 +31,14 @@ Set `CHROME_BIN` to an installed Chrome/Chromium binary when not using the defau
 macOS installation. It retains screenshots in the temporary directory printed
 at completion, closes its own browser and does not collect participant data.
 It verifies software behaviour, not human comprehension or accessibility
-certification. Serve the repository root with a local static server that sends
+certification. It also checks the linked rehearsal pages against the retained
+task pack in the browser: exact visible facts/options, keyboard disclosures,
+320 CSS-pixel reflow, enlarged body text and selected accessibility-tree names.
+This is not screen-reader user testing, browser-zoom certification or a test of
+unaided comprehension. The original rehearsal answers remain exposed for review.
+Browser startup has a 45-second bound and the whole harness a 120-second guard;
+early exits and full captured diagnostics are reported without automatic retries.
+Serve the repository root with a local static server that sends
 `.mjs` as JavaScript, then open `/dashboard/station/`. Do not open as `file://`.
 
 `data.js` is generated and ignored. Canonical artifact reproduction includes
