@@ -1,0 +1,70 @@
+{
+  "id": "round-11-research-reader-summary",
+  "edition": "mind-flow.research-reader-migration/1.0.0",
+  "status": "local-research-reader-edition",
+  "applied_reader_metadata_adoptions": 3,
+  "corrected_meanings_used": 2,
+  "completed_kernel_corrections": 0,
+  "kernel_events_appended": 0,
+  "observations_transferred": 0,
+  "existing_appended_kernel_events": 1,
+  "programme_three_event_gate_met": false,
+  "human_approval": false,
+  "operational_action_authorised": false,
+  "public_release_approved": false,
+  "page_path": "pilots/australia/basket/round-11-research-reader.html",
+  "boundary": "Three explicit metadata adoptions in this new local research reader are not three kernel corrections, evidence admissions or improvements in access.",
+  "items": [
+    {
+      "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/0/conditions/3/condition_definition_ref",
+      "role": "basket-definition-reader",
+      "previous_binding": {
+        "condition_id": "condition.au.gp.timely",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804"
+      },
+      "presentation_binding": {
+        "condition_id": "condition.au.nsw.gp.urgent-appointment-clock",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:9d5065c4f20f0df3e407f75f620baa4af056c09417eab01c77f2a3e3e2daa42f"
+      },
+      "adoption_status": "applied-in-this-new-research-reader-edition",
+      "truth_state": "not-evaluated",
+      "unanswered_question": "How long did people wait from their first attempt or onset of urgent need, including people who never obtained an appointment?"
+    },
+    {
+      "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/1/conditions/0/condition_definition_ref",
+      "role": "basket-definition-reader",
+      "previous_binding": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      "presentation_binding": {
+        "condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5"
+      },
+      "adoption_status": "applied-in-this-new-research-reader-edition",
+      "truth_state": "not-evaluated",
+      "unanswered_question": "Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?"
+    },
+    {
+      "reader_id": "pilots/australia/data/positive-signals-current.json#/signals/2/condition_definition_ref",
+      "role": "positive-signal-context-reader",
+      "previous_binding": {
+        "condition_id": "condition.au.prescription.cost",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc"
+      },
+      "presentation_binding": {
+        "condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
+        "definition_version": "1.0.0",
+        "definition_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5"
+      },
+      "adoption_status": "applied-in-this-new-research-reader-edition",
+      "truth_state": "not-evaluated",
+      "unanswered_question": "Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?"
+    }
+  ]
+}

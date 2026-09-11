@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Research reader, corrected meanings</title><style>body{font:18px/1.55 system-ui;background:#091719;color:#e2f1eb;max-width:960px;margin:auto;padding:24px}a{color:#bdeaba}h1{line-height:1.15}article{padding:24px;border:1px solid #43625d;border-radius:16px;margin:24px 0}.eyebrow,dt{font-size:.8rem;text-transform:uppercase;color:#b6cbbd;letter-spacing:.08em}dd{margin:0 0 12px}.state{padding:14px;background:#142e2c;border-left:3px solid #bdeaba}summary{cursor:pointer}pre,.hash{overflow-wrap:anywhere;white-space:pre-wrap;font-size:.78rem}a:focus-visible,summary:focus-visible{outline:3px solid #edc68d;outline-offset:4px}</style></head><body><header><p class="eyebrow">New local research edition, not an operational release</p><h1>Research reader, corrected meanings</h1><p>3 metadata adoptions. 0 completed kernel corrections. No new observations or human approvals.</p><p><strong>Not a personal access assessment.</strong> Correcting what a statistic means does not establish that people can obtain care. Historical context remains attached to its original identity.</p><a href="../../../dashboard/station/index.html#if-evolution">Return to the station</a></header><main><article><p class="eyebrow">basket-definition-reader</p><h2>availability: NSW, Australia</h2>
+<p><strong>Published proportion reporting less than four hours between making an appointment and seeing the GP for urgent medical care.</strong></p><dl><dt>Population</dt><dd>Survey-scope persons aged 15 years and over who saw a GP for urgent medical care for their own health in the last 12 months; urgency defined by the respondent.</dd><dt>Denominator</dt><dd>Survey-scope people who obtained urgent GP care, not everyone who needed it or attempted access.</dd><dt>Waiting clock starts at</dt><dd>appointment-making, not the first attempt to access care.</dd><dt>Rate and coverage</dt><dd>crude. Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.</dd></dl>
+<p class="state">Old binding: STALE_RESEARCH_MEANING<br>New reader binding: RESEARCH_METADATA_BOUND<br>Truth: not-evaluated. No observation transferred.</p>
+<p><strong>Still unanswered:</strong> How long did people wait from their first attempt or onset of urgent need, including people who never obtained an appointment?</p>
+<details><summary>Inspect the explicit adoption and old source context</summary><p>Historical context retains its old identity. The new presentation meaning does not admit, transfer or evaluate these values under the new condition.</p><p>Source: <a href="../../../pilots/australia/basket/primary-care.r3.json">pilots/australia/basket/primary-care.r3.json</a> /items/0/conditions/3</p><p class="hash">sha256:6d2a20844719fd9851c28c5ec961a4c0f6bb049adea7f382454eaad15da8f65e</p><pre>{
+  &quot;adoption&quot;: {
+    &quot;record_ref&quot;: &quot;contracts/construct-migration/research-reader-adoptions.v1.json&quot;,
+    &quot;migration_hash&quot;: &quot;sha256:30915ef599f807babec02d211afeb6379ac07dbf56f8ba82f56e13a3b2e7ab71&quot;,
+    &quot;acknowledge_non_equivalence&quot;: true,
+    &quot;scope&quot;: &quot;interpretation-metadata-only&quot;,
+    &quot;status&quot;: &quot;applied-in-this-new-research-reader-edition&quot;,
+    &quot;recorded_on&quot;: &quot;2026-09-11&quot;,
+    &quot;actor&quot;: &quot;Ren (AI agent)&quot;
+  },
+  &quot;previous_binding&quot;: {
+    &quot;condition_id&quot;: &quot;condition.au.gp.timely&quot;,
+    &quot;definition_version&quot;: &quot;1.0.0&quot;,
+    &quot;definition_hash&quot;: &quot;sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804&quot;
+  },
+  &quot;presentation_binding&quot;: {
+    &quot;condition_id&quot;: &quot;condition.au.nsw.gp.urgent-appointment-clock&quot;,
+    &quot;definition_version&quot;: &quot;1.0.0&quot;,
+    &quot;definition_hash&quot;: &quot;sha256:9d5065c4f20f0df3e407f75f620baa4af056c09417eab01c77f2a3e3e2daa42f&quot;
+  },
+  &quot;retained_original_context&quot;: {
+    &quot;condition_category&quot;: &quot;availability&quot;,
+    &quot;condition_definition_ref&quot;: {
+      &quot;condition_id&quot;: &quot;condition.au.gp.timely&quot;,
+      &quot;definition_version&quot;: &quot;1.0.0&quot;,
+      &quot;definition_hash&quot;: &quot;sha256:7285c49c111e0a2abb9cccc6b8f6575f89a5d42234a79099ae03f59b221ca804&quot;
+    },
+    &quot;series_id&quot;: &quot;gp-urgent-under-four-hours&quot;,
+    &quot;owner&quot;: &quot;General practices and PHNs, with government workforce and service funding&quot;,
+    &quot;population&quot;: &quot;Survey-scope residents aged 15 years and over who saw a GP for urgent medical care&quot;,
+    &quot;measurement_role&quot;: &quot;self-reported-timeliness&quot;,
+    &quot;evidence_ceiling&quot;: &quot;Includes people who obtained urgent GP care; excludes unmet urgent need and is not a real-time appointment feed.&quot;
+  }
+}</pre></details></article>
+<article><p class="eyebrow">basket-definition-reader</p><h2>price: NSW, Australia</h2>
+<p><strong>Published crude proportion who delayed getting, or did not get, prescribed medication at any time in the last 12 months due to cost.</strong></p><dl><dt>Population</dt><dd>Survey-scope persons aged 15 years and over who received a prescription for medication from a GP in the last 12 months, or needed prescribed medication.</dd><dt>Denominator</dt><dd>Survey-scope people who received a GP prescription or needed prescribed medication; not all residents and not an atorvastatin-specific population.</dd><dt>Rate and coverage</dt><dd>crude. Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.</dd></dl>
+<p class="state">Old binding: STALE_RESEARCH_MEANING<br>New reader binding: RESEARCH_METADATA_BOUND<br>Truth: not-evaluated. No observation transferred.</p>
+<p><strong>Still unanswered:</strong> Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?</p>
+<details><summary>Inspect the explicit adoption and old source context</summary><p>Historical context retains its old identity. The new presentation meaning does not admit, transfer or evaluate these values under the new condition.</p><p>Source: <a href="../../../pilots/australia/basket/primary-care.r3.json">pilots/australia/basket/primary-care.r3.json</a> /items/1/conditions/0</p><p class="hash">sha256:6d2a20844719fd9851c28c5ec961a4c0f6bb049adea7f382454eaad15da8f65e</p><pre>{
+  &quot;adoption&quot;: {
+    &quot;record_ref&quot;: &quot;contracts/construct-migration/research-reader-adoptions.v1.json&quot;,
+    &quot;migration_hash&quot;: &quot;sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94&quot;,
+    &quot;acknowledge_non_equivalence&quot;: true,
+    &quot;scope&quot;: &quot;interpretation-metadata-only&quot;,
+    &quot;status&quot;: &quot;applied-in-this-new-research-reader-edition&quot;,
+    &quot;recorded_on&quot;: &quot;2026-09-11&quot;,
+    &quot;actor&quot;: &quot;Ren (AI agent)&quot;
+  },
+  &quot;previous_binding&quot;: {
+    &quot;condition_id&quot;: &quot;condition.au.prescription.cost&quot;,
+    &quot;definition_version&quot;: &quot;1.0.0&quot;,
+    &quot;definition_hash&quot;: &quot;sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc&quot;
+  },
+  &quot;presentation_binding&quot;: {
+    &quot;condition_id&quot;: &quot;condition.au.nsw.prescription.gp-or-needed-cost-delay&quot;,
+    &quot;definition_version&quot;: &quot;1.0.0&quot;,
+    &quot;definition_hash&quot;: &quot;sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5&quot;
+  },
+  &quot;retained_original_context&quot;: {
+    &quot;condition_category&quot;: &quot;price&quot;,
+    &quot;condition_definition_ref&quot;: {
+      &quot;condition_id&quot;: &quot;condition.au.prescription.cost&quot;,
+      &quot;definition_version&quot;: &quot;1.0.0&quot;,
+      &quot;definition_hash&quot;: &quot;sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc&quot;
+    },
+    &quot;series_id&quot;: &quot;prescription-cost-delay&quot;,
+    &quot;owner&quot;: &quot;Australian Government PBS and pharmacies&quot;,
+    &quot;population&quot;: &quot;Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months&quot;,
+    &quot;measurement_role&quot;: &quot;self-reported-access-barrier&quot;,
+    &quot;evidence_ceiling&quot;: &quot;All prescription medicines, not atorvastatin-specific access.&quot;
+  }
+}</pre></details></article>
+<article><p class="eyebrow">positive-signal-context-reader</p><h2>price: NSW, Australia</h2>
+<p><strong>Published crude proportion who delayed getting, or did not get, prescribed medication at any time in the last 12 months due to cost.</strong></p><dl><dt>Population</dt><dd>Survey-scope persons aged 15 years and over who received a prescription for medication from a GP in the last 12 months, or needed prescribed medication.</dd><dt>Denominator</dt><dd>Survey-scope people who received a GP prescription or needed prescribed medication; not all residents and not an atorvastatin-specific population.</dd><dt>Rate and coverage</dt><dd>crude. Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.</dd></dl>
+<p class="state">Old binding: STALE_RESEARCH_MEANING<br>New reader binding: RESEARCH_METADATA_BOUND<br>Truth: not-evaluated. No observation transferred.</p>
+<p><strong>Still unanswered:</strong> Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?</p>
+<details><summary>Inspect the explicit adoption and old source context</summary><p>Historical context retains its old identity. The new presentation meaning does not admit, transfer or evaluate these values under the new condition.</p><p>Source: <a href="../../../pilots/australia/data/positive-signals-current.json">pilots/australia/data/positive-signals-current.json</a> /signals/2</p><p class="hash">sha256:88aa1967cbe4372fdfbe8fcc0845d09c9653dce713191249544fc6b5b098382e</p><pre>{
+  &quot;adoption&quot;: {
+    &quot;record_ref&quot;: &quot;contracts/construct-migration/research-reader-adoptions.v1.json&quot;,
+    &quot;migration_hash&quot;: &quot;sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94&quot;,
+    &quot;acknowledge_non_equivalence&quot;: true,
+    &quot;scope&quot;: &quot;interpretation-metadata-only&quot;,
+    &quot;status&quot;: &quot;applied-in-this-new-research-reader-edition&quot;,
+    &quot;recorded_on&quot;: &quot;2026-09-11&quot;,
+    &quot;actor&quot;: &quot;Ren (AI agent)&quot;
+  },
+  &quot;previous_binding&quot;: {
+    &quot;condition_id&quot;: &quot;condition.au.prescription.cost&quot;,
+    &quot;definition_version&quot;: &quot;1.0.0&quot;,
+    &quot;definition_hash&quot;: &quot;sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc&quot;
+  },
+  &quot;presentation_binding&quot;: {
+    &quot;condition_id&quot;: &quot;condition.au.nsw.prescription.gp-or-needed-cost-delay&quot;,
+    &quot;definition_version&quot;: &quot;1.0.0&quot;,
+    &quot;definition_hash&quot;: &quot;sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5&quot;
+  },
+  &quot;retained_original_context&quot;: {
+    &quot;id&quot;: &quot;signal.au.positive.prescription-cost-delay&quot;,
+    &quot;status&quot;: &quot;measured&quot;,
+    &quot;measurement_status_meaning&quot;: &quot;Published observations reproduced from retained primary-source bytes; actor control and personal agency remain unverified.&quot;,
+    &quot;metric&quot;: {
+      &quot;metric_id&quot;: &quot;metric.au.positive.prescription-cost-delay&quot;,
+      &quot;measure&quot;: &quot;prescription-cost-delay&quot;,
+      &quot;unit&quot;: &quot;percent&quot;,
+      &quot;denominator&quot;: &quot;Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months&quot;,
+      &quot;population&quot;: &quot;Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months&quot;,
+      &quot;geography&quot;: &quot;New South Wales, Australia&quot;,
+      &quot;period&quot;: &quot;2023-24 and 2024-25 financial years&quot;,
+      &quot;aggregation&quot;: &quot;Published state-level patient-year administrative share or survey-weighted estimate; difference is percentage points, not percentage change.&quot;,
+      &quot;direction&quot;: &quot;decrease&quot;,
+      &quot;collection_process_id&quot;: &quot;collection.pc.rogs-2026-primary-care&quot;,
+      &quot;source_refs&quot;: [
+        &quot;https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W&quot;
+      ],
+      &quot;evaluation_rule&quot;: &quot;Compare retained NSW 2024-25 estimate with 2023-24 using the original denominator. Favorable direction alone is not a causal effect or a statistically tested difference.&quot;,
+      &quot;verification&quot;: &quot;external-unverified&quot;,
+      &quot;metric_checksum&quot;: &quot;sha256:4f466710ae3519aaa412c3379284df987d82d206382eeb5f14b4abe6c5f83367&quot;
+    },
+    &quot;observations&quot;: [
+      {
+        &quot;geography&quot;: &quot;NSW&quot;,
+        &quot;remoteness&quot;: &quot;All areas&quot;,
+        &quot;period&quot;: &quot;2023-24&quot;,
+        &quot;value&quot;: 9.4,
+        &quot;unit&quot;: &quot;percent&quot;,
+        &quot;published_95ci_half_width&quot;: 1.1,
+        &quot;source_selectors&quot;: {
+          &quot;Table_Number&quot;: &quot;10A.33&quot;,
+          &quot;Unit&quot;: &quot;%&quot;,
+          &quot;Year&quot;: &quot;2023-24&quot;,
+          &quot;Remoteness&quot;: &quot;All areas&quot;,
+          &quot;Uncertainty&quot;: &quot;&quot;
+        },
+        &quot;source_column&quot;: &quot;NSW&quot;,
+        &quot;data_source_label&quot;: &quot;ABS (unpublished) Patient Experience Survey Australia&quot;
+      },
+      {
+        &quot;geography&quot;: &quot;NSW&quot;,
+        &quot;remoteness&quot;: &quot;All areas&quot;,
+        &quot;period&quot;: &quot;2024-25&quot;,
+        &quot;value&quot;: 6.8,
+        &quot;unit&quot;: &quot;percent&quot;,
+        &quot;published_95ci_half_width&quot;: 1.1,
+        &quot;source_selectors&quot;: {
+          &quot;Table_Number&quot;: &quot;10A.33&quot;,
+          &quot;Unit&quot;: &quot;%&quot;,
+          &quot;Year&quot;: &quot;2024-25&quot;,
+          &quot;Remoteness&quot;: &quot;All areas&quot;,
+          &quot;Uncertainty&quot;: &quot;&quot;
+        },
+        &quot;source_column&quot;: &quot;NSW&quot;,
+        &quot;data_source_label&quot;: &quot;ABS (unpublished) Patient Experience Survey Australia&quot;
+      }
+    ],
+    &quot;change_percentage_points&quot;: -2.6,
+    &quot;favorable_observed_direction&quot;: true,
+    &quot;significance_of_change&quot;: &quot;not_assessed&quot;,
+    &quot;uncertainty&quot;: &quot;Original 95% confidence-interval half-widths accompany each estimate. No covariance or publisher test of this year-to-year NSW difference is retained; no significance claim.&quot;,
+    &quot;condition_category&quot;: &quot;price&quot;,
+    &quot;condition_definition_ref&quot;: {
+      &quot;condition_id&quot;: &quot;condition.au.prescription.cost&quot;,
+      &quot;definition_version&quot;: &quot;1.0.0&quot;,
+      &quot;definition_hash&quot;: &quot;sha256:2ccc6325ec7386ec3225456545d9b3827e8c135e479d314635800f8baae3b5dc&quot;
+    },
+    &quot;condition_binding&quot;: &quot;same-series-historical-context-not-evaluated-under-current-definition&quot;,
+    &quot;condition_lowered&quot;: &quot;The estimated share reporting prescription delay or non-use due to cost was lower. The source does not identify a particular medicine or prove continuous treatment.&quot;,
+    &quot;for_whom&quot;: &quot;Usual residents aged 15 years and over in private dwellings, within the survey scope, who needed the specified service in the preceding 12 months&quot;,
+    &quot;owner&quot;: &quot;Australian Government PBS and pharmacies&quot;,
+    &quot;owner_verification&quot;: &quot;institutional-role-description-not-verified-control-or-causal-attribution&quot;,
+    &quot;source_artifact_hash&quot;: &quot;sha256:f15e3d7b8b0c1df7870b1d390f062823c20a1ea98e43fa1117c6d2529902f957&quot;,
+    &quot;source_url&quot;: &quot;https://assets.pc.gov.au/2026-01/rogs-2026-parte-section10-primary-and-community-health-dataset_0.csv?VersionId=skSVcIjTxjuNWGWtKhp75L9zKdEohB9W&quot;,
+    &quot;evidence_ceiling&quot;: &quot;All prescription medicines, not atorvastatin-specific access.&quot;,
+    &quot;current_personal_access_established&quot;: false
+  }
+}</pre></details></article></main><footer><p>Independent AI review covers source meanings and the preview adapter. This subsequent reader edition needs its own implementation review; no human or operational approval is implied.</p><p>No participant contact, public warning, authority appointment or personal recommendation is authorised. The old sealed kernel and old readers remain unchanged.</p><a href="../../../contracts/construct-migration/research-reader-review-evidence.json">Inspect retained independent-agent review and its limits</a></footer></body></html>

@@ -1,0 +1,39 @@
+{
+  "id": "round-11-research-reader-adoptions",
+  "edition": "mind-flow.research-reader-migration/1.0.0",
+  "author": "Ren (AI agent)",
+  "recorded_on": "2026-09-11",
+  "intent": "Explicit local adoption of corrected interpretation metadata in a new research reader only.",
+  "selected_readers": [
+    {
+      "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/0/conditions/3/condition_definition_ref",
+      "migration_id": "migration.au.gp.urgent-appointment-clock.r11",
+      "migration_hash": "sha256:30915ef599f807babec02d211afeb6379ac07dbf56f8ba82f56e13a3b2e7ab71",
+      "proposed_meaning_hash": "sha256:9d5065c4f20f0df3e407f75f620baa4af056c09417eab01c77f2a3e3e2daa42f",
+      "acknowledge_non_equivalence": true,
+      "scope": "interpretation-metadata-only",
+      "historical_observation_transfer": "none"
+    },
+    {
+      "reader_id": "pilots/australia/basket/primary-care.r3.json#/items/1/conditions/0/condition_definition_ref",
+      "migration_id": "migration.au.prescription.denominator.r11",
+      "migration_hash": "sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94",
+      "proposed_meaning_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5",
+      "acknowledge_non_equivalence": true,
+      "scope": "interpretation-metadata-only",
+      "historical_observation_transfer": "none"
+    },
+    {
+      "reader_id": "pilots/australia/data/positive-signals-current.json#/signals/2/condition_definition_ref",
+      "migration_id": "migration.au.prescription.denominator.r11",
+      "migration_hash": "sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94",
+      "proposed_meaning_hash": "sha256:5bb422de65054656d4e55a5d20af849788f5f5e032eebe2b845e645831b49dd5",
+      "acknowledge_non_equivalence": true,
+      "scope": "interpretation-metadata-only",
+      "historical_observation_transfer": "none"
+    }
+  ],
+  "authority_effect": "none",
+  "human_approval": false,
+  "operational_action_authorised": false
+}

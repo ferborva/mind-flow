@@ -85,3 +85,21 @@ node contracts/construct-migration/review.mjs --summary
 ```
 
 The CLI never writes. `--json` and `--summary` emit deterministic review artefacts; `--check` compares them with the retained files. Updating a source pin or meaning requires a new reviewed proposal change, not silently accepting a refreshed source.
+
+## Separate research-reader edition
+
+[`research-reader.mjs`](research-reader.mjs) implements a different, narrower operation: three explicit **interpretation-metadata adoptions in a new local research reader**. It does not turn either proposal into a completed kernel correction. The [new reader](../../pilots/australia/basket/round-11-research-reader.html) displays corrected meanings, actual old-binding refusals, and the old context under its original identity.
+
+`buildResearchReaderEdition()` returns `{ edition, summary }`. `validateResearchReaderEdition(edition)` checks exact source-bound replay. `assessResearchReaderBinding(edition, readerId, binding)` distinguishes stale old meaning, correctly bound research metadata, unknown readers and mismatches. `renderResearchReader(edition)` validates before emitting a static page. No function writes, evaluates condition truth or grants action authority.
+
+The authored adoption manifest selects the two actual basket references and the prescription positive-context reference. It pins migration and meaning hashes and explicitly acknowledges non-equivalence. Actual independent-agent review messages are retained separately. Those messages reviewed the source-meaning/preview work, **not this subsequent reader implementation**, and are not its authorisation or an authenticated signature. The user-approved local engineering scope authorises creation of the new research reader; human approvals and public release remain absent.
+
+The summary's `applied_reader_metadata_adoptions: 3` is not interchangeable with `completed_kernel_corrections: 0`. The original proposal summary remains proposed-only with `applied_corrections: 0`. Historical observation arrays stay inside `retained_original_context`, with their original binding. `admitted_observations` under each new presentation identity is empty.
+
+```sh
+node --test contracts/construct-migration/tests/research-reader.test.mjs
+node contracts/construct-migration/research-reader.mjs --check
+node contracts/construct-migration/research-reader.mjs --summary
+```
+
+The CLI also supports `--json` and `--html`, but never writes. The implementation report is [Round 11 research-reader adoption](../../reviews/round-11-research-reader.md).
