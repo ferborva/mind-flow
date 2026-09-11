@@ -34,6 +34,9 @@ jobs:
       - name: Run the complete test contract
         run: npm test
 
+      - name: Check Weather Station browser interactions
+        run: CHROME_BIN="$(command -v google-chrome)" npm run test:station:browser
+
       - name: Verify the retained Round 06 review receipt
         run: >-
           node meta/review-freeze/review-freeze.mjs verify
@@ -163,3 +166,10 @@ jobs:
             dashboard/observatory/app.js
             dashboard/observatory/styles.css
             experiments/observatory-comparison/rendered/*.html
+            dashboard/station/index.html
+            dashboard/station/data.js
+            dashboard/station/app.mjs
+            dashboard/station/model.mjs
+            dashboard/station/cases.mjs
+            dashboard/station/styles.css
+            experiments/decision-experience/*.html

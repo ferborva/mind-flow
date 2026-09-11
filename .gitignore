@@ -10,4 +10,5 @@ node_modules
 /dashboard/web/index.html
 /pilots/australia/web/index.html
 /dashboard/observatory/data.js
+/dashboard/station/data.js
 /experiments/observatory-comparison/rendered/*.html

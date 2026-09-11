@@ -60,3 +60,35 @@ test('all issued records are visible, including the blocked defective predecesso
   assert.equal(canada.probability, 0.090909);
   assert.equal(canada.isStormForecast, false);
 });
+test('integrated research gates never present a pilot, migration or study as completed', () => {
+  assert.equal(station.pilot.evidenceAdmission.admittedMeasurements, 0);
+  assert.equal(station.migrations.applied_corrections, 0);
+  assert.equal(station.study.recruitment_allowed, false);
+  assert.equal(station.study.human_testing_completed, false);
+  assert.equal(station.rehearsal.tasks.length, 3);
+});
+test('task-pack replay rejects a rehashed unreviewed prompt', () => {
+  const load = path => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8');
+  assert.throws(() => buildStation(path => {
+    const bytes = load(path);
+    if (!path.endsWith('/task-pack.json')) return bytes;
+    const value = JSON.parse(bytes); value.tasks[0].prompt = 'Unreviewed replacement';
+    return JSON.stringify(value);
+  }), /Task pack replay differs/);
+});
+test('source capture reads each projected input once', () => {
+  const counts = new Map();
+  buildStation(path => {
+    counts.set(path, (counts.get(path) || 0) + 1);
+    return readFileSync(new URL('../../../' + path, import.meta.url), 'utf8');
+  });
+  assert.ok(counts.size > 10);
+  assert.ok([...counts.values()].every(x => x === 1));
+});
+test('inquiry can begin before source adequacy is established, without authorising acquisition', () => {
+  const option = preparationFor(station, 'USA', 2025).options.find(x => x.id === 'investigate');
+  assert.match(option.startIf, /metadata/);
+  assert.doesNotMatch(option.startIf, /source can measure/);
+  assert.match(option.stopIf, /personal data|paid access/);
+  assert.match(option.next, /admission/);
+});

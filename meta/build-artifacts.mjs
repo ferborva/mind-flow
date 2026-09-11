@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 export const GENERATED_OUTPUTS = Object.freeze([
   "dashboard/web/index.html", "pilots/australia/web/index.html",
   "dashboard/observatory/data.js",
+  "dashboard/station/data.js",
   "experiments/observatory-comparison/rendered/conventional-release.html",
   "experiments/observatory-comparison/rendered/observatory-self-serve.html",
 ]);
@@ -43,6 +44,11 @@ return [
   ["dashboard/tools/build-australia-pilot.mjs", "pilots/australia/data/nero-clerical-2026-08.r2.json", "pilots/australia/web/index.html"],
   ["dashboard/observatory/build.mjs"],
   ["experiments/observatory-comparison/render.mjs"],
+  ["contracts/construct-migration/review.mjs", "--check"],
+  ["pilots/income-access/tools/feasibility.mjs"],
+  ["pilots/income-access/tools/sipp-crosswalk.mts"],
+  ["experiments/decision-experience/readiness.mts", "--check"],
+  ["dashboard/station/build.mjs"],
 ];
 }
 

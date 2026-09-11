@@ -1,7 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import { deriveIncomeMeasurements, serializeIncomeMeasurements } from '../../signals/countries/tools/income-measurements.mts';
 import { buildStormReview, serializeStormReview } from '../../signals/countries/tools/storm-criterion.mts';
+import { buildRound11MigrationReview, buildMigrationSummary } from '../../contracts/construct-migration/review.mjs';
+import { buildPackage } from '../../experiments/decision-experience/readiness.mts';
+import { validateFeasibility } from '../../pilots/income-access/tools/feasibility.mjs';
 export { selectSeries, describeChange, preparationFor } from './model.mjs';
 
 const root = new URL('../../', import.meta.url);
@@ -29,11 +33,30 @@ export function verifyInputs(reader = load) {
   const review = buildStormReview(income, 'sha256:' + hash(incomeBytes));
   if (reviewBytes !== serializeStormReview(review)) throw new Error('Storm source replay differs');
   return { countries: JSON.parse(countryBytes), income, review,
-    inputs: Object.values(paths).map(path => ({ path, sha256: hash(reader(path)) })) };
+    inputs: [[paths.countries, countryBytes], [paths.income, incomeBytes], [paths.review, reviewBytes]].map(([path, bytes]) => ({ path, sha256: hash(bytes) })) };
 }
 
-export function buildStation() {
-  const { countries, income, review, inputs } = verifyInputs();
+export function buildStation(reader = load) {
+  const captured = new Map();
+  const read = path => {
+    if (!captured.has(path)) captured.set(path, reader(path));
+    return captured.get(path);
+  };
+  const { countries, income, review, inputs } = verifyInputs(read);
+  const pilotPath = 'pilots/income-access/feasibility.v1.json';
+  const pilot = JSON.parse(read(pilotPath));
+  validateFeasibility(pilot);
+  const migrationPath = 'pilots/australia/basket/round-11-construct-migrations.summary.json';
+  const migrations = buildMigrationSummary(buildRound11MigrationReview());
+  if (JSON.stringify(JSON.parse(read(migrationPath))) !== JSON.stringify(migrations)) throw new Error('Migration summary replay differs');
+  const proposalPath = 'experiments/decision-experience/proposal.json';
+  const studyPath = 'experiments/decision-experience/readiness-summary.json';
+  const taskPath = 'experiments/decision-experience/task-pack.json';
+  const packageOutput = buildPackage(fileURLToPath(root), JSON.parse(read(proposalPath)));
+  if (JSON.stringify(JSON.parse(read(studyPath))) !== JSON.stringify(packageOutput.readiness)) throw new Error('Study summary replay differs');
+  const rehearsal = JSON.parse(read(taskPath));
+  if (JSON.stringify(rehearsal) !== JSON.stringify(packageOutput.taskPack)) throw new Error('Task pack replay differs');
+  for (const path of [pilotPath, migrationPath, proposalPath, studyPath, taskPath]) inputs.push({ path, sha256: hash(read(path)) });
   const shortLabels = ['Employment / population', 'Unemployment', 'Poverty headcount'];
   const families = income.families.map((f, i) => {
     const receipt = income.receipts.find(x => x.id === f.source_id);
@@ -48,11 +71,12 @@ export function buildStation() {
     };
   });
   const forecasts = forecastFiles.map(([file, expected, country, place, defective]) => {
-    const path = 'forecasts/prospective-pilot/' + file, bytes = load(path);
+    const path = 'forecasts/prospective-pilot/' + file, bytes = read(path);
     if (hash(bytes) !== expected) throw new Error(`Issued forecast differs: ${path}`);
     inputs.push({ path, sha256: expected });
     const f = JSON.parse(bytes);
     return { id: f.id, path, country, place, question: f.question, probability: f.probability,
+      targetScope: f.target.scope, targetEvent: f.target.event, resolutionRule: f.target.resolution_rule,
       referenceProbability: f.baseline.probability, naiveProbability: f.naive_baseline.probability,
       issuedAt: f.issued_at, resolveAfter: f.resolve_after, resolveBy: f.resolve_by,
       resolutionStatus: f.resolution.status, operationalStatus: defective ? 'blocked-defect' : 'issued-research',
@@ -66,7 +90,7 @@ export function buildStation() {
     observationCount: families.reduce((n, f) => n + f.observations, 0),
     stormAssessmentCount: review.country_periods.length, assessableStormPeriods: review.summary.assessable_storm_periods,
     forecastSkillEstablished: false, publicReleaseApproved: false,
-    families, forecasts, inputs,
+    families, forecasts, inputs, pilot, migrations, study: packageOutput.readiness, rehearsal,
     countries: countries.countries.map(c => ({ code: c.iso3, name: c.name, rank: c.rank,
       series: Object.fromEntries(income.families.map(f => [f.id, f.observations.filter(x => x.iso3 === c.iso3).map(x => ({
         year: x.year, value: x.value, selector: x.source_selector, estimateType: x.estimate_type,

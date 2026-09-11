@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-09-10
+updated: 2026-09-11
 ---
 
 # Index
@@ -12,12 +12,12 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 10 |
+| Captures | 11 |
 | Seeds | 21 |
 | Drafts | 5 |
 | Posts | 0 |
 | Books | 0 |
-| Research notes | 14 |
+| Research notes | 15 |
 | Dashboard snapshots | 4 dated records plus 1 Round 04 projection |
 
 Foundation documents: **4 of 4 in place.**
@@ -31,6 +31,9 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
+- `2026-09-11-weather-station-long-horizon`, approval to execute the
+  three-deliverable plan and pursue a long-horizon goal. Operational commission,
+  not new thesis positions or approval to recruit, acquire personal data or release.
 - `2026-09-10-storms-as-social-contract-shifts`, working storm definition,
   proposed 5% scale, income-access focus and national/shared scope.
   **processed**, four new seeds; dependants remain unanswered.
@@ -114,6 +117,7 @@ Foundation documents: **4 of 4 in place.**
 
 | Note | What it covers |
 |---|---|
+| `round-11-income-access-feasibility` | Compares HILDA, SIPP and UKHLS metadata; conditional historical-method route, no admitted measurements or selected live pilot |
 | `2026-09-09-round-04-claim-evidence-audit` | Grades the programme's highest-risk claims, states primary-source ceilings and publishes twelve ways the method could fail |
 | `2026-09-09-transition-crisis-point-register` | Treats crisis points as candidate failed conversions, with rival paths, evidence roles and reversible preparations across nine domains |
 | `2026-09-09-healthcare-if-validation` | Bounds the four-country healthcare example with current primary government sources, incompatible denominators and claim ceilings |
@@ -131,6 +135,11 @@ Foundation documents: **4 of 4 in place.**
 
 ## Programme and governance
 
+- [Round 11 Weather Station](../dashboard/station/README.md): integrated
+  retained-evidence interface, guided cases, IF review, forecasts and preparation.
+  Research-only, with software checks separate from human usefulness and release.
+- [Round 11 execution](../reviews/round-11-execution.md): central-branch
+  integration, review lanes and explicit human/data gates.
 - `meta/abundance-transition-programme.md`: challenge loops, workstreams,
   quality gates, pilot, release sequence and decisions reserved for Fernando.
 - `meta/round-03-deep-plan.md`: dependency-ordered execution plan, claim
