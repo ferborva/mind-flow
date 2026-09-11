@@ -28,7 +28,7 @@ try {
   const countryOptions = data.countries.map(c => `<option value="${esc(c.code)}">${esc(c.name)} · ${esc(c.code)}</option>`).join('');
   $('country-select').innerHTML = countryOptions; $('compare-select').innerHTML = countryOptions;
   $('family-select').innerHTML = data.families.map(f => `<option value="${esc(f.id)}">${esc(f.label)}</option>`).join('');
-  $('hero-stats').innerHTML = [[data.countries.length, 'economies in the proposed frame'], [formatValue(data.observationCount), 'retained income observations'], [data.years.length - 1, 'annual comparison periods']].map(([number, label]) => `<div><strong>${number}</strong><span>${label}</span></div>`).join('');
+  $('hero-stats').innerHTML = [[data.countries.length, 'economies in the proposed frame'], [formatValue(data.observationCount), 'retained indicator values'], [data.years.length - 1, 'annual comparison periods']].map(([number, label]) => `<div><strong>${number}</strong><span>${label}</span></div>`).join('');
 
   function renderField() {
     const svg = $('field-svg');
@@ -162,6 +162,7 @@ try {
     const m = data.migrations;
     $('migration-preview').innerHTML = `<p class="eyebrow">Meaning must survive revision</p><h3>${m.proposed_corrections} source-backed corrections. ${m.applied_corrections} applied.</h3><p>Urgent-care waiting time begins at appointment-making, not first attempted contact. Prescription cost delay covers a specific survey population. The new adapter inventories actual structured references and rejects stale bindings in adoption previews.</p><p>These are proposed corrections, not completed migrations or newly improved access. Independent review and an operational migration edition remain necessary.</p><a class="text-link" href="../../contracts/construct-migration/README.md">Inspect the correction mechanism ↗</a>`;
     const r = data.readerEdition;
+    $('migration-preview').insertAdjacentHTML('beforeend', `<p>${r.existing_appended_kernel_events} appended definition ${r.existing_appended_kernel_events === 1 ? 'event remains' : 'events remain'} in the retained Australian log. The new reader metadata below does not increase that count.</p>`);
     $('migration-preview').insertAdjacentHTML('beforeend', `<p class="eyebrow">A new reader, with its own explicit adoption</p><h3>${r.applied_reader_metadata_adoptions} metadata bindings now use ${r.corrected_meanings_used} corrected meanings.</h3><p>This separate research reader rejects old meaning bindings and preserves historical context under its original identity. ${r.completed_kernel_corrections} completed kernel corrections; ${r.observations_transferred} observations transferred. A corrected interpretation is not evidence that access improved.</p><a class="text-link" href="${esc(sourceLink(r.page_path))}">Open the corrected research reader ↗</a>`);
   }
 

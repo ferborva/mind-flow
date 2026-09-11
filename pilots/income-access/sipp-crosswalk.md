@@ -28,7 +28,7 @@ The [2025 dictionary](https://www2.census.gov/programs-surveys/sipp/tech-documen
 
 ## The important IF conditions
 
-**Count an event once IF the spell boundaries and overlapping spells have been reconciled.** Employment is collected at spell level; many attributes are repeated across monthly output records. Monthly pay exceptions and recodes do not make every field an independent monthly observation. `ROVERLAPMN` flags overlapping non-employment spells, but does not itself reconstruct all events. See the [guide](https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2025_SIPP_Users_Guide.pdf), printed pp69–72.
+**Count an event once IF the spell boundaries and multiple spells mapped to a month have been reconciled.** Employment is collected at spell level; many attributes are repeated across monthly output records. Monthly pay exceptions and recodes do not make every field an independent monthly observation. `ROVERLAPMN` flags multiple non-employment spells mapped to one month; the spells need not overlap in time. It does not itself reconstruct all events. See the [guide](https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2025_SIPP_Users_Guide.pdf), printed pp69–72.
 
 **Interpret an earnings change IF the universe, calendar treatment and allocation flags are respected.** Both earnings recodes require a job held during the month. Negative business returns are possible. A missing cell must not become an observed zero. A reported job exit can be a beneficial switch; its reason can be copied across months. These constraints must precede any severity threshold.
 

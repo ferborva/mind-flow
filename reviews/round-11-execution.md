@@ -81,6 +81,24 @@ paragraph. These checks support the stated scope and unresolved weighting gates;
 they are not a complete independent survey-methods review. The PDF review skill
 made page rendering part of this verification, exposing the locator defect.
 
+After the repair, the evolution agent independently reviewed annotation edition
+1.0.1 at central candidate `ba3b2fc`. It visually checked all sixteen selected
+dictionary pages, both weight-family pages, and guide printed pages 13, 15, 29,
+69–72 and 154–160. Exact schema selections, ranges, universes, suppression and
+candidate joins agreed; five crosswalk tests and replay passed. The reviewer
+confirmed that the retained panel-range and variable-count discrepancies are
+real, unresolved differences between these documents. No blocking finding
+remained. One wording refinement distinguishes multiple non-employment spells
+mapped to one month from spells overlapping in time.
+
+The independently inspected crosswalk SHA-256 is
+`a8d3f2cf521f382e6e3eb33d6aaee0f513391dc141b5c73f3d62b7e0f5ab8b5f`.
+This is a separate same-host AI review record, not a retroactive alteration of
+the original annotation flags or human statistical approval. It adds a methods
+question: reconcile the guide's seven detailed job lines and summary beyond
+seven with the dictionary's eight-line earnings universe and suppressed job ID.
+The incomplete-extraction gate remains closed.
+
 The experience agent separately reviewed new research-reader candidate `09a972e`,
 ran its 16 tests and exact retained replay, and found no blocking implementation
 issue. That review is distinct from the earlier preview review retained by the
@@ -93,6 +111,23 @@ was added to the current index, and the new capture was inventoried. No old
 editorial test or inventory was weakened. The next full run passed 1,281 tests.
 Further reader/metadata integration and browser coverage follow that checkpoint;
 the final central candidate still needs its own complete reproduction.
+
+The subsequent integrated candidate `ba3b2fc` also passed the complete local
+test contract and retained artifact replay. Its browser checks covered all
+four narratives, comparison/year controls, frozen forecasts across year
+selection, exported brief contents, matrix arrows/Enter/focus, mobile chart
+reflow, absent-country data and invalid-scope failure. Desktop and mobile
+screenshots were visually inspected. A final copy-only review replaces an
+implied monitoring promise with testable-prediction language and labels the
+historical GP example as a case, with the actual log count projected separately.
+GitHub checks and external-group review are separate from these local results.
+
+GitHub's [push check](https://github.com/ferborva/mind-flow/actions/runs/34566866192)
+and [PR check](https://github.com/ferborva/mind-flow/actions/runs/34566905996)
+both passed for `ba3b2fc`, including browser interaction, historical receipts and
+generated-artifact drift checks. The final copy refinements passed 53 focused
+station/metadata tests and another complete browser journey. They do not change
+retained source bytes, forecasts, kernel state or the generated station payload.
 
 ## Next investment gates
 

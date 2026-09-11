@@ -26,3 +26,8 @@ test('native scope and pending work remain visible rather than compressed away',
   assert.match(app, /Download requested/);
   assert.doesNotMatch(app, /Saved locally/);
 });
+test('public copy does not turn indicator values or research forecasts into personal evidence or promises', () => {
+  assert.match(text('app.mjs'), /retained indicator values/);
+  assert.doesNotMatch(text('index.html'), /forecast is a promise|actual appended<br>/);
+  assert.match(text('app.mjs'), /r.existing_appended_kernel_events/);
+});
