@@ -9,6 +9,7 @@ This is an additive, source-pinned **review and preview edition**, implementing 
 1. Reopens seven exact retained artefacts and verifies their SHA-256 hashes.
 2. Validates the retained current kernel using its unchanged validator.
 3. Extracts the actual workbook footnotes and checks their text hashes against the retained Round 09 discoveries.
+   Urgent-care crude-rate and very-remote coverage footnotes are separately retained as source-pinned known context, not new discoveries.
 4. Constructs two new NSW-scoped measurement meanings, with new condition and signal identities.
 5. Inventories every structured definition reference in the four explicitly named current research JSON artefacts, including their history.
 6. Rejects each old basket reference against the proposed corrected meaning.

@@ -46,6 +46,25 @@ test('corrected meanings preserve the unanswered question and do not inherit old
   }
 });
 
+test('urgent meaning retains known crude-rate and changing coverage caveats without claiming new discoveries', () => {
+  const urgent = review.migrations[0];
+  assert.equal(urgent.proposed_meaning.rate_kind, 'crude');
+  assert.match(urgent.proposed_meaning.coverage_change, /phased out part way through 2023-24/);
+  assert.match(urgent.proposed_meaning.coverage_change, /excluded from 2024-25/);
+  assert.match(urgent.proposed_meaning.coverage_change, /comparability is not established/);
+  const caveats = urgent.known_source_caveats;
+  assert.deepEqual(caveats.map(c => c.cell), ['10A.43!C50', '10A.43!C59']);
+  assert.ok(caveats.every(c => c.role === 'known-context-not-new-discovery'));
+  assert.equal(caveats[0].text, 'Data values are crude rates and may differ from data in previous reports in which rates were age-standardised.');
+  assert.deepEqual(urgent.source_cells.map(c => c.cell), ['10A.43!C54', '10A.43!C55']);
+  const summary = buildMigrationSummary(review);
+  assert.equal(summary.proposed_corrections, 2);
+  assert.equal(summary.applied_corrections, 0);
+  assert.equal(summary.items[0].rate_kind, 'crude');
+  assert.equal(summary.items[0].coverage_change, urgent.proposed_meaning.coverage_change);
+  assert.deepEqual(summary.items[0].known_caveat_cells, ['10A.43!C50', '10A.43!C59']);
+});
+
 test('each real basket reference rejects stale meaning before explicit preview adoption', () => {
   const before = JSON.stringify(review);
   for (const migration of review.migrations) {
@@ -121,6 +140,9 @@ for (const [name, mutate] of [
   ['fabricated reader', r => r.migrations[0].readers.push({ ...r.migrations[0].readers[0], reader_id: 'invented' })],
   ['identity reused', r => { r.migrations[0].proposed_meaning.condition_id = r.migrations[0].old_definition.condition_id; }],
   ['changed clock', r => { r.migrations[0].proposed_meaning.clock_origin = 'first-attempt'; }],
+  ['removed urgent crude-rate caveat', r => { delete r.migrations[0].proposed_meaning.rate_kind; }],
+  ['removed urgent coverage caveat', r => { delete r.migrations[0].proposed_meaning.coverage_change; }],
+  ['forged known caveat', r => { r.migrations[0].known_source_caveats[0].text = 'Age-standardised rates'; }],
   ['unjustified truth threshold', r => { r.migrations[0].proposed_meaning.truth_predicate = { threshold: 100 }; }],
   ['evidence transfer', r => { r.migrations[0].historical_observation_transfer = 'automatic'; }],
   ['applied claim', r => { r.migrations[0].status = 'applied'; }],

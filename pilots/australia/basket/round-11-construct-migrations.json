@@ -151,9 +151,11 @@
         "measure": "Published proportion reporting less than four hours between making an appointment and seeing the GP for urgent medical care.",
         "denominator": "Survey-scope people who obtained urgent GP care, not everyone who needed it or attempted access.",
         "clock_origin": "appointment-making",
+        "rate_kind": "crude",
         "unit": "percent",
+        "coverage_change": "Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.",
         "truth_predicate": null,
-        "definition_hash": "sha256:28a792c990c658c2f7c0770248e7be772b95db2caa48ef32242d666d54b54449"
+        "definition_hash": "sha256:9d5065c4f20f0df3e407f75f620baa4af056c09417eab01c77f2a3e3e2daa42f"
       },
       "relationship": {
         "kind": "construct-correction-not-equivalent",
@@ -169,6 +171,20 @@
           "cell": "10A.43!C55",
           "text": "Persons aged 15 years and over who saw a GP for urgent medical care for their own health in the last 12 months. 'Urgent' as defined by respondent. Discretionary interviewer advice was to include health issues that arose suddenly and were serious (e.g. fever, headache, vomiting, unexplained rash).",
           "sha256": "sha256:ea39b7dfa9b9ebd195c1bdd783f6afb0f4e08bb756b045c36b8e4755ec613b8f"
+        }
+      ],
+      "known_source_caveats": [
+        {
+          "cell": "10A.43!C50",
+          "text": "Data values are crude rates and may differ from data in previous reports in which rates were age-standardised.",
+          "sha256": "sha256:6013c45ca9919e77d21b4bce42e7a7d7542fa0d60252b79e513f54a8c094a1a8",
+          "role": "known-context-not-new-discovery"
+        },
+        {
+          "cell": "10A.43!C59",
+          "text": "Collection of data in very remote areas of Australia was phased out part way through the Patient Experience Survey 2023-24 cycle. From 2024-25, people resident in very remote areas of Australia were excluded from the survey.",
+          "sha256": "sha256:29e2120f7382fd2ddcc832c3701568c2fa848cc3bc06f73655aa00aafdf6986e",
+          "role": "known-context-not-new-discovery"
         }
       ],
       "readers": [
@@ -283,7 +299,7 @@
       "condition_truth": "not-evaluated",
       "authority_effect": "none",
       "action_authorised": false,
-      "migration_hash": "sha256:0f6a4ca6dc5681a5456daa7b13358ddbb9807083706be090f06040e35a472d66"
+      "migration_hash": "sha256:30915ef599f807babec02d211afeb6379ac07dbf56f8ba82f56e13a3b2e7ab71"
     },
     {
       "id": "migration.au.prescription.denominator.r11",
@@ -416,6 +432,7 @@
           "sha256": "sha256:29e2120f7382fd2ddcc832c3701568c2fa848cc3bc06f73655aa00aafdf6986e"
         }
       ],
+      "known_source_caveats": [],
       "readers": [
         {
           "reader_id": "contracts/evolution/fixtures/australia-primary-care.current.json#/condition_projections/7/condition_definition_ref",
@@ -539,7 +556,7 @@
       "condition_truth": "not-evaluated",
       "authority_effect": "none",
       "action_authorised": false,
-      "migration_hash": "sha256:2e33377a3079cc75a0e919c1b8b3e3ad7d1f41a559921c83d5e663e056035dfb"
+      "migration_hash": "sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94"
     }
   ],
   "existing_appended_kernel_events": 1,

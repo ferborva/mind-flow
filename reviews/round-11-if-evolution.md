@@ -35,7 +35,7 @@ The source workbook is the retained [10 September capture](../pilots/australia/s
 
 ## 🧭 What the definitions now say
 
-**Urgent GP:** a proposed NSW measurement identity for the published share reporting less than four hours from appointment-making to seeing a GP, among survey-scope people aged 15+ who obtained respondent-defined urgent GP care for their own health in the preceding twelve months. This does not measure first-attempt access, unmet urgent need or today's appointment availability.
+**Urgent GP:** a proposed NSW measurement identity for the published crude share reporting less than four hours from appointment-making to seeing a GP, among survey-scope people aged 15+ who obtained respondent-defined urgent GP care for their own health in the preceding twelve months. This does not measure first-attempt access, unmet urgent need or today's appointment availability. Known footnotes `10A.43!C50` and `C59` retain the crude-rate basis and the phased very-remote exclusion. Their source-pinned text is retained separately as known context, not additional discoveries. Common-population comparability between 2023-24 and 2024-25 remains unestablished.
 
 **Prescription cost:** a proposed NSW measurement identity for the published crude share who delayed or did not obtain prescribed medication due to cost, among survey-scope people aged 15+ who received a GP prescription or needed prescribed medication. Aggregate medicine coverage is not atorvastatin-specific access. Very-remote collection changed between 2023-24 and 2024-25, so common-population comparability remains unestablished. Aggregate coverage and that very-remote exclusion were already known; they are not presented as newly discovered events.
 
@@ -73,7 +73,7 @@ The programme remains at **one actual appended kernel event**, with **two correc
 
 Tests were written before the implementation. Initial execution failed because the new module did not exist. Once implemented, the retained-output test failed until the new review files were supplied. A follow-up negative test exposed that the assessment entry point could accept a new identity for an old observation even though the preview entry point refused it. Both paths now enforce the separate-admission refusal.
 
-The 22 focused tests cover source-bound replay, omitted and fabricated readers, reused identities, changed clock, invented truth threshold, evidence transfer, forged applied/review/authority status, unknown readers, wrong identity/version/hash, stale acknowledgement, sealed-reader refusal, pointer escaping, no source mutation and deterministic output.
+The 26 focused tests cover source-bound replay, omitted and fabricated readers, reused identities, changed clock, invented truth threshold, evidence transfer, forged applied/review/authority status, unknown readers, wrong identity/version/hash, stale acknowledgement, sealed-reader refusal, pointer escaping, no source mutation and deterministic output. Independent review prompted four further tests retaining the urgent series' known crude-rate and coverage caveats, refusing their removal or forged source text. The first new test failed before the correction. No new discovery, applied migration or observation was added.
 
 These are implementation and reproducibility checks. They are not independent source interpretation, live deployment tests, human comprehension results or authentication of a reviewer. The fixed proposed meanings remain open to correction in review.
 

@@ -15,13 +15,19 @@
       "status": "proposed",
       "old_condition_id": "condition.au.gp.timely",
       "proposed_condition_id": "condition.au.nsw.gp.urgent-appointment-clock",
-      "migration_hash": "sha256:0f6a4ca6dc5681a5456daa7b13358ddbb9807083706be090f06040e35a472d66",
+      "migration_hash": "sha256:30915ef599f807babec02d211afeb6379ac07dbf56f8ba82f56e13a3b2e7ab71",
       "what_changed": "The old signal did not specify the waiting-clock origin. Appointment-making is not first attempted contact or onset of need. The measured population obtained care, so unmet need cannot inherit a timeliness result.",
       "unanswered_question": "How long did people wait from their first attempt or onset of urgent need, including people who never obtained an appointment?",
       "source_cells": [
         "10A.43!C54",
         "10A.43!C55"
       ],
+      "known_caveat_cells": [
+        "10A.43!C50",
+        "10A.43!C59"
+      ],
+      "rate_kind": "crude",
+      "coverage_change": "Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.",
       "reader_reference_count": 9,
       "historical_observation_count": 1,
       "positive_signal_context_readers": 0,
@@ -32,7 +38,7 @@
           "preview_binding": {
             "condition_id": "condition.au.nsw.gp.urgent-appointment-clock",
             "definition_version": "1.0.0",
-            "definition_hash": "sha256:28a792c990c658c2f7c0770248e7be772b95db2caa48ef32242d666d54b54449"
+            "definition_hash": "sha256:9d5065c4f20f0df3e407f75f620baa4af056c09417eab01c77f2a3e3e2daa42f"
           },
           "adoption_status": "preview-only"
         }
@@ -46,7 +52,7 @@
       "status": "proposed",
       "old_condition_id": "condition.au.prescription.cost",
       "proposed_condition_id": "condition.au.nsw.prescription.gp-or-needed-cost-delay",
-      "migration_hash": "sha256:2e33377a3079cc75a0e919c1b8b3e3ad7d1f41a559921c83d5e663e056035dfb",
+      "migration_hash": "sha256:8b4c0921b8f286ffed5ac2b65e7bf73f1ac484deba8e92784d14428db56a4e94",
       "what_changed": "Replacing a generic cohort label with the GP-prescription-or-needed-medication denominator changes meaning. Crude rates cannot inherit age-standardised interpretation. Aggregate medicine coverage and the very-remote exclusion were already known, not newly discovered events.",
       "unanswered_question": "Can a person obtain the particular clinically prescribed medicine they need, including people outside the survey scope, and which alternative routes remain feasible?",
       "source_cells": [
@@ -54,6 +60,9 @@
         "10A.33!C20",
         "10A.33!C24"
       ],
+      "known_caveat_cells": [],
+      "rate_kind": "crude",
+      "coverage_change": "Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.",
       "reader_reference_count": 10,
       "historical_observation_count": 1,
       "positive_signal_context_readers": 1,

@@ -70,6 +70,10 @@ const specifications = [
     id: 'migration.au.gp.urgent-appointment-clock.r11', old_id: 'condition.au.gp.timely',
     title: 'The urgent-care clock starts after an appointment is made',
     cells: ['10A.43!C54', '10A.43!C55'],
+    known_caveats: [
+      { cell: '10A.43!C50', sha256: 'sha256:6013c45ca9919e77d21b4bce42e7a7d7542fa0d60252b79e513f54a8c094a1a8' },
+      { cell: '10A.43!C59', sha256: 'sha256:29e2120f7382fd2ddcc832c3701568c2fa848cc3bc06f73655aa00aafdf6986e' },
+    ],
     proposed_meaning: {
       condition_id: 'condition.au.nsw.gp.urgent-appointment-clock',
       signal_id: 'signal.au.nsw.gp.urgent-appointment-under-four-hours',
@@ -78,7 +82,8 @@ const specifications = [
       geography: 'NSW, Australia',
       measure: 'Published proportion reporting less than four hours between making an appointment and seeing the GP for urgent medical care.',
       denominator: 'Survey-scope people who obtained urgent GP care, not everyone who needed it or attempted access.',
-      clock_origin: 'appointment-making', unit: 'percent',
+      clock_origin: 'appointment-making', rate_kind: 'crude', unit: 'percent',
+      coverage_change: 'Very-remote collection was phased out part way through 2023-24; very-remote residents were excluded from 2024-25. Cross-period common-population comparability is not established.',
       truth_predicate: null,
     },
     reason: 'The old signal did not specify the waiting-clock origin. Appointment-making is not first attempted contact or onset of need. The measured population obtained care, so unmet need cannot inherit a timeliness result.',
@@ -131,13 +136,19 @@ export function buildRound11MigrationReview() {
       if (value?.kind !== 'text' || hash(value.text) !== retained?.sha256) throw new Error(`SOURCE_CELL_MISMATCH: ${cell}`);
       return { cell, text: value.text, sha256: hash(value.text) };
     });
+    const known_source_caveats = (specification.known_caveats ?? []).map(caveat => {
+      const [table, address] = caveat.cell.split('!');
+      const value = tables[table].find(value => value.address === address);
+      if (value?.kind !== 'text' || hash(value.text) !== caveat.sha256) throw new Error(`KNOWN_SOURCE_CAVEAT_MISMATCH: ${caveat.cell}`);
+      return { cell: caveat.cell, text: value.text, sha256: hash(value.text), role: 'known-context-not-new-discovery' };
+    });
     const proposed_meaning = structuredClone(specification.proposed_meaning);
     proposed_meaning.definition_hash = hash(edition + '\nmeaning\n' + canonical(proposed_meaning));
     const migration = {
       id: specification.id, title: specification.title, status: 'proposed',
       old_definition: structuredClone(old), old_signal: structuredClone(signal), proposed_meaning,
       relationship: { kind: 'construct-correction-not-equivalent', reason: specification.reason },
-      source_cells, readers: inventoryReaders(documents, specification.old_id),
+      source_cells, known_source_caveats, readers: inventoryReaders(documents, specification.old_id),
       unanswered_question: specification.unanswered_question,
       historical_observation_transfer: 'none', new_observations: [],
       independent_review: { status: 'pending', reviewer: null, receipt: null },
@@ -235,6 +246,9 @@ export function buildMigrationSummary(review = buildRound11MigrationReview()) {
       what_changed: migration.relationship.reason,
       unanswered_question: migration.unanswered_question,
       source_cells: migration.source_cells.map(cell => cell.cell),
+      known_caveat_cells: migration.known_source_caveats.map(cell => cell.cell),
+      rate_kind: migration.proposed_meaning.rate_kind,
+      coverage_change: migration.proposed_meaning.coverage_change,
       reader_reference_count: migration.readers.length,
       historical_observation_count: migration.readers.filter(reader => reader.role === 'historical-observation').length,
       positive_signal_context_readers: migration.readers.filter(reader => reader.role === 'positive-signal-context-reader').length,
