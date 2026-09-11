@@ -1,0 +1,82 @@
+{
+  "id": "round-11.static-reasoning-slice.presentation-v2",
+  "edition": "decision-experience.static-reasoning-slice/2.0.0",
+  "author": "Ren (AI agent)",
+  "provenance": "commissioned-proposal",
+  "classification": "unapproved-static-materials-review",
+  "source_ref": {
+    "path": "experiments/decision-experience/task-pack.json",
+    "sha256": "sha256:8e8a29867e73c86c6d556705c67804b725c32c6730f8f786f28b7e9bfff814f0"
+  },
+  "source_fact_pack_id": "round-11.decision-rehearsal.usa-2024-2025",
+  "source_material_digest": "sha256:f0bdad92fe4dc7eccc6ffd89c27782ae7d1e7c97305bef2461fbba2f2da3394b",
+  "visible_material_digest": "sha256:2b4a7216827cf6ccbd6346a8c9ad71fa52248b7fd9a505b607788f63f9e927ca",
+  "section_order": [
+    "reading",
+    "limits",
+    "gates",
+    "source",
+    "tasks"
+  ],
+  "material_ids": [
+    "scope",
+    "before",
+    "after",
+    "change",
+    "denominator",
+    "vintage",
+    "storm",
+    "authority",
+    "limits",
+    "missing",
+    "if",
+    "forecast",
+    "source",
+    "correction"
+  ],
+  "task_ids": [
+    "read-the-change",
+    "read-the-unknown",
+    "choose-next-step"
+  ],
+  "presentation_layout_count": 2,
+  "experimental_arms_delivered": 0,
+  "treatment": "Static visual encoding and reading-workspace organisation, with identical facts, questions, options, section order and neutral labels.",
+  "estimand_boundary": "A future separately approved comparison could estimate the effect of this static single-country reasoning presentation on specified unaided interpretation tasks, not the effect of the integrated interactive station.",
+  "omitted_capabilities": [
+    "country-lens-year-interaction",
+    "multi-country-discovery",
+    "historical-matrix-navigation",
+    "forecast-ledger-journey",
+    "construct-migration-interaction",
+    "preparation-execution",
+    "real-transition-outcomes"
+  ],
+  "rendered_outputs": [
+    {
+      "path": "conventional.html",
+      "sha256": "sha256:69c202531444f478aa0195388bbdcdf37b95c21f8c0440b304b8bf24265be072"
+    },
+    {
+      "path": "station.html",
+      "sha256": "sha256:36fbedabf6b1c763b46bf242bd93e270e3ec57e4e5b8a1e27088db108ed2970d"
+    },
+    {
+      "path": "reviewer.html",
+      "sha256": "sha256:3cc8753980fd810aeaaaee63c4ffc1e758ec2cfa2dd2dbdea45f23e4b4a936ff"
+    }
+  ],
+  "exact_template_parity_verified": true,
+  "visible_parity_verified": false,
+  "assistive_presentation_verified": false,
+  "actual_station_equivalence_established": false,
+  "human_testing_completed": false,
+  "assignment_implemented": false,
+  "recruitment_allowed": false,
+  "participant_data_collection": "disabled",
+  "statistical_power_established": false,
+  "ethics_approval": false,
+  "authority_effect": "none",
+  "public_release_approved": false,
+  "boundary": "No human gate is removed. Exact bytes and templates are not evidence of equal visibility, comprehension, research approval or useful decisions."
+}
