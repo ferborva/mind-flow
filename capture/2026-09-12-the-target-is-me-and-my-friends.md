@@ -15,14 +15,16 @@ updated: 2026-09-12
 decisions only Fer can make. Their study-readiness review lists eleven blockers;
 nine of them are unanswerable until someone names who the thing is for and who
 is responsible for it. I put both questions to him plainly, he answered both,
-and then answered three follow-ups in the same session.
+and then answered five follow-ups in the same session.
 
-**Why this is a capture.** Six provenance events in one session: the audience
+**Why this is a capture.** Eight provenance events in one session: the audience
 for the station, Fer accepting named accountability, the exercise being
 feedback plus his own judgement of impact, his friends being a different set
 from the Moonshot crew, his wife accepting the safety-monitor role, and last
 and largest, the scope statement that separates the private tool from the
-public writing.
+public writing. Two smaller ones close it: the reframe travels through the
+consolidated post rather than as a separate piece, and his gauge comes back
+here as an ordinary conversation.
 
 ---
 
@@ -102,10 +104,11 @@ What this does not settle:
 - He is presenter, author and judge in the same exercise. That is a real
   confound and it is his to accept or mitigate. Worth saying once and then
   letting him decide.
-- Whether anything is written down. A gauge that leaves no record cannot be
-  wrong later, which is also the reason it cannot teach anything later.
 - Whether the eleven-blocker apparatus applies at all at this shape. My read:
   most of it does not, and the honest move is to shrink it rather than clear it.
+
+He settled the record question below: the gauge comes back here as a
+conversation, so it does leave a trace and can be wrong later.
 
 ### On whether the friends are the Moonshot crew, verbatim
 
@@ -198,14 +201,48 @@ rather than evaporating.
 - Whether "the posts" means the current drafts specifically or the pipeline in
   general.
 
+---
+
+## Closing the last two, same session
+
+### On what the reframe is, verbatim
+
+> The reframe is a way to think that I'll share through the now consolidated post.
+
+**The reframe is not a separate piece.** It is the way of thinking, and
+`drafts/name-the-if.md` is how it travels. One post, carrying one idea, aimed at
+the Moonshot crew.
+
+This also settles what the consolidation was for. The two overlapping drafts
+were merged on 2026-09-11 at his instruction; this names the merged piece as
+**the** vehicle for the reframe rather than one of two competing attempts.
+
+### On how his gauge comes back, verbatim
+
+> A share back here as a conversation
+
+**Ordinary pipeline.** He talks, I capture, seeds and drafts follow. His reading
+of his friends' reaction is treated the same as any other conversation: near
+verbatim, marked raw, nothing sharpened.
+
+No instrument, no form, no template. The gauge is a conversation and its record
+is a capture.
+
 ## Loose ends
 
-- Tell the Round 11 agents. All five answers belong in their study-readiness
-  review, and the eleven blockers need **re-scoping rather than clearing**: they
-  were written for a recruited sample and this is friends giving feedback.
-- Separate the two audiences in the programme documents. The Moonshot crew and
-  his friends are now confirmed as different people with different material.
-- Ask what form his gauge takes when it lands here, and whether he wants a
-  before-and-after of their view of the path forward or a single after.
+- **Tell the Round 11 agents.** All eight answers belong in their
+  study-readiness review, and the eleven blockers need **re-scoping rather than
+  clearing**: they were written for a recruited sample, and this is a private
+  tool shown to friends.
+- **Separate the two audiences in the programme documents.** The Moonshot crew
+  and his friends are confirmed as different people receiving different things.
+  The documents currently treat them as one.
+- Ask whether he wants a before-and-after of his friends' view of the path
+  forward, or only an after. He has settled the form (a conversation here) but
+  not the timing.
+- Ask whether his wife knows what pause authority would mean in practice.
+- `drafts/name-the-if.md` is now named as the vehicle for the reframe. It sits
+  at `status: review` with all eleven sections pending his sign-off. **That
+  sign-off is the only thing between the reframe and the world.**
 - The prior capture `2026-09-11-weather-station-long-horizon` is still
-  `status: raw`. All three should be processed together.
+  `status: raw`. Both should be processed together.
