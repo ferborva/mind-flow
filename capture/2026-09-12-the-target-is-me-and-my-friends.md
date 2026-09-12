@@ -1,6 +1,6 @@
 ---
 id: 2026-09-12-the-target-is-me-and-my-friends
-title: The target is me and my friends, I own it, and my wife holds the pause
+title: The station is for us, the posts are for the world
 type: capture
 status: raw
 themes: [abundance]
@@ -9,7 +9,7 @@ created: 2026-09-12
 updated: 2026-09-12
 ---
 
-# The target is me and my friends
+# The station is for us, the posts are for the world
 
 **Context.** Round 11 stopped because the agents could not proceed without two
 decisions only Fer can make. Their study-readiness review lists eleven blockers;
@@ -17,10 +17,12 @@ nine of them are unanswerable until someone names who the thing is for and who
 is responsible for it. I put both questions to him plainly, he answered both,
 and then answered three follow-ups in the same session.
 
-**Why this is a capture.** Five provenance events across one session. The
-audience for the station, Fer accepting named accountability, the exercise
-being feedback plus his own impact judgement, the friends being a different
-set from the Moonshot crew, and his wife in the safety-monitor role.
+**Why this is a capture.** Six provenance events in one session: the audience
+for the station, Fer accepting named accountability, the exercise being
+feedback plus his own judgement of impact, his friends being a different set
+from the Moonshot crew, his wife accepting the safety-monitor role, and last
+and largest, the scope statement that separates the private tool from the
+public writing.
 
 ---
 
@@ -130,8 +132,71 @@ handful of friends giving feedback with no data collection, that may be exactly
 proportionate and the formal role may be the wrong frame entirely. Recorded as
 what he said, flagged, not argued.
 
-Not settled: whether she has accepted, and whether she knows what pause
-authority would mean in practice.
+He confirmed below that she is on board. Still not settled: whether she knows
+what pause authority would mean in practice.
+
+---
+
+## The scope statement, same session
+
+Closing the two loose ends above, he answered something larger than either.
+
+### Verbatim
+
+> My gauge will be shared here.
+
+> My wife is on board.
+
+> This tool is first and foremost for us. Not for the world (yet at least) we
+> are looking for personal value and ideas.
+
+> To share will be the posts and the reframe
+
+### What this settles
+
+**The station is a private instrument.** It is for him and his friends. It is
+not a product, not a public service, and not a thing being validated for
+anyone else's use. The purpose he names is **personal value and ideas**.
+
+**What goes to the world is the writing.** The posts and the reframe. Nothing
+else leaves.
+
+That is a clean division of labour and it resolves a tension that had been
+building in the programme:
+
+| | Audience | Purpose | Leaves the repo |
+|---|---|---|---|
+| The station | Him and his friends | Personal value and ideas | No |
+| The posts and the reframe | The world, via the Moonshot crew | The argument | Yes |
+
+**His gauge lands here.** Whatever he reads off his friends' reaction becomes a
+capture in this repository, which means it enters the pipeline as his substance
+rather than evaporating.
+
+**His wife has accepted the pause role.** Recorded as stated.
+
+### What follows from it
+
+- **This is not a human study.** Showing a private tool to friends for their
+  reactions is not research with participants, and most of the eleven readiness
+  blockers were built for something this is not. Recruitment, compensation, an
+  ethics determination, allocation and coding, power and worthwhile effect,
+  preregistration and freeze: these do not apply to a thing he is not running.
+  Re-scope, do not clear. Clearing implies they were satisfied.
+- **What survives is small and still worth keeping.** Whether the thing is
+  readable and usable, whether his friends know what they are looking at, and
+  whether anything he collects about them stays private. That is roughly it.
+- **"Yet at least" is doing real work.** He is leaving the door open, not
+  closing it. The gates should be re-scoped rather than deleted, so that a
+  later decision to go public has something to walk back through.
+
+### What this does not settle
+
+- Whether the reframe goes out as one of the posts or as something separate.
+- What form his gauge takes when it is shared here. A capture after each
+  session, a running note, or something he writes himself.
+- Whether "the posts" means the current drafts specifically or the pipeline in
+  general.
 
 ## Loose ends
 
@@ -140,8 +205,7 @@ authority would mean in practice.
   were written for a recruited sample and this is friends giving feedback.
 - Separate the two audiences in the programme documents. The Moonshot crew and
   his friends are now confirmed as different people with different material.
-- Ask whether his gauge gets written down anywhere, and whether he wants a
+- Ask what form his gauge takes when it lands here, and whether he wants a
   before-and-after of their view of the path forward or a single after.
-- Ask whether his wife has accepted the role, and tell her what it means.
 - The prior capture `2026-09-11-weather-station-long-horizon` is still
   `status: raw`. All three should be processed together.

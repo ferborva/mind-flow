@@ -31,12 +31,12 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
-- `2026-09-12-the-target-is-me-and-my-friends`, five answers in one session:
-  the station's audience is him and his friends, he is the named accountable
-  lead, the exercise is feedback plus his own judgement of impact, his friends
-  are **not** the Moonshot crew, and his wife holds the pause. **raw**, and it
-  unlocks the eleven Round 11 study blockers for re-scoping rather than
-  clearing.
+- `2026-09-12-the-target-is-me-and-my-friends`, six answers in one session.
+  The scope statement is the big one: **the station is for him and his friends,
+  the posts and the reframe are what go to the world.** Also: he is the named
+  accountable lead, the exercise is feedback plus his own judgement of impact,
+  his friends are not the Moonshot crew, and his wife holds the pause. **raw**,
+  and it re-scopes rather than clears the Round 11 study blockers.
 - `2026-09-10-storms-as-social-contract-shifts`, working storm definition,
   proposed 5% scale, income-access focus and national/shared scope.
   **processed**, consolidated into one seed 2026-09-11; dependants remain
