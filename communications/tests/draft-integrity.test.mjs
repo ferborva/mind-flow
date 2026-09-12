@@ -57,7 +57,7 @@ test("the healthcare example stays inside its source ceiling", () => {
   const text = read("drafts/name-the-if.md");
   assert.match(text, /92\.0%/);
   assert.match(text, /census\.gov\/library\/publications\/2025\/demo\/p60-288\.html/);
-  assert.match(text, /cannot tell whether a particular visit was affordable/i);
+  assert.match(text, /cannot tell whether\s+a particular visit was affordable/i);
   assert.doesNotMatch(text, /diagnosis genuinely does go towards zero/i);
   assert.doesNotMatch(text, /technology in all four countries is identical/i);
   assert.match(read("research/2026-09-09-healthcare-if-validation.md"), /source-by-source claim ceiling/i);
