@@ -12,7 +12,7 @@ scheduled runs.
 
 | Stage | Count |
 |---|---|
-| Captures | 10 |
+| Captures | 11 |
 | Seeds | 18 |
 | Drafts | 4 |
 | Posts | 0 |
@@ -31,9 +31,13 @@ Foundation documents: **4 of 4 in place.**
 
 ## Captures
 
+- `2026-09-12-the-target-is-me-and-my-friends`, the audience for the station is
+  him and his friends, and he accepts being the named accountable lead.
+  **raw**, unlocks nine of the eleven Round 11 study blockers for re-scoping.
 - `2026-09-10-storms-as-social-contract-shifts`, working storm definition,
   proposed 5% scale, income-access focus and national/shared scope.
-  **processed**, four new seeds; dependants remain unanswered.
+  **processed**, consolidated into one seed 2026-09-11; dependants remain
+  unanswered.
 - `2026-09-10-keep-main-unchanged`, **processed**, no seed: operational
   integration instruction, not a thesis position.
 - `2026-09-10-where-the-money-sits-and-the-weather-station`, **processed**:
